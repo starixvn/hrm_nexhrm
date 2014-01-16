@@ -1,0 +1,80 @@
+﻿@model AnnualLeaveBalanceModel
+@{
+    ViewBag.Title = "Edit annual leave balance";
+}
+@section css{
+    @Url.CombresLink("sitecss")
+}
+@section js{
+    @Url.CombresLink("sitejs")
+}
+@section Breadcrumb
+{
+    <span class="step">HR Space</span> 
+    <a class="step" href="@Url.Action("index", "annualleavebalance")">@Labels.AnualLeaveBalance</a>
+    @if (@ViewBag.Employee != null)
+    {
+        <a class="step" href="~/annualleavebalance/employee/@ViewBag.Employee.Id">@ViewBag.Employee.NickName's annual leave balance</a>
+        <span class="step">@Labels.Edit</span>
+    }
+}
+
+@if (Model != null)
+{
+    <h2>@Labels.Edit</h2>
+
+    using (Html.BeginForm())
+    {
+    <div class="bunhat" style="min-width: 400px">
+        @Html.ValidationSummary(true)
+
+        @if (ViewBag.Updated == true)
+        {
+            <div class="success flash">@Messages.Saved</div> 
+        }
+    
+        <div class="formrow">
+            <div class="label">
+                @Html.LabelFor(model => model.TotalDays)
+            </div>
+            <div class="input">
+                @Html.EditorFor(model => model.TotalDays)
+                @Html.ValidationMessageFor(model => model.TotalDays)
+            </div>
+        </div>
+    
+        <div class="formrow">
+            <div class="label">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="input">
+                @Html.TextAreaFor(model => model.Description)
+            </div>
+        </div>
+    
+        <div class="formrow">
+            <div class="label">
+                @Html.LabelFor(model => model.AffectedFrom)
+            </div>
+            <div class="input">
+                @Html.DatePickerFor(model => model.AffectedFrom)
+                @Html.ValidationMessageFor(model => model.AffectedFrom)
+            </div>
+        </div>
+    
+        <div class="formrow">
+            <div class="label">
+                @Html.HiddenFor(model => model.EmpId)
+            </div>
+            <div class="input">
+                <input type="submit" value="@Labels.Update" name="command" />
+                <input class="cancel delete" type="submit" value="@Labels.Delete" name="command" />
+            </div>
+        </div>
+    </div>
+    }
+}
+else
+{
+    <h2>@Messages.NoDataIsAvailable</h2> 
+}

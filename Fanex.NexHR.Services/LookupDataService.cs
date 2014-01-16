@@ -1,0 +1,149 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="LookupDataService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+// </history>
+
+namespace Fanex.NexHR.Services.Interface
+{
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using Fanex.Caching;
+    using Fanex.Common.Helper;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:FieldNamesMustNotContainUnderscore", Justification = "Reviewed.")]
+    public class LookupDataService : ILookupDataService
+    {
+        private const string CacheKey_AllLookUpData = "CacheKey_AllLookUpData";
+        private readonly ILookupDataRepository _lookupDataRepository;
+        private ICache _cacheManager;
+
+        public LookupDataService(ILookupDataRepository lookupDataRepository = null)
+        {
+            this._lookupDataRepository = lookupDataRepository ?? new LookupDataRepository();
+            this._cacheManager = CacheService.CreateInstance();
+        }
+
+        public IList<LookupData> GetAll(string lookupCode)
+        {
+            var lookupDataList = this._lookupDataRepository.GetAll(lookupCode);
+
+            return lookupDataList;
+        }
+
+        /// <summary>
+        /// get lookup by code and id
+        /// </summary>
+        /// <param name="lookupCode">lookup code</param>
+        /// <param name="lookupId">lookup id</param>
+        /// <returns>lookup data</returns>
+        public LookupData Get(string lookupCode, int lookupId)
+        {
+            Check.Argument.IsNotNegativeOrZero(lookupId, "lookupId");
+            LookupData lookupData = new LookupData();
+            var lookupDataList = this.GetByLookupCode(lookupCode);
+            if (lookupDataList != null && lookupDataList.Count > 0)
+            {
+                lookupData = lookupDataList.Single(data => data.Id == lookupId);
+            }
+
+            return lookupData;
+        }
+
+        public IList<LookupData> GetJobTitle(string jobTitle)
+        {
+            var lookUpDataList = this._lookupDataRepository.GetJobTitle(jobTitle);
+
+            return lookUpDataList;
+        }
+
+        public bool Delete(int id)
+        {
+            bool check = this._lookupDataRepository.Delete(id);
+            if (check)
+            {
+                this.ReSetJobTitleCache();
+            }
+
+            return check;
+        }
+
+        public bool Insert(string name, string lookupCode)
+        {
+            var check = this._lookupDataRepository.Insert(name, lookupCode);
+            if (check)
+            {
+                this.ReSetJobTitleCache();
+            }
+
+            return check;
+        }
+
+        public bool Update(int id, string name)
+        {
+            var check = this._lookupDataRepository.Update(id, name);
+            if (check)
+            {
+                this.ReSetJobTitleCache();
+            }
+
+            return check;
+        }
+
+        private void ReSetJobTitleCache() 
+        {
+            var hashTable = this._cacheManager.Get<Hashtable>(CacheKey_AllLookUpData);
+            var lookUpCode = LookupCodeName.JobTitle.ToLower();
+            if (hashTable == null)
+            {
+                hashTable = new Hashtable();
+            }
+
+            var listJobTile = this.GetAll(LookupCodeName.JobTitle);
+            hashTable[lookUpCode] = listJobTile;
+
+            this._cacheManager.Set<Hashtable>(CacheKey_AllLookUpData, hashTable, TimeSpan.FromHours(1));
+        }
+
+        /// <summary>
+        /// Get lookup data from hash table which is cached in memory
+        /// </summary>
+        /// <param name="lookUpCode">lookup code</param>
+        /// <returns>list lookup data</returns>
+        private IList<LookupData> GetByLookupCode(string lookUpCode)
+        {
+            Check.Argument.IsNotEmpty(lookUpCode, "lookUpCode");
+
+            var hashTable = this._cacheManager.Get<Hashtable>(CacheKey_AllLookUpData);
+            lookUpCode = lookUpCode.ToLower();
+            if (hashTable == null)
+            {
+                hashTable = new Hashtable();
+            }
+
+            if (!hashTable.ContainsKey(lookUpCode))
+            {
+                var lookUpDataList = this._lookupDataRepository.GetAll(lookUpCode);
+
+                if (lookUpDataList != null && lookUpDataList.Count > 0)
+                {
+                    hashTable.Add(lookUpCode.ToLower(), lookUpDataList);
+                    this._cacheManager.Set<Hashtable>(CacheKey_AllLookUpData, hashTable, TimeSpan.FromHours(1));
+                }
+            }
+
+            return (IList<LookupData>)hashTable[lookUpCode];
+        }
+    }
+}

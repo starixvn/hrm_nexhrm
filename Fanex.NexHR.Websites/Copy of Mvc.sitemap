@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+  <mvcSiteMapNode title="Root"  changeFrequency="Always" updatePriority="Normal">
+    <mvcSiteMapNode title="Personal">
+      <mvcSiteMapNode title="Attendance report" controller="report" action="timesheet" icon="news" />
+      <mvcSiteMapNode title="Leave request" controller="leave" action="employeeview" icon="star" />
+      <mvcSiteMapNode title="Change shift" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Late in - Early out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Check in - Check out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Working calendars" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="My profile" controller="report" action="timesheet" icon="star" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Member requests">
+      <mvcSiteMapNode title="Attendance report" controller="report" action="timesheet" icon="news" />
+      <mvcSiteMapNode title="Leave request" controller="leave" action="employeeview" icon="star" />
+      <mvcSiteMapNode title="Change shift" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Late in - Early out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Check in - Check out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Working calendars" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="My profile" controller="report" action="timesheet" icon="star" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="HR space">
+      <mvcSiteMapNode title="Attendance report" controller="report" action="timesheet" icon="news" />
+      <mvcSiteMapNode title="Leave request" controller="leave" action="employeeview" icon="star" />
+      <mvcSiteMapNode title="Change shift" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Late in - Early out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Check in - Check out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Working calendars" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="My profile" controller="report" action="timesheet" icon="star" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Company space">
+      <mvcSiteMapNode title="Attendance report" controller="report" action="timesheet" icon="news" />
+      <mvcSiteMapNode title="Leave request" controller="leave" action="employeeview" icon="star" />
+      <mvcSiteMapNode title="Change shift" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Late in - Early out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Check in - Check out" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="Working calendars" controller="report" action="timesheet" icon="star" />
+      <mvcSiteMapNode title="My profile" controller="report" action="timesheet" icon="star" />
+    </mvcSiteMapNode>
+  </mvcSiteMapNode>
+</mvcSiteMap>

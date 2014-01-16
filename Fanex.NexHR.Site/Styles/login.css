@@ -1,0 +1,144 @@
+﻿body {
+	background: url("images/bgLogin.png") repeat scroll 0 0 transparent;
+	font-family: abel,arial,Helvetica,"myriad Pro",tahoma;
+}
+#panel {
+	background: url("images/panel_bg.png") repeat-x scroll 0 0 transparent;
+	border: 1px solid #EAE9E9;
+	border-radius: 7px 7px 7px 7px;
+	box-shadow: 1px 3px 5px 1px #CCCCCC;
+	font-family: abel,arial,Helvetica,"myriad Pro",tahoma;
+	height: 311px;
+	margin: 100px auto 15px;
+	width: 456px;
+}
+.title {
+	background: url("images/titlebg.png") repeat-x scroll 0 0 transparent;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	float: left;
+	height: 54px;
+	margin-bottom: 45px;
+	width: 456px;
+}
+.nexHRMicon {
+	background: url("images/nexHRMicon.png") no-repeat scroll right center transparent;
+	float: left;
+	height: 37px;
+	padding-top: 18px;
+	width: 176px;
+}
+.signinicon {
+	background: url("images/signin_icon.png") no-repeat scroll right center transparent;
+	float: left;
+	height: 37px;
+	padding-top: 18px;
+	width: 227px;
+}
+#formContainer {
+	float: left;
+	height: 186px;
+	padding: 0 47px;
+	width: 362px;
+}
+.textbox-outer {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 1px 0 3px 0 #CCCCCC;
+	float: left;
+	height: 41px;
+	margin-bottom: 18px;
+	width: 360px;
+}
+.username-icon {
+	background: url("images/uicon.png") no-repeat scroll center center #EEEEEE;
+	border-bottom-left-radius: 4px;
+	border-right: 1px solid #DDDDDD;
+	border-top-left-radius: 4px;
+	float: left;
+	height: 40px;
+	padding: 1px 0;
+	width: 44px;
+}
+.password-icon {
+	background: url("images/picon.png") no-repeat scroll center center #EEEEEE;
+	border-bottom-left-radius: 4px;
+	border-right: 1px solid #DDDDDD;
+	border-top-left-radius: 4px;
+	float: left;
+	height: 40px;
+	padding: 1px 0;
+	width: 44px;
+}
+input[type="text"], input[type="password"] {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: medium hidden;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #666666;
+	font-family: abel,arial,Helvetica,"myriad Pro",tahoma;
+	font-size: 15px;
+	height: 40px;
+	padding-left: 10px;
+	width: 305px;
+}
+input[type="submit"],input[type="reset"], input[type="button"], a.button, button[type="button"] {
+	margin-right: 0;
+	background: #308fb7;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#5eb2d5), to(#308fb7));
+	background-image: -moz-linear-gradient(#5eb2d5, #308fb7);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5eb2d5', endColorstr='#308fb7', GradientType=0);
+	border: 1px solid #256f8e;
+	border-bottom-color: #1b5066;
+	box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+	-webkit-box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+	-moz-box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	font-size: 12px !important;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	padding: 0 8px;
+	height: 40px; 
+	color: #fff !important;
+	text-decoration: none !important;
+	text-shadow: 0px -1px 0 #256f8e; 
+	padding-bottom: 4px;
+	width: 360px;
+	vertical-align:bottom;
+	min-width:55px;
+}
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, a.button:hover, button[type="button"]:hover {
+	cursor: pointer;
+	text-decoration: none;
+	background: #369fca;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#72bcda), to(#369fca));
+	background-image: -moz-linear-gradient(#72bcda, #369fca);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#72bcda', endColorstr='#369fca', GradientType=0); 
+}
+input[type="submit"]:active, input[type="button"]:active {
+	background: #5eb2d5;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#308fb7), to(#5eb2d5));
+	background-image: -moz-linear-gradient(#308fb7, #5eb2d5);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#308fb7', endColorstr='#5eb2d5', GradientType=0); 
+}
+input[type="submit"]:hover, input[type="button"]:hover {
+	color: white; 
+}
+ 
+input[type="submit"]:disabled, input[type="button"]:disabled {
+	border-color: #888;
+	background: #ccc;
+	color:#888;
+	text-shadow: 0px -1px 0 #000; 
+}
+
+#copyright {
+	color: #444444;
+	font-family: abel,arial,Helvetica,"myriad Pro",tahoma;
+	font-size: 14px;
+	text-align: center;
+}

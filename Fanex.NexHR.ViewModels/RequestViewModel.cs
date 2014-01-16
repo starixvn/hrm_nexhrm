@@ -1,0 +1,92 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="RequestViewModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Anders.Le" date="2012.5.18">Created</change>
+// </history>
+namespace Fanex.NexHR.ViewModels
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    public class RequestViewModel
+    {
+        public RequestViewModel()
+        {
+            this.StatusId = (byte)RequestStatuses.Pending;
+            this.FromDate = DateTime.Now;
+            this.ToDate = DateTime.Now;
+            this.DateOption = 1;
+            this.TeamId = -1;
+            this.EmployeeId = -1;
+        }
+
+        public int DateOption { get; set; }
+
+        [Display(Name = "Status")]
+        public byte StatusId { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FromDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime ToDate { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        public string Employee { get; set; }
+
+        public int? TeamId { get; set; }
+
+        public int RequestType { get; set; }
+
+        [Display(Name = "Team")]
+        public IList<Team> TeamCollection { get; set; }
+
+        public IList<SelectListItem> GetSelecListItemTeam(int? teamId)
+        {
+            IList<SelectListItem> selecListItemTeam = new List<SelectListItem>();
+
+            var firstItem = new SelectListItem
+            {
+                Value = string.Empty,
+                Text = Labels.All,
+                Selected = true
+            };
+
+            selecListItemTeam.Add(firstItem);
+
+            if (this.TeamCollection == null)
+            {
+                this.TeamCollection = new List<Team>();
+            }
+
+            foreach (Team team in this.TeamCollection)
+            {
+                var item = new SelectListItem
+                {
+                    Value = team.Id.ToString(),
+                    Text = team.Name,
+                    Selected = teamId == team.Id
+                };
+
+                selecListItemTeam.Add(item);
+            }
+
+            return selecListItemTeam;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+﻿.offdate
+{
+	background:#ccc; 
+}
+.noshift
+{
+	background: #ccc;
+}
+
+.grid_2 {
+	line-height:26px;
+}
+select {
+	min-width: 130px;
+	max-width: 130px;
+}
+#Employee {
+	width:140px;
+}

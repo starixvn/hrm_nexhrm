@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+@section BreadcrumbTitle {
+    <a class="step" href="#!">Personal</a> <span class="step">@ViewBag.Title</span>
+}
+@section SeparatorMenu {
+    @*  <a class="separator-simple-button js-separator-simple-button js-compact">Compact</a><a
+        class="separator-simple-button js-separator-simple-button js-expanded active">Expanded</a><div
+            class="separator-separator">
+        </div>
+    <div class="item js-refresh">
+        <div class="icon arrow_circle">
+        </div>
+    </div>*@
+}
+@section Right {
+    <div class="separator">
+    </div>
+    <div class="right_scroll">
+    </div>
+}
+<div id="content" class="content activities_content">
+    <div id="activities" class="expanded">
+        @ViewBag.Title
+    </div>
+</div>
+
+
+

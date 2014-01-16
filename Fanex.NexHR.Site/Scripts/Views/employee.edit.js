@@ -1,0 +1,317 @@
+﻿$(document).ready(function () {
+
+	$('#JobTitleId').chosen();
+
+	//Birthday picker.
+	$("#DOBPicker").birthdaypicker({
+		futureDates: true,
+		maxYear: new Date().getFullYear(),
+		maxAge: 75,
+		defaultDate: $('#DOB').val()
+	});
+
+	$("#month, #day, #year").change(function () {
+		var year = $("#year").val();
+		var month = $("#month").val();
+		var day = $("#day").val();
+		var date = new Date(year, month - 1, day);
+
+		$("#DOB").val(date.format("dd mmm yyyy"));
+	});
+
+	$('#SubGroupArray' + $('#Team_Id').val()).prop('checked', false);
+	$('#Team_Id').change(function () {
+		var id = $(this).val();
+		$('#SubGroupArray' + id).prop('checked', false);
+	});
+
+	$('input[name=SubGroupArray]').change(function () {
+
+		var id = $(this).val();
+		var teamId = $('#Team_Id').val();
+		if (id == teamId) {
+			$(this).prop('checked', false);
+		}
+
+		if (!$(this).prop('checked')) {
+			$('#LeaderGroupsArray' + id).prop('checked', false);
+		}
+	});
+
+	$('input[name=LeaderGroupsArray]').change(function () {
+		var id = $(this).val();
+		var teamId = $('#Team_Id').val();
+
+		if (id != teamId && $('#SubGroupArray' + id).prop('checked') == false) {
+			$(this).prop('checked', false);
+			alert('Teams\' leaders receive request must be the main team or other team(s)');
+		}
+	});
+
+	bindSARole(true);
+	bindLeaderRole(true);
+	$('#RoleArray4').click(function () {
+		bindSARole(false);
+	});
+
+	$('#RoleArray2').click(function () {
+		bindLeaderRole(false);
+	});
+
+	$('#upload').click(function () {
+		upload();
+	});
+
+	$('#delete').click(function () {
+		confirm(_messages.confirmDelete, function () {
+			var resignedDate = $('#ResignedDate').val();
+			if (resignedDate.length == 0) {
+				alert(_messages.requireResignedDate);
+				$('#ResignedDate').focus();
+				return;
+			}
+
+			$.post(_global.root + 'ajax/DeleteEmployee',
+			{ id: $('#Id').val(), resignedDate: resignedDate },
+			function (response) {
+				if (response) {
+					document.location = '/employee/usermanagement';
+				}
+				else {
+					alert(_messages.errorTryAgain);
+				}
+			}).error(function () { alert(_messages.errorTryAgain); });
+		});
+	});
+
+	// TOEIC
+	$('#toeic').click(function () {
+		var id = parseInt($('#Id').val());
+		if (id > 0) {
+			$.ajax({
+				type: 'GET',
+				url: _global.root + 'employee/updatefulltoeic?id=' + id + '&name=' + $('#NickName').val(),
+				dataType: 'html',
+				success: function (data) {
+					if (data) {
+						var divContent = $('#dialog-toeic');
+						divContent.html('');
+						divContent.append(data);
+
+						initNumberTextbox();
+						initDatepicker();
+						initDialog(divContent);
+					}
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					alert(textStatus + ': ' + errorThrown);
+				}
+			});
+		}
+	});
+});
+
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
+function bindSARole(onload) {
+	if ($('#RoleArray4').prop('checked')) {
+		$('#RoleArray3').prop('checked', true).prop('disabled', true);
+		$('#RoleArray2').prop('checked', true).prop('disabled', true);
+		$('#RoleArray1').prop('checked', true).prop('disabled', true);
+	}
+	else if (!onload) {
+		$('#RoleArray3').prop('checked', false).prop('disabled', false);
+		$('#RoleArray2').prop('checked', false).prop('disabled', false);
+		$('#RoleArray1').prop('checked', false).prop('disabled', false);
+	}
+}
+
+function bindLeaderRole(onload) {
+	if ($('#RoleArray2').prop('checked')) {
+		$('#RoleArray1').prop('checked', true).prop('disabled', true);
+	}
+	else if (!onload) {
+		$('#RoleArray1').prop('checked', false).prop('disabled', false);
+	}
+}
+
+function query() {
+	var query = $('#keyword').val();
+	$.getJSON(_global.root + 'api/employee/getemployees', { query: query, groupId: null }, function (data) {
+		$('#data tbody').children().remove();
+		$('#itemTemplate').tmpl(data).appendTo('#data');
+		if (query.length > 0) {
+			$('#data tbody').highlight(query);
+		}
+	});
+}
+
+function upload() {
+	var file = document.getElementById('file').files[0];
+	if (file == undefined) return;
+	if (file.size / 1024 > 5120) {
+		alert('File is to big (' + file.size / 1024 + 'KB) to upload. Maximum = 5120KB');
+		return;
+	}
+
+	var ext = file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length).toLowerCase();
+	var pass = /\.(gif|jpe?g|png)$/i.test(file.name);
+	if (!pass) {
+		alert('Please choose an image');
+		return;
+	}
+
+	//notice
+	actingButton('#upload', true);
+	$('#m').text('');
+
+	var fd = new FormData();
+	fd.append('code', $('#Code').val());
+	fd.append('file', file);
+
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener("load", uploadComplete, false);
+	xhr.addEventListener("error", uploadFailed, false);
+	xhr.open("POST", _global.root + "employee/uploadavatar");
+	xhr.send(fd);
+}
+
+function uploadComplete(evt) {
+	if (evt.target.status == 200) {
+		//$.parseJSON(evt.target.response)
+		//console.log(evt.target.response);
+		var url = $('#avatar').attr('src');
+		var parts = url.split('?f=');
+		$('#avatar').attr('src', parts[0] + '?f=' + Math.random());
+	}
+	reloadButtonText('#upload');
+}
+
+function uploadFailed(evt) {
+	$('#m').text('Upload fail, please try again!');
+	reloadButtonText('#upload');
+}
+
+function setMinMaxDate(element) {
+	var minDate = element.attr('mindate');
+	if (minDate && minDate.length > 0) {
+		var minArray = minDate.split('/');
+		element.datepicker('option', 'minDate', new Date(minArray[0], minArray[1] - 1, minArray[2]));
+	}
+
+	var maxDate = element.attr('maxdate');
+	if (maxDate && maxDate.length > 0) {
+		var maxArray = maxDate.split('/');
+		element.datepicker('option', 'maxDate', new Date(maxArray[0], maxArray[1] - 1, maxArray[2]));
+	}
+}
+
+function initDialog(divContent) {
+	divContent.dialog({
+		modal: true,
+		width: 500,
+		buttons: {
+			Submit: function () {
+				$.ajax({
+					type: 'POST',
+					url: _global.root + 'employee/updatefulltoeic',
+					dataType: 'json',
+					data: $('#frmUpdFullTOEIC').serialize(),
+					success: function (data) {
+						if (data) {
+							var errorCont = $('#divErrorCont');
+							errorCont.removeClass();
+							errorCont.html('');
+
+							if (data.code == 0) {
+								errorCont.addClass('success');
+								errorCont.append('Update TOEIC score for Employee successfully');
+								setTimeout(function () { $('#dialog-toeic').dialog("close"); location.reload(); }, 3000);
+							}
+							else {
+								var errors = '<ul>';
+								$(data.error).each(function (i, value) {
+									errors += '<li>' + value.ErrorMessage + '</li>';
+								});
+								errors += '</ul>';
+
+								errorCont.addClass('validation-summary-errors');
+								errorCont.append(errors);
+							}
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert(textStatus + ': ' + errorThrown);
+					}
+				});
+			}
+			,
+			Close: function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+}
+
+function initDatepicker() {
+	if ($('#frmUpdFullTOEIC .datepicker').length > 0) {
+		// get minDate, maxDate, disabledDates
+		var mindate = $('#frmUpdFullTOEIC .datepicker').attr('mindate');
+		var maxdate = $('#frmUpdFullTOEIC .datepicker').attr('maxdate');
+		var disabledDates = $('#frmUpdFullTOEIC .datepicker').attr('disabledDate');
+
+		if (disabledDates.length > 0) {
+			$('#frmUpdFullTOEIC .datepicker').datepicker({
+				dateFormat: "dd M, yy",
+				beforeShowDay: checkBadDates,
+				showOn: "button",
+				buttonImageOnly: true,
+				buttonImage: _global.root + "images/calendar.png"
+			});
+		}
+		else {
+			$('#frmUpdFullTOEIC .datepicker').datepicker({
+				dateFormat: "dd M, yy",
+				showOn: "button",
+				buttonImageOnly: true,
+				buttonImage: _global.root + "images/calendar.png"
+			});
+		}
+
+		if (typeof (initDatePicker) != "function") //check if (isExit include date.filter.js) then (mindate, maxdate include after function initDatePicker)
+		{
+			if (mindate != 'null') {
+				mindate = mindate.split("/");
+				$('#frmUpdFullTOEIC .datepicker').datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
+			}
+			if (maxdate != 'null') {
+				maxdate = maxdate.split("/");
+				$('#frmUpdFullTOEIC .datepicker').datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+			}
+		}
+	}
+}
+
+function initNumberTextbox() {
+	var numbericTextbox = $('#frmUpdFullTOEIC input[type=number]');
+	numbericTextbox.attr('maxlength', '3');
+	numbericTextbox.keydown(function (event) {
+		// Allow: backspace, delete, tab, escape, and enter
+		if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode === 13 ||
+		// Allow: Ctrl+A
+			(event.keyCode === 65 && event.ctrlKey === true) ||
+		// Allow: home, end, left, right
+			(event.keyCode >= 35 && event.keyCode <= 39)) {
+			// let it happen, don't do anything
+			return;
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+				event.preventDefault();
+			}
+		}
+	});
+}

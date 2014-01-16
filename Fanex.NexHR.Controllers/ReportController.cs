@@ -1,0 +1,252 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="ReportController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Anders.Le" date="2012.5.18">Created</change>
+// </history>
+namespace Fanex.NexHR.Controllers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.ViewModels;
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    [Authorize]
+    public class ReportController : BaseController
+    {
+        private readonly IEmployeeService _employeeService;
+        private readonly IReportRepository _reportRepository;
+        private readonly ITeamService _teamService;
+
+        public ReportController(
+            IEmployeeService employeeService = null,
+            IReportRepository reportRepository = null,
+            ITeamService teamService = null)
+        {
+            _employeeService = employeeService ?? new EmployeeService();
+            _reportRepository = reportRepository ?? new ReportRepository();
+            _teamService = teamService ?? new TeamService();
+        }
+
+        public ReportController()
+            : this(null, null, null)
+        {
+        }
+
+        public ActionResult Attendance(EmployeeAttendanceViewModel model)
+        {
+            var employee = this.CurrentUser;
+            ViewBag.Groups = _teamService.GetAll();
+
+            if (model.FromDate == DateTime.MinValue)
+            {
+                model = new EmployeeAttendanceViewModel
+                {
+                    FromDate = DateTime.Now,
+                    ToDate = DateTime.Now,
+                    GroupId = employee.Team.Id,
+                    DateOption = 0,
+                    ExcludeUserDelete = true,
+                };
+            }
+
+            return View(model);
+        }
+
+        public ActionResult Timesheet()
+        {
+            var model = new TimesheetViewModel
+            {
+                Year = DateTime.Now.Year,
+                EmpId = CurrentUser.Id
+            };
+            return View(model);
+        }
+
+        /// <summary>
+        /// Employee request monitoring in current month
+        /// </summary>
+        /// <returns>Return View</returns>
+        [Authorize(Roles = "HR")]
+        public ActionResult HrRequestMonitoring()
+        {
+            return HrRequestMonitoring(null);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public ActionResult HrRequestMonitoring(RequestsMonitoringViewModel model)
+        {
+            if (model == null)
+            {
+                var year = DateTime.Now.Year;
+                var month = DateTime.Now.Month;
+                model = new RequestsMonitoringViewModel
+                {
+                    FromDate = new DateTime(year, month, 1),
+                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                    MaxRequest = 2,
+                    DateOption = 0
+                };
+            }
+
+            ViewBag.FromDate = model.FromDate;
+            ViewBag.ToDate = model.ToDate;
+            ViewBag.isLeader = false;
+
+            ViewBag.EntityList = new List<RequestsMonitoring>();
+            if (this.CurrentUser.Roles != null)
+            {
+                if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.HR).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
+                {
+                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(model.FromDate, model.ToDate, model.MaxRequest, (int)RolesEnum.HR, this.CurrentUser.Id);
+                }
+            }
+
+            return View("RequestMonitoring", model);
+        }
+
+        [Authorize(Roles = "AssistantLeader")]
+        public ActionResult LeaderRequestMonitoring()
+        {
+            return LeaderRequestMonitoring(null);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "AssistantLeader")]
+        public ActionResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
+        {
+            if (model == null)
+            {
+                var year = DateTime.Now.Year;
+                var month = DateTime.Now.Month;
+                model = new RequestsMonitoringViewModel
+                {
+                    FromDate = new DateTime(year, month, 1),
+                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                    MaxRequest = 1,
+                    DateOption = 0
+                };
+            }
+
+            ViewBag.FromDate = model.FromDate;
+            ViewBag.ToDate = model.ToDate;
+            ViewBag.isLeader = true;
+
+            ViewBag.EntityList = new List<RequestsMonitoring>();
+            if (this.CurrentUser.Roles != null)
+            {
+                if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.AssistantLeader).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.Leader).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
+                {
+                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(model.FromDate, model.ToDate, model.MaxRequest, (int)RolesEnum.AssistantLeader, this.CurrentUser.Id);
+                }
+            }
+
+            return View("RequestMonitoring", model);
+        }
+
+        public ActionResult TotalWorkingHours()
+        {
+            return TotalWorkingHours(null);
+        }
+
+        [HttpPost]
+        public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
+        {
+            if (model == null)
+            {
+                var year = DateTime.Now.Year;
+                var month = DateTime.Now.Month;
+                model = new TotalWorkingHoursViewModel
+                {
+                    FromDate = new DateTime(year, month, 1),
+                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                    DateOption = 5,
+                    isExportExcel = false
+                };
+            }
+
+            if (model.isExportExcel)
+            {
+                ExportController export = new ExportController();
+                return export.TotalWorkingHours(model);
+            }
+
+            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.TeamId = model.TeamId;
+            var totalWorkingHours = _reportRepository.GetWorkingHoursList(
+                model.FromDate,
+                model.ToDate,
+                empId: (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                groupId: model.TeamId);
+
+            ViewBag.EntityList = totalWorkingHours;
+
+            return View(model);
+        }
+
+        public ActionResult LeaveSummary()
+        {
+            return LeaveSummary(null);
+        }
+
+        [HttpPost]
+        public ActionResult LeaveSummary(LeaveSummaryViewModel model)
+        {
+            if (model == null)
+            {
+                model = new LeaveSummaryViewModel
+                {
+                    Year = DateTime.Now.Year,
+                    EmployeeId = -1
+                };
+            }
+
+            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(
+                model.Year,
+                empId: model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                groupId: model.TeamId);
+
+            IList<Team> teams = new List<Team>();
+
+            if (model.TeamId != null)
+            {
+                Team team = _teamService.Get((int)model.TeamId);
+                teams.Add(team);
+            }
+            else
+            {
+                teams = _teamService.GetAll();
+            }
+
+            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.TeamId = model.TeamId;
+            ViewBag.EntityList = entityList;
+
+            IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, teams);
+
+            ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
+
+            return View(model);
+        }
+
+        public ActionResult ExtensionNo()
+        {
+            return View();
+        }
+    }
+}
