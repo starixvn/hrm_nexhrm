@@ -1,0 +1,73 @@
+<<<<<<< HEAD
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+=======
+Thumbs.db
+*.txt
+*.1
+log.txt.*
+>>>>>>> Job_title_management
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+<<<<<<< HEAD
+*.tlb
+*.tlh
+*.bak
+=======
+*.sln.docstates
+*.tlb
+*.tlh
+*.bak
+*.cache
+>>>>>>> Job_title_management
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+<<<<<<< HEAD
+=======
+*.vssscc
+$tf*/
+>>>>>>> Job_title_management
+packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/lib/net40/System.Net.Http.Formatting.dll
+packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/lib/net40/System.Net.Http.Formatting.xml
+packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/Microsoft.AspNet.WebApi.Client.4.0.20710.0.nupkg
+packages/Newtonsoft.Json.4.5.6/lib/net40/Newtonsoft.Json.dll
+packages/Newtonsoft.Json.4.5.6/lib/net40/Newtonsoft.Json.xml
+packages/Newtonsoft.Json.4.5.6/Newtonsoft.Json.4.5.6.nupkg
+Fanex.NexHR.CheckInOutReminder/StyleCop.Cache
+Fanex.NexHR.CheckInOutReminder/StyleCop.Cache
+Fanex.NexHR.CheckInOutReminder/StyleCop.Cache
+Fanex.NexHR.CheckInOutReminder/StyleCop.Cache
+Fanex.NexHR.CheckInOutReminder/StyleCop.Cache
+Fanex.NexHR.Controllers/Settings.StyleCop
+Fanex.NexHR.Controllers/StyleCop.Cache
+packages/Microsoft.AspNet.Providers.1.2/content/web.config.transform
+packages/Microsoft.AspNet.Providers.1.2/Microsoft.AspNet.Providers.1.2.nupkg
+packages/Microsoft.AspNet.Providers.1.2/tools/Install.ps1
+Fanex.NexHR.CheckInOutReminder/obj/x86/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Controllers/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Core/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Models/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Repositories/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Resources/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Resources/obj/Release/TempPE/Labels.Designer.cs.dll
+Fanex.NexHR.Services/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Site.Tests/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+Fanex.NexHR.Site/Fanex.NexHR.Site.Publish.xml
