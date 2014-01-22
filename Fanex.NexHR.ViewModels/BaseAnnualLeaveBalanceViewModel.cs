@@ -12,9 +12,8 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
+    using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public class BaseAnnualLeaveBalanceViewModel : IValidatableObject
     {
         [Required]
@@ -46,13 +45,12 @@ namespace Fanex.NexHR.ViewModels
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            IList<ValidationResult> result = new List<ValidationResult>();
+            var result = new List<ValidationResult>();
 
             if (this.TotalDays == 0 || this.TotalDays % (decimal)0.5 != 0)
             {
-                var validation = new ValidationResult(
-                    Resources.Messages.InvalidInputData,
-                    new[] { "TotalDays" });
+                var validation = new ValidationResult(Messages.InvalidInputData, new[] { "TotalDays" });
+
                 result.Add(validation);
             }
 

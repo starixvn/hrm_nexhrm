@@ -10,7 +10,6 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
@@ -20,8 +19,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Report controller.
+    /// </summary>
     [Authorize]
     public class ReportController : BaseController
     {
@@ -75,9 +75,9 @@ namespace Fanex.NexHR.Controllers
         }
 
         /// <summary>
-        /// Employee request monitoring in current month
+        /// Employee request monitoring in current month.
         /// </summary>
-        /// <returns>Return View</returns>
+        /// <returns>Return View.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult HrRequestMonitoring()
         {

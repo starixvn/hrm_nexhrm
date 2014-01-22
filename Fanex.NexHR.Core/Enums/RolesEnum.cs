@@ -9,19 +9,20 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed.")]
     public enum RolesEnum : short
     {
         [StringValue("Member")]
         Member = 0,
+
         [StringValue("AssistantLeader")]
         AssistantLeader = 1,
+
         [StringValue("Leader")]
         Leader = 2,
+
         [StringValue("HR")]
         HR = 3,
+
         [StringValue("SA")]
         SA = 4
     }

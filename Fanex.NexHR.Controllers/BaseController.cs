@@ -8,7 +8,6 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -16,7 +15,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Base controller.
+    /// </summary>
     [Authorize]
     public class BaseController : Controller
     {

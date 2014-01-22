@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -26,8 +25,9 @@ namespace Fanex.NexHR.Controllers
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Employee controller.
+    /// </summary>
     [Authorize]
     public class EmployeeController : BaseController
     {

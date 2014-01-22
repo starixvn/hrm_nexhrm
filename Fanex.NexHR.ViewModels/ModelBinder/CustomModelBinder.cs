@@ -13,11 +13,11 @@
 namespace Fanex.NexHR.ViewModels.ModelBinder
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
+    /// <summary>
+    /// Custom model binder.
+    /// </summary>
     public class CustomModelBinder : DefaultModelBinder
     {
         protected Nullable<T> GetValue<T>(ModelBindingContext bindingContext, string key) where T : struct

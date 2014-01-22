@@ -726,14 +726,13 @@ namespace Fanex.NexHR.Services
         }
         
         /// <summary>
-        /// approve, disapprove or reject a request,
-        /// notification email will be sent also
+        /// Approve, disapprove or reject a request, notification email will be sent also
         /// </summary>
-        /// <param name="command">action on this request</param>
-        /// <param name="id">request id</param>
-        /// <param name="processBy">process By</param>
-        /// <param name="errorMessage">error message</param>
-        /// <returns>return boolean</returns>
+        /// <param name="command">Action on this request.</param>
+        /// <param name="id">Request id.</param>
+        /// <param name="processBy">Process by.</param>
+        /// <param name="errorMessage">Error message.</param>
+        /// <returns>Return boolean.</returns>
         public bool Process(string command, long id, int processBy, out string errorMessage)
         {
             var request = this._employeeRepository.GetWorkingTimeRequest(id);
@@ -1042,7 +1041,9 @@ namespace Fanex.NexHR.Services
                 }
                 else
                 {
-                    forDate = string.Format(MailContentLeaveHalfDay, request.FromDate.ToDateMonthYearFormatedDate(),
+                    forDate = string.Format(
+                        MailContentLeaveHalfDay, 
+                        request.FromDate.ToDateMonthYearFormatedDate(),
                         request.FromDate.ToString("HH:mm"),
                         request.ToDate.HasValue ? request.ToDate.Value.ToString("HH:mm") : request.FromDate.ToString("HH:mm"));
                 }

@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Web.Providers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Security;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -19,8 +18,9 @@ namespace Fanex.NexHR.Web.Providers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Custom role provider.
+    /// </summary>
     public class CustomRoleProvider : RoleProvider
     {
         private IEmployeeService _employeeService;
@@ -77,7 +77,9 @@ namespace Fanex.NexHR.Web.Providers
         {
             var user = GetCurrentUser(username);
             var roles = new List<string>();
+
             roles.Add(RolesEnum.Member.EnumToString());
+
             if (user.RoleList != null)
             {
                 foreach (var item in user.RoleList)
@@ -87,13 +89,16 @@ namespace Fanex.NexHR.Web.Providers
                         case 1:
                             roles.Add(RolesEnum.AssistantLeader.EnumToString());
                             break;
+
                         case 2:
                             roles.Add(RolesEnum.AssistantLeader.EnumToString());
                             roles.Add(RolesEnum.Leader.EnumToString());
                             break;
+
                         case 3:
                             roles.Add(RolesEnum.HR.EnumToString());
                             break;
+
                         case 4:
                             roles.Add(RolesEnum.AssistantLeader.EnumToString());
                             roles.Add(RolesEnum.Leader.EnumToString());

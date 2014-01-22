@@ -9,9 +9,6 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed.")]
     public enum Commands
     {
         [StringValue("Approve")]

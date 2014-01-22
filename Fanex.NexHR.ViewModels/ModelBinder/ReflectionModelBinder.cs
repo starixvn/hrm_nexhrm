@@ -9,14 +9,16 @@
 // <history>
 //  <change who="Anders" date="2011.09.14">Created</change>
 // </history>
+
 namespace Fanex.NexHR.ViewModels.ModelBinder
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Reflection model binder.
+    /// </summary>
     public class ReflectionModelBinder<T> : CustomModelBinder where T : new()
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)

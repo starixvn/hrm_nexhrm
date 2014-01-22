@@ -663,9 +663,9 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// This function use for sorting leave summaries. Any leave summary of employee will be grouped by team. (For easier displaying in view).
         /// </summary>
-        /// <param name="leaveSummaryList">Leave summary List</param>
-        /// <param name="teams">Team List</param>
-        /// <returns>List Annual Leave</returns>        
+        /// <param name="leaveSummaryList">Leave summary List.</param>
+        /// <param name="teams">Team List.</param>
+        /// <returns>List Annual Leave.</returns>
         public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams)
         {
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = new List<LeaveSummaryByTeam>();

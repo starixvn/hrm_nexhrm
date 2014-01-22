@@ -11,11 +11,12 @@ namespace Fanex.NexHR.Web.Providers
 {
     using System;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Friendly name model metadata provider.
+    /// </summary>
     public class FriendlyNameModelMetadataProvider : DataAnnotationsModelMetadataProvider
     {
         // Uppercase followed by lowercase but not on existing word boundary (eg. the start)
@@ -46,11 +47,7 @@ namespace Fanex.NexHR.Web.Providers
             "  (?<![A-Z])[A-Z]$" + // if the last letter is capital, prefix it with a space too
             ")";
 
-            var result = Regex.Replace( 
-            name,
-            temp,
-            " $1",
-            RegexOptions.IgnorePatternWhitespace).Trim();
+            var result = Regex.Replace(name, temp, " $1", RegexOptions.IgnorePatternWhitespace).Trim();
 
             return result.EndsWith(" Id", StringComparison.OrdinalIgnoreCase) ? result.Replace(" Id", string.Empty) : result;
         }

@@ -11,16 +11,13 @@ namespace Fanex.NexHR.Core
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
-    using Fanex.Logging;
     using Fanex.NexHR.Core.Enums;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public static class Utilities
     {
         public static IList<SelectListItem> CheckInOutTypes
@@ -83,17 +80,9 @@ namespace Fanex.NexHR.Core
 
         public static string ReadTextFile(string filePath)
         {
-            try
+            using (var sr = new StreamReader(filePath))
             {
-                using (var sr = new StreamReader(filePath))
-                {
-                    return sr.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                return string.Empty;
+                return sr.ReadToEnd();
             }
         }
 

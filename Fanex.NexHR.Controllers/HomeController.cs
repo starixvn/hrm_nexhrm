@@ -9,13 +9,13 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Home controller.
+    /// </summary>
     [Authorize]
     public class HomeController : BaseController
     {

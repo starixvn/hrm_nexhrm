@@ -42,11 +42,11 @@ namespace Fanex.NexHR.Services.Interface
         }
 
         /// <summary>
-        /// get lookup by code and id
+        /// Get lookup by code and id.
         /// </summary>
-        /// <param name="lookupCode">lookup code</param>
-        /// <param name="lookupId">lookup id</param>
-        /// <returns>lookup data</returns>
+        /// <param name="lookupCode">Lookup code.</param>
+        /// <param name="lookupId">Lookup id.</param>
+        /// <returns>Lookup data.</returns>
         public LookupData Get(string lookupCode, int lookupId)
         {
             Check.Argument.IsNotNegativeOrZero(lookupId, "lookupId");
@@ -118,8 +118,8 @@ namespace Fanex.NexHR.Services.Interface
         /// <summary>
         /// Get lookup data from hash table which is cached in memory
         /// </summary>
-        /// <param name="lookUpCode">lookup code</param>
-        /// <returns>list lookup data</returns>
+        /// <param name="lookUpCode">Lookup code.</param>
+        /// <returns>List lookup data.</returns>
         private IList<LookupData> GetByLookupCode(string lookUpCode)
         {
             Check.Argument.IsNotEmpty(lookUpCode, "lookUpCode");

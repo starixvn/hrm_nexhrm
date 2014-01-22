@@ -10,7 +10,6 @@
 namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -18,8 +17,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.Caching;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// UI controller.
+    /// </summary>
     [Authorize]
     public class UIController : BaseController
     {
@@ -61,9 +61,9 @@ namespace Fanex.NexHR.Controllers
         }
 
         /// <summary>
-        /// Get navigation site map
+        /// Get navigation site map.
         /// </summary>
-        /// <returns>Return list</returns>
+        /// <returns>Return list.</returns>
         [NonAction]
         public IList<NavigationViewModel> GetNagivationData()
         {

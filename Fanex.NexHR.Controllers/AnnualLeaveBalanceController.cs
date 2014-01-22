@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Controllers.Context;
@@ -22,8 +21,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Annual leave balance controller.
+    /// </summary>
     [Authorize(Roles = "HR")]
     public class AnnualLeaveBalanceController : BaseController
     {

@@ -9,9 +9,6 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public class HrLeaderDashboardModel
     {
         public int TotalPendingCheckInOutRequest { get; set; }

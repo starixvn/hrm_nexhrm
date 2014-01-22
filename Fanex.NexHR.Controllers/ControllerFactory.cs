@@ -10,14 +10,11 @@
 namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Ninject;
     using Ninject.Modules;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
     public class ControllerFactory : DefaultControllerFactory
     {
         private IKernel _kernel = new StandardKernel(new FanexModule());

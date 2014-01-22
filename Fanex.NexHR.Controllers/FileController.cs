@@ -9,12 +9,13 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Web;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// File controller.
+    /// </summary>
     public class FileController : BaseController
     {
         [HttpPost]

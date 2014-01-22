@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Core
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Linq.Expressions;
@@ -25,27 +24,21 @@ namespace Fanex.NexHR.Core
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1615:ElementReturnValueMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1614:ElementParameterDocumentationMustHaveText", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
     public static class Extensions
     {
         private static readonly object _O = new object();
 
         /// <summary>
-        /// Convert Command enumerable to string
+        /// Convert Command enumerable to string.
         /// </summary>
-        /// <param name="value">command enum</param>
-        /// <returns>command string</returns>
+        /// <param name="value">Command enum.</param>
+        /// <returns>Command string.</returns>
         public static string EnumToString(this Commands value)
         {
             var type = value.GetType();
             var fieldInfo = type.GetField(value.ToString());
-            var attribs = fieldInfo.GetCustomAttributes(
-                typeof(StringValueAttribute), false) as StringValueAttribute[];
+            var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
@@ -493,7 +486,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable datetime value to string (dd-MMM)
+        /// Format a nullable datetime value to string (dd-MMM).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -508,7 +501,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Foarmat da datatime value to string (dd-MMM)
+        /// Foarmat da datatime value to string (dd-MMM).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -518,7 +511,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable datetime value to string (MMM-yyyy)
+        /// Format a nullable datetime value to string (MMM-yyyy).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -533,7 +526,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Foarmat da datatime value to string (MMM-yyyy)
+        /// Foarmat da datatime value to string (MMM-yyyy).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -568,7 +561,7 @@ namespace Fanex.NexHR.Core
             {
                 if (firstItem.Value != null)
                 {
-                    List<SelectListItem> list = new List<SelectListItem>();
+                    var list = new List<SelectListItem>();
                     list.Add(firstItem);
 
                     if (selectList != null)

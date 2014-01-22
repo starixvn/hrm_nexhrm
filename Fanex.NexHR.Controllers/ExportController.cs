@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Web.Mvc;
     using Fanex.NexHR.Models;
@@ -20,8 +19,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.ViewModels;
     using NPOI.HSSF.UserModel;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Export controller.
+    /// </summary>
     public class ExportController : BaseController
     {
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)

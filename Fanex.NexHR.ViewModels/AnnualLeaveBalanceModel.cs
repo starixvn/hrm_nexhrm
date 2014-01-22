@@ -10,9 +10,7 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public class AnnualLeaveBalanceModel : BaseAnnualLeaveBalanceViewModel
     {
         public long Id { get; set; }

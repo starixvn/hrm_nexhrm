@@ -9,21 +9,23 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed.")]
     public enum RequestTypes : short
     {
         [StringValue("Check In")]
         CheckIn = 1,
+
         [StringValue("Check Out")]
         CheckOut = 2,
+
         [StringValue("Late In")]
         LateIn = 3,
+
         [StringValue("Early Out")]
         EarlyOut = 4,
+
         [StringValue("Change Shift")]
         ChangeShift = 5,
+
         [StringValue("Leave")]
         Leave = 6
     }
