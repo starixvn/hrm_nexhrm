@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
@@ -20,8 +19,9 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Memo service.
+    /// </summary>
     public class MemoService : IMemoService
     {
         private readonly IMemoRepository _memoRepository;

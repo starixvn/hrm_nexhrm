@@ -9,20 +9,20 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.Models;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public interface IMemoService
     {
         bool Delete(int id);
 
-        System.Collections.Generic.IList<Fanex.NexHR.Models.Memo> GetAll(MemoViewModel model);
+        IList<Memo> GetAll(MemoViewModel model);
 
-        Fanex.NexHR.Models.Memo GetById(int id);
+        Memo GetById(int id);
 
-        int Insert(Fanex.NexHR.Models.Memo entity);
+        int Insert(Memo entity);
 
-        bool Update(Fanex.NexHR.Models.Memo entity);
+        bool Update(Memo entity);
     }
 }

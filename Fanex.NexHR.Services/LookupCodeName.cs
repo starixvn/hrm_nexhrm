@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Services
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Lookup code name.
+    /// </summary>
     public struct LookupCodeName
     {
         public const string JobTitle = "JT";

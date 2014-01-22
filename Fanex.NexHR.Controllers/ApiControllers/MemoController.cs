@@ -9,13 +9,13 @@
 
 namespace Fanex.NexHR.Controllers.ApiControllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Memo controller.
+    /// </summary>
     public class MemoController : ApiController
     {
         private readonly IMemoService _memoService;

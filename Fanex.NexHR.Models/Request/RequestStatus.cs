@@ -9,10 +9,11 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using System.Diagnostics.CodeAnalysis;
-    using Resources;
+    using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Request status.
+    /// </summary>
     public class RequestStatus : EntityBase<byte>
     {
         public new string Name

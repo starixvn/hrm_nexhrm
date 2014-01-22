@@ -566,21 +566,21 @@ namespace Fanex.NexHR.Controllers
 
             // check date
             DateTime currentDate = DateTime.Today;
-            //if (model.InputDate.HasValue && model.InputDate.Value > currentDate)
-            //{
-            //    ModelState.AddModelError(string.Empty,
-            //        string.Format(Resources.Messages.InvalidTOEICInputDate, currentDate.ToString("dd MMM, yyyy")));
-            //}
+
             if (model.LRExamDate.HasValue && model.LRExamDate.Value > currentDate)
             {
-                ModelState.AddModelError(string.Empty,
+                ModelState.AddModelError(
+                    string.Empty,
                     string.Format(Resources.Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
             }
+
             if (model.SWExamDate.HasValue && model.SWExamDate.Value > currentDate)
             {
-                ModelState.AddModelError(string.Empty,
+                ModelState.AddModelError(
+                    string.Empty,
                     string.Format(Resources.Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
             }
+
             // check L/R/S/W
             if ((!model.Listening.HasValue || model.Listening == 0) &&
                 (!model.Reading.HasValue || model.Reading == 0) &&

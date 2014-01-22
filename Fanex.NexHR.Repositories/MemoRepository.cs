@@ -11,13 +11,14 @@ namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Memo repository.
+    /// </summary>
     public class MemoRepository : IMemoRepository
     {
         public IList<Memo> GetAll(string content, int year, int category)

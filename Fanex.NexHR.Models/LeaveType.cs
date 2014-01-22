@@ -9,11 +9,11 @@
 
 namespace Fanex.NexHR.Models
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Leave type.
+    /// </summary>
     public class LeaveType : EntityBase<int>
-    {        
+    {
         public short? IsAnnualQuota { get; set; }
 
         public bool? IsDefault { get; set; }

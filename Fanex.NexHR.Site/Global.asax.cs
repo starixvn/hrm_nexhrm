@@ -10,21 +10,19 @@
 namespace Fanex.NexHR.Site
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Fanex.Logging;
     using Fanex.NexHR.Web.Providers;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             // filters.Add(new System.Web.Http.AuthorizeAttribute());
-            filters.Add(new HandleErrorAttribute());             
+            filters.Add(new HandleErrorAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -75,12 +73,19 @@ namespace Fanex.NexHR.Site
         private void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError().GetBaseException();
-            if (ex is HttpException)
-            {
-                return;
-            }
 
-            Fanex.Logging.LogService.Error(ex.Message, ex);
+            if (!Request.IsLocal)
+            {
+                string message = ex.Message +
+                    "\r\nSource: " + ex.Source +
+                    "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
+                    "\r\nForm: " + Request.Form.ToString() +
+                    "\r\nQueryString: " + Request.QueryString.ToString() +
+                    "\r\nTargetSite: " + ex.TargetSite +
+                    "\r\nStackTrace: " + ex.StackTrace;
+
+                LogService.Error(message);
+            }
         }
     }
 }

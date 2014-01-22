@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Late in early out request.
+    /// </summary>
     public class LateInEarlyOutRequest
     {
         public int Id { get; set; }

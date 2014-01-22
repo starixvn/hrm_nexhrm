@@ -10,16 +10,17 @@
 namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Team model.
+    /// </summary>
     public class Team : EntityBase<int>
     {
         public Department Department { get; set; }
 
         public Employee Leader { get; set; }
 
-        public Employee AssistantLeader { get; set; }        
+        public Employee AssistantLeader { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 

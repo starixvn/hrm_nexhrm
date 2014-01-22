@@ -9,10 +9,11 @@
 
 namespace Fanex.NexHR.Models.Attributes
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Email validation rule.
+    /// </summary>
     public class EmailValidationRule : ModelClientValidationRule
     {
         public EmailValidationRule(string errorMessage)

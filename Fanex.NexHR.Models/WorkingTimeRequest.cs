@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Working time request.
+    /// </summary>
     public class WorkingTimeRequest
     {
         public long Id { get; set; }

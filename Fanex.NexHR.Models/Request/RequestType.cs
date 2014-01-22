@@ -9,13 +9,14 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using System.Diagnostics.CodeAnalysis;
-    using Resources;
+    using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Request type.
+    /// </summary>
     public class RequestType : EntityBase<short>
     {
-        public new string Name         
+        public new string Name
         {
             get 
             {

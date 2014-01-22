@@ -12,13 +12,14 @@ namespace Fanex.NexHR.Repositories
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Holiday repository.
+    /// </summary>
     public class HolidayRepository : IHolidayRepository
     {
         public int Insert(Holiday model)

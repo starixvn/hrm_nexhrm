@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Changing shift.
+    /// </summary>
     public class ChangingShift : RequestEntity
     {
     }

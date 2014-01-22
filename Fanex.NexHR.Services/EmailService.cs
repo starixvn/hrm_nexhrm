@@ -10,12 +10,14 @@
 namespace Fanex.NexHR.Services
 {
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
+    using Fanex.MailDeliver.MailClient.API;
     using Fanex.MailDeliver.Model;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Email service.
+    /// </summary>
     public class EmailService : IEmailService
     {
         public void SendEmail(string senderEmail, string receiverEmail, string mailCc, string subject, string body)
@@ -39,7 +41,8 @@ namespace Fanex.NexHR.Services
                 Title = ConfigurationManager.AppSettings["Email.SenderName"],
                 Body = body
             };
-            using (var client = new Fanex.MailDeliver.MailClient.API.MailDeliver())
+
+            using (var client = new MailDeliver())
             {
                 client.SendMail(mailItem);
             }

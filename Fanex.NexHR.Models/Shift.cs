@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Models
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Shift model.
+    /// </summary>
     public class Shift : EntityBase<int>
     {        
         public string BeginCheckInTime { get; set; }

@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Services.Interface
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Caching;
     using Fanex.Common.Helper;
@@ -20,9 +19,9 @@ namespace Fanex.NexHR.Services.Interface
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1310:FieldNamesMustNotContainUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Lookup data service.
+    /// </summary>
     public class LookupDataService : ILookupDataService
     {
         private const string CacheKey_AllLookUpData = "CacheKey_AllLookUpData";

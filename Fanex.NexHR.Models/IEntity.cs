@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Models
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Entity interface.
+    /// </summary>
     public interface IEntity<TId>
     {
         TId Id { get; set; }

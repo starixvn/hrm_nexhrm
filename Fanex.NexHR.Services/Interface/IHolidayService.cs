@@ -9,19 +9,19 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
+    using Fanex.NexHR.Models;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public interface IHolidayService
     {
         bool Delete(int holidayId, int modifiedBy);
 
-        Fanex.NexHR.Models.Holiday GetById(int holidayId);
+        Holiday GetById(int holidayId);
 
-        System.Collections.Generic.IList<Fanex.NexHR.Models.Holiday> GetByYear(int year);
+        IList<Holiday> GetByYear(int year);
 
-        int Insert(Fanex.NexHR.Models.Holiday holiday);
+        int Insert(Holiday holiday);
 
-        bool Update(Fanex.NexHR.Models.Holiday holiday);
+        bool Update(Holiday holiday);
     }
 }

@@ -11,9 +11,10 @@ namespace Fanex.NexHR.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Holiday model.
+    /// </summary>
     public class Holiday : EntityBase<int>
     {
         public string HolidayName { get; set; }

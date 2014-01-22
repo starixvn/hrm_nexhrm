@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.Models
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Leave summary by team.
+    /// </summary>
     public class LeaveSummaryByTeam
     {
         public Team Team { get; set; }

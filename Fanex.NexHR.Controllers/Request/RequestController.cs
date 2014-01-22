@@ -526,12 +526,12 @@ namespace Fanex.NexHR.Controllers.Request
         }
 
         /// <summary>
-        /// check if user can and has permission to edit a request
+        /// Check if user can and has permission to edit a request.
         /// </summary>
-        /// <param name="status">status of request</param>
-        /// <param name="employeeId">which employee request belong to</param>
-        /// <param name="creatorId">the person who creates this request</param>
-        /// <returns>return true if current user can edit this request</returns>
+        /// <param name="status">Status of request.</param>
+        /// <param name="employeeId">Which employee request belong to.</param>
+        /// <param name="creatorId">The person who creates this request.</param>
+        /// <returns>Return true if current user can edit this request.</returns>
         protected bool Editable(byte status, int employeeId, int creatorId)
         {
             if (status != (byte)RequestStatuses.Pending ||

@@ -11,9 +11,10 @@ namespace Fanex.NexHR.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Memo model.
+    /// </summary>
     public class Memo : EntityBase<int>
     {
         [Required]

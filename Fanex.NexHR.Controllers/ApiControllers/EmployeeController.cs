@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Http;
     using Fanex.NexHR.Models;
@@ -19,9 +18,9 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed.")]
+    /// <summary>
+    /// Employee controller.
+    /// </summary>
     public class EmployeeController : ApiController
     {
         private readonly IEmployeeService _employeeService;

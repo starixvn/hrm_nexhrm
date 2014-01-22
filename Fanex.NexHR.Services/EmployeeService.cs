@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Models;
@@ -26,7 +25,7 @@ namespace Fanex.NexHR.Services
     using NPOI.SS.Util;
 
     /// <summary>
-    /// Employee Service.
+    /// Employee service.
     /// </summary>
     public class EmployeeService : IEmployeeService
     {
@@ -34,7 +33,7 @@ namespace Fanex.NexHR.Services
         private readonly ITeamService _teamService;
 
         private IEmployeeRepository _employeeRepository;
-        
+
         public EmployeeService()
         {
             this._employeeRepository = new EmployeeRepository();
@@ -57,6 +56,7 @@ namespace Fanex.NexHR.Services
         public IList<Employee> GetLeaders(int employeeId)
         {
             IList<Employee> leaders = new List<Employee>();
+
             if (employeeId > 0)
             {
                 leaders = this._employeeRepository.GetLeaders(employeeId);
@@ -215,17 +215,10 @@ namespace Fanex.NexHR.Services
         public IList<CheckInOut> GetCheckInOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetCheckInOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetCheckInOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -234,17 +227,10 @@ namespace Fanex.NexHR.Services
         public IList<LateInEarlyOut> GetLateInEarlyOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetLateInEarlyOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetLateInEarlyOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -253,17 +239,10 @@ namespace Fanex.NexHR.Services
         public IList<ChangingShift> GetChangeShiftRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetChangeShiftRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetChangeShiftRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -272,17 +251,10 @@ namespace Fanex.NexHR.Services
         public IList<Leave> GetLeaveRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetLeaveRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetLeaveRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -291,17 +263,10 @@ namespace Fanex.NexHR.Services
         public IList<RequestEntity> GetAllRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetAllRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetAllRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -310,17 +275,10 @@ namespace Fanex.NexHR.Services
         public IList<CheckInOut> GetCheckInOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetCheckInOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetCheckInOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -329,17 +287,10 @@ namespace Fanex.NexHR.Services
         public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetLateInEarlyOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetLateInEarlyOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -348,17 +299,10 @@ namespace Fanex.NexHR.Services
         public IList<ChangingShift> GetChangeShiftRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetChangeShiftRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetChangeShiftRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -367,17 +311,10 @@ namespace Fanex.NexHR.Services
         public IList<Leave> GetLeaveRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetLeaveRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetLeaveRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -386,17 +323,10 @@ namespace Fanex.NexHR.Services
         public IList<RequestEntity> GetAllRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
-            try
+
+            if (fromDate <= toDate)
             {
-                if (fromDate <= toDate)
-                {
-                    entityList = this._employeeRepository.GetAllRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
-                }
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
+                entityList = this._employeeRepository.GetAllRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
             }
 
             return entityList;
@@ -405,15 +335,8 @@ namespace Fanex.NexHR.Services
         public IList<CheckInOut> GetCheckInOutRequestHistory(long requestId, int requestTypeId)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            try
-            {
-                entityList = this._employeeRepository.GetCheckInOutRequestHistory(requestId, requestTypeId);
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
-            }
+
+            entityList = this._employeeRepository.GetCheckInOutRequestHistory(requestId, requestTypeId);
 
             return entityList;
         }
@@ -421,15 +344,8 @@ namespace Fanex.NexHR.Services
         public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(long requestId, int requestTypeId)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            try
-            {
-                entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(requestId, requestTypeId);
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
-            }
+
+            entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(requestId, requestTypeId);
 
             return entityList;
         }
@@ -437,15 +353,8 @@ namespace Fanex.NexHR.Services
         public IList<ChangingShift> GetChangeShiftRequestHistory(long requestId, int requestTypeId)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            try
-            {
-                entityList = this._employeeRepository.GetChangeShiftRequestHistory(requestId, requestTypeId);
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
-            }
+
+            entityList = this._employeeRepository.GetChangeShiftRequestHistory(requestId, requestTypeId);
 
             return entityList;
         }
@@ -453,15 +362,8 @@ namespace Fanex.NexHR.Services
         public IList<Leave> GetLeaveRequestHistory(long requestId, int requestTypeId)
         {
             IList<Leave> entityList = new List<Leave>();
-            try
-            {
-                entityList = this._employeeRepository.GetLeaveRequestHistory(requestId, requestTypeId);
-            }
-            catch (Exception ex)
-            {
-                /*writelog*/
-                Fanex.Logging.LogService.Error(ex.Message, ex);
-            }
+
+            entityList = this._employeeRepository.GetLeaveRequestHistory(requestId, requestTypeId);
 
             return entityList;
         }
@@ -488,24 +390,24 @@ namespace Fanex.NexHR.Services
         }
 
         public bool UpdateAnnualLeaveTransaction(
-            long id, 
-            string description, 
+            long id,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime modifiedDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime modifiedDate,
             int modifiedBy)
         {
             return this._employeeRepository.UpdateAnnualLeaveTransaction(id, description, fromDate, deductDays, creditDays, modifiedDate, modifiedBy);
         }
 
         public bool InsertAnnualLeaveTransaction(
-            int empId, 
-            string description, 
+            int empId,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy)
         {
             return this._employeeRepository.InsertAnnualLeaveTransaction(empId, description, fromDate, deductDays, creditDays, createdDate, createdBy);
@@ -525,6 +427,7 @@ namespace Fanex.NexHR.Services
         {
             // Check.Argument.IsNotNull(model, "model");
             bool result = true;
+
             if (modelState.IsValid)
             {
                 int errorCode;
@@ -573,7 +476,7 @@ namespace Fanex.NexHR.Services
             cell.CellStyle.SetFont(font);
 
             sheet.AddMergedRegion(new CellRangeAddress(1, 1, 1, 12));
-            
+
             // header
             var rowIndex = 3;
             var row = sheet.CreateRow(rowIndex);
@@ -642,7 +545,7 @@ namespace Fanex.NexHR.Services
             cell13.CellStyle = cellStyle;
             cell13.SetCellValue("Average Hours");
             //// end header
-            
+
             // body
             rowIndex++;
 
@@ -816,9 +719,9 @@ namespace Fanex.NexHR.Services
         }
         #endregion
 
-		public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
-		{
-			return this._employeeRepository.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
-		}
-	}
+        public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        {
+            return this._employeeRepository.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
+        }
+    }
 }

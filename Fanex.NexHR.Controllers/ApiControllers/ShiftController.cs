@@ -10,14 +10,14 @@
 namespace Fanex.NexHR.Controllers.ApiControllers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Shift controller.
+    /// </summary>
     public class ShiftController : ApiController
     {
         private readonly IShiftService _shiftService;

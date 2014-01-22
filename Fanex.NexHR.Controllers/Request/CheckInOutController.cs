@@ -160,10 +160,10 @@ namespace Fanex.NexHR.Controllers.Request
         }
 
         /// <summary>
-        /// Get check in/out request of a specific employee in a year
+        /// Get check in/out request of a specific employee in a year.
         /// </summary>
-        /// <param name="year">In Year</param>
-        /// <returns>Out View</returns>
+        /// <param name="year">In Year.</param>
+        /// <returns>Out View.</returns>
         [HttpPost]
         public ActionResult EmployeeView(int year)
         {

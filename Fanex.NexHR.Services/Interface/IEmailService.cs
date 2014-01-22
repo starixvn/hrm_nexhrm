@@ -9,9 +9,6 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public interface IEmailService
     {
         void SendEmail(string senderEmail, string receiverEmail, string mailCc, string subject, string body);

@@ -6,19 +6,20 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
 // </history>
+
 namespace Fanex.NexHR.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Attributes;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Employee class.
+    /// </summary>
     public class Employee : EntityBase<int>
     {
         public string DomainUsername { get; set; }
@@ -184,14 +185,14 @@ namespace Fanex.NexHR.Models
             }
         }
 
-		// TOEIC score
-		public TOEIC TOEICScore { get; set; }
+        // TOEIC score
+        public TOEIC TOEICScore { get; set; }
 
         /// <summary>
-        /// check user is in specific roles
+        /// Check user is in specific roles.
         /// </summary>
-        /// <param name="roles">Role of user</param>
-        /// <returns>Return Boolean</returns>
+        /// <param name="roles">Role of user.</param>
+        /// <returns>Return Boolean.</returns>
         public bool IsInRoles(params RolesEnum[] roles)
         {
             if (RoleList == null)
@@ -204,10 +205,10 @@ namespace Fanex.NexHR.Models
         }
 
         /// <summary>
-        /// check user is in specific roles
+        /// Check user is in specific roles.
         /// </summary>
-        /// <param name="roles">Role of user</param>
-        /// <returns>Return Boolean</returns>
+        /// <param name="roles">Role of user.</param>
+        /// <returns>Return Boolean.</returns>
         public bool IsInRoles(IList<string> roles)
         {
             if (roles == null || roles.Count == 0)
@@ -219,6 +220,10 @@ namespace Fanex.NexHR.Models
             return roles.Any(role => userRoles.Contains(role));
         }
 
+        /// <summary>
+        /// Display roles.
+        /// </summary>
+        /// <returns>Role string.</returns>
         public string DisplayRoles()
         {
             var roles = "Member";

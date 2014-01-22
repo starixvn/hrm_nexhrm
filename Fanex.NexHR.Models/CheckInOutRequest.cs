@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Check in/out request.
+    /// </summary>
     public class CheckInOutRequest
     {
         public long Id { get; set; }

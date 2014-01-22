@@ -25,6 +25,9 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
+    /// <summary>
+    /// Request service.
+    /// </summary>
     public class RequestService : IRequestService
     {
         private const string MsgLeave = "<span class='req leave'>{1}</span> {0} days";

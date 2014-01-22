@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Models
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Requests monitoring.
+    /// </summary>
     public class RequestsMonitoring
     {
         public Employee Requester { get; set; }

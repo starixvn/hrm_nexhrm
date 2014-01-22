@@ -22,6 +22,9 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
 
+    /// <summary>
+    /// Employee repository.
+    /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
         public Employee Get(int? employeeId, string domainUsername = null)
@@ -213,8 +216,8 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@passportExp", DbType.DateTime, model.PassportExp);
                 db.AddInParameter("@ModifiedDate", DbType.DateTime, DateTime.Now);
                 db.AddInParameter("@modifiedBy", DbType.Int32, model.Modifier.Id);
-                
-				try
+
+                try
                 {
                     return db.ExecuteNonQuery() != 0;
                 }
@@ -1230,12 +1233,12 @@ namespace Fanex.NexHR.Repositories
         }
 
         public bool UpdateAnnualLeaveTransaction(
-            long id, 
-            string description, 
+            long id,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime modifiedDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime modifiedDate,
             int modifiedBy)
         {
             using (ObjectDb db = new ObjectDb("AnnualLeave_UpdateTransaction"))
@@ -1245,12 +1248,12 @@ namespace Fanex.NexHR.Repositories
         }
 
         public bool InsertAnnualLeaveTransaction(
-            int empId, 
-            string description, 
+            int empId,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy)
         {
             using (ObjectDb db = new ObjectDb("AnnualLeave_InsertTransaction"))
@@ -1357,71 +1360,71 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-		public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
-		{
-			using (var db = new ObjectDb("TOEIC_GetAllScores"))
-			{
-				var p = new DynamicParameters();
-				int? disableUsers;
-				int? deleteUsers;
-				// check enable
-				if (enable == true)
-				{
-					disableUsers = 0;
-				}
-				else if (enable == false)
-				{
-					disableUsers = 1;
-				}
-				else
-				{
-					disableUsers = null;
-				}
+        public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        {
+            using (var db = new ObjectDb("TOEIC_GetAllScores"))
+            {
+                var p = new DynamicParameters();
+                int? disableUsers;
+                int? deleteUsers;
+                // check enable
+                if (enable == true)
+                {
+                    disableUsers = 0;
+                }
+                else if (enable == false)
+                {
+                    disableUsers = 1;
+                }
+                else
+                {
+                    disableUsers = null;
+                }
 
-				// check delete
-				if (isDelete == true)
-				{
-					deleteUsers = 1;
-				}
-				else if (isDelete == false)
-				{
-					deleteUsers = 0;
-				}
-				else
-				{
-					deleteUsers = null;
-				}
+                // check delete
+                if (isDelete == true)
+                {
+                    deleteUsers = 1;
+                }
+                else if (isDelete == false)
+                {
+                    deleteUsers = 0;
+                }
+                else
+                {
+                    deleteUsers = null;
+                }
 
-				p.Add("@query", query);
-				p.Add("@groupId", groupId);
-				p.Add("@enable", disableUsers);
-				p.Add("@isDelete", deleteUsers);
-				p.Add("@pageNumber", 1);
-				p.Add("@pageSize", int.MaxValue);
-				p.Add("@totalRow", dbType: DbType.Int32, direction: ParameterDirection.Output);
-				p.Add("@titleId", titleId);
+                p.Add("@query", query);
+                p.Add("@groupId", groupId);
+                p.Add("@enable", disableUsers);
+                p.Add("@isDelete", deleteUsers);
+                p.Add("@pageNumber", 1);
+                p.Add("@pageSize", int.MaxValue);
+                p.Add("@totalRow", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                p.Add("@titleId", titleId);
 
-				var entityList = db.Query<Employee, dynamic, Employee>(
-					 (e, t) =>
-					 {
-						 e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-						 e.TOEICScore = new TOEIC 
-						 {
-							 InputDate = t.InputDate,
-							 Listening = t.Listening,
-							 Reading = t.Reading,
-							 LRExamDate = t.LRExamDate,
-							 Speaking = t.Speaking,
-							 Writing = t.Writing,
-							 SWExamDate = t.SWExamDate
-						 };
-						 return e;
-					 },
-					 splitOn: "TeamID",
-					 parameterValues: p);
+                var entityList = db.Query<Employee, dynamic, Employee>(
+                     (e, t) =>
+                     {
+                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
+                         e.TOEICScore = new TOEIC
+                         {
+                             InputDate = t.InputDate,
+                             Listening = t.Listening,
+                             Reading = t.Reading,
+                             LRExamDate = t.LRExamDate,
+                             Speaking = t.Speaking,
+                             Writing = t.Writing,
+                             SWExamDate = t.SWExamDate
+                         };
+                         return e;
+                     },
+                     splitOn: "TeamID",
+                     parameterValues: p);
 
-				return entityList.ToList();
-			}
-		}
-	}
+                return entityList.ToList();
+            }
+        }
+    }
 }

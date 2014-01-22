@@ -11,10 +11,11 @@ namespace Fanex.NexHR.Models.Attributes
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Email attribute.
+    /// </summary>
     public class EmailAttribute : RegularExpressionAttribute, IClientValidatable
     {
         public EmailAttribute()
@@ -27,7 +28,8 @@ namespace Fanex.NexHR.Models.Attributes
         #region IClientValidatable Members
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(
-            ModelMetadata metadata, ControllerContext context)
+            ModelMetadata metadata, 
+            ControllerContext context)
         {
             string errorMessage = "Invalid email address.";
 

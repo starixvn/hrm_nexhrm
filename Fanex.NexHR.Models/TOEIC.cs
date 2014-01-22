@@ -9,121 +9,98 @@
 
 namespace Fanex.NexHR.Models
 {
-	using System;
-	using System.ComponentModel.DataAnnotations;
-	using System.Diagnostics.CodeAnalysis;
+    using System;
+    using System.ComponentModel.DataAnnotations;
 
-	/// <summary>
-	/// TODO: Update summary.
-	/// </summary>
-	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-	[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-	public class TOEIC
-	{
-        //private DateTime? inputDate;
-		private DateTime? lrExamDate;
-		private DateTime? swExamDate;
+    /// <summary>
+    /// TOEIC model.
+    /// </summary>
+    public class TOEIC
+    {
+        private DateTime? lrExamDate;
+        private DateTime? swExamDate;
 
-		public int EmpId { get; set; }
+        public int EmpId { get; set; }
 
         [Display(Name = "Expired Date")]
-        public DateTime? InputDate
+        public DateTime? InputDate { get; set; }
+
+        [Display(Name = "L/R Exam Date")]
+        public DateTime? LRExamDate
         {
-            get;
+            get
+            {
+                if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
+                {
+                    lrExamDate = null;
+                }
 
-            set;
-            //get
-            //{
-            //    if (!inputDate.HasValue || inputDate.Value == DateTime.MinValue)
-            //    {
-            //        inputDate = DateTime.Today;
-            //    }
+                return lrExamDate;
+            }
 
-            //    return inputDate;
-            //}
-
-            //set
-            //{
-            //    inputDate = value;
-            //}
+            set
+            {
+                lrExamDate = value;
+            }
         }
-		
-		[Display(Name = "L/R Exam Date")]
-		public DateTime? LRExamDate
-		{
-			get
-			{
-				if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
-				{
-					lrExamDate = null;
-				}
 
-				return lrExamDate;
-			}
+        [Range(0, 495)]
+        public int? Listening { get; set; }
 
-			set
-			{
-				lrExamDate = value;
-			}
-		}
-		
-		[Range(0, 495)]
-		public int? Listening { get; set; }
+        [Range(0, 495)]
+        public int? Reading { get; set; }
 
-		[Range(0, 495)]
-		public int? Reading { get; set; }
+        [Display(Name = "S/W Exam Date")]
+        public DateTime? SWExamDate
+        {
+            get
+            {
+                if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
+                {
+                    swExamDate = null;
+                }
 
-		[Display(Name = "S/W Exam Date")]
-		public DateTime? SWExamDate
-		{
-			get
-			{
-				if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
-				{
-					swExamDate = null;
-				}
+                return swExamDate;
+            }
 
-				return swExamDate;
-			}
+            set
+            {
+                swExamDate = value;
+            }
+        }
 
-			set
-			{
-				swExamDate = value;
-			}
-		}
+        [Range(0, 200)]
+        public int? Speaking { get; set; }
 
-		[Range(0, 200)]
-		public int? Speaking { get; set; }
+        [Range(0, 200)]
+        public int? Writing { get; set; }
 
-		[Range(0, 200)]
-		public int? Writing { get; set; }
+        public int? LRTotal
+        {
+            get
+            {
+                return Listening + Reading;
+            }
+        }
 
-		public int? LRTotal 
-		{ 
-			get 
-			{ 
-				return Listening + Reading; 
-			} 
-		}
+        [Range(0, 495)]
+        public int? OldListening { get; set; }
 
-		[Range(0, 495)]
-		public int? OldListening { get; set; }
+        [Range(0, 495)]
+        public int? OldReading { get; set; }
 
-		[Range(0, 495)]
-		public int? OldReading { get; set; }
+        [Range(0, 200)]
+        public int? OldSpeaking { get; set; }
 
-		[Range(0, 200)]
-		public int? OldSpeaking { get; set; }
+        [Range(0, 200)]
+        public int? OldWriting { get; set; }
 
-		[Range(0, 200)]
-		public int? OldWriting { get; set; }
+        public int? CreatedBy { get; set; }
 
-		public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
-		public DateTime? CreatedDate { get; set; }
+        public int? ModifiedBy { get; set; }
 
-		public int? ModifiedBy { get; set; }
-
-		public DateTime? ModifiedDate { get; set; }
-	}
+        public DateTime? ModifiedDate { get; set; }
+    }
 }

@@ -9,14 +9,14 @@
 
 namespace Fanex.NexHR.Controllers.ApiControllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Http;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Job title controller.
+    /// </summary>
     public class JobTitleController : ApiController
     {
         private readonly ILookupDataService _lookupDataService;

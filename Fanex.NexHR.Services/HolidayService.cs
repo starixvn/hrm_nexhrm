@@ -10,14 +10,14 @@
 namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interface;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Holiday service.
+    /// </summary>
     public class HolidayService : IHolidayService
     {
         private readonly IHolidayRepository _holidayRepository;
@@ -30,6 +30,7 @@ namespace Fanex.NexHR.Services
         public int Insert(Holiday holiday)
         {
             int result = 0;
+
             if (holiday != null)
             {
                 result = this._holidayRepository.Insert(holiday);
@@ -41,6 +42,7 @@ namespace Fanex.NexHR.Services
         public bool Delete(int holidayId, int modifiedBy)
         {
             bool result = false;
+
             if (holidayId > 0)
             {
                 result = this._holidayRepository.Delete(holidayId, modifiedBy);
@@ -52,6 +54,7 @@ namespace Fanex.NexHR.Services
         public bool Update(Holiday holiday)
         {
             bool result = false;
+
             if (holiday != null)
             {
                 result = this._holidayRepository.Update(holiday);
@@ -68,6 +71,7 @@ namespace Fanex.NexHR.Services
         public Holiday GetById(int holidayId)
         {
             Holiday model = null;
+
             if (holidayId > 0)
             {
                 model = this._holidayRepository.GetById(holidayId);

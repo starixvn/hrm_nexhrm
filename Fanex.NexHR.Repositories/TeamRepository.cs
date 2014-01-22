@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Repositories
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -20,7 +19,9 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Team repository.
+    /// </summary>
     public class TeamRepository : ITeamRepository
     {
         public Team Get(int id)

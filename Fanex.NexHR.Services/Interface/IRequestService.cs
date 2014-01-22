@@ -8,11 +8,9 @@
 // </history>
 namespace Fanex.NexHR.Services.Interface
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public interface IRequestService
     {
         bool CheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);

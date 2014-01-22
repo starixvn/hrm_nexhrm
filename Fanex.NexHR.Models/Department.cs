@@ -9,11 +9,11 @@
 
 namespace Fanex.NexHR.Models
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Department.
+    /// </summary>
     public class Department : EntityBase<int>
-    {        
+    {
         public Employee Manager { get; set; }
     }
 }

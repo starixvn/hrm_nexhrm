@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Caching;
     using Fanex.NexHR.Models;
@@ -20,6 +19,9 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
+    /// <summary>
+    /// Team service.
+    /// </summary>
     public class TeamService : ITeamService
     {
         private const string CacheKey_AllTeams = "CacheKey_AllTeams";

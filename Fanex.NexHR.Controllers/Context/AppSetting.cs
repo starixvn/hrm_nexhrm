@@ -10,12 +10,8 @@
 namespace Fanex.NexHR.Controllers.Context
 {
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Reviewed.")]
     public class AppSetting
     {
         private static bool _isShowCloseBalance = true;

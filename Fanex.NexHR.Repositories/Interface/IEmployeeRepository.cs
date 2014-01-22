@@ -10,7 +10,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -209,12 +208,12 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<Employee> GetMembersByManager(int managerId, short role, string keyword, int? groupId = null);
 
         bool AdjustAnnualLeaves(
-            string empIds, 
-            string description, 
+            string empIds,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy);
 
         IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(int id, int year, bool excludedRequestTrans);
@@ -225,20 +224,20 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateAnnualLeaveTransaction(
             long id,
-            string description, 
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime modifiedDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime modifiedDate,
             int modifiedBy);
 
         bool InsertAnnualLeaveTransaction(
-            int empId, 
-            string description, 
+            int empId,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees();
@@ -255,6 +254,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool ResetAnnualLeaves(string empValue, string description, DateTime fromDate, int resetDays, DateTime createdDate, int createdBy);
 
-		IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
+        IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
     }
 }

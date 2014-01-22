@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using System.Diagnostics.CodeAnalysis;
-
-[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Late in early out.
+    /// </summary>
     public class LateInEarlyOut : RequestEntity
     {
         public Shift Shift { get; set; }

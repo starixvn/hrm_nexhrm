@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Services.Interface
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -211,21 +210,21 @@ namespace Fanex.NexHR.Services.Interface
         bool DeleteAnnualLeaveTransaction(long id, DateTime modifiedDate, int modifiedBy);
 
         bool UpdateAnnualLeaveTransaction(
-            long id, 
-            string description, 
+            long id,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime modifiedDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime modifiedDate,
             int modifiedBy);
 
         bool InsertAnnualLeaveTransaction(
-            int empId, 
-            string description, 
+            int empId,
+            string description,
             DateTime fromDate,
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy);
 
         IList<UserChangedShift> GetUserChangedShift(DateTime date);
@@ -240,6 +239,6 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams);
 
-		IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
+        IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
     }
 }

@@ -9,20 +9,14 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
-	using System.Collections.Generic;
-	using System.Diagnostics.CodeAnalysis;
-	using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models;
 
-	/// <summary>
-	/// TODO: Update summary.
-	/// </summary>
-	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-	public interface ITOEICService
-	{
-		TOEIC GetById(int empId);
+    public interface ITOEICService
+    {
+        TOEIC GetById(int empId);
 
-		int Update(TOEIC model);
+        int Update(TOEIC model);
 
-		int NewUpdate(TOEIC model);
-	}
+        int NewUpdate(TOEIC model);
+    }
 }

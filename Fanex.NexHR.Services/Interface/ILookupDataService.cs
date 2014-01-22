@@ -10,10 +10,8 @@
 namespace Fanex.NexHR.Services.Interface
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NexHR.Models;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public interface ILookupDataService
     {
         LookupData Get(string lookupCode, int lookupId);

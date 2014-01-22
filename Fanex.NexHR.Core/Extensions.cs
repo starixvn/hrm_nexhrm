@@ -168,13 +168,13 @@ namespace Fanex.NexHR.Core
                 ? string.Join(",", unavailDates.Select(d => d.ToString("dd MMM yyyy")))
                 : string.Empty;
 
-            var htmlAttribute = new 
+            var htmlAttribute = new
                 {
-                @class = "datepicker",
-                mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null",
-                maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null",
-                disabledDate = disabledDate
-            };
+                    @class = "datepicker",
+                    mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null",
+                    maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null",
+                    disabledDate = disabledDate
+                };
 
             var dateValue = date.HasValue ? date.Value.ToString(formatDate) : string.Empty;
 
@@ -184,8 +184,8 @@ namespace Fanex.NexHR.Core
         }
 
         public static MvcHtmlString DatePickerFor<TModel, TValue>(
-            this HtmlHelper<TModel> html, 
-            Expression<Func<TModel, TValue>> expression, 
+            this HtmlHelper<TModel> html,
+            Expression<Func<TModel, TValue>> expression,
             DateTime? minDate = null,
             DateTime? maxDate = null,
             string formatDate = "dd MMM, yyyy",
@@ -203,8 +203,8 @@ namespace Fanex.NexHR.Core
                 value = null;
             }
 
-			return html.DatePicker(ExpressionHelper.GetExpressionText(expression), value, minDate, maxDate, formatDate, unavailDates);
-		}
+            return html.DatePicker(ExpressionHelper.GetExpressionText(expression), value, minDate, maxDate, formatDate, unavailDates);
+        }
 
         public static DateTime GetMaxDate(this DateTime date)
         {
@@ -217,12 +217,12 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// year picker
+        /// Year picker.
         /// </summary>
-        /// <param name="htmlHelper">html Helper</param>
-        /// <param name="name">in name</param>
-        /// <param name="fromYear">default from year 2000</param>
-        /// <param name="currentYear">>default currentYear year 2000</param>
+        /// <param name="htmlHelper">HTML Helper.</param>
+        /// <param name="name">In name</param>
+        /// <param name="fromYear">Default from year 2000.</param>
+        /// <param name="currentYear">Default currentYear year 2000.</param>
         /// <returns></returns>
         public static MvcHtmlString YearPicker(this HtmlHelper htmlHelper, string name, int fromYear = 2000, int currentYear = 2000)
         {
@@ -330,7 +330,7 @@ namespace Fanex.NexHR.Core
 
                 HashSet<string> set = new HashSet<string>(
                    from value in source.Cast<object>()
-                   select Convert.ToString(value, CultureInfo.CurrentCulture), 
+                   select Convert.ToString(value, CultureInfo.CurrentCulture),
                    StringComparer.OrdinalIgnoreCase);
 
                 List<SelectListItem> list = new List<SelectListItem>();
@@ -447,7 +447,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// format a nullable datetime value to string (MMM dd, yyyy hh:mm)
+        /// Format a nullable datetime value to string (MMM dd, yyyy hh:mm).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -462,7 +462,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// format a datetime value to string (MMM dd, yyyy hh:mm)
+        /// Format a datetime value to string (MMM dd, yyyy hh:mm).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>

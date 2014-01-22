@@ -6,12 +6,14 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
 // </history>
+
 namespace Fanex.NexHR.Models.Request
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Request entity.
+    /// </summary>
     public class RequestEntity : EntityBase<long>
     {
         public Employee Requester { get; set; }
@@ -20,7 +22,7 @@ namespace Fanex.NexHR.Models.Request
 
         public RequestType Type { get; set; }
 
-        public RequestStatus Status { get; set; }        
+        public RequestStatus Status { get; set; }
 
         public Employee CreatedBy { get; set; }
 

@@ -9,10 +9,9 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Leave request.
+    /// </summary>
     public class Leave : RequestEntity
     {
     }
