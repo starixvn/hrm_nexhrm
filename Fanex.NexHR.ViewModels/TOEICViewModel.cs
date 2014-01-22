@@ -9,77 +9,77 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-	using System;
-	using System.ComponentModel.DataAnnotations;
-	using System.Diagnostics.CodeAnalysis;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
 
-	/// <summary>
-	/// TODO: Update summary.
-	/// </summary>
-	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-	[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-	public class TOEICViewModel
-	{
-		private DateTime? lrExamDate;
-		private DateTime? swExamDate;
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    public class TOEICViewModel
+    {
+        private DateTime? lrExamDate;
+        private DateTime? swExamDate;
 
-		[Required]
-		public string Employee { get; set; }
+        [Required]
+        public string Employee { get; set; }
 
-		[Required]
-		public int EmpId { get; set; }
+        [Required]
+        public int EmpId { get; set; }
 
         [Display(Name = "Expired Date")]
         public DateTime? InputDate { get; set; }
-		
-		[Display(Name = "L/R Exam Date")]
-		public DateTime? LRExamDate
-		{
-			get
-			{
-				if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
-				{
-					lrExamDate = null;
-				}
 
-				return lrExamDate;
-			}
+        [Display(Name = "L/R Exam Date")]
+        public DateTime? LRExamDate
+        {
+            get
+            {
+                if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
+                {
+                    lrExamDate = null;
+                }
 
-			set
-			{
-				lrExamDate = value;
-			}
-		}
+                return lrExamDate;
+            }
 
-		[Range(0, 495)]
-		public int? Listening { get; set; }
+            set
+            {
+                lrExamDate = value;
+            }
+        }
 
-		[Range(0, 495)]
-		public int? Reading { get; set; }
+        [Range(0, 495)]
+        public int? Listening { get; set; }
 
-		[Display(Name = "S/W Exam Date")]
-		public DateTime? SWExamDate
-		{
-			get
-			{
-				if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
-				{
-					swExamDate = null;
-				}
+        [Range(0, 495)]
+        public int? Reading { get; set; }
 
-				return swExamDate;
-			}
+        [Display(Name = "S/W Exam Date")]
+        public DateTime? SWExamDate
+        {
+            get
+            {
+                if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
+                {
+                    swExamDate = null;
+                }
 
-			set
-			{
-				swExamDate = value;
-			}
-		}
+                return swExamDate;
+            }
 
-		[Range(0, 200)]
-		public int? Speaking { get; set; }
+            set
+            {
+                swExamDate = value;
+            }
+        }
 
-		[Range(0, 200)]
-		public int? Writing { get; set; }
-	}
+        [Range(0, 200)]
+        public int? Speaking { get; set; }
+
+        [Range(0, 200)]
+        public int? Writing { get; set; }
+    }
 }

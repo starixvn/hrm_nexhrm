@@ -32,30 +32,30 @@ namespace Fanex.NexHR.Services
 		}
 
 		/// <summary>
-		/// Get TOEIC of specific employee
+		/// Get TOEIC of specific employee.
 		/// </summary>
-		/// <param name="empId">Id of employee</param>
-		/// <returns>TOEIC object</returns>
+		/// <param name="empId">Id of employee.</param>
+		/// <returns>TOEIC object.</returns>
 		public TOEIC GetById(int empId)
 		{
 			return this._toeicRepository.GetById(empId);
 		}
 
 		/// <summary>
-		/// Update new TOEIC score
+		/// Update new TOEIC score.
 		/// </summary>
-		/// <param name="model">TOEIC object</param>
-		/// <returns>Effected row</returns>
+		/// <param name="model">TOEIC object.</param>
+		/// <returns>Effected row.</returns>
 		public int Update(TOEIC model)
 		{
 			return this._toeicRepository.Update(model);
 		}
 
 		/// <summary>
-		/// Update new TOEIC score
+		/// Update new TOEIC score.
 		/// </summary>
-		/// <param name="model">TOEIC object</param>
-		/// <returns>Effected row</returns>
+		/// <param name="model">TOEIC object.</param>
+		/// <returns>Effected row.</returns>
 		public int NewUpdate(TOEIC model)
 		{
 			return this._toeicRepository.NewUpdate(model);

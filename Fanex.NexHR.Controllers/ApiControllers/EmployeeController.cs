@@ -69,15 +69,15 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _employeeService.GetDisableRequestDate(employeeId, new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1), new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1));
         }
 
-		public IList<Employee> GetTOEIC(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
-		{
-			if (groupId == -1)
-			{
-				groupId = null;
-			}
+        public IList<Employee> GetTOEIC(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        {
+            if (groupId == -1)
+            {
+                groupId = null;
+            }
 
-			IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
-			return employees;
-		}
+            IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
+            return employees;
+        }
     }
 }

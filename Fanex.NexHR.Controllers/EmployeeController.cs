@@ -35,11 +35,11 @@ namespace Fanex.NexHR.Controllers
         private readonly ILookupDataService _lookupDataService;
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
-		private readonly ITOEICService _toeicService;
+        private readonly ITOEICService _toeicService;
 
         public EmployeeController()
             : this(null, null, null, null, null)
-        { 
+        {
         }
 
         public EmployeeController(
@@ -47,13 +47,13 @@ namespace Fanex.NexHR.Controllers
             ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-			ITOEICService toeicService = null)
+            ITOEICService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
-			_toeicService = toeicService ?? new TOEICService();
+            _toeicService = toeicService ?? new TOEICService();
         }
 
         public ActionResult Index()
@@ -122,8 +122,8 @@ namespace Fanex.NexHR.Controllers
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
             }
 
-			// TOEIC score
-			ViewBag.TOEIC = _toeicService.GetById(id);
+            // TOEIC score
+            ViewBag.TOEIC = _toeicService.GetById(id);
 
             return View(model);
         }
@@ -215,7 +215,7 @@ namespace Fanex.NexHR.Controllers
                 model.LeaderGroups = leaderGroups;
 
                 // get TOIEC score
-				model.TOEICScore = _toeicService.GetById(id);
+                model.TOEICScore = _toeicService.GetById(id);
 
                 ViewBag.Groups = _teamService.GetAll();
                 ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
@@ -230,25 +230,25 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(Employee model)
         {
             model.Modifier = this.CurrentUser;
-			ViewBag.Groups = _teamService.GetAll();
-			ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
 
             if (ModelState.IsValid)
             {
-				if (model.SubGroupArray != null && model.SubGroupArray.Contains(model.Team.Id.ToString()))
-				{
-					model.SubGroupArray = model.SubGroupArray.Where(i => i != model.Team.Id.ToString()).ToArray();
-				}
+                if (model.SubGroupArray != null && model.SubGroupArray.Contains(model.Team.Id.ToString()))
+                {
+                    model.SubGroupArray = model.SubGroupArray.Where(i => i != model.Team.Id.ToString()).ToArray();
+                }
 
-				var result = _employeeService.Update(model);
-				ViewBag.Updated = result;
+                var result = _employeeService.Update(model);
+                ViewBag.Updated = result;
 
-				// update current user?
-				if (result && this.CurrentUser.Id == model.Id)
-				{
-					var currentUser = _employeeService.Get(model.Id);
-					HttpContext.Session["CurrentUser"] = currentUser;
-				}
+                // update current user?
+                if (result && this.CurrentUser.Id == model.Id)
+                {
+                    var currentUser = _employeeService.Get(model.Id);
+                    HttpContext.Session["CurrentUser"] = currentUser;
+                }
             }
             else
             {
@@ -293,7 +293,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult MonthSchedule(int id =-1)
+        public ActionResult MonthSchedule(int id = -1)
         {
             ViewBag.Id = id;
             ViewBag.Employee = _employeeService.Get(id);
@@ -426,7 +426,7 @@ namespace Fanex.NexHR.Controllers
             TeamViewModel model = null;
 
             // create new
-            if (teamId == -1) 
+            if (teamId == -1)
             {
                 model = new TeamViewModel
                 {
@@ -459,169 +459,169 @@ namespace Fanex.NexHR.Controllers
             return PartialView(model);
         }
 
-		#region TOEIC
+        #region TOEIC
 
-		[HttpGet]
-		public ActionResult TOEICManagement(string jobTitleId = "")
-		{
-			ViewBag.JobTitleId = jobTitleId;
-			ViewBag.Groups = _teamService.GetAll();
+        [HttpGet]
+        public ActionResult TOEICManagement(string jobTitleId = "")
+        {
+            ViewBag.JobTitleId = jobTitleId;
+            ViewBag.Groups = _teamService.GetAll();
 
-			var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
-			ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
-			{
-				Text = j.Name,
-				Value = j.Id.ToString(),
-				Selected = j.Id.ToString() == jobTitleId
-			}).ToList();
+            var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+            ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
+            {
+                Text = j.Name,
+                Value = j.Id.ToString(),
+                Selected = j.Id.ToString() == jobTitleId
+            }).ToList();
 
-			return View();
-		}
+            return View();
+        }
 
-		[HttpGet]
-		[Authorize(Roles = "HR")]
-		public ActionResult UpdateFullTOEIC(int? id, string name)
-		{
-			TOEIC toeic = null;
-			if (id.HasValue && id.Value > 0)
-			{
-				toeic = _toeicService.GetById(id.Value);
-				toeic = toeic ?? new TOEIC { EmpId = id.Value };
-			}
+        [HttpGet]
+        [Authorize(Roles = "HR")]
+        public ActionResult UpdateFullTOEIC(int? id, string name)
+        {
+            TOEIC toeic = null;
+            if (id.HasValue && id.Value > 0)
+            {
+                toeic = _toeicService.GetById(id.Value);
+                toeic = toeic ?? new TOEIC { EmpId = id.Value };
+            }
 
-			ViewBag.EmployeeName = name;
-			return PartialView(toeic);
-		}
+            ViewBag.EmployeeName = name;
+            return PartialView(toeic);
+        }
 
-		[HttpPost]
-		[Authorize(Roles = "HR")]
-		public ActionResult UpdateFullTOEIC(TOEIC model)
-		{
-			int effectedRow = -1;
-			if (ModelState.IsValid)
-			{
-				ValidateTOEIC(model);
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public ActionResult UpdateFullTOEIC(TOEIC model)
+        {
+            int effectedRow = -1;
+            if (ModelState.IsValid)
+            {
+                ValidateTOEIC(model);
 
-				if (ModelState.IsValid)
-				{
-					model.CreatedBy = model.ModifiedBy = CurrentUser.Id;
-					model.CreatedDate = model.ModifiedDate = DateTime.Now;
+                if (ModelState.IsValid)
+                {
+                    model.CreatedBy = model.ModifiedBy = CurrentUser.Id;
+                    model.CreatedDate = model.ModifiedDate = DateTime.Now;
 
-					effectedRow = _toeicService.Update(model);
-				}
-			}
+                    effectedRow = _toeicService.Update(model);
+                }
+            }
 
-			return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
-		}
+            return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+        }
 
-		[HttpGet]
-		[Authorize(Roles = "HR")]
-		public ActionResult UpdateTOEIC()
-		{
-			return PartialView(new TOEICViewModel());
-		}
+        [HttpGet]
+        [Authorize(Roles = "HR")]
+        public ActionResult UpdateTOEIC()
+        {
+            return PartialView(new TOEICViewModel());
+        }
 
-		[HttpPost]
-		[Authorize(Roles = "HR")]
-		public ActionResult UpdateTOEIC(TOEICViewModel model)
-		{
-			int effectedRow = -1;
-			if (ModelState.IsValid)
-			{
-				// convert to TOEIC
-				DateTime currentDate = DateTime.Now;
-				TOEIC toeic = new TOEIC
-				{
-					EmpId = model.EmpId,
-					InputDate = model.InputDate,
-					LRExamDate = model.LRExamDate,
-					Listening = model.Listening,
-					Reading = model.Reading,
-					SWExamDate = model.SWExamDate,
-					Speaking = model.Speaking,
-					Writing = model.Writing,
-					CreatedBy = CurrentUser.Id,
-					CreatedDate = currentDate,
-					ModifiedBy = CurrentUser.Id,
-					ModifiedDate = currentDate
-				};
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public ActionResult UpdateTOEIC(TOEICViewModel model)
+        {
+            int effectedRow = -1;
+            if (ModelState.IsValid)
+            {
+                // convert to TOEIC
+                DateTime currentDate = DateTime.Now;
+                TOEIC toeic = new TOEIC
+                {
+                    EmpId = model.EmpId,
+                    InputDate = model.InputDate,
+                    LRExamDate = model.LRExamDate,
+                    Listening = model.Listening,
+                    Reading = model.Reading,
+                    SWExamDate = model.SWExamDate,
+                    Speaking = model.Speaking,
+                    Writing = model.Writing,
+                    CreatedBy = CurrentUser.Id,
+                    CreatedDate = currentDate,
+                    ModifiedBy = CurrentUser.Id,
+                    ModifiedDate = currentDate
+                };
 
-				ValidateTOEIC(toeic);
-				
-				if (ModelState.IsValid)
-				{
-					effectedRow = _toeicService.NewUpdate(toeic);
-				}
-			}
+                ValidateTOEIC(toeic);
 
-			return Json(new { code = effectedRow, error =  ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
-		}
+                if (ModelState.IsValid)
+                {
+                    effectedRow = _toeicService.NewUpdate(toeic);
+                }
+            }
 
-		private void ValidateTOEIC(TOEIC model)
-		{
-			if (model.EmpId <= 0)
-			{
-				ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
-			}
+            return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+        }
 
-			// check date
-			DateTime currentDate = DateTime.Today;
+        private void ValidateTOEIC(TOEIC model)
+        {
+            if (model.EmpId <= 0)
+            {
+                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
+            }
+
+            // check date
+            DateTime currentDate = DateTime.Today;
             //if (model.InputDate.HasValue && model.InputDate.Value > currentDate)
             //{
             //    ModelState.AddModelError(string.Empty,
             //        string.Format(Resources.Messages.InvalidTOEICInputDate, currentDate.ToString("dd MMM, yyyy")));
             //}
-			if (model.LRExamDate.HasValue && model.LRExamDate.Value > currentDate)
-			{
-				ModelState.AddModelError(string.Empty,
-					string.Format(Resources.Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
-			}
-			if (model.SWExamDate.HasValue && model.SWExamDate.Value > currentDate)
-			{
-				ModelState.AddModelError(string.Empty,
-					string.Format(Resources.Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
-			}
-			// check L/R/S/W
-			if ((!model.Listening.HasValue || model.Listening == 0) &&
-				(!model.Reading.HasValue || model.Reading == 0) &&
-				(!model.Speaking.HasValue || model.Speaking == 0) &&
-				(!model.Writing.HasValue || model.Writing == 0))
-			{
+            if (model.LRExamDate.HasValue && model.LRExamDate.Value > currentDate)
+            {
+                ModelState.AddModelError(string.Empty,
+                    string.Format(Resources.Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
+            }
+            if (model.SWExamDate.HasValue && model.SWExamDate.Value > currentDate)
+            {
+                ModelState.AddModelError(string.Empty,
+                    string.Format(Resources.Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
+            }
+            // check L/R/S/W
+            if ((!model.Listening.HasValue || model.Listening == 0) &&
+                (!model.Reading.HasValue || model.Reading == 0) &&
+                (!model.Speaking.HasValue || model.Speaking == 0) &&
+                (!model.Writing.HasValue || model.Writing == 0))
+            {
                 if (model.LRExamDate.HasValue || model.SWExamDate.HasValue || !model.InputDate.HasValue)
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRAndSW);
                 }
-			}
-			else
-			{
-				if (!ValidateNumberPair(model.Listening, model.Reading))
-				{
-					ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRPair);
-				}
-				if (!ValidateNumberPair(model.Speaking, model.Writing))
-				{
-					ModelState.AddModelError(string.Empty, Resources.Messages.EmptySWPair);
-				}
-			}
-		}
+            }
+            else
+            {
+                if (!ValidateNumberPair(model.Listening, model.Reading))
+                {
+                    ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRPair);
+                }
+                if (!ValidateNumberPair(model.Speaking, model.Writing))
+                {
+                    ModelState.AddModelError(string.Empty, Resources.Messages.EmptySWPair);
+                }
+            }
+        }
 
-		private bool ValidateNumberPair(int? number1, int? number2)
-		{
-			bool isValid = false;
-			if ((number1.HasValue && number1.Value > 0) &&
-				(number2.HasValue && number2.Value > 0))
-			{
-				isValid = true;
-			}
-			else if ((!number1.HasValue || number1.Value == 0) &&
-				(!number2.HasValue || number2.Value == 0))
-			{
-				isValid = true;
-			}
+        private bool ValidateNumberPair(int? number1, int? number2)
+        {
+            bool isValid = false;
+            if ((number1.HasValue && number1.Value > 0) &&
+                (number2.HasValue && number2.Value > 0))
+            {
+                isValid = true;
+            }
+            else if ((!number1.HasValue || number1.Value == 0) &&
+                (!number2.HasValue || number2.Value == 0))
+            {
+                isValid = true;
+            }
 
-			return isValid;
-		}
+            return isValid;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

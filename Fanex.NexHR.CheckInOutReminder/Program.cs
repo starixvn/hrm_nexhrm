@@ -8,19 +8,20 @@
 //   <change who="Anders.Le" date="2012.8.27">Cracking code and add fanex.logging</change>
 //   <change who="Anders.Le" date="2012.8.27">Add function: don't send mail to user in IgnoreList</change>
 // </history>
+
 namespace Fanex.NexHR.CheckInOutReminder
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
+    using Fanex.Data.Configuration;
     using Fanex.Logging;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
+    using RazorEngine;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
     public class Program
     {
         private static readonly EmailService EmailService = new EmailService();
@@ -36,8 +37,8 @@ namespace Fanex.NexHR.CheckInOutReminder
         {
             try
             {
-                Fanex.Logging.LogService.Info("Start " + DateTime.Now.ToString());
-                Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
+                LogService.Info("Start " + DateTime.Now.ToString());
+                DbSettingProviderManager.Current.Start();
 
                 // Get employee who forgot check in or check out
                 var employeeList = EmployeeRepository.GetMissingCheckInOutEmployees();
@@ -57,11 +58,7 @@ namespace Fanex.NexHR.CheckInOutReminder
                             string emailContent;
                             CreateEmailBody(bodyTemplate, item, out data, out emailContent);
 
-                            string emailSubject = string.Join(
-                                null,
-                               SenderName,
-                                " - Forgot ",
-                                data.Type);
+                            string emailSubject = string.Join(null, SenderName, " - Forgot ", data.Type);
 
                             EmailService.SendEmail(
                                 SenderEmail,
@@ -128,7 +125,7 @@ namespace Fanex.NexHR.CheckInOutReminder
                 Remark = item.Type == 1 ? "Forgot Check In" : "Forgot Check Out"
             };
 
-            emailContent = RazorEngine.Razor.Parse(bodyTemplate, data);
+            emailContent = Razor.Parse(bodyTemplate, data);
         }
     }
 }

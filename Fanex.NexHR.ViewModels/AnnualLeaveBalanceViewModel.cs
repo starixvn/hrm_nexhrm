@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Annual leave balance view model.
+    /// </summary>
     public class AnnualLeaveBalanceViewModel
     {
         public int EmployeeId { get; set; }

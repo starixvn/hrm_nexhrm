@@ -115,7 +115,7 @@ namespace Fanex.NexHR.Controllers.Request
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
-                HalfDayOff = (request.TotalDays == (decimal)0.5)
+                HalfDayOff = request.TotalDays == (decimal)0.5
             };
 
             ViewBag.LeaveTypes = _leaveTypeService.GetAll();

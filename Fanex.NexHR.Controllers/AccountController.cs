@@ -25,11 +25,11 @@ namespace Fanex.NexHR.Controllers
         private readonly ILookupDataService _lookupDataService;
 
         private readonly IEmployeeService _employeeService;
-		private readonly ITOEICService _toeicService;
+        private readonly ITOEICService _toeicService;
 
         public AccountController()
             : this(null, null, null, null, null)
-        { 
+        {
         }
 
         public AccountController(
@@ -37,26 +37,26 @@ namespace Fanex.NexHR.Controllers
             ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-			ITOEICService toeicService = null)
+            ITOEICService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
-			_toeicService = toeicService ?? new TOEICService();
+            _toeicService = toeicService ?? new TOEICService();
         }
 
         public ActionResult Index()
         {
             var model = this.CurrentUser;
-			int empId = this.CurrentUser.Id;
+            int empId = this.CurrentUser.Id;
 
             ViewBag.JobTitle = model.JobTitleId == null
             ? Resources.Labels.Unknown
             : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
-			ViewBag.Working = _employeeService.GetMySpace(empId);
-			var workingCalendar = _employeeService.GetEmployeeShift(empId);
+            ViewBag.Working = _employeeService.GetMySpace(empId);
+            var workingCalendar = _employeeService.GetEmployeeShift(empId);
             var shifts = _shiftService.GetAll();
 
             ViewBag.Sun = workingCalendar.SunShift == null
@@ -87,7 +87,7 @@ namespace Fanex.NexHR.Controllers
                 ? "OFF"
                 : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
 
-			ViewBag.TOEIC = _toeicService.GetById(empId);
+            ViewBag.TOEIC = _toeicService.GetById(empId);
             return View(model);
         }
     }

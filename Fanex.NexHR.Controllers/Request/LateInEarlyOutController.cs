@@ -73,21 +73,21 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(LateInEarlyOutRequestViewModel model)
         {
-			if (model.EmployeeId <= 0)
-			{
-				ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
-			}
-			else
-			{
-				model.By = this.CurrentUser.Id;
-				if (string.Compare(model.Employee, model.DisplayName, true) != 0)
-				{
-					model.DisplayName = model.Employee;
-				}
+            if (model.EmployeeId <= 0)
+            {
+                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
+            }
+            else
+            {
+                model.By = this.CurrentUser.Id;
+                if (string.Compare(model.Employee, model.DisplayName, true) != 0)
+                {
+                    model.DisplayName = model.Employee;
+                }
 
-				ViewBag.Requested = _requestService.LateInEarlyOut(ModelState, model);
-				ViewBag.Year = model.ForDate.Year;
-			}
+                ViewBag.Requested = _requestService.LateInEarlyOut(ModelState, model);
+                ViewBag.Year = model.ForDate.Year;
+            }
 
             return View(model);
         }

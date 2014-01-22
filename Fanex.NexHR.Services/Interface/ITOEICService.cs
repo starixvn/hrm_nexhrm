@@ -20,7 +20,9 @@ namespace Fanex.NexHR.Services.Interface
 	public interface ITOEICService
 	{
 		TOEIC GetById(int empId);
+
 		int Update(TOEIC model);
+
 		int NewUpdate(TOEIC model);
 	}
 }

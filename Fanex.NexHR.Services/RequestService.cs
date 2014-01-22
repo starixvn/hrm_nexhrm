@@ -10,22 +10,20 @@
 namespace Fanex.NexHR.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.Mvc;
-    using Fanex.Caching;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
-    using System.Collections.Generic;
-    using Fanex.NexHR.Models;
 
     public class RequestService : IRequestService
     {
@@ -327,8 +325,11 @@ namespace Fanex.NexHR.Services
                             if (model.TotalDays > 1)
                             {
                                 subject += " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate();
-                                forDate = string.Format(MailContentLeave, model.FromDate.ToDateMonthYearFormatedDate(), 
-                                    model.ToDate.ToDateMonthYearFormatedDate(), model.TotalDays);
+                                forDate = string.Format(
+                                    MailContentLeave, 
+                                    model.FromDate.ToDateMonthYearFormatedDate(), 
+                                    model.ToDate.ToDateMonthYearFormatedDate(), 
+                                    model.TotalDays);
                             }
                             else
                             {
@@ -339,8 +340,11 @@ namespace Fanex.NexHR.Services
                                 }
                                 else
                                 {
-                                    forDate = string.Format(MailContentLeaveHalfDay, model.FromDate.ToDateMonthYearFormatedDate(), 
-                                        model.FromDate.ToString("HH:mm"), model.ToDate.ToString("HH:mm"));
+                                    forDate = string.Format(
+                                        MailContentLeaveHalfDay, 
+                                        model.FromDate.ToDateMonthYearFormatedDate(), 
+                                        model.FromDate.ToString("HH:mm"), 
+                                        model.ToDate.ToString("HH:mm"));
                                 }
                             }
 
@@ -612,8 +616,11 @@ namespace Fanex.NexHR.Services
                         if (model.TotalDays > 1)
                         {
                             subject += " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate();
-                            forDate = string.Format(MailContentLeave, model.FromDate.ToDateMonthYearFormatedDate(),
-                                model.ToDate.ToDateMonthYearFormatedDate(), model.TotalDays);
+                            forDate = string.Format(
+                                MailContentLeave, 
+                                model.FromDate.ToDateMonthYearFormatedDate(),
+                                model.ToDate.ToDateMonthYearFormatedDate(), 
+                                model.TotalDays);
                         }
                         else
                         {
@@ -624,8 +631,11 @@ namespace Fanex.NexHR.Services
                             }
                             else
                             {
-                                forDate = string.Format(MailContentLeaveHalfDay, model.FromDate.ToDateMonthYearFormatedDate(),
-                                    model.FromDate.ToString("HH:mm"), model.ToDate.ToString("HH:mm"));
+                                forDate = string.Format(
+                                    MailContentLeaveHalfDay, 
+                                    model.FromDate.ToDateMonthYearFormatedDate(),
+                                    model.FromDate.ToString("HH:mm"), 
+                                    model.ToDate.ToString("HH:mm"));
                             }
                         }
 
@@ -876,33 +886,45 @@ namespace Fanex.NexHR.Services
                 switch (request.RequestType)
                 {
                     case 1:
-                        var subjectCheckIn = string.Format(Resources.Messages.ApprovalNotificationCheckInSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectCheckIn = string.Format(
+                            Resources.Messages.ApprovalNotificationCheckInSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckIn, sendCc);
                         break;
                     case 2:
-                        var subjectCheckOut = string.Format(Resources.Messages.ApprovalNotificationCheckOutSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectCheckOut = string.Format(
+                            Resources.Messages.ApprovalNotificationCheckOutSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckOut, sendCc);
                         break;
                     case 3:
-                        var subjectLateIn = string.Format(Resources.Messages.ApprovalNotificationLateInSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectLateIn = string.Format(
+                            Resources.Messages.ApprovalNotificationLateInSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectLateIn, sendCc, isLateIn: true);
                         break;
                     case 4:
-                        var subjectEarlyOut = string.Format(Resources.Messages.ApprovalNotificationEarlyOutSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectEarlyOut = string.Format(
+                            Resources.Messages.ApprovalNotificationEarlyOutSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectEarlyOut, sendCc, isLateIn: false);
                         break;
                     case 5:
-                        var subjectChangeShift = string.Format(Resources.Messages.ApprovalNotificationChangeShiftSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectChangeShift = string.Format(
+                            Resources.Messages.ApprovalNotificationChangeShiftSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         ChangeShiftRelatedMail(employee, processUser, request, subjectChangeShift, sendCc);
                         break;
                     case 6:
-                        var subjectLeave = string.Format(Resources.Messages.ApprovalNotificationLeaveSubject, 
-                            employee.NickName, processUser.NickName);
+                        var subjectLeave = string.Format(
+                            Resources.Messages.ApprovalNotificationLeaveSubject, 
+                            employee.NickName, 
+                            processUser.NickName);
                         LeaveRelatedMail(employee, processUser, request, subjectLeave, sendCc);
                         break;
                 }
@@ -1003,8 +1025,11 @@ namespace Fanex.NexHR.Services
             var forDate = string.Empty;
             if (request.TotalDays > 1)
             {
-                forDate = string.Format(MailContentLeave, request.FromDate.ToDateMonthYearFormatedDate(),
-                    request.ToDate.ToDateMonthYearFormatedDate(), request.TotalDays);
+                forDate = string.Format(
+                    MailContentLeave, 
+                    request.FromDate.ToDateMonthYearFormatedDate(),
+                    request.ToDate.ToDateMonthYearFormatedDate(), 
+                    request.TotalDays);
             }
             else
             {
@@ -1031,8 +1056,14 @@ namespace Fanex.NexHR.Services
             };
 
             //body = RazorEngine.Razor.Parse(body, bodyContent);
-            body = string.Format(body, bodyContent.User, bodyContent.Employee, bodyContent.Request, 
-                bodyContent.ForDate, bodyContent.LeaveType, bodyContent.Remark);
+            body = string.Format(
+                body, 
+                bodyContent.User, 
+                bodyContent.Employee, 
+                bodyContent.Request, 
+                bodyContent.ForDate, 
+                bodyContent.LeaveType, 
+                bodyContent.Remark);
 
             this._emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],

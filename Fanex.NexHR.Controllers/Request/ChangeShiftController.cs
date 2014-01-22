@@ -24,7 +24,7 @@ namespace Fanex.NexHR.Controllers.Request
         #region Ctor
         public ChangeShiftController()
             : base(null, null, null, null)
-        { 
+        {
         }
         #endregion
 
@@ -75,22 +75,22 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(ChangeShiftViewModel model)
         {
-			ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = _shiftService.GetAll();
 
-			if (model.EmployeeId <= 0)
-			{
-				ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
-			}
-			else
-			{
-				model.By = this.CurrentUser.Id;
-				if (string.Compare(model.Employee, model.DisplayName, true) != 0)
-				{
-					model.DisplayName = model.Employee;
-				}
+            if (model.EmployeeId <= 0)
+            {
+                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
+            }
+            else
+            {
+                model.By = this.CurrentUser.Id;
+                if (string.Compare(model.Employee, model.DisplayName, true) != 0)
+                {
+                    model.DisplayName = model.Employee;
+                }
 
-				ViewBag.Requested = _requestService.ChangeShift(ModelState, model);
-			}
+                ViewBag.Requested = _requestService.ChangeShift(ModelState, model);
+            }
 
             return View(model);
         }

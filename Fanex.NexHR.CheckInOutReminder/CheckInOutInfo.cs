@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.CheckInOutReminder
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Check in/out information.
+    /// </summary>
     [Serializable]
     public class CheckInOutInfo
     {
