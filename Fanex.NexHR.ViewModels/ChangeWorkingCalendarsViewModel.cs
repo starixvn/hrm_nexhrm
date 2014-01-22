@@ -13,6 +13,9 @@ namespace Fanex.NexHR.ViewModels
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Resources;
 
+    /// <summary>
+    /// Change working calendars view model.
+    /// </summary>
     public class ChangeWorkingCalendarsViewModel
     {
         public ChangeWorkingCalendarsViewModel() 

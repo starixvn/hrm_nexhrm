@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Working schedule model.
+    /// </summary>
     public class WorkingScheduleModel
     {
         public string Title { get; set; }

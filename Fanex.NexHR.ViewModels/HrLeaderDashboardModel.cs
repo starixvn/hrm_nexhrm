@@ -9,6 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
+    /// <summary>
+    /// HR leader dashboard model.
+    /// </summary>
     public class HrLeaderDashboardModel
     {
         public int TotalPendingCheckInOutRequest { get; set; }

@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Memo view model.
+    /// </summary>
     public class MemoViewModel
     {
         public string Content { get; set; }

@@ -9,11 +9,11 @@
 
 namespace Fanex.NexHR.Site.Tests.Controllers
 {
-    using System.Diagnostics.CodeAnalysis;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Employee controller test.
+    /// </summary>
     [TestClass]
     public class EmployeeControllerTest
     {

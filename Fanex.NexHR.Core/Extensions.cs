@@ -213,7 +213,7 @@ namespace Fanex.NexHR.Core
         /// Year picker.
         /// </summary>
         /// <param name="htmlHelper">HTML Helper.</param>
-        /// <param name="name">In name</param>
+        /// <param name="name">In name.</param>
         /// <param name="fromYear">Default from year 2000.</param>
         /// <param name="currentYear">Default currentYear year 2000.</param>
         /// <returns></returns>
@@ -394,7 +394,7 @@ namespace Fanex.NexHR.Core
 
         #region Business
         /// <summary>
-        /// convert status to display string
+        /// Convert status to display string.
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
@@ -414,7 +414,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// convert request type to display string
+        /// Convert request type to display string.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -440,7 +440,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable datetime value to string (MMM dd, yyyy hh:mm).
+        /// Format a nullable date value to string (MMM dd, yyyy hh:mm).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -455,7 +455,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a datetime value to string (MMM dd, yyyy hh:mm).
+        /// Format a date value to string (MMM dd, yyyy hh:mm).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -486,7 +486,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable datetime value to string (dd-MMM).
+        /// Format a nullable date value to string (dd-MMM).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -501,7 +501,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Foarmat da datatime value to string (dd-MMM).
+        /// Format a date value to string (dd-MMM).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -511,7 +511,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable datetime value to string (MMM-yyyy).
+        /// Format a nullable date value to string (MMM-yyyy).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -526,7 +526,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Foarmat da datatime value to string (MMM-yyyy).
+        /// Format a date value to string (MMM-yyyy).
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>

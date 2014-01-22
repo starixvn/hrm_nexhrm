@@ -116,7 +116,7 @@ namespace Fanex.NexHR.Services.Interface
         }
 
         /// <summary>
-        /// Get lookup data from hash table which is cached in memory
+        /// Get lookup data from hash table which is cached in memory.
         /// </summary>
         /// <param name="lookUpCode">Lookup code.</param>
         /// <returns>List lookup data.</returns>

@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Working calendars view model.
+    /// </summary>
     public class WorkingCalendarsViewModel
     {
         public int EmpId { get; set; }

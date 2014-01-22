@@ -11,11 +11,11 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1404:CodeAnalysisSuppressionMustHaveJustification", Justification = "Reviewed.")]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    /// <summary>
+    /// Team view model.
+    /// </summary>
     public class TeamViewModel
     {
         public int Id { get; set; }

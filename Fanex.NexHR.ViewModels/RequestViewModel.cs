@@ -11,13 +11,14 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Request view model.
+    /// </summary>
     public class RequestViewModel
     {
         public RequestViewModel()

@@ -7,6 +7,7 @@
 //   <change who="Anders.Le" date="2012.5.23">Created</change>
 //   <change who="Anders.Le" date="2012.5.23">Modify Get function</change>
 // </history>
+
 namespace Fanex.NexHR.Repositories
 {
     using System;
@@ -859,7 +860,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request by date.
         /// </summary>
-        public IList<CheckInOut> GetCheckInOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_CheckinOutType"))
@@ -904,9 +912,16 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get late in ealry out request by date.
+        /// Get late in early out request by date.
         /// </summary>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType"))
@@ -953,9 +968,16 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get change shift request by date
+        /// Get change shift request by date.
         /// </summary>
-        public IList<ChangingShift> GetChangeShiftRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_ChangeShiftType"))

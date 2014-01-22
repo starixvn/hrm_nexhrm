@@ -11,13 +11,14 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Change shift controller.
+    /// </summary>
     [Authorize]
     public class ChangeShiftController : RequestController
     {

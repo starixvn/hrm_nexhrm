@@ -11,9 +11,10 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Process check in/out view model.
+    /// </summary>
     public class ProcessCheckInOutViewModel : BaseProcessModel
     {
         [DataType(DataType.Date)]

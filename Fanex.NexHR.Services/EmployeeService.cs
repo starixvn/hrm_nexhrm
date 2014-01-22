@@ -296,7 +296,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
 

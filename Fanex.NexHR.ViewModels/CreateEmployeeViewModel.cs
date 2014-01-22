@@ -11,6 +11,9 @@ namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Create employee view model.
+    /// </summary>
     public class CreateEmployeeViewModel
     {
         [Required]

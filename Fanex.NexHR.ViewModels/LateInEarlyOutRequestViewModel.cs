@@ -12,6 +12,9 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Late in early out request view model.
+    /// </summary>
     public class LateInEarlyOutRequestViewModel : BaseRequestModel
     {
         [Required]

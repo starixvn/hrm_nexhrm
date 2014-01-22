@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Models
 {
     /// <summary>
-    /// Department.
+    /// Department model.
     /// </summary>
     public class Department : EntityBase<int>
     {

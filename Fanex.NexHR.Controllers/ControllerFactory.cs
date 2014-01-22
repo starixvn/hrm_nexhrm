@@ -15,6 +15,9 @@ namespace Fanex.NexHR.Controllers
     using Ninject;
     using Ninject.Modules;
 
+    /// <summary>
+    /// Controller factory.
+    /// </summary>
     public class ControllerFactory : DefaultControllerFactory
     {
         private IKernel _kernel = new StandardKernel(new FanexModule());

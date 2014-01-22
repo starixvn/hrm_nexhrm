@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Leave summary view model.
+    /// </summary>
     public class LeaveSummaryViewModel
     {
         public int Year { get; set; }

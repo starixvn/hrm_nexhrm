@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Time sheet view model.
+    /// </summary>
     public class TimesheetViewModel
     {
         public int Year { get; set; }

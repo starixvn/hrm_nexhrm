@@ -10,9 +10,10 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Missing check in/out model.
+    /// </summary>
     public class MissingCheckInOutModel
     {
         public long Id { get; set; }

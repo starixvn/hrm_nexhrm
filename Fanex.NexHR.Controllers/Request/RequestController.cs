@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Request;
@@ -19,9 +18,9 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
+    /// <summary>
+    /// Request controller.
+    /// </summary>
     [Authorize]
     public class RequestController : BaseController
     {

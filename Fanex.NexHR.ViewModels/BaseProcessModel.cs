@@ -12,6 +12,9 @@ namespace Fanex.NexHR.ViewModels
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Models;
 
+    /// <summary>
+    /// Base process model.
+    /// </summary>
     public class BaseProcessModel
     {
         [Required]

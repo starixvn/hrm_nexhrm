@@ -11,6 +11,9 @@ namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Annual leave balance multi view model.
+    /// </summary>
     public class AnnualLeaveBalanceMultiViewModel : BaseAnnualLeaveBalanceViewModel
     {
         [Required]

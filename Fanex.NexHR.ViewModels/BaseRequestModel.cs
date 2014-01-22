@@ -11,6 +11,9 @@ namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Base request model.
+    /// </summary>
     public class BaseRequestModel
     {
         public long Id { get; set; }

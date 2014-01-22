@@ -12,6 +12,9 @@ namespace Fanex.NexHR.Controllers.Context
     using System.Configuration;
     using Fanex.Common;
 
+    /// <summary>
+    /// Application setting.
+    /// </summary>
     public class AppSetting
     {
         private static bool _isShowCloseBalance = true;

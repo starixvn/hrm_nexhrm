@@ -13,6 +13,9 @@ namespace Fanex.NexHR.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Change shift view model.
+    /// </summary>
     public class ChangeShiftViewModel : BaseRequestModel, IValidatableObject
     {
         [Required]

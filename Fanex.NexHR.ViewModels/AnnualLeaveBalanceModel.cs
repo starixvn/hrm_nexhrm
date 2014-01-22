@@ -11,6 +11,9 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
 
+    /// <summary>
+    /// Annual leave balance model.
+    /// </summary>
     public class AnnualLeaveBalanceModel : BaseAnnualLeaveBalanceViewModel
     {
         public long Id { get; set; }

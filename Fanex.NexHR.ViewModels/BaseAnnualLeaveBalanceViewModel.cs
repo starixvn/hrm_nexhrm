@@ -14,6 +14,9 @@ namespace Fanex.NexHR.ViewModels
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Resources;
 
+    /// <summary>
+    /// Base annual leave balance view model.
+    /// </summary>
     public class BaseAnnualLeaveBalanceViewModel : IValidatableObject
     {
         [Required]

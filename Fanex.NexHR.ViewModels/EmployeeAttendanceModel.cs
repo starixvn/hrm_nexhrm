@@ -11,6 +11,9 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
 
+    /// <summary>
+    /// Employee attendance model.
+    /// </summary>
     public class EmployeeAttendanceModel
     {
         public long Id { get; set; }

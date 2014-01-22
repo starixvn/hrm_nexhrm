@@ -726,7 +726,7 @@ namespace Fanex.NexHR.Services
         }
         
         /// <summary>
-        /// Approve, disapprove or reject a request, notification email will be sent also
+        /// Approve, disapprove or reject a request, notification email will be sent also.
         /// </summary>
         /// <param name="command">Action on this request.</param>
         /// <param name="id">Request id.</param>

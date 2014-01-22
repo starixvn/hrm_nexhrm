@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Search employee model.
+    /// </summary>
     public class SearchEmployeeModel
     {
         public string Query { get; set; }
