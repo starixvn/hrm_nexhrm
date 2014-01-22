@@ -212,7 +212,14 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.UpdateShift(id, date, shift, modifiedBy, modifiedDate);
         }
 
-        public IList<CheckInOut> GetCheckInOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
@@ -236,7 +243,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
 
@@ -272,7 +286,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<CheckInOut> GetCheckInOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
@@ -327,7 +348,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<RequestEntity> GetAllRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<RequestEntity> GetAllRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 

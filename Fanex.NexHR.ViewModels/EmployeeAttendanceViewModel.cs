@@ -12,6 +12,9 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Employee attendance view model.
+    /// </summary>
     public class EmployeeAttendanceViewModel
     {
         [DataType(DataType.Date)]

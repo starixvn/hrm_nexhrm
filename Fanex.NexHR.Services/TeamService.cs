@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Caching;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -24,14 +23,11 @@ namespace Fanex.NexHR.Services
     /// </summary>
     public class TeamService : ITeamService
     {
-        private const string CacheKey_AllTeams = "CacheKey_AllTeams";
         private readonly ITeamRepository _teamRepository;
-        private ICache _cacheManager;
 
         public TeamService(ITeamRepository teamRespository = null)
         {
             this._teamRepository = teamRespository ?? new TeamRepository();
-            this._cacheManager = CacheService.CreateInstance();
         }
 
         public Team Get(int teamId)

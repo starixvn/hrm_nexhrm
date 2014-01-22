@@ -10,8 +10,6 @@
 namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
 
     /// <summary>
     /// Home controller.
@@ -19,16 +17,8 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class HomeController : BaseController
     {
-        private readonly IEmployeeRepository _employeeRepository;
-
         public HomeController()
-            : this(null)
         { 
-        }
-
-        public HomeController(IEmployeeRepository employeeRepository = null)
-        {
-            _employeeRepository = employeeRepository ?? new EmployeeRepository();
         }
 
         public ActionResult Index()

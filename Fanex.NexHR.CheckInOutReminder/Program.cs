@@ -20,8 +20,12 @@ namespace Fanex.NexHR.CheckInOutReminder
     using Fanex.Logging;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.ViewModels;
     using RazorEngine;
 
+    /// <summary>
+    /// Main program.
+    /// </summary>
     public class Program
     {
         private static readonly EmailService EmailService = new EmailService();
@@ -33,6 +37,10 @@ namespace Fanex.NexHR.CheckInOutReminder
         // Do not send email forget check in out for these employees
         private static readonly List<string> IgnoreList = new List<string> { "sean", "joe" };
 
+        /// <summary>
+        /// Main method.
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             try
@@ -85,11 +93,15 @@ namespace Fanex.NexHR.CheckInOutReminder
             }
         }
 
+        /// <summary>
+        /// Read text file.
+        /// </summary>
+        /// <param name="filePath"></param>
         public static string ReadTextFile(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new System.ArgumentNullException("filePath");
+                throw new ArgumentNullException("filePath");
             }
 
             filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
@@ -114,7 +126,18 @@ namespace Fanex.NexHR.CheckInOutReminder
             }
         }
 
-        private static void CreateEmailBody(string bodyTemplate, ViewModels.MissingCheckInOutModel item, out CheckInOutInfo data, out string emailContent)
+        /// <summary>
+        /// Create email body.
+        /// </summary>
+        /// <param name="bodyTemplate"></param>
+        /// <param name="item"></param>
+        /// <param name="data"></param>
+        /// <param name="emailContent"></param>
+        private static void CreateEmailBody(
+            string bodyTemplate, 
+            MissingCheckInOutModel item, 
+            out CheckInOutInfo data, 
+            out string emailContent)
         {
             data = new CheckInOutInfo
             {

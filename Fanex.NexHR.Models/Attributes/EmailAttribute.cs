@@ -31,9 +31,7 @@ namespace Fanex.NexHR.Models.Attributes
             ModelMetadata metadata, 
             ControllerContext context)
         {
-            string errorMessage = "Invalid email address.";
-
-            yield return new EmailValidationRule(errorMessage);
+            yield return new EmailValidationRule("Invalid email address.");
         }
 
         #endregion

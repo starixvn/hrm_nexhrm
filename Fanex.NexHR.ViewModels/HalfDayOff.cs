@@ -9,6 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
+    /// <summary>
+    /// Half day off.
+    /// </summary>
     public class HalfDayOff
     {
         public int ID { get; set; }

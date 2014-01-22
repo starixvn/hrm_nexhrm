@@ -11,6 +11,9 @@ namespace Fanex.NexHR.Core
 {
     using System;
 
+    /// <summary>
+    /// User session.
+    /// </summary>
     [Serializable]
     public class UserSession 
     {

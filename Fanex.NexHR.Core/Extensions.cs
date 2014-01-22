@@ -24,6 +24,9 @@ namespace Fanex.NexHR.Core
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
 
+    /// <summary>
+    /// Extension class.
+    /// </summary>
     public static class Extensions
     {
         private static readonly object _O = new object();
@@ -46,8 +49,8 @@ namespace Fanex.NexHR.Core
         {
             var type = value.GetType();
             var fieldInfo = type.GetField(value.ToString());
-            var attribs = fieldInfo.GetCustomAttributes(
-                typeof(StringValueAttribute), false) as StringValueAttribute[];
+            var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
@@ -55,8 +58,8 @@ namespace Fanex.NexHR.Core
         {
             var type = value.GetType();
             var fieldInfo = type.GetField(value.ToString());
-            var attribs = fieldInfo.GetCustomAttributes(
-                typeof(StringValueAttribute), false) as StringValueAttribute[];
+            var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
@@ -377,12 +380,20 @@ namespace Fanex.NexHR.Core
             return CheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
         }
 
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, 
+            IEnumerable<SelectListItem> selectList, 
+            object htmlAttributes)
         {
             return CheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, 
+            IEnumerable<SelectListItem> selectList, 
+            IDictionary<string, object> htmlAttributes)
         {
             if (expression == null)
             {
@@ -501,7 +512,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a date value to string (dd-MMM).
+        /// Format a date value to string.
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>

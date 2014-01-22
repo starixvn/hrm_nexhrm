@@ -18,6 +18,9 @@ namespace Fanex.NexHR.Core
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
 
+    /// <summary>
+    /// Utilities.
+    /// </summary>
     public static class Utilities
     {
         public static IList<SelectListItem> CheckInOutTypes

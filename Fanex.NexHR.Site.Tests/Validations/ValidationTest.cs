@@ -9,10 +9,11 @@
 
 namespace Fanex.NexHR.Site.Tests.Validations
 {
-    using System.Diagnostics.CodeAnalysis;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Validation test.
+    /// </summary>
     [TestClass]
     public class ValidationTest
     {

@@ -14,7 +14,6 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Caching;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -23,17 +22,8 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class UIController : BaseController
     {
-        private const string CacheKeySitemapData = "UIController.CacheKeySitemapData";
-        private readonly ICache _cacheManager;
-
         public UIController()
-            : this(null)
         {
-        }
-
-        public UIController(ICache cacheManager)
-        {
-            _cacheManager = cacheManager ?? CacheService.CreateInstance();
         }
 
         [ChildActionOnly]
@@ -82,7 +72,6 @@ namespace Fanex.NexHR.Controllers
                 if (sectionNode.Roles.Count == 0
                     || this.CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList<string>()))
                 {
-                    var s = sectionNode.Roles.Cast<string>().ToList<string>();
                     var sectionItem = new NavigationViewModel(sectionNode);
                     navigationItemList.Add(sectionItem);
 

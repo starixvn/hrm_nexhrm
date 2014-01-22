@@ -7,6 +7,7 @@
 //   <change who="Anders.Le" date="2012.7.3">Created</change>
 //   <change who="Anders.Le" date="2012.7.3">Modify avatar function</change>
 // </history>
+
 namespace Fanex.NexHR.Controllers
 {
     using System;
@@ -286,7 +287,6 @@ namespace Fanex.NexHR.Controllers
             }
 
             ViewBag.Employee = _employeeService.Get(model.EmpID);
-
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View(model);
@@ -297,7 +297,6 @@ namespace Fanex.NexHR.Controllers
         {
             ViewBag.Id = id;
             ViewBag.Employee = _employeeService.Get(id);
-
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View();
@@ -332,6 +331,7 @@ namespace Fanex.NexHR.Controllers
                 var stream = new MemoryStream();
                 var processor = new ImageProcessor();
                 var resizer = new ResizeFilter(64, 64, ResizeMethod.Crop, AnchorLocation.Middle);
+
                 processor.AddFilter(resizer);
                 processor.OutputFormat = OutputFormat.Jpeg;
                 processor.JpegCompression = 100;
@@ -370,7 +370,6 @@ namespace Fanex.NexHR.Controllers
             var userChangedShift = _employeeService.GetUserChangedShift(new DateTime(ViewBag.Year, ViewBag.Month, 1));
 
             ViewBag.UserChangeShift = userChangedShift;
-
             ViewBag.HalfDayOffs = _employeeService.GetHalfDayOffs(DateTime.Parse(currentDate.ToString()));
 
             return View(_employeeService.GetWorkingCalendars(currentDate.ToString()));
@@ -397,6 +396,7 @@ namespace Fanex.NexHR.Controllers
             model.ModifiedDate = DateTime.Now;
             model.ModifiedBy = this.CurrentUser.Id;
             ViewBag.Requested = _employeeService.UpdateOffDayForAllEmployees(ModelState, model);
+
             return View(model);
         }
 
@@ -483,6 +483,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult UpdateFullTOEIC(int? id, string name)
         {
             TOEIC toeic = null;
+
             if (id.HasValue && id.Value > 0)
             {
                 toeic = _toeicService.GetById(id.Value);
@@ -490,6 +491,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             ViewBag.EmployeeName = name;
+
             return PartialView(toeic);
         }
 

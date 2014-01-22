@@ -11,7 +11,6 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -19,6 +18,9 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.ViewModels;
 
+    /// <summary>
+    /// Leave controller.
+    /// </summary>
     [Authorize]
     public class LeaveController : RequestController
     {

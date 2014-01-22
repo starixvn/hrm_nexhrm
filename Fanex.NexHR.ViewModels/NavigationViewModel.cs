@@ -10,11 +10,11 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
+    /// <summary>
+    /// Navigation view model.
+    /// </summary>
     public class NavigationViewModel
     {
         private string _controller;

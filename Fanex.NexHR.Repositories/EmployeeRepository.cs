@@ -599,6 +599,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@ShiftID", DbType.Int32, shift);
                 db.AddInParameter("@ModifiedBy", DbType.Int32, modifiedBy);
                 db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
@@ -606,7 +607,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request.
         /// </summary>
-        public IList<CheckInOut> GetCheckInOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_CheckinOutType"))
@@ -653,7 +661,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request.
         /// </summary>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_LateInEarlyOutType"))
@@ -702,7 +717,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request.
         /// </summary>
-        public IList<ChangingShift> GetChangeShiftRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_ChangeShiftType"))
@@ -802,9 +824,17 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all request.
         /// </summary>
-        public IList<RequestEntity> GetAllRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<RequestEntity> GetAllRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
+
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_AllType"))
             {
                 using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
@@ -816,13 +846,11 @@ namespace Fanex.NexHR.Repositories
                             var entity = new RequestEntity
                             {
                                 Id = reader.ToInt("Id"),
-
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
                                 Type = new RequestType { Id = reader.ToShort("RequestType") },
                                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
                                 RequestedDate = reader.ToDateTime("RequestDate"),
-
                                 Requester = new Employee
                                 {
                                     Id = reader.To<int>("empID"),
@@ -1080,6 +1108,7 @@ namespace Fanex.NexHR.Repositories
         public IList<RequestEntity> GetAllRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
+
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_AllType"))
             {
                 using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
@@ -1091,13 +1120,11 @@ namespace Fanex.NexHR.Repositories
                             var entity = new RequestEntity
                             {
                                 Id = reader.ToInt("Id"),
-
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
                                 Type = new RequestType { Id = reader.ToShort("RequestType") },
                                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
                                 RequestedDate = reader.ToDateTime("RequestDate"),
-
                                 Requester = new Employee
                                 {
                                     Id = reader.To<int>("empID"),
@@ -1338,7 +1365,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Adjust annual leaves.
         /// </summary>
-        public bool AdjustAnnualLeaves(string empIds, string description, DateTime fromDate, decimal deductDays, decimal creditDays, DateTime createdDate, int createdBy)
+        public bool AdjustAnnualLeaves(
+            string empIds, 
+            string description, 
+            DateTime fromDate, 
+            decimal deductDays, 
+            decimal creditDays, 
+            DateTime createdDate, 
+            int createdBy)
         {
             using (ObjectDb db = new ObjectDb("AnnualLeave_InsertMultipleTransactions"))
             {
@@ -1490,7 +1524,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddOutParameter("@ErrMsg", DbType.String, 200);
 
                 var result = db.ExecuteScalar();
-                var requestId = result == null ? -1 : (long)result;
+
                 message = db.GetParameterValue("ErrMsg") as string;
                 errorCode = (int)db.GetParameterValue("ErrCode");
 

@@ -130,11 +130,7 @@ namespace Fanex.NexHR.Controllers
             if (employee != null)
             {
                 ViewBag.Employee = employee;
-                
-                ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(
-                    model.EmployeeId,
-                    model.Year,
-                    false);
+                ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(model.EmployeeId, model.Year, false);
             }
             
             return View(model);
@@ -169,11 +165,11 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(FormCollection formCollection, AnnualLeaveBalanceModel model)
         {
             ViewBag.Employee = _employeeService.Get(model.EmpId);
-            var command = formCollection["command"];
 
-            if (command == Resources.Labels.Delete)
+            if (formCollection["command"] == Resources.Labels.Delete)
             {
                 var result = _employeeService.DeleteAnnualLeaveTransaction(model.Id, DateTime.Now, this.CurrentUser.Id);
+
                 if (result)
                 {
                     return RedirectToAction("Employee", "AnnualLeaveBalance", new { id = model.EmpId });

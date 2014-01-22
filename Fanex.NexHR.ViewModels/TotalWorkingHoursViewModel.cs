@@ -11,10 +11,10 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
+    /// <summary>
+    /// Total working hours view model.
+    /// </summary>
     public class TotalWorkingHoursViewModel
     {
         [DataType(DataType.DateTime)]

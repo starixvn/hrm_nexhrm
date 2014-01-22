@@ -11,9 +11,10 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Process change shift view model.
+    /// </summary>
     public class ProcessChangeShiftViewModel : BaseProcessModel
     {
         [Required]

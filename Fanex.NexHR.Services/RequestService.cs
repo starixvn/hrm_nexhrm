@@ -85,7 +85,11 @@ namespace Fanex.NexHR.Services
                     else
                     {
                         // 0.5 day
-                        msg.AppendFormat(MsgLeaveHalfDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate), request.FromDate.ToString("HH:mm"), request.ToDate.ToString("HH:mm"));
+                        msg.AppendFormat(
+                            MsgLeaveHalfDay, 
+                            GetMessageDateforLeaveRequest(request.FromDate, request.ToDate), 
+                            request.FromDate.ToString("HH:mm"), 
+                            request.ToDate.ToString("HH:mm"));
                     }
 
                     break;
@@ -476,8 +480,8 @@ namespace Fanex.NexHR.Services
                 {
                     // send email(s)
                     var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
-
                     var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/CheckInOut.Request.cshtml"));
+
                     foreach (var item in leaders)
                     {
                         var content = new
@@ -690,8 +694,8 @@ namespace Fanex.NexHR.Services
                 {
                     // send email(s)
                     var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
-
                     var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
+
                     foreach (var item in leaders)
                     {
                         var content = new
@@ -758,12 +762,10 @@ namespace Fanex.NexHR.Services
             }
 
             string message;
-            int code = this._employeeRepository.ProcessRequest(
-                processCommand, id, processBy, DateTime.Now, out message);
+            int code = this._employeeRepository.ProcessRequest(processCommand, id, processBy, DateTime.Now, out message);
 
             if (code == 0)
             {
-                //var allShifts = this._shiftService.GetAll();
                 string forDate = string.Empty;
 
                 if (request.TotalDays > 1)
@@ -883,7 +885,6 @@ namespace Fanex.NexHR.Services
                 }
 
                 var sendCc = string.Join(",", employees.Select(t => t.Email));
-                //var sendCc = string.Empty;
 
                 switch (request.RequestType)
                 {
@@ -894,6 +895,7 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckIn, sendCc);
                         break;
+
                     case 2:
                         var subjectCheckOut = string.Format(
                             Resources.Messages.ApprovalNotificationCheckOutSubject, 
@@ -901,6 +903,7 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckOut, sendCc);
                         break;
+
                     case 3:
                         var subjectLateIn = string.Format(
                             Resources.Messages.ApprovalNotificationLateInSubject, 
@@ -908,6 +911,7 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectLateIn, sendCc, isLateIn: true);
                         break;
+
                     case 4:
                         var subjectEarlyOut = string.Format(
                             Resources.Messages.ApprovalNotificationEarlyOutSubject, 
@@ -915,6 +919,7 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectEarlyOut, sendCc, isLateIn: false);
                         break;
+
                     case 5:
                         var subjectChangeShift = string.Format(
                             Resources.Messages.ApprovalNotificationChangeShiftSubject, 
@@ -922,6 +927,7 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         ChangeShiftRelatedMail(employee, processUser, request, subjectChangeShift, sendCc);
                         break;
+
                     case 6:
                         var subjectLeave = string.Format(
                             Resources.Messages.ApprovalNotificationLeaveSubject, 
@@ -1007,7 +1013,15 @@ namespace Fanex.NexHR.Services
             };
 
             //body = RazorEngine.Razor.Parse(body, bodyContent);
-            body = string.Format(body, bodyContent.User, bodyContent.Employee, bodyContent.Request, bodyContent.ForDate, bodyContent.FromShift, bodyContent.ToShift, bodyContent.Remark);
+            body = string.Format(
+                body, 
+                bodyContent.User, 
+                bodyContent.Employee, 
+                bodyContent.Request, 
+                bodyContent.ForDate, 
+                bodyContent.FromShift, 
+                bodyContent.ToShift, 
+                bodyContent.Remark);
 
             this._emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],

@@ -144,15 +144,20 @@ namespace Fanex.NexHR.Controllers
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = true;
-
             ViewBag.EntityList = new List<RequestsMonitoring>();
+
             if (this.CurrentUser.Roles != null)
             {
                 if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.AssistantLeader).ToString()) > -1
                     || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.Leader).ToString()) > -1
                     || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
                 {
-                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(model.FromDate, model.ToDate, model.MaxRequest, (int)RolesEnum.AssistantLeader, this.CurrentUser.Id);
+                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(
+                        model.FromDate, 
+                        model.ToDate, 
+                        model.MaxRequest, 
+                        (int)RolesEnum.AssistantLeader, 
+                        this.CurrentUser.Id);
                 }
             }
 
@@ -182,7 +187,7 @@ namespace Fanex.NexHR.Controllers
 
             if (model.isExportExcel)
             {
-                ExportController export = new ExportController();
+                var export = new ExportController();
                 return export.TotalWorkingHours(model);
             }
 

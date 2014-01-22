@@ -12,9 +12,10 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Leave request view model.
+    /// </summary>
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
         [Required]
