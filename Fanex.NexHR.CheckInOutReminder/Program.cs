@@ -40,7 +40,7 @@ namespace Fanex.NexHR.CheckInOutReminder
         /// <summary>
         /// Main method.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
             try
@@ -96,7 +96,8 @@ namespace Fanex.NexHR.CheckInOutReminder
         /// <summary>
         /// Read text file.
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>The text file content.</returns>
         public static string ReadTextFile(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -129,10 +130,10 @@ namespace Fanex.NexHR.CheckInOutReminder
         /// <summary>
         /// Create email body.
         /// </summary>
-        /// <param name="bodyTemplate"></param>
-        /// <param name="item"></param>
-        /// <param name="data"></param>
-        /// <param name="emailContent"></param>
+        /// <param name="bodyTemplate">The body template.</param>
+        /// <param name="item">The model.</param>
+        /// <param name="data">The check in/out data.</param>
+        /// <param name="emailContent">The email content.</param>
         private static void CreateEmailBody(
             string bodyTemplate, 
             MissingCheckInOutModel item, 

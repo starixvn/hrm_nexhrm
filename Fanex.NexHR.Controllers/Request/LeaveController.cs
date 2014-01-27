@@ -31,6 +31,10 @@ namespace Fanex.NexHR.Controllers.Request
         }
         #endregion
 
+        /// <summary>
+        /// Create leave request.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Create()
         {
             var employee = _employeeService.Get(this.CurrentUser.Id);
@@ -71,6 +75,11 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Create leave request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
@@ -95,10 +104,14 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Update leave request.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
-            ViewBag.UnavailDates = listUnavailDates;
+            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
 
             var request = _employeeService.GetWorkingTimeRequest(id);
             var employee = _employeeService.Get(request.EmpId);
@@ -121,9 +134,15 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+
             return View(model);
         }
 
+        /// <summary>
+        /// Update leave request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
@@ -132,12 +151,21 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Employee view.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult EmployeeView()
         {
             return EmployeeView(DateTime.Now.Year);
         }
 
+        /// <summary>
+        /// Employee view.
+        /// </summary>
+        /// <param name="year">The year value.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult EmployeeView(int year)
         {

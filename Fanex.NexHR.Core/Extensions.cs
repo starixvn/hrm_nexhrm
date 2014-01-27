@@ -45,6 +45,11 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
+        /// <summary>
+        /// Convert ENUM to string.
+        /// </summary>
+        /// <param name="value">The enum value.</param>
+        /// <returns>The return string.</returns>
         public static string EnumToString(this RolesEnum value)
         {
             var type = value.GetType();
@@ -54,6 +59,11 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
+        /// <summary>
+        /// Convert ENUM to string.
+        /// </summary>
+        /// <param name="value">The enum value.</param>
+        /// <returns>The return string.</returns>
         public static string EnumToString(this RequestTypes value)
         {
             var type = value.GetType();
@@ -63,6 +73,15 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
+        /// <summary>
+        /// Pager helper.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <param name="totalRow">The total row.</param>
+        /// <param name="url">The page URL.</param>
+        /// <returns>The return string.</returns>
         public static string Pager(this HtmlHelper htmlHelper, int pageNumber, int pageSize, int totalRow, string url)
         {
             var totalPage = (int)Math.Ceiling(totalRow / (double)pageSize);
@@ -112,6 +131,15 @@ namespace Fanex.NexHR.Core
             return pager.ToString();
         }
 
+        /// <summary>
+        /// Radio button list.
+        /// </summary>
+        /// <typeparam name="TModel">The model type.</typeparam>
+        /// <typeparam name="TProperty">The property type.</typeparam>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="listOfValues">List of value.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString RadioButtonList<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -133,7 +161,8 @@ namespace Fanex.NexHR.Core
                     var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id = id }).ToHtmlString();
 
                     // Create the html string that will be returned to the client 
-                    // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label> 
+                    // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" />
+                    // <label for="TestRadio_1">Line1</label> 
                     sb.AppendFormat("<div class=\"radioButton\">{0}{1}</div>", radio, label);
                 }
             }
@@ -141,11 +170,27 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(sb.ToString());
         }
 
+        /// <summary>
+        /// Begin get form.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <returns>The MVC form.</returns>
         public static MvcForm BeginGetForm(this HtmlHelper htmlHelper)
         {
             return htmlHelper.BeginForm(null, null, FormMethod.Get);
         }
 
+        /// <summary>
+        /// Date picker.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="name">The element name.</param>
+        /// <param name="date">The date value.</param>
+        /// <param name="minDate">The min date.</param>
+        /// <param name="maxDate">The max date.</param>
+        /// <param name="formatDate">The format date.</param>
+        /// <param name="unavailDates">The unavailable dates.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString DatePicker(
             this HtmlHelper htmlHelper,
             string name,
@@ -179,6 +224,18 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(textbox.ToString());
         }
 
+        /// <summary>
+        /// Date picker.
+        /// </summary>
+        /// <typeparam name="TModel">The model type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        /// <param name="html">HTML helper.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="minDate">The min date.</param>
+        /// <param name="maxDate">The max date.</param>
+        /// <param name="formatDate">The format date.</param>
+        /// <param name="unavailDates">The unavailable dates.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString DatePickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression,
@@ -199,9 +256,20 @@ namespace Fanex.NexHR.Core
                 value = null;
             }
 
-            return html.DatePicker(ExpressionHelper.GetExpressionText(expression), value, minDate, maxDate, formatDate, unavailDates);
+            return html.DatePicker(
+                ExpressionHelper.GetExpressionText(expression), 
+                value, 
+                minDate, 
+                maxDate, 
+                formatDate, 
+                unavailDates);
         }
 
+        /// <summary>
+        /// Get max date.
+        /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return date time.</returns>
         public static DateTime GetMaxDate(this DateTime date)
         {
             if (date.AddMonths(1).Year > DateTime.Now.Year)
@@ -219,8 +287,12 @@ namespace Fanex.NexHR.Core
         /// <param name="name">In name.</param>
         /// <param name="fromYear">Default from year 2000.</param>
         /// <param name="currentYear">Default currentYear year 2000.</param>
-        /// <returns></returns>
-        public static MvcHtmlString YearPicker(this HtmlHelper htmlHelper, string name, int fromYear = 2000, int currentYear = 2000)
+        /// <returns>MVC HTML string.</returns>
+        public static MvcHtmlString YearPicker(
+            this HtmlHelper htmlHelper, 
+            string name, 
+            int fromYear = 2000, 
+            int currentYear = 2000)
         {
             var list = new List<SelectListItem>();
             var toYear = DateTime.Now.GetMaxDate().Year;
@@ -239,6 +311,15 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(dropDownList.ToString());
         }
 
+        /// <summary>
+        /// Year picker.
+        /// </summary>
+        /// <typeparam name="TModel">The model type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        /// <param name="html">HTML helper.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="fromYear">The from year.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString YearPickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression,
@@ -250,6 +331,13 @@ namespace Fanex.NexHR.Core
             return html.YearPicker(metaData.PropertyName, fromYear, currentYear);
         }
 
+        /// <summary>
+        /// Render section.
+        /// </summary>
+        /// <param name="page">The web page.</param>
+        /// <param name="sectionName">The section name.</param>
+        /// <param name="defaultContent">The default content.</param>
+        /// <returns>Helper result.</returns>
         public static HelperResult RenderSection(
             this WebPageBase page,
             string sectionName,
@@ -265,22 +353,62 @@ namespace Fanex.NexHR.Core
             }
         }
 
+        /// <summary>
+        /// Check box list.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="name">The element name.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name)
         {
             return CheckBoxList(htmlHelper, name, null);
         }
 
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
+        /// <summary>
+        /// Check box list.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="name">The element name.</param>
+        /// <param name="selectList">Select item list.</param>
+        /// <returns>MVC HTML string.</returns>
+        public static MvcHtmlString CheckBoxList(
+            this HtmlHelper htmlHelper, 
+            string name, 
+            IEnumerable<SelectListItem> selectList)
         {
             return CheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
         }
 
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        /// <summary>
+        /// Check box list.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="name">The element name.</param>
+        /// <param name="selectList">Select item list.</param>
+        /// <param name="htmlAttributes">HTML attributes.</param>
+        /// <returns>MVC HTML string.</returns>
+        public static MvcHtmlString CheckBoxList(
+            this HtmlHelper htmlHelper, 
+            string name, 
+            IEnumerable<SelectListItem> selectList, 
+            object htmlAttributes)
         {
             return CheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        /// <summary>
+        /// Check box list.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="name">The element name.</param>
+        /// <param name="selectList">Select item list.</param>
+        /// <param name="htmlAttributes">HTML attributes.</param>
+        /// <returns>MVC HTML string.</returns>
+        public static MvcHtmlString CheckBoxList(
+            this HtmlHelper htmlHelper, 
+            string name, 
+            IEnumerable<SelectListItem> selectList, 
+            IDictionary<string, object> htmlAttributes)
         {
             string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
@@ -329,7 +457,7 @@ namespace Fanex.NexHR.Core
                    select Convert.ToString(value, CultureInfo.CurrentCulture),
                    StringComparer.OrdinalIgnoreCase);
 
-                List<SelectListItem> list = new List<SelectListItem>();
+                var list = new List<SelectListItem>();
 
                 foreach (SelectListItem item in selectList)
                 {
@@ -340,16 +468,15 @@ namespace Fanex.NexHR.Core
                 selectList = list;
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            htmlAttributes = (htmlAttributes == null) ?
-               new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-
+            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             htmlAttributes.Remove("checked");
 
             foreach (var item in selectList)
             {
-                TagBuilder input = new TagBuilder("input");
+                var input = new TagBuilder("input");
+
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", "checkbox");
                 input.MergeAttribute("id", name + item.Value);
@@ -361,7 +488,7 @@ namespace Fanex.NexHR.Core
                     input.MergeAttribute("checked", "checked");
                 }
 
-                TagBuilder label = new TagBuilder("label");
+                var label = new TagBuilder("label");
                 label.InnerHtml = input.ToString(TagRenderMode.SelfClosing) + item.Text;
 
                 sb.Append(label.ToString());
@@ -370,12 +497,17 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(sb.ToString());
         }
 
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression)
         {
             return CheckBoxListFor(htmlHelper, expression, null);
         }
 
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, 
+            IEnumerable<SelectListItem> selectList)
         {
             return CheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
         }
@@ -407,8 +539,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Convert status to display string.
         /// </summary>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="status">The status.</param>
+        /// <returns>The return string.</returns>
         public static string ToText(this byte status)
         {
             switch (status)
@@ -427,8 +559,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Convert request type to display string.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">The request type.</param>
+        /// <returns>The return string.</returns>
         public static string ToText(this short type)
         {
             switch (type)
@@ -453,8 +585,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a nullable date value to string (MMM dd, yyyy hh:mm).
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -468,8 +600,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a date value to string (MMM dd, yyyy hh:mm).
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToFormatedDate(this DateTime date)
         {
             return date.ToString("dd MMM, yyyy hh:mm tt");
@@ -488,8 +620,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// <example>http://www.geekzilla.co.uk/View00FF7904-B510-468C-A2C8-F859AA20581F.htm</example>
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToShortFormatedDate(this DateTime date)
         {
             string dateStr = date.ToString(@"dd MMM, yyyy - HH") + "h" + date.ToString(@"mm\'");
@@ -499,8 +631,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a nullable date value to string (dd-MMM).
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToMonthAndDayFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -514,8 +646,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a date value to string.
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToMonthAndDayFormatedDate(this DateTime date)
         {
             return date.ToString("dd-MMM");
@@ -524,8 +656,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a nullable date value to string (MMM-yyyy).
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToMonthAndYearFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -539,8 +671,8 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Format a date value to string (MMM-yyyy).
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>The return string.</returns>
         public static string ToMonthAndYearFormatedDate(this DateTime date)
         {
             return date.ToString("MMM-yyyy");
@@ -561,6 +693,17 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
+        /// <summary>
+        /// Drop down list.
+        /// </summary>
+        /// <typeparam name="TModel">The model type.</typeparam>
+        /// <typeparam name="TProperty">The property type.</typeparam>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="selectList">Select item list.</param>
+        /// <param name="firstItem">The first item.</param>
+        /// <param name="htmlAttributes">HTML attributes.</param>
+        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,

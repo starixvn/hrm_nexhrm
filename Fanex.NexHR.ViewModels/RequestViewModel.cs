@@ -57,7 +57,12 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Team")]
         public IList<Team> TeamCollection { get; set; }
 
-        public IList<SelectListItem> GetSelecListItemTeam(int? teamId)
+        /// <summary>
+        /// Get select list item team.
+        /// </summary>
+        /// <param name="teamId">The team ID.</param>
+        /// <returns>List of select list item.</returns>
+        public IList<SelectListItem> GetSelectListItemTeam(int? teamId)
         {
             IList<SelectListItem> selecListItemTeam = new List<SelectListItem>();
 

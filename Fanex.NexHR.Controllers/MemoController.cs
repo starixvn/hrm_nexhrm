@@ -37,6 +37,10 @@ namespace Fanex.NexHR.Controllers
         { 
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
@@ -50,6 +54,11 @@ namespace Fanex.NexHR.Controllers
             return Index(model);
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Index(MemoViewModel model)
         {
@@ -58,12 +67,22 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit memo page.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Edit(int id = -1)
         {
             ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
             return View(_memoService.GetById(id));
         }
 
+        /// <summary>
+        /// Edit memo page.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateInput(false)]
@@ -92,6 +111,10 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create memo.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
@@ -107,6 +130,11 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        /// <summary>
+        /// Create memo.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateInput(false)]
@@ -136,6 +164,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// View memo detail.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Detail(int id = -1)
         {
             return View(_memoService.GetById(id));

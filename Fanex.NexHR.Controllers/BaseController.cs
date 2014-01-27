@@ -54,6 +54,10 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        /// <summary>
+        /// Authorization event handler.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);

@@ -49,7 +49,14 @@ namespace Fanex.NexHR.Controllers
             _reportRepository = new ReportRepository();
         }
 
-        public AjaxController(IEmployeeRepository employeeRepository, IRequestService requestService, IHolidayService holidayService, IMemoService memoService, ITeamService teamService, ILookupDataService lookupDataService, IReportRepository reportRepository)
+        public AjaxController(
+            IEmployeeRepository employeeRepository, 
+            IRequestService requestService, 
+            IHolidayService holidayService, 
+            IMemoService memoService, 
+            ITeamService teamService, 
+            ILookupDataService lookupDataService, 
+            IReportRepository reportRepository)
         {
             _employeeRepository = employeeRepository;
             _requestService = requestService;
@@ -67,6 +74,12 @@ namespace Fanex.NexHR.Controllers
             return _employeeRepository.Delete(id, resignedDate);
         }
 
+        /// <summary>
+        /// Process request..
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="id">The request ID.</param>
+        /// <returns>JSON result.</returns>
         [Authorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
@@ -76,6 +89,12 @@ namespace Fanex.NexHR.Controllers
             return result ? Json(true) : Json(errorMessage);
         }
 
+        /// <summary>
+        /// Get member by manager.
+        /// </summary>
+        /// <param name="keyword">The keyword.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <returns>JSON result.</returns>
         [Authorize(Roles = "AssistantLeader,HR")]
         public JsonResult GetMembersByManager(string keyword, int? groupId = null)
         {
@@ -87,9 +106,14 @@ namespace Fanex.NexHR.Controllers
                     (short)role,
                     keyword, 
                     groupId).Take(10),
-                JsonRequestBehavior.AllowGet);
+                    JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Adjust annual leaves.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>JSON result.</returns>
         [HttpPost]
         public JsonResult AdjustAnnualLeaves(AnnualLeaveBalanceMultiViewModel model)
         {
@@ -110,6 +134,12 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        /// <summary>
+        /// Reset annual leave.
+        /// </summary>
+        /// <param name="minbalance">The min balance.</param>
+        /// <param name="descriptionReset">The description reset.</param>
+        /// <returns>JSON result.</returns>
         [HttpPost]
         public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
@@ -169,6 +199,11 @@ namespace Fanex.NexHR.Controllers
             return _teamService.AddNewTeam(model);
         }
 
+        /// <summary>
+        /// Delete team.
+        /// </summary>
+        /// <param name="id">The team ID.</param>
+        /// <returns>The return string.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public string DeleteTeam(int id)

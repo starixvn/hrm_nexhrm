@@ -39,6 +39,10 @@ namespace Fanex.NexHR.Controllers
             _teamRepository = new TeamRepository();
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             IList<Team> teams = _teamRepository.GetAll();
@@ -46,6 +50,10 @@ namespace Fanex.NexHR.Controllers
             return View(teams);
         }
 
+        /// <summary>
+        /// Create team.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
@@ -57,6 +65,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)
@@ -81,6 +94,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit team.
+        /// </summary>
+        /// <param name="id">The team ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
@@ -105,6 +123,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(TeamViewModel model)

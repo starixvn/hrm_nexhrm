@@ -42,6 +42,10 @@ namespace Fanex.NexHR.Controllers
             _toeicService = toeicService ?? new TOEICService();
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             var model = this.CurrentUser;

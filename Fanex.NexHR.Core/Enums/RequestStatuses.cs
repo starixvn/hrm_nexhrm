@@ -11,12 +11,21 @@ namespace Fanex.NexHR.Core.Enums
 {
     public enum RequestStatuses : byte
     {
+        /// <summary>
+        /// Pending status.
+        /// </summary>
         [StringValue("Pending")]
         Pending = 1,
 
+        /// <summary>
+        /// Approved status.
+        /// </summary>
         [StringValue("Approved")]
         Approve = 2,
 
+        /// <summary>
+        /// Rejected status.
+        /// </summary>
         [StringValue("Rejected")]
         Reject = 3
     }

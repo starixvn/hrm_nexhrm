@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Core
     using Fanex.NexHR.Core.Enums;
 
     /// <summary>
-    /// Utilities.
+    /// Utilities class.
     /// </summary>
     public static class Utilities
     {
@@ -65,22 +65,11 @@ namespace Fanex.NexHR.Core
             return ZeroPrefix(value.Hour) + ":" + ZeroPrefix(value.Minute);
         }
 
-        public static void CopyTo(this object s, object t)
-        {
-            foreach (var pS in s.GetType().GetProperties())
-            {
-                foreach (var pT in t.GetType().GetProperties())
-                {
-                    if (pT.Name != pS.Name)
-                    {
-                        continue;
-                    }
-
-                    pT.GetSetMethod().Invoke(t, new object[] { pS.GetGetMethod().Invoke(s, null) });
-                }
-            }
-        }
-
+        /// <summary>
+        /// Read text file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>The text file content.</returns>
         public static string ReadTextFile(string filePath)
         {
             using (var sr = new StreamReader(filePath))
@@ -89,6 +78,11 @@ namespace Fanex.NexHR.Core
             }
         }
 
+        /// <summary>
+        /// Random string.
+        /// </summary>
+        /// <param name="length">The string length.</param>
+        /// <returns>The return string.</returns>
         public static string RandomString(int length)
         {
             // returns random string of length specified with characters including: 0-9, a-z, A-Z
@@ -125,28 +119,11 @@ namespace Fanex.NexHR.Core
             return new string(ca).ToLower();
         }
 
-        public static DateTime FirstDayOfWeek(DateTime dayInWeek, CultureInfo cultureInfo = null)
-        {
-            if (cultureInfo == null)
-            {
-                cultureInfo = CultureInfo.CurrentCulture;
-            }
-
-            DayOfWeek firstDay = cultureInfo.DateTimeFormat.FirstDayOfWeek;
-            DateTime firstDayInWeek = dayInWeek.Date;
-            while (firstDayInWeek.DayOfWeek != firstDay)
-            {
-                firstDayInWeek = firstDayInWeek.AddDays(-1);
-            }
-
-            return firstDayInWeek;
-        }
-
-        public static DateTime LastDayOfWeek(DateTime dayInWeek)
-        {
-            return DateTime.Now.AddDays(6 - Convert.ToDouble(dayInWeek.DayOfWeek));
-        }
-
+        /// <summary>
+        /// Get minute steps.
+        /// </summary>
+        /// <param name="step">Step value.</param>
+        /// <returns>List of select list item.</returns>
         public static IList<SelectListItem> MinuteSteps(int step)
         {
             var list = new List<SelectListItem>();
@@ -164,6 +141,11 @@ namespace Fanex.NexHR.Core
             return list;
         }
 
+        /// <summary>
+        /// The time steps.
+        /// </summary>
+        /// <param name="minuteStep">The minute step.</param>
+        /// <returns>List of select list item.</returns>
         public static IList<SelectListItem> TimeSteps(int minuteStep)
         {
             var list = new List<SelectListItem>();
@@ -189,16 +171,31 @@ namespace Fanex.NexHR.Core
             return list;
         }
 
+        /// <summary>
+        /// The zero prefix.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The return string.</returns>
         public static string ZeroPrefix(int value)
         {
             return value < 10 ? "0" + value : value.ToString();
         }
 
+        /// <summary>
+        /// The zero prefix.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The return string.</returns>
         public static string ZeroPrefix(string value)
         {
             return int.Parse(value) < 10 ? "0" + value : value;
         }
 
+        /// <summary>
+        /// Convert array of string to string.
+        /// </summary>
+        /// <param name="array">Array of string.</param>
+        /// <returns>The return string.</returns>
         public static string StringArrayToString(string[] array)
         {
             if (array == null || array.Length == 0)
@@ -206,9 +203,9 @@ namespace Fanex.NexHR.Core
                 return string.Empty;
             }
 
-            string result = string.Empty;
+            var result = string.Empty;
 
-            foreach (var item in array)
+            foreach (string item in array)
             {
                 result += item + ",";
             }
@@ -216,6 +213,11 @@ namespace Fanex.NexHR.Core
             return result.Substring(0, result.Length - 1);
         }
 
+        /// <summary>
+        /// Is valid email or not.
+        /// </summary>
+        /// <param name="email">The email address.</param>
+        /// <returns>True : valid, false : invalid.</returns>
         public static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -227,6 +229,11 @@ namespace Fanex.NexHR.Core
             return regex.IsMatch(email);
         }
 
+        /// <summary>
+        /// Convert total hours to time.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The return string.</returns>
         public static string TotalHoursToTime(float value)
         {
             int hour = (int)value;
@@ -236,6 +243,11 @@ namespace Fanex.NexHR.Core
                 : ZeroPrefix(minute) + "'";
         }
 
+        /// <summary>
+        /// Convert minute to time.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The return string.</returns>
         public static string MinuteToTime(int value)
         {
             if (value == 0)

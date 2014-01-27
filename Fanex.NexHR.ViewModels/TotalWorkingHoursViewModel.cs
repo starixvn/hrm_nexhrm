@@ -33,6 +33,6 @@ namespace Fanex.NexHR.ViewModels
 
         public int DateOption { get; set; }
 
-        public bool isExportExcel { get; set; }
+        public bool IsExportExcel { get; set; }
     }
 }

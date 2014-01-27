@@ -24,6 +24,11 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class TeamRepository : ITeamRepository
     {
+        /// <summary>
+        /// Get team by ID.
+        /// </summary>
+        /// <param name="id">The team ID.</param>
+        /// <returns>The team object.</returns>
         public Team Get(int id)
         {
             using (var db = new ObjectDb("GetGroup"))
@@ -69,24 +74,36 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get team by code.
+        /// </summary>
+        /// <param name="code">The team code.</param>
+        /// <returns>The team object.</returns>
         public Team Get(string code)
         {
             using (var db = new ObjectDb("GetGroup"))
             {
-                var entity = db.Query<Team>(new { code }).FirstOrDefault();
-                return entity;
+                return db.Query<Team>(new { code }).FirstOrDefault();
             }
         }
 
+        /// <summary>
+        /// Get group of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>The team object.</returns>
         public Team GetGroupOfEmployee(int employeeId)
         {
             using (var db = new ObjectDb("GetGroupOfEmployee"))
             {
-                var entity = db.Query<Team>(new { employeeId }).FirstOrDefault();
-                return entity;
+                return db.Query<Team>(new { employeeId }).FirstOrDefault();
             }
         }
 
+        /// <summary>
+        /// Get all team.
+        /// </summary>
+        /// <returns>List of team.</returns>
         public IList<Team> GetAll()
         {
             using (var db = new ObjectDb("GetGroups"))
@@ -127,6 +144,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Update team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateTeam(TeamViewModel model)
         {
             using (var db = new ObjectDb("EmployeeGroup_Update"))
@@ -150,6 +172,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get team managed by employee.
+        /// </summary>
+        /// <param name="managerId">The manager ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetTeamManagedByEmp(int managerId)
         {
             using (var db = new ObjectDb("GetTeamManagedById"))
@@ -159,6 +186,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get sub teams of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetSubTeamsOfEmployee(int employeeId)
         {
             using (var db = new ObjectDb("Employee_GetSubTeam"))
@@ -168,6 +200,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Add new team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public int AddNewTeam(TeamViewModel model)
         {
             using (var db = new ObjectDb("EmployeeGroup_Insert"))
@@ -183,6 +220,15 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Delete team.
+        /// </summary>
+        /// <param name="id">The team ID.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="errorCode">The error code.</param>
+        /// <param name="message">The error message.</param>
+        /// <returns>The result.</returns>
         public bool DeleteTeam(int id, DateTime modifiedDate, int modifiedBy, out int errorCode, out string message)
         {
             using (var db = new ObjectDb("EmployeeGroup_Delete"))
@@ -203,6 +249,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get teams handle requests of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(int employeeId)
         {
             using (var db = new ObjectDb("Employee_GetGroupHandleRequest"))

@@ -38,6 +38,11 @@ namespace Fanex.NexHR.Controllers
             return View(_holidayService.GetByYear(DateTime.Now.Year));
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <param name="year">The year value.</param>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult Index(int? year)
         {
@@ -45,12 +50,22 @@ namespace Fanex.NexHR.Controllers
             return View(_holidayService.GetByYear(ViewBag.year));
         }
 
+        /// <summary>
+        /// Edit holiday.
+        /// </summary>
+        /// <param name="id">The holiday ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
             return View(_holidayService.GetById(id));
         }
 
+        /// <summary>
+        /// Edit holiday.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(Holiday model)
@@ -69,6 +84,10 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create holiday.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
@@ -82,6 +101,11 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        /// <summary>
+        /// Create holiday.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(Holiday model)

@@ -16,6 +16,7 @@ namespace Fanex.NexHR.Controllers
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Web;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
@@ -57,12 +58,21 @@ namespace Fanex.NexHR.Controllers
             _toeicService = toeicService ?? new TOEICService();
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             ViewBag.Groups = _teamService.GetAll();
             return View();
         }
 
+        /// <summary>
+        /// Manage user.
+        /// </summary>
+        /// <param name="jobTitleId">The job title ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(string jobTitleId = "")
         {
@@ -80,6 +90,11 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Employee detail.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Detail(int id = -1)
         {
             var model = _employeeService.Get(id);
@@ -129,13 +144,15 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create employee.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
             ViewBag.Shifts = _shiftService.GetSelectList();
-
-            var teamList = _teamService.GetAll();
-            ViewBag.TeamList = teamList;
+            ViewBag.TeamList = _teamService.GetAll();
 
             return View(new CreateEmployeeViewModel
             {
@@ -147,15 +164,19 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        /// <summary>
+        /// Create employee.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
             model.ProcessBy = this.CurrentUser.Id;
-            ViewBag.Shifts = _shiftService.GetSelectList();
 
-            var teamList = _teamService.GetAll();
-            ViewBag.TeamList = teamList;
+            ViewBag.Shifts = _shiftService.GetSelectList();
+            ViewBag.TeamList = _teamService.GetAll();
 
             if (ModelState.IsValid)
             {
@@ -178,6 +199,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit employee.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
@@ -225,6 +251,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit employee.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -259,6 +290,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Default schedule.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult DefaultSchedule(int id = -1)
         {
@@ -273,6 +309,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Default schedule.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult DefaultSchedule(EmployeeShift model)
@@ -292,6 +333,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Month schedule.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult MonthSchedule(int id = -1)
         {
@@ -302,6 +348,11 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Employee avatar.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>The file result.</returns>
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
@@ -322,6 +373,12 @@ namespace Fanex.NexHR.Controllers
             return File("/avatars/avatar.jpg", "image/jpeg");
         }
 
+        /// <summary>
+        /// Upload avatar.
+        /// </summary>
+        /// <param name="code">The avatar code.</param>
+        /// <param name="file">The avatar file.</param>
+        /// <returns>The JSON result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult UploadAvatar(string code, HttpPostedFileBase file)
@@ -346,20 +403,34 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
+        /// <summary>
+        /// My space view.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult MySpace()
         {
             var model = _employeeService.GetMySpace(this.CurrentUser.Id);
             return View(model);
         }
 
+        /// <summary>
+        /// MY working schedule.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult MyWorkingSchedule()
         {
             return View(_employeeService.GetWorkingSchedule(DateTime.Now, this.CurrentUser.Id));
         }
 
+        /// <summary>
+        /// Working calendar.
+        /// </summary>
+        /// <param name="month">The month value.</param>
+        /// <param name="year">The year value.</param>
+        /// <returns>Action result.</returns>
         public ActionResult WorkingCalendars(int month = 0, int year = 0)
         {
-            var currentDate = new System.Text.StringBuilder();
+            var currentDate = new StringBuilder();
 
             ViewBag.Year = year != 0 ? year : DateTime.Now.Year;
             ViewBag.Month = month != 0 ? month : DateTime.Now.Month;
@@ -375,6 +446,10 @@ namespace Fanex.NexHR.Controllers
             return View(_employeeService.GetWorkingCalendars(currentDate.ToString()));
         }
 
+        /// <summary>
+        /// Edit working calendar.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult WorkingCalendarsEdit()
@@ -389,6 +464,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit working calendar.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult WorkingCalendarsEdit(ChangeWorkingCalendarsViewModel model)
@@ -400,6 +480,10 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Manage dashboard.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [ChildActionOnly]
         public ActionResult ManagementDashboard()
         {
@@ -412,6 +496,10 @@ namespace Fanex.NexHR.Controllers
             return Content(string.Empty);
         }
 
+        /// <summary>
+        /// Manage team.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult TeamManagement()
         {
@@ -420,6 +508,11 @@ namespace Fanex.NexHR.Controllers
             return View(teams);
         }
 
+        /// <summary>
+        /// Add new team.
+        /// </summary>
+        /// <param name="teamId">The team ID.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult AddTeam(int teamId = -1)
         {
@@ -461,6 +554,11 @@ namespace Fanex.NexHR.Controllers
 
         #region TOEIC
 
+        /// <summary>
+        /// Manage TOEIC score.
+        /// </summary>
+        /// <param name="jobTitleId">The job title ID.</param>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult TOEICManagement(string jobTitleId = "")
         {
@@ -478,6 +576,12 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Update full TOEIC.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="name">Employee name.</param>
+        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullTOEIC(int? id, string name)
@@ -495,6 +599,11 @@ namespace Fanex.NexHR.Controllers
             return PartialView(toeic);
         }
 
+        /// <summary>
+        /// Update full TOEIC.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullTOEIC(TOEIC model)
@@ -516,6 +625,10 @@ namespace Fanex.NexHR.Controllers
             return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
+        /// <summary>
+        /// Update TOEIC score.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateTOEIC()
@@ -523,6 +636,11 @@ namespace Fanex.NexHR.Controllers
             return PartialView(new TOEICViewModel());
         }
 
+        /// <summary>
+        /// Update TOEIC.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateTOEIC(TOEICViewModel model)
@@ -531,8 +649,8 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 // convert to TOEIC
-                DateTime currentDate = DateTime.Now;
-                TOEIC toeic = new TOEIC
+                var currentDate = DateTime.Now;
+                var toeic = new TOEIC
                 {
                     EmpId = model.EmpId,
                     InputDate = model.InputDate,
@@ -559,6 +677,10 @@ namespace Fanex.NexHR.Controllers
             return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
+        /// <summary>
+        /// Validate TOEIC score.
+        /// </summary>
+        /// <param name="model">The model object.</param>
         private void ValidateTOEIC(TOEIC model)
         {
             if (model.EmpId <= 0)
@@ -600,6 +722,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRPair);
                 }
+
                 if (!ValidateNumberPair(model.Speaking, model.Writing))
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.EmptySWPair);
@@ -607,21 +730,26 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        /// <summary>
+        /// Validate number pair.
+        /// </summary>
+        /// <param name="number1">The first number.</param>
+        /// <param name="number2">The second number.</param>
+        /// <returns>The result.</returns>
         private bool ValidateNumberPair(int? number1, int? number2)
         {
-            bool isValid = false;
             if ((number1.HasValue && number1.Value > 0) &&
                 (number2.HasValue && number2.Value > 0))
             {
-                isValid = true;
+                return true;
             }
             else if ((!number1.HasValue || number1.Value == 0) &&
                 (!number2.HasValue || number2.Value == 0))
             {
-                isValid = true;
+                return true;
             }
 
-            return isValid;
+            return false;
         }
 
         #endregion

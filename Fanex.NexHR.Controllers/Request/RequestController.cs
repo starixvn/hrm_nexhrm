@@ -60,6 +60,11 @@ namespace Fanex.NexHR.Controllers.Request
 
         #region Member's Action
 
+        /// <summary>
+        /// View member request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
@@ -91,15 +96,19 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     GetMemberLeaveRequest(request);
                     break;
+
                 case 2:
                     GetMemberChangeShift(request);
                     break;
+
                 case 3:
                     GetMemberLateInEarlyOut(request);
                     break;
+
                 case 4:
                     GetMemberCheckInOut(request);
                     break;
+
                 case 5:
                     GetAllRequest(request, (short)RolesEnum.AssistantLeader);
                     break;
@@ -107,12 +116,18 @@ namespace Fanex.NexHR.Controllers.Request
 
             ViewBag.Leader = true;
             ViewBag.Options = request;
+
             return View(request);
         }
 
         #endregion
 
         #region Member's requests
+
+        /// <summary>
+        /// Get member leave request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         [NonAction]
         public void GetMemberLeaveRequest(RequestViewModel request)
         {
@@ -128,6 +143,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// Get member change shift request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         [NonAction]
         public void GetMemberChangeShift(RequestViewModel request)
         {
@@ -143,6 +162,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// Get member late in / early out request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         [NonAction]
         public void GetMemberLateInEarlyOut(RequestViewModel request)
         {
@@ -158,6 +181,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// Get member check in/out request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         [NonAction]
         public void GetMemberCheckInOut(RequestViewModel request)
         {
@@ -175,6 +202,13 @@ namespace Fanex.NexHR.Controllers.Request
         #endregion
 
         #region Request History
+
+        /// <summary>
+        /// HR view request history.
+        /// </summary>
+        /// <param name="id">The request ID.</param>
+        /// <param name="type">The request type.</param>
+        /// <returns>Action result.</returns>
         public ActionResult HRViewHistory(long id, int type)
         {
             switch (type)
@@ -182,12 +216,15 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     HRGetCheckInOutRequestHistory(id, type);
                     break;
+
                 case 2:
                     HRGetLateInEarlyOutRequestHistory(id, type);
                     break;
+
                 case 3:
                     HRGetChangeShiftRequestHistory(id, type);
                     break;
+
                 case 4:
                     HRGetLeaveRequestHistory(id, type);
                     break;
@@ -199,24 +236,44 @@ namespace Fanex.NexHR.Controllers.Request
             return View();
         }
 
+        /// <summary>
+        /// HR get leave request history.
+        /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestType">The request type.</param>
         public void HRGetLeaveRequestHistory(long requestId, int requestType)
         {
             IList<Leave> entityList = _employeeService.GetLeaveRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get change shift request history.
+        /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestType">The request type.</param>
         public void HRGetChangeShiftRequestHistory(long requestId, int requestType)
         {
             IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get late in / early out request history..
+        /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestType">The request type.</param>
         public void HRGetLateInEarlyOutRequestHistory(long requestId, int requestType)
         {
             IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get check in/out request history..
+        /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestType">The request type.</param>
         public void HRGetCheckInOutRequestHistory(long requestId, int requestType)
         {
             IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestHistory(requestId, requestType);
@@ -225,6 +282,11 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion
 
+        /// <summary>
+        /// Daily view request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Action result.</returns>
         public ActionResult DailyView(RequestViewModel request)
         {
             // Default view all request type
@@ -274,6 +336,11 @@ namespace Fanex.NexHR.Controllers.Request
             return View("DailyRequestsView", request);
         }
 
+        /// <summary>
+        /// Employee view request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Action result.</returns>
         public ActionResult EmployeeView(RequestViewModel request)
         {
             // Default view all request type
@@ -324,6 +391,11 @@ namespace Fanex.NexHR.Controllers.Request
         }
         #region HR's Action
 
+        /// <summary>
+        /// HR view request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel request)
         {
@@ -378,6 +450,10 @@ namespace Fanex.NexHR.Controllers.Request
 
         #region Daily Requests
 
+        /// <summary>
+        /// HR get leave request by date.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetLeaveRequestByDate(RequestViewModel request)
         {
             IList<Leave> entityList = _employeeService.GetLeaveRequestByDate(
@@ -392,6 +468,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get change shift request by date.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetChangeShiftRequestByDate(RequestViewModel request)
         {
             IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequestByDate(
@@ -406,6 +486,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get late in / early out request by date.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetLateInEarlyOutRequestByDate(RequestViewModel request)
         {
             IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestByDate(
@@ -420,6 +504,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get check in/out request by date.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetCheckInOutRequestByDate(RequestViewModel request)
         {
             IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestByDate(
@@ -434,6 +522,11 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// Get all requests by date.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="role">The employee role.</param>
         public void GetAllRequestByDate(RequestViewModel request, short role)
         {
             IList<RequestEntity> entityList = _employeeService.GetAllRequestByDate(
@@ -452,6 +545,10 @@ namespace Fanex.NexHR.Controllers.Request
 
         #region HRView's requests
 
+        /// <summary>
+        /// HR get leave request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetLeaveRequest(RequestViewModel request)
         {
             IList<Leave> entityList = _employeeService.GetLeaveRequest(
@@ -466,6 +563,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get change shift request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetChangeShiftRequest(RequestViewModel request)
         {
             IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequest(
@@ -480,6 +581,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get late in / early out request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetLateInEarlyOutRequest(RequestViewModel request)
         {
             IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(
@@ -494,6 +599,10 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
+        /// <summary>
+        /// HR get check in/out request.
+        /// </summary>
+        /// <param name="request">The request.</param>
         public void HRGetCheckInOutRequest(RequestViewModel request)
         {
             IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(
@@ -510,6 +619,11 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion
 
+        /// <summary>
+        /// Get all request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="role">The employee role.</param>
         public void GetAllRequest(RequestViewModel request, short role)
         {
             IList<RequestEntity> entityList = _employeeService.GetAllRequest(

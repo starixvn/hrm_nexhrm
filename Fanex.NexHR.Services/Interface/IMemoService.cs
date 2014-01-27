@@ -10,8 +10,8 @@
 namespace Fanex.NexHR.Services.Interface
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels;
 
     public interface IMemoService
     {

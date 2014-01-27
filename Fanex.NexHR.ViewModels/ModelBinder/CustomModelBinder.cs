@@ -20,6 +20,13 @@ namespace Fanex.NexHR.ViewModels.ModelBinder
     /// </summary>
     public class CustomModelBinder : DefaultModelBinder
     {
+        /// <summary>
+        /// Get value.
+        /// </summary>
+        /// <typeparam name="T">The value type.</typeparam>
+        /// <param name="bindingContext">The binding context.</param>
+        /// <param name="key">The key value.</param>
+        /// <returns>The return value.</returns>
         protected Nullable<T> GetValue<T>(ModelBindingContext bindingContext, string key) where T : struct
         {
             if (string.IsNullOrEmpty(key))

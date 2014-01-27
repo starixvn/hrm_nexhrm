@@ -19,8 +19,15 @@ namespace Fanex.NexHR.ViewModels.ModelBinder
     /// <summary>
     /// Reflection model binder.
     /// </summary>
+    /// <typeparam name="T">The model type.</typeparam>
     public class ReflectionModelBinder<T> : CustomModelBinder where T : new()
     {
+        /// <summary>
+        /// Bind model.
+        /// </summary>
+        /// <param name="controllerContext">The controller context.</param>
+        /// <param name="bindingContext">The binding context.</param>
+        /// <returns>The return object.</returns>
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var viewModel = (T)Activator.CreateInstance(typeof(T));
@@ -29,6 +36,12 @@ namespace Fanex.NexHR.ViewModels.ModelBinder
             return viewModel;
         }
 
+        /// <summary>
+        /// Map view model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="bindingContext">The binding context.</param>
+        /// <returns>The return object.</returns>
         public object Map(T viewModel, ModelBindingContext bindingContext)
         {
             // Not check property readonly

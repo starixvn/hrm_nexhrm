@@ -11,11 +11,12 @@
 
 namespace Fanex.NexHR.Site.App_Start
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Routing;
     using global::Combres;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
+    /// <summary>
+    /// Combres class.
+    /// </summary>
     public static class Combres
     {
         public static void PreStart()

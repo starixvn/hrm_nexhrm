@@ -64,5 +64,5 @@ $(document).ready(function () {
 });
 
 function submitForm(submitType) {
-	$("#isExportExcel").val(submitType);
+	$("#IsExportExcel").val(submitType);
 }

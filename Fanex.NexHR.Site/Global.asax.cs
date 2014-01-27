@@ -17,14 +17,25 @@ namespace Fanex.NexHR.Site
     using Fanex.Logging;
     using Fanex.NexHR.Web.Providers;
 
+    /// <summary>
+    /// MVC application.
+    /// </summary>
     public class MvcApplication : HttpApplication
     {
+        /// <summary>
+        /// Register global filters.
+        /// </summary>
+        /// <param name="filters">The filters.</param>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             // filters.Add(new System.Web.Http.AuthorizeAttribute());
             filters.Add(new HandleErrorAttribute());
         }
 
+        /// <summary>
+        /// Register routes.
+        /// </summary>
+        /// <param name="routes">The route collection.</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -62,7 +73,7 @@ namespace Fanex.NexHR.Site
         {
             if (Context.Response.StatusCode == 401)
             {
-                //Response.Redirect("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+                // Response.Redirect("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
             }
         }
 
@@ -70,6 +81,11 @@ namespace Fanex.NexHR.Site
         {
         }
 
+        /// <summary>
+        /// Application error event handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError().GetBaseException();

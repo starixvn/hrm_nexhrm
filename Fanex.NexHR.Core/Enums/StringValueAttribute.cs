@@ -11,6 +11,9 @@ namespace Fanex.NexHR.Core.Enums
 {
     using System;
 
+    /// <summary>
+    /// String value attribute.
+    /// </summary>
     public class StringValueAttribute : Attribute
     {
         private readonly string _value;

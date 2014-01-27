@@ -35,6 +35,11 @@ namespace Fanex.NexHR.ViewModels
 
         public bool IsPlanned { get; set; }
 
+        /// <summary>
+        /// Valiate context.
+        /// </summary>
+        /// <param name="validationContext">Validation context.</param>
+        /// <returns>List of validation result.</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             IList<ValidationResult> result = new List<ValidationResult>();

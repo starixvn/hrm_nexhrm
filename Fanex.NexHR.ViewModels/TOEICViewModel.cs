@@ -11,17 +11,14 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// TOEIC view model.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1309:FieldNamesMustNotBeginWithUnderscore", Justification = "Reviewed.")]
     public class TOEICViewModel
     {
-        private DateTime? lrExamDate;
-        private DateTime? swExamDate;
+        private DateTime? _LRExamDate;
+        private DateTime? _SWExamDate;
 
         [Required]
         public string Employee { get; set; }
@@ -37,17 +34,17 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
+                if (!_LRExamDate.HasValue || _LRExamDate.Value == DateTime.MinValue)
                 {
-                    lrExamDate = null;
+                    _LRExamDate = null;
                 }
 
-                return lrExamDate;
+                return _LRExamDate;
             }
 
             set
             {
-                lrExamDate = value;
+                _LRExamDate = value;
             }
         }
 
@@ -62,17 +59,17 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
+                if (!_SWExamDate.HasValue || _SWExamDate.Value == DateTime.MinValue)
                 {
-                    swExamDate = null;
+                    _SWExamDate = null;
                 }
 
-                return swExamDate;
+                return _SWExamDate;
             }
 
             set
             {
-                swExamDate = value;
+                _SWExamDate = value;
             }
         }
 

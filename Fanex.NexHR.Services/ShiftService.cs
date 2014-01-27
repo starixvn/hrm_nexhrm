@@ -37,6 +37,10 @@ namespace Fanex.NexHR.Services
         { 
         }
 
+        /// <summary>
+        /// Get all shift.
+        /// </summary>
+        /// <returns>List of shift.</returns>
         public IList<Shift> GetAll()
         {
             var allShifts = this._cacheManager.Get<IList<Shift>>(CacheKeyAllShift);
@@ -53,9 +57,13 @@ namespace Fanex.NexHR.Services
             return allShifts;
         }
 
+        /// <summary>
+        /// Get select list item.
+        /// </summary>
+        /// <returns>List of select list item.</returns>
         public IList<SelectListItem> GetSelectList()
         {
-            IList<SelectListItem> list = new List<SelectListItem>();
+            var list = new List<SelectListItem>();
             var shifts = this.GetAll();
 
             foreach (Shift item in shifts)
@@ -72,6 +80,12 @@ namespace Fanex.NexHR.Services
             return list;
         }
 
+        /// <summary>
+        /// Get shift by date.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="date">The date value.</param>
+        /// <returns>The shift object.</returns>
         public Shift GetByDate(int employeeId, DateTime date)
         {
             if (employeeId > 0)

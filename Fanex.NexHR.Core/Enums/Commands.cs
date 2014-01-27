@@ -11,12 +11,21 @@ namespace Fanex.NexHR.Core.Enums
 {
     public enum Commands
     {
+        /// <summary>
+        /// Approve command.
+        /// </summary>
         [StringValue("Approve")]
         Approve = 1,
 
+        /// <summary>
+        /// Disapprove command.
+        /// </summary>
         [StringValue("Disapprove")]
         Disapprove = 2,
 
+        /// <summary>
+        /// Reject command.
+        /// </summary>
         [StringValue("Reject")]
         Reject = 3
     }

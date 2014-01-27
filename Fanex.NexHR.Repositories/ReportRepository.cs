@@ -24,6 +24,16 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class ReportRepository : IReportRepository
     {
+        /// <summary>
+        /// Get employee attendance report.
+        /// </summary>
+        /// <param name="fromTime">The from time.</param>
+        /// <param name="toTime">The to time.</param>
+        /// <param name="type">The employee type.</param>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="excludeUserDelete">Exclude user delete or not.</param>
+        /// <returns>List of employee attendance model.</returns>
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(
             DateTime fromTime,
             DateTime toTime,
@@ -39,7 +49,21 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public IList<RequestsMonitoring> GetRequestMonitoring(DateTime fromDate, DateTime toDate, int maxRequest, int role, int employeeID)
+        /// <summary>
+        /// Get request monitoring.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="maxRequest">The max request.</param>
+        /// <param name="role">The user role.</param>
+        /// <param name="employeeID">The employee ID.</param>
+        /// <returns>List of request monitoring.</returns>
+        public IList<RequestsMonitoring> GetRequestMonitoring(
+            DateTime fromDate, 
+            DateTime toDate, 
+            int maxRequest, 
+            int role, 
+            int employeeID)
         {
             using (var db = new ObjectDb("RequestMonitoring"))
             {
@@ -75,6 +99,14 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get working hour list.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <returns>List of working hours.</returns>
         public IList<TotalWorkingHours> GetWorkingHoursList(DateTime fromDate, DateTime toDate, int? empId, int? groupId)
         {
             using (var db = new ObjectDb("Report_WorkingHoursSummary"))
@@ -116,6 +148,13 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get annual leave balance report.
+        /// </summary>
+        /// <param name="year">The year value.</param>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <returns>List of leave summary.</returns>
         public IList<LeaveSummary> GetAnnualLeaveBalanceReport(int year, int? empId, int? groupId)
         {
             using (var db = new ObjectDb("Report_LeaveSummary"))

@@ -35,6 +35,11 @@ namespace Fanex.NexHR.Repositories
             this._emailService = emailService ?? new EmailService();
         }
 
+        /// <summary>
+        /// Get all memo.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>List of memo.</returns>
         public IList<Memo> GetAll(MemoViewModel model)
         {
             IList<Memo> entityList = null;
@@ -43,6 +48,11 @@ namespace Fanex.NexHR.Repositories
             return entityList;
         }
 
+        /// <summary>
+        /// Get memo by ID.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>The memo object.</returns>
         public Memo GetById(int id)
         {
             Memo memo = null;
@@ -64,6 +74,11 @@ namespace Fanex.NexHR.Repositories
             return memo;
         }
 
+        /// <summary>
+        /// Delete memo.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>The result.</returns>
         public bool Delete(int id)
         {
             bool result = false;
@@ -75,6 +90,11 @@ namespace Fanex.NexHR.Repositories
             return result;
         }
 
+        /// <summary>
+        /// Insert memo.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The result.</returns>
         public int Insert(Memo entity)
         {
             int result = 1;
@@ -113,6 +133,11 @@ namespace Fanex.NexHR.Repositories
             return result;
         }
 
+        /// <summary>
+        /// Update memo.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The result.</returns>
         public bool Update(Memo entity)
         {
             bool result = false;

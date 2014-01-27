@@ -100,6 +100,9 @@ namespace Fanex.NexHR.Services.Interface
             return check;
         }
 
+        /// <summary>
+        /// Reset job title cache.
+        /// </summary>
         private void ReSetJobTitleCache() 
         {
             var hashTable = this._cacheManager.Get<Hashtable>(CacheKey_AllLookUpData);

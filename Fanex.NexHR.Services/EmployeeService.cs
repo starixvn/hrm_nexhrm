@@ -132,41 +132,68 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.UpdateEmployeeShift(model);
         }
 
-        public IList<WeekWorking> GetWeekWorking(int id, System.DateTime date)
+        public IList<WeekWorking> GetWeekWorking(int id, DateTime date)
         {
             Check.Argument.IsNotNull(id, "id");
             return this._employeeRepository.GetWeekWorking(id, date);
         }
 
-        public bool UpdateWeekWorking(EmployeeShift model, System.DateTime date)
+        public bool UpdateWeekWorking(EmployeeShift model, DateTime date)
         {
             Check.Argument.IsNotNull(model, "model");
             return this._employeeRepository.UpdateWeekWorking(model, date);
         }
 
-        public long WorkingTimeRequest(int empId, short requestType, bool isPlanned, string remark, int createdBy, out int errorCode, out string message, System.DateTime fromDate, int? fromShift = null, System.DateTime? toDate = null, int? toShift = null, int? leaveTypeId = null, decimal? totalDays = null, int? lateInMins = null, int? earlyOutMins = null)
+        public long WorkingTimeRequest(
+            int empId, 
+            short requestType, 
+            bool isPlanned, 
+            string remark, 
+            int createdBy, 
+            out int errorCode, 
+            out string message, 
+            DateTime fromDate, 
+            int? fromShift = null, 
+            DateTime? toDate = null, 
+            int? toShift = null, 
+            int? leaveTypeId = null, 
+            decimal? totalDays = null, 
+            int? lateInMins = null, 
+            int? earlyOutMins = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public int ApproveRequest(long requestId, int approvedBy, System.DateTime approvedDate, int modifiedBy, out string message)
+        public int ApproveRequest(long requestId, int approvedBy, DateTime approvedDate, int modifiedBy, out string message)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public int DisapproveRequest(long requestId, int modifiedBy, System.DateTime approvedDate, out string message)
+        public int DisapproveRequest(long requestId, int modifiedBy, DateTime approvedDate, out string message)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public int RejectRequest(long requestId, int processedBy, System.DateTime processedDate, int modifiedBy, out string message)
+        public int RejectRequest(long requestId, int processedBy, DateTime processedDate, int modifiedBy, out string message)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public bool UpdateRequest(long requestId, bool isPlanned, string remark, int modifiedby, System.DateTime fromDate, int? fromShift = null, System.DateTime? toDate = null, int? toShift = null, int? leaveTypeId = null, decimal? totalDays = null, int? lateInMins = null, int? earlyOutMins = null)
+        public bool UpdateRequest(
+            long requestId, 
+            bool isPlanned, 
+            string remark, 
+            int modifiedby, 
+            DateTime fromDate, 
+            int? fromShift = null, 
+            DateTime? toDate = null, 
+            int? toShift = null, 
+            int? leaveTypeId = null, 
+            decimal? totalDays = null, 
+            int? lateInMins = null, 
+            int? earlyOutMins = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public ViewModels.MySpaceViewModel GetMySpace(int id)
@@ -179,9 +206,10 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.GetHrLeaderDashboard(date, employeeId);
         }
 
-        public IList<WorkingScheduleModel> GetWorkingSchedule(System.DateTime date, int id)
+        public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
         {
             Check.Argument.IsNotNegativeOrZero(id, "id");
+
             return this._employeeRepository.GetWorkingSchedule(date, id);
         }
 
@@ -207,7 +235,7 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.DeleteWorkingTimeRequest(id);
         }
 
-        public bool UpdateShift(int id, System.DateTime date, int? shift, int modifiedBy, DateTime modifiedDate)
+        public bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate)
         {
             return this._employeeRepository.UpdateShift(id, date, shift, modifiedBy, modifiedDate);
         }
@@ -231,7 +259,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
@@ -262,7 +297,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<Leave> GetLeaveRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<Leave> GetLeaveRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
 
@@ -274,7 +316,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<RequestEntity> GetAllRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<RequestEntity> GetAllRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 
@@ -286,6 +335,17 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
+        /// <summary>
+        /// Get check in/out request by date.
+        /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login ID.</param>
+        /// <returns>List of check in/out request.</returns>
         public IList<CheckInOut> GetCheckInOutRequestByDate(
             short roleId, 
             DateTime fromDate, 
@@ -299,13 +359,27 @@ namespace Fanex.NexHR.Services
 
             if (fromDate <= toDate)
             {
-                entityList = this._employeeRepository.GetCheckInOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetCheckInOutRequestByDate(
+                    roleId, 
+                    fromDate, 
+                    toDate, 
+                    employeeId, 
+                    groupId, 
+                    status, 
+                    logInId);
             }
 
             return entityList;
         }
 
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
@@ -336,7 +410,14 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<Leave> GetLeaveRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        public IList<Leave> GetLeaveRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
 
@@ -458,6 +539,12 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.GetHalfDayOffs(reportDate, employeeId, groupId);
         }
 
+        /// <summary>
+        /// Update off day for all employees.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateOffDayForAllEmployees(ModelStateDictionary modelState, ChangeWorkingCalendarsViewModel model)
         {
             // Check.Argument.IsNotNull(model, "model");
@@ -483,17 +570,42 @@ namespace Fanex.NexHR.Services
             return result;
         }
 
+        /// <summary>
+        /// Get range date.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>The range date.</returns>
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             return this._employeeRepository.GetRangeDate(employeeId, fromDate, toDate);
         }
 
+        /// <summary>
+        /// Get disable request date.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>List of date.</returns>
         public IEnumerable<DateTime> GetDisableRequestDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             return this._employeeRepository.GetDisableRequestDate(employeeId, fromDate, toDate);
         }
 
-        public void ExportTotalWorkingHours(HSSFWorkbook workbook, IList<TotalWorkingHours> listTotalWorkingHours, DateTime fromDate, DateTime toDate)
+        /// <summary>
+        /// Export total working hours.
+        /// </summary>
+        /// <param name="workbook">The workbook.</param>
+        /// <param name="listTotalWorkingHours">List of total working hours.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        public void ExportTotalWorkingHours(
+            HSSFWorkbook workbook, 
+            IList<TotalWorkingHours> listTotalWorkingHours, 
+            DateTime fromDate, 
+            DateTime toDate)
         {
             // Create a new workbook and a sheet named "User Accounts"
             // var workbook = new HSSFWorkbook();
@@ -521,6 +633,7 @@ namespace Fanex.NexHR.Services
             font1.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.BOLD;
 
             ICellStyle cellStyle = workbook.CreateCellStyle();
+
             cellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_80_PERCENT.index;
             cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
             cellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.GREY_80_PERCENT.index;

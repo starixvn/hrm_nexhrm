@@ -21,6 +21,13 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class MemoRepository : IMemoRepository
     {
+        /// <summary>
+        /// Get all memo.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="year">The year value.</param>
+        /// <param name="category">The category.</param>
+        /// <returns>List of memo.</returns>
         public IList<Memo> GetAll(string content, int year, int category)
         {
             using (var db = new ObjectDb("Memo_GetAll"))
@@ -29,6 +36,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get memo by ID.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>The memo object.</returns>
         public Memo GetById(int id)
         {
             using (var db = new ObjectDb("Memo_GetById"))
@@ -37,6 +49,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Delete memo.
+        /// </summary>
+        /// <param name="id">The memo ID.</param>
+        /// <returns>The result.</returns>
         public bool Delete(int id)
         {
             using (var db = new ObjectDb("Memo_Delete"))
@@ -46,6 +63,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Insert memo.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public int Insert(Memo model)
         {
             using (var db = new ObjectDb("Memo_Insert"))
@@ -65,6 +87,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Update memo.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool Update(Memo model)
         {
             using (var db = new ObjectDb("Memo_Update"))

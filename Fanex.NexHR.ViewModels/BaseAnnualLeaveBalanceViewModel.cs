@@ -46,6 +46,11 @@ namespace Fanex.NexHR.ViewModels
             }
         }
 
+        /// <summary>
+        /// Validate context.
+        /// </summary>
+        /// <param name="validationContext">Validation context.</param>
+        /// <returns>List of validation result.</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var result = new List<ValidationResult>();

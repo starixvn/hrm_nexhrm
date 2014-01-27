@@ -51,6 +51,11 @@ namespace Fanex.NexHR.Controllers
             return Index(null);
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Index(LeaveSummaryViewModel model)
         {
@@ -116,6 +121,11 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        /// <summary>
+        /// Employee annual leave balance.
+        /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Employee(int id = -1)
         {
             var model = new AnnualLeaveBalanceViewModel
@@ -136,6 +146,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Employee annual leave balance.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)
         {
@@ -150,6 +165,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit employee annual leave balance.
+        /// </summary>
+        /// <param name="id">Annual leave transaction ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Edit(int id = -1)
         {
             var model = _employeeService.GetAnnualLeaveTransaction(id);
@@ -161,6 +181,12 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Edit employee annual leave balance.
+        /// </summary>
+        /// <param name="formCollection">The form collection.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Edit(FormCollection formCollection, AnnualLeaveBalanceModel model)
         {
@@ -201,6 +227,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create employee annual leave balance.
+        /// </summary>
+        /// <param name="id">Annual leave balance ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Create(int id = -1)
         {
             ViewBag.Employee = _employeeService.Get(id);
@@ -211,6 +242,11 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        /// <summary>
+        /// Create employee annual leave balance.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(AnnualLeaveBalanceModel model)
         {

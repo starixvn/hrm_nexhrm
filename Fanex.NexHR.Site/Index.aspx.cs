@@ -10,12 +10,13 @@
 namespace Fanex.NexHR.Site
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Security;
+    using System.Web.UI;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed.")]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:PartialElementsMustBeDocumented", Justification = "Reviewed.")]
-    public partial class Index : System.Web.UI.Page
+    /// <summary>
+    /// Index page.
+    /// </summary>
+    public partial class Index : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

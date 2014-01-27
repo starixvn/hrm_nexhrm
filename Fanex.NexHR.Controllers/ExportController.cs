@@ -24,6 +24,11 @@ namespace Fanex.NexHR.Controllers
     /// </summary>
     public class ExportController : BaseController
     {
+        /// <summary>
+        /// Export total working hours.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             var _reportRepository = new ReportRepository();
@@ -52,7 +57,7 @@ namespace Fanex.NexHR.Controllers
 
             _reportService.ExportTotalWorkingHours(hssfworkbook, listTotalWorkingHours, model.FromDate, model.ToDate);
 
-            MemoryStream output = new MemoryStream();
+            var output = new MemoryStream();
             hssfworkbook.Write(output);
 
             // Return the result to the end user

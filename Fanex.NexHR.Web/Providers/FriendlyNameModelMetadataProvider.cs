@@ -38,14 +38,19 @@ namespace Fanex.NexHR.Web.Providers
             return metadata;
         }
 
+        /// <summary>
+        /// Display name from camel case.
+        /// </summary>
+        /// <param name="name">The input name.</param>
+        /// <returns>The formatted name.</returns>
         private string DisplayNameFromCamelCase(string name)
         {
             var temp = "(?<!^)" + // don't match on the first character - never want to place a space here
-            "(" +
-            "  [A-Z][a-z] |" + // put a space before "Aaaa"
-            "  (?<=[a-z])[A-Z] |" + // put a space into "aAAA" before the first capital
-            "  (?<![A-Z])[A-Z]$" + // if the last letter is capital, prefix it with a space too
-            ")";
+                "(" +
+                "  [A-Z][a-z] |" + // put a space before "Aaaa"
+                "  (?<=[a-z])[A-Z] |" + // put a space into "aAAA" before the first capital
+                "  (?<![A-Z])[A-Z]$" + // if the last letter is capital, prefix it with a space too
+                ")";
 
             var result = Regex.Replace(name, temp, " $1", RegexOptions.IgnorePatternWhitespace).Trim();
 

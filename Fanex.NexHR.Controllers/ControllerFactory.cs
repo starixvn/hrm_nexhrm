@@ -34,6 +34,9 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        /// <summary>
+        /// Fanex module.
+        /// </summary>
         private class FanexModule : NinjectModule
         {
             public override void Load()

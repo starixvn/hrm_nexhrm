@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Models
     /// <summary>
     /// Entity interface.
     /// </summary>
+    /// <typeparam name="TId">The entity type.</typeparam>
     public interface IEntity<TId>
     {
         TId Id { get; set; }

@@ -31,6 +31,10 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion
 
+        /// <summary>
+        /// Create late in / early out request.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Create()
         {
             var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
@@ -70,6 +74,11 @@ namespace Fanex.NexHR.Controllers.Request
             });
         }
 
+        /// <summary>
+        /// Create late in / early out request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(LateInEarlyOutRequestViewModel model)
         {
@@ -92,6 +101,11 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Update late in / early out request.
+        /// </summary>
+        /// <param name="id">The late in early out request ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
             var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
@@ -117,6 +131,11 @@ namespace Fanex.NexHR.Controllers.Request
             });
         }
 
+        /// <summary>
+        /// Update late in / early out request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Update(LateInEarlyOutRequestViewModel model)
         {
@@ -126,12 +145,21 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Employee view.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult EmployeeView()
         {
             return EmployeeView(DateTime.Now.Year);
         }
 
+        /// <summary>
+        /// Employee view.
+        /// </summary>
+        /// <param name="year">The year value.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult EmployeeView(int year)
         {

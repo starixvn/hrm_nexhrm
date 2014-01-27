@@ -68,9 +68,15 @@ namespace Fanex.NexHR.Services
             this._leaveTypeService = leaveTypeService;
         }
 
+        /// <summary>
+        /// To request message.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>The request message.</returns>
         public static string ToRequestMessage(RequestEntity request)
         {
             StringBuilder msg = new StringBuilder();
+
             switch (request.Type.Id)
             {
                 case (int)RequestTypes.Leave:
@@ -117,6 +123,12 @@ namespace Fanex.NexHR.Services
             return msg.ToString();
         }
 
+        /// <summary>
+        /// Check in/out.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool CheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -191,6 +203,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Late in / early out request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool LateInEarlyOut(ModelStateDictionary modelState, LateInEarlyOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -269,6 +287,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Leave request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -390,6 +414,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Change shift.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool ChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
         {
             if (modelState.IsValid)
@@ -462,6 +492,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Update check in/out request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -517,6 +553,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Update late in early out request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateLateInEarlyOut(ModelStateDictionary modelState, LateInEarlyOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -575,6 +617,12 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Update leave request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -676,57 +724,60 @@ namespace Fanex.NexHR.Services
             return false;
         }
 
+        /// <summary>
+        /// Update change shift request.
+        /// </summary>
+        /// <param name="modelState">The model state.</param>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
         {
-            if (modelState.IsValid)
-            {
-                var updated = this._employeeRepository.UpdateRequest(
-                    model.Id,
-                    model.IsPlanned,
-                    model.Remark,
-                    model.By,
-                    model.ForDate,
-                    DateTime.Now,
-                    fromShift: model.FromShift,
-                    toShift: model.ToShift);
-
-                if (updated)
-                {
-                    // send email(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
-                    var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
-
-                    foreach (var item in leaders)
-                    {
-                        var content = new
-                        {
-                            Leader = item.NickName,
-                            Member = model.DisplayName,
-                            RequestId = model.Id,
-                            ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
-                            FromShift = model.FromShiftName,
-                            ToShift = model.ToShiftName,
-                            Remark = model.Remark
-                        };
-
-                        var body = RazorEngine.Razor.Parse(bodyTemplate, content);
-                        this._emailService.SendEmail(
-                            ConfigurationManager.AppSettings["Email"],
-                            item.Email,
-                            string.Empty,
-                            Resources.Messages.UpdatedChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
-                            body);
-                    }
-                }
-
-                return updated;
-            }
-            else
+            if (!modelState.IsValid)
             {
                 modelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                return false;
             }
 
-            return false;
+            var updated = this._employeeRepository.UpdateRequest(
+                model.Id,
+                model.IsPlanned,
+                model.Remark,
+                model.By,
+                model.ForDate,
+                DateTime.Now,
+                fromShift: model.FromShift,
+                toShift: model.ToShift);
+
+            if (updated)
+            {
+                // send email(s)
+                var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
+
+                foreach (var item in leaders)
+                {
+                    var content = new
+                    {
+                        Leader = item.NickName,
+                        Member = model.DisplayName,
+                        RequestId = model.Id,
+                        ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
+                        FromShift = model.FromShiftName,
+                        ToShift = model.ToShiftName,
+                        Remark = model.Remark
+                    };
+
+                    var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+                    this._emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        item.Email,
+                        string.Empty,
+                        Resources.Messages.UpdatedChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
+                        body);
+                }
+            }
+
+            return updated;
         }
         
         /// <summary>
@@ -795,7 +846,7 @@ namespace Fanex.NexHR.Services
 
                 var body = Utilities.ReadTextFile(
                     HttpContext.Current.Server.MapPath("~/app_data/emails/process.request.cshtml"));
-                //body = RazorEngine.Razor.Parse(body, bodyContent);
+
                 body = string.Format(body, bodyContent.Employee, bodyContent.Request, bodyContent.ForDate, bodyContent.Action, bodyContent.User, bodyContent.DisplayNameUser);
 
                 var subject = string.Format(
@@ -824,6 +875,12 @@ namespace Fanex.NexHR.Services
             return true;
         }
 
+        /// <summary>
+        /// Get message date for leave request.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>The return string.</returns>
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
         {
             string result = string.Empty;
@@ -853,6 +910,12 @@ namespace Fanex.NexHR.Services
             return result;
         }
 
+        /// <summary>
+        /// Add project manager into list.
+        /// </summary>
+        /// <param name="employees">List of employee.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of project manager.</returns>
         private IEnumerable<Employee> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)
         {
             var teamCodes = ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString();
@@ -871,7 +934,18 @@ namespace Fanex.NexHR.Services
             return employees;
         }
 
-        private void SendToRelatedPeople(Employee processUser, WorkingTimeRequest request, Employee employee, Commands processCommand)
+        /// <summary>
+        /// Send to related people.
+        /// </summary>
+        /// <param name="processUser">The user who process the request.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="employee">The employee.</param>
+        /// <param name="processCommand">The process command.</param>
+        private void SendToRelatedPeople(
+            Employee processUser, 
+            WorkingTimeRequest request, 
+            Employee employee, 
+            Commands processCommand)
         {
             if (processCommand == Commands.Approve)
             {
@@ -939,7 +1013,20 @@ namespace Fanex.NexHR.Services
             }
         }
 
-        private void CheckInOutRelatedMail(Employee employee, Employee processUser, WorkingTimeRequest request, string subject, string sendCc)
+        /// <summary>
+        /// Check in/out related mail.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <param name="processUser">The user who process the request.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="subject">The email subject.</param>
+        /// <param name="sendCc">The mail cc list.</param>
+        private void CheckInOutRelatedMail(
+            Employee employee, 
+            Employee processUser, 
+            WorkingTimeRequest request, 
+            string subject, 
+            string sendCc)
         {
             var shift = this._shiftService.GetByDate(employee.Id, request.FromDate);
 
@@ -966,7 +1053,22 @@ namespace Fanex.NexHR.Services
                 body);
         }
 
-        private void LateInEarlyOutRelatedMail(Employee employee, Employee processUser, WorkingTimeRequest request, string subject, string sendCc, bool isLateIn)
+        /// <summary>
+        /// Late in early out relate mail.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <param name="processUser">The user who process the request.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="subject">The email subject.</param>
+        /// <param name="sendCc">The mail cc list.</param>
+        /// <param name="isLateIn">Is late in or not.</param>
+        private void LateInEarlyOutRelatedMail(
+            Employee employee, 
+            Employee processUser, 
+            WorkingTimeRequest request, 
+            string subject, 
+            string sendCc, 
+            bool isLateIn)
         {
             var body = Utilities.ReadTextFile(
                 HttpContext.Current.Server.MapPath("~/app_data/emails/LateInEarlyOutApprovalNotification.cshtml"));
@@ -993,7 +1095,20 @@ namespace Fanex.NexHR.Services
                 body);
         }
 
-        private void ChangeShiftRelatedMail(Employee employee, Employee processUser, WorkingTimeRequest request, string subject, string sendCc)
+        /// <summary>
+        /// Change shift relate mail.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <param name="processUser">The user who process the request.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="subject">The email subject.</param>
+        /// <param name="sendCc">The mail cc list.</param>
+        private void ChangeShiftRelatedMail(
+            Employee employee, 
+            Employee processUser, 
+            WorkingTimeRequest request, 
+            string subject, 
+            string sendCc)
         {
             var allShifts = this._shiftService.GetAll();
             var fromShift = allShifts.Where(t => t.Id == (request.FromShift.HasValue ? request.FromShift.Value : 0)).SingleOrDefault();
@@ -1012,7 +1127,7 @@ namespace Fanex.NexHR.Services
                 Remark = request.Remark
             };
 
-            //body = RazorEngine.Razor.Parse(body, bodyContent);
+            // body = RazorEngine.Razor.Parse(body, bodyContent);
             body = string.Format(
                 body, 
                 bodyContent.User, 
@@ -1031,7 +1146,20 @@ namespace Fanex.NexHR.Services
                 body);
         }
 
-        private void LeaveRelatedMail(Employee employee, Employee processUser, WorkingTimeRequest request, string subject, string sendCc)
+        /// <summary>
+        /// Leave related mail.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <param name="processUser">The user who process the request.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="subject">The email subject.</param>
+        /// <param name="sendCc">The mail cc list.</param>
+        private void LeaveRelatedMail(
+            Employee employee, 
+            Employee processUser, 
+            WorkingTimeRequest request, 
+            string subject, 
+            string sendCc)
         {
             var allLeaveTypes = _leaveTypeService.GetAll();
             var leaveType = allLeaveTypes.Where(t => t.Id == (request.LeaveTypeID.HasValue ? request.LeaveTypeID.Value : 0)).SingleOrDefault();
@@ -1073,7 +1201,7 @@ namespace Fanex.NexHR.Services
                 LeaveType = leaveType != null ? leaveType.Name : string.Empty
             };
 
-            //body = RazorEngine.Razor.Parse(body, bodyContent);
+            // body = RazorEngine.Razor.Parse(body, bodyContent);
             body = string.Format(
                 body, 
                 bodyContent.User, 

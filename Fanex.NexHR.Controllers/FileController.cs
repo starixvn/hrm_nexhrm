@@ -18,6 +18,13 @@ namespace Fanex.NexHR.Controllers
     /// </summary>
     public class FileController : BaseController
     {
+        /// <summary>
+        /// Upload file.
+        /// </summary>
+        /// <param name="file">The upload file.</param>
+        /// <param name="categoryID">The category ID.</param>
+        /// <param name="overRide">Override or not.</param>
+        /// <returns>The return string.</returns>
         [HttpPost]
         public string UploadFile(HttpPostedFileBase file, int categoryID, int overRide)
         {

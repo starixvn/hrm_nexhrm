@@ -73,6 +73,11 @@ namespace Fanex.NexHR.Web.Providers
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get roles for user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>List of role.</returns>
         public override string[] GetRolesForUser(string username)
         {
             var user = GetCurrentUser(username);

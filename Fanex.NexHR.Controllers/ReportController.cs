@@ -44,6 +44,11 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
+        /// <summary>
+        /// Attendance report.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
             var employee = this.CurrentUser;
@@ -64,6 +69,10 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Timesheet report.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Timesheet()
         {
             var model = new TimesheetViewModel
@@ -77,13 +86,18 @@ namespace Fanex.NexHR.Controllers
         /// <summary>
         /// Employee request monitoring in current month.
         /// </summary>
-        /// <returns>Return View.</returns>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult HrRequestMonitoring()
         {
             return HrRequestMonitoring(null);
         }
 
+        /// <summary>
+        /// HR request monitoring report.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult HrRequestMonitoring(RequestsMonitoringViewModel model)
@@ -118,12 +132,21 @@ namespace Fanex.NexHR.Controllers
             return View("RequestMonitoring", model);
         }
 
+        /// <summary>
+        /// Leader request monitoring report.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring()
         {
             return LeaderRequestMonitoring(null);
         }
 
+        /// <summary>
+        /// Leader request monitoring report.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
@@ -164,11 +187,20 @@ namespace Fanex.NexHR.Controllers
             return View("RequestMonitoring", model);
         }
 
+        /// <summary>
+        /// Total working hours report.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult TotalWorkingHours()
         {
             return TotalWorkingHours(null);
         }
 
+        /// <summary>
+        /// Total working hours report.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
@@ -181,11 +213,11 @@ namespace Fanex.NexHR.Controllers
                     FromDate = new DateTime(year, month, 1),
                     ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                     DateOption = 5,
-                    isExportExcel = false
+                    IsExportExcel = false
                 };
             }
 
-            if (model.isExportExcel)
+            if (model.IsExportExcel)
             {
                 var export = new ExportController();
                 return export.TotalWorkingHours(model);
@@ -204,11 +236,20 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Leave summary report.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult LeaveSummary()
         {
             return LeaveSummary(null);
         }
 
+        /// <summary>
+        /// Leave summary report.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult LeaveSummary(LeaveSummaryViewModel model)
         {
@@ -249,6 +290,10 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Extension number report.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult ExtensionNo()
         {
             return View();

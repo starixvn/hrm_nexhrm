@@ -31,6 +31,10 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion Ctor
 
+        /// <summary>
+        /// Create check in/out request.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Create()
         {
             var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
@@ -84,6 +88,11 @@ namespace Fanex.NexHR.Controllers.Request
             return View(viewModel);
         }
 
+        /// <summary>
+        /// Create check in/out request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
@@ -108,6 +117,11 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Update check in/out request.
+        /// </summary>
+        /// <param name="id">The check in/out request ID.</param>
+        /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
             var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
@@ -139,6 +153,11 @@ namespace Fanex.NexHR.Controllers.Request
             });
         }
 
+        /// <summary>
+        /// Update check in/out request.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
@@ -149,11 +168,19 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
+        /// <summary>
+        /// Delete check in/out request.
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Delete()
         {
             return View();
         }
 
+        /// <summary>
+        /// Employee view.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult EmployeeView()
         {
@@ -163,8 +190,8 @@ namespace Fanex.NexHR.Controllers.Request
         /// <summary>
         /// Get check in/out request of a specific employee in a year.
         /// </summary>
-        /// <param name="year">In Year.</param>
-        /// <returns>Out View.</returns>
+        /// <param name="year">The input year.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult EmployeeView(int year)
         {

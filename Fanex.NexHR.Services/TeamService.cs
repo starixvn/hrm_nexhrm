@@ -30,6 +30,11 @@ namespace Fanex.NexHR.Services
             this._teamRepository = teamRespository ?? new TeamRepository();
         }
 
+        /// <summary>
+        /// Get team by ID..
+        /// </summary>
+        /// <param name="teamId">The team ID.</param>
+        /// <returns>The return team.</returns>
         public Team Get(int teamId)
         {
             Team team = null;
@@ -38,16 +43,20 @@ namespace Fanex.NexHR.Services
             {
                 var allTeams = this.GetAll();
 
-                //team = allTeams.Single(t => t.Id == teamId);
                 team = allTeams.Where(t => t.Id == teamId).SingleOrDefault();
             }
 
             return team;
         }
 
+        /// <summary>
+        /// Get team by code.
+        /// </summary>
+        /// <param name="code">The team code.</param>
+        /// <returns>The return team.</returns>
         public Team Get(string code)
         {
-            Team team = new Team();
+            var team = new Team();
 
             if (string.IsNullOrWhiteSpace(code))
             {
@@ -58,9 +67,14 @@ namespace Fanex.NexHR.Services
             return team;
         }
 
+        /// <summary>
+        /// Get group of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>The return team.</returns>
         public Team GetGroupOfEmployee(int employeeId)
         {
-            Team team = new Team();
+            var team = new Team();
 
             if (employeeId > 0)
             {
@@ -70,36 +84,74 @@ namespace Fanex.NexHR.Services
             return team;
         }
 
+        /// <summary>
+        /// Get all team.
+        /// </summary>
+        /// <returns>List of team.</returns>
         public IList<Team> GetAll()
         {
             return this._teamRepository.GetAll();
         }
 
+        /// <summary>
+        /// Get team managed by employee.
+        /// </summary>
+        /// <param name="managerId">The manager ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetTeamManagedByEmp(int managerId)
         {
             return this._teamRepository.GetTeamManagedByEmp(managerId);
         }
 
+        /// <summary>
+        /// GEt sub teams of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetSubTeamsOfEmployee(int employeeId)
         {
             return this._teamRepository.GetSubTeamsOfEmployee(employeeId);
         }
 
+        /// <summary>
+        /// Add new team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public int AddNewTeam(TeamViewModel model)
         {
             return this._teamRepository.AddNewTeam(model);
         }
 
+        /// <summary>
+        /// Update team.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateTeam(TeamViewModel model)
         {
             return this._teamRepository.UpdateTeam(model);
         }
 
+        /// <summary>
+        /// Delete team.
+        /// </summary>
+        /// <param name="id">The team ID.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="modifiedby">The modified by.</param>
+        /// <param name="errCode">The error code.</param>
+        /// <param name="message">The error message.</param>
+        /// <returns>The result.</returns>
         public bool DeleteTeam(int id, DateTime modifiedDate, int modifiedby, out int errCode, out string message)
         {
             return this._teamRepository.DeleteTeam(id, modifiedDate, modifiedby, out errCode, out message);
         }
 
+        /// <summary>
+        /// Get teams handle requests of employee.
+        /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(int employeeId)
         {
             return this._teamRepository.GetTeamsHandleRequestsOfEmployee(employeeId);

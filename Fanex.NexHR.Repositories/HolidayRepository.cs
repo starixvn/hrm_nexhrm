@@ -22,6 +22,11 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class HolidayRepository : IHolidayRepository
     {
+        /// <summary>
+        /// Insert holiday.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public int Insert(Holiday model)
         {
             using (var db = new ObjectDb("Holiday_Insert"))
@@ -36,6 +41,12 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Delete holiday.
+        /// </summary>
+        /// <param name="id">The holiday ID.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <returns>The result.</returns>
         public bool Delete(int id, int modifiedBy)
         {
             using (var db = new ObjectDb("Holiday_Delete"))
@@ -43,10 +54,16 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@Id", DbType.Int32, id);
                 db.AddInParameter("@ModifiedBy", DbType.Int16, modifiedBy);
                 db.AddInParameter("@ModifiedDate", DbType.DateTime, DateTime.Now);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
 
+        /// <summary>
+        /// Update holiday.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool Update(Holiday model)
         {
             using (ObjectDb db = new ObjectDb("Holiday_Update"))
@@ -62,6 +79,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get holiday by year.
+        /// </summary>
+        /// <param name="year">The year value.</param>
+        /// <returns>List of holiday.</returns>
         public IList<Holiday> GetByYear(int year)
         {
             using (var db = new ObjectDb("Holiday_GetByYear"))
@@ -70,6 +92,11 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
+        /// <summary>
+        /// Get holiday by ID.
+        /// </summary>
+        /// <param name="id">The holiday ID.</param>
+        /// <returns>The holiday object.</returns>
         public Holiday GetById(int id)
         {
             using (var db = new ObjectDb("Holiday_GetById"))

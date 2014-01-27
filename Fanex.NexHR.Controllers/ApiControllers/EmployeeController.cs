@@ -65,7 +65,10 @@ namespace Fanex.NexHR.Controllers.ApiControllers
 
         public IEnumerable<DateTime> GetUnavailDate(int employeeId, DateTime date)
         {
-            return _employeeService.GetDisableRequestDate(employeeId, new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1), new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1));
+            return _employeeService.GetDisableRequestDate(
+                employeeId, 
+                new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1), 
+                new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1));
         }
 
         public IList<Employee> GetTOEIC(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)

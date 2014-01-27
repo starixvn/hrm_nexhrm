@@ -33,7 +33,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="employeeId">Employee ID.</param>
         /// <param name="domainUsername">Domain username.</param>
-        /// <rereturns>Employee object.</rereturns>
+        /// <returns>Employee object.</returns>
         public Employee Get(int? employeeId, string domainUsername = null)
         {
             using (var db = new ObjectDb("GetEmployee"))
@@ -54,6 +54,7 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all employee.
         /// </summary>
+        /// <returns>List of employee.</returns>
         public IList<Employee> GetAll()
         {
             using (var db = new ObjectDb("GetEmployees"))
@@ -81,7 +82,18 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Query employee.
         /// </summary>
-        public IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        /// <param name="query">The query string.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="enable">Enable or disable.</param>
+        /// <param name="isDelete">Is delete or not.</param>
+        /// <param name="titleId">The title ID.</param>
+        /// <returns>List of employee.</returns>
+        public IList<Employee> Query(
+            string query, 
+            int? groupId, 
+            bool? enable = null, 
+            bool? isDelete = null, 
+            int? titleId = null)
         {
             using (var db = new ObjectDb("GetEmployees"))
             {
@@ -140,6 +152,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee for related team.
         /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of employee.</returns>
         public IList<Employee> GetEmployeeForRelatedTeam(int employeeId)
         {
             using (var db = new ObjectDb("Employee_GetEmployeeForRelatedTeam"))
@@ -153,6 +167,10 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee by teams.
         /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="teamCodes">The team code.</param>
+        /// <param name="ignoreTeams">List of ignored team.</param>
+        /// <returns>List of employee.</returns>
         public IList<Employee> GetEmployeeByTeams(int employeeId, string teamCodes, string ignoreTeams)
         {
             using (var db = new ObjectDb("Employee_GetEmployeeByTeams"))
@@ -166,6 +184,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leaders.
         /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>List of employee.</returns>
         public IList<Employee> GetLeaders(int employeeId)
         {
             using (var db = new ObjectDb("Employee_GetLeaders"))
@@ -177,6 +197,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Insert employee.
         /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public int Insert(CreateEmployeeViewModel model)
         {
             using (var db = new ObjectDb("Employee_Insert"))
@@ -203,12 +225,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Delete employee.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="resignedDate">The resigned date.</param>
+        /// <returns>The result.</returns>
         public bool Delete(int id, DateTime resignedDate)
         {
             using (var db = new ObjectDb("Employee_Delete"))
             {
                 db.AddInParameter("@id", DbType.Int32, id);
                 db.AddInParameter("@resignedDate", DbType.DateTime, resignedDate);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
@@ -216,6 +242,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update employee.
         /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool Update(Employee model)
         {
             using (var db = new ObjectDb("Employee_UpdateEmployee"))
@@ -263,6 +291,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee shift.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>The employee shift.</returns>
         public EmployeeShift GetEmployeeShift(int id)
         {
             using (var db = new ObjectDb("EmployeeShift_Get"))
@@ -274,6 +304,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update employee shift.
         /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>The result.</returns>
         public bool UpdateEmployeeShift(EmployeeShift model)
         {
             using (var db = new ObjectDb("EmployeeShift_Update"))
@@ -286,6 +318,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@friShift", DbType.Int32, model.FriShift);
                 db.AddInParameter("@satShift", DbType.Int32, model.SatShift);
                 db.AddInParameter("@sunShift", DbType.Int32, model.SunShift);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
@@ -293,6 +326,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get week working.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="date">The date value.</param>
+        /// <returns>List of week wokring.</returns>
         public IList<WeekWorking> GetWeekWorking(int id, DateTime date)
         {
             using (var db = new ObjectDb("EmployeeCalendar_GetWeekWorking"))
@@ -304,6 +340,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update week working.
         /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <param name="date">The date value.</param>
+        /// <returns>The result.</returns>
         public bool UpdateWeekWorking(EmployeeShift model, DateTime date)
         {
             using (var db = new ObjectDb("EmployeeCalendar_UpdateWeekWorking"))
@@ -317,6 +356,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@friShift", DbType.Int32, model.FriShift);
                 db.AddInParameter("@satShift", DbType.Int32, model.SatShift);
                 db.AddInParameter("@sunShift", DbType.Int32, model.SunShift);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
@@ -324,6 +364,12 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Process request.
         /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="processedBy">Processed by.</param>
+        /// <param name="processedDate">Processed date.</param>
+        /// <param name="message">The error message.</param>
+        /// <returns>The result.</returns>
         public int ProcessRequest(
             Commands command,
             long requestId,
@@ -334,6 +380,7 @@ namespace Fanex.NexHR.Repositories
             string key = string.Empty;
             string processedByKey = string.Empty;
             string processedDateKey = string.Empty;
+
             switch (command)
             {
                 case Commands.Approve:
@@ -341,11 +388,13 @@ namespace Fanex.NexHR.Repositories
                     processedByKey = "@ApprovedBy";
                     processedDateKey = "@ApprovedDate";
                     break;
+
                 case Commands.Disapprove:
                     key = "WorkingTimeRequest_DisapproveRequest";
                     processedByKey = "@ModifiedBy";
                     processedDateKey = "@ModifiedDate";
                     break;
+
                 case Commands.Reject:
                     key = "WorkingTimeRequest_RejectRequest";
                     processedByKey = "@ProcessedBy";
@@ -353,7 +402,7 @@ namespace Fanex.NexHR.Repositories
                     break;
             }
 
-            using (ObjectDb db = new ObjectDb(key))
+            using (var db = new ObjectDb(key))
             {
                 db.AddInParameter("@RequestID", DbType.Int64, requestId);
 
@@ -365,6 +414,7 @@ namespace Fanex.NexHR.Repositories
 
                 db.ExecuteNonQuery();
                 message = db.GetParameterValue("ErrMsg") as string;
+
                 return (int)db.GetParameterValue("ErrCode");
             }
         }
@@ -372,6 +422,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get me space.
         /// </summary>
+        /// <param name="empid">The employee ID.</param>
+        /// <returns>MY space view model.</returns>
         public MySpaceViewModel GetMySpace(int empid)
         {
             using (var db = new ObjectDb("Report_EmployeeDashBoard"))
@@ -384,6 +436,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get HR leader dashboard.
         /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <returns>HR leader dashboard model.</returns>
         public HrLeaderDashboardModel GetHrLeaderDashboard(DateTime date, int? employeeId = null)
         {
             using (var db = new ObjectDb("Report_HRLeaderDashBoard"))
@@ -395,6 +450,23 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Working time request.
         /// </summary>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="requestType">The request type.</param>
+        /// <param name="isPlanned">Is planned or not.</param>
+        /// <param name="remark">The remark.</param>
+        /// <param name="createdDate">The created date.</param>
+        /// <param name="createdBy">Created by.</param>
+        /// <param name="errorCode">The error code.</param>
+        /// <param name="message">The error message.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="fromShift">The from shift.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="toShift">The to shift.</param>
+        /// <param name="leaveTypeId">The leave type ID.</param>
+        /// <param name="totalDays">Total days.</param>
+        /// <param name="lateInMins">The late in duration in minutes.</param>
+        /// <param name="earlyOutMins">The early out duration in minutes.</param>
+        /// <returns>The request ID.</returns>
         public long WorkingTimeRequest(
             int empId,
             short requestType,
@@ -424,7 +496,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@FromShift", DbType.Int32, fromShift);
                 db.AddInParameter("@ToDate", DbType.DateTime, toDate);
                 db.AddInParameter("@ToShift", DbType.Int32, toShift);
-
+                
                 db.AddInParameter("@LeaveTypeID", DbType.Int32, leaveTypeId);
                 db.AddInParameter("@TotalDays", DbType.Decimal, totalDays);
                 db.AddInParameter("@LateInMins", DbType.Int32, lateInMins);
@@ -448,7 +520,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get working time request list.
         /// </summary>
-        public IList<WorkingTimeRequest> GetWorkingTimeRequests(int employeeId, int? requestType = null, byte? status = null)
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="requestType">The request type.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>List of working time request.</returns>
+        public IList<WorkingTimeRequest> GetWorkingTimeRequests(
+            int employeeId, 
+            int? requestType = null, 
+            byte? status = null)
         {
             using (var db = new ObjectDb("WorkingTimeRequest_GetByEmployee"))
             {
@@ -459,9 +538,11 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get working time request.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Working time request.</returns>
         public WorkingTimeRequest GetWorkingTimeRequest(long id)
         {
-            using (ObjectDb db = new ObjectDb("WorkingTimeRequest_Get"))
+            using (var db = new ObjectDb("WorkingTimeRequest_Get"))
             {
                 return db.Query<WorkingTimeRequest>(new { id }).FirstOrDefault();
             }
@@ -470,9 +551,11 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Delete working time request.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>The result.</returns>
         public bool DeleteWorkingTimeRequest(int id)
         {
-            using (ObjectDb db = new ObjectDb("WorkingTimeRequest_Delete"))
+            using (var db = new ObjectDb("WorkingTimeRequest_Delete"))
             {
                 db.AddInParameter("@id", DbType.Int32, id);
                 return db.ExecuteNonQuery() != 0;
@@ -482,6 +565,20 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update request.
         /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="isPlanned">Is planned or not.</param>
+        /// <param name="remark">The remark.</param>
+        /// <param name="modifiedby">The modified by.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="fromShift">The from shift.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="toShift">The to shift.</param>
+        /// <param name="leaveTypeId">The leave type ID.</param>
+        /// <param name="totalDays">The total days.</param>
+        /// <param name="lateInMins">The late in minutes.</param>
+        /// <param name="earlyOutMins">The early out minutes.</param>
+        /// <returns>The result.</returns>
         public bool UpdateRequest(
             long requestId,
             bool isPlanned,
@@ -497,7 +594,7 @@ namespace Fanex.NexHR.Repositories
             int? lateInMins = null,
             int? earlyOutMins = null)
         {
-            using (ObjectDb db = new ObjectDb("WorkingTimeRequest_Update"))
+            using (var db = new ObjectDb("WorkingTimeRequest_Update"))
             {
                 db.AddInParameter("@Id", DbType.Int64, requestId);
                 db.AddInParameter("@IsPlanned", DbType.Boolean, isPlanned);
@@ -512,6 +609,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@EarlyOutMins", DbType.Int32, earlyOutMins);
                 db.AddInParameter("@ModifiedBy", DbType.Int32, modifiedby);
                 db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
+
                 return db.ExecuteNonQuery() != 0;
             }
         }
@@ -519,6 +617,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get working schedule.
         /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>List of working schedule model.</returns>
         public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
         {
             using (var db = new ObjectDb("Report_EmployeeCalendarByMonth"))
@@ -551,6 +652,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get working calendar.
         /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <returns>List of working calendar view model.</returns>
         public IList<WorkingCalendarsViewModel> GetWorkingCalendars(string date)
         {
             using (var db = new ObjectDb("Report_EmployeeCalendarByMonth"))
@@ -563,7 +666,7 @@ namespace Fanex.NexHR.Repositories
                 var dttWorkingCalendars = ds != null ? ds.Tables[0] : null;
                 var totalColumns = dttWorkingCalendars.Columns.Count;
 
-                foreach (System.Data.DataRow row in dttWorkingCalendars.Rows)
+                foreach (DataRow row in dttWorkingCalendars.Rows)
                 {
                     var empWorkingCalendar = new WorkingCalendarsViewModel();
 
@@ -572,7 +675,9 @@ namespace Fanex.NexHR.Repositories
                     empWorkingCalendar.NickName = row["nickname"].ToString();
                     empWorkingCalendar.Team = row["Team"].ToString();
                     empWorkingCalendar.Days = totalColumns - 4;
-                    List<string> days = new List<string>();
+
+                    var days = new List<string>();
+
                     for (int i = 4; i < totalColumns; i++)
                     {
                         days.Add(row[i].ToString());
@@ -590,9 +695,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update shift.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="date">The date value.</param>
+        /// <param name="shift">The shift ID.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <returns>The result.</returns>
         public bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate)
         {
-            using (ObjectDb db = new ObjectDb("EmployeeCalendar_Update"))
+            using (var db = new ObjectDb("EmployeeCalendar_Update"))
             {
                 db.AddInParameter("@EmpId", DbType.Int32, id);
                 db.AddInParameter("@date", DbType.DateTime, date);
@@ -607,6 +718,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of check in/out.</returns>
         public IList<CheckInOut> GetCheckInOutRequest(
             short roleId, 
             DateTime fromDate, 
@@ -634,7 +753,6 @@ namespace Fanex.NexHR.Repositories
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
                                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
-
                                 Requester = new Employee
                                 {
                                     NickName = reader.To<string>("Requester"),
@@ -661,6 +779,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of late in early out request.</returns>
         public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
             short roleId, 
             DateTime fromDate, 
@@ -717,6 +843,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of change shift request.</returns>
         public IList<ChangingShift> GetChangeShiftRequest(
             short roleId, 
             DateTime fromDate, 
@@ -773,7 +907,22 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request.
         /// </summary>
-        public IList<Leave> GetLeaveRequest(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of leave request.</returns>
+        public IList<Leave> GetLeaveRequest(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_LeaveType"))
@@ -824,6 +973,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all request.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of request entity.</returns>
         public IList<RequestEntity> GetAllRequest(
             short roleId, 
             DateTime fromDate, 
@@ -888,6 +1045,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request by date.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of check in/out.</returns>
         public IList<CheckInOut> GetCheckInOutRequestByDate(
             short roleId, 
             DateTime fromDate, 
@@ -942,6 +1107,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request by date.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of late in early out request.</returns>
         public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
             short roleId, 
             DateTime fromDate, 
@@ -998,6 +1171,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request by date.
         /// </summary>
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of change shift request.</returns>
         public IList<ChangingShift> GetChangeShiftRequestByDate(
             short roleId, 
             DateTime fromDate, 
@@ -1054,7 +1235,22 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request by date.
         /// </summary>
-        public IList<Leave> GetLeaveRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of leave request.</returns>
+        public IList<Leave> GetLeaveRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
             using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_LeaveType"))
@@ -1105,7 +1301,22 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all request by date.
         /// </summary>
-        public IList<RequestEntity> GetAllRequestByDate(short roleId, DateTime fromDate, DateTime toDate, int? employeeId = null, int? groupId = null, byte? status = null, int? logInId = null)
+        /// <param name="roleId">The role ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="logInId">The login user ID.</param>
+        /// <returns>List of request entity.</returns>
+        public IList<RequestEntity> GetAllRequestByDate(
+            short roleId, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int? employeeId = null, 
+            int? groupId = null, 
+            byte? status = null, 
+            int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 
@@ -1162,6 +1373,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request history.
         /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestTypeId">The request type ID.</param>
+        /// <returns>List of check in/out request.</returns>
         public IList<CheckInOut> GetCheckInOutRequestHistory(long requestId, int requestTypeId)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
@@ -1207,6 +1421,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request history.
         /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestTypeId">The request type ID.</param>
+        /// <returns>List of late in early out request.</returns>
         public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(long requestId, int requestTypeId)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
@@ -1255,6 +1472,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request history.
         /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestTypeId">The request type ID.</param>
+        /// <returns>List of change shift request.</returns>
         public IList<ChangingShift> GetChangeShiftRequestHistory(long requestId, int requestTypeId)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
@@ -1303,6 +1523,9 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request history.
         /// </summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="requestTypeId">The request type ID.</param>
+        /// <returns>List of leave request.</returns>
         public IList<Leave> GetLeaveRequestHistory(long requestId, int requestTypeId)
         {
             IList<Leave> entityList = new List<Leave>();
@@ -1353,10 +1576,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get members by manager.
         /// </summary>
+        /// <param name="managerId">The manager ID.</param>
+        /// <param name="role">The employee role.</param>
+        /// <param name="keyword">The keyword.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <returns>List of employee.</returns>
         public IList<Employee> GetMembersByManager(int managerId, short role, string keyword, int? groupId = null)
         {
             int excludedManager = 0;
-            using (ObjectDb db = new ObjectDb("Employee_GetMembesByManager"))
+
+            using (var db = new ObjectDb("Employee_GetMembesByManager"))
             {
                 return db.Query<Employee>(new { managerId, role, excludedManager, groupId, keyword }).ToList();
             }
@@ -1365,6 +1594,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Adjust annual leaves.
         /// </summary>
+        /// <param name="empIds">List of employee ID.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="deductDays">The deduct days.</param>
+        /// <param name="creditDays">The credit days.</param>
+        /// <param name="createdDate">The created date.</param>
+        /// <param name="createdBy">Created by.</param>
+        /// <returns>The result.</returns>
         public bool AdjustAnnualLeaves(
             string empIds, 
             string description, 
@@ -1374,7 +1611,7 @@ namespace Fanex.NexHR.Repositories
             DateTime createdDate, 
             int createdBy)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_InsertMultipleTransactions"))
+            using (var db = new ObjectDb("AnnualLeave_InsertMultipleTransactions"))
             {
                 return db.ExecuteNonQuery(new { empIds, description, fromDate, deductDays, creditDays, createdDate, createdBy }) != 0;
             }
@@ -1383,9 +1620,22 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Reset annual leaves.
         /// </summary>
-        public bool ResetAnnualLeaves(string empValue, string description, DateTime fromDate, int resetDays, DateTime createdDate, int createdBy)
+        /// <param name="empValue">The employee value.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="resetDays">The reset days.</param>
+        /// <param name="createdDate">The created date.</param>
+        /// <param name="createdBy">Created by.</param>
+        /// <returns>The result.</returns>
+        public bool ResetAnnualLeaves(
+            string empValue, 
+            string description, 
+            DateTime fromDate, 
+            int resetDays, 
+            DateTime createdDate, 
+            int createdBy)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_ResetMultipleTransactions"))
+            using (var db = new ObjectDb("AnnualLeave_ResetMultipleTransactions"))
             {
                 return db.ExecuteNonQuery(new { empValue, description, fromDate, resetDays, createdDate, createdBy }) != 0;
             }
@@ -1394,9 +1644,13 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get annual leave transactions.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="year">The year value.</param>
+        /// <param name="excludedRequestTrans">Excluded request transaction or not.</param>
+        /// <returns>List of annual leave balance model.</returns>
         public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(int id, int year, bool excludedRequestTrans)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_GetTransByEmp"))
+            using (var db = new ObjectDb("AnnualLeave_GetTransByEmp"))
             {
                 return db.Query<AnnualLeaveBalanceModel>(new { empId = id, year, excludedRequestTrans }).ToList();
             }
@@ -1405,9 +1659,13 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Delete annual leave transaction.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <returns>The result.</returns>
         public bool DeleteAnnualLeaveTransaction(long id, DateTime modifiedDate, int modifiedBy)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_DeleteTransaction"))
+            using (var db = new ObjectDb("AnnualLeave_DeleteTransaction"))
             {
                 return db.ExecuteNonQuery(new { id, modifiedDate, modifiedBy }) != 0;
             }
@@ -1416,9 +1674,11 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get annual leave transaction.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <returns>Annual leave balance model.</returns>
         public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(int id)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_GetByID"))
+            using (var db = new ObjectDb("AnnualLeave_GetByID"))
             {
                 return db.Query<AnnualLeaveBalanceModel>(new { id }).SingleOrDefault();
             }
@@ -1427,6 +1687,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update annual leave transaction.
         /// </summary>
+        /// <param name="id">The employee ID.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="deductDays">The deduct days.</param>
+        /// <param name="creditDays">The credit days.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <returns>The result.</returns>
         public bool UpdateAnnualLeaveTransaction(
             long id,
             string description,
@@ -1436,7 +1704,7 @@ namespace Fanex.NexHR.Repositories
             DateTime modifiedDate,
             int modifiedBy)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_UpdateTransaction"))
+            using (var db = new ObjectDb("AnnualLeave_UpdateTransaction"))
             {
                 return db.ExecuteNonQuery(new { id, description, fromDate, deductDays, creditDays, modifiedDate, modifiedBy }) != 0;
             }
@@ -1445,6 +1713,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Insert annual leave transaction.
         /// </summary>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="deductDays">The deduct days.</param>
+        /// <param name="creditDays">The credit days.</param>
+        /// <param name="createdDate">The created date.</param>
+        /// <param name="createdBy">Created by.</param>
+        /// <returns>The result.</returns>
         public bool InsertAnnualLeaveTransaction(
             int empId,
             string description,
@@ -1454,7 +1730,7 @@ namespace Fanex.NexHR.Repositories
             DateTime createdDate,
             int createdBy)
         {
-            using (ObjectDb db = new ObjectDb("AnnualLeave_InsertTransaction"))
+            using (var db = new ObjectDb("AnnualLeave_InsertTransaction"))
             {
                 return db.ExecuteNonQuery(new
                 {
@@ -1472,9 +1748,10 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get missing check in/out employee list.
         /// </summary>
+        /// <returns>List of missing check in out model.</returns>
         public IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees()
         {
-            using (ObjectDb db = new ObjectDb("GetMissingCheckInOutList"))
+            using (var db = new ObjectDb("GetMissingCheckInOutList"))
             {
                 return db.Query<MissingCheckInOutModel>().ToList();
             }
@@ -1483,6 +1760,8 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get user changed shift.
         /// </summary>
+        /// <param name="reportDate">The report date.</param>
+        /// <returns>List of user changed shift.</returns>
         public IList<UserChangedShift> GetUserChangedShift(DateTime reportDate)
         {
             using (var db = new ObjectDb("EmployeeCalendar_GetChangedShift"))
@@ -1494,6 +1773,10 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get half day offs.
         /// </summary>
+        /// <param name="reportDate">The report date.</param>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <returns>List of half day off.</returns>
         public IList<HalfDayOff> GetHalfDayOffs(DateTime reportDate, int? employeeId = null, int? groupId = null)
         {
             using (var db = new ObjectDb("EmployeeCalendar_GetHalfDayOff"))
@@ -1505,6 +1788,13 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update off day for all employees.
         /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <param name="isOffDay">Is off day or not.</param>
+        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="errorCode">The error code.</param>
+        /// <param name="message">The error message.</param>
+        /// <returns>The result.</returns>
         public bool UpdateOffDayForAllEmployees(
             DateTime date,
             int isOffDay,
@@ -1535,6 +1825,10 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get range date.
         /// </summary>
+        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>The range date.</returns>
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             int numberDay = 0;
@@ -1549,13 +1843,13 @@ namespace Fanex.NexHR.Repositories
                     db.AddInParameter("@toDate", DbType.DateTime, toDate);
 
                     ds = db.ExecuteDataSet();
-                    var dtRangeDate = ds != null ? ds.Tables[0] : null;
+                    var rangeDate = ds != null ? ds.Tables[0] : null;
 
-                    if (dtRangeDate != null)
+                    if (rangeDate != null)
                     {
-                        if (dtRangeDate.Rows.Count > 0)
+                        if (rangeDate.Rows.Count > 0)
                         {
-                            numberDay = int.Parse(dtRangeDate.Rows[0][0].ToString());
+                            numberDay = int.Parse(rangeDate.Rows[0][0].ToString());
                         }
                     }
                 }
@@ -1567,25 +1861,42 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get disable request date.
         /// </summary>
+        /// <param name="empId">The employee ID.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>List of date time.</returns>
         public IEnumerable<DateTime> GetDisableRequestDate(int empId, DateTime fromDate, DateTime toDate)
         {
             using (var db = new ObjectDb("EmployeeCalendar_GetUnavailRequestDate"))
             {
-                var unavailableDates = db.Query<DateTime>(new { empId = empId, fromDate = fromDate, toDate = toDate });
-                return unavailableDates;
+                return db.Query<DateTime>(new { empId = empId, fromDate = fromDate, toDate = toDate });
             }
         }
 
         /// <summary>
         /// Get employee TOEIC score.
         /// </summary>
-        public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        /// <param name="query">The query string.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="titleId">The title ID.</param>
+        /// <param name="score">The score.</param>
+        /// <param name="enable">Enable or disable.</param>
+        /// <param name="isDelete">Is delete or not.</param>
+        /// <returns>List of employee.</returns>
+        public IList<Employee> GetEmployeeTOEICScore(
+            string query, 
+            int? groupId, 
+            int? titleId = null, 
+            int? score = null, 
+            bool? enable = null, 
+            bool? isDelete = null)
         {
             using (var db = new ObjectDb("TOEIC_GetAllScores"))
             {
                 var p = new DynamicParameters();
                 int? disableUsers;
                 int? deleteUsers;
+
                 // check enable
                 if (enable == true)
                 {
