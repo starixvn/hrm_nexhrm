@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Site.App_Start
     using global::Combres;
 
     /// <summary>
-    /// Combres class.
+    /// COMBRES class.
     /// </summary>
     public static class Combres
     {

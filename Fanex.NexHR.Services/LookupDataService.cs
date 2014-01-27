@@ -24,7 +24,7 @@ namespace Fanex.NexHR.Services.Interface
     /// </summary>
     public class LookupDataService : ILookupDataService
     {
-        private const string CacheKey_AllLookUpData = "CacheKey_AllLookUpData";
+        private const string CacheKeyAllLookUpData = "CacheKey_AllLookUpData";
         private readonly ILookupDataRepository _lookupDataRepository;
         private ICache _cacheManager;
 
@@ -105,7 +105,7 @@ namespace Fanex.NexHR.Services.Interface
         /// </summary>
         private void ReSetJobTitleCache() 
         {
-            var hashTable = this._cacheManager.Get<Hashtable>(CacheKey_AllLookUpData);
+            var hashTable = this._cacheManager.Get<Hashtable>(CacheKeyAllLookUpData);
             var lookUpCode = LookupCodeName.JobTitle.ToLower();
             if (hashTable == null)
             {
@@ -115,7 +115,7 @@ namespace Fanex.NexHR.Services.Interface
             var listJobTile = this.GetAll(LookupCodeName.JobTitle);
             hashTable[lookUpCode] = listJobTile;
 
-            this._cacheManager.Set<Hashtable>(CacheKey_AllLookUpData, hashTable, TimeSpan.FromHours(1));
+            this._cacheManager.Set<Hashtable>(CacheKeyAllLookUpData, hashTable, TimeSpan.FromHours(1));
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Fanex.NexHR.Services.Interface
         {
             Check.Argument.IsNotEmpty(lookUpCode, "lookUpCode");
 
-            var hashTable = this._cacheManager.Get<Hashtable>(CacheKey_AllLookUpData);
+            var hashTable = this._cacheManager.Get<Hashtable>(CacheKeyAllLookUpData);
             lookUpCode = lookUpCode.ToLower();
             if (hashTable == null)
             {
@@ -141,7 +141,7 @@ namespace Fanex.NexHR.Services.Interface
                 if (lookUpDataList != null && lookUpDataList.Count > 0)
                 {
                     hashTable.Add(lookUpCode.ToLower(), lookUpDataList);
-                    this._cacheManager.Set<Hashtable>(CacheKey_AllLookUpData, hashTable, TimeSpan.FromHours(1));
+                    this._cacheManager.Set<Hashtable>(CacheKeyAllLookUpData, hashTable, TimeSpan.FromHours(1));
                 }
             }
 

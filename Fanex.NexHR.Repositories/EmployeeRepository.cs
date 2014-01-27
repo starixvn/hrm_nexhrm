@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Repositories
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -88,6 +89,7 @@ namespace Fanex.NexHR.Repositories
         /// <param name="isDelete">Is delete or not.</param>
         /// <param name="titleId">The title ID.</param>
         /// <returns>List of employee.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IList<Employee> Query(
             string query, 
             int? groupId, 
@@ -328,7 +330,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="id">The employee ID.</param>
         /// <param name="date">The date value.</param>
-        /// <returns>List of week wokring.</returns>
+        /// <returns>List of week working.</returns>
         public IList<WeekWorking> GetWeekWorking(int id, DateTime date)
         {
             using (var db = new ObjectDb("EmployeeCalendar_GetWeekWorking"))
@@ -1883,6 +1885,7 @@ namespace Fanex.NexHR.Repositories
         /// <param name="enable">Enable or disable.</param>
         /// <param name="isDelete">Is delete or not.</param>
         /// <returns>List of employee.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IList<Employee> GetEmployeeTOEICScore(
             string query, 
             int? groupId, 

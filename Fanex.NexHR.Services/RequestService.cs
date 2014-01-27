@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Services
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Web;
@@ -22,8 +23,10 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
+    using RazorEngine;
 
     /// <summary>
     /// Request service.
@@ -129,6 +132,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool CheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -178,7 +182,7 @@ namespace Fanex.NexHR.Services
                                 Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
                                 Shift = model.Shift
                             };
-                            var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+                            var body = Razor.Parse(bodyTemplate, content);
                             this._emailService.SendEmail(
                                 ConfigurationManager.AppSettings["Email"],
                                 item.Email,
@@ -209,6 +213,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool LateInEarlyOut(ModelStateDictionary modelState, LateInEarlyOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -293,6 +298,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -420,6 +426,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool ChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
         {
             if (modelState.IsValid)
@@ -444,7 +451,7 @@ namespace Fanex.NexHR.Services
                 if (errorCode == 0)
                 {
                     // get leader(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    IList<Employee> leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
 
                     if (leaders == null || leaders.Count == 0)
                     {
@@ -455,7 +462,7 @@ namespace Fanex.NexHR.Services
                     {
                         // send email(s)
                         var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
-                        foreach (var item in leaders)
+                        foreach (Employee item in leaders)
                         {
                             var content = new
                             {
@@ -467,12 +474,12 @@ namespace Fanex.NexHR.Services
                                 ToShift = model.ToShiftName,
                                 Remark = model.Remark
                             };
-                            var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+                            var body = Razor.Parse(bodyTemplate, content);
                             this._emailService.SendEmail(
                                 ConfigurationManager.AppSettings["Email"],
                                 item.Email,
                                 string.Empty,
-                                Resources.Messages.ChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
+                                Messages.ChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
                                 body);
                         }
                     }
@@ -486,7 +493,7 @@ namespace Fanex.NexHR.Services
             }
             else
             {
-                modelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                modelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return false;
@@ -498,13 +505,14 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
         {
             if (modelState.IsValid)
             {
                 model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
 
-                var updated = this._employeeRepository.UpdateRequest(
+                bool updated = this._employeeRepository.UpdateRequest(
                     model.Id,
                     false,
                     null,
@@ -515,10 +523,10 @@ namespace Fanex.NexHR.Services
                 if (updated)
                 {
                     // send email(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
-                    var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/CheckInOut.Request.cshtml"));
+                    IList<Employee> leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    string bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/CheckInOut.Request.cshtml"));
 
-                    foreach (var item in leaders)
+                    foreach (Employee item in leaders)
                     {
                         var content = new
                         {
@@ -533,7 +541,7 @@ namespace Fanex.NexHR.Services
                             Shift = model.Shift
                         };
 
-                        var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+                        var body = Razor.Parse(bodyTemplate, content);
                         this._emailService.SendEmail(
                             ConfigurationManager.AppSettings["Email"],
                             item.Email,
@@ -559,6 +567,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateLateInEarlyOut(ModelStateDictionary modelState, LateInEarlyOutRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -623,6 +632,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model)
         {
             if (modelState.IsValid)
@@ -788,11 +798,11 @@ namespace Fanex.NexHR.Services
         /// <param name="processBy">Process by.</param>
         /// <param name="errorMessage">Error message.</param>
         /// <returns>Return boolean.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool Process(string command, long id, int processBy, out string errorMessage)
         {
             var request = this._employeeRepository.GetWorkingTimeRequest(id);
             var employee = this._employeeRepository.Get(request.EmpId);
-
             var processUser = this._employeeRepository.Get(processBy);
 
             Commands processCommand;
@@ -801,12 +811,15 @@ namespace Fanex.NexHR.Services
                 case "Approve":
                     processCommand = Commands.Approve;
                     break;
+
                 case "Disapprove":
                     processCommand = Commands.Disapprove;
                     break;
+
                 case "Reject":
                     processCommand = Commands.Reject;
                     break;
+
                 default:
                     processCommand = Commands.Approve;
                     break;
@@ -835,9 +848,7 @@ namespace Fanex.NexHR.Services
                     RequestId = request.Id,
                     Action = command == Commands.Reject.EnumToString()
                     ? Resources.Labels.Rejected
-                    : (command == Commands.Approve.EnumToString()
-                        ? Resources.Labels.Approved
-                        : Resources.Labels.Disapproved),
+                    : (command == Commands.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved),
                     ForDate = forDate,
                     Request = request.RequestType.ToText(),
                     User = processUser.NickName,
@@ -941,6 +952,7 @@ namespace Fanex.NexHR.Services
         /// <param name="request">The request.</param>
         /// <param name="employee">The employee.</param>
         /// <param name="processCommand">The process command.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void SendToRelatedPeople(
             Employee processUser, 
             WorkingTimeRequest request, 
@@ -1154,6 +1166,7 @@ namespace Fanex.NexHR.Services
         /// <param name="request">The request.</param>
         /// <param name="subject">The email subject.</param>
         /// <param name="sendCc">The mail cc list.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void LeaveRelatedMail(
             Employee employee, 
             Employee processUser, 

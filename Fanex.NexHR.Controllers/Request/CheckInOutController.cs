@@ -37,11 +37,10 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Create()
         {
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
-            ViewBag.UnavailDates = listUnavailDates;
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            ViewBag.Shifts = ShiftService.GetAll();
 
-            var employee = _employeeService.Get(this.CurrentUser.Id);
-            ViewBag.Shifts = _shiftService.GetAll();
+            var employee = EmployeeService.Get(this.CurrentUser.Id);
 
             var viewModel = new CheckInOutRequestViewModel
             {
@@ -55,7 +54,7 @@ namespace Fanex.NexHR.Controllers.Request
                 By = this.CurrentUser.Id
             };
 
-            var shift = _shiftService.GetByDate(employee.Id, DateTime.Now);
+            var shift = ShiftService.GetByDate(employee.Id, DateTime.Now);
             if (shift != null)
             {
                 viewModel.Hour = int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[0]);
@@ -69,7 +68,7 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, month, 1),
                 new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -96,7 +95,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
-            ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll();
 
             if (model.EmployeeId <= 0)
             {
@@ -110,7 +109,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
-                ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
+                ViewBag.Requested = RequestService.CheckInOut(ModelState, model);
                 ViewBag.Year = model.ForDate.Year;
             }
 
@@ -124,20 +123,20 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
 
-            ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll();
 
-            var request = _employeeService.GetWorkingTimeRequest(id);
+            var request = EmployeeService.GetWorkingTimeRequest(id);
 
             if (!this.Editable(request.Status, request.EmpId, request.CreatedBy))
             {
                 return RedirectToAction("EmployeeView", "CheckInOut");
             }
 
-            var employee = _employeeService.Get(request.EmpId);
-            var shift = _shiftService.GetByDate(employee.Id, DateTime.Now);
+            var employee = EmployeeService.Get(request.EmpId);
+            var shift = ShiftService.GetByDate(employee.Id, DateTime.Now);
             return View(new CheckInOutRequestViewModel
             {
                 Id = request.Id,
@@ -162,8 +161,8 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            ViewBag.Shifts = _shiftService.GetAll();
-            ViewBag.Updated = _requestService.UpdateCheckInOut(ModelState, model);
+            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Updated = RequestService.UpdateCheckInOut(ModelState, model);
             ViewBag.Year = model.ForDate.Year;
             return View(model);
         }
@@ -197,7 +196,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.Year = year;
 
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, 1, 1),
                 new DateTime(year, 12, 31),

@@ -35,7 +35,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         /// <summary>
-        /// Fanex module.
+        /// FANEX module.
         /// </summary>
         private class FanexModule : NinjectModule
         {

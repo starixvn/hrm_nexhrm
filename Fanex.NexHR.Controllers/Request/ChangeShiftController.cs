@@ -35,9 +35,9 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Create()
         {
-            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
-            var employee = _employeeService.Get(this.CurrentUser.Id);
-            var shift = _shiftService.GetByDate(employee.Id, DateTime.Now.Date);
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var employee = EmployeeService.Get(this.CurrentUser.Id);
+            var shift = ShiftService.GetByDate(employee.Id, DateTime.Now.Date);
             var model = new ChangeShiftViewModel
             {
                 Employee = employee.NickName,
@@ -56,7 +56,7 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequest(
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, month, 1),
                 new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -71,7 +71,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.TotalRequest = numberOfRequest;
-            ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll();
 
             return View(model);
         }
@@ -84,7 +84,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(ChangeShiftViewModel model)
         {
-            ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll();
 
             if (model.EmployeeId <= 0)
             {
@@ -98,7 +98,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
-                ViewBag.Requested = _requestService.ChangeShift(ModelState, model);
+                ViewBag.Requested = RequestService.ChangeShift(ModelState, model);
             }
 
             return View(model);
@@ -111,10 +111,10 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
-            var request = _employeeService.GetWorkingTimeRequest(id);
-            var shift = _shiftService.GetByDate(this.CurrentUser.Id, request.FromDate.Date);
-            var employee = _employeeService.Get(request.EmpId);
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var shift = ShiftService.GetByDate(this.CurrentUser.Id, request.FromDate.Date);
+            var employee = EmployeeService.Get(request.EmpId);
             var model = new ChangeShiftViewModel
             {
                 Employee = employee.NickName,
@@ -130,7 +130,7 @@ namespace Fanex.NexHR.Controllers.Request
                 By = this.CurrentUser.Id
             };
 
-            ViewBag.Shifts = _shiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll();
             return View(model);
         }
 
@@ -143,8 +143,8 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(ChangeShiftViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            ViewBag.Shifts = _shiftService.GetAll();
-            ViewBag.Updated = _requestService.UpdateChangeShift(ModelState, model);
+            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Updated = RequestService.UpdateChangeShift(ModelState, model);
             return View(model);
         }
 
@@ -168,7 +168,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.Year = year;
 
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequest(
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, 1, 1),
                 new DateTime(year, 12, 31),

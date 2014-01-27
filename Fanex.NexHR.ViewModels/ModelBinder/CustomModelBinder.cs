@@ -27,7 +27,7 @@ namespace Fanex.NexHR.ViewModels.ModelBinder
         /// <param name="bindingContext">The binding context.</param>
         /// <param name="key">The key value.</param>
         /// <returns>The return value.</returns>
-        protected Nullable<T> GetValue<T>(ModelBindingContext bindingContext, string key) where T : struct
+        protected T? GetValue<T>(ModelBindingContext bindingContext, string key) where T : struct
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -46,7 +46,7 @@ namespace Fanex.NexHR.ViewModels.ModelBinder
                 return null;
             }
 
-            return (Nullable<T>)result.ConvertTo(typeof(T));
+            return (T?)result.ConvertTo(typeof(T));
         }
     }
 }

@@ -37,16 +37,16 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Create()
         {
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
 
-            var employee = _employeeService.Get(this.CurrentUser.Id);
+            var employee = EmployeeService.Get(this.CurrentUser.Id);
 
             //// Count number of Late in/early out request in current month.
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, month, 1),
                 new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -94,7 +94,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
-                ViewBag.Requested = _requestService.LateInEarlyOut(ModelState, model);
+                ViewBag.Requested = RequestService.LateInEarlyOut(ModelState, model);
                 ViewBag.Year = model.ForDate.Year;
             }
 
@@ -108,11 +108,11 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
 
-            var request = _employeeService.GetWorkingTimeRequest(id);
-            var employee = _employeeService.Get(request.EmpId);
+            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var employee = EmployeeService.Get(request.EmpId);
             int minute = request.RequestType == (short)RequestTypes.LateIn
                 ? (int)request.LateInMins
                 : (int)request.EarlyOutMins;
@@ -140,7 +140,7 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(LateInEarlyOutRequestViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            ViewBag.Updated = _requestService.UpdateLateInEarlyOut(ModelState, model);
+            ViewBag.Updated = RequestService.UpdateLateInEarlyOut(ModelState, model);
             ViewBag.Year = model.ForDate.Year;
             return View(model);
         }
@@ -165,7 +165,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.Year = year;
 
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, 1, 1),
                 new DateTime(year, 12, 31),

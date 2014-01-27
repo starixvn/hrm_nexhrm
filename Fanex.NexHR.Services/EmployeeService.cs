@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Models;
@@ -601,6 +602,7 @@ namespace Fanex.NexHR.Services
         /// <param name="listTotalWorkingHours">List of total working hours.</param>
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public void ExportTotalWorkingHours(
             HSSFWorkbook workbook, 
             IList<TotalWorkingHours> listTotalWorkingHours, 

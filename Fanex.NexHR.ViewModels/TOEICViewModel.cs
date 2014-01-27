@@ -17,8 +17,8 @@ namespace Fanex.NexHR.ViewModels
     /// </summary>
     public class TOEICViewModel
     {
-        private DateTime? _LRExamDate;
-        private DateTime? _SWExamDate;
+        private DateTime? _listeningReadingExamDate;
+        private DateTime? _speakingWritingExamDate;
 
         [Required]
         public string Employee { get; set; }
@@ -34,17 +34,17 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                if (!_LRExamDate.HasValue || _LRExamDate.Value == DateTime.MinValue)
+                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue)
                 {
-                    _LRExamDate = null;
+                    _listeningReadingExamDate = null;
                 }
 
-                return _LRExamDate;
+                return _listeningReadingExamDate;
             }
 
             set
             {
-                _LRExamDate = value;
+                _listeningReadingExamDate = value;
             }
         }
 
@@ -59,17 +59,17 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                if (!_SWExamDate.HasValue || _SWExamDate.Value == DateTime.MinValue)
+                if (!_speakingWritingExamDate.HasValue || _speakingWritingExamDate.Value == DateTime.MinValue)
                 {
-                    _SWExamDate = null;
+                    _speakingWritingExamDate = null;
                 }
 
-                return _SWExamDate;
+                return _speakingWritingExamDate;
             }
 
             set
             {
-                _SWExamDate = value;
+                _speakingWritingExamDate = value;
             }
         }
 

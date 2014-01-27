@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Core
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Linq.Expressions;
@@ -34,7 +35,7 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Convert Command enumerable to string.
         /// </summary>
-        /// <param name="value">Command enum.</param>
+        /// <param name="value">Command enumerable.</param>
         /// <returns>Command string.</returns>
         public static string EnumToString(this Commands value)
         {
@@ -48,7 +49,7 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Convert ENUM to string.
         /// </summary>
-        /// <param name="value">The enum value.</param>
+        /// <param name="value">The enumerable value.</param>
         /// <returns>The return string.</returns>
         public static string EnumToString(this RolesEnum value)
         {
@@ -62,7 +63,7 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Convert ENUM to string.
         /// </summary>
-        /// <param name="value">The enum value.</param>
+        /// <param name="value">The enumerable value.</param>
         /// <returns>The return string.</returns>
         public static string EnumToString(this RequestTypes value)
         {
@@ -247,7 +248,7 @@ namespace Fanex.NexHR.Core
             var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
             DateTime? value = DateTime.Now;
 
-            if (metaData.Model is Nullable<DateTime> || metaData.Model is DateTime)
+            if (metaData.Model is DateTime? || metaData.Model is DateTime)
             {
                 value = (DateTime?)metaData.Model;
             }
@@ -284,7 +285,7 @@ namespace Fanex.NexHR.Core
         /// Year picker.
         /// </summary>
         /// <param name="htmlHelper">HTML Helper.</param>
-        /// <param name="name">In name.</param>
+        /// <param name="name">Input name.</param>
         /// <param name="fromYear">Default from year 2000.</param>
         /// <param name="currentYear">Default currentYear year 2000.</param>
         /// <returns>MVC HTML string.</returns>
@@ -404,6 +405,7 @@ namespace Fanex.NexHR.Core
         /// <param name="selectList">Select item list.</param>
         /// <param name="htmlAttributes">HTML attributes.</param>
         /// <returns>MVC HTML string.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxList(
             this HtmlHelper htmlHelper, 
             string name, 
@@ -583,7 +585,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable date value to string (MMM dd, yyyy hh:mm).
+        /// Format a date value to string.
         /// </summary>
         /// <param name="date">The date value.</param>
         /// <returns>The return string.</returns>
@@ -598,7 +600,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a date value to string (MMM dd, yyyy hh:mm).
+        /// Format a date value to string.
         /// </summary>
         /// <param name="date">The date value.</param>
         /// <returns>The return string.</returns>
@@ -618,7 +620,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// <example>http://www.geekzilla.co.uk/View00FF7904-B510-468C-A2C8-F859AA20581F.htm</example>
+        /// Convert to short format date.
         /// </summary>
         /// <param name="date">The date value.</param>
         /// <returns>The return string.</returns>
@@ -629,7 +631,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable date value to string (dd-MMM).
+        /// Format a date value to string.
         /// </summary>
         /// <param name="date">The date value.</param>
         /// <returns>The return string.</returns>
@@ -654,7 +656,7 @@ namespace Fanex.NexHR.Core
         }
 
         /// <summary>
-        /// Format a nullable date value to string (MMM-yyyy).
+        /// Format a date value to string (MMM-yyyy).
         /// </summary>
         /// <param name="date">The date value.</param>
         /// <returns>The return string.</returns>

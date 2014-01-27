@@ -37,11 +37,11 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Create()
         {
-            var employee = _employeeService.Get(this.CurrentUser.Id);
+            var employee = EmployeeService.Get(this.CurrentUser.Id);
 
-            var listUnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
             var model = new LeaveRequestViewModel
             {
                 Employee = employee.NickName,
@@ -57,7 +57,7 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             decimal numberDaysOfRequest = 0;
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, month, 1),
                 new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -83,7 +83,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
 
             if (model.EmployeeId <= 0)
             {
@@ -98,7 +98,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
-                ViewBag.Requested = _requestService.Leave(ModelState, model);
+                ViewBag.Requested = RequestService.Leave(ModelState, model);
             }
 
             return View(model);
@@ -111,10 +111,10 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
 
-            var request = _employeeService.GetWorkingTimeRequest(id);
-            var employee = _employeeService.Get(request.EmpId);
+            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var employee = EmployeeService.Get(request.EmpId);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -133,7 +133,7 @@ namespace Fanex.NexHR.Controllers.Request
                 HalfDayOff = request.TotalDays == (decimal)0.5
             };
 
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
 
             return View(model);
         }
@@ -146,8 +146,8 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
-            ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
+            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
+            ViewBag.Updated = RequestService.UpdateLeave(ModelState, model);
             return View(model);
         }
 
@@ -171,7 +171,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.Year = year;
             //// kos push
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, 1, 1),
                 new DateTime(year, 12, 31),

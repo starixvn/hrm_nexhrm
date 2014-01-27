@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Request;
@@ -25,11 +26,11 @@ namespace Fanex.NexHR.Controllers.Request
     public class RequestController : BaseController
     {
         #region private services
-        protected readonly IEmployeeService _employeeService;
-        protected readonly IShiftService _shiftService;
-        protected readonly ILeaveTypeService _leaveTypeService;
-        protected readonly IRequestService _requestService;
-        protected readonly ITeamService _teamService;
+        protected readonly IEmployeeService EmployeeService;
+        protected readonly IShiftService ShiftService;
+        protected readonly ILeaveTypeService LeaveTypeService;
+        protected readonly IRequestService RequestService;
+        protected readonly ITeamService TeamService;
         #endregion
 
         #region Ctor
@@ -45,11 +46,11 @@ namespace Fanex.NexHR.Controllers.Request
             IRequestService requestService = null,
             ITeamService teamService = null)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _shiftService = shiftService ?? new ShiftService();
-            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            _requestService = requestService ?? new RequestService();
-            _teamService = teamService ?? new TeamService();
+            EmployeeService = employeeService ?? new EmployeeService();
+            ShiftService = shiftService ?? new ShiftService();
+            LeaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            RequestService = requestService ?? new RequestService();
+            TeamService = teamService ?? new TeamService();
         }
         #endregion
 
@@ -65,6 +66,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Action result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
@@ -88,7 +90,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = true;
-            request.TeamCollection = _teamService.GetTeamManagedByEmp(this.CurrentUser.Id);
+            request.TeamCollection = TeamService.GetTeamManagedByEmp(this.CurrentUser.Id);
             ViewBag.Status = request.StatusId;
 
             switch (request.RequestType)
@@ -131,7 +133,7 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberLeaveRequest(RequestViewModel request)
         {
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
                    (short)RolesEnum.AssistantLeader,
                    request.FromDate,
                    request.ToDate,
@@ -150,7 +152,7 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberChangeShift(RequestViewModel request)
         {
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequest(
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
                    (short)RolesEnum.AssistantLeader,
                    request.FromDate,
                    request.ToDate,
@@ -169,7 +171,7 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberLateInEarlyOut(RequestViewModel request)
         {
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
                    (short)RolesEnum.AssistantLeader,
                    request.FromDate,
                    request.ToDate,
@@ -188,7 +190,7 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberCheckInOut(RequestViewModel request)
         {
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
                    (short)RolesEnum.AssistantLeader,
                    request.FromDate,
                    request.ToDate,
@@ -243,7 +245,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="requestType">The request type.</param>
         public void HRGetLeaveRequestHistory(long requestId, int requestType)
         {
-            IList<Leave> entityList = _employeeService.GetLeaveRequestHistory(requestId, requestType);
+            IList<Leave> entityList = EmployeeService.GetLeaveRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
@@ -254,7 +256,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="requestType">The request type.</param>
         public void HRGetChangeShiftRequestHistory(long requestId, int requestType)
         {
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequestHistory(requestId, requestType);
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
@@ -265,7 +267,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="requestType">The request type.</param>
         public void HRGetLateInEarlyOutRequestHistory(long requestId, int requestType)
         {
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestHistory(requestId, requestType);
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
@@ -276,7 +278,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="requestType">The request type.</param>
         public void HRGetCheckInOutRequestHistory(long requestId, int requestType)
         {
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestHistory(requestId, requestType);
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequestHistory(requestId, requestType);
             ViewBag.EntityList = entityList;
         }
 
@@ -308,7 +310,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = _teamService.GetAll();
+            request.TeamCollection = TeamService.GetAll();
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -362,7 +364,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = _teamService.GetAll();
+            request.TeamCollection = TeamService.GetAll();
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -418,7 +420,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = true;
-            request.TeamCollection = _teamService.GetAll();
+            request.TeamCollection = TeamService.GetAll();
 
            // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -456,7 +458,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetLeaveRequestByDate(RequestViewModel request)
         {
-            IList<Leave> entityList = _employeeService.GetLeaveRequestByDate(
+            IList<Leave> entityList = EmployeeService.GetLeaveRequestByDate(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -474,7 +476,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetChangeShiftRequestByDate(RequestViewModel request)
         {
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequestByDate(
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequestByDate(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -492,7 +494,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetLateInEarlyOutRequestByDate(RequestViewModel request)
         {
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestByDate(
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequestByDate(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -510,7 +512,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetCheckInOutRequestByDate(RequestViewModel request)
         {
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestByDate(
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequestByDate(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -529,7 +531,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="role">The employee role.</param>
         public void GetAllRequestByDate(RequestViewModel request, short role)
         {
-            IList<RequestEntity> entityList = _employeeService.GetAllRequestByDate(
+            IList<RequestEntity> entityList = EmployeeService.GetAllRequestByDate(
                   role,
                   request.FromDate,
                   request.ToDate,
@@ -551,7 +553,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetLeaveRequest(RequestViewModel request)
         {
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -569,7 +571,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetChangeShiftRequest(RequestViewModel request)
         {
-            IList<ChangingShift> entityList = _employeeService.GetChangeShiftRequest(
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -587,7 +589,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetLateInEarlyOutRequest(RequestViewModel request)
         {
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -605,7 +607,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetCheckInOutRequest(RequestViewModel request)
         {
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
                    (short)RolesEnum.HR,
                    request.FromDate,
                    request.ToDate,
@@ -626,7 +628,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="role">The employee role.</param>
         public void GetAllRequest(RequestViewModel request, short role)
         {
-            IList<RequestEntity> entityList = _employeeService.GetAllRequest(
+            IList<RequestEntity> entityList = EmployeeService.GetAllRequest(
                   role,
                   request.FromDate,
                   request.ToDate,

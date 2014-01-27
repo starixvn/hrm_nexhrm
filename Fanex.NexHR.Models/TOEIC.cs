@@ -17,8 +17,8 @@ namespace Fanex.NexHR.Models
     /// </summary>
     public class TOEIC
     {
-        private DateTime? lrExamDate;
-        private DateTime? swExamDate;
+        private DateTime? _listeningReadingExamDate;
+        private DateTime? _speakingWritingExamDate;
 
         public int EmpId { get; set; }
 
@@ -30,17 +30,17 @@ namespace Fanex.NexHR.Models
         {
             get
             {
-                if (!lrExamDate.HasValue || lrExamDate.Value == DateTime.MinValue)
+                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue)
                 {
-                    lrExamDate = null;
+                    _listeningReadingExamDate = null;
                 }
 
-                return lrExamDate;
+                return _listeningReadingExamDate;
             }
 
             set
             {
-                lrExamDate = value;
+                _listeningReadingExamDate = value;
             }
         }
 
@@ -55,17 +55,17 @@ namespace Fanex.NexHR.Models
         {
             get
             {
-                if (!swExamDate.HasValue || swExamDate.Value == DateTime.MinValue)
+                if (!_speakingWritingExamDate.HasValue || _speakingWritingExamDate.Value == DateTime.MinValue)
                 {
-                    swExamDate = null;
+                    _speakingWritingExamDate = null;
                 }
 
-                return swExamDate;
+                return _speakingWritingExamDate;
             }
 
             set
             {
-                swExamDate = value;
+                _speakingWritingExamDate = value;
             }
         }
 
