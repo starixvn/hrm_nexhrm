@@ -141,7 +141,6 @@
     <Compile Include="ApiControllers\ShiftController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Context\AppSetting.cs" />
-    <Compile Include="ControllerFactory.cs" />
     <Compile Include="EmployeeController.cs" />
     <Compile Include="ExportController.cs" />
     <Compile Include="FileController.cs" />
