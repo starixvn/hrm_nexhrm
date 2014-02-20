@@ -1,0 +1,26 @@
+﻿#map_canvas img
+{
+    max-width: none;
+}
+.infoDiv
+{
+    height: auto;
+    width: auto;
+    -webkit-user-select: none;
+    background-color: white;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    line-height: 17px;
+    font-size: 14px;
+}
+
+span#headerInfo
+{
+    font-size: 20px;
+    color: rgb(213, 61, 61);
+}
+
+.infoDiv span.headerInfo
+{
+    font-weight: bold;
+    color: rgb(128, 69, 78);
+}

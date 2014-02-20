@@ -367,6 +367,15 @@
             <resource path="~/scripts/views/jobtitle.js" />
         </resourceSet>
 
+      <resourceSet name="geolocationcss" type="css">
+        <resource reference="sitecss"/>
+        <resource path="~/styles/geolocationmap.css" />
+      </resourceSet>
+      <resourceSet name="geolocationjs" type="js">
+        <resource reference="sitejs"/>
+        <resource path="~/scripts/views/geolocationmap.js" />
+      </resourceSet>
+
 		<resourceSet name="toeiccss" type="css">
 			<resource reference="sitecss"/>
 			<resource path="~/scripts/chosen/chosen.css" />

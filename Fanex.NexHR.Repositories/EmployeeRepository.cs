@@ -278,6 +278,9 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@passportExp", DbType.DateTime, model.PassportExp);
                 db.AddInParameter("@ModifiedDate", DbType.DateTime, DateTime.Now);
                 db.AddInParameter("@modifiedBy", DbType.Int32, model.Modifier.Id);
+                db.AddInParameter("@geomaplatitude", DbType.String, model.GeoMapLatitude);
+                db.AddInParameter("@geomaplongtitude", DbType.String, model.GeoMapLongtitude);
+                db.AddInParameter("@distancetocompany", DbType.String, model.DistanceToCompany);
 
                 try
                 {
