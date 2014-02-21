@@ -424,7 +424,7 @@ namespace Fanex.NexHR.Controllers
 
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = new DateTime.Now.Date
+                OnDate = DateTime.Now.Date
             };
 
             if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
