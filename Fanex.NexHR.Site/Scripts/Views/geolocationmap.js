@@ -1,9 +1,15 @@
 ﻿$(document).ready(function () {
+    var directionsDisplay;
     Initialize();
 });
 
 function Initialize() {
     var currentUserNickName = $("#currentUser").val();
+    //set border map
+    var mapcanvas = $("#map_canvas");
+    mapcanvas.addClass("mapborder");
+
+    directionsDisplay = new google.maps.DirectionsRenderer();
     // Google has tweaked their interface somewhat - this tells the api to use that new UI
     google.maps.visualRefresh = true;
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
@@ -27,17 +33,17 @@ function Initialize() {
         title: 'SMS TOWER'
     });
 
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+//    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
     //  custome Marker's icon
-    //    var pinIcon = new google.maps.MarkerImage(
-    //    "/Styles/Images/Office_building_icon.png",
-    //    null, /* size is determined at runtime */
-    //    null, /* origin is 0,0 */
-    //    null, /* anchor is bottom center of the scaled image */
-    //    new google.maps.Size(40, 60)
-    //    );
-    //    marker.setIcon(pinIcon)
+        var pinIcon = new google.maps.MarkerImage(
+        "/Styles/Images/Office_building_icon.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        new google.maps.Point(14, 30), /* anchor is bottom center of the scaled image */
+        new google.maps.Size(40, 60)
+        );
+        marker.setIcon(pinIcon)
 
     var data = [];
     $.ajax({
@@ -70,29 +76,52 @@ function Initialize() {
             content: "<div class='infoDiv'>" + "<span id='headerInfo'>"
             + item.DisplayName + "</span><div><span class='headerInfo'>Team:</span> "
             + item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>"
-            + item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>" 
+            + item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>"
             + item.DistanceToCompany + " km" + "</div></div></div></div></div>"
         });
 
         if (item.NickName == currentUserNickName) {
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png')
+            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+            displayDirection(marker);
+            directionsDisplay.setMap(map);
             infowindow.open(map, marker);
         }
         else {
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
         }
 
         // finally hook up an "MouseOver" listener to the map so it pops up out info-window when the marker-pin is clicked!
         google.maps.event.addListener(marker, 'mouseover', function () {
             infowindow.open(map, marker);
-            //mouseover
         });
 
         google.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close();
         });
 
+        google.maps.event.addListener(marker, 'click', function () {
+            displayDirection(marker);
+            directionsDisplay.setMap(map);
+        });
+
     })
+}
+
+function displayDirection(marker) {
+    var directionsService = new google.maps.DirectionsService();
+    var curLatLng = marker.getPosition();
+    var smsLatlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
+
+    var request = {
+        origin: curLatLng,
+        destination: smsLatlng,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
 }
 
 
