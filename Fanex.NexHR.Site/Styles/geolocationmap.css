@@ -1,8 +1,4 @@
-﻿#map_canvas img
-{
-    max-width: none;
-}
-.infoDiv
+﻿.infoDiv
 {
     height: auto;
     width: auto;

@@ -4,17 +4,11 @@
 });
 
 function Initialize() {
-    var currentUserNickName = $("#currentUser").val();
-    //set border map
-    var mapcanvas = $("#map_canvas");
-    mapcanvas.addClass("mapborder");
     directionsDisplay = new google.maps.DirectionsRenderer();
-
     // Google has tweaked their interface somewhat - this tells the api to use that new UI
     google.maps.visualRefresh = false;
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
 
-    // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
     var mapOptions = {
         zoom: 14,
         center: SMSTOWER,
@@ -24,16 +18,11 @@ function Initialize() {
     // This makes the div with id "map_canvas" a google map
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-    // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in SMS Tower!
-    var myLatlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
-
     var marker = new google.maps.Marker({
-        position: myLatlng,
+        position: SMSTOWER,
         map: map,
         title: 'SMS TOWER'
     });
-
-    //    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
     //  custome Marker's icon
     var pinIcon = new google.maps.MarkerImage(
@@ -53,13 +42,13 @@ function Initialize() {
             $top: 10
         },
         async: false,
-        success: function (dataLatLng) {
-            data = dataLatLng;
+        success: function (employeeInfo) {
+            data = employeeInfo;
         }
     });
 
     // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-        $.each(data, function (i, item) {
+    $.each(data, function (i, item) {
         var marker = new google.maps.Marker({
             'position': new google.maps.LatLng(item.GeoMapLatitude, item.GeoMapLongtitude),
             'map': map,
@@ -68,10 +57,6 @@ function Initialize() {
             'draggable': false
         });
 
-        //flying distance
-        //var distance = google.maps.geometry.spherical.computeDistanceBetween(center, markerLatLng)/1000;
-
-        // put in some information about each json object - in this case, the opening hours.
         var infowindow = new google.maps.InfoWindow({
             content: "<div class='infoDiv'>" + "<span id='headerInfo'>"
             + item.DisplayName + "</span><div><span class='headerInfo'>Team:</span> "
@@ -80,7 +65,7 @@ function Initialize() {
             + item.DistanceToCompany + "</div></div></div></div></div>"
         });
 
-        if (item.NickName == currentUserNickName) {
+        if (item.NickName == $("#currentUser").val()) {
             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
             displayDirection(marker);
             directionsDisplay.setMap(map);

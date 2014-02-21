@@ -226,7 +226,6 @@ function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             var distance = response.routes[0].legs[0].distance.text;
-            debugger;
             $("#DistanceToCompany").val(distance);
             directionsDisplay.setDirections(response);
         }
@@ -237,16 +236,7 @@ function InitializeGoogleMap(map, latlng) {
     var myOptions = {
         zoom: 16,
         center: latlng,
-        scrollwheel: true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.DEFAULTca
-        },
-        navigationControl: true,
-        navigationControlOptions: {
-            style: google.maps.NavigationControlStyle.DEFAULT
-        }
+        scrollwheel: true
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
     return map;
