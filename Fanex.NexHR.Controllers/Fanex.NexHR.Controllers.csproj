@@ -150,6 +150,7 @@
     <Compile Include="EmployeeController.cs" />
     <Compile Include="ExportController.cs" />
     <Compile Include="FileController.cs" />
+    <Compile Include="GeographicMapController.cs" />
     <Compile Include="HolidayController.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="JobTitleController.cs" />

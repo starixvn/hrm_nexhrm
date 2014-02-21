@@ -96,6 +96,12 @@ namespace Fanex.NexHR.Models
 
         public DateTime? PassportExp { get; set; }
 
+        public string GeoMapLatitude { get; set; }
+
+        public string GeoMapLongtitude { get; set; }
+
+        public string DistanceToCompany { get; set; }
+
         public IList<short> RoleList
         {
             get
