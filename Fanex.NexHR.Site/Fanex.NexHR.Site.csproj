@@ -349,6 +349,7 @@
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Styles\account.css" />
     <Content Include="Styles\geolocationmap.css" />
+    <Content Include="Styles\Images\skype.png" />
     <Content Include="Styles\jobtitle.css" />
     <Content Include="Styles\employee.detail.css" />
     <Content Include="Styles\font.css" />
