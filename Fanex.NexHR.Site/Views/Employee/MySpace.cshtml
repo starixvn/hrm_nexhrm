@@ -1,10 +1,10 @@
 ﻿@model MySpaceViewModel
 
 @section css{
-    @Url.CombresLink("sitecss")
+    @Url.CombresLink("mydashboardcss")
 }
 @section js{
-    @Url.CombresLink("sitejs")
+    @Url.CombresLink("mydashboardjs")
 }
 @{
     ViewBag.Title = "Dashboard";
@@ -134,6 +134,100 @@
     </tbody>
 </table>
 <div class="space"></div>
-@*Management dashboard*@
 @Html.Action("ManagementDashboard")
 
+<div id="dialog-reminder" title="Reminder">
+    <div class="body_container">
+    @{
+        IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
+        IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
+        }
+        
+        @if(employeesBirthday != null && employeesBirthday.Any())
+        {
+            @ShowBirthday(employeesBirthday)
+        }
+        
+        @if (employeesFirstWorkingday != null && employeesFirstWorkingday.Any())
+        {
+            @ShowFirstWorkingday(employeesFirstWorkingday)
+        }
+    </div>
+</div>
+
+@Html.Hidden("HasBirthdayOrFirstWorkingday", (bool)ViewBag.HasBirthdayOrFirstWorkingday)
+
+@helper ShowFirstWorkingday(IList<Employee> employeesFirstWorkingday)
+{
+    <div class="firstworkingday">
+        <div>
+            <span class="title-event">First working day anniversary of:</span>
+        </div>
+        <div>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th class="reminder-employee"> @Labels.Employee </th>
+                        <th class="reminder-date"> @Labels.FirstWorkingDay </th>
+                        <th class="reminder-skype"> @Labels.Skype </th>
+                        <th class="reminder-email"> @Labels.Email </th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (Employee employee in employeesFirstWorkingday)
+                {
+                    <tr>
+                        <td class="highlight left">@employee.DisplayName</td>
+                        <td class="highlight">@employee.JoinedDate.ToDateMonthYearFormatedDate()</td>
+                        <td>
+                            <a href="skype:@employee.Skype?chat">
+                                <span class="skype_logo_img"></span>
+                                <span class="skype_nick">@employee.Skype</span>
+                            </a>
+                        </td>
+                        <td class="left"><a href="mailto:@employee.Email">@employee.Email</a></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@helper ShowBirthday(IList<Employee> employeesBirthday)
+{
+    <div class="birthday">
+        <div>
+            <span class="title-event">Happy birthday to: </span>
+        </div>
+        <div>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th class="reminder-employee"> @Labels.Employee </th>
+                        <th class="reminder-date"> @Labels.Birthday </th>
+                        <th class="reminder-skype"> @Labels.Skype </th>
+                        <th class="reminder-email"> @Labels.Email </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Employee employee in employeesBirthday)
+                    {
+                        <tr>
+                            <td class="highlight left">@employee.DisplayName</td>
+                            <td class="highlight">@employee.DOB.ToDateMonthYearFormatedDate()</td>
+                            <td>
+                                <a href="skype:@employee.Skype?chat">
+                                    <span class="skype_logo_img"></span>
+                                    <span class="skype_nick">@employee.Skype</span>
+                                </a>
+                            </td>
+                            <td class="left"><a href="mailto:@employee.Email">@employee.Email</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+}

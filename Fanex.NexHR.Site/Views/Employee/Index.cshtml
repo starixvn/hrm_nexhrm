@@ -53,10 +53,8 @@
     <tbody>
     </tbody>
 </table>
-<script id="itemTemplate" type="text/x-jquery-tmpl">   
-    
+<script id="itemTemplate" type="text/x-jquery-tmpl">
     {{if ResignedDate }}
-       
     {{else}}
      <tr id="row${Id}">
             <td>
@@ -72,16 +70,14 @@
                 {{if Phone.indexOf(",") > 0}}
                     ${Phone.substring(0,Phone.indexOf(","))}
                 {{else}}
-                    ${Phone}        
+                    ${Phone}
                 {{/if}}
             </td>
             <td style="width:80px">
                 {{if JoinedDate}}
-                    ${jsonToShortDate(JoinedDate)}               
-                    
+                    ${jsonToShortDate(JoinedDate)}
                 {{/if}}
-            </td>      
-            
+            </td>
         </tr>
     {{/if}}
          

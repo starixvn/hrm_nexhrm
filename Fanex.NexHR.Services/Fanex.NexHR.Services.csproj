@@ -65,6 +65,9 @@
     <Reference Include="Fanex.MailDeliver.MailClient">
       <HintPath>..\Dependencies\Fanex.MailDeliver.MailClient.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.NAP.Framework, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\packages\NPOI\NPOI.dll</HintPath>
     </Reference>

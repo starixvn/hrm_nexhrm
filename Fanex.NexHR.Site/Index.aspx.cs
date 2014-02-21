@@ -26,7 +26,7 @@ namespace Fanex.NexHR.Site
             }
             else
             {
-                Response.Redirect("~/employee/myspace/");
+                Response.Redirect("~/employee/myspace?isRedirectFromLogin=true");
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Index()
         {
             ViewBag.Employee = this.CurrentUser;
-            return RedirectToAction("myspace", "employee");
+            return View(RedirectToAction("myspace", "employee"));
         }
 
         [AllowAnonymous]

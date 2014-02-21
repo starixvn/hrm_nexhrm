@@ -28,14 +28,14 @@ namespace Fanex.NexHR.CheckInOutReminder
     /// </summary>
     public class Program
     {
-        private static readonly EmailService EmailService = new EmailService();
-        private static readonly EmployeeRepository EmployeeRepository = new EmployeeRepository();
-        private static readonly string SenderEmail = ConfigurationManager.AppSettings["Email.Sender"].ToString();
-        private static readonly string SenderName = ConfigurationManager.AppSettings["Email.SenderName"].ToString();
-        private static readonly string TemplateEmail = ConfigurationManager.AppSettings["EmailTemplate"].ToString();
+        private static readonly EmailService _EmailService = new EmailService();
+        private static readonly EmployeeRepository _EmployeeRepository = new EmployeeRepository();
+        private static readonly string _SenderEmail = ConfigurationManager.AppSettings["Email.Sender"].ToString();
+        private static readonly string _SenderName = ConfigurationManager.AppSettings["Email.SenderName"].ToString();
+        ////private static readonly string TemplateEmail = ConfigurationManager.AppSettings["EmailTemplate"].ToString();
 
         // Do not send email forget check in out for these employees
-        private static readonly List<string> IgnoreList = new List<string> { "sean", "joe" };
+        private static readonly List<string> _IgnoreList = new List<string> { "sean", "joe" };
 
         /// <summary>
         /// Main method.
@@ -49,8 +49,8 @@ namespace Fanex.NexHR.CheckInOutReminder
                 DbSettingProviderManager.Current.Start();
 
                 // Get employee who forgot check in or check out
-                var employeeList = EmployeeRepository.GetMissingCheckInOutEmployees();
-                employeeList = employeeList.Where(s => !IgnoreList.Contains(s.NickName.ToLower())).ToList();
+                var employeeList = _EmployeeRepository.GetMissingCheckInOutEmployees();
+                employeeList = employeeList.Where(s => !_IgnoreList.Contains(s.NickName.ToLower())).ToList();
 
                 if (employeeList.Count > 0)
                 {
@@ -66,11 +66,11 @@ namespace Fanex.NexHR.CheckInOutReminder
                             string emailContent;
                             CreateEmailBody(bodyTemplate, item, out data, out emailContent);
 
-                            string emailSubject = string.Join(null, SenderName, " - Forgot ", data.Type);
+                            string emailSubject = string.Join(null, _SenderName, " - Forgot ", data.Type);
 
-                            EmailService.SendEmail(
-                                SenderEmail,
-                                SenderName,
+                            _EmailService.SendEmail(
+                                _SenderEmail,
+                                _SenderName,
                                 receiverEmail: item.Email,
                                 mailCc: null,
                                 subject: emailSubject,

@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Services
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
@@ -872,6 +873,17 @@ namespace Fanex.NexHR.Services
         public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
         {
             return this._employeeRepository.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
+        }
+
+        /// <summary>
+        /// Function to get employees has birthday and first working.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <param name="employeesBirthday">Employees has Birthday in a date.</param>
+        /// <param name="employeesFirstWorkingday">Employees has First working in a date.</param>
+        public void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday)
+        {
+            this._employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
         }
     }
 }
