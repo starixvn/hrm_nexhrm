@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A0210FE-616F-4A2C-90B3-59C26F3D3DB1}"
 	ProjectSection(SolutionItems) = preProject
 		Dependencies\Fanex.Caching.dll = Dependencies\Fanex.Caching.dll
-		Dependencies\Fanex.Common.dll = Dependencies\Fanex.Common.dll
 		Dependencies\Fanex.MailDeliver.MailClient.dll = Dependencies\Fanex.MailDeliver.MailClient.dll
 		Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll = Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll
 		Dependencies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.dll = Dependencies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.dll
