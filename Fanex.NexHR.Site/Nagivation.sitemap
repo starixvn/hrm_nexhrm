@@ -2,7 +2,7 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
     <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
         <siteMapNode title="Personal">
-            <siteMapNode title="My dashboard" controller="employee" action="myspace" icon="news" />
+            <siteMapNode title="My dashboard" controller="employee" action="MyDashboard" icon="news" />
             <siteMapNode title="Leave request" controller="leave" action="employeeview" icon="calendar7" hoverController="leave" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="Change shift" controller="changeshift" action="employeeview" icon="clock3" hoverController="changeshift" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="Late in - Early out" controller="lateinearlyout" action="employeeview" icon="clock2" hoverController="lateinearlyout" hoverAction="create" hoverIcon="plus" />

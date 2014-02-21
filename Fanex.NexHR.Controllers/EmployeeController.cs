@@ -404,12 +404,19 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
+        public ActionResult MyDashboard()
+        {
+            var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+            ViewBag.HasBirthdayOrFirstWorkingday = false;
+            return View("MySpace", model);
+        }
+
         /// <summary>
         /// My space view.
         /// </summary>
         /// <param name="isRedirectFromLogin">Is redirect from login page.</param>
         /// <returns>Action result.</returns>
-        public ActionResult MySpace(bool? isRedirectFromLogin = false)
+        public ActionResult MySpace(bool? isRedirectFromLogin = true)
         {
             var model = _employeeService.GetMySpace(this.CurrentUser.Id);
             IList<Employee> employeesBirthday = null;
@@ -417,7 +424,7 @@ namespace Fanex.NexHR.Controllers
 
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTime.Now.Date
+                OnDate = new DateTime(2014, 10, 10)//DateTime.Now.Date
             };
 
             if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
