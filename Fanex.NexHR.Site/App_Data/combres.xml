@@ -37,7 +37,7 @@
             <resource path="~/scripts/libs/jquery.tipsy.js" />
             <resource path="~/scripts/libs/jquery.cookie.js" />
         </resourceSet>
-
+      
         <resourceSet name="homecss" type="css">
             <resource reference="sitecss"/>
             <resource path="~/styles/home.css" />
@@ -45,7 +45,14 @@
         <resourceSet name="homejs" type="js">
             <resource reference="sitejs"/>
         </resourceSet>
-
+        <resourceSet name="mydashboardjs" type="js">
+          <resource reference="sitejs"/>
+          <resource path="~/scripts/views/mydashboard.js" />
+        </resourceSet>
+        <resourceSet name="mydashboardcss" type="css">
+          <resource reference="sitecss"/>
+          <resource path="~/styles/mydashboard.css" />
+        </resourceSet>
         <resourceSet name="accountcss" type="css">
             <resource reference="sitecss"/>
             <resource path="~/styles/account.css" />
@@ -65,8 +72,8 @@
             <resource path="~/scripts/views/employee.js" />
             <resource path="~/scripts/chosen/chosen.jquery.js" />
         </resourceSet>
-
-        <resourceSet name="employeecreatecss" type="css">
+      
+      <resourceSet name="employeecreatecss" type="css">
             <resource reference="sitecss"/>
             <resource path="~/styles/employee.create.css" />
         </resourceSet>

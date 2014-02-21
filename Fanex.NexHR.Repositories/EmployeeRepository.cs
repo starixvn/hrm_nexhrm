@@ -11,13 +11,16 @@
 namespace Fanex.NexHR.Repositories
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common.Extensions;
+    using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.Data.Dapper;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -91,15 +94,15 @@ namespace Fanex.NexHR.Repositories
         /// <returns>List of employee.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IList<Employee> Query(
-            string query, 
-            int? groupId, 
-            bool? enable = null, 
-            bool? isDelete = null, 
+            string query,
+            int? groupId,
+            bool? enable = null,
+            bool? isDelete = null,
             int? titleId = null)
         {
             using (var db = new ObjectDb("GetEmployees"))
             {
-                var p = new DynamicParameters();
+                var p = new Hashtable();
                 int? disableUsers;
                 int? deleteUsers;
 
@@ -129,14 +132,14 @@ namespace Fanex.NexHR.Repositories
                     deleteUsers = null;
                 }
 
-                p.Add("@query", query);
-                p.Add("@groupId", groupId);
-                p.Add("@enable", disableUsers);
-                p.Add("@isDelete", deleteUsers);
-                p.Add("@pageNumber", 1);
-                p.Add("@pageSize", int.MaxValue);
-                p.Add("@totalRow", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                p.Add("@titleId", titleId);
+                p.Add("query", query);
+                p.Add("groupId", groupId);
+                p.Add("enable", disableUsers);
+                p.Add("isDelete", deleteUsers);
+                p.Add("pageNumber", 1);
+                p.Add("pageSize", int.MaxValue);
+                p.Add("totalRow", 2000);
+                p.Add("titleId", titleId);
 
                 var entityList = db.Query<Employee, dynamic, Employee>(
                      (e, t) =>
@@ -501,7 +504,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddInParameter("@FromShift", DbType.Int32, fromShift);
                 db.AddInParameter("@ToDate", DbType.DateTime, toDate);
                 db.AddInParameter("@ToShift", DbType.Int32, toShift);
-                
+
                 db.AddInParameter("@LeaveTypeID", DbType.Int32, leaveTypeId);
                 db.AddInParameter("@TotalDays", DbType.Decimal, totalDays);
                 db.AddInParameter("@LateInMins", DbType.Int32, lateInMins);
@@ -530,8 +533,8 @@ namespace Fanex.NexHR.Repositories
         /// <param name="status">The status.</param>
         /// <returns>List of working time request.</returns>
         public IList<WorkingTimeRequest> GetWorkingTimeRequests(
-            int employeeId, 
-            int? requestType = null, 
+            int employeeId,
+            int? requestType = null,
             byte? status = null)
         {
             using (var db = new ObjectDb("WorkingTimeRequest_GetByEmployee"))
@@ -732,12 +735,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of check in/out.</returns>
         public IList<CheckInOut> GetCheckInOutRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
@@ -793,12 +796,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of late in early out request.</returns>
         public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
@@ -857,12 +860,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of change shift request.</returns>
         public IList<ChangingShift> GetChangeShiftRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
@@ -921,12 +924,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of leave request.</returns>
         public IList<Leave> GetLeaveRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
@@ -987,12 +990,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of request entity.</returns>
         public IList<RequestEntity> GetAllRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
@@ -1059,12 +1062,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of check in/out.</returns>
         public IList<CheckInOut> GetCheckInOutRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
@@ -1121,12 +1124,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of late in early out request.</returns>
         public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
@@ -1185,12 +1188,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of change shift request.</returns>
         public IList<ChangingShift> GetChangeShiftRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
@@ -1249,12 +1252,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of leave request.</returns>
         public IList<Leave> GetLeaveRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<Leave> entityList = new List<Leave>();
@@ -1315,12 +1318,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="logInId">The login user ID.</param>
         /// <returns>List of request entity.</returns>
         public IList<RequestEntity> GetAllRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
+            short roleId,
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? groupId = null,
+            byte? status = null,
             int? logInId = null)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
@@ -1608,12 +1611,12 @@ namespace Fanex.NexHR.Repositories
         /// <param name="createdBy">Created by.</param>
         /// <returns>The result.</returns>
         public bool AdjustAnnualLeaves(
-            string empIds, 
-            string description, 
-            DateTime fromDate, 
-            decimal deductDays, 
-            decimal creditDays, 
-            DateTime createdDate, 
+            string empIds,
+            string description,
+            DateTime fromDate,
+            decimal deductDays,
+            decimal creditDays,
+            DateTime createdDate,
             int createdBy)
         {
             using (var db = new ObjectDb("AnnualLeave_InsertMultipleTransactions"))
@@ -1633,11 +1636,11 @@ namespace Fanex.NexHR.Repositories
         /// <param name="createdBy">Created by.</param>
         /// <returns>The result.</returns>
         public bool ResetAnnualLeaves(
-            string empValue, 
-            string description, 
-            DateTime fromDate, 
-            int resetDays, 
-            DateTime createdDate, 
+            string empValue,
+            string description,
+            DateTime fromDate,
+            int resetDays,
+            DateTime createdDate,
             int createdBy)
         {
             using (var db = new ObjectDb("AnnualLeave_ResetMultipleTransactions"))
@@ -1890,11 +1893,11 @@ namespace Fanex.NexHR.Repositories
         /// <returns>List of employee.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IList<Employee> GetEmployeeTOEICScore(
-            string query, 
-            int? groupId, 
-            int? titleId = null, 
-            int? score = null, 
-            bool? enable = null, 
+            string query,
+            int? groupId,
+            int? titleId = null,
+            int? score = null,
+            bool? enable = null,
             bool? isDelete = null)
         {
             using (var db = new ObjectDb("TOEIC_GetAllScores"))
@@ -1960,6 +1963,29 @@ namespace Fanex.NexHR.Repositories
                      parameterValues: p);
 
                 return entityList.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Function to get employees has birthday and first working.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <param name="employeesBirthday">Employees has Birthday in a date.</param>
+        /// <param name="employeesFirstWorkingday">Employees has First working in a date.</param>
+        public void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                    {
+                        employeesBirthday = multi.Read<Employee>().ToList();
+                        employeesFirstWorkingday = multi.Read<Employee>().ToList();
+                    }
+                }
             }
         }
     }

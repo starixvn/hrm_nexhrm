@@ -33,23 +33,23 @@ namespace Fanex.NexHR.Services
     /// </summary>
     public class RequestService : IRequestService
     {
-        private const string MsgLeave = "<span class='req leave'>{1}</span> {0} days";
+        private const string _MsgLeave = "<span class='req leave'>{1}</span> {0} days";
 
-        private const string MsgLeaveHalfDay = "<span class='req leave'>{0} ({1}-{2})</span> 0.5 day";
+        private const string _MsgLeaveHalfDay = "<span class='req leave'>{0} ({1}-{2})</span> 0.5 day";
 
-        private const string MsgLeaveOneDay = "<span class='req leave'>{0}</span> 1 day";
+        private const string _MsgLeaveOneDay = "<span class='req leave'>{0}</span> 1 day";
 
-        private const string MsgChangeShift = "<span class='req changeshift'>{0} <span class='arr'>&rarr;</span> {1}</span> {2}";
+        private const string _MsgChangeShift = "<span class='req changeshift'>{0} <span class='arr'>&rarr;</span> {1}</span> {2}";
 
-        private const string MsgCheckInOut = "<span class='req checkinout'>{0} {1}</span> {2}";
+        private const string _MsgCheckInOut = "<span class='req checkinout'>{0} {1}</span> {2}";
 
-        private const string MsgLateIn = "<span class='req inout'>+{0}' {1}</span> {2}";
+        private const string _MsgLateIn = "<span class='req inout'>+{0}' {1}</span> {2}";
 
-        private const string MsgEarlyOut = "<span class='req inout'>-{0}' {1}</span> {2}";
+        private const string _MsgEarlyOut = "<span class='req inout'>-{0}' {1}</span> {2}";
 
-        private const string MailContentLeave = "{0} to {1} ({2} days)";
-        private const string MailContentLeaveOneDay = "{0}";
-        private const string MailContentLeaveHalfDay = "{0} (0.5 day from {1} to {2})";
+        private const string _MailContentLeave = "{0} to {1} ({2} days)";
+        private const string _MailContentLeaveOneDay = "{0}";
+        private const string _MailContentLeaveHalfDay = "{0} (0.5 day from {1} to {2})";
 
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IEmailService _emailService;
@@ -85,17 +85,17 @@ namespace Fanex.NexHR.Services
                 case (int)RequestTypes.Leave:
                     if (request.TotalDays > 1)
                     {
-                        msg.AppendFormat(MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                        msg.AppendFormat(_MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                     }
                     else if (request.TotalDays == 1)
                     {
-                        msg.AppendFormat(MsgLeaveOneDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                        msg.AppendFormat(_MsgLeaveOneDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                     }
                     else
                     {
                         // 0.5 day
                         msg.AppendFormat(
-                            MsgLeaveHalfDay, 
+                            _MsgLeaveHalfDay, 
                             GetMessageDateforLeaveRequest(request.FromDate, request.ToDate), 
                             request.FromDate.ToString("HH:mm"), 
                             request.ToDate.ToString("HH:mm"));
@@ -104,19 +104,19 @@ namespace Fanex.NexHR.Services
                     break;
 
                 case (int)RequestTypes.ChangeShift:
-                    msg.AppendFormat(MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(_MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
                 case (int)RequestTypes.CheckIn:
                 case (int)RequestTypes.CheckOut:
-                    msg.AppendFormat(MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(_MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
                 case (int)RequestTypes.LateIn:
-                    msg.AppendFormat(MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(_MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
                 case (int)RequestTypes.EarlyOut:
-                    msg.AppendFormat(MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(_MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
                 default:
@@ -363,7 +363,7 @@ namespace Fanex.NexHR.Services
                             {
                                 subject += " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate();
                                 forDate = string.Format(
-                                    MailContentLeave, 
+                                    _MailContentLeave, 
                                     model.FromDate.ToDateMonthYearFormatedDate(), 
                                     model.ToDate.ToDateMonthYearFormatedDate(), 
                                     model.TotalDays);
@@ -373,12 +373,12 @@ namespace Fanex.NexHR.Services
                                 subject += " on " + model.FromDate.ToDateMonthYearFormatedDate();
                                 if (model.TotalDays == 1)
                                 {
-                                    forDate = string.Format(MailContentLeaveOneDay, model.FromDate.ToDateMonthYearFormatedDate());
+                                    forDate = string.Format(_MailContentLeaveOneDay, model.FromDate.ToDateMonthYearFormatedDate());
                                 }
                                 else
                                 {
                                     forDate = string.Format(
-                                        MailContentLeaveHalfDay, 
+                                        _MailContentLeaveHalfDay, 
                                         model.FromDate.ToDateMonthYearFormatedDate(), 
                                         model.FromDate.ToString("HH:mm"), 
                                         model.ToDate.ToString("HH:mm"));
@@ -682,7 +682,7 @@ namespace Fanex.NexHR.Services
                         {
                             subject += " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate();
                             forDate = string.Format(
-                                MailContentLeave, 
+                                _MailContentLeave, 
                                 model.FromDate.ToDateMonthYearFormatedDate(),
                                 model.ToDate.ToDateMonthYearFormatedDate(), 
                                 model.TotalDays);
@@ -692,12 +692,12 @@ namespace Fanex.NexHR.Services
                             subject += " on " + model.FromDate.ToDateMonthYearFormatedDate();
                             if (model.TotalDays == 1)
                             {
-                                forDate = string.Format(MailContentLeaveOneDay, model.FromDate.ToDateMonthYearFormatedDate());
+                                forDate = string.Format(_MailContentLeaveOneDay, model.FromDate.ToDateMonthYearFormatedDate());
                             }
                             else
                             {
                                 forDate = string.Format(
-                                    MailContentLeaveHalfDay, 
+                                    _MailContentLeaveHalfDay, 
                                     model.FromDate.ToDateMonthYearFormatedDate(),
                                     model.FromDate.ToString("HH:mm"), 
                                     model.ToDate.ToString("HH:mm"));
@@ -1183,7 +1183,7 @@ namespace Fanex.NexHR.Services
             if (request.TotalDays > 1)
             {
                 forDate = string.Format(
-                    MailContentLeave, 
+                    _MailContentLeave, 
                     request.FromDate.ToDateMonthYearFormatedDate(),
                     request.ToDate.ToDateMonthYearFormatedDate(), 
                     request.TotalDays);
@@ -1192,12 +1192,12 @@ namespace Fanex.NexHR.Services
             {
                 if (request.TotalDays == 1)
                 {
-                    forDate = string.Format(MailContentLeaveOneDay, request.FromDate.ToDateMonthYearFormatedDate());
+                    forDate = string.Format(_MailContentLeaveOneDay, request.FromDate.ToDateMonthYearFormatedDate());
                 }
                 else
                 {
                     forDate = string.Format(
-                        MailContentLeaveHalfDay, 
+                        _MailContentLeaveHalfDay, 
                         request.FromDate.ToDateMonthYearFormatedDate(),
                         request.FromDate.ToString("HH:mm"),
                         request.ToDate.HasValue ? request.ToDate.Value.ToString("HH:mm") : request.FromDate.ToString("HH:mm"));

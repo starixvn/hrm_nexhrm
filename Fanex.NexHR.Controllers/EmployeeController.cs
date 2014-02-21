@@ -20,6 +20,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -406,10 +407,31 @@ namespace Fanex.NexHR.Controllers
         /// <summary>
         /// My space view.
         /// </summary>
+        /// <param name="isRedirectFromLogin">Is redirect from login page.</param>
         /// <returns>Action result.</returns>
-        public ActionResult MySpace()
+        public ActionResult MySpace(bool? isRedirectFromLogin = false)
         {
             var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+            IList<Employee> employeesBirthday = null;
+            IList<Employee> employeesFirstWorkingday = null;
+
+            var criteria = new GetBirthdayAndFirstWorkingdayCriteria
+            {
+                OnDate = DateTime.Now.Date
+            };
+
+            if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
+            {
+                _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+            }
+
+            var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
+                || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
+
+            ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
+            ViewBag.EmployeesBirthday = employeesBirthday;
+            ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
+
             return View(model);
         }
 

@@ -25,6 +25,7 @@
     </SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <JSLintSkip>\Scripts\|\Views\</JSLintSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,7 +74,7 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0-alpha1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Data, Version=0.5.404.54, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.Data, Version=0.5.404.62, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -341,6 +342,7 @@
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\jquery.tablesorter.js" />
     <Content Include="Scripts\Views\mgr.requests.hr.js" />
+    <Content Include="Scripts\Views\mydashboard.js" />
     <Content Include="Scripts\Views\team.edit.js" />
     <Content Include="Scripts\Views\team.js" />
     <Content Include="Scripts\Views\team.management.js" />
@@ -356,6 +358,7 @@
     <Content Include="Styles\Images\disabled-delete.png" />
     <Content Include="Styles\Images\icons.png" />
     <Content Include="Styles\Images\tipsy.gif" />
+    <Content Include="Styles\mydashboard.css" />
     <Content Include="Styles\request.checkinout.css" />
     <Content Include="Styles\report.totalworkinghours.css" />
     <Content Include="Styles\report.requestmonitoring.css" />

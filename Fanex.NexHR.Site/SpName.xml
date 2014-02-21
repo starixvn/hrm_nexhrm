@@ -4,6 +4,7 @@
         <Setting Key="GetEmployee" SpName="Employee_GetEmployee" DbName="nexhrx" Plain="1">
         </Setting>
         <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhrx" Plain="1"></Setting>

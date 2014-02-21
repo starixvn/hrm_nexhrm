@@ -22,7 +22,7 @@ namespace Fanex.NexHR.Services
     /// </summary>
     public class ShiftService : IShiftService
     {
-        private const string CacheKeyAllShift = "ShiftService_AllShift";
+        private const string _CacheKeyAllShift = "ShiftService_AllShift";
         private readonly IShiftRepository _shiftRepository;
         private readonly ICache _cacheManager;
 
@@ -43,14 +43,14 @@ namespace Fanex.NexHR.Services
         /// <returns>List of shift.</returns>
         public IList<Shift> GetAll()
         {
-            var allShifts = this._cacheManager.Get<IList<Shift>>(CacheKeyAllShift);
+            var allShifts = this._cacheManager.Get<IList<Shift>>(_CacheKeyAllShift);
             if (allShifts == null || allShifts.Count <= 0)
             {
                 allShifts = this._shiftRepository.GetAll();
 
                 if (allShifts != null && allShifts.Count > 0)
                 {
-                    this._cacheManager.Set<IList<Shift>>(CacheKeyAllShift, allShifts, TimeSpan.FromHours(1));
+                    this._cacheManager.Set<IList<Shift>>(_CacheKeyAllShift, allShifts, TimeSpan.FromHours(1));
                 }
             }
 

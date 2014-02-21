@@ -741,4 +741,13 @@
   <data name="ExpiredDate" xml:space="preserve">
     <value>Expired Date</value>
   </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="FirstWorkingDay" xml:space="preserve">
+    <value>First working day</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
 </root>
