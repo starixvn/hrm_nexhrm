@@ -225,7 +225,8 @@ function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
     };
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-            var distance = response.routes[0].legs[0].distance.value / 1000;
+            var distance = response.routes[0].legs[0].distance.text;
+            debugger;
             $("#DistanceToCompany").val(distance);
             directionsDisplay.setDirections(response);
         }

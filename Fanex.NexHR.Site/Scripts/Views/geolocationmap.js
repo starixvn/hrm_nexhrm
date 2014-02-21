@@ -8,10 +8,10 @@ function Initialize() {
     //set border map
     var mapcanvas = $("#map_canvas");
     mapcanvas.addClass("mapborder");
-
     directionsDisplay = new google.maps.DirectionsRenderer();
+
     // Google has tweaked their interface somewhat - this tells the api to use that new UI
-    google.maps.visualRefresh = true;
+    google.maps.visualRefresh = false;
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
 
     // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
@@ -33,17 +33,17 @@ function Initialize() {
         title: 'SMS TOWER'
     });
 
-//    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+    //    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
 
     //  custome Marker's icon
-        var pinIcon = new google.maps.MarkerImage(
+    var pinIcon = new google.maps.MarkerImage(
         "/Styles/Images/Office_building_icon.png",
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         new google.maps.Point(14, 30), /* anchor is bottom center of the scaled image */
         new google.maps.Size(40, 60)
         );
-        marker.setIcon(pinIcon)
+    marker.setIcon(pinIcon)
 
     var data = [];
     $.ajax({
@@ -59,7 +59,7 @@ function Initialize() {
     });
 
     // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-    $.each(data, function (i, item) {
+        $.each(data, function (i, item) {
         var marker = new google.maps.Marker({
             'position': new google.maps.LatLng(item.GeoMapLatitude, item.GeoMapLongtitude),
             'map': map,
@@ -77,7 +77,7 @@ function Initialize() {
             + item.DisplayName + "</span><div><span class='headerInfo'>Team:</span> "
             + item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>"
             + item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>"
-            + item.DistanceToCompany + " km" + "</div></div></div></div></div>"
+            + item.DistanceToCompany + "</div></div></div></div></div>"
         });
 
         if (item.NickName == currentUserNickName) {
