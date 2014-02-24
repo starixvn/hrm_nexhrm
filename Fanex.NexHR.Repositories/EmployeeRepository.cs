@@ -1902,7 +1902,7 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb("TOEIC_GetAllScores"))
             {
-                var p = new DynamicParameters();
+                var p = new Hashtable();
                 int? disableUsers;
                 int? deleteUsers;
 
@@ -1934,14 +1934,14 @@ namespace Fanex.NexHR.Repositories
                     deleteUsers = null;
                 }
 
-                p.Add("@query", query);
-                p.Add("@groupId", groupId);
-                p.Add("@enable", disableUsers);
-                p.Add("@isDelete", deleteUsers);
-                p.Add("@pageNumber", 1);
-                p.Add("@pageSize", int.MaxValue);
-                p.Add("@totalRow", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                p.Add("@titleId", titleId);
+                p.Add("query", query);
+                p.Add("groupId", groupId);
+                p.Add("enable", disableUsers);
+                p.Add("isDelete", deleteUsers);
+                p.Add("pageNumber", 1);
+                p.Add("pageSize", int.MaxValue);
+                p.Add("totalRow", 2000);
+                p.Add("titleId", titleId);
 
                 var entityList = db.Query<Employee, dynamic, Employee>(
                      (e, t) =>
