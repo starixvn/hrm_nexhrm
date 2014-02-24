@@ -10,7 +10,6 @@ function Initialize() {
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
 
     var mapOptions = {
-        zoom: 14,
         center: SMSTOWER,
         mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
     };
@@ -37,8 +36,8 @@ function Initialize() {
     var SMSInfoWindow = new google.maps.InfoWindow({
         content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
             + "NEXCEL SOLUTIONS COMPANY" + "</span></div><div><span class='headerInfo'>Address: </span> "
-            + "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" + "<div><span class='headerInfo'>Tel: </span>"
-            + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>"
+            + "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" 
+            + "<div><span class='headerInfo'>Tel: </span>" + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>"
             + "+848 3 7154 278" + "<div><span class='headerInfo'>Website: </span>"
             + "<a href='http://www.nexcel.vn/'>" + "www.nexcel.vn" + "</a>" + "</div></div></div></div></div></div>"
     });
