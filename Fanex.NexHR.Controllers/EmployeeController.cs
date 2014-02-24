@@ -21,6 +21,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -558,7 +559,12 @@ namespace Fanex.NexHR.Controllers
             }
             else
             {
-                var team = _teamService.Get(teamId);
+                var criteria = new GetTeamByIdCriteria
+                {
+                    Id = teamId
+                };
+                var team = _teamService.Get(criteria);
+
                 if (team != null)
                 {
                     model = new TeamViewModel

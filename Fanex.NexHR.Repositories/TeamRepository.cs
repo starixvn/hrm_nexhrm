@@ -14,7 +14,9 @@ namespace Fanex.NexHR.Repositories
     using System.Data;
     using System.Linq;
     using Fanex.Common.Extensions;
+    using Fanex.Common.Helper;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -25,19 +27,20 @@ namespace Fanex.NexHR.Repositories
     public class TeamRepository : ITeamRepository
     {
         /// <summary>
-        /// Get team by ID.
+        /// Get Team By ID.
         /// </summary>
-        /// <param name="id">The team ID.</param>
-        /// <returns>The team object.</returns>
-        public Team Get(int id)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Team entity.</returns>
+        public Team Get(ICriteria criteria)
         {
-            using (var db = new ObjectDb("GetGroup"))
-            {
-                var team = new Team();
+            var team = new Team();
+            Check.Argument.IsNotNull(criteria, "criteria");
 
-                using (IDataReader reader = db.ExecuteReader())
+            if (criteria.IsValid())
+            {
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                     {
                         while (reader.Read())
                         {
@@ -48,11 +51,6 @@ namespace Fanex.NexHR.Repositories
                                 Name = reader.ToString("Name"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 ModifiedDate = reader.ToDateTime("ModifiedDate"),
-                                Modifer = new Employee
-                                {
-                                    Id = reader.To<int>("ModiedBy")
-                                },
-
                                 Leader = new Employee
                                 {
                                     NickName = reader.ToString("LeaderNickName"),
@@ -69,9 +67,9 @@ namespace Fanex.NexHR.Repositories
                         }
                     }
                 }
-
-                return team;
             }
+
+            return team;
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -102,7 +103,11 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
-            var team = _teamService.Get(id);
+            var criteria = new GetTeamByIdCriteria
+            {
+                Id = id
+            };
+            var team = _teamService.Get(criteria);
 
             TeamViewModel model = null;
             if (team != null)

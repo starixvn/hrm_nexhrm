@@ -32,7 +32,20 @@ function Initialize() {
         new google.maps.Point(14, 30), /* anchor is bottom center of the scaled image */
         new google.maps.Size(40, 60)
         );
-    marker.setIcon(pinIcon)
+    marker.setIcon(pinIcon);
+
+    var SMSInfoWindow = new google.maps.InfoWindow({
+        content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
+            + "NEXCEL SOLUTIONS COMPANY" + "</span></div><div><span class='headerInfo'>Address: </span> "
+            + "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" + "<div><span class='headerInfo'>Tel: </span>"
+            + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>"
+            + "+848 3 7154 278" + "<div><span class='headerInfo'>Website: </span>"
+            + "<a href='http://www.nexcel.vn/'>" + "www.nexcel.vn" + "</a>" + "</div></div></div></div></div></div>"
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        SMSInfoWindow.open(map, marker);
+    });
 
     var data = [];
     $.ajax({
@@ -58,8 +71,8 @@ function Initialize() {
         });
 
         var infowindow = new google.maps.InfoWindow({
-            content: "<div class='infoDiv'>" + "<span id='headerInfo'>"
-            + item.DisplayName + "</span><div><span class='headerInfo'>Team:</span> "
+            content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
+            + item.FullName + "</span></div><div><span class='headerInfo'>Team:</span> "
             + item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>"
             + item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>"
             + item.DistanceToCompany + "</div></div></div></div></div>"
@@ -70,6 +83,7 @@ function Initialize() {
             displayDirection(marker);
             directionsDisplay.setMap(map);
             infowindow.open(map, marker);
+            
         }
         else {
             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');

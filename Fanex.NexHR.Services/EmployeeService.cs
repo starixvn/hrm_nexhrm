@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Services
     using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
@@ -820,16 +821,18 @@ namespace Fanex.NexHR.Services
         public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams)
         {
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
+            var criteria = new GetTeamByIdCriteria
+            {
+                Id = 11
+            };
 
             if (teams.Count > 1 || (teams.Count == 1 && teams[0].Id == 11))
             {
                 LeaveSummaryByTeam management = new LeaveSummaryByTeam
                 {
-                    Team = this._teamService.Get(11),
+                    Team = this._teamService.Get(criteria),
                     LeaveSummaryInTeam = new List<LeaveSummary>()
                 };
-
-                // Add management team in 1st position
                 leaveSummaryByTeamList.Add(management);
             }
 
@@ -845,7 +848,6 @@ namespace Fanex.NexHR.Services
                 {
                     if (leavesumary.Employee.Team.Name == team.Name)
                     {
-                        /*Check if team is mamagement team, add leave summary for them*/
                         if ((team.Id == 11 && teams.Count > 1) || (teams.Count == 1 && teams[0].Id == 11))
                         {
                             leaveSummaryByTeamList[0].LeaveSummaryInTeam.Add(leavesumary);
@@ -857,7 +859,6 @@ namespace Fanex.NexHR.Services
                     }
                 }
 
-                // When select management team, return here
                 if (teams.Count == 1 && teams[0].Id == 11)
                 {
                     return leaveSummaryByTeamList;

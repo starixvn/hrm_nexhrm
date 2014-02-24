@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -31,20 +32,13 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get team by ID..
+        /// Get Team By Id.
         /// </summary>
-        /// <param name="teamId">The team ID.</param>
-        /// <returns>The return team.</returns>
-        public Team Get(int teamId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Team entity.</returns>
+        public Team Get(ICriteria criteria)
         {
-            Team team = null;
-
-            if (teamId > 0)
-            {
-                var allTeams = this.GetAll();
-
-                team = allTeams.Where(t => t.Id == teamId).SingleOrDefault();
-            }
+            Team team = _teamRepository.Get(criteria);
 
             return team;
         }

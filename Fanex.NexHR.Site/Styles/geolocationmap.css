@@ -7,22 +7,30 @@
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     line-height: 17px;
     font-size: 14px;
+    
 }
 
-span#headerInfo
+.titleHeader span.displayName
 {
     font-size: 20px;
-    /*color: rgb(213, 61, 61);*/
     color: rgb(3, 3, 252);
+    
 }
 
 .infoDiv span.headerInfo
 {
     font-weight: bold;
     color: rgb(128, 69, 78);
+    text-align: left;
 }
 
 #map_canvas
 {
     border: 3px solid silver;
+}
+
+.titleHeader
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

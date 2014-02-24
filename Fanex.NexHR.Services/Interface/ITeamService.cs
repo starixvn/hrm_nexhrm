@@ -11,12 +11,13 @@ namespace Fanex.NexHR.Services.Interface
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
 
     public interface ITeamService
     {
-        Team Get(int teamId);
+        Team Get(ICriteria criteria);
 
         Team Get(string code);
 

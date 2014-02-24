@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Controllers.Context;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -76,10 +77,14 @@ namespace Fanex.NexHR.Controllers
                 groupId: model.TeamId);
 
             IList<Team> teams = new List<Team>();
-
+            
             if (model.TeamId != null)
             {
-                Team team = _teamService.Get((int)model.TeamId);
+                var criteria = new GetTeamByIdCriteria
+                {
+                    Id = (int)model.TeamId
+                };
+                Team team = _teamService.Get(criteria);
                 teams.Add(team);
             }
             else
