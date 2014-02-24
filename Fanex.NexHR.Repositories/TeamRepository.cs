@@ -73,19 +73,6 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get team by code.
-        /// </summary>
-        /// <param name="code">The team code.</param>
-        /// <returns>The team object.</returns>
-        public Team Get(string code)
-        {
-            using (var db = new ObjectDb("GetGroup"))
-            {
-                return db.Query<Team>(new { code }).FirstOrDefault();
-            }
-        }
-
-        /// <summary>
         /// Get group of employee.
         /// </summary>
         /// <param name="employeeId">The employee ID.</param>

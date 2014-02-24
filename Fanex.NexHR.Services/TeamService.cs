@@ -44,24 +44,6 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get team by code.
-        /// </summary>
-        /// <param name="code">The team code.</param>
-        /// <returns>The return team.</returns>
-        public Team Get(string code)
-        {
-            var team = new Team();
-
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                var allTeams = this.GetAll();
-                team = allTeams.Single(t => t.Code == code);
-            }
-
-            return team;
-        }
-
-        /// <summary>
         /// Get group of employee.
         /// </summary>
         /// <param name="employeeId">The employee ID.</param>
