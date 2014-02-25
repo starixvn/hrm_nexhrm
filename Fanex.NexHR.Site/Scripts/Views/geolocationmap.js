@@ -4,12 +4,12 @@
 });
 
 function Initialize() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
     // Google has tweaked their interface somewhat - this tells the api to use that new UI
     google.maps.visualRefresh = false;
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
 
     var mapOptions = {
+        zoom: 1,
         center: SMSTOWER,
         mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
         //polylineOptions: { strokeColor: 'rgb(240, 11, 46)' }
@@ -62,6 +62,9 @@ function Initialize() {
             data = employeeInfo;
         }
     });
+    
+    var rendOpts= {preserveViewport: true}
+    directionsDisplay = new google.maps.DirectionsRenderer();
 
     // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
     $.each(data, function (i, item) {
@@ -102,7 +105,9 @@ function Initialize() {
         });
 
         google.maps.event.addListener(marker, 'click', function () {
+            directionsDisplay.setMap(null);
             displayDirection(marker);
+            directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
             directionsDisplay.setMap(map);
         });
 
