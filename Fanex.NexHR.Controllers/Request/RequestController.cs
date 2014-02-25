@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -310,7 +311,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = TeamService.GetAll();
+            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -364,7 +365,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = TeamService.GetAll();
+            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -420,7 +421,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = true;
-            request.TeamCollection = TeamService.GetAll();
+            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
 
            // request.StatusId = 0;
             ViewBag.Status = request.StatusId;

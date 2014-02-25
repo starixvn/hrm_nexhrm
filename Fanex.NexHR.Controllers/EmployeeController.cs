@@ -66,7 +66,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Index()
         {
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             return View();
         }
 
@@ -79,7 +79,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult UserManagement(string jobTitleId = "")
         {
             ViewBag.JobTitleId = jobTitleId;
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
 
             var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
             ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
@@ -154,7 +154,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Create()
         {
             ViewBag.Shifts = _shiftService.GetSelectList();
-            ViewBag.TeamList = _teamService.GetAll();
+            ViewBag.TeamList = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(new CreateEmployeeViewModel
             {
@@ -178,7 +178,7 @@ namespace Fanex.NexHR.Controllers
             model.ProcessBy = this.CurrentUser.Id;
 
             ViewBag.Shifts = _shiftService.GetSelectList();
-            ViewBag.TeamList = _teamService.GetAll();
+            ViewBag.TeamList = _teamService.GetAll(new GetAllTeamCriteria());
 
             if (ModelState.IsValid)
             {
@@ -246,7 +246,7 @@ namespace Fanex.NexHR.Controllers
                 // get TOIEC score
                 model.TOEICScore = _toeicService.GetById(id);
 
-                ViewBag.Groups = _teamService.GetAll();
+                ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
                 ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
             }
 
@@ -264,7 +264,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(Employee model)
         {
             model.Modifier = this.CurrentUser;
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
 
             if (ModelState.IsValid)
@@ -533,7 +533,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult TeamManagement()
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(teams);
         }
@@ -598,7 +598,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult TOEICManagement(string jobTitleId = "")
         {
             ViewBag.JobTitleId = jobTitleId;
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
 
             var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
             ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem

@@ -73,60 +73,51 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get group of employee.
+        /// Get all Team.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <returns>The team object.</returns>
-        public Team GetGroupOfEmployee(int employeeId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team Entity.</returns>
+        public IList<Team> GetAll(ICriteria criteria)
         {
-            using (var db = new ObjectDb("GetGroupOfEmployee"))
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Team> entityList = new List<Team>();
+            if (criteria.IsValid())
             {
-                return db.Query<Team>(new { employeeId }).FirstOrDefault();
-            }
-        }
-
-        /// <summary>
-        /// Get all team.
-        /// </summary>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetAll()
-        {
-            using (var db = new ObjectDb("GetGroups"))
-            {
-                IList<Team> entityList = new List<Team>();
-
-                using (IDataReader reader = db.ExecuteReader())
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (IDataReader reader = db.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            var entity = new Team
+                            while (reader.Read())
                             {
-                                Id = reader.ToInt("Id"),
-                                Code = reader.ToString("Code"),
-                                Name = reader.ToString("Name"),
-                                Leader = new Employee
+                                var entity = new Team
                                 {
-                                    NickName = reader.ToString("LeaderNickName"),
-                                    FullName = reader.ToString("LeaderFullName"),
-                                    Id = reader.ToInt("LeaderId"),
-                                },
-                                AssistantLeader = new Employee
-                                {
-                                    NickName = reader.To<string>("AssistantLeaderNickName"),
-                                    FullName = reader.To<string>("AssistantLeaderFullName"),
-                                    Id = reader.To<int>("AssistantLeaderId")
-                                }
-                            };
+                                    Id = reader.ToInt("Id"),
+                                    Code = reader.ToString("Code"),
+                                    Name = reader.ToString("Name"),
+                                    Leader = new Employee
+                                    {
+                                        NickName = reader.ToString("LeaderNickName"),
+                                        FullName = reader.ToString("LeaderFullName"),
+                                        Id = reader.ToInt("LeaderId"),
+                                    },
+                                    AssistantLeader = new Employee
+                                    {
+                                        NickName = reader.To<string>("AssistantLeaderNickName"),
+                                        FullName = reader.To<string>("AssistantLeaderFullName"),
+                                        Id = reader.To<int>("AssistantLeaderId")
+                                    }
+                                };
 
-                            entityList.Add(entity);
+                                entityList.Add(entity);
+                            }
                         }
                     }
                 }
-
-                return entityList;
             }
+
+            return entityList;
         }
 
         /// <summary>

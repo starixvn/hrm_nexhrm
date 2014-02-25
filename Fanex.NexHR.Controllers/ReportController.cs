@@ -53,7 +53,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
             var employee = this.CurrentUser;
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
 
             if (model.FromDate == DateTime.MinValue)
             {
@@ -224,7 +224,7 @@ namespace Fanex.NexHR.Controllers
                 return export.TotalWorkingHours(model);
             }
 
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
             var totalWorkingHours = _reportRepository.GetWorkingHoursList(
                 model.FromDate,
@@ -281,10 +281,10 @@ namespace Fanex.NexHR.Controllers
             }
             else
             {
-                teams = _teamService.GetAll();
+                teams = _teamService.GetAll(new GetAllTeamCriteria());
             }
 
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
 

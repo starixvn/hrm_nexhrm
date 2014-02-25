@@ -12,7 +12,11 @@ function Initialize() {
     var mapOptions = {
         center: SMSTOWER,
         mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        //polylineOptions: { strokeColor: 'rgb(240, 11, 46)' }
     };
+
+    // Change color of direction
+    //directionsDisplay = new google.maps.DirectionsRenderer(mapOptions);
 
     // This makes the div with id "map_canvas" a google map
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);

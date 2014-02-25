@@ -89,10 +89,10 @@ namespace Fanex.NexHR.Controllers
             }
             else
             {
-                teams = _teamService.GetAll();
+                teams = _teamService.GetAll(new GetAllTeamCriteria());
             }
 
-            ViewBag.Groups = _teamService.GetAll();
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
 

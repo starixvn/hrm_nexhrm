@@ -27,7 +27,6 @@ namespace Fanex.NexHR.Controllers
     public class TeamController : BaseController
     {
         private readonly ITeamService _teamService;
-        private readonly ITeamRepository _teamRepository;
 
         public TeamController()
             : this(null)
@@ -37,7 +36,6 @@ namespace Fanex.NexHR.Controllers
         public TeamController(ITeamService teamService = null)
         {
             _teamService = teamService ?? new TeamService();
-            _teamRepository = new TeamRepository();
         }
 
         /// <summary>
@@ -46,7 +44,8 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Index()
         {
-            IList<Team> teams = _teamRepository.GetAll();
+            var criteria = new GetAllTeamCriteria();
+            IList<Team> teams = _teamService.GetAll(criteria);
 
             return View(teams);
         }

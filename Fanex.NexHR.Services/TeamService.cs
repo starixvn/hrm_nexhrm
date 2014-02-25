@@ -44,29 +44,13 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get group of employee.
+        /// Get All Team.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <returns>The return team.</returns>
-        public Team GetGroupOfEmployee(int employeeId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team Entity.</returns>
+        public IList<Team> GetAll(ICriteria criteria)
         {
-            var team = new Team();
-
-            if (employeeId > 0)
-            {
-                team = this._teamRepository.GetGroupOfEmployee(employeeId);
-            }
-
-            return team;
-        }
-
-        /// <summary>
-        /// Get all team.
-        /// </summary>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetAll()
-        {
-            return this._teamRepository.GetAll();
+            return this._teamRepository.GetAll(criteria);
         }
 
         /// <summary>

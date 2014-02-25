@@ -19,9 +19,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
     {
         Team Get(ICriteria criteria);
 
-        Team GetGroupOfEmployee(int employeeId);
-
-        IList<Team> GetAll();
+        IList<Team> GetAll(ICriteria criteria);
 
         IList<Team> GetTeamManagedByEmp(int managerId);
 
