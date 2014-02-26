@@ -22,13 +22,13 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Team;
+    using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
-    using Fanex.NexHR.Criteria.TOEIC;
 
     /// <summary>
     /// Employee controller.
@@ -145,7 +145,6 @@ namespace Fanex.NexHR.Controllers
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
             }
 
-            // TOEIC score
             ViewBag.TOEIC = _toeicService.GetById(criteria);
 
             return View(model);
@@ -222,7 +221,6 @@ namespace Fanex.NexHR.Controllers
 
             if (model != null)
             {
-                // sub teams
                 var subTeamCriteria = new GetSubTeamOfEmployeeCriteria()
                 {
                     EmpId = id
@@ -240,8 +238,6 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 model.SubGroups = subGroups;
-
-                // teams handle requests
                 var teamHandleRequestCriteria = new GetTeamHandleRequestOfEmployee()
                 {
                     Id = id

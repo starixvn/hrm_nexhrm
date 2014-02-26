@@ -96,9 +96,7 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Delete team.
         /// </summary>
-        /// <param name="id">The team ID.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="modifiedby">The modified by.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <param name="errCode">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
@@ -110,7 +108,7 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Get teams handle requests of employee.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {

@@ -11,9 +11,9 @@ namespace Fanex.NexHR.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
-    using Fanex.NexHR.Criteria.TOEIC;
 
     /// <summary>
     /// Account controller.

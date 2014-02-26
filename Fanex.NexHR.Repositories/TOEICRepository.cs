@@ -10,12 +10,11 @@
 namespace Fanex.NexHR.Repositories
 {
     using System.Data;
-    using System.Linq;
+    using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interface;
-    using Fanex.Common.Helper;
 
     /// <summary>
     /// TOEIC repository.
@@ -25,7 +24,7 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get TOEIC of specific employee.
         /// </summary>
-        /// <param name="empId">Id of employee.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>TOEIC object.</returns>
         public TOEIC GetById(ICriteria criteria)
         {

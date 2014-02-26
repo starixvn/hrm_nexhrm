@@ -30,7 +30,7 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Get TOEIC of specific employee.
         /// </summary>
-        /// <param name="empId">Id of employee.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>TOEIC object.</returns>
         public TOEIC GetById(ICriteria criteria)
         {

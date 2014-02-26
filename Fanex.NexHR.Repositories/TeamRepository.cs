@@ -212,9 +212,7 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Delete team.
         /// </summary>
-        /// <param name="id">The team ID.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <param name="errorCode">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
@@ -236,6 +234,7 @@ namespace Fanex.NexHR.Repositories
                     {
                         return false;
                     }
+
                     return true;
                 }
             }
@@ -246,7 +245,7 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get teams handle requests of employee.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {
