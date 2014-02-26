@@ -9,6 +9,7 @@
 
 namespace Fanex.NexHR.Services
 {
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interface;
@@ -31,9 +32,9 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="empId">Id of employee.</param>
         /// <returns>TOEIC object.</returns>
-        public TOEIC GetById(int empId)
+        public TOEIC GetById(ICriteria criteria)
         {
-            return this._toeicRepository.GetById(empId);
+            return this._toeicRepository.GetById(criteria);
         }
 
         /// <summary>

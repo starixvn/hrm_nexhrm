@@ -28,6 +28,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.ViewModels;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
+    using Fanex.NexHR.Criteria.TOEIC;
 
     /// <summary>
     /// Employee controller.
@@ -100,6 +101,10 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Detail(int id = -1)
         {
             var model = _employeeService.Get(id);
+            var criteria = new GetTOEICScoreByEmployeeId()
+            {
+                EmpId = id
+            };
 
             if (model != null)
             {
@@ -141,7 +146,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             // TOEIC score
-            ViewBag.TOEIC = _toeicService.GetById(id);
+            ViewBag.TOEIC = _toeicService.GetById(criteria);
 
             return View(model);
         }
@@ -210,11 +215,19 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(int id = -1)
         {
             var model = _employeeService.Get(id);
+            var employeeToeicCriteria = new GetTOEICScoreByEmployeeId()
+            {
+                EmpId = id
+            };
 
             if (model != null)
             {
                 // sub teams
-                var subTeams = _teamService.GetSubTeamsOfEmployee(id);
+                var subTeamCriteria = new GetSubTeamOfEmployeeCriteria()
+                {
+                    EmpId = id
+                };
+                var subTeams = _teamService.GetSubTeamsOfEmployee(subTeamCriteria);
                 var subGroups = string.Empty;
                 if (subTeams != null && subTeams.Count > 0)
                 {
@@ -229,7 +242,11 @@ namespace Fanex.NexHR.Controllers
                 model.SubGroups = subGroups;
 
                 // teams handle requests
-                var teamsHandleRequests = _teamService.GetTeamsHandleRequestsOfEmployee(id);
+                var teamHandleRequestCriteria = new GetTeamHandleRequestOfEmployee()
+                {
+                    Id = id
+                };
+                var teamsHandleRequests = _teamService.GetTeamsHandleRequestsOfEmployee(teamHandleRequestCriteria);
                 var leaderGroups = string.Empty;
                 if (teamsHandleRequests != null && teamsHandleRequests.Count > 0)
                 {
@@ -242,10 +259,7 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 model.LeaderGroups = leaderGroups;
-
-                // get TOIEC score
-                model.TOEICScore = _toeicService.GetById(id);
-
+                model.TOEICScore = _toeicService.GetById(employeeToeicCriteria);
                 ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
                 ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
             }
@@ -625,7 +639,11 @@ namespace Fanex.NexHR.Controllers
 
             if (id.HasValue && id.Value > 0)
             {
-                toeic = _toeicService.GetById(id.Value);
+                var criteria = new GetTOEICScoreByEmployeeId()
+                {
+                    EmpId = id.Value
+                };
+                toeic = _toeicService.GetById(criteria);
                 toeic = toeic ?? new TOEIC { EmpId = id.Value };
             }
 

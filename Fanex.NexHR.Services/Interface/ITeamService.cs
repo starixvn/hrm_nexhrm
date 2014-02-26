@@ -21,16 +21,16 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<Team> GetAll(ICriteria criteria);
 
-        IList<Team> GetTeamManagedByEmp(int managerId);
+        IList<Team> GetTeamManagedByEmp(ICriteria criteria);
 
-        IList<Team> GetSubTeamsOfEmployee(int employeeId);
+        IList<Team> GetSubTeamsOfEmployee(ICriteria criteria);
 
-        IList<Team> GetTeamsHandleRequestsOfEmployee(int employeeId);
+        IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria);
 
-        int AddNewTeam(TeamViewModel model);
+        int AddNewTeam(ICriteria criteria);
 
-        bool UpdateTeam(TeamViewModel model);
+        bool UpdateTeam(ICriteria criteria);
 
-        bool DeleteTeam(int id, DateTime modifiedDate, int modifiedby, out int errCode, out string message);
+        bool DeleteTeam(ICriteria criteria, out int errCode, out string message);
     }
 }

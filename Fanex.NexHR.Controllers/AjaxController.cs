@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -192,11 +193,26 @@ namespace Fanex.NexHR.Controllers
             return _memoService.Delete(id);
         }
 
+        /// <summary>
+        /// Add new Team.
+        /// </summary>
+        /// <param name="model">Team ViewModel.</param>
+        /// <returns>Value to check when new team is added.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public int AddNewTeam(TeamViewModel model)
         {
-            return _teamService.AddNewTeam(model);
+            var criteria = new AddNewTeamCriteria()
+            {
+                Code = model.TeamCode,
+                Name = model.TeamName,
+                LeaderId = model.LeaderId,
+                AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                CreatedDate = model.CreatedDate,
+                CreatedBy = model.CreatedBy
+            };
+
+            return _teamService.AddNewTeam(criteria);
         }
 
         /// <summary>
@@ -210,8 +226,14 @@ namespace Fanex.NexHR.Controllers
         {
             int errCode;
             string errMsg;
-            
-            _teamService.DeleteTeam(id, DateTime.Now, this.CurrentUser.Id, out errCode, out errMsg);
+            var criteria = new DeleteTeamCriteria()
+            {
+                Id = id,
+                ModifiedBy = this.CurrentUser.Id,
+                ModifiedDate = DateTime.Now
+            };
+
+            _teamService.DeleteTeam(criteria, out errCode, out errMsg);
 
             if (errCode != 0)
             {

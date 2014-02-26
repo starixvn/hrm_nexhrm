@@ -9,12 +9,12 @@
 
 namespace Fanex.NexHR.Repositories.Interface
 {
-    using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
 
     public interface ITOEICRepository
     {
-        TOEIC GetById(int empId);
+        TOEIC GetById(ICriteria criteria);
 
         int Update(TOEIC model);
 

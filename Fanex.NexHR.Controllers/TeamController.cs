@@ -76,7 +76,17 @@ namespace Fanex.NexHR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var id = _teamService.AddNewTeam(model);
+                var criteria = new AddNewTeamCriteria()
+                {
+                    Code = model.TeamCode,
+                    Name = model.TeamName,
+                    LeaderId = model.LeaderId,
+                    AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                    CreatedDate = model.CreatedDate,
+                    CreatedBy = model.CreatedBy
+                };
+
+                var id = _teamService.AddNewTeam(criteria);
                 if (id == -1)
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateTeamCode);
@@ -143,7 +153,18 @@ namespace Fanex.NexHR.Controllers
                     model.AssistantLeaderId = null;
                 }
 
-                var result = _teamService.UpdateTeam(model);
+                var criteria = new UpdateTeamCriteria() 
+                {
+                    Id = model.Id,
+                    Code = model.TeamCode,
+                    Name = model.TeamName,
+                    LeaderId = model.LeaderId,
+                    AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                    ModifiedDate = model.ModifiedDate,
+                    ModifiedBy = model.ModifiedBy
+                };
+
+                var result = _teamService.UpdateTeam(criteria);
                 ViewBag.Updated = result;
             }
             else

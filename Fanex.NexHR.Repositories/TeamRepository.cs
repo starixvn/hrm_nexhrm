@@ -121,79 +121,92 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Update team.
+        /// Update Team.
         /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateTeam(TeamViewModel model)
+        /// <param name="criteria">Criteria to update DB.</param>
+        /// <returns>Boolean to check.</returns>
+        public bool UpdateTeam(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeGroup_Update"))
-            {
-                db.AddInParameter("@Id", DbType.Int32, model.Id);
-                db.AddInParameter("@Code", DbType.String, model.TeamCode);
-                db.AddInParameter("@Name", DbType.String, model.TeamName);
-                db.AddInParameter("@LeaderId", DbType.Int32, model.LeaderId);
-                db.AddInParameter("@AssistantLeaderId", DbType.Int32, model.AssistantLeaderId);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, model.ModifiedDate);
-                db.AddInParameter("@ModifiedBy", DbType.Int32, model.ModifiedBy);
+            int updated = 0;
+            Check.Argument.IsNotNull(criteria, "criteria");
 
-                try
+            if (criteria.IsValid())
+            {
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    return db.ExecuteNonQuery() != 0;
-                }
-                catch
-                {
-                    return false;
+                    updated = db.ExecuteNonQuery(criteria.GetSpParams());
                 }
             }
+
+            if (updated != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
-        /// Get team managed by employee.
+        /// Get Team By Manager Id.
         /// </summary>
-        /// <param name="managerId">The manager ID.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetTeamManagedByEmp(int managerId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team.</returns>
+        public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
         {
-            using (var db = new ObjectDb("GetTeamManagedById"))
+            var entityList = new List<Team>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
             {
-                var entityList = db.Query<Team>(new { managerId }).ToList();
-                return entityList;
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
+                }
             }
+
+            return entityList;
         }
 
         /// <summary>
-        /// Get sub teams of employee.
+        /// Get Sub Team Of Employee.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetSubTeamsOfEmployee(int employeeId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team.</returns>
+        public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_GetSubTeam"))
+            var entityList = new List<Team>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
             {
-                var entityList = db.Query<Team>(new { empId = employeeId }).ToList();
-                return entityList;
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
+                }
             }
+
+            return entityList;
         }
 
         /// <summary>
         /// Add new team.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to insert.</param>
         /// <returns>The result.</returns>
-        public int AddNewTeam(TeamViewModel model)
+        public int AddNewTeam(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeGroup_Insert"))
-            {
-                db.AddInParameter("@Code", DbType.String, model.TeamCode);
-                db.AddInParameter("@Name", DbType.String, model.TeamName);
-                db.AddInParameter("@LeaderId", DbType.Int32, model.LeaderId);
-                db.AddInParameter("@AssistantLeaderId", DbType.Int32, model.AssistantLeaderId);
-                db.AddInParameter("@CreatedDate", DbType.DateTime, model.CreatedDate);
-                db.AddInParameter("@CreatedBy", DbType.Int32, model.CreatedBy);
+            int status = -1;
+            Check.Argument.IsNotNull(criteria, "criteria");
 
-                return (int)db.ExecuteScalar();
+            if (criteria.IsValid())
+            {
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    status = (int)db.ExecuteScalar(criteria.GetSpParams());
+                }
             }
+
+            return status;
         }
 
         /// <summary>
@@ -205,24 +218,29 @@ namespace Fanex.NexHR.Repositories
         /// <param name="errorCode">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
-        public bool DeleteTeam(int id, DateTime modifiedDate, int modifiedBy, out int errorCode, out string message)
+        public bool DeleteTeam(ICriteria criteria, out int errorCode, out string message)
         {
-            using (var db = new ObjectDb("EmployeeGroup_Delete"))
+            message = string.Empty;
+            errorCode = 0;
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
             {
-                db.AddInParameter("@Id", DbType.Int32, id);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
-                db.AddInParameter("@ModifiedBy", DbType.Int32, modifiedBy);
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    db.ExecuteScalar(criteria.GetSpParams());
 
-                db.AddOutParameter("@ErrCode", DbType.Int32, 8);
-                db.AddOutParameter("@ErrMsg", DbType.String, 200);
-
-                var result = db.ExecuteScalar() == null ? false : true;
-
-                message = db.GetParameterValue("ErrMsg") as string;
-                errorCode = (int)db.GetParameterValue("ErrCode");
-
-                return result;
+                    message = Convert.ToString(db.GetParameterValue("ErrMsg"));
+                    errorCode = (int)db.GetParameterValue("ErrCode");
+                    if (errorCode != 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
             }
+
+            return false;
         }
 
         /// <summary>
@@ -230,13 +248,19 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="employeeId">The employee ID.</param>
         /// <returns>List of team.</returns>
-        public IList<Team> GetTeamsHandleRequestsOfEmployee(int employeeId)
+        public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_GetGroupHandleRequest"))
+            var entityList = new List<Team>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
             {
-                var entityList = db.Query<Team>(new { id = employeeId }).ToList();
-                return entityList;
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
+                }
             }
+
+            return entityList;
         }
     }
 }

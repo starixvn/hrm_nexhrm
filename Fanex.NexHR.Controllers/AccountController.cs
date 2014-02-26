@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Criteria.TOEIC;
 
     /// <summary>
     /// Account controller.
@@ -50,6 +51,10 @@ namespace Fanex.NexHR.Controllers
         {
             var model = this.CurrentUser;
             int empId = this.CurrentUser.Id;
+            var criteria = new GetTOEICScoreByEmployeeId()
+            {
+                EmpId = empId
+            };
 
             ViewBag.JobTitle = model.JobTitleId == null
             ? Resources.Labels.Unknown
@@ -87,7 +92,7 @@ namespace Fanex.NexHR.Controllers
                 ? "OFF"
                 : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
 
-            ViewBag.TOEIC = _toeicService.GetById(empId);
+            ViewBag.TOEIC = _toeicService.GetById(criteria);
             return View(model);
         }
     }

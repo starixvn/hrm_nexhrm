@@ -88,8 +88,11 @@ function Initialize() {
             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
             displayDirection(marker);
             directionsDisplay.setMap(map);
+            var listener = google.maps.event.addListener(map, "idle", function () {
+                if (map.getZoom() > 16) map.setZoom(16);
+                google.maps.event.removeListener(listener);
+            });
             infowindow.open(map, marker);
-            
         }
         else {
             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
@@ -116,8 +119,11 @@ function Initialize() {
 
 function displayDirection(marker) {
     var directionsService = new google.maps.DirectionsService();
-    var curLatLng = marker.getPosition();
     var smsLatlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
+    var curLatLng = marker.getPosition();
+    if (curLatLng.lat() == 0 || curLatLng.lng() == 0) {
+        curLatLng = smsLatlng;
+    }
 
     var request = {
         origin: curLatLng,

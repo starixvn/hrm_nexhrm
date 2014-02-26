@@ -90,8 +90,13 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
+            var criteria = new GetTeamByManagerIdCriteria()
+            {
+                ManagerId = this.CurrentUser.Id
+            };
+            request.TeamCollection = TeamService.GetTeamManagedByEmp(criteria);
+
             ViewBag.IsAllowChangeStatus = true;
-            request.TeamCollection = TeamService.GetTeamManagedByEmp(this.CurrentUser.Id);
             ViewBag.Status = request.StatusId;
 
             switch (request.RequestType)

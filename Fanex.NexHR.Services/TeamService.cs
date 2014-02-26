@@ -54,43 +54,43 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get team managed by employee.
+        /// Get Team By Manager Id.
         /// </summary>
-        /// <param name="managerId">The manager ID.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetTeamManagedByEmp(int managerId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team.</returns>
+        public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
         {
-            return this._teamRepository.GetTeamManagedByEmp(managerId);
+            return this._teamRepository.GetTeamManagedByEmp(criteria);
         }
 
         /// <summary>
-        /// GEt sub teams of employee.
+        /// Get Sub Team Of Employee.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetSubTeamsOfEmployee(int employeeId)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Team.</returns>
+        public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
         {
-            return this._teamRepository.GetSubTeamsOfEmployee(employeeId);
+            return this._teamRepository.GetSubTeamsOfEmployee(criteria);
         }
 
         /// <summary>
-        /// Add new team.
+        /// Add New Team.
         /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>The result.</returns>
-        public int AddNewTeam(TeamViewModel model)
+        /// <param name="criteria">Criteria to Insert.</param>
+        /// <returns>Value to check.</returns>
+        public int AddNewTeam(ICriteria criteria)
         {
-            return this._teamRepository.AddNewTeam(model);
+            return this._teamRepository.AddNewTeam(criteria);
         }
 
         /// <summary>
-        /// Update team.
+        /// Update Team Information.
         /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateTeam(TeamViewModel model)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Boolean to check.</returns>
+        public bool UpdateTeam(ICriteria criteria)
         {
-            return this._teamRepository.UpdateTeam(model);
+            return this._teamRepository.UpdateTeam(criteria);
         }
 
         /// <summary>
@@ -102,9 +102,9 @@ namespace Fanex.NexHR.Services
         /// <param name="errCode">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
-        public bool DeleteTeam(int id, DateTime modifiedDate, int modifiedby, out int errCode, out string message)
+        public bool DeleteTeam(ICriteria criteria, out int errCode, out string message)
         {
-            return this._teamRepository.DeleteTeam(id, modifiedDate, modifiedby, out errCode, out message);
+            return this._teamRepository.DeleteTeam(criteria, out errCode, out message);
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="employeeId">The employee ID.</param>
         /// <returns>List of team.</returns>
-        public IList<Team> GetTeamsHandleRequestsOfEmployee(int employeeId)
+        public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {
-            return this._teamRepository.GetTeamsHandleRequestsOfEmployee(employeeId);
+            return this._teamRepository.GetTeamsHandleRequestsOfEmployee(criteria);
         }
     }
 }

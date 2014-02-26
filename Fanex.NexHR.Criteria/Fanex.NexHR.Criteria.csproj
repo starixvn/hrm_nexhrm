@@ -51,8 +51,15 @@
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Team\AddNewTeamCriteria.cs" />
+    <Compile Include="Team\DeleteTeamCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />
+    <Compile Include="Team\GetSubTeamOfEmployeeCriteria.cs" />
     <Compile Include="Team\GetTeamByIdCriteria.cs" />
+    <Compile Include="Team\GetTeamByManagerIdCriteria.cs" />
+    <Compile Include="Team\GetTeamHandleRequestOfEmployee.cs" />
+    <Compile Include="Team\UpdateTeamCriteria.cs" />
+    <Compile Include="TOEIC\GetTOEICScoreByEmployeeId.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

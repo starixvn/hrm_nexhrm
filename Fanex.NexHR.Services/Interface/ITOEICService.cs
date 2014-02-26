@@ -9,11 +9,12 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
 
     public interface ITOEICService
     {
-        TOEIC GetById(int empId);
+        TOEIC GetById(ICriteria criteria);
 
         int Update(TOEIC model);
 
