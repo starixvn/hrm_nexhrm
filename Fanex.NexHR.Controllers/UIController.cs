@@ -9,11 +9,16 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interface;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -22,13 +27,32 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class UIController : BaseController
     {
+        private readonly IEmployeeService _employeeService;
+
         public UIController()
         {
+            _employeeService = new EmployeeService();
         }
 
         [ChildActionOnly]
         public ActionResult Header()
         {
+            IList<Employee> employeesBirthday = null;
+            IList<Employee> employeesFirstWorkingday = null;
+            var criteria = new GetBirthdayAndFirstWorkingdayCriteria
+            {
+                OnDate = DateTime.Now.Date
+            };
+
+            _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+
+            var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
+                || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
+
+            ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
+            ViewBag.EmployeesBirthday = employeesBirthday;
+            ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
+
             return PartialView(this.CurrentUser);
         }
 

@@ -4,25 +4,25 @@ var MyDashBoard = function ($) {
         dialogReminder: null,
         hasBirthday: null,
         init: function () {
-            MyDashBoard.dialogReminder = $("#dialog-reminder");
-            MyDashBoard.hasBirthday = $("#HasBirthdayOrFirstWorkingday");
+//            MyDashBoard.dialogReminder = $("#dialog-reminder");
+//            MyDashBoard.hasBirthday = $("#HasBirthdayOrFirstWorkingday");
 
-            MyDashBoard.dialogReminder.dialog({
-                autoOpen: false,
-                width: 770,
-                modal: true,
-                buttons: {
-                    "Ok": function () {
-                        $(this).dialog("close");
-                    }
-                },
-                close: function () {
-                }
-            });
+//            MyDashBoard.dialogReminder.dialog({
+//                autoOpen: false,
+//                width: 770,
+//                modal: true,
+//                buttons: {
+//                    "Ok": function () {
+//                        $(this).dialog("close");
+//                    }
+//                },
+//                close: function () {
+//                }
+//            });
 
-            if (MyDashBoard.hasBirthday.val() == "True") {
-                MyDashBoard.dialogReminder.dialog("open");
-            }
+//            if (MyDashBoard.hasBirthday.val() == "True") {
+//                MyDashBoard.dialogReminder.dialog("open");
+//            }
         }
     };
 } (jQuery);

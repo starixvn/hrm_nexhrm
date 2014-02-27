@@ -405,40 +405,41 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
-        public ActionResult MyDashboard()
-        {
-            var model = _employeeService.GetMySpace(this.CurrentUser.Id);
-            ViewBag.HasBirthdayOrFirstWorkingday = false;
-            return View("MySpace", model);
-        }
+        ////public ActionResult MyDashboard()
+        ////{
+        ////    var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+        ////    ViewBag.HasBirthdayOrFirstWorkingday = false;
+        ////    return View("MySpace", model);
+        ////}
 
         /// <summary>
         /// My space view.
         /// </summary>
         /// <param name="isRedirectFromLogin">Is redirect from login page.</param>
         /// <returns>Action result.</returns>
-        public ActionResult MySpace(bool? isRedirectFromLogin = true)
+        public ActionResult MySpace()
         {
             var model = _employeeService.GetMySpace(this.CurrentUser.Id);
-            IList<Employee> employeesBirthday = null;
-            IList<Employee> employeesFirstWorkingday = null;
 
-            var criteria = new GetBirthdayAndFirstWorkingdayCriteria
-            {
-                OnDate = DateTime.Now.Date
-            };
+            //IList<Employee> employeesBirthday = null;
+            //IList<Employee> employeesFirstWorkingday = null;
 
-            if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
-            {
-                _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
-            }
+            //var criteria = new GetBirthdayAndFirstWorkingdayCriteria
+            //{s
+            //    OnDate = DateTime.Now.Date
+            //};
 
-            var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
-                || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
+            //if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
+            //{
+            //    _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+            //}
 
-            ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
-            ViewBag.EmployeesBirthday = employeesBirthday;
-            ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
+            //var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
+            //    || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
+
+            //ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
+            //ViewBag.EmployeesBirthday = employeesBirthday;
+            //ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
 
             return View(model);
         }

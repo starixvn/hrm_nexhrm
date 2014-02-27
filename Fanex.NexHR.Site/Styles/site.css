@@ -711,5 +711,67 @@ span.req.inout
 {
     width: 250px;
     }
+    
+.marquee-birthday
+{
+ border: 1px solid #A0A0A0;
+    height: 26px;
+    left: 510px;
+    position: absolute;
+    right: 233px;
+    top: 9px;
+    vertical-align: 10px;
+    border-radius: 3px;
+}
+.birthdaytext
+{
+    font-size: 13px;
+    line-height: 24px;
+    }
+.ui-widget-content a {
+    color: #0789D1 !important;
+}
+.skype_logo_img 
+{
+    float: left;
+    width: 24px;
+    height: 24px;
+    background: url(Images/skype.png) no-repeat;
+    margin-left: 5px;
+}
+.skype_nick
+{
+    float: left;
+    line-height: 22px;
+    }
+.title-event
+{
+    font-weight: bold;
+    }
+.body_container
+{
+    padding: 10px;
+    }
 
-
+.reminder-employee
+{
+    width: 230px;
+    }
+    
+.reminder-date
+{
+    width: 100px;
+    }
+    
+.reminder-skype
+{
+    width: 150px;
+    }
+#dialog-reminder
+{
+    max-height: 500px;
+    }
+.marquee-nickname
+{
+    color: #CF27E1;
+    }
