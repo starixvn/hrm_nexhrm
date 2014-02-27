@@ -29,6 +29,10 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
+        /// <summary>
+        /// Geo-location Map.
+        /// </summary>
+        /// <returns>View Index.</returns>
         public ActionResult Index()
         {
             bool roleHR = false;
