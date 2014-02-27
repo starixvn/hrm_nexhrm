@@ -7,6 +7,7 @@
 namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
 
@@ -28,10 +29,21 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
+        /// <summary>
+        /// Geo-location Map.
+        /// </summary>
+        /// <returns>View Index.</returns>
         public ActionResult Index()
         {
+            bool roleHR = false;
             var user = this.CurrentUser;
+            if (user.IsInRoles(RolesEnum.HR))
+            {
+                roleHR = true;
+            }
+
             ViewBag.NickName = user.NickName;
+            ViewBag.RoleHR = roleHR;
 
             return View();
         }

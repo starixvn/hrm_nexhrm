@@ -124,7 +124,9 @@ function Initialize(latitudeTextBox, longitudeTextBox) {
     var checkInitLatlng = false;
     var latitudeTextBox = $("#GeoMapLatitude");
     var longitudeTextBox = $("#GeoMapLongtitude");
-    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    var myOption = { suppressMarkers: true };
+    directionsDisplay = new google.maps.DirectionsRenderer(myOption);
 
     if (latitudeTextBox.val() == "" && longitudeTextBox.val() == "") {
         latlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
@@ -214,7 +216,8 @@ function DynamicSearchMap(latitudeTextBox, longitudeTextBox) {
 function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
     var directionsService = new google.maps.DirectionsService();
     var curLatLng = marker.getPosition();
-    var smsLatlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
+    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
+    //var smsLatlng = new google.maps.LatLng(10.855531609229358, 106.63109062644196);
 
     latitudeTextBox.val(curLatLng.lat());
     longitudeTextBox.val(curLatLng.lng());
