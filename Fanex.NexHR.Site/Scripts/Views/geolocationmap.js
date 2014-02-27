@@ -4,16 +4,17 @@
 });
 
 function Initialize() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
     // Google has tweaked their interface somewhat - this tells the api to use that new UI
     google.maps.visualRefresh = false;
     var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
 
     var mapOptions = {
+        zoom: 1,
         center: SMSTOWER,
         mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
     };
 
+    //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
     // This makes the div with id "map_canvas" a google map
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
@@ -29,14 +30,14 @@ function Initialize() {
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         new google.maps.Point(14, 30), /* anchor is bottom center of the scaled image */
-        new google.maps.Size(40, 60)
+        new google.maps.Size(40, 40)
         );
     marker.setIcon(pinIcon);
 
     var SMSInfoWindow = new google.maps.InfoWindow({
         content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
             + "NEXCEL SOLUTIONS COMPANY" + "</span></div><div><span class='headerInfo'>Address: </span> "
-            + "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" 
+            + "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC"
             + "<div><span class='headerInfo'>Tel: </span>" + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>"
             + "+848 3 7154 278" + "<div><span class='headerInfo'>Website: </span>"
             + "<a href='http://www.nexcel.vn/'>" + "www.nexcel.vn" + "</a>" + "</div></div></div></div></div></div>"
@@ -59,6 +60,9 @@ function Initialize() {
         }
     });
 
+    var rendOpts = { preserveViewport: true, suppressMarkers: true };
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
     // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
     $.each(data, function (i, item) {
         var marker = new google.maps.Marker({
@@ -69,24 +73,47 @@ function Initialize() {
             'draggable': false
         });
 
-        var infowindow = new google.maps.InfoWindow({
-            content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
+        var infowindow;
+
+        if ($("#roleHR").val() == "True") {
+            infowindow = new google.maps.InfoWindow({
+                content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
             + item.FullName + "</span></div><div><span class='headerInfo'>Team:</span> "
             + item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>"
             + item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>"
             + item.DistanceToCompany + "</div></div></div></div></div>"
-        });
-
-        if (item.NickName == $("#currentUser").val()) {
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
-            displayDirection(marker);
-            directionsDisplay.setMap(map);
-            infowindow.open(map, marker);
-            
+            });
         }
         else {
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            infowindow = new google.maps.InfoWindow({
+                content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>"
+            + item.FullName + "</span></div><div><span class='headerInfo'>Team:</span> "
+            + item.Team.Name + "<div><span class='headerInfo'>Distance To Company: </span>"
+            + item.DistanceToCompany + "</div></div></div></div>"
+            });
         }
+
+        if (item.NickName == $("#currentUser").val()) {
+            displayDirection(marker);
+            var myOption = { suppressMarkers: true };
+            directionsDisplay = new google.maps.DirectionsRenderer(myOption);
+
+            directionsDisplay.setMap(map);
+            var listener = google.maps.event.addListener(map, "idle", function () {
+                if (map.getZoom() > 16) map.setZoom(16);
+                google.maps.event.removeListener(listener);
+            });
+            infowindow.open(map, marker);
+        }
+
+        var empIcon = new google.maps.MarkerImage(
+            '/employee/avatar/' + item.Code,
+            new google.maps.Size(71, 71), /* size is determined at runtime */
+            new google.maps.Point(0, 0), /* origin is 0,0 */
+            new google.maps.Point(25, 25), /* anchor is bottom center of the scaled image */
+            new google.maps.Size(40, 40)
+        );
+        marker.setIcon(empIcon);
 
         // finally hook up an "MouseOver" listener to the map so it pops up out info-window when the marker-pin is clicked!
         google.maps.event.addListener(marker, 'mouseover', function () {
@@ -98,7 +125,9 @@ function Initialize() {
         });
 
         google.maps.event.addListener(marker, 'click', function () {
+            directionsDisplay.setMap(null);
             displayDirection(marker);
+            directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
             directionsDisplay.setMap(map);
         });
 
@@ -107,8 +136,12 @@ function Initialize() {
 
 function displayDirection(marker) {
     var directionsService = new google.maps.DirectionsService();
+    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
+    //var smsLatlng = new google.maps.LatLng(10.855531609229358, 106.63109062644196);
     var curLatLng = marker.getPosition();
-    var smsLatlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
+    if (curLatLng.lat() == 0 || curLatLng.lng() == 0) {
+        curLatLng = smsLatlng;
+    }
 
     var request = {
         origin: curLatLng,
