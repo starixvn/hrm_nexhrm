@@ -29,6 +29,10 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
+        /// <summary>
+        /// Geo-location Map.
+        /// </summary>
+        /// <returns>View Index.</returns>
         public ActionResult Index()
         {
             bool roleHR = false;
@@ -37,6 +41,7 @@ namespace Fanex.NexHR.Controllers
             {
                 roleHR = true;
             }
+
             ViewBag.NickName = user.NickName;
             ViewBag.RoleHR = roleHR;
 
