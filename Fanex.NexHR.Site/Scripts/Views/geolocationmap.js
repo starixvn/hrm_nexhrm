@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     var directionsDisplay;
     Initialize();
-    
+
 });
 var countDupe = 0;
 
@@ -150,6 +150,7 @@ function Initialize() {
     });
 
     searchEmployeeInCompany();
+
     $('#searchmap').on("click", function () {
         var lat = $('#Latitude').val();
         var lng = $('#Longitude').val();
@@ -161,6 +162,22 @@ function Initialize() {
             searchEmployeeDirection(lat, lng);
             directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
             directionsDisplay.setMap(map);
+        }
+    });
+
+    $('#Employee').keypress(function (event) {
+        if (event.keyCode == 13) {
+            var lat = $('#Latitude').val();
+            var lng = $('#Longitude').val();
+            if (lat == "" && lng == "") {
+                return false;
+            }
+            else {
+                directionsDisplay.setMap(null);
+                searchEmployeeDirection(lat, lng);
+                directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
+                directionsDisplay.setMap(map);
+            }
         }
     });
 }
@@ -235,8 +252,7 @@ function isDupeMarker(lat, lng, arrMarkers) {
             if (curLatLng.lat() == lat && curLatLng.lng() == lng) {
                 countDupe++;
                 isDupe = true;
-                debugger;
-            } 
+            }
         }
     }
 
