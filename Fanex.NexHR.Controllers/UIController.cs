@@ -34,6 +34,10 @@ namespace Fanex.NexHR.Controllers
             _employeeService = new EmployeeService();
         }
 
+        /// <summary>
+        /// Action to render header.
+        /// </summary>
+        /// <returns>Action Result.</returns>
         [ChildActionOnly]
         public ActionResult Header()
         {
