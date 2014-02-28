@@ -36,6 +36,7 @@
             <resource path="~/scripts/libs/jquery.tooltip.js" />
             <resource path="~/scripts/libs/jquery.tipsy.js" />
             <resource path="~/scripts/libs/jquery.cookie.js" />
+            <resource path="~/scripts/views/home.js" />
         </resourceSet>
       
         <resourceSet name="homecss" type="css">
