@@ -32,28 +32,19 @@ namespace Fanex.NexHR.Services
     /// </summary>
     public class EmployeeService : IEmployeeService
     {
-        private readonly IShiftRepository _shiftRepository;
         private readonly ITeamService _teamService;
-
         private IEmployeeRepository _employeeRepository;
 
         public EmployeeService()
         {
             this._employeeRepository = new EmployeeRepository();
-            this._shiftRepository = new ShiftRepository();
             this._teamService = new TeamService();
         }
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IShiftRepository shifRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository)
         {
             this._employeeRepository = employeeRepository;
-            this._shiftRepository = shifRepository;
             this._teamService = new TeamService();
-        }
-
-        public IList<Shift> GetAllShifts()
-        {
-            return this._shiftRepository.GetAll();
         }
 
         public IList<Employee> GetLeaders(int employeeId)

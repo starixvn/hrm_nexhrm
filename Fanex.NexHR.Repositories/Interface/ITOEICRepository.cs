@@ -17,7 +17,5 @@ namespace Fanex.NexHR.Repositories.Interface
         TOEIC GetById(ICriteria criteria);
 
         int Update(ICriteria criteria);
-
-        int NewUpdate(ICriteria criteria);
     }
 }

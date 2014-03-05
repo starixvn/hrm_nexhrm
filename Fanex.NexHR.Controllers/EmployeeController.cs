@@ -21,6 +21,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Models;
@@ -114,7 +115,7 @@ namespace Fanex.NexHR.Controllers
 
                 ViewBag.Working = _employeeService.GetMySpace(id);
                 var workingCalendar = _employeeService.GetEmployeeShift(id);
-                var shifts = _shiftService.GetAll();
+                var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
 
                 ViewBag.Sun = workingCalendar.SunShift == null
                     ? "OFF"
@@ -754,7 +755,7 @@ namespace Fanex.NexHR.Controllers
                         ModifiedBy = CurrentUser.Id,
                         ModifiedDate = currentDate
                     };
-                    effectedRow = _toeicService.NewUpdate(toeicScoreCriteria);
+                    effectedRow = _toeicService.Update(toeicScoreCriteria);
                 }
             }
 

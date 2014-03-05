@@ -1821,7 +1821,7 @@ namespace Fanex.NexHR.Repositories
                 db.AddOutParameter("@ErrCode", DbType.Int32, 8);
                 db.AddOutParameter("@ErrMsg", DbType.String, 200);
 
-                var result = db.ExecuteScalar();
+                db.ExecuteScalar();
 
                 message = db.GetParameterValue("ErrMsg") as string;
                 errorCode = (int)db.GetParameterValue("ErrCode");

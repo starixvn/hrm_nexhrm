@@ -360,7 +360,7 @@ function initDialog(divContent) {
                             errorCont.removeClass();
                             errorCont.html('');
 
-                            if (data.code == 0) {
+                            if (data.code == 1) {
                                 errorCont.addClass('success');
                                 errorCont.append('Update TOEIC score for Employee successfully');
                                 setTimeout(function () { $('#dialog-toeic').dialog("close"); location.reload(); }, 3000);

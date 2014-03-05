@@ -36,35 +36,32 @@ namespace Fanex.NexHR.Repositories
             var team = new Team();
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        team = new Team
                         {
-                            team = new Team
+                            Id = reader.ToInt("Id"),
+                            Code = reader.ToString("Code"),
+                            Name = reader.ToString("Name"),
+                            CreatedDate = reader.ToDateTime("CreatedDate"),
+                            ModifiedDate = reader.ToDateTime("ModifiedDate"),
+                            Leader = new Employee
                             {
-                                Id = reader.ToInt("Id"),
-                                Code = reader.ToString("Code"),
-                                Name = reader.ToString("Name"),
-                                CreatedDate = reader.ToDateTime("CreatedDate"),
-                                ModifiedDate = reader.ToDateTime("ModifiedDate"),
-                                Leader = new Employee
-                                {
-                                    NickName = reader.ToString("LeaderNickName"),
-                                    FullName = reader.ToString("LeaderFullName"),
-                                    Id = reader.ToInt("LeaderId"),
-                                },
-                                AssistantLeader = new Employee
-                                {
-                                    NickName = reader.ToString("AssistantLeaderNickName"),
-                                    FullName = reader.ToString("AssistantLeaderFullName"),
-                                    Id = reader.ToInt("AssistantLeaderId")
-                                }
-                            };
-                        }
+                                NickName = reader.ToString("LeaderNickName"),
+                                FullName = reader.ToString("LeaderFullName"),
+                                Id = reader.ToInt("LeaderId"),
+                            },
+                            AssistantLeader = new Employee
+                            {
+                                NickName = reader.ToString("AssistantLeaderNickName"),
+                                FullName = reader.ToString("AssistantLeaderFullName"),
+                                Id = reader.ToInt("AssistantLeaderId")
+                            }
+                        };
                     }
                 }
             }
@@ -81,37 +78,35 @@ namespace Fanex.NexHR.Repositories
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> entityList = new List<Team>();
-            if (criteria.IsValid())
-            {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    using (IDataReader reader = db.ExecuteReader())
-                    {
-                        if (reader != null)
-                        {
-                            while (reader.Read())
-                            {
-                                var entity = new Team
-                                {
-                                    Id = reader.ToInt("Id"),
-                                    Code = reader.ToString("Code"),
-                                    Name = reader.ToString("Name"),
-                                    Leader = new Employee
-                                    {
-                                        NickName = reader.ToString("LeaderNickName"),
-                                        FullName = reader.ToString("LeaderFullName"),
-                                        Id = reader.ToInt("LeaderId"),
-                                    },
-                                    AssistantLeader = new Employee
-                                    {
-                                        NickName = reader.To<string>("AssistantLeaderNickName"),
-                                        FullName = reader.To<string>("AssistantLeaderFullName"),
-                                        Id = reader.To<int>("AssistantLeaderId")
-                                    }
-                                };
 
-                                entityList.Add(entity);
-                            }
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (IDataReader reader = db.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var entity = new Team
+                            {
+                                Id = reader.ToInt("Id"),
+                                Code = reader.ToString("Code"),
+                                Name = reader.ToString("Name"),
+                                Leader = new Employee
+                                {
+                                    NickName = reader.ToString("LeaderNickName"),
+                                    FullName = reader.ToString("LeaderFullName"),
+                                    Id = reader.ToInt("LeaderId"),
+                                },
+                                AssistantLeader = new Employee
+                                {
+                                    NickName = reader.To<string>("AssistantLeaderNickName"),
+                                    FullName = reader.To<string>("AssistantLeaderFullName"),
+                                    Id = reader.To<int>("AssistantLeaderId")
+                                }
+                            };
+
+                            entityList.Add(entity);
                         }
                     }
                 }
@@ -127,23 +122,15 @@ namespace Fanex.NexHR.Repositories
         /// <returns>Boolean to check.</returns>
         public bool UpdateTeam(ICriteria criteria)
         {
-            int updated = 0;
+            bool updated = false;
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    updated = db.ExecuteNonQuery(criteria.GetSpParams());
-                }
+                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0 ? true : false;
             }
 
-            if (updated != 0)
-            {
-                return true;
-            }
-
-            return false;
+            return updated;
         }
 
         /// <summary>
@@ -156,12 +143,9 @@ namespace Fanex.NexHR.Repositories
             var entityList = new List<Team>();
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-                }
+                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
             }
 
             return entityList;
@@ -177,12 +161,9 @@ namespace Fanex.NexHR.Repositories
             var entityList = new List<Team>();
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-                }
+                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
             }
 
             return entityList;
@@ -198,12 +179,9 @@ namespace Fanex.NexHR.Repositories
             int status = -1;
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    status = (int)db.ExecuteScalar(criteria.GetSpParams());
-                }
+                status = (int)db.ExecuteScalar(criteria.GetSpParams());
             }
 
             return status;
@@ -222,24 +200,18 @@ namespace Fanex.NexHR.Repositories
             errorCode = 0;
             Check.Argument.IsNotNull(criteria, "criteria");
 
-            if (criteria.IsValid())
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                db.ExecuteScalar(criteria.GetSpParams());
+                message = Convert.ToString(db.GetParameterValue("ErrMsg"));
+                errorCode = (int)db.GetParameterValue("ErrCode");
+                if (errorCode != 0)
                 {
-                    db.ExecuteScalar(criteria.GetSpParams());
-
-                    message = Convert.ToString(db.GetParameterValue("ErrMsg"));
-                    errorCode = (int)db.GetParameterValue("ErrCode");
-                    if (errorCode != 0)
-                    {
-                        return false;
-                    }
-
-                    return true;
+                    return false;
                 }
-            }
 
-            return false;
+                return true;
+            }
         }
 
         /// <summary>
@@ -251,12 +223,10 @@ namespace Fanex.NexHR.Repositories
         {
             var entityList = new List<Team>();
             Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-                }
+                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
             }
 
             return entityList;

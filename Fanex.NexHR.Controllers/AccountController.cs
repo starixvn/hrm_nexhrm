@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -62,7 +63,7 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.Working = _employeeService.GetMySpace(empId);
             var workingCalendar = _employeeService.GetEmployeeShift(empId);
-            var shifts = _shiftService.GetAll();
+            var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
 
             ViewBag.Sun = workingCalendar.SunShift == null
                 ? "OFF"

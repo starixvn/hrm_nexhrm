@@ -49,34 +49,13 @@ namespace Fanex.NexHR.Repositories
         public int Update(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
+            int updated = 0;
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    db.ExecuteNonQuery(criteria.GetSpParams());
-                }
+                updated = db.ExecuteNonQuery(criteria.GetSpParams()) == -1 ? 1 : 0;
             }
 
-            return 0;
-        }
-
-        /// <summary>
-        /// Update new TOEIC score.
-        /// </summary>
-        /// <param name="criteria">UpdateTOEICScore Criteria.</param>
-        /// <returns>Effected row.</returns>
-        public int NewUpdate(ICriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    db.ExecuteNonQuery(criteria.GetSpParams());
-                }
-            }
-
-            return 0;
+            return updated;
         }
     }
 }

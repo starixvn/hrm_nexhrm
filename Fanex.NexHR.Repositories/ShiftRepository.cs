@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -20,19 +21,19 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class ShiftRepository : IShiftRepository
     {
-        public IList<Shift> GetAll()
+        public IList<Shift> GetAll(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Shift_GetShifts"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<Shift>().ToList();
             }
         }
 
-        public Shift GetByDate(int employeeId, DateTime date)
+        public Shift GetByDate(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_GetShiftByDate"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Shift>(new { employeeId, date }).FirstOrDefault();
+                return db.QueryEntity<Shift>(criteria.GetSpParams());
             }
         }
     }

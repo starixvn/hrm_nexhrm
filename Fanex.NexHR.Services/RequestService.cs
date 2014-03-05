@@ -19,6 +19,7 @@ namespace Fanex.NexHR.Services
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
@@ -1040,7 +1041,12 @@ namespace Fanex.NexHR.Services
             string subject, 
             string sendCc)
         {
-            var shift = this._shiftService.GetByDate(employee.Id, request.FromDate);
+            var getShiftByDateCriteria = new GetShiftByDateCriteria()
+            {
+                EmployeeId = employee.Id,
+                Date = request.FromDate
+            };
+            var shift = this._shiftService.GetByDate(getShiftByDateCriteria);
 
             var body = Utilities.ReadTextFile(
                 HttpContext.Current.Server.MapPath("~/app_data/emails/CheckInOutApprovalNotification.cshtml"));
@@ -1122,7 +1128,13 @@ namespace Fanex.NexHR.Services
             string subject, 
             string sendCc)
         {
-            var allShifts = this._shiftService.GetAll();
+            var getAllShiftCriteria = new GetAllShiftCriteria();
+            IList<Shift> allShifts = new List<Shift>();
+            if (getAllShiftCriteria.IsValid())
+            {
+                allShifts = this._shiftService.GetAll(getAllShiftCriteria);
+            }
+
             var fromShift = allShifts.Where(t => t.Id == (request.FromShift.HasValue ? request.FromShift.Value : 0)).SingleOrDefault();
             var toShift = allShifts.Where(t => t.Id == (request.ToShift.HasValue ? request.ToShift.Value : 0)).SingleOrDefault();
 

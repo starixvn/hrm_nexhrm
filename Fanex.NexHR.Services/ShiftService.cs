@@ -12,6 +12,8 @@ namespace Fanex.NexHR.Services
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Caching;
+    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -38,16 +40,20 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get all shift.
+        /// Get all shifts.
         /// </summary>
-        /// <returns>List of shift.</returns>
-        public IList<Shift> GetAll()
+        /// <param name="criteria">GetAllShiftCriteria criteria.</param>
+        /// <returns>List of Shift.</returns>
+        public IList<Shift> GetAll(ICriteria criteria)
         {
             var allShifts = this._cacheManager.Get<IList<Shift>>(_CacheKeyAllShift);
             if (allShifts == null || allShifts.Count <= 0)
             {
-                allShifts = this._shiftRepository.GetAll();
-
+                if (criteria.IsValid())
+                {
+                    allShifts = this._shiftRepository.GetAll(criteria);
+                }
+                
                 if (allShifts != null && allShifts.Count > 0)
                 {
                     this._cacheManager.Set<IList<Shift>>(_CacheKeyAllShift, allShifts, TimeSpan.FromHours(1));
@@ -64,7 +70,12 @@ namespace Fanex.NexHR.Services
         public IList<SelectListItem> GetSelectList()
         {
             var list = new List<SelectListItem>();
-            var shifts = this.GetAll();
+            IList<Shift> shifts = new List<Shift>();
+            var getAllShiftCriteria = new GetAllShiftCriteria();
+            if (getAllShiftCriteria.IsValid())
+            {
+                shifts = this.GetAll(getAllShiftCriteria);
+            }
 
             foreach (Shift item in shifts)
             {
@@ -83,17 +94,17 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Get shift by date.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="date">The date value.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The shift object.</returns>
-        public Shift GetByDate(int employeeId, DateTime date)
+        public Shift GetByDate(ICriteria criteria)
         {
-            if (employeeId > 0)
+            Shift shift = new Shift();
+            if (criteria.IsValid())
             {
-                return this._shiftRepository.GetByDate(employeeId, date);
+                shift = this._shiftRepository.GetByDate(criteria);
             }
 
-            return null;
+            return shift;
         }
     }
 }

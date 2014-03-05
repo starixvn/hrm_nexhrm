@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shift\GetAllShiftCriteria.cs" />
+    <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />
     <Compile Include="Team\DeleteTeamCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />

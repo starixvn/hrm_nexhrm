@@ -77,13 +77,12 @@ namespace Fanex.NexHR.Core
         /// <summary>
         /// Pager helper.
         /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
         /// <param name="pageNumber">The page number.</param>
         /// <param name="pageSize">The page size.</param>
         /// <param name="totalRow">The total row.</param>
         /// <param name="url">The page URL.</param>
-        /// <returns>The return string.</returns>
-        public static string Pager(this HtmlHelper htmlHelper, int pageNumber, int pageSize, int totalRow, string url)
+        /// <returns>Return string.</returns>
+        public static string Pager(int pageNumber, int pageSize, int totalRow, string url)
         {
             var totalPage = (int)Math.Ceiling(totalRow / (double)pageSize);
 
@@ -451,13 +450,6 @@ namespace Fanex.NexHR.Core
                 var valueList = values is string[]
                 ? values as string[]
                 : values.ToString().Split(new[] { ',' });
-
-                IEnumerable source = values as IEnumerable;
-
-                HashSet<string> set = new HashSet<string>(
-                   from value in source.Cast<object>()
-                   select Convert.ToString(value, CultureInfo.CurrentCulture),
-                   StringComparer.OrdinalIgnoreCase);
 
                 var list = new List<SelectListItem>();
 

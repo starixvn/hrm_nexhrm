@@ -242,12 +242,12 @@ namespace AutoJobs
 
                 if (employeesBirthday != null && employeesBirthday.Any())
                 {
-                    SendmailReminderBirthday(employeesBirthday, forDate);
+                    SendmailReminderBirthday(employeesBirthday);
                 }
 
                 if (employeesFirstWorkingday != null && employeesFirstWorkingday.Any())
                 {
-                    SendmailReminderFirstWorkingday(employeesFirstWorkingday, forDate);
+                    SendmailReminderFirstWorkingday(employeesFirstWorkingday);
                 }
             }
             catch (Exception ex)
@@ -314,9 +314,8 @@ namespace AutoJobs
         /// <summary>
         /// Function to send mail reminder birthday.
         /// </summary>
-        /// <param name="employeesBirthday">Employees which have birthday on the date.</param>
-        /// <param name="forDate">The date which employee have birthday.</param>
-        private void SendmailReminderBirthday(IList<Employee> employeesBirthday, DateTime forDate)
+        /// <param name="employeesBirthday">List employees have birthday.</param>
+        private void SendmailReminderBirthday(IList<Employee> employeesBirthday)
         {
             var employees = string.Join(
                 "<br />", 
@@ -339,8 +338,7 @@ namespace AutoJobs
         /// Function to send mail reminder first working day anniversary.
         /// </summary>
         /// <param name="employeesFirstWorkingday">Employees which have first working day on the date.</param>
-        /// <param name="forDate">The date which employee have first working day.</param>
-        private void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday, DateTime forDate)
+        private void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday)
         {
             var employees = string.Join(
                 "<br />",

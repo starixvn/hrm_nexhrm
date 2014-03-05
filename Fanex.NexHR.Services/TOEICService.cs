@@ -34,7 +34,13 @@ namespace Fanex.NexHR.Services
         /// <returns>TOEIC object.</returns>
         public TOEIC GetById(ICriteria criteria)
         {
-            return this._toeicRepository.GetById(criteria);
+            var toeic = new TOEIC();
+            if (criteria.IsValid())
+            {
+                toeic = this._toeicRepository.GetById(criteria);
+            }
+
+            return toeic;
         }
 
         /// <summary>
@@ -44,17 +50,13 @@ namespace Fanex.NexHR.Services
         /// <returns>Effected row.</returns>
         public int Update(ICriteria criteria)
         {
-            return this._toeicRepository.Update(criteria);
-        }
+            int updated = -1;
+            if (criteria.IsValid())
+            {
+                updated = this._toeicRepository.Update(criteria);
+            }
 
-        /// <summary>
-        /// Update new TOEIC score.
-        /// </summary>
-        /// <param name="criteria">UpdateTOEICScore Criteria.</param>
-        /// <returns>Effected row.</returns>
-        public int NewUpdate(ICriteria criteria)
-        {
-            return this._toeicRepository.NewUpdate(criteria);
+            return updated;
         }
     }
 }

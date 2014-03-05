@@ -9,15 +9,12 @@
 
 namespace Fanex.NexHR.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interface;
-    using Fanex.NexHR.ViewModels;
 
     /// <summary>
     /// Team service.
@@ -26,9 +23,9 @@ namespace Fanex.NexHR.Services
     {
         private readonly ITeamRepository _teamRepository;
 
-        public TeamService(ITeamRepository teamRespository = null)
+        public TeamService(ITeamRepository teamRepository = null)
         {
-            this._teamRepository = teamRespository ?? new TeamRepository();
+            this._teamRepository = teamRepository ?? new TeamRepository();
         }
 
         /// <summary>
@@ -38,7 +35,11 @@ namespace Fanex.NexHR.Services
         /// <returns>Team entity.</returns>
         public Team Get(ICriteria criteria)
         {
-            Team team = _teamRepository.Get(criteria);
+            Team team = new Team();
+            if (criteria.IsValid())
+            {
+                team = _teamRepository.Get(criteria);
+            }
 
             return team;
         }
@@ -50,7 +51,13 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team Entity.</returns>
         public IList<Team> GetAll(ICriteria criteria)
         {
-            return this._teamRepository.GetAll(criteria);
+            IList<Team> allTeam = new List<Team>();
+            if (criteria.IsValid())
+            {
+                allTeam = this._teamRepository.GetAll(criteria);
+            }
+
+            return allTeam;
         }
 
         /// <summary>
@@ -60,7 +67,13 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team.</returns>
         public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
         {
-            return this._teamRepository.GetTeamManagedByEmp(criteria);
+            IList<Team> listTeam = new List<Team>();
+            if (criteria.IsValid())
+            {
+                listTeam = this._teamRepository.GetTeamManagedByEmp(criteria);
+            }
+
+            return listTeam;
         }
 
         /// <summary>
@@ -70,7 +83,13 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team.</returns>
         public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
         {
-            return this._teamRepository.GetSubTeamsOfEmployee(criteria);
+            IList<Team> listSubTeam = new List<Team>();
+            if (criteria.IsValid())
+            {
+                listSubTeam = this._teamRepository.GetSubTeamsOfEmployee(criteria);
+            }
+
+            return listSubTeam;
         }
 
         /// <summary>
@@ -80,7 +99,13 @@ namespace Fanex.NexHR.Services
         /// <returns>Value to check.</returns>
         public int AddNewTeam(ICriteria criteria)
         {
-            return this._teamRepository.AddNewTeam(criteria);
+            int status = -1;
+            if (criteria.IsValid())
+            {
+                status = this._teamRepository.AddNewTeam(criteria);
+            }
+
+            return status;
         }
 
         /// <summary>
@@ -90,7 +115,13 @@ namespace Fanex.NexHR.Services
         /// <returns>Boolean to check.</returns>
         public bool UpdateTeam(ICriteria criteria)
         {
-            return this._teamRepository.UpdateTeam(criteria);
+            bool updated = false;
+            if (criteria.IsValid())
+            {
+                updated = this._teamRepository.UpdateTeam(criteria);
+            }
+
+            return updated;
         }
 
         /// <summary>
@@ -102,7 +133,15 @@ namespace Fanex.NexHR.Services
         /// <returns>The result.</returns>
         public bool DeleteTeam(ICriteria criteria, out int errCode, out string message)
         {
-            return this._teamRepository.DeleteTeam(criteria, out errCode, out message);
+            bool deleted = false;
+            errCode = 0;
+            message = string.Empty;
+            if (criteria.IsValid())
+            {
+                deleted = this._teamRepository.DeleteTeam(criteria, out errCode, out message);
+            }
+
+            return deleted;
         }
 
         /// <summary>
@@ -112,7 +151,13 @@ namespace Fanex.NexHR.Services
         /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {
-            return this._teamRepository.GetTeamsHandleRequestsOfEmployee(criteria);
+            IList<Team> teamHandleRequest = new List<Team>();
+            if (criteria.IsValid())
+            {
+                teamHandleRequest = this._teamRepository.GetTeamsHandleRequestsOfEmployee(criteria);
+            }
+
+            return teamHandleRequest;
         }
     }
 }

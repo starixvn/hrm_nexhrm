@@ -12,14 +12,15 @@ namespace Fanex.NexHR.Services.Interface
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
 
     public interface IShiftService
     {
-        IList<Shift> GetAll();
+        IList<Shift> GetAll(ICriteria criteria);
 
         IList<SelectListItem> GetSelectList();
 
-        Shift GetByDate(int employeeId, DateTime date);
+        Shift GetByDate(ICriteria criteria);
     }
 }

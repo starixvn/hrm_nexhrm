@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
 
@@ -33,7 +34,10 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            return View(_shiftService.GetAll());
+            var getAllShiftCriteria = new GetAllShiftCriteria();
+            var allShifts = _shiftService.GetAll(getAllShiftCriteria);
+
+            return View(allShifts);
         }
     }
 }

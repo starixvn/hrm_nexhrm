@@ -121,10 +121,6 @@ namespace Fanex.NexHR.Models
 
                 return result;
             }
-
-            set
-            {
-            }
         }
 
         public string[] RoleArray

@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
@@ -37,7 +38,12 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             var employee = EmployeeService.Get(this.CurrentUser.Id);
-            var shift = ShiftService.GetByDate(employee.Id, DateTime.Now.Date);
+            var getShiftByDateCriteria = new GetShiftByDateCriteria()
+            {
+                EmployeeId = employee.Id,
+                Date = DateTime.Now.Date
+            };
+            var shift = ShiftService.GetByDate(getShiftByDateCriteria);
             var model = new ChangeShiftViewModel
             {
                 Employee = employee.NickName,
@@ -71,7 +77,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.TotalRequest = numberOfRequest;
-            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
 
             return View(model);
         }
@@ -84,7 +90,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(ChangeShiftViewModel model)
         {
-            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
 
             if (model.EmployeeId <= 0)
             {
@@ -113,7 +119,12 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             var request = EmployeeService.GetWorkingTimeRequest(id);
-            var shift = ShiftService.GetByDate(this.CurrentUser.Id, request.FromDate.Date);
+            var getShiftByDateCriteria = new GetShiftByDateCriteria()
+            {
+                EmployeeId = this.CurrentUser.Id,
+                Date = request.FromDate.Date
+            };
+            var shift = ShiftService.GetByDate(getShiftByDateCriteria);
             var employee = EmployeeService.Get(request.EmpId);
             var model = new ChangeShiftViewModel
             {
@@ -130,7 +141,7 @@ namespace Fanex.NexHR.Controllers.Request
                 By = this.CurrentUser.Id
             };
 
-            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
             return View(model);
         }
 
@@ -143,7 +154,7 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(ChangeShiftViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            ViewBag.Shifts = ShiftService.GetAll();
+            ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
             ViewBag.Updated = RequestService.UpdateChangeShift(ModelState, model);
             return View(model);
         }

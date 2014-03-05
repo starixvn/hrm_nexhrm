@@ -80,28 +80,5 @@ namespace Fanex.NexHR.Site
         protected void Session_End(object sender, EventArgs e)
         {
         }
-
-        /// <summary>
-        /// Application error event handler.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event arguments.</param>
-        private void Application_Error(object sender, EventArgs e)
-        {
-            Exception ex = Server.GetLastError().GetBaseException();
-
-            if (!Request.IsLocal)
-            {
-                string message = ex.Message +
-                    "\r\nSource: " + ex.Source +
-                    "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-                    "\r\nForm: " + Request.Form.ToString() +
-                    "\r\nQueryString: " + Request.QueryString.ToString() +
-                    "\r\nTargetSite: " + ex.TargetSite +
-                    "\r\nStackTrace: " + ex.StackTrace;
-
-                LogService.Error(message);
-            }
-        }
     }
 }
