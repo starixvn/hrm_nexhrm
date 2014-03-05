@@ -101,7 +101,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Detail(int id = -1)
         {
             var model = _employeeService.Get(id);
-            var criteria = new GetTOEICScoreByEmployeeId()
+            var criteria = new GetTOEICScoreByEmployeeIdCriteria()
             {
                 EmpId = id
             };
@@ -214,7 +214,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(int id = -1)
         {
             var model = _employeeService.Get(id);
-            var employeeToeicCriteria = new GetTOEICScoreByEmployeeId()
+            var employeeToeicCriteria = new GetTOEICScoreByEmployeeIdCriteria()
             {
                 EmpId = id
             };
@@ -635,7 +635,7 @@ namespace Fanex.NexHR.Controllers
 
             if (id.HasValue && id.Value > 0)
             {
-                var criteria = new GetTOEICScoreByEmployeeId()
+                var criteria = new GetTOEICScoreByEmployeeIdCriteria()
                 {
                     EmpId = id.Value
                 };
@@ -658,16 +658,36 @@ namespace Fanex.NexHR.Controllers
         public ActionResult UpdateFullTOEIC(TOEIC model)
         {
             int effectedRow = -1;
+            var currentUserId = this.CurrentUser.Id;
             if (ModelState.IsValid)
             {
                 ValidateTOEIC(model);
 
                 if (ModelState.IsValid)
                 {
-                    model.CreatedBy = model.ModifiedBy = CurrentUser.Id;
+                    model.CreatedBy = model.ModifiedBy = currentUserId;
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
+                    var toeicCriteria = new UpdateFullTOEICScoreCriteria()
+                    {
+                        CreatedBy = currentUserId,
+                        CreatedDate = DateTime.Now,
+                        EmpId = model.EmpId,
+                        InputDate = model.InputDate,
+                        Listening = model.Listening,
+                        LRExamDate = model.LRExamDate,
+                        ModifiedBy = currentUserId,
+                        ModifiedDate = DateTime.Now,
+                        OldListening = model.OldListening,
+                        OldReading = model.OldReading,
+                        OldSpeaking = model.OldSpeaking,
+                        OldWriting = model.OldWriting,
+                        Reading = model.Reading,
+                        Speaking = model.Speaking,
+                        SWExamDate = model.SWExamDate,
+                        Writing = model.Writing
+                    };
 
-                    effectedRow = _toeicService.Update(model);
+                    effectedRow = _toeicService.Update(toeicCriteria);
                 }
             }
 
@@ -719,7 +739,22 @@ namespace Fanex.NexHR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    effectedRow = _toeicService.NewUpdate(toeic);
+                    var toeicScoreCriteria = new UpdateTOEICScoreCriteria()
+                    {
+                        EmpId = model.EmpId,
+                        InputDate = model.InputDate,
+                        LRExamDate = model.LRExamDate,
+                        Listening = model.Listening,
+                        Reading = model.Reading,
+                        SWExamDate = model.SWExamDate,
+                        Speaking = model.Speaking,
+                        Writing = model.Writing,
+                        CreatedBy = CurrentUser.Id,
+                        CreatedDate = currentDate,
+                        ModifiedBy = CurrentUser.Id,
+                        ModifiedDate = currentDate
+                    };
+                    effectedRow = _toeicService.NewUpdate(toeicScoreCriteria);
                 }
             }
 

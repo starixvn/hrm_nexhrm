@@ -17,15 +17,7 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class GeographicMapController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-
-        public GeographicMapController(IEmployeeService employeeService = null)
-        {
-            _employeeService = employeeService ?? new EmployeeService();
-        }
-
         public GeographicMapController()
-            : this(null)
         {
         }
 
@@ -35,12 +27,8 @@ namespace Fanex.NexHR.Controllers
         /// <returns>View Index.</returns>
         public ActionResult Index()
         {
-            bool roleHR = false;
             var user = this.CurrentUser;
-            if (user.IsInRoles(RolesEnum.HR))
-            {
-                roleHR = true;
-            }
+            bool roleHR = user.IsInRoles(RolesEnum.HR);
 
             ViewBag.NickName = user.NickName;
             ViewBag.RoleHR = roleHR;

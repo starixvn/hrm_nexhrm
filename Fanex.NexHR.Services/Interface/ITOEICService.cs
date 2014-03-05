@@ -16,8 +16,8 @@ namespace Fanex.NexHR.Services.Interface
     {
         TOEIC GetById(ICriteria criteria);
 
-        int Update(TOEIC model);
+        int Update(ICriteria criteria);
 
-        int NewUpdate(TOEIC model);
+        int NewUpdate(ICriteria criteria);
     }
 }

@@ -44,71 +44,39 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update new TOEIC score.
         /// </summary>
-        /// <param name="model">TOEIC object.</param>
+        /// <param name="criteria">UpdateFullTOEICScore Criteria.</param>
         /// <returns>Effected row.</returns>
-        public int Update(TOEIC model)
+        public int Update(ICriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("TOEIC_Update"))
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
             {
-                db.AddInParameter("@empId", DbType.Int32, model.EmpId);
-                db.AddInParameter("@listening", DbType.Int32, model.Listening);
-                db.AddInParameter("@reading", DbType.Int32, model.Reading);
-                db.AddInParameter("@lrExamDate", DbType.DateTime, model.LRExamDate);
-                db.AddInParameter("@oldListening", DbType.Int32, model.OldListening);
-                db.AddInParameter("@oldReading", DbType.Int32, model.OldReading);
-
-                db.AddInParameter("@speaking", DbType.Int32, model.Speaking);
-                db.AddInParameter("@writing", DbType.Int32, model.Writing);
-                db.AddInParameter("@swExamDate", DbType.DateTime, model.SWExamDate);
-                db.AddInParameter("@oldSpeaking", DbType.Int32, model.OldSpeaking);
-                db.AddInParameter("@oldWriting", DbType.Int32, model.OldWriting);
-
-                db.AddInParameter("@inputDate", DbType.DateTime, model.InputDate);
-
-                db.AddInParameter("@createdBy", DbType.Int32, model.CreatedBy);
-                db.AddInParameter("@createdDate", DbType.DateTime, model.CreatedDate);
-
-                db.AddInParameter("@modifiedBy", DbType.Int32, model.ModifiedBy);
-                db.AddInParameter("@modifiedDate", DbType.DateTime, model.ModifiedDate);
-
-                // exec
-                db.ExecuteNonQuery();
-
-                return 0; // success
+                using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    db.ExecuteNonQuery(criteria.GetSpParams());
+                }
             }
+
+            return 0;
         }
 
         /// <summary>
         /// Update new TOEIC score.
         /// </summary>
-        /// <param name="model">TOEIC object.</param>
+        /// <param name="criteria">UpdateTOEICScore Criteria.</param>
         /// <returns>Effected row.</returns>
-        public int NewUpdate(TOEIC model)
+        public int NewUpdate(ICriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("TOEIC_NewUpdate"))
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
             {
-                db.AddInParameter("@empId", DbType.Int32, model.EmpId);
-                db.AddInParameter("@listening", DbType.Int32, model.Listening);
-                db.AddInParameter("@reading", DbType.Int32, model.Reading);
-                db.AddInParameter("@lrExamDate", DbType.DateTime, model.LRExamDate);
-
-                db.AddInParameter("@speaking", DbType.Int32, model.Speaking);
-                db.AddInParameter("@writing", DbType.Int32, model.Writing);
-                db.AddInParameter("@swExamDate", DbType.DateTime, model.SWExamDate);
-
-                db.AddInParameter("@inputDate", DbType.DateTime, model.InputDate);
-
-                db.AddInParameter("@createdBy", DbType.Int32, model.CreatedBy);
-                db.AddInParameter("@createdDate", DbType.DateTime, model.CreatedDate);
-
-                db.AddInParameter("@modifiedBy", DbType.Int32, model.ModifiedBy);
-                db.AddInParameter("@modifiedDate", DbType.DateTime, model.ModifiedDate);
-
-                // exec
-                db.ExecuteNonQuery();
-
-                return 0; // success
+                using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    db.ExecuteNonQuery(criteria.GetSpParams());
+                }
             }
+
+            return 0;
         }
     }
 }

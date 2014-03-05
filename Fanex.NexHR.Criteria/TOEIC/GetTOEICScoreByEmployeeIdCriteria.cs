@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetTOEICScoreByEmployeeId.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetTOEICScoreByEmployeeIdCriteria.cs" company="Nexcel Solutions Vietnam">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Criteria.TOEIC
     /// <summary>
     /// Get TOEIC Score By Employee Id.
     /// </summary>
-    public class GetTOEICScoreByEmployeeId : CriteriaBase
+    public class GetTOEICScoreByEmployeeIdCriteria : CriteriaBase
     {
         public int EmpId { get; set; }
 

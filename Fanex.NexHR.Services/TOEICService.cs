@@ -40,21 +40,21 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Update new TOEIC score.
         /// </summary>
-        /// <param name="model">TOEIC object.</param>
+        /// <param name="criteria">UpdateFullTOEICScore Criteria.</param>
         /// <returns>Effected row.</returns>
-        public int Update(TOEIC model)
+        public int Update(ICriteria criteria)
         {
-            return this._toeicRepository.Update(model);
+            return this._toeicRepository.Update(criteria);
         }
 
         /// <summary>
         /// Update new TOEIC score.
         /// </summary>
-        /// <param name="model">TOEIC object.</param>
+        /// <param name="criteria">UpdateTOEICScore Criteria.</param>
         /// <returns>Effected row.</returns>
-        public int NewUpdate(TOEIC model)
+        public int NewUpdate(ICriteria criteria)
         {
-            return this._toeicRepository.NewUpdate(model);
+            return this._toeicRepository.NewUpdate(criteria);
         }
     }
 }

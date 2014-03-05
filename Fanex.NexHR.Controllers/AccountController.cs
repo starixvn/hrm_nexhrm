@@ -51,7 +51,7 @@ namespace Fanex.NexHR.Controllers
         {
             var model = this.CurrentUser;
             int empId = this.CurrentUser.Id;
-            var criteria = new GetTOEICScoreByEmployeeId()
+            var criteria = new GetTOEICScoreByEmployeeIdCriteria()
             {
                 EmpId = empId
             };

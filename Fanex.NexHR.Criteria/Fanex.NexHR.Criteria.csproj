@@ -59,7 +59,9 @@
     <Compile Include="Team\GetTeamByManagerIdCriteria.cs" />
     <Compile Include="Team\GetTeamHandleRequestOfEmployee.cs" />
     <Compile Include="Team\UpdateTeamCriteria.cs" />
-    <Compile Include="TOEIC\GetTOEICScoreByEmployeeId.cs" />
+    <Compile Include="TOEIC\GetTOEICScoreByEmployeeIdCriteria.cs" />
+    <Compile Include="TOEIC\UpdateFullTOEICScoreCriteria.cs" />
+    <Compile Include="TOEIC\UpdateTOEICScoreCriteria.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
