@@ -66,7 +66,7 @@ function Initialize() {
     });
 
     // Direction render options.
-    var rendOpts = { preserveViewport: true, suppressMarkers: true };
+    var rendOpts = { preserveViewport: true, suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
     directionsDisplay = new google.maps.DirectionsRenderer();
 
     $.each(data, function (i, item) {
@@ -107,7 +107,7 @@ function Initialize() {
         //Check current user.
         if (item.NickName == $("#currentUser").val()) {
             displayDirection(marker);
-            var myOption = { suppressMarkers: true };
+            var myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
             directionsDisplay = new google.maps.DirectionsRenderer(myOption);
             directionsDisplay.setMap(map);
 

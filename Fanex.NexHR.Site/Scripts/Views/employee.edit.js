@@ -125,7 +125,7 @@ function Initialize(latitudeTextBox, longitudeTextBox) {
     var latitudeTextBox = $("#GeoMapLatitude");
     var longitudeTextBox = $("#GeoMapLongtitude");
 
-    var myOption = { suppressMarkers: true };
+    var myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
     directionsDisplay = new google.maps.DirectionsRenderer(myOption);
 
     if (latitudeTextBox.val() == "" && longitudeTextBox.val() == "") {
