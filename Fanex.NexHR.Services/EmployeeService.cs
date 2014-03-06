@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Services
     using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -234,39 +235,25 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.UpdateShift(id, date, shift, modifiedBy, modifiedDate);
         }
 
-        public IList<CheckInOut> GetCheckInOutRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetCheckInOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetCheckInOutRequest(criteria);
             }
 
             return entityList;
         }
 
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetLateInEarlyOutRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetLateInEarlyOutRequest(criteria);
             }
 
             return entityList;

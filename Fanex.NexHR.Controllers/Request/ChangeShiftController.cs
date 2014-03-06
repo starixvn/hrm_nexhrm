@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
@@ -62,6 +63,10 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
+            var getChangeShiftRequestCriteria = new GetChangeShiftRequestCriteria
+            {
+            };
+
             IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
                 (short)RolesEnum.Member,
                 new DateTime(year, month, 1),

@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
@@ -46,11 +47,15 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, month, 1),
-                new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                this.CurrentUser.Id);
+            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                EmployeeId = this.CurrentUser.Id
+            };
+
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             foreach (LateInEarlyOut request in entityList)
             {
@@ -164,12 +169,15 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
+            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id
+            };
 
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, 1, 1),
-                new DateTime(year, 12, 31),
-                this.CurrentUser.Id);
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             return View(entityList);
         }

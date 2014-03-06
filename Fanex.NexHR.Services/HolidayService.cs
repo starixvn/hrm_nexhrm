@@ -53,10 +53,12 @@ namespace Fanex.NexHR.Services
 
             if (holidayId > 0)
             {
-                var criteria = new DeleteHolidayCriteria();
-                criteria.Id = holidayId;
-                criteria.ModifiedBy = modifiedBy;
-                criteria.ModifiedDate = DateTime.Now;
+                var criteria = new DeleteHolidayCriteria
+                {
+                    Id = holidayId,
+                    ModifiedBy = modifiedBy,
+                    ModifiedDate = DateTime.Now
+                };
 
                 result = this._holidayRepository.Delete(criteria);
             }

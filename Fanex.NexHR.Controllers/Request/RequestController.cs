@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
@@ -177,14 +178,18 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberLateInEarlyOut(RequestViewModel request)
         {
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
-                   (short)RolesEnum.AssistantLeader,
-                   request.FromDate,
-                   request.ToDate,
-                   employeeId: request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                   groupId: request.TeamId,
-                   status: request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                   logInId: this.CurrentUser.Id);
+            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.AssistantLeader,
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
+                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
+                GroupId = request.TeamId,
+                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
+                ExcludeEmployeeId = this.CurrentUser.Id
+            };
+
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -196,14 +201,18 @@ namespace Fanex.NexHR.Controllers.Request
         [NonAction]
         public void GetMemberCheckInOut(RequestViewModel request)
         {
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
-                   (short)RolesEnum.AssistantLeader,
-                   request.FromDate,
-                   request.ToDate,
-                   employeeId: request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                   groupId: request.TeamId,
-                   status: request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                   logInId: this.CurrentUser.Id);
+            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.AssistantLeader,
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
+                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
+                GroupId = request.TeamId,
+                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
+                ExcludeEmployeeId = this.CurrentUser.Id
+            };
+
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -595,14 +604,18 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetLateInEarlyOutRequest(RequestViewModel request)
         {
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(
-                   (short)RolesEnum.HR,
-                   request.FromDate,
-                   request.ToDate,
-                   employeeId: request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                   groupId: request.TeamId,
-                   status: request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                   logInId: null);
+            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.HR,
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
+                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
+                GroupId = request.TeamId,
+                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
+                ExcludeEmployeeId = null
+            };
+
+            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -613,14 +626,18 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="request">The request.</param>
         public void HRGetCheckInOutRequest(RequestViewModel request)
         {
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
-                   (short)RolesEnum.HR,
-                   request.FromDate,
-                   request.ToDate,
-                   employeeId: request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                   groupId: request.TeamId,
-                   status: request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                   logInId: null);
+            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.HR,
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
+                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
+                GroupId = request.TeamId,
+                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
+                ExcludeEmployeeId = null
+            };
+
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }

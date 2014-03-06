@@ -11,8 +11,10 @@ namespace Fanex.NexHR.Controllers.Request
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
@@ -36,6 +38,9 @@ namespace Fanex.NexHR.Controllers.Request
         /// Create check in/out request.
         /// </summary>
         /// <returns>Action result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        "SP2101:MethodMustNotContainMoreLinesThan",
+        Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
@@ -69,11 +74,18 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, month, 1),
-                new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                this.CurrentUser.Id);
+            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
+            };
+
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             foreach (CheckInOut request in entityList)
             {
@@ -202,12 +214,18 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
+            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
+            };
 
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, 1, 1),
-                new DateTime(year, 12, 31),
-                this.CurrentUser.Id);
+            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             return View(entityList);
         }

@@ -22,6 +22,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.Data.Dapper;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -726,27 +727,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out.</returns>
-        public IList<CheckInOut> GetCheckInOutRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_CheckinOutType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -787,27 +777,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_LateInEarlyOutType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {

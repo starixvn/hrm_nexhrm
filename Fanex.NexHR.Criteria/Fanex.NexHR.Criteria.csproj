@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee\GetCheckInOutRequestCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetLateInOutRequestCriteria.cs" />
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />

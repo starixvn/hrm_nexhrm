@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
@@ -100,23 +101,9 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate);
 
-        IList<CheckInOut> GetCheckInOutRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequest(
-            short roleID,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? longInId = null);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria);
 
         IList<ChangingShift> GetChangeShiftRequest(
             short roleId,
