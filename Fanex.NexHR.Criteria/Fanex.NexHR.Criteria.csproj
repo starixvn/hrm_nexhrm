@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
+    <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
+    <Compile Include="Holiday\GetHolidayByIdCriteria.cs" />
+    <Compile Include="Holiday\GetHolidayByYearCriteria.cs" />
+    <Compile Include="Holiday\InsertNewHolidayCriteria.cs" />
+    <Compile Include="Holiday\UpdateHolidayCriteria.cs" />
+    <Compile Include="LeaveType\GetLeaveTypeCriteria.cs" />
     <Compile Include="LookupData\GetAllLookupDataCriteria.cs" />
     <Compile Include="Memo\DeleteMemoCriteria.cs" />
     <Compile Include="Memo\GetAllMemoCriteria.cs" />

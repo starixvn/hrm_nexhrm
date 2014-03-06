@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -64,24 +65,32 @@ namespace Fanex.NexHR.Controllers
         /// <summary>
         /// Edit holiday.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="holiday">The model object.</param>
         /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Edit(Holiday model)
+        public ActionResult Edit(Holiday holiday)
         {
             if (ModelState.IsValid)
             {
-                model.ModifiedDate = DateTime.Now;
-                model.ModifiedBy = this.CurrentUser.Id;
-                ViewBag.Updated = _holidayService.Update(model);
+                var criteria = new UpdateHolidayCriteria
+                {
+                    Id = holiday.Id,
+                    HolidayName = holiday.HolidayName,
+                    FromDate = holiday.FromDate,
+                    ToDate = holiday.ToDate,
+                    ModifiedBy = this.CurrentUser.Id,
+                    ModifiedDate = DateTime.Now
+                };
+
+                ViewBag.Updated = _holidayService.Update(criteria);
             }
             else
             {
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            return View(model);
+            return View(holiday);
         }
 
         /// <summary>
@@ -104,17 +113,25 @@ namespace Fanex.NexHR.Controllers
         /// <summary>
         /// Create holiday.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="holiday">The model object.</param>
         /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(Holiday model)
+        public ActionResult Create(Holiday holiday)
         {
             if (ModelState.IsValid)
             {
-                model.ModifiedDate = DateTime.Now;
-                model.ModifiedBy = this.CurrentUser.Id;
-                var id = _holidayService.Insert(model);
+                var criteria = new InsertNewHolidayCriteria
+                {
+                    HolidayName = holiday.HolidayName,
+                    FromDate = holiday.FromDate,
+                    ToDate = holiday.ToDate,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = this.CurrentUser.Id
+                };
+
+                var id = _holidayService.Insert(criteria);
+
                 if (id == -1)
                 {
                     ViewBag.Updated = false;
@@ -130,7 +147,7 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            return View(model);
+            return View(holiday);
         }
     }
 }

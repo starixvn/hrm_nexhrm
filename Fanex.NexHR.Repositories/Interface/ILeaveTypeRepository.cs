@@ -10,10 +10,11 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.LeaveType;
     using Fanex.NexHR.Models;
 
     public interface ILeaveTypeRepository
     {
-        IList<LeaveType> GetAll(bool excludeNotShown = true);
+        IList<LeaveType> GetAll(GetLeaveTypeCriteria criteria);
     }
 }

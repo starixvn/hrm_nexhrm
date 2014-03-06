@@ -9,11 +9,10 @@
 
 namespace Fanex.NexHR.Repositories
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -25,83 +24,75 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Insert holiday.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public int Insert(Holiday model)
+        public int Insert(InsertNewHolidayCriteria criteria)
         {
-            using (var db = new ObjectDb("Holiday_Insert"))
-            {
-                db.AddInParameter("@HolidayName", DbType.String, model.HolidayName);
-                db.AddInParameter("@FromDate", DbType.DateTime, model.FromDate);
-                db.AddInParameter("@ToDate", DbType.DateTime, model.ToDate);
-                db.AddInParameter("@ModifiedBy", DbType.Int16, model.ModifiedBy);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, model.ModifiedDate);
+            var settingKey = criteria.GetSettingKey();
 
-                return (int)db.ExecuteScalar();
+            using (var db = new ObjectDb(settingKey))
+            {
+                return (int)db.ExecuteScalar(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Delete holiday.
         /// </summary>
-        /// <param name="id">The holiday ID.</param>
-        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public bool Delete(int id, int modifiedBy)
+        public bool Delete(DeleteHolidayCriteria criteria)
         {
-            using (var db = new ObjectDb("Holiday_Delete"))
-            {
-                db.AddInParameter("@Id", DbType.Int32, id);
-                db.AddInParameter("@ModifiedBy", DbType.Int16, modifiedBy);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, DateTime.Now);
+            var settingKey = criteria.GetSettingKey();
 
-                return db.ExecuteNonQuery() != 0;
+            using (var db = new ObjectDb(settingKey))
+            {
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Update holiday.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public bool Update(Holiday model)
+        public bool Update(UpdateHolidayCriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("Holiday_Update"))
-            {
-                db.AddInParameter("@Id", DbType.Int32, model.Id);
-                db.AddInParameter("@HolidayName", DbType.String, model.HolidayName);
-                db.AddInParameter("@FromDate", DbType.DateTime, model.FromDate);
-                db.AddInParameter("@ToDate", DbType.DateTime, model.ToDate);
-                db.AddInParameter("@ModifiedBy", DbType.Int16, model.ModifiedBy);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, model.ModifiedDate);
+            var settingKey = criteria.GetSettingKey();
 
-                return db.ExecuteNonQuery() != 0;
+            using (ObjectDb db = new ObjectDb(settingKey))
+            {
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Get holiday by year.
         /// </summary>
-        /// <param name="year">The year value.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of holiday.</returns>
-        public IList<Holiday> GetByYear(int year)
+        public IList<Holiday> GetByYear(GetHolidayByYearCriteria criteria)
         {
-            using (var db = new ObjectDb("Holiday_GetByYear"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                return db.Query<Holiday>(new { year }).ToList();
+                return db.Query<Holiday>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Get holiday by ID.
         /// </summary>
-        /// <param name="id">The holiday ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The holiday object.</returns>
-        public Holiday GetById(int id)
+        public Holiday GetById(GetHolidayByIdCriteria criteria)
         {
-            using (var db = new ObjectDb("Holiday_GetById"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                return db.QueryEntity<Holiday>(new { id });
+                return db.QueryEntity<Holiday>(criteria.GetSpParams());
             }
         }
     }

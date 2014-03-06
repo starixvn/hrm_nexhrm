@@ -10,18 +10,19 @@
 namespace Fanex.NexHR.Services.Interface
 {
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
 
     public interface IHolidayService
     {
         bool Delete(int holidayId, int modifiedBy);
 
-        Holiday GetById(int holidayId);
+        Holiday GetById(int id);
 
         IList<Holiday> GetByYear(int year);
 
-        int Insert(Holiday holiday);
+        int Insert(InsertNewHolidayCriteria criteria);
 
-        bool Update(Holiday holiday);
+        bool Update(UpdateHolidayCriteria criteria);
     }
 }

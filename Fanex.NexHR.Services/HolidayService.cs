@@ -9,7 +9,9 @@
 
 namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -27,37 +29,48 @@ namespace Fanex.NexHR.Services
             this._holidayRepository = holidayRepository ?? new HolidayRepository();
         }
 
-        public int Insert(Holiday holiday)
+        public int Insert(InsertNewHolidayCriteria criteria)
         {
             int result = 0;
 
-            if (holiday != null)
+            if (criteria != null)
             {
-                result = this._holidayRepository.Insert(holiday);
+                result = this._holidayRepository.Insert(criteria);
             }
 
             return result;
         }
 
+        /// <summary>
+        /// Delete holiday.
+        /// </summary>
+        /// <param name="holidayId">The holiday ID.</param>
+        /// <param name="modifiedBy">The ID of user that deleted holiday.</param>
+        /// <returns>The boolean result.</returns>
         public bool Delete(int holidayId, int modifiedBy)
         {
             bool result = false;
 
             if (holidayId > 0)
             {
-                result = this._holidayRepository.Delete(holidayId, modifiedBy);
+                var criteria = new DeleteHolidayCriteria();
+                criteria.Id = holidayId;
+                criteria.ModifiedBy = modifiedBy;
+                criteria.ModifiedDate = DateTime.Now;
+
+                result = this._holidayRepository.Delete(criteria);
             }
 
             return result;
         }
 
-        public bool Update(Holiday holiday)
+        public bool Update(UpdateHolidayCriteria criteria)
         {
             bool result = false;
 
-            if (holiday != null)
+            if (criteria != null)
             {
-                result = this._holidayRepository.Update(holiday);
+                result = this._holidayRepository.Update(criteria);
             }
 
             return result;
@@ -65,16 +78,30 @@ namespace Fanex.NexHR.Services
 
         public IList<Holiday> GetByYear(int year)
         {
-            return this._holidayRepository.GetByYear(year);
+            var criteria = new GetHolidayByYearCriteria
+            {
+                Year = year
+            };
+
+            return this._holidayRepository.GetByYear(criteria);
         }
 
-        public Holiday GetById(int holidayId)
+        /// <summary>
+        /// Get holiday by ID.
+        /// </summary>
+        /// <param name="id">The holiday ID.</param>
+        /// <returns>The Holiday.</returns>
+        public Holiday GetById(int id)
         {
             Holiday model = null;
-
-            if (holidayId > 0)
+            var criteria = new GetHolidayByIdCriteria
             {
-                model = this._holidayRepository.GetById(holidayId);
+                Id = id
+            };
+
+            if (criteria != null)
+            {
+                model = this._holidayRepository.GetById(criteria);
             }
 
             return model;

@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NexHR.Criteria.LeaveType;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -20,11 +21,13 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class LeaveTypeRepository : ILeaveTypeRepository
     {
-        public IList<LeaveType> GetAll(bool excludeNotShown = true)
+        public IList<LeaveType> GetAll(GetLeaveTypeCriteria criteria)
         {
-            using (var db = new ObjectDb("LeaveType_GetAll"))
+            string settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                return db.Query<LeaveType>(new { excludeNotShown }).ToList();
+                return db.Query<LeaveType>(criteria.GetSpParams()).ToList();
             }
         }
     }
