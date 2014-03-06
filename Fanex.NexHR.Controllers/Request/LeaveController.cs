@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.ViewModels;
@@ -37,7 +38,8 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Create()
         {
-            var employee = EmployeeService.Get(this.CurrentUser.Id);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
 
             var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
@@ -114,7 +116,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
 
             var request = EmployeeService.GetWorkingTimeRequest(id);
-            var employee = EmployeeService.Get(request.EmpId);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,

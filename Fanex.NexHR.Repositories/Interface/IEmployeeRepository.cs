@@ -12,13 +12,14 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeRepository
     {
-        Employee Get(int? employeeId = null, string domainUsername = null);
+        Employee Get(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null);
 

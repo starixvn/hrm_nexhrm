@@ -21,6 +21,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
@@ -102,11 +103,9 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Detail(int id = -1)
         {
-            var model = _employeeService.Get(id);
-            var criteria = new GetTOEICScoreByEmployeeIdCriteria()
-            {
-                EmpId = id
-            };
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+            var model = _employeeService.Get(getEmployeeCriteria);
+            var toeicScoreCriteria = new GetTOEICScoreByEmployeeIdCriteria() { EmpId = id };
 
             if (model != null)
             {
@@ -147,7 +146,7 @@ namespace Fanex.NexHR.Controllers
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
             }
 
-            ViewBag.TOEIC = _toeicService.GetById(criteria);
+            ViewBag.TOEIC = _toeicService.GetById(toeicScoreCriteria);
 
             return View(model);
         }
@@ -215,7 +214,8 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
-            var model = _employeeService.Get(id);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+            var model = _employeeService.Get(getEmployeeCriteria);
             var employeeToeicCriteria = new GetTOEICScoreByEmployeeIdCriteria()
             {
                 EmpId = id
@@ -291,7 +291,8 @@ namespace Fanex.NexHR.Controllers
                 // update current user?
                 if (result && this.CurrentUser.Id == model.Id)
                 {
-                    var currentUser = _employeeService.Get(model.Id);
+                    var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.Id };
+                    var currentUser = _employeeService.Get(getEmployeeCriteria);
                     HttpContext.Session["CurrentUser"] = currentUser;
                 }
             }
@@ -315,7 +316,8 @@ namespace Fanex.NexHR.Controllers
 
             if (model != null)
             {
-                ViewBag.Employee = _employeeService.Get(id);
+                var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+                ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
                 ViewBag.Shifts = _shiftService.GetSelectList();
             }
 
@@ -340,7 +342,8 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            ViewBag.Employee = _employeeService.Get(model.EmpID);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpID };
+            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View(model);
@@ -355,7 +358,8 @@ namespace Fanex.NexHR.Controllers
         public ActionResult MonthSchedule(int id = -1)
         {
             ViewBag.Id = id;
-            ViewBag.Employee = _employeeService.Get(id);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View();

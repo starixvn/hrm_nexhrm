@@ -22,6 +22,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.Data.Dapper;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -35,21 +36,20 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee.
         /// </summary>
-        /// <param name="employeeId">Employee ID.</param>
-        /// <param name="domainUsername">Domain username.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Employee object.</returns>
-        public Employee Get(int? employeeId, string domainUsername = null)
+        public Employee Get(GetEmployeeCriteria criteria)
         {
-            using (var db = new ObjectDb("GetEmployee"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entity = db.Query<Employee, dynamic, Employee>(
+                var entity = db.QueryEntity<Employee, dynamic, Employee>(
                     (e, t) =>
                     {
                         e.Team = new Team { Id = t.TeamID, Name = t.Team };
                         return e;
-                    },
-                    splitOn: "TeamID",
-                    parameterValues: new { Id = employeeId, domainUserName = domainUsername }).FirstOrDefault();
+                    }, 
+                    "TeamID",
+                    criteria.GetSpParams());
 
                 return entity;
             }

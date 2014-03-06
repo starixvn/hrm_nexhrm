@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
 
@@ -34,7 +35,8 @@ namespace Fanex.NexHR.Controllers
 
                 if (currentUser == null)
                 {
-                    currentUser = new EmployeeService().Get(domainUsername: HttpContext.User.Identity.Name);
+                    var getEmployeeCriteria = new GetEmployeeCriteria() { DomainUserName = HttpContext.User.Identity.Name };
+                    currentUser = new EmployeeService().Get(getEmployeeCriteria);
                     if (currentUser != null)
                     {
                         if (!currentUser.Enabled || currentUser.IsDeleted)

@@ -13,13 +13,14 @@ namespace Fanex.NexHR.Services.Interface
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeService
     {
-        Employee Get(int? employeeId = null, string domainUsername = null);
+        Employee Get(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null);
 
