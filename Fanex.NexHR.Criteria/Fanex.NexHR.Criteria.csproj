@@ -51,12 +51,16 @@
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
+    <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />
     <Compile Include="Holiday\GetHolidayByIdCriteria.cs" />
     <Compile Include="Holiday\GetHolidayByYearCriteria.cs" />
     <Compile Include="Holiday\InsertNewHolidayCriteria.cs" />
     <Compile Include="Holiday\UpdateHolidayCriteria.cs" />
     <Compile Include="LeaveType\GetLeaveTypeCriteria.cs" />
     <Compile Include="LookupData\GetAllLookupDataCriteria.cs" />
+    <Compile Include="LookupData\GetLookupDataJobTitleCriteria.cs" />
+    <Compile Include="LookupData\InsertLookupDataCriteria.cs" />
+    <Compile Include="LookupData\UpdateLookupDataCriteria.cs" />
     <Compile Include="Memo\DeleteMemoCriteria.cs" />
     <Compile Include="Memo\GetAllMemoCriteria.cs" />
     <Compile Include="Memo\GetMemoByIdCriteria.cs" />
@@ -77,7 +81,9 @@
     <Compile Include="TOEIC\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="TOEIC\UpdateTOEICScoreCriteria.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Request\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

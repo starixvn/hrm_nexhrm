@@ -17,12 +17,12 @@ namespace Fanex.NexHR.Repositories.Interfaces
     {
         IList<LookupData> GetAll(ICriteria criteria);
 
-        IList<LookupData> GetJobTitle(string jobTitle);
+        IList<LookupData> GetJobTitle(ICriteria criteria);
 
-        bool Delete(int id);
+        bool Delete(ICriteria criteria);
 
-        bool Insert(string name, string lookupCode);
+        bool Insert(ICriteria criteria);
 
-        bool Update(int id, string name);
+        bool Update(ICriteria criteria);
     }
 }

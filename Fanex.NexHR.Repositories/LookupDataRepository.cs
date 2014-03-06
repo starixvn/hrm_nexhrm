@@ -29,35 +29,35 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public IList<LookupData> GetJobTitle(string jobTitle)
+        public IList<LookupData> GetJobTitle(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Lookup_GetJobTitle"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<LookupData>(new { jobTitle }).ToList();
+                return db.Query<LookupData>(criteria.GetSpParams()).ToList();
             }
         }
 
-        public bool Delete(int id)
+        public bool Delete(ICriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("LookupData_Delete"))
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { id }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
-        public bool Insert(string name, string lookupCode)
+        public bool Insert(ICriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("LookupData_Insert"))
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { name, lookupCode }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
-        public bool Update(int id, string name)
+        public bool Update(ICriteria criteria)
         {
-            using (ObjectDb db = new ObjectDb("LookupData_Update"))
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { id, name }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
     }
