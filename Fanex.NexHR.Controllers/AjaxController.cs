@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -254,21 +255,51 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public bool DeleteJobTitle(int id)
         {
-            return _lookupDataService.Delete(id);
+            var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
+            bool deleted = _lookupDataService.Delete(deleteLookupDataCriteria);
+
+            return deleted;
         }
 
+        /// <summary>
+        /// Insert Job Title.
+        /// </summary>
+        /// <param name="name">Job's name.</param>
+        /// <returns>Boolean to check.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public bool InsertJobTitle(string name)
         {
-            return _lookupDataService.Insert(name, LookupCodeName.JobTitle);
+            bool inserted = false;
+            var insertLookupDataCriteria = new InsertLookupDataCriteria()
+            {
+                LookupCode = LookupCodeName.JobTitle,
+                Name = name
+            };
+            inserted = _lookupDataService.Insert(insertLookupDataCriteria);
+
+            return inserted;
         }
 
+        /// <summary>
+        /// Update Job Title.
+        /// </summary>
+        /// <param name="id">Current id.</param>
+        /// <param name="name">New Job name.</param>
+        /// <returns>Boolean to check.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public bool UpdatetJobTitle(int id, string name)
         {
-            return _lookupDataService.Update(id, name);
+            bool updated = false;
+            var updateLookupDataCriteria = new UpdateLookupDataCriteria()
+            {
+                Id = id,
+                Name = name
+            };
+            updated = _lookupDataService.Update(updateLookupDataCriteria);
+
+            return updated;
         }
     }
 }

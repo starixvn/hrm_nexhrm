@@ -43,9 +43,8 @@ namespace Fanex.NexHR.Services.Interface
         /// <returns>List of LookupData Entity.</returns>
         public IList<LookupData> GetAll(ICriteria criteria)
         {
-            IList<LookupData> lookupDataList = new List<LookupData>();
             Check.Argument.IsNotNull(criteria, "criteria");
-
+            IList<LookupData> lookupDataList = new List<LookupData>();
             if (criteria.IsValid())
             {
                 lookupDataList = this._lookupDataRepository.GetAll(criteria);
@@ -73,16 +72,32 @@ namespace Fanex.NexHR.Services.Interface
             return lookupData;
         }
 
-        public IList<LookupData> GetJobTitle(string jobTitle)
+        public IList<LookupData> GetJobTitle(ICriteria criteria)
         {
-            var lookUpDataList = this._lookupDataRepository.GetJobTitle(jobTitle);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LookupData> lookUpDataList = new List<LookupData>();
+            if (criteria.IsValid())
+            {
+                lookUpDataList = this._lookupDataRepository.GetJobTitle(criteria);
+            }
 
             return lookUpDataList;
         }
 
-        public bool Delete(int id)
+        /// <summary>
+        /// Delete LookupData.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Boolean to check.</returns>
+        public bool Delete(ICriteria criteria)
         {
-            bool check = this._lookupDataRepository.Delete(id);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool check = false;
+            if (criteria.IsValid())
+            {
+                check = this._lookupDataRepository.Delete(criteria);
+            }
+
             if (check)
             {
                 this.ReSetJobTitleCache();
@@ -91,9 +106,20 @@ namespace Fanex.NexHR.Services.Interface
             return check;
         }
 
-        public bool Insert(string name, string lookupCode)
+        /// <summary>
+        /// Insert LookupData.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Boolean to check.</returns>
+        public bool Insert(ICriteria criteria)
         {
-            var check = this._lookupDataRepository.Insert(name, lookupCode);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool check = false;
+            if (criteria.IsValid())
+            {
+                check = this._lookupDataRepository.Insert(criteria);
+            }
+
             if (check)
             {
                 this.ReSetJobTitleCache();
@@ -102,9 +128,20 @@ namespace Fanex.NexHR.Services.Interface
             return check;
         }
 
-        public bool Update(int id, string name)
+        /// <summary>
+        /// Update LookupData.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Boolean to check.</returns>
+        public bool Update(ICriteria criteria)
         {
-            var check = this._lookupDataRepository.Update(id, name);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool check = false;
+            if (criteria.IsValid())
+            {
+                check = this._lookupDataRepository.Update(criteria);
+            }
+
             if (check)
             {
                 this.ReSetJobTitleCache();

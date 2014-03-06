@@ -50,7 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
+    <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />
     <Compile Include="LookupData\GetAllLookupDataCriteria.cs" />
+    <Compile Include="LookupData\GetLookupDataJobTitleCriteria.cs" />
+    <Compile Include="LookupData\InsertLookupDataCriteria.cs" />
+    <Compile Include="LookupData\UpdateLookupDataCriteria.cs" />
     <Compile Include="Memo\DeleteMemoCriteria.cs" />
     <Compile Include="Memo\GetAllMemoCriteria.cs" />
     <Compile Include="Memo\GetMemoByIdCriteria.cs" />
