@@ -13,6 +13,8 @@ namespace Fanex.NexHR.Repositories
     using System.Data;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -22,93 +24,70 @@ namespace Fanex.NexHR.Repositories
     public class MemoRepository : IMemoRepository
     {
         /// <summary>
-        /// Get all memo.
+        /// Get all Memo.
         /// </summary>
-        /// <param name="content">The content.</param>
-        /// <param name="year">The year value.</param>
-        /// <param name="category">The category.</param>
-        /// <returns>List of memo.</returns>
-        public IList<Memo> GetAll(string content, int year, int category)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Memo Entity.</returns>
+        public IList<Memo> GetAll(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Memo_GetAll"))
+            IList<Memo> lstMemo = new List<Memo>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Memo>(new { content = content, year = year, category = category }).ToList();
+                lstMemo = db.Query<Memo>(criteria.GetSpParams()).ToList();
             }
+
+            return lstMemo;
         }
 
         /// <summary>
         /// Get memo by ID.
         /// </summary>
-        /// <param name="id">The memo ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The memo object.</returns>
-        public Memo GetById(int id)
+        public Memo GetById(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Memo_GetById"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<Memo>(new { id });
+                return db.QueryEntity<Memo>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Delete memo.
         /// </summary>
-        /// <param name="id">The memo ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Delete(int id)
+        public bool Delete(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Memo_Delete"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@Id", DbType.Int32, id);
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Insert memo.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public int Insert(Memo model)
+        public int Insert(InsertMemoCriteria criteria)
         {
-            using (var db = new ObjectDb("Memo_Insert"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@RefNo", DbType.String, model.RefNo);
-                db.AddInParameter("@Contents", DbType.String, model.Contents);
-                db.AddInParameter("@Subject", DbType.String, model.Subject);
-                db.AddInParameter("@SentTo", DbType.String, model.SentTo);
-                db.AddInParameter("@SentFrom", DbType.String, model.SentFrom);
-                db.AddInParameter("@ForInfo", DbType.String, model.ForInfo);
-                db.AddInParameter("@TotalPages", DbType.Int32, model.TotalPages);
-                db.AddInParameter("@SentDate", DbType.DateTime, model.SentDate);
-                db.AddInParameter("@Category", DbType.Int32, model.Category);
-                db.AddInParameter("@Type", DbType.Int32, model.Type);
-
-                return (int)db.ExecuteScalar();
+                return (int)db.ExecuteScalar(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Update memo.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Update(Memo model)
+        public bool Update(UpdateMemoCriteria criteria)
         {
-            using (var db = new ObjectDb("Memo_Update"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@Id", DbType.Int32, model.Id);
-                db.AddInParameter("@RefNo", DbType.String, model.RefNo);
-                db.AddInParameter("@Contents", DbType.String, model.Contents);
-                db.AddInParameter("@Subject", DbType.String, model.Subject);
-                db.AddInParameter("@SentTo", DbType.String, model.SentTo);
-                db.AddInParameter("@SentFrom", DbType.String, model.SentFrom);
-                db.AddInParameter("@ForInfo", DbType.String, model.ForInfo);
-                db.AddInParameter("@TotalPages", DbType.Int32, model.TotalPages);
-                db.AddInParameter("@SentDate", DbType.DateTime, model.SentDate);
-                db.AddInParameter("@Category", DbType.Int32, model.Category);
-                db.AddInParameter("@Type", DbType.Int32, model.Type);
-
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
     }

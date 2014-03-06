@@ -10,19 +10,20 @@
 namespace Fanex.NexHR.Services.Interface
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels;
 
     public interface IMemoService
     {
-        bool Delete(int id);
+        bool Delete(ICriteria criteria);
 
-        IList<Memo> GetAll(MemoViewModel model);
+        IList<Memo> GetAll(ICriteria criteria);
 
-        Memo GetById(int id);
+        Memo GetById(ICriteria criteria);
 
-        int Insert(Memo entity);
+        int Insert(InsertMemoCriteria criteria);
 
-        bool Update(Memo entity);
+        bool Update(UpdateMemoCriteria criteria);
     }
 }

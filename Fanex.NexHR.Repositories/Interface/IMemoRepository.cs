@@ -10,18 +10,20 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
 
     public interface IMemoRepository
     {
-        IList<Memo> GetAll(string content, int year, int category);
+        IList<Memo> GetAll(ICriteria criteria);
 
-        Memo GetById(int id);
+        Memo GetById(ICriteria criteria);
 
-        int Insert(Memo model);
+        int Insert(InsertMemoCriteria criteria);
 
-        bool Delete(int id);
+        bool Delete(ICriteria criteria);
 
-        bool Update(Memo model);
+        bool Update(UpdateMemoCriteria criteria);
     }
 }

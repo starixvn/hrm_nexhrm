@@ -9,10 +9,10 @@
 
 namespace Fanex.NexHR.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -21,17 +21,12 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class LookupDataRepository : ILookupDataRepository
     {
-        public IList<LookupData> GetAll(string lookupCode)
+        public IList<LookupData> GetAll(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Lookup_GetLookupData"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<LookupData>(new { lookupCode }).ToList();
+                return db.Query<LookupData>(criteria.GetSpParams()).ToList();
             }
-        }
-
-        public IList<LookupData> GetAll()
-        {
-            throw new NotImplementedException();
         }
 
         public IList<LookupData> GetJobTitle(string jobTitle)

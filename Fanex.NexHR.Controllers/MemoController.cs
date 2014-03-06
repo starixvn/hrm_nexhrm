@@ -11,6 +11,8 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
@@ -43,7 +45,8 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Index()
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             MemoViewModel model = new MemoViewModel
             {
                 Content = string.Empty,
@@ -62,8 +65,16 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public ActionResult Index(MemoViewModel model)
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
-            ViewBag.EntityList = _memoService.GetAll(model);
+            var getAllMemoCriteria = new GetAllMemoCriteria()
+            {
+                Category = model.Category,
+                Content = model.Content,
+                Year = model.Year
+            };
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            ViewBag.EntityList = _memoService.GetAll(getAllMemoCriteria);
+
             return View(model);
         }
 
@@ -74,8 +85,12 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Edit(int id = -1)
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
-            return View(_memoService.GetById(id));
+            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            Memo memo = _memoService.GetById(getMemoByIdCriteria);
+
+            return View(memo);
         }
 
         /// <summary>
@@ -88,7 +103,8 @@ namespace Fanex.NexHR.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Memo model)
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             if (model.Type == 1 && string.IsNullOrEmpty(model.AttachFile))
             {
                 return View(model);
@@ -101,7 +117,22 @@ namespace Fanex.NexHR.Controllers
 
             if (ModelState.IsValid)
             {
-                ViewBag.Updated = _memoService.Update(model);
+                var updateMemoCriteria = new UpdateMemoCriteria()
+                {
+                    Id = model.Id,
+                    Category = model.Category,
+                    Contents = model.Contents,
+                    ForInfo = model.ForInfo,
+                    RefNo = model.RefNo,
+                    SendMail = model.SendMail,
+                    SentDate = model.SentDate,
+                    SentFrom = model.SentFrom,
+                    SentTo = model.SentTo,
+                    Subject = model.Subject,
+                    TotalPages = model.TotalPages,
+                    Type = model.Type
+                };
+                ViewBag.Updated = _memoService.Update(updateMemoCriteria);
             }
             else
             {
@@ -118,7 +149,8 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             return View(new Memo
             {
                 SentTo = "All Staff",
@@ -140,7 +172,8 @@ namespace Fanex.NexHR.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Memo model)
         {
-            ViewBag.MemoCategories = _lookupDataService.GetAll(LookupCodeName.MemoCategory);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             if (model.Type == 1)
             {
                 model.Contents = model.AttachFile;
@@ -148,7 +181,21 @@ namespace Fanex.NexHR.Controllers
 
             if (ModelState.IsValid)
             {
-                var id = _memoService.Insert(model);
+                var insertMemoCriteria = new InsertMemoCriteria()
+                {
+                    Category = model.Category,
+                    Contents = model.Contents,
+                    ForInfo = model.ForInfo,
+                    RefNo = model.RefNo,
+                    SendMail = model.SendMail,
+                    SentDate = model.SentDate,
+                    SentFrom = model.SentFrom,
+                    SentTo = model.SentTo,
+                    Subject = model.Subject,
+                    TotalPages = model.TotalPages,
+                    Type = model.Type
+                };
+                var id = _memoService.Insert(insertMemoCriteria);
 
                 ViewBag.Updated = id != -1 ? true : false;
                 if (id == -1)
@@ -171,7 +218,10 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Detail(int id = -1)
         {
-            return View(_memoService.GetById(id));
+            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
+            Memo memo = _memoService.GetById(getMemoByIdCriteria);
+           
+            return View(memo);
         }
     }
 }

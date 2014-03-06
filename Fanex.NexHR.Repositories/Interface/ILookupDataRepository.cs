@@ -10,13 +10,12 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
 
     public interface ILookupDataRepository
     {
-        IList<LookupData> GetAll();
-
-        IList<LookupData> GetAll(string lookupCode);
+        IList<LookupData> GetAll(ICriteria criteria);
 
         IList<LookupData> GetJobTitle(string jobTitle);
 

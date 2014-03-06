@@ -21,6 +21,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.TOEIC;
@@ -82,8 +83,8 @@ namespace Fanex.NexHR.Controllers
         {
             ViewBag.JobTitleId = jobTitleId;
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
-            var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
+            var listJobTitle = _lookupDataService.GetAll(getAllLookupDataCriteria);
             ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
             {
                 Text = j.Name,
@@ -222,10 +223,7 @@ namespace Fanex.NexHR.Controllers
 
             if (model != null)
             {
-                var subTeamCriteria = new GetSubTeamOfEmployeeCriteria()
-                {
-                    EmpId = id
-                };
+                var subTeamCriteria = new GetSubTeamOfEmployeeCriteria() { EmpId = id };
                 var subTeams = _teamService.GetSubTeamsOfEmployee(subTeamCriteria);
                 var subGroups = string.Empty;
                 if (subTeams != null && subTeams.Count > 0)
@@ -258,7 +256,8 @@ namespace Fanex.NexHR.Controllers
                 model.LeaderGroups = leaderGroups;
                 model.TOEICScore = _toeicService.GetById(employeeToeicCriteria);
                 ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-                ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
+                ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
             }
 
             return View(model);
@@ -276,7 +275,8 @@ namespace Fanex.NexHR.Controllers
         {
             model.Modifier = this.CurrentUser;
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.JobTitles = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
+            ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
 
             if (ModelState.IsValid)
             {
@@ -610,8 +610,8 @@ namespace Fanex.NexHR.Controllers
         {
             ViewBag.JobTitleId = jobTitleId;
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
-            var listJobTitle = _lookupDataService.GetAll(LookupCodeName.JobTitle);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
+            var listJobTitle = _lookupDataService.GetAll(getAllLookupDataCriteria);
             ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
             {
                 Text = j.Name,

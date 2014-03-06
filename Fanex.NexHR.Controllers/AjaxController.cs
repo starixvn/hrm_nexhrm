@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -190,7 +191,8 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public bool DeleteMemo(int id)
         {
-            return _memoService.Delete(id);
+            var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
+            return _memoService.Delete(deleteMemoCriteria);
         }
 
         /// <summary>

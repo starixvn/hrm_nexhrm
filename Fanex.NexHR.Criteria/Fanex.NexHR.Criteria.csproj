@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
+    <Compile Include="LookupData\GetAllLookupDataCriteria.cs" />
+    <Compile Include="Memo\DeleteMemoCriteria.cs" />
+    <Compile Include="Memo\GetAllMemoCriteria.cs" />
+    <Compile Include="Memo\GetMemoByIdCriteria.cs" />
+    <Compile Include="Memo\InsertMemoCriteria.cs" />
+    <Compile Include="Memo\UpdateMemoCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shift\GetAllShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />

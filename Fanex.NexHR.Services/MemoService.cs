@@ -12,12 +12,13 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
-    using Fanex.NexHR.ViewModels;
 
     /// <summary>
     /// Memo service.
@@ -36,12 +37,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all memo.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of memo.</returns>
-        public IList<Memo> GetAll(MemoViewModel model)
+        public IList<Memo> GetAll(ICriteria criteria)
         {
             IList<Memo> entityList = null;
-            entityList = this._memoRepository.GetAll(model.Content, model.Year, model.Category);
+            if (criteria.IsValid())
+            {
+                entityList = this._memoRepository.GetAll(criteria);
+            }
 
             return entityList;
         }
@@ -49,14 +53,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get memo by ID.
         /// </summary>
-        /// <param name="id">The memo ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The memo object.</returns>
-        public Memo GetById(int id)
+        public Memo GetById(ICriteria criteria)
         {
             Memo memo = null;
-            if (id > 0)
+            if (criteria.IsValid())
             {
-                memo = this._memoRepository.GetById(id);
+                memo = this._memoRepository.GetById(criteria);
                 if (memo != null && memo.Type == 1)
                 {
                     memo.AttachFile = memo.Contents;
@@ -75,14 +79,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Delete memo.
         /// </summary>
-        /// <param name="id">The memo ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Delete(int id)
+        public bool Delete(ICriteria criteria)
         {
             bool result = false;
-            if (id > 0)
+            if (criteria.IsValid())
             {
-                result = this._memoRepository.Delete(id);
+                result = this._memoRepository.Delete(criteria);
             }
 
             return result;
@@ -91,16 +95,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Insert memo.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public int Insert(Memo entity)
+        public int Insert(InsertMemoCriteria criteria)
         {
             int result = 1;
-            if (entity != null)
+            if (criteria.IsValid())
             {
-                result = this._memoRepository.Insert(entity);
+                result = this._memoRepository.Insert(criteria);
                 var link = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
-                if (result != -1 && entity.SendMail)
+                if (result != -1 && criteria.SendMail)
                 {
                     var groupSd = ConfigurationManager.AppSettings["EmailSD"].ToString();
                     var groupGo = ConfigurationManager.AppSettings["EmailGo"].ToString();
@@ -109,7 +113,7 @@ namespace Fanex.NexHR.Repositories
 
                     var content = new
                     {
-                        Subject = entity.Subject,
+                        Subject = criteria.Subject,
                         Link = link + "memo/detail/" + result.ToString()
                     };
                     var body = RazorEngine.Razor.Parse(bodyTemplate, content);
@@ -117,13 +121,13 @@ namespace Fanex.NexHR.Repositories
                         ConfigurationManager.AppSettings["Email"],
                         groupGo,
                         string.Empty,
-                        Resources.Messages.MemoSubject + " " + entity.Subject,
+                        Resources.Messages.MemoSubject + " " + criteria.Subject,
                         body);
                     this._emailService.SendEmail(
                        ConfigurationManager.AppSettings["Email"],
                        groupSd,
                        string.Empty,
-                       Resources.Messages.MemoSubject + " " + entity.Subject,
+                       Resources.Messages.MemoSubject + " " + criteria.Subject,
                        body);
                 }
             }
@@ -134,17 +138,17 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update memo.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Update(Memo entity)
+        public bool Update(UpdateMemoCriteria criteria)
         {
             bool result = false;
-            if (entity != null)
+            if (criteria.IsValid())
             {
-                result = this._memoRepository.Update(entity);
+                result = this._memoRepository.Update(criteria);
                 var link = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
 
-                if (result && entity.SendMail)
+                if (result && criteria.SendMail)
                 {
                     var groupSd = ConfigurationManager.AppSettings["EmailSD"].ToString();
                     var groupGo = ConfigurationManager.AppSettings["EmailGo"].ToString();
@@ -153,21 +157,21 @@ namespace Fanex.NexHR.Repositories
 
                     var content = new
                     {
-                        Subject = entity.Subject,
-                        Link = link + "memo/detail/" + entity.Id.ToString()
+                        Subject = criteria.Subject,
+                        Link = link + "memo/detail/" + criteria.Id.ToString()
                     };
                     var body = RazorEngine.Razor.Parse(bodyTemplate, content);
                     this._emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         groupGo,
                         string.Empty,
-                        Resources.Messages.MemoSubject + " " + entity.Subject,
+                        Resources.Messages.MemoSubject + " " + criteria.Subject,
                         body);
                     this._emailService.SendEmail(
                        ConfigurationManager.AppSettings["Email"],
                        groupSd,
                        string.Empty,
-                       Resources.Messages.MemoSubject + " " + entity.Subject,
+                       Resources.Messages.MemoSubject + " " + criteria.Subject,
                        body);
                 }
             }
