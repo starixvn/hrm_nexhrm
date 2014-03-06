@@ -60,16 +60,24 @@ namespace Fanex.NexHR.Services
             return leaders;
         }
 
-        public Employee Get(int? employeeId = null, string domainUsername = null)
+        /// <summary>
+        /// Get Employee.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Employee Entity.</returns>
+        public Employee Get(GetEmployeeCriteria criteria)
         {
-            if ((employeeId != null && employeeId != -1) || domainUsername != null)
+            Check.Argument.IsNotNull(criteria, "criteria");
+            Employee employee = new Employee();
+            if (criteria.IsValid())
             {
-                return this._employeeRepository.Get(employeeId, domainUsername);
+                if ((criteria.Id != null && criteria.Id != -1) || criteria.DomainUserName != null)
+                {
+                    employee = this._employeeRepository.Get(criteria);
+                }
             }
-            else
-            {
-                return null;
-            }
+
+            return employee;
         }
 
         public IList<WorkingTimeRequest> GetWorkingTimeRequests(int id, int? requestType = null, byte? status = null)

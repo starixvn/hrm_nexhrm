@@ -19,6 +19,7 @@ namespace Fanex.NexHR.Services
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -803,8 +804,11 @@ namespace Fanex.NexHR.Services
         public bool Process(string command, long id, int processBy, out string errorMessage)
         {
             var request = this._employeeRepository.GetWorkingTimeRequest(id);
-            var employee = this._employeeRepository.Get(request.EmpId);
-            var processUser = this._employeeRepository.Get(processBy);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+
+            var employee = this._employeeRepository.Get(getEmployeeCriteria);
+            getEmployeeCriteria.Id = processBy;
+            var processUser = this._employeeRepository.Get(getEmployeeCriteria);
 
             Commands processCommand;
             switch (command)

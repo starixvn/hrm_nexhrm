@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
     public interface IEmployeeRepository
     {
-        Employee Get(int? employeeId = null, string domainUsername = null);
+        Employee Get(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null);
 

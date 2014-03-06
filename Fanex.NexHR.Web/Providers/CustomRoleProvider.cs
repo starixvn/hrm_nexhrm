@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Web.Providers
     using System.Web.Security;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -139,7 +140,8 @@ namespace Fanex.NexHR.Web.Providers
 
         private Employee GetCurrentUser(string username)
         {
-            var user = _employeeService.Get(domainUsername: username);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { DomainUserName = username };
+            var user = _employeeService.Get(getEmployeeCriteria);
             if (user == null)
             {
                 throw new System.Exception(username + " not found!!!");

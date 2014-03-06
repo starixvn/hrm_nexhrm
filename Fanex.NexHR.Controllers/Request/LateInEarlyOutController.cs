@@ -41,7 +41,8 @@ namespace Fanex.NexHR.Controllers.Request
             var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
 
-            var employee = EmployeeService.Get(this.CurrentUser.Id);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
 
             //// Count number of Late in/early out request in current month.
             int year = DateTime.Now.Year;
@@ -117,7 +118,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.UnavailDates = listUnavailDates;
 
             var request = EmployeeService.GetWorkingTimeRequest(id);
-            var employee = EmployeeService.Get(request.EmpId);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
             int minute = request.RequestType == (short)RequestTypes.LateIn
                 ? (int)request.LateInMins
                 : (int)request.EarlyOutMins;

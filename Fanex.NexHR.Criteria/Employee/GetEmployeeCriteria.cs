@@ -13,11 +13,25 @@ namespace Fanex.NexHR.Criteria.Employee
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// Get Employee Criteria.
     /// </summary>
-    public class GetEmployeeCriteria
+    public class GetEmployeeCriteria : CriteriaBase
     {
+        public int? Id { get; set; }
+
+        public string DomainUserName { get; set; }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
+
+        public override string GetSettingKey()
+        {
+            return "GetEmployee";
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Fanex.NexHR.Services.Interface
 
     public interface IEmployeeService
     {
-        Employee Get(int? employeeId = null, string domainUsername = null);
+        Employee Get(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null);
 

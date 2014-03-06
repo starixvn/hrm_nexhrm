@@ -45,7 +45,8 @@ namespace Fanex.NexHR.Controllers.Request
         {
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
-            var employee = EmployeeService.Get(this.CurrentUser.Id);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
             var viewModel = new CheckInOutRequestViewModel
             {
                 Employee = employee.NickName,
@@ -86,7 +87,6 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
-
             foreach (CheckInOut request in entityList)
             {
                 if (request.Status.Id != (byte)RequestStatuses.Reject)
@@ -148,7 +148,8 @@ namespace Fanex.NexHR.Controllers.Request
                 return RedirectToAction("EmployeeView", "CheckInOut");
             }
 
-            var employee = EmployeeService.Get(request.EmpId);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+            var employee = EmployeeService.Get(getEmployeeCriteria);
 
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
