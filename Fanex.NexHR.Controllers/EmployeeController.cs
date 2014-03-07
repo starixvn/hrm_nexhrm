@@ -114,7 +114,8 @@ namespace Fanex.NexHR.Controllers
                 : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
                 ViewBag.Working = _employeeService.GetMySpace(id);
-                var workingCalendar = _employeeService.GetEmployeeShift(id);
+                var employeeShiftCriteria = new GetEmployeeShift() { Id = id };
+                var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
                 var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
 
                 ViewBag.Sun = workingCalendar.SunShift == null
@@ -188,7 +189,24 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 model.DomainUsername = ConfigurationManager.AppSettings["domain"] + model.DomainUsername;
-                var id = _employeeService.Insert(model);
+                var insertEmployeeCriteria = new InsertEmployeeCriteria()
+                {
+                    Code = model.Code,
+                    CreateBy = model.ProcessBy,
+                    Createddate = DateTime.Now.Date,
+                    DomainUsername = model.DomainUsername,
+                    FriShift = model.FriShift,
+                    FullName = model.FullName,
+                    MainGroupId = model.TeamId,
+                    MonShift = model.MonShift,
+                    NickName = model.NickName,
+                    TueShift = model.TueShift,
+                    SatShift = model.SatShift,
+                    SunShift = model.SunShift,
+                    ThuShift = model.ThuShift,
+                    WedShift = model.WedShift
+                };
+                var id = _employeeService.Insert(insertEmployeeCriteria);
                 if (id == -1)
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateEmployeeCode);
@@ -285,7 +303,8 @@ namespace Fanex.NexHR.Controllers
                     model.SubGroupArray = model.SubGroupArray.Where(i => i != model.Team.Id.ToString()).ToArray();
                 }
 
-                var result = _employeeService.Update(model);
+                var criteria = FillDataUpdateEmployeeCriteria(model);
+                var result = _employeeService.Update(criteria);
                 ViewBag.Updated = result;
 
                 // update current user?
@@ -312,7 +331,8 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult DefaultSchedule(int id = -1)
         {
-            var model = _employeeService.GetEmployeeShift(id);
+            var employeeShiftCriteria = new GetEmployeeShift() { Id = id };
+            var model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
             if (model != null)
             {
@@ -335,7 +355,18 @@ namespace Fanex.NexHR.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Updated = _employeeService.UpdateEmployeeShift(model);
+                var criteria = new UpdateEmployeeShiftCriteria()
+                {
+                    Id = model.EmpID,
+                    FriShift = model.FriShift,
+                    MonShift = model.MonShift,
+                    SatShift = model.SatShift,
+                    SunShift = model.SunShift,
+                    ThuShift = model.SunShift,
+                    TueShift = model.TueShift,
+                    WedShift = model.WedShift
+                };
+                ViewBag.Updated = _employeeService.UpdateEmployeeShift(criteria);
             }
             else
             {
@@ -841,6 +872,50 @@ namespace Fanex.NexHR.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Fill Data Update Employee Criteria.
+        /// </summary>
+        /// <param name="model">Employee Model.</param>
+        /// <returns>UpdateEmployeeCriteria Entity.</returns>
+        private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(Employee model)
+        {
+            var criteria = new UpdateEmployeeCriteria()
+            {
+                Code = model.Code,
+                ConfirmedDate = model.ConfirmedDate,
+                CurrAddress = model.CurrentAddress,
+                Address = model.Address,
+                Distancetocompany = model.DistanceToCompany,
+                DOB = model.DOB,
+                DomainUsername = model.DomainUsername,
+                Email = model.Email,
+                Enabled = model.Enabled,
+                FullName = model.FullName,
+                Gender = model.Gender,
+                Geomaplatitude = model.GeoMapLatitude,
+                Geomaplongtitude = model.GeoMapLongtitude,
+                HandleRequestGroupIDs = model.LeaderGroups,
+                Id = model.Id,
+                IdCardNo = model.CardNo,
+                JobTitleId = model.JobTitleId,
+                JoinedDate = model.JoinedDate,
+                MainGroupId = model.Team.Id,
+                Mariage = model.Mariage,
+                ModifiedBy = model.Modifier.Id,
+                ModifiedDate = DateTime.Now.Date,
+                NickName = model.NickName,
+                PassportExp = model.PassportExp,
+                PassportNo = model.PassportNo,
+                Phone = model.Phone,
+                ResignedDate = model.ResignedDate,
+                Roles = model.Roles,
+                Skype = model.Skype,
+                SubGroups = model.SubGroups,
+                Yahoo = model.Yahoo
+            };
+
+            return criteria;
+        }
         #endregion
     }
 }

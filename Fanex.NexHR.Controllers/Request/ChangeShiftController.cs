@@ -76,7 +76,6 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(getChangeShiftRequestCriteria);
-
             foreach (ChangingShift request in entityList)
             {
                 if (request.Status.Id != (byte)RequestStatuses.Reject)

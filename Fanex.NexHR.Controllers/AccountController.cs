@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Services;
@@ -62,7 +63,8 @@ namespace Fanex.NexHR.Controllers
             : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
             ViewBag.Working = _employeeService.GetMySpace(empId);
-            var workingCalendar = _employeeService.GetEmployeeShift(empId);
+            var employeeShiftCriteria = new GetEmployeeShift() { Id = empId };
+            var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
             var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
 
             ViewBag.Sun = workingCalendar.SunShift == null

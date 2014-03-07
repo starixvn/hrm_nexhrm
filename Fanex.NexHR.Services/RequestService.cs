@@ -159,7 +159,8 @@ namespace Fanex.NexHR.Services
                 if (errorCode == 0)
                 {
                     // get leader(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    var leaders = this._employeeRepository.GetLeaders(criteria);
 
                     if (leaders == null || leaders.Count == 0)
                     {
@@ -243,7 +244,8 @@ namespace Fanex.NexHR.Services
                 if (errorCode == 0)
                 {
                     // get leader(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    var leaders = this._employeeRepository.GetLeaders(criteria);
 
                     if (leaders == null || leaders.Count == 0)
                     {
@@ -344,7 +346,8 @@ namespace Fanex.NexHR.Services
                 if (errorCode == 0)
                 {
                     // get leader(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    var leaders = this._employeeRepository.GetLeaders(criteria);
 
                     if (leaders == null || leaders.Count == 0)
                     {
@@ -453,7 +456,8 @@ namespace Fanex.NexHR.Services
                 if (errorCode == 0)
                 {
                     // get leader(s)
-                    IList<Employee> leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    IList<Employee> leaders = this._employeeRepository.GetLeaders(criteria);
 
                     if (leaders == null || leaders.Count == 0)
                     {
@@ -525,7 +529,8 @@ namespace Fanex.NexHR.Services
                 if (updated)
                 {
                     // send email(s)
-                    IList<Employee> leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    IList<Employee> leaders = this._employeeRepository.GetLeaders(criteria);
                     string bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/CheckInOut.Request.cshtml"));
 
                     foreach (Employee item in leaders)
@@ -590,7 +595,8 @@ namespace Fanex.NexHR.Services
                 if (updated)
                 {
                     // send email(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    var leaders = this._employeeRepository.GetLeaders(criteria);
 
                     var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/LateInEarlyOut.Request.cshtml"));
                     foreach (var item in leaders)
@@ -671,7 +677,8 @@ namespace Fanex.NexHR.Services
                 if (updated)
                 {
                     // send email(s)
-                    var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                    var leaders = this._employeeRepository.GetLeaders(criteria);
 
                     var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml"));
                     foreach (var item in leaders)
@@ -763,7 +770,8 @@ namespace Fanex.NexHR.Services
             if (updated)
             {
                 // send email(s)
-                var leaders = this._employeeRepository.GetLeaders(model.EmployeeId);
+                var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+                var leaders = this._employeeRepository.GetLeaders(criteria);
                 var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
 
                 foreach (var item in leaders)
@@ -967,7 +975,8 @@ namespace Fanex.NexHR.Services
             if (processCommand == Commands.Approve)
             {
                 // send notification email to employee(s) who has related working
-                var employees = this._employeeRepository.GetEmployeeForRelatedTeam(employee.Id)
+                var criteria = new GetEmployeeForRelatedTeamCriteria() { EmpId = employee.Id };
+                var employees = this._employeeRepository.GetEmployeeForRelatedTeam(criteria)
                     .Where(i => i.Id != processUser.Id && i.Id != request.EmpId);
 
                 if (request.RequestType == (int)RequestTypes.ChangeShift || request.RequestType == (int)RequestTypes.Leave)

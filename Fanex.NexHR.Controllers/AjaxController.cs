@@ -75,7 +75,14 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public bool DeleteEmployee(int id, DateTime resignedDate)
         {
-            return _employeeRepository.Delete(id, resignedDate);
+            var criteria = new DeleteEmployeeCriteria()
+            {
+                Id = id,
+                ResignedDate = resignedDate
+            };
+            bool deleted = _employeeRepository.Delete(criteria);
+
+            return deleted;
         }
 
         /// <summary>
