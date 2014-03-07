@@ -49,9 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee\DeleteEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetAllEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetChangeShiftRequestCriteria.cs" />
     <Compile Include="Employee\GetCheckInOutRequestCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeForRelatedTeamCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeShift.cs" />
     <Compile Include="Employee\GetLateInOutRequestCriteria.cs" />
+    <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />
+    <Compile Include="Employee\InsertEmployeeCriteria.cs" />
+    <Compile Include="Employee\UpdateEmployeeCriteria.cs" />
+    <Compile Include="Employee\UpdateEmployeeShiftCriteria.cs" />
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />

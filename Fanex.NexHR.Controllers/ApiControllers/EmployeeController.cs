@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -35,6 +36,15 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             _employeeService = employeeService ?? new EmployeeService();
         }
 
+        /// <summary>
+        /// Method get Employees.
+        /// </summary>
+        /// <param name="query">String to query.</param>
+        /// <param name="groupId">Employee group id.</param>
+        /// <param name="enable">Is enabled.</param>
+        /// <param name="isDelete">Is Deleted.</param>
+        /// <param name="titleId">Job title id.</param>
+        /// <returns>List of Employee.</returns>
         public IQueryable<Employee> GetEmployees(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
         {
             if (groupId == -1)
@@ -42,9 +52,20 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 groupId = null;
             }
 
-            var entityList = _employeeService.Query(query, groupId, enable, isDelete, titleId).AsQueryable();
+            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            {
+                Query = query,
+                GroupId = groupId,
+                TitleId = titleId,
+                Enable = CheckUserEnableCondition(enable),
+                IsDelete = CheckDeletedUserCondition(isDelete),
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+            var entityList = _employeeService.Query(getAllEmployeeCriteria);
 
-            return entityList;
+            return entityList.AsQueryable();
         }
 
         [HttpPost]
@@ -80,6 +101,54 @@ namespace Fanex.NexHR.Controllers.ApiControllers
 
             IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
             return employees;
+        }
+
+        /// <summary>
+        /// Method check User query condition.
+        /// </summary>
+        /// <param name="enable">Enable condition.</param>
+        /// <returns>A value to query DB.</returns>
+        private int? CheckUserEnableCondition(bool? enable)
+        {
+            int? disableUsers;
+            if (enable == true)
+            {
+                disableUsers = 0;
+            }
+            else if (enable == false)
+            {
+                disableUsers = 1;
+            }
+            else
+            {
+                disableUsers = null;
+            }
+
+            return disableUsers;
+        }
+
+        /// <summary>
+        /// Method check User query condition.
+        /// </summary>
+        /// <param name="isDelete">Is deleted.</param>
+        /// <returns>A value to query DB.</returns>
+        private int? CheckDeletedUserCondition(bool? isDelete)
+        {
+            int? deleteUsers;
+            if (isDelete == true)
+            {
+                deleteUsers = 1;
+            }
+            else if (isDelete == false)
+            {
+                deleteUsers = 0;
+            }
+            else
+            {
+                deleteUsers = null;
+            }
+
+            return deleteUsers;
         }
     }
 }

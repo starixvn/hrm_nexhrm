@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Team;
@@ -74,7 +75,14 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public bool DeleteEmployee(int id, DateTime resignedDate)
         {
-            return _employeeRepository.Delete(id, resignedDate);
+            var criteria = new DeleteEmployeeCriteria()
+            {
+                Id = id,
+                ResignedDate = resignedDate
+            };
+            bool deleted = _employeeRepository.Delete(criteria);
+
+            return deleted;
         }
 
         /// <summary>

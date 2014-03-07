@@ -48,13 +48,13 @@ namespace Fanex.NexHR.Services
             this._teamService = new TeamService();
         }
 
-        public IList<Employee> GetLeaders(int employeeId)
+        public IList<Employee> GetLeaders(ICriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Employee> leaders = new List<Employee>();
-
-            if (employeeId > 0)
+            if (criteria.IsValid())
             {
-                leaders = this._employeeRepository.GetLeaders(employeeId);
+                leaders = this._employeeRepository.GetLeaders(criteria);
             }
 
             return leaders;
@@ -85,54 +85,88 @@ namespace Fanex.NexHR.Services
             throw new System.NotImplementedException();
         }
 
-        public IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        public IList<Employee> Query(GetAllEmployeeCriteria criteria)
         {
-            return this._employeeRepository.Query(query, groupId, enable, isDelete, titleId);
-        }
-
-        public IList<Employee> GetEmployeeForRelatedTeam(int employeeId)
-        {
-            return this._employeeRepository.GetEmployeeForRelatedTeam(employeeId);
-        }
-
-        public IList<Employee> GetAll()
-        {
-            return this._employeeRepository.GetAll();
-        }
-
-        public int Insert(ViewModels.CreateEmployeeViewModel model)
-        {
-            Check.Argument.IsNotNull(model, "model");
-            return this._employeeRepository.Insert(model);
-        }
-
-        public bool Delete(int id, DateTime resignedDate)
-        {
-            Check.Argument.IsNotNegativeOrZero(id, "id");
-            return this._employeeRepository.Delete(id, resignedDate);
-        }
-
-        public bool Update(Employee model)
-        {
-            Check.Argument.IsNotNull(model, "model");
-            return this._employeeRepository.Update(model);
-        }
-
-        public EmployeeShift GetEmployeeShift(int id)
-        {
-            EmployeeShift model = null;
-            if (id > 0)
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> lstEmployee = new List<Employee>();
+            if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetEmployeeShift(id);
+                lstEmployee = this._employeeRepository.Query(criteria);
+            }
+
+            return lstEmployee;
+        }
+
+        public IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> lstEmployee = new List<Employee>();
+            if (criteria.IsValid())
+            {
+                lstEmployee = this._employeeRepository.GetEmployeeForRelatedTeam(criteria);
+            }
+
+            return lstEmployee;
+        }
+
+        public int Insert(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            int inserted = -1;
+            if (criteria.IsValid())
+            {
+                inserted = this._employeeRepository.Insert(criteria);
+            }
+
+            return inserted;
+        }
+
+        public bool Delete(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool deleted = false;
+            if (criteria.IsValid())
+            {
+                deleted = this._employeeRepository.Delete(criteria);
+            }
+
+            return deleted;
+        }
+
+        public bool Update(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool updated = false;
+            if (criteria.IsValid())
+            {
+                updated = this._employeeRepository.Update(criteria);
+            }
+
+            return updated;
+        }
+
+        public EmployeeShift GetEmployeeShift(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            EmployeeShift model = null;
+            if (criteria.IsValid())
+            {
+                model = this._employeeRepository.GetEmployeeShift(criteria);
             }
 
             return model;
         }
 
-        public bool UpdateEmployeeShift(EmployeeShift model)
+        public bool UpdateEmployeeShift(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(model, "modmodelel");
-            return this._employeeRepository.UpdateEmployeeShift(model);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool updated = false;
+            if (criteria.IsValid())
+            {
+                updated = this._employeeRepository.UpdateEmployeeShift(criteria);
+            }
+
+            return updated;
         }
 
         public IList<WeekWorking> GetWeekWorking(int id, DateTime date)

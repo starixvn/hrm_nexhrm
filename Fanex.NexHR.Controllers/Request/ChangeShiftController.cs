@@ -73,7 +73,6 @@ namespace Fanex.NexHR.Controllers.Request
                 new DateTime(year, month, 1),
                 new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 this.CurrentUser.Id);
-
             foreach (ChangingShift request in entityList)
             {
                 if (request.Status.Id != (byte)RequestStatuses.Reject)

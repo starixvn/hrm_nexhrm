@@ -56,99 +56,22 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get all employee.
-        /// </summary>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetAll()
-        {
-            using (var db = new ObjectDb("GetEmployees"))
-            {
-                var p = new DynamicParameters();
-
-                p.Add("@query", null);
-                p.Add("@pageNumber", 1);
-                p.Add("@pageSize", int.MaxValue);
-                p.Add("@totalRow", dbType: DbType.Int32, direction: ParameterDirection.Output);
-
-                var entityList = db.Query<Employee, dynamic, Employee>(
-                       (e, t) =>
-                       {
-                           e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-                           return e;
-                       },
-                       splitOn: "TeamID",
-                       parameterValues: p);
-
-                return entityList.ToList();
-            }
-        }
-
-        /// <summary>
         /// Query employee.
         /// </summary>
-        /// <param name="query">The query string.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="enable">Enable or disable.</param>
-        /// <param name="isDelete">Is delete or not.</param>
-        /// <param name="titleId">The title ID.</param>
-        /// <returns>List of employee.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public IList<Employee> Query(
-            string query,
-            int? groupId,
-            bool? enable = null,
-            bool? isDelete = null,
-            int? titleId = null)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of Employee.</returns>
+        public IList<Employee> Query(GetAllEmployeeCriteria criteria)
         {
-            using (var db = new ObjectDb("GetEmployees"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var p = new Hashtable();
-                int? disableUsers;
-                int? deleteUsers;
-
-                if (enable == true)
-                {
-                    disableUsers = 0;
-                }
-                else if (enable == false)
-                {
-                    disableUsers = 1;
-                }
-                else
-                {
-                    disableUsers = null;
-                }
-
-                if (isDelete == true)
-                {
-                    deleteUsers = 1;
-                }
-                else if (isDelete == false)
-                {
-                    deleteUsers = 0;
-                }
-                else
-                {
-                    deleteUsers = null;
-                }
-
-                p.Add("query", query);
-                p.Add("groupId", groupId);
-                p.Add("enable", disableUsers);
-                p.Add("isDelete", deleteUsers);
-                p.Add("pageNumber", 1);
-                p.Add("pageSize", int.MaxValue);
-                p.Add("totalRow", 2000);
-                p.Add("titleId", titleId);
-
                 var entityList = db.Query<Employee, dynamic, Employee>(
                      (e, t) =>
                      {
                          e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
                          return e;
                      },
-                     splitOn: "TeamID",
-                     parameterValues: p);
+                     "TeamID",
+                     criteria.GetSpParams());
 
                 return entityList.ToList();
             }
@@ -157,13 +80,13 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee for related team.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of employee.</returns>
-        public IList<Employee> GetEmployeeForRelatedTeam(int employeeId)
+        public IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_GetEmployeeForRelatedTeam"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee>(new { empId = employeeId }).ToList();
+                var entityList = db.Query<Employee>(criteria.GetSpParams()).ToList();
 
                 return entityList;
             }
@@ -189,145 +112,78 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leaders.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of employee.</returns>
-        public IList<Employee> GetLeaders(int employeeId)
+        public IList<Employee> GetLeaders(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_GetLeaders"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Employee>(new { id = employeeId }).ToList();
+                return db.Query<Employee>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Insert employee.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public int Insert(CreateEmployeeViewModel model)
+        public int Insert(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_Insert"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@fullName", DbType.String, model.FullName);
-                db.AddInParameter("@nickName", DbType.String, model.NickName);
-                db.AddInParameter("@domainUsername", DbType.String, model.DomainUsername);
-                db.AddInParameter("@code", DbType.String, model.Code);
-                db.AddInParameter("@monShift", DbType.String, model.MonShift);
-                db.AddInParameter("@tueShift", DbType.String, model.TueShift);
-                db.AddInParameter("@wedShift", DbType.String, model.WedShift);
-                db.AddInParameter("@thuShift", DbType.String, model.ThuShift);
-                db.AddInParameter("@friShift", DbType.String, model.FriShift);
-                db.AddInParameter("@satShift", DbType.String, model.SatShift);
-                db.AddInParameter("@sunShift", DbType.String, model.SunShift);
-                db.AddInParameter("@mainGroupId", DbType.Int16, model.TeamId);
-                db.AddInParameter("@createddate", DbType.DateTime, DateTime.Now);
-                db.AddInParameter("@createBy", DbType.Int16, model.ProcessBy);
-
-                return (int)db.ExecuteScalar();
+                return (int)db.ExecuteScalar(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Delete employee.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="resignedDate">The resigned date.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Delete(int id, DateTime resignedDate)
+        public bool Delete(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_Delete"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@id", DbType.Int32, id);
-                db.AddInParameter("@resignedDate", DbType.DateTime, resignedDate);
-
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria) != 0;
             }
         }
 
         /// <summary>
         /// Update employee.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Update(Employee model)
+        public bool Update(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_UpdateEmployee"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@id", DbType.Int32, model.Id);
-                db.AddInParameter("@code", DbType.String, model.Code.Trim());
-                db.AddInParameter("@domainUsername", DbType.String, model.DomainUsername);
-                db.AddInParameter("@fullName", DbType.String, model.FullName);
-                db.AddInParameter("@nickName", DbType.String, model.NickName);
-                db.AddInParameter("@dob", DbType.DateTime, model.DOB);
-                db.AddInParameter("@email", DbType.String, model.Email);
-                db.AddInParameter("@jobTitleId", DbType.Int32, model.JobTitleId);
-                db.AddInParameter("@enabled", DbType.Boolean, model.Enabled);
-                db.AddInParameter("@phone", DbType.String, model.Phone);
-                db.AddInParameter("@gender", DbType.Int32, model.Gender);
-                db.AddInParameter("@mainGroupId", DbType.Int32, model.Team.Id);
-                db.AddInParameter("@subGroups", DbType.String, model.SubGroups);
-                db.AddInParameter("@HandleRequestGroupIDs", DbType.String, model.LeaderGroups);
-                db.AddInParameter("@roles", DbType.String, model.Roles);
-                db.AddInParameter("@joinedDate", DbType.DateTime, model.JoinedDate);
-                db.AddInParameter("@confirmedDate", DbType.DateTime, model.ConfirmedDate);
-                db.AddInParameter("@resignedDate", DbType.DateTime, model.ResignedDate);
-                db.AddInParameter("@skype", DbType.String, model.Skype);
-                db.AddInParameter("@yahoo", DbType.String, model.Yahoo);
-                db.AddInParameter("@mariage", DbType.Boolean, model.Mariage);
-                db.AddInParameter("@address", DbType.String, model.Address);
-                db.AddInParameter("@currAddress", DbType.String, model.CurrentAddress);
-                db.AddInParameter("@idCardNo", DbType.String, model.CardNo);
-                db.AddInParameter("@passportNo", DbType.String, model.PassportNo);
-                db.AddInParameter("@passportExp", DbType.DateTime, model.PassportExp);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, DateTime.Now);
-                db.AddInParameter("@modifiedBy", DbType.Int32, model.Modifier.Id);
-                db.AddInParameter("@geomaplatitude", DbType.String, model.GeoMapLatitude);
-                db.AddInParameter("@geomaplongtitude", DbType.String, model.GeoMapLongtitude);
-                db.AddInParameter("@distancetocompany", DbType.String, model.DistanceToCompany);
-
-                try
-                {
-                    return db.ExecuteNonQuery() != 0;
-                }
-                catch
-                {
-                    return false;
-                }
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0 ? true : false;
             }
         }
 
         /// <summary>
         /// Get employee shift.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The employee shift.</returns>
-        public EmployeeShift GetEmployeeShift(int id)
+        public EmployeeShift GetEmployeeShift(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeShift_Get"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<EmployeeShift>(new { id }).FirstOrDefault();
+                return db.QueryEntity<EmployeeShift>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Update employee shift.
         /// </summary>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool UpdateEmployeeShift(EmployeeShift model)
+        public bool UpdateEmployeeShift(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeShift_Update"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@id", DbType.Int32, model.EmpID);
-                db.AddInParameter("@monShift", DbType.Int32, model.MonShift);
-                db.AddInParameter("@tueShift", DbType.Int32, model.TueShift);
-                db.AddInParameter("@wedShift", DbType.Int32, model.WedShift);
-                db.AddInParameter("@thuShift", DbType.Int32, model.ThuShift);
-                db.AddInParameter("@friShift", DbType.Int32, model.FriShift);
-                db.AddInParameter("@satShift", DbType.Int32, model.SatShift);
-                db.AddInParameter("@sunShift", DbType.Int32, model.SunShift);
-
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 

@@ -22,23 +22,21 @@ namespace Fanex.NexHR.Services.Interface
     {
         Employee Get(GetEmployeeCriteria criteria);
 
-        IList<Employee> Query(string query, int? groupId, bool? enable = null, bool? isDelete = null, int? titleId = null);
+        IList<Employee> Query(GetAllEmployeeCriteria criteria);
 
-        IList<Employee> GetEmployeeForRelatedTeam(int employeeId);
+        IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria);
 
-        IList<Employee> GetAll();
+        IList<Employee> GetLeaders(ICriteria criteria);
 
-        IList<Employee> GetLeaders(int id);
+        int Insert(ICriteria criteria);
 
-        int Insert(CreateEmployeeViewModel model);
+        bool Delete(ICriteria criteria);
 
-        bool Delete(int id, DateTime resignedDate);
+        bool Update(ICriteria criteria);
 
-        bool Update(Employee model);
+        EmployeeShift GetEmployeeShift(ICriteria criteria);
 
-        EmployeeShift GetEmployeeShift(int id);
-
-        bool UpdateEmployeeShift(EmployeeShift model);
+        bool UpdateEmployeeShift(ICriteria criteria);
 
         IList<WeekWorking> GetWeekWorking(int id, DateTime date);
 
