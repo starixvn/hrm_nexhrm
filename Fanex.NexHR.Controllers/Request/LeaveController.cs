@@ -59,11 +59,18 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             decimal numberDaysOfRequest = 0;
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, month, 1),
-                new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                this.CurrentUser.Id);
+            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
+            };
+
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             foreach (Leave request in entityList)
             {
@@ -173,12 +180,19 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
+            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
+            };
+
             //// kos push
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, 1, 1),
-                new DateTime(year, 12, 31),
-                this.CurrentUser.Id);
+            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             return View(entityList);
         }

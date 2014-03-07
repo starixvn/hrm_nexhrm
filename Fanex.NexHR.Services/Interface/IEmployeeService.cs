@@ -111,109 +111,39 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria);
 
-        IList<Leave> GetLeaveRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria);
 
-        IList<RequestEntity> GetAllRequest(
-           short roleId,
-           DateTime fromDate,
-           DateTime toDate,
-           int? employeeId = null,
-           int? groupId = null,
-           byte? status = null,
-           int? logInId = null);
+        IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria);
 
-        IList<Leave> GetLeaveRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null);
+        IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria);
 
-        IList<RequestEntity> GetAllRequestByDate(
-           short roleId,
-           DateTime fromDate,
-           DateTime toDate,
-           int? employeeId = null,
-           int? groupId = null,
-           byte? status = null,
-           int? logInId = null);
+        IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequestHistory(long requestId, int requestTypeId);
+        IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(long requestId, int requestTypeId);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequestHistory(long requestId, int requestTypeId);
+        IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria);
 
-        IList<Leave> GetLeaveRequestHistory(long requestId, int requestTypeId);
+        IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria);
 
-        IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(int id, int year, bool excludedRequestTrans);
+        IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
 
-        AnnualLeaveBalanceModel GetAnnualLeaveTransaction(int id);
+        AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria);
 
-        bool DeleteAnnualLeaveTransaction(long id, DateTime modifiedDate, int modifiedBy);
+        bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
 
-        bool UpdateAnnualLeaveTransaction(
-            long id,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime modifiedDate,
-            int modifiedBy);
+        bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
 
-        bool InsertAnnualLeaveTransaction(
-            int empId,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime createdDate,
-            int createdBy);
+        bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
 
         IList<UserChangedShift> GetUserChangedShift(DateTime date);
 

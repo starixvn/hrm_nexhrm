@@ -53,7 +53,10 @@ namespace Fanex.NexHR.Controllers.Request
                 Role = (short)RolesEnum.Member,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                EmployeeId = this.CurrentUser.Id
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
             };
 
             IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
@@ -176,7 +179,10 @@ namespace Fanex.NexHR.Controllers.Request
                 Role = (short)RolesEnum.Member,
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31),
-                EmployeeId = this.CurrentUser.Id
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
             };
 
             IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);

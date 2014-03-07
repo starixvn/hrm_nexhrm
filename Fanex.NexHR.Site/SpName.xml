@@ -96,7 +96,9 @@
     </Function>
 
     <Function Name="Request">
-        <Setting Key="GetCheckInOutByYear" SpName="WorkingTimeRequest_GetRequestByEmp_CheckinOutType" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="GetCheckInOutByYear" SpName="WorkingTimeRequest_GetRequestByEmp_CheckinOutType" DbName="nexhrx" Plain="1">
+          <Mapping DataField="" ObjectProperty=""/>
+        </Setting>
         <Setting Key="GetLateInOutByYear" SpName="WorkingTimeRequest_GetRequestByEmp_LateInEarlyOutType" DbName="nexhrx" Plain="1"></Setting>
     </Function>
 

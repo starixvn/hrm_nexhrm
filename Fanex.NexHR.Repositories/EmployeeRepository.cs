@@ -829,27 +829,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_ChangeShiftType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -893,27 +882,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_LeaveType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -959,28 +937,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all request.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of request entity.</returns>
-        public IList<RequestEntity> GetAllRequest(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
+            var settingKey = criteria.GetSettingKey();
 
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByEmp_AllType"))
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1016,7 +982,6 @@ namespace Fanex.NexHR.Repositories
                                 LeaveType = reader.ToString("LeaveType"),
                                 Remark = reader.ToString("Remark")
                             };
-
                             entityList.Add(entity);
                         }
                     }
@@ -1031,27 +996,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_CheckinOutType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1093,27 +1047,16 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType"))
+            var settingKey = criteria.GetSettingKey();
+
+            using (var db = new ObjectDb(settingKey))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1157,27 +1100,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_ChangeShiftType"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1221,27 +1151,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_LeaveType"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1287,28 +1204,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get all request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login user ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of request entity.</returns>
-        public IList<RequestEntity> GetAllRequestByDate(
-            short roleId,
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? groupId = null,
-            byte? status = null,
-            int? logInId = null)
+        public IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria)
         {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
+            IList<RequestEntity> entityList = new List<RequestEntity>(); 
 
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestByDate_AllType"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { empid = employeeId, groupId, fromDate, toDate, status, excludedEmpID = logInId, role = roleId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1359,15 +1263,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get check in/out request history.
         /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestTypeId">The request type ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out request.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestHistory(long requestId, int requestTypeId)
+        public IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestHistory"))
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { requestid = requestId, type = requestTypeId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1407,15 +1311,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get late in early out request history.
         /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestTypeId">The request type ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(long requestId, int requestTypeId)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestHistory"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { requestid = requestId, type = requestTypeId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1458,15 +1361,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get change shift request history.
         /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestTypeId">The request type ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestHistory(long requestId, int requestTypeId)
+        public IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestHistory"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { requestid = requestId, type = requestTypeId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1509,15 +1411,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get leave request history.
         /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestTypeId">The request type ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequestHistory(long requestId, int requestTypeId)
+        public IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
-            using (var db = new ObjectDb("WorkingTimeRequest_GetRequestHistory"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(new { requestid = requestId, type = requestTypeId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -1562,172 +1463,104 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get members by manager.
         /// </summary>
-        /// <param name="managerId">The manager ID.</param>
-        /// <param name="role">The employee role.</param>
-        /// <param name="keyword">The keyword.</param>
-        /// <param name="groupId">The group ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee.</returns>
-        public IList<Employee> GetMembersByManager(int managerId, short role, string keyword, int? groupId = null)
-        {
-            int excludedManager = 0;
-
-            using (var db = new ObjectDb("Employee_GetMembesByManager"))
+        public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
+        { 
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<Employee>(new { managerId, role, excludedManager, groupId, keyword }).ToList();
+                return db.Query<Employee>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Adjust annual leaves.
         /// </summary>
-        /// <param name="empIds">List of employee ID.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="deductDays">The deduct days.</param>
-        /// <param name="creditDays">The credit days.</param>
-        /// <param name="createdDate">The created date.</param>
-        /// <param name="createdBy">Created by.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool AdjustAnnualLeaves(
-            string empIds,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime createdDate,
-            int createdBy)
+        public bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_InsertMultipleTransactions"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { empIds, description, fromDate, deductDays, creditDays, createdDate, createdBy }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Reset annual leaves.
         /// </summary>
-        /// <param name="empValue">The employee value.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="resetDays">The reset days.</param>
-        /// <param name="createdDate">The created date.</param>
-        /// <param name="createdBy">Created by.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool ResetAnnualLeaves(
-            string empValue,
-            string description,
-            DateTime fromDate,
-            int resetDays,
-            DateTime createdDate,
-            int createdBy)
+        public bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_ResetMultipleTransactions"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { empValue, description, fromDate, resetDays, createdDate, createdBy }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Get annual leave transactions.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="year">The year value.</param>
-        /// <param name="excludedRequestTrans">Excluded request transaction or not.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of annual leave balance model.</returns>
-        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(int id, int year, bool excludedRequestTrans)
+        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_GetTransByEmp"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<AnnualLeaveBalanceModel>(new { empId = id, year, excludedRequestTrans }).ToList();
+                return db.Query<AnnualLeaveBalanceModel>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Delete annual leave transaction.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool DeleteAnnualLeaveTransaction(long id, DateTime modifiedDate, int modifiedBy)
+        public bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_DeleteTransaction"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { id, modifiedDate, modifiedBy }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Get annual leave transaction.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>Annual leave balance model.</returns>
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(int id)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_GetByID"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<AnnualLeaveBalanceModel>(new { id }).SingleOrDefault();
+                return db.Query<AnnualLeaveBalanceModel>(criteria.GetSpParams()).SingleOrDefault();
             }
         }
 
         /// <summary>
         /// Update annual leave transaction.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="deductDays">The deduct days.</param>
-        /// <param name="creditDays">The credit days.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="modifiedBy">The modified by.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool UpdateAnnualLeaveTransaction(
-            long id,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime modifiedDate,
-            int modifiedBy)
+        public bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_UpdateTransaction"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new { id, description, fromDate, deductDays, creditDays, modifiedDate, modifiedBy }) != 0;
+                return db.ExecuteNonQuery(criteria) != 0;
             }
         }
 
         /// <summary>
         /// Insert annual leave transaction.
         /// </summary>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="deductDays">The deduct days.</param>
-        /// <param name="creditDays">The credit days.</param>
-        /// <param name="createdDate">The created date.</param>
-        /// <param name="createdBy">Created by.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool InsertAnnualLeaveTransaction(
-            int empId,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime createdDate,
-            int createdBy)
+        public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
         {
-            using (var db = new ObjectDb("AnnualLeave_InsertTransaction"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(new
-                {
-                    empId,
-                    description,
-                    fromDate,
-                    deductDays,
-                    creditDays,
-                    createdDate,
-                    createdBy
-                }) != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 

@@ -49,9 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="Employee\GetAllRequestByDateCriteria.cs" />
+    <Compile Include="Employee\GetAllRequestCriteria.cs" />
+    <Compile Include="Employee\GetAnnualLeaveByIdCriteria.cs" />
+    <Compile Include="Employee\GetAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="Employee\GetChangeShiftRequestByDateCriteria.cs" />
+    <Compile Include="Employee\GetChangeShiftRequestCriteria.cs" />
+    <Compile Include="Employee\GetCheckInOutRequestByDateCriteria.cs" />
     <Compile Include="Employee\GetCheckInOutRequestCriteria.cs" />
+    <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
+    <Compile Include="Employee\GetRequestHistoryCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetLateInOutRequestByDateCriteria.cs" />
     <Compile Include="Employee\GetLateInOutRequestCriteria.cs" />
+    <Compile Include="Employee\GetLeaveRequestByDateCriteria.cs" />
+    <Compile Include="Employee\GetLeaveRequestCriteria.cs" />
+    <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\UpdateAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />

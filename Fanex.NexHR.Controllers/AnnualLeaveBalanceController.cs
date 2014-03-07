@@ -147,7 +147,14 @@ namespace Fanex.NexHR.Controllers
             if (employee != null)
             {
                 ViewBag.Employee = employee;
-                ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(model.EmployeeId, model.Year, false);
+                var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria 
+                {
+                    EmployeeId = model.EmployeeId,
+                    Year = model.Year,
+                    ExcludedRequestTransactions = false
+                };
+
+                ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
             }
             
             return View(model);
@@ -164,10 +171,14 @@ namespace Fanex.NexHR.Controllers
             model.ExcludedRequestTrans = model.ExcludedRequestTrans ? false : true;
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
             ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
-            ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(
-                model.EmployeeId,
-                model.Year,
-                model.ExcludedRequestTrans);
+            var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
+            {
+                EmployeeId = model.EmployeeId,
+                Year = model.Year,
+                ExcludedRequestTransactions = model.ExcludedRequestTrans
+            };
+
+            ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
 
             return View(model);
         }
@@ -179,7 +190,11 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult Edit(int id = -1)
         {
-            var model = _employeeService.GetAnnualLeaveTransaction(id);
+            var getAnnualLeaveByIdCriteria = new GetAnnualLeaveByIdCriteria
+            {
+                Id = id
+            };
+            var model = _employeeService.GetAnnualLeaveTransaction(getAnnualLeaveByIdCriteria);
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
@@ -203,7 +218,13 @@ namespace Fanex.NexHR.Controllers
 
             if (formCollection["command"] == Resources.Labels.Delete)
             {
-                var result = _employeeService.DeleteAnnualLeaveTransaction(model.Id, DateTime.Now, this.CurrentUser.Id);
+                var deleteAnnualTransactionCriteria = new DeleteAnnualLeaveTransactionCriteria
+                {
+                    Id = (int)model.Id,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = this.CurrentUser.Id
+                };
+                var result = _employeeService.DeleteAnnualLeaveTransaction(deleteAnnualTransactionCriteria);
 
                 if (result)
                 {
@@ -219,14 +240,18 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 // update annual leave here
-                ViewBag.Updated = _employeeService.UpdateAnnualLeaveTransaction(
-                    model.Id, 
-                    model.Description,
-                    model.AffectedFrom, 
-                    model.DeductDays, 
-                    model.CreditDays, 
-                    DateTime.Now, 
-                    this.CurrentUser.Id);
+                var updateAnnualLeaveTransaction = new UpdateAnnualLeaveTransactionCriteria
+                {
+                    Id = (int)model.Id,
+                    Description = model.Description,
+                    FromDate = model.AffectedFrom,
+                    DeductDays = model.DeductDays,
+                    CreditDays = model.CreditDays,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = this.CurrentUser.Id
+                };
+
+                ViewBag.Updated = _employeeService.UpdateAnnualLeaveTransaction(updateAnnualLeaveTransaction);
             }
             else
             {
@@ -265,14 +290,19 @@ namespace Fanex.NexHR.Controllers
 
             if (ModelState.IsValid)
             {
-                ViewBag.Inserted = _employeeService.InsertAnnualLeaveTransaction(
-                    model.EmpId,
-                    model.Description, 
-                    model.AffectedFrom, 
-                    model.DeductDays, 
-                    model.CreditDays, 
-                    DateTime.Now, 
-                    this.CurrentUser.Id);
+                var insertAnnualLeaveTransactionCriteria = new InsertAnnualLeaveTransactionCriteria
+                {
+                    EmployeeId = model.EmpId,
+                    Description = model.Description,
+                    FromDate = model.AffectedFrom,
+                    ToDate = model.AffectedFrom,
+                    DeductDays = model.DeductDays,
+                    CreditDays = model.CreditDays,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = this.CurrentUser.Id
+                };
+
+                ViewBag.Inserted = _employeeService.InsertAnnualLeaveTransaction(insertAnnualLeaveTransactionCriteria);
             }
             else
             {

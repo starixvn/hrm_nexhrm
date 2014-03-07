@@ -66,13 +66,16 @@ namespace Fanex.NexHR.Controllers.Request
             int numberOfRequest = 0;
             var getChangeShiftRequestCriteria = new GetChangeShiftRequestCriteria
             {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                EmployeeId = this.CurrentUser.Id,
+                Status = null,
+                GroupId = null,
+                ExcludeEmployeeId = null
             };
 
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, month, 1),
-                new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                this.CurrentUser.Id);
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(getChangeShiftRequestCriteria);
 
             foreach (ChangingShift request in entityList)
             {
@@ -185,12 +188,18 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
+            var getChangeShiftRequestCriteria = new GetChangeShiftRequestCriteria
+            {
+                Role = (short)RolesEnum.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null
+            };
 
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(
-                (short)RolesEnum.Member,
-                new DateTime(year, 1, 1),
-                new DateTime(year, 12, 31),
-                this.CurrentUser.Id);
+            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(getChangeShiftRequestCriteria);
 
             return View(entityList);
         }

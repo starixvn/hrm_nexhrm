@@ -267,58 +267,37 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetChangeShiftRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetChangeShiftRequest(criteria);
             }
 
             return entityList;
         }
 
-        public IList<Leave> GetLeaveRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetLeaveRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetLeaveRequest(criteria);
             }
 
             return entityList;
         }
 
-        public IList<RequestEntity> GetAllRequest(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetAllRequest(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetAllRequest(criteria);
             }
 
             return entityList;
@@ -327,195 +306,134 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Get check in/out request by date.
         /// </summary>
-        /// <param name="roleId">The role ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="status">The status.</param>
-        /// <param name="logInId">The login ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out request.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetCheckInOutRequestByDate(
-                    roleId, 
-                    fromDate, 
-                    toDate, 
-                    employeeId, 
-                    groupId, 
-                    status, 
-                    logInId);
+                entityList = this._employeeRepository.GetCheckInOutRequestByDate(criteria);
             }
 
             return entityList;
         }
 
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetLateInEarlyOutRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetLateInEarlyOutRequestByDate(criteria);
             }
 
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetChangeShiftRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetChangeShiftRequestByDate(criteria);
             }
 
             return entityList;
         }
 
-        public IList<Leave> GetLeaveRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetLeaveRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetLeaveRequestByDate(criteria);
             }
 
             return entityList;
         }
 
-        public IList<RequestEntity> GetAllRequestByDate(
-            short roleId, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            int? employeeId = null, 
-            int? groupId = null, 
-            byte? status = null, 
-            int? logInId = null)
+        public IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 
-            if (fromDate <= toDate)
+            if (criteria.IsValid())
             {
-                entityList = this._employeeRepository.GetAllRequestByDate(roleId, fromDate, toDate, employeeId, groupId, status, logInId);
+                entityList = this._employeeRepository.GetAllRequestByDate(criteria);
             }
 
             return entityList;
         }
 
-        public IList<CheckInOut> GetCheckInOutRequestHistory(long requestId, int requestTypeId)
+        public IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
-            entityList = this._employeeRepository.GetCheckInOutRequestHistory(requestId, requestTypeId);
+            entityList = this._employeeRepository.GetCheckInOutRequestHistory(criteria);
 
             return entityList;
         }
 
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(long requestId, int requestTypeId)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
-            entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(requestId, requestTypeId);
+            entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(criteria);
 
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequestHistory(long requestId, int requestTypeId)
+        public IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
 
-            entityList = this._employeeRepository.GetChangeShiftRequestHistory(requestId, requestTypeId);
+            entityList = this._employeeRepository.GetChangeShiftRequestHistory(criteria);
 
             return entityList;
         }
 
-        public IList<Leave> GetLeaveRequestHistory(long requestId, int requestTypeId)
+        public IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
 
-            entityList = this._employeeRepository.GetLeaveRequestHistory(requestId, requestTypeId);
+            entityList = this._employeeRepository.GetLeaveRequestHistory(criteria);
 
             return entityList;
         }
 
-        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(int id, int year, bool excludedRequestTrans)
+        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.GetAnnualLeaveTransactions(id, year, excludedRequestTrans);
+            return this._employeeRepository.GetAnnualLeaveTransactions(criteria);
         }
 
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(int id)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria)
         {
             AnnualLeaveBalanceModel model = null;
-            if (id > 0)
+
+            if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetAnnualLeaveTransaction(id);
+                model = this._employeeRepository.GetAnnualLeaveTransaction(criteria);
             }
 
             return model;
         }
 
-        public bool DeleteAnnualLeaveTransaction(long id, DateTime modifiedDate, int modifiedBy)
+        public bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.DeleteAnnualLeaveTransaction(id, modifiedDate, modifiedBy);
+            return this._employeeRepository.DeleteAnnualLeaveTransaction(criteria);
         }
 
-        public bool UpdateAnnualLeaveTransaction(
-            long id,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime modifiedDate,
-            int modifiedBy)
+        public bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.UpdateAnnualLeaveTransaction(id, description, fromDate, deductDays, creditDays, modifiedDate, modifiedBy);
+            return this._employeeRepository.UpdateAnnualLeaveTransaction(criteria);
         }
 
-        public bool InsertAnnualLeaveTransaction(
-            int empId,
-            string description,
-            DateTime fromDate,
-            decimal deductDays,
-            decimal creditDays,
-            DateTime createdDate,
-            int createdBy)
+        public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.InsertAnnualLeaveTransaction(empId, description, fromDate, deductDays, creditDays, createdDate, createdBy);
+            return this._employeeRepository.InsertAnnualLeaveTransaction(criteria);
         }
 
         public IList<UserChangedShift> GetUserChangedShift(DateTime date)

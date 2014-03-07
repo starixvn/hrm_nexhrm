@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Team;
@@ -102,13 +103,17 @@ namespace Fanex.NexHR.Controllers
         public JsonResult GetMembersByManager(string keyword, int? groupId = null)
         {
             var role = this.CurrentUser.IsInRoles(RolesEnum.HR) ? RolesEnum.HR : RolesEnum.AssistantLeader;
+            var getMemberByManager = new GetMemberByManagerCriteria
+            {
+                ManagerId = this.CurrentUser.Id,
+                Role = (short)role,
+                Keyword = keyword,
+                GroupId = groupId,
+                ExcludedManager = false
+            };
 
             return Json(
-                _employeeRepository.GetMembersByManager(
-                    this.CurrentUser.Id, 
-                    (short)role,
-                    keyword, 
-                    groupId).Take(10),
+                _employeeRepository.GetMembersByManager(getMemberByManager).Take(10),
                     JsonRequestBehavior.AllowGet);
         }
 
@@ -122,14 +127,18 @@ namespace Fanex.NexHR.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Json(_employeeRepository.AdjustAnnualLeaves(
-                    model.EmpIds, 
-                    model.Description, 
-                    model.AffectedFrom,
-                    model.DeductDays, 
-                    model.CreditDays, 
-                    DateTime.Now, 
-                    this.CurrentUser.Id));
+                var adjustAnnualLeavesCriteria = new AdjustAnnualLeavesCriteria
+                {
+                    EmployeeId = model.EmpIds,
+                    Description = model.Description,
+                    FromDate = model.AffectedFrom,
+                    DeductsDays = model.DeductDays,
+                    CreditDays = model.CreditDays,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = this.CurrentUser.Id
+                };
+
+                return Json(_employeeRepository.AdjustAnnualLeaves(adjustAnnualLeavesCriteria));
             }
             else
             {
@@ -167,13 +176,17 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 strValue.Append("</ROOT>");
-                return Json(_employeeRepository.ResetAnnualLeaves(
-                    strValue.ToString(), 
-                    descriptionReset, 
-                    date,
-                    minbalance, 
-                    DateTime.Now, 
-                    this.CurrentUser.Id));
+                var resetAnnualLeaves = new ResetAnnualLeavesCriteria
+                {
+                    EmployeeValue = strValue.ToString(),
+                    Description = descriptionReset,
+                    FromDate = date,
+                    ResetDays = minbalance,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = this.CurrentUser.Id
+                };
+
+                return Json(_employeeRepository.ResetAnnualLeaves(resetAnnualLeaves));
             }
             else
             {

@@ -1,0 +1,28 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="GetAnnualLeaveByIdCriteria.cs" company="Nexcel Solutions Viet Nam">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.NexHR.Criteria.Employee
+{
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Get annual leave by id criteria.
+    /// </summary>
+    public class GetAnnualLeaveByIdCriteria : CriteriaBase
+    {
+        public int Id { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "AnnualLeave_GetByID";
+        }
+
+        public override bool IsValid()
+        {
+            return Id > 0;
+        }
+    }
+}
