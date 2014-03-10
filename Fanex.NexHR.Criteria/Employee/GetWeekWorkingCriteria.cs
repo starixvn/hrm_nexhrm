@@ -26,7 +26,12 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            if (Id > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override string GetSettingKey()

@@ -38,8 +38,6 @@ namespace Fanex.NexHR.Services.Interface
 
         bool UpdateEmployeeShift(ICriteria criteria);
 
-        IList<WeekWorking> GetWeekWorking(int id, DateTime date);
-
         bool UpdateWeekWorking(EmployeeShift model, DateTime date);
 
         long WorkingTimeRequest(

@@ -169,12 +169,6 @@ namespace Fanex.NexHR.Services
             return updated;
         }
 
-        public IList<WeekWorking> GetWeekWorking(int id, DateTime date)
-        {
-            Check.Argument.IsNotNull(id, "id");
-            return this._employeeRepository.GetWeekWorking(id, date);
-        }
-
         public bool UpdateWeekWorking(EmployeeShift model, DateTime date)
         {
             Check.Argument.IsNotNull(model, "model");
