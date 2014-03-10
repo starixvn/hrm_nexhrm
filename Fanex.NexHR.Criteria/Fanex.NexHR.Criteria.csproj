@@ -54,7 +54,6 @@
     <Compile Include="Employee\GetAllRequestByDateCriteria.cs" />
     <Compile Include="Employee\DeleteEmployeeCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeCriteria.cs" />
-    <Compile Include="Employee\GetChangeShiftRequestCriteria.cs" />
     <Compile Include="Employee\GetAllRequestCriteria.cs" />
     <Compile Include="Employee\GetAnnualLeaveByIdCriteria.cs" />
     <Compile Include="Employee\GetAnnualLeaveTransactionCriteria.cs" />
