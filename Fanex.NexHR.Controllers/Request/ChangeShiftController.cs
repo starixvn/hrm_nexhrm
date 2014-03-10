@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -35,9 +36,19 @@ namespace Fanex.NexHR.Controllers.Request
         /// Create change shift request.
         /// </summary>
         /// <returns>Action result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", 
+            "SP2101:MethodMustNotContainMoreLinesThan", 
+            Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
-            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
+
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
             var employee = EmployeeService.Get(getEmployeeCriteria);
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
@@ -125,7 +136,14 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
+
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             var request = EmployeeService.GetWorkingTimeRequest(id);
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {

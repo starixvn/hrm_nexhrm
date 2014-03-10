@@ -135,7 +135,7 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
 
-        AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria);
+        AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(GetAnnualLeaveByIdCriteria criteria);
 
         bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
 
@@ -143,19 +143,19 @@ namespace Fanex.NexHR.Services.Interface
 
         bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
 
-        IList<UserChangedShift> GetUserChangedShift(DateTime date);
+        IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria);
 
-        IList<HalfDayOff> GetHalfDayOffs(DateTime reportDate, int? employeeId = null, int? groupId = null);
+        IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria);
 
-        bool UpdateOffDayForAllEmployees(ModelStateDictionary modelState, ChangeWorkingCalendarsViewModel model);
+        bool UpdateOffDayForAllEmployees(ModelStateDictionary modelState, UpdateOffDayForAllEmployeesCriteria criteria);
 
-        int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate);
+        int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        IEnumerable<DateTime> GetDisableRequestDate(int employeeId, DateTime fromDate, DateTime toDate);
+        IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
 
         IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams);
 
-        IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
+        IList<Employee> GetEmployeeTOEICScore(GetEmployeeTOEICScoreCriteria criteria);
 
         void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday);
     }

@@ -3,6 +3,9 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
+// </history>
 
 namespace Fanex.NexHR.Criteria.Employee
 {
@@ -21,7 +24,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public DateTime FromDate { get; set; }
 
-        public decimal DeductsDays { get; set; }
+        public decimal DeductDays { get; set; }
 
         public decimal CreditDays { get; set; }
 

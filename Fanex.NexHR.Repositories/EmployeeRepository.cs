@@ -584,7 +584,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out.</returns>
-        public IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria)
+        public IList<CheckInOut> GetCheckInOutRequest(ICriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
             var settingKey = criteria.GetSettingKey();
@@ -634,7 +634,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(ICriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
             var settingKey = criteria.GetSettingKey();
@@ -687,7 +687,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria)
+        public IList<ChangingShift> GetChangeShiftRequest(ICriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
             var settingKey = criteria.GetSettingKey();
@@ -740,7 +740,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria)
+        public IList<Leave> GetLeaveRequest(ICriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
             var settingKey = criteria.GetSettingKey();
@@ -795,7 +795,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of request entity.</returns>
-        public IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria)
+        public IList<RequestEntity> GetAllRequest(ICriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
             var settingKey = criteria.GetSettingKey();
@@ -854,7 +854,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria)
+        public IList<CheckInOut> GetCheckInOutRequestByDate(ICriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
             var settingKey = criteria.GetSettingKey();
@@ -905,7 +905,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(ICriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
             var settingKey = criteria.GetSettingKey();
@@ -958,7 +958,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria)
+        public IList<ChangingShift> GetChangeShiftRequestByDate(ICriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -1009,7 +1009,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria)
+        public IList<Leave> GetLeaveRequestByDate(ICriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -1062,7 +1062,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of request entity.</returns>
-        public IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria)
+        public IList<RequestEntity> GetAllRequestByDate(ICriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>(); 
 
@@ -1121,7 +1121,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of check in/out request.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria)
+        public IList<CheckInOut> GetCheckInOutRequestHistory(ICriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
 
@@ -1169,7 +1169,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of late in early out request.</returns>
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria)
+        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(ICriteria criteria)
         {
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -1219,7 +1219,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria)
+        public IList<ChangingShift> GetChangeShiftRequestHistory(ICriteria criteria)
         {
             IList<ChangingShift> entityList = new List<ChangingShift>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -1269,7 +1269,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave request.</returns>
-        public IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria)
+        public IList<Leave> GetLeaveRequestHistory(ICriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -1321,7 +1321,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee.</returns>
-        public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
+        public IList<Employee> GetMembersByManager(ICriteria criteria)
         { 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1334,7 +1334,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
+        public bool AdjustAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1347,7 +1347,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
+        public bool ResetAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1360,7 +1360,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of annual leave balance model.</returns>
-        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
+        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1373,7 +1373,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
+        public bool DeleteAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1386,7 +1386,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Annual leave balance model.</returns>
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1399,7 +1399,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
+        public bool UpdateAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1412,7 +1412,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
+        public bool InsertAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1423,10 +1423,11 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get missing check in/out employee list.
         /// </summary>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of missing check in out model.</returns>
-        public IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees()
+        public IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees(ICriteria criteria)
         {
-            using (var db = new ObjectDb("GetMissingCheckInOutList"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<MissingCheckInOutModel>().ToList();
             }
@@ -1435,89 +1436,58 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get user changed shift.
         /// </summary>
-        /// <param name="reportDate">The report date.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of user changed shift.</returns>
-        public IList<UserChangedShift> GetUserChangedShift(DateTime reportDate)
+        public IList<UserChangedShift> GetUserChangedShift(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_GetChangedShift"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<UserChangedShift>(new { reportDate }).ToList();
+                return db.Query<UserChangedShift>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Get half day offs.
         /// </summary>
-        /// <param name="reportDate">The report date.</param>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of half day off.</returns>
-        public IList<HalfDayOff> GetHalfDayOffs(DateTime reportDate, int? employeeId = null, int? groupId = null)
+        public IList<HalfDayOff> GetHalfDayOffs(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_GetHalfDayOff"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<HalfDayOff>(new { reportDate, employeeId, groupId }).ToList();
+                return db.Query<HalfDayOff>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Update off day for all employees.
         /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <param name="isOffDay">Is off day or not.</param>
-        /// <param name="modifiedBy">The modified by.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="errorCode">The error code.</param>
-        /// <param name="message">The error message.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateOffDayForAllEmployees(
-            DateTime date,
-            int isOffDay,
-            int modifiedBy,
-            DateTime modifiedDate,
-            out int errorCode,
-            out string message)
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Output value.</returns>
+        public Hashtable UpdateOffDayForAllEmployees(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_SetOffDayForAllEmployees"))
-            {
-                db.AddInParameter("@date", DbType.DateTime, date);
-                db.AddInParameter("@isOffDay", DbType.Int16, isOffDay);
-                db.AddInParameter("@ModifiedBy", DbType.Int16, modifiedBy);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
-
-                db.AddOutParameter("@ErrCode", DbType.Int32, 8);
-                db.AddOutParameter("@ErrMsg", DbType.String, 200);
-
-                db.ExecuteScalar();
-
-                message = db.GetParameterValue("ErrMsg") as string;
-                errorCode = (int)db.GetParameterValue("ErrCode");
-
-                return true;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            { 
+                db.ExecuteNonQuery(criteria.GetSpParams());
+                return db.GetOuputParams();
             }
         }
 
         /// <summary>
         /// Get range date.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The range date.</returns>
-        public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
+        public int GetRangeDate(ICriteria criteria)
         {
             int numberDay = 0;
-            if (toDate.Date >= fromDate.Date)
+            if (criteria.IsValid())
             {
-                using (var db = new ObjectDb("EmployeeCalendar_GetRangeDate"))
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var ds = new DataSet();
+                    ds = db.ExecuteDataSet(criteria.GetSpParams());
 
-                    db.AddInParameter("@EmpId", DbType.Int32, employeeId);
-                    db.AddInParameter("@fromDate", DbType.DateTime, fromDate);
-                    db.AddInParameter("@toDate", DbType.DateTime, toDate);
-
-                    ds = db.ExecuteDataSet();
                     var rangeDate = ds != null ? ds.Tables[0] : null;
 
                     if (rangeDate != null)
@@ -1536,80 +1506,25 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get disable request date.
         /// </summary>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of date time.</returns>
-        public IEnumerable<DateTime> GetDisableRequestDate(int empId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<DateTime> GetDisableRequestDate(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_GetUnavailRequestDate"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<DateTime>(new { empId = empId, fromDate = fromDate, toDate = toDate });
+                return db.Query<DateTime>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Get employee TOEIC score.
         /// </summary>
-        /// <param name="query">The query string.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="titleId">The title ID.</param>
-        /// <param name="score">The score.</param>
-        /// <param name="enable">Enable or disable.</param>
-        /// <param name="isDelete">Is delete or not.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public IList<Employee> GetEmployeeTOEICScore(
-            string query,
-            int? groupId,
-            int? titleId = null,
-            int? score = null,
-            bool? enable = null,
-            bool? isDelete = null)
+        public IList<Employee> GetEmployeeTOEICScore(ICriteria criteria)
         {
-            using (var db = new ObjectDb("TOEIC_GetAllScores"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var p = new Hashtable();
-                int? disableUsers;
-                int? deleteUsers;
-
-                // check enable
-                if (enable == true)
-                {
-                    disableUsers = 0;
-                }
-                else if (enable == false)
-                {
-                    disableUsers = 1;
-                }
-                else
-                {
-                    disableUsers = null;
-                }
-
-                // check delete
-                if (isDelete == true)
-                {
-                    deleteUsers = 1;
-                }
-                else if (isDelete == false)
-                {
-                    deleteUsers = 0;
-                }
-                else
-                {
-                    deleteUsers = null;
-                }
-
-                p.Add("query", query);
-                p.Add("groupId", groupId);
-                p.Add("enable", disableUsers);
-                p.Add("isDelete", deleteUsers);
-                p.Add("pageNumber", 1);
-                p.Add("pageSize", int.MaxValue);
-                p.Add("totalRow", 2000);
-                p.Add("titleId", titleId);
-
                 var entityList = db.Query<Employee, dynamic, Employee>(
                      (e, t) =>
                      {
@@ -1627,7 +1542,7 @@ namespace Fanex.NexHR.Repositories
                          return e;
                      },
                      splitOn: "TeamID",
-                     parameterValues: p);
+                     parameterValues: criteria.GetSpParams());
 
                 return entityList.ToList();
             }

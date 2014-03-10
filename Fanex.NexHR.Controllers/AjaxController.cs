@@ -139,7 +139,7 @@ namespace Fanex.NexHR.Controllers
                     EmployeeId = model.EmpIds,
                     Description = model.Description,
                     FromDate = model.AffectedFrom,
-                    DeductsDays = model.DeductDays,
+                    DeductDays = model.DeductDays,
                     CreditDays = model.CreditDays,
                     CreatedDate = DateTime.Now,
                     CreatedBy = this.CurrentUser.Id

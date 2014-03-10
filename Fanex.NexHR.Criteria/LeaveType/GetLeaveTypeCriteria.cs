@@ -3,6 +3,9 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
+// </history>
 
 namespace Fanex.NexHR.Criteria.LeaveType
 {
@@ -13,16 +16,19 @@ namespace Fanex.NexHR.Criteria.LeaveType
     /// </summary>
     public class GetLeaveTypeCriteria : CriteriaBase
     {
+        [SpParam(Ignored = true)]
+        private bool _excludeNotShown = true;
+
         public bool ExcludeNotShown
         {
             get
             {
-                return true;
+                return _excludeNotShown;
             }
 
             set 
             {
-                ExcludeNotShown = value;
+                _excludeNotShown = value;
             }
         }
 

@@ -3,6 +3,9 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
+// </history>
 
 namespace Fanex.NexHR.Criteria.Holiday
 {

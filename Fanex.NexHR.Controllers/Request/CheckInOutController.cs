@@ -43,7 +43,14 @@ namespace Fanex.NexHR.Controllers.Request
         Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
-            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
+
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
             var employee = EmployeeService.Get(getEmployeeCriteria);
@@ -136,7 +143,14 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
+
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             ViewBag.UnavailDates = listUnavailDates;
 
             ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());

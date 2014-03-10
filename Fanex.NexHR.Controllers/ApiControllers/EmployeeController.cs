@@ -81,17 +81,38 @@ namespace Fanex.NexHR.Controllers.ApiControllers
 
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
-            return _employeeService.GetRangeDate(employeeId, fromDate, toDate);
+            var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return _employeeService.GetRangeDate(getDateRangeCriteria);
         }
 
         public IEnumerable<DateTime> GetUnavailDate(int employeeId, DateTime date)
         {
-            return _employeeService.GetDisableRequestDate(
-                employeeId, 
-                new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1), 
-                new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1),
+                ToDate = new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1)
+            };
+
+            return _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
         }
 
+        /// <summary>
+        /// Get TOEIC score.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="groupId">The group ID.</param>
+        /// <param name="titleId">The title ID.</param>
+        /// <param name="score">The score.</param>
+        /// <param name="enable">The enable.</param>
+        /// <param name="isDelete">The is delete.</param>
+        /// <returns>List Employee with TOEIC score.</returns>
         public IList<Employee> GetTOEIC(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
         {
             if (groupId == -1)
@@ -99,7 +120,16 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 groupId = null;
             }
 
-            IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
+            var getTOEICScoreCriteria = new GetEmployeeTOEICScoreCriteria
+            {
+                Query = query,
+                GroupId = groupId,
+                TitleId = titleId,
+                Score = score,
+                Enable = enable,
+                IsDelete = isDelete
+            };
+            IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(getTOEICScoreCriteria);
             return employees;
         }
 

@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -36,12 +37,21 @@ namespace Fanex.NexHR.Controllers.Request
         /// Create leave request.
         /// </summary>
         /// <returns>Action result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", 
+            "SP2101:MethodMustNotContainMoreLinesThan", 
+            Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
             var employee = EmployeeService.Get(getEmployeeCriteria);
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
 
-            var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var listUnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             ViewBag.UnavailDates = listUnavailDates;
             ViewBag.LeaveTypes = LeaveTypeService.GetAll();
             var model = new LeaveRequestViewModel
@@ -120,7 +130,14 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
-            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = this.CurrentUser.Id,
+                FromDate = DateTime.Now.AddMonths(-1),
+                ToDate = DateTime.Now.AddMonths(1)
+            };
+
+            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
 
             var request = EmployeeService.GetWorkingTimeRequest(id);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };

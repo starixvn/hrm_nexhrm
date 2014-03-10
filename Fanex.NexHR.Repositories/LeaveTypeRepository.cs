@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.10">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -12,7 +13,7 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
-    using Fanex.NexHR.Criteria.LeaveType;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -21,7 +22,7 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class LeaveTypeRepository : ILeaveTypeRepository
     {
-        public IList<LeaveType> GetAll(GetLeaveTypeCriteria criteria)
+        public IList<LeaveType> GetAll(ICriteria criteria)
         {
             string settingKey = criteria.GetSettingKey();
 

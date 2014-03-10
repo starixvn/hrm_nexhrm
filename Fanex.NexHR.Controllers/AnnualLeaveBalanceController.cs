@@ -194,7 +194,7 @@ namespace Fanex.NexHR.Controllers
             {
                 Id = id
             };
-            var model = _employeeService.GetAnnualLeaveTransaction(getAnnualLeaveByIdCriteria);
+            var model = _employeeService.GetAnnualLeaveTransactionByID(getAnnualLeaveByIdCriteria);
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };

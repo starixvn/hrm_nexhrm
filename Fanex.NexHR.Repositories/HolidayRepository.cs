@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.10">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -12,6 +13,7 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -26,7 +28,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public int Insert(InsertNewHolidayCriteria criteria)
+        public int Insert(ICriteria criteria)
         {
             var settingKey = criteria.GetSettingKey();
 
@@ -41,7 +43,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public bool Delete(DeleteHolidayCriteria criteria)
+        public bool Delete(ICriteria criteria)
         {
             var settingKey = criteria.GetSettingKey();
 
@@ -56,7 +58,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria object.</param>
         /// <returns>The result.</returns>
-        public bool Update(UpdateHolidayCriteria criteria)
+        public bool Update(ICriteria criteria)
         {
             var settingKey = criteria.GetSettingKey();
 
@@ -71,7 +73,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of holiday.</returns>
-        public IList<Holiday> GetByYear(GetHolidayByYearCriteria criteria)
+        public IList<Holiday> GetByYear(ICriteria criteria)
         {
             var settingKey = criteria.GetSettingKey();
 
@@ -86,7 +88,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The holiday object.</returns>
-        public Holiday GetById(GetHolidayByIdCriteria criteria)
+        public Holiday GetById(ICriteria criteria)
         {
             var settingKey = criteria.GetSettingKey();
 
