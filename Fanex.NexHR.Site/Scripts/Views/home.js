@@ -83,5 +83,5 @@ $(document).ready(function () {
     var right = $("#user_utilities").width() + 25;
     $(".marquee-birthday").css('right', right);
 
-    $('#marquee').marquee({ speed: 30 });
+    $('#marquee').marquee({ speed: 25 });
 });
