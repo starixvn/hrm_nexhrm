@@ -78,6 +78,7 @@
     <Compile Include="Employee\GetLeaveRequestByDateCriteria.cs" />
     <Compile Include="Employee\GetLeaveRequestCriteria.cs" />
     <Compile Include="Employee\GetUserChangedShiftCriteria.cs" />
+    <Compile Include="Employee\GetWeekWorkingCriteria.cs" />
     <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />

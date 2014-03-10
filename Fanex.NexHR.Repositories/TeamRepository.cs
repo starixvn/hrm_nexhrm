@@ -127,7 +127,7 @@ namespace Fanex.NexHR.Repositories
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0 ? true : false;
+                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
 
             return updated;

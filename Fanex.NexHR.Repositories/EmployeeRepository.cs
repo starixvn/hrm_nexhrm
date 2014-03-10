@@ -188,20 +188,6 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get week working.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="date">The date value.</param>
-        /// <returns>List of week working.</returns>
-        public IList<WeekWorking> GetWeekWorking(int id, DateTime date)
-        {
-            using (var db = new ObjectDb("EmployeeCalendar_GetWeekWorking"))
-            {
-                return db.Query<WeekWorking>(new { id, date }).ToList();
-            }
-        }
-
-        /// <summary>
         /// Update week working.
         /// </summary>
         /// <param name="model">The model object.</param>
