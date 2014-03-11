@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Services
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
@@ -414,13 +415,13 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.GetAnnualLeaveTransactions(criteria);
         }
 
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(GetAnnualLeaveByIdCriteria criteria)
         {
             AnnualLeaveBalanceModel model = null;
 
             if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetAnnualLeaveTransaction(criteria);
+                model = this._employeeRepository.GetAnnualLeaveTransactionByID(criteria);
             }
 
             return model;
@@ -441,35 +442,35 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.InsertAnnualLeaveTransaction(criteria);
         }
 
-        public IList<UserChangedShift> GetUserChangedShift(DateTime date)
+        public IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria)
         {
-            return this._employeeRepository.GetUserChangedShift(date);
+            return this._employeeRepository.GetUserChangedShift(criteria);
         }
 
-        public IList<HalfDayOff> GetHalfDayOffs(DateTime reportDate, int? employeeId = null, int? groupId = null)
+        public IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria)
         {
-            return this._employeeRepository.GetHalfDayOffs(reportDate, employeeId, groupId);
+            return this._employeeRepository.GetHalfDayOffs(criteria);
         }
 
         /// <summary>
         /// Update off day for all employees.
         /// </summary>
         /// <param name="modelState">The model state.</param>
-        /// <param name="model">The model object.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
-        public bool UpdateOffDayForAllEmployees(ModelStateDictionary modelState, ChangeWorkingCalendarsViewModel model)
-        {
-            // Check.Argument.IsNotNull(model, "model");
+        public bool UpdateOffDayForAllEmployees(
+            ModelStateDictionary modelState, 
+            UpdateOffDayForAllEmployeesCriteria criteria)
+        { 
             bool result = true;
 
             if (modelState.IsValid)
             {
-                int errorCode;
-                string message;
-                this._employeeRepository.UpdateOffDayForAllEmployees(model.Date, model.IsOfDay, model.ModifiedBy, model.ModifiedDate, out errorCode, out message);
-                if (errorCode != 0)
+                Hashtable outputParams = this._employeeRepository.UpdateOffDayForAllEmployees(criteria);
+
+                if ((int)outputParams["errcode"] != 0)
                 {
-                    modelState.AddModelError(string.Empty, message);
+                    modelState.AddModelError(string.Empty, (string)outputParams["errmsg"]);
                     result = false;
                 }
             }
@@ -485,25 +486,21 @@ namespace Fanex.NexHR.Services
         /// <summary>
         /// Get range date.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>The range date.</returns>
-        public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
+        public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)
         {
-            return this._employeeRepository.GetRangeDate(employeeId, fromDate, toDate);
+            return this._employeeRepository.GetRangeDate(criteria);
         }
 
         /// <summary>
         /// Get disable request date.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of date.</returns>
-        public IEnumerable<DateTime> GetDisableRequestDate(int employeeId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
         {
-            return this._employeeRepository.GetDisableRequestDate(employeeId, fromDate, toDate);
+            return this._employeeRepository.GetDisableRequestDate(criteria);
         }
 
         /// <summary>
@@ -780,9 +777,14 @@ namespace Fanex.NexHR.Services
         }
         #endregion
 
-        public IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        public IList<Employee> GetEmployeeTOEICScore(GetEmployeeTOEICScoreCriteria criteria)
         {
-            return this._employeeRepository.GetEmployeeTOEICScore(query, groupId, titleId, score, enable, isDelete);
+            if (criteria.Enable != null)
+            {
+                criteria.Enable = criteria.Enable == true ? false : true;
+            }
+
+            return this._employeeRepository.GetEmployeeTOEICScore(criteria);
         }
 
         /// <summary>

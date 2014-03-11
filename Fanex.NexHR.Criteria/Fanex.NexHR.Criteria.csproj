@@ -63,8 +63,15 @@
     <Compile Include="Employee\GetCheckInOutRequestByDateCriteria.cs" />
     <Compile Include="Employee\GetCheckInOutRequestCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
+    <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeTOEICScoreCriteria.cs" />
+    <Compile Include="Employee\GetUnavailableRequestDateCriteria.cs" />
+    <Compile Include="Employee\GetHalfDayOffCriteria.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
     <Compile Include="Employee\GetMySpaceCriteria.cs" />
+    <Compile Include="Employee\GetMissingCheckInOutEmployeesCriteria.cs" />
     <Compile Include="Employee\GetRequestHistoryCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetLateInOutRequestByDateCriteria.cs" />
@@ -76,6 +83,8 @@
     <Compile Include="Employee\GetWorkingCalendarCriteria.cs" />
     <Compile Include="Employee\GetWorkingScheduleCriteria.cs" />
     <Compile Include="Employee\GetWorkingTimeRequestCriteria.cs" />
+    <Compile Include="Employee\GetUserChangedShiftCriteria.cs" />
+    <Compile Include="Employee\GetWeekWorkingCriteria.cs" />
     <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />
@@ -86,6 +95,7 @@
     <Compile Include="Employee\UpdateShiftCriteria.cs" />
     <Compile Include="Employee\UpdateWorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\WorkingTimeRequestCriteria.cs" />
+    <Compile Include="Employee\UpdateOffDayForAllEmployeesCriteria.cs" />
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />
@@ -120,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Request\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

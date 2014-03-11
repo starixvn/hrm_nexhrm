@@ -9,6 +9,7 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core.Enums;
@@ -64,63 +65,63 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateShift(ICriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria);
+        IList<CheckInOut> GetCheckInOutRequest(ICriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequest(ICriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria);
+        IList<ChangingShift> GetChangeShiftRequest(ICriteria criteria);
 
-        IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria);
+        IList<Leave> GetLeaveRequest(ICriteria criteria);
 
-        IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria);
+        IList<RequestEntity> GetAllRequest(ICriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria);
+        IList<CheckInOut> GetCheckInOutRequestByDate(ICriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(ICriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria);
+        IList<ChangingShift> GetChangeShiftRequestByDate(ICriteria criteria);
 
-        IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria);
+        IList<Leave> GetLeaveRequestByDate(ICriteria criteria);
 
-        IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria);
+        IList<RequestEntity> GetAllRequestByDate(ICriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria);
+        IList<CheckInOut> GetCheckInOutRequestHistory(ICriteria criteria);
 
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria);
+        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(ICriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria);
+        IList<ChangingShift> GetChangeShiftRequestHistory(ICriteria criteria);
 
-        IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria);
+        IList<Leave> GetLeaveRequestHistory(ICriteria criteria);
 
-        IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);
+        IList<Employee> GetMembersByManager(ICriteria criteria);
 
-        bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria);
+        bool AdjustAnnualLeaves(ICriteria criteria);
 
-        IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
+        IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(ICriteria criteria);
 
-        bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
+        bool DeleteAnnualLeaveTransaction(ICriteria criteria);
 
-        AnnualLeaveBalanceModel GetAnnualLeaveTransaction(GetAnnualLeaveByIdCriteria criteria);
+        AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(ICriteria criteria);
 
-        bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
+        bool UpdateAnnualLeaveTransaction(ICriteria criteria);
 
-        bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
+        bool InsertAnnualLeaveTransaction(ICriteria criteria);
 
-        IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees();
+        IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees(ICriteria criteria);
 
-        IList<UserChangedShift> GetUserChangedShift(DateTime date);
+        IList<UserChangedShift> GetUserChangedShift(ICriteria criteria);
 
-        IList<HalfDayOff> GetHalfDayOffs(DateTime reportDate, int? employeeId = null, int? groupId = null);
+        IList<HalfDayOff> GetHalfDayOffs(ICriteria criteria);
 
-        bool UpdateOffDayForAllEmployees(DateTime date, int isOffDay, int modifiedBy, DateTime modifiedDate, out int errorCode, out string message);
+        Hashtable UpdateOffDayForAllEmployees(ICriteria criteria);
 
-        int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate);
+        int GetRangeDate(ICriteria criteria);
 
-        IEnumerable<DateTime> GetDisableRequestDate(int employeeId, DateTime fromDate, DateTime toDate);
+        IEnumerable<DateTime> GetDisableRequestDate(ICriteria criteria);
 
-        bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
+        bool ResetAnnualLeaves(ICriteria criteria);
 
-        IList<Employee> GetEmployeeTOEICScore(string query, int? groupId, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null);
+        IList<Employee> GetEmployeeTOEICScore(ICriteria criteria);
 
         void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday);
     }

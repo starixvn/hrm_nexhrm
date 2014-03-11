@@ -530,13 +530,25 @@ namespace Fanex.NexHR.Controllers
             currentDate.AppendFormat("{0}/{1}/1", ViewBag.Year, ViewBag.Month);
             ViewBag.CurrentDate = currentDate;
 
-            var userChangedShift = _employeeService.GetUserChangedShift(new DateTime(ViewBag.Year, ViewBag.Month, 1));
+            var getUserChangedShiftCriteria = new GetUserChangedShiftCriteria
+            {
+                ReportDate = new DateTime(ViewBag.Year, ViewBag.Month, 1),
+                EmployeeId = null,
+                GroupId = null
+            };
+            var userChangedShift = _employeeService.GetUserChangedShift(getUserChangedShiftCriteria);
 
             ViewBag.UserChangeShift = userChangedShift;
-            ViewBag.HalfDayOffs = _employeeService.GetHalfDayOffs(DateTime.Parse(currentDate.ToString()));
             var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
             var model = _employeeService.GetWorkingCalendars(workingCalendarCriteria);
 
+            var getHalfDayOffCriteria = new GetHalfDayOffCriteria
+            {
+                ReportDate = DateTime.Parse(currentDate.ToString()),
+                EmployeeId = null,
+                GroupId = null
+            };
+            ViewBag.HalfDayOffs = _employeeService.GetHalfDayOffs(getHalfDayOffCriteria);
             return View(model);
         }
 
@@ -569,7 +581,15 @@ namespace Fanex.NexHR.Controllers
         {
             model.ModifiedDate = DateTime.Now;
             model.ModifiedBy = this.CurrentUser.Id;
-            ViewBag.Requested = _employeeService.UpdateOffDayForAllEmployees(ModelState, model);
+            var updateOffDayForAllEmployeesCriteria = new UpdateOffDayForAllEmployeesCriteria
+            {
+                 Date = model.Date,
+                 IsOffDay = model.IsOfDay,
+                 ModifiedBy = model.ModifiedBy,
+                 ModifiedDate = model.ModifiedDate
+            };
+
+            ViewBag.Requested = _employeeService.UpdateOffDayForAllEmployees(ModelState, updateOffDayForAllEmployeesCriteria);
 
             return View(model);
         }

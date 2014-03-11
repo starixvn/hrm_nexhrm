@@ -18,12 +18,12 @@ namespace AutoJobs
     using System.ServiceProcess;
     using System.Timers;
     using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.ViewModels;
     using log4net;
-    using RazorEngine;
 
     /// <summary>
     /// Job Service.
@@ -181,7 +181,8 @@ namespace AutoJobs
             try
             {
                 // Get employee who forgot check in or check out
-                var employeeList = _EmployeeRepository.GetMissingCheckInOutEmployees();
+                var getMissingCheckInOutCriteria = new GetMissingCheckInOutEmployeesCriteria();
+                var employeeList = _EmployeeRepository.GetMissingCheckInOutEmployees(getMissingCheckInOutCriteria);
                 employeeList = employeeList.Where(s => !_IgnoreList.Contains(s.NickName.ToLower())).ToList();
 
                 if (employeeList.Count > 0)
