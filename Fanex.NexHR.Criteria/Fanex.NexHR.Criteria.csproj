@@ -84,7 +84,6 @@
     <Compile Include="Employee\GetWorkingScheduleCriteria.cs" />
     <Compile Include="Employee\GetWorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\GetUserChangedShiftCriteria.cs" />
-    <Compile Include="Employee\GetWeekWorkingCriteria.cs" />
     <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />
