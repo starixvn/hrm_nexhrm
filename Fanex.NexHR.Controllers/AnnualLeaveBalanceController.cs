@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Controllers
@@ -15,6 +16,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Controllers.Context;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -72,11 +74,13 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(
-                model.Year,
-                empId: model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
-                groupId: model.TeamId);
-
+            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
+            {
+                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId,
+                Year = model.Year
+            };
+            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
             IList<Team> teams = new List<Team>();
             
             if (model.TeamId != null)

@@ -5,42 +5,26 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
+//   <change who="Bradley.Mac" date="2014.3.7">Apply Nap Framework</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
 
     public interface IReportRepository
     {
-        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(
-            DateTime fromTime,
-            DateTime toTime,
-            short type,
-            int? empId = null,
-            int? groupId = null,
-            int? excludeUserDelete = 1);
+        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria);
 
-        IList<RequestsMonitoring> GetRequestMonitoring(
-            DateTime fromDate,
-            DateTime toDate,
-            int maxRequest,
-            int role, 
-            int employeeID);
+        IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria);
 
-        IList<TotalWorkingHours> GetWorkingHoursList(
-            DateTime fromDate,
-            DateTime toDate,
-            int? empId,
-            int? groupId);
+        IList<TotalWorkingHours> GetWorkingHoursList(ICriteria criteria);
 
-        IList<LeaveSummary> GetAnnualLeaveBalanceReport(
-            int year,
-            int? empId,
-            int? groupId);
+        IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria);
     }
 }
