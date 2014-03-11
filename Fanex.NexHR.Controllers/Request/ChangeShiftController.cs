@@ -128,7 +128,8 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(int id)
         {
             ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
-            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
+            var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
                 EmployeeId = this.CurrentUser.Id,

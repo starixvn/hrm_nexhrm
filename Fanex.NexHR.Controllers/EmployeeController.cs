@@ -113,7 +113,12 @@ namespace Fanex.NexHR.Controllers
                 ? Resources.Labels.Unknown
                 : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
-                ViewBag.Working = _employeeService.GetMySpace(id);
+                var getMySpaceCriteria = new GetMySpaceCriteria()
+                {
+                    EmpId = id,
+                    Date = DateTime.Now.Date
+                };
+                ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
                 var employeeShiftCriteria = new GetEmployeeShift() { Id = id };
                 var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
                 var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
@@ -121,27 +126,21 @@ namespace Fanex.NexHR.Controllers
                 ViewBag.Sun = workingCalendar.SunShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.SunShift).Name;
-
                 ViewBag.Mon = workingCalendar.MonShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.MonShift).Name;
-
                 ViewBag.Tue = workingCalendar.TueShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.TueShift).Name;
-
                 ViewBag.Wed = workingCalendar.WedShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.WedShift).Name;
-
                 ViewBag.Thu = workingCalendar.ThuShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.ThuShift).Name;
-
                 ViewBag.Fri = workingCalendar.FriShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.FriShift).Name;
-
                 ViewBag.Sat = workingCalendar.SatShift == null
                     ? "OFF"
                     : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
@@ -453,7 +452,12 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult MyDashboard()
         {
-            var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+            var getMySpaceCriteria = new GetMySpaceCriteria()
+            {
+                EmpId = this.CurrentUser.Id,
+                Date = DateTime.Now.Date
+            };
+            var model = _employeeService.GetMySpace(getMySpaceCriteria);
             ViewBag.HasBirthdayOrFirstWorkingday = false;
             return View("MySpace", model);
         }
@@ -465,7 +469,12 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult MySpace(bool? isRedirectFromLogin = true)
         {
-            var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+            var getMySpaceCriteria = new GetMySpaceCriteria()
+            {
+                EmpId = this.CurrentUser.Id,
+                Date = DateTime.Now.Date
+            };
+            var model = _employeeService.GetMySpace(getMySpaceCriteria);
             IList<Employee> employeesBirthday = null;
             IList<Employee> employeesFirstWorkingday = null;
 
@@ -495,7 +504,14 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult MyWorkingSchedule()
         {
-            return View(_employeeService.GetWorkingSchedule(DateTime.Now, this.CurrentUser.Id));
+            var workingScheduleCriteria = new GetWorkingScheduleCriteria
+            {
+                ReportDate = DateTime.Now,
+                EmployeeId = this.CurrentUser.Id
+            };
+            var model = _employeeService.GetWorkingSchedule(workingScheduleCriteria);
+
+            return View();
         }
 
         /// <summary>
@@ -518,8 +534,10 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.UserChangeShift = userChangedShift;
             ViewBag.HalfDayOffs = _employeeService.GetHalfDayOffs(DateTime.Parse(currentDate.ToString()));
+            var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
+            var model = _employeeService.GetWorkingCalendars(workingCalendarCriteria);
 
-            return View(_employeeService.GetWorkingCalendars(currentDate.ToString()));
+            return View(model);
         }
 
         /// <summary>
@@ -565,7 +583,12 @@ namespace Fanex.NexHR.Controllers
         {
             if (this.CurrentUser.IsInRoles(RolesEnum.AssistantLeader))
             {
-                var model = _employeeService.GetHrLeaderDashboard(DateTime.Today, this.CurrentUser.Id);
+                var getHRLeaderDashboardCriteria = new GetHRLeaderDashboardCriteria()
+                {
+                    EmployeeId = this.CurrentUser.Id,
+                    Date = DateTime.Today
+                };
+                var model = _employeeService.GetHrLeaderDashboard(getHRLeaderDashboardCriteria);
                 return PartialView(model);
             }
 

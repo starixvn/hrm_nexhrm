@@ -157,7 +157,7 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0 ? true : false;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
@@ -272,93 +272,41 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get me space.
         /// </summary>
-        /// <param name="empid">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>MY space view model.</returns>
-        public MySpaceViewModel GetMySpace(int empid)
+        public MySpaceViewModel GetMySpace(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Report_EmployeeDashBoard"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var date = DateTime.Now.ToShortDateString();
-                return db.Query<MySpaceViewModel>(new { empid, date }).FirstOrDefault();
+                return db.QueryEntity<MySpaceViewModel>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Get HR leader dashboard.
         /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <param name="employeeId">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>HR leader dashboard model.</returns>
-        public HrLeaderDashboardModel GetHrLeaderDashboard(DateTime date, int? employeeId = null)
+        public HrLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Report_HRLeaderDashBoard"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<HrLeaderDashboardModel>(new { employeeId, date }).FirstOrDefault();
+                return db.QueryEntity<HrLeaderDashboardModel>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
-        /// Working time request.
+        /// Working time Request.
         /// </summary>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="requestType">The request type.</param>
-        /// <param name="isPlanned">Is planned or not.</param>
-        /// <param name="remark">The remark.</param>
-        /// <param name="createdDate">The created date.</param>
-        /// <param name="createdBy">Created by.</param>
-        /// <param name="errorCode">The error code.</param>
-        /// <param name="message">The error message.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="fromShift">The from shift.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="toShift">The to shift.</param>
-        /// <param name="leaveTypeId">The leave type ID.</param>
-        /// <param name="totalDays">Total days.</param>
-        /// <param name="lateInMins">The late in duration in minutes.</param>
-        /// <param name="earlyOutMins">The early out duration in minutes.</param>
-        /// <returns>The request ID.</returns>
-        public long WorkingTimeRequest(
-            int empId,
-            short requestType,
-            bool isPlanned,
-            string remark,
-            DateTime createdDate,
-            int createdBy,
-            out int errorCode,
-            out string message,
-            DateTime fromDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null)
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Error message.</param>
+        /// <returns>A value to check.</returns>
+        public long WorkingTimeRequest(ICriteria criteria, out int errorCode, out string message)
         {
-            using (var db = new ObjectDb("WorkingTimeRequest_Insert"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@EmpId", DbType.Int32, empId);
-                db.AddInParameter("@RequestType", DbType.Int16, requestType);
-                db.AddInParameter("@IsPlanned", DbType.Boolean, isPlanned);
-                db.AddInParameter("@Remark", DbType.String, remark);
-
-                db.AddInParameter("@FromDate", DbType.DateTime, fromDate);
-                db.AddInParameter("@FromShift", DbType.Int32, fromShift);
-                db.AddInParameter("@ToDate", DbType.DateTime, toDate);
-                db.AddInParameter("@ToShift", DbType.Int32, toShift);
-
-                db.AddInParameter("@LeaveTypeID", DbType.Int32, leaveTypeId);
-                db.AddInParameter("@TotalDays", DbType.Decimal, totalDays);
-                db.AddInParameter("@LateInMins", DbType.Int32, lateInMins);
-                db.AddInParameter("@EarlyOutMins", DbType.Int32, earlyOutMins);
-
-                db.AddInParameter("@CreatedDate", DbType.DateTime, createdDate);
-                db.AddInParameter("@CreatedBy", DbType.Int32, createdBy);
-
-                db.AddOutParameter("@ErrCode", DbType.Int32, 8);
-                db.AddOutParameter("@ErrMsg", DbType.String, 200);
-
-                var result = db.ExecuteScalar();
+                var result = db.ExecuteScalar(criteria.GetSpParams());
                 var requestId = result == null ? -1 : (long)result;
                 message = db.GetParameterValue("ErrMsg") as string;
                 errorCode = (int)db.GetParameterValue("ErrCode");
@@ -368,120 +316,63 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get working time request list.
-        /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="requestType">The request type.</param>
-        /// <param name="status">The status.</param>
-        /// <returns>List of working time request.</returns>
-        public IList<WorkingTimeRequest> GetWorkingTimeRequests(
-            int employeeId,
-            int? requestType = null,
-            byte? status = null)
-        {
-            using (var db = new ObjectDb("WorkingTimeRequest_GetByEmployee"))
-            {
-                return db.Query<WorkingTimeRequest>(new { id = employeeId, requestType, status }).ToList();
-            }
-        }
-
-        /// <summary>
         /// Get working time request.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Working time request.</returns>
-        public WorkingTimeRequest GetWorkingTimeRequest(long id)
+        public WorkingTimeRequest GetWorkingTimeRequest(ICriteria criteria)
         {
-            using (var db = new ObjectDb("WorkingTimeRequest_Get"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<WorkingTimeRequest>(new { id }).FirstOrDefault();
+                return db.QueryEntity<WorkingTimeRequest>(criteria.GetSpParams());
             }
         }
 
         /// <summary>
         /// Delete working time request.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool DeleteWorkingTimeRequest(int id)
+        public bool DeleteWorkingTimeRequest(ICriteria criteria)
         {
-            using (var db = new ObjectDb("WorkingTimeRequest_Delete"))
+            bool deleted = false;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@id", DbType.Int32, id);
-                return db.ExecuteNonQuery() != 0;
+                deleted = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
+
+            return deleted;
         }
 
         /// <summary>
         /// Update request.
         /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="isPlanned">Is planned or not.</param>
-        /// <param name="remark">The remark.</param>
-        /// <param name="modifiedby">The modified by.</param>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="modifiedDate">The modified date.</param>
-        /// <param name="fromShift">The from shift.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="toShift">The to shift.</param>
-        /// <param name="leaveTypeId">The leave type ID.</param>
-        /// <param name="totalDays">The total days.</param>
-        /// <param name="lateInMins">The late in minutes.</param>
-        /// <param name="earlyOutMins">The early out minutes.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool UpdateRequest(
-            long requestId,
-            bool isPlanned,
-            string remark,
-            int modifiedby,
-            DateTime fromDate,
-            DateTime modifiedDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null)
+        public bool UpdateRequest(ICriteria criteria)
         {
-            using (var db = new ObjectDb("WorkingTimeRequest_Update"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@Id", DbType.Int64, requestId);
-                db.AddInParameter("@IsPlanned", DbType.Boolean, isPlanned);
-                db.AddInParameter("@Remark", DbType.String, remark);
-                db.AddInParameter("@FromDate", DbType.DateTime, fromDate);
-                db.AddInParameter("@FromShift", DbType.Int32, fromShift);
-                db.AddInParameter("@ToDate", DbType.DateTime, toDate);
-                db.AddInParameter("@ToShift", DbType.Int32, toShift);
-                db.AddInParameter("@LeaveTypeID", DbType.Int32, leaveTypeId);
-                db.AddInParameter("@TotalDays", DbType.Decimal, totalDays);
-                db.AddInParameter("@LateInMins", DbType.Int32, lateInMins);
-                db.AddInParameter("@EarlyOutMins", DbType.Int32, earlyOutMins);
-                db.AddInParameter("@ModifiedBy", DbType.Int32, modifiedby);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
-
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
         /// <summary>
         /// Get working schedule.
         /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <param name="id">The employee ID.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of working schedule model.</returns>
-        public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
+        public IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
-            using (var db = new ObjectDb("Report_EmployeeCalendarByMonth"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var ds = new DataSet();
+                var date = criteria.ReportDate;
 
-                db.AddInParameter("@reportDate", DbType.DateTime, date);
-                db.AddInParameter("@employeeId", DbType.Int32, id);
-                ds = db.ExecuteDataSet();
+                ds = db.ExecuteDataSet(criteria.GetSpParams());
                 var dttWorkingSchedule = ds != null ? ds.Tables[0] : null;
 
-                var list = new List<WorkingScheduleModel>();
+                var lstWorkingSchedule = new List<WorkingScheduleModel>();
                 if (dttWorkingSchedule.Rows.Count != 0)
                 {
                     for (int i = 1; i <= dttWorkingSchedule.Columns.Count - 4; i++)
@@ -491,28 +382,27 @@ namespace Fanex.NexHR.Repositories
                             Title = dttWorkingSchedule.Rows[0][i + 3].ToString(),
                             Start = new DateTime(date.Year, date.Month, i).ToShortDateString()
                         };
-                        list.Add(workingDay);
+                        lstWorkingSchedule.Add(workingDay);
                     }
                 }
 
-                return list;
+                return lstWorkingSchedule;
             }
         }
 
         /// <summary>
         /// Get working calendar.
         /// </summary>
-        /// <param name="date">The date value.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of working calendar view model.</returns>
-        public IList<WorkingCalendarsViewModel> GetWorkingCalendars(string date)
+        public IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Report_EmployeeCalendarByMonth"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var list = new List<WorkingCalendarsViewModel>();
+                var lstWorkingCalendar = new List<WorkingCalendarsViewModel>();
                 var ds = new DataSet();
 
-                db.AddInParameter("@reportDate", DbType.DateTime, date);
-                ds = db.ExecuteDataSet();
+                ds = db.ExecuteDataSet(criteria.GetSpParams());
                 var dttWorkingCalendars = ds != null ? ds.Tables[0] : null;
                 var totalColumns = dttWorkingCalendars.Columns.Count;
 
@@ -535,33 +425,23 @@ namespace Fanex.NexHR.Repositories
 
                     empWorkingCalendar.WorkingDays = days;
 
-                    list.Add(empWorkingCalendar);
+                    lstWorkingCalendar.Add(empWorkingCalendar);
                 }
 
-                return list;
+                return lstWorkingCalendar;
             }
         }
 
         /// <summary>
         /// Update shift.
         /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="date">The date value.</param>
-        /// <param name="shift">The shift ID.</param>
-        /// <param name="modifiedBy">The modified by.</param>
-        /// <param name="modifiedDate">The modified date.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate)
+        public bool UpdateShift(ICriteria criteria)
         {
-            using (var db = new ObjectDb("EmployeeCalendar_Update"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.AddInParameter("@EmpId", DbType.Int32, id);
-                db.AddInParameter("@date", DbType.DateTime, date);
-                db.AddInParameter("@ShiftID", DbType.Int32, shift);
-                db.AddInParameter("@ModifiedBy", DbType.Int32, modifiedBy);
-                db.AddInParameter("@ModifiedDate", DbType.DateTime, modifiedDate);
-
-                return db.ExecuteNonQuery() != 0;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 

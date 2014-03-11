@@ -48,7 +48,7 @@ namespace Fanex.NexHR.Services
             this._teamService = new TeamService();
         }
 
-        public IList<Employee> GetLeaders(ICriteria criteria)
+        public IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<Employee> leaders = new List<Employee>();
@@ -80,11 +80,6 @@ namespace Fanex.NexHR.Services
             return employee;
         }
 
-        public IList<WorkingTimeRequest> GetWorkingTimeRequests(int id, int? requestType = null, byte? status = null)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IList<Employee> Query(GetAllEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -97,7 +92,7 @@ namespace Fanex.NexHR.Services
             return lstEmployee;
         }
 
-        public IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria)
+        public IList<Employee> GetEmployeeForRelatedTeam(GetEmployeeForRelatedTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<Employee> lstEmployee = new List<Employee>();
@@ -109,7 +104,7 @@ namespace Fanex.NexHR.Services
             return lstEmployee;
         }
 
-        public int Insert(ICriteria criteria)
+        public int Insert(InsertEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             int inserted = -1;
@@ -121,7 +116,7 @@ namespace Fanex.NexHR.Services
             return inserted;
         }
 
-        public bool Delete(ICriteria criteria)
+        public bool Delete(DeleteEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool deleted = false;
@@ -133,7 +128,7 @@ namespace Fanex.NexHR.Services
             return deleted;
         }
 
-        public bool Update(ICriteria criteria)
+        public bool Update(UpdateEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool updated = false;
@@ -145,7 +140,7 @@ namespace Fanex.NexHR.Services
             return updated;
         }
 
-        public EmployeeShift GetEmployeeShift(ICriteria criteria)
+        public EmployeeShift GetEmployeeShift(GetEmployeeShift criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             EmployeeShift model = null;
@@ -157,7 +152,7 @@ namespace Fanex.NexHR.Services
             return model;
         }
 
-        public bool UpdateEmployeeShift(ICriteria criteria)
+        public bool UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool updated = false;
@@ -169,106 +164,88 @@ namespace Fanex.NexHR.Services
             return updated;
         }
 
-        public bool UpdateWeekWorking(EmployeeShift model, DateTime date)
+        public MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria)
         {
-            Check.Argument.IsNotNull(model, "model");
-            return this._employeeRepository.UpdateWeekWorking(model, date);
-        }
-
-        public long WorkingTimeRequest(
-            int empId, 
-            short requestType, 
-            bool isPlanned, 
-            string remark, 
-            int createdBy, 
-            out int errorCode, 
-            out string message, 
-            DateTime fromDate, 
-            int? fromShift = null, 
-            DateTime? toDate = null, 
-            int? toShift = null, 
-            int? leaveTypeId = null, 
-            decimal? totalDays = null, 
-            int? lateInMins = null, 
-            int? earlyOutMins = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int ApproveRequest(long requestId, int approvedBy, DateTime approvedDate, int modifiedBy, out string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DisapproveRequest(long requestId, int modifiedBy, DateTime approvedDate, out string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int RejectRequest(long requestId, int processedBy, DateTime processedDate, int modifiedBy, out string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateRequest(
-            long requestId, 
-            bool isPlanned, 
-            string remark, 
-            int modifiedby, 
-            DateTime fromDate, 
-            int? fromShift = null, 
-            DateTime? toDate = null, 
-            int? toShift = null, 
-            int? leaveTypeId = null, 
-            decimal? totalDays = null, 
-            int? lateInMins = null, 
-            int? earlyOutMins = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ViewModels.MySpaceViewModel GetMySpace(int id)
-        {
-            return this._employeeRepository.GetMySpace(id);
-        }
-
-        public HrLeaderDashboardModel GetHrLeaderDashboard(DateTime date, int? employeeId = null)
-        {
-            return this._employeeRepository.GetHrLeaderDashboard(date, employeeId);
-        }
-
-        public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
-        {
-            Check.Argument.IsNotNegativeOrZero(id, "id");
-
-            return this._employeeRepository.GetWorkingSchedule(date, id);
-        }
-
-        public IList<ViewModels.WorkingCalendarsViewModel> GetWorkingCalendars(string date)
-        {
-            return this._employeeRepository.GetWorkingCalendars(date);
-        }
-
-        public WorkingTimeRequest GetWorkingTimeRequest(long workingTimeId)
-        {
-            if (workingTimeId > 0)
+            Check.Argument.IsNotNull(criteria, "criteria");
+            MySpaceViewModel space = new MySpaceViewModel();
+            if (criteria.IsValid())
             {
-                return this._employeeRepository.GetWorkingTimeRequest(workingTimeId);
+                space = this._employeeRepository.GetMySpace(criteria);
             }
 
-            return null;
+            return space;
         }
 
-        public bool DeleteWorkingTimeRequest(int id)
+        public HrLeaderDashboardModel GetHrLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
         {
-            Check.Argument.IsNotNegativeOrZero(id, "id");
+            Check.Argument.IsNotNull(criteria, "criteria");
+            HrLeaderDashboardModel dashboard = new HrLeaderDashboardModel();
+            if (criteria.IsValid())
+            {
+                dashboard = this._employeeRepository.GetHrLeaderDashboard(criteria);
+            }
 
-            return this._employeeRepository.DeleteWorkingTimeRequest(id);
+            return dashboard;
         }
 
-        public bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate)
+        public IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
-            return this._employeeRepository.UpdateShift(id, date, shift, modifiedBy, modifiedDate);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<WorkingScheduleModel> workingSchedule = new List<WorkingScheduleModel>();
+            if (criteria.IsValid())
+            {
+                workingSchedule = this._employeeRepository.GetWorkingSchedule(criteria);
+            }
+
+            return workingSchedule;
+        }
+
+        public IList<ViewModels.WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<WorkingCalendarsViewModel> workingCalendar = new List<WorkingCalendarsViewModel>();
+            if (criteria.IsValid())
+            {
+                workingCalendar = this._employeeRepository.GetWorkingCalendars(criteria);
+            }
+
+            return workingCalendar;
+        }
+
+        public WorkingTimeRequest GetWorkingTimeRequest(GetWorkingTimeRequestCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            WorkingTimeRequest workingTimeRequest = new WorkingTimeRequest();
+            if (criteria.IsValid())
+            {
+                workingTimeRequest = this._employeeRepository.GetWorkingTimeRequest(criteria);
+            }
+
+            return workingTimeRequest;
+        }
+
+        public bool DeleteWorkingTimeRequest(DeleteWorkingTimeRequestCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool deleted = false;
+            if (criteria.IsValid())
+            {
+                deleted = this._employeeRepository.DeleteWorkingTimeRequest(criteria);
+            }
+
+            return deleted;
+        }
+
+        public bool UpdateShift(UpdateShiftCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool updated = false;
+            if (criteria.IsValid())
+            {
+                updated = this._employeeRepository.UpdateShift(criteria);
+            }
+
+            return updated;
         }
 
         public IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria)

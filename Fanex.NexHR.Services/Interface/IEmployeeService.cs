@@ -24,84 +24,33 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 
-        IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria);
+        IList<Employee> GetEmployeeForRelatedTeam(GetEmployeeForRelatedTeamCriteria criteria);
 
-        IList<Employee> GetLeaders(ICriteria criteria);
+        IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria);
 
-        int Insert(ICriteria criteria);
+        int Insert(InsertEmployeeCriteria criteria);
 
-        bool Delete(ICriteria criteria);
+        bool Delete(DeleteEmployeeCriteria criteria);
 
-        bool Update(ICriteria criteria);
+        bool Update(UpdateEmployeeCriteria criteria);
 
-        EmployeeShift GetEmployeeShift(ICriteria criteria);
+        EmployeeShift GetEmployeeShift(GetEmployeeShift criteria);
 
-        bool UpdateEmployeeShift(ICriteria criteria);
+        bool UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria);
 
-        bool UpdateWeekWorking(EmployeeShift model, DateTime date);
+        MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
 
-        long WorkingTimeRequest(
-            int empId,
-            short requestType,
-            bool isPlanned,
-            string remark,
-            int createdBy,
-            out int errorCode,
-            out string message,
-            DateTime fromDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null);
+        HrLeaderDashboardModel GetHrLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
-        int ApproveRequest(
-            long requestId,
-            int approvedBy,
-            DateTime approvedDate,
-            int modifiedBy,
-            out string message);
+        IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
-        int DisapproveRequest(long requestId, int modifiedBy, DateTime approvedDate, out string message);
+        IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria);
 
-        int RejectRequest(
-            long requestId,
-            int processedBy,
-            DateTime processedDate,
-            int modifiedBy,
-            out string message);
+        WorkingTimeRequest GetWorkingTimeRequest(GetWorkingTimeRequestCriteria criteria);
 
-        bool UpdateRequest(
-            long requestId,
-            bool isPlanned,
-            string remark,
-            int modifiedby,
-            DateTime fromDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null);
+        bool DeleteWorkingTimeRequest(DeleteWorkingTimeRequestCriteria criteria);
 
-        MySpaceViewModel GetMySpace(int id);
-
-        HrLeaderDashboardModel GetHrLeaderDashboard(DateTime date, int? employeeId = null);
-
-        IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id);
-
-        IList<WorkingCalendarsViewModel> GetWorkingCalendars(string date);
-
-        IList<WorkingTimeRequest> GetWorkingTimeRequests(int id, int? requestType = null, byte? status = null);
-
-        WorkingTimeRequest GetWorkingTimeRequest(long id);
-
-        bool DeleteWorkingTimeRequest(int id);
-
-        bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate);
+        bool UpdateShift(UpdateShiftCriteria criteria);
 
         IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria);
 

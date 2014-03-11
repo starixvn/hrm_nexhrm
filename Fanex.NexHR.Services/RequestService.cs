@@ -144,16 +144,25 @@ namespace Fanex.NexHR.Services
                 int errorCode;
                 string message;
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(
-                    model.EmployeeId,
-                    model.Type,
-                    false,
-                    null,
-                    DateTime.Now,
-                    model.By,
-                    out errorCode,
-                    out message,
-                    model.ForDate);
+                var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
+                {
+                    EmpId = model.EmployeeId,
+                    RequestType = model.Type,
+                    IsPlanned = false,
+                    Remark = null,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = model.By,
+                    FromDate = model.ForDate,
+                    FromShift = null,
+                    ToDate = null,
+                    ToShift = null,
+                    LeaveTypeID = null,
+                    TotalDays = null,
+                    LateInMins = null,
+                    EarlyOutMins = null
+                };
+
+                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
 
                 // check result
                 if (errorCode == 0)
@@ -227,18 +236,25 @@ namespace Fanex.NexHR.Services
                 int? lateInMins = model.Type == (short)RequestTypes.LateIn ? (int?)model.Minute : null;
                 int? earlyOutMins = model.Type == (short)RequestTypes.EarlyOut ? (int?)model.Minute : null;
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(
-                    model.EmployeeId,
-                    model.Type,
-                    false,
-                    model.Remark,
-                    DateTime.Now,
-                    model.By,
-                    out errorCode,
-                    out message,
-                    model.ForDate,
-                    lateInMins: lateInMins,
-                    earlyOutMins: earlyOutMins);
+                var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
+                {
+                    EmpId = model.EmployeeId,
+                    RequestType = model.Type,
+                    IsPlanned = false,
+                    Remark = model.Remark,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = model.By,
+                    FromDate = model.ForDate,
+                    FromShift = null,
+                    ToDate = null,
+                    ToShift = null,
+                    LeaveTypeID = null,
+                    TotalDays = null,
+                    LateInMins = lateInMins,
+                    EarlyOutMins = earlyOutMins
+                };
+
+                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
 
                 // check result
                 if (errorCode == 0)
@@ -328,19 +344,25 @@ namespace Fanex.NexHR.Services
                     return false;
                 }
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(
-                    model.EmployeeId,
-                    (short)RequestTypes.Leave,
-                    model.IsPlanned,
-                    model.Remark,
-                    DateTime.Now,
-                    model.By,
-                    out errorCode,
-                    out message,
-                    fromDate: model.FromDate,
-                    toDate: model.ToDate,
-                    totalDays: model.TotalDays,
-                    leaveTypeId: model.LeaveTypeId);
+                var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
+                {
+                    EmpId = model.EmployeeId,
+                    RequestType = (short)RequestTypes.Leave,
+                    IsPlanned = model.IsPlanned,
+                    Remark = model.Remark,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = model.By,
+                    FromDate = model.FromDate,
+                    FromShift = null,
+                    ToDate = model.ToDate,
+                    ToShift = null,
+                    LeaveTypeID = model.LeaveTypeId,
+                    TotalDays = model.TotalDays,
+                    LateInMins = null,
+                    EarlyOutMins = null
+                };
+
+                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
 
                 // check result
                 if (errorCode == 0)
@@ -438,19 +460,25 @@ namespace Fanex.NexHR.Services
             {
                 int errorCode;
                 string message;
+                var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
+                {
+                    EmpId = model.EmployeeId,
+                    RequestType = (short)RequestTypes.ChangeShift,
+                    IsPlanned = model.IsPlanned,
+                    Remark = model.Remark,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = model.By,
+                    FromDate = model.ForDate,
+                    FromShift = model.FromShift,
+                    ToDate = null,
+                    ToShift = model.ToShift,
+                    LeaveTypeID = null,
+                    TotalDays = null,
+                    LateInMins = null,
+                    EarlyOutMins = null
+                };
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(
-                    model.EmployeeId,
-                    (short)RequestTypes.ChangeShift,
-                    model.IsPlanned,
-                    model.Remark,
-                    DateTime.Now,
-                    model.By,
-                    out errorCode,
-                    out message,
-                    model.ForDate,
-                    fromShift: model.FromShift,
-                    toShift: model.ToShift);
+                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
 
                 // check result
                 if (errorCode == 0)
@@ -518,13 +546,23 @@ namespace Fanex.NexHR.Services
             {
                 model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
 
-                bool updated = this._employeeRepository.UpdateRequest(
-                    model.Id,
-                    false,
-                    null,
-                    model.EmployeeId,
-                    model.ForDate,
-                    DateTime.Now);
+                var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
+                {
+                    Id = model.Id,
+                    IsPlanned = false,
+                    Remark = model.Remark,
+                    ModifiedBy = model.EmployeeId,
+                    FromDate = model.ForDate,
+                    ModifiedDate = DateTime.Now,
+                    FromShift = null,
+                    ToDate = null,
+                    ToShift = null,
+                    LeaveTypeID = null,
+                    TotalDays = null,
+                    LateInMins = null,
+                    EarlyOutMins = null
+                };
+                bool updated = this._employeeRepository.UpdateRequest(updateWorkingTimeRequestCriteria);
 
                 if (updated)
                 {
@@ -582,15 +620,23 @@ namespace Fanex.NexHR.Services
                 int? lateInMins = model.Type == (short)RequestTypes.LateIn ? (int?)model.Minute : null;
                 int? earlyOutMins = model.Type == (short)RequestTypes.EarlyOut ? (int?)model.Minute : null;
 
-                var updated = this._employeeRepository.UpdateRequest(
-                    model.Id,
-                    false,
-                    model.Remark,
-                    model.By,
-                    model.ForDate,
-                    DateTime.Now,
-                    lateInMins: lateInMins,
-                    earlyOutMins: earlyOutMins);
+                var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
+                {
+                    Id = model.Id,
+                    IsPlanned = false,
+                    Remark = model.Remark,
+                    ModifiedBy = model.By,
+                    FromDate = model.ForDate,
+                    ModifiedDate = DateTime.Now,
+                    FromShift = null,
+                    ToDate = null,
+                    ToShift = null,
+                    LeaveTypeID = null,
+                    TotalDays = null,
+                    LateInMins = lateInMins,
+                    EarlyOutMins = earlyOutMins
+                };
+                var updated = this._employeeRepository.UpdateRequest(updateWorkingTimeRequestCriteria);
 
                 if (updated)
                 {
@@ -663,16 +709,23 @@ namespace Fanex.NexHR.Services
                     return false;
                 }
 
-                var updated = this._employeeRepository.UpdateRequest(
-                    model.Id,
-                    model.IsPlanned,
-                    model.Remark,
-                    model.EmployeeId,
-                    model.FromDate,
-                    DateTime.Now,
-                    toDate: model.ToDate,
-                    leaveTypeId: model.LeaveTypeId,
-                    totalDays: model.TotalDays);
+                var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
+                {
+                    Id = model.Id,
+                    IsPlanned = model.IsPlanned,
+                    Remark = model.Remark,
+                    ModifiedBy = model.EmployeeId,
+                    FromDate = model.FromDate,
+                    ModifiedDate = DateTime.Now,
+                    FromShift = null,
+                    ToDate = model.ToDate,
+                    ToShift = null,
+                    LeaveTypeID = model.LeaveTypeId,
+                    TotalDays = model.TotalDays,
+                    LateInMins = null,
+                    EarlyOutMins = null
+                };
+                var updated = this._employeeRepository.UpdateRequest(updateWorkingTimeRequestCriteria);
 
                 if (updated)
                 {
@@ -749,6 +802,7 @@ namespace Fanex.NexHR.Services
         /// <param name="modelState">The model state.</param>
         /// <param name="model">The model object.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
         {
             if (!modelState.IsValid)
@@ -757,15 +811,23 @@ namespace Fanex.NexHR.Services
                 return false;
             }
 
-            var updated = this._employeeRepository.UpdateRequest(
-                model.Id,
-                model.IsPlanned,
-                model.Remark,
-                model.By,
-                model.ForDate,
-                DateTime.Now,
-                fromShift: model.FromShift,
-                toShift: model.ToShift);
+            var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
+            {
+                Id = model.Id,
+                IsPlanned = model.IsPlanned,
+                Remark = model.Remark,
+                ModifiedBy = model.By,
+                FromDate = model.ForDate,
+                ModifiedDate = DateTime.Now,
+                FromShift = model.FromShift,
+                ToDate = null,
+                ToShift = model.ToShift,
+                LeaveTypeID = null,
+                TotalDays = null,
+                LateInMins = null,
+                EarlyOutMins = null
+            };
+            var updated = this._employeeRepository.UpdateRequest(updateWorkingTimeRequestCriteria);
 
             if (updated)
             {
@@ -811,7 +873,8 @@ namespace Fanex.NexHR.Services
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public bool Process(string command, long id, int processBy, out string errorMessage)
         {
-            var request = this._employeeRepository.GetWorkingTimeRequest(id);
+            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
+            var request = this._employeeRepository.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
 
             var employee = this._employeeRepository.Get(getEmployeeCriteria);

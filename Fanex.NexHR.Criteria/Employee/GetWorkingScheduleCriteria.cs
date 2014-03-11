@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetWeekWorkingCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetWorkingScheduleCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,33 +10,25 @@
 namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Get Week Working Criteria.
+    /// Get Working Schedule Criteria.
     /// </summary>
-    public class GetWeekWorkingCriteria : CriteriaBase
+    public class GetWorkingScheduleCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime ReportDate { get; set; }
 
         public override bool IsValid()
         {
-            if (Id > 0)
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public override string GetSettingKey()
         {
-            return "EmployeeCalendar_GetWeekWorking";
+            return "Report_EmployeeCalendarByMonth";
         }
     }
 }

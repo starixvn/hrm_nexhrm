@@ -140,8 +140,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.UnavailDates = listUnavailDates;
 
             ViewBag.Shifts = ShiftService.GetAll(new GetAllShiftCriteria());
-
-            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
+            var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
 
             if (!this.Editable(request.Status, request.EmpId, request.CreatedBy))
             {

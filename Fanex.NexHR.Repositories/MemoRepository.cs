@@ -85,10 +85,13 @@ namespace Fanex.NexHR.Repositories
         /// <returns>The result.</returns>
         public bool Update(UpdateMemoCriteria criteria)
         {
+            bool updated = false;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
+                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
+
+            return updated;
         }
     }
 }

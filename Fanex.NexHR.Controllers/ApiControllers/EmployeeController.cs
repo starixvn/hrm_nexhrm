@@ -71,12 +71,20 @@ namespace Fanex.NexHR.Controllers.ApiControllers
         [HttpPost]
         public bool DeleteWorkingTimeRequest(int id)
         {
-            return _employeeService.DeleteWorkingTimeRequest(id);
+            var deleteWorkingTimeRequestCriteria = new DeleteWorkingTimeRequestCriteria() { Id = id };
+            bool deleted = _employeeService.DeleteWorkingTimeRequest(deleteWorkingTimeRequestCriteria);
+            return deleted;
         }
 
         public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
         {
-            return _employeeService.GetWorkingSchedule(date, id);
+            var workingScheduleCriteria = new GetWorkingScheduleCriteria
+            {
+                ReportDate = date,
+                EmployeeId = id
+            };
+
+            return _employeeService.GetWorkingSchedule(workingScheduleCriteria);
         }
 
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)

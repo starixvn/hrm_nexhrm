@@ -266,9 +266,26 @@ namespace Fanex.NexHR.Controllers
             return string.Empty;
         }
 
+        /// <summary>
+        /// Update Shift.
+        /// </summary>
+        /// <param name="id">Employee id.</param>
+        /// <param name="date">Date time.</param>
+        /// <param name="shift">Shift's id.</param>
+        /// <returns>Boolean to check.</returns>
         public bool UpdateShift(int id, DateTime date, int? shift)
         {
-            return _employeeService.UpdateShift(id, date, shift, this.CurrentUser.Id, DateTime.Now);
+            var updateShiftCriteria = new UpdateShiftCriteria
+            {
+                EmpId = id,
+                Date = date,
+                ShiftID = shift,
+                ModifiedBy = this.CurrentUser.Id,
+                ModifiedDate = DateTime.Now.Date
+            };
+            bool updated = _employeeService.UpdateShift(updateShiftCriteria);
+
+            return updated;
         }
 
         [Authorize(Roles = "HR")]

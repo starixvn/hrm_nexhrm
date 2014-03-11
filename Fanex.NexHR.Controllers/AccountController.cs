@@ -9,6 +9,7 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Employee;
@@ -53,16 +54,18 @@ namespace Fanex.NexHR.Controllers
         {
             var model = this.CurrentUser;
             int empId = this.CurrentUser.Id;
-            var criteria = new GetTOEICScoreByEmployeeIdCriteria()
-            {
-                EmpId = empId
-            };
+            var criteria = new GetTOEICScoreByEmployeeIdCriteria() { EmpId = empId };
 
             ViewBag.JobTitle = model.JobTitleId == null
             ? Resources.Labels.Unknown
             : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
-            ViewBag.Working = _employeeService.GetMySpace(empId);
+            var getMySpaceCriteria = new GetMySpaceCriteria()
+            {
+                EmpId = empId,
+                Date = DateTime.Now.Date
+            };
+            ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
             var employeeShiftCriteria = new GetEmployeeShift() { Id = empId };
             var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
             var shifts = _shiftService.GetAll(new GetAllShiftCriteria());

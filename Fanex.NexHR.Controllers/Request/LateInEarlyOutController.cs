@@ -120,7 +120,8 @@ namespace Fanex.NexHR.Controllers.Request
             var listUnavailDates = EmployeeService.GetDisableRequestDate(this.CurrentUser.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(1));
             ViewBag.UnavailDates = listUnavailDates;
 
-            var request = EmployeeService.GetWorkingTimeRequest(id);
+            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
+            var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
             var employee = EmployeeService.Get(getEmployeeCriteria);
             int minute = request.RequestType == (short)RequestTypes.LateIn

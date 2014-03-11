@@ -39,25 +39,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateEmployeeShift(ICriteria criteria);
 
-        bool UpdateWeekWorking(EmployeeShift model, DateTime date);
-
-        long WorkingTimeRequest(
-            int empId,
-            short requestType,
-            bool isPlanned,
-            string remark,
-            DateTime createdDate,
-            int createdBy,
-            out int errorCode,
-            out string message,
-            DateTime fromDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null);
+        long WorkingTimeRequest(ICriteria criteria, out int errorCode, out string message);
 
         int ProcessRequest(
             Commands command,
@@ -66,36 +48,21 @@ namespace Fanex.NexHR.Repositories.Interfaces
             DateTime processedDate,
             out string message);
 
-        bool UpdateRequest(
-            long requestId,
-            bool isPlanned,
-            string remark,
-            int modifiedby,
-            DateTime fromDate,
-            DateTime modifiedDate,
-            int? fromShift = null,
-            DateTime? toDate = null,
-            int? toShift = null,
-            int? leaveTypeId = null,
-            decimal? totalDays = null,
-            int? lateInMins = null,
-            int? earlyOutMins = null);
+        bool UpdateRequest(ICriteria criteria);
 
-        MySpaceViewModel GetMySpace(int id);
+        MySpaceViewModel GetMySpace(ICriteria criteria);
 
-        HrLeaderDashboardModel GetHrLeaderDashboard(DateTime date, int? employeeId = null);
+        HrLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria);
 
-        IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id);
+        IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
-        IList<WorkingCalendarsViewModel> GetWorkingCalendars(string date);
+        IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria);
 
-        IList<WorkingTimeRequest> GetWorkingTimeRequests(int id, int? requestType = null, byte? status = null);
+        WorkingTimeRequest GetWorkingTimeRequest(ICriteria criteria);
 
-        WorkingTimeRequest GetWorkingTimeRequest(long workingTimeId);
+        bool DeleteWorkingTimeRequest(ICriteria criteria);
 
-        bool DeleteWorkingTimeRequest(int id);
-
-        bool UpdateShift(int id, DateTime date, int? shift, int modifiedBy, DateTime modifiedDate);
+        bool UpdateShift(ICriteria criteria);
 
         IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria);
 
