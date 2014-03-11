@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Controllers
@@ -18,6 +19,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
+    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -167,10 +169,14 @@ namespace Fanex.NexHR.Controllers
                 int lastYear = DateTime.Now.AddYears(-1).Year;
                 DateTime date = new DateTime(lastYear, 12, 31);
 
-                IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(
-                    lastYear,
-                    empId: null,
-                    groupId: null);
+                var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
+                {
+                    EmployeeId = null,
+                    GroupId = null,
+                    Year = lastYear
+                };
+
+                IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
 
                 entityList = entityList.Where(m => m.LeaveBalance > minbalance).ToList();
 

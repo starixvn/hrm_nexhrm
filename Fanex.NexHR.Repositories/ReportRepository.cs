@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -15,6 +16,7 @@ namespace Fanex.NexHR.Repositories
     using System.Linq;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -27,49 +29,28 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee attendance report.
         /// </summary>
-        /// <param name="fromTime">The from time.</param>
-        /// <param name="toTime">The to time.</param>
-        /// <param name="type">The employee type.</param>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="excludeUserDelete">Exclude user delete or not.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee attendance model.</returns>
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(
-            DateTime fromTime,
-            DateTime toTime,
-            short type,
-            int? empId = null,
-            int? groupId = null,
-            int? excludeUserDelete = 1)
-        {
-            using (var db = new ObjectDb("EmployeeAttendance_GetByType"))
+        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
+        { 
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<EmployeeAttendanceModel>(
-                    new { fromTime, toTime, type, empId, groupId, excludeUserDelete }).ToList();
+                return db.Query<EmployeeAttendanceModel>(criteria.GetSpParams()).ToList();
             }
         }
 
         /// <summary>
         /// Get request monitoring.
         /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="maxRequest">The max request.</param>
-        /// <param name="role">The user role.</param>
-        /// <param name="employeeID">The employee ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of request monitoring.</returns>
-        public IList<RequestsMonitoring> GetRequestMonitoring(
-            DateTime fromDate, 
-            DateTime toDate, 
-            int maxRequest, 
-            int role, 
-            int employeeID)
+        public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
         {
-            using (var db = new ObjectDb("RequestMonitoring"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entityList = new List<RequestsMonitoring>();
 
-                using (IDataReader reader = db.ExecuteReader(new { fromDate, toDate, maxRequest, role, employeeID }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -102,18 +83,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get working hour list.
         /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of working hours.</returns>
-        public IList<TotalWorkingHours> GetWorkingHoursList(DateTime fromDate, DateTime toDate, int? empId, int? groupId)
+        public IList<TotalWorkingHours> GetWorkingHoursList(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Report_WorkingHoursSummary"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entityList = new List<TotalWorkingHours>();
 
-                using (IDataReader reader = db.ExecuteReader(new { fromDate, toDate, empId, groupId }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -151,17 +129,15 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get annual leave balance report.
         /// </summary>
-        /// <param name="year">The year value.</param>
-        /// <param name="empId">The employee ID.</param>
-        /// <param name="groupId">The group ID.</param>
+        /// <param name="criteria">The criteria.</param>
         /// <returns>List of leave summary.</returns>
-        public IList<LeaveSummary> GetAnnualLeaveBalanceReport(int year, int? empId, int? groupId)
+        public IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Report_LeaveSummary"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entityList = new List<LeaveSummary>();
 
-                using (IDataReader reader = db.ExecuteReader(new { empId, groupId, year }))
+                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {

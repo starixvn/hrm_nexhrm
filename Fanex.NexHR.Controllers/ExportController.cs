@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Controllers
@@ -13,6 +14,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
@@ -49,11 +51,15 @@ namespace Fanex.NexHR.Controllers
 
             string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xls";
 
-            IList<TotalWorkingHours> listTotalWorkingHours = _reportRepository.GetWorkingHoursList(
-                model.FromDate,
-                model.ToDate,
-                empId: (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
-                groupId: model.TeamId);
+            var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                EmployeeId = (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId
+            };
+
+            IList<TotalWorkingHours> listTotalWorkingHours = _reportRepository.GetWorkingHoursList(getWorkingHoursCriteria);
 
             _reportService.ExportTotalWorkingHours(hssfworkbook, listTotalWorkingHours, model.FromDate, model.ToDate);
 

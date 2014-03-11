@@ -113,6 +113,10 @@
     <Compile Include="Memo\InsertMemoCriteria.cs" />
     <Compile Include="Memo\UpdateMemoCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\GetAnnualLeaveSummaryReportCriteria.cs" />
+    <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
+    <Compile Include="Report\GetRequestMonitorReportCriteria.cs" />
+    <Compile Include="Report\GetTotalWorkingHoursSummaryCriteria.cs" />
     <Compile Include="Shift\GetAllShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />

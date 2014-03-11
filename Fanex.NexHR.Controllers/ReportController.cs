@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 namespace Fanex.NexHR.Controllers
 {
@@ -12,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -126,7 +128,16 @@ namespace Fanex.NexHR.Controllers
                 if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.HR).ToString()) > -1
                     || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
                 {
-                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(model.FromDate, model.ToDate, model.MaxRequest, (int)RolesEnum.HR, this.CurrentUser.Id);
+                    var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
+                    {
+                        FromDate = model.FromDate,
+                        ToDate = model.ToDate,
+                        MaxRequest = model.MaxRequest,
+                        Role = (int)RolesEnum.HR,
+                        EmployeeId = this.CurrentUser.Id
+                    };
+
+                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
@@ -176,12 +187,16 @@ namespace Fanex.NexHR.Controllers
                     || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.Leader).ToString()) > -1
                     || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
                 {
-                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(
-                        model.FromDate, 
-                        model.ToDate, 
-                        model.MaxRequest, 
-                        (int)RolesEnum.AssistantLeader, 
-                        this.CurrentUser.Id);
+                    var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
+                    {
+                        FromDate = model.FromDate,
+                        ToDate = model.ToDate,
+                        MaxRequest = model.MaxRequest,
+                        Role = (int)RolesEnum.AssistantLeader,
+                        EmployeeId = this.CurrentUser.Id
+                    };
+
+                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
@@ -226,11 +241,15 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
-            var totalWorkingHours = _reportRepository.GetWorkingHoursList(
-                model.FromDate,
-                model.ToDate,
-                empId: (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
-                groupId: model.TeamId);
+            var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                EmployeeId = (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId
+            };
+
+            var totalWorkingHours = _reportRepository.GetWorkingHoursList(getWorkingHoursCriteria);
 
             ViewBag.EntityList = totalWorkingHours;
 
@@ -263,10 +282,13 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(
-                model.Year,
-                empId: model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
-                groupId: model.TeamId);
+            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
+            {
+                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId,
+                Year = model.Year
+            };
+            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
 
             IList<Team> teams = new List<Team>();
 
