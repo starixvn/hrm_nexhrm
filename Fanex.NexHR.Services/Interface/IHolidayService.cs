@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Services.Interface

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetMissingCheckInOutEmployeesCriteria.cs" company="JNexel SolutionsViet Nam">
-// TODO: Update copyright text.
+// <copyright file="GetMissingCheckInOutEmployeesCriteria.cs" company="Nexel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
