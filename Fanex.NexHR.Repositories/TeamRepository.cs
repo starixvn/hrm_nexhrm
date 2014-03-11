@@ -35,8 +35,6 @@ namespace Fanex.NexHR.Repositories
         public Team Get(ICriteria criteria)
         {
             var team = new Team();
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entity = db.QueryEntity<Team, Employee, Employee, Team>(
@@ -59,8 +57,6 @@ namespace Fanex.NexHR.Repositories
         /// <returns>List of Team Entity.</returns>
         public IList<Team> GetAll(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (IDataReader reader = db.ExecuteReader())
@@ -88,8 +84,6 @@ namespace Fanex.NexHR.Repositories
         public bool UpdateTeam(ICriteria criteria)
         {
             bool updated = false;
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
@@ -106,8 +100,6 @@ namespace Fanex.NexHR.Repositories
         public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
         {
             var entityList = new List<Team>();
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
@@ -124,8 +116,6 @@ namespace Fanex.NexHR.Repositories
         public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
         {
             var entityList = new List<Team>();
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
@@ -142,8 +132,6 @@ namespace Fanex.NexHR.Repositories
         public int AddNewTeam(ICriteria criteria)
         {
             int status = -1;
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 status = (int)db.ExecuteScalar(criteria.GetSpParams());
@@ -163,8 +151,6 @@ namespace Fanex.NexHR.Repositories
         {
             message = string.Empty;
             errorCode = 0;
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 db.ExecuteScalar(criteria.GetSpParams());
@@ -187,8 +173,6 @@ namespace Fanex.NexHR.Repositories
         public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
         {
             var entityList = new List<Team>();
-            Check.Argument.IsNotNull(criteria, "criteria");
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 entityList = db.Query<Team>(criteria.GetSpParams()).ToList();

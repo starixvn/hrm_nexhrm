@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Kan.Nguyen" date="2013.05.31">Created</change>
+//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -29,7 +30,6 @@ namespace Fanex.NexHR.Repositories
         public TOEIC GetById(ICriteria criteria)
         {
             TOEIC toeic = new TOEIC();
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
@@ -48,7 +48,6 @@ namespace Fanex.NexHR.Repositories
         /// <returns>Effected row.</returns>
         public int Update(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             int updated = 0;
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {

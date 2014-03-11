@@ -11,7 +11,7 @@
 namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -37,6 +37,7 @@ namespace Fanex.NexHR.Services
         /// <returns>Team entity.</returns>
         public Team Get(GetTeamByIdCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             Team team = new Team();
             if (criteria.IsValid())
             {
@@ -53,6 +54,7 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team Entity.</returns>
         public IList<Team> GetAll(GetAllTeamCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> allTeam = new List<Team>();
             if (criteria.IsValid())
             {
@@ -69,6 +71,7 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team.</returns>
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> listTeam = new List<Team>();
             if (criteria.IsValid())
             {
@@ -85,6 +88,7 @@ namespace Fanex.NexHR.Services
         /// <returns>List of Team.</returns>
         public IList<Team> GetSubTeamsOfEmployee(GetSubTeamOfEmployeeCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> listSubTeam = new List<Team>();
             if (criteria.IsValid())
             {
@@ -101,6 +105,7 @@ namespace Fanex.NexHR.Services
         /// <returns>Value to check.</returns>
         public int AddNewTeam(AddNewTeamCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             int status = -1;
             if (criteria.IsValid())
             {
@@ -117,6 +122,7 @@ namespace Fanex.NexHR.Services
         /// <returns>Boolean to check.</returns>
         public bool UpdateTeam(UpdateTeamCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             bool updated = false;
             if (criteria.IsValid())
             {
@@ -135,6 +141,7 @@ namespace Fanex.NexHR.Services
         /// <returns>The result.</returns>
         public bool DeleteTeam(DeleteTeamCriteria criteria, out int errCode, out string message)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             bool deleted = false;
             errCode = 0;
             message = string.Empty;
@@ -153,6 +160,7 @@ namespace Fanex.NexHR.Services
         /// <returns>List of team.</returns>
         public IList<Team> GetTeamsHandleRequestsOfEmployee(GetTeamHandleRequestOfEmployee criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> teamHandleRequest = new List<Team>();
             if (criteria.IsValid())
             {

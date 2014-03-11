@@ -10,7 +10,7 @@
 
 namespace Fanex.NexHR.Services
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.TOEIC;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -36,6 +36,7 @@ namespace Fanex.NexHR.Services
         /// <returns>TOEIC object.</returns>
         public TOEIC GetById(GetTOEICScoreByEmployeeIdCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             var toeic = new TOEIC();
             if (criteria.IsValid())
             {
@@ -52,6 +53,7 @@ namespace Fanex.NexHR.Services
         /// <returns>Effected row.</returns>
         public int UpdateToeicScore(UpdateTOEICScoreCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             int updated = -1;
             if (criteria.IsValid())
             {
@@ -68,6 +70,7 @@ namespace Fanex.NexHR.Services
         /// <returns>Effected row.</returns>
         public int UpdateFullToeicScore(UpdateFullTOEICScoreCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
             int updated = -1;
             if (criteria.IsValid())
             {
