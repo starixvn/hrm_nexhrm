@@ -62,6 +62,7 @@
     <Compile Include="Employee\GetChangeShiftRequestCriteria.cs" />
     <Compile Include="Employee\GetCheckInOutRequestByDateCriteria.cs" />
     <Compile Include="Employee\GetCheckInOutRequestCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
     <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeTOEICScoreCriteria.cs" />

@@ -41,7 +41,7 @@ namespace Fanex.NexHR.Services.Interface
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of LookupData Entity.</returns>
-        public IList<LookupData> GetAll(ICriteria criteria)
+        public IList<LookupData> GetAll(GetAllLookupDataCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<LookupData> lookupDataList = new List<LookupData>();
@@ -72,7 +72,7 @@ namespace Fanex.NexHR.Services.Interface
             return lookupData;
         }
 
-        public IList<LookupData> GetJobTitle(ICriteria criteria)
+        public IList<LookupData> GetJobTitle(GetLookupDataJobTitleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<LookupData> lookUpDataList = new List<LookupData>();
@@ -89,7 +89,7 @@ namespace Fanex.NexHR.Services.Interface
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Boolean to check.</returns>
-        public bool Delete(ICriteria criteria)
+        public bool Delete(DeleteLookupDataCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool check = false;
@@ -111,7 +111,7 @@ namespace Fanex.NexHR.Services.Interface
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Boolean to check.</returns>
-        public bool Insert(ICriteria criteria)
+        public bool Insert(InsertLookupDataCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool check = false;
@@ -133,7 +133,7 @@ namespace Fanex.NexHR.Services.Interface
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Boolean to check.</returns>
-        public bool Update(ICriteria criteria)
+        public bool Update(UpdateLookupDataCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool check = false;

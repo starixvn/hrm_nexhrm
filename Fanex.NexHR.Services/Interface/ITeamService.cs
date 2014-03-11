@@ -5,32 +5,32 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Services.Interface
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels;
 
     public interface ITeamService
     {
-        Team Get(ICriteria criteria);
+        Team Get(GetTeamByIdCriteria criteria);
 
-        IList<Team> GetAll(ICriteria criteria);
+        IList<Team> GetAll(GetAllTeamCriteria criteria);
 
-        IList<Team> GetTeamManagedByEmp(ICriteria criteria);
+        IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria);
 
-        IList<Team> GetSubTeamsOfEmployee(ICriteria criteria);
+        IList<Team> GetSubTeamsOfEmployee(GetSubTeamOfEmployeeCriteria criteria);
 
-        IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria);
+        IList<Team> GetTeamsHandleRequestsOfEmployee(GetTeamHandleRequestOfEmployee criteria);
 
-        int AddNewTeam(ICriteria criteria);
+        int AddNewTeam(AddNewTeamCriteria criteria);
 
-        bool UpdateTeam(ICriteria criteria);
+        bool UpdateTeam(UpdateTeamCriteria criteria);
 
-        bool DeleteTeam(ICriteria criteria, out int errCode, out string message);
+        bool DeleteTeam(DeleteTeamCriteria criteria, out int errCode, out string message);
     }
 }

@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
+//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 namespace Fanex.NexHR.Services
 {
@@ -44,7 +45,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">GetAllShiftCriteria criteria.</param>
         /// <returns>List of Shift.</returns>
-        public IList<Shift> GetAll(ICriteria criteria)
+        public IList<Shift> GetAll(GetAllShiftCriteria criteria)
         {
             var allShifts = this._cacheManager.Get<IList<Shift>>(_CacheKeyAllShift);
             if (allShifts == null || allShifts.Count <= 0)
@@ -96,7 +97,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The shift object.</returns>
-        public Shift GetByDate(ICriteria criteria)
+        public Shift GetByDate(GetShiftByDateCriteria criteria)
         {
             Shift shift = new Shift();
             if (criteria.IsValid())

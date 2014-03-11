@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -39,7 +40,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of memo.</returns>
-        public IList<Memo> GetAll(ICriteria criteria)
+        public IList<Memo> GetAll(GetAllMemoCriteria criteria)
         {
             IList<Memo> entityList = null;
             if (criteria.IsValid())
@@ -55,7 +56,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The memo object.</returns>
-        public Memo GetById(ICriteria criteria)
+        public Memo GetById(GetMemoByIdCriteria criteria)
         {
             Memo memo = null;
             if (criteria.IsValid())
@@ -81,7 +82,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Delete(ICriteria criteria)
+        public bool Delete(DeleteMemoCriteria criteria)
         {
             bool result = false;
             if (criteria.IsValid())

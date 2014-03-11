@@ -44,7 +44,7 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Update new TOEIC score.
         /// </summary>
-        /// <param name="criteria">UpdateFullTOEICScore Criteria.</param>
+        /// <param name="criteria">Update TOEIC Score Criteria.</param>
         /// <returns>Effected row.</returns>
         public int Update(ICriteria criteria)
         {

@@ -5,12 +5,14 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Bradley.Mac" date="2014.3.6">Apply Nap Framwork</change>
 // </history>
 
 namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -33,7 +35,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Team entity.</returns>
-        public Team Get(ICriteria criteria)
+        public Team Get(GetTeamByIdCriteria criteria)
         {
             Team team = new Team();
             if (criteria.IsValid())
@@ -49,7 +51,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of Team Entity.</returns>
-        public IList<Team> GetAll(ICriteria criteria)
+        public IList<Team> GetAll(GetAllTeamCriteria criteria)
         {
             IList<Team> allTeam = new List<Team>();
             if (criteria.IsValid())
@@ -65,7 +67,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of Team.</returns>
-        public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
+        public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
             IList<Team> listTeam = new List<Team>();
             if (criteria.IsValid())
@@ -81,7 +83,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of Team.</returns>
-        public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
+        public IList<Team> GetSubTeamsOfEmployee(GetSubTeamOfEmployeeCriteria criteria)
         {
             IList<Team> listSubTeam = new List<Team>();
             if (criteria.IsValid())
@@ -97,7 +99,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to Insert.</param>
         /// <returns>Value to check.</returns>
-        public int AddNewTeam(ICriteria criteria)
+        public int AddNewTeam(AddNewTeamCriteria criteria)
         {
             int status = -1;
             if (criteria.IsValid())
@@ -113,7 +115,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Boolean to check.</returns>
-        public bool UpdateTeam(ICriteria criteria)
+        public bool UpdateTeam(UpdateTeamCriteria criteria)
         {
             bool updated = false;
             if (criteria.IsValid())
@@ -131,7 +133,7 @@ namespace Fanex.NexHR.Services
         /// <param name="errCode">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
-        public bool DeleteTeam(ICriteria criteria, out int errCode, out string message)
+        public bool DeleteTeam(DeleteTeamCriteria criteria, out int errCode, out string message)
         {
             bool deleted = false;
             errCode = 0;
@@ -149,7 +151,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of team.</returns>
-        public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
+        public IList<Team> GetTeamsHandleRequestsOfEmployee(GetTeamHandleRequestOfEmployee criteria)
         {
             IList<Team> teamHandleRequest = new List<Team>();
             if (criteria.IsValid())

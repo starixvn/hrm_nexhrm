@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Bradley.Mac" date="2014.3.6">Apply Nap Framwork</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -38,35 +39,17 @@ namespace Fanex.NexHR.Repositories
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    while (reader.Read())
+                var entity = db.QueryEntity<Team, Employee, Employee, Team>(
+                    (t, x, y) =>
                     {
-                        team = new Team
-                        {
-                            Id = reader.ToInt("Id"),
-                            Code = reader.ToString("Code"),
-                            Name = reader.ToString("Name"),
-                            CreatedDate = reader.ToDateTime("CreatedDate"),
-                            ModifiedDate = reader.ToDateTime("ModifiedDate"),
-                            Leader = new Employee
-                            {
-                                NickName = reader.ToString("LeaderNickName"),
-                                FullName = reader.ToString("LeaderFullName"),
-                                Id = reader.ToInt("LeaderId"),
-                            },
-                            AssistantLeader = new Employee
-                            {
-                                NickName = reader.ToString("AssistantLeaderNickName"),
-                                FullName = reader.ToString("AssistantLeaderFullName"),
-                                Id = reader.ToInt("AssistantLeaderId")
-                            }
-                        };
-                    }
-                }
+                        t.Leader = x;
+                        t.AssistantLeader = y;
+                        return t;
+                    },
+                    "LeaderId, AssistantLeaderId", 
+                    criteria.GetSpParams());
+                return entity;
             }
-
-            return team;
         }
 
         /// <summary>
@@ -77,42 +60,24 @@ namespace Fanex.NexHR.Repositories
         public IList<Team> GetAll(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> entityList = new List<Team>();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (IDataReader reader = db.ExecuteReader())
                 {
-                    if (reader != null)
+                    var entity = db.Query<Team, Employee, Employee, Team>(
+                    (t, x, y) =>
                     {
-                        while (reader.Read())
-                        {
-                            var entity = new Team
-                            {
-                                Id = reader.ToInt("Id"),
-                                Code = reader.ToString("Code"),
-                                Name = reader.ToString("Name"),
-                                Leader = new Employee
-                                {
-                                    NickName = reader.ToString("LeaderNickName"),
-                                    FullName = reader.ToString("LeaderFullName"),
-                                    Id = reader.ToInt("LeaderId"),
-                                },
-                                AssistantLeader = new Employee
-                                {
-                                    NickName = reader.To<string>("AssistantLeaderNickName"),
-                                    FullName = reader.To<string>("AssistantLeaderFullName"),
-                                    Id = reader.To<int>("AssistantLeaderId")
-                                }
-                            };
+                        t.Leader = x;
+                        t.AssistantLeader = y;
+                        return t;
+                    },
+                    "LeaderId, AssistantLeaderId",
+                    criteria.GetSpParams());
 
-                            entityList.Add(entity);
-                        }
-                    }
+                    return entity.ToList();
                 }
             }
-
-            return entityList;
         }
 
         /// <summary>

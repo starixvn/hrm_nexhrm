@@ -6,6 +6,7 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.23">Created</change>
 //   <change who="Anders.Le" date="2012.5.23">Modify Get function</change>
+//   <change who="Bradley.Mac" date="2014.3.7">Apply Nap Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -95,15 +96,13 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Get employee by teams.
         /// </summary>
-        /// <param name="employeeId">The employee ID.</param>
-        /// <param name="teamCodes">The team code.</param>
-        /// <param name="ignoreTeams">List of ignored team.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of employee.</returns>
-        public IList<Employee> GetEmployeeByTeams(int employeeId, string teamCodes, string ignoreTeams)
+        public IList<Employee> GetEmployeeByTeams(ICriteria criteria)
         {
-            using (var db = new ObjectDb("Employee_GetEmployeeByTeams"))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee>(new { employeeId = employeeId, teamCodes = teamCodes, ignoreTeams = ignoreTeams }).ToList();
+                var entityList = db.Query<Employee>(criteria.GetSpParams()).ToList();
 
                 return entityList;
             }
@@ -184,30 +183,6 @@ namespace Fanex.NexHR.Repositories
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Update week working.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <param name="date">The date value.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateWeekWorking(EmployeeShift model, DateTime date)
-        {
-            using (var db = new ObjectDb("EmployeeCalendar_UpdateWeekWorking"))
-            {
-                db.AddInParameter("@id", DbType.Int32, model.EmpID);
-                db.AddInParameter("@date", DbType.DateTime, date);
-                db.AddInParameter("@monShift", DbType.Int32, model.MonShift);
-                db.AddInParameter("@tueShift", DbType.Int32, model.TueShift);
-                db.AddInParameter("@wedShift", DbType.Int32, model.WedShift);
-                db.AddInParameter("@thuShift", DbType.Int32, model.ThuShift);
-                db.AddInParameter("@friShift", DbType.Int32, model.FriShift);
-                db.AddInParameter("@satShift", DbType.Int32, model.SatShift);
-                db.AddInParameter("@sunShift", DbType.Int32, model.SunShift);
-
-                return db.ExecuteNonQuery() != 0;
             }
         }
 

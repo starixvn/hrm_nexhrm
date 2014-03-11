@@ -43,6 +43,8 @@
         @{int index = 1;}
         @foreach (Team team in Model)
         {
+            string assistantLeaderFullName = team.AssistantLeader != null ? team.AssistantLeader.FullName : string.Empty;
+            string assistantLeaderNickName = team.AssistantLeader != null ? team.AssistantLeader.NickName : string.Empty;
             <tr id="row@(team.Id)">
                 <td>@(index++)
                 </td>
@@ -52,7 +54,7 @@
                 </td>
                 <td class="tooltip" title="@team.Leader.FullName">@team.Leader.NickName
                 </td>
-                <td class="tooltip" title="@team.AssistantLeader.FullName">@team.AssistantLeader.NickName
+                <td class="tooltip" title="@assistantLeaderFullName">@assistantLeaderNickName
                 </td>
 
                 <td class="cmd">

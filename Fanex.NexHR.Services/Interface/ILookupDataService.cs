@@ -11,20 +11,21 @@ namespace Fanex.NexHR.Services.Interface
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Models;
 
     public interface ILookupDataService
     {
         LookupData Get(string lookupCode, int lookupId);
 
-        IList<LookupData> GetAll(ICriteria criteria);
+        IList<LookupData> GetAll(GetAllLookupDataCriteria criteria);
 
-        IList<LookupData> GetJobTitle(ICriteria criteria);
+        IList<LookupData> GetJobTitle(GetLookupDataJobTitleCriteria criteria);
 
-        bool Delete(ICriteria criteria);
+        bool Delete(DeleteLookupDataCriteria criteria);
 
-        bool Insert(ICriteria criteria);
+        bool Insert(InsertLookupDataCriteria criteria);
 
-        bool Update(ICriteria criteria);
+        bool Update(UpdateLookupDataCriteria criteria);
     }
 }

@@ -766,7 +766,7 @@ namespace Fanex.NexHR.Controllers
                         Writing = model.Writing
                     };
 
-                    effectedRow = _toeicService.Update(toeicCriteria);
+                    effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
                 }
             }
 
@@ -833,7 +833,7 @@ namespace Fanex.NexHR.Controllers
                         ModifiedBy = CurrentUser.Id,
                         ModifiedDate = currentDate
                     };
-                    effectedRow = _toeicService.Update(toeicScoreCriteria);
+                    effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
                 }
             }
 

@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
 namespace Fanex.NexHR.Repositories
@@ -70,7 +71,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public int Insert(InsertMemoCriteria criteria)
+        public int Insert(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -83,7 +84,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
-        public bool Update(UpdateMemoCriteria criteria)
+        public bool Update(ICriteria criteria)
         {
             bool updated = false;
             using (var db = new ObjectDb(criteria.GetSettingKey()))

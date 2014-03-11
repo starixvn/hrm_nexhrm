@@ -26,7 +26,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria);
 
-        IList<Employee> GetEmployeeByTeams(int employeeId, string teamCodes, string ignoreTeams);
+        IList<Employee> GetEmployeeByTeams(ICriteria criteria);
 
         IList<Employee> GetLeaders(ICriteria criteria);
 
