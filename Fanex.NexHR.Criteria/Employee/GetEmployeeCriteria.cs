@@ -9,10 +9,6 @@
 
 namespace Fanex.NexHR.Criteria.Employee
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

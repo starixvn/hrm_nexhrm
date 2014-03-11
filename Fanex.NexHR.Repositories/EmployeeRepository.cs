@@ -189,55 +189,14 @@ namespace Fanex.NexHR.Repositories
         /// <summary>
         /// Process request.
         /// </summary>
-        /// <param name="command">The command.</param>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="processedBy">Processed by.</param>
-        /// <param name="processedDate">Processed date.</param>
+        /// <param name="criteria">Criteria to query DB.</param>
         /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
-        public int ProcessRequest(
-            Commands command,
-            long requestId,
-            int processedBy,
-            DateTime processedDate,
-            out string message)
+        public int ProcessRequest(ICriteria criteria, out string message)
         {
-            string key = string.Empty;
-            string processedByKey = string.Empty;
-            string processedDateKey = string.Empty;
-
-            switch (command)
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                case Commands.Approve:
-                    key = "WorkingTimeRequest_ApproveRequest";
-                    processedByKey = "@ApprovedBy";
-                    processedDateKey = "@ApprovedDate";
-                    break;
-
-                case Commands.Disapprove:
-                    key = "WorkingTimeRequest_DisapproveRequest";
-                    processedByKey = "@ModifiedBy";
-                    processedDateKey = "@ModifiedDate";
-                    break;
-
-                case Commands.Reject:
-                    key = "WorkingTimeRequest_RejectRequest";
-                    processedByKey = "@ProcessedBy";
-                    processedDateKey = "@ProcessedDate";
-                    break;
-            }
-
-            using (var db = new ObjectDb(key))
-            {
-                db.AddInParameter("@RequestID", DbType.Int64, requestId);
-
-                db.AddInParameter(processedByKey, DbType.Int32, processedBy);
-                db.AddInParameter(processedDateKey, DbType.DateTime, processedDate);
-
-                db.AddOutParameter("@ErrCode", DbType.Int32, 8);
-                db.AddOutParameter("@ErrMsg", DbType.String, 200);
-
-                db.ExecuteNonQuery();
+                db.ExecuteNonQuery(criteria.GetSpParams());
                 message = db.GetParameterValue("ErrMsg") as string;
 
                 return (int)db.GetParameterValue("ErrCode");

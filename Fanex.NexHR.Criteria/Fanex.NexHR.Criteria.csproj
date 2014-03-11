@@ -118,6 +118,9 @@
     <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
     <Compile Include="Report\GetRequestMonitorReportCriteria.cs" />
     <Compile Include="Report\GetTotalWorkingHoursSummaryCriteria.cs" />
+    <Compile Include="Request\ApproveRequestCriteria.cs" />
+    <Compile Include="Request\DisapproveRequestCriteria.cs" />
+    <Compile Include="Request\RejectRequestCriteria.cs" />
     <Compile Include="Shift\GetAllShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />
@@ -132,9 +135,7 @@
     <Compile Include="TOEIC\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="TOEIC\UpdateTOEICScoreCriteria.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Request\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
