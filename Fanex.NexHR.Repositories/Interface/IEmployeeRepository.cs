@@ -43,12 +43,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         long WorkingTimeRequest(ICriteria criteria, out int errorCode, out string message);
 
-        int ProcessRequest(
-            Commands command,
-            long requestId,
-            int processedBy,
-            DateTime processedDate,
-            out string message);
+        int ProcessRequest(ICriteria criteria, out string message);
 
         bool UpdateRequest(ICriteria criteria);
 

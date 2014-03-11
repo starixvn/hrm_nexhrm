@@ -18,9 +18,11 @@ namespace Fanex.NexHR.Services
     using System.Text;
     using System.Web;
     using System.Web.Mvc;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -881,29 +883,50 @@ namespace Fanex.NexHR.Services
             var employee = this._employeeRepository.Get(getEmployeeCriteria);
             getEmployeeCriteria.Id = processBy;
             var processUser = this._employeeRepository.Get(getEmployeeCriteria);
+            ICriteria processRequestCriteria;
 
             Commands processCommand;
             switch (command)
             {
-                case "Approve":
-                    processCommand = Commands.Approve;
-                    break;
-
                 case "Disapprove":
+                    var disapproveRequestCriteria = new DisapproveRequestCriteria
+                    {
+                        RequestID = id,
+                        ModifiedBy = processBy,
+                        ModifiedDate = DateTime.Now.Date
+                    };
+                    processRequestCriteria = disapproveRequestCriteria;
                     processCommand = Commands.Disapprove;
+
                     break;
 
                 case "Reject":
+                    var rejectRequestCriteria = new RejectRequestCriteria
+                    {
+                        RequestID = id,
+                        ProcessedBy = processBy,
+                        ProcessedDate = DateTime.Now.Date
+                    };
+                    processRequestCriteria = rejectRequestCriteria;
                     processCommand = Commands.Reject;
+
                     break;
 
                 default:
+                    var approveRequestCriteria = new ApproveRequestCriteria
+                    {
+                        RequestID = id,
+                        ApprovedBy = processBy,
+                        ApprovedDate = DateTime.Now.Date
+                    };
+                    processRequestCriteria = approveRequestCriteria;
                     processCommand = Commands.Approve;
+
                     break;
             }
 
             string message;
-            int code = this._employeeRepository.ProcessRequest(processCommand, id, processBy, DateTime.Now, out message);
+            int code = this._employeeRepository.ProcessRequest(processRequestCriteria, out message);
 
             if (code == 0)
             {
