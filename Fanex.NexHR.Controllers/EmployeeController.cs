@@ -450,24 +450,18 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
-        public ActionResult MyDashboard()
-        {
-            var getMySpaceCriteria = new GetMySpaceCriteria()
-            {
-                EmpId = this.CurrentUser.Id,
-                Date = DateTime.Now.Date
-            };
-            var model = _employeeService.GetMySpace(getMySpaceCriteria);
-            ViewBag.HasBirthdayOrFirstWorkingday = false;
-            return View("MySpace", model);
-        }
+        ////public ActionResult MyDashboard()
+        ////{
+        ////    var model = _employeeService.GetMySpace(this.CurrentUser.Id);
+        ////    ViewBag.HasBirthdayOrFirstWorkingday = false;
+        ////    return View("MySpace", model);
+        ////}
 
         /// <summary>
         /// My space view.
         /// </summary>
-        /// <param name="isRedirectFromLogin">Is redirect from login page.</param>
         /// <returns>Action result.</returns>
-        public ActionResult MySpace(bool? isRedirectFromLogin = true)
+        public ActionResult MySpace()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
@@ -475,25 +469,6 @@ namespace Fanex.NexHR.Controllers
                 Date = DateTime.Now.Date
             };
             var model = _employeeService.GetMySpace(getMySpaceCriteria);
-            IList<Employee> employeesBirthday = null;
-            IList<Employee> employeesFirstWorkingday = null;
-
-            var criteria = new GetBirthdayAndFirstWorkingdayCriteria
-            {
-                OnDate = DateTime.Now.Date
-            };
-
-            if (isRedirectFromLogin.HasValue && isRedirectFromLogin.Value)
-            {
-                _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
-            }
-
-            var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
-                || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
-
-            ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
-            ViewBag.EmployeesBirthday = employeesBirthday;
-            ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
 
             return View(model);
         }
