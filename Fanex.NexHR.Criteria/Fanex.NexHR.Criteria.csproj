@@ -96,6 +96,15 @@
     <Compile Include="Employee\UpdateWorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\WorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\UpdateOffDayForAllEmployeesCriteria.cs" />
+    <Compile Include="ExtensionNo\AddNewExtensionNoMemberCriteria.cs" />
+    <Compile Include="ExtensionNo\AddNewExternalGroupCriteria.cs" />
+    <Compile Include="ExtensionNo\DeleteExtensionNumberCriteria.cs" />
+    <Compile Include="ExtensionNo\DeleteExternalGroupCriteria.cs" />
+    <Compile Include="ExtensionNo\UpdateExternalGroupCriteria.cs" />
+    <Compile Include="ExtensionNo\GetAllExtensionGroupInfoCriteria.cs" />
+    <Compile Include="ExtensionNo\GetAllExtensionNoCriteria.cs" />
+    <Compile Include="ExtensionNo\GetEmployeeExtensionNoByIdCriteria.cs" />
+    <Compile Include="ExtensionNo\UpdateExtensionNoMemberCriteria.cs" />
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LookupData\DeleteLookupDataCriteria.cs" />
@@ -121,6 +130,7 @@
     <Compile Include="Request\ApproveRequestCriteria.cs" />
     <Compile Include="Request\DisapproveRequestCriteria.cs" />
     <Compile Include="Request\RejectRequestCriteria.cs" />
+    <Compile Include="ResultCriteria.cs" />
     <Compile Include="Shift\GetAllShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />

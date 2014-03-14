@@ -89,6 +89,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interface\IExtensionNoService.cs" />
     <Compile Include="Interface\ITOEICService.cs" />
     <Compile Include="LookupCodeName.cs" />
     <Compile Include="EmailService.cs" />

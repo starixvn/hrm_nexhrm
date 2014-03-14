@@ -37,11 +37,13 @@ namespace Fanex.NexHR.Controllers.Request
         /// <summary>
         /// Create check in/out request.
         /// </summary>
+        /// <param name="type">Check in or check out.</param>
+        /// <param name="date">Request date.</param>
         /// <returns>Action result.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
         "SP2101:MethodMustNotContainMoreLinesThan",
         Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult Create()
+        public ActionResult Create(short? type = 1, DateTime? date = null)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
@@ -59,10 +61,10 @@ namespace Fanex.NexHR.Controllers.Request
                 Employee = employee.NickName,
                 DisplayName = employee.DisplayName,
                 EmployeeId = employee.Id,
-                ForDate = DateTime.Today,
+                ForDate = date.HasValue ? date.Value : DateTime.Today,
                 Hour = DateTime.Now.Hour,
                 Minute = DateTime.Now.Minute,
-                Type = (short)RequestTypes.CheckIn,
+                Type = type.HasValue ? type.Value : (short)RequestTypes.CheckIn,
                 By = this.CurrentUser.Id
             };
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
@@ -103,7 +105,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.TotalRequest = numberOfRequest;
-
+            
             return View(viewModel);
         }
 

@@ -65,7 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionNoRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
+    <Compile Include="Interface\IExtensionNoRepository.cs" />
     <Compile Include="Interface\ITeamRepository.cs" />
     <Compile Include="Interface\IHolidayRepository.cs" />
     <Compile Include="Interface\ILeaveTypeRepository.cs" />

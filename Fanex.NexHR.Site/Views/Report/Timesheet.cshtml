@@ -112,10 +112,10 @@
             ${ShiftCode}
         </td>
         <td>
-            {{if InFixed}} ${jsonTojsDate(InFixed).format("HH:MM")}{{/if}}
+            {{if InFixed}} ${jsonTojsDate(InFixed).format("HH:MM")} {{else IsMissingCheckin == 1}} <a href="../checkinout/create?type=1&date=${jsonToShortDate(AttendanceDate)}">Request</a> {{/if}}
         </td>
         <td>
-            {{if OutFixed }} ${jsonTojsDate(OutFixed).format("HH:MM")}{{/if}}
+            {{if OutFixed }} ${jsonTojsDate(OutFixed).format("HH:MM")} {{else IsMissingCheckOut == 1}} <a href="../checkinout/create?type=2&date=${jsonToShortDate(AttendanceDate)}">Request</a>{{/if}}
         </td>
         <td>
             {{if TotalWorkHours > 0}}

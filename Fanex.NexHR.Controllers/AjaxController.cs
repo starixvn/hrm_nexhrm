@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Report;
@@ -42,6 +43,7 @@ namespace Fanex.NexHR.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly ILookupDataService _lookupDataService;
         private readonly IReportRepository _reportRepository;
+        private readonly IExtensionNoService _extensionNoService;
 
         public AjaxController()
         {
@@ -53,6 +55,7 @@ namespace Fanex.NexHR.Controllers
             _employeeService = new EmployeeService();
             _lookupDataService = new LookupDataService();
             _reportRepository = new ReportRepository();
+            _extensionNoService = new ExtensionNoService();
         }
 
         public AjaxController(
@@ -62,7 +65,8 @@ namespace Fanex.NexHR.Controllers
             IMemoService memoService, 
             ITeamService teamService, 
             ILookupDataService lookupDataService, 
-            IReportRepository reportRepository)
+            IReportRepository reportRepository,
+            IExtensionNoService extensionNoService)
         {
             _employeeRepository = employeeRepository;
             _requestService = requestService;
@@ -71,6 +75,7 @@ namespace Fanex.NexHR.Controllers
             _teamService = teamService;
             _lookupDataService = lookupDataService;
             _reportRepository = reportRepository ?? new ReportRepository();
+            _extensionNoService = extensionNoService;
         }
 
         [Authorize(Roles = "HR")]
@@ -343,6 +348,51 @@ namespace Fanex.NexHR.Controllers
             updated = _lookupDataService.Update(updateLookupDataCriteria);
 
             return updated;
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool DeleteExtensionNumber(int extId)
+        {
+            var criteria = new DeleteExtensionNumberCriteria
+            {
+                ExtID = extId
+            };
+            return _extensionNoService.DeleteExtensionNumber(criteria);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool AddNewExternalGroup(string groupName)
+        {
+            var criteria = new AddNewExternalGroupCriteria
+            {
+                FullName = groupName
+            };
+            return _extensionNoService.AddNewExternalGroup(criteria);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool DeleteExternalGroup(int extId)
+        {
+            var criteria = new DeleteExternalGroupCriteria
+            {
+                ExtID = extId
+            };
+            return _extensionNoService.DeleteExternalGroup(criteria);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool EditExternalGroup(int extId, string groupName)
+        {
+            var criteria = new UpdateExternalGroupCriteria
+            {
+                ExtID = extId,
+                FullName = groupName
+            };
+            return _extensionNoService.UpdateExternalGroup(criteria);
         }
     }
 }
