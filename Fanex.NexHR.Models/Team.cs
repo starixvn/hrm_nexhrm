@@ -22,6 +22,8 @@ namespace Fanex.NexHR.Models
 
         public Employee AssistantLeader { get; set; }
 
+        public int Rank { get; set; }
+
         public DateTime? CreatedDate { get; set; }
 
         public Employee Creator { get; set; }

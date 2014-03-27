@@ -29,6 +29,7 @@ namespace Fanex.NexHR.Services
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Linq;
 
     /// <summary>
     /// Employee service.
@@ -728,20 +729,8 @@ namespace Fanex.NexHR.Services
         public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams)
         {
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
-            var criteria = new GetTeamByIdCriteria
-            {
-                Id = 11
-            };
 
-            if (teams.Count > 1 || (teams.Count == 1 && teams[0].Id == 11))
-            {
-                LeaveSummaryByTeam management = new LeaveSummaryByTeam
-                {
-                    Team = this._teamService.Get(criteria),
-                    LeaveSummaryInTeam = new List<LeaveSummary>()
-                };
-                leaveSummaryByTeamList.Add(management);
-            }
+            teams = teams.OrderBy(t => t.Rank).ToList();
 
             foreach (Team team in teams)
             {
@@ -755,20 +744,8 @@ namespace Fanex.NexHR.Services
                 {
                     if (leavesumary.Employee.Team.Name == team.Name)
                     {
-                        if ((team.Id == 11 && teams.Count > 1) || (teams.Count == 1 && teams[0].Id == 11))
-                        {
-                            leaveSummaryByTeamList[0].LeaveSummaryInTeam.Add(leavesumary);
-                        }
-                        else
-                        {
-                            entity.LeaveSummaryInTeam.Add(leavesumary);
-                        }
+                        entity.LeaveSummaryInTeam.Add(leavesumary);
                     }
-                }
-
-                if (teams.Count == 1 && teams[0].Id == 11)
-                {
-                    return leaveSummaryByTeamList;
                 }
 
                 leaveSummaryByTeamList.Add(entity);

@@ -893,7 +893,7 @@ namespace Fanex.NexHR.Services
                     {
                         RequestID = id,
                         ModifiedBy = processBy,
-                        ModifiedDate = DateTime.Now.Date
+                        ModifiedDate = DateTime.Now
                     };
                     processRequestCriteria = disapproveRequestCriteria;
                     processCommand = Commands.Disapprove;
@@ -905,7 +905,7 @@ namespace Fanex.NexHR.Services
                     {
                         RequestID = id,
                         ProcessedBy = processBy,
-                        ProcessedDate = DateTime.Now.Date
+                        ProcessedDate = DateTime.Now
                     };
                     processRequestCriteria = rejectRequestCriteria;
                     processCommand = Commands.Reject;
@@ -917,7 +917,7 @@ namespace Fanex.NexHR.Services
                     {
                         RequestID = id,
                         ApprovedBy = processBy,
-                        ApprovedDate = DateTime.Now.Date
+                        ApprovedDate = DateTime.Now
                     };
                     processRequestCriteria = approveRequestCriteria;
                     processCommand = Commands.Approve;
