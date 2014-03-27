@@ -14,11 +14,11 @@ namespace Fanex.NexHR.Services
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
@@ -29,7 +29,6 @@ namespace Fanex.NexHR.Services
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.Linq;
 
     /// <summary>
     /// Employee service.
