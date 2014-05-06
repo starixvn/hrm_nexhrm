@@ -70,11 +70,7 @@
         <div class="grid_3 gridlabel">@Html.LabelFor(model => model.MaxRequest)</div>
         <div class="grid_4">@RazorHelper.MaxRequestDropDownList(Model.MaxRequest)
         <input type="submit" value="@Labels.Submit" class="processing-submit" style="float:right"/>
-        
         </div>
-        @*<div class="grid_2">
-        
-        </div>*@
         <div class="clear"></div>
 
         
@@ -96,8 +92,6 @@
             <th>@Labels.Team
             </th>
             <th>@Labels.Leave
-            </th>
-            <th>@Labels.ChangeShift
             </th>
             <th>@Labels.LateInEarlyOut
             </th>
@@ -152,26 +146,6 @@
                     {
                         <span>0</span>
                     }
-                </td>
-                <td class="@(request.TotalChangeShift > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                    @if (request.TotalChangeShift > 0)
-                    {
-                        requestModel.RequestType = 2;
-
-                        if ((bool)ViewBag.isLeader)
-                        {
-                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalChangeShift</a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalChangeShift</a>
-                        }
-                    }
-                    else
-                    {
-                        <span>0</span>
-                    }
-
                 </td>
                 <td class="@(request.TotalLateInEarlyOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalLateInEarlyOut > 0)

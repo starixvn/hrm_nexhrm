@@ -77,11 +77,9 @@
             {
                 new SelectListItem() {Text = Labels.All, Value = "5"},
                 new SelectListItem() {Text = Labels.Leave, Value = "1"},
-                new SelectListItem() {Text = Labels.ChangeShift, Value = "2"},
                 new SelectListItem() {Text = Labels.LateInEarlyOut, Value = "3"},
                 new SelectListItem() {Text = Labels.CheckInOut, Value = "4"},
-                
-            };    
+            };
             }
             @Html.RadioButtonList(model => model.RequestType, types)
         </div>

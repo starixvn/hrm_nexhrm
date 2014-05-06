@@ -69,25 +69,6 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">@Fanex.NexHR.Resources.Labels.ChangeShift
-            </td>
-            <td>
-                @if (Model.TotalPendingChangeShiftRequest > 0)
-                {
-                    requestModel.RequestType = 2;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.TotalPendingChangeShiftRequest.ToString()</a>
-                }
-                else
-                {
-                    <span>0</span>
-                }
-            </td>
-            <td>@Model.TotalApprovedChangeShiftRequest
-            </td>
-            <td>@Model.TotalRejectChangeShiftRequest
-            </td>
-        </tr>
-        <tr>
             <td class="firstColumn">@Fanex.NexHR.Resources.Labels.Leave
             </td>
             <td>

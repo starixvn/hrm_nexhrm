@@ -89,28 +89,6 @@
         </tr>
         <tr>
             <td class="firstColumn">
-                @Labels.ChangeShift
-            </td>
-            <td>
-                @Model.TotalChangedShiftRequest
-            </td>
-            <td>
-                @if (Model.TotalPendingChangedShiftRequest > 0)
-                { 
-                    @Html.ActionLink(Model.TotalPendingChangedShiftRequest.ToString(), "employeeView", "changeshift")
-                }
-                else
-                { 
-                    <span>0</span>
-                }
-            </td>
-
-            <td>
-                @Html.ActionLink(Labels.Request, "create", "changeshift")
-            </td>
-        </tr>
-        <tr>
-            <td class="firstColumn">
                 @Labels.Leave
             </td>
             <td>
