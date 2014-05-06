@@ -483,59 +483,6 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get change shift request.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequest(ICriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-            var settingKey = criteria.GetSettingKey();
-
-            using (var db = new ObjectDb(settingKey))
-            {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new ChangingShift
-                            {
-                                Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
-                                FromShift = new Shift { Name = reader.To<string>("FromShift") },
-                                ToShift = new Shift { Name = reader.To<string>("ToShift") },
-                                Remark = reader.ToString("Remark"),
-                                CreatedDate = reader.ToDateTime("CreatedDate"),
-                                Status = new RequestStatus { Id = reader.ToByte("Status") },
-                                RequestedDate = reader.ToDateTime("RequestDate"),
-                                TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
-
-                                Requester = new Employee
-                                {
-                                    NickName = reader.To<string>("Requester"),
-                                    FullName = reader.To<string>("FullNameRequester"),
-                                    Team = new Team { Name = reader.To<string>("Team"), Code = reader.To<string>("TeamCode") }
-                                },
-                                ModifiedBy = new Employee
-                                {
-                                    NickName = reader.To<string>("ProcessedBy"),
-                                    FullName = reader.To<string>("FullNameProcessedBy")
-                                },
-                                ModifiedDate = reader.ToDateTime("ProcessedDate")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
-            }
-
-            return entityList;
-        }
-
-        /// <summary>
         /// Get leave request.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -754,57 +701,6 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Get change shift request by date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestByDate(ICriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new ChangingShift
-                            {
-                                Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
-                                FromShift = new Shift { Name = reader.To<string>("FromShift") },
-                                ToShift = new Shift { Name = reader.To<string>("ToShift") },
-                                Remark = reader.ToString("Remark"),
-                                CreatedDate = reader.ToDateTime("CreatedDate"),
-                                Status = new RequestStatus { Id = reader.ToByte("Status") },
-                                RequestedDate = reader.ToDateTime("RequestDate"),
-                                TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
-
-                                Requester = new Employee
-                                {
-                                    NickName = reader.To<string>("Requester"),
-                                    FullName = reader.To<string>("FullNameRequester"),
-                                    Team = new Team { Name = reader.To<string>("Team"), Code = reader.To<string>("TeamCode") }
-                                },
-                                ModifiedBy = new Employee
-                                {
-                                    NickName = reader.To<string>("ProcessedBy"),
-                                    FullName = reader.To<string>("FullNameProcessedBy")
-                                },
-                                ModifiedDate = reader.ToDateTime("ProcessedDate")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
-            }
-
-            return entityList;
-        }
-
-        /// <summary>
         /// Get leave request by date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -990,56 +886,6 @@ namespace Fanex.NexHR.Repositories
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
                                 Remark = reader.ToString("Remark"),
-
-                                Requester = new Employee
-                                {
-                                    NickName = reader.To<string>("Requester"),
-                                    FullName = reader.To<string>("FullNameRequester"),
-                                    Team = new Team { Name = reader.To<string>("Team"), Code = reader.To<string>("TeamCode") }
-                                },
-                                ModifiedBy = new Employee
-                                {
-                                    NickName = reader.To<string>("ProcessedBy"),
-                                    FullName = reader.To<string>("FullNameProcessedBy")
-                                },
-                                ModifiedDate = reader.ToDateTime("ProcessedDate")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
-            }
-
-            return entityList;
-        }
-
-        /// <summary>
-        /// Get change shift request history.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of change shift request.</returns>
-        public IList<ChangingShift> GetChangeShiftRequestHistory(ICriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new ChangingShift
-                            {
-                                Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
-                                FromShift = new Shift { Name = reader.To<string>("FromShift") },
-                                ToShift = new Shift { Name = reader.To<string>("ToShift") },
-                                CreatedDate = reader.ToDateTime("CreatedDate"),
-                                Remark = reader.ToString("Remark"),
-                                Status = new RequestStatus { Id = reader.ToByte("Status") },
-                                RequestedDate = reader.ToDateTime("RequestDate"),
 
                                 Requester = new Employee
                                 {

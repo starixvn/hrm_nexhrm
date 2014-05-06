@@ -105,19 +105,12 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     GetMemberLeaveRequest(request);
                     break;
-
-                case 2:
-                    GetMemberChangeShift(request);
-                    break;
-
                 case 3:
                     GetMemberLateInEarlyOut(request);
                     break;
-
                 case 4:
                     GetMemberCheckInOut(request);
                     break;
-
                 case 5:
                     GetAllRequest(request, (short)RolesEnum.AssistantLeader);
                     break;
@@ -152,29 +145,6 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// Get member change shift request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        [NonAction]
-        public void GetMemberChangeShift(RequestViewModel request)
-        {
-            var getChangeShiftRequestCriteria = new GetChangeShiftRequestCriteria
-            {
-                Role = (short)RolesEnum.AssistantLeader,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = this.CurrentUser.Id
-            };
-
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(getChangeShiftRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -241,15 +211,9 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     HRGetCheckInOutRequestHistory(id, type);
                     break;
-
                 case 2:
                     HRGetLateInEarlyOutRequestHistory(id, type);
                     break;
-
-                case 3:
-                    HRGetChangeShiftRequestHistory(id, type);
-                    break;
-
                 case 4:
                     HRGetLeaveRequestHistory(id, type);
                     break;
@@ -275,23 +239,6 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<Leave> entityList = EmployeeService.GetLeaveRequestHistory(getLeaveRequestHistoryCriteria);
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get change shift request history.
-        /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestType">The request type.</param>
-        public void HRGetChangeShiftRequestHistory(long requestId, int requestType)
-        {
-            var getChangeShiftRequestHistoryCriteria = new GetRequestHistoryCriteria
-            {
-                RequestId = requestId,
-                Type = requestType
-            };
-
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequestHistory(getChangeShiftRequestHistoryCriteria);
             ViewBag.EntityList = entityList;
         }
 
@@ -367,9 +314,6 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     HRGetLeaveRequestByDate(request);
                     break;
-                case 2:
-                    HRGetChangeShiftRequestByDate(request);
-                    break;
                 case 3:
                     HRGetLateInEarlyOutRequestByDate(request);
                     break;
@@ -420,9 +364,6 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 case 1:
                     HRGetLeaveRequest(request);
-                    break;
-                case 2:
-                    HRGetChangeShiftRequest(request);
                     break;
                 case 3:
                     HRGetLateInEarlyOutRequest(request);
@@ -477,9 +418,6 @@ namespace Fanex.NexHR.Controllers.Request
                 case 1:
                     HRGetLeaveRequest(request);
                     break;
-                case 2:
-                    HRGetChangeShiftRequest(request);
-                    break;
                 case 3:
                     HRGetLateInEarlyOutRequest(request);
                     break;
@@ -517,27 +455,6 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<Leave> entityList = EmployeeService.GetLeaveRequestByDate(leaveRequestByDateCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get change shift request by date.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetChangeShiftRequestByDate(RequestViewModel request)
-        {
-            var getChangeShiftRequestByDateCriteria = new GetChangeShiftRequestByDateCriteria
-            {
-                Role = (short)RolesEnum.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
-            };
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequestByDate(getChangeShiftRequestByDateCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -634,27 +551,6 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
-        /// <summary>
-        /// HR get change shift request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetChangeShiftRequest(RequestViewModel request)
-        {
-            var getChangeShiftRequestCriteria = new GetChangeShiftRequestCriteria
-            {
-                Role = (short)RolesEnum.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
-            };
-
-            IList<ChangingShift> entityList = EmployeeService.GetChangeShiftRequest(getChangeShiftRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
 
         /// <summary>
         /// HR get late in / early out request.

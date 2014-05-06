@@ -65,8 +65,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<LateInEarlyOut> GetLateInEarlyOutRequest(ICriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequest(ICriteria criteria);
-
         IList<Leave> GetLeaveRequest(ICriteria criteria);
 
         IList<RequestEntity> GetAllRequest(ICriteria criteria);
@@ -75,8 +73,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(ICriteria criteria);
 
-        IList<ChangingShift> GetChangeShiftRequestByDate(ICriteria criteria);
-
         IList<Leave> GetLeaveRequestByDate(ICriteria criteria);
 
         IList<RequestEntity> GetAllRequestByDate(ICriteria criteria);
@@ -84,8 +80,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<CheckInOut> GetCheckInOutRequestHistory(ICriteria criteria);
 
         IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(ICriteria criteria);
-
-        IList<ChangingShift> GetChangeShiftRequestHistory(ICriteria criteria);
 
         IList<Leave> GetLeaveRequestHistory(ICriteria criteria);
 

@@ -19,15 +19,11 @@ namespace Fanex.NexHR.Services.Interface
 
         bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model);
 
-        bool ChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model);
-
         bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
 
         bool UpdateLateInEarlyOut(ModelStateDictionary modelState, LateInEarlyOutRequestViewModel model);
 
         bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model);
-
-        bool UpdateChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model);
 
         bool Process(string command, long id, int processBy, out string errorMessage);
     }

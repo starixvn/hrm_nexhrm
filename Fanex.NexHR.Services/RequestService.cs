@@ -39,17 +39,10 @@ namespace Fanex.NexHR.Services
     public class RequestService : IRequestService
     {
         private const string _MsgLeave = "<span class='req leave'>{1}</span> {0} days";
-
         private const string _MsgLeaveHalfDay = "<span class='req leave'>{0} ({1}-{2})</span> 0.5 day";
-
         private const string _MsgLeaveOneDay = "<span class='req leave'>{0}</span> 1 day";
-
-        private const string _MsgChangeShift = "<span class='req changeshift'>{0} <span class='arr'>&rarr;</span> {1}</span> {2}";
-
         private const string _MsgCheckInOut = "<span class='req checkinout'>{0} {1}</span> {2}";
-
         private const string _MsgLateIn = "<span class='req inout'>+{0}' {1}</span> {2}";
-
         private const string _MsgEarlyOut = "<span class='req inout'>-{0}' {1}</span> {2}";
 
         private const string _MailContentLeave = "{0} to {1} ({2} days)";
@@ -106,10 +99,6 @@ namespace Fanex.NexHR.Services
                             request.ToDate.ToString("HH:mm"));
                     }
 
-                    break;
-
-                case (int)RequestTypes.ChangeShift:
-                    msg.AppendFormat(_MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
                 case (int)RequestTypes.CheckIn:
@@ -451,92 +440,6 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Change shift.
-        /// </summary>
-        /// <param name="modelState">The model state.</param>
-        /// <param name="model">The model object.</param>
-        /// <returns>The result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool ChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
-        {
-            if (modelState.IsValid)
-            {
-                int errorCode;
-                string message;
-                var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
-                {
-                    EmpId = model.EmployeeId,
-                    RequestType = (short)RequestTypes.ChangeShift,
-                    IsPlanned = model.IsPlanned,
-                    Remark = model.Remark,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = model.By,
-                    FromDate = model.ForDate,
-                    FromShift = model.FromShift,
-                    ToDate = null,
-                    ToShift = model.ToShift,
-                    LeaveTypeID = null,
-                    TotalDays = null,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
-
-                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
-
-                // check result
-                if (errorCode == 0)
-                {
-                    // get leader(s)
-                    var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
-                    IList<Employee> leaders = this._employeeRepository.GetLeaders(criteria);
-
-                    if (leaders == null || leaders.Count == 0)
-                    {
-                        string errorMessage;
-                        this.Process(Commands.Approve.EnumToString(), requestId, model.EmployeeId, out errorMessage);
-                    }
-                    else
-                    {
-                        // send email(s)
-                        var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
-                        foreach (Employee item in leaders)
-                        {
-                            var content = new
-                            {
-                                Leader = item.NickName,
-                                Member = model.DisplayName,
-                                RequestId = requestId,
-                                ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
-                                FromShift = model.FromShiftName,
-                                ToShift = model.ToShiftName,
-                                Remark = model.Remark
-                            };
-                            var body = Razor.Parse(bodyTemplate, content);
-                            this._emailService.SendEmail(
-                                ConfigurationManager.AppSettings["Email"],
-                                item.Email,
-                                string.Empty,
-                                Messages.ChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
-                                body);
-                        }
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    modelState.AddModelError(string.Empty, message);
-                }
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Update check in/out request.
         /// </summary>
         /// <param name="modelState">The model state.</param>
@@ -800,72 +703,6 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Update change shift request.
-        /// </summary>
-        /// <param name="modelState">The model state.</param>
-        /// <param name="model">The model object.</param>
-        /// <returns>The result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool UpdateChangeShift(ModelStateDictionary modelState, ChangeShiftViewModel model)
-        {
-            if (!modelState.IsValid)
-            {
-                modelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
-                return false;
-            }
-
-            var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
-            {
-                Id = model.Id,
-                IsPlanned = model.IsPlanned,
-                Remark = model.Remark,
-                ModifiedBy = model.By,
-                FromDate = model.ForDate,
-                ModifiedDate = DateTime.Now,
-                FromShift = model.FromShift,
-                ToDate = null,
-                ToShift = model.ToShift,
-                LeaveTypeID = null,
-                TotalDays = null,
-                LateInMins = null,
-                EarlyOutMins = null
-            };
-            var updated = this._employeeRepository.UpdateRequest(updateWorkingTimeRequestCriteria);
-
-            if (updated)
-            {
-                // send email(s)
-                var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
-                var leaders = this._employeeRepository.GetLeaders(criteria);
-                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShift.Request.cshtml"));
-
-                foreach (var item in leaders)
-                {
-                    var content = new
-                    {
-                        Leader = item.NickName,
-                        Member = model.DisplayName,
-                        RequestId = model.Id,
-                        ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
-                        FromShift = model.FromShiftName,
-                        ToShift = model.ToShiftName,
-                        Remark = model.Remark
-                    };
-
-                    var body = RazorEngine.Razor.Parse(bodyTemplate, content);
-                    this._emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        item.Email,
-                        string.Empty,
-                        Resources.Messages.UpdatedChangeShiftEmailSubject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
-                        body);
-                }
-            }
-
-            return updated;
-        }
-        
-        /// <summary>
         /// Approve, disapprove or reject a request, notification email will be sent also.
         /// </summary>
         /// <param name="command">Action on this request.</param>
@@ -1072,7 +909,7 @@ namespace Fanex.NexHR.Services
                 var employees = this._employeeRepository.GetEmployeeForRelatedTeam(criteria)
                     .Where(i => i.Id != processUser.Id && i.Id != request.EmpId);
 
-                if (request.RequestType == (int)RequestTypes.ChangeShift || request.RequestType == (int)RequestTypes.Leave)
+                if (request.RequestType == (int)RequestTypes.Leave)
                 {
                     employees = AddProjectManagerIntoList(employees, employee.Id);
                 }
@@ -1088,7 +925,6 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckIn, sendCc);
                         break;
-
                     case 2:
                         var subjectCheckOut = string.Format(
                             Resources.Messages.ApprovalNotificationCheckOutSubject, 
@@ -1096,7 +932,6 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckOut, sendCc);
                         break;
-
                     case 3:
                         var subjectLateIn = string.Format(
                             Resources.Messages.ApprovalNotificationLateInSubject, 
@@ -1104,7 +939,6 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectLateIn, sendCc, isLateIn: true);
                         break;
-
                     case 4:
                         var subjectEarlyOut = string.Format(
                             Resources.Messages.ApprovalNotificationEarlyOutSubject, 
@@ -1112,15 +946,6 @@ namespace Fanex.NexHR.Services
                             processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectEarlyOut, sendCc, isLateIn: false);
                         break;
-
-                    case 5:
-                        var subjectChangeShift = string.Format(
-                            Resources.Messages.ApprovalNotificationChangeShiftSubject, 
-                            employee.NickName, 
-                            processUser.NickName);
-                        ChangeShiftRelatedMail(employee, processUser, request, subjectChangeShift, sendCc);
-                        break;
-
                     case 6:
                         var subjectLeave = string.Format(
                             Resources.Messages.ApprovalNotificationLeaveSubject, 
@@ -1210,63 +1035,6 @@ namespace Fanex.NexHR.Services
 
             // body = RazorEngine.Razor.Parse(body, bodyContent);
             body = string.Format(body, bodyContent.User, bodyContent.Employee, bodyContent.Request, bodyContent.ForDate, bodyContent.Minute, bodyContent.Remark);
-
-            this._emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
-                processUser.Email,
-                sendCc,
-                subject,
-                body);
-        }
-
-        /// <summary>
-        /// Change shift relate mail.
-        /// </summary>
-        /// <param name="employee">The employee.</param>
-        /// <param name="processUser">The user who process the request.</param>
-        /// <param name="request">The request.</param>
-        /// <param name="subject">The email subject.</param>
-        /// <param name="sendCc">The mail cc list.</param>
-        private void ChangeShiftRelatedMail(
-            Employee employee, 
-            Employee processUser, 
-            WorkingTimeRequest request, 
-            string subject, 
-            string sendCc)
-        {
-            var getAllShiftCriteria = new GetAllShiftCriteria();
-            IList<Shift> allShifts = new List<Shift>();
-            if (getAllShiftCriteria.IsValid())
-            {
-                allShifts = this._shiftService.GetAll(getAllShiftCriteria);
-            }
-
-            var fromShift = allShifts.Where(t => t.Id == (request.FromShift.HasValue ? request.FromShift.Value : 0)).SingleOrDefault();
-            var toShift = allShifts.Where(t => t.Id == (request.ToShift.HasValue ? request.ToShift.Value : 0)).SingleOrDefault();
-
-            var body = Utilities.ReadTextFile(
-                HttpContext.Current.Server.MapPath("~/app_data/emails/ChangeShiftApprovalNotification.cshtml"));
-            var bodyContent = new
-            {
-                User = processUser.NickName,
-                Employee = string.Format("{0} ({1})", employee.NickName, employee.FullName),
-                Request = request.RequestType.ToText().ToLower(),
-                ForDate = request.FromDate.ToDateMonthYearFormatedDate(),
-                FromShift = fromShift != null ? fromShift.Name : string.Empty,
-                ToShift = toShift != null ? toShift.Name : string.Empty,
-                Remark = request.Remark
-            };
-
-            // body = RazorEngine.Razor.Parse(body, bodyContent);
-            body = string.Format(
-                body, 
-                bodyContent.User, 
-                bodyContent.Employee, 
-                bodyContent.Request, 
-                bodyContent.ForDate, 
-                bodyContent.FromShift, 
-                bodyContent.ToShift, 
-                bodyContent.Remark);
 
             this._emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],

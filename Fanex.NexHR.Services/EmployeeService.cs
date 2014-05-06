@@ -274,18 +274,6 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequest(GetChangeShiftRequestCriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetChangeShiftRequest(criteria);
-            }
-
-            return entityList;
-        }
-
         public IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
@@ -339,18 +327,6 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
-        public IList<ChangingShift> GetChangeShiftRequestByDate(GetChangeShiftRequestByDateCriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetChangeShiftRequestByDate(criteria);
-            }
-
-            return entityList;
-        }
-
         public IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria)
         {
             IList<Leave> entityList = new List<Leave>();
@@ -389,15 +365,6 @@ namespace Fanex.NexHR.Services
             IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
 
             entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(criteria);
-
-            return entityList;
-        }
-
-        public IList<ChangingShift> GetChangeShiftRequestHistory(GetRequestHistoryCriteria criteria)
-        {
-            IList<ChangingShift> entityList = new List<ChangingShift>();
-
-            entityList = this._employeeRepository.GetChangeShiftRequestHistory(criteria);
 
             return entityList;
         }
