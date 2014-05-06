@@ -551,7 +551,6 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.EntityList = entityList;
         }
 
-
         /// <summary>
         /// HR get late in / early out request.
         /// </summary>
