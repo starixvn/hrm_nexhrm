@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿/*global _global:false */
+
+$(document).ready(function () {
 
 	var date = new Date().format("mm/dd/yyyy");
 

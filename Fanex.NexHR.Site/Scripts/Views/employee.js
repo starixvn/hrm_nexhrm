@@ -1,41 +1,19 @@
-﻿$(document).ready(function () {
+﻿'use strict';
+/*global _global:false, reloadButtonText:false, noInformation:false, getParam:false, actingButton:false, _messages:false*/
+/* exported index*/
 
-	var jobTitleId = $('#jobtitleid').val();
-
-	$('#title').val(jobTitleId);
-	$('#title').chosen();
-	$("#title").trigger("liszt:updated");
-
-	$('#keyword').keyup(function (event) {
-		if (event.keyCode == 13) {
-			query(jobTitleId);
-		}
-	});
-
-	var q = getParam('query');
-	if (q != null) {
-		$('#keyword').val(q);
-	}
-
-	//search onload
-	query(jobTitleId);
-
-	$('#query').click(function (evt) {
-		evt.preventDefault();
-		query(jobTitleId);
-	});
-
-});
+var rowIndex = 1;
 
 function query(jobTitleId) {
 
-	if (jobTitleId == undefined || jobTitleId == '') {
+	if (jobTitleId === undefined || jobTitleId === '') {
 		jobTitleId = $('#title').val();
 	}
 
-	var query = $('#keyword').val();
+	var keyword = $('#keyword').val();
 	actingButton('#query', true);
 
+	var enable = null;
 	if ($("#enable").attr("checked")) {
 		enable = true;
 	}
@@ -57,10 +35,9 @@ function query(jobTitleId) {
 	}
 
 	$.getJSON(
-	_global.root + 'api/employee/getemployees'
-
-	, { query: query, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId }
-	, function (data) {
+	_global.root + 'api/employee/getemployees',
+	{ query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId },
+	function (data) {
 		//console.log(data);
 		if (data.length > 0) {
 			rowIndex = 1;
@@ -90,7 +67,36 @@ function query(jobTitleId) {
 	$('#keyword').focus().select();
 }
 
-var rowIndex = 1;
+$(document).ready(function () {
+
+	var jobTitleId = $('#jobtitleid').val();
+
+	$('#title').val(jobTitleId);
+	$('#title').chosen();
+	$("#title").trigger("liszt:updated");
+
+	$('#keyword').keyup(function (event) {
+		if (event.keyCode === 13) {
+			query(jobTitleId);
+		}
+	});
+
+	var q = getParam('query');
+	if (q !== null) {
+		$('#keyword').val(q);
+	}
+
+	//search onload
+	query(jobTitleId);
+
+	$('#query').click(function (evt) {
+		evt.preventDefault();
+		query(jobTitleId);
+	});
+
+});
+
+
 function index() {
 	return rowIndex++;
 }

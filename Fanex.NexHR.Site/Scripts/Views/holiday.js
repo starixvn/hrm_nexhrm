@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿/*global _global:false */
+
+$(document).ready(function () {
 	var year = $('#year').val();
 
 	$('#submit').click(function () {

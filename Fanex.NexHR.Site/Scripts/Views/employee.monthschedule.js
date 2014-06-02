@@ -1,4 +1,6 @@
-﻿var _event = null;
+﻿/*global _global:false */
+
+var _event = null;
 
 $(document).ready(function () {
 	$('#scheduledefault').click(function () {

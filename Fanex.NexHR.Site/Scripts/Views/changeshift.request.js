@@ -1,4 +1,13 @@
-﻿$(document).ready(function () {
+﻿'use strict';
+/*global _global:false */
+
+function hideShift() {
+	var shift = $('#FromShift').val();
+	$('#ToShift option').show();
+	$('#ToShift option[value=' + shift + ']').hide();
+}
+
+$(document).ready(function () {
 	$('#shiftinfo').tooltip({
 		track: true,
 		delay: 0,
@@ -53,19 +62,13 @@
 	var successed = $("#successed").val();
 	var year = $("#year").val();
 
-	if (successed == "true") {
+	if (successed === "true") {
 		confirm('Successfull!\nPress OK to continue', function () {
 			document.location = _global.root + "ChangeShift/EmployeeView/" + year;
 		});
 	}
 
-	$('form').submit(function (evt) {
+	$('form').submit(function () {
 		$('#ToShiftName').val($('#ToShift').find(":selected").text().trim());
 	});
 });
-
-function hideShift() {
-	var shift = $('#FromShift').val();
-	$('#ToShift option').show();
-	$('#ToShift option[value=' + shift + ']').hide();
-}

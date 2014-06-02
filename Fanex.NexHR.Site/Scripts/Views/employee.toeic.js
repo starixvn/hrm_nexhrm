@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿/*global _global:false */
+
+$(document).ready(function () {
 	isHRRole = $('#userRole').val() == 'True';
 	var jobTitleId = $('#jobtitleid').val();
 

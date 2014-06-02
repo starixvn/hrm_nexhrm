@@ -1,4 +1,7 @@
-﻿var _checked = false;
+﻿'use strict';
+/*global _global:false , _messages:false*/
+
+var _checked = false;
 var _totalDays = 0;
 var _ids;
 
@@ -26,7 +29,7 @@ $(document).ready(function () {
 	});
 
 	$('#addadj').click(function () {
-		_ids = new Array();
+		_ids = [];
 		$('.aba').each(function (index, item) {
 			var checked = $(item).prop('checked');
 			if (checked) {
@@ -71,7 +74,7 @@ $(document).ready(function () {
 		if ($form.valid()) {
 			$.post(_global.root + 'ajax/AdjustAnnualLeaves', $('form').serialize(), function (response) {
 
-				if (response == -1) {
+				if (response === -1) {
 					alert(_messages.invalidInputData);
 				}
 				else if (response) {
@@ -96,7 +99,7 @@ $(document).ready(function () {
 		if ($form.valid()) {
 			$.post(_global.root + 'ajax/ResetAnnualLeaves', $('form').serialize(), function (response) {
 
-				if (response == -1) {
+				if (response === -1) {
 					alert(_messages.invalidInputData);
 				}
 				else if (response) {

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿/*global _global:false */
+
+$(document).ready(function () {
 
     $("#deleteExt").live("click", function () {
         var id = $(this).closest('tr').attr('id');

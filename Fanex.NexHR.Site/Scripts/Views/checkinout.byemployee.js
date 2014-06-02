@@ -1,11 +1,9 @@
-﻿$(document).ready(function() {
-	// menu
-	bindMenu('.Pending', 'pendingMenu');
-});
+﻿'use strict';
+/*global _global:false , autoIndex*/
 
 function cancelRequest(id) {
 	confirm('Are you sure you want to cancel this request?', function () {
-		$.post(_global.root + 'api/employee/deleteworkingtimerequest' + "/" + id, function (data) {
+		$.post(_global.root + 'api/employee/deleteworkingtimerequest' + "/" + id, function () {
 			$('#row' + id).remove();
 			autoIndex();
 		});
@@ -15,13 +13,13 @@ function cancelRequest(id) {
 function processRequest(command, eventElement) {
 	var requestId = $(eventElement).attr('requestId');
 	var requestType = $("#RequestType").val();
-    
+
 	//$(eventElement).removeClass().destroyContextMenu();
-	switch(command) {
-		case 'Edit' : 
+	switch (command) {
+		case 'Edit':
 			location.href = _global.root + requestType + "/Update/" + requestId;
 			break;
-		case 'Cancel' : 
+		case 'Cancel':
 			cancelRequest(requestId);
 			break;
 	}
@@ -29,8 +27,13 @@ function processRequest(command, eventElement) {
 
 function bindMenu(element, menu) {
 	$(element).contextMenu({
-		menu : menu
-	}, function(command, eventElement){
+		menu: menu
+	}, function (command, eventElement) {
 		processRequest(command, eventElement);
 	});
 }
+
+$(document).ready(function() {
+	// menu
+	bindMenu('.Pending', 'pendingMenu');
+});
