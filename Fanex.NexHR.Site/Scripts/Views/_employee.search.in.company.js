@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false */
+/*global _global:false*/
 /*exported submitForm*/
 
 var nickName;
