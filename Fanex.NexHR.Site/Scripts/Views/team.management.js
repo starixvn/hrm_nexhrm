@@ -1,46 +1,45 @@
-﻿$(document).ready(function () {
-	$('#addNewTeam').click(function () {
+﻿/*global _global, _messages*/
+/*exported*/
+"use strict";
 
+$(document).ready(function () {
+	var nickName;
+	$('#addNewTeam').click(function () {
 		$("#TeamCode").val("");
 		$("#TeamName").val("");
 		$("#Leader").val("");
 		$("#AssistantLeader").val("");
-
-
 		$('#addTeam').load(_global.root + "employee/addteam")
-					.dialog({
-						modal: true,
-						width: 410,
-						title: "Add new",
-						height: 275,
-						open: function (event, ui) {
-							BindSearch();
-						}
-					});
+		.dialog({
+			modal: true,
+			width: 410,
+			title: "Add new",
+			height: 275,
+			open: function () {
+				bindSearch();
+			}
+		});
 	});
 
 	$("a.editteam").click(function () {
 		var currenItem = $(this);
 		var teamId = currenItem.attr("value");
-
 		$("#addTeam").load(_global.root + "employee/addteam/" + teamId)
-					.dialog({
-						modal: true,
-						width: 410,
-						title: "Edit",
-						height: 275,
-						open: function () {
-							BindSearch();
-						}
-					});
+		.dialog({
+			modal: true,
+			width: 410,
+			title: "Edit",
+			height: 275,
+			open: function () {
+				bindSearch();
+			}
+		});
 	});
 
 	$('#reset').click(function () {
-		//$('#addTeam').dialog('close');
-		alert("Hix");
 	});
 
-	function BindSearch() {
+	function bindSearch() {
 		//Seach leader
 		$("#Leader").autocomplete({
 			source: function (request, response) {
@@ -55,7 +54,7 @@
 							return {
 								label: item.NickName + ' (' + item.FullName + ')',
 								value: item.Id
-							}
+							};
 						}));
 					}
 				});
@@ -85,7 +84,7 @@
 							return {
 								label: item.NickName + ' (' + item.FullName + ')',
 								value: item.Id
-							}
+							};
 						}));
 					}
 				});
@@ -110,7 +109,7 @@
 			//console.log("form is valid");
 			$.post(_global.root + 'ajax/AddNewTeam', $('form').serialize(), function (response) {
 				//console.log("post");
-				if (response == -1) {
+				if (response === -1) {
 					alert(_messages.invalidInputData);
 				}
 				else if (response) {

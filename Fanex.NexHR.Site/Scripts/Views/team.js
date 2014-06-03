@@ -1,21 +1,17 @@
-﻿$(document).ready(function () {
+﻿/*global _global*/
+/*exported*/
+"use strict";
 
+$(document).ready(function () {
 	//Validation Leader field
 	$("#Leader").rules("add", {
-			required: true,
-			messages: {
-			required: "The Leader field is required",
-			}
+		required: true,
+		messages: {
+			required: "The Leader field is required"
+		}
 	});
 
-    //Validation Assistant leader field
-//    $("#AssistantLeader").rules("add", {
-//         required: true,
-//         messages: {
-//           required: "Assistant Leader field is required",
-//         }
-//    });
-
+	var nickName;
 	//Seach leader
 	$("#Leader").autocomplete({
 		source: function (request, response) {
@@ -30,7 +26,7 @@
 						return {
 							label: item.NickName + ' (' + item.FullName + ')',
 							value: item.Id
-						}
+						};
 					}));
 				}
 			});
@@ -41,7 +37,7 @@
 			$('#LeaderId').val(ui.item.value);
 		},
 		focus: function (event, ui) {
-			nickName = ui.item.label;
+			var nickName = ui.item.label;
 			$('#Leader').val(nickName);
 			$('#LeaderId').val(ui.item.value);
 			event.preventDefault();
@@ -71,7 +67,7 @@
 						return {
 							label: item.NickName + ' (' + item.FullName + ')',
 							value: item.Id
-						}
+						};
 					}));
 				}
 			});
@@ -98,12 +94,3 @@
 		}
 	});
 });
-
-//function deleteTeam(id) {
-//    confirm('Are you sure you want to delete?', function () {
-//        $.post(_global.root + 'ajax/DeleteTeam', { id: id }, function (data) {
-//            $('#row' + id).remove();
-//            autoIndex();
-//        });
-//    });
-//}

@@ -1,10 +1,16 @@
-﻿var nickName;
+﻿/*global _global*/
+/*exported */
+"use strict";
+
+var nickName;
 $(document).ready(function () {
 	$("#Employee").autocomplete({
 		source: function (request, response) {
 			var term = request.term;
 			var index = term.indexOf(' (');
-			if (index > 0) term = term.substr(0, index);
+			if (index > 0) {
+				term = term.substr(0, index);
+			}
 			$.ajax({
 				url: _global.root + 'api/employee/getemployees',
 				data: {
@@ -16,7 +22,7 @@ $(document).ready(function () {
 							return {
 								label: item.NickName + ' (' + item.FullName + ')',
 								value: item.Id
-							}
+							};
 						}));
 					}
 					else {

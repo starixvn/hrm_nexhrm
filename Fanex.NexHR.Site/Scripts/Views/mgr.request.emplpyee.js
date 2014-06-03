@@ -1,22 +1,34 @@
-﻿$(document).ready(function () {
-	// menu
-	bindMenu('.Pending', 'pendingMenu');
-	bindMenu('.Approved', 'approvedMenu');
-});
+﻿/*global _global*/
+/*exported*/
+"use strict";
+
+function bindProcessedInfo(element, clear) {
+	var id = $(element).attr('requestid');
+	if (clear) {
+		$('#pb' + id).text('-');
+		$('#pd' + id).text('-');
+	}
+	else {
+		$('#pb' + id).text(_global.nickName);
+		var now = new Date();
+		$('#pd' + id).text(now.format('dd mmm, yyyy'));
+	}
+}
+
+
 
 function processRequest(command, eventElement) {
 	var requestId = $(eventElement).attr('requestId');
-
 	$.post(_global.root + 'ajax/processrequest',
 	{ command: command, id: requestId },
-		function (response) {
+		function () {
 		});
 
 	$(eventElement).removeClass().destroyContextMenu();
 	switch (command) {
 		case 'Approve':
 			$(eventElement).text('Approved').addClass('Approved');
-			bindMenu(eventElement, 'approvedMenu');
+			//bindMenu(eventElement, 'approvedMenu');
 			bindProcessedInfo(eventElement, false);
 			break;
 		case 'Reject':
@@ -25,7 +37,7 @@ function processRequest(command, eventElement) {
 			break;
 		case 'Disapprove':
 			$(eventElement).text('Pending').addClass('Pending');
-			bindMenu(eventElement, 'pendingMenu');
+			//bindMenu(eventElement, 'pendingMenu');
 			bindProcessedInfo(eventElement, true);
 			break;
 	}
@@ -40,15 +52,8 @@ function bindMenu(element, menu) {
 	});
 }
 
-function bindProcessedInfo(element, clear) {
-	var id = $(element).attr('requestid');
-	if (clear) {
-		$('#pb' + id).text('-');
-		$('#pd' + id).text('-');
-	}
-	else {
-		$('#pb' + id).text(_global.nickName);
-		var now = new Date();
-		$('#pd' + id).text(now.format('dd mmm, yyyy'));
-	}
-}
+$(document).ready(function () {
+	// menu
+	bindMenu('.Pending', 'pendingMenu');
+	bindMenu('.Approved', 'approvedMenu');
+});

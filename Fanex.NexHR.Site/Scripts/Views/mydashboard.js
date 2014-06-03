@@ -1,33 +1,33 @@
-﻿
-var MyDashBoard = function ($) {
-    return {
-        dialogReminder: null,
-        hasBirthday: null,
-        init: function () {
-//            MyDashBoard.dialogReminder = $("#dialog-reminder");
-//            MyDashBoard.hasBirthday = $("#HasBirthdayOrFirstWorkingday");
+﻿"use strict";
 
-//            MyDashBoard.dialogReminder.dialog({
-//                autoOpen: false,
-//                width: 770,
-//                modal: true,
-//                buttons: {
-//                    "Ok": function () {
-//                        $(this).dialog("close");
-//                    }
-//                },
-//                close: function () {
-//                }
-//            });
+var MyDashBoard = function () {
+	return {
+		dialogReminder: null,
+		hasBirthday: null,
+		init: function () {
+//			MyDashBoard.dialogReminder = $("#dialog-reminder");
+//			MyDashBoard.hasBirthday = $("#HasBirthdayOrFirstWorkingday");
 
-//            if (MyDashBoard.hasBirthday.val() == "True") {
-//                MyDashBoard.dialogReminder.dialog("open");
-//            }
-        }
-    };
-} (jQuery);
+//			MyDashBoard.dialogReminder.dialog({
+//				autoOpen: false,
+//				width: 770,
+//				modal: true,
+//				buttons: {
+//					"Ok": function () {
+//						$(this).dialog("close");
+//					}
+//				},
+//				close: function () {
+//				}
+//			});
+
+//			if (MyDashBoard.hasBirthday.val() == "True") {
+//				MyDashBoard.dialogReminder.dialog("open");
+//			}
+		}
+	};
+};
 
 $(document).ready(function () {
-    MyDashBoard.init();
+	MyDashBoard.init();
 });
-

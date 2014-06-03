@@ -342,7 +342,7 @@
     <Content Include="Scripts\Views\employee.toeic.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
-    <Content Include="Scripts\Views\jquery.tablesorter.js" />
+    <Content Include="Scripts\Libs\jquery.tablesorter.js" />
     <Content Include="Scripts\Views\mgr.requests.hr.js" />
     <Content Include="Scripts\Views\mydashboard.js" />
     <Content Include="Scripts\Views\team.edit.js" />
@@ -695,8 +695,8 @@
     <Content Include="Scripts\Views\report.timesheet.js" />
     <Content Include="Scripts\Views\employee.monthschedule.js" />
     <Content Include="Scripts\Views\employee.workingcalendars.js" />
-    <Content Include="Scripts\Views\jquery.fixedheadertable.js" />
-    <Content Include="Scripts\Views\jquery.mousewheel.js" />
+    <Content Include="Scripts\Libs\jquery.fixedheadertable.js" />
+    <Content Include="Scripts\Libs\jquery.mousewheel.js" />
     <Content Include="Scripts\Views\checkinout.byemployee.js" />
     <Content Include="Scripts\Views\search.request.js" />
     <Content Include="Scripts\Views\changeshift.request.js" />

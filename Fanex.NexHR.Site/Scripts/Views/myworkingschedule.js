@@ -1,4 +1,8 @@
-﻿$(document).ready(function () {
+﻿/*global _global*/
+/*exported*/
+"use strict";
+
+$(document).ready(function () {
 	$('#calendar').fullCalendar({
 		theme: true,
 		header:

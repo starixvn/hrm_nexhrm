@@ -1,31 +1,17 @@
-﻿$(document).ready(function () {
+﻿/*global actingButton, noInformation, reloadButtonText, _messages*/
+/*exported index*/
+"use strict";
 
-	$('#monthPickr').monPickr({
-		showDateRange: false,
-		sortDesc: true,
-		today: new Date(),
-		minDate: '2010/1/1',
-		maxDate: $('#maxDate').val(),
-		sortDesc: true,
-		afterChangeMonth: function () {
-			var Month = $('#monthPickr').monPickr("getMonth", "MM");
-			var Year = $('#monthPickr').monPickr("getMonth", "yyyy");
-			$('#Month').val(Month);
-			$('#Year').val(Year);
-		}
-	});
-
-	view();
-
-	$('#view').click(function (evt) {
-		evt.preventDefault();
-		view();
-	});
-});
+var rowIndex = 1;
+function index() {
+	return rowIndex++;
+}
 
 function view() {
 	var $form = $('form');
-	if (!$form.valid()) return;
+	if (!$form.valid()) {
+		return;
+	}
 
 	actingButton('#view', true);
 	$('#nodata').remove();
@@ -46,7 +32,26 @@ function view() {
 	});
 }
 
-var rowIndex = 1;
-function index() {
-	return rowIndex++;
-}
+$(document).ready(function () {
+
+	$('#monthPickr').monPickr({
+		showDateRange: false,
+		sortDesc: true,
+		today: new Date(),
+		minDate: '2010/1/1',
+		maxDate: $('#maxDate').val(),
+		afterChangeMonth: function () {
+			var Month = $('#monthPickr').monPickr("getMonth", "MM");
+			var Year = $('#monthPickr').monPickr("getMonth", "yyyy");
+			$('#Month').val(Month);
+			$('#Year').val(Year);
+		}
+	});
+
+	view();
+
+	$('#view').click(function (evt) {
+		evt.preventDefault();
+		view();
+	});
+});

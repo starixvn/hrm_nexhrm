@@ -1,4 +1,6 @@
-﻿(function ($) {
+﻿"use strict";
+
+(function ($) {
     $.fn.textWidth = function () {
         var calc = '<span style="display:none">' + $(this).text() + '</span>';
         $('body').append(calc);
@@ -7,7 +9,7 @@
         return width;
     };
 
-    $.fn.marquee = function (args) {
+    $.fn.marquee = function (rootArgs) {
         var that = $(this);
         var textWidth = that.textWidth(),
                 offset = that.width(),
@@ -22,16 +24,17 @@
                     'overflow': 'hidden',
                     'white-space': 'nowrap'
                 },
-                args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, args),
+                args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, rootArgs),
                 i = 0,
                 stop = textWidth * -1,
                 dfd = $.Deferred();
-
         function go() {
-            if (!that.length) return dfd.reject();
-            if (width == stop) {
+            if (!that.length){
+				return dfd.reject();
+			}
+            if (width === stop) {
                 i++;
-                if (i == args.count) {
+                if (i === args.count) {
                     that.css(css);
                     return dfd.resolve();
                 }
@@ -48,7 +51,7 @@
                 width--;
             }
             setTimeout(go, args.speed);
-        };
+        }
         if (args.leftToRight) {
             width = textWidth * -1;
             width++;

@@ -1,15 +1,52 @@
-﻿var nickName;
-$(document).ready(function () {
-	//    $("#FromDate, #ToDate").datepicker({
-	//        changeMonth: true,
-	//        changeYear: true
-	//    });
+﻿/*global _global, actingButton, noInformation, reloadButtonText, _messages*/
+/*exported index*/
+"use strict";
 
+var nickName;
+var rowIndex = 1;
+
+function view() {
+	var $form = $('form');
+	if (!$form.valid()) {
+		return;
+	}
+
+	actingButton('#view', true);
+
+	//if no user is selected, clear the empId also
+	if ($('#Employee').val() === '') {
+		$('#EmpId').val('');
+	}
+	$('#nodata').remove();
+	$.getJSON("/api/report/getemployeeattendances", $('form').serialize(),function (response) {
+		if (response.length > 0) {
+			rowIndex = 1;
+			$('#data tbody').children().remove();
+			$('#itemTemplate').tmpl(response).appendTo('#data');
+		}
+		else {
+			$('#data tbody').children().remove();
+			$(noInformation(13)).appendTo('#data');
+		}
+		reloadButtonText('#view');
+	}).error(function () {
+		reloadButtonText('#view');
+		alert(_messages.errorTryAgain);
+	});
+}
+
+function index() {
+	return rowIndex++;
+}
+
+$(document).ready(function () {
 	$("#Employee").autocomplete({
 		source: function (request, response) {
 			var term = request.term;
 			var index = term.indexOf(' (');
-			if (index > 0) term = term.substr(0, index);
+			if (index > 0) {
+				term = term.substr(0, index);
+			}
 			$.ajax({
 				dataType: 'json',
 				url: _global.root + 'api/employee/getemployees',
@@ -22,7 +59,7 @@ $(document).ready(function () {
 						return {
 							label: item.NickName + ' (' + item.FullName + ')',
 							value: item.Id
-						}
+						};
 					}));
 				}
 			});
@@ -54,7 +91,7 @@ $(document).ready(function () {
 	});
 
 	$('input[type=text]').keypress(function (evt) {
-		if (evt.keyCode == 13) {
+		if (evt.keyCode === 13) {
 			view();
 		}
 	});
@@ -66,33 +103,3 @@ $(document).ready(function () {
 	view();
 });
 
-function view() {
-	var $form = $('form');
-	if (!$form.valid()) return;
-
-	actingButton('#view', true);
-
-	//if no user is selected, clear the empId also
-	if ($('#Employee').val() == '') $('#EmpId').val('');
-	$('#nodata').remove();
-	$.getJSON("/api/report/getemployeeattendances", $('form').serialize(),function (response) {
-		if (response.length > 0) {
-			rowIndex = 1;
-			$('#data tbody').children().remove();
-			$('#itemTemplate').tmpl(response).appendTo('#data');
-		}
-		else {
-			$('#data tbody').children().remove();
-			$(noInformation(13)).appendTo('#data');
-		}
-		reloadButtonText('#view');
-	}).error(function () {
-		reloadButtonText('#view');
-		alert(_messages.errorTryAgain);
-	});
-}
-
-var rowIndex = 1;
-function index() {
-	return rowIndex++;
-}
