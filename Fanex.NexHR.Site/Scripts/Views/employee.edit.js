@@ -1,7 +1,9 @@
 ﻿'use strict';
-/*global _global:false, _messages:false, actingButton:false, checkBadDates:false, directionsDisplay:true,
+/*global _global:false, _messages:false, actingButton:false, checkBadDates:false,
 		google:false, reloadButtonText:false*/
 /* exported query */
+
+var directionsDisplay;
 
 function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
 	var directionsService = new google.maps.DirectionsService();
@@ -430,9 +432,6 @@ $(document).ready(function () {
 
     //Geo-map
     $('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);
-    /* jshint ignore:start */
-    var directionsDisplay;
-    /* jshint ignore:end*/
     initialize();
     $("#searchmap").live("click", function () {
         dynamicSearchMap();

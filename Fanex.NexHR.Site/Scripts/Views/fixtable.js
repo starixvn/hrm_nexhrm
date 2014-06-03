@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿'use strict';
+$(document).ready(function () {
 
 	var dataGrid = $('.datagrid-view').eq(0);
 	var gridView1 = dataGrid.children('div.datagrid-view1');

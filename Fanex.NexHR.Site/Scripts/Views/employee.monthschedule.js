@@ -1,6 +1,17 @@
-﻿/*global _global:false */
+﻿'use strict';
+/*global _global:false, id:false */
 
 var _event = null;
+
+function updateShiftDialog() {
+	$('#dialog').dialog({
+		modal: false,
+		title: 'Shift on ' + _event.start.format("mm/dd/yyyy"),
+		open: function () {
+			$('#current').text(_event.title);
+		}
+	});
+}
 
 $(document).ready(function () {
 	$('#scheduledefault').click(function () {
@@ -10,7 +21,7 @@ $(document).ready(function () {
 	$('#update').click(function () {
 		$.post(_global.root + 'ajax/updateshift',
 		{ id: id, date: _event.start.format("mm/dd/yyyy"), shift: $('#shifts').val()}, 
-		function (data) {
+		function () {
 			$('#row' + id).remove();
 		});
 		_event.title = $('#shifts option:selected').text();
@@ -46,7 +57,7 @@ $(document).ready(function () {
 				}
 			});
 		},
-		eventClick: function (event, element) {
+		eventClick: function (event) {
 			_event = event;
 			updateShiftDialog();
 			$('#calendar').fullCalendar('updateEvent', event);
@@ -54,13 +65,3 @@ $(document).ready(function () {
 		}
 	});
 });
-
-function updateShiftDialog() {
-	$('#dialog').dialog({
-		modal: false,
-		title: 'Shift on ' + _event.start.format("mm/dd/yyyy"),
-		open: function () {
-			$('#current').text(_event.title);
-		}
-	});
-}

@@ -1,4 +1,5 @@
-﻿/*global _global:false */
+﻿'use strict';
+/*global _global:false, _messages:false*/
 
 $(document).ready(function () {
 
@@ -8,14 +9,14 @@ $(document).ready(function () {
             $.post(_global.root + 'ajax/DeleteExtensionNumber',
 			{ extId: id },
 			function (response) {
-			    if (response) {
-			        document.location = '/extensionno/index';
-			    }
-			    else {
-			        alert(_messages.errorTryAgain);
-			    }
+				if (response) {
+					document.location = '/extensionno/index';
+				}
+				else {
+					alert(_messages.errorTryAgain);
+				}
 			}).error(function () {
-			    alert(_messages.errorTryAgain);
+				alert(_messages.errorTryAgain);
 			});
         });
     });
@@ -26,14 +27,14 @@ $(document).ready(function () {
             $.post(_global.root + 'ajax/DeleteExternalGroup',
 			{ extId: id },
 			function (response) {
-			    if (response) {
-			        document.location = '/extensionno/ManageExternalGroup';
-			    }
-			    else {
-			        alert(_messages.errorTryAgain);
-			    }
+				if (response) {
+				document.location = '/extensionno/ManageExternalGroup';
+				}
+				else {
+					alert(_messages.errorTryAgain);
+				}
 			}).error(function () {
-			    alert(_messages.errorTryAgain);
+				alert(_messages.errorTryAgain);
 			});
         });
     });
@@ -76,14 +77,14 @@ $(function () {
                     $.post(_global.root + 'ajax/AddNewExternalGroup',
 						{ groupName: name.val() },
 						function (response) {
-						    if (response) {
-						        document.location = '/extensionno/ManageExternalGroup';
-						    }
-						    else {
-						        alert(_messages.errorTryAgain);
-						    }
+						if (response) {
+								document.location = '/extensionno/ManageExternalGroup';
+							}
+							else {
+								alert(_messages.errorTryAgain);
+							}
 						}).error(function () {
-						    alert(_messages.errorTryAgain);
+							alert(_messages.errorTryAgain);
 						});
                 }
             },
@@ -142,14 +143,14 @@ $(function () {
                         $.post(_global.root + 'ajax/EditExternalGroup',
 						{ groupName: name.val(), extId: id },
 						function (response) {
-						    if (response) {
-						        document.location = '/extensionno/ManageExternalGroup';
-						    }
-						    else {
-						        alert(_messages.errorTryAgain);
-						    }
+							if (response) {
+								document.location = '/extensionno/ManageExternalGroup';
+						}
+							else {
+								alert(_messages.errorTryAgain);
+							}
 						}).error(function () {
-						    alert(_messages.errorTryAgain);
+							alert(_messages.errorTryAgain);
 						});
                     }
                 },

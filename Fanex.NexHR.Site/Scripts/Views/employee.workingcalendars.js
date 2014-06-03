@@ -1,4 +1,6 @@
-﻿function initMonthPick(today, month) {
+﻿'use strict';
+/*exported initMonthPick*/
+function initMonthPick(today, month) {
 	//Month Picker
 	var dateRangePicker = $('#DateControl');
 

@@ -1,13 +1,14 @@
-﻿/*global _global:false */
+﻿'use strict';
+/*global _global:false, getParam: false, id:false*/
 
 $(document).ready(function () {
 
 	var date = new Date().format("mm/dd/yyyy");
 
-	if (getParam('date') == date) {
+	if (getParam('date') === date) {
 		$('#schedulemonth').attr('checked', true);
 	}
-	if (getParam('date') == null) {
+	if (getParam('date') === null) {
 		$('#scheduledefault').attr('checked', true);
 	}
 
