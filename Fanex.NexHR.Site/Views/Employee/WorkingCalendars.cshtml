@@ -19,11 +19,7 @@
 @section Breadcrumb {
     <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
 }
-<script type="text/javascript">
-    $(document).ready(function () {
-        initMonthPick('@maxDate.ToString()', '@ViewBag.CurrentDate');
-    });
-</script>
+
 <h2>@ViewBag.Title</h2>
 <div class="container_24">
     @using (Html.BeginGetForm())

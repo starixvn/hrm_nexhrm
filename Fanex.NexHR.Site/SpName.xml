@@ -11,7 +11,7 @@
         <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert_xtest" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_InsertDetail" SpName="WorkingTimeRequest_InsertDetail" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhrx" Plain="1"></Setting>
@@ -19,7 +19,7 @@
         <Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Report_LeaveSummary" SpName="Report_LeaveSummary" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="RequestMonitoring" SpName="Report_RequestMonitor" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="Report_EmployeeCalendarByMonth" SpName="Report_EmployeeCalendarByMonth" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="Report_EmployeeCalendarByMonth" SpName="Report_EmployeeCalendarByMonth_xtest" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_CheckinOutType" SpName="WorkingTimeRequest_GetRequestByEmp_CheckinOutType" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_LateInEarlyOutType" SpName="WorkingTimeRequest_GetRequestByEmp_LateInEarlyOutType" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_ChangeShiftType" SpName="WorkingTimeRequest_GetRequestByEmp_ChangeShiftType" DbName="nexhrx" Plain="1"></Setting>
@@ -91,8 +91,8 @@
         <Setting Key="EmployeeCalendar_Update" SpName="EmployeeCalendar_Update" DbName="nexhrx" Plain="1"></Setting>
     </Function>
     <Function Name="WorkingTimeRequest">
-        <Setting Key="WorkingTimeRequest_ApproveRequest" SpName="WorkingTimeRequest_ApproveRequest" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="WorkingTimeRequest_DisapproveRequest" SpName="WorkingTimeRequest_DisapproveRequest" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="WorkingTimeRequest_ApproveRequest" SpName="WorkingTimeRequest_ApproveRequest_xtest" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="WorkingTimeRequest_DisapproveRequest" SpName="WorkingTimeRequest_DisapproveRequest_xtest" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_RejectRequest" SpName="WorkingTimeRequest_RejectRequest" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_Delete" SpName="WorkingTimeRequest_Delete" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="WorkingTimeRequest_Update" SpName="WorkingTimeRequest_Update" DbName="nexhrx" Plain="1"></Setting>
