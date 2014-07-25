@@ -19,7 +19,11 @@
 @section Breadcrumb {
     <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
 }
-
+<script type="text/javascript">
+	$(document).ready(function () {
+		initMonthPick('@maxDate.ToString()', '@ViewBag.CurrentDate');
+	});
+</script>
 <h2>@ViewBag.Title</h2>
 <div class="container_24">
     @using (Html.BeginGetForm())
@@ -264,16 +268,24 @@
                                         </div>
                                     </td>
                                     }
-                                    else
-                                    { 
+									else if (shift.Contains('/')) 
+									{
+									<td class="HH">
+										<div class="datagrid-cell">
+											@shift
+										</div>
+									</td>
+									}
+									else
+									{ 
                                     <td>
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    day++;
-                                }
+									}
+									day++;
+								}
                             </tr>
                         }
                     </tbody>
@@ -301,4 +313,6 @@
         WL</div>
     <div class="grid_2 tooltip" title="Maternity Leave">
         ML</div>
+	<div class="grid_2 HH tooltip" title="2 Leave Half Day">
+		H/H</div>
 </div>

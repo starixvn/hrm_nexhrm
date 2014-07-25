@@ -37,7 +37,7 @@
         @NavigationSection(ViewBag.NavigationItems)
     </div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript" src="/Scripts/Libs/jquery.min.js">
     $(document).ready(function () {
         var currentUrl = '@(ViewBag.Controller.ToString().ToLower() + "_" + ViewBag.Action.ToString().ToLower())';
         var selectNavItem = $("#" + currentUrl);

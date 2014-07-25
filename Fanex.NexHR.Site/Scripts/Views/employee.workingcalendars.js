@@ -26,7 +26,3 @@ function initMonthPick(today, month) {
 			$(this).removeClass('rowhover');
 		});
 }
-
-$(document).ready(function () {
-	initMonthPick('@maxDate.ToString()', '@ViewBag.CurrentDate');
-});
