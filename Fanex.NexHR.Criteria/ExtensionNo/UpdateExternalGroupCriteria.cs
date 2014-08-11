@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Criteria.ExtensionNo
     /// </summary>
     public class UpdateExternalGroupCriteria : CriteriaBase
     {
-        public int ExtID { get; set; }
+        public int ExtId { get; set; }
 
         public string FullName { get; set; }
 

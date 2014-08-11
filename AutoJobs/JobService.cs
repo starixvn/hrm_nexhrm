@@ -302,12 +302,12 @@ namespace AutoJobs
             {
                 Employee = item.NickName,
                 Date = item.AttendanceDate.ToShortDateString(),
-                Type = item.Type == 1 ? "Check In" : "Check Out",
+                InOutType = item.Type == 1 ? "Check In" : "Check Out",
                 Shift = item.ShiftCode,
                 Remark = item.Type == 1 ? "Forgot Check In" : "Forgot Check Out"
             };
 
-            var emailContent = string.Format(bodyTemplate, data.Employee, data.Type, data.Type, data.Date, data.Shift, data.Remark);
+            var emailContent = string.Format(bodyTemplate, data.Employee, data.InOutType, data.InOutType, data.Date, data.Shift, data.Remark);
 
             return emailContent;
         }
@@ -320,7 +320,7 @@ namespace AutoJobs
         {
             var employees = string.Join(
                 "<br />", 
-                employeesBirthday.Select(t => ("- <strong>" + t.NickName + "</strong> (" + t.FullName + "): " + t.DOB.ToString("dd MMM, yyyy"))));
+                employeesBirthday.Select(t => ("- <strong>" + t.NickName + "</strong> (" + t.FullName + "): " + t.DateOfBirth.ToString("dd MMM, yyyy"))));
 
             string emailSubject = "Reminder: Happy birthday to " + string.Join(", ", employeesBirthday.Select(t => t.NickName));
             var bodyTemplate = ReadTextFile("emails/ReminderBirthday.cshtml");

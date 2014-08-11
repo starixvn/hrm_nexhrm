@@ -148,7 +148,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
-                    LeaveTypeID = null,
+                    LeaveTypeId = null,
                     TotalDays = null,
                     LateInMins = null,
                     EarlyOutMins = null
@@ -240,7 +240,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
-                    LeaveTypeID = null,
+                    LeaveTypeId = null,
                     TotalDays = null,
                     LateInMins = lateInMins,
                     EarlyOutMins = earlyOutMins
@@ -348,7 +348,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = model.ToDate,
                     ToShift = null,
-                    LeaveTypeID = model.LeaveTypeId,
+                    LeaveTypeId = model.LeaveTypeId,
                     TotalDays = model.TotalDays,
                     LateInMins = null,
                     EarlyOutMins = null
@@ -463,7 +463,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
-                    LeaveTypeID = null,
+                    LeaveTypeId = null,
                     TotalDays = null,
                     LateInMins = null,
                     EarlyOutMins = null
@@ -537,7 +537,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
-                    LeaveTypeID = null,
+                    LeaveTypeId = null,
                     TotalDays = null,
                     LateInMins = lateInMins,
                     EarlyOutMins = earlyOutMins
@@ -626,7 +626,7 @@ namespace Fanex.NexHR.Services
                     FromShift = null,
                     ToDate = model.ToDate,
                     ToShift = null,
-                    LeaveTypeID = model.LeaveTypeId,
+                    LeaveTypeId = model.LeaveTypeId,
                     TotalDays = model.TotalDays,
                     LateInMins = null,
                     EarlyOutMins = null
@@ -728,7 +728,7 @@ namespace Fanex.NexHR.Services
                 case "Disapprove":
                     var disapproveRequestCriteria = new DisapproveRequestCriteria
                     {
-                        RequestID = id,
+                        RequestId = id,
                         ModifiedBy = processBy,
                         ModifiedDate = DateTime.Now
                     };
@@ -740,7 +740,7 @@ namespace Fanex.NexHR.Services
                 case "Reject":
                     var rejectRequestCriteria = new RejectRequestCriteria
                     {
-                        RequestID = id,
+                        RequestId = id,
                         ProcessedBy = processBy,
                         ProcessedDate = DateTime.Now
                     };
@@ -752,7 +752,7 @@ namespace Fanex.NexHR.Services
                 default:
                     var approveRequestCriteria = new ApproveRequestCriteria
                     {
-                        RequestID = id,
+                        RequestId = id,
                         ApprovedBy = processBy,
                         ApprovedDate = DateTime.Now
                     };

@@ -12,7 +12,7 @@
     @Url.CombresLink("memojs")
 }
 @section Breadcrumb {
-    <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
+    <a class="step">Company</a> <span class="step">@ViewBag.Title</span>
 }
 <h2>@ViewBag.Title</h2>
 @using (Html.BeginForm())
@@ -99,7 +99,7 @@
                                     <img src="~/Styles/Images/edit-icon.png" alt="Edit" /></a>
                             </td>
                             <td class="cmd" title="Delete">
-                                <a href="javascript:;" onclick="deleteMemo(@item.Id, '@System.Web.HttpUtility.HtmlEncode(item.Contents)', @item.Type);">
+                                <a href="javascript:;" onclick="deleteMemo(@item.Id, '@System.Web.HttpUtility.HtmlEncode(item.Contents)', @item.MemoType);">
                                     <img src="~/Styles/Images/delete-icon.png" alt="Delete" /></a>
                             </td>
                         }

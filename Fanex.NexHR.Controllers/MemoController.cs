@@ -89,6 +89,7 @@ namespace Fanex.NexHR.Controllers
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             Memo memo = _memoService.GetById(getMemoByIdCriteria);
+            ViewBag.Updated = false;
 
             return View(memo);
         }
@@ -105,12 +106,12 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            if (model.Type == 1 && string.IsNullOrEmpty(model.AttachFile))
+            if (model.MemoType == 1 && string.IsNullOrEmpty(model.AttachFile))
             {
                 return View(model);
             }
 
-            if (model.Type == 1)
+            if (model.MemoType == 1)
             {
                 model.Contents = model.AttachFile;
             }
@@ -130,7 +131,7 @@ namespace Fanex.NexHR.Controllers
                     SentTo = model.SentTo,
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
-                    Type = model.Type
+                    MemoType = model.MemoType
                 };
                 ViewBag.Updated = _memoService.Update(updateMemoCriteria);
             }
@@ -151,6 +152,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            ViewBag.Updated = false;
             return View(new Memo
             {
                 SentTo = "All Staff",
@@ -158,7 +160,7 @@ namespace Fanex.NexHR.Controllers
                 TotalPages = 1,
                 SentDate = DateTime.Now,
                 Contents = "[Contents]",
-                Type = 1
+                MemoType = 1
             });
         }
 
@@ -174,7 +176,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            if (model.Type == 1)
+            if (model.MemoType == 1)
             {
                 model.Contents = model.AttachFile;
             }
@@ -193,7 +195,7 @@ namespace Fanex.NexHR.Controllers
                     SentTo = model.SentTo,
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
-                    Type = model.Type
+                    MemoType = model.MemoType
                 };
                 var id = _memoService.Insert(insertMemoCriteria);
 

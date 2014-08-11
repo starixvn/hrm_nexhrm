@@ -9,6 +9,7 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Web;
     using System.Web.Mvc;
@@ -21,42 +22,57 @@ namespace Fanex.NexHR.Controllers
         /// <summary>
         /// Upload file.
         /// </summary>
-        /// <param name="file">The upload file.</param>
+        /// <param name="files">The upload files.</param>
         /// <param name="categoryID">The category ID.</param>
         /// <param name="overRide">Override or not.</param>
         /// <returns>The return string.</returns>
         [HttpPost]
-        public string UploadFile(HttpPostedFileBase file, int categoryID, int overRide)
+        public string UploadFile(IEnumerable<HttpPostedFileBase> files, int categoryID, int overRide)
         {
-            string pathAttach = string.Empty;
-            if (file.ContentLength > 0)
+            string pathAttachFiles = string.Empty;
+
+            foreach (HttpPostedFileBase file in files)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var dir = "~/file/uploads/" + categoryID;
-                pathAttach = dir + "/" + fileName;
+                string pathAttach = string.Empty;
 
-                if (overRide == 0)
+                if (file.ContentLength > 0)
                 {
-                    while (System.IO.File.Exists(Server.MapPath(pathAttach)))
+                    var fileName = Path.GetFileName(file.FileName);
+                    var dir = "~/file/uploads/" + categoryID;
+                    pathAttach = dir + "/" + fileName;
+
+                    if (overRide == 0)
                     {
-                        fileName = "(1)" + fileName;
-                        pathAttach = dir + "/" + fileName;
+                        while (System.IO.File.Exists(Server.MapPath(pathAttach)))
+                        {
+                            fileName = "(1)" + fileName;
+                            pathAttach = dir + "/" + fileName;
+                        }
                     }
+
+                    if (!Directory.Exists(Server.MapPath(dir)))
+                    {
+                        Directory.CreateDirectory(Server.MapPath(dir));
+                    }
+
+                    var path = Path.Combine(Server.MapPath(dir), fileName);
+
+                    pathAttach = pathAttach.Substring(2);
+
+                    if (string.IsNullOrEmpty(pathAttachFiles))
+                    {
+                        pathAttachFiles = pathAttach;
+                    }
+                    else
+                    {
+                        pathAttachFiles += ";/" + pathAttach;
+                    }
+
+                    file.SaveAs(path);
                 }
-
-                if (!Directory.Exists(Server.MapPath(dir)))
-                {
-                    Directory.CreateDirectory(Server.MapPath(dir));
-                }
-
-                var path = Path.Combine(Server.MapPath(dir), fileName);
-
-                pathAttach = pathAttach.Substring(2);
-
-                file.SaveAs(path);
             }
 
-            return pathAttach;
+            return pathAttachFiles;
         }
 
         public bool Delete(string fileName)

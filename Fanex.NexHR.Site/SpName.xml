@@ -3,7 +3,9 @@
     <Function Name="Employee">
         <Setting Key="GetEmployee" SpName="Employee_GetEmployee" DbName="nexhrx" Plain="1">
         </Setting>
-        <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhrx" Plain="1">
+					<Mapping DataField="DOB" ObjectProperty="DateOfBirth"/>
+				</Setting>
         <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhrx" Plain="1"></Setting>
@@ -110,9 +112,12 @@
         <Setting Key="Memo_Insert" SpName="Memo_Insert" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Memo_Update" SpName="Memo_Update" DbName="nexhrx" Plain="1"></Setting>
         <Setting Key="Memo_Delete" SpName="Memo_Delete" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="Memo_GetAll" SpName="Memo_GetAll" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="Memo_GetById" SpName="Memo_GetById" DbName="nexhrx" Plain="1"></Setting>
-        <Setting Key="Memo_GetById" SpName="Memo_GetById" DbName="nexhrx" Plain="1"></Setting>
+        <Setting Key="Memo_GetAll" SpName="Memo_GetAll" DbName="nexhrx" Plain="1">
+					<Mapping DataField="Type" ObjectProperty="MemoType"/>
+				</Setting>
+        <Setting Key="Memo_GetById" SpName="Memo_GetById" DbName="nexhrx" Plain="1">
+					<Mapping DataField="Type" ObjectProperty="MemoType"/>
+				</Setting>
     </Function>
 
     <Function Name="LeaveType">

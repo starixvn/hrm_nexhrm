@@ -721,7 +721,7 @@ namespace Fanex.NexHR.Services
         }
         #endregion
 
-        public IList<Employee> GetEmployeeTOEICScore(GetEmployeeTOEICScoreCriteria criteria)
+        public IList<Employee> GetEmployeeTOEICScore(GetEmployeeToeicScoreCriteria criteria)
         {
             if (criteria.Enable != null)
             {

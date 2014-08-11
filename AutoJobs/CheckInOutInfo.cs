@@ -24,7 +24,7 @@ namespace AutoJobs
 
         public string Date { get; set; }
 
-        public string Type { get; set; }
+        public string InOutType { get; set; }
 
         public string Shift { get; set; }
 

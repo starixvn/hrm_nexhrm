@@ -235,7 +235,7 @@ namespace Fanex.NexHR.Controllers.Request
             var getLeaveRequestHistoryCriteria = new GetRequestHistoryCriteria
             {
                 RequestId = requestId,
-                Type = requestType
+                RequestType = requestType
             };
 
             IList<Leave> entityList = EmployeeService.GetLeaveRequestHistory(getLeaveRequestHistoryCriteria);
@@ -252,7 +252,7 @@ namespace Fanex.NexHR.Controllers.Request
             var getLateInOutRequestCriteria = new GetRequestHistoryCriteria
             {
                 RequestId = requestId,
-                Type = requestType
+                RequestType = requestType
             };
 
             IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequestHistory(getLateInOutRequestCriteria);
@@ -269,7 +269,7 @@ namespace Fanex.NexHR.Controllers.Request
             var getCheckInOutRequestCriteria = new GetRequestHistoryCriteria
             {
                 RequestId = requestId,
-                Type = requestType
+                RequestType = requestType
             };
 
             IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequestHistory(getCheckInOutRequestCriteria);

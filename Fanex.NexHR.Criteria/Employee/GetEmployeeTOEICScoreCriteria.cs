@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Criteria.Employee
     /// <summary>
     /// Get employee TOEIC score criteria.
     /// </summary>
-    public class GetEmployeeTOEICScoreCriteria : CriteriaBase
+    public class GetEmployeeToeicScoreCriteria : CriteriaBase
     {
         [SpParam(Ignored = true)]
         private int _pageNumber = 1;

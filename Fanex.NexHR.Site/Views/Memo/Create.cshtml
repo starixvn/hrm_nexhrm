@@ -9,23 +9,25 @@
     @Url.CombresLink("memoeditjs")
 }
 @section Breadcrumb {
-    <span class="step">Company Space</span> <a href="@Url.Action("Index", "memo")" class="step">Company memo</a>
-    <span class="step">Create</span>
+    <a class="step">Company Space</a> 
+    <a class="step" href="@Url.Action("Index", "memo")">Memo</a>
+    <a class="step">Add new Memo</a>
 }
 <h2>@Labels.CreateMemo</h2>
 @using (Html.BeginForm())
 {
     <div class="container_24 bunhat">
-        @Html.ValidationSummary(true)
-        @if (ViewBag.Updated == true)
+
+        <div class="validation-summary-errors" id="error"></div>
+        @if ((bool)ViewBag.Updated)
         {
             <div class="success flash">
-                Created Successful!</div> 
+                Created Successful!</div>
         }
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.TotalPages)
         @Html.HiddenFor(model => model.AttachFile)
-        @Html.HiddenFor(model => model.Type)
+        @Html.HiddenFor(model => model.MemoType)
         <div class="grid_19 formrow">
             <div class="grid_2">
                 <div class="label">
@@ -82,7 +84,6 @@
             </div>
             <div class="grid_6">
                 @Html.DatePickerFor(model => model.SentDate)
-                @Html.ValidationMessageFor(model => model.SentDate)
             </div>
         </div>
         <div class="clear">
@@ -97,7 +98,6 @@
             </div>
             <div class="grid_6">
                 @Html.EditorFor(model => model.SentTo)
-                @Html.ValidationMessageFor(model => model.SentTo)
             </div>
         </div>
         <div class="grid_9 formrow">
@@ -108,7 +108,6 @@
             </div>
             <div class="grid_6">
                 @Html.EditorFor(model => model.SentFrom)
-                @Html.ValidationMessageFor(model => model.SentFrom)
             </div>
         </div>
         <div class="grid_9 formrow">
@@ -138,7 +137,7 @@
                 new SelectListItem() {Text = "FCK Editor", Value = "0"},
             };    
                 }
-                @Html.RadioButtonList(model => model.Type, types)
+                @Html.RadioButtonList(model => model.MemoType, types)
             </div>
         </div>
         <div class="clear">
@@ -155,7 +154,7 @@
                     <br />
                 </div>
                 <div class="grid_11">
-                    <input type="file" id="fileName" size="55" />
+                    <input type="file" id="fileName" size="55" multiple />
                 </div>
                 <div class="grid_4">
                     <input type="checkbox" id="override" size="55" />
@@ -184,7 +183,6 @@
                 </div>
                 <div class="grid_17">
                     @Html.TextAreaFor(model => model.Contents)
-                    @Html.ValidationMessageFor(model => model.Contents)
                 </div>
             </div>
         </div>

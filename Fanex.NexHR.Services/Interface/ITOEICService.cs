@@ -10,16 +10,15 @@
 
 namespace Fanex.NexHR.Services.Interface
 {
-    using Fanex.NAP.Framework.Data;
-    using Fanex.NexHR.Criteria.TOEIC;
+    using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
 
     public interface ITOEICService
     {
-        TOEIC GetById(GetTOEICScoreByEmployeeIdCriteria criteria);
+        TOEIC GetById(GetToeicScoreByEmployeeIdCriteria criteria);
 
-        int UpdateFullToeicScore(UpdateFullTOEICScoreCriteria criteria);
+        int UpdateFullToeicScore(UpdateFullToeicScoreCriteria criteria);
 
-        int UpdateToeicScore(UpdateTOEICScoreCriteria criteria);
+        int UpdateToeicScore(UpdateToeicScoreCriteria criteria);
     }
 }

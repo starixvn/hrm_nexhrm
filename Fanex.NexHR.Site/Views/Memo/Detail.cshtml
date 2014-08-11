@@ -11,8 +11,9 @@
     @Url.CombresLink("memojs")
 }
 @section Breadcrumb {
-    <span class="step">Company Space</span><a href="@Url.Action("Index", "memo")" class="step">Company memo</a>
-    <span class="step">@memoSubject</span>
+    <a class="step">Company Space</a>
+    <a class="step" href="@Url.Action("Index", "memo")">Memo</a>
+    <a class="step">Memo "@memoSubject" Details</a>
 }
 @if (!ReferenceEquals(Model, null))
 { 

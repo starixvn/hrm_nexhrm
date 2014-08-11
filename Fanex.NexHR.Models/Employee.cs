@@ -30,7 +30,7 @@ namespace Fanex.NexHR.Models
         public string NickName { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DOB { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Email]
         public string Email { get; set; }
@@ -188,7 +188,7 @@ namespace Fanex.NexHR.Models
         }
 
         // TOEIC score
-        public TOEIC TOEICScore { get; set; }
+        public TOEIC ToeicScore { get; set; }
 
         /// <summary>
         /// Check user is in specific roles.

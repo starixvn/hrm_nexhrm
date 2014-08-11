@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateTOEICScoreCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="UpdateToeicScoreCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.3.5">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Criteria.TOEIC
+namespace Fanex.NexHR.Criteria.Toeic
 {
     using System;
     using Fanex.NAP.Framework.Data;
@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Criteria.TOEIC
     /// <summary>
     /// Update TOEIC Score Criteria.
     /// </summary>
-    public class UpdateTOEICScoreCriteria : CriteriaBase
+    public class UpdateToeicScoreCriteria : CriteriaBase
     {
         public int EmpId { get; set; }
 

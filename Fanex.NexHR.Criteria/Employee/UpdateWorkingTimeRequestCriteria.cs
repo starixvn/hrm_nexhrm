@@ -31,7 +31,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public int? ToShift { get; set; }
 
-        public int? LeaveTypeID { get; set; }
+        public int? LeaveTypeId { get; set; }
 
         public decimal? TotalDays { get; set; }
 

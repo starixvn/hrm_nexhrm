@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Models
     /// </summary>
     public class EmployeeShift
     {
-        public int EmpID { get; set; }
+        public int EmpId { get; set; }
 
         public int? MonShift { get; set; }
 

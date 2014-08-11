@@ -11,7 +11,7 @@
 namespace Fanex.NexHR.Services
 {
     using Fanex.Common.Helper;
-    using Fanex.NexHR.Criteria.TOEIC;
+    using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interface;
@@ -34,7 +34,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>TOEIC object.</returns>
-        public TOEIC GetById(GetTOEICScoreByEmployeeIdCriteria criteria)
+        public TOEIC GetById(GetToeicScoreByEmployeeIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var toeic = new TOEIC();
@@ -51,7 +51,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">UpdateTOEICScore Criteria.</param>
         /// <returns>Effected row.</returns>
-        public int UpdateToeicScore(UpdateTOEICScoreCriteria criteria)
+        public int UpdateToeicScore(UpdateToeicScoreCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             int updated = -1;
@@ -68,7 +68,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Effected row.</returns>
-        public int UpdateFullToeicScore(UpdateFullTOEICScoreCriteria criteria)
+        public int UpdateFullToeicScore(UpdateFullToeicScoreCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             int updated = -1;

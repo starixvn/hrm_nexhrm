@@ -94,7 +94,7 @@ namespace Fanex.NexHR.Controllers
             var criteria = new GetEmployeeExtensionNoByIdCriteria
             {
                 IsInternal = isInternal,
-                EmpExtID = empExtID
+                EmpExtId = empExtID
             };
             var model = _extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria 
@@ -136,7 +136,7 @@ namespace Fanex.NexHR.Controllers
             {
                 var updateCriteria = new UpdateExtensionNoMemberCriteria
                 {
-                    ExtID = model.EmpExtID,
+                    ExtId = model.EmpExtId,
                     EmpId = model.EmpId,
                     NickName = model.NickName,
                     FullName = model.FullName,

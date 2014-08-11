@@ -290,7 +290,7 @@ namespace Fanex.NexHR.Controllers
             {
                 EmpId = id,
                 Date = date,
-                ShiftID = shift,
+                ShiftId = shift,
                 ModifiedBy = this.CurrentUser.Id,
                 ModifiedDate = DateTime.Now.Date
             };
@@ -356,7 +356,7 @@ namespace Fanex.NexHR.Controllers
         {
             var criteria = new DeleteExtensionNumberCriteria
             {
-                ExtID = extId
+                ExtId = extId
             };
             return _extensionNoService.DeleteExtensionNumber(criteria);
         }
@@ -378,7 +378,7 @@ namespace Fanex.NexHR.Controllers
         {
             var criteria = new DeleteExternalGroupCriteria
             {
-                ExtID = extId
+                ExtId = extId
             };
             return _extensionNoService.DeleteExternalGroup(criteria);
         }
@@ -389,7 +389,7 @@ namespace Fanex.NexHR.Controllers
         {
             var criteria = new UpdateExternalGroupCriteria
             {
-                ExtID = extId,
+                ExtId = extId,
                 FullName = groupName
             };
             return _extensionNoService.UpdateExternalGroup(criteria);

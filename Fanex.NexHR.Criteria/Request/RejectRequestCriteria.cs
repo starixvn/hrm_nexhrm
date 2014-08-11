@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Criteria.Request
     /// </summary>
     public class RejectRequestCriteria : CriteriaBase
     {
-        public long RequestID { get; set; }
+        public long RequestId { get; set; }
 
         public int ProcessedBy { get; set; }
 

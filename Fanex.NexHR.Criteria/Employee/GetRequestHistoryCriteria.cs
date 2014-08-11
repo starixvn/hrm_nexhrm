@@ -18,7 +18,8 @@ namespace Fanex.NexHR.Criteria.Employee
     {
         public long RequestId { get; set; }
 
-        public int Type { get; set; }
+        [SpParam(SqlParamName = "Type")]
+        public int RequestType { get; set; }
 
         public override string GetSettingKey()
         {

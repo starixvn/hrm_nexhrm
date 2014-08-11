@@ -128,7 +128,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 groupId = null;
             }
 
-            var getTOEICScoreCriteria = new GetEmployeeTOEICScoreCriteria
+            var getTOEICScoreCriteria = new GetEmployeeToeicScoreCriteria
             {
                 Query = query,
                 GroupId = groupId,

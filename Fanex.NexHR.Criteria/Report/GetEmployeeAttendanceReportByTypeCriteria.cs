@@ -30,7 +30,8 @@ namespace Fanex.NexHR.Criteria.Report
 
         public int ExcludeUserDelete { get; set; }
 
-        public short Type { get; set; }
+        [SpParam(SqlParamName = "Type")]
+        public short ReportType { get; set; }
 
         public override string GetSettingKey()
         {

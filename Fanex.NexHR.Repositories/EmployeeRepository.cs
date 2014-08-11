@@ -1175,7 +1175,7 @@ namespace Fanex.NexHR.Repositories
                      (e, t) =>
                      {
                          e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-                         e.TOEICScore = new TOEIC
+                         e.ToeicScore = new TOEIC
                          {
                              InputDate = t.InputDate,
                              Listening = t.Listening,

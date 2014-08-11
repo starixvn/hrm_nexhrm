@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Criteria.ExtensionNo
     /// </summary>
     public class DeleteExtensionNumberCriteria : CriteriaBase
     {
-        public int ExtID { get; set; }
+        public int ExtId { get; set; }
 
         public override string GetSettingKey()
         {

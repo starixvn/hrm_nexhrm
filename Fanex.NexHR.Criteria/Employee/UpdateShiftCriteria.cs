@@ -21,7 +21,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public DateTime Date { get; set; }
 
-        public int? ShiftID { get; set; }
+        public int? ShiftId { get; set; }
 
         public int ModifiedBy { get; set; }
 

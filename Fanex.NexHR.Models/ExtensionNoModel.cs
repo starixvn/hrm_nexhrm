@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Models
     /// </summary>
     public class ExtensionNoModel
     {
-        public int EmpExtID { get; set; }
+        public int EmpExtId { get; set; }
 
         [Required]
         public int TeamId { get; set; }

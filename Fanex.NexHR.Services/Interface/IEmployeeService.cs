@@ -97,7 +97,7 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams);
 
-        IList<Employee> GetEmployeeTOEICScore(GetEmployeeTOEICScoreCriteria criteria);
+        IList<Employee> GetEmployeeTOEICScore(GetEmployeeToeicScoreCriteria criteria);
 
         void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday);
     }

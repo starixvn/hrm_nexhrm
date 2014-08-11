@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
-    using Fanex.NexHR.Criteria.TOEIC;
+    using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
 
@@ -54,7 +54,7 @@ namespace Fanex.NexHR.Controllers
         {
             var model = this.CurrentUser;
             int empId = this.CurrentUser.Id;
-            var criteria = new GetTOEICScoreByEmployeeIdCriteria() { EmpId = empId };
+            var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empId };
 
             ViewBag.JobTitle = model.JobTitleId == null
             ? Resources.Labels.Unknown

@@ -85,15 +85,15 @@
         </div>
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.DOB)
+                @Html.LabelFor(model => model.DateOfBirth)
             </div>
             <div class="input">
-                @Html.DatePickerFor(model => model.DOB)
-                @Html.ValidationMessageFor(model => model.DOB)
+                @Html.DatePickerFor(model => model.DateOfBirth)
+                @Html.ValidationMessageFor(model => model.DateOfBirth)
             </div>
             <div class="input" id="DOBPicker">
             </div>
-            @Html.HiddenFor(model => model.DOB)
+            @Html.HiddenFor(model => model.DateOfBirth)
         </div>
         <div class="formrow">
             <div class="label">
@@ -312,7 +312,7 @@
                 TOEIC score
             </div>
             <div class="input">
-                @if (Model.TOEICScore != null)
+                @if (Model.ToeicScore != null)
                 {
                     <table>
                         <tr>
@@ -332,13 +332,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>@(Model.TOEICScore.Listening.HasValue ? Model.TOEICScore.Listening.Value.ToString() : "-")
+                                            <td>@(Model.ToeicScore.Listening.HasValue ? Model.ToeicScore.Listening.Value.ToString() : "-")
                                             </td>
-                                            <td>@(Model.TOEICScore.Reading.HasValue ? Model.TOEICScore.Reading.Value.ToString() : "-")
+                                            <td>@(Model.ToeicScore.Reading.HasValue ? Model.ToeicScore.Reading.Value.ToString() : "-")
                                             </td>
-                                            <td>@(Model.TOEICScore.Speaking.HasValue ? Model.TOEICScore.Speaking.Value.ToString() : "-")
+                                            <td>@(Model.ToeicScore.Speaking.HasValue ? Model.ToeicScore.Speaking.Value.ToString() : "-")
                                             </td>
-                                            <td>@(Model.TOEICScore.Writing.HasValue ? Model.TOEICScore.Writing.Value.ToString() : "-")
+                                            <td>@(Model.ToeicScore.Writing.HasValue ? Model.ToeicScore.Writing.Value.ToString() : "-")
                                             </td>
                                         </tr>
                                     </tbody>

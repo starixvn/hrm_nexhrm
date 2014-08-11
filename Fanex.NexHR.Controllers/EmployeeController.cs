@@ -20,12 +20,11 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Criteria.TOEIC;
+    using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interface;
@@ -105,7 +104,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
             var model = _employeeService.Get(getEmployeeCriteria);
-            var toeicScoreCriteria = new GetTOEICScoreByEmployeeIdCriteria() { EmpId = id };
+            var toeicScoreCriteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = id };
 
             if (model != null)
             {
@@ -233,7 +232,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
             var model = _employeeService.Get(getEmployeeCriteria);
-            var employeeToeicCriteria = new GetTOEICScoreByEmployeeIdCriteria()
+            var employeeToeicCriteria = new GetToeicScoreByEmployeeIdCriteria()
             {
                 EmpId = id
             };
@@ -271,7 +270,7 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 model.LeaderGroups = leaderGroups;
-                model.TOEICScore = _toeicService.GetById(employeeToeicCriteria);
+                model.ToeicScore = _toeicService.GetById(employeeToeicCriteria);
                 ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
                 ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
@@ -356,7 +355,7 @@ namespace Fanex.NexHR.Controllers
             {
                 var criteria = new UpdateEmployeeShiftCriteria()
                 {
-                    Id = model.EmpID,
+                    Id = model.EmpId,
                     FriShift = model.FriShift,
                     MonShift = model.MonShift,
                     SatShift = model.SatShift,
@@ -372,7 +371,7 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpID };
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
             ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
@@ -689,7 +688,7 @@ namespace Fanex.NexHR.Controllers
 
             if (id.HasValue && id.Value > 0)
             {
-                var criteria = new GetTOEICScoreByEmployeeIdCriteria()
+                var criteria = new GetToeicScoreByEmployeeIdCriteria()
                 {
                     EmpId = id.Value
                 };
@@ -721,7 +720,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     model.CreatedBy = model.ModifiedBy = currentUserId;
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
-                    var toeicCriteria = new UpdateFullTOEICScoreCriteria()
+                    var toeicCriteria = new UpdateFullToeicScoreCriteria()
                     {
                         CreatedBy = currentUserId,
                         CreatedDate = DateTime.Now,
@@ -793,7 +792,7 @@ namespace Fanex.NexHR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var toeicScoreCriteria = new UpdateTOEICScoreCriteria()
+                    var toeicScoreCriteria = new UpdateToeicScoreCriteria()
                     {
                         EmpId = model.EmpId,
                         InputDate = model.InputDate,
@@ -904,7 +903,7 @@ namespace Fanex.NexHR.Controllers
                 CurrAddress = model.CurrentAddress,
                 Address = model.Address,
                 Distancetocompany = model.DistanceToCompany,
-                DOB = model.DOB,
+                DateOfBirth = model.DateOfBirth,
                 DomainUsername = model.DomainUsername,
                 Email = model.Email,
                 Enabled = model.Enabled,
@@ -912,7 +911,7 @@ namespace Fanex.NexHR.Controllers
                 Gender = model.Gender,
                 Geomaplatitude = model.GeoMapLatitude,
                 Geomaplongtitude = model.GeoMapLongtitude,
-                HandleRequestGroupIDs = model.LeaderGroups,
+                HandleRequestGroupIds = model.LeaderGroups,
                 Id = model.Id,
                 IdCardNo = model.CardNo,
                 JobTitleId = model.JobTitleId,

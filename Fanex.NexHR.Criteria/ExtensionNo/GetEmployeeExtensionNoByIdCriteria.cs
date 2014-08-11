@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Criteria.ExtensionNo
     {
         public bool IsInternal { get; set; }
 
-        public int EmpExtID { get; set; }
+        public int EmpExtId { get; set; }
 
         public override string GetSettingKey()
         {
