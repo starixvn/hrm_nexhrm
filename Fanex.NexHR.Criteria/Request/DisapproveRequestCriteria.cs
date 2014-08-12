@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Disapprove Request Criteria.
@@ -22,10 +22,6 @@ namespace Fanex.NexHR.Criteria.Request
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
-
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
 
         public override bool IsValid()
         {

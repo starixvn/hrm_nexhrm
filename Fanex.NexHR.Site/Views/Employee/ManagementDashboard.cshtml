@@ -1,4 +1,4 @@
-﻿@model HrLeaderDashboardModel
+﻿@model HRLeaderDashboardModel
 <h2 class="section">
     My members' requests</h2>
 <table class="data" id="myspace">
@@ -26,7 +26,7 @@
             DateOption = 0,
             ToDate = DateTime.Now,
             FromDate = DateTime.Now.AddDays(-7),
-            StatusId = (byte)RequestStatuses.Pending,
+            StatusId = (byte)RequestStatuse.Pending,
             TeamId = null
         };
     }

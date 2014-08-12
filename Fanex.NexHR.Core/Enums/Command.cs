@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="Commands.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="Command.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,7 +9,10 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    public enum Commands
+    using System.Diagnostics.CodeAnalysis;
+
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
+    public enum Command
     {
         /// <summary>
         /// Approve command.

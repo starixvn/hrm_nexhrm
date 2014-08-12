@@ -575,7 +575,7 @@ namespace Fanex.NexHR.Controllers
         [ChildActionOnly]
         public ActionResult ManagementDashboard()
         {
-            if (this.CurrentUser.IsInRoles(RolesEnum.AssistantLeader))
+            if (this.CurrentUser.IsInRoles(Role.AssistantLeader))
             {
                 var getHRLeaderDashboardCriteria = new GetHRLeaderDashboardCriteria()
                 {
@@ -626,7 +626,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Id = teamId
                 };
-                var team = _teamService.Get(criteria);
+                Team team = _teamService.GetById(criteria);
 
                 if (team != null)
                 {
@@ -640,10 +640,6 @@ namespace Fanex.NexHR.Controllers
                         LeaderId = team.Leader.Id,
                         Leader = team.Leader.DisplayName
                     };
-                }
-                else
-                {
-                    // throw exception
                 }
             }
 

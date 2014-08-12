@@ -22,11 +22,11 @@ namespace Fanex.NexHR.Services
     /// </summary>
     public class ToeicService : IToeicService
     {
-        private readonly ITOEICRepository _toeicRepository;
+        private readonly IToeicRepository _toeicRepository;
 
-        public ToeicService(ITOEICRepository toeicRepository = null)
+        public ToeicService(IToeicRepository toeicRepository = null)
         {
-            this._toeicRepository = toeicRepository ?? new TOEICRepository();
+            this._toeicRepository = toeicRepository ?? new ToeicRepository();
         }
 
         /// <summary>

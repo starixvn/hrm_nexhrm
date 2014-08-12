@@ -63,22 +63,22 @@
         </td>
     </tr>
 }
-@helper StatusDropDownList(byte status = (byte)RequestStatuses.Pending, bool isShowAll = true, string controlName = "status")
+@helper StatusDropDownList(byte status = (byte)RequestStatuse.Pending, bool isShowAll = true, string controlName = "status")
     {
     <select name="@controlName" id="@controlName">
         @if (isShowAll)
         { 
             <option selected="@(status == 0)" value="0">All</option>
         }
-        <option selected="@(status == (byte)RequestStatuses.Pending)" value="@Convert.ToByte(RequestStatuses.Pending)">@RequestStatuses.Pending.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuses.Reject)" value="@Convert.ToByte(RequestStatuses.Reject)">@RequestStatuses.Reject.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuses.Approve)" value="@Convert.ToByte(RequestStatuses.Approve)">@RequestStatuses.Approve.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@RequestStatuse.Pending.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@RequestStatuse.Reject.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@RequestStatuse.Approve.ToString()</option>
     </select>
         
 }
 @helper StatusDisplayByHR(long statusId, Fanex.NexHR.Models.Request.RequestStatus status)
     {
-        if (status.Id != (byte)RequestStatuses.Reject)
+        if (status.Id != (byte)RequestStatuse.Reject)
         { 
     <td>
         <a requestid="@statusId" href="javascript:;" class="@status.Name tooltip">@status.Name</a>
@@ -169,7 +169,7 @@
 }
 @helper LateInEarlyOutTimeFormat(int mins, short type)
     {
-        if (type == (byte)RequestTypes.LateIn)
+		if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)
         {
     <span>+@mins'</span>
         }

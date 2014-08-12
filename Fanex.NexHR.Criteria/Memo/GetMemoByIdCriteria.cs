@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Memo
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Memo By Id.

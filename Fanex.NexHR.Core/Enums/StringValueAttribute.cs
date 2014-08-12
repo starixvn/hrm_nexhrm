@@ -14,13 +14,22 @@ namespace Fanex.NexHR.Core.Enums
     /// <summary>
     /// String value attribute.
     /// </summary>
-    public class StringValueAttribute : Attribute
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class StringValueAttribute : Attribute
     {
         private readonly string _value;
 
         public StringValueAttribute(string value)
         {
             _value = value;
+        }
+
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
         }
 
         public override string ToString()

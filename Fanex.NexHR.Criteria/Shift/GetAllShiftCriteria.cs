@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Shift
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Shift Criteria.

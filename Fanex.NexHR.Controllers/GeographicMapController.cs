@@ -29,7 +29,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Index()
         {
             var user = this.CurrentUser;
-            bool roleHR = user.IsInRoles(RolesEnum.HR);
+            bool roleHR = user.IsInRoles(Role.HR);
 
             ViewBag.NickName = user.NickName;
             ViewBag.RoleHR = roleHR;

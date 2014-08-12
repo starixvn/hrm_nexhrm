@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.Common.Extensions;
     using Fanex.Common.Helper;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -32,9 +32,8 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Team entity.</returns>
-        public Team Get(ICriteria criteria)
+        public Team GetById(ICriteria criteria)
         {
-            var team = new Team();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var entity = db.QueryEntity<Team, Employee, Employee, Team>(
@@ -138,31 +137,6 @@ namespace Fanex.NexHR.Repositories
             }
 
             return status;
-        }
-
-        /// <summary>
-        /// Delete team.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <param name="errorCode">The error code.</param>
-        /// <param name="message">The error message.</param>
-        /// <returns>The result.</returns>
-        public bool DeleteTeam(ICriteria criteria, out int errorCode, out string message)
-        {
-            message = string.Empty;
-            errorCode = 0;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                db.ExecuteScalar(criteria.GetSpParams());
-                message = Convert.ToString(db.GetParameterValue("ErrMsg"));
-                errorCode = (int)db.GetParameterValue("ErrCode");
-                if (errorCode != 0)
-                {
-                    return false;
-                }
-
-                return true;
-            }
         }
 
         /// <summary>

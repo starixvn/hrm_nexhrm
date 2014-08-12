@@ -84,7 +84,7 @@ namespace Fanex.NexHR.Web.Providers
             var user = GetCurrentUser(username);
             var roles = new List<string>();
 
-            roles.Add(RolesEnum.Member.EnumToString());
+            roles.Add(Role.Member.EnumToString());
 
             if (user.RoleList != null)
             {
@@ -93,23 +93,23 @@ namespace Fanex.NexHR.Web.Providers
                     switch (item)
                     {
                         case 1:
-                            roles.Add(RolesEnum.AssistantLeader.EnumToString());
+                            roles.Add(Role.AssistantLeader.EnumToString());
                             break;
 
                         case 2:
-                            roles.Add(RolesEnum.AssistantLeader.EnumToString());
-                            roles.Add(RolesEnum.Leader.EnumToString());
+                            roles.Add(Role.AssistantLeader.EnumToString());
+                            roles.Add(Role.Leader.EnumToString());
                             break;
 
                         case 3:
-                            roles.Add(RolesEnum.HR.EnumToString());
+                            roles.Add(Role.HR.EnumToString());
                             break;
 
                         case 4:
-                            roles.Add(RolesEnum.AssistantLeader.EnumToString());
-                            roles.Add(RolesEnum.Leader.EnumToString());
-                            roles.Add(RolesEnum.HR.EnumToString());
-                            roles.Add(RolesEnum.SA.EnumToString());
+                            roles.Add(Role.AssistantLeader.EnumToString());
+                            roles.Add(Role.Leader.EnumToString());
+                            roles.Add(Role.HR.EnumToString());
+                            roles.Add(Role.SA.EnumToString());
                             break;
                     }
                 }

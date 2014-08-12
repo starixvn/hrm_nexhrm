@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
 
     public interface IExtensionNoRepository
@@ -19,18 +19,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<ExtensionNoModel> GetAllExtensionGroupInfo(ICriteria criteria);
 
-        bool AddNewExtensionNoMember(ICriteria criteria, out int errorCode, out string message);
-
         ExtensionNoModel GetEmployeeExtensionNoById(ICriteria criteria);
-
-        bool UpdateExtensionNoMember(ICriteria criteria, out int errorCode, out string message);
-
-        bool DeleteExtensionNumber(ICriteria criteria, out int errorCode, out string message);
-
-        bool AddNewExternalGroup(ICriteria criteria, out int errorCode, out string message);
-
-        bool UpdateExternalGroup(ICriteria criteria, out int errorCode, out string message);
-
-        bool DeleteExternalGroup(ICriteria criteria, out int errorCode, out string message);
     }
 }

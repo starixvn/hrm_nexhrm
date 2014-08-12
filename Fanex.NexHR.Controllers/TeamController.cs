@@ -116,7 +116,7 @@ namespace Fanex.NexHR.Controllers
             {
                 Id = id
             };
-            var team = _teamService.Get(criteria);
+            var team = _teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)

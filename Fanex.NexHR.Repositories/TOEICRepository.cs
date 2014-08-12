@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TOEICRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ToeicRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,14 +11,14 @@
 namespace Fanex.NexHR.Repositories
 {
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
     /// <summary>
     /// TOEIC repository.
     /// </summary>
-    public class TOEICRepository : ITOEICRepository
+    public class ToeicRepository : IToeicRepository
     {
         /// <summary>
         /// Get TOEIC of specific employee.

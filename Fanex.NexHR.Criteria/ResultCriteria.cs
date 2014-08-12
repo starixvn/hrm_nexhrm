@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Result Criteria.

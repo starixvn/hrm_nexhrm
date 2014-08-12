@@ -23,7 +23,7 @@ namespace Fanex.NexHR.ViewModels
     {
         public RequestViewModel()
         {
-            this.StatusId = (byte)RequestStatuses.Pending;
+            this.StatusId = (byte)RequestStatuse.Pending;
             this.FromDate = DateTime.Now;
             this.ToDate = DateTime.Now;
             this.DateOption = 1;

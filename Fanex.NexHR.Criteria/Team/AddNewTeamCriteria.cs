@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Team
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Add New Team Criteria.

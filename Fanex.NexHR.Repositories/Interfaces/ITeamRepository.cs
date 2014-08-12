@@ -11,12 +11,12 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
 
     public interface ITeamRepository
     {
-        Team Get(ICriteria criteria);
+        Team GetById(ICriteria criteria);
 
         IList<Team> GetAll(ICriteria criteria);
 
@@ -27,8 +27,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
         int AddNewTeam(ICriteria criteria);
 
         bool UpdateTeam(ICriteria criteria);
-
-        bool DeleteTeam(ICriteria criteria, out int errorCode, out string message);
 
         IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria);
     }

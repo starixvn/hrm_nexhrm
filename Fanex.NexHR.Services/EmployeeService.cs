@@ -73,7 +73,7 @@ namespace Fanex.NexHR.Services
             {
                 if ((criteria.Id != null && criteria.Id != -1) || criteria.DomainUserName != null)
                 {
-                    employee = this._employeeRepository.Get(criteria);
+                    employee = this._employeeRepository.GetById(criteria);
                 }
             }
 
@@ -182,7 +182,7 @@ namespace Fanex.NexHR.Services
             HRLeaderDashboardModel dashboard = new HRLeaderDashboardModel();
             if (criteria.IsValid())
             {
-                dashboard = this._employeeRepository.GetHrLeaderDashboard(criteria);
+                dashboard = this._employeeRepository.GetHRLeaderDashboard(criteria);
             }
 
             return dashboard;
@@ -726,7 +726,7 @@ namespace Fanex.NexHR.Services
                 criteria.Enable = criteria.Enable == true ? false : true;
             }
 
-            return this._employeeRepository.GetEmployeeTOEICScore(criteria);
+            return this._employeeRepository.GetEmployeeToeicScore(criteria);
         }
 
         /// <summary>

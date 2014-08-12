@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RequestTypes.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RequestType.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,7 +9,10 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    public enum RequestTypes : short
+    using System.Diagnostics.CodeAnalysis;
+
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
+    public enum RequestType : int
     {
         /// <summary>
         /// Check in request.

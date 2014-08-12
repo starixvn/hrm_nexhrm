@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Report
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get annual leave summary criteria.

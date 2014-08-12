@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Insert annual leave transaction criteria.

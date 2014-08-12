@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Team
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Sub Team Of Employee Criteria.

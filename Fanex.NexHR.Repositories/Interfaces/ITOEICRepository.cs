@@ -10,10 +10,10 @@
 
 namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
 
-    public interface ITOEICRepository
+    public interface IToeicRepository
     {
         Toeic GetById(ICriteria criteria);
 

@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Holiday
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get holiday by year criteria.

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RequestStatuses.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RequestStatuse.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,7 +9,10 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
-    public enum RequestStatuses : byte
+    using System.Diagnostics.CodeAnalysis;
+
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
+    public enum RequestStatuse : int
     {
         /// <summary>
         /// Pending status.

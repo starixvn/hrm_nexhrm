@@ -60,7 +60,7 @@
                         @if (ViewBag.Leader == true)
                         { 
                             <a href="@Url.Action("member", "request", requestModel)">
-                                @if (request.RequestType.Id == (int)RequestTypes.Leave)
+                                @if (request.RequestType.Id == (int)RequestType.Leave)
                                 {
                                     @request.LeaveType
                                 }
@@ -75,7 +75,7 @@
                             if ((bool)ViewBag.IsAllowChangeStatus)
                             {
                                 <a href="@Url.Action("hrview", "request", requestModel)">
-                                    @if (request.RequestType.Id == (int)RequestTypes.Leave)
+                                    @if (request.RequestType.Id == (int)RequestType.Leave)
                                     {
                                         @request.LeaveType
                                     }
@@ -88,7 +88,7 @@
                             else
                             {
                                  <a href="@Url.Action("employeeview", "request", requestModel)">
-                                    @if (request.RequestType.Id == (int)RequestTypes.Leave)
+                                    @if (request.RequestType.Id == (int)RequestType.Leave)
                                     {
                                         @request.LeaveType
                                     }

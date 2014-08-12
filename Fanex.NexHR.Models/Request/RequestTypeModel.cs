@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RequestType.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RequestTypeModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Models.Request
     /// <summary>
     /// Request type.
     /// </summary>
-    public class RequestType : EntityBase<short>
+    public class RequestTypeModel : EntityBase<short>
     {
         public new string Name
         {

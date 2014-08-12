@@ -21,7 +21,7 @@ namespace Fanex.NexHR.Services
     /// <summary>
     /// Team service.
     /// </summary>
-    public class TeamService : ITeamService
+    public class TeamService : BaseService, ITeamService
     {
         private readonly ITeamRepository _teamRepository;
 
@@ -35,13 +35,13 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Team entity.</returns>
-        public Team Get(GetTeamByIdCriteria criteria)
+        public Team GetById(GetTeamByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             Team team = new Team();
             if (criteria.IsValid())
             {
-                team = _teamRepository.Get(criteria);
+                team = _teamRepository.GetById(criteria);
             }
 
             return team;
@@ -136,21 +136,17 @@ namespace Fanex.NexHR.Services
         /// Delete team.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
-        /// <param name="errCode">The error code.</param>
-        /// <param name="message">The error message.</param>
         /// <returns>The result.</returns>
-        public bool DeleteTeam(DeleteTeamCriteria criteria, out int errCode, out string message)
+        public CommandResult DeleteTeam(DeleteTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            bool deleted = false;
-            errCode = 0;
-            message = string.Empty;
+            CommandResult result = null;
             if (criteria.IsValid())
             {
-                deleted = this._teamRepository.DeleteTeam(criteria, out errCode, out message);
+                result = Repository.Delete(criteria);
             }
 
-            return deleted;
+            return result;
         }
 
         /// <summary>

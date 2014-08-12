@@ -43,7 +43,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -70,10 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Commands.cs" />
-    <Compile Include="Enums\RequestStatuses.cs" />
-    <Compile Include="Enums\RequestTypes.cs" />
-    <Compile Include="Enums\RolesEnum.cs" />
+    <Compile Include="Attributes\OutputAttribute.cs" />
+    <Compile Include="Enums\Command.cs" />
+    <Compile Include="Enums\RequestStatuse.cs" />
+    <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\StringValueAttribute.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="UserSession.cs" />

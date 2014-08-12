@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.LookupData
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Delete Lookup Data Criteria.

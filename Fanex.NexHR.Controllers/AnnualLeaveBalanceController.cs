@@ -89,7 +89,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Id = (int)model.TeamId
                 };
-                Team team = _teamService.Get(criteria);
+                Team team = _teamService.GetById(criteria);
                 teams.Add(team);
             }
             else

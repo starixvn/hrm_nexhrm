@@ -63,7 +63,7 @@
                         <td class="ddMMyyyyhhmm">@request.CreatedDate.ToShortFormatedDate()
                         </td>
                             
-                        @if (request.Status.ToString() == RequestStatuses.Pending.ToString())
+                        @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
                         {
                             <td >
                                 <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString()">@request.Status.ToString()</a>

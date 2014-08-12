@@ -195,7 +195,7 @@ namespace Fanex.NexHR.Models
         /// </summary>
         /// <param name="roles">Role of user.</param>
         /// <returns>Return Boolean.</returns>
-        public bool IsInRoles(params RolesEnum[] roles)
+        public bool IsInRoles(params Role[] roles)
         {
             if (RoleList == null)
             {

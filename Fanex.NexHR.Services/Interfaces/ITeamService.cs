@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
     public interface ITeamService
     {
-        Team Get(GetTeamByIdCriteria criteria);
+        Team GetById(GetTeamByIdCriteria criteria);
 
         IList<Team> GetAll(GetAllTeamCriteria criteria);
 
@@ -30,6 +30,6 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool UpdateTeam(UpdateTeamCriteria criteria);
 
-        bool DeleteTeam(DeleteTeamCriteria criteria, out int errCode, out string message);
+        CommandResult DeleteTeam(DeleteTeamCriteria criteria);
     }
 }

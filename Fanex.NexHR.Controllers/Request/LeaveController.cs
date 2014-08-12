@@ -71,7 +71,7 @@ namespace Fanex.NexHR.Controllers.Request
             decimal numberDaysOfRequest = 0;
             var getLeaveRequestCriteria = new GetLeaveRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 EmployeeId = this.CurrentUser.Id,
@@ -84,7 +84,7 @@ namespace Fanex.NexHR.Controllers.Request
 
             foreach (Leave request in entityList)
             {
-                if (request.Status.Id != (byte)RequestStatuses.Reject)
+                if (request.Status.Id != (byte)RequestStatuse.Reject)
                 {
                     numberDaysOfRequest += request.TotalDays;
                 }
@@ -200,7 +200,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Year = year;
             var getLeaveRequestCriteria = new GetLeaveRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31),
                 EmployeeId = this.CurrentUser.Id,

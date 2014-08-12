@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Birthday And First Working day Criteria.

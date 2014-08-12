@@ -102,9 +102,14 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
-            string errorMessage;
-            var result = _requestService.Process(command, id, this.CurrentUser.Id, out errorMessage);
-            return result ? Json(true) : Json(errorMessage);
+            CommandResult result = _requestService.Process(command, id, this.CurrentUser.Id);
+
+            if (result.Code == 0)
+            {
+                return Json(true);
+            }
+
+            return Json(result.Message);
         }
 
         /// <summary>
@@ -116,7 +121,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "AssistantLeader,HR")]
         public JsonResult GetMembersByManager(string keyword, int? groupId = null)
         {
-            var role = this.CurrentUser.IsInRoles(RolesEnum.HR) ? RolesEnum.HR : RolesEnum.AssistantLeader;
+            var role = this.CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
             var getMemberByManager = new GetMemberByManagerCriteria
             {
                 ManagerId = this.CurrentUser.Id,
@@ -253,13 +258,11 @@ namespace Fanex.NexHR.Controllers
         /// Delete team.
         /// </summary>
         /// <param name="id">The team ID.</param>
-        /// <returns>The return string.</returns>
+        /// <returns>The error message.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public string DeleteTeam(int id)
         {
-            int errCode;
-            string errMsg;
             var criteria = new DeleteTeamCriteria()
             {
                 Id = id,
@@ -267,11 +270,11 @@ namespace Fanex.NexHR.Controllers
                 ModifiedDate = DateTime.Now
             };
 
-            _teamService.DeleteTeam(criteria, out errCode, out errMsg);
+            CommandResult result = _teamService.DeleteTeam(criteria);
 
-            if (errCode != 0)
+            if (result.Code != 0)
             {
-                return errMsg;
+                return result.Message;
             }
 
             return string.Empty;
@@ -358,7 +361,9 @@ namespace Fanex.NexHR.Controllers
             {
                 ExtId = extId
             };
-            return _extensionNoService.DeleteExtensionNumber(criteria);
+            CommandResult result = _extensionNoService.DeleteExtensionNumber(criteria);
+
+            return result.Code == 0;
         }
 
         [Authorize(Roles = "HR")]
@@ -369,7 +374,9 @@ namespace Fanex.NexHR.Controllers
             {
                 FullName = groupName
             };
-            return _extensionNoService.AddNewExternalGroup(criteria);
+            CommandResult result = _extensionNoService.AddNewExternalGroup(criteria);
+
+            return result.Code == 0;
         }
 
         [Authorize(Roles = "HR")]
@@ -380,7 +387,9 @@ namespace Fanex.NexHR.Controllers
             {
                 ExtId = extId
             };
-            return _extensionNoService.DeleteExternalGroup(criteria);
+            CommandResult result = _extensionNoService.DeleteExternalGroup(criteria);
+
+            return result.Code == 0;
         }
 
         [Authorize(Roles = "HR")]
@@ -392,7 +401,9 @@ namespace Fanex.NexHR.Controllers
                 ExtId = extId,
                 FullName = groupName
             };
-            return _extensionNoService.UpdateExternalGroup(criteria);
+            CommandResult result = _extensionNoService.UpdateExternalGroup(criteria);
+
+            return result.Code == 0;
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ForDate = date.HasValue ? date.Value : DateTime.Today,
                 Hour = DateTime.Now.Hour,
                 Minute = DateTime.Now.Minute,
-                Type = type.HasValue ? type.Value : (short)RequestTypes.CheckIn,
+                Type = type.HasValue ? type.Value : (short)RequestType.CheckIn,
                 By = this.CurrentUser.Id
             };
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
@@ -86,7 +86,7 @@ namespace Fanex.NexHR.Controllers.Request
             int numberOfRequest = 0;
             var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 EmployeeId = this.CurrentUser.Id,
@@ -98,7 +98,7 @@ namespace Fanex.NexHR.Controllers.Request
             IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
             foreach (CheckInOut request in entityList)
             {
-                if (request.Status.Id != (byte)RequestStatuses.Reject)
+                if (request.Status.Id != (byte)RequestStatuse.Reject)
                 {
                     numberOfRequest++;
                 }
@@ -233,7 +233,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Year = year;
             var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31),
                 EmployeeId = this.CurrentUser.Id,

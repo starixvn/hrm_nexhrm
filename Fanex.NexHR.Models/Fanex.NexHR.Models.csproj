@@ -76,6 +76,7 @@
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
     <Compile Include="CheckInOutRequest.cs" />
+    <Compile Include="CommandResult.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeShift.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="RequestsMonitoring.cs" />
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />
-    <Compile Include="Request\RequestType.cs" />
+    <Compile Include="Request\RequestTypeModel.cs" />
     <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Holiday.cs" />

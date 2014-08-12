@@ -19,18 +19,18 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<ExtensionNoModel> GetAllExtensionGroupInfo(GetAllExtensionGroupInfoCriteria criteria);
 
-        bool AddNewExtensionNoMember(AddNewExtensionNoMemberCriteria criteria);
+        CommandResult AddNewExtensionNoMember(AddNewExtensionNoMemberCriteria criteria);
 
         ExtensionNoModel GetEmployeeExtensionNoById(GetEmployeeExtensionNoByIdCriteria criteria);
 
-        bool UpdateExtensionNoMember(UpdateExtensionNoMemberCriteria criteria);
+        CommandResult UpdateExtensionNoMember(UpdateExtensionNoMemberCriteria criteria);
 
-        bool DeleteExtensionNumber(DeleteExtensionNumberCriteria criteria);
+        CommandResult DeleteExtensionNumber(DeleteExtensionNumberCriteria criteria);
 
-        bool AddNewExternalGroup(AddNewExternalGroupCriteria criteria);
+        CommandResult AddNewExternalGroup(AddNewExternalGroupCriteria criteria);
 
-        bool UpdateExternalGroup(UpdateExternalGroupCriteria criteria);
+        CommandResult UpdateExternalGroup(UpdateExternalGroupCriteria criteria);
 
-        bool DeleteExternalGroup(DeleteExternalGroupCriteria criteria);
+        CommandResult DeleteExternalGroup(DeleteExternalGroupCriteria criteria);
     }
 }

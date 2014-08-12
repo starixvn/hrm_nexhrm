@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Employee
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Employee Shift Criteria.

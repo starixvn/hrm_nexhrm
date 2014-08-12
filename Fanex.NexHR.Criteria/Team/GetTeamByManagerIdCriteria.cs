@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Team
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Team By Manager Id Criteria.

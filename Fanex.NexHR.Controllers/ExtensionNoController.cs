@@ -76,7 +76,9 @@ namespace Fanex.NexHR.Controllers
                     IsInternal = model.IsInternal,
                     ExtensionNo = model.ExtensionNo
                 };
-                ViewBag.Requested = _extensionNoService.AddNewExtensionNoMember(criteria);
+
+                CommandResult result = _extensionNoService.AddNewExtensionNoMember(criteria);
+                ViewBag.Requested = result.Code == 0;
             }
 
             return View();
@@ -145,7 +147,8 @@ namespace Fanex.NexHR.Controllers
                     ExtensionNo = model.ExtensionNo
                 };
 
-                ViewBag.Updated = _extensionNoService.UpdateExtensionNoMember(updateCriteria);
+                CommandResult result = _extensionNoService.UpdateExtensionNoMember(updateCriteria);
+                ViewBag.Updated = result.Code == 0;
             }
 
             return View();

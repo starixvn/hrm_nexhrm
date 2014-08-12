@@ -112,7 +112,7 @@ namespace Fanex.NexHR.Controllers.Request
                     GetMemberCheckInOut(request);
                     break;
                 case 5:
-                    GetAllRequest(request, (short)RolesEnum.AssistantLeader);
+                    GetAllRequest(request, (short)Role.AssistantLeader);
                     break;
             }
 
@@ -135,7 +135,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getLeaveRequestCriteria = new GetLeaveRequestCriteria
             {
-                Role = (short)RolesEnum.AssistantLeader,
+                Role = (short)Role.AssistantLeader,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -158,7 +158,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
             {
-                Role = (short)RolesEnum.AssistantLeader,
+                Role = (short)Role.AssistantLeader,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -181,7 +181,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
             {
-                Role = (short)RolesEnum.AssistantLeader,
+                Role = (short)Role.AssistantLeader,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -321,7 +321,7 @@ namespace Fanex.NexHR.Controllers.Request
                     HRGetCheckInOutRequestByDate(request);
                     break;
                 case 5:
-                    GetAllRequestByDate(request, (short)RolesEnum.HR);
+                    GetAllRequestByDate(request, (short)Role.HR);
                     break;
             }
 
@@ -372,7 +372,7 @@ namespace Fanex.NexHR.Controllers.Request
                     HRGetCheckInOutRequest(request);
                     break;
                 case 5:
-                    GetAllRequest(request, (short)RolesEnum.HR);
+                    GetAllRequest(request, (short)Role.HR);
                     break;
             }
 
@@ -425,7 +425,7 @@ namespace Fanex.NexHR.Controllers.Request
                     HRGetCheckInOutRequest(request);
                     break;
                 case 5:
-                    GetAllRequest(request, (short)RolesEnum.HR);
+                    GetAllRequest(request, (short)Role.HR);
                     break;
             }
 
@@ -445,7 +445,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var leaveRequestByDateCriteria = new GetLeaveRequestByDateCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -467,7 +467,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getLateInOutRequestByDateCriteria = new GetLateInOutRequestByDateCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -489,7 +489,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getCheckInOutRequestByDateCriteria = new GetCheckInOutRequestByDateCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -518,7 +518,7 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
                 GroupId = request.TeamId,
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = role == (short)RolesEnum.AssistantLeader ? new int?(this.CurrentUser.Id) : null
+                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
             };
             IList<RequestEntity> entityList = EmployeeService.GetAllRequestByDate(getAllRequestByDateCriteria);
 
@@ -537,7 +537,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getLeaveRequestCriteria = new GetLeaveRequestCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -559,7 +559,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -581,7 +581,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
             {
-                Role = (short)RolesEnum.HR,
+                Role = (short)Role.HR,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
@@ -612,7 +612,7 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
                 GroupId = request.TeamId,
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = role == (short)RolesEnum.AssistantLeader ? new int?(this.CurrentUser.Id) : null
+                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
             };
 
             IList<RequestEntity> entityList = EmployeeService.GetAllRequest(getAllRequestCriteria);
@@ -629,7 +629,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Return true if current user can edit this request.</returns>
         protected bool Editable(byte status, int employeeId, int creatorId)
         {
-            if (status != (byte)RequestStatuses.Pending ||
+            if (status != (byte)RequestStatuse.Pending ||
                 (employeeId != this.CurrentUser.Id && creatorId != this.CurrentUser.Id))
             {
                 return false;

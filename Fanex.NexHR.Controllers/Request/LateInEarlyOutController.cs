@@ -61,7 +61,7 @@ namespace Fanex.NexHR.Controllers.Request
             int numberOfRequest = 0;
             var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 EmployeeId = this.CurrentUser.Id,
@@ -74,7 +74,7 @@ namespace Fanex.NexHR.Controllers.Request
 
             foreach (LateInEarlyOut request in entityList)
             {
-                if (request.Status.Id != (byte)RequestStatuses.Reject)
+                if (request.Status.Id != (byte)RequestStatuse.Reject)
                 {
                     numberOfRequest++;
                 }
@@ -89,7 +89,7 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = employee.Id,
                 ForDate = DateTime.Now.Date,
                 Minute = 60,
-                Type = (short)RequestTypes.LateIn,
+                Type = (short)RequestType.LateIn,
                 By = this.CurrentUser.Id
             });
         }
@@ -142,7 +142,7 @@ namespace Fanex.NexHR.Controllers.Request
             var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
             var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
-            int minute = request.RequestType == (short)RequestTypes.LateIn
+            int minute = request.RequestType == (short)RequestType.LateIn
                 ? (int)request.LateInMins
                 : (int)request.EarlyOutMins;
 
@@ -195,7 +195,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Year = year;
             var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
             {
-                Role = (short)RolesEnum.Member,
+                Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31),
                 EmployeeId = this.CurrentUser.Id,

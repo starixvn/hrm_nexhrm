@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.LeaveType
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get leave type criteria.

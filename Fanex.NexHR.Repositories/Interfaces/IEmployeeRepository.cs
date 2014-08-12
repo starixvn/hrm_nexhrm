@@ -12,7 +12,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -20,7 +20,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
     public interface IEmployeeRepository
     {
-        Employee Get(GetEmployeeCriteria criteria);
+        Employee GetById(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 
@@ -40,15 +40,13 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateEmployeeShift(ICriteria criteria);
 
-        long WorkingTimeRequest(ICriteria criteria, out int errorCode, out string message);
-
-        int ProcessRequest(ICriteria criteria, out string message);
+        Tuple<CommandResult, long> WorkingTimeRequest(ICriteria criteria);
 
         bool UpdateRequest(ICriteria criteria);
 
         MySpaceViewModel GetMySpace(ICriteria criteria);
 
-        HRLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria);
+        HRLeaderDashboardModel GetHRLeaderDashboard(ICriteria criteria);
 
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
@@ -110,7 +108,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool ResetAnnualLeaves(ICriteria criteria);
 
-        IList<Employee> GetEmployeeTOEICScore(ICriteria criteria);
+        IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
     }

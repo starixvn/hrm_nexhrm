@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Services
     using System.Text;
     using System.Web;
     using System.Web.Mvc;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -36,7 +36,7 @@ namespace Fanex.NexHR.Services
     /// <summary>
     /// Request service.
     /// </summary>
-    public class RequestService : IRequestService
+    public class RequestService : BaseService, IRequestService
     {
         private const string _MsgLeave = "<span class='req leave'>{1}</span> {0} days";
         private const string _MsgLeaveHalfDay = "<span class='req leave'>{0} ({1}-{2})</span> 0.5 day";
@@ -80,7 +80,7 @@ namespace Fanex.NexHR.Services
 
             switch (request.RequestType.Id)
             {
-                case (int)RequestTypes.Leave:
+                case (int)RequestType.Leave:
                     if (request.TotalDays > 1)
                     {
                         msg.AppendFormat(_MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
@@ -101,15 +101,15 @@ namespace Fanex.NexHR.Services
 
                     break;
 
-                case (int)RequestTypes.CheckIn:
-                case (int)RequestTypes.CheckOut:
+                case (int)RequestType.CheckIn:
+                case (int)RequestType.CheckOut:
                     msg.AppendFormat(_MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
-                case (int)RequestTypes.LateIn:
+                case (int)RequestType.LateIn:
                     msg.AppendFormat(_MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
-                case (int)RequestTypes.EarlyOut:
+                case (int)RequestType.EarlyOut:
                     msg.AppendFormat(_MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
@@ -133,8 +133,7 @@ namespace Fanex.NexHR.Services
             {
                 // update date & time
                 model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
-                int errorCode;
-                string message;
+                long requestId = 0;
 
                 var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
                 {
@@ -154,10 +153,15 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
+                Tuple<CommandResult, long> result  = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria);
+                
+                if (result != null)
+                {
+                    requestId = result.Item2;
+                }
 
                 // check result
-                if (errorCode == 0)
+                if (result.Item1.Code == 0)
                 {
                     // get leader(s)
                     var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
@@ -165,8 +169,7 @@ namespace Fanex.NexHR.Services
 
                     if (leaders == null || leaders.Count == 0)
                     {
-                        string errorMessage;
-                        this.Process(Commands.Approve.EnumToString(), requestId, model.EmployeeId, out errorMessage);
+                        this.Process(Command.Approve.EnumToString(), requestId, model.EmployeeId);
                     }
                     else
                     {
@@ -178,9 +181,9 @@ namespace Fanex.NexHR.Services
                             {
                                 Leader = item.NickName,
                                 Member = model.DisplayName,
-                                Type = model.Type == (short)RequestTypes.CheckIn
-                                    ? RequestTypes.CheckIn.EnumToString().ToLower()
-                                    : RequestTypes.CheckOut.EnumToString().ToLower(),
+                                Type = model.Type == (short)RequestType.CheckIn
+                                    ? RequestType.CheckIn.EnumToString().ToLower()
+                                    : RequestType.CheckOut.EnumToString().ToLower(),
                                 RequestId = requestId,
                                 ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
                                 Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
@@ -200,7 +203,7 @@ namespace Fanex.NexHR.Services
                 }
                 else
                 {
-                    modelState.AddModelError(string.Empty, message);
+                    modelState.AddModelError(string.Empty, result.Item1.Message);
                 }
             }
             else
@@ -222,11 +225,10 @@ namespace Fanex.NexHR.Services
         {
             if (modelState.IsValid)
             {
-                int errorCode;
-                string message;
+                long requestId = 0;
 
-                int? lateInMins = model.Type == (short)RequestTypes.LateIn ? (int?)model.Minute : null;
-                int? earlyOutMins = model.Type == (short)RequestTypes.EarlyOut ? (int?)model.Minute : null;
+                int? lateInMins = model.Type == (short)RequestType.LateIn ? (int?)model.Minute : null;
+                int? earlyOutMins = model.Type == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
 
                 var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
                 {
@@ -246,10 +248,15 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = earlyOutMins
                 };
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
+                Tuple<CommandResult, long> result = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria);
+
+                if (result != null)
+                {
+                    requestId = result.Item2;
+                }
 
                 // check result
-                if (errorCode == 0)
+                if (result.Item1.Code == 0)
                 {
                     // get leader(s)
                     var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
@@ -257,8 +264,7 @@ namespace Fanex.NexHR.Services
 
                     if (leaders == null || leaders.Count == 0)
                     {
-                        string errorMessage;
-                        this.Process(Commands.Approve.EnumToString(), requestId, model.EmployeeId, out errorMessage);
+                        this.Process(Command.Approve.EnumToString(), requestId, model.EmployeeId);
                     }
                     else
                     {
@@ -270,7 +276,7 @@ namespace Fanex.NexHR.Services
                             {
                                 Leader = item.NickName,
                                 Member = model.DisplayName,
-                                Type = model.Type == (short)RequestTypes.LateIn
+                                Type = model.Type == (short)RequestType.LateIn
                                     ? "a " + Resources.Labels.LateIn.ToLower()
                                     : "an " + Resources.Labels.EarlyOut.ToLower(),
                                 RequestId = requestId,
@@ -293,7 +299,7 @@ namespace Fanex.NexHR.Services
                 }
                 else
                 {
-                    modelState.AddModelError(string.Empty, message);
+                    modelState.AddModelError(string.Empty, result.Item1.Message);
                 }
             }
             else
@@ -315,8 +321,7 @@ namespace Fanex.NexHR.Services
         {
             if (modelState.IsValid)
             {
-                int errorCode;
-                string message;
+                long requestId = 0;
 
                 // half day leave
                 if (model.HalfDayOff)
@@ -339,7 +344,7 @@ namespace Fanex.NexHR.Services
                 var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
                 {
                     EmpId = model.EmployeeId,
-                    RequestType = (short)RequestTypes.Leave,
+                    RequestType = (short)RequestType.Leave,
                     IsPlanned = model.IsPlanned,
                     Remark = model.Remark,
                     CreatedDate = DateTime.Now,
@@ -354,10 +359,15 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                var requestId = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria, out errorCode, out message);
+                Tuple<CommandResult, long> result = this._employeeRepository.WorkingTimeRequest(workingTimeRequestCriteria);
+
+                if (result != null)
+                {
+                    requestId = result.Item2;
+                }
 
                 // check result
-                if (errorCode == 0)
+                if (result.Item1.Code == 0)
                 {
                     // get leader(s)
                     var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
@@ -365,8 +375,7 @@ namespace Fanex.NexHR.Services
 
                     if (leaders == null || leaders.Count == 0)
                     {
-                        string errorMessage;
-                        this.Process(Commands.Approve.EnumToString(), requestId, model.EmployeeId, out errorMessage);
+                        this.Process(Command.Approve.EnumToString(), requestId, model.EmployeeId);
                     }
                     else
                     {
@@ -428,7 +437,7 @@ namespace Fanex.NexHR.Services
                 }
                 else
                 {
-                    modelState.AddModelError(string.Empty, message);
+                    modelState.AddModelError(string.Empty, result.Item1.Message);
                 }
             }
             else
@@ -483,9 +492,9 @@ namespace Fanex.NexHR.Services
                         {
                             Leader = item.NickName,
                             Member = model.DisplayName,
-                            Type = model.Type == (short)RequestTypes.CheckIn
-                                ? RequestTypes.CheckIn.EnumToString().ToLower()
-                                : RequestTypes.CheckOut.EnumToString().ToLower(),
+                            Type = model.Type == (short)RequestType.CheckIn
+                                ? RequestType.CheckIn.EnumToString().ToLower()
+                                : RequestType.CheckOut.EnumToString().ToLower(),
                             RequestId = model.Id,
                             ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
                             Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
@@ -523,8 +532,8 @@ namespace Fanex.NexHR.Services
         {
             if (modelState.IsValid)
             {
-                int? lateInMins = model.Type == (short)RequestTypes.LateIn ? (int?)model.Minute : null;
-                int? earlyOutMins = model.Type == (short)RequestTypes.EarlyOut ? (int?)model.Minute : null;
+                int? lateInMins = model.Type == (short)RequestType.LateIn ? (int?)model.Minute : null;
+                int? earlyOutMins = model.Type == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
 
                 var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
                 {
@@ -557,7 +566,7 @@ namespace Fanex.NexHR.Services
                         {
                             Leader = item.NickName,
                             Member = model.DisplayName,
-                            Type = model.Type == (short)RequestTypes.LateIn
+                            Type = model.Type == (short)RequestType.LateIn
                                 ? "a " + Resources.Labels.LateIn.ToLower()
                                 : "an " + Resources.Labels.EarlyOut.ToLower(),
                             RequestId = model.Id,
@@ -708,21 +717,20 @@ namespace Fanex.NexHR.Services
         /// <param name="command">Action on this request.</param>
         /// <param name="id">Request id.</param>
         /// <param name="processBy">Process by.</param>
-        /// <param name="errorMessage">Error message.</param>
         /// <returns>Return boolean.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool Process(string command, long id, int processBy, out string errorMessage)
+        public CommandResult Process(string command, long id, int processBy)
         {
             var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
             var request = this._employeeRepository.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
 
-            var employee = this._employeeRepository.Get(getEmployeeCriteria);
+            var employee = this._employeeRepository.GetById(getEmployeeCriteria);
             getEmployeeCriteria.Id = processBy;
-            var processUser = this._employeeRepository.Get(getEmployeeCriteria);
+            var processUser = this._employeeRepository.GetById(getEmployeeCriteria);
             ICriteria processRequestCriteria;
 
-            Commands processCommand;
+            Command processCommand;
             switch (command)
             {
                 case "Disapprove":
@@ -733,7 +741,7 @@ namespace Fanex.NexHR.Services
                         ModifiedDate = DateTime.Now
                     };
                     processRequestCriteria = disapproveRequestCriteria;
-                    processCommand = Commands.Disapprove;
+                    processCommand = Command.Disapprove;
 
                     break;
 
@@ -745,7 +753,7 @@ namespace Fanex.NexHR.Services
                         ProcessedDate = DateTime.Now
                     };
                     processRequestCriteria = rejectRequestCriteria;
-                    processCommand = Commands.Reject;
+                    processCommand = Command.Reject;
 
                     break;
 
@@ -757,15 +765,14 @@ namespace Fanex.NexHR.Services
                         ApprovedDate = DateTime.Now
                     };
                     processRequestCriteria = approveRequestCriteria;
-                    processCommand = Commands.Approve;
+                    processCommand = Command.Approve;
 
                     break;
             }
 
-            string message;
-            int code = this._employeeRepository.ProcessRequest(processRequestCriteria, out message);
+            CommandResult result = this.Repository.Update(processRequestCriteria);
 
-            if (code == 0)
+            if (result.Code == 0)
             {
                 string forDate = string.Empty;
 
@@ -783,9 +790,9 @@ namespace Fanex.NexHR.Services
                 {
                     Employee = employee.NickName,
                     RequestId = request.Id,
-                    Action = command == Commands.Reject.EnumToString()
+                    Action = command == Command.Reject.EnumToString()
                     ? Resources.Labels.Rejected
-                    : (command == Commands.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved),
+                    : (command == Command.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved),
                     ForDate = forDate,
                     Request = request.RequestType.ToText(),
                     User = processUser.NickName,
@@ -813,14 +820,8 @@ namespace Fanex.NexHR.Services
 
                 this.SendToRelatedPeople(processUser, request, employee, processCommand);
             }
-            else
-            {
-                errorMessage = message;
-                return false;
-            }
 
-            errorMessage = string.Empty;
-            return true;
+            return result;
         }
 
         /// <summary>
@@ -900,16 +901,16 @@ namespace Fanex.NexHR.Services
             Employee processUser, 
             WorkingTimeRequest request, 
             Employee employee, 
-            Commands processCommand)
+            Command processCommand)
         {
-            if (processCommand == Commands.Approve)
+            if (processCommand == Command.Approve)
             {
                 // send notification email to employee(s) who has related working
                 var criteria = new GetEmployeeForRelatedTeamCriteria() { EmpId = employee.Id };
                 var employees = this._employeeRepository.GetEmployeeForRelatedTeam(criteria)
                     .Where(i => i.Id != processUser.Id && i.Id != request.EmpId);
 
-                if (request.RequestType == (int)RequestTypes.Leave)
+                if (request.RequestType == (int)RequestType.Leave)
                 {
                     employees = AddProjectManagerIntoList(employees, employee.Id);
                 }
@@ -1025,7 +1026,7 @@ namespace Fanex.NexHR.Services
             {
                 User = processUser.NickName,
                 Employee = string.Format("{0} ({1})", employee.NickName, employee.FullName),
-                Request = request.RequestType == (short)RequestTypes.LateIn
+                Request = request.RequestType == (short)RequestType.LateIn
                                 ? "a " + Resources.Labels.LateIn.ToLower()
                                 : "an " + Resources.Labels.EarlyOut.ToLower(),
                 ForDate = request.FromDate.ToDateMonthYearFormatedDate(),

@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Holiday
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Delete holiday criteria.

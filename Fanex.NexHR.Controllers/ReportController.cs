@@ -125,15 +125,15 @@ namespace Fanex.NexHR.Controllers
             ViewBag.EntityList = new List<RequestsMonitoring>();
             if (this.CurrentUser.Roles != null)
             {
-                if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.HR).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
+                if (this.CurrentUser.Roles.IndexOf(((int)Role.HR).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)Role.SA).ToString()) > -1)
                 {
                     var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
                     {
                         FromDate = model.FromDate,
                         ToDate = model.ToDate,
                         MaxRequest = model.MaxRequest,
-                        Role = (int)RolesEnum.HR,
+                        Role = (int)Role.HR,
                         EmployeeId = this.CurrentUser.Id
                     };
 
@@ -183,16 +183,16 @@ namespace Fanex.NexHR.Controllers
 
             if (this.CurrentUser.Roles != null)
             {
-                if (this.CurrentUser.Roles.IndexOf(((int)RolesEnum.AssistantLeader).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.Leader).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)RolesEnum.SA).ToString()) > -1)
+                if (this.CurrentUser.Roles.IndexOf(((int)Role.AssistantLeader).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)Role.Leader).ToString()) > -1
+                    || this.CurrentUser.Roles.IndexOf(((int)Role.SA).ToString()) > -1)
                 {
                     var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
                     {
                         FromDate = model.FromDate,
                         ToDate = model.ToDate,
                         MaxRequest = model.MaxRequest,
-                        Role = (int)RolesEnum.AssistantLeader,
+                        Role = (int)Role.AssistantLeader,
                         EmployeeId = this.CurrentUser.Id
                     };
 
@@ -298,7 +298,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Id = (int)model.TeamId
                 };
-                Team team = _teamService.Get(criteria);
+                Team team = _teamService.GetById(criteria);
                 teams.Add(team);
             }
             else

@@ -20,7 +20,7 @@ namespace Fanex.NexHR.Services
     /// <summary>
     /// ExtensionNo Service.
     /// </summary>
-    public class ExtensionNoService : IExtensionNoService
+    public class ExtensionNoService : BaseService, IExtensionNoService
     {
         private readonly IExtensionNoRepository _repository;
 
@@ -58,19 +58,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">AddNewExtensionNoMember Criteria.</param>
         /// <returns>Result of added.</returns>
-        public bool AddNewExtensionNoMember(AddNewExtensionNoMemberCriteria criteria)
+        public CommandResult AddNewExtensionNoMember(AddNewExtensionNoMemberCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.AddNewExtensionNoMember(criteria, out errorCode, out message);
-                return result;
+                result = Repository.Insert(criteria);
             }
 
-            return false;
+            return result;
         }
 
         public ExtensionNoModel GetEmployeeExtensionNoById(GetEmployeeExtensionNoByIdCriteria criteria)
@@ -90,19 +88,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">UpdateExtensionNoMember Criteria.</param>
         /// <returns>Result of updated.</returns>
-        public bool UpdateExtensionNoMember(UpdateExtensionNoMemberCriteria criteria)
+        public CommandResult UpdateExtensionNoMember(UpdateExtensionNoMemberCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.AddNewExtensionNoMember(criteria, out errorCode, out message);
-                return result;
+                result = Repository.Update(criteria);
             }
 
-            return false;
+            return result;
         }
 
         /// <summary>
@@ -110,19 +106,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">DeleteExtensionNumber criteria.</param>
         /// <returns>Result of deleted.</returns>
-        public bool DeleteExtensionNumber(DeleteExtensionNumberCriteria criteria)
+        public CommandResult DeleteExtensionNumber(DeleteExtensionNumberCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.DeleteExtensionNumber(criteria, out errorCode, out message);
-                return result;
+                result = Repository.Delete(criteria);
             }
 
-            return false;
+            return result;
         }
 
         /// <summary>
@@ -130,19 +124,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">AddNewExternalGroup Criteria.</param>
         /// <returns>Result of added.</returns>
-        public bool AddNewExternalGroup(AddNewExternalGroupCriteria criteria)
+        public CommandResult AddNewExternalGroup(AddNewExternalGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.AddNewExternalGroup(criteria, out errorCode, out message);
-                return result;
+                result = this.Repository.Insert(criteria);
             }
 
-            return false;
+            return result;
         }
 
         /// <summary>
@@ -150,19 +142,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">UpdateExternalGroup Criteria.</param>
         /// <returns>Result of updated.</returns>
-        public bool UpdateExternalGroup(UpdateExternalGroupCriteria criteria)
+        public CommandResult UpdateExternalGroup(UpdateExternalGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.UpdateExternalGroup(criteria, out errorCode, out message);
-                return result;
+                result = this.Repository.Update(criteria);
             }
 
-            return false;
+            return result;
         }
 
         /// <summary>
@@ -170,19 +160,17 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">DeleteExternalGroup Criteria.</param>
         /// <returns>Result of deleted.</returns>
-        public bool DeleteExternalGroup(DeleteExternalGroupCriteria criteria)
+        public CommandResult DeleteExternalGroup(DeleteExternalGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int errorCode;
-            string message;
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                var result = this._repository.DeleteExtensionNumber(criteria, out errorCode, out message);
-                return result;
+                result = this.Repository.Delete(criteria);
             }
 
-            return false;
+            return result;
         }
     }
 }

@@ -9,6 +9,7 @@
 namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Web.Mvc;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
 
     public interface IRequestService
@@ -25,6 +26,6 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model);
 
-        bool Process(string command, long id, int processBy, out string errorMessage);
+        CommandResult Process(string command, long id, int processBy);
     }
 }

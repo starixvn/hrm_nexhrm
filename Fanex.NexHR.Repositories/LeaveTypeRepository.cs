@@ -13,7 +13,7 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 

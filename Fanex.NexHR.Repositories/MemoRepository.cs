@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Repositories
     using System.Data;
     using System.Linq;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
