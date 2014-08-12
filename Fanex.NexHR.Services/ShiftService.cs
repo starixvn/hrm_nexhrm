@@ -13,12 +13,11 @@ namespace Fanex.NexHR.Services
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Caching;
-    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Shift service.

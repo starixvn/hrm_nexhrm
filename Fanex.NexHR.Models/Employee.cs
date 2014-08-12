@@ -188,7 +188,7 @@ namespace Fanex.NexHR.Models
         }
 
         // TOEIC score
-        public TOEIC ToeicScore { get; set; }
+        public Toeic ToeicScore { get; set; }
 
         /// <summary>
         /// Check user is in specific roles.

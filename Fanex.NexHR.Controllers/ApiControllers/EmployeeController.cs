@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -137,7 +137,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 Enable = enable,
                 IsDelete = isDelete
             };
-            IList<Employee> employees = _employeeService.GetEmployeeTOEICScore(getTOEICScoreCriteria);
+            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getTOEICScoreCriteria);
             return employees;
         }
 

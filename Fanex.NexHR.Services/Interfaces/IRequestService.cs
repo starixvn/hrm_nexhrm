@@ -6,7 +6,7 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
 // </history>
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Web.Mvc;
     using Fanex.NexHR.ViewModels;

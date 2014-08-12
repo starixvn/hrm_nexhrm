@@ -13,7 +13,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using System.Collections;
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -49,7 +48,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         MySpaceViewModel GetMySpace(ICriteria criteria);
 
-        HrLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria);
+        HRLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria);
 
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
@@ -91,7 +90,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool DeleteAnnualLeaveTransaction(ICriteria criteria);
 
-        AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(ICriteria criteria);
+        AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(ICriteria criteria);
 
         bool UpdateAnnualLeaveTransaction(ICriteria criteria);
 
@@ -113,6 +112,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<Employee> GetEmployeeTOEICScore(ICriteria criteria);
 
-        void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday);
+        SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
     }
 }

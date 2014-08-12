@@ -87,6 +87,7 @@
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestType.cs" />
+    <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Holiday.cs" />
     <Compile Include="LateInEarlyOutRequest.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Request\Leave.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shift.cs" />
-    <Compile Include="TOEIC.cs" />
+    <Compile Include="Toeic.cs" />
     <Compile Include="TotalWorkingHours.cs" />
     <Compile Include="UserChangedShift.cs" />
     <Compile Include="WeekWorking.cs" />

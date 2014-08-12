@@ -43,7 +43,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -90,29 +90,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionNoService.cs" />
-    <Compile Include="Interface\IExtensionNoService.cs" />
-    <Compile Include="Interface\ITOEICService.cs" />
+    <Compile Include="Interfaces\IExtensionNoService.cs" />
+    <Compile Include="Interfaces\IToeicService.cs" />
     <Compile Include="LookupCodeName.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="EmployeeService.cs" />
-    <Compile Include="Interface\IEmailService.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="LookupDataService.cs" />
-    <Compile Include="Interface\ILookupDataService.cs" />
-    <Compile Include="Interface\IMemoService.cs" />
-    <Compile Include="Interface\ITeamService.cs" />
+    <Compile Include="Interfaces\ILookupDataService.cs" />
+    <Compile Include="Interfaces\IMemoService.cs" />
+    <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="MemoService.cs" />
     <Compile Include="TeamService.cs" />
     <Compile Include="HolidayService.cs" />
-    <Compile Include="Interface\IHolidayService.cs" />
-    <Compile Include="Interface\IEmployeeService.cs" />
-    <Compile Include="Interface\IRequestService.cs" />
-    <Compile Include="Interface\IShiftService.cs" />
-    <Compile Include="Interface\ILeaveTypeService.cs" />
+    <Compile Include="Interfaces\IHolidayService.cs" />
+    <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\IRequestService.cs" />
+    <Compile Include="Interfaces\IShiftService.cs" />
+    <Compile Include="Interfaces\ILeaveTypeService.cs" />
     <Compile Include="LeaveTypeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestService.cs" />
     <Compile Include="ShiftService.cs" />
-    <Compile Include="TOEICService.cs" />
+    <Compile Include="ToeicService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

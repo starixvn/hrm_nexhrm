@@ -66,17 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionNoRepository.cs" />
-    <Compile Include="Interface\IEmployeeRepository.cs" />
-    <Compile Include="Interface\IExtensionNoRepository.cs" />
-    <Compile Include="Interface\ITeamRepository.cs" />
-    <Compile Include="Interface\IHolidayRepository.cs" />
-    <Compile Include="Interface\ILeaveTypeRepository.cs" />
-    <Compile Include="Interface\ILookupDataRepository.cs" />
-    <Compile Include="Interface\IMemoRepository.cs" />
-    <Compile Include="Interface\IReportRepository.cs" />
-    <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Interface\IShiftRepository.cs" />
-    <Compile Include="Interface\ITOEICRepository.cs" />
+    <Compile Include="Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Interfaces\IExtensionNoRepository.cs" />
+    <Compile Include="Interfaces\ITeamRepository.cs" />
+    <Compile Include="Interfaces\IHolidayRepository.cs" />
+    <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
+    <Compile Include="Interfaces\ILookupDataRepository.cs" />
+    <Compile Include="Interfaces\IMemoRepository.cs" />
+    <Compile Include="Interfaces\IReportRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IShiftRepository.cs" />
+    <Compile Include="Interfaces\ITOEICRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="TeamRepository.cs" />

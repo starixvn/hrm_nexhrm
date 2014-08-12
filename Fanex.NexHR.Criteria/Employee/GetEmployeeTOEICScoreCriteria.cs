@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetEmployeeTOEICScoreCriteria.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="GetEmployeeToeicScoreCriteria.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------

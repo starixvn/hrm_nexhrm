@@ -8,7 +8,7 @@
 //   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria.Holiday;

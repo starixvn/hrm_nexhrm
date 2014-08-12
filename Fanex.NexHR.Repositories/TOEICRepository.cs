@@ -10,12 +10,10 @@
 
 namespace Fanex.NexHR.Repositories
 {
-    using System.Data;
-    using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interface;
+    using Fanex.NexHR.Repositories.Interfaces;
 
     /// <summary>
     /// TOEIC repository.
@@ -27,14 +25,14 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>TOEIC object.</returns>
-        public TOEIC GetById(ICriteria criteria)
+        public Toeic GetById(ICriteria criteria)
         {
-            TOEIC toeic = new TOEIC();
+            Toeic toeic = new Toeic();
             if (criteria.IsValid())
             {
                 using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    toeic = db.QueryEntity<TOEIC>(criteria.GetSpParams());
+                    toeic = db.QueryEntity<Toeic>(criteria.GetSpParams());
                 }
             }
 

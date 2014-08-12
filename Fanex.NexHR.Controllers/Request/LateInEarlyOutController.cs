@@ -53,7 +53,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.UnavailDates = listUnavailDates;
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = EmployeeService.Get(getEmployeeCriteria);
+            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
 
             //// Count number of Late in/early out request in current month.
             int year = DateTime.Now.Year;
@@ -141,7 +141,7 @@ namespace Fanex.NexHR.Controllers.Request
             var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
             var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
-            var employee = EmployeeService.Get(getEmployeeCriteria);
+            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
             int minute = request.RequestType == (short)RequestTypes.LateIn
                 ? (int)request.LateInMins
                 : (int)request.EarlyOutMins;

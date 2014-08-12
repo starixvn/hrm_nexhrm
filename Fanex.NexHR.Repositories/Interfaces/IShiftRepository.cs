@@ -1,30 +1,22 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IMemoRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IShiftRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Anders.Le" date="2012.5.18">Created</change>
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
-
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
 
-    public interface IMemoRepository
+    public interface IShiftRepository
     {
-        IList<Memo> GetAll(ICriteria criteria);
+        IList<Shift> GetAll(ICriteria criteria);
 
-        Memo GetById(ICriteria criteria);
-
-        int Insert(ICriteria criteria);
-
-        bool Delete(ICriteria criteria);
-
-        bool Update(ICriteria criteria);
+        Shift GetByDate(ICriteria criteria);
     }
 }

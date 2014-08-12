@@ -8,12 +8,12 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -21,7 +21,7 @@ namespace Fanex.NexHR.Services.Interface
 
     public interface IEmployeeService
     {
-        Employee Get(GetEmployeeCriteria criteria);
+        Employee GetEmployeeById(GetEmployeeCriteria criteria);
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 
@@ -41,7 +41,7 @@ namespace Fanex.NexHR.Services.Interface
 
         MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
 
-        HrLeaderDashboardModel GetHrLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
+        HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
@@ -77,7 +77,7 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
 
-        AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(GetAnnualLeaveByIdCriteria criteria);
+        AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria);
 
         bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
 
@@ -97,8 +97,8 @@ namespace Fanex.NexHR.Services.Interface
 
         IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams);
 
-        IList<Employee> GetEmployeeTOEICScore(GetEmployeeToeicScoreCriteria criteria);
+        IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
-        void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday);
+        SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
     }
 }

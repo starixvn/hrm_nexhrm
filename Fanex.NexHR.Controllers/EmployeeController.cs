@@ -27,7 +27,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
@@ -42,7 +42,7 @@ namespace Fanex.NexHR.Controllers
         private readonly ILookupDataService _lookupDataService;
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
-        private readonly ITOEICService _toeicService;
+        private readonly IToeicService _toeicService;
 
         public EmployeeController()
             : this(null, null, null, null, null)
@@ -54,13 +54,13 @@ namespace Fanex.NexHR.Controllers
             ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-            ITOEICService toeicService = null)
+            IToeicService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
-            _toeicService = toeicService ?? new TOEICService();
+            _toeicService = toeicService ?? new ToeicService();
         }
 
         /// <summary>
@@ -103,14 +103,14 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Detail(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var model = _employeeService.Get(getEmployeeCriteria);
+            var model = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var toeicScoreCriteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = id };
 
             if (model != null)
             {
                 ViewBag.JobTitle = (model.JobTitleId == null)
                 ? Resources.Labels.Unknown
-                : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
+                : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
                 var getMySpaceCriteria = new GetMySpaceCriteria()
                 {
@@ -231,7 +231,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var model = _employeeService.Get(getEmployeeCriteria);
+            var model = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var employeeToeicCriteria = new GetToeicScoreByEmployeeIdCriteria()
             {
                 EmpId = id
@@ -309,7 +309,7 @@ namespace Fanex.NexHR.Controllers
                 if (result && this.CurrentUser.Id == model.Id)
                 {
                     var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.Id };
-                    var currentUser = _employeeService.Get(getEmployeeCriteria);
+                    var currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
                     HttpContext.Session["CurrentUser"] = currentUser;
                 }
             }
@@ -335,7 +335,7 @@ namespace Fanex.NexHR.Controllers
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-                ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+                ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
                 ViewBag.Shifts = _shiftService.GetSelectList();
             }
 
@@ -372,7 +372,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View(model);
@@ -388,7 +388,7 @@ namespace Fanex.NexHR.Controllers
         {
             ViewBag.Id = id;
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
             return View();
@@ -582,7 +582,7 @@ namespace Fanex.NexHR.Controllers
                     EmployeeId = this.CurrentUser.Id,
                     Date = DateTime.Today
                 };
-                var model = _employeeService.GetHrLeaderDashboard(getHRLeaderDashboardCriteria);
+                var model = _employeeService.GetHRLeaderDashboard(getHRLeaderDashboardCriteria);
                 return PartialView(model);
             }
 
@@ -684,7 +684,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullTOEIC(int? id, string name)
         {
-            TOEIC toeic = null;
+            Toeic toeic = null;
 
             if (id.HasValue && id.Value > 0)
             {
@@ -693,7 +693,7 @@ namespace Fanex.NexHR.Controllers
                     EmpId = id.Value
                 };
                 toeic = _toeicService.GetById(criteria);
-                toeic = toeic ?? new TOEIC { EmpId = id.Value };
+                toeic = toeic ?? new Toeic { EmpId = id.Value };
             }
 
             ViewBag.EmployeeName = name;
@@ -708,7 +708,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateFullTOEIC(TOEIC model)
+        public ActionResult UpdateFullTOEIC(Toeic model)
         {
             int effectedRow = -1;
             var currentUserId = this.CurrentUser.Id;
@@ -772,7 +772,7 @@ namespace Fanex.NexHR.Controllers
             {
                 // convert to TOEIC
                 var currentDate = DateTime.Now;
-                var toeic = new TOEIC
+                var toeic = new Toeic
                 {
                     EmpId = model.EmpId,
                     InputDate = model.InputDate,
@@ -818,7 +818,7 @@ namespace Fanex.NexHR.Controllers
         /// Validate TOEIC score.
         /// </summary>
         /// <param name="model">The model object.</param>
-        private void ValidateTOEIC(TOEIC model)
+        private void ValidateTOEIC(Toeic model)
         {
             if (model.EmpId <= 0)
             {

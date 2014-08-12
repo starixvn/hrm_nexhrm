@@ -8,11 +8,11 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
-    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
 
@@ -20,6 +20,7 @@ namespace Fanex.NexHR.Services.Interface
     {
         IList<Shift> GetAll(GetAllShiftCriteria criteria);
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed. Suppression is OK here.")]
         IList<SelectListItem> GetSelectList();
 
         Shift GetByDate(GetShiftByDateCriteria criteria);

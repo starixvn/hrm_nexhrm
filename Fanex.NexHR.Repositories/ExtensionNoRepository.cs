@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interface;
+    using Fanex.NexHR.Repositories.Interfaces;
 
     /// <summary>
     /// ExtensionNo Repository.

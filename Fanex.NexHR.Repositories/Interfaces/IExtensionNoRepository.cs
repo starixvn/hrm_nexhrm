@@ -7,11 +7,10 @@
 //   <change who="Quinn.Vo" date="2014.3.14">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Repositories.Interface
+namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NAP.Framework.Data;
-    using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Models;
 
     public interface IExtensionNoRepository

@@ -203,7 +203,7 @@ namespace AutoJobs
                                 _SenderEmail,
                                 _SenderName,
                                 receiverEmail: item.Email,
-                                mailCc: null,
+                                mailCC: null,
                                 subject: emailSubject,
                                 body: emailContent);
                         }
@@ -232,14 +232,20 @@ namespace AutoJobs
         {
             try
             {
-                IList<Employee> employeesBirthday = null;
-                IList<Employee> employeesFirstWorkingday = null;
+                SystemReminderModel lstEmployee = null;
+                List<Employee> employeesBirthday = null;
+                List<Employee> employeesFirstWorkingday = null;
                 var criteria = new GetBirthdayAndFirstWorkingdayCriteria
                 {
                     OnDate = forDate
                 };
 
-                _EmployeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+                lstEmployee = _EmployeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                if (lstEmployee != null)
+                {
+                    employeesBirthday = lstEmployee.EmployeeHasBirthday;
+                    employeesFirstWorkingday = lstEmployee.EmployeeHasFirstWorkingDay;
+                }
 
                 if (employeesBirthday != null && employeesBirthday.Any())
                 {
@@ -330,7 +336,7 @@ namespace AutoJobs
                         _SenderEmail,
                         _SenderName,
                         receiverEmail: _EmailSD + ";" + _EmailGO,
-                        mailCc: null,
+                        mailCC: null,
                         subject: emailSubject,
                         body: emailContent);
         }
@@ -355,7 +361,7 @@ namespace AutoJobs
                         _SenderEmail,
                         _SenderName,
                         receiverEmail: _EmailSD + ";" + _EmailGO,
-                        mailCc: null,
+                        mailCC: null,
                         subject: emailSubject,
                         body: emailContent);
         }

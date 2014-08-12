@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="HrLeaderDashboardModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="HRLeaderDashboardModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Fanex.NexHR.ViewModels
     /// <summary>
     /// HR leader dashboard model.
     /// </summary>
-    public class HrLeaderDashboardModel
+    public class HRLeaderDashboardModel
     {
         public int TotalPendingCheckInOutRequest { get; set; }
 

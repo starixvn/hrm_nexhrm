@@ -17,14 +17,14 @@ namespace Fanex.NexHR.Services
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -33,21 +33,19 @@ namespace Fanex.NexHR.Services
     /// <summary>
     /// Employee service.
     /// </summary>
+    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeService : IEmployeeService
     {
-        private readonly ITeamService _teamService;
         private IEmployeeRepository _employeeRepository;
 
         public EmployeeService()
         {
             this._employeeRepository = new EmployeeRepository();
-            this._teamService = new TeamService();
         }
 
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
             this._employeeRepository = employeeRepository;
-            this._teamService = new TeamService();
         }
 
         public IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria)
@@ -67,7 +65,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Employee Entity.</returns>
-        public Employee Get(GetEmployeeCriteria criteria)
+        public Employee GetEmployeeById(GetEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             Employee employee = new Employee();
@@ -178,10 +176,10 @@ namespace Fanex.NexHR.Services
             return space;
         }
 
-        public HrLeaderDashboardModel GetHrLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
+        public HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            HrLeaderDashboardModel dashboard = new HrLeaderDashboardModel();
+            HRLeaderDashboardModel dashboard = new HRLeaderDashboardModel();
             if (criteria.IsValid())
             {
                 dashboard = this._employeeRepository.GetHrLeaderDashboard(criteria);
@@ -383,13 +381,13 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.GetAnnualLeaveTransactions(criteria);
         }
 
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(GetAnnualLeaveByIdCriteria criteria)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
             AnnualLeaveBalanceModel model = null;
 
             if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetAnnualLeaveTransactionByID(criteria);
+                model = this._employeeRepository.GetAnnualLeaveTransactionById(criteria);
             }
 
             return model;
@@ -721,7 +719,7 @@ namespace Fanex.NexHR.Services
         }
         #endregion
 
-        public IList<Employee> GetEmployeeTOEICScore(GetEmployeeToeicScoreCriteria criteria)
+        public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
             if (criteria.Enable != null)
             {
@@ -735,11 +733,18 @@ namespace Fanex.NexHR.Services
         /// Function to get employees has birthday and first working.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
-        /// <param name="employeesBirthday">Employees has Birthday in a date.</param>
-        /// <param name="employeesFirstWorkingday">Employees has First working in a date.</param>
-        public void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday)
+        /// <returns>List Of employee has birthday and list employee has first working day.</returns>
+        public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
-            this._employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+            SystemReminderModel lstEmployee = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                lstEmployee = this._employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            }
+            
+            return lstEmployee;
         }
     }
 }

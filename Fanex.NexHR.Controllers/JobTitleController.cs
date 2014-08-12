@@ -12,7 +12,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Job title controller.

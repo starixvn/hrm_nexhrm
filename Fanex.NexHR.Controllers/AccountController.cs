@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Account controller.
@@ -27,7 +27,7 @@ namespace Fanex.NexHR.Controllers
         private readonly IShiftService _shiftService;
         private readonly ILookupDataService _lookupDataService;
         private readonly IEmployeeService _employeeService;
-        private readonly ITOEICService _toeicService;
+        private readonly IToeicService _toeicService;
 
         public AccountController()
             : this(null, null, null, null)
@@ -38,12 +38,12 @@ namespace Fanex.NexHR.Controllers
             IEmployeeService employeeService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-            ITOEICService toeicService = null)
+            IToeicService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
-            _toeicService = toeicService ?? new TOEICService();
+            _toeicService = toeicService ?? new ToeicService();
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.JobTitle = model.JobTitleId == null
             ? Resources.Labels.Unknown
-            : _lookupDataService.Get(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
+            : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {

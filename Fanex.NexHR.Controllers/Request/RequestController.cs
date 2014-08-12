@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>

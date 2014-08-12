@@ -14,17 +14,17 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interface;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// TOEIC service.
     /// </summary>
-    public class TOEICService : ITOEICService
+    public class ToeicService : IToeicService
     {
         private readonly ITOEICRepository _toeicRepository;
 
-        public TOEICService(ITOEICRepository toeicRepository = null)
+        public ToeicService(ITOEICRepository toeicRepository = null)
         {
             this._toeicRepository = toeicRepository ?? new TOEICRepository();
         }
@@ -34,10 +34,10 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>TOEIC object.</returns>
-        public TOEIC GetById(GetToeicScoreByEmployeeIdCriteria criteria)
+        public Toeic GetById(GetToeicScoreByEmployeeIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var toeic = new TOEIC();
+            Toeic toeic = null;
             if (criteria.IsValid())
             {
                 toeic = this._toeicRepository.GetById(criteria);

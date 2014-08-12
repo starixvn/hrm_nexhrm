@@ -11,8 +11,6 @@ namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
 
     /// <summary>
     /// Geographic Map Controller.

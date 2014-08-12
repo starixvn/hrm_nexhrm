@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>

@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -41,14 +41,20 @@ namespace Fanex.NexHR.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
-            IList<Employee> employeesBirthday = null;
-            IList<Employee> employeesFirstWorkingday = null;
+            SystemReminderModel lstEmployee = null;
+            List<Employee> employeesBirthday = null;
+            List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
                 OnDate = DateTime.Now.Date
             };
 
-            _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria, ref employeesBirthday, ref employeesFirstWorkingday);
+            lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            if (lstEmployee != null)
+            {
+                employeesBirthday = lstEmployee.EmployeeHasBirthday;
+                employeesFirstWorkingday = lstEmployee.EmployeeHasFirstWorkingDay;
+            }
 
             var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
                 || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());

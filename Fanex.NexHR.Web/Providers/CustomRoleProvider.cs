@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Web.Providers
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Custom role provider.
@@ -141,7 +141,7 @@ namespace Fanex.NexHR.Web.Providers
         private Employee GetCurrentUser(string username)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { DomainUserName = username };
-            var user = _employeeService.Get(getEmployeeCriteria);
+            var user = _employeeService.GetEmployeeById(getEmployeeCriteria);
             if (user == null)
             {
                 throw new System.Exception(username + " not found!!!");

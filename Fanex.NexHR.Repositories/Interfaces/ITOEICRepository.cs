@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ITOEICService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ITOEICRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -8,17 +8,15 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Fanex.NexHR.Criteria.Toeic;
+    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Models;
 
-    public interface ITOEICService
+    public interface ITOEICRepository
     {
-        TOEIC GetById(GetToeicScoreByEmployeeIdCriteria criteria);
+        Toeic GetById(ICriteria criteria);
 
-        int UpdateFullToeicScore(UpdateFullToeicScoreCriteria criteria);
-
-        int UpdateToeicScore(UpdateToeicScoreCriteria criteria);
+        int Update(ICriteria criteria);
     }
 }

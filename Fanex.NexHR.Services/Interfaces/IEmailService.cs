@@ -7,12 +7,12 @@
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     public interface IEmailService
     {
-        void SendEmail(string senderEmail, string receiverEmail, string mailCc, string subject, string body);
+        void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body);
 
-        void SendEmail(string senderEmail, string senderName, string receiverEmail, string mailCc, string subject, string body);
+        void SendEmail(string senderEmail, string senderName, string receiverEmail, string mailCC, string subject, string body);
     }
 }

@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -31,7 +31,7 @@ namespace Fanex.NexHR.Controllers
         public MemoController(IMemoService memoService = null, ILookupDataService lookupDataService = null)
         {
             _memoService = memoService ?? new MemoService();
-            _lookupDataService = lookupDataService ?? new LookupDataService();            
+            _lookupDataService = lookupDataService ?? new LookupDataService();
         }
 
         public MemoController()

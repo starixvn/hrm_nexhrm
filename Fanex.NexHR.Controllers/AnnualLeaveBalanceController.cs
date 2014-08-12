@@ -22,7 +22,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
@@ -146,7 +146,7 @@ namespace Fanex.NexHR.Controllers
             };
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var employee = _employeeService.Get(getEmployeeCriteria);
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (employee != null)
             {
@@ -174,7 +174,7 @@ namespace Fanex.NexHR.Controllers
         {
             model.ExcludedRequestTrans = model.ExcludedRequestTrans ? false : true;
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
             {
                 EmployeeId = model.EmployeeId,
@@ -198,11 +198,11 @@ namespace Fanex.NexHR.Controllers
             {
                 Id = id
             };
-            var model = _employeeService.GetAnnualLeaveTransactionByID(getAnnualLeaveByIdCriteria);
+            var model = _employeeService.GetAnnualLeaveTransactionById(getAnnualLeaveByIdCriteria);
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
-                ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+                ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             }
 
             return View(model);
@@ -218,7 +218,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(FormCollection formCollection, AnnualLeaveBalanceModel model)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (formCollection["command"] == Resources.Labels.Delete)
             {
@@ -273,7 +273,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Create(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             return View(new AnnualLeaveBalanceModel
             {
                 EmpId = id,
@@ -290,7 +290,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Create(AnnualLeaveBalanceModel model)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
-            ViewBag.Employee = _employeeService.Get(getEmployeeCriteria);
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (ModelState.IsValid)
             {

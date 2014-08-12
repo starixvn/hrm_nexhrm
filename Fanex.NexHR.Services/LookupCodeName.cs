@@ -12,9 +12,13 @@ namespace Fanex.NexHR.Services
     /// <summary>
     /// Lookup code name.
     /// </summary>
-    public struct LookupCodeName
+    public sealed class LookupCodeName
     {
         public const string JobTitle = "JT";
         public const string MemoCategory = "MC";
+
+        private LookupCodeName() 
+        {
+        }
     }
 }

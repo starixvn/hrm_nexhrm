@@ -221,11 +221,11 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>HR leader dashboard model.</returns>
-        public HrLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria)
+        public HRLeaderDashboardModel GetHrLeaderDashboard(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<HrLeaderDashboardModel>(criteria.GetSpParams());
+                return db.QueryEntity<HRLeaderDashboardModel>(criteria.GetSpParams());
             }
         }
 
@@ -400,7 +400,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new CheckInOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestTime"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
@@ -450,7 +450,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new LateInEarlyOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestDate"),
                                 TotalMins = reader.ToInt("Time"),
@@ -503,7 +503,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new Leave
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 FromDate = reader.ToDateTime("FromDate"),
                                 ToDate = reader.ToDateTime("ToDate"),
                                 TotalDays = reader.ToDecimal("TotalDays"),
@@ -560,7 +560,7 @@ namespace Fanex.NexHR.Repositories
                                 Id = reader.ToInt("Id"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
                                 RequestedDate = reader.ToDateTime("RequestDate"),
                                 Requester = new Employee
@@ -617,7 +617,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new CheckInOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestTime"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
@@ -668,7 +668,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new LateInEarlyOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestDate"),
                                 TotalMins = reader.ToInt("Time"),
@@ -719,7 +719,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new Leave
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 FromDate = reader.ToDateTime("FromDate"),
                                 ToDate = reader.ToDateTime("ToDate"),
                                 TotalDays = reader.ToDecimal("TotalDays"),
@@ -775,7 +775,7 @@ namespace Fanex.NexHR.Repositories
                                 Id = reader.ToInt("Id"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
                                 Status = new RequestStatus { Id = reader.ToByte("Status") },
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
                                 RequestedDate = reader.ToDateTime("RequestDate"),
                                 Requester = new Employee
@@ -832,7 +832,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new CheckInOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestTime"),
                                 CreatedDate = reader.ToDateTime("CreatedDate"),
@@ -879,7 +879,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new LateInEarlyOut
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 Shift = new Shift { Name = reader.ToString("Shift") },
                                 RequestedDate = reader.ToDateTime("RequestDate"),
                                 TotalMins = reader.ToInt("Time"),
@@ -929,7 +929,7 @@ namespace Fanex.NexHR.Repositories
                             var entity = new Leave
                             {
                                 Id = reader.ToInt("Id"),
-                                Type = new RequestType { Id = reader.ToShort("RequestType") },
+                                RequestType = new RequestType { Id = reader.ToShort("RequestType") },
                                 FromDate = reader.ToDateTime("FromDate"),
                                 ToDate = reader.ToDateTime("ToDate"),
                                 TotalDays = reader.ToDecimal("TotalDays"),
@@ -1032,7 +1032,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Annual leave balance model.</returns>
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionByID(ICriteria criteria)
+        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -1175,7 +1175,7 @@ namespace Fanex.NexHR.Repositories
                      (e, t) =>
                      {
                          e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-                         e.ToeicScore = new TOEIC
+                         e.ToeicScore = new Toeic
                          {
                              InputDate = t.InputDate,
                              Listening = t.Listening,
@@ -1198,23 +1198,20 @@ namespace Fanex.NexHR.Repositories
         /// Function to get employees has birthday and first working.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
-        /// <param name="employeesBirthday">Employees has Birthday in a date.</param>
-        /// <param name="employeesFirstWorkingday">Employees has First working in a date.</param>
-        public void GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria, ref IList<Employee> employeesBirthday, ref IList<Employee> employeesFirstWorkingday)
+        /// <returns>Tuple List Employee has birthday and employee has first working day.</returns>
+        public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-
-            if (criteria.IsValid())
+            SystemReminderModel model = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    using (var multi = db.QueryMultiple(criteria.GetSpParams()))
-                    {
-                        employeesBirthday = multi.Read<Employee>().ToList();
-                        employeesFirstWorkingday = multi.Read<Employee>().ToList();
-                    }
+                    model.EmployeeHasBirthday = multi.Read<Employee>().ToList();
+                    model.EmployeeHasFirstWorkingDay = multi.Read<Employee>().ToList();
                 }
             }
+
+            return model;
         }
     }
 }

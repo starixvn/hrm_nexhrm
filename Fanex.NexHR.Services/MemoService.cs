@@ -13,13 +13,12 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
-    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Memo service.

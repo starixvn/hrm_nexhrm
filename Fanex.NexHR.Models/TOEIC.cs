@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TOEIC.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="Toeic.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Models
     /// <summary>
     /// TOEIC model.
     /// </summary>
-    public class TOEIC
+    public class Toeic
     {
         private DateTime? _listeningReadingExamDate;
         private DateTime? _speakingWritingExamDate;

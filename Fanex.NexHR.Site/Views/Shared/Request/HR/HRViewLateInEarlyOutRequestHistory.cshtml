@@ -31,8 +31,8 @@
                                 @request.Requester.NickName.ToString()
                             </td>
                             
-                            <td class="highlight">@request.Type.ToString()</td>
-                        <td class="highlight">@RazorHelper.LateInEarlyOutTimeFormat(request.TotalMins, (short)request.Type.Id)</td>
+                            <td class="highlight">@request.RequestType.ToString()</td>
+                        <td class="highlight">@RazorHelper.LateInEarlyOutTimeFormat(request.TotalMins, (short)request.RequestType.Id)</td>
                         <td class="ddMMyyyy highlight">@request.RequestedDate.ToDateMonthYearFormatedDate()</td>
                             <td>@request.Shift.Name.ToString()</td>
                             <td class="ddMMyyyyhhmm">@request.CreatedDate.ToShortFormatedDate()</td>

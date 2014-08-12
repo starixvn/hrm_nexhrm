@@ -29,7 +29,7 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using RazorEngine;
 
@@ -78,7 +78,7 @@ namespace Fanex.NexHR.Services
         {
             StringBuilder msg = new StringBuilder();
 
-            switch (request.Type.Id)
+            switch (request.RequestType.Id)
             {
                 case (int)RequestTypes.Leave:
                     if (request.TotalDays > 1)
@@ -1061,7 +1061,7 @@ namespace Fanex.NexHR.Services
             string sendCc)
         {
             var allLeaveTypes = _leaveTypeService.GetAll();
-            var leaveType = allLeaveTypes.Where(t => t.Id == (request.LeaveTypeID.HasValue ? request.LeaveTypeID.Value : 0)).SingleOrDefault();
+            var leaveType = allLeaveTypes.Where(t => t.Id == (request.LeaveTypeId.HasValue ? request.LeaveTypeId.Value : 0)).SingleOrDefault();
             var body = Utilities.ReadTextFile(
                 HttpContext.Current.Server.MapPath("~/app_data/emails/LeaveApprovalNotification.cshtml"));
 

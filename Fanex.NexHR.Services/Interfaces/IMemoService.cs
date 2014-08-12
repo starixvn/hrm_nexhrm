@@ -8,10 +8,9 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
 

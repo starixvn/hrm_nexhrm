@@ -43,7 +43,7 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = EmployeeService.Get(getEmployeeCriteria);
+            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
@@ -142,7 +142,7 @@ namespace Fanex.NexHR.Controllers.Request
             var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
             var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
-            var employee = EmployeeService.Get(getEmployeeCriteria);
+            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -154,7 +154,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = request.ToDate.Value.Date,
                 ToTime = Utilities.GetTime(request.ToDate),
                 TotalDays = (decimal)request.TotalDays,
-                LeaveTypeId = (int)request.LeaveTypeID,
+                LeaveTypeId = (int)request.LeaveTypeId,
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,

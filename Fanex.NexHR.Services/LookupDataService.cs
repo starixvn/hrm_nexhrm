@@ -8,7 +8,7 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Services.Interface
+namespace Fanex.NexHR.Services
 {
     using System;
     using System.Collections;
@@ -16,11 +16,11 @@ namespace Fanex.NexHR.Services.Interface
     using System.Linq;
     using Fanex.Caching;
     using Fanex.Common.Helper;
-    using Fanex.NAP.Framework.Data;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Lookup data service.
@@ -60,7 +60,7 @@ namespace Fanex.NexHR.Services.Interface
         /// <param name="lookupCode">Lookup code.</param>
         /// <param name="lookupId">Lookup id.</param>
         /// <returns>Lookup data.</returns>
-        public LookupData Get(string lookupCode, int lookupId)
+        public LookupData GetById(string lookupCode, int lookupId)
         {
             Check.Argument.IsNotNegativeOrZero(lookupId, "lookupId");
             LookupData lookupData = new LookupData();

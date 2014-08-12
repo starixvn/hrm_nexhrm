@@ -13,7 +13,7 @@ namespace Fanex.NexHR.Services
     using Fanex.MailDeliver.MailClient.API;
     using Fanex.MailDeliver.Model;
     using Fanex.NexHR.Core;
-    using Fanex.NexHR.Services.Interface;
+    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Email service.
@@ -25,12 +25,12 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="senderEmail">The sender email.</param>
         /// <param name="receiverEmail">The receiver email.</param>
-        /// <param name="mailCc">The CC list.</param>
+        /// <param name="mailCC">The CC list.</param>
         /// <param name="subject">The email subject.</param>
         /// <param name="body">The email body.</param>
-        public void SendEmail(string senderEmail, string receiverEmail, string mailCc, string subject, string body)
+        public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
         {
-            this.SendEmail(senderEmail, senderEmail, receiverEmail, mailCc, subject, body);
+            this.SendEmail(senderEmail, senderEmail, receiverEmail, mailCC, subject, body);
         }
 
         /// <summary>
@@ -39,14 +39,14 @@ namespace Fanex.NexHR.Services
         /// <param name="senderEmail">The sender email.</param>
         /// <param name="senderName">The sender name.</param>
         /// <param name="receiverEmail">The receiver email.</param>
-        /// <param name="mailCc">The CC list.</param>
+        /// <param name="mailCC">The CC list.</param>
         /// <param name="subject">The email subject.</param>
         /// <param name="body">The email body.</param>
         public void SendEmail(
             string senderEmail, 
             string senderName, 
             string receiverEmail, 
-            string mailCc, 
+            string mailCC, 
             string subject, 
             string body)
         {
@@ -59,7 +59,7 @@ namespace Fanex.NexHR.Services
             var mailItem = new MailRecord
             {
                 MailTo = receiverEmail,
-                MailCc = mailCc,
+                MailCc = mailCC,
                 Subject = subject,
                 Title = ConfigurationManager.AppSettings["Email.SenderName"],
                 Body = body

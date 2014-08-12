@@ -44,7 +44,7 @@
                     Employee = request.Requester.NickName + " (" + request.Requester.FullName + ")",
                     TeamId = options.TeamId == null ? -2 : options.TeamId,
                     StatusId = options.StatusId,
-                    RequestType = request.Type.RequestFilter
+                    RequestType = request.RequestType.RequestFilter
                 };
                 
                 <tr id="row@(request.Id)">
@@ -60,13 +60,13 @@
                         @if (ViewBag.Leader == true)
                         { 
                             <a href="@Url.Action("member", "request", requestModel)">
-                                @if (request.Type.Id == (int)RequestTypes.Leave)
+                                @if (request.RequestType.Id == (int)RequestTypes.Leave)
                                 {
                                     @request.LeaveType
                                 }
                                 else
                                 {
-                                    @request.Type.Name
+                                    @request.RequestType.Name
                                 }
                             </a>
                         }
@@ -75,26 +75,26 @@
                             if ((bool)ViewBag.IsAllowChangeStatus)
                             {
                                 <a href="@Url.Action("hrview", "request", requestModel)">
-                                    @if (request.Type.Id == (int)RequestTypes.Leave)
+                                    @if (request.RequestType.Id == (int)RequestTypes.Leave)
                                     {
                                         @request.LeaveType
                                     }
                                     else
                                     {
-                                        @request.Type.Name
+                                        @request.RequestType.Name
                                     }
                                 </a>
                             }
                             else
                             {
                                  <a href="@Url.Action("employeeview", "request", requestModel)">
-                                    @if (request.Type.Id == (int)RequestTypes.Leave)
+                                    @if (request.RequestType.Id == (int)RequestTypes.Leave)
                                     {
                                         @request.LeaveType
                                     }
                                     else
                                     {
-                                        @request.Type.Name
+                                        @request.RequestType.Name
                                     }
                                 </a>
                             }
@@ -124,7 +124,7 @@
                         switch (request.Status.Id)
                         {
                             case 1: //Pending
-                                if (request.Type.Id == 6)
+                                if (request.RequestType.Id == 6)
                                 {
                                     <td>
                                         <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
@@ -156,7 +156,7 @@
                         switch (request.Status.Id)
                         {
                             case 1: //Pending
-                                if (request.Type.Id == 6)
+                                if (request.RequestType.Id == 6)
                                 {
                                     <td>
                                         <a href="javascript:;" class="tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
@@ -183,7 +183,7 @@
                         }
                     }
                     <td>
-                        <a class="viewhistory" href="javascript:;" id="/request/hrviewhistory?id=@request.Id&type=@request.Type.RequestHistoryFilter">
+                        <a class="viewhistory" href="javascript:;" id="/request/hrviewhistory?id=@request.Id&type=@request.RequestType.RequestHistoryFilter">
                             @Labels.View </a>
                     </td>
                 </tr>  
