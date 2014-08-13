@@ -75,8 +75,8 @@
             </div>
             <div class="input">
                 @Html.DatePickerFor(model => model.FromDate,
-                 new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1),
-                 new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(3).AddDays(-1), 
+                 Utilities.RequestAvailableFromDate,
+                 Utilities.RequestAvailableToDate, 
                  unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                 <span class="time hide">
                     @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))

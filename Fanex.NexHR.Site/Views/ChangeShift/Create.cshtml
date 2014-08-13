@@ -51,8 +51,8 @@
             </div>
             <div class="input">
                 @Html.DatePickerFor(model => model.ForDate,
-                new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1),
-                new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1),
+                Utilities.RequestAvailableFromDate,
+                Utilities.RequestAvailableToDate,
                 unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
             </div>
         </div>

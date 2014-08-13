@@ -9,6 +9,8 @@
 
 namespace Fanex.NexHR.Core.Enums
 {
+    using Fanex.NexHR.Core.Attributes;
+
     public enum Role : int
     {
         /// <summary>

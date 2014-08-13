@@ -156,7 +156,6 @@
     </resourceSet>
     <resourceSet name="leavejs" type="js">
       <resource reference="sitejs"/>
-
       <resource path="~/scripts/views/leave.request.js" />
       <resource path="~/scripts/views/search.request.js" />
     </resourceSet>

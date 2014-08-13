@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
@@ -87,6 +88,13 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _employeeService.GetWorkingSchedule(workingScheduleCriteria);
         }
 
+        /// <summary>
+        /// Get date range.
+        /// </summary>
+        /// <param name="employeeId">Employee id.</param>
+        /// <param name="fromDate">Get from date.</param>
+        /// <param name="toDate">Get to date.</param>
+        /// <returns>Total days.</returns>
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
@@ -96,7 +104,9 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 ToDate = toDate
             };
 
-            return _employeeService.GetRangeDate(getDateRangeCriteria);
+            int totalDays = _employeeService.GetRangeDate(getDateRangeCriteria);
+
+            return totalDays;
         }
 
         public IEnumerable<DateTime> GetUnavailDate(int employeeId, DateTime date)
@@ -104,8 +114,8 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = employeeId,
-                FromDate = new DateTime(date.AddMonths(-1).Year, date.AddMonths(-1).Month, 1),
-                ToDate = new DateTime(date.AddMonths(2).Year, date.AddMonths(2).Month, 1).AddDays(-1)
+                FromDate = Utilities.RequestAvailableFromDate,
+                ToDate = Utilities.RequestAvailableToDate
             };
 
             return _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);

@@ -75,7 +75,7 @@
     <Compile Include="Enums\RequestStatuse.cs" />
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Enums\Role.cs" />
-    <Compile Include="Enums\StringValueAttribute.cs" />
+    <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

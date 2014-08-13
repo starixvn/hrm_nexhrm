@@ -20,6 +20,7 @@ namespace Fanex.NexHR.Core
     using System.Web.Mvc.Html;
     using System.Web.Routing;
     using System.Web.WebPages;
+    using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
 

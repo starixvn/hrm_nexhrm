@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Shift;
@@ -59,8 +60,8 @@ namespace Fanex.NexHR.Controllers.Request
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
-                FromDate = DateTime.Now.AddMonths(-1),
-                ToDate = DateTime.Now.AddMonths(1)
+                FromDate = Utilities.RequestAvailableFromDate,
+                ToDate = Utilities.RequestAvailableToDate
             };
 
             ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
@@ -136,8 +137,8 @@ namespace Fanex.NexHR.Controllers.Request
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
-                FromDate = DateTime.Now.AddMonths(-1),
-                ToDate = DateTime.Now.AddMonths(1)
+                FromDate = Utilities.RequestAvailableFromDate,
+                ToDate = Utilities.RequestAvailableToDate
             };
 
             var listUnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);

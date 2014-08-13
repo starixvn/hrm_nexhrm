@@ -23,6 +23,26 @@ namespace Fanex.NexHR.Core
     /// </summary>
     public static class Utilities
     {
+        public static DateTime RequestAvailableFromDate
+        {
+            get
+            {
+                var date = DateTime.Now;
+                var availableFromDate = new DateTime(date.AddMonths(-3).Year, date.AddMonths(-3).Month, 1);
+                return availableFromDate;
+            }
+        }
+
+        public static DateTime RequestAvailableToDate
+        {
+            get
+            {
+                var date = DateTime.Now;
+                var availableToDate = new DateTime(date.AddMonths(3).Year, date.AddMonths(3).Month, 1).AddDays(-1);
+                return availableToDate;
+            }
+        }
+
         public static IList<SelectListItem> CheckInOutTypes
         {
             get

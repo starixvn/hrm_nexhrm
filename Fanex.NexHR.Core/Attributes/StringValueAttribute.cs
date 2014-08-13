@@ -7,7 +7,7 @@
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Core.Enums
+namespace Fanex.NexHR.Core.Attributes
 {
     using System;
 
