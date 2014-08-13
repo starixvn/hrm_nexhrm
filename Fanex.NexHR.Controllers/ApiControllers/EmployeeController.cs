@@ -109,7 +109,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return totalDays;
         }
 
-        public IEnumerable<DateTime> GetUnavailDate(int employeeId, DateTime date)
+        public IEnumerable<DateTime> GetUnavailDate(int employeeId)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {

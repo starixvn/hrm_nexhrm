@@ -54,19 +54,6 @@ function bindHalfDay() {
 	}
 }
 
-function bindUnavailableDate() {
-	var empId = parseInt($('#EmployeeId').val());
-	if (empId) {
-		$.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId, date: new Date().toDateString() },
-				function (response) {
-					if (response != null) {
-						$("#FromDate, #ToDate").attr("disableddate", response.join(","));
-					}
-				}
-			);
-	}
-}
-
 $(document).ready(function () {
 	var successed = $("#successed").val();
 	var year = $("#year").val();
@@ -87,7 +74,16 @@ $(document).ready(function () {
 	});
 
 	$("#Employee").change(function () {
-		bindUnavailableDate();
+		var empId = parseInt($('#EmployeeId').val());
+		if (empId) {
+			$.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
+				function (response) {
+					if (response != null) {
+						$("#FromDate, #ToDate").attr("disableddate", response.join(","));
+					}
+				}
+			);
+		}
 	});
 
 	$("#FromDate, #ToDate").change(function () {
