@@ -60,7 +60,7 @@
                 }
                 foreach (ExtensionNoModel ext in item.ListExt)
                 {
-            <tr id="@ext.EmpExtID">
+            <tr id="@ext.EmpExtId">
                 <td>
                     @(index++)
                 </td>
@@ -76,7 +76,7 @@
                 @if (Roles.IsUserInRole("HR"))
                 {
                     <td>
-                        <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtID })">
+                        <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtId })">
                             <img src="~/Styles/Images/edit-icon.png" alt="Delete" /></a>
                     </td>
                     <td>

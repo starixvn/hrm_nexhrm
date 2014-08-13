@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -36,6 +37,7 @@ namespace Fanex.NexHR.Controllers
     /// Employee controller.
     /// </summary>
     [Authorize]
+    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeController : BaseController
     {
         private readonly ITeamService _teamService;
@@ -118,31 +120,16 @@ namespace Fanex.NexHR.Controllers
                     Date = DateTime.Now.Date
                 };
                 ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
-                var employeeShiftCriteria = new GetEmployeeShift() { Id = id };
+                var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
                 var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
-                var shifts = _shiftService.GetAll(new GetAllShiftCriteria());
 
-                ViewBag.Sun = workingCalendar.SunShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.SunShift).Name;
-                ViewBag.Mon = workingCalendar.MonShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.MonShift).Name;
-                ViewBag.Tue = workingCalendar.TueShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.TueShift).Name;
-                ViewBag.Wed = workingCalendar.WedShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.WedShift).Name;
-                ViewBag.Thu = workingCalendar.ThuShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.ThuShift).Name;
-                ViewBag.Fri = workingCalendar.FriShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.FriShift).Name;
-                ViewBag.Sat = workingCalendar.SatShift == null
-                    ? "OFF"
-                    : shifts.FirstOrDefault(i => i.Id == workingCalendar.SatShift).Name;
+                ViewBag.Sun = workingCalendar.SunShiftName;
+                ViewBag.Mon = workingCalendar.MonShiftName;
+                ViewBag.Tue = workingCalendar.TueShiftName;
+                ViewBag.Wed = workingCalendar.WedShiftName;
+                ViewBag.Thu = workingCalendar.ThuShiftName;
+                ViewBag.Fri = workingCalendar.FriShiftName;
+                ViewBag.Sat = workingCalendar.SatShiftName;
             }
 
             ViewBag.TOEIC = _toeicService.GetById(toeicScoreCriteria);
@@ -227,6 +214,7 @@ namespace Fanex.NexHR.Controllers
         /// </summary>
         /// <param name="id">The employee ID.</param>
         /// <returns>Action result.</returns>
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
@@ -287,6 +275,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Edit(Employee model)
         {
             model.Modifier = this.CurrentUser;
@@ -329,7 +318,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult DefaultSchedule(int id = -1)
         {
-            var employeeShiftCriteria = new GetEmployeeShift() { Id = id };
+            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
             var model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
             if (model != null)
@@ -356,13 +345,13 @@ namespace Fanex.NexHR.Controllers
                 var criteria = new UpdateEmployeeShiftCriteria()
                 {
                     Id = model.EmpId,
-                    FriShift = model.FriShift,
-                    MonShift = model.MonShift,
-                    SatShift = model.SatShift,
-                    SunShift = model.SunShift,
-                    ThuShift = model.SunShift,
-                    TueShift = model.TueShift,
-                    WedShift = model.WedShift
+                    FriShift = model.FriShiftId,
+                    MonShift = model.MonShiftId,
+                    SatShift = model.SatShiftId,
+                    SunShift = model.SunShiftId,
+                    ThuShift = model.ThuShiftId,
+                    TueShift = model.TueShiftId,
+                    WedShift = model.WedShiftId
                 };
                 ViewBag.Updated = _employeeService.UpdateEmployeeShift(criteria);
             }
@@ -485,7 +474,7 @@ namespace Fanex.NexHR.Controllers
             };
             var model = _employeeService.GetWorkingSchedule(workingScheduleCriteria);
 
-            return View();
+            return View(model);
         }
 
         /// <summary>
@@ -654,7 +643,7 @@ namespace Fanex.NexHR.Controllers
         /// <param name="jobTitleId">The job title ID.</param>
         /// <returns>Action result.</returns>
         [HttpGet]
-        public ActionResult TOEICManagement(string jobTitleId = "")
+        public ActionResult ToeicManagement(string jobTitleId = "")
         {
             ViewBag.JobTitleId = jobTitleId;
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
@@ -678,7 +667,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateFullTOEIC(int? id, string name)
+        public ActionResult UpdateFullToeic(int? id, string name)
         {
             Toeic toeic = null;
 
@@ -704,7 +693,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateFullTOEIC(Toeic model)
+        public ActionResult UpdateFullToeic(Toeic model)
         {
             int effectedRow = -1;
             var currentUserId = this.CurrentUser.Id;
@@ -749,9 +738,9 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateTOEIC()
+        public ActionResult UpdateToeic()
         {
-            return PartialView(new TOEICViewModel());
+            return PartialView(new ToeicViewModel());
         }
 
         /// <summary>
@@ -761,7 +750,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateTOEIC(TOEICViewModel model)
+        public ActionResult UpdateToeic(ToeicViewModel model)
         {
             int effectedRow = -1;
             if (ModelState.IsValid)

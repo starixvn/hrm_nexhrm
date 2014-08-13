@@ -142,10 +142,6 @@ namespace Fanex.NexHR.Web.Providers
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { DomainUserName = username };
             var user = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            if (user == null)
-            {
-                throw new System.Exception(username + " not found!!!");
-            }
 
             return user;
         }

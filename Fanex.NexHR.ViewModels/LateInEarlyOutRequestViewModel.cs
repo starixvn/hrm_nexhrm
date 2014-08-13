@@ -26,6 +26,6 @@ namespace Fanex.NexHR.ViewModels
         public int Minute { get; set; }
 
         [Required]
-        public short Type { get; set; }
+        public short LateInOutType { get; set; }
     }
 }

@@ -66,7 +66,7 @@
         <div class="space"></div>
         
         <div class="grid_2">
-            @Html.LabelFor(model => model.Type, "Request")
+            @Html.LabelFor(model => model.AttendanceType, "Request")
         </div>
         <div class="grid_4">
             @{
@@ -80,7 +80,7 @@
                     new SelectListItem() {Text = "Not working", Value = "5"},
                 };
             }
-            @Html.DropDownListFor(model => model.Type, types)
+            @Html.DropDownListFor(model => model.AttendanceType, types)
         </div>
         
         <div class="grid_2">

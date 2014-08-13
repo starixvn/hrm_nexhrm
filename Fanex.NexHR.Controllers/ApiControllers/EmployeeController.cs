@@ -121,14 +121,14 @@ namespace Fanex.NexHR.Controllers.ApiControllers
         /// <param name="enable">The enable.</param>
         /// <param name="isDelete">The is delete.</param>
         /// <returns>List Employee with TOEIC score.</returns>
-        public IList<Employee> GetTOEIC(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        public IList<Employee> GetToeic(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
         {
             if (groupId == -1)
             {
                 groupId = null;
             }
 
-            var getTOEICScoreCriteria = new GetEmployeeToeicScoreCriteria
+            var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
             {
                 Query = query,
                 GroupId = groupId,
@@ -137,7 +137,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 Enable = enable,
                 IsDelete = isDelete
             };
-            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getTOEICScoreCriteria);
+            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
             return employees;
         }
 

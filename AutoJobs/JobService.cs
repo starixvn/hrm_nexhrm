@@ -12,6 +12,7 @@ namespace AutoJobs
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -62,7 +63,13 @@ namespace AutoJobs
             InitializeComponent();
             Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
             int timerInterval = _DEFAULT_TIMER_INTERVAL;
-            int.TryParse(ConfigurationManager.AppSettings["TimerInterval"], out timerInterval);
+
+            int configTimerInterval = int.Parse(ConfigurationManager.AppSettings["TimerInterval"]);
+            if (configTimerInterval > -1)
+            {
+                timerInterval = configTimerInterval;
+            }
+
             TimerInterval = timerInterval;
             _updateCounterTimer = new Timer(TimerInterval * 1000);
             _updateCounterTimer.Elapsed += new ElapsedEventHandler(ExecuteJob);
@@ -76,6 +83,7 @@ namespace AutoJobs
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Elapsed EventArgs.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         public void ExecuteJob(object sender, ElapsedEventArgs e)
         {
             try
@@ -176,6 +184,7 @@ namespace AutoJobs
         /// <summary>
         /// Function to send mail to reminder missing check in out.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void SendMailReminderForgotCheckInOut()
         {
             try
@@ -197,7 +206,7 @@ namespace AutoJobs
                         {
                             _LOG.Info(item.Email);
                             string emailContent = CreateEmailBody(bodyTemplate, item);
-                            string emailSubject = string.Join(null, _SenderName, " - Forgot ", item.Type == 1 ? "Check In" : "Check Out");
+                            string emailSubject = string.Join(null, _SenderName, " - Forgot ", item.MissingType == 1 ? "Check In" : "Check Out");
 
                             _EmailService.SendEmail(
                                 _SenderEmail,
@@ -228,6 +237,7 @@ namespace AutoJobs
         /// Function to send mail to reminder missing check in out.
         /// </summary>
         /// <param name="forDate">The date which employee have birthday and first working day.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
         {
             try
@@ -268,6 +278,7 @@ namespace AutoJobs
         /// </summary>
         /// <param name="filePath">File path.</param>
         /// <returns>Content of file.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private string ReadTextFile(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -308,9 +319,9 @@ namespace AutoJobs
             {
                 Employee = item.NickName,
                 Date = item.AttendanceDate.ToShortDateString(),
-                InOutType = item.Type == 1 ? "Check In" : "Check Out",
+                InOutType = item.MissingType == 1 ? "Check In" : "Check Out",
                 Shift = item.ShiftCode,
-                Remark = item.Type == 1 ? "Forgot Check In" : "Forgot Check Out"
+                Remark = item.MissingType == 1 ? "Forgot Check In" : "Forgot Check Out"
             };
 
             var emailContent = string.Format(bodyTemplate, data.Employee, data.InOutType, data.InOutType, data.Date, data.Shift, data.Remark);

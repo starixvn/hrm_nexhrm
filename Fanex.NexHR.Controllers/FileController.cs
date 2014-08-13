@@ -23,11 +23,11 @@ namespace Fanex.NexHR.Controllers
         /// Upload file.
         /// </summary>
         /// <param name="files">The upload files.</param>
-        /// <param name="categoryID">The category ID.</param>
+        /// <param name="categoryId">The category ID.</param>
         /// <param name="overRide">Override or not.</param>
         /// <returns>The return string.</returns>
         [HttpPost]
-        public string UploadFile(IEnumerable<HttpPostedFileBase> files, int categoryID, int overRide)
+        public string UploadFile(IEnumerable<HttpPostedFileBase> files, int categoryId, int overRide)
         {
             string pathAttachFiles = string.Empty;
 
@@ -38,7 +38,7 @@ namespace Fanex.NexHR.Controllers
                 if (file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var dir = "~/file/uploads/" + categoryID;
+                    var dir = "~/file/uploads/" + categoryId;
                     pathAttach = dir + "/" + fileName;
 
                     if (overRide == 0)

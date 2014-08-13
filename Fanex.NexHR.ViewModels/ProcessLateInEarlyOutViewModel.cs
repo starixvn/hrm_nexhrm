@@ -22,7 +22,7 @@ namespace Fanex.NexHR.ViewModels
 
         public int Shift { get; set; }
 
-        public int Type { get; set; }
+        public int ProcessLateInEarlyOutType { get; set; }
 
         public int Hour { get; set; }
 

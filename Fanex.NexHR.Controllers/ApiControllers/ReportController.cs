@@ -62,7 +62,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
-                ReportType = model.Type,
+                ReportType = model.AttendanceType,
                 EmployeeId = model.EmpId,
                 GroupId = model.GroupId,
                 ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0
@@ -84,7 +84,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             {
                 FromDate = new DateTime(model.Year, model.Month, 1),
                 ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
-                ReportType = model.Type,
+                ReportType = model.RequestType,
                 EmployeeId = model.EmpId
             };
 

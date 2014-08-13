@@ -39,10 +39,10 @@
 
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.Type)
+                @Html.LabelFor(model => model.ProcessCheckInOutType)
             </div>
             <div class="input">
-                @(Model.Type == 1 ? "Missing check in" : "Missing check out")
+                @(Model.ProcessCheckInOutType == 1 ? "Missing check in" : "Missing check out")
             </div>
         </div>
        
@@ -54,7 +54,7 @@
                 @Html.HiddenFor(model => model.RequestDate)
                 @Html.HiddenFor(model => model.Status)
                 @Html.HiddenFor(model => model.Shift)
-                @Html.HiddenFor(model => model.Type)
+                @Html.HiddenFor(model => model.ProcessCheckInOutType)
             </div>
             <div class="input">
                 @if (Model.Status == 1)

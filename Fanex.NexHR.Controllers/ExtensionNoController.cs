@@ -88,15 +88,15 @@ namespace Fanex.NexHR.Controllers
         /// ActionResult EditExtensionNumber.
         /// </summary>
         /// <param name="isInternal">Is internal.</param>
-        /// <param name="empExtID">Employee extension ID.</param>
+        /// <param name="empExtId">Employee extension ID.</param>
         /// <returns>Action Result.</returns>
         [Authorize(Roles = "HR")]
-        public ActionResult EditExtensionNumber(bool isInternal, int empExtID)
+        public ActionResult EditExtensionNumber(bool isInternal, int empExtId)
         {
             var criteria = new GetEmployeeExtensionNoByIdCriteria
             {
                 IsInternal = isInternal,
-                EmpExtId = empExtID
+                EmpExtId = empExtId
             };
             var model = _extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria 

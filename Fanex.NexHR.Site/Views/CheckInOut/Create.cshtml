@@ -37,10 +37,10 @@
           
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.Type)
+                @Html.LabelFor(model => model.CheckInOutType)
             </div>
             <div class="input">
-                @Html.RadioButtonList(model => model.Type, Utilities.CheckInOutTypes)
+                @Html.RadioButtonList(model => model.CheckInOutType, Utilities.CheckInOutTypes)
             </div>
         </div>  
         <div class="clear">

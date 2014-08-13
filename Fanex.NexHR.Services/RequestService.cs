@@ -138,7 +138,7 @@ namespace Fanex.NexHR.Services
                 var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
                 {
                     EmpId = model.EmployeeId,
-                    RequestType = model.Type,
+                    RequestType = model.CheckInOutType,
                     IsPlanned = false,
                     Remark = null,
                     CreatedDate = DateTime.Now,
@@ -181,7 +181,7 @@ namespace Fanex.NexHR.Services
                             {
                                 Leader = item.NickName,
                                 Member = model.DisplayName,
-                                Type = model.Type == (short)RequestType.CheckIn
+                                Type = model.CheckInOutType == (short)RequestType.CheckIn
                                     ? RequestType.CheckIn.EnumToString().ToLower()
                                     : RequestType.CheckOut.EnumToString().ToLower(),
                                 RequestId = requestId,
@@ -227,13 +227,13 @@ namespace Fanex.NexHR.Services
             {
                 long requestId = 0;
 
-                int? lateInMins = model.Type == (short)RequestType.LateIn ? (int?)model.Minute : null;
-                int? earlyOutMins = model.Type == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
+                int? lateInMins = model.LateInOutType == (short)RequestType.LateIn ? (int?)model.Minute : null;
+                int? earlyOutMins = model.LateInOutType == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
 
                 var workingTimeRequestCriteria = new WorkingTimeRequestCriteria()
                 {
                     EmpId = model.EmployeeId,
-                    RequestType = model.Type,
+                    RequestType = model.LateInOutType,
                     IsPlanned = false,
                     Remark = model.Remark,
                     CreatedDate = DateTime.Now,
@@ -276,7 +276,7 @@ namespace Fanex.NexHR.Services
                             {
                                 Leader = item.NickName,
                                 Member = model.DisplayName,
-                                Type = model.Type == (short)RequestType.LateIn
+                                Type = model.LateInOutType == (short)RequestType.LateIn
                                     ? "a " + Resources.Labels.LateIn.ToLower()
                                     : "an " + Resources.Labels.EarlyOut.ToLower(),
                                 RequestId = requestId,
@@ -492,7 +492,7 @@ namespace Fanex.NexHR.Services
                         {
                             Leader = item.NickName,
                             Member = model.DisplayName,
-                            Type = model.Type == (short)RequestType.CheckIn
+                            Type = model.CheckInOutType == (short)RequestType.CheckIn
                                 ? RequestType.CheckIn.EnumToString().ToLower()
                                 : RequestType.CheckOut.EnumToString().ToLower(),
                             RequestId = model.Id,
@@ -532,8 +532,8 @@ namespace Fanex.NexHR.Services
         {
             if (modelState.IsValid)
             {
-                int? lateInMins = model.Type == (short)RequestType.LateIn ? (int?)model.Minute : null;
-                int? earlyOutMins = model.Type == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
+                int? lateInMins = model.LateInOutType == (short)RequestType.LateIn ? (int?)model.Minute : null;
+                int? earlyOutMins = model.LateInOutType == (short)RequestType.EarlyOut ? (int?)model.Minute : null;
 
                 var updateWorkingTimeRequestCriteria = new UpdateWorkingTimeRequestCriteria()
                 {
@@ -566,7 +566,7 @@ namespace Fanex.NexHR.Services
                         {
                             Leader = item.NickName,
                             Member = model.DisplayName,
-                            Type = model.Type == (short)RequestType.LateIn
+                            Type = model.LateInOutType == (short)RequestType.LateIn
                                 ? "a " + Resources.Labels.LateIn.ToLower()
                                 : "an " + Resources.Labels.EarlyOut.ToLower(),
                             RequestId = model.Id,

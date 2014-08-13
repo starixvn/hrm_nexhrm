@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Report;
@@ -91,9 +92,9 @@ namespace Fanex.NexHR.Controllers
         /// </summary>
         /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
-        public ActionResult HrRequestMonitoring()
+        public ActionResult HRRequestMonitoring()
         {
-            return HrRequestMonitoring(null);
+            return HRRequestMonitoring(null);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult HrRequestMonitoring(RequestsMonitoringViewModel model)
+        public ActionResult HRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             if (model == null)
             {
@@ -123,10 +124,11 @@ namespace Fanex.NexHR.Controllers
             ViewBag.isLeader = false;
 
             ViewBag.EntityList = new List<RequestsMonitoring>();
-            if (this.CurrentUser.Roles != null)
+
+            IList<short> roleList = this.CurrentUser.RoleList;
+            if (roleList != null)
             {
-                if (this.CurrentUser.Roles.IndexOf(((int)Role.HR).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)Role.SA).ToString()) > -1)
+                if (roleList.Any(x => x == (int)Role.HR || x == (int)Role.SA))
                 {
                     var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
                     {
@@ -181,11 +183,10 @@ namespace Fanex.NexHR.Controllers
             ViewBag.isLeader = true;
             ViewBag.EntityList = new List<RequestsMonitoring>();
 
-            if (this.CurrentUser.Roles != null)
+            IList<short> roleList = this.CurrentUser.RoleList;
+            if (roleList != null)
             {
-                if (this.CurrentUser.Roles.IndexOf(((int)Role.AssistantLeader).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)Role.Leader).ToString()) > -1
-                    || this.CurrentUser.Roles.IndexOf(((int)Role.SA).ToString()) > -1)
+                if (roleList.Any(x => x == (int)Role.AssistantLeader || x == (int)Role.Leader || x == (int)Role.SA))
                 {
                     var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
                     {

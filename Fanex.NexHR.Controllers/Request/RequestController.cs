@@ -28,31 +28,22 @@ namespace Fanex.NexHR.Controllers.Request
     public class RequestController : BaseController
     {
         #region private services
-        protected readonly IEmployeeService EmployeeService;
-        protected readonly IShiftService ShiftService;
-        protected readonly ILeaveTypeService LeaveTypeService;
-        protected readonly IRequestService RequestService;
-        protected readonly ITeamService TeamService;
+        private readonly IEmployeeService _employeeService;
+        private readonly ITeamService _teamService;
         #endregion
 
         #region Ctor
         public RequestController()
-            : this(null, null, null, null)
+            : this(null, null)
         {
         }
 
         public RequestController(
             IEmployeeService employeeService = null,
-            IShiftService shiftService = null,
-            ILeaveTypeService leaveTypeService = null,
-            IRequestService requestService = null,
             ITeamService teamService = null)
         {
-            EmployeeService = employeeService ?? new EmployeeService();
-            ShiftService = shiftService ?? new ShiftService();
-            LeaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            RequestService = requestService ?? new RequestService();
-            TeamService = teamService ?? new TeamService();
+            _employeeService = employeeService ?? new EmployeeService();
+            _teamService = teamService ?? new TeamService();
         }
         #endregion
 
@@ -95,7 +86,7 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 ManagerId = this.CurrentUser.Id
             };
-            request.TeamCollection = TeamService.GetTeamManagedByEmp(criteria);
+            request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
 
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
@@ -144,7 +135,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = this.CurrentUser.Id
             };
 
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -167,7 +158,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = this.CurrentUser.Id
             };
 
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
+            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -190,7 +181,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = this.CurrentUser.Id
             };
 
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
+            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -238,7 +229,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = requestType
             };
 
-            IList<Leave> entityList = EmployeeService.GetLeaveRequestHistory(getLeaveRequestHistoryCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequestHistory(getLeaveRequestHistoryCriteria);
             ViewBag.EntityList = entityList;
         }
 
@@ -255,7 +246,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = requestType
             };
 
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequestHistory(getLateInOutRequestCriteria);
+            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestHistory(getLateInOutRequestCriteria);
             ViewBag.EntityList = entityList;
         }
 
@@ -272,7 +263,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = requestType
             };
 
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequestHistory(getCheckInOutRequestCriteria);
+            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestHistory(getCheckInOutRequestCriteria);
             ViewBag.EntityList = entityList;
         }
 
@@ -304,7 +295,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
+            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -355,7 +346,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = false;
-            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
+            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -408,7 +399,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             ViewBag.IsAllowChangeStatus = true;
-            request.TeamCollection = TeamService.GetAll(new GetAllTeamCriteria());
+            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
            // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
@@ -454,7 +445,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<Leave> entityList = EmployeeService.GetLeaveRequestByDate(leaveRequestByDateCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequestByDate(leaveRequestByDateCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -476,7 +467,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequestByDate(getLateInOutRequestByDateCriteria);
+            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestByDate(getLateInOutRequestByDateCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -498,7 +489,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequestByDate(getCheckInOutRequestByDateCriteria);
+            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestByDate(getCheckInOutRequestByDateCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -520,7 +511,7 @@ namespace Fanex.NexHR.Controllers.Request
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
                 ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
             };
-            IList<RequestEntity> entityList = EmployeeService.GetAllRequestByDate(getAllRequestByDateCriteria);
+            IList<RequestEntity> entityList = _employeeService.GetAllRequestByDate(getAllRequestByDateCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -546,7 +537,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -568,7 +559,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<LateInEarlyOut> entityList = EmployeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
+            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -590,7 +581,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<CheckInOut> entityList = EmployeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
+            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -615,7 +606,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
             };
 
-            IList<RequestEntity> entityList = EmployeeService.GetAllRequest(getAllRequestCriteria);
+            IList<RequestEntity> entityList = _employeeService.GetAllRequest(getAllRequestCriteria);
 
             ViewBag.EntityList = entityList;
         }
@@ -627,7 +618,7 @@ namespace Fanex.NexHR.Controllers.Request
         /// <param name="employeeId">Which employee request belong to.</param>
         /// <param name="creatorId">The person who creates this request.</param>
         /// <returns>Return true if current user can edit this request.</returns>
-        protected bool Editable(byte status, int employeeId, int creatorId)
+        private bool Editable(byte status, int employeeId, int creatorId)
         {
             if (status != (byte)RequestStatuse.Pending ||
                 (employeeId != this.CurrentUser.Id && creatorId != this.CurrentUser.Id))

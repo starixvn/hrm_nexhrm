@@ -18,32 +18,48 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     /// <summary>
     /// Leave controller.
     /// </summary>
     [Authorize]
-    public class LeaveController : RequestController
+    public class LeaveController : BaseController
     {
+        private readonly IEmployeeService _employeeService;
+        private readonly ILeaveTypeService _leaveTypeService;
+        private readonly IRequestService _requestService;
+
         #region Ctor
         public LeaveController()
-            : base(null, null, null, null)
+            : this(null, null, null)
         {
         }
+
+        public LeaveController(
+            IEmployeeService employeeService = null,
+            ILeaveTypeService leaveTypeService = null,
+            IRequestService requestService = null)
+        {
+            _employeeService = employeeService ?? new EmployeeService();
+            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            _requestService = requestService ?? new RequestService();
+        }
+
         #endregion
 
         /// <summary>
         /// Create leave request.
         /// </summary>
         /// <returns>Action result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", 
-            "SP2101:MethodMustNotContainMoreLinesThan", 
-            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
@@ -51,9 +67,9 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = DateTime.Now.AddMonths(1)
             };
 
-            var listUnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
+            var listUnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
             ViewBag.UnavailDates = listUnavailDates;
-            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
             var model = new LeaveRequestViewModel
             {
                 Employee = employee.NickName,
@@ -80,7 +96,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ExcludeEmployeeId = null
             };
 
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             foreach (Leave request in entityList)
             {
@@ -102,7 +118,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             if (model.EmployeeId <= 0)
             {
@@ -112,12 +128,12 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 model.By = this.CurrentUser.Id;
                 ViewBag.Year = model.FromDate.Year;
-                if (string.Compare(model.Employee, model.DisplayName, true) != 0)
+                if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
                 {
                     model.DisplayName = model.Employee;
                 }
 
-                ViewBag.Requested = RequestService.Leave(ModelState, model);
+                ViewBag.Requested = _requestService.Leave(ModelState, model);
             }
 
             return View(model);
@@ -137,12 +153,12 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = DateTime.Now.AddMonths(1)
             };
 
-            ViewBag.UnavailDates = EmployeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
+            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
 
             var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
-            var request = EmployeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
+            var request = _employeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
-            var employee = EmployeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -161,7 +177,7 @@ namespace Fanex.NexHR.Controllers.Request
                 HalfDayOff = request.TotalDays == (decimal)0.5
             };
 
-            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             return View(model);
         }
@@ -174,8 +190,8 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = LeaveTypeService.GetAll();
-            ViewBag.Updated = RequestService.UpdateLeave(ModelState, model);
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
             return View(model);
         }
 
@@ -210,7 +226,7 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             //// kos push
-            IList<Leave> entityList = EmployeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
 
             return View(entityList);
         }

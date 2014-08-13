@@ -35,7 +35,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool Update(UpdateEmployeeCriteria criteria);
 
-        EmployeeShift GetEmployeeShift(GetEmployeeShift criteria);
+        EmployeeShift GetEmployeeShift(GetEmployeeShiftCriteria criteria);
 
         bool UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria);
 
@@ -95,7 +95,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
 
-        IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams);
+        IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> listTeam);
 
         IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 

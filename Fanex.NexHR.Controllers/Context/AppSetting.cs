@@ -15,24 +15,19 @@ namespace Fanex.NexHR.Controllers.Context
     /// <summary>
     /// Application setting.
     /// </summary>
-    public class AppSetting
+    public static class AppSetting
     {
         private static bool _isShowCloseBalance = true;
 
-        static AppSetting()
-        {
-            try
-            {
-                _isShowCloseBalance = Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
-            }
-            catch
-            {
-            }
-        }
-
         public static bool IsShowCloseBalance
         {
-            get { return _isShowCloseBalance; }
+            get { return InitializeResourceString(); }
+        }
+
+        private static bool InitializeResourceString()
+        {
+            _isShowCloseBalance = Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
+            return _isShowCloseBalance;
         }
     }
 }

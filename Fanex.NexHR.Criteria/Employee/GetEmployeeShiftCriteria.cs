@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetEmployeeShift.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetEmployeeShiftCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Criteria.Employee
     /// <summary>
     /// Get Employee Shift.
     /// </summary>
-    public class GetEmployeeShift : CriteriaBase
+    public class GetEmployeeShiftCriteria : CriteriaBase
     {
         public int Id { get; set; }
 

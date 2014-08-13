@@ -34,6 +34,6 @@ namespace Fanex.NexHR.ViewModels
 
         public string Email { get; set; }
 
-        public int Type { get; set; }
+        public int MissingType { get; set; }
     }
 }

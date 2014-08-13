@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Controllers.Context;
@@ -61,9 +62,10 @@ namespace Fanex.NexHR.Controllers
         /// <param name="model">The model object.</param>
         /// <returns>Action result.</returns>
         [HttpPost]
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Index(LeaveSummaryViewModel model)
         {
-            ViewBag.IsShowCloseBalance = AppSetting.IsShowCloseBalance;
+            IList<Team> allTeam = _teamService.GetAll(new GetAllTeamCriteria());
 
             if (model == null)
             {
@@ -81,33 +83,29 @@ namespace Fanex.NexHR.Controllers
                 Year = model.Year
             };
             IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
-            IList<Team> teams = new List<Team>();
+            IList<Team> listTeam = null;
             
             if (model.TeamId != null)
             {
-                var criteria = new GetTeamByIdCriteria
-                {
-                    Id = (int)model.TeamId
-                };
-                Team team = _teamService.GetById(criteria);
-                teams.Add(team);
+                Team team = allTeam.Where(x => x.Id == model.TeamId).FirstOrDefault();
+                listTeam.Add(team);
             }
             else
             {
-                teams = _teamService.GetAll(new GetAllTeamCriteria());
+                listTeam = allTeam;
             }
 
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.TeamId = model.TeamId;
-            ViewBag.EntityList = entityList;
-
-            IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, teams);
+            IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, listTeam);
 
             foreach (LeaveSummaryByTeam item in leaveSummaryByTeamList)
             {
                 item.LeaveSummaryInTeam = item.LeaveSummaryInTeam.Where(m => m.LeaveBalance >= model.MinAnnualBalance).ToList();
             }
 
+            ViewBag.Groups = allTeam;
+            ViewBag.TeamId = model.TeamId;
+            ViewBag.EntityList = entityList;
+            ViewBag.IsShowCloseBalance = AppSetting.IsShowCloseBalance;
             ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
 
             return View(model);

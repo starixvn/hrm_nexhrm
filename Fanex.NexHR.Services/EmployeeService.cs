@@ -140,7 +140,7 @@ namespace Fanex.NexHR.Services
             return updated;
         }
 
-        public EmployeeShift GetEmployeeShift(GetEmployeeShift criteria)
+        public EmployeeShift GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             EmployeeShift model = null;
@@ -688,15 +688,15 @@ namespace Fanex.NexHR.Services
         /// This function use for sorting leave summaries. Any leave summary of employee will be grouped by team. (For easier displaying in view).
         /// </summary>
         /// <param name="leaveSummaryList">Leave summary List.</param>
-        /// <param name="teams">Team List.</param>
+        /// <param name="listTeam">Team List.</param>
         /// <returns>List Annual Leave.</returns>
-        public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> teams)
+        public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> listTeam)
         {
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
 
-            teams = teams.OrderBy(t => t.Rank).ToList();
+            listTeam = listTeam.OrderBy(t => t.Rank).ToList();
 
-            foreach (Team team in teams)
+            foreach (Team team in listTeam)
             {
                 LeaveSummaryByTeam entity = new LeaveSummaryByTeam
                 {

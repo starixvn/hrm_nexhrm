@@ -40,10 +40,10 @@
 
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.Type)
+                @Html.LabelFor(model => model.ProcessLateInEarlyOutType)
             </div>
             <div class="input">
-                @(Model.Type == 3 ? "Late in" : "Early out")
+                @(Model.ProcessLateInEarlyOutType == 3 ? "Late in" : "Early out")
             </div>
         </div>
         
@@ -72,7 +72,7 @@
                 @Html.HiddenFor(model => model.RequestDate)
                 @Html.HiddenFor(model => model.Status)
                 @Html.HiddenFor(model => model.Shift)
-                @Html.HiddenFor(model => model.Type)
+                @Html.HiddenFor(model => model.ProcessLateInEarlyOutType)
                 @Html.HiddenFor(model => model.Hour)
                 @Html.HiddenFor(model => model.Minute)
             </div>
