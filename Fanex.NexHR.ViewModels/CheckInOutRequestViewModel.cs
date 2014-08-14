@@ -12,6 +12,7 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core.Enums;
 
     /// <summary>
     /// Check in/out request view model.
@@ -37,6 +38,14 @@ namespace Fanex.NexHR.ViewModels
         public short CheckInOutType { get; set; }
 
         public string Shift { get; set; }
+
+        public int ForRequest
+        {
+            get
+            {
+                return (int)GeneralRequestType.CheckInOut;
+            }
+        }
 
         /// <summary>
         /// Validate context.

@@ -8,7 +8,7 @@ function updateZeroPrefix() {
 }
 
 function bindingHourAndMinute() {
-	if (($('#Type').val() === "1") || ($('#Type_1').attr("checked") === "checked")) {
+	if ($('#CheckInOutType_1').attr("checked") === "checked") {
 		$('#Hour').val($('#InTime').val().substring(0, 2));
 		$('#Minute').val($('#InTime').val().trim().substring(3, 5));
 	}
@@ -51,27 +51,13 @@ $(document).ready(function () {
 	});
 
 	$("form").submit(function (e) {
-		if ($('#Shift').val() !== "U1" && ($("#Type_2").attr("checked") === "checked" || $('#Type').val() === "2")) {
-			var timeOut = ($('#Hour').val().length < 2 ? "0" + $('#Hour').val() : $('#Hour').val()) + ":" + 
+		if ($('#Shift').val() !== "U1" && ($("#$('#CheckInOutType_1')_2").attr("checked") === "checked")) {
+			var timeOut = ($('#Hour').val().length < 2 ? "0" + $('#Hour').val() : $('#Hour').val()) + ":" +
 						($('#Minute').val().length < 2 ? "0" + $('#Minute').val() : $('#Minute').val());
 			if (timeOut < $('#InTime').val() || $('#Hour').val().length === 0 || $('#Minute').val().length === 0) {
 				e.preventDefault();
 				alert('Request time Invalid!');
 			}
-		}
-	});
-
-	$("#Employee").change(function () {
-		var empId = parseInt($('#EmployeeId').val());
-		if (empId > 0) {
-			$.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
-				function (response) {
-					if (response != null) {
-						$("#ForDate").attr("disabledDate", response.join(","));
-						$('.datepicker').change();
-					}
-				}
-			);
 		}
 	});
 
@@ -97,16 +83,11 @@ $(document).ready(function () {
 		}
 	});
 
-	$('#Type_1, #Type_2').change(function () {
+	$('#CheckInOutType_1, #CheckInOutType_2').change(function () {
 		bindingHourAndMinute();
 	});
 
-	if ($('#Type_1').val() !== undefined) {
-		$("#Employee").change();
-	}
-	else {
-		getShiftByDate();
-	}
+	getShiftByDate();
 
 	//Process redirect to Check In/Out request.
 	var successed = $("#successed").val();

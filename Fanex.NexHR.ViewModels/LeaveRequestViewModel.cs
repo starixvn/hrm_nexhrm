@@ -12,6 +12,7 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core.Enums;
 
     /// <summary>
     /// Leave request view model.
@@ -42,6 +43,14 @@ namespace Fanex.NexHR.ViewModels
         public bool HalfDayOff { get; set; }
 
         public string LeaveTypeName { get; set; }
+
+        public int ForRequest
+        {
+            get
+            {
+                return (int)GeneralRequestType.Leave;
+            }
+        }
 
         /// <summary>
         /// Validate context.

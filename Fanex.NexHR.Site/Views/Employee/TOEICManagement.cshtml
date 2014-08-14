@@ -102,63 +102,63 @@
         <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>  
         <td class="left">${JobTitle}</td>
 		<td>
-			{{if TOEICScore.Listening == 0}}
+			{{if ToeicScore.Listening == 0}}
 				-
 			{{else}}
-				${TOEICScore.Listening}
+				${ToeicScore.Listening}
             {{/if}}
 		</td>
 		<td>
-			{{if TOEICScore.Reading == 0}}
+			{{if ToeicScore.Reading == 0}}
 				-
 			{{else}}
-				${TOEICScore.Reading}
+				${ToeicScore.Reading}
             {{/if}}
 		</td>
 		<td class="highlight">
-			{{if TOEICScore.LRTotal == 0}}
+			{{if ToeicScore.LRTotal == 0}}
 				-
 			{{else}}
-				${TOEICScore.LRTotal}
+				${ToeicScore.LRTotal}
             {{/if}}
 		</td>
 		<td>
-			{{if TOEICScore.LRExamDate == null}}
+			{{if ToeicScore.LRExamDate == null}}
 				-
 			{{else}}
-				${jsonTojsDate(TOEICScore.LRExamDate).format("dd mmm, yyyy")}
+				${jsonTojsDate(ToeicScore.LRExamDate).format("dd mmm, yyyy")}
 			{{/if}}
 		</td>
 		<td>
-			{{if TOEICScore.Speaking == 0}}
+			{{if ToeicScore.Speaking == 0}}
 				-
 			{{else}}
-				${TOEICScore.Speaking}
+				${ToeicScore.Speaking}
             {{/if}}
 		</td>
 		<td>
-			{{if TOEICScore.Writing == 0}}
+			{{if ToeicScore.Writing == 0}}
 				-
 			{{else}}
-				${TOEICScore.Writing}
+				${ToeicScore.Writing}
             {{/if}}
 		</td>
 		<td>
-			{{if TOEICScore.SWExamDate == null}}
+			{{if ToeicScore.SWExamDate == null}}
 				-
 			{{else}}
-				${jsonTojsDate(TOEICScore.SWExamDate).format("dd mmm, yyyy")}
+				${jsonTojsDate(ToeicScore.SWExamDate).format("dd mmm, yyyy")}
 			{{/if}}
 		</td>
 		
-			{{if TOEICScore.InputDate != null }}
-                {{if checkExpiredDate(TOEICScore.InputDate)}}
+			{{if ToeicScore.InputDate != null }}
+                {{if checkExpiredDate(ToeicScore.InputDate)}}
                 <td class="expired-date">
-				    ${jsonTojsDate(TOEICScore.InputDate).format("dd mmm, yyyy")}
+				    ${jsonTojsDate(ToeicScore.InputDate).format("dd mmm, yyyy")}
                 </td>
                 {{else}}
                 <td>
-                    ${jsonTojsDate(TOEICScore.InputDate).format("dd mmm, yyyy")}
+                    ${jsonTojsDate(ToeicScore.InputDate).format("dd mmm, yyyy")}
                 </td>
                 {{/if}}
 			{{else}}

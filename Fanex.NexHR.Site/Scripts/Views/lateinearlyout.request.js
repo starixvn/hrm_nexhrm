@@ -26,21 +26,7 @@ $(document).ready(function () {
 		});
 	}
 
-	$("#Employee").change(function () {
-		var empId = parseInt($('#EmployeeId').val());
-		if (empId > 0) {
-			$.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
-				function (response) {
-					if (response != null) {
-						$("#ForDate").attr("disabledDate", response.join(","));
-						shiftChange();
-					}
-				}
-			);
-		}
-	});
-
-	$("#Employee").change();
+		shiftChange();
 
 	$('.datepicker').datepicker("option", "onSelect", function () {
 		shiftChange();

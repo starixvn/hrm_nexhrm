@@ -65,12 +65,8 @@
             <td class="left" style="width:110px">${FullName}</td>  
             <td class="left">${JobTitle}</td>        
             <td class="left"><a href="skype:${Skype}?chat">${Skype}</a></td>
-            <td title="${Phone}">
-                {{if Phone.indexOf(",") > 0}}
-                    ${Phone.substring(0,Phone.indexOf(","))}
-                {{else}}
-                    ${Phone}
-                {{/if}}
+            <td>
+                ${Phone}
             </td>
             <td style="width:80px">
                 {{if JoinedDate}}

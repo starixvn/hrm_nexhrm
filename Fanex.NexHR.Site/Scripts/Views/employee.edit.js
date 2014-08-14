@@ -327,7 +327,7 @@ $(document).ready(function () {
         futureDates: true,
         maxYear: new Date().getFullYear(),
         maxAge: 75,
-        defaultDate: $('#DOB').val()
+        defaultDate: $('#DateOfBirth').val()
     });
 
     $("#month, #day, #year").change(function () {
@@ -336,7 +336,7 @@ $(document).ready(function () {
         var day = $("#day").val();
         var date = new Date(year, month - 1, day);
 
-        $("#DOB").val(date.format("dd mmm yyyy"));
+        $("#DateOfBirth").val(date.format("dd mmm yyyy"));
     });
 
     $('#SubGroupArray' + $('#Team_Id').val()).prop('checked', false);

@@ -83,6 +83,7 @@ $(document).ready(function () {
 						$('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
 					});
 					$('#insertform').dialog('close');
+					$("form").submit();
 				}
 				else {
 					alert(_messages.errorTryAgain);
@@ -94,7 +95,7 @@ $(document).ready(function () {
 	$('#resetform form').submit(function (evt) {
 		evt.preventDefault();
 		var $form = $(this);
-		_totalDays = parseFloat($('#TotalDays').val());       
+		_totalDays = parseFloat($('#TotalDays').val());
 
 		if ($form.valid()) {
 			$.post(_global.root + 'ajax/ResetAnnualLeaves', $('form').serialize(), function (response) {

@@ -38,7 +38,6 @@ function query(jobTitleId) {
 	_global.root + 'api/employee/getemployees',
 	{ query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId },
 	function (data) {
-		//console.log(data);
 		if (data.length > 0) {
 			rowIndex = 1;
 

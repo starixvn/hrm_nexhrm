@@ -87,7 +87,12 @@ namespace Fanex.NexHR.Controllers
             
             if (model.TeamId != null)
             {
-                Team team = allTeam.Where(x => x.Id == model.TeamId).FirstOrDefault();
+                listTeam = new List<Team>();
+                var criteria = new GetTeamByIdCriteria
+                {
+                    Id = (int)model.TeamId
+                };
+                Team team = _teamService.GetById(criteria);
                 listTeam.Add(team);
             }
             else
@@ -96,7 +101,6 @@ namespace Fanex.NexHR.Controllers
             }
 
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, listTeam);
-
             foreach (LeaveSummaryByTeam item in leaveSummaryByTeamList)
             {
                 item.LeaveSummaryInTeam = item.LeaveSummaryInTeam.Where(m => m.LeaveBalance >= model.MinAnnualBalance).ToList();

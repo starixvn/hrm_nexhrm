@@ -1,4 +1,4 @@
-﻿/*global _global*/
+﻿/*global _global, shiftChange*/
 /*exported */
 "use strict";
 
@@ -36,6 +36,35 @@ $(document).ready(function () {
 			nickName = ui.item.label;
 			$('#Employee').val(nickName);
 			$('#EmployeeId').val(ui.item.value);
+			var empId = parseInt($('#EmployeeId').val());
+
+			if (empId > 0) {
+				$.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
+					function (response) {
+						if (response != null) {
+							$("#ForDate").attr("disableddate", response.join(","));
+							$("#FromDate, #ToDate").attr("disableddate", response.join(","));
+							$('.datepicker').change();
+
+							var forRequest = parseInt($("#ForRequest").val());
+							switch (forRequest) {
+								case 0: // leave
+									$("#FromDate, #ToDate").attr("disableddate", response.join(","));
+									break;
+								case 1: // late in early out
+									$("#ForDate").attr("disabledDate", response.join(","));
+									shiftChange();
+									break;
+								case 2: // check in out
+									$("#ForDate").attr("disabledDate", response.join(","));
+									$('.datepicker').change();
+									break;
+							}
+
+						}
+					}
+				);
+			}
 		},
 		focus: function (event, ui) {
 			nickName = ui.item.label;

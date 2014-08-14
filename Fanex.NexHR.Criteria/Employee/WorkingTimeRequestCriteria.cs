@@ -45,10 +45,6 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public int CreatedBy { get; set; }
 
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
-
         public override bool IsValid()
         {
             return true;

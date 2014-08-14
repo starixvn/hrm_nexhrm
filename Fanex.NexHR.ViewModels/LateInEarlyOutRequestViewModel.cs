@@ -11,6 +11,7 @@ namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core.Enums;
 
     /// <summary>
     /// Late in early out request view model.
@@ -27,5 +28,13 @@ namespace Fanex.NexHR.ViewModels
 
         [Required]
         public short LateInOutType { get; set; }
+
+        public int ForRequest
+        {
+            get
+            {
+                return (int)GeneralRequestType.LateInEarlyOut;
+            }
+        }
     }
 }
