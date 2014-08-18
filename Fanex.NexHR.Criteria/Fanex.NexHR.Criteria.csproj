@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Employee\AdjustAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\DeleteWorkingTimeRequestCriteria.cs" />

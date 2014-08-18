@@ -150,4 +150,11 @@
 		<Setting Key="TOEIC_Update" SpName="TOEIC_Update" DbName="nexhrx" Plain="1"></Setting>
 		<Setting Key="TOEIC_NewUpdate" SpName="TOEIC_NewUpdate" DbName="nexhrx" Plain="1"></Setting>
 	</Function>
+	<Function Name="Department">
+		<Setting Key="Department_Get" SpName="Department_Get" DbName="nexhrx" Plain="1">
+			<Mapping DataField="CreatedBy" ObjectProperty="Id" ></Mapping>
+			<Mapping DataField="ManagerId" ObjectProperty="Id" ></Mapping>
+			<Mapping DataField="ModifiedBy" ObjectProperty="Id" ></Mapping>
+		</Setting>
+	</Function>
 </Functions>

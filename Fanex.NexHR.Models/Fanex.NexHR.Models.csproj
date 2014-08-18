@@ -78,6 +78,7 @@
     <Compile Include="CheckInOutRequest.cs" />
     <Compile Include="CommandResult.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="DepartmentModel.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeShift.cs" />
     <Compile Include="ExtensionNoModel.cs" />

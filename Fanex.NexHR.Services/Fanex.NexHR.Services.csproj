@@ -91,7 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
+    <Compile Include="DepartmentService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
     <Compile Include="LookupCodeName.cs" />

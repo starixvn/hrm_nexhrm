@@ -146,6 +146,9 @@
     <Compile Include="ApiControllers\ShiftController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Context\AppSetting.cs" />
+    <Compile Include="DepartmentController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="EmployeeController.cs" />
     <Compile Include="ExportController.cs" />
     <Compile Include="ExtensionNoController.cs" />

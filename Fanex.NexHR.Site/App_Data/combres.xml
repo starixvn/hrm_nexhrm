@@ -406,5 +406,13 @@
       <resource reference="sitejs"/>
       <resource path="~/scripts/views/addextensionno.js" />
     </resourceSet>
-  </resourceSets>
+	  
+	  <resourceSet name="departmentcss" type="css">
+		<resource reference="sitecss"/>
+	  </resourceSet>
+	<resourceSet name="departmentjs" type="js">
+		<resource reference="sitejs"/>
+		<resource path="~/scripts/views/department.js" />
+	</resourceSet>
+</resourceSets>
 </combres>

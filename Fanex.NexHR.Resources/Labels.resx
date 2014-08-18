@@ -750,4 +750,7 @@
   <data name="Forum" xml:space="preserve">
     <value>Forum</value>
   </data>
+  <data name="DepartmentManagement" xml:space="preserve">
+    <value>Department Management</value>
+  </data>
 </root>

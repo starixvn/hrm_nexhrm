@@ -1,0 +1,18 @@
+﻿@using Fanex.NexHR.Resources
+
+@{
+	ViewBag.Title = @Labels.DepartmentManagement;
+}
+@section css{
+    @Url.CombresLink("departmentcss")
+}
+@section js{
+    @Url.CombresLink("departmentjs")
+}
+@section Breadcrumb {
+	<span class="step">HR Space</span> <span class="step">@ViewBag.Title</span>
+}
+
+<h2>@Labels.DepartmentManagement</h2>
+
+
