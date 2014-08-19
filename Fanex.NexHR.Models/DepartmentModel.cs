@@ -30,6 +30,8 @@ namespace Fanex.NexHR.Models
 
         public int? ParentId { get; set; }
 
+        public string ParentName { get; set; }
+
         public DateTime? ModifiedDate { get; set; }
 
         public bool IsDisabled { get; set; }

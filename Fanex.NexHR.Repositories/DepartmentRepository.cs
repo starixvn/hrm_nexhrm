@@ -10,7 +10,6 @@
 namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
@@ -25,8 +24,8 @@ namespace Fanex.NexHR.Repositories
         /// Get all department.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list department model.</returns>
-        public List<DepartmentModel> GetAllDepartment(ICriteria criteria)
+        /// <returns>The enumerator department model.</returns>
+        public IEnumerable<DepartmentModel> GetAllDepartment(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -39,7 +38,29 @@ namespace Fanex.NexHR.Repositories
                         return de;
                     },
                     "CreatedBy, ManagerId, ModifiedBy",
-                    criteria.GetSpParams()).ToList();
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
+        /// Get department by Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The department.</returns>
+        public DepartmentModel GetDepartmentById(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.QueryEntity<DepartmentModel, Employee, Employee, Employee, DepartmentModel>(
+                    (dep, cre, mag, modi) =>
+                    {
+                        dep.Creator = cre;
+                        dep.Manager = mag;
+                        dep.Modifier = modi;
+                        return dep;
+                    },
+                    "CreatedBy, ManagerId, ModifedBy",
+                    criteria.GetSpParams());
             }
         }
     }

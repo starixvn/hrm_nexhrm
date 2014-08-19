@@ -16,6 +16,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Criteria.LookupData;
@@ -44,6 +45,7 @@ namespace Fanex.NexHR.Controllers
         private readonly ILookupDataService _lookupDataService;
         private readonly IReportRepository _reportRepository;
         private readonly IExtensionNoService _extensionNoService;
+        private readonly IDepartmentService _departmentService;
 
         public AjaxController()
         {
@@ -56,6 +58,7 @@ namespace Fanex.NexHR.Controllers
             _lookupDataService = new LookupDataService();
             _reportRepository = new ReportRepository();
             _extensionNoService = new ExtensionNoService();
+            _departmentService = new DepartmentService();
         }
 
         public AjaxController(
@@ -404,6 +407,25 @@ namespace Fanex.NexHR.Controllers
             CommandResult result = _extensionNoService.UpdateExternalGroup(criteria);
 
             return result.Code == 0;
+        }
+
+        /// <summary>
+        /// Delete department.
+        /// </summary>
+        /// <param name="id">The department Id.</param>
+        /// <returns>The JSON result.</returns>
+        public JsonResult DeleteDepartment(int id)
+        {
+            var criteria = new DeleteDepartmentCriteria
+            {
+                DepartmentId = id,
+                ModifiedBy = this.CurrentUser.Id,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult commandResult = _departmentService.DeleteDepartment(criteria);
+            JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
+            return result;
         }
     }
 }

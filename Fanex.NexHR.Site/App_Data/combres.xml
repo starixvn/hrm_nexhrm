@@ -410,6 +410,11 @@
 	  <resourceSet name="departmentcss" type="css">
 		<resource reference="sitecss"/>
 	  </resourceSet>
+	<resourceSet name="departmenteditjs" type="js">
+		<resource reference="sitejs"/>
+		<resource path="~/scripts/views/department.edit.js" />
+	</resourceSet>
+
 	<resourceSet name="departmentjs" type="js">
 		<resource reference="sitejs"/>
 		<resource path="~/scripts/views/department.js" />

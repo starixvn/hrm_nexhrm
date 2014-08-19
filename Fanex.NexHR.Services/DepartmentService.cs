@@ -40,22 +40,89 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The enumerator department model.</returns>
-        public List<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria)
+        public IEnumerable<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            List<DepartmentModel> departments = null;
+            IEnumerable<DepartmentModel> departments = null;
 
             if (criteria.IsValid())
             {
                 departments = _departmentRepository.GetAllDepartment(criteria);
-
-                if (departments != null)
-                {
-                    departments.ForEach(x => x.Children.AddRange(departments.Where(y => y.ParentId == x.DepartmentId)));
-                }
             }
 
             return departments;
+        }
+
+        /// <summary>
+        /// Get department by Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Department model.</returns>
+        public DepartmentModel GetDepartmentById(GetDepartmentByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            if (criteria.IsValid())
+            {
+                DepartmentModel department = _departmentRepository.GetDepartmentById(criteria);
+                return department;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Insert new department.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult InsertDepartment(InsertDepartmentCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Insert(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Update department.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult UpdateDepartment(UpdateDepartmentCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Delete department.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        public CommandResult DeleteDepartment(DeleteDepartmentCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Delete(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

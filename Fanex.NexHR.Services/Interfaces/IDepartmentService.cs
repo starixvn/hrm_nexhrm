@@ -18,6 +18,14 @@ namespace Fanex.NexHR.Services.Interfaces
     /// </summary>
     public interface IDepartmentService
     {
-        List<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria);
+        IEnumerable<DepartmentModel> GetAllDepartment(GetAllDepartmentCriteria criteria);
+
+        DepartmentModel GetDepartmentById(GetDepartmentByIdCriteria criteria);
+
+        CommandResult InsertDepartment(InsertDepartmentCriteria criteria);
+
+        CommandResult UpdateDepartment(UpdateDepartmentCriteria criteria);
+
+        CommandResult DeleteDepartment(DeleteDepartmentCriteria criteria);
     }
 }

@@ -252,4 +252,13 @@
   <data name="EmptySWPair" xml:space="preserve">
     <value>S/W must be input</value>
   </data>
+  <data name="CreatedSuccessfully" xml:space="preserve">
+    <value>Created successfully!</value>
+  </data>
+  <data name="SelectParent" xml:space="preserve">
+    <value>Select a parent</value>
+  </data>
+  <data name="UpdatedSuccessfully" xml:space="preserve">
+    <value>Updated successfully!</value>
+  </data>
 </root>

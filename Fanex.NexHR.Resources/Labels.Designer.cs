@@ -790,6 +790,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HR Space.
+        /// </summary>
+        public static string HRSpace {
+            get {
+                return ResourceManager.GetString("HRSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HR&apos;s View.
         /// </summary>
         public static string HRView {
@@ -1083,6 +1092,15 @@ namespace Fanex.NexHR.Resources {
         public static string LRTotal {
             get {
                 return ResourceManager.GetString("LRTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string Manager {
+            get {
+                return ResourceManager.GetString("Manager", resourceCulture);
             }
         }
         
@@ -1416,6 +1434,15 @@ namespace Fanex.NexHR.Resources {
         public static string OldScores {
             get {
                 return ResourceManager.GetString("OldScores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        public static string Parent {
+            get {
+                return ResourceManager.GetString("Parent", resourceCulture);
             }
         }
         

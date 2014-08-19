@@ -156,5 +156,9 @@
 			<Mapping DataField="ManagerId" ObjectProperty="Id" ></Mapping>
 			<Mapping DataField="ModifiedBy" ObjectProperty="Id" ></Mapping>
 		</Setting>
+		<Setting Key="Department_Insert" SpName="Department_Insert" DbName="nexhrx" Plain="1"></Setting>
+		<Setting Key="Department_Update" SpName="Department_Update" DbName="nexhrx" Plain="1"></Setting>
+		<Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhrx" Plain="1"></Setting>
+		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhrx" Plain="1"></Setting>
 	</Function>
 </Functions>

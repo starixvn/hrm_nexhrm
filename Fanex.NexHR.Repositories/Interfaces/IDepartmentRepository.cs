@@ -18,6 +18,8 @@ namespace Fanex.NexHR.Repositories.Interfaces
     /// </summary>
     public interface IDepartmentRepository
     {
-        List<DepartmentModel> GetAllDepartment(ICriteria criteria);
+        IEnumerable<DepartmentModel> GetAllDepartment(ICriteria criteria);
+
+        DepartmentModel GetDepartmentById(ICriteria criteria);
     }
 }

@@ -324,6 +324,7 @@
     <Content Include="Images\bgLogin.png" />
     <Content Include="Images\nexHRMicon.png" />
     <Content Include="Scripts\Views\addextensionno.js" />
+    <Content Include="Scripts\Views\department.edit.js" />
     <Content Include="Scripts\Views\department.js" />
     <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Styles\Images\Office_building_icon.png" />
@@ -1024,6 +1025,8 @@
     <Content Include="Views\Leave\EmployeeView.cshtml" />
     <Content Include="Views\Leave\Update.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

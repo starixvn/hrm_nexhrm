@@ -753,4 +753,13 @@
   <data name="DepartmentManagement" xml:space="preserve">
     <value>Department Management</value>
   </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="HRSpace" xml:space="preserve">
+    <value>HR Space</value>
+  </data>
 </root>

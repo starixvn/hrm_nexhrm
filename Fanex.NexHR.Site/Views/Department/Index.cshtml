@@ -1,5 +1,4 @@
 ﻿@using Fanex.NexHR.Resources
-
 @{
 	ViewBag.Title = @Labels.DepartmentManagement;
 }
@@ -12,7 +11,58 @@
 @section Breadcrumb {
 	<span class="step">HR Space</span> <span class="step">@ViewBag.Title</span>
 }
-
 <h2>@Labels.DepartmentManagement</h2>
+<div class="button-icon"><span class="icon plus"></span>@Html.ActionLink("New Department", "Create")</div>
+<div class="clear">
+</div>
+<div class="space">
+</div>
+<table class="data" style="width: auto; min-width:600px;">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>@Labels.Code
+            </th>
+            <th>@Labels.Name
+            </th>
+            <th>@Labels.Manager
+            </th>
+            <th>@Labels.Parent
+            </th>
+            <th>
+                @Labels.Edit
+            </th>
+            <th>
+                @Labels.Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @foreach (DepartmentModel department in ViewBag.Departments)
+        {
+            <tr id="row@(department.DepartmentId)">
+                <td>@(index++)
+                </td>
+                <td>@department.Code
+                </td>
+                <td>@department.Name
+                </td>
+                <td class="tooltip" title="@department.Manager.FullName">@department.Manager.NickName
+                </td>
+                <td>@department.ParentName
+                </td>
 
-
+                <td class="cmd">
+                    <a href="@Url.Action("Edit", "Department", new { Id = department.DepartmentId })"><img src="~/Styles/Images/edit-icon.png" /></a>
+                </td>
+                <td  class="cmd">
+                    <a href="javascript:;" onclick="deleteDepartment(@department.DepartmentId);"><img src="~/Styles/Images/delete-icon.png" /></a>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>
