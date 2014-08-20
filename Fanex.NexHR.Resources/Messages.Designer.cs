@@ -394,6 +394,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a department.
+        /// </summary>
+        public static string SelectDepartment {
+            get {
+                return ResourceManager.GetString("SelectDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a parent.
         /// </summary>
         public static string SelectParent {

@@ -27,6 +27,8 @@ namespace Fanex.NexHR.Criteria.Team
 
         public int? AssistantLeaderId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public DateTime ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }

@@ -12,10 +12,9 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -27,15 +26,17 @@ namespace Fanex.NexHR.Controllers
     public class TeamController : BaseController
     {
         private readonly ITeamService _teamService;
+        private readonly IDepartmentService _departmentService;
 
         public TeamController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public TeamController(ITeamService teamService = null)
+        public TeamController(ITeamService teamService = null, IDepartmentService departmentService = null)
         {
             _teamService = teamService ?? new TeamService();
+            _departmentService = departmentService ?? new DepartmentService();
         }
 
         /// <summary>
@@ -57,6 +58,10 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
+            var criteria = new GetAllDepartmentCriteria();
+            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(criteria);
+            ViewBag.Departments = departments;
+
             var model = new TeamViewModel
             {
                 CreatedDate = DateTime.Now,
@@ -82,6 +87,7 @@ namespace Fanex.NexHR.Controllers
                     Name = model.TeamName,
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                    DepartmentId = model.DepartmentId,
                     CreatedDate = model.CreatedDate,
                     CreatedBy = model.CreatedBy
                 };
@@ -100,6 +106,10 @@ namespace Fanex.NexHR.Controllers
             {
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
+
+            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
+            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            ViewBag.Departments = departments;
 
             return View(model);
         }
@@ -125,6 +135,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     TeamCode = team.Code,
                     TeamName = team.Name,
+                    DepartmentId = team.Department != null ? team.Department.Id : 0,
                     Leader = team.Leader.DisplayName,
                     LeaderId = team.Leader.Id,
                     AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
@@ -133,6 +144,10 @@ namespace Fanex.NexHR.Controllers
                     ModifiedBy = this.CurrentUser.Id
                 };
             }
+
+            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
+            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            ViewBag.Departments = departments;
 
             return View(model);
         }
@@ -158,6 +173,7 @@ namespace Fanex.NexHR.Controllers
                     Id = model.Id,
                     Code = model.TeamCode,
                     Name = model.TeamName,
+                    DepartmentId = model.DepartmentId,
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
                     ModifiedDate = model.ModifiedDate,
@@ -171,6 +187,10 @@ namespace Fanex.NexHR.Controllers
             {
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
+
+            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
+            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            ViewBag.Departments = departments;
 
             return View(model);
         }

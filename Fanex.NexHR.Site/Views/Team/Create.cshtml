@@ -78,6 +78,15 @@
         </div>
     </div>
     
+	<div class="formrow">
+		<div class="label">
+			@Html.LabelFor(model => model.DepartmentId)
+		</div>
+		<div class="input">
+			@Html.DropDownListFor(model => model.DepartmentId, new SelectList(ViewBag.Departments, "DepartmentId", "Name"), "-- " + @Messages.SelectDepartment + " --")
+		</div>
+	</div>
+
     <div class="formrow">
         <div class="label">
 

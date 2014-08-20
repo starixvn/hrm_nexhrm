@@ -261,4 +261,7 @@
   <data name="UpdatedSuccessfully" xml:space="preserve">
     <value>Updated successfully!</value>
   </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>Select a department</value>
+  </data>
 </root>

@@ -36,14 +36,15 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entity = db.QueryEntity<Team, Employee, Employee, Team>(
-                    (t, x, y) =>
+                var entity = db.QueryEntity<Team, Department, Employee, Employee, Team>(
+                    (t, dep, x, y) =>
                     {
+                        t.Department = dep;
                         t.Leader = x;
                         t.AssistantLeader = y;
                         return t;
                     },
-                    "LeaderId, AssistantLeaderId", 
+                    "DepartmentId,LeaderId, AssistantLeaderId", 
                     criteria.GetSpParams());
                 return entity;
             }

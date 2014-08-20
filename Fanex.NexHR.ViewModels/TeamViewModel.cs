@@ -39,6 +39,9 @@ namespace Fanex.NexHR.ViewModels
 
         public int? AssistantLeaderId { get; set; }
 
+        [Display(Name = "Department")]
+        public int? DepartmentId { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime CreatedDate { get; set; }
 

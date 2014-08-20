@@ -104,9 +104,9 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
-            ViewBag.Departments = departments;
 
             DepartmentModel department = departments.Where(dep => dep.DepartmentId == id).SingleOrDefault();
+            ViewBag.Departments = departments.Where(dep => dep.DepartmentId != id);
 
             string managerName = string.Empty;
             int managerId = 0;
@@ -162,7 +162,7 @@ namespace Fanex.NexHR.Controllers
 
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
-            ViewBag.Departments = departments;
+            ViewBag.Departments = departments.Where(dep => dep.DepartmentId != model.DepartmentId);
 
             return View(model);
         }
