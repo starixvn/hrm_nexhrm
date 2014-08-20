@@ -148,7 +148,7 @@ namespace Fanex.NexHR.Core
         {
             var list = new List<SelectListItem>();
             var index = 60;
-            while (index > 0)
+            while (index > 15)
             {
                 list.Add(new SelectListItem()
                 {
