@@ -635,6 +635,15 @@ namespace Fanex.NexHR.Controllers
             return PartialView(model);
         }
 
+        [HttpPost]
+        public ActionResult PostFPSTransaction()
+        {
+            Service fps = new Service();
+            fps.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
+
+            return Content(string.Empty);
+        }
+
         #region TOEIC
 
         /// <summary>
@@ -919,14 +928,5 @@ namespace Fanex.NexHR.Controllers
             return criteria;
         }
         #endregion
-
-        [HttpPost]
-        public ActionResult PostFPSTransaction()
-        {
-            Service fps = new Service();
-            fps.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
-
-            return Content(string.Empty);
-        }
     }
 }
