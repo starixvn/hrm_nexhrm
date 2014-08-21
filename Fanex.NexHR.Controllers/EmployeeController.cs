@@ -23,13 +23,13 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using FPS.Client;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
 
@@ -919,5 +919,14 @@ namespace Fanex.NexHR.Controllers
             return criteria;
         }
         #endregion
+
+        [HttpPost]
+        public ActionResult PostFPSTransaction()
+        {
+            Service fps = new Service();
+            fps.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
+
+            return Content(string.Empty);
+        }
     }
 }
