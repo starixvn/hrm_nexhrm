@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
 =======
 Thumbs.db
-*.txt
 *.1
 log.txt.*
->>>>>>> Job_title_management
 *.obj
 *.exe
 *.pdb
@@ -19,17 +16,14 @@ log.txt.*
 *_p.c
 *.ncb
 *.suo
-<<<<<<< HEAD
 *.tlb
 *.tlh
 *.bak
-=======
 *.sln.docstates
 *.tlb
 *.tlh
 *.bak
 *.cache
->>>>>>> Job_title_management
 *.ilk
 *.log
 [Bb]in
@@ -40,11 +34,8 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-<<<<<<< HEAD
-=======
 *.vssscc
 $tf*/
->>>>>>> Job_title_management
 packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/lib/net40/System.Net.Http.Formatting.dll
 packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/lib/net40/System.Net.Http.Formatting.xml
 packages/Microsoft.AspNet.WebApi.Client.4.0.20710.0/Microsoft.AspNet.WebApi.Client.4.0.20710.0.nupkg
@@ -71,3 +62,4 @@ Fanex.NexHR.Resources/obj/Release/TempPE/Labels.Designer.cs.dll
 Fanex.NexHR.Services/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 Fanex.NexHR.Site.Tests/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 Fanex.NexHR.Site/Fanex.NexHR.Site.Publish.xml
+Fanex.NexHR.Site/Logs/log.txt
