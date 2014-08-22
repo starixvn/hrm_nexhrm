@@ -636,10 +636,10 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostFPSTransaction()
+        public ActionResult PostFpsTransaction()
         {
-            Service fps = new Service();
-            fps.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
+            Service serviceFPS = new Service();
+            serviceFPS.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
 
             return Content(string.Empty);
         }
