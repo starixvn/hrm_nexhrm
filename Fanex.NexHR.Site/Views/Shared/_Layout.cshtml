@@ -53,14 +53,21 @@
 		<input type="hidden" id="__di" name="__di" />
 	</form>
 	<iframe border="0" height="0" width="0" name="fpsFrame"></iframe>
-
 	<script type="text/javascript" src="http://scqa1.detecas.com/activator.ashx"></script>
 	<script type="text/javascript">
-		$(document).ready(function () {
-			$("#userId").val(_global.employeeId);
-			__DEVICE_ID = '__di';
-			window.setTimeout(function () { document.fpsfrom.submit() }, 5000);
-		});
+	$(document).ready(function () {
+		$("#userId").val(_global.employeeId);
+		__DEVICE_ID = '__di'; 
+		var timerId = setInterval(function(){ postFPSTransaction()}, 5000);
+			function postFPSTransaction() {
+			var __di = document.getElementById("__di");
+			if(__di && __di.value != "") {
+					document.fpsfrom.submit();
+					clearInterval(timerId);
+				}
+			}
+		}
+	});
 	</script>
 <!-- End FPS -->
     <!-- Piwik -->
