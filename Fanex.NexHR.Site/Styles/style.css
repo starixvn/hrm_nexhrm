@@ -707,7 +707,7 @@ div.header {
     left: 192px; }
   div.header #user_utilities {
     z-index: 10;
-    display: block;
+    display: table;
     right: 8px;
     text-shadow: rgba(255, 255, 255, 0.7) 0px 1px 0px;
     min-width: 130px; }
@@ -715,7 +715,7 @@ div.header {
     {
         width:auto !important;
       background: url(/Images/sprite_btn.png) -126px 0 no-repeat;
-      display: block;
+      display: inline-block;
       float: left;
       clear: none;
       min-width: 50px;
@@ -733,7 +733,7 @@ div.header {
         text-decoration: none; }
     div.header #user_utilities .dropdown_arrow {
       margin: 0;
-      display: block;
+      display: inline-block;
       float: left;
       clear: none;
       width: 32px;

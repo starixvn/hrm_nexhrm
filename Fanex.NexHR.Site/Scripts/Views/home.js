@@ -66,25 +66,57 @@
 })(jQuery);
 
 $(document).ready(function () {
-    $("#dialog-reminder").dialog({
-        autoOpen: false,
-        width: 770,
-        modal: true,
-        buttons: {
-            "Ok": function () {
-                $(this).dialog("close");
-            }
-        },
-        close: function () {
-        }
-    });
+	var currentUrl = $("#controller").val() + "_" + $("#action").val()
+	var selectNavItem = $("#" + currentUrl);
+	if (selectNavItem != undefined) {
+		selectNavItem.addClass("selected");
+	}
 
-    $("#lnkmarquee").on("click", function () {
-        $("#dialog-reminder").dialog("open");
-    });
+	//	show/hide navigation secion
+	$("div.togglable_section").live("click", function () {
 
-    var right = $("#user_utilities").width() + 25;
-    $(".marquee-birthday").css('right', right);
+		var currentSection = $(this);
+		var divItems = currentSection.next("div.navItem");
+		if (currentSection.hasClass("folded")) {
+			currentSection.removeClass("folded");
+			divItems.show(200);
+		}
+		else {
 
-    $('#marquee').marquee({ speed: 25 });
+			currentSection.addClass("folded");
+			divItems.hide(200);
+		}
+	});
+
+	//add style for first item section
+	$("div.togglable_section:first-child").children(":first").addClass("first");
+
+	$('.el[data-hashovermenu=True], .el[data-hashovermenu=data-hashovermenu]').hover(
+        function () {
+        	$(this).find('.hoveraction').fadeIn(400);
+        }, function () {
+        	$(this).find('.hoveraction').hide();
+        });
+
+	$("#dialog-reminder").dialog({
+		autoOpen: false,
+		width: 770,
+		modal: true,
+		buttons: {
+			"Ok": function () {
+				$(this).dialog("close");
+			}
+		},
+		close: function () {
+		}
+	});
+
+	$("#lnkmarquee").live("click", function () {
+		$("#dialog-reminder").dialog("open");
+	});
+
+	var right = $("#user_utilities").width() + 25;
+	$(".marquee-birthday").css('right', right);
+
+	$('#marquee').marquee({ speed: 25 });
 });
