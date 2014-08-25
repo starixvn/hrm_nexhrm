@@ -77,8 +77,16 @@ namespace Fanex.NexHR.Site
             }
         }
 
-        protected void Session_End(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the Error event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        [ValidateInput(false)]
+        protected void Application_Error(object sender, EventArgs e)
         {
+            var exception = Server.GetLastError().GetBaseException();
+            LogService.Error(exception.Message, exception);
         }
     }
 }

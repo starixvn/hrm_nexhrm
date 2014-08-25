@@ -66,9 +66,9 @@
 })(jQuery);
 
 $(document).ready(function () {
-	var currentUrl = $("#controller").val() + "_" + $("#action").val()
+	var currentUrl = $("#controller").val() + "_" + $("#action").val();
 	var selectNavItem = $("#" + currentUrl);
-	if (selectNavItem != undefined) {
+	if (selectNavItem !== undefined) {
 		selectNavItem.addClass("selected");
 	}
 
@@ -93,9 +93,9 @@ $(document).ready(function () {
 
 	$('.el[data-hashovermenu=True], .el[data-hashovermenu=data-hashovermenu]').hover(
         function () {
-        	$(this).find('.hoveraction').fadeIn(400);
-        }, function () {
-        	$(this).find('.hoveraction').hide();
+		$(this).find('.hoveraction').fadeIn(400);
+		}, function () {
+			$(this).find('.hoveraction').hide();
         });
 
 	$("#dialog-reminder").dialog({

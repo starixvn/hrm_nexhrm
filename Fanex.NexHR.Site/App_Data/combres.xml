@@ -48,7 +48,6 @@
     </resourceSet>
     <resourceSet name="mydashboardjs" type="js">
       <resource reference="sitejs"/>
-      <resource path="~/scripts/views/mydashboard.js" />
     </resourceSet>
     <resourceSet name="mydashboardcss" type="css">
       <resource reference="sitecss"/>
