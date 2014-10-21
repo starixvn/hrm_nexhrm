@@ -922,7 +922,8 @@ namespace Fanex.NexHR.Controllers
                 Roles = model.Roles,
                 Skype = model.Skype,
                 SubGroups = model.SubGroups,
-                Yahoo = model.Yahoo
+                Yahoo = model.Yahoo,
+                EmployeeCard = model.EmployeeCard
             };
 
             return criteria;

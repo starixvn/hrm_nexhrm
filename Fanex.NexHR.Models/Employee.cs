@@ -29,6 +29,8 @@ namespace Fanex.NexHR.Models
 
         public string NickName { get; set; }
 
+        public string EmployeeCard { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 

@@ -56,6 +56,15 @@
                 @Html.ValidationMessageFor(model => model.Code)
             </div>
         </div>
+		<div class="formrow">
+			<div class="label">
+				@Html.LabelFor(model => model.EmployeeCard)
+			</div>
+			<div class="input">
+				@Html.TextBoxFor(model => model.EmployeeCard, new { maxlength = "10" })
+				@Html.ValidationMessageFor(model => model.EmployeeCard)
+			</div>
+		</div>
         <div class="formrow">
             <div class="label">
                 @Html.LabelFor(model => model.DomainUsername)
