@@ -1,6 +1,6 @@
-Fanex.NexHR.Site/Avatars/
-Fanex.NexHR.Site/file/
+Avatars/
+file/
 *.local.config
 *.pro.config
 *.Debug.config
-*.Debug.config
+*.Release.config
