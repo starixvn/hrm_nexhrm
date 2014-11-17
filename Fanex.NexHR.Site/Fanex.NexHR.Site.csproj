@@ -1003,15 +1003,12 @@
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Web.pro.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.pro.Debug.config">
       <DependentUpon>Web.pro.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.pro.Release.config">
       <DependentUpon>Web.pro.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Deployment.ignore" />
   </ItemGroup>
