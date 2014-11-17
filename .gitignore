@@ -1,7 +1,6 @@
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
-=======
 Thumbs.db
 *.1
 log.txt.*
@@ -65,3 +64,5 @@ Fanex.NexHR.Site/Fanex.NexHR.Site.Publish.xml
 Fanex.NexHR.Site/Logs/log.txt
 Fanex.NexHR.Site/Avatars/
 Fanex.NexHR.Site/file/
+*.local.config
+*.pro.config

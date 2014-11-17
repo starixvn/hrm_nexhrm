@@ -868,25 +868,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Emails\CheckInOut.Request.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\Emails\LateInEarlyOut.Request.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\Emails\Leave.Request.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\Emails\CheckInOut.Request.cshtml" />
+    <Content Include="App_Data\Emails\LateInEarlyOut.Request.cshtml" />
+    <Content Include="App_Data\Emails\Leave.Request.cshtml" />
     <Content Include="App_Code\RazorHelper.cshtml" />
-    <None Include="App_Data\Emails\ChangeShift.Request.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="App_Data\Emails\Process.Request.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="App_Data\Emails\ApprovalNotification.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="App_Data\Emails\ChangeShift.Request.cshtml" />
+    <Content Include="App_Data\Emails\Process.Request.cshtml" />
+    <Content Include="App_Data\Emails\ApprovalNotification.cshtml" />
     <Content Include="App_Code\UIHelper.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
@@ -989,12 +977,8 @@
     <Content Include="Views\Report\ExtensionNo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Emails\MemoNotification.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\Emails\EditMemoNotification.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\Emails\MemoNotification.cshtml" />
+    <Content Include="App_Data\Emails\EditMemoNotification.cshtml" />
     <Content Include="App_Data\Emails\LeaveApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\ChangeShiftApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\LateInEarlyOutApprovalNotification.cshtml" />
