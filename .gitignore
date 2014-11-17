@@ -66,3 +66,5 @@ Fanex.NexHR.Site/Avatars/
 Fanex.NexHR.Site/file/
 *.local.config
 *.pro.config
+*.Debug.config
+*.Debug.config
