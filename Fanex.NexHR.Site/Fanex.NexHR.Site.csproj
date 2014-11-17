@@ -878,15 +878,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Code\RazorHelper.cshtml" />
-    <Content Include="App_Data\Emails\ChangeShift.Request.cshtml">
+    <None Include="App_Data\Emails\ChangeShift.Request.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="App_Data\Emails\Process.Request.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\Emails\ApprovalNotification.cshtml">
+    <None Include="App_Data\Emails\ApprovalNotification.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="App_Code\UIHelper.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
