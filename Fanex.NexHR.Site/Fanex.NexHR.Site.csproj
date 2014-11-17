@@ -983,7 +983,6 @@
     <Content Include="App_Data\Emails\ChangeShiftApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\LateInEarlyOutApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\CheckInOutApprovalNotification.cshtml" />
-    <None Include="combres.readme" />
     <Content Include="Views\JobTitle\JobTitleManagement.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\MultipleReset.cshtml" />
     <Content Include="Views\Request\DailyRequestsView.cshtml" />
@@ -1014,6 +1013,7 @@
       <DependentUpon>Web.pro.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Deployment.ignore" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

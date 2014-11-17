@@ -62,9 +62,3 @@ Fanex.NexHR.Services/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 Fanex.NexHR.Site.Tests/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 Fanex.NexHR.Site/Fanex.NexHR.Site.Publish.xml
 Fanex.NexHR.Site/Logs/log.txt
-Fanex.NexHR.Site/Avatars/
-Fanex.NexHR.Site/file/
-*.local.config
-*.pro.config
-*.Debug.config
-*.Debug.config
