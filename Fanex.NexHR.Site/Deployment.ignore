@@ -1,6 +1,6 @@
 \\Avatars
 \\file
-*.local.config
-*.pro.config
-*.Debug.config
-*.Release.config
+\\*.local.config
+\\*.pro.config
+\\*.Debug.config
+\\*.Release.config
