@@ -1,5 +1,5 @@
-//Avatars
-//file
+\\Avatars
+\\file
 *.local.config
 *.pro.config
 *.Debug.config
