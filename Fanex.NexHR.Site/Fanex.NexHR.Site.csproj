@@ -951,6 +951,7 @@
   <ItemGroup>
     <Folder Include="bin\" />
     <Folder Include="Controllers\" />
+    <Folder Include="file\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AccountSuspended.cshtml" />
