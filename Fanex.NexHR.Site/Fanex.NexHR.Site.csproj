@@ -315,6 +315,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="file\Readme.txt" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\bgLogin.png" />
     <Content Include="Images\nexHRMicon.png" />
@@ -951,7 +952,6 @@
   <ItemGroup>
     <Folder Include="bin\" />
     <Folder Include="Controllers\" />
-    <Folder Include="file\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AccountSuspended.cshtml" />
