@@ -102,6 +102,27 @@ else
                     </div>
                     <div class="clear"></div>
                 </div>
+				<div class="line">
+                    <div class="label">
+                        Issued Date:
+                    </div>
+                    <div class="pcontent">
+						@if(@Model.IssuedDate != null)
+						{
+							@Model.IssuedDate.Value.ToString("dd MMM, yyyy")
+						}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+				<div class="line">
+                    <div class="label">
+                        Issued Place:
+                    </div>
+                    <div class="pcontent">
+                        @Model.IssuedPlace
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 if (Model.PassportNo != null)
                 {
                     <div class="line">

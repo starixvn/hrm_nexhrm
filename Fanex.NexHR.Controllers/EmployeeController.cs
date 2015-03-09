@@ -908,6 +908,8 @@ namespace Fanex.NexHR.Controllers
                 HandleRequestGroupIds = model.LeaderGroups,
                 Id = model.Id,
                 IdCardNo = model.CardNo,
+                IssuedDate = model.IssuedDate,
+                IssuedPlace = model.IssuedPlace,
                 JobTitleId = model.JobTitleId,
                 JoinedDate = model.JoinedDate,
                 MainGroupId = model.Team.Id,

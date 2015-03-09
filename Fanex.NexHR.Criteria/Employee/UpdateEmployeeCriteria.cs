@@ -68,6 +68,10 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public string IdCardNo { get; set; }
 
+        public DateTime? IssuedDate { get; set; }
+
+        public string IssuedPlace { get; set; }
+
         public string PassportNo { get; set; }
 
         public DateTime? PassportExp { get; set; }

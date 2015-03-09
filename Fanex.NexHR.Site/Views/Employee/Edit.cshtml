@@ -156,6 +156,22 @@
                 @Html.EditorFor(model => model.CardNo)
             </div>
         </div>
+		<div class="formrow">
+            <div class="label">
+                @Html.LabelFor(model => model.IssuedDate)
+            </div>
+            <div class="input">
+                @Html.DatePickerFor(model => model.IssuedDate, maxDate: DateTime.Now)
+            </div>
+        </div>
+		<div class="formrow">
+            <div class="label">
+                @Html.LabelFor(model => model.IssuedPlace)
+            </div>
+            <div class="input">
+                @Html.TextAreaFor(model => model.IssuedPlace, new { maxlength = "250" })
+            </div>
+        </div>
         <div class="formrow">
             <div class="label">
                 @Html.LabelFor(model => model.Address)

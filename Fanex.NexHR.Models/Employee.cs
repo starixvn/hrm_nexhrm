@@ -94,6 +94,10 @@ namespace Fanex.NexHR.Models
 
         public string CardNo { get; set; }
 
+        public DateTime? IssuedDate { get; set; }
+
+        public string IssuedPlace { get; set; }
+
         public string PassportNo { get; set; }
 
         public DateTime? PassportExp { get; set; }
