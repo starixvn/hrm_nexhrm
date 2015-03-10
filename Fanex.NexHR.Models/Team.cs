@@ -18,6 +18,8 @@ namespace Fanex.NexHR.Models
     {
         public Department Department { get; set; }
 
+        public Team Parent { get; set; }
+
         public Employee Leader { get; set; }
 
         public Employee AssistantLeader { get; set; }

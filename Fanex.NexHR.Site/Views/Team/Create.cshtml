@@ -87,6 +87,15 @@
 		</div>
 	</div>
 
+	<div class="formrow">
+		<div class="label">
+			@Html.LabelFor(model => model.ParentId)
+		</div>
+		<div class="input">
+			@Html.DropDownListFor(model => model.ParentId, new SelectList(ViewBag.Groups, "Id", "Name"), "-- " + @Messages.SelectParentTeam + " --")
+		</div>
+	</div>
+
     <div class="formrow">
         <div class="label">
 

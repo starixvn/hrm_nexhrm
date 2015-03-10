@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Team;
@@ -61,6 +62,7 @@ namespace Fanex.NexHR.Controllers
             var criteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(criteria);
             ViewBag.Departments = departments;
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
 
             var model = new TeamViewModel
             {
@@ -88,6 +90,7 @@ namespace Fanex.NexHR.Controllers
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
                     DepartmentId = model.DepartmentId,
+                    ParentId = model.ParentId,
                     CreatedDate = model.CreatedDate,
                     CreatedBy = model.CreatedBy
                 };
@@ -110,6 +113,7 @@ namespace Fanex.NexHR.Controllers
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
             ViewBag.Departments = departments;
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(model);
         }
@@ -136,6 +140,7 @@ namespace Fanex.NexHR.Controllers
                     TeamCode = team.Code,
                     TeamName = team.Name,
                     DepartmentId = team.Department != null ? team.Department.Id : 0,
+                    ParentId = team.Parent != null ? team.Parent.Id : 0,
                     Leader = team.Leader.DisplayName,
                     LeaderId = team.Leader.Id,
                     AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
@@ -148,6 +153,9 @@ namespace Fanex.NexHR.Controllers
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
             ViewBag.Departments = departments;
+
+            IEnumerable<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            ViewBag.Groups = teams.Where(p => p.Id != id);
 
             return View(model);
         }
@@ -168,16 +176,17 @@ namespace Fanex.NexHR.Controllers
                     model.AssistantLeaderId = null;
                 }
 
-                var criteria = new UpdateTeamCriteria() 
+                var criteria = new UpdateTeamCriteria()
                 {
                     Id = model.Id,
                     Code = model.TeamCode,
                     Name = model.TeamName,
                     DepartmentId = model.DepartmentId,
+                    ParentId = model.ParentId,
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
                     ModifiedDate = model.ModifiedDate,
-                    ModifiedBy = model.ModifiedBy
+                    ModifiedBy = model.ModifiedBy,
                 };
 
                 var result = _teamService.UpdateTeam(criteria);
@@ -191,6 +200,9 @@ namespace Fanex.NexHR.Controllers
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
             IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
             ViewBag.Departments = departments;
+
+            IEnumerable<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            ViewBag.Groups = teams.Where(p => p.Id != model.Id);
 
             return View(model);
         }

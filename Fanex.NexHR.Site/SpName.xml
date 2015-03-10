@@ -62,6 +62,8 @@
     <Function Name="Group">
         <Setting Key="GetGroup" SpName="EmployeeGroup_GetGroup" DbName="nexhr" Plain="0">
           <Mapping DataField="DepartmentId" ObjectProperty="Id"/>
+          <Mapping DataField="ParentId" ObjectProperty="Id"/>
+          <Mapping DataField="ParentName" ObjectProperty="Name"/>
           <Mapping DataField="LeaderId" ObjectProperty="Id"/>
           <Mapping DataField="LeaderNickName" ObjectProperty="NickName"/>
           <Mapping DataField="LeaderFullName" ObjectProperty="FullName"/>

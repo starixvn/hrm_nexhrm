@@ -264,4 +264,7 @@
   <data name="SelectDepartment" xml:space="preserve">
     <value>Select a department</value>
   </data>
+  <data name="SelectParentTeam" xml:space="preserve">
+    <value>Select a parent team</value>
+  </data>
 </root>
