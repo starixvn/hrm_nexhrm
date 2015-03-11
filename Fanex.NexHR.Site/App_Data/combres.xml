@@ -418,5 +418,18 @@
 		<resource reference="sitejs"/>
 		<resource path="~/scripts/views/department.js" />
 	</resourceSet>
+
+    <resourceSet name="fanexgridcss" type="css">
+      <resource reference="sitecss" />
+      <resource path="~/styles/fanex.grid/Fanex.Grid.css" />
+      <resource path="~/styles/fanex.grid/Fanex.Pagination.css" />
+    </resourceSet>
+    <resourceSet name="fanexgridjs" type="js">
+      <resource reference="sitejs" />
+      <resource path="~/scripts/fanex.grid/Fanex.Grid.js" />
+      <resource path="~/scripts/fanex.grid/Fanex.Pagination.js" />
+      <resource path="~/scripts/fanex.grid/moment.min.js" />
+      <resource path="~/scripts/fanex.grid/numeral.min.js" />
+    </resourceSet>
 </resourceSets>
 </combres>
