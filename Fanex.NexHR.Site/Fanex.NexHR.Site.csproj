@@ -329,6 +329,7 @@
     <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Styles\Fanex.Grid\Fanex.Grid.css" />
     <Content Include="Styles\Fanex.Grid\Fanex.Pagination.css" />
+    <Content Include="Styles\Fanex.Grid\fixtable.css" />
     <Content Include="Styles\Fanex.Grid\images\1350530947_page_excel.png" />
     <Content Include="Styles\Fanex.Grid\images\ajax-loader.gif" />
     <Content Include="Styles\Fanex.Grid\images\back-icon.png" />

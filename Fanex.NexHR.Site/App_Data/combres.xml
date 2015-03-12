@@ -431,5 +431,10 @@
       <resource path="~/scripts/fanex.grid/moment.min.js" />
       <resource path="~/scripts/fanex.grid/numeral.min.js" />
     </resourceSet>
+
+    <resourceSet name="fixfanexgridcss" type="css">
+      <resource reference="sitecss" />
+      <resource path="~/styles/fanex.grid/fixtable.css" />
+    </resourceSet>
 </resourceSets>
 </combres>

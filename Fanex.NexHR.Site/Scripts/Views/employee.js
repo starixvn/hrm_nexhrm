@@ -1,8 +1,91 @@
 ﻿'use strict';
-/*global _global:false, reloadButtonText:false, noInformation:false, getParam:false, actingButton:false, _messages:false*/
+/*global _global:false, reloadButtonText:false, getParam:false, actingButton:false, _messages:false, moment: false*/
 /* exported index*/
 
-var rowIndex = 1;
+var gridOptions = {
+	columns: [],
+	bodyRows: [],
+	gridExpandHeight: 250,
+	sortOption: {}
+};
+
+function formatSkype(currentCell) {
+	var cell = '<a data-skype="" href=""></a>';
+	if (currentCell.Value !== null) {
+		var skype = currentCell.Value.trim();
+		cell = "<a data-skype='" + skype + "' href='skype:" + skype + "?chat'>" + skype + "</a>";
+	}
+
+	return cell;
+}
+
+function formatDate(currentCell) {
+	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
+		otherDate = currentCell.Value ? moment(currentCell.Value).format('D/M/YYYY') : '';
+	var cell = "<div data-date='" + otherDate +"'>" + date + "</div>";
+
+	return cell;
+}
+
+function generateDataHeader() {
+	var columns = [
+		{ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Nick", Width: 85, Name: "Nick", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Name", Width: 150, Name: "Name", HeaderAlign: "center", CellAlign: "left", Sort: true },
+		{ HeaderText: "Team", Width: 60, Name: "Team", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Job Title", Width: 240, Name: "JobTitle", HeaderAlign: "center", CellAlign: "left", Sort: true },
+		{ HeaderText: "Skype", Width: 140, Name: "Skype", HeaderAlign: "center", CellAlign: "left", Sort: true },
+		{ HeaderText: "Phone", Width: 100, Name: "Phone", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "DoB", Width: 90, Name: "DateOfBirth", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Joined Date", Width: 90, Name: "JoinedDate", HeaderAlign: "center", CellAlign: "center", Sort: true }
+	];
+
+	return columns;
+}
+
+function generateDataBody(data) {
+	var rows = [];
+	$.each(data, function (index, item) {
+		rows.push({
+			Columns: [
+				{ Name: "No", Value: index + 1 },
+				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
+							+ item.NickName + "</a>", TdClass: 'nick' },
+				{ Name: "Name", Value: item.FullName },
+				{ Name: "Team", Value: "<div class='tooltip' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
+				{ Name: "JobTitle", Value: item.JobTitle },
+				{ Name: "Skype", Value: item.Skype, CustomCellRender: formatSkype },
+				{ Name: "Phone", Value: item.Phone },
+				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
+				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate }
+			],
+			CssClass: 'tr-staff-info'
+		});
+	});
+
+	return rows;
+}
+
+function reRenderBodyAfterSort(rows) {
+	$.each(rows, function (index, item) {
+		item.Columns[0].Value = index + 1;
+	});
+
+	gridOptions.bodyRows = rows;
+
+	$('#gridStaffInfo').fanexGrid(gridOptions);
+
+	$('.nick').tooltip({
+		track: true,
+		delay: 0,
+		showURL: false,
+		bodyHandler: function () {
+			return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+		}
+	});
+
+	return rows;
+}
 
 function query(jobTitleId) {
 
@@ -39,10 +122,12 @@ function query(jobTitleId) {
 	{ query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId },
 	function (data) {
 		if (data.length > 0) {
-			rowIndex = 1;
-
-			$('#data tbody').children().remove();
-			$('#itemTemplate').tmpl(data).appendTo('#data');
+			gridOptions.bodyRows = generateDataBody(data);
+			gridOptions.sortOption = {
+				afterGridSorted: reRenderBodyAfterSort
+			};
+			
+			$('#gridStaffInfo').fanexGrid(gridOptions);
 
 			$('.nick').tooltip({
 				track: true,
@@ -52,11 +137,8 @@ function query(jobTitleId) {
 					return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
 				}
 			});
+
 			$("#title").trigger("liszt:updated");
-		}
-		else {
-			$('#data tbody').children().remove();
-			$(noInformation(12)).appendTo('#data');
 		}
 		reloadButtonText('#query');
 	}).error(function () {
@@ -71,7 +153,6 @@ $(document).ready(function () {
 	var jobTitleId = $('#jobtitleid').val();
 
 	$('#title').val(jobTitleId);
-	$('#title').chosen();
 	$("#title").trigger("liszt:updated");
 
 	$('#keyword').keyup(function (event) {
@@ -85,6 +166,10 @@ $(document).ready(function () {
 		$('#keyword').val(q);
 	}
 
+	gridOptions.columns = generateDataHeader();
+
+	$('#gridStaffInfo').fanexGrid(gridOptions);
+
 	//search onload
 	query(jobTitleId);
 
@@ -94,8 +179,3 @@ $(document).ready(function () {
 	});
 
 });
-
-
-function index() {
-	return rowIndex++;
-}
