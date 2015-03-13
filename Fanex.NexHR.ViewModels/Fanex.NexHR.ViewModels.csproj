@@ -63,6 +63,7 @@
     <Compile Include="ChangeShiftViewModel.cs" />
     <Compile Include="ChangeWorkingCalendarsViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />
+    <Compile Include="EmployeeBirthdayViewModel.cs" />
     <Compile Include="ExtensionNoViewModel.cs" />
     <Compile Include="HalfDayOff.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />

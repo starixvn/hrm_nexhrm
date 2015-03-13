@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Fanex.NexHR.ViewModels.EmployeeBirthdayViewModel>
+@{
+    ViewBag.Title = "Employee Birthday";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var index = 1;
+    var cssClass = string.Empty;
+}
+@section css{
+    @Url.CombresLink("birthdaycss")
+}
+@section js{
+    @Url.CombresLink("birthdayjs")
+}
+@section Breadcrumb {
+    <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
+}
+<h2>@ViewBag.Title</h2>
+<table id="data" class="data persist-area" style="width: auto; min-width: 700px;">
+    <thead class="persist-header">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>@Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Month)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            switch (item.Month)
+            {
+                case 1: cssClass = "january";
+                    break;
+                case 2: cssClass = "february";
+                    break;
+                case 3: cssClass = "march";
+                    break;
+                case 4: cssClass = "april";
+                    break;
+                case 5: cssClass = "may";
+                    break;
+                case 6: cssClass = "june";
+                    break;
+                case 7: cssClass = "july";
+                    break;
+                case 8: cssClass = "august";
+                    break;
+                case 9: cssClass = "september";
+                    break;
+                case 10: cssClass = "october";
+                    break;
+                case 11: cssClass = "november";
+                    break;
+                case 12: cssClass = "december";
+                    break; 
+                default:
+                    break;
+            }
+            
+            <tr class="@cssClass">
+                <td>@index
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NickName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>

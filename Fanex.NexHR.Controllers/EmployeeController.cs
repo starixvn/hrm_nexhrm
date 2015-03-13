@@ -546,10 +546,10 @@ namespace Fanex.NexHR.Controllers
             model.ModifiedBy = this.CurrentUser.Id;
             var updateOffDayForAllEmployeesCriteria = new UpdateOffDayForAllEmployeesCriteria
             {
-                 Date = model.Date,
-                 IsOffDay = model.IsOfDay,
-                 ModifiedBy = model.ModifiedBy,
-                 ModifiedDate = model.ModifiedDate
+                Date = model.Date,
+                IsOffDay = model.IsOfDay,
+                ModifiedBy = model.ModifiedBy,
+                ModifiedDate = model.ModifiedDate
             };
 
             ViewBag.Requested = _employeeService.UpdateOffDayForAllEmployees(ModelState, updateOffDayForAllEmployeesCriteria);
@@ -642,6 +642,18 @@ namespace Fanex.NexHR.Controllers
             serviceFPS.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
 
             return Content(string.Empty);
+        }
+
+        /// <summary>
+        /// The birthday page which sorted by month.
+        /// </summary>
+        /// <returns>Action result.</returns>
+        public ActionResult Birthday()
+        {
+            var allEmployees = GetAllEmployees();
+            var sortedEmployees = SortEmployeeBirthdayByMonth(allEmployees);
+
+            return View(sortedEmployees);
         }
 
         #region TOEIC
@@ -930,6 +942,59 @@ namespace Fanex.NexHR.Controllers
 
             return criteria;
         }
+        #endregion
+
+        #region BIRTHDAY
+
+        /// <summary>
+        /// Sort employee by birthday.
+        /// </summary>
+        /// <param name="employees">All current employees.</param>
+        /// <returns>List of employees sorted by month.</returns>
+        private IEnumerable<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
+        {
+            var sortedEmployees = new List<EmployeeBirthdayViewModel>();
+
+            if (employees.Count() > 0)
+            {
+                employees = employees.OrderBy(e => e.DateOfBirth.Month).ThenBy(e => e.DateOfBirth.Day);
+
+                foreach (var employee in employees)
+                {
+                    var employeeBirthdayViewModel = new EmployeeBirthdayViewModel();
+                    employeeBirthdayViewModel.DateOfBirth = employee.DateOfBirth.ToString("dd-MMM-yyyy");
+                    employeeBirthdayViewModel.FullName = employee.FullName;
+                    employeeBirthdayViewModel.Month = employee.DateOfBirth.Month;
+                    employeeBirthdayViewModel.NickName = employee.NickName;
+
+                    sortedEmployees.Add(employeeBirthdayViewModel);
+                }
+            }
+
+            return sortedEmployees;
+        }
+
+        /// <summary>
+        /// Get all employees.
+        /// </summary>
+        /// <returns>The information of all employees in company.</returns>
+        private IEnumerable<Employee> GetAllEmployees()
+        {
+            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            {
+                Query = null,
+                GroupId = null,
+                TitleId = null,
+                Enable = null,
+                IsDelete = null,
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+
+            return _employeeService.Query(getAllEmployeeCriteria);
+        }
+
         #endregion
     }
 }

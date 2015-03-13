@@ -392,7 +392,7 @@
       <resource path="~/scripts/views/employee.toeic.js" />
       <resource path="~/scripts/chosen/chosen.jquery.min.js" />
     </resourceSet>
-    
+
     <resourceSet name="extensionnocss" type="css">
       <resource reference="sitecss"/>
     </resourceSet>
@@ -405,19 +405,19 @@
       <resource reference="sitejs"/>
       <resource path="~/scripts/views/addextensionno.js" />
     </resourceSet>
-	  
-	  <resourceSet name="departmentcss" type="css">
-		<resource reference="sitecss"/>
-	  </resourceSet>
-	<resourceSet name="departmenteditjs" type="js">
-		<resource reference="sitejs"/>
-		<resource path="~/scripts/views/department.edit.js" />
-	</resourceSet>
 
-	<resourceSet name="departmentjs" type="js">
-		<resource reference="sitejs"/>
-		<resource path="~/scripts/views/department.js" />
-	</resourceSet>
+    <resourceSet name="departmentcss" type="css">
+      <resource reference="sitecss"/>
+    </resourceSet>
+    <resourceSet name="departmenteditjs" type="js">
+      <resource reference="sitejs"/>
+      <resource path="~/scripts/views/department.edit.js" />
+    </resourceSet>
+
+    <resourceSet name="departmentjs" type="js">
+      <resource reference="sitejs"/>
+      <resource path="~/scripts/views/department.js" />
+    </resourceSet>
 
     <resourceSet name="fanexgridcss" type="css">
       <resource reference="sitecss" />
@@ -436,5 +436,16 @@
       <resource reference="sitecss" />
       <resource path="~/styles/fanex.grid/fixtable.css" />
     </resourceSet>
-</resourceSets>
+
+    <resourceSet name="birthdaycss" type="css">
+      <resource reference="sitecss"/>
+      <resource path="~/scripts/chosen/chosen.css" />
+      <resource path="~/styles/birthday.css" />
+    </resourceSet>
+    <resourceSet name="birthdayjs" type="js">
+      <resource reference="sitejs"/>
+      <resource path="~/scripts/libs/date.js" />
+      <resource path="~/scripts/chosen/chosen.jquery.min.js" />
+    </resourceSet>
+  </resourceSets>
 </combres>
