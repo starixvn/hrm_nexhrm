@@ -9,19 +9,9 @@ var gridOptions = {
 	sortOption: {}
 };
 
-function formatSkype(currentCell) {
-	var cell = '<a data-skype="" href=""></a>';
-	if (currentCell.Value !== null) {
-		var skype = currentCell.Value.trim();
-		cell = "<a data-skype='" + skype + "' href='skype:" + skype + "?chat'>" + skype + "</a>";
-	}
-
-	return cell;
-}
-
 function formatDate(currentCell) {
 	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
-		otherDate = currentCell.Value ? moment(currentCell.Value).format('D/M/YYYY') : '';
+		otherDate = currentCell.Value ? moment(currentCell.Value).format('YYYY/MM/DD') : '';
 	var cell = "<div data-date='" + otherDate +"'>" + date + "</div>";
 
 	return cell;
@@ -54,7 +44,8 @@ function generateDataBody(data) {
 				{ Name: "Name", Value: item.FullName },
 				{ Name: "Team", Value: "<div class='tooltip' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
 				{ Name: "JobTitle", Value: item.JobTitle },
-				{ Name: "Skype", Value: item.Skype, CustomCellRender: formatSkype },
+				{ Name: "Skype", Value: item.Skype ? "<a data-skype='" 
+						+ item.Skype.trim().toUpperCase() + "' href='skype:" + item.Skype.trim() + "?chat'>" + item.Skype.trim() + "</a>" : '' },
 				{ Name: "Phone", Value: item.Phone },
 				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
 				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate }
