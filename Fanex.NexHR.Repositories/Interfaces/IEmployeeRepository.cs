@@ -115,5 +115,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
+
+        IList<Employee> GetUpdatingScoreRelatedPeople(ICriteria criteria);
     }
 }

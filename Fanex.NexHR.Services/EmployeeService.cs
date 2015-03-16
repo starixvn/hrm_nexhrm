@@ -767,5 +767,22 @@ namespace Fanex.NexHR.Services
             
             return lstEmployee;
         }
+
+        /// <summary>
+        /// Function to get all related people in updating TOEIC score.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of related people.</returns>
+        public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> lstEmployee = new List<Employee>();
+            if (criteria.IsValid())
+            {
+                lstEmployee = this._employeeRepository.GetUpdatingScoreRelatedPeople(criteria);
+            }
+
+            return lstEmployee;
+        }
     }
 }

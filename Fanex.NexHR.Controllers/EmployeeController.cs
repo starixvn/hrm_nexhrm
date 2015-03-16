@@ -6,6 +6,7 @@
 // <history>
 //   <change who="Anders.Le" date="2012.7.3">Created</change>
 //   <change who="Anders.Le" date="2012.7.3">Modify avatar function</change>
+//   <change who="Aaron.Cao" date="2015.3.16">Added birthday function and TOEIC send mail function</change>
 // </history>
 
 namespace Fanex.NexHR.Controllers
@@ -20,12 +21,14 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Web;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -45,9 +48,10 @@ namespace Fanex.NexHR.Controllers
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
         private readonly IToeicService _toeicService;
+        private readonly IEmailService _emailService;
 
         public EmployeeController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -56,13 +60,15 @@ namespace Fanex.NexHR.Controllers
             ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-            IToeicService toeicService = null)
+            IToeicService toeicService = null,
+            IEmailService emailService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
             _toeicService = toeicService ?? new ToeicService();
+            _emailService = emailService ?? new EmailService();
         }
 
         /// <summary>
@@ -734,6 +740,10 @@ namespace Fanex.NexHR.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = model.EmpId };
+                    var oldScore = _toeicService.GetById(criteria);
+                    var newScore = model;
+
                     model.CreatedBy = model.ModifiedBy = currentUserId;
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
                     var toeicCriteria = new UpdateFullToeicScoreCriteria()
@@ -755,8 +765,12 @@ namespace Fanex.NexHR.Controllers
                         SWExamDate = model.SWExamDate,
                         Writing = model.Writing
                     };
-
                     effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
+
+                    if (effectedRow > 0)
+                    {
+                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
+                    }
                 }
             }
 
@@ -790,24 +804,22 @@ namespace Fanex.NexHR.Controllers
                 var currentDate = DateTime.Now;
                 var toeic = new Toeic
                 {
-                    EmpId = model.EmpId,
-                    InputDate = model.InputDate,
-                    LRExamDate = model.LRExamDate,
-                    Listening = model.Listening,
-                    Reading = model.Reading,
-                    SWExamDate = model.SWExamDate,
-                    Speaking = model.Speaking,
-                    Writing = model.Writing,
-                    CreatedBy = CurrentUser.Id,
-                    CreatedDate = currentDate,
-                    ModifiedBy = CurrentUser.Id,
-                    ModifiedDate = currentDate
+                    EmpId = model.EmpId, InputDate = model.InputDate,
+                    LRExamDate = model.LRExamDate, Listening = model.Listening,
+                    Reading = model.Reading, SWExamDate = model.SWExamDate,
+                    Speaking = model.Speaking, Writing = model.Writing,
+                    CreatedBy = CurrentUser.Id, CreatedDate = currentDate,
+                    ModifiedBy = CurrentUser.Id, ModifiedDate = currentDate
                 };
 
                 ValidateTOEIC(toeic);
 
                 if (ModelState.IsValid)
                 {
+                    var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = model.EmpId };
+                    var oldScore = _toeicService.GetById(criteria);
+                    var newScore = toeic;
+
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria()
                     {
                         EmpId = model.EmpId,
@@ -824,6 +836,11 @@ namespace Fanex.NexHR.Controllers
                         ModifiedDate = currentDate
                     };
                     effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
+
+                    if (effectedRow > 0)
+                    {
+                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
+                    }
                 }
             }
 
@@ -952,6 +969,63 @@ namespace Fanex.NexHR.Controllers
 
             return criteria;
         }
+
+        /// <summary>
+        /// Send an email to the list of related people.
+        /// </summary>
+        /// <param name="empId">The employee ID updated score.</param>
+        /// <param name="newScore">The new TOEIC score.</param>
+        /// <param name="oldScore">The old TOEIC score.</param>
+        private void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
+        {
+            var receiverEmail = string.Empty;
+            var mailCC = string.Empty;
+            var nickName = string.Empty;
+            var subject = Labels.UpdateTOEICScore;
+
+            if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
+            {
+                var criteria = new GetUpdatingScoreRelatedPeopleCriteria() { Id = empId };
+                var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
+
+                if (employees.Count() > 0)
+                {
+                    foreach (var employee in employees)
+                    {
+                        if (employee.Email.Length > 0 && employee.Id == empId)
+                        {
+                            receiverEmail = employee.Email;
+                            nickName = employee.NickName;
+                        }
+                        else if (employee.Email.Length > 0)
+                        {
+                            mailCC += employee.Email + ";";
+                        }
+                    }
+
+                    var body = Utilities.ReadTextFile(
+                        System.Web.HttpContext.Current.Server.MapPath("~/app_data/emails/TOEICScoreUpdatedNotification.cshtml"));
+                    var bodyContent = new
+                    {
+                        User = nickName,
+                        NewListening = newScore.Listening.ToString(),
+                        OldListening = oldScore.Listening != null ? oldScore.Listening.ToString() : "-",
+                        NewReading = newScore.Reading.ToString(),
+                        OldReading = oldScore.Reading != null ? oldScore.Reading.ToString() : "-"
+                    };
+
+                    body = string.Format(body, bodyContent.User, bodyContent.NewListening, bodyContent.OldListening, bodyContent.NewReading, bodyContent.OldReading);
+
+                    this._emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        receiverEmail,
+                        mailCC,
+                        subject,
+                        body);
+                }
+            }
+        }
+
         #endregion
 
         #region BIRTHDAY

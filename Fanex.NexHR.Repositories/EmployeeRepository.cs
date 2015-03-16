@@ -1218,5 +1218,18 @@ namespace Fanex.NexHR.Repositories
 
             return model;
         }
+
+        /// <summary>
+        /// Function to get all related people in updating TOEIC score.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of related people.</returns>
+        public IList<Employee> GetUpdatingScoreRelatedPeople(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<Employee>(criteria.GetSpParams()).ToList();
+            }
+        }
     }
 }
