@@ -1,14 +1,24 @@
-﻿#gridStaffInfo.freegrid 
+﻿.grid-title {
+	background: #818181 !important;
+	margin-top: 10px;
+	margin-bottom: 0;
+	border: none;
+}
+
+.grid-title .grid-title-label {
+  color: #fff;
+}
+
+.freegrid 
 {
-	margin: 10px 0;
 	font-family: Arial;
 	font-size: 12px;
 }
 
-#gridStaffInfo.freegrid thead th
+.freegrid thead tr th
 {
 	padding-top: 5px;
-	background: url("/styles/images/table_header_repeat.jpg") repeat-x;
+	background: url("/styles/images/table_header_repeat.jpg") repeat-x !important;
 	color: #fff;
 	font-weight: bold;
 	border-left: 1px solid #373737;
@@ -16,29 +26,40 @@
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
 
-#gridStaffInfo.freegrid tbody tr.tr-staff-info
+.freegrid tbody tr.tr-staff-info
 {
 	background: #fff !important;
 	height: 30px;
 	vertical-align: middle;
 }
 
-#gridStaffInfo.freegrid tbody tr.tr-staff-info td
+.freegrid tbody tr.disabled td {
+	background: #ddd !important;
+	font-style: italic;
+	color: #663300;
+}
+
+.freegrid tbody tr.tr-staff-info td
 {
 	background: #ececec !important;
 }
 
-#gridStaffInfo.freegrid tbody tr.tr-staff-info.freegrid-even td
+.freegrid tbody tr.tr-staff-info.freegrid-even td
 {
 	background: #fff !important;
 }
 
-#gridStaffInfo.freegrid tbody tr.tr-staff-info:hover td
+.freegrid tbody tr.tr-staff-info:hover td
 {
 	background: #e3eceb !important;
 }
 
-#gridStaffInfo.freegrid tbody tr.tr-staff-info.freegrid-even:hover td
+.freegrid tbody tr.tr-staff-info.freegrid-even:hover td
 {
 	background: #e3eceb !important;
+}
+
+#gridStaffInfo 
+{
+	margin: 10px 0;
 }

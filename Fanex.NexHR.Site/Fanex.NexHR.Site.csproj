@@ -845,6 +845,7 @@
     <Content Include="Views\AnnualLeaveBalance\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Scripts\Views\user.management.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

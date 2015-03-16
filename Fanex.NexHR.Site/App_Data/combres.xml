@@ -447,5 +447,10 @@
       <resource path="~/scripts/libs/date.js" />
       <resource path="~/scripts/chosen/chosen.jquery.min.js" />
     </resourceSet>
+
+    <resourceSet name="usermanagementjs" type="js">
+      <resource reference="sitejs" />
+      <resource path="~/scripts/views/user.management.js" />
+    </resourceSet>
   </resourceSets>
 </combres>

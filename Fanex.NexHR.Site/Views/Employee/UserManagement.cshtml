@@ -2,15 +2,17 @@
     ViewBag.Title = Labels.EmployeeManagement;
 }
 @section css{
-    @Url.CombresLink("employeecss")
+   @Url.CombresLink("fanexgridcss")
+   @Url.CombresLink("fixfanexgridcss")
 }
 @section js{
-    @Url.CombresLink("employeejs")
+    @Url.CombresLink("usermanagementjs")
+	@Url.CombresLink("fanexgridjs")
 }
 @section Breadcrumb {
     <a class="step">HR Space</a><span class="step">@ViewBag.Title</span>
 }
-<script>
+<script type="text/javascript">
     var enable = null;
 </script>
 <h2>@ViewBag.Title</h2>
@@ -25,9 +27,9 @@
             <select id="group" class="team-select">
                 <option value="">@Labels.AllTeams</option>
                 @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
-                { 
+				{ 
                     <option value="@item.Id">@item.Name</option>
-                }
+				}
             </select>
         </div>
         <div class="grid_1 gridlabel">@Labels.Title</div>
@@ -82,91 +84,7 @@
 </div>
 <div class="clear">
 </div>
-<table id="data" class="data persist-area">
-    <thead>
-        <tr class="persist-header">
-            <th>
-                #
-            </th>
-            <th>
-                @Labels.Code
-            </th>
-            <th>
-                @Labels.Nick
-            </th>
-            <th>
-                @Labels.Name
-            </th>
-            <th>
-                @Labels.Team
-            </th>
-            <th>
-                @Labels.Gender
-            </th>
-            <th>
-                Job title
-            </th>
-            <th>
-                @Labels.DoB
-            </th>
-            <th>
-                @Labels.JoinedDate
-            </th>
-            <th>
-                @Labels.Edit
-            </th>
-            <th>
-                Schedule
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+
 <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
-<script id="itemTemplate" type="text/x-jquery-tmpl">   
-    <tr id="row${Id}" {{if Enabled == false }}class="disabled"{{/if}}>
-        <td>
-          ${index()}
-        </td>
-        <td>
-            ${Code}
-        </td>
-        <td class="nick" data-code="${Code}">
-            <a href="/employee/detail/${Id}">${NickName}</a>
-        </td>
-        <td class="left">${FullName}</td>
-        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>  
-        <td>
-        {{if Gender == 0 }}
-            F
-        {{else}}
-            M
-        {{/if}}
-        </td>
-        <td class="left">${JobTitle}</td>
-        <td style="width:80px">${jsonTojsDate(DateOfBirth).format("dd mmm, yyyy")}</td>
-        <td style="width:80px">
-            {{if JoinedDate != null}}
-                ${jsonTojsDate(JoinedDate).format("dd mmm, yyyy")}
-            {{/if}}
-        </td>        
-        <td style="width: 45px;">
-            {{if !IsDeleted}}
-                <a href="/employee/edit/${Id}"><img src="/Styles/Images/edit-icon.png"></a>
-            {{else}}
-                -
-            {{/if}}
-        </td>
-        <td style="width: 45px;">
-            {{if !IsDeleted}}
-                <a href="/employee/defaultschedule/${Id}"><img src="/Styles/Images/edit-icon.png"></a>
-            {{else}}
-                -
-            {{/if}}
-            
-        </td>
-       
-    </tr>
-    
-</script>
+
+<div id="gridUserManagement" class="freegrid"></div>

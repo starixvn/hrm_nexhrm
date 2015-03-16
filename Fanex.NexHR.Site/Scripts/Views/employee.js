@@ -66,14 +66,19 @@ function reRenderBodyAfterSort(rows) {
 
 	$('#gridStaffInfo').fanexGrid(gridOptions);
 
-	$('.nick').tooltip({
-		track: true,
-		delay: 0,
-		showURL: false,
-		bodyHandler: function () {
-			return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
-		}
-	});
+	if (rows.length > 0) {
+		$('.nick').tooltip({
+			track: true,
+			delay: 0,
+			showURL: false,
+			bodyHandler: function () {
+				return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+			}
+		});
+	}
+	else {
+		$('#gridStaffInfo tbody tr td div').text('No information available');
+	}
 
 	return rows;
 }
@@ -88,38 +93,21 @@ function query(jobTitleId) {
 	actingButton('#query', true);
 
 	var enable = null;
-	if ($("#enable").attr("checked")) {
-		enable = true;
-	}
-	else {
-		if ($("#active").attr("checked")) {
-			enable = false;
-		}
-		else {
-			enable = null;
-		}
-	}
-
 	var isDelete = null;
-	if ($("#IsDeleted").attr("checked")) {
-		isDelete = true;
-	}
-	else {
-		isDelete = null;
-	}
 
 	$.getJSON(
 	_global.root + 'api/employee/getemployees',
 	{ query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId },
 	function (data) {
-		if (data.length > 0) {
-			gridOptions.bodyRows = generateDataBody(data);
-			gridOptions.sortOption = {
-				afterGridSorted: reRenderBodyAfterSort
-			};
-			
-			$('#gridStaffInfo').fanexGrid(gridOptions);
+		gridOptions.columns = generateDataHeader();
+		gridOptions.bodyRows = generateDataBody(data);
+		gridOptions.sortOption = {
+			afterGridSorted: reRenderBodyAfterSort
+		};
 
+		$('#gridStaffInfo').fanexGrid(gridOptions);
+
+		if (data.length > 0) {
 			$('.nick').tooltip({
 				track: true,
 				delay: 0,
@@ -128,9 +116,11 @@ function query(jobTitleId) {
 					return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
 				}
 			});
-
-			$("#title").trigger("liszt:updated");
 		}
+		else {
+			$('#gridStaffInfo tbody tr td div').text('No information available');
+		}
+
 		reloadButtonText('#query');
 	}).error(function () {
 		reloadButtonText('#query');
@@ -143,9 +133,6 @@ $(document).ready(function () {
 
 	var jobTitleId = $('#jobtitleid').val();
 
-	$('#title').val(jobTitleId);
-	$("#title").trigger("liszt:updated");
-
 	$('#keyword').keyup(function (event) {
 		if (event.keyCode === 13) {
 			query(jobTitleId);
@@ -156,10 +143,6 @@ $(document).ready(function () {
 	if (q !== null) {
 		$('#keyword').val(q);
 	}
-
-	gridOptions.columns = generateDataHeader();
-
-	$('#gridStaffInfo').fanexGrid(gridOptions);
 
 	//search onload
 	query(jobTitleId);
