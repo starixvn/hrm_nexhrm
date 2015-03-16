@@ -345,6 +345,20 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
+        /// Insert working calendar.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The result.</returns>
+        public bool InsertWorkingCalendar(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var result = db.ExecuteNonQuery(criteria.GetSpParams());
+                return result != 0;
+            }
+        }
+
+        /// <summary>
         /// Update shift.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
@@ -959,6 +973,19 @@ namespace Fanex.NexHR.Repositories
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result.</returns>
         public bool AdjustAnnualLeaves(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
+            }
+        }
+
+        /// <summary>
+        /// Open annual leaves for new year.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The result.</returns>
+        public bool OpenAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

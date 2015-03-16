@@ -20,7 +20,7 @@
             <siteMapNode title="Team management" controller="team" action="index" icon="setting" />
             <siteMapNode title="Create account" controller="employee" action="create" icon="adduser" />
             <siteMapNode title="Job title management" controller="jobtitle" action="jobtitlemanagement" icon="user" />
-            <!--<siteMapNode title="Department management" controller="department" action="index" icon="setting" />-->
+            <siteMapNode title="Department management" controller="department" action="index" icon="setting" />
         </siteMapNode>
         <siteMapNode title="Company space">
             <siteMapNode title="Staff info" controller="employee" action="index" icon="users" />

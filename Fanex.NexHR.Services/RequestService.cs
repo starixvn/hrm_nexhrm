@@ -867,13 +867,11 @@ namespace Fanex.NexHR.Services
         /// <returns>List of project manager.</returns>
         private IEnumerable<Employee> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)
         {
-            var teamCodes = ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString();
-            var ignoreTeams = ConfigurationManager.AppSettings["IgnoreTeams"].ToString();
             var getEmployeeByTeamsCriteria = new GetEmployeeByTeamsCriteria
             {
                 EmployeeId = employeeId,
-                TeamCodes = teamCodes,
-                IgnoreTeams = ignoreTeams
+                TeamCodes = AppSetting.ProjectManagerTeams,
+                IgnoreTeams = AppSetting.IgnoreTeams
             };
             var projectManagers = this._employeeRepository.GetEmployeeByTeams(getEmployeeByTeamsCriteria);
 
@@ -921,21 +919,21 @@ namespace Fanex.NexHR.Services
                 {
                     case 1:
                         var subjectCheckIn = string.Format(
-                            Resources.Messages.ApprovalNotificationCheckInSubject, 
+                            Messages.ApprovalNotificationCheckInSubject, 
                             employee.NickName, 
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckIn, sendCc);
                         break;
                     case 2:
                         var subjectCheckOut = string.Format(
-                            Resources.Messages.ApprovalNotificationCheckOutSubject, 
+                            Messages.ApprovalNotificationCheckOutSubject, 
                             employee.NickName, 
                             processUser.NickName);
                         CheckInOutRelatedMail(employee, processUser, request, subjectCheckOut, sendCc);
                         break;
                     case 3:
                         var subjectLateIn = string.Format(
-                            Resources.Messages.ApprovalNotificationLateInSubject, 
+                            Messages.ApprovalNotificationLateInSubject, 
                             employee.NickName, 
                             processUser.NickName);
                         LateInEarlyOutRelatedMail(employee, processUser, request, subjectLateIn, sendCc, isLateIn: true);
@@ -949,7 +947,7 @@ namespace Fanex.NexHR.Services
                         break;
                     case 6:
                         var subjectLeave = string.Format(
-                            Resources.Messages.ApprovalNotificationLeaveSubject, 
+                            Messages.ApprovalNotificationLeaveSubject, 
                             employee.NickName, 
                             processUser.NickName);
                         LeaveRelatedMail(employee, processUser, request, subjectLeave, sendCc);

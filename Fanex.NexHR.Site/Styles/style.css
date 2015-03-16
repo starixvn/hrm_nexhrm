@@ -664,6 +664,8 @@ p.extra_margin_top {
   margin-top: -3px; }
   .breadcrumb .step {
     display: inline-block;
+    float: left;
+	white-space: nowrap;
     height: 24px;
     line-height: 26px;
     padding-right: 16px;
@@ -672,7 +674,8 @@ p.extra_margin_top {
     top: 0; }
     .breadcrumb .step:last-child {
       padding-right: 0;
-      background: transparent; }
+      background: transparent; 
+      }
   .breadcrumb a.step:hover {
     color: #777777; }
 
@@ -1319,6 +1322,36 @@ form {
   .icon.plus {
     background-image: url("/Images/sprite_ico_2012-05-15.png");
     background-position: 0px -72px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    _height: 16px;
+    width: 24px;
+    height: 24px; }
+    .icon.adjust {
+    background-image: url("/Images/sprite_ico_2012-05-15.png");
+    background-position: -48px -24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    _height: 16px;
+    width: 24px;
+    height: 24px; }
+    .icon.adjustadd {
+    background-image: url("/Images/sprite_ico_2012-05-15.png");
+    background-position: -96px -24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    _height: 16px;
+    width: 24px;
+    height: 24px; }
+    .icon.adjustsub {
+    background-image: url("/Images/sprite_ico_2012-05-15.png");
+    background-position: -72px -24px;
     background-repeat: no-repeat;
     display: inline-block;
     zoom: 1;

@@ -144,6 +144,7 @@ namespace Fanex.NexHR.Controllers
         /// </summary>
         /// <param name="model">The model object.</param>
         /// <returns>JSON result.</returns>
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult AdjustAnnualLeaves(AnnualLeaveBalanceMultiViewModel model)
         {
@@ -169,24 +170,42 @@ namespace Fanex.NexHR.Controllers
         }
 
         /// <summary>
+        /// Add annual leaves.
+        /// </summary>
+        /// <returns>JSON result.</returns>
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult OpenAnnualLeaves()
+        {
+            var model = new ShowOpenAndCloseAnnualBalance();
+            var criteria = new OpenAnnualBalanceForNewYearCriteria()
+            {
+                Year = model.ToDate.Year,
+                CreatedDate = DateTime.Now.Date
+            };
+
+            return Json(_employeeRepository.OpenAnnualLeaves(criteria));
+        }
+
+        /// <summary>
         /// Reset annual leave.
         /// </summary>
         /// <param name="minbalance">The min balance.</param>
         /// <param name="descriptionReset">The description reset.</param>
         /// <returns>JSON result.</returns>
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
             if (ModelState.IsValid)
             {
-                int lastYear = DateTime.Now.AddYears(-1).Year;
-                DateTime date = new DateTime(lastYear, 12, 31);
+                var model = new ShowOpenAndCloseAnnualBalance();
 
                 var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
                 {
                     EmployeeId = null,
                     GroupId = null,
-                    Year = lastYear
+                    Year = model.FromDate.Year
                 };
 
                 IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
@@ -206,7 +225,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     EmployeeValue = strValue.ToString(),
                     Description = descriptionReset,
-                    FromDate = date,
+                    FromDate = new DateTime(model.FromDate.Year, 12, 31),
                     ResetDays = minbalance,
                     CreatedDate = DateTime.Now,
                     CreatedBy = this.CurrentUser.Id
@@ -218,6 +237,35 @@ namespace Fanex.NexHR.Controllers
             {
                 return Json(-1);
             }
+        }
+
+        /// <summary>
+        /// Method to insert working calendars of employee.
+        /// </summary>
+        /// <param name="model">InsertEmployeeCalendar ViewModel.</param>
+        /// <returns>JSON result.</returns>
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult InsertWorkingCalendar(InsertEmployeeCalendarViewModel model)
+        {
+            var result = false;
+            if (model != null)
+            {
+                var criteria = new InsertEmployeeCalendarCriteria()
+                {
+                    EmployeeId = model.EmployeeId,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate
+                };
+
+                if (criteria.IsValid())
+                {
+                    _employeeRepository.InsertWorkingCalendar(criteria);
+                    result = true;
+                }
+            }
+
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
@@ -290,6 +338,7 @@ namespace Fanex.NexHR.Controllers
         /// <param name="date">Date time.</param>
         /// <param name="shift">Shift's id.</param>
         /// <returns>Boolean to check.</returns>
+        [Authorize(Roles = "HR")]
         public bool UpdateShift(int id, DateTime date, int? shift)
         {
             var updateShiftCriteria = new UpdateShiftCriteria

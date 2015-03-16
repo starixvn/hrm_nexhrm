@@ -67,6 +67,7 @@
     <Compile Include="ExtensionNoViewModel.cs" />
     <Compile Include="HalfDayOff.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />
+    <Compile Include="InsertEmployeeCalendarViewModel.cs" />
     <Compile Include="LeaveSummaryViewModel.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="MemoViewModel.cs" />

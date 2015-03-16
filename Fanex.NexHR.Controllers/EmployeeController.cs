@@ -515,6 +515,16 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult WorkingCalendarInsert()
+        {
+            return PartialView(new InsertEmployeeCalendarViewModel
+            {
+                FromDate = DateTime.Now.Date,
+                ToDate = DateTime.Now.Date,
+            });
+        }
+
         /// <summary>
         /// Edit working calendar.
         /// </summary>

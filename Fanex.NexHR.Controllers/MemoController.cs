@@ -187,7 +187,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Category = model.Category,
                     Contents = model.Contents,
-                    ForInfo = model.ForInfo,
+                    ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
                     RefNo = model.RefNo,
                     SendMail = model.SendMail,
                     SentDate = model.SentDate,

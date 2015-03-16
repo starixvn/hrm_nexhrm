@@ -67,6 +67,19 @@ $(document).ready(function () {
 
 	});
 
+	$('#addbalance').click(function () {
+		confirm('Are you sure you add annual leave balance for new year?', function () {
+			$.post(_global.root + 'ajax/OpenAnnualLeaves', function (response) {
+				if (response) {
+					document.location = _global.root + 'annualleavebalance/index';
+				}
+				else {
+					alert(_messages.errorTryAgain);
+				}
+			});
+		});
+	});
+
 	$('#insertform form').submit(function (evt) {
 		evt.preventDefault();
 		var $form = $(this);

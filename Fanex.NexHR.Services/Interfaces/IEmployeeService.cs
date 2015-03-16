@@ -69,11 +69,15 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria);
 
+        bool InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria);
+
         IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria);
 
         IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria);
 
         IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria);
+
+        ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
 
         IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
 

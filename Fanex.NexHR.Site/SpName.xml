@@ -44,7 +44,7 @@
         <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
       <Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
-
+      <Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
     </Function>
   <Function Name="ExtensionNumber">
     <Setting Key="ExtensionNO_GetAll" SpName="ExtensionNO_GetAll" DbName="nexhr" Plain="0"></Setting>
@@ -145,6 +145,10 @@
         </Setting>
         <Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0">
         </Setting>
+        <Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0">
+        </Setting>
+      <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
+      </Setting>
     </Function>
 
 	<Function Name="TOEIC">

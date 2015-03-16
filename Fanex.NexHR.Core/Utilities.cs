@@ -169,7 +169,7 @@ namespace Fanex.NexHR.Core
         public static IList<SelectListItem> TimeSteps(int minuteStep)
         {
             var list = new List<SelectListItem>();
-            var hour = 0;
+            var hour = 6;
             var minute = 0;
 
             while (hour < 24)

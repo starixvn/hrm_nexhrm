@@ -51,6 +51,8 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
         IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria);
+        
+        bool InsertWorkingCalendar(ICriteria criteria);
 
         WorkingTimeRequest GetWorkingTimeRequest(ICriteria criteria);
 
@@ -107,6 +109,8 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IEnumerable<DateTime> GetDisableRequestDate(ICriteria criteria);
 
         bool ResetAnnualLeaves(ICriteria criteria);
+
+        bool OpenAnnualLeaves(ICriteria criteria);
 
         IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 

@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Controllers.Context;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
@@ -66,7 +66,6 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Index(LeaveSummaryViewModel model)
         {
             IList<Team> allTeam = _teamService.GetAll(new GetAllTeamCriteria());
-
             if (model == null)
             {
                 model = new LeaveSummaryViewModel
@@ -83,11 +82,9 @@ namespace Fanex.NexHR.Controllers
                 Year = model.Year
             };
             IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
-            IList<Team> listTeam = null;
-            
+            IList<Team> listTeam = new List<Team>();
             if (model.TeamId != null)
             {
-                listTeam = new List<Team>();
                 var criteria = new GetTeamByIdCriteria
                 {
                     Id = (int)model.TeamId
@@ -101,17 +98,20 @@ namespace Fanex.NexHR.Controllers
             }
 
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, listTeam);
-            foreach (LeaveSummaryByTeam item in leaveSummaryByTeamList)
+            if (model.MinAnnualBalance > 0)
             {
-                item.LeaveSummaryInTeam = item.LeaveSummaryInTeam.Where(m => m.LeaveBalance >= model.MinAnnualBalance).ToList();
+                foreach (LeaveSummaryByTeam item in leaveSummaryByTeamList)
+                {
+                    item.LeaveSummaryInTeam = item.LeaveSummaryInTeam.Where(m => m.LeaveBalance >= model.MinAnnualBalance).ToList();
+                }
             }
 
+            ShowOpenAndCloseAnnualBalance showOpenAndClose = GetOpenAndCloseAnnualBalance();
+            ViewBag.ShowOpenAndCloseAnnualBalance = showOpenAndClose;
             ViewBag.Groups = allTeam;
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
-            ViewBag.IsShowCloseBalance = AppSetting.IsShowCloseBalance;
             ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
-
             return View(model);
         }
 
@@ -316,6 +316,23 @@ namespace Fanex.NexHR.Controllers
             }
 
             return View(model);
+        }
+
+        /// <summary>
+        /// Method to get Model for show and hide open balance or close balance.
+        /// </summary>
+        /// <returns>Show Open And Close Annual Balance.</returns>
+        private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
+        {
+            var model = new ShowOpenAndCloseAnnualBalance();
+            var criteria = new GetOpenAndCloseAnnualBalanceCriteria()
+            {
+                OpenDate = new DateTime(model.ToDate.Year, 1, 1),
+                CloseDate = new DateTime(model.FromDate.Year, 12, 31)
+            };
+            model = _employeeService.GetOpenAndCloseAnnualBalance(criteria);
+
+            return model;
         }
     }
 }

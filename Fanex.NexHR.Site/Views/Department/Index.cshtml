@@ -43,6 +43,7 @@
         @{int index = 1;}
         @foreach (DepartmentModel department in ViewBag.Departments)
         {
+			var mamager = department.Manager == null ? string.Empty : department.Manager.NickName;
             <tr id="row@(department.DepartmentId)">
                 <td>@(index++)
                 </td>
@@ -50,7 +51,7 @@
                 </td>
                 <td>@department.Name
                 </td>
-                <td class="tooltip" title="@department.Manager.FullName">@department.Manager.NickName
+                <td class="tooltip" title="@mamager">@mamager
                 </td>
                 <td>@department.ParentName
                 </td>

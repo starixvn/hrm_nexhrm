@@ -563,6 +563,15 @@ input:-moz-placeholder {
 .xicon.plus {
 	background-position: 0px -72px;
 }
+.xicon.adjust {
+	background-position: -48px -24px;
+}
+.xicon.adjustadd {
+	background-position: -96px -24px;
+}
+.xicon.adjustsub {
+	background-position: -72px -24px;
+}
 .xicon.news {
 	background-position: -168px 0px;
 }

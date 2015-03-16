@@ -68,6 +68,8 @@
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="Employee\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\InsertEmployeeCalendarCriteria.cs" />
+    <Compile Include="Employee\GetOpenAndCloseAnnualBalanceCriteria.cs" />
     <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\DeleteWorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\GetAllRequestByDateCriteria.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Employee\GetWorkingTimeRequestCriteria.cs" />
     <Compile Include="Employee\GetUserChangedShiftCriteria.cs" />
     <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="Employee\OpenAnnualBalanceForNewYearCriteria.cs" />
     <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />
     <Compile Include="Employee\InsertEmployeeCriteria.cs" />

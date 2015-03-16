@@ -243,6 +243,7 @@
     <resourceSet name="workingcalendarsjs" type="js">
       <resource reference="sitejs"/>
       <resource path="~/scripts/views/employee.workingcalendars.js" />
+      <resource path="~/scripts/views/_employee.search.in.company.js" />
       <resource path="~/scripts/libs/monPickr-0.0.3.js" />
       <resource path="~/scripts/views/fixtable.js" />
 

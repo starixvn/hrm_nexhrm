@@ -762,4 +762,7 @@
   <data name="HRSpace" xml:space="preserve">
     <value>HR Space</value>
   </data>
+  <data name="AddEmployeeCalendar" xml:space="preserve">
+    <value>Add calendars for employee</value>
+  </data>
 </root>

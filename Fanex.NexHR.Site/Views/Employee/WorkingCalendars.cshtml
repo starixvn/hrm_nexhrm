@@ -6,32 +6,29 @@
     @Url.CombresLink("workingcalendarsjs")
 }
 @{
-    ViewBag.Title = "Working calendars";
+	ViewBag.Title = "Working calendars";
 }
 @{
-    //Set max month we can select in MonthPick
-    int Month = 12;
-    int Year = DateTime.Now.GetMaxDate().Year;
+	//Set max month we can select in MonthPick
+	int Month = 12;
+	int Year = DateTime.Now.GetMaxDate().Year + 1;
 
-    var maxDate = new System.Text.StringBuilder();
-    maxDate.AppendFormat("{0}/{1}/1", Year, Month);
+	var maxDate = new System.Text.StringBuilder();
+	maxDate.AppendFormat("{0}/{1}/1", Year, Month);
 }
 @section Breadcrumb {
     <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
 }
-<script type="text/javascript">
-	$(document).ready(function () {
-		initMonthPick('@maxDate.ToString()', '@ViewBag.CurrentDate');
-	});
-</script>
 <h2>@ViewBag.Title</h2>
 <div class="container_24">
     @using (Html.BeginGetForm())
-    {
+	{
         <div class="grid_1 gridlabel">
             @Labels.Month
         </div>
         <div class="grid_4">
+			<input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
+			<input type="hidden" id="hdmonth" value="@ViewBag.CurrentDate" />
             <div id="DateControl">
             </div>
         </div>
@@ -42,16 +39,23 @@
             <input type="submit" value="@Labels.Submit" class="processing-submit"/>
         </div>
         
-        <div class="grid_8">
+       @* <div class="grid_7">
             @if (Roles.IsUserInRole("HR"))
-            {
+			{
                 <div class="button-icon">
-                    <span class="icon plus"></span>@Html.ActionLink(Labels.ChangeWorkingDayForWholeCompany, "WorkingCalendarsEdit")</div>  
-            }
-        </div>
+                    <span class="icon plus"></span>@Html.ActionLink(Labels.ChangeWorkingDayForWholeCompany, "WorkingCalendarsEdit")</div>
+			}
+        </div>*@
+		<div class="grid_7">
+			 @if (Roles.IsUserInRole("HR"))
+			{
+                <div class="button-icon">
+                    <span class="icon plus"></span><a href="javascript:;" id="btnAddCalendar">@Labels.AddEmployeeCalendar</a></div>
+			}
+		</div>
         <div class="clear">
         </div>
-    }
+	}
 </div>
 <br />
 <div style="width: 990px; height: 520px" class="datagrid-wrap panel-body">
@@ -95,7 +99,7 @@
                         <tbody>
                             @{int rowId = 1;}
                             @foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
-                            { 
+							{ 
                                 <tr>
                                     <td class="datagrid-header-rownumber">
                                         <div class="datagrid-cell-rownumber">
@@ -113,8 +117,8 @@
                                         </div>
                                     </td>
                                 </tr>
-                                rowId++;
-                            }
+								rowId++;
+							}
                         </tbody>
                     </table>
                 </div>
@@ -126,33 +130,31 @@
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                             @{
-                                int daysInMonth = Model.Count != 0
-                                    ? Model[0].Days
-                                    : DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month);                            
+								int daysInMonth = Model.Count != 0
+									? Model[0].Days
+									: DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month);
                                 <tr style="background-color: #ccc;">
                                     @for (int i = 1; i <= daysInMonth; i++)
-                                    {
+									{
                                             
                                         <td>
                                             <div style="width: 50px; text-align: center;" class="datagrid-cell ">
                                                 @i
                                             </div>
                                         </td>
-                                    }
+									}
                                 </tr>
                                 <tr>
                                     @for (int i = 1; i <= daysInMonth; i++)
-                                    {
-                                        DateTime dt = new DateTime(ViewBag.Year, ViewBag.Month, i);
+									{
+										DateTime dt = new DateTime(ViewBag.Year, ViewBag.Month, i);
                                         <td class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
                                             <div style="width: 50px; text-align: center;" class="datagrid-cell">
                                                 @dt.ToString("ddd")
                                             </div>
                                         </td>
-                                    }
+									}
                                 </tr>
-                                   
-                            
                             }
                         </tbody>
                     </table>
@@ -162,113 +164,113 @@
                 <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
                     <tbody>
                         @{
-                            foreach (UserChangedShift user in ViewBag.UserChangeShift)
-                            {
-                                foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
-                                {
-                                    if (employee.EmpId == user.Id)
-                                    {
-                                        for (int i = 0; i < employee.WorkingDays.Count; i++)
-                                        {
-                                            if (user.Day == i + 1)
-                                            {
-                                                var prefix = "_";
-                                                employee.WorkingDays[i] = prefix + employee.WorkingDays[i];
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+							foreach (UserChangedShift user in ViewBag.UserChangeShift)
+							{
+								foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+								{
+									if (employee.EmpId == user.Id)
+									{
+										for (int i = 0; i < employee.WorkingDays.Count; i++)
+										{
+											if (user.Day == i + 1)
+											{
+												var prefix = "_";
+												employee.WorkingDays[i] = prefix + employee.WorkingDays[i];
+											}
+										}
+									}
+								}
+							}
 
-                            foreach (HalfDayOff item in ViewBag.HalfDayOffs)
-                            {
-                                foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
-                                {
-                                    if (employee.EmpId == item.Id)
-                                    {
-                                        for (int i = 0; i < employee.WorkingDays.Count; i++)
-                                        {
-                                            if (item.Day == i + 1)
-                                            {
-                                                employee.WorkingDays[i] = "-" + employee.WorkingDays[i];
-                                            }
-                                        }
-                                    }
-                                }
+							foreach (HalfDayOff item in ViewBag.HalfDayOffs)
+							{
+								foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+								{
+									if (employee.EmpId == item.Id)
+									{
+										for (int i = 0; i < employee.WorkingDays.Count; i++)
+										{
+											if (item.Day == i + 1)
+											{
+												employee.WorkingDays[i] = "-" + employee.WorkingDays[i];
+											}
+										}
+									}
+								}
 
-                            }
+							}
                         }
                         @foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
-                        {
-                            var day = 1;
+						{
+							var day = 1;
                             <tr class="row">
                                 @foreach (string shift in employee.WorkingDays)
-                                {
-                                    if (!string.IsNullOrEmpty(shift) && shift[0].Equals('_'))
-                                    { 
+								{
+									if (!string.IsNullOrEmpty(shift) && shift[0].Equals('_'))
+									{ 
                                     <td class="ChangeShift">
                                         <div class="datagrid-cell">
                                             @shift.Substring(1)
                                         </div>
                                     </td>
-                                    }
-                                    else if (!string.IsNullOrEmpty(shift) && shift[0].Equals('-'))
-                                    { 
+									}
+									else if (!string.IsNullOrEmpty(shift) && shift[0].Equals('-'))
+									{ 
                                     <td class="HAL">
                                         <div class="datagrid-cell">
                                             @shift.Substring(1)
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("AL"))
-                                    { 
+									}
+									else if (shift.Equals("AL"))
+									{ 
                                     <td class="AL">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("UPL"))
-                                    { 
+									}
+									else if (shift.Equals("UPL"))
+									{ 
                                     <td class="UPL">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("HAL"))
-                                    { 
+									}
+									else if (shift.Equals("HAL"))
+									{ 
                                     <td class="HAL">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("OFF") || shift.Equals("PH"))
-                                    { 
+									}
+									else if (shift.Equals("OFF") || shift.Equals("PH"))
+									{ 
                                     <td class="OFF">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("BL"))
-                                    { 
+									}
+									else if (shift.Equals("BL"))
+									{ 
                                     <td class="BL">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-                                    else if (shift.Equals("BT"))
-                                    { 
+									}
+									else if (shift.Equals("BT"))
+									{ 
                                     <td class="BT">
                                         <div class="datagrid-cell">
                                             @shift
                                         </div>
                                     </td>
-                                    }
-									else if (shift.Contains('/')) 
+									}
+									else if (shift.Contains('/'))
 									{
 									<td class="HH">
 										<div class="datagrid-cell">
@@ -287,7 +289,7 @@
 									day++;
 								}
                             </tr>
-                        }
+						}
                     </tbody>
                 </table>
             </div>
@@ -315,4 +317,10 @@
         ML</div>
 	<div class="grid_2 HH tooltip" title="2 Leave Half Day">
 		H/H</div>
+</div>
+
+<div class="hide">
+    <div id="addform" title="Add Calendars">
+       @Html.Action("WorkingCalendarInsert")
+    </div>
 </div>

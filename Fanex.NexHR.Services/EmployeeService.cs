@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Services
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Common.Helper;
+    using Fanex.Data;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
@@ -349,6 +350,16 @@ namespace Fanex.NexHR.Services
             return entityList;
         }
 
+        public bool InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria)
+        {
+            if (criteria.IsValid())
+            {
+                return this._employeeRepository.InsertWorkingCalendar(criteria);
+            }
+
+            return false;
+        }
+
         public IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<CheckInOut> entityList = new List<CheckInOut>();
@@ -374,6 +385,16 @@ namespace Fanex.NexHR.Services
             entityList = this._employeeRepository.GetLeaveRequestHistory(criteria);
 
             return entityList;
+        }
+
+        public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var entity = db.QueryEntity<ShowOpenAndCloseAnnualBalance>(criteria.GetSpParams());
+
+                return entity;
+            }
         }
 
         public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)

@@ -7,7 +7,7 @@
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
 // </history>
 
-namespace Fanex.NexHR.Controllers.Context
+namespace Fanex.NexHR.Core
 {
     using System.Configuration;
     using Fanex.Common;
@@ -17,17 +17,28 @@ namespace Fanex.NexHR.Controllers.Context
     /// </summary>
     public static class AppSetting
     {
-        private static bool _isShowCloseBalance = true;
-
         public static bool IsShowCloseBalance
         {
-            get { return InitializeResourceString(); }
+            get 
+            {
+                return Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
+            }
         }
 
-        private static bool InitializeResourceString()
+        public static string ProjectManagerTeams
         {
-            _isShowCloseBalance = Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
-            return _isShowCloseBalance;
+            get 
+            {
+                return ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString(); 
+            }
+        }
+
+        public static string IgnoreTeams
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["IgnoreTeams"].ToString();
+            }
         }
     }
 }

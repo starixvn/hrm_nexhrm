@@ -1,0 +1,43 @@
+﻿@model InsertEmployeeCalendarViewModel
+@{
+	ViewBag.Title = Labels.MultipleInsert;
+}
+@using (Html.BeginForm())
+{
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.FromDate)
+        </div>
+        <div class="input">
+            @Html.DatePickerFor(model => model.FromDate)
+        </div>
+    </div>
+    
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.ToDate)
+        </div>
+        <div class="input">
+             @Html.DatePickerFor(model => model.ToDate)
+        </div>
+    </div>
+    
+    <div class="formrow">
+        <div class="label">
+			@Html.LabelFor(model => model.Employee)
+		</div>
+        <div class="input">
+            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+            @Html.HiddenFor(model => model.EmployeeId)
+        </div>
+    </div>
+    
+	<br />
+	
+    <div class="formrow">
+        <div class="input">
+            <input type="submit" value="@Labels.Add" id="btnAdd" />
+            <input type="button" value="@Labels.Cancel" id="btnCancel" />
+        </div>
+    </div>
+}
