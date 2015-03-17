@@ -740,30 +740,21 @@ namespace Fanex.NexHR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = model.EmpId };
-                    var oldScore = _toeicService.GetById(criteria);
+                    var oldScore = GetToeicScore(model.EmpId);
                     var newScore = model;
 
                     model.CreatedBy = model.ModifiedBy = currentUserId;
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
                     var toeicCriteria = new UpdateFullToeicScoreCriteria()
                     {
-                        CreatedBy = currentUserId,
-                        CreatedDate = DateTime.Now,
-                        EmpId = model.EmpId,
-                        InputDate = model.InputDate,
-                        Listening = model.Listening,
-                        LRExamDate = model.LRExamDate,
-                        ModifiedBy = currentUserId,
-                        ModifiedDate = DateTime.Now,
-                        OldListening = model.OldListening,
-                        OldReading = model.OldReading,
-                        OldSpeaking = model.OldSpeaking,
-                        OldWriting = model.OldWriting,
-                        Reading = model.Reading,
-                        Speaking = model.Speaking,
-                        SWExamDate = model.SWExamDate,
-                        Writing = model.Writing
+                        CreatedBy = currentUserId, CreatedDate = DateTime.Now,
+                        EmpId = model.EmpId, InputDate = model.InputDate,
+                        Listening = model.Listening, LRExamDate = model.LRExamDate,
+                        ModifiedBy = currentUserId, ModifiedDate = DateTime.Now,
+                        OldListening = model.OldListening, OldReading = model.OldReading,
+                        OldSpeaking = model.OldSpeaking, OldWriting = model.OldWriting,
+                        Reading = model.Reading, Speaking = model.Speaking,
+                        SWExamDate = model.SWExamDate, Writing = model.Writing
                     };
                     effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
 
@@ -816,24 +807,17 @@ namespace Fanex.NexHR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = model.EmpId };
-                    var oldScore = _toeicService.GetById(criteria);
+                    var oldScore = GetToeicScore(model.EmpId);
                     var newScore = toeic;
 
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria()
                     {
-                        EmpId = model.EmpId,
-                        InputDate = model.InputDate,
-                        LRExamDate = model.LRExamDate,
-                        Listening = model.Listening,
-                        Reading = model.Reading,
-                        SWExamDate = model.SWExamDate,
-                        Speaking = model.Speaking,
-                        Writing = model.Writing,
-                        CreatedBy = CurrentUser.Id,
-                        CreatedDate = currentDate,
-                        ModifiedBy = CurrentUser.Id,
-                        ModifiedDate = currentDate
+                        EmpId = model.EmpId, InputDate = model.InputDate,
+                        LRExamDate = model.LRExamDate, Listening = model.Listening,
+                        Reading = model.Reading, SWExamDate = model.SWExamDate,
+                        Speaking = model.Speaking, Writing = model.Writing,
+                        CreatedBy = CurrentUser.Id, CreatedDate = currentDate,
+                        ModifiedBy = CurrentUser.Id, ModifiedDate = currentDate
                     };
                     effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
 
@@ -1024,6 +1008,23 @@ namespace Fanex.NexHR.Controllers
                         body);
                 }
             }
+        }
+
+        /// <summary>
+        /// Get the current TOEIC score.
+        /// </summary>
+        /// <param name="empid">The Employee ID.</param>
+        /// <returns>The TOEIC score of employee.</returns>
+        private Toeic GetToeicScore(int empid)
+        {
+            var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empid };
+            var score = _toeicService.GetById(criteria);
+            if (score == null)
+            {
+                score = new Toeic();
+            }
+
+            return score;
         }
 
         #endregion
