@@ -61,13 +61,14 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee, dynamic, Employee>(
-                     (e, t) =>
+                var entityList = db.Query<Employee, dynamic, Toeic, Employee>(
+                     (e, t, toeic) =>
                      {
                          e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
+                         e.ToeicScore = toeic;
                          return e;
                      },
-                     "TeamID",
+                     "TeamID, EmpID",
                      criteria.GetSpParams());
 
                 return entityList.ToList();

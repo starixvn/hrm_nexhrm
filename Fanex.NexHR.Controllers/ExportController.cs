@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -68,6 +69,100 @@ namespace Fanex.NexHR.Controllers
 
             // Return the result to the end user
             return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// Method get Employees.
+        /// </summary>
+        /// <param name="query">String to query.</param>
+        /// <param name="groupId">Employee group id.</param>
+        /// <param name="enable">Is enabled.</param>
+        /// <param name="isDelete">Is Deleted.</param>
+        /// <param name="titleId">Job title id.</param>
+        /// <returns>List of Employee.</returns>
+        public ActionResult EmployeeProfile(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        {
+            var _reportService = new EmployeeService();
+
+            if (groupId == -1)
+            {
+                groupId = null;
+            }
+
+            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            {
+                Query = query,
+                GroupId = groupId,
+                TitleId = titleId,
+                Enable = CheckUserEnableCondition(enable),
+                IsDelete = CheckDeletedUserCondition(isDelete),
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            string fileName = "EmployeeProfile.xls";
+
+            IList<Employee> listEmployees = _reportService.Query(getAllEmployeeCriteria);
+
+            _reportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
+
+            MemoryStream output = new MemoryStream();
+
+            hssfworkbook.Write(output);
+
+            // Return the result to the end user
+            return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// Method check User query condition.
+        /// </summary>
+        /// <param name="enable">Enable condition.</param>
+        /// <returns>A value to query DB.</returns>
+        private int? CheckUserEnableCondition(bool? enable)
+        {
+            int? disableUsers;
+            if (enable == true)
+            {
+                disableUsers = 0;
+            }
+            else if (enable == false)
+            {
+                disableUsers = 1;
+            }
+            else
+            {
+                disableUsers = null;
+            }
+
+            return disableUsers;
+        }
+
+        /// <summary>
+        /// Method check User query condition.
+        /// </summary>
+        /// <param name="isDelete">Is deleted.</param>
+        /// <returns>A value to query DB.</returns>
+        private int? CheckDeletedUserCondition(bool? isDelete)
+        {
+            int? deleteUsers;
+            if (isDelete == true)
+            {
+                deleteUsers = 1;
+            }
+            else if (isDelete == false)
+            {
+                deleteUsers = 0;
+            }
+            else
+            {
+                deleteUsers = null;
+            }
+
+            return deleteUsers;
         }
     }
 }

@@ -2,6 +2,13 @@
 /*global _global:false, reloadButtonText:false, getParam:false, actingButton:false, _messages:false, moment: false*/
 /* exported index*/
 
+var filter = {
+	keyword: '',
+	enable: null,
+	isDelete: null,
+	titleId: null
+};
+
 var gridOptions = {
 	columns: [],
 	bodyRows: [],
@@ -10,7 +17,8 @@ var gridOptions = {
 		text: "Employee management",
 		showExcelButton: true,
 		exportExcelFunction: function () {
-			alert('a');
+			window.location.href = _global.root + 'Export/EmployeeProfile?query:' + filter.keyword + '&groupId:' + $('#group').val()
+				+ '&enable:' + filter.enable + '&isDelete:' + filter.isDelete + '&titleId:' + filter.titleId;
 		}
 	},
 	gridExpandHeight: 350
@@ -27,16 +35,16 @@ function formatDate(currentCell) {
 function generateDataHeader() {
 	var columns = [
 		{ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Code", Width: 60, Name: "Code", HeaderAlign: "center", CellAlign: "center"},
-		{ HeaderText: "Nick", Width: 80, Name: "Nick", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Name", Width: 160, Name: "Name", HeaderAlign: "center", CellAlign: "left"},
-		{ HeaderText: "Team", Width: 70, Name: "Team", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Gender", Width: 50, Name: "Gender", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Job Title", Width: 250, Name: "JobTitle", HeaderAlign: "center", CellAlign: "left" },
-		{ HeaderText: "DoB", Width: 80, Name: "DateOfBirth", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Joined Date", Width: 80, Name: "JoinedDate", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Edit", Width: 60, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Schedule", Width: 60, Name: "Schedule", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Code", Width: 55, Name: "Code", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Nick", Width: 70, Name: "Nick", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Name", Width: 150, Name: "Name", HeaderAlign: "center", CellAlign: "left", Sort: true },
+		{ HeaderText: "Team", Width: 70, Name: "Team", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Gender", Width: 70, Name: "Gender", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Job Title", Width: 250, Name: "JobTitle", HeaderAlign: "center", CellAlign: "left", Sort: true },
+		{ HeaderText: "DoB", Width: 80, Name: "DateOfBirth", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Joined Date", Width: 100, Name: "JoinedDate", HeaderAlign: "center", CellAlign: "center", Sort: true },
+		{ HeaderText: "Edit", Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Schedule", Width: 50, Name: "Schedule", HeaderAlign: "center", CellAlign: "center" },
 	];
 
 	return columns;
@@ -49,7 +57,7 @@ function generateDataBody(data, isDeleted) {
 			Columns: [
 				{ Name: "No", Value: index + 1 },
 				{ Name: "Code", Value: item.Code },
-				{ Name: "Nick", Value: "<a href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
+				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
 							+ item.NickName + "</a>", TdClass: 'nick' },
 				{ Name: "Name", Value: item.FullName },
 				{ Name: "Team", Value: "<div class='tooltip' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
@@ -73,8 +81,10 @@ function query(jobTitleId) {
 	if (jobTitleId === undefined || jobTitleId === '') {
 		jobTitleId = $('#title').val();
 	}
+	filter.titleId = jobTitleId;
 
 	var keyword = $('#keyword').val();
+	filter.keyword = keyword;
 	actingButton('#query', true);
 
 	var enable = null;
@@ -89,6 +99,7 @@ function query(jobTitleId) {
 			enable = null;
 		}
 	}
+	filter.enable = enable;
 
 	var isDelete = null;
 	if ($("#IsDeleted").attr("checked")) {
@@ -97,6 +108,7 @@ function query(jobTitleId) {
 	else {
 		isDelete = null;
 	}
+	filter.isDelete = isDelete;
 
 	$.getJSON(
 	_global.root + 'api/employee/getemployees',

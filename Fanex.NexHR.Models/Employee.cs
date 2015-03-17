@@ -90,6 +90,8 @@ namespace Fanex.NexHR.Models
 
         public string Address { get; set; }
 
+        public string PermanentAddress { get; set; }
+
         public string CurrentAddress { get; set; }
 
         public string CardNo { get; set; }
