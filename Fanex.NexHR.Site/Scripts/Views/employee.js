@@ -42,7 +42,8 @@ function generateDataBody(data) {
 				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
 							+ item.NickName + "</a>", TdClass: 'nick' },
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() 
+							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
 				{ Name: "JobTitle", Value: item.JobTitle },
 				{ Name: "Skype", Value: item.Skype ? "<a data-skype='" 
 						+ item.Skype.trim().toUpperCase() + "' href='skype:" + item.Skype.trim() + "?chat'>" + item.Skype.trim() + "</a>" : '' },

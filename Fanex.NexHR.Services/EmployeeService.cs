@@ -826,26 +826,6 @@ namespace Fanex.NexHR.Services
             }
         }
 
-        private dynamic FormatDate(DateTime? date)
-        {
-            if (date == null)
-            {
-                return "-";
-            }
-
-            return date.Value.ToString("dd-mm-yyyy");
-        }
-
-        private dynamic FormatToeicScore(int? score)
-        {
-            if (score == null)
-            {
-                return "-";
-            }
-
-            return score.Value;
-        }
-
         /// <summary>
         /// Render header.
         /// </summary>
@@ -1017,7 +997,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(1);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.Code.Trim());
+                cellBody.SetCellValue(FormatString(employee.Code));
 
                 if (rowIndex % 2 == 0)
                 {
@@ -1030,7 +1010,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(2);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.FullName);
+                cellBody.SetCellValue(FormatString(employee.FullName));
 
                 if (rowIndex % 2 == 0)
                 {
@@ -1043,7 +1023,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(3);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.NickName);
+                cellBody.SetCellValue(FormatString(employee.NickName));
 
                 cellBody = row.CreateCell(4);
                 cellBody.CellStyle = bodyStyle;
@@ -1060,15 +1040,15 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(5);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.Email);
+                cellBody.SetCellValue(FormatString(employee.Email));
 
                 cellBody = row.CreateCell(6);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.JobTitle);
+                cellBody.SetCellValue(FormatString(employee.JobTitle));
 
                 cellBody = row.CreateCell(7);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.Team.Name);
+                cellBody.SetCellValue(FormatString(employee.Team.Name));
 
                 if (rowIndex % 2 == 0)
                 {
@@ -1093,7 +1073,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(11);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.Phone);
+                cellBody.SetCellValue(FormatString(employee.Phone));
 
                 cellBody = row.CreateCell(12);
                 cellBody.CellStyle = bodyStyle;
@@ -1101,7 +1081,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(13);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.CardNo);
+                cellBody.SetCellValue(FormatString(employee.CardNo));
 
                 cellBody = row.CreateCell(14);
                 cellBody.CellStyle = bodyStyle;
@@ -1118,15 +1098,15 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(15);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.IssuedPlace);
+                cellBody.SetCellValue(FormatString(employee.IssuedPlace));
 
                 cellBody = row.CreateCell(16);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.CurrentAddress);
+                cellBody.SetCellValue(FormatString(employee.CurrentAddress));
 
                 cellBody = row.CreateCell(17);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.PermanentAddress);
+                cellBody.SetCellValue(FormatString(employee.PermanentAddress));
 
                 if (rowIndex % 2 == 0)
                 {
@@ -1139,7 +1119,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(18);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.PassportNo);
+                cellBody.SetCellValue(FormatString(employee.PassportNo));
 
                 cellBody = row.CreateCell(19);
                 cellBody.CellStyle = bodyStyle;
@@ -1147,22 +1127,52 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(20);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.ToeicScore == null ? "-" : FormatToeicScore(employee.ToeicScore.Listening));
+                cellBody.SetCellValue(employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Listening));
 
                 cellBody = row.CreateCell(21);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.ToeicScore == null ? "-" : FormatToeicScore(employee.ToeicScore.Reading));
+                cellBody.SetCellValue(employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Reading));
 
                 cellBody = row.CreateCell(22);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.ToeicScore == null ? "-" : FormatToeicScore(employee.ToeicScore.Speaking));
+                cellBody.SetCellValue(employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Speaking));
 
                 cellBody = row.CreateCell(23);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.ToeicScore == null ? "-" : FormatToeicScore(employee.ToeicScore.Writing));
+                cellBody.SetCellValue(employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Writing));
 
                 rowIndex++;
             }
+        }
+
+        private dynamic FormatDate(DateTime? date)
+        {
+            if (date == null)
+            {
+                return string.Empty;
+            }
+
+            return date.Value.ToString("dd-mm-yyyy");
+        }
+
+        private dynamic FormatToeicScore(int? score)
+        {
+            if (score == null)
+            {
+                return string.Empty;
+            }
+
+            return score.Value;
+        }
+
+        private string FormatString(string value)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            return value.Trim();
         }
     }
 }

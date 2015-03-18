@@ -80,7 +80,13 @@ namespace Fanex.NexHR.Controllers
         /// <param name="isDelete">Is Deleted.</param>
         /// <param name="titleId">Job title id.</param>
         /// <returns>List of Employee.</returns>
-        public ActionResult EmployeeProfile(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        [HttpGet]
+        public ActionResult EmployeeProfile(
+            string query = null,
+            int? groupId = null,
+            bool? enable = null,
+            bool? isDelete = null,
+            int? titleId = null)
         {
             var _reportService = new EmployeeService();
 

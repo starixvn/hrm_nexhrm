@@ -2,26 +2,16 @@
 /*global _global:false, reloadButtonText:false, getParam:false, actingButton:false, _messages:false, moment: false*/
 /* exported index*/
 
-var filter = {
-	keyword: '',
-	enable: null,
-	isDelete: null,
-	titleId: null
-};
-
 var gridOptions = {
 	columns: [],
 	bodyRows: [],
 	showTitle: true,
 	titleInfo: {
 		text: "Employee management",
-		showExcelButton: true,
-		exportExcelFunction: function () {
-			window.location.href = _global.root + 'Export/EmployeeProfile?query:' + filter.keyword + '&groupId:' + $('#group').val()
-				+ '&enable:' + filter.enable + '&isDelete:' + filter.isDelete + '&titleId:' + filter.titleId;
-		}
+		showExcelButton: true
 	},
-	gridExpandHeight: 350
+	gridExpandHeight: 350,
+	sortOption: {}
 };
 
 function formatDate(currentCell) {
@@ -35,7 +25,7 @@ function formatDate(currentCell) {
 function generateDataHeader() {
 	var columns = [
 		{ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Code", Width: 55, Name: "Code", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Code", Width: 55, Name: "Code", HeaderAlign: "center", CellAlign: "center", Sort: true },
 		{ HeaderText: "Nick", Width: 70, Name: "Nick", HeaderAlign: "center", CellAlign: "center", Sort: true },
 		{ HeaderText: "Name", Width: 150, Name: "Name", HeaderAlign: "center", CellAlign: "left", Sort: true },
 		{ HeaderText: "Team", Width: 70, Name: "Team", HeaderAlign: "center", CellAlign: "center", Sort: true },
@@ -60,7 +50,8 @@ function generateDataBody(data, isDeleted) {
 				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
 							+ item.NickName + "</a>", TdClass: 'nick' },
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase()
+							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
 				{ Name: "Gender", Value: item.Gender === 0 ? "F" : "M" },
 				{ Name: "JobTitle", Value: item.JobTitle },
 				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
@@ -76,15 +67,33 @@ function generateDataBody(data, isDeleted) {
 	return rows;
 }
 
-function query(jobTitleId) {
+function reRenderBodyAfterSort(rows) {
+	$.each(rows, function (index, item) {
+		item.Columns[0].Value = index + 1;
+	});
 
+	gridOptions.bodyRows = rows;
+
+	$('#gridStaffInfo').fanexGrid(gridOptions);
+
+	$('.nick').tooltip({
+		track: true,
+		delay: 0,
+		showURL: false,
+		bodyHandler: function () {
+			return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+		}
+	});
+
+	return rows;
+}
+
+function query(jobTitleId) {
 	if (jobTitleId === undefined || jobTitleId === '') {
 		jobTitleId = $('#title').val();
 	}
-	filter.titleId = jobTitleId;
 
 	var keyword = $('#keyword').val();
-	filter.keyword = keyword;
 	actingButton('#query', true);
 
 	var enable = null;
@@ -99,7 +108,6 @@ function query(jobTitleId) {
 			enable = null;
 		}
 	}
-	filter.enable = enable;
 
 	var isDelete = null;
 	if ($("#IsDeleted").attr("checked")) {
@@ -108,7 +116,6 @@ function query(jobTitleId) {
 	else {
 		isDelete = null;
 	}
-	filter.isDelete = isDelete;
 
 	$.getJSON(
 	_global.root + 'api/employee/getemployees',
@@ -116,6 +123,14 @@ function query(jobTitleId) {
 	function (data) {
 		gridOptions.columns = generateDataHeader();
 		gridOptions.bodyRows = generateDataBody(data, isDelete);
+		gridOptions.sortOption = {
+			afterGridSorted: reRenderBodyAfterSort
+		};
+		gridOptions.titleInfo.exportExcelFunction = function () {
+			window.location.href = _global.root + 'Export/EmployeeProfile?query=' + keyword + '&groupId=' + $('#group').val()
+				+ '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId;
+		};
+
 		$('#gridUserManagement').fanexGrid(gridOptions);
 
 		if (data.length > 0) {
@@ -168,5 +183,4 @@ $(document).ready(function () {
 		evt.preventDefault();
 		query(jobTitleId);
 	});
-
 });
