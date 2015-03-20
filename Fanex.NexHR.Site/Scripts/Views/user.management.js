@@ -14,14 +14,6 @@ var gridOptions = {
 	sortOption: {}
 };
 
-function formatDate(currentCell) {
-	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
-		otherDate = currentCell.Value ? moment(currentCell.Value).format('YYYY/MM/DD') : '';
-	var cell = "<div data-date='" + otherDate + "'>" + date + "</div>";
-
-	return cell;
-}
-
 function generateDataHeader() {
 	var columns = [
 		{ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" },
@@ -43,6 +35,12 @@ function generateDataHeader() {
 function generateDataBody(data, isDeleted) {
 	var rows = [];
 	$.each(data, function (index, item) {
+		var gender = item.Gender === 0 ? 'F' : 'M';
+		var dateOfBirth = item.DateOfBirth ? moment(item.DateOfBirth).format('DD MMM, YYYY') : '',
+			dataDateOfBirth = item.DateOfBirth ? moment(item.DateOfBirth).format('YYYY/MM/DD') : '',
+			joinedDate = item.JoinedDate ? moment(item.JoinedDate).format('DD MMM, YYYY') : '',
+			dataJoinedDate = item.JoinedDate ? moment(item.JoinedDate).format('YYYY/MM/DD') : '';
+
 		rows.push({
 			Columns: [
 				{ Name: "No", Value: index + 1 },
@@ -54,13 +52,12 @@ function generateDataBody(data, isDeleted) {
 				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id
 							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
 				},
-				{ Name: "Gender", Value: item.Gender === 0 ? "<div data-gender='F' data-id='" + item.Id + "'>F</div>" :
-							"<div data-gender='M' data-id='" + item.Id + "'>M</div>" },
+				{ Name: "Gender", Value: "<div data-gender='" + gender + "' data-id='" + item.Id + "'>" + gender + "</div>" },
 				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>"
 							+ item.JobTitle + "</div>"
 				},
-				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
-				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate },
+				{ Name: "DateOfBirth", Value: "<div data-date='" + dataDateOfBirth + "' data-id='" + item.Id + "'>" + dateOfBirth + "</div>" },
+				{ Name: "JoinedDate", Value: "<div data-date='" + dataJoinedDate + "' data-id='" + item.Id + "'>" + joinedDate + "</div>" },
 				{ Name: "Edit", Value: !isDeleted ? "<a href='/employee/edit/" + item.Id + "'><img src='/Styles/Images/edit-icon.png'></a>" : "-" },
 				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id
 					+ "'><img src='/Styles/Images/edit-icon.png'></a>" : "-"

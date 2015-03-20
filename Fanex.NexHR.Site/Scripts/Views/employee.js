@@ -9,14 +9,6 @@ var gridOptions = {
 	sortOption: {}
 };
 
-function formatDate(currentCell) {
-	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
-		otherDate = currentCell.Value ? moment(currentCell.Value).format('YYYY/MM/DD') : '';
-	var cell = "<div data-date='" + otherDate + "'>" + date + "</div>";
-
-	return cell;
-}
-
 function generateDataHeader() {
 	var columns = [
 		{ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" },
@@ -36,6 +28,11 @@ function generateDataHeader() {
 function generateDataBody(data) {
 	var rows = [];
 	$.each(data, function (index, item) {
+		var dateOfBirth = item.DateOfBirth ? moment(item.DateOfBirth).format('DD MMM, YYYY') : '',
+			dataDateOfBirth = item.DateOfBirth ? moment(item.DateOfBirth).format('YYYY/MM/DD') : '',
+			joinedDate = item.JoinedDate ? moment(item.JoinedDate).format('DD MMM, YYYY') : '',
+			dataJoinedDate = item.JoinedDate ? moment(item.JoinedDate).format('YYYY/MM/DD') : '';
+
 		rows.push({
 			Columns: [
 				{ Name: "No", Value: index + 1 },
@@ -43,7 +40,7 @@ function generateDataBody(data) {
 							+ "' data-code='" + item.Code + "'>" + item.NickName + "</a>", TdClass: 'nick'
 				},
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "' data-id='" + item.Id
 							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
 				},
 				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>"
@@ -54,8 +51,8 @@ function generateDataBody(data) {
 					+ "</a>" : '<a data-skype="" data-id="' + item.Id + '" href=""></a>'
 				},
 				{ Name: "Phone", Value: item.Phone },
-				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
-				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate }
+				{ Name: "DateOfBirth", Value: "<div data-date='" + dataDateOfBirth + "' data-id='" + item.Id + "'>" + dateOfBirth + "</div>" },
+				{ Name: "JoinedDate", Value: "<div data-date='" + dataJoinedDate + "' data-id='" + item.Id + "'>" + joinedDate + "</div>" }
 			],
 			CssClass: 'tr-staff-info'
 		});
