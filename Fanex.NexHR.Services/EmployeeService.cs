@@ -1027,7 +1027,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(4);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employee.DateOfBirth.ToString("dd-mm-yyyy"));
+                cellBody.SetCellValue(employee.DateOfBirth.ToString("dd-MMM-yyyy"));
 
                 if (rowIndex % 2 == 0)
                 {
@@ -1152,7 +1152,7 @@ namespace Fanex.NexHR.Services
                 return string.Empty;
             }
 
-            return date.Value.ToString("dd-mm-yyyy");
+            return date.Value.ToString("dd-MMM-yyyy");
         }
 
         private dynamic FormatToeicScore(int? score)

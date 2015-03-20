@@ -188,8 +188,16 @@
                 @Html.TextAreaFor(model => model.CurrentAddress)
             </div>
         </div>
+		<div class="formrow">
+            <div class="label showHideGeolocationMap">
+				<a id="showHideMap">Geolocation Map (Expanse/Collapse)</a>
+            </div>
+            <div class="input">
+				<label></label>
+            </div>
+        </div>
         @*Google Map*@
-        <div class="formrow">
+        <div class="formrow" id="geolocationMap">
             <div style="border: 1px solid #ccc; background: #e5e5e5; padding: 10px;">
                 <input type="text" id="geoMapAddress" />
                 <input type="button" value="Search" id="searchmap" />

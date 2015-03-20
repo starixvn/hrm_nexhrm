@@ -430,10 +430,20 @@ $(document).ready(function () {
         }
     });
 
-    //Geo-map
-    $('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);
-    initialize();
-    $("#searchmap").live("click", function () {
-        dynamicSearchMap();
-    });
+	//Geo map
+    $('#geolocationMap').hide();
+    $('#showHideMap').click(function () {
+		if ($('#geolocationMap').is(':visible')) {
+			$('#geolocationMap').hide();
+		}
+		else {
+			$('#geolocationMap').show();
+
+			$('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);
+			initialize();
+			$("#searchmap").live("click", function () {
+				dynamicSearchMap();
+			});
+		}
+	});
 });

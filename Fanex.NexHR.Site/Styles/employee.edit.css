@@ -110,3 +110,13 @@ input.distance
 {
     margin-right: 10px;
 }
+
+.formrow .showHideGeolocationMap
+{
+	width: 300px;
+}
+
+#showHideMap
+{
+	cursor: pointer;
+}

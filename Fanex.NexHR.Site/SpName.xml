@@ -5,6 +5,7 @@
         </Setting>
         <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
 					<Mapping DataField="DOB" ObjectProperty="DateOfBirth"/>
+          <Mapping DataField="IdCardNumber" ObjectProperty="CardNo"/>
 				</Setting>
         <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
