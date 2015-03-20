@@ -148,7 +148,8 @@ $(document).ready(function () {
 
 	var q = getParam('query');
 	if (q !== null) {
-		$('#keyword').val(q);
+		var decode = decodeURIComponent(q);
+		$('#keyword').val(decode);
 	}
 
 	//search onload
