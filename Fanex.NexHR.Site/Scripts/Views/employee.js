@@ -12,7 +12,7 @@ var gridOptions = {
 function formatDate(currentCell) {
 	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
 		otherDate = currentCell.Value ? moment(currentCell.Value).format('YYYY/MM/DD') : '';
-	var cell = "<div data-date='" + otherDate +"'>" + date + "</div>";
+	var cell = "<div data-date='" + otherDate + "'>" + date + "</div>";
 
 	return cell;
 }
@@ -39,14 +39,20 @@ function generateDataBody(data) {
 		rows.push({
 			Columns: [
 				{ Name: "No", Value: index + 1 },
-				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
-							+ item.NickName + "</a>", TdClass: 'nick' },
+				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id
+							+ "' data-code='" + item.Code + "'>" + item.NickName + "</a>", TdClass: 'nick'
+				},
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() 
-							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
-				{ Name: "JobTitle", Value: item.JobTitle },
-				{ Name: "Skype", Value: item.Skype ? "<a data-skype='" 
-						+ item.Skype.trim().toUpperCase() + "' href='skype:" + item.Skype.trim() + "?chat'>" + item.Skype.trim() + "</a>" : '' },
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id
+							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
+				},
+				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>"
+							+ item.JobTitle + "</div>"
+				},
+				{ Name: "Skype", Value: item.Skype ? "<a data-skype='" + item.Skype.trim().toUpperCase()
+					+ "' href='skype:" + item.Skype.trim() + "?chat'>" + item.Skype.trim()
+					+ "</a>" : '<a data-skype="" data-id="' + item.Id + '" href=""></a>'
+				},
 				{ Name: "Phone", Value: item.Phone },
 				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
 				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate }

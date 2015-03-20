@@ -17,7 +17,7 @@ var gridOptions = {
 function formatDate(currentCell) {
 	var date = currentCell.Value ? moment(currentCell.Value).format('DD MMM, YYYY') : '',
 		otherDate = currentCell.Value ? moment(currentCell.Value).format('YYYY/MM/DD') : '';
-	var cell = "<div data-date='" + otherDate +"'>" + date + "</div>";
+	var cell = "<div data-date='" + otherDate + "'>" + date + "</div>";
 
 	return cell;
 }
@@ -48,17 +48,23 @@ function generateDataBody(data, isDeleted) {
 				{ Name: "No", Value: index + 1 },
 				{ Name: "Code", Value: item.Code },
 				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
-							+ item.NickName + "</a>", TdClass: 'nick' },
+							+ item.NickName + "</a>", TdClass: 'nick'
+				},
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase()
-							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>" },
-				{ Name: "Gender", Value: item.Gender === 0 ? "F" : "M" },
-				{ Name: "JobTitle", Value: item.JobTitle },
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id
+							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
+				},
+				{ Name: "Gender", Value: item.Gender === 0 ? "<div data-gender='F' data-id='" + item.Id + "'>F</div>" :
+							"<div data-gender='M' data-id='" + item.Id + "'>M</div>" },
+				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>"
+							+ item.JobTitle + "</div>"
+				},
 				{ Name: "DateOfBirth", Value: item.DateOfBirth, CustomCellRender: formatDate },
 				{ Name: "JoinedDate", Value: item.JoinedDate, CustomCellRender: formatDate },
 				{ Name: "Edit", Value: !isDeleted ? "<a href='/employee/edit/" + item.Id + "'><img src='/Styles/Images/edit-icon.png'></a>" : "-" },
-				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id 
-					+ "'><img src='/Styles/Images/edit-icon.png'></a>" : "-" }
+				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id
+					+ "'><img src='/Styles/Images/edit-icon.png'></a>" : "-"
+				}
 			],
 			CssClass: item.Enabled ? 'tr-staff-info' : 'disabled'
 		});
@@ -74,7 +80,7 @@ function reRenderBodyAfterSort(rows) {
 
 	gridOptions.bodyRows = rows;
 
-	$('#gridStaffInfo').fanexGrid(gridOptions);
+	$('#gridUserManagement').fanexGrid(gridOptions);
 
 	$('.nick').tooltip({
 		track: true,
