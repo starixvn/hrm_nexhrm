@@ -168,11 +168,11 @@ namespace Fanex.NexHR.Repositories
                         Resources.Messages.MemoSubject + " " + criteria.Subject,
                         body);
                     this._emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        groupSd,
-                        string.Empty,
-                        Resources.Messages.MemoSubject + " " + criteria.Subject,
-                        body);
+                       ConfigurationManager.AppSettings["Email"],
+                       groupSd,
+                       string.Empty,
+                       Resources.Messages.MemoSubject + " " + criteria.Subject,
+                       body);
                 }
             }
 

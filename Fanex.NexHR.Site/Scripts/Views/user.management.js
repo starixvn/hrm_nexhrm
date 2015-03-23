@@ -161,11 +161,10 @@ function query(jobTitleId) {
 }
 
 $(document).ready(function () {
-
 	var jobTitleId = $('#jobtitleid').val();
 
 	$("#title").val(jobTitleId);
-	//$("#title").chosen();
+	$("#title").chosen();
 	$("#title").trigger("liszt:updated");
 
 	$('#keyword').keyup(function (event) {
