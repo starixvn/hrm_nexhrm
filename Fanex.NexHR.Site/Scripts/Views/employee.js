@@ -76,7 +76,7 @@ function reRenderBodyAfterSort(rows) {
 			delay: 0,
 			showURL: false,
 			bodyHandler: function () {
-				return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+				return '<img src="/employee/avatar/' + $(this).find('a').attr('data-code') + '" />';
 			}
 		});
 	}
@@ -117,7 +117,7 @@ function query(jobTitleId) {
 				delay: 0,
 				showURL: false,
 				bodyHandler: function () {
-					return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+					return '<img src="/employee/avatar/' + $(this).find('a').attr('data-code') + '" />';
 				}
 			});
 		}
