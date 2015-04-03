@@ -966,8 +966,6 @@ namespace Fanex.NexHR.Controllers
             var mailCC = string.Empty;
             var nickName = string.Empty;
             var subject = Labels.UpdateTOEICScore;
-            
-
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
             {
                 var criteria = new GetUpdatingScoreRelatedPeopleCriteria() { Id = empId };
