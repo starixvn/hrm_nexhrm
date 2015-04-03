@@ -7,7 +7,6 @@ var gridOptions = {
 	bodyRows: [],
 	showTitle: true,
 	titleInfo: {
-		text: "Employee management",
 		showExcelButton: true
 	},
 	gridExpandHeight: 350,

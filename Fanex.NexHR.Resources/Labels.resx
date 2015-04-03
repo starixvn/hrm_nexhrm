@@ -736,7 +736,7 @@
     <value>Nickname</value>
   </data>
   <data name="UpdateTOEICScore" xml:space="preserve">
-    <value>Update TOEIC Score</value>
+    <value>Update {0}'s TOEIC Score</value>
   </data>
   <data name="ExpiredDate" xml:space="preserve">
     <value>Expired Date</value>

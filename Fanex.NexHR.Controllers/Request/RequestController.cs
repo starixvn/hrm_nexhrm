@@ -71,7 +71,7 @@ namespace Fanex.NexHR.Controllers.Request
 
                     DateOption = 0,
                     ToDate = DateTime.Now,
-                    FromDate = request.ToDate.AddDays(-7),
+                    FromDate = request.ToDate.AddMonths(-2),
                     RequestType = 5,
                     TeamId = null,
                 };

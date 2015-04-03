@@ -23,12 +23,12 @@
     @Labels.Team
     <select id="group" class="team-select">
         <option value="">All teams</option>
-        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+        @foreach (Team item in ViewBag.Groups)
 		{ 
             <option value="@item.Id">@item.Name</option>
         }
     </select>
     <input id="query" type="button" value="Submit" />
+	<div class="button-icon"><span class="icon arrow_right_medium"></span><a href="~/employee/birthday">Staff Birthday</a></div>
 </div>
-
 <div id="gridStaffInfo" class="freegrid"></div>

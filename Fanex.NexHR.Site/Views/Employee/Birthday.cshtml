@@ -12,7 +12,8 @@
     @Url.CombresLink("birthdayjs")
 }
 @section Breadcrumb {
-    <span class="step">Company Space</span> <span class="step">@ViewBag.Title</span>
+    <span class="step">Company Space</span> <a class="step" href="@Url.Action("index", "employee")">
+        Staff Info</a><span class="step">@ViewBag.Title</span>
 }
 <h2>@ViewBag.Title</h2>
 <table id="data" class="data persist-area" style="width: auto; min-width: 700px;">

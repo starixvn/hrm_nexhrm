@@ -966,6 +966,7 @@ namespace Fanex.NexHR.Controllers
             var mailCC = string.Empty;
             var nickName = string.Empty;
             var subject = Labels.UpdateTOEICScore;
+            
 
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
             {
@@ -980,6 +981,7 @@ namespace Fanex.NexHR.Controllers
                         {
                             receiverEmail = employee.Email;
                             nickName = employee.NickName;
+                            subject = string.Format(subject, employee.NickName);
                         }
                         else if (employee.Email.Length > 0)
                         {
