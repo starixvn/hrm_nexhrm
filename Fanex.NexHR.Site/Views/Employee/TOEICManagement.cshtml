@@ -24,7 +24,7 @@
         <div class="grid_6">
             <select id="group" class="team-select">
                 <option value="">@Labels.AllTeams</option>
-                @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                @foreach (Team item in ViewBag.Groups)
                 { 
                     <option value="@item.Id">@item.Name</option>
                 }
@@ -51,7 +51,7 @@
 			{
 				<div class="button-icon">
 					<span class="icon plus"></span>
-					<a id="btnNewTOEIC" href="javascript:;">@Labels.UpdateTOEICScore</a>
+					<a id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
 				</div>
 			}
 		</div>
