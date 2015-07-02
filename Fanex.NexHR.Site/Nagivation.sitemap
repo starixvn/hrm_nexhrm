@@ -4,7 +4,7 @@
         <siteMapNode title="Personal">
             <siteMapNode title="My dashboard" controller="employee" action="MySpace" icon="news" />
             <siteMapNode title="Leave request" controller="leave" action="employeeview" icon="calendar7" hoverController="leave" hoverAction="create" hoverIcon="plus" />
-            <siteMapNode title="Late in - Early out" controller="lateinearlyout" action="employeeview" icon="clock2" hoverController="lateinearlyout" hoverAction="create" hoverIcon="plus" />
+            <!--<siteMapNode title="Late in - Early out" controller="lateinearlyout" action="employeeview" icon="clock2" hoverController="lateinearlyout" hoverAction="create" hoverIcon="plus" />-->
             <siteMapNode title="Check in - Check out" controller="checkinout" action="employeeview" icon="clock1" hoverController="checkinout" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="calendar8" />
             <siteMapNode title="My calendar" controller="employee" action="myworkingschedule" icon="calendar" />

@@ -93,8 +93,8 @@
             </th>
             <th>@Labels.Leave
             </th>
-            <th>@Labels.LateInEarlyOut
-            </th>
+            @*<th>@Labels.LateInEarlyOut
+            </th>*@
             <th>@Labels.CheckInOut
             </th>
         </tr>
@@ -147,7 +147,7 @@
                         <span>0</span>
                     }
                 </td>
-                <td class="@(request.TotalLateInEarlyOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                @*<td class="@(request.TotalLateInEarlyOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalLateInEarlyOut > 0)
                     {
                         requestModel.RequestType = 3;
@@ -165,7 +165,7 @@
                     {
                         <span>0</span>
                     }
-                </td>
+                </td>*@
                 <td class="@(request.TotalCheckInOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalCheckInOut > 0)
                     {
