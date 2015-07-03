@@ -72,14 +72,14 @@ namespace Fanex.NexHR.Controllers
         }
 
         /// <summary>
-        /// Method get Employees.
+        /// Export employee profile.
         /// </summary>
         /// <param name="query">String to query.</param>
         /// <param name="groupId">Employee group id.</param>
         /// <param name="enable">Is enabled.</param>
         /// <param name="isDelete">Is Deleted.</param>
         /// <param name="titleId">Job title id.</param>
-        /// <returns>List of Employee.</returns>
+        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult EmployeeProfile(
             string query = null,
@@ -114,6 +114,58 @@ namespace Fanex.NexHR.Controllers
             IList<Employee> listEmployees = _reportService.Query(getAllEmployeeCriteria);
 
             _reportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
+
+            MemoryStream output = new MemoryStream();
+
+            hssfworkbook.Write(output);
+
+            // Return the result to the end user
+            return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// Export employee attendance.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date.</param>
+        /// <param name="empId">Employee id.</param>
+        /// <param name="groupId">Employee group id.</param>
+        /// <param name="attendanceType">Attendance type.</param>
+        /// <param name="excludeUserDelete">Exclude user delete.</param>
+        /// <returns>Action result.</returns>
+        [HttpGet]
+        public ActionResult Attendance(
+            DateTime fromDate,
+            DateTime toDate,
+            int? empId,
+            int? groupId,
+            short attendanceType,
+            bool excludeUserDelete)
+        {
+            var _reportRepository = new ReportRepository();
+            var _exportService = new ExportService();
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+
+            string fileName = "EmployeeAttendance.xls";
+
+            if (groupId == -1)
+            {
+                groupId = null;
+            }
+
+            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                ReportType = attendanceType,
+                EmployeeId = empId,
+                GroupId = groupId,
+                ExcludeUserDelete = excludeUserDelete ? 1 : 0
+            };
+
+            IList<EmployeeAttendanceModel> listEmployeeAttendances = _reportRepository.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+
+            _exportService.ExportEmployeeAttendances(hssfworkbook, listEmployeeAttendances);
 
             MemoryStream output = new MemoryStream();
 

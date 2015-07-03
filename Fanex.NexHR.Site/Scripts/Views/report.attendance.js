@@ -99,6 +99,16 @@ $(document).ready(function () {
 		evt.preventDefault();
 		view();
 	});
+	$('#exportExcel').click(function (evt) {
+		evt.preventDefault();
+		if ($('#Employee').val() === '') {
+			$('#EmpId').val('');
+		}
+
+		window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
+			'&empId=' + $('#EmpId').val('') + '&groupId=' + $('#GroupId').val() +
+			'&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
+	});
 
 	view();
 });

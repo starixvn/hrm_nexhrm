@@ -765,4 +765,7 @@
   <data name="AddEmployeeCalendar" xml:space="preserve">
     <value>Add calendars for employee</value>
   </data>
+  <data name="Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
 </root>

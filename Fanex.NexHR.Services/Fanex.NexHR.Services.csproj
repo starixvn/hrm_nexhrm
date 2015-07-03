@@ -108,6 +108,7 @@
     <Compile Include="Interfaces\IMemoService.cs" />
     <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="MemoService.cs" />
+    <Compile Include="ExportService.cs" />
     <Compile Include="TeamService.cs" />
     <Compile Include="HolidayService.cs" />
     <Compile Include="Interfaces\IHolidayService.cs" />
