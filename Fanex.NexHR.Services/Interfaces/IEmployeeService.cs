@@ -29,6 +29,8 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria);
 
+        IList<Employee> GetManagements(GetManagementsCriteria criteria);
+
         int Insert(InsertEmployeeCriteria criteria);
 
         bool Delete(DeleteEmployeeCriteria criteria);

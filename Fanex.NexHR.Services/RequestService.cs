@@ -369,19 +369,27 @@ namespace Fanex.NexHR.Services
                 // check result
                 if (result.Item1.Code == 0)
                 {
-                    // get leader(s)
+                    // get manager(s)
                     var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
-                    var leaders = this._employeeRepository.GetLeaders(criteria);
+                    var managers = this._employeeRepository.GetLeaders(criteria);
+                    var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml"));
 
-                    if (leaders == null || leaders.Count == 0)
+                    // unpaid leave or total days >= 5
+                    if (model.LeaveTypeId == 26 || model.TotalDays >= 5)
+                    {
+                        var getManagementsCriteria = new GetManagementsCriteria();
+                        managers = this._employeeRepository.GetManagements(getManagementsCriteria);
+                        bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/UnpaidLeave.Request.cshtml"));
+                    }
+
+                    if (managers == null || managers.Count == 0)
                     {
                         this.Process(Command.Approve.EnumToString(), requestId, model.EmployeeId);
                     }
                     else
                     {
                         // send email(s)
-                        var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml"));
-                        foreach (var item in leaders)
+                        foreach (var item in managers)
                         {
                             string subject = Resources.Messages.LeaveEmailSubject + " " + model.Employee;
 
@@ -423,7 +431,7 @@ namespace Fanex.NexHR.Services
                                 LeaveType = model.LeaveTypeName
                             };
 
-                            var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+                            var body = string.Format(bodyTemplate, content.Leader, content.Member, content.ForDate, content.LeaveType, content.Remark);
                             this._emailService.SendEmail(
                                 ConfigurationManager.AppSettings["Email"],
                                 item.Email,

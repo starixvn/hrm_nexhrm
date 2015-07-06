@@ -61,6 +61,18 @@ namespace Fanex.NexHR.Services
             return leaders;
         }
 
+        public IList<Employee> GetManagements(GetManagementsCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> managements = new List<Employee>();
+            if (criteria.IsValid())
+            {
+                managements = this._employeeRepository.GetManagements(criteria);
+            }
+
+            return managements;
+        }
+
         /// <summary>
         /// Get Employee.
         /// </summary>

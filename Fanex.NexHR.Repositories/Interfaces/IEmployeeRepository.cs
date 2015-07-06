@@ -30,6 +30,8 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<Employee> GetLeaders(ICriteria criteria);
 
+        IList<Employee> GetManagements(ICriteria criteria);
+
         int Insert(ICriteria criteria);
 
         bool Delete(ICriteria criteria);

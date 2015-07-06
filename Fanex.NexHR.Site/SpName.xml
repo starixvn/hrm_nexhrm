@@ -28,11 +28,11 @@
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_ChangeShiftType" SpName="WorkingTimeRequest_GetRequestByEmp_ChangeShiftType" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_LeaveType" SpName="WorkingTimeRequest_GetRequestByEmp_LeaveType" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestByEmp_AllType" SpName="WorkingTimeRequest_GetRequestByEmp_AllType" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="WorkingTimeRequest_GetRequestByDate_CheckinOutType" SpName="WorkingTimeRequest_GetRequestByDate_CheckinOutType" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType" SpName="WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="WorkingTimeRequest_GetRequestByDate_ChangeShiftType" SpName="WorkingTimeRequest_GetRequestByDate_ChangeShiftType" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="WorkingTimeRequest_GetRequestByDate_LeaveType" SpName="WorkingTimeRequest_GetRequestByDate_LeaveType" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="WorkingTimeRequest_GetRequestByDate_AllType" SpName="WorkingTimeRequest_GetRequestByDate_AllType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate_CheckinOutType" SpName="WorkingTimeRequest_GetRequestByDate_CheckinOutType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType" SpName="WorkingTimeRequest_GetRequestByDate_LateInEarlyOutType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate_ChangeShiftType" SpName="WorkingTimeRequest_GetRequestByDate_ChangeShiftType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate_LeaveType" SpName="WorkingTimeRequest_GetRequestByDate_LeaveType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate_AllType" SpName="WorkingTimeRequest_GetRequestByDate_AllType" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetChangedShift" SpName="EmployeeCalendar_GetChangedShift" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -44,8 +44,9 @@
         <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Employee_GetManagements" SpName="Employee_GetManagements" DbName="nexhr" Plain="0"></Setting>
     </Function>
   <Function Name="ExtensionNumber">
     <Setting Key="ExtensionNO_GetAll" SpName="ExtensionNO_GetAll" DbName="nexhr" Plain="0"></Setting>

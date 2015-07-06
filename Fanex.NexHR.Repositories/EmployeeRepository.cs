@@ -119,6 +119,19 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
+        /// Get managements.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List of employee.</returns>
+        public IList<Employee> GetManagements(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<Employee>(criteria.GetSpParams()).ToList();
+            }
+        }
+
+        /// <summary>
         /// Insert employee.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>

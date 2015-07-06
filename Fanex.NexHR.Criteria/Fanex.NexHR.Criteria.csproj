@@ -68,6 +68,7 @@
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="Employee\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\GetManagementsCriteria.cs" />
     <Compile Include="Employee\InsertEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetOpenAndCloseAnnualBalanceCriteria.cs" />
     <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
