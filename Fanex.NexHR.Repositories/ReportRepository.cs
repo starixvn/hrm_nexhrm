@@ -180,5 +180,25 @@ namespace Fanex.NexHR.Repositories
                 return entityList;
             }
         }
+
+        public IList<TimeRecordModel> GetTimeRecords(ICriteria criteria)
+        {
+            IList<TimeRecordModel> timeRecords = null;
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                timeRecords = db.Query<TimeRecordModel, Employee, Team, TimeRecordModel>(
+                    (t, e, g) =>
+                    {
+                        t.Employee = e;
+                        e.Team = g;
+                        return t;
+                    },
+                       splitOn: "EmpId, GroupId",
+                       parameterValues: criteria.GetSpParams()).ToList();
+            }
+
+            return timeRecords;
+        }
     }
 }

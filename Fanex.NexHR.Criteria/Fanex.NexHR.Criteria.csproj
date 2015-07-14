@@ -149,7 +149,9 @@
     <Compile Include="Report\GetAnnualLeaveSummaryReportCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
     <Compile Include="Report\GetRequestMonitorReportCriteria.cs" />
+    <Compile Include="Report\GetTimeRecordCriteria.cs" />
     <Compile Include="Report\GetTotalWorkingHoursSummaryCriteria.cs" />
+    <Compile Include="Report\TimeRecordUpdateTypeCriteria.cs" />
     <Compile Include="Request\ApproveRequestCriteria.cs" />
     <Compile Include="Request\DisapproveRequestCriteria.cs" />
     <Compile Include="Request\RejectRequestCriteria.cs" />

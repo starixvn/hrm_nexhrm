@@ -29,6 +29,7 @@
             <siteMapNode title="Employees' requests" controller="request" action="employeeview"  icon="user1" />
             <siteMapNode title="Daily requests" controller="request" action="dailyview"  icon="user1" />
             <siteMapNode title="Attendance report" controller="report" action="attendance" icon="calendar1" />
+            <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar1" />
             <siteMapNode title="Leave summary" controller="report" action="leavesummary" icon="calendar4" />
             <siteMapNode title="Total working hours" controller="report" action="totalworkinghours" icon="clock" />
             <siteMapNode title="Holiday" controller="holiday" action="index" icon="holiday" />

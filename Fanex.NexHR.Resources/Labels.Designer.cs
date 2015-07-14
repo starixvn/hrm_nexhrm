@@ -862,6 +862,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In.
+        /// </summary>
+        public static string In {
+            get {
+                return ResourceManager.GetString("In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In/Out.
+        /// </summary>
+        public static string InOut {
+            get {
+                return ResourceManager.GetString("InOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert.
         /// </summary>
         public static string Insert {
@@ -1456,6 +1474,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Out.
+        /// </summary>
+        public static string Out {
+            get {
+                return ResourceManager.GetString("Out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parent.
         /// </summary>
         public static string Parent {
@@ -1812,6 +1839,15 @@ namespace Fanex.NexHR.Resources {
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Record.
+        /// </summary>
+        public static string TimeRecord {
+            get {
+                return ResourceManager.GetString("TimeRecord", resourceCulture);
             }
         }
         

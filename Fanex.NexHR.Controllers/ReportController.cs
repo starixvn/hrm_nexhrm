@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Security;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
@@ -30,15 +31,18 @@ namespace Fanex.NexHR.Controllers
     public class ReportController : BaseController
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IReportService _reportService;
         private readonly IReportRepository _reportRepository;
         private readonly ITeamService _teamService;
 
         public ReportController(
             IEmployeeService employeeService = null,
+            IReportService reportService = null,
             IReportRepository reportRepository = null,
             ITeamService teamService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
+            _reportService = reportService ?? new ReportService();
             _reportRepository = reportRepository ?? new ReportRepository();
             _teamService = teamService ?? new TeamService();
         }
@@ -325,6 +329,60 @@ namespace Fanex.NexHR.Controllers
         public ActionResult ExtensionNo()
         {
             return View();
+        }
+
+        public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
+        {
+            if (!fromDate.HasValue || !toDate.HasValue)
+            {
+                fromDate = DateTime.Now.Date;
+                toDate = DateTime.Now.Date;
+            }
+
+            var teamCriteria = new GetAllTeamCriteria();
+            IList<Team> teams = _teamService.GetAll(teamCriteria);
+
+            var timeRecordViewModel = new TimeRecordViewModel
+            {
+                FromDate = fromDate.Value,
+                ToDate = toDate.Value,
+                Teams = teams
+            };
+
+            return View(timeRecordViewModel);
+        }
+
+        public ActionResult TimeRecordDetail(DateTime fromDate, DateTime toDate, string groupIds, int? employeeId = null)
+        {
+            if (!Roles.IsUserInRole("HR"))
+            {
+                employeeId = this.CurrentUser.Id;
+            }
+
+            var criteria = new GetTimeRecordCriteria()
+            {
+                EmpId = employeeId,
+                GroupIds = groupIds,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+            IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
+
+            return View(timeRecords);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.Id;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            CommandResult commandResult = _reportService.ProcessInOut(criteria);
+            return Json(commandResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

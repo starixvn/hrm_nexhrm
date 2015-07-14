@@ -25,5 +25,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<TotalWorkingHours> GetWorkingHoursList(ICriteria criteria);
 
         IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria);
+
+        IList<TimeRecordModel> GetTimeRecords(ICriteria criteria);
     }
 }

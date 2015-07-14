@@ -1,0 +1,103 @@
+﻿@using Fanex.NexHR.ViewModels
+@model TimeRecordViewModel
+@{
+    ViewBag.Title = @Labels.TimeRecord;
+}
+@section css{
+    @Url.CombresLink("timerecordcss")
+}
+@section js{
+    @Url.CombresLink("timerecordjs")
+}
+@section Breadcrumb {
+    <a class="step">Company Space</a> <span class="step">@ViewBag.Title</span>
+}
+<h2>@ViewBag.Title</h2>
+<div class="clear">
+</div>
+
+<div class="container_24 bunhat">
+    @if (Roles.IsUserInRole("HR"))
+	{
+        <div class="grid_2">
+            @Html.LabelFor(model => model.FromDate)
+        </div>
+        <div class="grid_8">
+            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+        </div>
+        <div class="grid_2">
+            @Html.LabelFor(model => model.ToDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 1, 1))
+        </div>
+        <div class="clear">
+        </div>
+        <div class="space">
+        </div>
+        <div class="grid_2">
+            @Html.LabelFor(model => model.TeamIds, Labels.Team)
+        </div>
+        <div class="grid_8">
+            <select id="GroupId" name="GroupId">
+                <option value="">@Labels.AllTeams</option>
+                @foreach (Team item in Model.Teams)
+				{ 
+                    <option value="@item.Id">@item.Name</option>
+				}
+            </select>
+        </div>
+        <div class="grid_2">
+            @Html.LabelFor(model => model.Employee)
+        </div>
+        <div class="grid_8">
+            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+            @Html.HiddenFor(model => model.EmployeeId)
+        </div>
+        
+        <div class="clear">
+        </div>
+        <div class="space">
+        </div>
+        <div class="clear">
+        </div>
+        <div class="space">
+        </div>
+		
+        <div class="grid_12 prefix_2">
+            <input id="btnSubmit" type="button" value="@Labels.Submit"/>
+        </div>
+	}
+	else
+	{ 
+        <div class="grid_2">
+            @Html.LabelFor(model => model.FromDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+        </div>
+        <div class="grid_2">
+            @Html.LabelFor(model => model.ToDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 1, 1))
+        </div>
+        <div class="grid_2">
+            <input id="btnSubmit" type="button" value="@Labels.Submit"/>
+        </div>
+	}
+</div>
+<div class="clear">
+</div>
+<div class="space">
+</div>
+<div id="TimeRecordContent"></div>
+
+<ul id="outMenu" class="hide">
+    <li class="out"><a command="out" href="javascript:;">@Labels.Out</a>
+    </li>
+</ul>
+<ul id="inMenu" class="hide">
+    <li class="in"><a command="in" href="javascript:;">@Labels.In</a>
+    </li>
+</ul>

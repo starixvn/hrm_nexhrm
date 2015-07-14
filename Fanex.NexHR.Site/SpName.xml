@@ -171,4 +171,12 @@
 		<Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhr" Plain="0"></Setting>
 	</Function>
+
+  <Function Name="TimeRecord">
+    <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
+      <Mapping DataField="GroupId" ObjectProperty="Id"/>
+      <Mapping DataField="GroupCode" ObjectProperty="Code"/>
+    </Setting>
+    <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
+  </Function>
 </Functions>

@@ -327,6 +327,8 @@
     <Content Include="Scripts\Views\department.edit.js" />
     <Content Include="Scripts\Views\department.js" />
     <Content Include="Scripts\Views\extensionno.js" />
+    <Content Include="Scripts\Views\timerecord.detail.js" />
+    <Content Include="Scripts\Views\timerecord.js" />
     <Content Include="Styles\birthday.css" />
     <Content Include="Styles\Fanex.Grid\Fanex.Grid.css" />
     <Content Include="Styles\Fanex.Grid\Fanex.Pagination.css" />
@@ -840,6 +842,7 @@
     <Content Include="Styles\menu.css" />
     <Content Include="Styles\jquery.fixedheadertable.css" />
     <Content Include="Styles\jquery.fixedheadertable.theme.css" />
+    <Content Include="Styles\timerecord.css" />
     <Content Include="Styles\tinymce.css" />
     <Content Include="Styles\workingcalendars.css" />
     <Content Include="Views\AnnualLeaveBalance\Index.cshtml">
@@ -1063,6 +1066,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Emails\UnpaidLeave.Request.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\TimeRecord.cshtml" />
+    <Content Include="Views\Report\TimeRecordDetail.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
