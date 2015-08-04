@@ -45,7 +45,7 @@ namespace Fanex.NexHR.Models.Request
 
         public decimal TotalDays { get; set; }
 
-        public string LeaveType { get; set; }
+        public LeaveType LeaveType { get; set; }
 
         // ChangeShift
         public Shift FromShift { get; set; }

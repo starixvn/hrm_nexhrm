@@ -3,7 +3,7 @@
 
 function cancelRequest(id) {
 	confirm('Are you sure you want to cancel this request?', function () {
-		$.post(_global.root + 'api/employee/deleteworkingtimerequest' + "/" + id, function () {
+		$.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function () {
 			$('#row' + id).remove();
 			autoIndex();
 		});

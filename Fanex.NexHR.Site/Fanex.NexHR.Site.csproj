@@ -974,13 +974,9 @@
     <Content Include="Views\Report\TotalWorkingHours.cshtml" />
     <Content Include="Views\Request\Member.cshtml" />
     <Content Include="Views\Shared\Request\Member\MemberLeaveRequest.cshtml" />
-    <Content Include="Views\Shared\Request\Member\MemberChangeShiftRequest.cshtml" />
-    <Content Include="Views\Shared\Request\Member\MemberLateInEarlyOutRequest.cshtml" />
     <Content Include="Views\Shared\Request\Member\MemberCheckInOutRequest.cshtml" />
     <Content Include="Views\Request\HRView.cshtml" />
     <Content Include="Views\Shared\Request\HR\HRViewLeaveRequest.cshtml" />
-    <Content Include="Views\Shared\Request\HR\HRViewChangeShiftRequest.cshtml" />
-    <Content Include="Views\Shared\Request\HR\HRViewLateInEarlyOutRequest.cshtml" />
     <Content Include="Views\Shared\Request\HR\HRViewCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\LeaveSummary.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
@@ -999,19 +995,19 @@
     <Content Include="Views\Home\AccountSuspended.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Request\HRViewHistory.cshtml" />
+    <Content Include="Views\Request\ViewHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\HR\HRViewCheckInOutRequestHistory.cshtml" />
+    <Content Include="Views\Shared\Request\History\CheckInOutRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\HR\HRViewLateInEarlyOutRequestHistory.cshtml" />
+    <Content Include="Views\Shared\Request\History\LateInEarlyOutRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\HR\HRViewChangeShiftRequestHistory.cshtml" />
+    <Content Include="Views\Shared\Request\History\ChangeShiftRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\HR\HRViewLeaveRequestHistory.cshtml" />
+    <Content Include="Views\Shared\Request\History\LeaveRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Employee\WorkingCalendarsEdit.cshtml" />

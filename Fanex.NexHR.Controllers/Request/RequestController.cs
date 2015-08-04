@@ -11,10 +11,10 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
@@ -28,7 +28,7 @@ namespace Fanex.NexHR.Controllers.Request
     public class RequestController : BaseController
     {
         #region private services
-        private readonly IEmployeeService _employeeService;
+        private readonly IRequestService _requestService;
         private readonly ITeamService _teamService;
         #endregion
 
@@ -39,10 +39,10 @@ namespace Fanex.NexHR.Controllers.Request
         }
 
         public RequestController(
-            IEmployeeService employeeService = null,
+            IRequestService requestService = null,
             ITeamService teamService = null)
         {
-            _employeeService = employeeService ?? new EmployeeService();
+            _requestService = requestService ?? new RequestService();
             _teamService = teamService ?? new TeamService();
         }
         #endregion
@@ -52,23 +52,18 @@ namespace Fanex.NexHR.Controllers.Request
             return PartialView(request);
         }
 
-        #region Member's Action
-
         /// <summary>
         /// View member request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Action result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
             if (request.TeamId == -1)
             {
-                request = new RequestViewModel 
+                request = new RequestViewModel
                 {
-                    /*get data from 7 days ago*/
-
                     DateOption = 0,
                     ToDate = DateTime.Now,
                     FromDate = request.ToDate.AddMonths(-2),
@@ -88,186 +83,15 @@ namespace Fanex.NexHR.Controllers.Request
             };
             request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
 
+            GetRequest(request, (short)Role.AssistantLeader, isFilterByEffectedDate: false);
+
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
-
-            switch (request.RequestType)
-            {
-                case 1:
-                    GetMemberLeaveRequest(request);
-                    break;
-                case 3:
-                    GetMemberLateInEarlyOut(request);
-                    break;
-                case 4:
-                    GetMemberCheckInOut(request);
-                    break;
-                case 5:
-                    GetAllRequest(request, (short)Role.AssistantLeader);
-                    break;
-            }
-
             ViewBag.Leader = true;
             ViewBag.Options = request;
 
             return View(request);
         }
-
-        #endregion
-
-        #region Member's requests
-
-        /// <summary>
-        /// Get member leave request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        [NonAction]
-        public void GetMemberLeaveRequest(RequestViewModel request)
-        {
-            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
-            {
-                Role = (short)Role.AssistantLeader,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = this.CurrentUser.Id
-            };
-
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// Get member late in / early out request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        [NonAction]
-        public void GetMemberLateInEarlyOut(RequestViewModel request)
-        {
-            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
-            {
-                Role = (short)Role.AssistantLeader,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = this.CurrentUser.Id
-            };
-
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// Get member check in/out request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        [NonAction]
-        public void GetMemberCheckInOut(RequestViewModel request)
-        {
-            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
-            {
-                Role = (short)Role.AssistantLeader,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = this.CurrentUser.Id
-            };
-
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-        #endregion
-
-        #region Request History
-
-        /// <summary>
-        /// HR view request history.
-        /// </summary>
-        /// <param name="id">The request ID.</param>
-        /// <param name="type">The request type.</param>
-        /// <returns>Action result.</returns>
-        public ActionResult HRViewHistory(long id, int type)
-        {
-            switch (type)
-            {
-                case 1:
-                    HRGetCheckInOutRequestHistory(id, type);
-                    break;
-                case 2:
-                    HRGetLateInEarlyOutRequestHistory(id, type);
-                    break;
-                case 4:
-                    HRGetLeaveRequestHistory(id, type);
-                    break;
-            }
-
-            ViewBag.requestId = id;
-            ViewBag.requestType = type;
-
-            return View();
-        }
-
-        /// <summary>
-        /// HR get leave request history.
-        /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestType">The request type.</param>
-        public void HRGetLeaveRequestHistory(long requestId, int requestType)
-        {
-            var getLeaveRequestHistoryCriteria = new GetRequestHistoryCriteria
-            {
-                RequestId = requestId,
-                RequestType = requestType
-            };
-
-            IList<Leave> entityList = _employeeService.GetLeaveRequestHistory(getLeaveRequestHistoryCriteria);
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get late in / early out request history..
-        /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestType">The request type.</param>
-        public void HRGetLateInEarlyOutRequestHistory(long requestId, int requestType)
-        {
-            var getLateInOutRequestCriteria = new GetRequestHistoryCriteria
-            {
-                RequestId = requestId,
-                RequestType = requestType
-            };
-
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestHistory(getLateInOutRequestCriteria);
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get check in/out request history..
-        /// </summary>
-        /// <param name="requestId">The request ID.</param>
-        /// <param name="requestType">The request type.</param>
-        public void HRGetCheckInOutRequestHistory(long requestId, int requestType)
-        {
-            var getCheckInOutRequestCriteria = new GetRequestHistoryCriteria
-            {
-                RequestId = requestId,
-                RequestType = requestType
-            };
-
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestHistory(getCheckInOutRequestCriteria);
-            ViewBag.EntityList = entityList;
-        }
-
-        #endregion
 
         /// <summary>
         /// Daily view request.
@@ -294,28 +118,12 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
-            ViewBag.IsAllowChangeStatus = false;
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
-            // request.StatusId = 0;
+            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: true);
+
             ViewBag.Status = request.StatusId;
-
-            switch (request.RequestType)
-            {
-                case 1:
-                    HRGetLeaveRequestByDate(request);
-                    break;
-                case 3:
-                    HRGetLateInEarlyOutRequestByDate(request);
-                    break;
-                case 4:
-                    HRGetCheckInOutRequestByDate(request);
-                    break;
-                case 5:
-                    GetAllRequestByDate(request, (short)Role.HR);
-                    break;
-            }
-
+            ViewBag.IsAllowChangeStatus = false;
             ViewBag.Options = request;
             return View("DailyRequestsView", request);
         }
@@ -345,32 +153,14 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
-            ViewBag.IsAllowChangeStatus = false;
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: false);
 
-            // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
-
-            switch (request.RequestType)
-            {
-                case 1:
-                    HRGetLeaveRequest(request);
-                    break;
-                case 3:
-                    HRGetLateInEarlyOutRequest(request);
-                    break;
-                case 4:
-                    HRGetCheckInOutRequest(request);
-                    break;
-                case 5:
-                    GetAllRequest(request, (short)Role.HR);
-                    break;
-            }
-
+            ViewBag.IsAllowChangeStatus = false;
             ViewBag.Options = request;
             return View("HRView", request);
         }
-        #region HR's Action
 
         /// <summary>
         /// HR view request.
@@ -383,7 +173,7 @@ namespace Fanex.NexHR.Controllers.Request
             // Default view all request type
             if (request.TeamId == -1)
             {
-                request = new RequestViewModel 
+                request = new RequestViewModel
                 {
                     StatusId = 0,
                     RequestType = 5,
@@ -398,110 +188,42 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
-            ViewBag.IsAllowChangeStatus = true;
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: false);
 
-           // request.StatusId = 0;
             ViewBag.Status = request.StatusId;
-
-            switch (request.RequestType)
-            {
-                case 1:
-                    HRGetLeaveRequest(request);
-                    break;
-                case 3:
-                    HRGetLateInEarlyOutRequest(request);
-                    break;
-                case 4:
-                    HRGetCheckInOutRequest(request);
-                    break;
-                case 5:
-                    GetAllRequest(request, (short)Role.HR);
-                    break;
-            }
-
+            ViewBag.IsAllowChangeStatus = true;
             ViewBag.Options = request;
             return View(request);
         }
 
-        #endregion
-
-        #region Daily Requests
-
-        /// <summary>
-        /// HR get leave request by date.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetLeaveRequestByDate(RequestViewModel request)
+        public ActionResult ViewHistory(long requestId, int requestType)
         {
-            var leaveRequestByDateCriteria = new GetLeaveRequestByDateCriteria
+            var criteria = new GetRequestHistoryCriteria
             {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
+                RequestId = requestId
             };
 
-            IList<Leave> entityList = _employeeService.GetLeaveRequestByDate(leaveRequestByDateCriteria);
-
-            ViewBag.EntityList = entityList;
+            IList<RequestEntity> requests = _requestService.GetRequestHistory(criteria);
+            ViewBag.EntityList = requests;
+            ViewBag.requestType = requestType;
+            return View();
         }
 
-        /// <summary>
-        /// HR get late in / early out request by date.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetLateInEarlyOutRequestByDate(RequestViewModel request)
+        [HttpPost]
+        public bool DeleteWorkingTimeRequest(int id)
         {
-            var getLateInOutRequestByDateCriteria = new GetLateInOutRequestByDateCriteria
-            {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
+            var criteria = new DeleteRequestCriteria() 
+            { 
+                Id = id 
             };
-
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequestByDate(getLateInOutRequestByDateCriteria);
-
-            ViewBag.EntityList = entityList;
+            bool deleted = _requestService.DeleteRequest(criteria);
+            return deleted;
         }
 
-        /// <summary>
-        /// HR get check in/out request by date.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetCheckInOutRequestByDate(RequestViewModel request)
+        private void GetRequest(RequestViewModel request, short role, bool isFilterByEffectedDate)
         {
-            var getCheckInOutRequestByDateCriteria = new GetCheckInOutRequestByDateCriteria
-            {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
-            };
-
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequestByDate(getCheckInOutRequestByDateCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// Get all requests by date.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="role">The employee role.</param>
-        public void GetAllRequestByDate(RequestViewModel request, short role)
-        {
-            var getAllRequestByDateCriteria = new GetAllRequestByDateCriteria
+            var criteria = new GetRequestCriteria()
             {
                 Role = role,
                 FromDate = request.FromDate,
@@ -509,126 +231,16 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
                 GroupId = request.TeamId,
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
-            };
-            IList<RequestEntity> entityList = _employeeService.GetAllRequestByDate(getAllRequestByDateCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        #endregion
-
-        #region HRView's requests
-
-        /// <summary>
-        /// HR get leave request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetLeaveRequest(RequestViewModel request)
-        {
-            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
-            {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
+                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null,
+                RequestType = request.RequestType == 1
+                    ? Convert.ToString((int)RequestType.Leave)
+                    : (request.RequestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty),
+                IsFilterByEffectedDate = isFilterByEffectedDate
             };
 
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
             ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get late in / early out request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetLateInEarlyOutRequest(RequestViewModel request)
-        {
-            var getLateInOutRequestCriteria = new GetLateInOutRequestCriteria
-            {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
-            };
-
-            IList<LateInEarlyOut> entityList = _employeeService.GetLateInEarlyOutRequest(getLateInOutRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// HR get check in/out request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public void HRGetCheckInOutRequest(RequestViewModel request)
-        {
-            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
-            {
-                Role = (short)Role.HR,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = null
-            };
-
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Get all request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="role">The employee role.</param>
-        public void GetAllRequest(RequestViewModel request, short role)
-        {
-            var getAllRequestCriteria = new GetAllRequestCriteria()
-            {
-                Role = role,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
-                EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
-                Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null
-            };
-
-            IList<RequestEntity> entityList = _employeeService.GetAllRequest(getAllRequestCriteria);
-
-            ViewBag.EntityList = entityList;
-        }
-
-        /// <summary>
-        /// Check if user can and has permission to edit a request.
-        /// </summary>
-        /// <param name="status">Status of request.</param>
-        /// <param name="employeeId">Which employee request belong to.</param>
-        /// <param name="creatorId">The person who creates this request.</param>
-        /// <returns>Return true if current user can edit this request.</returns>
-        private bool Editable(byte status, int employeeId, int creatorId)
-        {
-            if (status != (byte)RequestStatuse.Pending ||
-                (employeeId != this.CurrentUser.Id && creatorId != this.CurrentUser.Id))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
     }
 }

@@ -30,26 +30,6 @@ namespace Fanex.NexHR.Services
         /// <param name="body">The email body.</param>
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
         {
-            this.SendEmail(senderEmail, senderEmail, receiverEmail, mailCC, subject, body);
-        }
-
-        /// <summary>
-        /// Send email.
-        /// </summary>
-        /// <param name="senderEmail">The sender email.</param>
-        /// <param name="senderName">The sender name.</param>
-        /// <param name="receiverEmail">The receiver email.</param>
-        /// <param name="mailCC">The CC list.</param>
-        /// <param name="subject">The email subject.</param>
-        /// <param name="body">The email body.</param>
-        public void SendEmail(
-            string senderEmail, 
-            string senderName, 
-            string receiverEmail, 
-            string mailCC, 
-            string subject, 
-            string body)
-        {
             if (!Utilities.IsValidEmail(senderEmail) ||
                 !Utilities.IsValidEmail(receiverEmail))
             {

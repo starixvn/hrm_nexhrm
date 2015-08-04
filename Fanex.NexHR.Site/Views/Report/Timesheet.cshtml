@@ -25,7 +25,7 @@
             </div>
             <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
             <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
-            <input type="hidden" id="maxDate" value="@DateTime.Now.GetMaxDate().ToString("yyyy/MM/dd")" />
+            <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
             @Html.HiddenFor(model => model.EmpId)
         </div>
         <div class="grid_3 gridlabel">

@@ -49,35 +49,9 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria);
 
-        WorkingTimeRequest GetWorkingTimeRequest(GetWorkingTimeRequestCriteria criteria);
-
-        bool DeleteWorkingTimeRequest(DeleteWorkingTimeRequestCriteria criteria);
-
         bool UpdateShift(UpdateShiftCriteria criteria);
 
-        IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria);
-
-        IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria);
-
-        IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria);
-
-        IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria);
-
-        IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria);
-
-        IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria);
-
         bool InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria);
-
-        IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria);
-
-        IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria);
 
         ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
 

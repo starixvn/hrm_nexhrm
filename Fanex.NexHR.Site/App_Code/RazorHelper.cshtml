@@ -93,12 +93,18 @@
         }
 }
 
-
 @helper ModifierDisplay(string nickName, string fullName, DateTime? modifiedDate, long requestId)
     {
         if (!string.IsNullOrWhiteSpace(nickName))
-        { 
-            <td id="pb@(requestId)">@nickName, @modifiedDate.ToShortFormatedDate()</td>
+        {
+            if (modifiedDate > new DateTime(2000, 1, 1))
+            {
+                <td id="pb@(requestId)">@nickName, @modifiedDate.ToShortFormatedDate()</td>
+            }
+            else
+            {
+                <td id="pb@(requestId)">@nickName</td>
+            }
         }
         else
         { 
@@ -171,7 +177,7 @@
 }
 @helper LateInEarlyOutTimeFormat(int mins, short type)
     {
-		if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)
+        if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)
         {
     <span>+@mins'</span>
         }
@@ -226,13 +232,13 @@
 }
 
 @helper ShiftDropDownList(string name, int? currentValue, IList<System.Web.Mvc.SelectListItem> listItem)
-{
+    {
     <select id="@name" name="@name">
         <option value="">@Labels.Off</option>
         @{
             var value = currentValue != null ? currentValue.ToString() : string.Empty;
         }
-        @foreach(var item in listItem)
+        @foreach (var item in listItem)
         {
             <option value="@item.Value" selected="@(item.Value == value)">@item.Text</option>
         }

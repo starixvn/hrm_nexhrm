@@ -8,7 +8,7 @@ function deleteRequest(id) {
 		return;
 	}
 
-	$.post(_global.root + 'api/employee/deleteworkingtimerequest' + "/" + id, function () {
+	$.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function () {
 		$('#row' + id).remove();
 		autoIndex();
 	});

@@ -16,6 +16,7 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
@@ -54,7 +55,6 @@ namespace Fanex.NexHR.Controllers.Request
         /// Create leave request.
         /// </summary>
         /// <returns>Action result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
@@ -84,28 +84,15 @@ namespace Fanex.NexHR.Controllers.Request
             // Count number days of Leave request in current month.
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
-            decimal numberDaysOfRequest = 0;
-            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
+            var criteria = new GetNumberRequestInMonthCriteria()
             {
-                Role = (short)Role.Member,
+                EmpId = this.CurrentUser.Id,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                EmployeeId = this.CurrentUser.Id,
-                GroupId = null,
-                Status = null,
-                ExcludeEmployeeId = null
+                RequestType = (int)RequestType.Leave
             };
 
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
-
-            foreach (Leave request in entityList)
-            {
-                if (request.Status.Id != (byte)RequestStatuse.Reject)
-                {
-                    numberDaysOfRequest += request.TotalDays;
-                }
-            }
-
+            decimal numberDaysOfRequest = _requestService.GetNumberRequestInMonth(criteria);
             ViewBag.TotalRequest = numberDaysOfRequest;
             return View(model);
         }
@@ -165,9 +152,9 @@ namespace Fanex.NexHR.Controllers.Request
 
             ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
 
-            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
-            var request = _employeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+            var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
+            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
             var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
@@ -177,10 +164,10 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = employee.Id,
                 FromDate = request.FromDate.Date,
                 FromTime = Utilities.GetTime(request.FromDate),
-                ToDate = request.ToDate.Value.Date,
+                ToDate = request.ToDate,
                 ToTime = Utilities.GetTime(request.ToDate),
                 TotalDays = (decimal)request.TotalDays,
-                LeaveTypeId = (int)request.LeaveTypeId,
+                LeaveTypeId = (int)request.LeaveType.Id,
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
@@ -224,7 +211,7 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
-            var getLeaveRequestCriteria = new GetLeaveRequestCriteria
+            var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
@@ -232,11 +219,12 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = this.CurrentUser.Id,
                 GroupId = null,
                 Status = null,
-                ExcludeEmployeeId = null
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.Leave),
+                IsFilterByEffectedDate = true
             };
 
-            //// kos push
-            IList<Leave> entityList = _employeeService.GetLeaveRequest(getLeaveRequestCriteria);
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
             return View(entityList);
         }

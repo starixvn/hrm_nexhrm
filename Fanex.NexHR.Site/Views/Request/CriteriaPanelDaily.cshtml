@@ -61,7 +61,7 @@
             @Html.LabelFor(model => model.Employee)
         </div>
         <div class="grid_4">
-            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
             @Html.HiddenFor(model => model.EmployeeId)
         </div>
         <div class="clear">
@@ -77,7 +77,6 @@
             {
                 new SelectListItem() {Text = Labels.All, Value = "5"},
                 new SelectListItem() {Text = Labels.Leave, Value = "1"},
-                //new SelectListItem() {Text = Labels.LateInEarlyOut, Value = "3"},
                 new SelectListItem() {Text = Labels.CheckInOut, Value = "4"},
             };
             }

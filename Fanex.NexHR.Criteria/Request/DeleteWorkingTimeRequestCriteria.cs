@@ -4,10 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.3.10">Created</change>
+//   <change who="Quinn.Vo" date="2015.7.31">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Criteria.Employee
+namespace Fanex.NexHR.Criteria.Request
 {
     using Fanex.Data.Repository;
 
@@ -18,14 +18,14 @@ namespace Fanex.NexHR.Criteria.Employee
     {
         public int Id { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
-
         public override string GetSettingKey()
         {
             return "WorkingTimeRequest_Delete";
+        }
+
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

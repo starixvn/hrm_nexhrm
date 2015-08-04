@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
@@ -92,8 +93,18 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             viewModel.Shift = (shift == null) ? string.Empty : shift.Name;
-            int totalRequestInMonth = CountRequestInMonth();
-            ViewBag.TotalRequest = totalRequestInMonth;
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            var criteria = new GetNumberRequestInMonthCriteria()
+            {
+                EmpId = this.CurrentUser.Id,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                RequestType = (int)RequestType.Leave
+            };
+
+            decimal numberDaysOfRequest = _requestService.GetNumberRequestInMonth(criteria);
+            ViewBag.TotalRequest = numberDaysOfRequest;
 
             return View(viewModel);
         }
@@ -145,15 +156,15 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.UnavailDates = listUnavailDates;
 
             ViewBag.Shifts = _shiftService.GetAll(new GetAllShiftCriteria());
-            var getWorkingTimeRequestCriteria = new GetWorkingTimeRequestCriteria() { Id = id };
-            var request = _employeeService.GetWorkingTimeRequest(getWorkingTimeRequestCriteria);
+            var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
+            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
 
-            if (!this.Editable(request.Status, request.EmpId, request.CreatedBy))
+            if (!this.Editable(request.Status.Id, request.Requester.Id))
             {
                 return RedirectToAction("EmployeeView", "CheckInOut");
             }
 
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.EmpId };
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
             var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
@@ -171,7 +182,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ForDate = request.FromDate.Date,
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,
-                CheckInOutType = request.RequestType,
+                CheckInOutType = request.RequestType.Id,
                 By = this.CurrentUser.Id,
                 Shift = (shift == null) ? string.Empty : shift.Name
             });
@@ -220,7 +231,8 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult EmployeeView(int year)
         {
             ViewBag.Year = year;
-            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+
+            var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
@@ -228,25 +240,18 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = this.CurrentUser.Id,
                 GroupId = null,
                 Status = null,
-                ExcludeEmployeeId = null
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut),
+                IsFilterByEffectedDate = true
             };
 
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
-
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
             return View(entityList);
         }
 
-        /// <summary>
-        /// Check if user can and has permission to edit a request.
-        /// </summary>
-        /// <param name="status">Status of request.</param>
-        /// <param name="employeeId">Which employee request belong to.</param>
-        /// <param name="creatorId">The person who creates this request.</param>
-        /// <returns>Return true if current user can edit this request.</returns>
-        private bool Editable(byte status, int employeeId, int creatorId)
+        private bool Editable(byte status, int employeeId)
         {
-            if (status != (byte)RequestStatuse.Pending ||
-                (employeeId != this.CurrentUser.Id && creatorId != this.CurrentUser.Id))
+            if (status != (byte)RequestStatuse.Pending || employeeId != this.CurrentUser.Id)
             {
                 return false;
             }
@@ -265,7 +270,8 @@ namespace Fanex.NexHR.Controllers.Request
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int numberOfRequest = 0;
-            var checkInOutRequestCriteria = new GetCheckInOutRequestCriteria
+            
+            var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.Member,
                 FromDate = new DateTime(year, month, 1),
@@ -273,11 +279,14 @@ namespace Fanex.NexHR.Controllers.Request
                 EmployeeId = this.CurrentUser.Id,
                 GroupId = null,
                 Status = null,
-                ExcludeEmployeeId = null
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut),
+                IsFilterByEffectedDate = true
             };
 
-            IList<CheckInOut> entityList = _employeeService.GetCheckInOutRequest(checkInOutRequestCriteria);
-            foreach (CheckInOut request in entityList)
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+
+            foreach (RequestEntity request in entityList)
             {
                 if (request.Status.Id != (byte)RequestStatuse.Reject)
                 {

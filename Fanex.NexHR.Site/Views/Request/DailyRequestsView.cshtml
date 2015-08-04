@@ -2,6 +2,7 @@
 @using Fanex.NexHR.Models.Request
 @{
     ViewBag.Title = Labels.DailyRequests;
+    IList<RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
     @Url.CombresLink("managerequestscss")
@@ -20,24 +21,13 @@
 @switch (Model.RequestType)
 {
     case 1: // Annual Leave
-        IList<Leave> entityLeave = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewLeaveRequest", entityLeave);
-        break;
-    case 2: // Change Shift
-        IList<ChangingShift> entityChangeShift = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewChangeShiftRequest", entityChangeShift);
-        break;
-    case 3: // Late in - Early Out
-        /*IList<LateInEarlyOut> entityLateInEarlyOut = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewLateInEarlyOutRequest", entityLateInEarlyOut);*/
+        Html.RenderPartial("Request/HR/HRViewLeaveRequest", requests);
         break;
     case 4: // Check-In/Out
-        IList<CheckInOut> entityCheckInOut = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewCheckInOutRequest", entityCheckInOut);
+        Html.RenderPartial("Request/HR/HRViewCheckInOutRequest", requests);
         break;
     case 5: // All Request
-        IList<RequestEntity> entityAll = ViewBag.EntityList;
-        Html.RenderPartial("Request/AllRequest", entityAll);
+        Html.RenderPartial("Request/AllRequest", requests);
         break;
 }
 <div id="dialoghistorycontent"/>

@@ -74,6 +74,10 @@
       <Project>{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F}</Project>
       <Name>Fanex.NexHR.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.NexHR.Repositories\Fanex.NexHR.Repositories.csproj">
+      <Project>{89E66795-E15A-41B8-9684-35B05739C1F7}</Project>
+      <Name>Fanex.NexHR.Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.NexHR.Services\Fanex.NexHR.Services.csproj">
       <Project>{7789CD20-1DC9-4077-921C-2548023BBC62}</Project>
       <Name>Fanex.NexHR.Services</Name>

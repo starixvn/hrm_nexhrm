@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
@@ -108,6 +109,7 @@ namespace Fanex.NexHR.Repositories
                 {
                     var groupSd = ConfigurationManager.AppSettings["EmailSD"].ToString();
                     var groupGo = ConfigurationManager.AppSettings["EmailGo"].ToString();
+                    var groupNetwork = ConfigurationManager.AppSettings["EmailNetwork"].ToString();
                     //// send email(s)
                     var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/MemoNotification.cshtml"));
 
@@ -121,13 +123,19 @@ namespace Fanex.NexHR.Repositories
                         ConfigurationManager.AppSettings["Email"],
                         groupGo,
                         string.Empty,
-                        Resources.Messages.MemoSubject + " " + criteria.Subject,
+                        Messages.MemoSubject + " " + criteria.Subject,
                         body);
                     this._emailService.SendEmail(
                        ConfigurationManager.AppSettings["Email"],
                        groupSd,
                        string.Empty,
-                       Resources.Messages.MemoSubject + " " + criteria.Subject,
+                       Messages.MemoSubject + " " + criteria.Subject,
+                       body);
+                    this._emailService.SendEmail(
+                       ConfigurationManager.AppSettings["Email"],
+                       groupNetwork,
+                       string.Empty,
+                       Messages.MemoSubject + " " + criteria.Subject,
                        body);
                 }
             }

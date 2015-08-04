@@ -1,0 +1,32 @@
+﻿@model Fanex.NexHR.ViewModels.RequestViewModel
+@using Fanex.NexHR.Models.Request
+@{
+    ViewBag.Title = Labels.RequestHistory;
+    Layout = null;
+    IList<RequestEntity> requests = ViewBag.EntityList;
+}
+@section css{
+    @Url.CombresLink("sitecss")
+}
+@section js{
+    @Url.CombresLink("sitejs")
+}
+@section Breadcrumb {
+    <a class="step">HR</a> <span class="step">@ViewBag.Title</span>
+}
+@switch ((int)ViewBag.requestType)
+{
+    case 1:
+        Html.RenderPartial("Request/History/CheckInOutRequestHistory", requests);
+        break;
+    case 2:
+        Html.RenderPartial("Request/History/LateInEarlyOutRequestHistory", requests);
+        break;
+    case 3:
+        Html.RenderPartial("Request/History/ChangeShiftRequestHistory", requests);
+        break;
+    case 4:
+        Html.RenderPartial("Request/History/LeaveRequestHistory", requests);
+        break;
+}
+

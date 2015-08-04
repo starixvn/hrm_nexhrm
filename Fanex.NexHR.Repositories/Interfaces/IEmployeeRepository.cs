@@ -15,7 +15,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeRepository
@@ -42,10 +41,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         bool UpdateEmployeeShift(ICriteria criteria);
 
-        Tuple<CommandResult, long> WorkingTimeRequest(ICriteria criteria);
-
-        bool UpdateRequest(ICriteria criteria);
-
         MySpaceViewModel GetMySpace(ICriteria criteria);
 
         HRLeaderDashboardModel GetHRLeaderDashboard(ICriteria criteria);
@@ -53,36 +48,10 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
         IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria);
-        
+
         bool InsertWorkingCalendar(ICriteria criteria);
 
-        WorkingTimeRequest GetWorkingTimeRequest(ICriteria criteria);
-
-        bool DeleteWorkingTimeRequest(ICriteria criteria);
-
         bool UpdateShift(ICriteria criteria);
-
-        IList<CheckInOut> GetCheckInOutRequest(ICriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequest(ICriteria criteria);
-
-        IList<Leave> GetLeaveRequest(ICriteria criteria);
-
-        IList<RequestEntity> GetAllRequest(ICriteria criteria);
-
-        IList<CheckInOut> GetCheckInOutRequestByDate(ICriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(ICriteria criteria);
-
-        IList<Leave> GetLeaveRequestByDate(ICriteria criteria);
-
-        IList<RequestEntity> GetAllRequestByDate(ICriteria criteria);
-
-        IList<CheckInOut> GetCheckInOutRequestHistory(ICriteria criteria);
-
-        IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(ICriteria criteria);
-
-        IList<Leave> GetLeaveRequestHistory(ICriteria criteria);
 
         IList<Employee> GetMembersByManager(ICriteria criteria);
 

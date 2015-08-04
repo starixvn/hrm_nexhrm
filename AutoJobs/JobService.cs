@@ -210,7 +210,6 @@ namespace AutoJobs
 
                             _EmailService.SendEmail(
                                 _SenderEmail,
-                                _SenderName,
                                 receiverEmail: item.Email,
                                 mailCC: null,
                                 subject: emailSubject,
@@ -345,7 +344,6 @@ namespace AutoJobs
 
             _EmailService.SendEmail(
                         _SenderEmail,
-                        _SenderName,
                         receiverEmail: _EmailSD + ";" + _EmailGO,
                         mailCC: null,
                         subject: emailSubject,
@@ -370,7 +368,6 @@ namespace AutoJobs
 
             _EmailService.SendEmail(
                         _SenderEmail,
-                        _SenderName,
                         receiverEmail: _EmailSD + ";" + _EmailGO,
                         mailCC: null,
                         subject: emailSubject,

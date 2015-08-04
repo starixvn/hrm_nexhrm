@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Models
     /// <summary>
     /// Working time request.
     /// </summary>
-    public class WorkingTimeRequest
+    public class WorkingTimeRequest1
     {
         public long Id { get; set; }
 

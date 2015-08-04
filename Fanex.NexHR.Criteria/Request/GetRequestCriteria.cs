@@ -1,21 +1,21 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetChangeShiftRequestByDateCriteria.cs" company="Nexcel Solutions Viet Nam">
+﻿// --------------------------------------------------------------------------
+// <copyright file="GetRequestCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
+//   <change who="Quinn.Vo" date="2015.7.31">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Criteria.Employee
+namespace Fanex.NexHR.Criteria.Request
 {
     using System;
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// Get change shift request by date criteria.
+    /// Get Request Criteria.
     /// </summary>
-    public class GetChangeShiftRequestByDateCriteria : CriteriaBase
+    public class GetRequestCriteria : CriteriaBase
     {
         public int Role { get; set; }
 
@@ -33,9 +33,13 @@ namespace Fanex.NexHR.Criteria.Employee
         [SpParam(SqlParamName = "excludedEmpID")]
         public int? ExcludeEmployeeId { get; set; }
 
+        public string RequestType { get; set; }
+
+        public bool IsFilterByEffectedDate { get; set; }
+
         public override string GetSettingKey()
         {
-            return "WorkingTimeRequest_GetRequestByDate_ChangeShiftType";
+            return "WorkingTimeRequest_GetRequestByDate";
         }
 
         public override bool IsValid()

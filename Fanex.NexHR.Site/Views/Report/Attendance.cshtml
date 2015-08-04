@@ -52,14 +52,14 @@
             From date
         </div>
         <div class="grid_4">
-            @Html.DatePicker("FromDate", Model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+            @Html.DatePicker("FromDate", Model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
             @*<input type="text" id="pickdate" />*@
         </div>
         <div class="grid_2">
             To date 
         </div>
         <div class="grid_4">
-            @Html.DatePicker("ToDate", Model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+            @Html.DatePicker("ToDate", Model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
         </div>
         
         <div class="clear"></div>

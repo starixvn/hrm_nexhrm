@@ -1,13 +1,13 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetRequestHistoryCriteria.cs" company="Nexcel Solutions Viet Nam">
+﻿// --------------------------------------------------------------------------
+// <copyright file="GetRequestHistoryCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
+//   <change who="Quinn.Vo" date="2015.7.31">Created</change>
 // </history>
 
-namespace Fanex.NexHR.Criteria.Employee
+namespace Fanex.NexHR.Criteria.Request
 {
     using Fanex.Data.Repository;
 
@@ -18,9 +18,6 @@ namespace Fanex.NexHR.Criteria.Employee
     {
         public long RequestId { get; set; }
 
-        [SpParam(SqlParamName = "Type")]
-        public int RequestType { get; set; }
-
         public override string GetSettingKey()
         {
             return "WorkingTimeRequest_GetRequestHistory";
@@ -28,7 +25,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            return RequestId > 0;
         }
     }
 }

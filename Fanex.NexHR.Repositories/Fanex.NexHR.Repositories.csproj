@@ -69,6 +69,7 @@
     <Compile Include="Interfaces\IDepartmentRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Interfaces\IExtensionNoRepository.cs" />
+    <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
     <Compile Include="Interfaces\IHolidayRepository.cs" />
     <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Interfaces\IToeicRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
+    <Compile Include="RequestRepository.cs" />
     <Compile Include="TeamRepository.cs" />
     <Compile Include="HolidayRepository.cs" />
     <Compile Include="LookupDataRepository.cs" />

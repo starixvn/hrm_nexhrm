@@ -127,7 +127,7 @@
     <value>Check In</value>
   </data>
   <data name="CheckOut" xml:space="preserve">
-    <value>Check out</value>
+    <value>Check Out</value>
   </data>
   <data name="ApprovedBy" xml:space="preserve">
     <value>Approved by</value>

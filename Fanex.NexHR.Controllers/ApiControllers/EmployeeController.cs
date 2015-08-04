@@ -69,14 +69,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return entityList.AsQueryable();
         }
 
-        [HttpPost]
-        public bool DeleteWorkingTimeRequest(int id)
-        {
-            var deleteWorkingTimeRequestCriteria = new DeleteWorkingTimeRequestCriteria() { Id = id };
-            bool deleted = _employeeService.DeleteWorkingTimeRequest(deleteWorkingTimeRequestCriteria);
-            return deleted;
-        }
-
         public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
         {
             var workingScheduleCriteria = new GetWorkingScheduleCriteria

@@ -44,22 +44,22 @@ function generateDataBody(data, isDeleted) {
 			Columns: [
 				{ Name: "No", Value: index + 1 },
 				{ Name: "Code", Value: item.Code },
-				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>"
-							+ item.NickName + "</a>", TdClass: 'nick'
+				{ Name: "Nick", Value: "<a data-nick ='" + item.NickName + "' href='/employee/detail/" + item.Id + "' data-code='" + item.Code + "'>" + 
+					item.NickName + "</a>", TdClass: 'nick'
 				},
 				{ Name: "Name", Value: item.FullName },
-				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id
-							+ "' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
+				{ Name: "Team", Value: "<div class='tooltip' data-team ='" + item.Team.Code.trim().toUpperCase() + "'data-id='" + item.Id + 
+					"' title='" + item.Team.Name + "'>" + item.Team.Code + "</div>"
 				},
 				{ Name: "Gender", Value: "<div data-gender='" + gender + "' data-id='" + item.Id + "'>" + gender + "</div>" },
-				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>"
-							+ item.JobTitle + "</div>"
+				{ Name: "JobTitle", Value: "<div data-jobtitle='" + item.JobTitle + "' data-id='" + item.Id + "'>" + 
+					item.JobTitle + "</div>"
 				},
 				{ Name: "DateOfBirth", Value: "<div data-date='" + dataDateOfBirth + "' data-id='" + item.Id + "'>" + dateOfBirth + "</div>" },
 				{ Name: "JoinedDate", Value: "<div data-date='" + dataJoinedDate + "' data-id='" + item.Id + "'>" + joinedDate + "</div>" },
 				{ Name: "Edit", Value: !isDeleted ? "<a href='/employee/edit/" + item.Id + "'><img src='/Styles/Images/edit-icon.png'></a>" : "-" },
-				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id
-					+ "'><img src='/Styles/Images/edit-icon.png'></a>" : "-"
+				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id + 
+					"'><img src='/Styles/Images/edit-icon.png'></a>" : "-"
 				}
 			],
 			CssClass: item.Enabled ? 'tr-staff-info' : 'disabled'
@@ -129,8 +129,8 @@ function query(jobTitleId) {
 			afterGridSorted: reRenderBodyAfterSort
 		};
 		gridOptions.titleInfo.exportExcelFunction = function () {
-			window.location.href = _global.root + 'Export/EmployeeProfile?query=' + keyword + '&groupId=' + $('#group').val()
-				+ '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId;
+			window.location.href = _global.root + 'Export/EmployeeProfile?query=' + keyword + '&groupId=' + $('#group').val() + 
+				'&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId;
 		};
 
 		$('#gridUserManagement').fanexGrid(gridOptions);

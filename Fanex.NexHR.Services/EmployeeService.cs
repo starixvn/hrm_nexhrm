@@ -37,16 +37,11 @@ namespace Fanex.NexHR.Services
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeService : IEmployeeService
     {
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeService()
+        public EmployeeService(IEmployeeRepository employeeRepository = null)
         {
-            this._employeeRepository = new EmployeeRepository();
-        }
-
-        public EmployeeService(IEmployeeRepository employeeRepository)
-        {
-            this._employeeRepository = employeeRepository;
+            this._employeeRepository = employeeRepository ?? new EmployeeRepository();
         }
 
         public IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria)
@@ -213,7 +208,7 @@ namespace Fanex.NexHR.Services
             return workingSchedule;
         }
 
-        public IList<ViewModels.WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria)
+        public IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<WorkingCalendarsViewModel> workingCalendar = new List<WorkingCalendarsViewModel>();
@@ -223,30 +218,6 @@ namespace Fanex.NexHR.Services
             }
 
             return workingCalendar;
-        }
-
-        public WorkingTimeRequest GetWorkingTimeRequest(GetWorkingTimeRequestCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            WorkingTimeRequest workingTimeRequest = new WorkingTimeRequest();
-            if (criteria.IsValid())
-            {
-                workingTimeRequest = this._employeeRepository.GetWorkingTimeRequest(criteria);
-            }
-
-            return workingTimeRequest;
-        }
-
-        public bool DeleteWorkingTimeRequest(DeleteWorkingTimeRequestCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            bool deleted = false;
-            if (criteria.IsValid())
-            {
-                deleted = this._employeeRepository.DeleteWorkingTimeRequest(criteria);
-            }
-
-            return deleted;
         }
 
         public bool UpdateShift(UpdateShiftCriteria criteria)
@@ -261,107 +232,6 @@ namespace Fanex.NexHR.Services
             return updated;
         }
 
-        public IList<CheckInOut> GetCheckInOutRequest(GetCheckInOutRequestCriteria criteria)
-        {
-            IList<CheckInOut> entityList = new List<CheckInOut>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetCheckInOutRequest(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequest(GetLateInOutRequestCriteria criteria)
-        {
-            IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetLateInEarlyOutRequest(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<Leave> GetLeaveRequest(GetLeaveRequestCriteria criteria)
-        {
-            IList<Leave> entityList = new List<Leave>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetLeaveRequest(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<RequestEntity> GetAllRequest(GetAllRequestCriteria criteria)
-        {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetAllRequest(criteria);
-            }
-
-            return entityList;
-        }
-
-        /// <summary>
-        /// Get check in/out request by date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of check in/out request.</returns>
-        public IList<CheckInOut> GetCheckInOutRequestByDate(GetCheckInOutRequestByDateCriteria criteria)
-        {
-            IList<CheckInOut> entityList = new List<CheckInOut>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetCheckInOutRequestByDate(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestByDate(GetLateInOutRequestByDateCriteria criteria)
-        {
-            IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetLateInEarlyOutRequestByDate(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<Leave> GetLeaveRequestByDate(GetLeaveRequestByDateCriteria criteria)
-        {
-            IList<Leave> entityList = new List<Leave>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetLeaveRequestByDate(criteria);
-            }
-
-            return entityList;
-        }
-
-        public IList<RequestEntity> GetAllRequestByDate(GetAllRequestByDateCriteria criteria)
-        {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
-
-            if (criteria.IsValid())
-            {
-                entityList = this._employeeRepository.GetAllRequestByDate(criteria);
-            }
-
-            return entityList;
-        }
-
         public bool InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria)
         {
             if (criteria.IsValid())
@@ -370,33 +240,6 @@ namespace Fanex.NexHR.Services
             }
 
             return false;
-        }
-
-        public IList<CheckInOut> GetCheckInOutRequestHistory(GetRequestHistoryCriteria criteria)
-        {
-            IList<CheckInOut> entityList = new List<CheckInOut>();
-
-            entityList = this._employeeRepository.GetCheckInOutRequestHistory(criteria);
-
-            return entityList;
-        }
-
-        public IList<LateInEarlyOut> GetLateInEarlyOutRequestHistory(GetRequestHistoryCriteria criteria)
-        {
-            IList<LateInEarlyOut> entityList = new List<LateInEarlyOut>();
-
-            entityList = this._employeeRepository.GetLateInEarlyOutRequestHistory(criteria);
-
-            return entityList;
-        }
-
-        public IList<Leave> GetLeaveRequestHistory(GetRequestHistoryCriteria criteria)
-        {
-            IList<Leave> entityList = new List<Leave>();
-
-            entityList = this._employeeRepository.GetLeaveRequestHistory(criteria);
-
-            return entityList;
         }
 
         public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
