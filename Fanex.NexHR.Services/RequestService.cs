@@ -60,17 +60,17 @@ namespace Fanex.NexHR.Services
                 case (int)RequestType.Leave:
                     if (request.TotalDays > 1)
                     {
-                        msg.AppendFormat(Constants._MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                        msg.AppendFormat(Constants.MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                     }
                     else if (request.TotalDays == 1)
                     {
-                        msg.AppendFormat(Constants._MsgLeaveOneDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                        msg.AppendFormat(Constants.MsgLeaveOneDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                     }
                     else
                     {
                         // 0.5 day
                         msg.AppendFormat(
-                            Constants._MsgLeaveHalfDay, 
+                            Constants.MsgLeaveHalfDay, 
                             GetMessageDateforLeaveRequest(request.FromDate, request.ToDate), 
                             request.FromDate.ToString("HH:mm"), 
                             request.ToDate.ToString("HH:mm"));
@@ -80,17 +80,17 @@ namespace Fanex.NexHR.Services
 
                 case (int)RequestType.CheckIn:
                 case (int)RequestType.CheckOut:
-                    msg.AppendFormat(Constants._MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(Constants.MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
 
                 case (int)RequestType.LateIn:
-                    msg.AppendFormat(Constants._MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(Constants.MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
                 case (int)RequestType.EarlyOut:
-                    msg.AppendFormat(Constants._MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(Constants.MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
                 case (int)RequestType.ChangeShift:
-                    msg.AppendFormat(Constants._MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                    msg.AppendFormat(Constants.MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                     break;
                 default:
                     break;
@@ -128,7 +128,7 @@ namespace Fanex.NexHR.Services
                 
                 if (result.Code == 0)
                 {
-                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants._EmailTemplatePathForCheckInOut);
+                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
                     var taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.CheckInOutEmailSubject, templateEmailPath));
                     taskSendMail.Start();
                     return true;
@@ -244,7 +244,7 @@ namespace Fanex.NexHR.Services
 
                 if (result.Code == 0)
                 {
-                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants._EmailTemplatePathForCheckInOut);
+                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
                     var taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.UpdatedCheckInOutEmailSubject, templateEmailPath));
                     taskSendMail.Start();
                     return true;
@@ -363,9 +363,9 @@ namespace Fanex.NexHR.Services
 
             if (result.Code == 0)
             {
-                string templateEmailToRequester = HttpContext.Current.Server.MapPath(Constants._EmailTemplatePathForRequester);
-                string templateLeaveEmailToRelated = HttpContext.Current.Server.MapPath(Constants._EmailTemplatePathForLeaveApproved);
-                string templateInOutEmailToRelated = HttpContext.Current.Server.MapPath(Constants._EmailTemplatePathForCheckInOutApproved);
+                string templateEmailToRequester = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForRequester);
+                string templateLeaveEmailToRelated = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForLeaveApproved);
+                string templateInOutEmailToRelated = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
                 var taskSendMail = new Task(() => SendMailForProcessRequest(id, command, templateEmailToRequester, templateLeaveEmailToRelated, templateInOutEmailToRelated));
                 taskSendMail.Start();
             }
@@ -400,10 +400,9 @@ namespace Fanex.NexHR.Services
         public bool DeleteRequest(DeleteRequestCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = Repository.Delete(criteria);
+                Repository.Delete(criteria);
                 return true;
             }
 
@@ -547,18 +546,18 @@ namespace Fanex.NexHR.Services
 
             if (totalDays > 1)
             {
-                forDate = string.Format(Constants._MailContentLeave, fromDate.ToDateMonthYearFormatedDate(), toDate.ToDateMonthYearFormatedDate(), totalDays);
+                forDate = string.Format(Constants.MailContentLeave, fromDate.ToDateMonthYearFormatedDate(), toDate.ToDateMonthYearFormatedDate(), totalDays);
             }
             else
             {
                 if (totalDays == 1)
                 {
-                    forDate = string.Format(Constants._MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate());
+                    forDate = string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate());
                 }
                 else
                 {
                     forDate = string.Format(
-                        Constants._MailContentLeaveHalfDay,
+                        Constants.MailContentLeaveHalfDay,
                         fromDate.ToDateMonthYearFormatedDate(),
                         fromDate.ToString("HH:mm"),
                         toDate.ToString("HH:mm"));

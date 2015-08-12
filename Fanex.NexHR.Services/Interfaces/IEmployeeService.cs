@@ -15,10 +15,9 @@ namespace Fanex.NexHR.Services.Interfaces
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.Criteria.Report;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeService
     {

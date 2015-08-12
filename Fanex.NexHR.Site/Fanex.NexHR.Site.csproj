@@ -1086,6 +1086,21 @@
   <ItemGroup>
     <Content Include="Views\Report\MyTimeRecord.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.uat.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.uat.Debug.config">
+      <DependentUpon>Web.uat.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.uat.Release.config">
+      <DependentUpon>Web.uat.config</DependentUpon>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

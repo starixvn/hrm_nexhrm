@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Models.Report
 
         public DateTime WorkDate { get; set; }
 
-        public int Type { get; set; }
+        public int TypeId { get; set; }
 
         public int LeaveDeductionId { get; set; }
 

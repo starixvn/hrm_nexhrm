@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -26,7 +27,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Report;
-    using Fanex.NexHR.Criteria.Employee;
 
     /// <summary>
     /// Report controller.

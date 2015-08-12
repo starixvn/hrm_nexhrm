@@ -20,8 +20,8 @@ namespace Fanex.NexHR.Services
     using Fanex.Data;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
@@ -30,7 +30,6 @@ namespace Fanex.NexHR.Services
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using Fanex.NexHR.Criteria.Report;
 
     /// <summary>
     /// Employee service.
@@ -294,7 +293,8 @@ namespace Fanex.NexHR.Services
                 return result;
             }
 
-            return new CommandResult() { 
+            return new CommandResult() 
+            { 
                 Code = 1,
                 Message = Labels.InvalidTotalDays
             };

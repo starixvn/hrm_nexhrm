@@ -117,7 +117,7 @@
             <td>@item.Employee.NickName</td>
             <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
             <td>@item.WorkDate.ToDateMonthYearFormatedDate()</td>
-            <td>@(item.Type == 0 ? Labels.LeaveDeduction : (item.Type == 1 ? Labels.LateIn : Labels.EarlyOut))</td>
+            <td>@(item.TypeId == 0 ? Labels.LeaveDeduction : (item.TypeId == 1 ? Labels.LateIn : Labels.EarlyOut))</td>
             <td>@((item.Minutes / 60.0).ToString("0.0"))</td>
         </tr>
     }

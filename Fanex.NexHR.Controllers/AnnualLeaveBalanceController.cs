@@ -319,50 +319,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        public ActionResult DeductLeave(int employeeId)
-        {
-            //var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId };
-            //ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            //return View(new AnnualLeaveBalanceModel
-            //{
-            //    EmpId = employeeId,
-            //    AffectedFrom = DateTime.Now
-            //});
-            LeaveDeductionViewModel model = new LeaveDeductionViewModel();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult DeductLeave(LeaveDeductionViewModel model)
-        {
-            //var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
-            //ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
-            //if (ModelState.IsValid)
-            //{
-            //    var insertAnnualLeaveTransactionCriteria = new InsertAnnualLeaveTransactionCriteria
-            //    {
-            //        EmployeeId = model.EmpId,
-            //        Description = model.Description,
-            //        FromDate = model.AffectedFrom,
-            //        ToDate = model.AffectedFrom,
-            //        DeductDays = model.DeductDays,
-            //        CreditDays = model.CreditDays,
-            //        CreatedDate = DateTime.Now,
-            //        CreatedBy = this.CurrentUser.Id
-            //    };
-
-            //    ViewBag.Inserted = _employeeService.InsertAnnualLeaveTransaction(insertAnnualLeaveTransactionCriteria);
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
-            //}
-
-            return View(model);
-        }
-
         /// <summary>
         /// Method to get Model for show and hide open balance or close balance.
         /// </summary>
