@@ -324,6 +324,7 @@
     <Content Include="Scripts\Fanex.Grid\moment.min.js" />
     <Content Include="Scripts\Fanex.Grid\numeral.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
+    <Content Include="Scripts\Views\leavededuction.js" />
     <Content Include="Scripts\Views\department.edit.js" />
     <Content Include="Scripts\Views\department.js" />
     <Content Include="Scripts\Views\extensionno.js" />
@@ -401,7 +402,7 @@
     <Content Include="Styles\Images\tipsy.gif" />
     <Content Include="Styles\mydashboard.css" />
     <Content Include="Styles\request.checkinout.css" />
-    <Content Include="Styles\report.totalworkinghours.css" />
+    <Content Include="Styles\report.css" />
     <Content Include="Styles\report.requestmonitoring.css" />
     <Content Include="Styles\employee.monthschedule.css" />
     <Content Include="Styles\style.css" />
@@ -1066,6 +1067,24 @@
   <ItemGroup>
     <Content Include="Views\Report\TimeRecord.cshtml" />
     <Content Include="Views\Report\TimeRecordDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\LateInEarlyOutSummary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\CreateLeaveDeduction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\LateInEarlyOutDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\LeaveDeductionDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\EditLeaveDeduction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\MyTimeRecord.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

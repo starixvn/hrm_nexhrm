@@ -38,7 +38,7 @@ namespace Fanex.NexHR.Models
                     return Labels.Out;
                 }
 
-                return string.Empty;
+                return "None";
             }
         }
     }

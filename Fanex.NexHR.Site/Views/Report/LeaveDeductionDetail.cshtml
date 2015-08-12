@@ -1,0 +1,154 @@
+﻿@using Fanex.NexHR.ViewModels.Report
+@using Fanex.NexHR.Models.Report
+@model LeaveDeductionDetailViewModel
+@{
+    ViewBag.Title = Labels.LeaveDeductionDetail;
+}
+
+@section Breadcrumb {
+    <span class="step">@Labels.HRSpace</span>
+    <a class="step" href="@Url.Action("lateinearlyoutsummary", "report")">@Labels.LateInEarlyOutSummary</a>
+    <span class="step">@ViewBag.Title</span>
+}
+
+@section css{
+    @Url.CombresLink("reportcss")
+}
+@section js{
+    @Url.CombresLink("lateinearlyoutsummaryjs")
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{        
+    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <div class="container_24 bunhat">
+        <div class="grid_2 gridlabel">
+            @Labels.DateRange
+        </div>
+        <div class="grid_4">
+            <select id="Date" name="Date">
+                <option value="0">
+                    @Labels.DateRange</option>
+                <option value="1">
+                    @Labels.ToDay</option>
+                <option value="2">
+                    @Labels.Yesterday</option>
+                <option value="3">
+                    @Labels.CurrentWeek</option>
+                <option value="4">
+                    @Labels.LastWeek</option>
+                <option value="5">
+                    @Labels.CurrentMonth</option>
+                <option value="6">
+                    @Labels.LastMonth</option>
+                <option value="7">
+                    @Labels.SinceLastMonth</option>
+            </select>
+            @Html.Hidden("DateOption", Model.DateOption)
+        </div>
+
+        <div class="grid_2 gridlabel">
+            @Html.LabelFor(model => model.FromDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+        </div>
+
+        <div class="grid_2 gridlabel">
+            @Html.LabelFor(model => model.ToDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+        </div>
+        <div class="clear"></div>
+        <div class="space"></div>
+
+        <div class="grid_2 gridlabel">
+            @Html.LabelFor(model => model.TeamId)
+        </div>
+        <div class="grid_4">
+            <select id="TeamId" name="TeamId">
+                <option value="">@Labels.AllTeams</option>
+                @foreach (Team team in Model.Teams)
+                { 
+                    <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="grid_2">
+            @Html.LabelFor(model => model.Employee)
+        </div>
+        <div class="grid_4">
+            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+            @Html.HiddenFor(model => model.EmployeeId)
+        </div>
+
+        <div class="grid_5">
+            <input type="submit" value="@Labels.Submit" class="processing-submit"/>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+
+<table class="data persist-area">
+    <thead>
+        <tr class="persist-header">
+            <th>#</th>
+            <th>@Labels.Name</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.DeductDate</th>
+            <th>@Labels.Type</th>
+            <th>@Labels.Days</th>
+            <th>@Labels.Note</th>
+            @if (Roles.IsUserInRole("HR"))
+            { 
+            <th>@Labels.Edit</th>
+            <th>@Labels.Delete</th>
+            }
+        </tr>
+    </thead>
+
+@if (Model.LeaveDeductions != null && Model.LeaveDeductions.Any())
+{
+    int index = 1;
+    <tbody>
+    @foreach (LeaveDeductionDetail item in Model.LeaveDeductions)
+    {
+        <tr>
+            <td>@(index++)</td>
+            <td class="left">@item.Employee.FullName</td>
+            <td>@item.Employee.NickName</td>
+            <td>@item.Employee.Team.Code</td>
+            <td class="deductdate">@item.DeductDate.ToDateMonthYearFormatedDate()</td>
+            <td>@(item.IsAnnual ? Labels.AnnualLeave : Labels.UnpaidLeave)</td>
+            <td>@(item.LeaveDays.ToString("0.0"))</td>
+            <td class="description">@item.Description</td>
+            @if (Roles.IsUserInRole("HR"))
+            { 
+                <td><a href="javascript:;" class="editLeaveDeduction" 
+                    data-id="@item.LeaveDeductionId" data-leavedays="@item.LeaveDays" data-isannual="@item.IsAnnual"
+                    data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()">
+                    <img src="~/Styles/Images/edit-icon.png" alt="Edit" /></a></td>
+
+                <td>
+                    <a href="javascript:;" class="deleteLeaveDeduction" data-id="@item.LeaveDeductionId"><img src="~/Styles/Images/delete-icon.png" /></a>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+}
+else
+{ 
+    @RazorHelper.DisplayNoInformation(colspan: 10)
+}
+</table>
+
+<div class="hide">
+    <div id="updateform" title="Edit leave deduction">
+        @Html.Action("EditLeaveDeduction")
+    </div>
+</div>

@@ -729,9 +729,6 @@
   <data name="S" xml:space="preserve">
     <value>S</value>
   </data>
-  <data name="W" xml:space="preserve">
-    <value>W</value>
-  </data>
   <data name="Nickname" xml:space="preserve">
     <value>Nickname</value>
   </data>
@@ -779,5 +776,47 @@
   </data>
   <data name="InOut" xml:space="preserve">
     <value>In/Out</value>
+  </data>
+  <data name="LeaveDeductionDescription" xml:space="preserve">
+    <value>Deduct 0.5 day leave for 4 hours late in/early out</value>
+  </data>
+  <data name="InvalidTotalDays" xml:space="preserve">
+    <value>Invalid Total Days</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="Deduct" xml:space="preserve">
+    <value>Deduct</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="LateInEarlyOutDetail" xml:space="preserve">
+    <value>Late In/Early Out Detail</value>
+  </data>
+  <data name="LateInEarlyOutSummary" xml:space="preserve">
+    <value>Late In/Early Out Summary</value>
+  </data>
+  <data name="LeaveDeduction" xml:space="preserve">
+    <value>Leave Deduction</value>
+  </data>
+  <data name="LeaveDeductionDetail" xml:space="preserve">
+    <value>Leave Deduction Detail</value>
+  </data>
+  <data name="DeductDate" xml:space="preserve">
+    <value>Deduct Date</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Day(s)</value>
+  </data>
+  <data name="W" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="UnpaidLeave" xml:space="preserve">
+    <value>Unpaid Leave</value>
+  </data>
+  <data name="DeductionTaken" xml:space="preserve">
+    <value>Deduction Taken</value>
   </data>
 </root>

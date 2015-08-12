@@ -22,7 +22,7 @@
 
         if (ViewBag.Updated == true)
         {
-            <div class="success">@Fanex.NexHR.Resources.Messages.RequestUpdated</div> 
+            <div class="success">@Messages.RequestUpdated</div> 
             <input type="hidden" id="successed" value="true" />
             <input type="hidden" id="year" value="@ViewBag.Year" />
         }
@@ -58,7 +58,6 @@
             <div class="clear">
             </div>
         </div>
-        
         <div class="formrow">
             <div class="label">
                 @Html.LabelFor(model => model.Employee)
@@ -76,7 +75,7 @@
             <div class="input">
                 @Html.DatePickerFor(model => model.FromDate,
                  Utilities.RequestAvailableFromDate,
-                 Utilities.RequestAvailableToDate, 
+                 Utilities.RequestAvailableToDate,
                  unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                 <span class="time hide">
                     @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))

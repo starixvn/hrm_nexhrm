@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.ViewModels;
 
     public interface IReportRepository
@@ -27,5 +28,11 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria);
 
         IList<TimeRecordModel> GetTimeRecords(ICriteria criteria);
+
+        IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(ICriteria criteria);
+
+        IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria);
+
+        IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria);
     }
 }

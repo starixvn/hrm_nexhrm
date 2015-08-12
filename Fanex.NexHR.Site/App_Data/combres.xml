@@ -296,9 +296,9 @@
       <resource path="~/scripts/views/annualbalanceadj.js" />
     </resourceSet>
 
-    <resourceSet name="totalworkinghourcss" type="css">
+    <resourceSet name="reportcss" type="css">
       <resource reference="sitecss"/>
-      <resource path="~/styles/report.totalworkinghours.css" />
+      <resource path="~/styles/report.css" />
     </resourceSet>
     <resourceSet name="totalworkinghourjs" type="js">
       <resource reference="sitejs"/>
@@ -352,7 +352,15 @@
       <resource reference="sitejs"/>
       <resource path="~/scripts/views/_employee.search.in.company.js" />
     </resourceSet>
-
+    
+    <resourceSet name="lateinearlyoutsummaryjs" type="js">
+      <resource reference="sitejs"/>
+      <resource path="~/scripts/views/_employee.search.in.company.js" />
+      <resource path="~/scripts/libs/date.js" />
+      <resource path="~/scripts/views/date.filter.js" />
+      <resource path="~/scripts/views/leavededuction.js" />
+    </resourceSet>
+    
     <resourceSet name="requestmonitoringcss" type="css">
       <resource reference="sitecss"/>
       <resource path="~/styles/report.requestmonitoring.css" />

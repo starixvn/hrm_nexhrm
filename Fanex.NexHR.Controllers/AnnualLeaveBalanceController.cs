@@ -22,6 +22,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -222,7 +223,7 @@ namespace Fanex.NexHR.Controllers
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
-            if (formCollection["command"] == Resources.Labels.Delete)
+            if (formCollection["command"] == Labels.Delete)
             {
                 var deleteAnnualTransactionCriteria = new DeleteAnnualLeaveTransactionCriteria
                 {
@@ -314,6 +315,50 @@ namespace Fanex.NexHR.Controllers
             {
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
+
+            return View(model);
+        }
+
+        public ActionResult DeductLeave(int employeeId)
+        {
+            //var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId };
+            //ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            //return View(new AnnualLeaveBalanceModel
+            //{
+            //    EmpId = employeeId,
+            //    AffectedFrom = DateTime.Now
+            //});
+            LeaveDeductionViewModel model = new LeaveDeductionViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult DeductLeave(LeaveDeductionViewModel model)
+        {
+            //var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
+            //ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
+            //if (ModelState.IsValid)
+            //{
+            //    var insertAnnualLeaveTransactionCriteria = new InsertAnnualLeaveTransactionCriteria
+            //    {
+            //        EmployeeId = model.EmpId,
+            //        Description = model.Description,
+            //        FromDate = model.AffectedFrom,
+            //        ToDate = model.AffectedFrom,
+            //        DeductDays = model.DeductDays,
+            //        CreditDays = model.CreditDays,
+            //        CreatedDate = DateTime.Now,
+            //        CreatedBy = this.CurrentUser.Id
+            //    };
+
+            //    ViewBag.Inserted = _employeeService.InsertAnnualLeaveTransaction(insertAnnualLeaveTransactionCriteria);
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+            //}
 
             return View(model);
         }

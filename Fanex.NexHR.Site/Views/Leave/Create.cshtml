@@ -58,7 +58,6 @@
             <div class="clear">
             </div>
         </div>
-        
         <div class="formrow">
             <div class="label">
                 @Html.LabelFor(model => model.Employee)
@@ -75,9 +74,9 @@
                 @Html.LabelFor(model => model.FromDate, Labels.FromDate)
             </div>
             <div class="input">
-                @Html.DatePickerFor(model => model.FromDate, Utilities.RequestAvailableFromDate, 
+                @Html.DatePickerFor(model => model.FromDate, Utilities.RequestAvailableFromDate,
 				Utilities.RequestAvailableToDate,
-                unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+				unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                 <span class="time hide">
                     @Html.DropDownList("FromTime", Utilities.TimeSteps(30))
                 </span>

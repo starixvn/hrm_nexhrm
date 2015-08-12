@@ -239,6 +239,53 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult AddLeaveDeduction(LeaveDeductionViewModel model)
+        {
+            var criteria = new InsertLeaveDeductionCriteria
+            {
+                EmployeeId = model.EmpId,
+                Description = model.Description,
+                DeductDate = model.DeductDate,
+                IsAnnual = model.IsAnnual,
+                TotalDays = model.TotalDays,
+                CreatedBy = this.CurrentUser.Id
+            };
+
+            return Json(_employeeService.AddLeaveDeduction(criteria));
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult EditLeaveDeduction(LeaveDeductionViewModel model)
+        {
+            var criteria = new UpdateLeaveDeductionCriteria
+            {
+                LeaveDeductionId = model.LeaveDeductionId,
+                Description = model.Description,
+                DeductDate = model.DeductDate,
+                IsAnnual = model.IsAnnual,
+                TotalDays = model.TotalDays,
+                ModifiedBy = this.CurrentUser.Id
+            };
+
+            return Json(_employeeService.EditLeaveDeduction(criteria));
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult DeleteLeaveDeduction(int leaveDeductionId)
+        {
+            var criteria = new DeleteLeaveDeductionCriteria
+            {
+                LeaveDeductionId = leaveDeductionId,
+                ModifiedBy = this.CurrentUser.Id
+            };
+
+            return Json(_employeeService.DeleteLeaveDeduction(criteria));
+        }
+
         /// <summary>
         /// Method to insert working calendars of employee.
         /// </summary>

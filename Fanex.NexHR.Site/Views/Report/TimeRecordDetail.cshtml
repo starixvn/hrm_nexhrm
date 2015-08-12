@@ -58,9 +58,15 @@
                                 @item.GetInOutName
                             </a>
                             }
-                            else
+                            else if (item.InOutType == 1)
                             {
                             <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
+                                @item.GetInOutName
+                            </a>
+                            }
+                            else
+                            {
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
                                 @item.GetInOutName
                             </a>
                             }

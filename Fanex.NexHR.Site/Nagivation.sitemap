@@ -4,9 +4,9 @@
         <siteMapNode title="Personal">
             <siteMapNode title="My dashboard" controller="employee" action="MySpace" icon="news" />
             <siteMapNode title="Leave request" controller="leave" action="employeeview" icon="calendar7" hoverController="leave" hoverAction="create" hoverIcon="plus" />
-            <!--<siteMapNode title="Late in - Early out" controller="lateinearlyout" action="employeeview" icon="clock2" hoverController="lateinearlyout" hoverAction="create" hoverIcon="plus" />-->
             <siteMapNode title="Check in - Check out" controller="checkinout" action="employeeview" icon="clock1" hoverController="checkinout" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="calendar8" />
+            <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar1" />
             <siteMapNode title="My calendar" controller="employee" action="myworkingschedule" icon="calendar" />
             <siteMapNode title="Members' requests" controller="request" action="member" icon="user1" roles="AssistantLeader"/>
             <siteMapNode title="Requests statistic" controller="report" action="LeaderRequestMonitoring" icon="search" roles="AssistantLeader" id="1"/>
@@ -21,6 +21,8 @@
             <siteMapNode title="Create account" controller="employee" action="create" icon="adduser" />
             <siteMapNode title="Job title management" controller="jobtitle" action="jobtitlemanagement" icon="user" />
             <!--<siteMapNode title="Department management" controller="department" action="index" icon="setting" />-->
+          <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar1" />
+          
         </siteMapNode>
         <siteMapNode title="Company space">
             <siteMapNode title="Staff info" controller="employee" action="index" icon="users" />
@@ -29,7 +31,8 @@
             <siteMapNode title="Employees' requests" controller="request" action="employeeview"  icon="user1" />
             <siteMapNode title="Daily requests" controller="request" action="dailyview"  icon="user1" />
             <siteMapNode title="Attendance report" controller="report" action="attendance" icon="calendar1" />
-            <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar1" />
+            
+           <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyoutsummary" icon="clock2" />
             <siteMapNode title="Leave summary" controller="report" action="leavesummary" icon="calendar4" />
             <siteMapNode title="Total working hours" controller="report" action="totalworkinghours" icon="clock" />
             <siteMapNode title="Holiday" controller="holiday" action="index" icon="holiday" />

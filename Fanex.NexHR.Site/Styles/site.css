@@ -157,6 +157,17 @@ input[type="password"].input-validation-error {
 	display: none;
 }
 
+.font-description
+{
+    font-style: italic;
+    }
+.description-box 
+{
+    margin-top: 10px;
+	border: 1px solid #d2d2d2;
+	padding-bottom: 6px;
+	padding-left: 5px;
+}
 /*from*/
 .formrow
 {
@@ -716,6 +727,12 @@ span.req.inout
 {
     color:Red;
     }
+.red-color {
+	color:Red;
+}
+.bold-color {
+	font-weight: bold;
+}
 .title-select
 {
     width: 250px;

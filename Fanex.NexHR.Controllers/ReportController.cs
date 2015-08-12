@@ -18,11 +18,15 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Report;
+    using Fanex.NexHR.Criteria.Employee;
 
     /// <summary>
     /// Report controller.
@@ -322,6 +326,171 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult CreateLeaveDeduction()
+        {
+            return PartialView(new LeaveDeductionViewModel
+            {
+                DeductDate = DateTime.Now,
+                TotalDays = decimal.Parse("0.5"),
+                Description = Labels.LeaveDeductionDescription,
+                IsAnnual = true
+            });
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult EditLeaveDeduction()
+        {
+            return PartialView(new LeaveDeductionViewModel
+            {
+                DeductDate = DateTime.Now,
+                TotalDays = decimal.Parse("0.5"),
+                Description = Labels.LeaveDeductionDescription,
+                IsAnnual = true
+            });
+        }
+
+        public ActionResult LateInEarlyOutSummary()
+        {
+            return LateInEarlyOutSummary(null);
+        }
+
+        [HttpPost]
+        public ActionResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            if (model == null)
+            {
+                model = new LateInEarlyOutSummaryViewModel()
+                {
+                    Year = DateTime.Now.Year
+                };
+            }
+
+            model.Groups = teams;
+            var criteria = new GetLateInEarlyOutSummaryReportCriteria
+            {
+                EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId,
+                Year = model.Year
+            };
+            IList<LateInEarlyOutSummary> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+            if (model.TeamId.HasValue)
+            {
+                teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
+            }
+
+            IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
+            model.LateInEarlyOutSummary = lateInEarlyOutSummaryByTeam;
+
+            return View(model);
+        }
+
+        public ActionResult LateInEarlyOutDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)
+        {
+            var model = new LateInEarlyOutDetailViewModel
+            {
+                EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
+                FromDate = fromDate,
+                ToDate = toDate,
+                IncludeLeaveDeduction = false,
+                TeamId = teamId
+            };
+
+            if (employeeId.HasValue)
+            {
+                var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId.Value };
+                var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                model.Employee = employee.DisplayName;
+            }
+            
+            return LateInEarlyOutDetail(model);
+        }
+
+        [HttpPost]
+        public ActionResult LateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
+        {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            model.Teams = teams;
+
+            var criteria = new GetLateInEarlyOutDetailReportCriteria()
+            {
+                EmployeeId = model.EmployeeId == -1 ? null : new int?(model.EmployeeId),
+                GroupId = model.TeamId,
+                IncludeLeaveDeduction = model.IncludeLeaveDeduction,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate
+            };
+
+            var lateInEarlyOuts = _reportService.GetLateInEarlyOutDetail(criteria);
+            model.LateInEarlyOuts = lateInEarlyOuts;
+
+            return View(model);
+        }
+
+        public ActionResult LeaveDeductionDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)
+        {
+            var model = new LeaveDeductionDetailViewModel
+            {
+                EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
+                FromDate = fromDate,
+                ToDate = toDate,
+                TeamId = teamId
+            };
+
+            if (employeeId.HasValue)
+            {
+                var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId.Value };
+                var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                model.Employee = employee.DisplayName;
+            }
+
+            return LeaveDeductionDetail(model);
+        }
+
+        [HttpPost]
+        public ActionResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
+        {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            model.Teams = teams;
+
+            var criteria = new GetLeaveDeductionDetailCriteria()
+            {
+                EmployeeId = model.EmployeeId == -1 ? null : new int?(model.EmployeeId),
+                GroupId = model.TeamId,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate
+            };
+
+            var leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
+            model.LeaveDeductions = leaveDeductions;
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Employee annual leave balance.
+        /// </summary>
+        /// <param name="model">The model object.</param>
+        /// <returns>Action result.</returns>
+        [HttpPost]
+        public ActionResult Employee(AnnualLeaveBalanceViewModel model)
+        {
+            model.ExcludedRequestTrans = model.ExcludedRequestTrans ? false : true;
+            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
+            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
+            {
+                EmployeeId = model.EmployeeId,
+                Year = model.Year,
+                ExcludedRequestTransactions = model.ExcludedRequestTrans
+            };
+
+            ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
+
+            return View(model);
+        }
+
         /// <summary>
         /// Extension number report.
         /// </summary>
@@ -329,6 +498,24 @@ namespace Fanex.NexHR.Controllers
         public ActionResult ExtensionNo()
         {
             return View();
+        }
+
+        public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
+        {
+            if (!fromDate.HasValue || !toDate.HasValue)
+            {
+                fromDate = DateTime.Now.Date;
+                toDate = DateTime.Now.Date;
+            }
+
+            var timeRecordViewModel = new TimeRecordViewModel
+            {
+                FromDate = fromDate.Value,
+                ToDate = toDate.Value,
+                EmployeeId = this.CurrentUser.Id
+            };
+
+            return View(timeRecordViewModel);
         }
 
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)

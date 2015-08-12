@@ -6,6 +6,7 @@ var TimeRecordDetail = (function ($) {
 		init: function () {
 			TimeRecordDetail.bindMenu('.in-action', 'inMenu');
 			TimeRecordDetail.bindMenu('.out-action', 'outMenu');
+			TimeRecordDetail.bindMenu('.inout-action', 'inOutMenu');
 		},
 		bindMenu: function (element, menu) {
 			$(element).contextMenu({

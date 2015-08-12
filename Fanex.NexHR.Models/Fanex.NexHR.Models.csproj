@@ -77,6 +77,10 @@
     <Compile Include="Attributes\EmailValidationRule.cs" />
     <Compile Include="CheckInOutRequest.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="Report\LeaveDeductionDetail.cs" />
+    <Compile Include="Report\LateInEarlyOutDetail.cs" />
+    <Compile Include="Report\LateInEarlyOutSummary.cs" />
+    <Compile Include="Report\LateInEarlyOutSummaryByTeam.cs" />
     <Compile Include="ShowOpenAndCloseAnnualBalance.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentModel.cs" />
@@ -139,6 +143,7 @@
       <Name>Fanex.NexHR.Resources</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -267,4 +267,10 @@
   <data name="SelectParentTeam" xml:space="preserve">
     <value>Select a parent team</value>
   </data>
+  <data name="BalanceDescription" xml:space="preserve">
+    <value>The current hour(s) of Late in/Early out after the last deduction. The Balace value will automatically be reset to zero "0" after the deduction is made</value>
+  </data>
+  <data name="DeductionTakenDescription" xml:space="preserve">
+    <value>The grand total hour(s) of  Late In/Early Out, resulted in a deduction taken from Leave Balance</value>
+  </data>
 </root>

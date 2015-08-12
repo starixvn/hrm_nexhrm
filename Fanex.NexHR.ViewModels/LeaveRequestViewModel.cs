@@ -13,6 +13,7 @@ namespace Fanex.NexHR.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Resources;
 
     /// <summary>
     /// Leave request view model.
@@ -42,6 +43,8 @@ namespace Fanex.NexHR.ViewModels
 
         public bool HalfDayOff { get; set; }
 
+        public bool IsInsteadLateEarlyOut { get; set; }
+
         public string LeaveTypeName { get; set; }
 
         public int ForRequest
@@ -65,7 +68,7 @@ namespace Fanex.NexHR.ViewModels
             if (diff.TotalDays < 0)
             {
                 var validation = new ValidationResult(
-                    Resources.Messages.InvalidToDate,
+                    Messages.InvalidToDate,
                     new[] { "ToDate" });
                 result.Add(validation);
             }
@@ -73,7 +76,7 @@ namespace Fanex.NexHR.ViewModels
             if (HalfDayOff && (TotalDays % 1 == 0))
             {
                 var validation = new ValidationResult(
-                    Resources.Messages.InvalidTotalDays,
+                    Messages.InvalidTotalDays,
                     new[] { "TotalDays" });
                 result.Add(validation);
             }

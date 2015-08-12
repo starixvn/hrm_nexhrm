@@ -10,7 +10,6 @@
 
 namespace Fanex.NexHR.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -18,6 +17,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
 
@@ -199,6 +199,64 @@ namespace Fanex.NexHR.Repositories
             }
 
             return timeRecords;
+        }
+
+        public IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(ICriteria criteria)
+        {
+            IList<LateInEarlyOutSummary> lateinEarlyOuts = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                lateinEarlyOuts = db.Query<LateInEarlyOutSummary, Employee, Team, LateInEarlyOutSummary>(
+                    (la, e, g) =>
+                    {
+                        la.Employee = e;
+                        e.Team = g;
+                        return la;
+                    },
+                    splitOn: "EmpId, GroupId",
+                    parameterValues: criteria.GetSpParams()).ToList();
+            }
+
+            return lateinEarlyOuts;
+        }
+
+        public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria)
+        {
+            IList<LateInEarlyOutDetail> lateInEarlyOuts = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                lateInEarlyOuts = db.Query<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
+                    (la, e, g) =>
+                    {
+                        la.Employee = e;
+                        e.Team = g;
+                        return la;
+                    },
+                    splitOn: "EmpId, GroupId",
+                    parameterValues: criteria.GetSpParams()).ToList();
+            }
+
+            return lateInEarlyOuts;
+        }
+
+        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria)
+        {
+            IList<LeaveDeductionDetail> leaveDeductions = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                leaveDeductions = db.Query<LeaveDeductionDetail, Employee, Team, Employee, LeaveDeductionDetail>(
+                    (le, e, g, modi) =>
+                    {
+                        le.Employee = e;
+                        e.Team = g;
+                        le.ModifiedBy = modi;
+                        return le;
+                    },
+                    splitOn: "EmpId, GroupId, ModifiedById",
+                    parameterValues: criteria.GetSpParams()).ToList();
+            }
+
+            return leaveDeductions;
         }
     }
 }

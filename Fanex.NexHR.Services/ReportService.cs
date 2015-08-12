@@ -10,9 +10,11 @@
 namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
@@ -53,6 +55,69 @@ namespace Fanex.NexHR.Services
             }
 
             return commandResult;
+        }
+
+        public IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LateInEarlyOutSummary> lateInEarlyOuts = null;
+            if (criteria.IsValid())
+            {
+                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutSummary(criteria);
+            }
+
+            return lateInEarlyOuts;
+        }
+
+        public IList<LateInEarlyOutSummaryByTeam> GetLateInEarlyOutSummaryByTeam(IList<LateInEarlyOutSummary> lateInEarlyOuts, IList<Team> teams)
+        {
+            IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = new List<LateInEarlyOutSummaryByTeam>();
+            teams = teams.OrderBy(t => t.Rank).ToList();
+
+            foreach (Team team in teams)
+            {
+                LateInEarlyOutSummaryByTeam entity = new LateInEarlyOutSummaryByTeam
+                {
+                    Team = team,
+                    LateInEarlyOutSummaryInTeam = new List<LateInEarlyOutSummary>()
+                };
+
+                foreach (LateInEarlyOutSummary lateInEarlyOut in lateInEarlyOuts)
+                {
+                    if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                    {
+                        entity.LateInEarlyOutSummaryInTeam.Add(lateInEarlyOut);
+                    }
+                }
+
+                lateInEarlyOutSummaryByTeam.Add(entity);
+            }
+
+            return lateInEarlyOutSummaryByTeam;
+        }
+
+        public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LateInEarlyOutDetail> lateInEarlyOuts = null;
+            if (criteria.IsValid())
+            {
+                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutDetail(criteria);
+            }
+
+            return lateInEarlyOuts;
+        }
+
+        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LeaveDeductionDetail> leaveDeductions = null;
+            if (criteria.IsValid())
+            {
+                leaveDeductions = _reportRepository.GetLeaveDeductionDetail(criteria);
+            }
+
+            return leaveDeductions;
         }
     }
 }

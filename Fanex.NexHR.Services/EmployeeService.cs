@@ -30,12 +30,13 @@ namespace Fanex.NexHR.Services
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using Fanex.NexHR.Criteria.Report;
 
     /// <summary>
     /// Employee service.
     /// </summary>
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : BaseService, IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
 
@@ -282,6 +283,53 @@ namespace Fanex.NexHR.Services
         public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
         {
             return this._employeeRepository.InsertAnnualLeaveTransaction(criteria);
+        }
+
+        public CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                var result = Repository.Insert(criteria);
+                return result;
+            }
+
+            return new CommandResult() { 
+                Code = 1,
+                Message = Labels.InvalidTotalDays
+            };
+        }
+
+        public CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                var result = Repository.Update(criteria);
+                return result;
+            }
+
+            return new CommandResult()
+            {
+                Code = 1,
+                Message = Labels.InvalidTotalDays
+            };
+        }
+
+        public CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                var result = Repository.Delete(criteria);
+                return result;
+            }
+
+            return new CommandResult()
+            {
+                Code = 1,
+                Message = Labels.InvalidTotalDays
+            };
         }
 
         public IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria)

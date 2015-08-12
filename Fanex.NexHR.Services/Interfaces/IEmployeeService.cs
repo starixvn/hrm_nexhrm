@@ -18,6 +18,7 @@ namespace Fanex.NexHR.Services.Interfaces
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.Criteria.Report;
 
     public interface IEmployeeService
     {
@@ -64,6 +65,12 @@ namespace Fanex.NexHR.Services.Interfaces
         bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
 
         bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
+
+        CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria);
+
+        CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria);
+
+        CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria);
 
         IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria);
 
