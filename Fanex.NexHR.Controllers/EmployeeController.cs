@@ -444,13 +444,6 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
-        ////public ActionResult MyDashboard()
-        ////{
-        ////    var model = _employeeService.GetMySpace(this.CurrentUser.Id);
-        ////    ViewBag.HasBirthdayOrFirstWorkingday = false;
-        ////    return View("MySpace", model);
-        ////}
-
         /// <summary>
         /// My space view.
         /// </summary>

@@ -36,18 +36,15 @@ namespace Fanex.NexHR.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
-        private readonly IReportRepository _reportRepository;
         private readonly ITeamService _teamService;
 
         public ReportController(
             IEmployeeService employeeService = null,
             IReportService reportService = null,
-            IReportRepository reportRepository = null,
             ITeamService teamService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _reportService = reportService ?? new ReportService();
-            _reportRepository = reportRepository ?? new ReportRepository();
             _teamService = teamService ?? new TeamService();
         }
 
@@ -131,7 +128,7 @@ namespace Fanex.NexHR.Controllers
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = false;
 
-            ViewBag.EntityList = new List<RequestsMonitoring>();
+            IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
             IList<short> roleList = this.CurrentUser.RoleList;
             if (roleList != null)
@@ -147,9 +144,11 @@ namespace Fanex.NexHR.Controllers
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(getRequestMonitorCriteria);
+                    requestMonitorings = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
+
+            ViewBag.EntityList = requestMonitorings;
 
             return View("RequestMonitoring", model);
         }
@@ -205,7 +204,7 @@ namespace Fanex.NexHR.Controllers
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    ViewBag.EntityList = _reportRepository.GetRequestMonitoring(getRequestMonitorCriteria);
+                    ViewBag.EntityList = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
@@ -258,7 +257,7 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId
             };
 
-            var totalWorkingHours = _reportRepository.GetWorkingHoursList(getWorkingHoursCriteria);
+            var totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
             ViewBag.EntityList = totalWorkingHours;
 
@@ -297,7 +296,7 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId,
                 Year = model.Year
             };
-            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
+            IList<LeaveSummary> entityList = _reportService.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
 
             IList<Team> teams = new List<Team>();
 

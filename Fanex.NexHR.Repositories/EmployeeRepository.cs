@@ -298,64 +298,11 @@ namespace Fanex.NexHR.Repositories
         }
 
         /// <summary>
-        /// Insert working calendar.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
-        public bool InsertWorkingCalendar(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var result = db.ExecuteNonQuery(criteria.GetSpParams());
-                return result != 0;
-            }
-        }
-
-        /// <summary>
         /// Update shift.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>The result.</returns>
         public bool UpdateShift(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Get members by manager.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetMembersByManager(ICriteria criteria)
-        { 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Employee>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Adjust annual leaves.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
-        public bool AdjustAnnualLeaves(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Open annual leaves for new year.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
-        public bool OpenAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

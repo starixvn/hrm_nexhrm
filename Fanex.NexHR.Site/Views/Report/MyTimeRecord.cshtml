@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels
 @model TimeRecordViewModel
 @{
-    ViewBag.Title = @Labels.TimeRecord;
+    ViewBag.Title = @Labels.MyTimeRecord;
 }
 @section css{
     @Url.CombresLink("timerecordcss")
@@ -10,24 +10,53 @@
     @Url.CombresLink("timerecordjs")
 }
 @section Breadcrumb {
-    <a class="step">Company Space</a> <span class="step">@ViewBag.Title</span>
+    <a class="step">Personal</a> <span class="step">@ViewBag.Title</span>
 }
 <h2>@ViewBag.Title</h2>
 <div class="clear">
 </div>
 
 <div class="container_24 bunhat">
-    <div class="grid_2">
-        @Html.LabelFor(model => model.FromDate)
-    </div>
-    <div class="grid_4">
-        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
-    </div>
-    <div class="grid_2">
-        @Html.LabelFor(model => model.ToDate)
-    </div>
-    <div class="grid_4">
-        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 1, 1))
+    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <div class="grid_19">
+        <div class="grid_2 gridlabel">
+            @Labels.DateRange
+        </div>
+        <div class="grid_4">
+            <select id="Date" name="Date">
+                <option value="0">
+                    @Labels.DateRange</option>
+                <option value="1">
+                    @Labels.ToDay</option>
+                <option value="2">
+                    @Labels.Yesterday</option>
+                <option value="3">
+                    @Labels.CurrentWeek</option>
+                <option value="4">
+                    @Labels.LastWeek</option>
+                <option value="5">
+                    @Labels.CurrentMonth</option>
+                <option value="6">
+                    @Labels.LastMonth</option>
+                <option value="7">
+                    @Labels.SinceLastMonth</option>
+            </select>
+            @Html.Hidden("DateOption", Model.DateOption)
+        </div>
+
+        <div class="grid_2 gridlabel">
+            @Html.LabelFor(model => model.FromDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+        </div>
+
+        <div class="grid_2 gridlabel">
+            @Html.LabelFor(model => model.ToDate)
+        </div>
+        <div class="grid_4">
+            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+        </div>
     </div>
     <div class="grid_2">
         <input id="btnSubmit" type="button" value="@Labels.Submit"/>

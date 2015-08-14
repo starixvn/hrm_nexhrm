@@ -46,38 +46,22 @@ namespace Fanex.NexHR.Repositories
         /// <returns>List of request monitoring.</returns>
         public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
         {
+            IList<RequestsMonitoring> entityList = null;
+
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = new List<RequestsMonitoring>();
-
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
+                entityList = db.Query<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
+                    (rq, e, g) =>
                     {
-                        while (reader.Read())
-                        {
-                            var entity = new RequestsMonitoring
-                            {
-                                Requester = new Employee
-                                {
-                                    FullName = reader.ToString("FullName"),
-                                    NickName = reader.ToString("NickName"),
-                                    Team = new Team { Name = reader.ToString("Team"), Id = reader.ToInt("TeamId") },
-                                    Id = reader.ToInt("EmpID")
-                                },
-                                TotalCheckInOut = reader.ToInt("TotalCheckInOutRequest"),
-                                TotalLateInEarlyOut = reader.ToInt("TotalLateInEarlyOutRequest"),
-                                TotalChangeShift = reader.ToInt("TotalChangeShiftRequest"),
-                                TotalLeave = reader.ToInt("TotalLeaveRequest")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
-
-                return entityList;
+                        rq.Requester = e;
+                        e.Team = g;
+                        return rq;
+                    },
+                    splitOn: "EmpId, GroupId",
+                    parameterValues: criteria.GetSpParams()).ToList();
             }
+
+            return entityList;
         }
 
         /// <summary>
@@ -85,7 +69,7 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of working hours.</returns>
-        public IList<TotalWorkingHours> GetWorkingHoursList(ICriteria criteria)
+        public IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

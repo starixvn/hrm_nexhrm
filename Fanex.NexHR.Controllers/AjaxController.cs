@@ -25,7 +25,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -36,49 +35,41 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class AjaxController : BaseController
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeService _employeeService;
         private readonly IRequestService _requestService;
         private readonly IHolidayService _holidayService;
         private readonly IMemoService _memoService;
         private readonly ITeamService _teamService;
-        private readonly IEmployeeService _employeeService;
         private readonly ILookupDataService _lookupDataService;
-        private readonly IReportRepository _reportRepository;
+        private readonly IReportService _reportService;
         private readonly IExtensionNoService _extensionNoService;
         private readonly IDepartmentService _departmentService;
 
         public AjaxController()
+            : this(null, null, null, null, null, null, null, null, null)
         {
-            _employeeRepository = new EmployeeRepository();
-            _requestService = new RequestService();
-            _holidayService = new HolidayService();
-            _memoService = new MemoService();
-            _teamService = new TeamService();
-            _employeeService = new EmployeeService();
-            _lookupDataService = new LookupDataService();
-            _reportRepository = new ReportRepository();
-            _extensionNoService = new ExtensionNoService();
-            _departmentService = new DepartmentService();
         }
 
         public AjaxController(
-            IEmployeeRepository employeeRepository, 
-            IRequestService requestService, 
-            IHolidayService holidayService, 
-            IMemoService memoService, 
-            ITeamService teamService, 
-            ILookupDataService lookupDataService, 
-            IReportRepository reportRepository,
-            IExtensionNoService extensionNoService)
+            IEmployeeService employeeService = null, 
+            IRequestService requestService = null, 
+            IHolidayService holidayService = null, 
+            IMemoService memoService = null, 
+            ITeamService teamService = null, 
+            ILookupDataService lookupDataService = null,
+            IReportService reportService = null,
+            IExtensionNoService extensionNoService = null,
+            IDepartmentService departmentService = null)
         {
-            _employeeRepository = employeeRepository;
-            _requestService = requestService;
-            _holidayService = holidayService;
-            _memoService = memoService;
-            _teamService = teamService;
-            _lookupDataService = lookupDataService;
-            _reportRepository = reportRepository ?? new ReportRepository();
-            _extensionNoService = extensionNoService;
+            _employeeService = employeeService ?? new EmployeeService();
+            _requestService = requestService ?? new RequestService();
+            _holidayService = holidayService ?? new HolidayService();
+            _memoService = memoService ?? new MemoService();
+            _teamService = teamService ?? new TeamService();
+            _lookupDataService = lookupDataService ?? new LookupDataService();
+            _reportService = reportService ?? new ReportService();
+            _extensionNoService = extensionNoService ?? new ExtensionNoService();
+            _departmentService = departmentService ?? new DepartmentService();
         }
 
         [Authorize(Roles = "HR")]
@@ -90,7 +81,7 @@ namespace Fanex.NexHR.Controllers
                 Id = id,
                 ResignedDate = resignedDate
             };
-            bool deleted = _employeeRepository.Delete(criteria);
+            bool deleted = _employeeService.Delete(criteria);
 
             return deleted;
         }
@@ -134,9 +125,7 @@ namespace Fanex.NexHR.Controllers
                 ExcludedManager = false
             };
 
-            return Json(
-                _employeeRepository.GetMembersByManager(getMemberByManager).Take(10),
-                    JsonRequestBehavior.AllowGet);
+            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -161,7 +150,7 @@ namespace Fanex.NexHR.Controllers
                     CreatedBy = this.CurrentUser.Id
                 };
 
-                return Json(_employeeRepository.AdjustAnnualLeaves(adjustAnnualLeavesCriteria));
+                return Json(_employeeService.AdjustAnnualLeaves(adjustAnnualLeavesCriteria));
             }
             else
             {
@@ -184,7 +173,7 @@ namespace Fanex.NexHR.Controllers
                 CreatedDate = DateTime.Now.Date
             };
 
-            return Json(_employeeRepository.OpenAnnualLeaves(criteria));
+            return Json(_employeeService.OpenAnnualLeaves(criteria));
         }
 
         /// <summary>
@@ -208,7 +197,7 @@ namespace Fanex.NexHR.Controllers
                     Year = model.FromDate.Year
                 };
 
-                IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
+                IList<LeaveSummary> entityList = _reportService.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
 
                 entityList = entityList.Where(m => m.LeaveBalance > minbalance).ToList();
 
@@ -231,7 +220,7 @@ namespace Fanex.NexHR.Controllers
                     CreatedBy = this.CurrentUser.Id
                 };
 
-                return Json(_employeeRepository.ResetAnnualLeaves(resetAnnualLeaves));
+                return Json(_employeeService.ResetAnnualLeaves(resetAnnualLeaves));
             }
             else
             {
@@ -305,11 +294,7 @@ namespace Fanex.NexHR.Controllers
                     ToDate = model.ToDate
                 };
 
-                if (criteria.IsValid())
-                {
-                    _employeeRepository.InsertWorkingCalendar(criteria);
-                    result = true;
-                }
+                result = _employeeService.InsertWorkingCalendar(criteria);
             }
 
             return Json(result);

@@ -804,3 +804,17 @@ span.req.inout
 #dialog-toeic input[type="number"] {
     width: 45px;
 }
+
+.ui-datepicker-month
+{
+    width: 49% !important;
+    min-width: 0;
+    max-width: none;
+    }
+
+.ui-datepicker-year
+{
+    width: 49% !important;
+     min-width: 0;
+    max-width: none;
+    }

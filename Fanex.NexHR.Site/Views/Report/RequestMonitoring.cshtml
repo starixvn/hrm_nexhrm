@@ -24,52 +24,53 @@
 {
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <div class="container_24 bunhat">
-        <div class="grid_3 gridlabel">
-            @Labels.DateRange
-        </div>
-        <div class="grid_4">
-            <select id="Date" name="Date" style="min-width:150px;">
-                <option value="0">
-                    @Labels.DateRange</option>
-                <option value="1">
-                    @Labels.ToDay</option>
-                <option value="2">
-                    @Labels.Yesterday</option>
-                <option value="3">
-                    @Labels.CurrentWeek</option>
-                <option value="4">
-                    @Labels.LastWeek</option>
-                <option value="5">
-                    @Labels.CurrentMonth</option>
-                <option value="6">
-                    @Labels.LastMonth</option>
-                <option value="7">
-                    @Labels.SinceLastMonth</option>
-            </select>
-            @Html.Hidden("DateOption", Model.DateOption)
-        </div>
+        <div class="grid_20">
+            <div class="grid_3 gridlabel">
+                @Labels.DateRange
+            </div>
+            <div class="grid_4">
+                <select id="Date" name="Date" style="min-width:150px;">
+                    <option value="0">
+                        @Labels.DateRange</option>
+                    <option value="1">
+                        @Labels.ToDay</option>
+                    <option value="2">
+                        @Labels.Yesterday</option>
+                    <option value="3">
+                        @Labels.CurrentWeek</option>
+                    <option value="4">
+                        @Labels.LastWeek</option>
+                    <option value="5">
+                        @Labels.CurrentMonth</option>
+                    <option value="6">
+                        @Labels.LastMonth</option>
+                    <option value="7">
+                        @Labels.SinceLastMonth</option>
+                </select>
+                @Html.Hidden("DateOption", Model.DateOption)
+            </div>
+            <div class="grid_2 gridlabel">
+                @Html.LabelFor(model => model.FromDate)
+            </div>
+            <div class="grid_4">
+                @Html.DatePickerFor(model => model.FromDate)
+            </div>
 
-        <div class="grid_2 gridlabel">
-            @Html.LabelFor(model => model.FromDate)
-        </div>
-        <div class="grid_4">
-            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-        </div>
+            <div class="grid_2 gridlabel">
+                @Html.LabelFor(model => model.ToDate)
+            </div>
 
-        <div class="grid_2 gridlabel">
-            @Html.LabelFor(model => model.ToDate)
+            <div class="grid_4">
+                @Html.DatePickerFor(model => model.ToDate)
+            </div>
         </div>
-
-        <div class="grid_4">
-            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-        </div>
-
         <div class="clear"></div>
         <div class="space"></div>
-
+        <div class="grid_20">
         <div class="grid_3 gridlabel">@Html.LabelFor(model => model.MaxRequest)</div>
         <div class="grid_4">@RazorHelper.MaxRequestDropDownList(Model.MaxRequest)
         <input type="submit" value="@Labels.Submit" class="processing-submit" style="float:right"/>
+        </div>
         </div>
         <div class="clear"></div>
     </div>
@@ -78,23 +79,33 @@
 <div class="clear">
 </div>
 <table class="data persist-area">
-    <thead>
-        <tr class ="persist-header">
-            <th>
+    <thead class ="persist-header">
+        <tr>
+            <th rowspan="2">
                 #
             </th>
-            <th>@Labels.Name
+            <th rowspan="2">@Labels.Name
             </th>
-            <th>@Labels.Nick
+            <th rowspan="2">@Labels.Nick
             </th>
-            <th>@Labels.Team
+            <th rowspan="2">@Labels.Team
             </th>
-            <th>@Labels.Leave
+            <th colspan="4">@Labels.Leave</th>
+            <th colspan="2">@Labels.CheckInOut </th>
+            <th rowspan="2">@Labels.LateInEarlyOut (Times)
             </th>
-            @*<th>@Labels.LateInEarlyOut
-            </th>*@
-            <th>@Labels.CheckInOut
+             <th rowspan="2">@Labels.Absent (Times)
             </th>
+        </tr>
+        <tr>
+            <th>Request (Times)</th>
+            <th>Annual (Days)</th>
+            <th>Unpaid (Days)</th>
+            <th>Others (Days)</th>
+            <th>Request (Times)</th>
+            <th>Missing (Times)</th>
+            @* <th> (Times)</th>
+            <th> (Times)</th>*@
         </tr>
     </thead>
     <tbody>
@@ -103,9 +114,8 @@
             int index = 1;
             var requestModel = new RequestViewModel();
 
-            foreach (Fanex.NexHR.Models.RequestsMonitoring request in ViewBag.EntityList)
+            foreach (RequestsMonitoring request in ViewBag.EntityList)
             {
-
                 requestModel = new RequestViewModel
                 {
                     DateOption = 0,
@@ -114,7 +124,8 @@
                     EmployeeId = request.Requester.Id,
                     Employee = request.Requester.NickName + " (" + request.Requester.FullName + ")",
                     TeamId = -2,
-                    StatusId = (byte)RequestStatuse.Approve
+                    StatusId = (byte)RequestStatuse.Approve,
+                    IsFilterByEffectedDate = true
                 };
 
             <tr>
@@ -124,71 +135,155 @@
                 </td>
                 <td>@request.Requester.NickName
                 </td>
-                <td>@request.Requester.Team.Name
+                <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
                 </td>
-                <td class="@(request.TotalLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                    @if (request.TotalLeave > 0)
+                <td class="@(request.TotalLeaveTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalLeaveTimes > 0)
                     {
                         requestModel.RequestType = 1;
-
                         if ((bool)ViewBag.isLeader)
                         {
-                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalLeave</a>
+                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalLeaveTimes</a>
                         }
                         else
                         {
-                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLeave</a>
+                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLeaveTimes</a>
                         }
                     }
                     else
                     {
-                        <span>0</span>
+                        <span>-</span>
                     }
                 </td>
-                @*<td class="@(request.TotalLateInEarlyOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                    @if (request.TotalLateInEarlyOut > 0)
+                <td class="@(request.TotalAnnualLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAnnualLeave > 0)
                     {
-                        requestModel.RequestType = 3;
-
+                        requestModel.RequestType = 1;
                         if ((bool)ViewBag.isLeader)
                         {
-                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalLateInEarlyOut</a>
+                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
                         }
                         else
                         {
-                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLateInEarlyOut</a>
+                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
                         }
                     }
                     else
                     {
-                        <span>0</span>
+                        <span>-</span>
                     }
-                </td>*@
-                <td class="@(request.TotalCheckInOut > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                    @if (request.TotalCheckInOut > 0)
+                </td>
+                <td class="@(request.TotalUnpaidLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalUnpaidLeave > 0)
+                    {
+                        requestModel.RequestType = 1;
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalOtherLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalOtherLeave > 0)
+                    {
+                        requestModel.RequestType = 1;
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalCheckInOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalCheckInOutTimes > 0)
                     {
                         requestModel.RequestType = 4;
-
                         if ((bool)ViewBag.isLeader)
                         {
-                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalCheckInOut</a>
+                            <a href="@Url.Action("member", "request", requestModel)">@request.TotalCheckInOutTimes</a>
                         }
                         else
                         {
-                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalCheckInOut</a>
+                            <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalCheckInOutTimes</a>
                         }
                     }
                     else
                     {
-                        <span>0</span>
+                        <span>-</span>
                     }
                 </td>
-            </tr>  
+                <td class="@(request.TotalMissingCheckInOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalMissingCheckInOutTimes > 0)
+                    {
+                        var model = new EmployeeAttendanceViewModel() 
+                        { 
+                            EmpId = request.Requester.Id,
+                            Employee = request.Requester.DisplayName,
+                            FromDate = ViewBag.FromDate,
+                            ToDate = ViewBag.ToDate
+                        };
+                        <a href="@Url.Action("attendance", "report", model)">@request.TotalMissingCheckInOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.LateInEarlyOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.LateInEarlyOutTimes > 0)
+                    {
+                        var model = new EmployeeAttendanceViewModel()
+                        {
+                            EmpId = request.Requester.Id,
+                            Employee = request.Requester.DisplayName,
+                            FromDate = ViewBag.FromDate,
+                            ToDate = ViewBag.ToDate
+                        };
+                        <a href="@Url.Action("attendance", "report", model)">@request.LateInEarlyOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalAbsent > Model.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAbsent > 0)
+                    {
+                        var model = new EmployeeAttendanceViewModel()
+                        {
+                            EmpId = request.Requester.Id,
+                            Employee = request.Requester.DisplayName,
+                            FromDate = ViewBag.FromDate,
+                            ToDate = ViewBag.ToDate
+                        };
+                        <a href="@Url.Action("attendance", "report", model)">@request.TotalAbsent</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
             }
         }
         else
         { 
-            @RazorHelper.DisplayNoInformation(colspan: 8);
+            @RazorHelper.DisplayNoInformation(colspan: 12);
         }
     </tbody>
 </table>

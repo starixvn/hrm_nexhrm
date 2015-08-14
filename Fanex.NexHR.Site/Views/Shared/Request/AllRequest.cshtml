@@ -51,7 +51,8 @@
                     Employee = request.Requester.NickName + " (" + request.Requester.FullName + ")",
                     TeamId = options.TeamId == null ? -2 : options.TeamId,
                     StatusId = options.StatusId,
-                    RequestType = request.RequestType.RequestFilter
+                    RequestType = request.RequestType.RequestFilter,
+                    IsFilterByEffectedDate = options.IsFilterByEffectedDate
                 };
                 
                 <tr id="row@(request.Id)">

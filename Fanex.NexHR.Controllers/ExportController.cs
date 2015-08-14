@@ -19,6 +19,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using NPOI.HSSF.UserModel;
 
@@ -27,6 +28,25 @@ namespace Fanex.NexHR.Controllers
     /// </summary>
     public class ExportController : BaseController
     {
+        private readonly IEmployeeService _employeeService;
+        private readonly IReportService _reportService;
+        private readonly ExportService _exportService;
+
+        public ExportController(
+            EmployeeService employeeService = null,
+            ExportService exportService = null,
+            IReportService reportService = null)
+        {
+            _employeeService = employeeService ?? new EmployeeService();
+            _exportService = exportService ?? new ExportService();
+            _reportService = reportService ?? new ReportService();
+        }
+
+        public ExportController()
+            : this(null, null, null)
+        {
+        }
+
         /// <summary>
         /// Export total working hours.
         /// </summary>
@@ -34,8 +54,6 @@ namespace Fanex.NexHR.Controllers
         /// <returns>Action result.</returns>
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
-            var _reportRepository = new ReportRepository();
-            var _reportService = new EmployeeService();
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
             if (model == null)
@@ -60,9 +78,9 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> listTotalWorkingHours = _reportRepository.GetWorkingHoursList(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            _reportService.ExportTotalWorkingHours(hssfworkbook, listTotalWorkingHours, model.FromDate, model.ToDate);
+            _exportService.ExportTotalWorkingHours(hssfworkbook, listTotalWorkingHours, model.FromDate, model.ToDate);
 
             var output = new MemoryStream();
             hssfworkbook.Write(output);
@@ -88,8 +106,6 @@ namespace Fanex.NexHR.Controllers
             bool? isDelete = null,
             int? titleId = null)
         {
-            var _reportService = new EmployeeService();
-
             if (groupId == -1)
             {
                 groupId = null;
@@ -111,9 +127,9 @@ namespace Fanex.NexHR.Controllers
 
             string fileName = "EmployeeProfile.xls";
 
-            IList<Employee> listEmployees = _reportService.Query(getAllEmployeeCriteria);
+            IList<Employee> listEmployees = _employeeService.Query(getAllEmployeeCriteria);
 
-            _reportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
+            _exportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
 
             MemoryStream output = new MemoryStream();
 
@@ -142,8 +158,6 @@ namespace Fanex.NexHR.Controllers
             short attendanceType,
             bool excludeUserDelete)
         {
-            var _reportRepository = new ReportRepository();
-            var _exportService = new ExportService();
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
 
             string fileName = "EmployeeAttendance.xls";
@@ -163,7 +177,7 @@ namespace Fanex.NexHR.Controllers
                 ExcludeUserDelete = excludeUserDelete ? 1 : 0
             };
 
-            IList<EmployeeAttendanceModel> listEmployeeAttendances = _reportRepository.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            IList<EmployeeAttendanceModel> listEmployeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             _exportService.ExportEmployeeAttendances(hssfworkbook, listEmployeeAttendances);
 

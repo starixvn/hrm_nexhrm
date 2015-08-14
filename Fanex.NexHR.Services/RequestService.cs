@@ -456,13 +456,7 @@ namespace Fanex.NexHR.Services
 
         private void SendMailForCheckInOut(CheckInOutRequestViewModel model, string subject, string templateEmailPath)
         {
-            // get leader(s)
-            var criteria = new GetLeadersOfEmployeeCriteria()
-            {
-                Id = model.EmployeeId
-            };
-            var leaders = this._employeeRepository.GetLeaders(criteria);
-
+            IList<Employee> leaders = GetLeaderForCheckInOut(model);
             if (leaders != null && leaders.Any())
             {
                 // send email(s)
@@ -491,6 +485,27 @@ namespace Fanex.NexHR.Services
                         body);
                 }
             }
+        }
+
+        private IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
+        {
+            IList<Employee> leaders = null;
+            if (string.Equals(model.Shift, "A2") 
+                && (model.ForDate.DayOfWeek == DayOfWeek.Saturday || model.ForDate.DayOfWeek == DayOfWeek.Sunday))
+            {
+                var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
+                leaders = this._employeeRepository.GetLeaders(getLeaderCriteria);
+            }
+            else
+            {
+                var criteria = new GetLeadersOfEmployeeCriteria()
+                {
+                    Id = model.EmployeeId
+                };
+                leaders = this._employeeRepository.GetLeaders(criteria);
+            }
+            
+            return leaders;
         }
 
         private void SendMailForLeave(LeaveRequestViewModel model, string subject, string templateEmailPath)

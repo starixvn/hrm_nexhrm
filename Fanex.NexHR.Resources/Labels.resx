@@ -819,4 +819,25 @@
   <data name="DeductionTaken" xml:space="preserve">
     <value>Deduction Taken</value>
   </data>
+  <data name="Absent" xml:space="preserve">
+    <value>Absent</value>
+  </data>
+  <data name="CheckInOutRequest" xml:space="preserve">
+    <value>Check In/Out Request</value>
+  </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filter By</value>
+  </data>
+  <data name="LeaveRequestTimes" xml:space="preserve">
+    <value>Leave Request (Times)</value>
+  </data>
+  <data name="MissingCheckInOut" xml:space="preserve">
+    <value>Missing Check In/Out</value>
+  </data>
+  <data name="OtherLeaves" xml:space="preserve">
+    <value>Other Leaves</value>
+  </data>
+  <data name="MyTimeRecord" xml:space="preserve">
+    <value>My Time Record</value>
+  </data>
 </root>

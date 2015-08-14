@@ -41,6 +41,19 @@
         <div class="grid_4">
             @Html.DatePickerFor(model => model.ToDate)
         </div>
+        <div class="grid_2">
+            @Labels.FilterBy
+        </div>
+         <div class="grid_4">
+            @{
+                var filteringDateType = new List<SelectListItem>
+                    {
+                        new SelectListItem() {Text = "Effected Date", Value = "true"}, 
+                        new SelectListItem() {Text = "Created Date", Value = "false"},
+                    };
+            }
+            @Html.DropDownListFor(model => model.IsFilterByEffectedDate, filteringDateType)
+        </div>
         <div class="clear">
         </div>
         <div class="space">

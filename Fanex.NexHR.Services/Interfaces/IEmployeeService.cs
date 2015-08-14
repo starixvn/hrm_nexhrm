@@ -31,6 +31,8 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<Employee> GetManagements(GetManagementsCriteria criteria);
 
+        IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);
+
         int Insert(InsertEmployeeCriteria criteria);
 
         bool Delete(DeleteEmployeeCriteria criteria);
@@ -88,5 +90,11 @@ namespace Fanex.NexHR.Services.Interfaces
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
 
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
+
+        bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria);
+
+        bool OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria);
+
+        bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
     }
 }

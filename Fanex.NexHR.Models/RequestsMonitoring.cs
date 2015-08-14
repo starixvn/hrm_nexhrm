@@ -16,12 +16,20 @@ namespace Fanex.NexHR.Models
     {
         public Employee Requester { get; set; }
 
-        public int TotalCheckInOut { get; set; }
+        public int TotalLeaveTimes { get; set; }
 
-        public int TotalLateInEarlyOut { get; set; }
+        public float TotalAnnualLeave { get; set; }
 
-        public int TotalChangeShift { get; set; }
+        public float TotalUnpaidLeave { get; set; }
 
-        public int TotalLeave { get; set; }
+        public float TotalOtherLeave { get; set; }
+
+        public int TotalCheckInOutTimes { get; set; }
+
+        public int TotalMissingCheckInOutTimes { get; set; }
+
+        public int LateInEarlyOutTimes { get; set; }
+
+        public int TotalAbsent { get; set; }
     }
 }

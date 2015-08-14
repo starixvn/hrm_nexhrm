@@ -30,6 +30,7 @@
  {        
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <div class="container_24 bunhat">
+     <div class="grid_19">
         <div class="grid_2 gridlabel">
             @Labels.DateRange
         </div>
@@ -68,9 +69,10 @@
         <div class="grid_4">
             @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
         </div>
+        </div>
         <div class="clear"></div>
         <div class="space"></div>
-
+        <div class="grid_19">
         <div class="grid_2 gridlabel">
             @Html.LabelFor(model => model.Team)
         </div>
@@ -96,6 +98,7 @@
             <input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit"/>
             <input type="submit" value="Excel" onclick="submitForm('True')"/>
             @Html.HiddenFor(model => model.IsExportExcel)
+        </div>
         </div>
         <div class="clear"></div>
     </div>
@@ -135,7 +138,8 @@
             Employee = item.Employee.NickName + " (" + item.Employee.FullName + ")",
             TeamId = Model.TeamId == null ? -2 : Model.TeamId,
             StatusId = 0,
-            RequestType = 1
+            RequestType = 1,
+            IsFilterByEffectedDate = true
         };
             <tr>
                     <td>@(index++)

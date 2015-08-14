@@ -28,6 +28,7 @@
     <Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetManagements" SpName="Employee_GetManagements" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="ExtensionNumber">
     <Setting Key="ExtensionNO_GetAll" SpName="ExtensionNO_GetAll" DbName="nexhr" Plain="0"></Setting>
@@ -161,7 +162,10 @@
     <Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard_xtest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_LeaveSummary" SpName="Report_LeaveSummary" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="RequestMonitoring" SpName="Report_RequestMonitor_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="RequestMonitoring" SpName="Report_RequestMonitor_xtest1" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id"/>
+      <Mapping DataField="GroupId" ObjectProperty="Id"/>
+    </Setting>
     <Setting Key="Report_EmployeeCalendarByMonth" SpName="Report_EmployeeCalendarByMonth" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_GetLateInEarlyOutSummary" SpName="Report_GetLateInEarlyOutSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id"/>

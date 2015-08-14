@@ -31,5 +31,7 @@ namespace Fanex.NexHR.ViewModels
         public IList<Team> Teams { get; set; }
 
         public byte? IsLocal { get; set; }
+
+        public int DateOption { get; set; }
     }
 }

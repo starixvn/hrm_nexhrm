@@ -18,6 +18,7 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
+using Fanex.NexHR.ViewModels;
 
     public class ReportService : BaseService, IReportService
     {
@@ -118,6 +119,54 @@ namespace Fanex.NexHR.Services
             }
 
             return leaveDeductions;
+        }
+
+        public IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<RequestsMonitoring> monitorings = null;
+            if (criteria.IsValid())
+            {
+                monitorings = _reportRepository.GetRequestMonitoring(criteria);
+            }
+
+            return monitorings;
+        }
+
+        public IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<TotalWorkingHours> totalWorkingHours = null;
+            if (criteria.IsValid())
+            {
+                totalWorkingHours = _reportRepository.GetTotalWorkingHours(criteria);
+            }
+
+            return totalWorkingHours;
+        }
+
+        public IList<LeaveSummary> GetAnnualLeaveBalanceReport(GetAnnualLeaveSummaryReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LeaveSummary> leaveBalances = null;
+            if (criteria.IsValid())
+            {
+                leaveBalances = _reportRepository.GetAnnualLeaveBalanceReport(criteria);
+            }
+
+            return leaveBalances;
+        }
+
+        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<EmployeeAttendanceModel> attendances = null;
+            if (criteria.IsValid())
+            {
+                attendances = _reportRepository.GetEmployeeAttendanceReport(criteria);
+            }
+
+            return attendances;
         }
     }
 }

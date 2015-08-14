@@ -23,7 +23,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria);
 
-        IList<TotalWorkingHours> GetWorkingHoursList(ICriteria criteria);
+        IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria);
 
         IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria);
 

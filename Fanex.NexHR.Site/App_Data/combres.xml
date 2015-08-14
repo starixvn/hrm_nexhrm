@@ -355,9 +355,9 @@
     
     <resourceSet name="lateinearlyoutsummaryjs" type="js">
       <resource reference="sitejs"/>
-      <resource path="~/scripts/views/_employee.search.in.company.js" />
       <resource path="~/scripts/libs/date.js" />
       <resource path="~/scripts/views/date.filter.js" />
+      <resource path="~/scripts/views/_employee.search.in.company.js" />
       <resource path="~/scripts/views/leavededuction.js" />
     </resourceSet>
     
@@ -463,14 +463,15 @@
     <resourceSet name="timerecordcss" type="css">
       <resource reference="sitecss"/>
       <resource path="~/styles/timerecord.css" />
+      <resource path="~/styles/report.css" />
     </resourceSet>
     <resourceSet name="timerecordjs" type="js">
       <resource reference="sitejs"/>
       <resource path="~/scripts/libs/jquery.contextmenu.js" />
-      <resource path="~/scripts/views/timerecord.js" />
-      <resource path="~/scripts/views/_employee.search.in.company.js" />
       <resource path="~/scripts/libs/date.js" />
       <resource path="~/scripts/views/date.filter.js" />
+      <resource path="~/scripts/views/_employee.search.in.company.js" />
+      <resource path="~/scripts/views/timerecord.js" />
     </resourceSet>
     <resourceSet name="timerecorddetailjs" type="js">
       <resource path="~/scripts/views/timerecord.detail.js" />

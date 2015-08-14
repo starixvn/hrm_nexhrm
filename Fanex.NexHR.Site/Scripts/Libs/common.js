@@ -108,6 +108,8 @@ $(document).ready(function(){
 				beforeShowDay: checkBadDates,
 				showOn: "button",
 				buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
 				buttonImage: _global.root + "images/calendar.png"
 			});
 		} 
@@ -116,6 +118,8 @@ $(document).ready(function(){
 				dateFormat: "dd M, yy",
 				showOn: "button",
 				buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
 				buttonImage: _global.root + "images/calendar.png"
 			});
 		}

@@ -20,9 +20,8 @@
 <div class="container_24 bunhat">
     @using (Html.BeginGetForm())
     {
-        @Html.ValidationSummary(true)
-        
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+        <div class="grid_20">
         <div class="grid_2 gridlabel">
             @Labels.DateRange
         </div>
@@ -47,24 +46,22 @@
             </select>
             @Html.Hidden("DateOption", Model.DateOption)
         </div>
-        
         <div class="grid_2">
-            From date
+            @Labels.FromDate
         </div>
         <div class="grid_4">
             @Html.DatePicker("FromDate", Model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
-            @*<input type="text" id="pickdate" />*@
         </div>
         <div class="grid_2">
-            To date 
+            @Labels.ToDate
         </div>
         <div class="grid_4">
             @Html.DatePicker("ToDate", Model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
         </div>
-        
+        </div>
         <div class="clear"></div>
         <div class="space"></div>
-        
+        <div class="grid_20">
         <div class="grid_2">
             @Html.LabelFor(model => model.AttendanceType, "Request")
         </div>
@@ -103,14 +100,13 @@
             @Html.HiddenFor(model => model.EmpId)
             @Html.ValidationMessageFor(model => model.EmpId)
         </div>
-        
+        </div>
         <div class="clear"></div>
         <div class="space"></div>
         <div class="clear"></div>
         <div class="space"></div>
-        
+        <div class="grid_20">
         <div class="grid_2">&nbsp</div>
-        
         <div class="grid_4">
             @Html.CheckBoxFor(model => model.ExcludeUserDelete)
             <label for="ExcludeUserDelete"> Exclude Users deleted </label>
@@ -121,6 +117,7 @@
         <div class="grid_5">
             <input type="button" value="@Labels.Submit" id="view"/>
             <input type="button" value="@Labels.Excel" id="exportExcel"/>
+        </div>
         </div>
         <div class="clear"></div>
     }

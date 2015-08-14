@@ -61,6 +61,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Absent.
+        /// </summary>
+        public static string Absent {
+            get {
+                return ResourceManager.GetString("Absent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Date.
         /// </summary>
         public static string ActualDate {
@@ -372,6 +381,15 @@ namespace Fanex.NexHR.Resources {
         public static string CheckInOut {
             get {
                 return ResourceManager.GetString("CheckInOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check In/Out Request.
+        /// </summary>
+        public static string CheckInOutRequest {
+            get {
+                return ResourceManager.GetString("CheckInOutRequest", resourceCulture);
             }
         }
         
@@ -750,6 +768,15 @@ namespace Fanex.NexHR.Resources {
         public static string Feb {
             get {
                 return ResourceManager.GetString("Feb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter By.
+        /// </summary>
+        public static string FilterBy {
+            get {
+                return ResourceManager.GetString("FilterBy", resourceCulture);
             }
         }
         
@@ -1186,6 +1213,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Request (Times).
+        /// </summary>
+        public static string LeaveRequestTimes {
+            get {
+                return ResourceManager.GetString("LeaveRequestTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave summary.
         /// </summary>
         public static string LeaveSummary {
@@ -1303,6 +1339,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing Check In/Out.
+        /// </summary>
+        public static string MissingCheckInOut {
+            get {
+                return ResourceManager.GetString("MissingCheckInOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Month.
         /// </summary>
         public static string Month {
@@ -1380,6 +1425,15 @@ namespace Fanex.NexHR.Resources {
         public static string MySpace {
             get {
                 return ResourceManager.GetString("MySpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Time Record.
+        /// </summary>
+        public static string MyTimeRecord {
+            get {
+                return ResourceManager.GetString("MyTimeRecord", resourceCulture);
             }
         }
         
@@ -1578,6 +1632,15 @@ namespace Fanex.NexHR.Resources {
         public static string OldScores {
             get {
                 return ResourceManager.GetString("OldScores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Leaves.
+        /// </summary>
+        public static string OtherLeaves {
+            get {
+                return ResourceManager.GetString("OtherLeaves", resourceCulture);
             }
         }
         

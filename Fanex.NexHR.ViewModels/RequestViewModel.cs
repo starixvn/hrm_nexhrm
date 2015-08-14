@@ -54,6 +54,8 @@ namespace Fanex.NexHR.ViewModels
 
         public int RequestType { get; set; }
 
+        public bool IsFilterByEffectedDate { get; set; }
+
         [Display(Name = "Team")]
         public IList<Team> TeamCollection { get; set; }
 

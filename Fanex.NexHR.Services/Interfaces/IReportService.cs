@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Services.Interfaces
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
+    using Fanex.NexHR.ViewModels;
 
     public interface IReportService
     {
@@ -27,5 +28,13 @@ namespace Fanex.NexHR.Services.Interfaces
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
         IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria);
+
+        IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
+
+        IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria);
+
+        IList<LeaveSummary> GetAnnualLeaveBalanceReport(GetAnnualLeaveSummaryReportCriteria criteria);
+
+        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
     }
 }

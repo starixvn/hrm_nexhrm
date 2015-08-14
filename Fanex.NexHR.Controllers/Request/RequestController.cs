@@ -69,6 +69,7 @@ namespace Fanex.NexHR.Controllers.Request
                     FromDate = request.ToDate.AddMonths(-2),
                     RequestType = 5,
                     TeamId = null,
+                    IsFilterByEffectedDate = false
                 };
             }
 
@@ -82,8 +83,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ManagerId = this.CurrentUser.Id
             };
             request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
-
-            GetRequest(request, (short)Role.AssistantLeader, isFilterByEffectedDate: false);
+            GetRequest(request, (short)Role.AssistantLeader);
 
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
@@ -91,41 +91,6 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Options = request;
 
             return View(request);
-        }
-
-        /// <summary>
-        /// Daily view request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Action result.</returns>
-        public ActionResult DailyView(RequestViewModel request)
-        {
-            // Default view all request type
-            if (request.TeamId == -1)
-            {
-                request = new RequestViewModel
-                {
-                    StatusId = 0,
-                    RequestType = 5,
-                    TeamId = null
-                };
-            }
-
-            // Get request model from Request monitoring view.
-            if (request.TeamId == -2)
-            {
-                request.StatusId = 0;
-                request.TeamId = null;
-            }
-
-            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
-
-            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: true);
-
-            ViewBag.Status = request.StatusId;
-            ViewBag.IsAllowChangeStatus = false;
-            ViewBag.Options = request;
-            return View("DailyRequestsView", request);
         }
 
         /// <summary>
@@ -142,7 +107,8 @@ namespace Fanex.NexHR.Controllers.Request
                 {
                     StatusId = 0,
                     RequestType = 5,
-                    TeamId = null
+                    TeamId = null,
+                    IsFilterByEffectedDate = true
                 };
             }
 
@@ -154,7 +120,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
-            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: false);
+            GetRequest(request, (short)Role.HR);
 
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = false;
@@ -178,6 +144,7 @@ namespace Fanex.NexHR.Controllers.Request
                     StatusId = 0,
                     RequestType = 5,
                     TeamId = null,
+                    IsFilterByEffectedDate = false
                 };
             }
 
@@ -189,7 +156,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
-            GetRequest(request, (short)Role.HR, isFilterByEffectedDate: false);
+            GetRequest(request, (short)Role.HR);
 
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = true;
@@ -221,7 +188,7 @@ namespace Fanex.NexHR.Controllers.Request
             return deleted;
         }
 
-        private void GetRequest(RequestViewModel request, short role, bool isFilterByEffectedDate)
+        private void GetRequest(RequestViewModel request, short role)
         {
             var criteria = new GetRequestCriteria()
             {
@@ -235,7 +202,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = request.RequestType == 1
                     ? Convert.ToString((int)RequestType.Leave)
                     : (request.RequestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty),
-                IsFilterByEffectedDate = isFilterByEffectedDate
+                IsFilterByEffectedDate = request.IsFilterByEffectedDate
             };
 
             IList<RequestEntity> entityList = _requestService.GetRequest(criteria);

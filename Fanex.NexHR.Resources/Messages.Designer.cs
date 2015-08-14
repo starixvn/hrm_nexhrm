@@ -133,7 +133,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current hour(s) of Late in/Early out after the last deduction. The Balace value will automatically be reset to zero &quot;0&quot; after the deduction is made.
+        ///   Looks up a localized string similar to The current hour(s) of Late in/Early out after the last deduction..
         /// </summary>
         public static string BalanceDescription {
             get {

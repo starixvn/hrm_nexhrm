@@ -18,6 +18,7 @@
 <div class="container_24 bunhat">
     @using (Html.BeginForm())
     {
+        <div class="grid_19">
         <div class="grid_1 gridlabel">
             @Html.LabelFor(model => model.Year)
         </div>
@@ -46,13 +47,11 @@
             @Html.HiddenFor(model => model.EmployeeId)
         </div>
 
-        <div class="grid_3 prefix_1">
+        <div class="grid_3">
             <input type="submit" value="@Labels.Submit" class="processing-submit"/>
         </div>
+        </div>
         <div class="clear"></div>
-        <div class="space"></div>
-        
-        
     }
 </div>  
 
