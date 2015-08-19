@@ -15,6 +15,7 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
+    using System;
 
     /// <summary>
     /// My space view model.
@@ -33,6 +34,10 @@ namespace Fanex.NexHR.ViewModels
         public decimal NumberWorkingDayCurrentMonth { get; set; }
 
         public decimal NumberWorkingDayLastMonth { get; set; }
+
+        public DateTime CheckInTime { get; set; }
+
+        public DateTime CheckOutTime { get; set; }
 
         public IList<DashboardPersonalSpaceModel> DashboardCompanySpace { get; set; }
 
@@ -442,6 +447,36 @@ namespace Fanex.NexHR.ViewModels
                     }
 
                     displayValue = string.Format(_DisplayCellTpl, lastMonthAbsents.Count, dates.ToString());
+                }
+
+                return displayValue;
+            }
+        }
+
+        public string DisplayCheckInTime
+        {
+            get
+            {
+                var displayValue = "Missing";
+
+                if ((CheckInTime - new DateTime(2000, 1, 1)).Days != 0)
+                {
+                    displayValue = CheckInTime.ToShortTimeString();
+                }
+
+                return displayValue;
+            }
+        }
+
+        public string DisplayCheckOutTime
+        {
+            get
+            {
+                var displayValue = "Missing";
+
+                if ((CheckOutTime - new DateTime(2000, 1, 1)).Days != 0)
+                {
+                    displayValue = CheckOutTime.ToShortTimeString();
                 }
 
                 return displayValue;

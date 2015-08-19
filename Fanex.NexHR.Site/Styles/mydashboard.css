@@ -59,34 +59,6 @@ table.dashboard-company
 	line-height: 20px;
 }
 
-.lnk-member {
-		position: relative;
-		.drop-menu {
-            z-index: 999;
-			position: absolute;
-			left: 0;
-			top: 17px;
-			padding: 0;
-			background : #f7f5f5;
-			min-width: 120px;
-			li {
-				border: 1px solid #d2d2d2;
-				padding: 3px 0;
-				text-align: left;
-				border-bottom: none;
-				.chevron-right {
-					background: url(Images/chevron-right.png) no-repeat;
-					display: inline-block;
-					width: 9px;
-					height: 11px;
-					margin: 0 6px;
-				}
-				&:last-child {
-					border-bottom: 1px solid #d2d2d2;
-				}
-			}
-		}
-	}
 .lnk-days
 {
     position: relative;
@@ -121,3 +93,10 @@ table.dashboard-company
 .list-unstyled {
     list-style: none;
 }
+
+.checkInOutTime
+{
+    font-weight: bold;
+	color: #0D1BE4;
+	font-size: 16px;
+    }
