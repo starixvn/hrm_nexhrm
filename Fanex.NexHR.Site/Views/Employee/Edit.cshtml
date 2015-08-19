@@ -49,7 +49,7 @@
         </div>
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.Code)
+                @Html.LabelFor(model => model.Code, "Staff Code")
             </div>
             <div class="input">
                 @Html.EditorFor(model => model.Code)
@@ -149,7 +149,7 @@
         </div>
         <div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.CardNo)
+                @Html.LabelFor(model => model.CardNo, "Id No.")
             </div>
             <div class="input">
                 @Html.EditorFor(model => model.CardNo)
@@ -165,7 +165,7 @@
         </div>
 		<div class="formrow">
             <div class="label">
-                @Html.LabelFor(model => model.IssuedPlace)
+                @Html.LabelFor(model => model.IssuedPlace, "Issuing Authority")
             </div>
             <div class="input">
                 @Html.TextAreaFor(model => model.IssuedPlace, new { maxlength = "250" })
