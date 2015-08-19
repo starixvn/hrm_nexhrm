@@ -9,33 +9,39 @@
 
 namespace Fanex.NexHR.ViewModels
 {
+    using System;
+
     /// <summary>
     /// HR leader dashboard model.
     /// </summary>
     public class HRLeaderDashboardModel
     {
-        public int TotalPendingCheckInOutRequest { get; set; }
+        public int LeavePending { get; set; }
 
-        public int TotalApprovedCheckInOutRequest { get; set; }
+        public int CheckInOutPending { get; set; }
 
-        public int TotalRejectCheckInOutRequest { get; set; }
+        public DateTime FromDateLeave { get; set; }
 
-        public int TotalPendingLateInEarlyOutRequest { get; set; }
+        public DateTime ToDateLeave { get; set; }
 
-        public int TotalApprovedLateInEarlyOutRequest { get; set; }
+        public DateTime FromDateCheckInOut { get; set; }
 
-        public int TotalRejectLateInEarlyOutRequest { get; set; }
+        public DateTime ToDateCheckInOut { get; set; }
 
-        public int TotalPendingChangeShiftRequest { get; set; }
+        public int LeaveApprovedCurrentMonth { get; set; }
 
-        public int TotalApprovedChangeShiftRequest { get; set; }
+        public int LeaveApprovedLastMonth { get; set; }
 
-        public int TotalRejectChangeShiftRequest { get; set; }
+        public int LeaveRejectedCurrentMonth { get; set; }
 
-        public int TotalPendingLeaveRequest { get; set; }
+        public int LeaveRejectedLastMonth { get; set; }
 
-        public int TotalApprovedLeaveRequest { get; set; }
+        public int CheckInOutApprovedCurrentMonth { get; set; }
 
-        public int TotalRejectLeaveRequest { get; set; }
+        public int CheckInOutApprovedLastMonth { get; set; }
+
+        public int CheckInOutRejectedCurrentMonth { get; set; }
+
+        public int CheckInOutRejectedLastMonth { get; set; }
     }
 }

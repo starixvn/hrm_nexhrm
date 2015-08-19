@@ -59,8 +59,7 @@ namespace Fanex.NexHR.Controllers
 
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
-                EmpId = empId,
-                Date = DateTime.Now.Date
+                EmpId = empId
             };
             ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
             var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = empId };

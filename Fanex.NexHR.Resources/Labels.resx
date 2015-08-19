@@ -274,7 +274,7 @@
     <value>Today</value>
   </data>
   <data name="TotalWorkingHours" xml:space="preserve">
-    <value>Total Working Hour(s) in</value>
+    <value>Total Working Hour(s)</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
@@ -839,5 +839,11 @@
   </data>
   <data name="MyTimeRecord" xml:space="preserve">
     <value>My Time Record</value>
+  </data>
+  <data name="LeaveRequests" xml:space="preserve">
+    <value>Leave Request</value>
+  </data>
+  <data name="WorkingHoursAverage" xml:space="preserve">
+    <value>Working Hours Average</value>
   </data>
 </root>

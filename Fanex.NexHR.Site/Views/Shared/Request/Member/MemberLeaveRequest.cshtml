@@ -34,6 +34,7 @@
             @{int index = 1;}
             @foreach (RequestEntity request in Model)
             {
+                var annualBalance = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance;
                 <tr id="row@(request.Id)">
                     <td>@(index++)
                     </td>
@@ -43,8 +44,7 @@
                     </td>
                     @if (request.LeaveType.Id == 2 || request.LeaveType.Id == 30)
                     {
-                        var title = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance;
-                         <td class="tooltip" title="@title">@request.LeaveType.Name
+                         <td>@request.LeaveType.Name
                         </td>
                     }
                     else
@@ -86,9 +86,9 @@
                     {
                         case 1: //Pending
                         <td>
-                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
+                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@(annualBalance + " && " + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">@request.Status.ToString()</a>
                         </td>
-                                                                                                                                                                                                                                                            break;
+                                                                                                                                                                                                                                                                                break;
                         case 2: //Approve
                         <td>
                             <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</a>

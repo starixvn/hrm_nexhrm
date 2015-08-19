@@ -205,7 +205,31 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<MySpaceViewModel>(criteria.GetSpParams());
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    MySpaceViewModel dashboard = multi.Read<MySpaceViewModel>().FirstOrDefault();
+
+                    IEnumerable<DashboardPersonalSpaceModel> dashboardCompanySpace = multi.Read<DashboardPersonalSpaceModel, Employee, DashboardPersonalSpaceModel>(
+                        (co, e) =>
+                        {
+                            co.Employee = e;
+                            return co;
+                        }, 
+                        "EmpId");
+
+                    IEnumerable<DashboardPersonalSpaceModel> dashboardEmployeeSpace = multi.Read<DashboardPersonalSpaceModel, Employee, DashboardPersonalSpaceModel>(
+                        (pe, e) =>
+                        {
+                            pe.Employee = e;
+                            return pe;
+                        }, 
+                        "EmpId");
+
+                    dashboard.DashboardCompanySpace = dashboardCompanySpace.ToList();
+                    dashboard.DashboardEmployeeSpace = dashboardEmployeeSpace.ToList();
+
+                    return dashboard;
+                }
             }
         }
 

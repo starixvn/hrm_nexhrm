@@ -122,8 +122,7 @@ namespace Fanex.NexHR.Controllers
 
                 var getMySpaceCriteria = new GetMySpaceCriteria()
                 {
-                    EmpId = id,
-                    Date = DateTime.Now.Date
+                    EmpId = id
                 };
                 ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
                 var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
@@ -452,8 +451,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
-                EmpId = this.CurrentUser.Id,
-                Date = DateTime.Now.Date
+                EmpId = this.CurrentUser.Id
             };
             var model = _employeeService.GetMySpace(getMySpaceCriteria);
 
@@ -578,7 +576,6 @@ namespace Fanex.NexHR.Controllers
                 var getHRLeaderDashboardCriteria = new GetHRLeaderDashboardCriteria()
                 {
                     EmployeeId = this.CurrentUser.Id,
-                    Date = DateTime.Today
                 };
                 var model = _employeeService.GetHRLeaderDashboard(getHRLeaderDashboardCriteria);
                 return PartialView(model);

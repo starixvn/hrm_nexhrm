@@ -78,6 +78,7 @@
     <Compile Include="Attributes\OutputAttribute.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Enums\Command.cs" />
+    <Compile Include="Enums\DashBoardType.cs" />
     <Compile Include="Enums\GeneralRequestType.cs" />
     <Compile Include="Enums\RequestStatuse.cs" />
     <Compile Include="Enums\RequestType.cs" />

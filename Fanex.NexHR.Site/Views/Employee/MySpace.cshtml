@@ -14,15 +14,56 @@
     <a class="step" href="#">Personal</a> <span class="step">@ViewBag.Title</span>
 }
 
-
+<h2>General Info</h2>
+<table class="data dashboard-company" >
+    <thead>
+    <tr>
+        <th></th>
+        <th>@Labels.ToDay</th>
+        <th>@Labels.Yesterday</th>
+    </tr>
+    </thead>
+    <tbody >
+    <tr>
+        <td class="firstColumn">@Labels.LeaveRequests</td>
+        <td class="left">
+            @Html.Raw(Model.CompanyLeaveToDay)
+        </td>
+        <td class="left">
+            @Html.Raw(Model.CompanyLeaveYesterday)
+        </td>
+       </tr>
+       <tr>
+        <td class="firstColumn">@Labels.CheckInOutRequest</td>
+        <td class="left">
+            @Html.Raw(Model.CompanyCheckInOutToDay)
+        </td>
+        <td class="left">
+            @Html.Raw(Model.CompanyCheckInOutYesterday)
+        </td>
+       </tr>
+       <tr>
+        <td class="firstColumn">@Labels.MissingCheckInOut</td>
+        <td class="left">@Html.Raw(Model.CompanyMissingCheckInOutToDay)</td>
+        <td class="left">@Html.Raw(Model.CompanyMissingCheckInOutYesterday)</td>
+       </tr>
+       <tr>
+        <td class="firstColumn">@Labels.LateInEarlyOut</td>
+        <td class="left">@Html.Raw(Model.CompanyLateInEarlyOutToDay)</td>
+        <td class="left">@Html.Raw(Model.CompanyLateInEarlyOutYesterday)</td>
+       </tr>
+        <tr>
+        <td class="firstColumn">@Labels.Absent</td>
+        <td class="left">@Html.Raw(Model.CompanyAbsentToDay)</td>
+        <td class="left">@Html.Raw(Model.CompanyAbsentYesterday)</td>
+       </tr>
+    </tbody>
+</table>
+<div class="clear"></div>
+<div class="space"></div>
 <h2>@Labels.MySpace</h2>
 <div  class="grid_5">
     @Labels.AnualLeaveBalance:<strong> @Model.AnnualLeaveBalance day(s)</strong>
-</div>
-<div class="clear"></div>
-<div class="space"></div>
-<div class="grid_5">
-    @Labels.TotalWorkingHours @DateTime.Now.ToString("MMM yyyy"): <strong>@Model.TotalWorkHours hours</strong>
 </div>
 <div class="clear"></div>
 <div class="space"></div>
@@ -30,85 +71,84 @@
     <thead>
         <tr>
             <th class="firstColumn">
-                @Labels.Request
             </th>
-            <th>@DateTime.Now.ToString("MMM yyyy")
-            </th>
-            <th>
-                @Labels.Pending
+            <th>@Labels.CurrentMonth
             </th>
             <th>
-                @Labels.CreateRequest
+                @Labels.LastMonth
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td class="firstColumn">
-                @Labels.CheckInOut
+                @Labels.LeaveRequests <a href="~/leave/create" class="icon plus" title="Create leave request"></a>
             </td>
             <td>
-                @Model.TotalCheckInOutRequest
-            </td>
-
-            <td>
-                @if (Model.TotalPendingCheckInOutRequest > 0)
-                { 
-                    @Html.ActionLink(Model.TotalPendingCheckInOutRequest.ToString(), "employeeView", "checkinout")
-                }
-                else
-                { 
-                    <span>0</span>
-                }
+                @Html.Raw(Model.PersonalLeaveCurrentMonth)
             </td>
             <td>
-                @Html.ActionLink(Labels.Request, "create", "checkinout")
+                @Html.Raw(Model.PersonalLeaveLastMonth)
             </td>
         </tr>
-        @*<tr>
+        <tr>
+            <td class="firstColumn">
+                @Labels.CheckInOutRequest <a href="~/checkinout/create" class="icon plus" title="Create check in/out request"></a>
+            </td>
+            <td>
+                @Html.Raw(Model.PersonalCheckInOutCurrentMonth)
+            </td>
+            <td>
+               @Html.Raw(Model.PersonalCheckInOutLastMonth)
+            </td>
+        </tr>
+        <tr>
+            <td class="firstColumn">
+                @Labels.MissingCheckInOut
+            </td>
+            <td>
+                @Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)
+            </td>
+            <td>
+                @Html.Raw(Model.PersonalMissingCheckInOutLastMonth)
+            </td>
+        </tr>
+
+         <tr>
             <td class="firstColumn">
                 @Labels.LateInEarlyOut
             </td>
             <td>
-                @Model.TotalLateInEarlyOutRequest
+                @Html.Raw(Model.PersonalLateInEarlyOutCurrentMonth)
             </td>
             <td>
-                @if (Model.TotalPendingLateInEarlyOutRequest > 0)
-                { 
-                    @Html.ActionLink(Model.TotalPendingLateInEarlyOutRequest.ToString(), "employeeView", "lateinearlyout")
-                }
-                else
-                { 
-                    <span>0</span>
-                }
-            </td>
-
-            <td>
-                @Html.ActionLink(Labels.Request, "create", "lateinearlyout")
-            </td>
-        </tr>*@
-        <tr>
-            <td class="firstColumn">
-                @Labels.Leave
-            </td>
-            <td>
-                @Model.TotalLeaveRequest
-            </td>
-            <td>
-                @if (Model.TotalPendingLeaveRequest > 0)
-                { 
-                    @Html.ActionLink(Model.TotalPendingLeaveRequest.ToString(), "employeeView", "leave")
-                }
-                else
-                { 
-                    <span>0</span>
-                }
-            </td>
-
-            <td>
-                @Html.ActionLink(Labels.Request, "create", "leave")
+                @Html.Raw(Model.PersonalLateInEarlyOutLastMonth)
             </td>
         </tr>
+        <tr>
+            <td class="firstColumn">
+                @Labels.Absent
+            </td>
+            <td>
+                @Html.Raw(Model.PersonalAbsentCurrentMonth)
+            </td>
+            <td>
+                @Html.Raw(Model.PersonalAbsentLastMonth)
+            </td>
+        </tr>
+        <tr>
+            <td class="firstColumn">
+                @Labels.WorkingHoursAverage
+            </td>
+            <td>
+                @Utilities.TotalHoursToTime((float)(Model.TotalWorkingHoursCurrentMonth / Model.NumberWorkingDayCurrentMonth))
+            </td>
+                
+            <td>
+                @Utilities.TotalHoursToTime((float)(Model.TotalWorkingHoursLastMonth / Model.NumberWorkingDayLastMonth))
+            </td>
+        </tr>
+        
     </tbody>
 </table>
 <div class="space"></div>

@@ -36,10 +36,10 @@
             }
             @foreach (RequestEntity request in Model)
             {
-                var title = string.Empty;
+                var annualBalance = string.Empty;
                 if (request.LeaveType.Id == 2 || request.LeaveType.Id == 30)
                 {
-                    title = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance;
+                    annualBalance = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance;
                 }
                 
                 var requestModel = new RequestViewModel
@@ -64,7 +64,7 @@
                     <td class="tooltip" title="@request.Requester.FullName">
                         @request.Requester.NickName.ToString()
                     </td>
-                    <td class="highlight tooltip" title="@title">
+                    <td class="highlight">
                         @if (ViewBag.Leader == true)
                         { 
                             <a href="@Url.Action("member", "request", requestModel)">
@@ -135,7 +135,7 @@
                                 if (request.RequestType.Id == 6)
                                 {
                                     <td>
-                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
+                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@(annualBalance + " && " + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">@request.Status.ToString()</a>
                                     </td>
                                 }
                                 else

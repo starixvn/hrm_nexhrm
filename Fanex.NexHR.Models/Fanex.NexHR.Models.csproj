@@ -77,6 +77,7 @@
     <Compile Include="Attributes\EmailValidationRule.cs" />
     <Compile Include="CheckInOutRequest.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="DashboardPersonalSpaceModel.cs" />
     <Compile Include="Report\LeaveDeductionDetail.cs" />
     <Compile Include="Report\LateInEarlyOutDetail.cs" />
     <Compile Include="Report\LateInEarlyOutSummary.cs" />

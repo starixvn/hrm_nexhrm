@@ -19,8 +19,6 @@ namespace Fanex.NexHR.Criteria.Employee
     {
         public int EmpId { get; set; }
 
-        public DateTime Date { get; set; }
-
         public override bool IsValid()
         {
             return true;

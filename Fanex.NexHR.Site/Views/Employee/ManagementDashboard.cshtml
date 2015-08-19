@@ -4,18 +4,25 @@
 <table class="data" id="myspace">
     <thead>
         <tr>
-            <th rowspan="2" class="firstColumn">@Fanex.NexHR.Resources.Labels.Request
+            <th rowspan="2" class="firstColumn">@Labels.Request
             </th>
-            <th colspan="3" class="center">
-                @Utilities.ZeroPrefix(DateTime.Now.AddDays(-7).Day) - @DateTime.Now.ToString("dd MMM, yyyy")
+            <th rowspan="2">@Labels.Pending
+            </th>
+            <th colspan="2" class="center">
+                @Labels.CurrentMonth
+            </th>
+            <th colspan="2" class="center">
+                @Labels.LastMonth
             </th>
         </tr>
         <tr>
-            <th>@Fanex.NexHR.Resources.Labels.Pending
+            <th>@Labels.Approved
             </th>
-            <th>@Fanex.NexHR.Resources.Labels.Approved
+            <th>@Labels.Rejected
             </th>
-            <th>@Fanex.NexHR.Resources.Labels.Rejected
+            <th>@Labels.Approved
+            </th>
+            <th>@Labels.Rejected
             </th>
         </tr>
     </thead>
@@ -24,68 +31,57 @@
         var requestModel = new RequestViewModel
         {
             DateOption = 0,
-            ToDate = DateTime.Now,
-            FromDate = DateTime.Now.AddDays(-7),
+            FromDate = Model.FromDateLeave > Model.FromDateCheckInOut ? Model.FromDateCheckInOut : Model.FromDateLeave,
+            ToDate = Model.ToDateLeave > Model.ToDateCheckInOut ? Model.ToDateLeave : Model.ToDateCheckInOut,
             StatusId = (byte)RequestStatuse.Pending,
-            TeamId = null,
+            TeamId = -2,
             IsFilterByEffectedDate = true
         };
     }
         <tr>
-            <td class="firstColumn">@Fanex.NexHR.Resources.Labels.CheckInOut
+            <td class="firstColumn">@Labels.Leave
             </td>
             <td>
-                @if (Model.TotalPendingCheckInOutRequest > 0)
-                {
-                    requestModel.RequestType = 4;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.TotalPendingCheckInOutRequest.ToString()</a>
-                }
-                else
-                {
-                    <span>0</span>
-                }
-            </td>
-            <td>@Model.TotalApprovedCheckInOutRequest
-            </td>
-            <td>@Model.TotalRejectCheckInOutRequest
-            </td>
-        </tr>
-        @*<tr>
-            <td class="firstColumn">@Fanex.NexHR.Resources.Labels.LateInEarlyOut
-            </td>
-            <td>
-                @if (Model.TotalPendingLateInEarlyOutRequest > 0)
-                {
-                    requestModel.RequestType = 3;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.TotalPendingLateInEarlyOutRequest.ToString()</a>
-                }
-                else
-                {
-                    <span>0</span>
-                }
-            </td>
-            <td>@Model.TotalApprovedLateInEarlyOutRequest
-            </td>
-            <td>@Model.TotalRejectLateInEarlyOutRequest
-            </td>
-        </tr>*@
-        <tr>
-            <td class="firstColumn">@Fanex.NexHR.Resources.Labels.Leave
-            </td>
-            <td>
-                @if (Model.TotalPendingLeaveRequest > 0)
+                @if (Model.LeavePending > 0)
                 {
                     requestModel.RequestType = 1;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.TotalPendingLeaveRequest.ToString()</a>
+                    <a href="@Url.Action("member", "request", requestModel)">@Model.LeavePending.ToString()</a>
                 }
                 else
                 {
                     <span>0</span>
                 }
             </td>
-            <td>@Model.TotalApprovedLeaveRequest
+            <td>@Model.LeaveApprovedCurrentMonth
             </td>
-            <td>@Model.TotalRejectLeaveRequest
+            <td>@Model.LeaveRejectedCurrentMonth
+            </td>
+            <td>@Model.LeaveApprovedLastMonth
+            </td>
+            <td>@Model.LeaveRejectedLastMonth
+            </td>
+        </tr>
+        <tr>
+            <td class="firstColumn">@Labels.CheckInOut
+            </td>
+            <td>
+                @if (Model.CheckInOutPending > 0)
+                {
+                    requestModel.RequestType = 4;
+                    <a href="@Url.Action("member", "request", requestModel)">@Model.CheckInOutPending.ToString()</a>
+                }
+                else
+                {
+                    <span>0</span>
+                }
+            </td>
+            <td>@Model.CheckInOutApprovedCurrentMonth
+            </td>
+            <td>@Model.CheckInOutRejectedCurrentMonth
+            </td>
+            <td>@Model.CheckInOutApprovedLastMonth
+            </td>
+            <td>@Model.CheckInOutRejectedLastMonth
             </td>
         </tr>
     </tbody>

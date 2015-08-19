@@ -324,6 +324,7 @@
     <Content Include="Scripts\Fanex.Grid\moment.min.js" />
     <Content Include="Scripts\Fanex.Grid\numeral.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
+    <Content Include="Scripts\Views\employee.dashboard.js" />
     <Content Include="Scripts\Views\leavededuction.js" />
     <Content Include="Scripts\Views\department.edit.js" />
     <Content Include="Scripts\Views\department.js" />
@@ -364,6 +365,7 @@
     <Content Include="Styles\Fanex.Grid\images\sorting_bg.gif" />
     <Content Include="Styles\Fanex.Grid\images\sorting_desc.gif" />
     <Content Include="Styles\Fanex.Grid\images\white-top-bottom.gif" />
+    <Content Include="Styles\Images\chevron-right.png" />
     <Content Include="Styles\Images\Office_building_icon.png" />
     <Content Include="Images\panel_bg.png" />
     <Content Include="Images\picon.png" />

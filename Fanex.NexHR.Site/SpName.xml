@@ -13,8 +13,8 @@
     <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType_xtest" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetChangedShift" SpName="EmployeeCalendar_GetChangedShift" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -78,15 +78,15 @@
     <Setting Key="EmployeeCalendar_Update" SpName="EmployeeCalendar_Update" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="WorkingTimeRequest">
-    <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_ApproveRequest" SpName="WorkingTimeRequest_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_DisapproveRequest" SpName="WorkingTimeRequest_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_RejectRequest" SpName="WorkingTimeRequest_RejectRequest" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="WorkingTimeRequest_Delete" SpName="WorkingTimeRequest_Delete_xtest" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="WorkingTimeRequest_Update" SpName="WorkingTimeRequest_Update_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="WorkingTimeRequest_Delete" SpName="WorkingTimeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="WorkingTimeRequest_Update" SpName="WorkingTimeRequest_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_GetById" SpName="WorkingTimeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_GetRequestByDate" SpName="WorkingTimeRequest_GetRequestByDate" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Holiday">
@@ -150,7 +150,7 @@
   </Function>
 
   <Function Name="TimeRecord">
-    <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get_xtest" DbName="nexhr" Plain="0">
+    <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
       <Mapping DataField="GroupId" ObjectProperty="Id"/>
       <Mapping DataField="GroupCode" ObjectProperty="Code"/>
     </Setting>
@@ -158,11 +158,13 @@
   </Function>
 
   <Function Name="Report">
-    <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard_xtest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard_xtest" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id"/>
+    </Setting>
     <Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard_xtest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_LeaveSummary" SpName="Report_LeaveSummary" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="RequestMonitoring" SpName="Report_RequestMonitor_xtest1" DbName="nexhr" Plain="0">
+    <Setting Key="RequestMonitoring" SpName="Report_RequestMonitor" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id"/>
       <Mapping DataField="GroupId" ObjectProperty="Id"/>
     </Setting>

@@ -1213,6 +1213,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Request.
+        /// </summary>
+        public static string LeaveRequests {
+            get {
+                return ResourceManager.GetString("LeaveRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave Request (Times).
         /// </summary>
         public static string LeaveRequestTimes {
@@ -2104,7 +2113,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Working Hour(s) in.
+        ///   Looks up a localized string similar to Total Working Hour(s).
         /// </summary>
         public static string TotalWorkingHours {
             get {
@@ -2199,6 +2208,15 @@ namespace Fanex.NexHR.Resources {
         public static string WorkigDay {
             get {
                 return ResourceManager.GetString("WorkigDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working Hours Average.
+        /// </summary>
+        public static string WorkingHoursAverage {
+            get {
+                return ResourceManager.GetString("WorkingHoursAverage", resourceCulture);
             }
         }
         

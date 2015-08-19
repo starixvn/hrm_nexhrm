@@ -17,9 +17,8 @@ namespace Fanex.NexHR.Criteria.Employee
     /// </summary>
     public class GetHRLeaderDashboardCriteria : CriteriaBase
     {
-        public int? EmployeeId { get; set; }
-
-        public DateTime Date { get; set; }
+        [SpParam(SqlParamName = "EmpId")]
+        public int EmployeeId { get; set; }
 
         public override bool IsValid()
         {

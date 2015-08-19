@@ -175,22 +175,23 @@ table.form div.time {
 /*My space table*/
 table#myspace
 {
-	width:500px;
-}
-
-table#myspace th.firstColumn
-{
-	width:100px;
+	width:700px;
 }
 
 table#myspace td.firstColumn
 {
-	text-align:left;
+    width:150px;
+	text-align:right;
+	background-color: #fff;
+	color:#000;
+	font-weight: bold;
+	
 }
 
 table#myspace td
 {
 	text-align:center;
+	white-space:inherit;
 }
 
 /*Management table*/

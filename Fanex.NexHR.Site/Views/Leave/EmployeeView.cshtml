@@ -34,9 +34,9 @@
                     <th>
                         #
                     </th>
-                    <th>@Labels.Team
-                    </th>
                     <th>@Labels.Employee
+                    </th>
+                    <th>@Labels.Team
                     </th>
                     <th>@Labels.LeaveType
                     </th>
@@ -63,10 +63,10 @@
                         <tr id="row@(request.Id)">
                             <td>@(index++)
                             </td>
-                            <td>@request.Requester.Team.Name
-                            </td>
                             <td class="tooltip" title="@request.Requester.FullName">
                                 @request.Requester.NickName
+                            </td>
+                            <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
                             </td>
                             <td>@request.LeaveType.Name
                             </td>
