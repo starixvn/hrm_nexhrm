@@ -9,13 +9,13 @@
 
 namespace Fanex.NexHR.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
-    using System;
 
     /// <summary>
     /// My space view model.
