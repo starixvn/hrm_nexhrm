@@ -212,7 +212,8 @@ input[type="password"].input-validation-error {
 {
 	float: left;
 	margin-right:15px;
-	xxxdisplay: inline;
+    display: inline;
+	padding-top: 4px;
 }
 
 input[type="text"], input[type="number"] {

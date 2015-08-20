@@ -24,6 +24,8 @@ namespace Fanex.NexHR.Criteria.Request
 
         public int? GroupId { get; set; }
 
+        public int? LeaveTypeId { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

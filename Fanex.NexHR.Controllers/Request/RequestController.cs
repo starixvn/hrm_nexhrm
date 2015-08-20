@@ -29,20 +29,23 @@ namespace Fanex.NexHR.Controllers.Request
         #region private services
         private readonly IRequestService _requestService;
         private readonly ITeamService _teamService;
+        private readonly ILeaveTypeService _leaveTypeService;
         #endregion
 
         #region Ctor
         public RequestController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public RequestController(
             IRequestService requestService = null,
-            ITeamService teamService = null)
+            ITeamService teamService = null,
+            ILeaveTypeService leaveTypeService = null)
         {
             _requestService = requestService ?? new RequestService();
             _teamService = teamService ?? new TeamService();
+            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
         }
         #endregion
 
@@ -88,6 +91,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Status = request.StatusId;
             ViewBag.Leader = true;
             ViewBag.Options = request;
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             return View(request);
         }
@@ -125,6 +129,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.IsAllowChangeStatus = false;
             ViewBag.Leader = false;
             ViewBag.Options = request;
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+
             return View("HRView", request);
         }
 
@@ -162,6 +168,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Leader = false;
             ViewBag.Options = request;
+            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+
             return View(request);
         }
 
@@ -198,6 +206,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
                 GroupId = request.TeamId,
+                LeaveTypeId = request.LeaveTypeId == 0 ? null : new int?(request.LeaveTypeId),
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
                 ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null,
                 RequestType = request.RequestType == 1

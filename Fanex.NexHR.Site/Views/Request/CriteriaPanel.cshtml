@@ -33,7 +33,7 @@
             @Html.LabelFor(model => model.FromDate)
         </div>
         <div class="grid_4">
-            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010,1,1))
+            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
         </div>
         <div class="grid_2">
             @Html.LabelFor(model => model.ToDate)
@@ -42,11 +42,11 @@
             @Html.DatePickerFor(model => model.ToDate)
         </div>
         <div class="grid_2">
-            @Labels.FilterBy
+           @Html.LabelFor(model => model.ToDate, Labels.FilterBy) 
         </div>
          <div class="grid_4">
             @{
-                var filteringDateType = new List<SelectListItem>
+    var filteringDateType = new List<SelectListItem>
                     {
                         new SelectListItem() {Text = "Effected Date", Value = "true"}, 
                         new SelectListItem() {Text = "Created Date", Value = "false"},
@@ -82,9 +82,19 @@
         <div class="space">
         </div>
         <div class="grid_2">
-        @Html.LabelFor(model => model.RequestType, "Request")
+            @Html.LabelFor(model => model.LeaveTypeId)
         </div>
-        <div class="grid_22">
+        <div class="grid_4">
+            @{
+                var leaveTypes = (IList<LeaveType>)ViewBag.LeaveTypes;
+                leaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All});
+                }
+           @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(leaveTypes, "Id", "Name"))
+        </div>
+        <div class="grid_2">
+            @Html.LabelFor(model => model.RequestType, "Request")
+        </div>
+        <div class="grid_6">
             @{
             var types = new List<SelectListItem>
             {
@@ -95,16 +105,24 @@
             }
             @Html.RadioButtonList(model => model.RequestType, types)
         </div>
+        
+        
+        <div class="grid_6">
+            <input class="processing-submit" type="submit" value="@Labels.Submit"/>
+        </div>
         <div class="clear">
         &nbsp;
         </div>
         <div class="space">
         </div>
-          <div class="space">
+         <div class="clear">
+        &nbsp;
         </div>
-        <div class="grid_22 prefix_2">
+        <div class="space">
+        </div>
+       @* <div class="grid_22 prefix_2">
             <input class="processing-submit" type="submit" value="@Labels.Submit"/>
-        </div>
+        </div>*@
     </div>
 
 }

@@ -36,6 +36,9 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Status")]
         public byte StatusId { get; set; }
 
+        [Display(Name = "Leave Type")]
+        public int LeaveTypeId { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
