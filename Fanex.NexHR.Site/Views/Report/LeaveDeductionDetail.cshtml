@@ -17,10 +17,9 @@
 @section js{
     @Url.CombresLink("lateinearlyoutsummaryjs")
 }
-
 <h2>@ViewBag.Title</h2>
 @using (Html.BeginForm())
-{        
+{
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <div class="container_24 bunhat">
         <div class="grid_19">
@@ -90,7 +89,7 @@
         <div class="grid_5">
             <input type="submit" value="@Labels.Submit" class="processing-submit"/>
         </div>
-        <div class="grid_19">
+        </div>
         <div class="clear"></div>
     </div>
 }
