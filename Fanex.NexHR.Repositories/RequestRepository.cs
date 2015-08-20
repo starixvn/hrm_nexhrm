@@ -83,6 +83,7 @@ namespace Fanex.NexHR.Repositories
                 Status = new RequestStatus { Id = reader.ToByte("Status") },
                 RequestType = new RequestTypeModel { Id = reader.ToShort("RequestType") },
                 TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
+                IsAllowUpdateStatus = reader.ToInt("IsAllowUpdateStatus") == 1,
                 RequestedDate = reader.ToDateTime("RequestedDate"),
                 Requester = new Employee
                 {

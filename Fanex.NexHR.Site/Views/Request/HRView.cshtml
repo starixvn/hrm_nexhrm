@@ -25,17 +25,7 @@
 <div>
     @Html.Partial("CriteriaPanel", Model)
 </div>
-
-@switch (Model.RequestType)
-{
-    case 1: // Annual Leave
-        Html.RenderPartial("Request/HR/HRViewLeaveRequest", requests);
-        break;
-    case 4: // Check-In/Out
-        Html.RenderPartial("Request/HR/HRViewCheckInOutRequest", requests);
-        break;
-    case 5: // All Request
-        Html.RenderPartial("Request/AllRequest", requests);
-        break;
+@{
+    Html.RenderPartial("AllRequest", requests);
 }
 <div id="dialoghistorycontent"/>

@@ -65,7 +65,7 @@
                         @request.Requester.NickName.ToString()
                     </td>
                     <td class="highlight">
-                        @if (ViewBag.Leader == true)
+                        @if ((bool)ViewBag.Leader)
                         { 
                             <a href="@Url.Action("member", "request", requestModel)">
                                 @if (request.RequestType.Id == (int)RequestType.Leave)
@@ -126,7 +126,7 @@
                     <td class="ddMMyyyyhhmm">
                         @request.CreatedDate.ToShortFormatedDate()
                     </td>
-                    @if ((bool)ViewBag.IsAllowChangeStatus)
+                    @if ((bool)ViewBag.IsAllowChangeStatus && (!(bool)ViewBag.Leader || ((bool)ViewBag.Leader && request.IsAllowUpdateStatus)))
                     {
                         <!-- If view from menu "HR Space" -->
                         switch (request.Status.Id)
@@ -166,26 +166,27 @@
                             case 1: //Pending
                                 if (request.RequestType.Id == 6)
                                 {
+                                    
                                     <td>
-                                        <a href="javascript:;" class="tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
+                                        <span class="tooltip status-nochange" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                     </td>
                                 }
                                 else
                                 {
                                     <td>
-                                        <a href="javascript:;" class="tooltip" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
+                                        <span class="tooltip status-nochange" title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                     </td>
                                 }
 
                                 break;
                             case 2: //Approve
                                 <td>
-                                    <a href="javascript:;" class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</a>
+                                    <span class="tooltip status-nochange" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                 </td>
                                                                                                                                                                                  break;
                             case 3: //Reject
                                 <td>
-                                    <a href="javascript:;" class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</a>
+                                    <span class="tooltip status-nochange" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                 </td>
                                                                                                                                                                                  break;
                         }

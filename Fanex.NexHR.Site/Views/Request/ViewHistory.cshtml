@@ -17,16 +17,16 @@
 @switch ((int)ViewBag.requestType)
 {
     case 1:
-        Html.RenderPartial("Request/History/CheckInOutRequestHistory", requests);
+        Html.RenderPartial("History/CheckInOutRequestHistory", requests);
         break;
     case 2:
-        Html.RenderPartial("Request/History/LateInEarlyOutRequestHistory", requests);
+        Html.RenderPartial("History/LateInEarlyOutRequestHistory", requests);
         break;
     case 3:
-        Html.RenderPartial("Request/History/ChangeShiftRequestHistory", requests);
+        Html.RenderPartial("History/ChangeShiftRequestHistory", requests);
         break;
     case 4:
-        Html.RenderPartial("Request/History/LeaveRequestHistory", requests);
+        Html.RenderPartial("History/LeaveRequestHistory", requests);
         break;
 }
 

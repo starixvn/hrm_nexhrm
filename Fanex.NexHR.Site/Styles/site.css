@@ -501,8 +501,12 @@ input:-moz-placeholder {
 .Pending {padding:5px 12px 0px 0px }
 .Approved {padding:5px 12px 5px 0px }
 
-.Pending:hover {background: url(images/arrow.png) no-repeat right 10px}    
-.Approved:hover {background: url(images/arrow.png) no-repeat right 10px}    
+.Pending:hover {background: url(images/arrow.png) no-repeat right 10px}
+.Approved:hover {background: url(images/arrow.png) no-repeat right 10px}
+
+.status-nochange {
+	padding:5px 12px 5px 0px;
+}
 
 /* hover menu*/
 .hoveraction 

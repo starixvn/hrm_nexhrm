@@ -38,6 +38,8 @@ namespace Fanex.NexHR.Models.Request
 
         public decimal TotalDaysRequestInMonth { get; set; }
 
+        public bool IsAllowUpdateStatus { get; set; }
+
         // Leave
         public DateTime FromDate { get; set; }
 

@@ -13,7 +13,6 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Request;
@@ -124,6 +123,7 @@ namespace Fanex.NexHR.Controllers.Request
 
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = false;
+            ViewBag.Leader = false;
             ViewBag.Options = request;
             return View("HRView", request);
         }
@@ -160,6 +160,7 @@ namespace Fanex.NexHR.Controllers.Request
 
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = true;
+            ViewBag.Leader = false;
             ViewBag.Options = request;
             return View(request);
         }

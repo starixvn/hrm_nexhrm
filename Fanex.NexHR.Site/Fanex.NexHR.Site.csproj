@@ -976,16 +976,12 @@
     <Content Include="Views\Report\RequestMonitoring.cshtml" />
     <Content Include="Views\Report\TotalWorkingHours.cshtml" />
     <Content Include="Views\Request\Member.cshtml" />
-    <Content Include="Views\Shared\Request\Member\MemberLeaveRequest.cshtml" />
-    <Content Include="Views\Shared\Request\Member\MemberCheckInOutRequest.cshtml" />
     <Content Include="Views\Request\HRView.cshtml" />
-    <Content Include="Views\Shared\Request\HR\HRViewLeaveRequest.cshtml" />
-    <Content Include="Views\Shared\Request\HR\HRViewCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\LeaveSummary.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
-    <Content Include="Views\Shared\Request\AllRequest.cshtml" />
+    <Content Include="Views\Request\AllRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -1001,16 +997,16 @@
     <Content Include="Views\Request\ViewHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\History\CheckInOutRequestHistory.cshtml" />
+    <Content Include="Views\Request\History\CheckInOutRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\History\LateInEarlyOutRequestHistory.cshtml" />
+    <Content Include="Views\Request\History\LateInEarlyOutRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\History\ChangeShiftRequestHistory.cshtml" />
+    <Content Include="Views\Request\History\ChangeShiftRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Request\History\LeaveRequestHistory.cshtml" />
+    <Content Include="Views\Request\History\LeaveRequestHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Employee\WorkingCalendarsEdit.cshtml" />
@@ -1027,8 +1023,6 @@
     <Content Include="App_Data\Emails\CheckInOutApprovalNotification.cshtml" />
     <Content Include="Views\JobTitle\JobTitleManagement.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\MultipleReset.cshtml" />
-    <Content Include="Views\Request\DailyRequestsView.cshtml" />
-    <Content Include="Views\Request\CriteriaPanelDaily.cshtml" />
     <Content Include="Views\Employee\TOEICManagement.cshtml" />
     <Content Include="Views\Employee\UpdateTOEIC.cshtml" />
     <Content Include="Views\Employee\UpdateFullTOEIC.cshtml" />

@@ -457,7 +457,7 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                var displayValue = "Missing";
+                var displayValue = "None";
 
                 if ((CheckInTime - new DateTime(2000, 1, 1)).Days != 0)
                 {
@@ -472,7 +472,7 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                var displayValue = "Missing";
+                var displayValue = "None";
 
                 if ((CheckOutTime - new DateTime(2000, 1, 1)).Days != 0)
                 {
