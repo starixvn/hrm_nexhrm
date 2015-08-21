@@ -18,8 +18,8 @@ namespace Fanex.NexHR.Repositories
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
+    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.ViewModels;
 
     /// <summary>
     /// Report repository.
@@ -32,10 +32,35 @@ namespace Fanex.NexHR.Repositories
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee attendance model.</returns>
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
-        { 
+        {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<EmployeeAttendanceModel>(criteria.GetSpParams()).ToList();
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<EmployeeAttendanceModel> attendances = multi.Read<EmployeeAttendanceModel>().ToList();
+                    IEnumerable<RequestEntity> requests = multi.Read<RequestEntity, RequestTypeModel, Shift, Shift, Employee, LeaveType, RequestEntity>(
+                        (rq, ty, s1, s2, e, le) =>
+                        {
+                            rq.RequestType = ty;
+                            rq.FromShift = s1;
+                            rq.ToShift = s2;
+                            rq.Requester = e;
+                            rq.LeaveType = le;
+                            return rq;
+                        },
+                        "RequestTypeId, FromShiftId, ToShiftId, RequesterId, LeaveTypeId");
+
+                    foreach (EmployeeAttendanceModel attendance in attendances)
+                    {
+                        attendance.Requests = requests.Where(t => (t.Requester.Id == attendance.EmpId 
+                            && (attendance.AttendanceDate.Value.Date - t.FromDate.Date).Days >= 0 
+                            && (t.ToDate.Date - attendance.AttendanceDate.Value.Date).Days >= 0)).ToList();
+                        attendance.IsMissingCheckin = (attendance.IsMissingCheckin == 0 || (attendance.Requests.Where(t => t.RequestType.Id == 1).Count() > 0)) ? 0 : 1;
+                        attendance.IsMissingCheckOut = (attendance.IsMissingCheckOut == 0 || (attendance.Requests.Where(t => t.RequestType.Id == 2).Count() > 0)) ? 0 : 1;
+                    }
+
+                    return attendances;
+                }
             }
         }
 

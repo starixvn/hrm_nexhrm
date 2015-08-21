@@ -13,8 +13,8 @@ namespace Fanex.NexHR.Services
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

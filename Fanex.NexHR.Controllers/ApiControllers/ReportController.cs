@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
@@ -28,22 +29,19 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     /// </summary>
     public class ReportController : ApiController
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IReportService _reportService;
         private readonly ITeamService _teamService;
         private readonly IExtensionNoService _extensionNoService;
 
-        public ReportController()
+        public ReportController() : this(null, null, null)
         {
-            _reportRepository = new ReportRepository();
-            _teamService = new TeamService();
-            _extensionNoService = new ExtensionNoService();
         }
 
-        public ReportController(IReportRepository reportRepository, ITeamService teamService, IExtensionNoService extensionNoService)
+        public ReportController(IReportService reportService = null, ITeamService teamService = null, IExtensionNoService extensionNoService = null)
         {
-            _reportRepository = reportRepository;
-            _teamService = teamService;
-            _extensionNoService = extensionNoService;
+            _reportService = reportService ?? new ReportService();
+            _teamService = teamService ?? new TeamService();
+            _extensionNoService = extensionNoService ?? new ExtensionNoService();
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0
             };
 
-            return _reportRepository.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
         }
 
         /// <summary>
@@ -88,7 +86,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 EmployeeId = model.EmpId
             };
 
-            return _reportRepository.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
         }
 
         /// <summary>

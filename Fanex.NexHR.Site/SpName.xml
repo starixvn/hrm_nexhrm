@@ -13,7 +13,16 @@
     <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0">
+      <Mapping DataField="RequestTypeId" ObjectProperty="Id"/>
+      <Mapping DataField="FromShiftId" ObjectProperty="Id"/>
+      <Mapping DataField="FromShiftName" ObjectProperty="Name"/>
+      <Mapping DataField="ToShiftId" ObjectProperty="Id"/>
+      <Mapping DataField="ToShiftName" ObjectProperty="Name"/>
+      <Mapping DataField="RequesterId" ObjectProperty="Id"/>
+      <Mapping DataField="LeaveTypeId" ObjectProperty="Id"/>
+      <Mapping DataField="LeaveTypeName" ObjectProperty="Name"/>
+    </Setting>
     <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetChangedShift" SpName="EmployeeCalendar_GetChangedShift" DbName="nexhr" Plain="0"></Setting>

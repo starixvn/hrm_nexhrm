@@ -24,6 +24,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -104,6 +105,17 @@ namespace Fanex.NexHR.Controllers
             }
 
             return Json(result.Message);
+        }
+
+        [HttpPost]
+        public string GetRequestDetail(RequestEntity request, short requestType, string fromShiftCode, string toShiftCode)
+        {
+            request.RequestType = new RequestTypeModel { Id = requestType };
+            request.FromShift = new Shift { Name = fromShiftCode };
+            request.ToShift = new Shift { Name = toShiftCode };
+
+            string requestDetail = RequestService.ToRequestMessage(request);
+            return requestDetail;
         }
 
         /// <summary>

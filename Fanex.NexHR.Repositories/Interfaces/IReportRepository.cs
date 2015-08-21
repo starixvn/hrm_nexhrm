@@ -15,7 +15,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
-    using Fanex.NexHR.ViewModels;
 
     public interface IReportRepository
     {

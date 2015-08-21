@@ -823,3 +823,65 @@ span.req.inout
      min-width: 0;
     max-width: none;
     }
+
+a.req 
+{
+	display: inline-block;
+	background-color: #fff;
+	padding: 4px 6px;
+	margin: 0 5px 0 0;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	font-weight: bold;
+	font-size: 0.9em;
+	border: 1px solid;
+}
+div.tooltip
+{
+    padding: 5px;
+    color: #000;
+    font-weight: bold;
+    font-family: Arial;
+    }
+table.table-tooltip
+{
+    min-width:320px;
+    color: #000
+}
+table.table-tooltip tr.hasborder
+{
+    border-bottom: 1px solid #0789D1;
+}
+table.table-tooltip tr td
+{
+    padding: 5px 10px;
+    font-weight: normal;
+}
+
+table.table-tooltip tr td span.bold
+{
+    font-weight: bold;
+}
+
+table.table-tooltip tr td.col1
+{
+    width: 30px;
+}
+
+table.table-tooltip tr td.col11
+{
+    width: 150px;
+    text-align:right;
+}
+
+table.table-tooltip tr td.col2
+{
+    border-left: 1px solid #0789D1;
+    
+}
+
+#tooltip {
+	background-color: #fff;
+	border: 1px solid #0789D1;
+}

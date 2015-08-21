@@ -67,9 +67,11 @@ if (jQuery) (function () {
                             (e.pageX) ? x = e.pageX : x = e.clientX + d.scrollLeft;
                             (e.pageY) ? y = e.pageY : y = e.clientY + d.scrollTop;
 
+                            var scrollTop = $(".content_scroll").scrollTop();
+
                             // Show the menu
                             $(document).unbind('click');
-                            $(menu).css({ top: y - 60, left: x - 260 }).fadeIn(o.inSpeed);
+                            $(menu).css({ top: scrollTop + y - 60, left: x - 260 }).fadeIn(o.inSpeed);
                             // Hover events
                             $(menu).find('A').mouseover(function () {
                                 $(menu).find('LI.hover').removeClass('hover');
@@ -102,7 +104,7 @@ if (jQuery) (function () {
                                         break;
                                     case 27: // esc
                                         $(document).trigger('click');
-                                        break
+                                        break;
                                 }
                             });
 

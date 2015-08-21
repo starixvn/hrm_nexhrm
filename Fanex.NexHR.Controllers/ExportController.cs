@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;

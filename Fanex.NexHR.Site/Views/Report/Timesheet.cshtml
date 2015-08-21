@@ -89,6 +89,9 @@
                 @Labels.EarlyOut
             </th>
             <th>
+                @Labels.Request
+            </th>
+            <th>
                 @Labels.Note
             </th>
         </tr>
@@ -112,7 +115,7 @@
             ${ShiftCode}
         </td>
         <td>
-            {{if InFixed}} ${jsonTojsDate(InFixed).format("HH:MM")} {{else IsMissingCheckin == 1}} <a href="../checkinout/create?type=1&date=${jsonToShortDate(AttendanceDate)}">Request</a> {{/if}}
+            {{if InFixed}} ${jsonTojsDate(InFixed).format("HH:MM")} {{else IsMissingCheckin == 1 }} <a href="../checkinout/create?type=1&date=${jsonToShortDate(AttendanceDate)}">Request</a> {{/if}}
         </td>
         <td>
             {{if OutFixed }} ${jsonTojsDate(OutFixed).format("HH:MM")} {{else IsMissingCheckOut == 1}} <a href="../checkinout/create?type=2&date=${jsonToShortDate(AttendanceDate)}">Request</a>{{/if}}
@@ -130,6 +133,25 @@
         <td>
             {{if EarlyOut > 0}}
                 ${displayMinute(EarlyOut)}
+            {{/if}}
+        </td>
+        <td class='left'>
+            {{if Requests != null > 0}}
+                {{each Requests}}
+                    <a href='javascript:;' class="tooltip-request req" 
+                            data-requesttype="${RequestType.Id}"
+                            data-fromdate="${FromDate}"
+                            data-todate="${ToDate}" 
+                            data-createddate="${CreatedDate}" 
+                            data-fromshift="${FromShift.Name}"
+                            {{if ToShift != null}} data-toshift="${ToShift.Name}" {{else}} data-toshift="" {{/if}}
+                            data-totaldays="${TotalDays}"
+                            data-totalmins="${TotalMins}"
+                            data-remark='${Remark}'>
+                            {{if RequestType.Id == 6}}  ${RequestType.Name} {{else}} ${RequestType.Name} {{/if}}
+                        </a>
+                {{/each}}
+               
             {{/if}}
         </td>
         <td>

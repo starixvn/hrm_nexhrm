@@ -7,9 +7,11 @@
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
 // </history>
 
-namespace Fanex.NexHR.ViewModels
+namespace Fanex.NexHR.Models.Report
 {
     using System;
+    using System.Collections.Generic;
+    using Fanex.NexHR.Models.Request;
 
     /// <summary>
     /// Employee attendance model.
@@ -67,5 +69,7 @@ namespace Fanex.NexHR.ViewModels
         public int IsMissingCheckOut { get; set; }
 
         public int IsNotWork { get; set; }
+
+        public IList<RequestEntity> Requests { get; set; }
     }
 }
