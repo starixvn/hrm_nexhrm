@@ -235,7 +235,7 @@ namespace Fanex.NexHR.Controllers
                 model = new TotalWorkingHoursViewModel
                 {
                     FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                    ToDate = DateTime.Now,
                     DateOption = 5,
                     IsExportExcel = false
                 };
