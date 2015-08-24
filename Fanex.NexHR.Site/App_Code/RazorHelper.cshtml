@@ -172,9 +172,52 @@
             </tbody>
         </table>
     </div>
-    
-
 }
+
+@helper RequestCheckInOutLegend()
+    {
+    <div id="requestInfo">
+        <div class="requestInfo">
+            <ul>
+                <li>
+                    In a month, if the employee forgets to check-in and/or check-out:
+                    <ul>
+                        <li>
+                            More than 2 times (except requests for Afternoon Shift 2 - A2), a reminder from HR will be issued via email and HR will also be responsible for requesting and approving those Check-in/out requests. 
+                        </li>
+                        <li>
+                            More than 5 times, an Explanation Letter will be requested to be sent to HR and CC’ed to The Management.
+                        </li>
+                    </ul>
+                </li>
+            
+                <li>
+                    Deadline to submit a Check-in/out request is 3 working days.
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
+@helper RequestLeaveLegend()
+    {
+    <div id="requestInfo">
+        <div class="requestInfo">
+            <ul>
+                <li>
+                    1 day leave - submitted 1 working-day in advance.
+                </li>
+                <li>
+                    2 -> 4 days leave  - submitted 2 working-days in advance.
+                </li>
+                <li>
+                    5 days leave or more - submitted 5 working-days in advance and must be approved by the Management.
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
 @helper LateInEarlyOutTimeFormat(int mins, short type)
     {
         if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)

@@ -63,6 +63,15 @@ $(document).ready(function () {
 		});
 	}
 
+$('#legendInfo').tooltip({
+    track: true,
+    delay: 0,
+    showURL: false,
+    bodyHandler: function () {
+        return $('#requestInfo').html();
+    }
+});
+
 	$('#TotalDays').prop('readonly', true);
 	enableControlforHalfday();
 	$('#HalfDayOff').change(function () {

@@ -13,6 +13,9 @@
 }
 <h2>@ViewBag.Title</h2>
 <div class="bunhat">
+    <a style="float:right;" id="legendInfo" href="javascript:;">
+                    <span class="icon shiftinfo"> </span>
+                </a>
     @using (Html.BeginForm())
     {
     
@@ -134,4 +137,7 @@
             </div>
         </div>
     }
+</div>
+<div class="hide">
+    @RazorHelper.RequestLeaveLegend()
 </div>

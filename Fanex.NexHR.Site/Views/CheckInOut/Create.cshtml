@@ -13,6 +13,9 @@
 }
 <h2>@ViewBag.Title</h2>
 <div class="bunhat container_24">
+<a style="float:right;" id="legendInfo" href="javascript:;">
+                    <span class="icon shiftinfo"> </span>
+                </a>
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
@@ -33,7 +36,7 @@
                 @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
                 </p>
         </div>
-        }      
+        }
           
         <div class="formrow">
             <div class="label">
@@ -80,9 +83,9 @@
             </div>
             <div class="input">
                 <span id="shiftname">@Model.Shift</span>
-                <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo">
+                @*<a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo">
                     <span class="icon shiftinfo"> </span>
-                </a>
+                </a>*@
             </div>
             <div class="clear"></div>
         </div>
@@ -106,5 +109,5 @@
     }
 </div>
 <div class="hide">
-    @RazorHelper.ShiftInfoTable(ViewBag.Shifts)
+    @RazorHelper.RequestCheckInOutLegend()
 </div>

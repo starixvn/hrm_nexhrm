@@ -885,3 +885,17 @@ table.table-tooltip tr td.col2
 	background-color: #fff;
 	border: 1px solid #0789D1;
 }
+
+.requestInfo
+{
+    padding: 10px 20px 10px 20px;
+    line-height: 22px;
+    }
+  .requestInfo ul
+  {
+      font-weight: bold;
+      }
+ .requestInfo ul li ul {
+	padding: 5px 0px 10px 20px;
+	font-weight: normal;
+}
