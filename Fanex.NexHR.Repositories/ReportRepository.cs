@@ -98,38 +98,15 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = new List<TotalWorkingHours>();
-
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
+                var entityList = db.Query<TotalWorkingHours, Employee, Team, TotalWorkingHours>(
+                    (wkh, e, g) =>
                     {
-                        while (reader.Read())
-                        {
-                            var entity = new TotalWorkingHours
-                            {
-                                Employee = new Employee
-                                {
-                                    Code = reader.ToString("Code"),
-                                    FullName = reader.ToString("FullName"),
-                                    NickName = reader.ToString("NickName"),
-                                    Team = new Team { Name = reader.To<string>("Team") },
-                                    Id = reader.ToInt("empid")
-                                },
-                                WorkingDay = reader.ToInt("WorkingDays"),
-                                ActualWorkingDay = reader.ToFloat("ActualWorkingDays"),
-                                LeaveTaken = reader.ToFloat("LeaveTaken"),
-                                UnpaidLeave = reader.ToFloat("UnpaidLeave"),
-                                LateInMins = reader.ToInt("LateIn"),
-                                EarlyOutMins = reader.ToInt("EarlyOut"),
-                                TotalHours = reader.ToFloat("TotalWorkHours"),
-                                AverageHours = reader.ToFloat("AverageHours")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
+                        wkh.Employee = e;
+                        e.Team = g;
+                        return wkh;
+                    },
+                    splitOn: "EmpId, GroupId",
+                    parameterValues: criteria.GetSpParams()).ToList();
 
                 return entityList;
             }

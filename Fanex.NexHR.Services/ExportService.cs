@@ -101,27 +101,35 @@ namespace Fanex.NexHR.Services
 
             var cell8 = row.CreateCell(7);
             cell8.CellStyle = cellStyle;
-            cell8.SetCellValue("Leave Taken");
+            cell8.SetCellValue(Labels.PaidLeave);
 
             var cell9 = row.CreateCell(8);
             cell9.CellStyle = cellStyle;
-            cell9.SetCellValue("Unpaid Leave");
+            cell9.SetCellValue(Labels.UnpaidLeave);
 
             var cell10 = row.CreateCell(9);
             cell10.CellStyle = cellStyle;
-            cell10.SetCellValue(Labels.LateIn);
+            cell10.SetCellValue(Labels.SickLeave);
 
             var cell11 = row.CreateCell(10);
             cell11.CellStyle = cellStyle;
-            cell11.SetCellValue(Labels.EarlyOut);
+            cell11.SetCellValue(Labels.AccidentLaborLeave);
 
             var cell12 = row.CreateCell(11);
             cell12.CellStyle = cellStyle;
-            cell12.SetCellValue(Labels.TotalHours);
+            cell12.SetCellValue(Labels.LateIn);
 
             var cell13 = row.CreateCell(12);
             cell13.CellStyle = cellStyle;
-            cell13.SetCellValue("Average Hours");
+            cell13.SetCellValue(Labels.EarlyOut);
+
+            var cell14 = row.CreateCell(13);
+            cell14.CellStyle = cellStyle;
+            cell14.SetCellValue(Labels.TotalHours);
+
+            var cell15 = row.CreateCell(14);
+            cell15.CellStyle = cellStyle;
+            cell15.SetCellValue("Average Hours");
             //// end header
 
             // body
@@ -190,7 +198,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(4);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(totalWorkingHours.Employee.Team.Name);
+                cellBody.SetCellValue(totalWorkingHours.Employee.Team.Code);
 
                 cellBody = row.CreateCell(5);
                 cellBody.CellStyle = bodyStyle;
@@ -202,7 +210,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(7);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(totalWorkingHours.LeaveTaken);
+                cellBody.SetCellValue(totalWorkingHours.PaidLeave);
 
                 cellBody = row.CreateCell(8);
                 cellBody.CellStyle = bodyStyle;
@@ -210,17 +218,25 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(9);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(totalWorkingHours.LateInMins);
+                cellBody.SetCellValue(totalWorkingHours.SickLeave);
 
                 cellBody = row.CreateCell(10);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(totalWorkingHours.EarlyOutMins);
+                cellBody.SetCellValue(totalWorkingHours.AccidentLaborLeave);
 
                 cellBody = row.CreateCell(11);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(totalWorkingHours.TotalHours.ToString("#.##"));
+                cellBody.SetCellValue(totalWorkingHours.LateIn);
 
                 cellBody = row.CreateCell(12);
+                cellBody.CellStyle = bodyStyle;
+                cellBody.SetCellValue(totalWorkingHours.EarlyOut);
+
+                cellBody = row.CreateCell(13);
+                cellBody.CellStyle = bodyStyle;
+                cellBody.SetCellValue(totalWorkingHours.TotalHours.ToString("#.##"));
+
+                cellBody = row.CreateCell(14);
                 cellBody.CellStyle = bodyStyle;
                 cellBody.SetCellValue(totalWorkingHours.AverageHours.ToString("#.##"));
 

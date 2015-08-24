@@ -1,4 +1,4 @@
-﻿/*global actingButton, noInformation, reloadButtonText, _messages*/
+﻿/*global actingButton, noInformation, reloadButtonText, _messages, _global*/
 /*exported index*/
 "use strict";
 
@@ -9,7 +9,6 @@ function index() {
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
-    dontBlock = true;
     $.ajax({
         url: _global.root + "ajax/GetRequestDetail",
         async: false,
@@ -21,7 +20,7 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
             result = data;
         }
     });
-    dontBlock = false;
+
     return result;
 }
 

@@ -846,4 +846,13 @@
   <data name="WorkingHoursAverage" xml:space="preserve">
     <value>Working Hours Average</value>
   </data>
+  <data name="AccidentLaborLeave" xml:space="preserve">
+    <value>Accident Labor Leave</value>
+  </data>
+  <data name="PaidLeave" xml:space="preserve">
+    <value>Paid Leave</value>
+  </data>
+  <data name="SickLeave" xml:space="preserve">
+    <value>Sick Leave</value>
+  </data>
 </root>

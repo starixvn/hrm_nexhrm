@@ -70,6 +70,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accident Labor Leave.
+        /// </summary>
+        public static string AccidentLaborLeave {
+            get {
+                return ResourceManager.GetString("AccidentLaborLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Date.
         /// </summary>
         public static string ActualDate {
@@ -1663,6 +1672,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paid Leave.
+        /// </summary>
+        public static string PaidLeave {
+            get {
+                return ResourceManager.GetString("PaidLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parent.
         /// </summary>
         public static string Parent {
@@ -1938,6 +1956,15 @@ namespace Fanex.NexHR.Resources {
         public static string ShiftInfo {
             get {
                 return ResourceManager.GetString("ShiftInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sick Leave.
+        /// </summary>
+        public static string SickLeave {
+            get {
+                return ResourceManager.GetString("SickLeave", resourceCulture);
             }
         }
         

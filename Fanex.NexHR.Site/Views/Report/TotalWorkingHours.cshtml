@@ -114,10 +114,12 @@
             <th>@Labels.Team</th>
             <th>@Labels.WorkigDay</th>
             <th>@Labels.ActualWorkingDay</th>
-            <th>@Labels.LeaveTaken</th>
-            <th> Upaid leave </th>
-            <th>Late in</th>
-            <th>Early out</th>
+            <th>@Labels.PaidLeave</th>
+            <th>@Labels.UnpaidLeave</th>
+            <th>@Labels.SickLeave</th>
+            <th>@Labels.AccidentLaborLeave</th>
+            <th>@Labels.LateIn</th>
+            <th>@Labels.EarlyOut</th>
             <th>@Labels.TotalHours</th>
             <th>Average Hours</th>
         </tr>
@@ -147,24 +149,51 @@
                     <td>@item.Employee.Code</td>
                     <td class="left">@item.Employee.FullName</td>
                     <td>@item.Employee.NickName</td>
-                    <td>@item.Employee.Team.Name</td>
+                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
                     <td>@item.WorkingDay</td>
                     <td>@item.ActualWorkingDay</td>
-                    <td>@item.LeaveTaken.ToString("0.0")</td>
+                    <td>@item.PaidLeave.ToString("0.0")</td>
                     <td>
                         @if (item.UnpaidLeave > 0 && Roles.IsUserInRole("HR"))
                         {
+                            requestModel.LeaveTypeId = 26;
                             <a href="@Url.Action("hrview", "request", requestModel)">
                                     @item.UnpaidLeave.ToString("0.0")
                             </a>
                         }
                         else
                         {
-                             @item.UnpaidLeave.ToString("0.0")
+                            @item.UnpaidLeave.ToString("0.0")
                         }
                     </td>
-                    <td>@Utilities.MinuteToTime(item.LateInMins)</td>
-                    <td>@Utilities.MinuteToTime(item.EarlyOutMins)</td>
+                    <td>
+                        @if (item.SickLeave > 0 && Roles.IsUserInRole("HR"))
+                        {
+                            requestModel.LeaveTypeId = 28;
+                            <a href="@Url.Action("hrview", "request", requestModel)">
+                                    @item.SickLeave.ToString("0.0")
+                            </a>
+                        }
+                        else
+                        {
+                            @item.SickLeave.ToString("0.0")
+                        }
+                    </td>
+                    <td>
+                        @if (item.AccidentLaborLeave > 0 && Roles.IsUserInRole("HR"))
+                        {
+                            requestModel.LeaveTypeId = 29;
+                            <a href="@Url.Action("hrview", "request", requestModel)">
+                                @item.AccidentLaborLeave.ToString("0.0")
+                            </a>
+                        }
+                        else
+                        {
+                            @item.AccidentLaborLeave.ToString("0.0")
+                        }
+                    </td>
+                    <td>@Utilities.MinuteToTime(item.LateIn)</td>
+                    <td>@Utilities.MinuteToTime(item.EarlyOut)</td>
                     <td>@Utilities.TotalHoursToTime(item.TotalHours)</td>
                     <td>@Utilities.TotalHoursToTime(item.AverageHours)</td>
                 </tr>  
@@ -175,7 +204,7 @@ else
 { 
     @RazorHelper.DisplayNoInformation(colspan: 11);
 }
-              
+
 </table>
 
 

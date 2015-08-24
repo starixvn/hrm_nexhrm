@@ -20,13 +20,17 @@ namespace Fanex.NexHR.Models
 
         public float ActualWorkingDay { get; set; }
 
-        public float LeaveTaken { get; set; }
+        public float PaidLeave { get; set; }
 
         public float UnpaidLeave { get; set; }
 
-        public int LateInMins { get; set; }
+        public float SickLeave { get; set; }
 
-        public int EarlyOutMins { get; set; }
+        public float AccidentLaborLeave { get; set; }
+
+        public int LateIn { get; set; }
+
+        public int EarlyOut { get; set; }
 
         public float TotalHours { get; set; }
 
