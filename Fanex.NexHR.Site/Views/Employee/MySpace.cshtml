@@ -146,13 +146,27 @@
             <td class="firstColumn">
                 @Labels.WorkingHoursAverage
             </td>
-            <td>
+            @if(Model.NumberWorkingDayCurrentMonth != 0)
+            {
+                <td>
                 @Utilities.TotalHoursToTime((float)(Model.TotalWorkingHoursCurrentMonth / Model.NumberWorkingDayCurrentMonth))
-            </td>
-                
-            <td>
+                </td>
+            }
+            else
+            {
+                <td>0</td>
+            }
+
+            @if (Model.NumberWorkingDayLastMonth != 0)
+            {
+                <td>
                 @Utilities.TotalHoursToTime((float)(Model.TotalWorkingHoursLastMonth / Model.NumberWorkingDayLastMonth))
-            </td>
+                </td>
+            }
+            else
+            {
+                <td>0</td>
+            }
         </tr>
         
     </tbody>
