@@ -39,7 +39,7 @@
                 var annualBalance = string.Empty;
                 if (request.LeaveType.Id == 2 || request.LeaveType.Id == 30)
                 {
-                    annualBalance = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance;
+                    annualBalance = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance + " && ";
                 }
                 
                 var requestModel = new RequestViewModel
@@ -135,7 +135,7 @@
                                 if (request.RequestType.Id == 6)
                                 {
                                     <td>
-                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@(annualBalance + " && " + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">@request.Status.ToString()</a>
+                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" title="@(annualBalance + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">@request.Status.ToString()</a>
                                     </td>
                                 }
                                 else
