@@ -161,9 +161,9 @@
 
                     @DisplayFormatTotalLateInEarlyOut(lateIn.Dec, lateIn.TimesInDec, lateIn.Employee.Id, new DateTime(Model.Year, 12, 1), new DateTime(Model.Year, 12, 31))
 
-                    @DisplayFormatTotalLateInEarlyOut(lateIn.TotalCurrentYear, lateIn.TotalTimesCurrentYear, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31))
+                    @DisplayFormatTotalLateInEarlyOut(lateIn.TotalCurrentYear, lateIn.TotalTimesCurrentYear, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31), false)
 
-                    @DisplayNumberHours(lateIn.LeaveDeduction, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31), true)
+                    @DisplayNumberHours(lateIn.LeaveDeduction, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31))
                     
                     <td class="@(lateIn.BalanceCurrentYear >= 240 ? "red-color bold-color" : "bold-color")">@(lateIn.BalanceCurrentYear != 0 ? (lateIn.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
                     </td>
@@ -190,17 +190,16 @@
 
 
 
-@helper DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isLeaveDeduction = false)
+@helper DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHightlight = true)
     {
-        var url = isLeaveDeduction ? "LeaveDeductionDetail" : "LateInEarlyOutDetail";
-        url += "?employeeId=" + employeeId
+        var url = "LateInEarlyOutDetail?employeeId=" + employeeId
             + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
             + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
 
         if (minutes != 0)
         {
         <td>
-            <a class="@(times > 3 ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
+            <a class="@((times > 3 && isHightlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
         </td> 
         }
         else
@@ -209,10 +208,9 @@
         }
 }
 
-@helper DisplayNumberHours(int number, int employeeId, DateTime fromDate, DateTime toDate, bool isLeaveDeduction = false)
+@helper DisplayNumberHours(int number, int employeeId, DateTime fromDate, DateTime toDate)
     {
-        var url = isLeaveDeduction ? "LeaveDeductionDetail" : "LateInEarlyOutDetail";
-        url += "?employeeId=" + employeeId
+        var url = "LeaveDeductionDetail?employeeId=" + employeeId
             + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
             + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
 
