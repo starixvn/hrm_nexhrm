@@ -775,7 +775,7 @@ namespace Fanex.NexHR.Services
 
                 cellBody = row.CreateCell(5);
                 cellBody.CellStyle = bodyStyle;
-                cellBody.SetCellValue(employeeAttendance.Team);
+                cellBody.SetCellValue(employeeAttendance.TeamCode);
 
                 cellBody = row.CreateCell(6);
                 cellBody.CellStyle = bodyStyle;

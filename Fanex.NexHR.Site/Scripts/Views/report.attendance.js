@@ -150,7 +150,7 @@ $(document).ready(function () {
         }
 
         window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
-			'&empId=' + $('#EmpId').val('') + '&groupId=' + $('#GroupId').val() +
+			'&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
 			'&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
     });
 
