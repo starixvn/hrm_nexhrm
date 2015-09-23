@@ -645,7 +645,9 @@ namespace Fanex.NexHR.Controllers
         public ActionResult PostFpsTransaction()
         {
             Service serviceFPS = new Service();
-            serviceFPS.CheckTransaction(this.CurrentUser.NickName, "login", "SubTest2");
+            var resultMessage = string.Empty;
+            var deviceCode = string.Empty;
+            serviceFPS.CheckTransaction(this.CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
 
             return Content(string.Empty);
         }
