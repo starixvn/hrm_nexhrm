@@ -57,7 +57,7 @@ function generateDataBody(data, isDeleted) {
 				},
 				{ Name: "DateOfBirth", Value: "<div data-date='" + dataDateOfBirth + "' data-id='" + item.Id + "'>" + dateOfBirth + "</div>" },
 				{ Name: "JoinedDate", Value: "<div data-date='" + dataJoinedDate + "' data-id='" + item.Id + "'>" + joinedDate + "</div>" },
-				{ Name: "Edit", Value: !isDeleted ? "<a href='/employee/edit/" + item.Id + "'><img src='/Styles/Images/edit-icon.png'></a>" : "-" },
+				{ Name: "Edit", Value: "<a href='/employee/edit/" + item.Id + "'><img src='/Styles/Images/edit-icon.png'></a>" },
 				{ Name: "Schedule", Value: !isDeleted ? "<a href='/employee/defaultschedule/" + item.Id + 
 					"'><img src='/Styles/Images/edit-icon.png'></a>" : "-"
 				}
