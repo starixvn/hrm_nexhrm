@@ -1,0 +1,107 @@
+﻿.ui-widget-content a
+{
+    color: #0789D1 !important;
+}
+.skype_logo_img
+{
+    float: left;
+    width: 24px;
+    height: 24px;
+    background: url(Images/skype.png) no-repeat;
+    margin-left: 5px;
+}
+.skype_nick
+{
+    float: left;
+    line-height: 22px;
+}
+.title-event
+{
+    font-weight: bold;
+}
+.body_container
+{
+    padding: 10px;
+}
+
+.reminder-employee
+{
+    width: 230px;
+}
+
+.reminder-date
+{
+    width: 100px;
+}
+
+.reminder-skype
+{
+    width: 150px;
+}
+#dialog-reminder
+{
+    max-height: 500px;
+}
+table.dashboard-company
+{
+    width: 700px;
+}
+table.dashboard-company td.firstColumn
+{
+    text-align: right;
+    width: 152px;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+}
+table.dashboard-company td
+{
+    min-width: 100px;
+    white-space: inherit;
+    line-height: 20px;
+}
+
+.lnk-days
+{
+    position: relative;
+}
+.lnk-days .drop-menu
+{
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    top: 17px;
+    padding: 0;
+    background: #f7f5f5;
+    min-width: 120px;
+    display: none;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.lnk-days .drop-menu li
+{
+    border: 1px solid #d2d2d2;
+    padding: 8px 0;
+    text-align: left;
+    border-bottom: none;
+}
+
+.lnk-days .drop-menu li .chevron-right
+{
+    background: url(Images/chevron-right.png) no-repeat;
+    display: inline-block;
+    width: 9px;
+    height: 11px;
+    margin: 0 6px;
+}
+.list-unstyled
+{
+    list-style: none;
+}
+
+.checkInOutTime
+{
+    font-weight: bold;
+    color: #0D1BE4;
+    font-size: 16px;
+}
