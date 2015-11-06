@@ -4,3 +4,119 @@ body
     color: #303f4d;
     font-size: 1.3rem;
 }
+
+.opacity70 {
+    opacity: .7;
+}
+
+/* Header */
+
+.navbar-fixed {
+    .left {
+        width: 256px;
+
+        .logo {
+            border-bottom: 1px solid transparent;
+            padding-top: 17px;
+            text-align: center;
+            background: #24272f;
+
+            a#logo-container {
+                display: block;
+                height: 25px;
+                margin-bottom: 21px;
+                padding: 0 14px;
+
+                img {
+                    display: inline-block;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .right {
+        .nav-wrapper {
+            padding-right: 11px;
+
+            &>div {
+                float: right;
+                font-size: 13px;
+            }
+
+            .drop-down {
+                .dropdown-button {
+                    padding: 0;
+                    cursor: pointer;
+
+                    .name {
+                        display: inline-block;
+                        margin-right: 17px;
+                        margin-top: 5px;
+
+                        p {
+                            margin: 0;
+                            line-height: 1.5;
+                        }
+                    }
+
+                    img {
+                            margin-right: 10px;
+                            position: relative;
+                            top: 13px;
+                    }
+                }
+            }
+
+            .notification {
+                position: relative;
+                margin-right: 2rem;
+
+                i {
+                    font-size: 24px;
+                    color: #aeb1b6;
+                }
+
+                .badge {
+                    border-radius: 10px;
+                    display: inline-block;
+                    font-weight: bold;
+                    line-height: 1;
+                    min-width: 10px;
+                    text-align: center;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                    background-color: #ff0909;
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: 9px;
+                    font-weight: normal;
+                    padding: 4px 6px;
+                    top: 15px;
+                    right: -3px;
+                }
+            }
+
+            .search-wrapper {
+                box-sizing: border-box;
+                display: inline-block;
+                font-size: 16px;
+                margin: 0;
+                width: 4rem;
+                position: relative;
+                transition: all .2s ease-out;
+                margin-right: 1rem;
+
+                input {
+                    margin-bottom: 0;
+                    margin-top: 16px;
+                }
+            }
+        }
+    }
+}
+
+.side-nav.fixed {
+    margin-top: 64px;
+    overflow: hidden;
+}

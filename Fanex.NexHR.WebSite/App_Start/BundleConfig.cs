@@ -23,16 +23,16 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Libs/jquery.tmpl.js",
                         "~/Scripts/Libs/jquery.tipsy.js",
                         "~/Scripts/Libs/jquery.cookie.js",
+                        "~/Scripts/Libs/materialize.js",
                         "~/Scripts/Libs/common.js",
                         "~/Scripts/Views/language.js"));
-
             bundles.Add(new StyleBundle("~/Content/sitecss").Include(
                 "~/Content/Common/materialize.css",
+                "~/Content/Common/table.custom.css",
                 "~/Content/site.css"));
 
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include("~/Scripts/Views/employee.dashboard.js"));
-
             bundles.Add(new StyleBundle("~/Content/dashboardcss").Include("~/Content/mydashboard.css"));
         }
     }

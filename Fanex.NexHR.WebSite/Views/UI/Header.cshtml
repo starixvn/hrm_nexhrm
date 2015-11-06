@@ -6,20 +6,50 @@
     IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
     IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
 }
-<div class="header_wrap">
-    <div class="header">
-        <h1>
-            <a href="~/">
-                <img src="~/Content/Images/logo.png" width="147px" height="30px" alt="Nexcel Solutions Vietnam" /></a></h1>
-        <div class="search_bar">
-            <form class="search" method="get" action="/employee/index" accept-charset="UTF-8"
-            id="search">
-            <input type="text" autocomplete="off" placeholder="Nickname or full name" name="query"
-                id="searchbox" class="placeholder" />
-            <a id="searchIcon" class="search_btn button straight-left no_border just-icon"><span
-                class="icon magnifier"></span></a>
-            </form>
+<div class="navbar-fixed">
+    <div class="container left">
+        <div class="logo">
+            <a id="logo-container" class="brand-logo" href="~/">
+                <img src="~/Content/Images/logo.png" width="147px" height="30px" alt="Nexcel Solutions Vietnam" />
+            </a>
         </div>
+    </div>
+    <nav class="right">
+        <div class="right nav-wrapper">
+            <div class="drop-down">
+                <div class="dropdown-button" href="#!" data-activates="dropdown1">
+                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
+                    <img src="images/user.png">
+                </div>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
+                    <li class="divider"></li>
+                    <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>
+                    <li class="divider"></li>
+                    <li><a class="" href="@Url.Action("index", "account")">My profile</a> </li>
+                </ul>
+            </div>
+            <div class="notification">
+                <a href="#!"><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
+            </div>
+            <div class="input-field search-wrapper opacity70">
+                <form class="search" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
+                    <input id="search" type="search" required="">
+                    <label for="search"><i class="material-icons">search</i></label>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<ul id="nav-mobile" class="side-nav fixed">
+    <li class="no-padding">
+        <ul class="collapsible collapsible-expandable" data-collapsible="expandable">
+            @Html.Action("NavBar", "UI")
+        </ul>
+    </li>
+</ul>
+
+<div class="header-fixed">
         @if ((bool)ViewBag.HasBirthdayOrFirstWorkingday)
         {
             var marqueeText = string.Empty;
@@ -54,18 +84,6 @@
                 </div>
             </div>
         }
-        <div id="user_utilities" class="dropdown_navigation" style="z-index: 1000;">
-            <h2>
-                @Model.FullName - <i>@Model.NickName</i>
-            </h2>
-            <a href="javascript:;" class="dropdown_arrow"></a>
-            <ol class="global_navigation">
-                <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
-                <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>
-                <li><a class="" href="@Url.Action("index", "account")">My profile</a> </li>
-            </ol>
-        </div>
-    </div>
 </div>
 <div id="dialog-reminder" title="Reminder" style="display: none;">
     <div class="body_container">

@@ -166,9 +166,13 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
+    <Content Include="Content\Common\table.custom.css">
+      <DependentUpon>table.custom.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
-    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Common\materialize.css" />
     <Content Include="Content\mydashboard.css" />
@@ -230,6 +234,7 @@
     <Content Include="Scripts\Libs\jquery.validate.min.js" />
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Views\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
@@ -302,7 +307,9 @@
     <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Common\table.custom.scss" />
     <None Include="Content\site.scss" />
+    <Content Include="Views\Employee\ManagementDashboard.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

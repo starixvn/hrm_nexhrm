@@ -3,7 +3,7 @@
     {
         foreach (var navItem in navItemList)
         {
-            <div id="@navItem.Id" class="el" data-hashovermenu="@(!string.IsNullOrWhiteSpace(navItem.HoverController))">
+            <li id="@navItem.Id">
                 <span class="xicon @navItem.Icon"></span>
                 @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)
                 @if (!string.IsNullOrWhiteSpace(navItem.HoverController))
@@ -13,7 +13,7 @@
                             <span class="xicon @navItem.HoverIcon"></span></a>
                     </div>
                 }
-            </div>
+            </li>
         }
 }
 @helper NavigationSection(List<NavigationViewModel> sectionItemList)
@@ -22,15 +22,17 @@
         for (int i = 0; i < sectionCount; i++)
         {
             var sectionItem = sectionItemList[i];
-
-            <div class="overview_section togglable_section" id="@i">
-                <div class="separator">
-                    <strong>@sectionItem.Title</strong>
+            
+            <li class="bold active" id="@i">
+                <a class="collapsible-header waves-effect waves-orange active">
+                    @sectionItem.Title<i class="right mdi-navigation-chevron-right"></i>
+                </a>
+                <div class="collapsible-body" style="display: block;">
+                    <ul>
+                        @NagivationItem(sectionItem.Childs)
+                    </ul>
                 </div>
-            </div>
-            <div class="navItem">
-                @NagivationItem(sectionItem.Childs)
-            </div>
+            </li>
         }
 }
 <div class="column">

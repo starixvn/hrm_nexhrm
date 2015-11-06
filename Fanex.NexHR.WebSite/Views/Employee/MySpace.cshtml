@@ -13,11 +13,10 @@
     ViewBag.Title = "Dashboard";
 }
 @section Breadcrumb {
-    <a class="step" href="#">Personal</a> <span class="step">@ViewBag.Title</span>
 }
 <h2>
     General Info</h2>
-<table class="data dashboard-company">
+<table class="table bordered striped highlight table-custom">
     <thead>
         <tr>
             <th>
@@ -30,47 +29,47 @@
     </thead>
     <tbody>
         <tr>
-            <td class="firstColumn">@Labels.LeaveRequests
+            <td class="first-column">@Labels.LeaveRequests
             </td>
-            <td class="left">
+            <td>
                 @Html.Raw(Model.CompanyLeaveToDay)
             </td>
-            <td class="left">
+            <td>
                 @Html.Raw(Model.CompanyLeaveYesterday)
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">@Labels.CheckInOutRequest
+            <td class="first-column">@Labels.CheckInOutRequest
             </td>
-            <td class="left">
+            <td>
                 @Html.Raw(Model.CompanyCheckInOutToDay)
             </td>
-            <td class="left">
+            <td>
                 @Html.Raw(Model.CompanyCheckInOutYesterday)
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">@Labels.MissingCheckInOut
+            <td class="first-column">@Labels.MissingCheckInOut
             </td>
-            <td class="left">@Html.Raw(Model.CompanyMissingCheckInOutToDay)
+            <td>@Html.Raw(Model.CompanyMissingCheckInOutToDay)
             </td>
-            <td class="left">@Html.Raw(Model.CompanyMissingCheckInOutYesterday)
-            </td>
-        </tr>
-        <tr>
-            <td class="firstColumn">@Labels.LateInEarlyOut
-            </td>
-            <td class="left">@Html.Raw(Model.CompanyLateInEarlyOutToDay)
-            </td>
-            <td class="left">@Html.Raw(Model.CompanyLateInEarlyOutYesterday)
+            <td>@Html.Raw(Model.CompanyMissingCheckInOutYesterday)
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">@Labels.Absent
+            <td class="first-column">@Labels.LateInEarlyOut
             </td>
-            <td class="left">@Html.Raw(Model.CompanyAbsentToDay)
+            <td>@Html.Raw(Model.CompanyLateInEarlyOutToDay)
             </td>
-            <td class="left">@Html.Raw(Model.CompanyAbsentYesterday)
+            <td>@Html.Raw(Model.CompanyLateInEarlyOutYesterday)
+            </td>
+        </tr>
+        <tr>
+            <td class="first-column">@Labels.Absent
+            </td>
+            <td>@Html.Raw(Model.CompanyAbsentToDay)
+            </td>
+            <td>@Html.Raw(Model.CompanyAbsentYesterday)
             </td>
         </tr>
     </tbody>
@@ -95,10 +94,10 @@
 </div>
 <div class="space">
 </div>
-<table class="data" id="myspace">
+<table class="table bordered striped highlight table-custom" id="myspace">
     <thead>
         <tr>
-            <th class="firstColumn">
+            <th class="first-column">
             </th>
             <th>@Labels.CurrentMonth
             </th>
@@ -109,7 +108,7 @@
     </thead>
     <tbody>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.LeaveRequests <a href="~/leave/create" class="icon plus" title="Create leave request">
                 </a>
             </td>
@@ -121,7 +120,7 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.CheckInOutRequest <a href="~/checkinout/create" class="icon plus" title="Create check in/out request">
                 </a>
             </td>
@@ -133,7 +132,7 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.MissingCheckInOut
             </td>
             <td>
@@ -144,7 +143,7 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.LateInEarlyOut
             </td>
             <td>
@@ -155,7 +154,7 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.Absent
             </td>
             <td>
@@ -166,7 +165,7 @@
             </td>
         </tr>
         <tr>
-            <td class="firstColumn">
+            <td class="first-column">
                 @Labels.WorkingHoursAverage
             </td>
             @if (Model.NumberWorkingDayCurrentMonth != 0)
@@ -200,7 +199,7 @@
 </div>
 <div class="space">
 </div>
-@*@Html.Action("ManagementDashboard")*@
+@Html.Action("ManagementDashboard")
 <!-- FPS -->
 <script type="text/javascript" src="http://sc.detecas.com/di2/activator.ashx?api=/Employee/PostFpsTransaction"></script>
 <!-- End FPS -->
