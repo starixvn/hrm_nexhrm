@@ -2,26 +2,26 @@
 /// <reference path="date.js" />
 
 (function() {
-	var proxied = window.alert;
-	window.alert = function() {
-		$('<div class="dialogcontent">' + arguments[0] + '<input class="dialogokbutton" type="button" value="OK" onclick="$(\'.ui-dialog-content\').dialog(\'close\');" /></div>').dialog({
-			title: 'NexHRM',
-			height: 120,
-			show: 'fade',
-			hide: 'fade',
-			modal: true
-		});
-	};
+    var proxied = window.alert;
+    window.alert = function() {
+        $('<div class="dialogcontent">' + arguments[0] + '<input class="dialogokbutton" type="button" value="OK" onclick="$(\'.ui-dialog-content\').dialog(\'close\');" /></div>').dialog({
+            title: 'NexHRM',
+            height: 120,
+            show: 'fade',
+            hide: 'fade',
+            modal: true
+        });
+    };
 })();
 
 $.extend({
-	getOrCreateDialog: function(id) {
-		$box = $('#' + id);
-		if (!$box.length) {
-			$box = $('<div id="' + id + '"><p></p></div>').hide().appendTo('body');
-		}
-		return $box;
-	}
+    getOrCreateDialog: function(id) {
+        $box = $('#' + id);
+        if (!$box.length) {
+            $box = $('<div id="' + id + '"><p></p></div>').hide().appendTo('body');
+        }
+        return $box;
+    }
 });
 
 function confirm(message, callback, options) {
@@ -48,7 +48,7 @@ function confirm(message, callback, options) {
 		minHeight	: 50,
 		dialogClass	: 'modal-shadow'
 	}
-	
+
 	$confirm = $.getOrCreateDialog('confirm');
 	// set message
 	$("p", $confirm).html(message);
@@ -57,7 +57,6 @@ function confirm(message, callback, options) {
 }
 
 $(document).ready(function(){
-
 	$('.tooltip').tipsy({
 		live: true,
 		gravity: $.fn.tipsy.autoNS
@@ -112,7 +111,7 @@ $(document).ready(function(){
                 changeYear: true,
 				buttonImage: _global.root + "images/calendar.png"
 			});
-		} 
+		}
 		else {
 			$('.datepicker').datepicker({
 				dateFormat: "dd M, yy",
@@ -158,7 +157,6 @@ $(document).ready(function(){
 		actingButton('.processing-submit', true);
 	});
 });
-
 
 function checkBadDates(mydate) {
 	var isEnable = true;
@@ -622,7 +620,7 @@ function totalHoursToTime(value) {
 function updateTableHeaders() {
 	if($(".persist-area").val() != undefined)
 	{
-		var leftspace= 191; 
+		var leftspace= 191;
 		var widthspace = $(".persist-area").width() + 18;
 		if($.browser.safari)
 		{

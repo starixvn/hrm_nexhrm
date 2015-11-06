@@ -170,8 +170,11 @@
     <Content Include="Content\Images\chevron-right.png" />
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\skype.png" />
+    <Content Include="Content\Common\materialize.css" />
     <Content Include="Content\mydashboard.css" />
-    <Content Include="Content\site.css" />
+    <Content Include="Content\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -209,6 +212,7 @@
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="Scripts\Libs\common.js" />
+    <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.js" />
@@ -296,6 +300,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Employee\MySpace.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\site.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
