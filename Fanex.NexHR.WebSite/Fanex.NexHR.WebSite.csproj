@@ -40,7 +40,7 @@
     <Reference Include="Fanex.Data">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Logging">
+    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -166,15 +166,14 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
-    <Content Include="Content\Common\table.custom.css">
-      <DependentUpon>table.custom.scss</DependentUpon>
-    </Content>
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\skype.png" />
-    <Content Include="Content\Common\materialize.css" />
+    <Content Include="Content\Common\materialize.css">
+      <DependentUpon>materialize.scss</DependentUpon>
+    </Content>
     <Content Include="Content\mydashboard.css" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
@@ -307,7 +306,58 @@
     <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Common\table.custom.scss" />
+    <None Include="Content\Common\Components\date_picker\_default.date.scss" />
+    <None Include="Content\Common\Components\date_picker\_default.scss" />
+    <None Include="Content\Common\Components\date_picker\_default.time.scss" />
+    <None Include="Content\Common\Components\_buttons.scss" />
+    <None Include="Content\Common\Components\_cards.scss" />
+    <None Include="Content\Common\Components\_chips.scss" />
+    <None Include="Content\Common\Components\_collapsible.scss" />
+    <None Include="Content\Common\Components\_color.scss" />
+    <None Include="Content\Common\Components\_dropdown.scss" />
+    <None Include="Content\Common\Components\_form.scss" />
+    <None Include="Content\Common\Components\_global.scss" />
+    <None Include="Content\Common\Components\_grid.scss" />
+    <None Include="Content\Common\Components\_icons-material-design.scss" />
+    <None Include="Content\Common\Components\_materialbox.scss" />
+    <None Include="Content\Common\Components\_mixins.scss" />
+    <None Include="Content\Common\Components\_modal.scss" />
+    <None Include="Content\Common\Components\_navbar.scss" />
+    <None Include="Content\Common\Components\_normalize.scss" />
+    <None Include="Content\Common\Components\_prefixer.scss" />
+    <None Include="Content\Common\Components\_preloader.scss" />
+    <None Include="Content\Common\Components\_roboto.scss" />
+    <None Include="Content\Common\Components\_sideNav.scss" />
+    <None Include="Content\Common\Components\_slider.scss" />
+    <None Include="Content\Common\Components\_table_of_contents.scss" />
+    <None Include="Content\Common\Components\_tabs.scss" />
+    <None Include="Content\Common\Components\_toast.scss" />
+    <None Include="Content\Common\Components\_tooltip.scss" />
+    <None Include="Content\Common\Components\_typography.scss" />
+    <None Include="Content\Common\Components\_variables.scss" />
+    <None Include="Content\Common\Components\_waves.scss" />
+    <None Include="Content\Common\materialize.scss" />
+    <None Include="Content\Common\_table.scss" />
+    <None Include="Content\Common\Fonts\Material\Material-Design-Icons.eot" />
+    <None Include="Content\Common\Fonts\Material\Material-Design-Icons.ttf" />
+    <None Include="Content\Common\Fonts\Material\Material-Design-Icons.woff" />
+    <None Include="Content\Common\Fonts\Material\Material-Design-Icons.woff2" />
+    <None Include="Content\Common\Fonts\Material\materialdesignicons-webfont.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Bold.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Bold.woff" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Bold.woff2" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Light.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Light.woff" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Light.woff2" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Medium.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Medium.woff" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Medium.woff2" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Regular.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Regular.woff" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Regular.woff2" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Thin.ttf" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Thin.woff" />
+    <None Include="Content\Common\Fonts\Roboto\Roboto-Thin.woff2" />
     <None Include="Content\site.scss" />
     <Content Include="Views\Employee\ManagementDashboard.cshtml" />
   </ItemGroup>

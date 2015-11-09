@@ -28,7 +28,6 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Views/language.js"));
             bundles.Add(new StyleBundle("~/Content/sitecss").Include(
                 "~/Content/Common/materialize.css",
-                "~/Content/Common/table.custom.css",
                 "~/Content/site.css"));
 
             // dashboard
