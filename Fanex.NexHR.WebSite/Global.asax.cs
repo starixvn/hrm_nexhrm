@@ -9,13 +9,11 @@
 
 namespace Fanex.NexHR.WebSite
 {
-    using System;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
     using Fanex.Data.Configuration;
-    using Fanex.Logging;
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -28,13 +26,6 @@ namespace Fanex.NexHR.WebSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DbSettingProviderManager.Current.Start();
-        }
-
-        [ValidateInput(false)]
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            var exception = Server.GetLastError().GetBaseException();
-            LogService.Error(exception.Message, exception);
         }
     }
 }
