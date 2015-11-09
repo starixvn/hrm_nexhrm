@@ -6,20 +6,18 @@
     IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
     IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
 }
-<div class="navbar-fixed">
-    <div class="container left">
+<div class="navbar-fixed">    
+    <nav>
         <div class="logo">
             <a id="logo-container" class="brand-logo" href="~/">
-                <img src="~/Content/Images/logo.png" width="147px" height="30px" alt="Nexcel Solutions Vietnam" />
+                <img src="../../Content/Images/logo1.png" alt="Nexcel Solutions Vietnam" />                
             </a>
         </div>
-    </div>
-    <nav class="right">
         <div class="right nav-wrapper">
             <div class="drop-down">
                 <div class="dropdown-button" href="#!" data-activates="dropdown1">
                     <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
-                    <img src="images/user.png">
+                    <img src="~/Content/Images/user.png" />
                 </div>
                 <ul id="dropdown1" class="dropdown-content">
                     <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
@@ -33,7 +31,7 @@
                 <a href="#!"><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
             </div>
             <div class="input-field search-wrapper opacity70">
-                <form class="search" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
+                <form class="search input-field search-wrapper opacity70" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
                     <input id="search" type="search" required="">
                     <label for="search"><i class="material-icons">search</i></label>
                 </form>
@@ -41,12 +39,8 @@
         </div>
     </nav>
 </div>
-<ul id="nav-mobile" class="side-nav fixed">
-    <li class="no-padding">
-        <ul class="collapsible collapsible-expandable" data-collapsible="expandable">
-            @Html.Action("NavBar", "UI")
-        </ul>
-    </li>
+<ul id="nav-mobile" class="side-nav fixed">  
+    @Html.Action("NavBar", "UI")    
 </ul>
 
 <div class="header-fixed">

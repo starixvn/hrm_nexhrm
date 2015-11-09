@@ -1,6 +1,6 @@
 .side-nav {
   position: fixed;
-  width: 240px;
+  width: 256px;
   left: -105%;
   top: 0;
   margin: 0;
@@ -29,13 +29,11 @@
 
   li {
     float: none;
-    padding: 0 $sidenav-padding-right;
-    &:hover, &.active { background-color: #ddd; }
+    padding: 0 $sidenav-padding-right;   
   }
   a {
     color: #444;
-    display: block;
-    font-size: 1rem;
+    display: block;    
     height: 64px;
     line-height: 64px;
     padding: 0 $sidenav-padding-right;
@@ -88,13 +86,6 @@
 }
 
 
-.side-nav .collapsible-body li.active,
-.side-nav.fixed .collapsible-body li.active {
-  background-color: $primary-color;
-  a {
-    color: $sidenav-bg-color;
-  }
-}
 
 
 #sidenav-overlay {

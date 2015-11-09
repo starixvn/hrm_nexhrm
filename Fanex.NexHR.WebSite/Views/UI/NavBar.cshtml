@@ -23,7 +23,7 @@
         {
             var sectionItem = sectionItemList[i];
             
-            <li class="bold active" id="@i">
+            <li class="bold" id="@i">
                 <a class="collapsible-header waves-effect waves-orange active">
                     @sectionItem.Title<i class="right mdi-navigation-chevron-right"></i>
                 </a>
@@ -37,7 +37,11 @@
 }
 <div class="column">
     <div class="nav_links">
-        @NavigationSection(ViewBag.NavigationItems)
+         <li class="no-padding">
+            <ul class="collapsible collapsible-expandable" data-collapsible="accordion">
+            @NavigationSection(ViewBag.NavigationItems)
+            </ul>
+        </li>
     </div>
 </div>
 <input type="hidden" id="controller" value="@ViewBag.Controller.ToString().ToLower()" />

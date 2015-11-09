@@ -1,3 +1,11 @@
+@import "Scss/navHeader";
+@import "Common/table";
+@import "Scss/sideNav";	
+
+html {
+	font-size: 62.5%;
+}
+
 body
 {
     background-color: #e2e4e9;
@@ -8,9 +16,24 @@ body
 .opacity70 {
     opacity: .7;
 }
+.txt-uppercase {
+	text-transform: uppercase;
+}
 
-/* Header */
 
+main {
+	padding-left: 256px;
+}
+
+#section_content {
+	padding: 0 15px;
+	margin-top: -15px;
+}
+
+.title-page {
+    font-size: 1.4rem;    
+	margin-bottom: 20px;
+}
 .navbar-fixed {
     .left {
         width: 256px;
@@ -51,8 +74,7 @@ body
 
                     .name {
                         display: inline-block;
-                        margin-right: 17px;
-                        margin-top: 5px;
+                        margin-right: 17px;                        
 
                         p {
                             margin: 0;
@@ -121,5 +143,3 @@ body
     overflow: hidden;
 }
 
-/* Table */
-@import "Common/_table.scss";
