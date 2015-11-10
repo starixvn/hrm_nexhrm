@@ -25,12 +25,18 @@
       .nav-wrapper .drop-down .dropdown-button .name p {
         margin: 0;
         line-height: 1.5; }
+    .nav-wrapper .drop-down .dropdown-button .avatar {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%; }
     .nav-wrapper .drop-down .dropdown-button i {
       display: inline-block;
       font-size: 15px; }
-  .nav-wrapper .drop-down .dropdown-content li a {
-    background: #24272f;
-    color: #e8ecf0; }
+  .nav-wrapper .drop-down .dropdown-content {
+    top: auto !important; }
+    .nav-wrapper .drop-down .dropdown-content li a {
+      background: #24272f;
+      color: #e8ecf0; }
   .nav-wrapper .notification {
     position: relative;
     margin-right: 2rem; }
@@ -55,35 +61,41 @@
       font-size: 24px;
       color: #aeb1b6; }
 
-/*.search-wrapper {
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0;
-    width: 4rem;    
-    position: relative;   
-    transition: all 0.2s ease-out;
-    margin-right: 1rem;
+.search_bar {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 16px;
+  width: 4rem;
+  position: relative;
+  transition: all 0.2s ease-out;
+  margin-right: 2rem; }
+  .search_bar form {
+    overflow: hidden; }
+  .search_bar input {
+    margin-bottom: 0;
+    border-bottom: 1px solid transparent;
+    padding-left: 25px;
+    font-size: 13px; }
+  .search_bar label {
+    position: absolute;
+    top: 2px; }
+    .search_bar label i {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.7); }
+  .search_bar.focused {
+    width: 20rem;
+    transition: all 0.2s ease-out; }
+    .search_bar.focused input {
+      border-bottom: 1px solid #f4783d;
+      box-shadow: 0 1px 0 0 #f4783d;
+      vertical-align: middle;
+      background: transparent none repeat scroll 0 0; }
+    .search_bar.focused input:focus {
+      border-bottom: 1px solid #f4783d;
+      box-shadow: 0 1px 0 0 #f4783d; }
+    .search_bar.focused label {
+      color: #303f4d; }
 
-    input {
-        margin-bottom: 0;
-        margin-top: 16px;
-    }
-    &.focused {
-        width: 20rem;
-        transition: all 0.2s ease-out;
-        input {
-            border-bottom: 1px solid $color-primary;
-            box-shadow: 0 1px 0 0 $color-primary;
-            vertical-align: middle;
-        }
-
-        input:focus {
-            border-bottom: 1px solid $color-primary;
-            box-shadow: 0 1px 0 0 $color-primary;
-        }
-    }
-}*/
 .table.table-custom thead {
   color: #fff;
   background: #3b4254; }

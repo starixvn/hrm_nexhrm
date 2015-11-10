@@ -71,6 +71,16 @@ $(document).ready(function(){
 			document.location = _global.root + 'employee/index?query=' + $(this).val();
 		}
 	});
+    
+    $('#searchbox').focus(function () { 
+        $('.search_bar').addClass('focused'); 
+    });
+    
+    $('#searchbox').blur(function () {      
+        if (!$(this).val()) {  
+            $('.search_bar').removeClass('focused');        
+        }
+    });
 
 	//Handle event when click search icon
 	$("#searchIcon").click(function(){
@@ -665,12 +675,3 @@ function updateTableHeaders() {
 //            $("table .floatingHeader th:first").height(30);
     }
 }
-
-$(document).ready(function () {    
-    $('#searchbox').focus(function () { 
-        $('.search_bar').addClass('focused'); 
-    });
-    $('#searchbox').blur(function () {        
-        $('.search_bar').removeClass('focused');        
-    });
-});

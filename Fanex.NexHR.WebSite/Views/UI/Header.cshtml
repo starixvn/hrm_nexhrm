@@ -16,8 +16,8 @@
         <div class="right nav-wrapper">
             <div class="drop-down">
                 <div class="dropdown-button" href="#!" data-activates="dropdown1">
-                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
-                    <img src="~/Content/Images/user.png" />
+                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>                    
+                    <img class="avatar" src="../../Avatars/avatar.jpg" />
                 </div>
                 <ul id="dropdown1" class="dropdown-content">
                     <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
@@ -31,8 +31,10 @@
                 <a href="#!"><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
             </div>
             <div class="search_bar">
+                <label class="label-search"><i class="mdi-action-search"></i></label>
                 <form class="search" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
-                    <input type="text" autocomplete="off" placeholder="Nickname or full name" name="query" id="searchbox" class="placeholder" />
+                    <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" />
+                    <label for="search"></label>
                 </form>
             </div>            
         </div>
