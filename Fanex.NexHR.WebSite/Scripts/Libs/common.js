@@ -57,10 +57,10 @@ function confirm(message, callback, options) {
 }
 
 $(document).ready(function(){
-	$('.tooltip').tipsy({
-		live: true,
-		gravity: $.fn.tipsy.autoNS
-	});
+//	$('.tooltip').tipsy({
+//		live: true,
+//		gravity: $.fn.tipsy.autoNS
+//	});
 
 	$('.flash').animate({opacity: 0.25},3500, function(){
 		$(this).slideUp().remove();

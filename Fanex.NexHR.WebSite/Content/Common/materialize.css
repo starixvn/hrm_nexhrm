@@ -6168,7 +6168,8 @@ a.waves-effect .waves-ripple {
   border: 0;
   background-color: #fff; }
   .side-nav .collapsible-body li a {
-    margin: 0 1rem 0 2rem; }
+    margin: 0 1rem 0 0;
+    display: inline-block; }
 
 .collapsible.popout {
   border: none;
@@ -7238,7 +7239,9 @@ select {
 
 .side-nav.fixed {
   left: 0;
-  position: fixed; }
+  position: fixed;
+  margin-top: 64px;
+  overflow: hidden; }
   .side-nav.fixed.right-aligned {
     right: 0;
     left: auto; }

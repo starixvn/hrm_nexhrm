@@ -65,6 +65,8 @@
 .side-nav.fixed {
   left: 0;
   position: fixed;
+  margin-top: 64px;
+  overflow: hidden;
 
   // Right Align
   &.right-aligned {

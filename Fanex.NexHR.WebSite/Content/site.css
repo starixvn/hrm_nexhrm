@@ -21,8 +21,7 @@
       top: 13px; }
     .nav-wrapper .drop-down .dropdown-button .name {
       display: inline-block;
-      margin-right: 17px;
-      margin-top: 5px; }
+      margin-right: 17px; }
       .nav-wrapper .drop-down .dropdown-button .name p {
         margin: 0;
         line-height: 1.5; }
@@ -107,10 +106,7 @@
   border-right: 1px solid #d2d2d2; }
 
 #logo-container {
-  height: 25px;
-  margin-bottom: 21px; }
-  #logo-container:hover {
-    padding: 0; }
+  margin-top: 8px; }
 
 .side-nav.fixed {
   overflow: hidden; }
@@ -122,8 +118,6 @@
   .side-nav.fixed li a {
     line-height: 48px;
     height: 48px; }
-    .side-nav.fixed li a:hover {
-      color: #f4783d; }
   .side-nav.fixed ul.collapsible-accordion {
     background-color: #FFF; }
   .side-nav.fixed:hover {
@@ -135,14 +129,23 @@
   .bold > a:hover {
     color: #303f4d !important; }
 
-.collapsible-header .mdi-navigation-chevron-right {
+.nav_links .collapsible-header .mdi-navigation-chevron-right {
   margin-right: -5px !important;
   font-size: 19px;
   transform: rotate(0);
   transition: transform 0.2s ease-out; }
-.collapsible-header.active .mdi-navigation-chevron-right {
+.nav_links .collapsible-header.active .mdi-navigation-chevron-right {
   transform: rotate(90deg);
   transition: transform 0.2s ease-out; }
+.nav_links .collapsible-body [class*="mdi-"] {
+  font-size: 20px;
+  line-height: 48px;
+  height: 48px;
+  margin-left: 15px;
+  position: relative;
+  top: 3px; }
+.nav_links .collapsible-body li:hover a, .nav_links .collapsible-body li:hover i {
+  color: #f4783d; }
 
 html {
   font-size: 62.5%; }
@@ -152,12 +155,6 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.opacity70 {
-  opacity: .7; }
-
-.txt-uppercase {
-  text-transform: uppercase; }
-
 main {
   padding-left: 256px; }
 
@@ -165,81 +162,14 @@ main {
   padding: 0 15px;
   margin-top: -15px; }
 
+.opacity70 {
+  opacity: .7; }
+
+.txt-uppercase {
+  text-transform: uppercase; }
+
 .title-page {
   font-size: 1.4rem;
   margin-bottom: 20px; }
-
-.navbar-fixed .left {
-  width: 256px; }
-  .navbar-fixed .left .logo {
-    border-bottom: 1px solid transparent;
-    padding-top: 17px;
-    text-align: center;
-    background: #24272f; }
-    .navbar-fixed .left .logo a#logo-container {
-      display: block;
-      height: 25px;
-      margin-bottom: 21px;
-      padding: 0 14px; }
-      .navbar-fixed .left .logo a#logo-container img {
-        display: inline-block;
-        height: 100%; }
-.navbar-fixed .right .nav-wrapper {
-  padding-right: 11px; }
-  .navbar-fixed .right .nav-wrapper > div {
-    float: right;
-    font-size: 13px; }
-  .navbar-fixed .right .nav-wrapper .drop-down .dropdown-button {
-    padding: 0;
-    cursor: pointer; }
-    .navbar-fixed .right .nav-wrapper .drop-down .dropdown-button .name {
-      display: inline-block;
-      margin-right: 17px; }
-      .navbar-fixed .right .nav-wrapper .drop-down .dropdown-button .name p {
-        margin: 0;
-        line-height: 1.5; }
-    .navbar-fixed .right .nav-wrapper .drop-down .dropdown-button img {
-      margin-right: 10px;
-      position: relative;
-      top: 13px; }
-  .navbar-fixed .right .nav-wrapper .notification {
-    position: relative;
-    margin-right: 2rem; }
-    .navbar-fixed .right .nav-wrapper .notification i {
-      font-size: 24px;
-      color: #aeb1b6; }
-    .navbar-fixed .right .nav-wrapper .notification .badge {
-      border-radius: 10px;
-      display: inline-block;
-      font-weight: bold;
-      line-height: 1;
-      min-width: 10px;
-      text-align: center;
-      vertical-align: middle;
-      white-space: nowrap;
-      background-color: #ff0909;
-      color: #fff;
-      cursor: pointer;
-      font-size: 9px;
-      font-weight: normal;
-      padding: 4px 6px;
-      top: 15px;
-      right: -3px; }
-  .navbar-fixed .right .nav-wrapper .search-wrapper {
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0;
-    width: 4rem;
-    position: relative;
-    transition: all .2s ease-out;
-    margin-right: 1rem; }
-    .navbar-fixed .right .nav-wrapper .search-wrapper input {
-      margin-bottom: 0;
-      margin-top: 16px; }
-
-.side-nav.fixed {
-  margin-top: 64px;
-  overflow: hidden; }
 
 /*# sourceMappingURL=site.css.map */

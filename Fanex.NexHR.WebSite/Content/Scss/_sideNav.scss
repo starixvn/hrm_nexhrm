@@ -1,11 +1,7 @@
 ﻿@import "variables";
 
 #logo-container {
-  height: 25px;
-  margin-bottom: 21px;
-  &:hover {
-      padding: 0;
-  }
+  margin-top: 8px;
 }
 
 .side-nav {  
@@ -19,11 +15,8 @@
       }
       a {        
         line-height: 48px;
-        height: 48px;
-        &:hover {      
-          color: $color-primary;
-        }
-      }
+        height: 48px;        
+      }	  
     }
     overflow: hidden;
     ul.collapsible-accordion {
@@ -44,18 +37,38 @@
 }
 
 
-.collapsible-header {
-    .mdi-navigation-chevron-right {
-        margin-right: -5px !important;
-        font-size: 19px;
-        transform: rotate(0);
-        transition: transform 0.2s ease-out;
-    }
 
-    &.active {
-        .mdi-navigation-chevron-right {
-            transform: rotate(90deg);
-            transition: transform 0.2s ease-out;
-        }
-    }
+
+.nav_links {
+	.collapsible-header {
+		.mdi-navigation-chevron-right {
+			margin-right: -5px !important;
+			font-size: 19px;
+			transform: rotate(0);
+			transition: transform 0.2s ease-out;
+		}
+
+		&.active {
+			.mdi-navigation-chevron-right {
+				transform: rotate(90deg);
+				transition: transform 0.2s ease-out;
+			}
+		}
+	}
+	.collapsible-body {
+		[class*="mdi-"] {
+			font-size: 20px;
+			line-height: 48px;
+			height: 48px;
+			margin-left: 15px;
+			position: relative;
+			top: 3px;			
+		}
+
+		li:hover {
+			a, i { color: $color-primary;}
+		}
+	}
 }
+
+ 
