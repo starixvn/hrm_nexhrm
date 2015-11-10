@@ -167,10 +167,12 @@
     <Content Include="Content\Images\chevron-right.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo.svg" />
+    <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Common\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Images\user.png" />
     <Content Include="Content\mydashboard.css" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
@@ -357,6 +359,11 @@
     <Content Include="Content\Common\Fonts\Roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Employee\ManagementDashboard.cshtml" />
     <Content Include="Content\site.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Scss\_navHeader.scss" />
+    <None Include="Content\Scss\_sideNav.scss" />
+    <None Include="Content\Scss\_variables.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

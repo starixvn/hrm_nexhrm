@@ -666,11 +666,11 @@ function updateTableHeaders() {
     }
 }
 
-//$(document).ready(function () {    
-//    $('input#search').focus(function () { $(this).parent().addClass('focused'); });
-//    $('input#search').blur(function () {
-//        if (!$(this).val()) {
-//            $(this).parent().removeClass('focused');
-//        }
-//    });
-//});
+$(document).ready(function () {    
+    $('#searchbox').focus(function () { 
+        $('.search_bar').addClass('focused'); 
+    });
+    $('#searchbox').blur(function () {        
+        $('.search_bar').removeClass('focused');        
+    });
+});

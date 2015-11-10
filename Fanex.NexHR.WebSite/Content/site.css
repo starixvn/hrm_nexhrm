@@ -56,29 +56,35 @@
       font-size: 24px;
       color: #aeb1b6; }
 
-.search-wrapper {
-  box-sizing: border-box;
-  display: inline-block;
-  font-size: 16px;
-  margin: 0;
-  width: 4rem;
-  position: relative;
-  transition: all 0.2s ease-out;
-  margin-right: 1rem; }
-  .search-wrapper input {
-    margin-bottom: 0;
-    margin-top: 16px; }
-  .search-wrapper.focused {
-    width: 20rem;
-    transition: all 0.2s ease-out; }
-    .search-wrapper.focused input {
-      border-bottom: 1px solid #f4783d;
-      box-shadow: 0 1px 0 0 #f4783d;
-      vertical-align: middle; }
-    .search-wrapper.focused input:focus {
-      border-bottom: 1px solid #f4783d;
-      box-shadow: 0 1px 0 0 #f4783d; }
+/*.search-wrapper {
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    width: 4rem;    
+    position: relative;   
+    transition: all 0.2s ease-out;
+    margin-right: 1rem;
 
+    input {
+        margin-bottom: 0;
+        margin-top: 16px;
+    }
+    &.focused {
+        width: 20rem;
+        transition: all 0.2s ease-out;
+        input {
+            border-bottom: 1px solid $color-primary;
+            box-shadow: 0 1px 0 0 $color-primary;
+            vertical-align: middle;
+        }
+
+        input:focus {
+            border-bottom: 1px solid $color-primary;
+            box-shadow: 0 1px 0 0 $color-primary;
+        }
+    }
+}*/
 .table.table-custom thead {
   color: #fff;
   background: #3b4254; }
