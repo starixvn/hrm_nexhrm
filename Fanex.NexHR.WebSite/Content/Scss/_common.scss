@@ -13,6 +13,12 @@ main {
 	padding-left: 256px;
 }
 
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
 #section_content {
 	padding: 0 15px;
 	margin-top: -15px;

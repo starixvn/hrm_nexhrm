@@ -78,7 +78,8 @@
     font-size: 13px; }
   .search_bar label {
     position: absolute;
-    top: 2px; }
+    top: 2px;
+    z-index: -1; }
     .search_bar label i {
       font-size: 24px;
       color: rgba(255, 255, 255, 0.7); }
@@ -141,22 +142,22 @@
   .bold > a:hover {
     color: #303f4d !important; }
 
-.nav_links .collapsible-header .mdi-navigation-chevron-right {
+#nav-mobile .collapsible-header .mdi-navigation-chevron-right {
   margin-right: -5px !important;
   font-size: 19px;
   transform: rotate(0);
   transition: transform 0.2s ease-out; }
-.nav_links .collapsible-header.active .mdi-navigation-chevron-right {
+#nav-mobile .collapsible-header.active .mdi-navigation-chevron-right {
   transform: rotate(90deg);
   transition: transform 0.2s ease-out; }
-.nav_links .collapsible-body [class*="mdi-"] {
+#nav-mobile .collapsible-body [class*="mdi-"] {
   font-size: 20px;
   line-height: 48px;
   height: 48px;
   margin-left: 15px;
   position: relative;
   top: 3px; }
-.nav_links .collapsible-body li:hover a, .nav_links .collapsible-body li:hover i {
+#nav-mobile .collapsible-body li:hover a, #nav-mobile .collapsible-body li:hover i, #nav-mobile .collapsible-body li.active a, #nav-mobile .collapsible-body li.active i {
   color: #f4783d; }
 
 html {
@@ -170,6 +171,9 @@ body {
 main {
   padding-left: 256px; }
 
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0; } }
 #section_content {
   padding: 0 15px;
   margin-top: -15px; }

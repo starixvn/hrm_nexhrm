@@ -6,13 +6,16 @@
     IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
     IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
 }
-<div class="navbar-fixed">    
-    <nav>
+<div class="navbar-fixed">   
+    <div class="container left">
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
+    </div>    
+    <nav class="right">
         <div class="logo">
-            <a id="logo-container" class="brand-logo" href="~/">
-                <img src="../../Content/Images/logo.png" alt="Nexcel Solutions Vietnam" />                
-            </a>
-        </div>
+        <a id="logo-container" class="brand-logo" href="~/">
+            <img src="../../Content/Images/logo.png" alt="Nexcel Solutions Vietnam" />                
+        </a>
+    </div>
         <div class="right nav-wrapper">
             <div class="drop-down">
                 <div class="dropdown-button" href="#!" data-activates="dropdown1">
@@ -30,15 +33,15 @@
             <div class="notification">
                 <a href="#!"><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
             </div>
-            <div class="search_bar">
-                <label class="label-search"><i class="mdi-action-search"></i></label>
+            <div class="search_bar">                
                 <form class="search" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
                     <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" />
                     <label for="search"></label>
                 </form>
+                <label class="label-search"><i class="mdi-action-search"></i></label>
             </div>            
         </div>
-    </nav>
+    </nav>  
 </div>
 <ul id="nav-mobile" class="side-nav fixed">  
     @Html.Action("NavBar", "UI")    

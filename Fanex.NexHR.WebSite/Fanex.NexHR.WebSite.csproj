@@ -361,6 +361,7 @@
     <Content Include="Content\site.scss" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Scss\_common.scss" />
     <None Include="Content\Scss\_navHeader.scss" />
     <None Include="Content\Scss\_sideNav.scss" />
     <None Include="Content\Scss\_variables.scss" />

@@ -35,14 +35,13 @@
             </li>
         }
 }
-<div class="column">
-    <div class="nav_links">
-         <li class="no-padding">
-            <ul class="collapsible collapsible-expandable" data-collapsible="accordion">
-            @NavigationSection(ViewBag.NavigationItems)
-            </ul>
-        </li>
-    </div>
-</div>
+
+
+<li class="no-padding">
+    <ul class="collapsible collapsible-expandable" data-collapsible="accordion">
+    @NavigationSection(ViewBag.NavigationItems)
+    </ul>
+</li>
+
 <input type="hidden" id="controller" value="@ViewBag.Controller.ToString().ToLower()" />
 <input type="hidden" id="action" value="@ViewBag.Action.ToString().ToLower()" />
