@@ -1054,7 +1054,6 @@ $(document).ready(function(){
 
 }( jQuery ));
 ;(function ($) {
-
     $.fn.parallax = function () {
       var window_width = $(window).width();
       // Parallax Scripts

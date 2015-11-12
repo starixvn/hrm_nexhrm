@@ -62,6 +62,8 @@ $(document).ready(function(){
 //		gravity: $.fn.tipsy.autoNS
 //	});
 
+    $('.button-collapse').sideNav({'edge': 'left'});
+
 	$('.flash').animate({opacity: 0.25},3500, function(){
 		$(this).slideUp().remove();
 	});
