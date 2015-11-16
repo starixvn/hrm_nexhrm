@@ -855,4 +855,16 @@
   <data name="SickLeave" xml:space="preserve">
     <value>Sick Leave</value>
   </data>
+  <data name="CheckInTimeToday" xml:space="preserve">
+    <value>Check In Time (today)</value>
+  </data>
+  <data name="CheckOutTimeYesterday" xml:space="preserve">
+    <value>Check Out Time (yesterday)</value>
+  </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>General Info</value>
+  </data>
+  <data name="MyMemberRequest" xml:space="preserve">
+    <value>My members' requests</value>
+  </data>
 </root>

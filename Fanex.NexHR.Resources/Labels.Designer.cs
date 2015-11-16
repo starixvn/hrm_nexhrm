@@ -412,6 +412,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check In Time (today).
+        /// </summary>
+        public static string CheckInTimeToday {
+            get {
+                return ResourceManager.GetString("CheckInTimeToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check Out.
         /// </summary>
         public static string CheckOut {
@@ -426,6 +435,15 @@ namespace Fanex.NexHR.Resources {
         public static string CheckOutTime {
             get {
                 return ResourceManager.GetString("CheckOutTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Out Time (yesterday).
+        /// </summary>
+        public static string CheckOutTimeYesterday {
+            get {
+                return ResourceManager.GetString("CheckOutTimeYesterday", resourceCulture);
             }
         }
         
@@ -849,6 +867,15 @@ namespace Fanex.NexHR.Resources {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Info.
+        /// </summary>
+        public static string GeneralInfo {
+            get {
+                return ResourceManager.GetString("GeneralInfo", resourceCulture);
             }
         }
         
@@ -1425,6 +1452,15 @@ namespace Fanex.NexHR.Resources {
         public static string MyLeaveRequest {
             get {
                 return ResourceManager.GetString("MyLeaveRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My members&apos; requests.
+        /// </summary>
+        public static string MyMemberRequest {
+            get {
+                return ResourceManager.GetString("MyMemberRequest", resourceCulture);
             }
         }
         

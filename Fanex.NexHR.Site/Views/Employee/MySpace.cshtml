@@ -14,7 +14,7 @@
     <a class="step" href="#">Personal</a> <span class="step">@ViewBag.Title</span>
 }
 
-<h2>General Info</h2>
+<h2>@Labels.GeneralInfo</h2>
 <table class="data dashboard-company" >
     <thead>
     <tr>
@@ -68,7 +68,7 @@
 <div class="clear"></div>
 <div class="space"></div>
 <div  class="grid_5">
-    Check Out Time (yesterday): <span class="checkInOutTime">@Model.DisplayCheckOutTime</span>. Check In Time (today): 
+    @Labels.CheckOutTimeYesterday: <span class="checkInOutTime">@Model.DisplayCheckOutTime</span>. @Labels.CheckInTimeToday: 
     <span class="checkInOutTime">@Model.DisplayCheckInTime</span>. 
 </div>
 <div class="clear"></div>
