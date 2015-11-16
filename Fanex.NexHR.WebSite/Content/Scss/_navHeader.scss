@@ -94,6 +94,15 @@
             color: #aeb1b6;
         }
     }
+	#dropdown-notification {
+		left: inherit !important;
+		right: -20px !important;
+		min-width: 400px;
+		.badge {
+			right: 16px;
+			font-size: 11px;
+		}
+	}
 }
 
 .search_bar {

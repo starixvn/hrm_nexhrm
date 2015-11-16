@@ -359,7 +359,7 @@ thead {
 }
 
 td, th{
-  padding: 15px 5px;
+  padding: 12px 8px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
@@ -440,7 +440,7 @@ td, th{
 // Collections
 .collection {
   margin: $element-top-margin 0 $element-bottom-margin 0;
-  border: 1px solid $collection-border-color;
+  //border: 1px solid $collection-border-color;
   border-radius: 2px;
   overflow: hidden;
   position: relative;
@@ -450,18 +450,19 @@ td, th{
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
-    border-bottom: 1px solid $collection-border-color;
+    //border-bottom: 1px solid $collection-border-color;
 
     // Avatar Collection
     &.avatar {
-      min-height: 84px;
-      padding-left: 72px;
+      min-height: 58px;
+      padding-left: 115px;
       position: relative;
+	  padding-right: 55px;
 
       .circle {
         position: absolute;
-        width: 42px;
-        height: 42px;
+        width: 35px;
+        height: 35px;
         overflow: hidden;
         left: 15px;
         display: inline-block;
@@ -469,7 +470,7 @@ td, th{
       }
       i.circle {
         font-size: 18px;
-        line-height: 42px;
+        line-height: 36px;
         color: #fff;
         background-color: #999;
         text-align: center;
@@ -477,7 +478,11 @@ td, th{
 
 
       .title {
-        font-size: 16px;
+	    position: absolute;
+		left: 58px;
+		top: 17px;
+        //font-size: 16px;
+		
       }
 
       p {
@@ -488,6 +493,7 @@ td, th{
         position: absolute;
         top: 16px;
         right: 16px;
+		color: #303f4d;
       }
 
     }
@@ -528,7 +534,14 @@ td, th{
     }
     .collection-item.avatar {
       padding-left: 72px;
+	  border-bottom: 1px solid #e0e0e0;
     }
+	.collection-footer {
+		padding-left: 10px;
+		&:hover {
+			color: #0d47a1; 
+		}
+	}
   }
 
 }
@@ -596,12 +609,12 @@ nav ul a span.badge {
 // Progress Bar
 .progress {
     position: relative;
-    height: 4px;
+    height: 8px;
     display: block;
     width: 100%;
     background-color: lighten($progress-bar-color, 40%);
-    border-radius: 2px;
-    margin: $element-top-margin 0 $element-bottom-margin 0;
+    border-radius: 4px;
+    margin: 1.1rem 0 1rem;
     overflow: hidden;
   .determinate {
     position: absolute;
@@ -610,6 +623,7 @@ nav ul a span.badge {
     left: 0;
     bottom: 0;
     background-color: $progress-bar-color;
+	border-radius: 4px;
     @include transition(width .3s linear);
   }
   .indeterminate {

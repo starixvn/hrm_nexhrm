@@ -1,0 +1,6 @@
+﻿@mixin css3 ($css3, $value) {
+    -webkit-#{$css3}: $value;
+    -moz-#{$css3} : $value;
+    -ms-#{$css3}: $value;
+    #{$css3}: $value;
+}

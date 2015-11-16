@@ -62,7 +62,13 @@ $(document).ready(function(){
 //		gravity: $.fn.tipsy.autoNS
 //	});
 
+    $('.slider').slider({full_width: true});
+    $('.parallax').parallax();
+    $('.modal-trigger').leanModal();
+    $('.scrollspy').scrollSpy();
     $('.button-collapse').sideNav({'edge': 'left'});
+    $('.datepicker').pickadate({selectYears: 20});
+    $('select').not('.disabled').material_select();
 
 	$('.flash').animate({opacity: 0.25},3500, function(){
 		$(this).slideUp().remove();

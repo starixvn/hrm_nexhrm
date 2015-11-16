@@ -163,6 +163,7 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
+    <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
     <Content Include="Content\Images\logo.png" />
@@ -213,6 +214,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
+    <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
     <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.js" />
@@ -257,7 +259,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Nagivation.sitemap" />
+    <Content Include="Nagivation.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Controllers\Fanex.NexHR.Controllers.csproj">
@@ -302,7 +306,7 @@
     <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Employee\MySpace.cshtml" />
+    <Content Include="Views\Employee\MySpace2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Common\Components\date_picker\_default.date.scss" />
@@ -362,9 +366,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Scss\_common.scss" />
+    <None Include="Content\Scss\_content.scss" />
+    <None Include="Content\Scss\_css3.scss" />
     <None Include="Content\Scss\_navHeader.scss" />
     <None Include="Content\Scss\_sideNav.scss" />
     <None Include="Content\Scss\_variables.scss" />
+    <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

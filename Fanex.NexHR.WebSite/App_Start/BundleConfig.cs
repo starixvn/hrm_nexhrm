@@ -24,6 +24,7 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Libs/jquery.tipsy.js",
                         "~/Scripts/Libs/jquery.cookie.js",
                         "~/Scripts/Libs/materialize.js",
+                        "~/Scripts/Libs/chart.js",
                         "~/Scripts/Libs/common.js",
                         "~/Scripts/Views/language.js"));
             bundles.Add(new StyleBundle("~/Content/sitecss").Include(

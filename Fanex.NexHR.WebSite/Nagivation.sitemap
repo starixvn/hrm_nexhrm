@@ -18,7 +18,7 @@
             <siteMapNode title="Annual leave balance" controller="annualleavebalance" action="index" icon="action-today" />
             <siteMapNode title="User management" controller="employee" action="UserManagement" icon="action-account-box" />
             <siteMapNode title="Team management" controller="team" action="index" icon="action-settings" />
-            <siteMapNode title="Create account" controller="employee" action="create" icon="social-group-add" />
+            <siteMapNode title="Create account" controller="employee" action="create" icon="social-person-add" />
             <siteMapNode title="Job title management" controller="jobtitle" action="jobtitlemanagement" icon="action-account-circle" />
             <!--<siteMapNode title="Department management" controller="department" action="index" icon="setting" />-->
             <siteMapNode title="Time Record" controller="report" action="timerecord" icon="notification-event-note" />
@@ -28,13 +28,13 @@
             <siteMapNode title="Staff TOEIC score" controller="employee" action="toeicmanagement" icon="action-grade" />
             <siteMapNode title="Working calendars" controller="employee" action="workingcalendars" icon="action-today" />
             <siteMapNode title="Employees' requests" controller="request" action="employeeview"  icon="action-account-box" />
-            <siteMapNode title="Attendance report" controller="report" action="attendance" icon="action-subject" />
+            <siteMapNode title="Attendance report" controller="report" action="attendance" icon="notification-event-note" />
 
             <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyoutsummary" icon="action-alarm" />
-            <siteMapNode title="Leave summary" controller="report" action="leavesummary" icon="av-web" />
+            <siteMapNode title="Leave summary" controller="report" action="leavesummary" icon="action-description" />
             <siteMapNode title="Total working hours" controller="report" action="totalworkinghours" icon="action-alarm-add" />
             <siteMapNode title="Holiday" controller="holiday" action="index" icon="image-photo" />
-            <siteMapNode title="Shift info" controller="shift" action="index" icon="av-new-releases" />
+            <siteMapNode title="Shift info" controller="shift" action="index" icon="action-info-outline" />
             <siteMapNode title="Geolocation map" controller="geographicmap" action="index" icon="maps-place" />
             <siteMapNode title="Extension numbers" controller="ExtensionNo" action="index" icon="hardware-phone-android" />
             <siteMapNode title="Company memo" controller="memo" action="index" icon="action-assignment" />

@@ -19,10 +19,9 @@
   @extend .z-depth-1;
 
 
-  .card-title {
-    color: $card-bg-color;
-    font-size: 24px;
-    font-weight: 300;
+  .card-title {    
+    font-size: 16px;
+    font-weight: 400;
     &.activator {
       cursor: pointer;
     }
@@ -115,7 +114,7 @@
       color: inherit;
     }
     .card-title {
-      line-height: 48px;
+      line-height: 50px;
     }
   }
 
