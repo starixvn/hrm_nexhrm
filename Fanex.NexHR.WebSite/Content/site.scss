@@ -1,17 +1,12 @@
-@import "Scss/navHeader";
+@import "Common/navHeader";
 @import "Common/table";
-@import "Scss/sideNav";	
-@import "Scss/common";
-@import "Scss/content";
-
+@import "Common/sideNav";
+@import "Common/common";
+@import "Common/content";
+@import "Common/icon";
 
 /*@media only screen and (min-width : 993px) {
   .container {
     width: 85%;
   }
 }*/
-
-
-
-
-

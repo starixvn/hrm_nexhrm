@@ -124,6 +124,8 @@
   border-bottom: 1px solid #d2d2d2;
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2; }
+  .table.table-custom tbody tr td.highlight {
+    background-color: #F2F2C2; }
 
 #logo-container {
   margin-top: 8px; }
@@ -729,6 +731,15 @@ table .mail-item {
   color: #fff; }
   .striped thead th {
     font-weight: normal; }
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 0.5rem; }
+  .icon.icon-plus {
+    background: url("../../Content/Images/plus_16x16.png") no-repeat;
+    width: 1.6rem;
+    height: 1.6rem; }
 
 /*@media only screen and (min-width : 993px) {
   .container {

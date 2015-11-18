@@ -63,10 +63,18 @@ $(document).ready(function(){
         selectNavItem.addClass("active");
     }
 
-//	$('.tooltip').tipsy({
-//		live: true,
-//		gravity: $.fn.tipsy.autoNS
-//	});
+    $('.el[data-hashovermenu=True], .el[data-hashovermenu=data-hashovermenu]').hover(
+        function () {
+            $(this).find('.hoveraction').removeClass('hide').fadeIn(400);
+        }, function () {
+            $(this).find('.hoveraction').addClass('hide').hide();
+        }
+    );
+
+	$('.tooltip').tipsy({
+		live: true,
+		gravity: $.fn.tipsy.autoNS
+	});
 
     $('.slider').slider({full_width: true});
     $('.parallax').parallax();
@@ -85,14 +93,14 @@ $(document).ready(function(){
 			document.location = _global.root + 'employee/index?query=' + $(this).val();
 		}
 	});
-    
-    $('#searchbox').focus(function () { 
-        $('.search_bar').addClass('focused'); 
+
+    $('#searchbox').focus(function () {
+        $('.search_bar').addClass('focused');
     });
-    
-    $('#searchbox').blur(function () {      
-        if (!$(this).val()) {  
-            $('.search_bar').removeClass('focused');        
+
+    $('#searchbox').blur(function () {
+        if (!$(this).val()) {
+            $('.search_bar').removeClass('focused');
         }
     });
 

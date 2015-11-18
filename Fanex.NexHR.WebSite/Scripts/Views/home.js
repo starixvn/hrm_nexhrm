@@ -91,12 +91,7 @@ $(document).ready(function () {
 	//add style for first item section
 	$("div.togglable_section:first-child").children(":first").addClass("first");
 
-	$('.el[data-hashovermenu=True], .el[data-hashovermenu=data-hashovermenu]').hover(
-        function () {
-		$(this).find('.hoveraction').fadeIn(400);
-		}, function () {
-			$(this).find('.hoveraction').hide();
-        });
+	
 
 	$("#dialog-reminder").dialog({
 		autoOpen: false,

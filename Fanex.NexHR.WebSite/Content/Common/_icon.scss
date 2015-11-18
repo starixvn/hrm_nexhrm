@@ -1,0 +1,11 @@
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0.5rem;
+
+    &.icon-plus {
+        background: url("../../Content/Images/plus_16x16.png") no-repeat;
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+}

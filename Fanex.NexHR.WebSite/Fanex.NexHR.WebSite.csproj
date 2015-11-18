@@ -173,6 +173,7 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
+    <Content Include="Content\Images\plus_16x16.png" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
@@ -180,11 +181,10 @@
     <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\skype.png" />
-    <Content Include="Content\Common\materialize.css">
+    <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
     <Content Include="Content\Images\user.png" />
-    <Content Include="Content\mydashboard.css" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -221,8 +221,12 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Views\mydashboard.css">
+      <DependentUpon>mydashboard.scss</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="HTMLPage1.html" />
     <Content Include="Index.aspx" />
     <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
@@ -323,68 +327,69 @@
     <Content Include="Views\Employee\MySpace2.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Common\Components\date_picker\_default.date.scss" />
-    <Content Include="Content\Common\Components\date_picker\_default.scss" />
-    <Content Include="Content\Common\Components\date_picker\_default.time.scss" />
-    <Content Include="Content\Common\Components\_buttons.scss" />
-    <Content Include="Content\Common\Components\_cards.scss" />
-    <Content Include="Content\Common\Components\_chips.scss" />
-    <Content Include="Content\Common\Components\_collapsible.scss" />
-    <Content Include="Content\Common\Components\_color.scss" />
-    <Content Include="Content\Common\Components\_dropdown.scss" />
-    <Content Include="Content\Common\Components\_form.scss" />
-    <Content Include="Content\Common\Components\_global.scss" />
-    <Content Include="Content\Common\Components\_grid.scss" />
-    <Content Include="Content\Common\Components\_icons-material-design.scss" />
-    <Content Include="Content\Common\Components\_materialbox.scss" />
-    <Content Include="Content\Common\Components\_mixins.scss" />
-    <Content Include="Content\Common\Components\_modal.scss" />
-    <Content Include="Content\Common\Components\_navbar.scss" />
-    <Content Include="Content\Common\Components\_normalize.scss" />
-    <Content Include="Content\Common\Components\_prefixer.scss" />
-    <Content Include="Content\Common\Components\_preloader.scss" />
-    <Content Include="Content\Common\Components\_roboto.scss" />
-    <Content Include="Content\Common\Components\_sideNav.scss" />
-    <Content Include="Content\Common\Components\_slider.scss" />
-    <Content Include="Content\Common\Components\_table_of_contents.scss" />
-    <Content Include="Content\Common\Components\_tabs.scss" />
-    <Content Include="Content\Common\Components\_toast.scss" />
-    <Content Include="Content\Common\Components\_tooltip.scss" />
-    <Content Include="Content\Common\Components\_typography.scss" />
-    <Content Include="Content\Common\Components\_variables.scss" />
-    <Content Include="Content\Common\Components\_waves.scss" />
-    <Content Include="Content\Common\materialize.scss" />
+    <Content Include="Content\Materialize\Components\date_picker\_default.date.scss" />
+    <Content Include="Content\Materialize\Components\date_picker\_default.scss" />
+    <Content Include="Content\Materialize\Components\date_picker\_default.time.scss" />
+    <Content Include="Content\Materialize\Components\_buttons.scss" />
+    <Content Include="Content\Materialize\Components\_cards.scss" />
+    <Content Include="Content\Materialize\Components\_chips.scss" />
+    <Content Include="Content\Materialize\Components\_collapsible.scss" />
+    <Content Include="Content\Materialize\Components\_color.scss" />
+    <Content Include="Content\Materialize\Components\_dropdown.scss" />
+    <Content Include="Content\Materialize\Components\_form.scss" />
+    <Content Include="Content\Materialize\Components\_global.scss" />
+    <Content Include="Content\Materialize\Components\_grid.scss" />
+    <Content Include="Content\Materialize\Components\_icons-material-design.scss" />
+    <Content Include="Content\Materialize\Components\_materialbox.scss" />
+    <Content Include="Content\Materialize\Components\_mixins.scss" />
+    <Content Include="Content\Materialize\Components\_modal.scss" />
+    <Content Include="Content\Materialize\Components\_navbar.scss" />
+    <Content Include="Content\Materialize\Components\_normalize.scss" />
+    <Content Include="Content\Materialize\Components\_prefixer.scss" />
+    <Content Include="Content\Materialize\Components\_preloader.scss" />
+    <Content Include="Content\Materialize\Components\_roboto.scss" />
+    <Content Include="Content\Materialize\Components\_sideNav.scss" />
+    <Content Include="Content\Materialize\Components\_slider.scss" />
+    <Content Include="Content\Materialize\Components\_table_of_contents.scss" />
+    <Content Include="Content\Materialize\Components\_tabs.scss" />
+    <Content Include="Content\Materialize\Components\_toast.scss" />
+    <Content Include="Content\Materialize\Components\_tooltip.scss" />
+    <Content Include="Content\Materialize\Components\_typography.scss" />
+    <Content Include="Content\Materialize\Components\_variables.scss" />
+    <Content Include="Content\Materialize\Components\_waves.scss" />
+    <Content Include="Content\Materialize\materialize.scss" />
     <Content Include="Content\Common\_table.scss" />
-    <Content Include="Content\Common\Fonts\Material\Material-Design-Icons.eot" />
-    <Content Include="Content\Common\Fonts\Material\Material-Design-Icons.ttf" />
-    <Content Include="Content\Common\Fonts\Material\Material-Design-Icons.woff" />
-    <Content Include="Content\Common\Fonts\Material\Material-Design-Icons.woff2" />
-    <Content Include="Content\Common\Fonts\Material\materialdesignicons-webfont.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Bold.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Bold.woff" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Bold.woff2" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Light.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Light.woff" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Light.woff2" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Medium.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Medium.woff" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Medium.woff2" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Regular.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Regular.woff" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Regular.woff2" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Thin.ttf" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Thin.woff" />
-    <Content Include="Content\Common\Fonts\Roboto\Roboto-Thin.woff2" />
+    <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.eot" />
+    <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.ttf" />
+    <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.woff" />
+    <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.woff2" />
+    <Content Include="Content\Materialize\Fonts\Material\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Bold.woff" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Light.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Light.woff" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Light.woff2" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Medium.woff" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Regular.woff" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Thin.woff" />
+    <Content Include="Content\Materialize\Fonts\Roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Employee\ManagementDashboard.cshtml" />
     <Content Include="Content\site.scss" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Scss\_common.scss" />
-    <None Include="Content\Scss\_content.scss" />
-    <None Include="Content\Scss\_css3.scss" />
-    <None Include="Content\Scss\_navHeader.scss" />
-    <None Include="Content\Scss\_sideNav.scss" />
-    <None Include="Content\Scss\_variables.scss" />
+    <None Include="Content\Common\_icon.scss" />
+    <None Include="Content\Common\_common.scss" />
+    <None Include="Content\Common\_content.scss" />
+    <None Include="Content\Common\_css3.scss" />
+    <None Include="Content\Common\_navHeader.scss" />
+    <None Include="Content\Common\_sideNav.scss" />
+    <None Include="Content\Common\_variables.scss" />
     <Content Include="Views\Employee\MySpace.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Leave\Create.cshtml" />
@@ -419,6 +424,7 @@
     <Content Include="Views\CheckInOut\Create.cshtml" />
     <Content Include="Views\CheckInOut\EmployeeView.cshtml" />
     <Content Include="Views\CheckInOut\Update.cshtml" />
+    <None Include="Content\Views\mydashboard.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

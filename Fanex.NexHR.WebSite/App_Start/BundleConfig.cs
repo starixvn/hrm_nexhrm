@@ -30,7 +30,7 @@ namespace Fanex.NexHR.WebSite
 
             bundles.AddAndInclude(
                 "~/Content/sitecss",
-                "~/Content/Common/materialize.css",
+                "~/Content/Materialize/materialize.css",
                 "~/Content/site.css");
 
             // dashboard
@@ -39,7 +39,7 @@ namespace Fanex.NexHR.WebSite
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
-                "~/Content/mydashboard.css");
+                "~/Content/Views/mydashboard.css");
         }
     }
 }

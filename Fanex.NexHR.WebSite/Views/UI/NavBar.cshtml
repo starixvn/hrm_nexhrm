@@ -3,14 +3,14 @@
     {
         foreach (var navItem in navItemList)
         {
-            <li id="@navItem.Id">
+            <li id="@navItem.Id" class="el" data-hashovermenu="@(!string.IsNullOrWhiteSpace(navItem.HoverController))">
                 <i class="mdi-@navItem.Icon"></i>
                 @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)
                 @if (!string.IsNullOrWhiteSpace(navItem.HoverController))
                 {
-                    <div class="hoveraction hide">
+                    <div class="hoveraction hide right">
                         <a title="Create new @navItem.Title.ToLower()" href="~/@navItem.HoverController/@navItem.HoverAction">
-                            <span class="xicon @navItem.HoverIcon"></span></a>
+                            <span class="icon icon-@navItem.HoverIcon"></span></a>
                     </div>
                 }
             </li>
@@ -35,7 +35,6 @@
             </li>
         }
 }
-
 
 <li class="no-padding">
     <ul class="collapsible collapsible-expandable" data-collapsible="accordion">

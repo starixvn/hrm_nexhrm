@@ -2,11 +2,9 @@
 @using Fanex.NexHR.Core;
 @model Fanex.NexHR.ViewModels.MySpaceViewModel
 @section css{
-    @Styles.Render("~/Content/sitecss")
     @Styles.Render("~/Content/dashboardcss")
 }
 @section js{
-    @Scripts.Render("~/bundles/sitejs")
     @Scripts.Render("~/bundles/dashboardjs")
 }
 @{
@@ -14,7 +12,8 @@
 }
 @section Breadcrumb {
 }
-<h4 class="title-page txt-uppercase">General Info</h4>
+<h4 class="title-page txt-uppercase">
+    General Info</h4>
 <table class="table bordered striped highlight table-custom">
     <thead>
         <tr>
