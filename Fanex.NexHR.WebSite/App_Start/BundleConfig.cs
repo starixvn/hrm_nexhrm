@@ -11,7 +11,7 @@ namespace Fanex.NexHR.WebSite
 {
     using System.Web.Optimization;
 
-    public class BundleConfig
+    public static class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -27,13 +27,19 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Libs/chart.js",
                         "~/Scripts/Libs/common.js",
                         "~/Scripts/Views/language.js"));
-            bundles.Add(new StyleBundle("~/Content/sitecss").Include(
+
+            bundles.AddAndInclude(
+                "~/Content/sitecss",
                 "~/Content/Common/materialize.css",
-                "~/Content/site.css"));
+                "~/Content/site.css");
 
             // dashboard
-            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include("~/Scripts/Views/employee.dashboard.js"));
-            bundles.Add(new StyleBundle("~/Content/dashboardcss").Include("~/Content/mydashboard.css"));
+            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                "~/Scripts/Views/employee.dashboard.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/dashboardcss",
+                "~/Content/mydashboard.css");
         }
     }
 }

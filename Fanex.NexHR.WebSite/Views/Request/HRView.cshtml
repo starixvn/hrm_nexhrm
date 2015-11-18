@@ -1,0 +1,20 @@
+﻿@model Fanex.NexHR.ViewModels.RequestViewModel
+@using Fanex.NexHR.Models.Request
+@{
+    ViewBag.Title = Labels.EmployeeRequest;
+    IList<RequestEntity> requests = ViewBag.EntityList;
+}
+@section css{
+}
+@section js{
+}
+@section Breadcrumb {
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    @Html.Partial("CriteriaPanel", Model)
+</div>
+@{
+    Html.RenderPartial("AllRequest", requests);
+}
+<div id="dialoghistorycontent" />

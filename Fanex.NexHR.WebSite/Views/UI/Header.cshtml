@@ -6,20 +6,21 @@
     IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
     IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
 }
-<div class="navbar-fixed">   
+<div class="navbar-fixed">
     <div class="container left">
-        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
-    </div>    
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only">
+            <i class="mdi-navigation-menu"></i></a>
+    </div>
     <nav class="right">
         <div class="logo">
         <a id="logo-container" class="brand-logo" href="~/">
-            <img src="../../Content/Images/logo.png" alt="Nexcel Solutions Vietnam" />                
+            <img src="../../Content/Images/logo.png" alt="Nexcel Solutions Vietnam" />
         </a>
     </div>
         <div class="right nav-wrapper">
             <div class="drop-down">
                 <div class="dropdown-button" href="#!" data-activates="dropdown1">
-                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>                    
+                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
                     <img class="avatar" src="../../Avatars/avatar.jpg" />
                 </div>
                 <ul id="dropdown1" class="dropdown-content">
@@ -34,191 +35,46 @@
                 <a href="#!" class="dropdown-button" data-activates='dropdown-notification'><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
             </div>
             <ul id='dropdown-notification' class='dropdown-content collection with-header'>
-            
+
                 <li class="collection-header">
                     <h5 class="txt-uppercase">Notifications</h5>
                     <span class="new badge">4</span>
-                </li>                
+                </li>
                 <li class="collection-item avatar">
-                  <i class="circle materialize-red mdi-action-description"></i>                  
+                  <i class="circle materialize-red mdi-action-description"></i>
                   <p>A new task has been placed <br>
                      <small>5 hours ago</small>
-                  </p>                  
+                  </p>
                 </li>
                 <li class="collection-item avatar">
-                  <i class="circle green mdi-social-person"></i>                  
+                  <i class="circle green mdi-social-person"></i>
                   <p>Completed the tash<br>
                      <small>2 days ago</small>
-                  </p> 
+                  </p>
                 </li>
                 <li class="collection-item avatar">
-                  <i class="circle materialize-red mdi-action-settings"></i>                  
+                  <i class="circle materialize-red mdi-action-settings"></i>
                   <p>Settings updated <br>
                      <small>2 days ago</small>
-                  </p> 
+                  </p>
                 </li>
                 <li class="collection-item avatar">
-                  <i class="circle blue mdi-action-event"></i>                  
+                  <i class="circle blue mdi-action-event"></i>
                   <p>Event started <br>
                      <small>3 days ago</small>
-                  </p> 
-                </li> 
+                  </p>
+                </li>
                 <li class="collection-footer grey lighten-2">
-                    <p>All notifications</p>                    
-                </li>                  
+                    <p>All notifications</p>
+                </li>
             </ul>
-            <div class="search_bar">                
+            <div class="search_bar">
                 <form class="search" method="get" action="/employee/index" accept-charset="UTF-8" id="search">
                     <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" />
                     <label for="search"></label>
                 </form>
                 <label class="label-search"><i class="mdi-action-search"></i></label>
-            </div>            
-        </div>
-    </nav>  
-</div>
-<ul id="nav-mobile" class="side-nav fixed">  
-    @Html.Action("NavBar", "UI")    
-</ul>
-
-<div class="header-fixed">
-        @if ((bool)ViewBag.HasBirthdayOrFirstWorkingday)
-        {
-            var marqueeText = string.Empty;
-            if (employeesBirthday != null && employeesBirthday.Any())
-            {
-                marqueeText = "Happy birthday to <span class='marquee-nickname'>"
-                    + string.Join(", ", employeesBirthday.Select(t => t.NickName))
-                + "</span>";
-            }
-
-            if (employeesFirstWorkingday != null && employeesFirstWorkingday.Any())
-            {
-                if (string.IsNullOrWhiteSpace(marqueeText))
-                {
-                    marqueeText = "First working day anniversary of <span class='marquee-nickname'>"
-                        + string.Join(", ", employeesFirstWorkingday.Select(t => t.NickName))
-                    + "</span>";
-                }
-                else
-                {
-                    marqueeText += " --- First working day anniversary of <span class='marquee-nickname'>"
-                        + string.Join(", ", employeesFirstWorkingday.Select(t => t.NickName))
-                    + "</span>";
-                }
-            }
-
-            <div class="marquee-birthday">
-                <div id="marquee">
-                    <a id="lnkmarquee" href="javascript:;" class="birthdaytext">
-                        @Html.Raw(marqueeText)
-                    </a>
-                </div>
             </div>
-        }
+        </div>
+    </nav>
 </div>
-<div id="dialog-reminder" title="Reminder" style="display: none;">
-    <div class="body_container">
-        @if (employeesBirthday != null && employeesBirthday.Any())
-        {
-            @ShowBirthday(employeesBirthday)
-        }
-        @if (employeesFirstWorkingday != null && employeesFirstWorkingday.Any())
-        {
-            @ShowFirstWorkingday(employeesFirstWorkingday)
-        }
-    </div>
-</div>
-@helper ShowFirstWorkingday(IList<Employee> employeesFirstWorkingday)
-    {
-    <div class="firstworkingday">
-        <div>
-            <span class="title-event">First working day anniversary of</span>
-        </div>
-        <div>
-            <table class="data">
-                <thead>
-                    <tr>
-                        <th class="reminder-employee">
-                            @Labels.Employee
-                        </th>
-                        <th class="reminder-date">
-                            @Labels.FirstWorkingDay
-                        </th>
-                        <th class="reminder-skype">
-                            @Labels.Skype
-                        </th>
-                        <th class="reminder-email">
-                            @Labels.Email
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Employee employee in employeesFirstWorkingday)
-                    {
-                        <tr>
-                            <td class="highlight left">@employee.DisplayName
-                            </td>
-                            <td class="highlight">@*@employee.JoinedDate.ToDateMonthYearFormatedDate()*@
-                            </td>
-                            <td>
-                                <a href="skype:@employee.Skype?chat"><span class="skype_logo_img"></span><span class="skype_nick">@employee.Skype</span>
-                                </a>
-                            </td>
-                            <td class="left">
-                                <a href="mailto:@employee.Email">@employee.Email</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-}
-@helper ShowBirthday(IList<Employee> employeesBirthday)
-    {
-    <div class="birthday">
-        <div>
-            <span class="title-event">Happy birthday to </span>
-        </div>
-        <div>
-            <table class="data">
-                <thead>
-                    <tr>
-                        <th class="reminder-employee">
-                            @Labels.Employee
-                        </th>
-                        <th class="reminder-date">
-                            @Labels.Birthday
-                        </th>
-                        <th class="reminder-skype">
-                            @Labels.Skype
-                        </th>
-                        <th class="reminder-email">
-                            @Labels.Email
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Employee employee in employeesBirthday)
-                    {
-                        <tr>
-                            <td class="highlight left">@employee.DisplayName
-                            </td>
-                            <td class="highlight">@*@employee.DateOfBirth.ToDateMonthYearFormatedDate()*@
-                            </td>
-                            <td>
-                                <a href="skype:@employee.Skype?chat"><span class="skype_logo_img"></span><span class="skype_nick">@employee.Skype</span>
-                                </a>
-                            </td>
-                            <td class="left">
-                                <a href="mailto:@employee.Email">@employee.Email</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br />
-}

@@ -1,0 +1,55 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model LeaveDeductionViewModel
+@{
+    ViewBag.Title = Labels.MultipleInsert;
+}
+@using (Html.BeginForm())
+{
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.TotalDays)
+        </div>
+        <div class="input">
+            @Html.EditorFor(model => model.TotalDays)
+        </div>
+    </div>
+
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.IsAnnual)
+        </div>
+        <div class="input">
+            @Html.CheckBoxFor(model => model.IsAnnual)
+        </div>
+    </div>
+
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="input">
+            @Html.TextAreaFor(model => model.Description)
+        </div>
+    </div>
+
+    <div class="formrow">
+        <div class="label">
+            @Html.LabelFor(model => model.DeductDate)
+        </div>
+        <div class="input">
+            @Html.DatePickerFor(model => model.DeductDate)
+        </div>
+    </div>
+
+    <div class="formrow">
+        <div class="label">
+            @Html.HiddenFor(model => model.LeaveDeductionId)
+        </div>
+        <div class="input">
+            <input type="submit" value="@Labels.Update" id="update" />
+            <input type="button" value="@Labels.Cancel" id="cancel" />
+        </div>
+    </div>
+}

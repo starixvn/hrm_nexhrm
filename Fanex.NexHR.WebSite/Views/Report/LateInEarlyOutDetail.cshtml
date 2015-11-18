@@ -1,0 +1,140 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models.Report
+@using Fanex.NexHR.ViewModels.Report
+@model LateInEarlyOutDetailViewModel
+@{
+    ViewBag.Title = Labels.LateInEarlyOutDetail;
+}
+@section Breadcrumb {
+}
+@section css{
+}
+@section js{
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <div class="container_24 bunhat">
+        <div class="grid_19">
+            <div class="grid_2 gridlabel">
+                @Labels.DateRange
+            </div>
+            <div class="grid_4">
+                <select id="Date" name="Date">
+                    <option value="0">
+                        @Labels.DateRange</option>
+                    <option value="1">
+                        @Labels.ToDay</option>
+                    <option value="2">
+                        @Labels.Yesterday</option>
+                    <option value="3">
+                        @Labels.CurrentWeek</option>
+                    <option value="4">
+                        @Labels.LastWeek</option>
+                    <option value="5">
+                        @Labels.CurrentMonth</option>
+                    <option value="6">
+                        @Labels.LastMonth</option>
+                    <option value="7">
+                        @Labels.SinceLastMonth</option>
+                </select>
+                @Html.Hidden("DateOption", Model.DateOption)
+            </div>
+            <div class="grid_2 gridlabel">
+                @Html.LabelFor(model => model.FromDate)
+            </div>
+            <div class="grid_4">
+                @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+            </div>
+            <div class="grid_2 gridlabel">
+                @Html.LabelFor(model => model.ToDate)
+            </div>
+            <div class="grid_4">
+                @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="space">
+        </div>
+        <div class="grid_20">
+            <div class="grid_2 gridlabel">
+                @Html.LabelFor(model => model.TeamId)
+            </div>
+            <div class="grid_4">
+                <select id="TeamId" name="TeamId">
+                    <option value="">@Labels.AllTeams</option>
+                    @foreach (Team team in Model.Teams)
+                    {
+                        <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="grid_2">
+                @Html.LabelFor(model => model.Employee)
+            </div>
+            <div class="grid_4">
+                @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                @Html.HiddenFor(model => model.EmployeeId)
+            </div>
+            <div class="grid_2">
+                &nbsp</div>
+            <div class="grid_5">
+                <input type="submit" value="@Labels.Submit" class="processing-submit" />
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+}
+<table class="data persist-area">
+    <thead>
+        <tr class="persist-header">
+            <th>
+                #
+            </th>
+            <th>@Labels.Name
+            </th>
+            <th>@Labels.Nick
+            </th>
+            <th>@Labels.Team
+            </th>
+            <th>@Labels.WorkigDay
+            </th>
+            <th>@Labels.Type
+            </th>
+            <th>@Labels.Hours
+            </th>
+        </tr>
+    </thead>
+    @if (Model.LateInEarlyOuts != null && Model.LateInEarlyOuts.Any())
+    {
+        int index = 1;
+        <tbody>
+            @foreach (LateInEarlyOutDetail item in Model.LateInEarlyOuts)
+            {
+                <tr>
+                    <td>@(index++)
+                    </td>
+                    <td class="left">@item.Employee.FullName
+                    </td>
+                    <td>@item.Employee.NickName
+                    </td>
+                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
+                    </td>
+                    <td>@item.WorkDate.ToDateMonthYearFormatedDate()
+                    </td>
+                    <td>@(item.TypeId == 0 ? Labels.LeaveDeduction : (item.TypeId == 1 ? Labels.LateIn : Labels.EarlyOut))
+                    </td>
+                    <td>@((item.Minutes / 60.0).ToString("0.0"))
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        @RazorHelper.DisplayNoInformation(colspan: 7);
+    }
+</table>

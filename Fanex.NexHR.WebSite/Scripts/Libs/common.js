@@ -57,6 +57,12 @@ function confirm(message, callback, options) {
 }
 
 $(document).ready(function(){
+    var currentUrl = $("#controller").val() + "_" + $("#action").val();
+    var selectNavItem = $("#" + currentUrl);
+    if (selectNavItem !== undefined) {
+        selectNavItem.addClass("active");
+    }
+
 //	$('.tooltip').tipsy({
 //		live: true,
 //		gravity: $.fn.tipsy.autoNS
