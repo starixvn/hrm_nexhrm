@@ -130,7 +130,7 @@
 #logo-container {
   margin-top: 8px; }
 
-.side-nav.fixed {
+.side-nav.fixed li {
   overflow: hidden; }
   .side-nav.fixed li.logo {
     border-bottom: 1px solid transparent;
@@ -138,12 +138,13 @@
     text-align: center;
     background: #24272f; }
   .side-nav.fixed li a {
+    margin-right: 0.5rem;
     line-height: 48px;
     height: 48px; }
-  .side-nav.fixed ul.collapsible-accordion {
-    background-color: #FFF; }
-  .side-nav.fixed:hover {
-    overflow-y: auto; }
+.side-nav.fixed ul.collapsible-accordion {
+  background-color: #FFF; }
+.side-nav.fixed:hover {
+  overflow-y: auto; }
 
 .bold > a {
   font-weight: bold;
@@ -460,7 +461,10 @@ table .mail-item {
   padding-right: 1.6rem; }
 .form-input input, .form-input textarea {
   padding-left: 7px !important;
-  border: none !important; }
+  border: none !important;
+  position: none !important;
+  visibility: unset !important;
+  left: unset !important; }
 .form-input label {
   margin-top: 5px;
   display: block;
@@ -732,14 +736,146 @@ table .mail-item {
   .striped thead th {
     font-weight: normal; }
 
+.validation-summary-errors {
+  background: none repeat scroll 0 0 #FBE3E4;
+  color: #8A1F11;
+  border: 1px solid #FBC2C4;
+  margin: 1em;
+  padding: 0.8em; }
+  .validation-summary-errors ul {
+    margin-left: 20px;
+    list-style-type: disc; }
+    .validation-summary-errors ul li {
+      margin: 4px 0;
+      list-style-type: disc; }
+
 .icon {
+  background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
   padding: 0 0.5rem; }
   .icon.icon-plus {
-    background: url("../../Content/Images/plus_16x16.png") no-repeat;
-    width: 1.6rem;
-    height: 1.6rem; }
+    background: url("../../Content/Images/sprite_ico_2012-05-15.png") 0 -7.2rem;
+    width: 2.4rem;
+    height: 2.4rem; }
+  .icon.icon-remark {
+    background: url("../../Content/Images/sprite_ico_2012-05-15.png") -16.9rem -19.2rem;
+    width: 2.4rem;
+    height: 2.4rem; }
+  .icon.icon-shiftinfo {
+    background: url("../../Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.9rem;
+    width: 2.4rem;
+    height: 2.4rem; }
+
+.tipsy {
+  font-size: 10px;
+  position: absolute;
+  padding: 5px;
+  word-wrap: break-word;
+  z-index: 100000; }
+
+.tipsy-inner {
+  background-color: #000;
+  color: #FFF;
+  max-width: 200px;
+  padding: 5px 8px 4px 8px;
+  text-align: center; }
+
+/* Rounded corners */
+.tipsy-inner {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+.tipsy-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 5px dashed #000; }
+
+/* Rules to colour arrows */
+.tipsy-arrow-n {
+  border-bottom-color: #000; }
+
+.tipsy-arrow-s {
+  border-top-color: #000; }
+
+.tipsy-arrow-e {
+  border-left-color: #000; }
+
+.tipsy-arrow-w {
+  border-right-color: #000; }
+
+.tipsy-n .tipsy-arrow {
+  top: 0px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-nw .tipsy-arrow {
+  top: 0;
+  left: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-ne .tipsy-arrow {
+  top: 0;
+  right: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-s .tipsy-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-sw .tipsy-arrow {
+  bottom: 0;
+  left: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-se .tipsy-arrow {
+  bottom: 0;
+  right: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+.tipsy-e .tipsy-arrow {
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-left-style: solid;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
+
+.tipsy-w .tipsy-arrow {
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-right-style: solid;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
 
 /*@media only screen and (min-width : 993px) {
   .container {

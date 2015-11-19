@@ -880,6 +880,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Half Day Off.
+        /// </summary>
+        public static string HalfDayOff {
+            get {
+                return ResourceManager.GetString("HalfDayOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to History.
         /// </summary>
         public static string History {
@@ -1542,6 +1551,15 @@ namespace Fanex.NexHR.Resources {
         public static string NewLateInEarlyOutRequest {
             get {
                 return ResourceManager.GetString("NewLateInEarlyOutRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Leave Request.
+        /// </summary>
+        public static string NewLeaveRequest {
+            get {
+                return ResourceManager.GetString("NewLeaveRequest", resourceCulture);
             }
         }
         

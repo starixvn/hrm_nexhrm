@@ -458,6 +458,17 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        public ActionResult MySpace2()
+        {
+            var getMySpaceCriteria = new GetMySpaceCriteria()
+            {
+                EmpId = this.CurrentUser.Id
+            };
+            var model = _employeeService.GetMySpace(getMySpaceCriteria);
+
+            return View(model);
+        }
+
         /// <summary>
         /// MY working schedule.
         /// </summary>

@@ -61,7 +61,7 @@ table {
       a {
         padding: 1rem .5rem 0;
         color: $color-text-main;
-        margin-top: 0.5rem;               
+        margin-top: 0.5rem;
       }
 
       &:hover {
@@ -180,17 +180,21 @@ table {
   .col {
 	padding-left: 1.6rem;
 	padding-right: 1.6rem;
-  }       
-  input, textarea {             
+  }
+
+  input, textarea {
     @extend %boxshadow; 
     padding-left: 7px !important;
-	border: none !important;          
-  }   
+    border: none !important;
+    position: none !important;
+    visibility: unset !important;
+    left: unset !important;
+  }
 
   label {
     margin-top: 5px;
     display: block;
-    color: $color-text-input;        
+    color: $color-text-input;
   }
 
   span.label {
@@ -581,4 +585,22 @@ table {
 	  font-weight: normal;
 	}
   }
+}
+
+.validation-summary-errors {
+    background: none repeat scroll 0 0 #FBE3E4;
+    color: #8A1F11;
+    border: 1px solid #FBC2C4;
+    margin: 1em;
+    padding: 0.8em;
+
+    ul {
+        margin-left: 20px;
+        list-style-type: disc;
+
+        li {
+            margin: 4px 0;
+            list-style-type: disc;
+        }
+    }
 }

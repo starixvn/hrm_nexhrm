@@ -173,7 +173,16 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
-    <Content Include="Content\Images\plus_16x16.png" />
+    <None Include="Content\Common\_button.scss" />
+    <None Include="Content\Common\_form.scss" />
+    <None Include="Content\Common\_tipsy.scss" />
+    <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
+    <None Include="Content\ContextMenu\font\context-menu-icons.ttf" />
+    <None Include="Content\ContextMenu\font\context-menu-icons.woff" />
+    <None Include="Content\ContextMenu\font\context-menu-icons.woff2" />
+    <None Include="Content\ContextMenu\icons\_mixins.scss" />
+    <None Include="Content\ContextMenu\icons\_variables.scss" />
+    <None Include="Content\ContextMenu\_contextMenu.scss" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
@@ -181,6 +190,7 @@
     <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\skype.png" />
+    <Content Include="Content\Images\sprite_ico_2012-05-15.png" />
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
@@ -189,7 +199,7 @@
       <DependentUpon>site.scss</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\accordion.css" />
-    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
     <Content Include="Content\themes\base\base.css" />
     <Content Include="Content\themes\base\button.css" />
@@ -221,12 +231,14 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Views\leave.css">
+      <DependentUpon>leave.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\mydashboard.css">
       <DependentUpon>mydashboard.scss</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="HTMLPage1.html" />
     <Content Include="Index.aspx" />
     <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
@@ -235,6 +247,7 @@
     <Content Include="Scripts\Libs\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\Libs\jquery.contextMenu.js" />
     <Content Include="Scripts\Libs\jquery.cookie.js" />
     <Content Include="Scripts\Libs\jquery.highlight-5.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.js" />
@@ -250,9 +263,11 @@
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
+    <Content Include="Scripts\Views\checkinout.byemployee.js" />
     <Content Include="Scripts\Views\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
+    <Content Include="Scripts\Views\leave.request.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -264,6 +279,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Content\ContextMenu\_icons.scss" />
+    <None Include="Content\ContextMenu\_variables.scss" />
+    <None Include="Content\Views\leave.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -442,7 +460,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53193</DevelopmentServerPort>
+          <DevelopmentServerPort>53614</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,11 +1,24 @@
 .icon {
+    background-repeat: no-repeat;
     display: inline-block;
     vertical-align: middle;
     padding: 0 0.5rem;
 
     &.icon-plus {
-        background: url("../../Content/Images/plus_16x16.png") no-repeat;
-        width: 1.6rem;
-        height: 1.6rem;
+        background: url("../../Content/Images/sprite_ico_2012-05-15.png") 0 -7.2rem;
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+
+    &.icon-remark {
+        background: url("../../Content/Images/sprite_ico_2012-05-15.png") -16.9rem -19.2rem;
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+
+    &.icon-shiftinfo {
+        background: url("../../Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.9rem;
+        width: 2.4rem;
+        height: 2.4rem;
     }
 }

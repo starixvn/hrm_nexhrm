@@ -31,7 +31,8 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/sitecss",
                 "~/Content/Materialize/materialize.css",
-                "~/Content/site.css");
+                "~/Content/site.css",
+                "~/Content/themes/base/jquery-ui.css");
 
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
@@ -40,6 +41,16 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
                 "~/Content/Views/mydashboard.css");
+
+            // leave request
+            bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.js",
+                "~/Scripts/Views/leave.request.js",
+                "~/Scripts/Views/checkinout.byemployee.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/leavecss",
+                "~/Content/Views/leave.css");
         }
     }
 }

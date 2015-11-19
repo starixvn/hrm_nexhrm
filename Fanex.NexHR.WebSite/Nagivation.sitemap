@@ -3,6 +3,7 @@
     <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
         <siteMapNode title="Personal">
             <siteMapNode title="My dashboard" controller="employee" action="MySpace" icon="action-home" />
+            <siteMapNode title="My dashboard 2" controller="employee" action="MySpace2" icon="action-home" />
             <siteMapNode title="Leave request" controller="leave" action="employeeview" icon="action-account-box" hoverController="leave" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="Check in - Check out" controller="checkinout" action="employeeview" icon="action-schedule" hoverController="checkinout" hoverAction="create" hoverIcon="plus" />
             <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="av-web" />

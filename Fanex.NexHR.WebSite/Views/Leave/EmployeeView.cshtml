@@ -6,8 +6,10 @@
     ViewBag.Title = Labels.LeaveRequest;
 }
 @section css{
+    @Styles.Render("~/Content/leavecss")
 }
 @section js{
+    @Scripts.Render("~/bundles/leavejs")
 }
 @{
     ViewBag.Title = Labels.LeaveRequest;
@@ -16,20 +18,24 @@
 }
 <div class="row content">
     <h6 class="title-page txt-uppercase">@ViewBag.Title</h6>
-    @using (Html.BeginForm("employeeview", "leave", FormMethod.Post, new { @class = "row" }))
+    @using (Html.BeginForm("employeeview", "leave", FormMethod.Post, new { @class = "form" }))
     {
-        <div class="row">
+        <div class="row form-input">
             <input type="hidden" value="Leave" id="RequestType" />
             <div class="col">
-                @Labels.Year:</div>
-            <div class="col s1">
-                @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
+                <div class="left label-80">
+                    <label>
+                        @Labels.Year:</label>
+                </div>
+                <div class="left select-small">
+                    @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
+                </div>
             </div>
-            <div class="col">
-                <input type="submit" id="submit" value="@Labels.Submit" class="" />
+            <div class="col button">
+                <input type="submit" id="submit" value="@Labels.Submit" class="button-hrm btn white-text blue darken-2 z-depth-2" />
             </div>
-            <div class="col">
-                <a href="@Url.Action("Create")" class="waves-effect waves-light btn"><span class="icon icon-plus left"></span>Leave request</a>
+            <div class="col button">
+                <a href="@Url.Action("Create")" class="button-hrm btn white-text yellow darken-4 z-depth-2 teal"><i class="icon icon-plus"></i>@Labels.LeaveRequests</a>
             </div>
         </div>
         <div class="row">
@@ -97,7 +103,7 @@
                             @if (!string.IsNullOrWhiteSpace(request.Remark))
                             {
                                 <td class="tooltip" title="@request.Remark">
-                                    <span class="icon remark" alt="remark" />
+                                    <span class="icon icon-remark" alt="remark" />
                                 </td>
                             }
                             else
@@ -119,7 +125,6 @@
                             }
                         </tr>
                         }
-
                     }
                     else
                     {

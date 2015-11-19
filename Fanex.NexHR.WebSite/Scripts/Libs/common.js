@@ -71,10 +71,10 @@ $(document).ready(function(){
         }
     );
 
-	$('.tooltip').tipsy({
-		live: true,
-		gravity: $.fn.tipsy.autoNS
-	});
+    $('.tooltip').tipsy({
+        live: true,
+        gravity: $.fn.tipsy.autoNS
+    });
 
     $('.slider').slider({full_width: true});
     $('.parallax').parallax();
@@ -132,28 +132,6 @@ $(document).ready(function(){
 		var mindate = $('.datepicker').attr('mindate');
 		var maxdate = $('.datepicker').attr('maxdate');
 		var disabledDates = $('.datepicker').attr('disabledDate');
-
-		if(disabledDates.length > 0) {
-			$('.datepicker').datepicker({
-				dateFormat: "dd M, yy",
-				beforeShowDay: checkBadDates,
-				showOn: "button",
-				buttonImageOnly: true,
-                changeMonth: true,
-                changeYear: true,
-				buttonImage: _global.root + "images/calendar.png"
-			});
-		}
-		else {
-			$('.datepicker').datepicker({
-				dateFormat: "dd M, yy",
-				showOn: "button",
-				buttonImageOnly: true,
-                changeMonth: true,
-                changeYear: true,
-				buttonImage: _global.root + "images/calendar.png"
-			});
-		}
 
 		if(typeof(initDatePicker) != "function") //check if (isExit include date.filter.js) then (mindate, maxdate include after function initDatePicker)
 		{

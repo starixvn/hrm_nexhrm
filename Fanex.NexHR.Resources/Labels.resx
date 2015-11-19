@@ -870,4 +870,10 @@
   <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="HalfDayOff" xml:space="preserve">
+    <value>Half Day Off</value>
+  </data>
+  <data name="NewLeaveRequest" xml:space="preserve">
+    <value>New Leave Request</value>
+  </data>
 </root>

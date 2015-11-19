@@ -48,7 +48,7 @@ function confirm(message, callback, options) {
 		minHeight	: 50,
 		dialogClass	: 'modal-shadow'
 	}
-	
+
 	$confirm = $.getOrCreateDialog('confirm');
 	// set message
 	$("p", $confirm).html(message);
@@ -57,7 +57,6 @@ function confirm(message, callback, options) {
 }
 
 $(document).ready(function(){
-
 	$('.tooltip').tipsy({
 		live: true,
 		gravity: $.fn.tipsy.autoNS
@@ -112,7 +111,7 @@ $(document).ready(function(){
                 changeYear: true,
 				buttonImage: _global.root + "images/calendar.png"
 			});
-		} 
+		}
 		else {
 			$('.datepicker').datepicker({
 				dateFormat: "dd M, yy",
@@ -158,7 +157,6 @@ $(document).ready(function(){
 		actingButton('.processing-submit', true);
 	});
 });
-
 
 function checkBadDates(mydate) {
 	var isEnable = true;
@@ -622,7 +620,7 @@ function totalHoursToTime(value) {
 function updateTableHeaders() {
 	if($(".persist-area").val() != undefined)
 	{
-		var leftspace= 191; 
+		var leftspace= 191;
 		var widthspace = $(".persist-area").width() + 18;
 		if($.browser.safari)
 		{

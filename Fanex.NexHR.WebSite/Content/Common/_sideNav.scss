@@ -4,24 +4,29 @@
   margin-top: 8px;
 }
 
-.side-nav {  
+.side-nav {
   &.fixed {
     li {
+    overflow: hidden;
+
       &.logo {
-        border-bottom: 1px solid transparent;        
+        border-bottom: 1px solid transparent;
         padding-top: 17px;
         text-align: center;
         background: $color-background-header;
       }
-      a {        
+
+      a {
+        margin-right: 0.5rem;
         line-height: 48px;
-        height: 48px;        
-      }	  
+        height: 48px;
+      }
     }
-    overflow: hidden;
+
     ul.collapsible-accordion {
       background-color: #FFF;
     }
+
     &:hover {
       overflow-y: auto;
     }
@@ -31,13 +36,11 @@
 .bold > a {
   font-weight: bold;
   font-size: 1.4rem;
+
   &:hover {
       color: $color-text-main !important;
   }
 }
-
-
-
 
 #nav-mobile {
 	.collapsible-header {
@@ -62,7 +65,7 @@
 			height: 48px;
 			margin-left: 15px;
 			position: relative;
-			top: 3px;			
+			top: 3px;
 		}
 
 		li:hover, li.active {
