@@ -51,6 +51,21 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/leavecss",
                 "~/Content/Views/leave.css");
+
+            // check in out
+            bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.js",
+                "~/Scripts/Views/checkinout.byemployee.js"));
+
+            // my working schedule
+            bundles.Add(new ScriptBundle("~/bundles/myworkingschedulejs").Include(
+                "~/Scripts/Libs/moment.js",
+                "~/Scripts/Libs/fullcalendar.js",
+                "~/Scripts/Views/myworkingschedule.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/fullcalendarcss",
+                "~/Content/Common/fullcalendar.css");
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿@model IList<Fanex.NexHR.ViewModels.WorkingScheduleModel>
 @section css{
+    @Styles.Render("~/Content/fullcalendarcss")
 }
 @section js{
+    @Scripts.Render("~/bundles/myworkingschedulejs")
 }
 @{
     ViewBag.Title = Labels.MyWorkingSchedule;
 }
 @section Breadcrumb {
 }
-<h2>@Labels.MyWorkingSchedule</h2>
-<div id="calendar">
+<div class="row content">
+    <h6 class="title-page txt-uppercase">@Labels.MyWorkingSchedule</h6>
+    <div class="col s6" id="calendar">
+    </div>
 </div>

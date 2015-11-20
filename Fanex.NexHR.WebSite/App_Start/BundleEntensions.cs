@@ -19,7 +19,7 @@ namespace Fanex.NexHR.WebSite
         {
             bundles.Add(new Bundle(bundleVirtualPath)
             {
-                Transforms = { new CssTransformer(), new CssMinify() },
+                Transforms = { new CssMinify() },
                 Orderer = new NullOrderer()
             }.Include(virtualPaths));
         }

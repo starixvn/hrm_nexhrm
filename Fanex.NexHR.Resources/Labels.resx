@@ -876,4 +876,7 @@
   <data name="NewLeaveRequest" xml:space="preserve">
     <value>New Leave Request</value>
   </data>
+  <data name="CheckInOutType" xml:space="preserve">
+    <value>Check In Out Type</value>
+  </data>
 </root>

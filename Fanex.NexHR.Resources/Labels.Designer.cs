@@ -403,6 +403,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check In Out Type.
+        /// </summary>
+        public static string CheckInOutType {
+            get {
+                return ResourceManager.GetString("CheckInOutType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check in time.
         /// </summary>
         public static string CheckInTime {

@@ -46,8 +46,9 @@
       <HintPath>..\packages\BundleTransformer.Core.1.9.81\lib\net40\BundleTransformer.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data">
+    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
@@ -56,8 +57,9 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
       <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -184,6 +186,14 @@
     <None Include="Content\ContextMenu\icons\_mixins.scss" />
     <None Include="Content\ContextMenu\icons\_variables.scss" />
     <None Include="Content\ContextMenu\_contextMenu.scss" />
+    <Content Include="Content\Common\fullcalendar.css" />
+    <Content Include="Content\ContextMenu\icons\add.svg" />
+    <Content Include="Content\ContextMenu\icons\copy.svg" />
+    <Content Include="Content\ContextMenu\icons\cut.svg" />
+    <Content Include="Content\ContextMenu\icons\delete.svg" />
+    <Content Include="Content\ContextMenu\icons\edit.svg" />
+    <Content Include="Content\ContextMenu\icons\paste.svg" />
+    <Content Include="Content\ContextMenu\icons\quit.svg" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
@@ -244,6 +254,7 @@
     <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
     <Content Include="Scripts\Libs\date.js" />
+    <Content Include="Scripts\Libs\fullcalendar.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.js" />
@@ -264,6 +275,8 @@
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
+    <Content Include="Scripts\Libs\moment.js" />
+    <Content Include="Scripts\Views\myworkingschedule.js" />
     <Content Include="Scripts\Views\checkinout.byemployee.js" />
     <Content Include="Scripts\Views\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
