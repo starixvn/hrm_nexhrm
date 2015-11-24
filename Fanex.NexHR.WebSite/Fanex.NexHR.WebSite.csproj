@@ -176,9 +176,14 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
-    <None Include="Content\Common\_button.scss" />
-    <None Include="Content\Common\_form.scss" />
-    <None Include="Content\Common\_tipsy.scss" />
+    <None Include="Content\Common\base\_base.scss" />
+    <None Include="Content\Common\base\_typhography.scss" />
+    <None Include="Content\Common\components\_dropdown.scss" />
+    <None Include="Content\Common\components\_color.scss" />
+    <None Include="Content\Common\components\_button.scss" />
+    <None Include="Content\Common\layout\_form.scss" />
+    <None Include="Content\Common\pages\_mydashboard.scss" />
+    <None Include="Content\Common\vendors\_tipsy.scss" />
     <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
     <None Include="Content\ContextMenu\font\context-menu-icons.ttf" />
     <None Include="Content\ContextMenu\font\context-menu-icons.woff" />
@@ -390,7 +395,7 @@
     <Content Include="Content\Materialize\Components\_variables.scss" />
     <Content Include="Content\Materialize\Components\_waves.scss" />
     <Content Include="Content\Materialize\materialize.scss" />
-    <Content Include="Content\Common\_table.scss" />
+    <Content Include="Content\Common\layout\_table.scss" />
     <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.eot" />
     <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.ttf" />
     <Content Include="Content\Materialize\Fonts\Material\Material-Design-Icons.woff" />
@@ -415,13 +420,12 @@
     <Content Include="Content\site.scss" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Common\_icon.scss" />
-    <None Include="Content\Common\_common.scss" />
+    <None Include="Content\Common\components\_icon.scss" />
     <None Include="Content\Common\_content.scss" />
-    <None Include="Content\Common\_css3.scss" />
-    <None Include="Content\Common\_navHeader.scss" />
-    <None Include="Content\Common\_sideNav.scss" />
-    <None Include="Content\Common\_variables.scss" />
+    <None Include="Content\Common\utils\_mixins.scss" />
+    <None Include="Content\Common\layout\_navHeader.scss" />
+    <None Include="Content\Common\layout\_sideNav.scss" />
+    <None Include="Content\Common\utils\_variables.scss" />
     <Content Include="Views\Employee\MySpace.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Leave\Create.cshtml" />

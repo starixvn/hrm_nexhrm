@@ -1,0 +1,216 @@
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.to-do-list {
+   padding-top: 16px;
+
+    p {
+		background: #eeeeef none repeat scroll 0 0;
+		margin-bottom: 0.2rem;
+		padding: 0 1rem;
+		line-height: 40px;
+
+	&.grey-border {
+		border-left: 2px solid #9a9a9a;                
+    }
+
+    &.darkblue-border {
+		border-left: 2px solid #1f7db2;
+    }
+
+    &.green-border {
+		border-left: 2px solid #15b092;
+    }
+
+    &.orange-border {
+		border-left: 2px solid #ef9e36;
+    }
+
+    span {
+        .link {
+			color: #fff;
+			font-weight: normal;
+			opacity: 0.7;
+			padding: 0.1rem 0.5rem;
+			}
+		}
+    }
+}
+
+.my-request {
+    .card-content {
+		padding-bottom: 1.6rem;
+	}
+}
+
+.workload {
+	.card-title-block {
+		border-bottom: none !important;	
+	}
+
+    .pie-chart {
+		height: 20rem;
+		margin: 0 auto;
+		width: 20rem;
+    }
+
+    .total-hours {
+		width: 20rem;
+		text-align: center;
+		margin: 0 auto;    
+                      
+		.value {
+			font-size: 2.3rem;
+			color: #4c5e70;
+			line-height: inherit;
+		}
+
+		.text {
+			font-size: 1.4rem;
+			color: #7b8da0;
+			line-height: inherit;
+		}
+    }
+
+    .detail {
+		ul {
+			padding: 0;
+
+			li {
+			color: #4c5e70;
+
+				.right {
+					font-weight: bold;
+				}
+                    
+				> span {
+					line-height: 2.2;
+				}
+
+				%color {
+					width: 1rem;
+					height: 1rem;                        
+					margin-right: 1rem;
+					border-radius: 50%;
+					display: inline-block;
+				}
+
+				.color1 {
+					@extend %color;
+					background: #44b2d7;              
+				}
+
+				.color2 {
+					@extend %color;
+					background: #59c2e6;              
+				}
+
+				.color3 {
+					@extend %color;
+					background: #71d0f1;              
+				}
+
+				.color4 {
+					@extend %color;
+					background: #96e4ff;              
+				}
+			}
+		}
+    }            
+}
+
+//-----------------------------------------------------------------
+//			BLOCK HAPPY BIRTHDAY AND NEWS
+//-----------------------------------------------------------------
+
+.card {    
+  .slide {
+    .slick-dots {
+      margin-top: 0.5rem;
+
+      li {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #FFF;
+        text-indent: -9999px;
+        margin: .2rem;
+        opacity: 0.3;
+
+        &.slick-active {
+          opacity: .8;
+        }
+      }
+    }
+
+    img {
+      width: 4.8rem;
+      height: 4.8rem;            
+    }
+  }
+
+  .detail {
+    margin-top: 0.5rem;
+  }
+
+  .front {
+    backface-visibility: hidden;
+    height: 9.4rem;
+    left: 0;
+    padding: 2.3rem 0;
+    position: relative;
+    top: 0;
+    @include css3(transform, rotateX(0) rotateY(0));
+    @include css3(transform-style, preserve-3d);
+    @include css3(transition, all 0.4s ease-in-out 0s);        
+    width: 100%;
+    z-index: 11;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .back {
+    backface-visibility: hidden;
+    border: 0 none;
+    height: 10rem;
+    left: 0;
+    position: absolute;
+    top: 0;
+    padding: 2.3rem 0;
+    @include css3(transform, rotateY(-179deg));
+    @include css3(transform-style, preserve-3d);
+    @include css3(transition, all 0.4s ease-in-out 0s);        
+    width: 100%;
+    z-index: 10;
+    text-align: center;
+    @media (min-width: 1200px) {
+      .detail {
+        margin-left: -3rem;
+      }
+    }
+  }
+
+  &:hover {
+    .front {
+      @include css3(transform, rotateY(180deg));
+      z-index: 11;
+    }
+
+    .back {
+      @include css3(transform, rotateX(0) rotateY(0));
+      z-index: 11;
+    }
+  }
+
+  &.double {
+    box-shadow: none;
+    background: transparent;
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+    -ms-perspective: 600px;
+    perspective: 600px;
+    position: relative;
+    width: 100%;
+  }
+}

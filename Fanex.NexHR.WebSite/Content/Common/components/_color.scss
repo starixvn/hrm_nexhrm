@@ -1,0 +1,21 @@
+@import "../utils/variables";
+
+.primary-color {
+    color: $color-primary;
+}
+
+.second-color {
+    color: $color-second;
+}
+
+.danger-color {
+    color: $color-danger;
+}
+
+.waiting-color {
+    color: #2fa868;
+}
+
+.black-text-75 {
+   color: rgba(0, 0, 0, 0.75);
+}

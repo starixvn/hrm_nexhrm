@@ -1,0 +1,64 @@
+@import "../utils/variables";
+
+.btn-primary {
+  margin-bottom: 1.4rem;
+  padding: 0 7px;
+  background: $color-second;
+
+  &:hover {
+    background: $color-second;
+  }
+
+  i {
+    font-size: 1.8rem;
+  }
+}
+
+.button {
+    margin-left: -8px;    
+}
+
+.btn-cancel {
+    background: #6d7772;
+    &:hover, &:active {
+        background: #87938d;
+    }
+}
+
+.btn-create {
+    background: $color-second;
+}
+
+.button-block {
+    margin-top: 5rem;
+}
+
+.datepicker-button {   
+  position: relative; 
+  width: 114px;  
+
+  .datepicker {
+    cursor: pointer;
+  }
+
+  @media (min-width:1900px) {
+    width: 214px;
+  }
+}
+
+.button-hrm {    
+  @extend %boxshadow;
+  margin-right: -2px;
+  padding: 0 0.8rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 0;
+  color: #fff;
+  font-size: 1.3rem;
+    
+  &.right {
+    height: 2.5rem;
+    margin-top: 8px;
+    line-height: 2.5rem;
+  }
+}

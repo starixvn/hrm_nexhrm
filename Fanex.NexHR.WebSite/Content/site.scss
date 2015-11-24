@@ -1,13 +1,19 @@
-@import "Common/navHeader";
-@import "Common/table";
-@import "Common/sideNav";
-@import "Common/common";
-@import "Common/content";
-@import "Common/icon";
-@import "Common/tipsy";
+@import "Common/base/base";
+@import "Common/base/typhography";
 
-/*@media only screen and (min-width : 993px) {
-  .container {
-    width: 85%;
-  }
-}*/
+@import "Common/components/button";
+@import "Common/components/color";
+@import "Common/components/dropdown";
+@import "Common/components/icon";
+
+@import "Common/layout/form";
+@import "Common/layout/navHeader";
+@import "Common/layout/table";
+@import "Common/layout/sideNav";
+
+@import "Common/pages/mydashboard";
+
+@import "Common/utils/mixins";
+@import "Common/utils/variables";
+
+@import "Common/vendors/tipsy";

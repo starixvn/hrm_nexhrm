@@ -1,0 +1,148 @@
+@import "../utils/variables";
+
+.form {
+	margin-top: 16px;
+    margin-bottom: 3rem;    
+	padding: 0 !important;
+	  .btn {              
+		//background: $color-btn-bgprimary;
+		text-transform: none;
+	  }
+}
+
+
+.input {
+    width: 163px;
+}
+
+.inp-normal {
+    width: 30rem;
+}
+
+.column-truncate {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: pre;
+    width: 77px;
+}
+
+.width40 {
+    width: 50px;
+    margin-right: 12px;    
+}
+
+
+.select-small {
+    width: 114px;
+    @media (min-width:1900px) {
+        width: 214px;
+    }
+}
+
+.select-medium {
+    width: 310px;
+    @media (min-width:1900px) {
+        width: 410px;
+    }
+}
+
+.select-360 {
+    width: 360px;
+    @media (min-width:1900px) {
+        width: 460px;
+    }
+}
+
+.select-mlarge {
+    width: 370px;
+    @media (min-width:1900px) {
+        width: 470px;
+    }
+}
+
+.select-large {
+    width: 410px;
+    @media (min-width:1900px) {
+        width: 510px;
+    }
+}
+
+
+.label-80 {
+    width: 80px;
+}
+
+.label-100 {
+    width: 100px;
+}
+
+.label-50 {
+    width: 50px;
+}
+
+//---------------------------------------------
+//			FORM INPUT
+//---------------------------------------------
+
+.form-input { 
+  .col {
+	padding-right: 1.6rem;
+  }
+
+  input, textarea {
+    @extend %boxshadow; 
+    padding-left: 7px !important;
+    border: none !important;
+    position: none !important;
+    visibility: unset !important;
+    left: unset !important;
+  }
+
+  label {
+    margin-top: 5px;
+    display: block;
+    color: $color-text-input;
+  }
+
+  span.label {
+    margin-top: 4px;
+  }
+
+  .site-label {
+    margin-left: 6px;
+  }
+
+  .btn-datepicker {
+    @extend %boxshadow;
+    padding: 5px;
+    color: $color-text-input;
+  }
+
+  .btn-add {
+    position: relative;
+    right: -7px;
+
+    a {
+      width: 3.5rem;
+      padding: 0;
+    }
+
+    i {
+      margin-right: 0;
+    }
+  }
+}
+
+
+//---------------------------------------------
+//			DATE TIME PICKER
+//---------------------------------------------
+
+.datetime-picker {    
+  @extend %boxshadow;
+  margin-right: 9px;
+  margin-top: 0;
+  padding: 1.6rem 0.5rem 1.6rem 0;    
+}
