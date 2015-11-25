@@ -5581,7 +5581,7 @@ small {
   border-radius: 2px; }
   .card .card-title {
     font-size: 16px;
-    font-weight: 400; }
+    font-weight: 500; }
     .card .card-title.activator {
       cursor: pointer; }
   .card.small, .card.medium, .card.large {

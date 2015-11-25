@@ -1,89 +1,105 @@
 ﻿@using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.ViewModels
 @model HRLeaderDashboardModel
-<h4 class="title-page txt-uppercase">@Labels.MyMemberRequest</h4>
-<table class="table bordered striped highlight table-custom" id="myspace">
-    <thead>
-        <tr>
-            <th rowspan="2" class="first-column">@Labels.Request
-            </th>
-            <th rowspan="2">@Labels.Pending
-            </th>
-            <th colspan="2" class="center">
-                @Labels.CurrentMonth
-            </th>
-            <th colspan="2" class="center">
-                @Labels.LastMonth
-            </th>
-        </tr>
-        <tr>
-            <th>@Labels.Approved
-            </th>
-            <th>@Labels.Rejected
-            </th>
-            <th>@Labels.Approved
-            </th>
-            <th>@Labels.Rejected
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            var requestModel = new RequestViewModel
-            {
-                DateOption = 0,
-                FromDate = Model.FromDateLeave > Model.FromDateCheckInOut ? Model.FromDateCheckInOut : Model.FromDateLeave,
-                ToDate = Model.ToDateLeave > Model.ToDateCheckInOut ? Model.ToDateLeave : Model.ToDateCheckInOut,
-                StatusId = (byte)RequestStatuse.Pending,
-                TeamId = -2,
-                IsFilterByEffectedDate = true
-            };
-        }
-        <tr>
-            <td class="first-column">@Labels.Leave
-            </td>
-            <td>
-                @if (Model.LeavePending > 0)
-                {
-                    requestModel.RequestType = 1;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.LeavePending.ToString()</a>
-                }
-                else
-                {
-                    <span>0</span>
-                }
-            </td>
-            <td>@Model.LeaveApprovedCurrentMonth
-            </td>
-            <td>@Model.LeaveRejectedCurrentMonth
-            </td>
-            <td>@Model.LeaveApprovedLastMonth
-            </td>
-            <td>@Model.LeaveRejectedLastMonth
-            </td>
-        </tr>
-        <tr>
-            <td class="first-column">@Labels.CheckInOut
-            </td>
-            <td>
-                @if (Model.CheckInOutPending > 0)
-                {
-                    requestModel.RequestType = 4;
-                    <a href="@Url.Action("member", "request", requestModel)">@Model.CheckInOutPending.ToString()</a>
-                }
-                else
-                {
-                    <span>0</span>
-                }
-            </td>
-            <td>@Model.CheckInOutApprovedCurrentMonth
-            </td>
-            <td>@Model.CheckInOutRejectedCurrentMonth
-            </td>
-            <td>@Model.CheckInOutApprovedLastMonth
-            </td>
-            <td>@Model.CheckInOutRejectedLastMonth
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Labels.MyMemberRequest</span>
+                </div>
+                <div class="card-body p-t--m">
+                    <div class="col s12">
+                        <table class="table bordered striped highlight table-custom" id="myspace">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" class="first-column">@Labels.Request
+                                    </th>
+                                    <th rowspan="2">@Labels.Pending
+                                    </th>
+                                    <th colspan="2" class="center">
+                                        @Labels.CurrentMonth
+                                    </th>
+                                    <th colspan="2" class="center">
+                                        @Labels.LastMonth
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>@Labels.Approved
+                                    </th>
+                                    <th>@Labels.Rejected
+                                    </th>
+                                    <th>@Labels.Approved
+                                    </th>
+                                    <th>@Labels.Rejected
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var requestModel = new RequestViewModel
+                                    {
+                                        DateOption = 0,
+                                        FromDate = Model.FromDateLeave > Model.FromDateCheckInOut ? Model.FromDateCheckInOut : Model.FromDateLeave,
+                                        ToDate = Model.ToDateLeave > Model.ToDateCheckInOut ? Model.ToDateLeave : Model.ToDateCheckInOut,
+                                        StatusId = (byte)RequestStatuse.Pending,
+                                        TeamId = -2,
+                                        IsFilterByEffectedDate = true
+                                    };
+                                }
+                                <tr>
+                                    <td class="first-column">@Labels.Leave
+                                    </td>
+                                    <td>
+                                        @if (Model.LeavePending > 0)
+                                        {
+                                            requestModel.RequestType = 1;
+                                            <a href="@Url.Action("member", "request", requestModel)">@Model.LeavePending.ToString()</a>
+                                        }
+                                        else
+                                        {
+                                            <span>0</span>
+                                        }
+                                    </td>
+                                    <td>@Model.LeaveApprovedCurrentMonth
+                                    </td>
+                                    <td>@Model.LeaveRejectedCurrentMonth
+                                    </td>
+                                    <td>@Model.LeaveApprovedLastMonth
+                                    </td>
+                                    <td>@Model.LeaveRejectedLastMonth
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="first-column">@Labels.CheckInOut
+                                    </td>
+                                    <td>
+                                        @if (Model.CheckInOutPending > 0)
+                                        {
+                                            requestModel.RequestType = 4;
+                                            <a href="@Url.Action("member", "request", requestModel)">@Model.CheckInOutPending.ToString()</a>
+                                        }
+                                        else
+                                        {
+                                            <span>0</span>
+                                        }
+                                    </td>
+                                    <td>@Model.CheckInOutApprovedCurrentMonth
+                                    </td>
+                                    <td>@Model.CheckInOutRejectedCurrentMonth
+                                    </td>
+                                    <td>@Model.CheckInOutApprovedLastMonth
+                                    </td>
+                                    <td>@Model.CheckInOutRejectedLastMonth
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

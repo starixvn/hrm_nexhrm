@@ -1,3 +1,38 @@
+//-----------------------------------------------
+//		Shorthand notation modifier conventions
+//		
+//		$b-* for base variables
+//		$c-* for colors
+//		$g-* for breakpoints
+//		$componentName-* for Components
+//		$structureName-* for Structures
+//
+//		Sizing
+//		--f  (flush)
+//		--xs (extra small)
+//		--s  (small)
+//		--m  (medium)
+//		--l  (large)
+//		--xl (extra large)	
+//		
+//-----------------------------------------------
+
+// ----------------------------------------------
+//   Colors
+// ----------------------------------------------
+
+// ----- Palette ----- //
+
+$green: #69B829;
+$orange : #EF9E35;
+$back: #242730;
+$gray: #aeb1b6;
+
+// ----- Base ----- //
+
+$c-primary: $orange;
+$c-text-header: $gray;
+
 $font__family: 'Roboto', 'Helvetica', sans-serif;
 $font__size: 1.3em;
 
@@ -26,3 +61,10 @@ $color-trigger-bgfunction: #49aa2b;
 $color-table-txtodd: #fff;
 $color-table-txteven: #f2f2f2;
 $color-table-border: #ededed;
+
+
+//Sizing
+
+$b-space--s: 8px;
+$b-space--m: 16px;
+$b-space--l: 24px;

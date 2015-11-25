@@ -174,6 +174,10 @@
     <Content Include="Avatars\avatar.jpg" />
     <None Include="Content\Common\base\_base.scss" />
     <None Include="Content\Common\base\_typhography.scss" />
+    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.eot" />
+    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
+    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
+    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
@@ -184,6 +188,8 @@
     <None Include="Content\ContextMenu\font\context-menu-icons.ttf" />
     <None Include="Content\ContextMenu\font\context-menu-icons.woff" />
     <None Include="Content\ContextMenu\font\context-menu-icons.woff2" />
+    <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.svg" />
+    <Content Include="Content\Common\components\materialdesignicons.css" />
     <Content Include="Content\Common\fullcalendar.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\calendar.jpg" />
@@ -440,6 +446,9 @@
     <Content Include="Views\CheckInOut\Create.cshtml" />
     <Content Include="Views\CheckInOut\EmployeeView.cshtml" />
     <Content Include="Views\CheckInOut\Update.cshtml" />
+    <None Include="Content\ContextMenu\font\icomoon.eot" />
+    <None Include="Content\ContextMenu\font\icomoon.ttf" />
+    <None Include="Content\ContextMenu\font\icomoon.woff" />
     <None Include="Content\Views\mydashboard.scss" />
   </ItemGroup>
   <PropertyGroup>

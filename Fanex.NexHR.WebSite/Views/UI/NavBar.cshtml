@@ -4,7 +4,7 @@
         foreach (var navItem in navItemList)
         {
             <li id="@navItem.Id" class="el" data-hashovermenu="@(!string.IsNullOrWhiteSpace(navItem.HoverController))">
-                <i class="mdi-@navItem.Icon"></i>
+                <i class="mdi mdi-@navItem.Icon"></i>
                 @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)                
             </li>
         }

@@ -19,11 +19,9 @@
   font-style: normal;
   font-weight: normal;
 
-  src: url("../ContextMenu/font/context-menu-icons.eot?4maaf");
-  src: url("../ContextMenu/font/context-menu-icons.eot?4maaf#iefix") format("embedded-opentype"), 
-        url("../ContextMenu/font/context-menu-icons.woff2?4maaf") format("woff2"), 
-        url("../ContextMenu/font/context-menu-icons.woff?4maaf") format("woff"),
-        url("../ContextMenu/font/context-menu-icons.ttf?4maaf") format("truetype");
+  src: url("../ContextMenu/font/icomoon.eot");
+  src: url("../ContextMenu/font/icomoon.woff") format("woff"),
+       url("../ContextMenu/font/icomoon.ttf") format("truetype");
 }
 
 .context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before {
@@ -72,7 +70,7 @@
 }
 
 .context-menu-icon-delete:before {
-  content: "";
+   content: "\e900";
 }
 
 .context-menu-icon-delete.context-menu-hover:before {
@@ -80,7 +78,7 @@
 }
 
 .context-menu-icon-edit:before {
-  content: "";
+   content: "\e901";
 }
 
 .context-menu-icon-edit.context-menu-hover:before {

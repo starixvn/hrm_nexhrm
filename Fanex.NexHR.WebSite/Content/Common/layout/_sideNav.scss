@@ -59,13 +59,13 @@
 		}
 	}
 	.collapsible-body {
-		[class*="mdi-"] {
+		[class*="mdi"] {
 			font-size: 20px;
 			line-height: 48px;
 			height: 48px;
 			margin-left: 15px;
 			position: relative;
-			top: 3px;
+			top: 2px;
 		}
 
 		li:hover, li.active {
@@ -73,10 +73,3 @@
 		}
 	}
 }
-/*
- Advanced HTML5 and
-CSS3 Specialist:
-CIW Web and Mobile
-Design Series
-Student Guide
-*/

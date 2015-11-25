@@ -31,6 +31,7 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/sitecss",
                 "~/Content/Materialize/materialize.css",
+                "~/Content/Common/components/materialdesignicons.css",
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
 

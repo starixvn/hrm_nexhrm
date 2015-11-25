@@ -61,12 +61,22 @@ main {
     opacity: .5;
 }
 
+
+.p-t--m {				//padding top medium size
+	padding-top: $b-space--m;
+}
+
+.m-t--m {				//margin top medium size
+	margin-top: $b-space--m;
+}
+
 .circle {
   border-radius: 50%;
 }
 
 .content {
-  padding-bottom: 2rem;
+  //padding-bottom: 2rem;
+  padding-top: 10px;
 }
 
 .validation-summary-errors {
@@ -122,8 +132,7 @@ main {
   }
 
   .card-body {
-    width: 100%;
-    padding-bottom: 1rem;	
+    width: 100%;   
 
     a {            
       font-weight: 500;

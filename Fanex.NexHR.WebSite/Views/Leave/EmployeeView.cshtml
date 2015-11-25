@@ -16,13 +16,15 @@
 }
 @section Breadcrumb {
 }
-<div class="row content">
-    <h6 class="title-page txt-uppercase">@ViewBag.Title</h6>
-    @using (Html.BeginForm("employeeview", "leave", FormMethod.Post, new { @class = "form" }))
+<div class="row content">    
+    @using (Html.BeginForm("employeeview", "leave", FormMethod.Post, new { @class = "page" }))
     {
         <div class="col s12 card-container-base my-request">
             <div class="card">
                 <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
                     <div class="card-body">
                         <div class="form">
                             <div class="row form-input">
