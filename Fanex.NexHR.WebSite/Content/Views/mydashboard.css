@@ -1,3 +1,152 @@
+.to-do-list {
+  padding-top: 16px; }
+  .to-do-list p {
+    background: #eeeeef none repeat scroll 0 0;
+    margin-bottom: 0.2rem;
+    padding: 0 1rem;
+    line-height: 40px; }
+    .to-do-list p.grey-border {
+      border-left: 2px solid #9a9a9a; }
+    .to-do-list p.darkblue-border {
+      border-left: 2px solid #1f7db2; }
+    .to-do-list p.green-border {
+      border-left: 2px solid #15b092; }
+    .to-do-list p.orange-border {
+      border-left: 2px solid #ef9e36; }
+    .to-do-list p span .link {
+      color: #fff;
+      font-weight: normal;
+      opacity: 0.7;
+      padding: 0.1rem 0.5rem; }
 
+.workload .card-title-block {
+  border-bottom: none !important; }
+.workload .pie-chart {
+  height: 20rem;
+  margin: 0 auto;
+  width: 20rem; }
+.workload .total-hours {
+  width: 20rem;
+  text-align: center;
+  margin: 0 auto; }
+  .workload .total-hours .value {
+    font-size: 2.3rem;
+    color: #4c5e70;
+    line-height: inherit; }
+  .workload .total-hours .text {
+    font-size: 1.4rem;
+    color: #7b8da0;
+    line-height: inherit; }
+.workload .detail ul {
+  padding: 0; }
+  .workload .detail ul li {
+    color: #4c5e70; }
+    .workload .detail ul li .right {
+      font-weight: bold; }
+    .workload .detail ul li > span {
+      line-height: 2.2; }
+    .workload .detail ul li .color1, .workload .detail ul li .color2, .workload .detail ul li .color3, .workload .detail ul li .color4 {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 1rem;
+      border-radius: 50%;
+      display: inline-block; }
+    .workload .detail ul li .color1 {
+      background: #44b2d7; }
+    .workload .detail ul li .color2 {
+      background: #59c2e6; }
+    .workload .detail ul li .color3 {
+      background: #71d0f1; }
+    .workload .detail ul li .color4 {
+      background: #96e4ff; }
+
+.card .slide .slick-dots {
+  margin-top: 0.5rem; }
+  .card .slide .slick-dots li {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #FFF;
+    text-indent: -9999px;
+    margin: .2rem;
+    opacity: 0.3; }
+    .card .slide .slick-dots li.slick-active {
+      opacity: .8; }
+.card .slide img {
+  width: 4.8rem;
+  height: 4.8rem; }
+.card .detail {
+  margin-top: 0.5rem; }
+.card .front {
+  backface-visibility: hidden;
+  height: 9.4rem;
+  left: 0;
+  padding: 2.3rem 0;
+  position: relative;
+  top: 0;
+  -webkit-transform: rotateX(0) rotateY(0);
+  -moz-transform: rotateX(0) rotateY(0);
+  -ms-transform: rotateX(0) rotateY(0);
+  transform: rotateX(0) rotateY(0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -ms-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  z-index: 11;
+  text-align: center;
+  overflow: hidden; }
+.card .back {
+  backface-visibility: hidden;
+  border: 0 none;
+  height: 10rem;
+  left: 0;
+  position: absolute;
+  top: 0;
+  padding: 2.3rem 0;
+  -webkit-transform: rotateY(-179deg);
+  -moz-transform: rotateY(-179deg);
+  -ms-transform: rotateY(-179deg);
+  transform: rotateY(-179deg);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -ms-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  z-index: 10;
+  text-align: center; }
+  @media (min-width: 1200px) {
+    .card .back .detail {
+      margin-left: -3rem; } }
+.card:hover .front {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  z-index: 11; }
+.card:hover .back {
+  -webkit-transform: rotateX(0) rotateY(0);
+  -moz-transform: rotateX(0) rotateY(0);
+  -ms-transform: rotateX(0) rotateY(0);
+  transform: rotateX(0) rotateY(0);
+  z-index: 11; }
+.card.double {
+  box-shadow: none;
+  background: transparent;
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+  -ms-perspective: 600px;
+  perspective: 600px;
+  position: relative;
+  width: 100%; }
 
 /*# sourceMappingURL=mydashboard.css.map */

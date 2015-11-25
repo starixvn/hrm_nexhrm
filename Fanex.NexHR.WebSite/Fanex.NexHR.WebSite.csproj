@@ -421,7 +421,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Common\components\_icon.scss" />
-    <None Include="Content\Common\_content.scss" />
     <None Include="Content\Common\utils\_mixins.scss" />
     <None Include="Content\Common\layout\_navHeader.scss" />
     <None Include="Content\Common\layout\_sideNav.scss" />
