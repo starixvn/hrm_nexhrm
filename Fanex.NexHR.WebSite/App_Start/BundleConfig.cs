@@ -34,6 +34,14 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
 
+            bundles.AddAndInclude(
+                "~/Content/fullcalendarcss",
+                "~/Content/Common/fullcalendar.css");
+
+            bundles.AddAndInclude(
+                "~/Content/contextmenucss",
+                "~/Content/ContextMenu/contextMenu.css");
+
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Views/employee.dashboard.js"));
@@ -48,10 +56,6 @@ namespace Fanex.NexHR.WebSite
                 "~/Scripts/Views/leave.request.js",
                 "~/Scripts/Views/checkinout.byemployee.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/leavecss",
-                "~/Content/Views/leave.css");
-
             // check in out
             bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
                 "~/Scripts/Libs/jquery.contextMenu.js",
@@ -62,10 +66,6 @@ namespace Fanex.NexHR.WebSite
                 "~/Scripts/Libs/moment.js",
                 "~/Scripts/Libs/fullcalendar.js",
                 "~/Scripts/Views/myworkingschedule.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/fullcalendarcss",
-                "~/Content/Common/fullcalendar.css");
         }
     }
 }
