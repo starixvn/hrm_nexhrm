@@ -99,9 +99,6 @@ main {
   .btn-primary i {
     font-size: 1.8rem; }
 
-.button {
-  margin-left: -8px; }
-
 .btn-cancel {
   background: #6d7772; }
   .btn-cancel:hover, .btn-cancel:active {
