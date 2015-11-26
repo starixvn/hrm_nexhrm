@@ -35,8 +35,6 @@ function bindMenu(element) {
             "edit": { name: "Edit", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" }
         }
-    }, function (command, eventElement) {
-        processRequest(command, eventElement);
     });
 }
 

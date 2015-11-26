@@ -39,14 +39,15 @@ function bindHalfDay() {
         if ($('#HalfDayOff').prop('checked')) {
             $('#TotalDays').val(0.5);
             //get shift information
-            $.getJSON(_global.root + 'api/shift/getshiftbydate',
-            { employeeId: empId, date: $('#FromDate').val() },
-            function (response) {
-                if (response != null) {
-                    $('#FromTime').val(response.BeginCheckInTime);
-                    setValueforToTime();
+            $.getJSON(_global.root + 'api/shift/GetShiftByDate',
+                { employeeId: empId, date: $('#FromDate').val() },
+                function (response) {
+                    if (response != null) {
+                        $('#FromTime').val(response.BeginCheckInTime);
+                        setValueforToTime();
+                    }
                 }
-            });
+            );
         }
         else {
             $('#TotalDays').val(1);
@@ -55,8 +56,18 @@ function bindHalfDay() {
 }
 
 $(document).ready(function () {
-    var successed = $("#successed").val();
-    var year = $("#year").val();
+    var successed = $("#successed").val(),
+        year = $("#year").val();
+
+    $('#legendInfo').tipsy({
+        className: 'leave-request',
+        gravity: 'nw',
+        html: true,
+        title: function () {
+            return $('#requestInfo .requestInfo').html();
+        }
+    });
+
     if (successed === "true") {
         confirm('Successfull!\nPress OK to continue', function () {
             document.location = _global.root + "Leave/EmployeeView/" + year;
@@ -86,12 +97,12 @@ $(document).ready(function () {
         }
     });
 
-    $("#FromDate, #ToDate").change(function () {
+    $("#FromDate, #ToDate").on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
         if (empId > 0) {
             if ($('#HalfDayOff').attr('checked')) {
                 $('#ToDate').val($('#FromDate').val());
-                $.getJSON(_global.root + 'api/shift/getshiftbydate', { employeeId: empId, date: $('#FromDate').val() },
+                $.getJSON(_global.root + 'api/shift/GetShiftByDate', { employeeId: empId, date: $('#FromDate').val() },
                     function (response) {
                         if (response != null) {
                             $('#FromTime').val(response.BeginCheckInTime);

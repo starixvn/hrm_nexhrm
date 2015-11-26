@@ -1,0 +1,25 @@
+.tipsy.leave-request {
+  font-size: 1.3rem;
+  opacity: 1 !important; }
+  .tipsy.leave-request .tipsy-arrow {
+    border: 5px dashed #0789d1;
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent; }
+    .tipsy.leave-request .tipsy-arrow .tipsy-arrow-n {
+      border-bottom-color: #0789d1; }
+  .tipsy.leave-request .tipsy-inner {
+    max-width: none;
+    background: #fff;
+    color: #4f4f4f;
+    text-align: left;
+    line-height: 2.2rem;
+    border: 1px solid #0789d1; }
+    .tipsy.leave-request .tipsy-inner ul {
+      padding-left: 2rem;
+      list-style-type: disc;
+      font-weight: bold; }
+      .tipsy.leave-request .tipsy-inner ul li {
+        list-style-type: disc; }
+
+/*# sourceMappingURL=myrequest.css.map */

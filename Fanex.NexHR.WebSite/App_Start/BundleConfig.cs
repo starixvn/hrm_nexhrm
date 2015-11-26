@@ -20,10 +20,9 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Libs/jquery-{version}.js",
                         "~/Scripts/Libs/jquery-ui-{version}.js",
                         "~/Scripts/Libs/jquery.validate*",
-                        "~/Scripts/Libs/jquery.tmpl.js",
+                        "~/Scripts/Libs/materialize.js",
                         "~/Scripts/Libs/jquery.tipsy.js",
                         "~/Scripts/Libs/jquery.cookie.js",
-                        "~/Scripts/Libs/materialize.js",
                         "~/Scripts/Libs/chart.js",
                         "~/Scripts/Libs/common.js",
                         "~/Scripts/Views/language.js"));
@@ -43,6 +42,10 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/contextmenucss",
                 "~/Content/ContextMenu/contextMenu.css");
 
+            bundles.AddAndInclude(
+                "~/Content/myrequestcss",
+                "~/Content/Views/myrequest.css");
+
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Views/employee.dashboard.js"));
@@ -55,12 +58,14 @@ namespace Fanex.NexHR.WebSite
             bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
                 "~/Scripts/Libs/jquery.contextMenu.js",
                 "~/Scripts/Views/leave.request.js",
-                "~/Scripts/Views/checkinout.byemployee.js"));
+                "~/Scripts/Views/checkinout.byemployee.js",
+                "~/Scripts/Views/search.request.js"));
 
             // check in out
             bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
                 "~/Scripts/Libs/jquery.contextMenu.js",
-                "~/Scripts/Views/checkinout.byemployee.js"));
+                "~/Scripts/Views/checkinout.byemployee.js",
+                "~/Scripts/Views/search.request.js"));
 
             // my working schedule
             bundles.Add(new ScriptBundle("~/bundles/myworkingschedulejs").Include(
