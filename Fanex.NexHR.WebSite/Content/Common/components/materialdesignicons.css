@@ -9,7 +9,7 @@
 .mdi {
   display: inline-block;
   font: normal normal normal 24px/1 "Material Design Icons";
-  font-size: inherit;
+  font-size: 20px;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -79,11 +79,19 @@ main {
   padding-top: 10px;
 }
 
+.c-pedding {
+	color: $orange;
+}
+
+.c-approve {
+	color: $green;
+}
+
 .validation-summary-errors {
     background: none repeat scroll 0 0 #FBE3E4;
     color: #8A1F11;
     border: 1px solid #FBC2C4;
-    margin: 1em;
+    margin: 1em 0;
     padding: 0.8em;
 
     ul {

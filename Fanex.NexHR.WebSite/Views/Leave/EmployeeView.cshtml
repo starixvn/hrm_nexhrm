@@ -111,7 +111,7 @@
                                             @if (!string.IsNullOrWhiteSpace(request.Remark))
                                             {
                                                 <td class="tooltip" title="@request.Remark">
-                                                    <span class="icon icon-remark" alt="remark" />
+                                                    <span class="mdi mdi-message-text" alt="remark" />
                                                 </td>
                                             }
                                             else
@@ -123,12 +123,12 @@
                                             @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
                                             {
                                                 <td>
-                                                    <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString()">@request.Status.ToString()</a>
+                                                    <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pedding">@request.Status.ToString()</a>
                                                 </td>
                                             }
                                             else
                                             {
-                                                <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()
+                                                <td class="tooltip c-approve" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()
                                                 </td>
                                             }
                                         </tr>

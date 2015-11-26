@@ -44,11 +44,17 @@ main {
 .content {
   padding-top: 10px; }
 
+.c-pedding {
+  color: #EF9E35; }
+
+.c-approve {
+  color: #69B829; }
+
 .validation-summary-errors {
   background: none repeat scroll 0 0 #FBE3E4;
   color: #8A1F11;
   border: 1px solid #FBC2C4;
-  margin: 1em;
+  margin: 1em 0;
   padding: 0.8em; }
   .validation-summary-errors ul {
     margin-left: 20px;
@@ -169,7 +175,7 @@ main {
     width: 2.4rem;
     height: 2.4rem; }
   .icon.icon-shiftinfo {
-    background: url("../../Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.9rem;
+    background: url("../../Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.8rem;
     width: 2.4rem;
     height: 2.4rem; }
 
@@ -383,13 +389,13 @@ main {
     width: 20rem;
     transition: all 0.2s ease-out; }
     .search_bar.focused input {
-      border-bottom: 1px solid #f4783d;
-      box-shadow: 0 1px 0 0 #f4783d;
+      border-bottom: 1px solid #aeb1b6;
+      box-shadow: 0 1px 0 0 #aeb1b6;
       vertical-align: middle;
       background: transparent none repeat scroll 0 0; }
     .search_bar.focused input:focus {
-      border-bottom: 1px solid #f4783d;
-      box-shadow: 0 1px 0 0 #f4783d; }
+      border-bottom: 1px solid #aeb1b6;
+      box-shadow: 0 1px 0 0 #aeb1b6; }
     .search_bar.focused label {
       color: #303f4d; }
 
