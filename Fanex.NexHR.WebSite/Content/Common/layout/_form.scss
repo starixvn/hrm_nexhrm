@@ -34,14 +34,14 @@
 }
 
 
-.select-small {
+.select-small, .input-s {
     width: 114px;
     @media (min-width:1900px) {
         width: 214px;
     }
 }
 
-.select-medium {
+.select-m, .input-m {
     width: 310px;
     @media (min-width:1900px) {
         width: 410px;
@@ -69,18 +69,19 @@
     }
 }
 
+.label-s {
+    width: 60px;
+}
 
-.label-80 {
+.label-m {
     width: 80px;
 }
 
-.label-100 {
+.label-l {
     width: 100px;
 }
 
-.label-50 {
-    width: 50px;
-}
+
 
 //---------------------------------------------
 //			FORM INPUT

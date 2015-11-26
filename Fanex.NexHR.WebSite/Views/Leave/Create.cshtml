@@ -19,69 +19,68 @@
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col s6">
-                            <a style="float: right;" id="legendInfo" href="javascript:;">
-                                <span class="tooltip icon icon-shiftinfo"></span>
-                            </a>
-                        </div>
-                    </div>
-                        <div class="form">                            
-                            @using (Html.BeginForm("create", "leave", FormMethod.Post))
+                <div class="card-body">                    
+                    <div class="form"> 
+                        <a style="float: right;" id="legendInfo" href="javascript:;">
+                            <span class="tooltip icon icon-shiftinfo"></span>
+                        </a>                          
+                        @using (Html.BeginForm("create", "leave", FormMethod.Post))
+                        {
+                            @Html.ValidationSummary()
+
+                            if (ViewBag.Requested == true)
                             {
-                                @Html.ValidationSummary()
+                            <div class="success">@Messages.RequestCreated</div>
+                            <input type="hidden" id="successed" value="true" />
+                            <input type="hidden" id="year" value="@ViewBag.Year" />
+                            }
+                            @Html.HiddenFor(model => model.EmployeeId)
 
-                                if (ViewBag.Requested == true)
-                                {
-                                <div class="success">@Messages.RequestCreated</div>
-                                <input type="hidden" id="successed" value="true" />
-                                <input type="hidden" id="year" value="@ViewBag.Year" />
-                                }
-                                @Html.HiddenFor(model => model.EmployeeId)
-
-                                if (ViewBag.TotalRequest > 0)
-                                {
-                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                    <p>
-                                        <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
-                                            day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
-                                    </p>
-                                </div>
-                                }
+                            if (ViewBag.TotalRequest > 0)
+                            {
+                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                <p>
+                                    <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
+                                        day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
+                                </p>
+                            </div>
+                            }
                                 
-                                <div class="row form-input">
-                                    <div class="col">
-                                        <div class="left label-80">
-                                            @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
-                                        </div>
-                                        <div class="left select-small">
-                                            @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
-                                            @Html.HiddenFor(model => model.LeaveTypeName)
-                                        </div>
+                            <div class="row form-input">
+                                <div class="col m-r-m">
+                                    <div class="left label-m">
+                                        @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
                                     </div>
-                                    <div class="col">
-                                        <div class="left label-80">
-                                            @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
-                                        </div>
-                                        <div class="left">
-                                            @Html.CheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in" })
-                                        </div>
-                                    </div>                                    
-                                </div>                                
-                                <div class="row form-input">
-                                    <div class="left label-80">
-                                        @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                    <div class="left select-m">
+                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
+                                        @Html.HiddenFor(model => model.LeaveTypeName)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label-m">
+                                        @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
                                     </div>
                                     <div class="left">
+                                        @Html.CheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in" })
+                                    </div>
+                                </div>                                    
+                            </div>                                
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label-m">
+                                    @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                    </div>
+                                    <div class="left input-m">
                                         @Html.EditorFor(model => model.Employee)
                                     </div>
-                                </div>
-                                <div class="row form-input">
-                                    <div class="left label-80">
+                                </div>                                
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r-m">
+                                    <div class="left label-m">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
-                                    <div class="datepicker-button left">
+                                    <div class="datepicker-button left select-m">
                                         @Html.DatePickerFor(model => model.FromDate, Utilities.RequestAvailableFromDate,
                                         Utilities.RequestAvailableToDate,
                                         unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
@@ -91,11 +90,11 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="row form-input">
-                                    <div class="left label-80">
+                                <div class="col">
+                                    <div class="left label-s">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
-                                    <div class="datepicker-button left">
+                                    <div class="datepicker-button select-m left">
                                         @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                         <span class="time hide">
@@ -103,33 +102,38 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="row form-input">
-                                    <div class="left label-80">
+                            </div>                            
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label-m">
                                         @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
                                     </div>
-                                    <div class="left">
+                                    <div class="left input-m">
                                         @Html.EditorFor(model => model.TotalDays)
                                     </div>
-                                </div>
-                                <div class="row form-input">
-                                    <div class="left label-80">
+                                </div>                                
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label-m">
                                         @Html.LabelFor(model => model.Remark)
                                     </div>
-                                    <div class="left">
+                                    <div class="left input-m">
                                         @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
                                     </div>
-                                </div>
-                                @Html.HiddenFor(model => model.DisplayName)
-                                @Html.HiddenFor(model => model.ForRequest)
-                                <div class="card-action center-align">
-                                    <input type="submit" value="@Labels.Request" class="button-hrm btn white-text blue darken-2 z-depth-2" />
-                                    <a href="@Url.Action("employeeview", "leave")" class="button-hrm btn white-text blue darken-2 z-depth-2">@Labels.Back</a>
-                                </div>
-                            }
-                        </div>
-                        <div class="hide">
-                            @RazorHelper.RequestLeaveLegend()
-                        </div>
+                                </div>                                
+                            </div>
+                            @Html.HiddenFor(model => model.DisplayName)
+                            @Html.HiddenFor(model => model.ForRequest)
+                            <div class="card-action">
+                                <input type="submit" value="@Labels.Request" class="button-hrm btn white-text blue darken-2 z-depth-2 m-r-s" />
+                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm btn white-text blue darken-2 z-depth-2">@Labels.Back</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="hide">
+                        @RazorHelper.RequestLeaveLegend()
+                    </div>
                    
                 </div>
             </div>

@@ -26,6 +26,9 @@ main {
 #section_content {
   padding: 0 8px; }
 
+.txt-bold {
+  font-weight: bold; }
+
 .opacity70 {
   opacity: .7; }
 
@@ -37,6 +40,15 @@ main {
 
 .m-t--m {
   margin-top: 16px; }
+
+.m-b--m {
+  margin-bottom: 16px; }
+
+.m-r-s {
+  margin-right: 8px; }
+
+.m-r-m {
+  margin-right: 16px; }
 
 .circle {
   border-radius: 50%; }
@@ -131,7 +143,6 @@ main {
       width: 214px; } }
 
 .button-hrm {
-  margin-right: -2px;
   padding: 0 0.8rem;
   height: 3rem;
   line-height: 3rem;
@@ -160,6 +171,9 @@ main {
 
 #dropdown1, #dropdown-notification {
   top: auto !important; }
+
+.dropdown-content li > a, .dropdown-content li > span {
+  padding: 0.7rem 1rem; }
 
 .icon {
   background-repeat: no-repeat;
@@ -221,16 +235,16 @@ main {
   width: 50px;
   margin-right: 12px; }
 
-.select-small {
+.select-small, .input-s {
   width: 114px; }
   @media (min-width: 1900px) {
-    .select-small {
+    .select-small, .input-s {
       width: 214px; } }
 
-.select-medium {
+.select-m, .input-m {
   width: 310px; }
   @media (min-width: 1900px) {
-    .select-medium {
+    .select-m, .input-m {
       width: 410px; } }
 
 .select-360 {
@@ -251,14 +265,14 @@ main {
     .select-large {
       width: 510px; } }
 
-.label-80 {
+.label-s {
+  width: 60px; }
+
+.label-m {
   width: 80px; }
 
-.label-100 {
+.label-l {
   width: 100px; }
-
-.label-50 {
-  width: 50px; }
 
 .form-input .col {
   padding-right: 1.6rem; }

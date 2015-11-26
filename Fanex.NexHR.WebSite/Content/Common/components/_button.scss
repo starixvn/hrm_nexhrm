@@ -43,8 +43,7 @@
 }
 
 .button-hrm {    
-  @extend %boxshadow;
-  margin-right: -2px;
+  @extend %boxshadow;  
   padding: 0 0.8rem;
   height: 3rem;
   line-height: 3rem;

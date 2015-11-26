@@ -5638,7 +5638,6 @@ small {
     .card .card-content .card-title {
       line-height: 50px; }
   .card .card-action {
-    border-top: 1px solid rgba(160, 160, 160, 0.2);
     padding: 0 8px; }
     .card .card-action a {
       color: #ffab40;
@@ -7176,7 +7175,7 @@ select {
   height: -moz-calc(100%);
   padding-bottom: 60px;
   background-color: #fff;
-  z-index: 999;
+  z-index: 99;
   overflow-y: auto;
   will-change: left; }
   .side-nav.right-aligned {

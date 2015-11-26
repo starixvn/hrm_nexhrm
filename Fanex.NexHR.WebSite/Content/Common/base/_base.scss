@@ -53,6 +53,10 @@ main {
   padding: 0 8px;	
 }
 
+.txt-bold {
+	font-weight: bold;
+}
+
 .opacity70 {
     opacity: .7;
 }
@@ -68,6 +72,18 @@ main {
 
 .m-t--m {				//margin top medium size
 	margin-top: $b-space--m;
+}
+
+.m-b--m {
+	margin-bottom: $b-space--m;
+}
+
+.m-r-s {
+	margin-right: $b-space--s;
+}
+
+.m-r-m {
+	margin-right: $b-space--m;
 }
 
 .circle {
