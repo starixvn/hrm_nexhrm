@@ -14,7 +14,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 l7 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <a id="legendInfo" href="javascript:;"><span class="tooltip icon icon-shiftinfo"></span>
+                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
                         </a>
                         @using (Html.BeginForm("create", "leave", FormMethod.Post))
                         {
@@ -30,9 +30,8 @@
 
                             if (ViewBag.Requested == true)
                             {
-                            <div class="row">
-                                <div class="col success green-text m-b--m">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestCreated</div>
+                            <div class="row validation-summary-success">
+                                <i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestCreated
                                 <input type="hidden" id="successed" value="true" />
                                 <input type="hidden" id="year" value="@ViewBag.Year" />
                             </div>
@@ -130,8 +129,8 @@
                             @Html.HiddenFor(model => model.DisplayName)
                             @Html.HiddenFor(model => model.ForRequest)
                             <div class="card-action">
-                                <input type="submit" value="@Labels.Request" class="button-hrm btn white-text blue darken-2 z-depth-2 m-r-s" />
-                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm btn white-text blue darken-2 z-depth-2">@Labels.Back</a>
+                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Request" /></span>
+                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm waves-effect waves-light btn white-text grey darken-1 z-depth-2">@Labels.Back</a>
                             </div>
                         }
                     </div>

@@ -15,10 +15,6 @@
     width: 163px;
 }
 
-.inp-normal {
-    width: 30rem;
-}
-
 .column-truncate {
     display: inline-block;
     overflow: hidden;
@@ -28,13 +24,11 @@
     width: 77px;
 }
 
-.width40 {
-    width: 50px;
-    margin-right: 12px;    
+.select--xs {
+	width: 70px;
 }
 
-
-.select-small, .input-s {
+.select--s, .input-s {
     width: 114px;
     @media (min-width:1900px) {
         width: 214px;
@@ -45,20 +39,6 @@
     width: 310px;
     @media (min-width:1900px) {
         width: 410px;
-    }
-}
-
-.select-360 {
-    width: 360px;
-    @media (min-width:1900px) {
-        width: 460px;
-    }
-}
-
-.select-mlarge {
-    width: 370px;
-    @media (min-width:1900px) {
-        width: 470px;
     }
 }
 

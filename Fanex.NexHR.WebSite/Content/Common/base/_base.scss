@@ -1,4 +1,5 @@
 @import "../utils/variables";
+@import "../utils/mixins";
 
 //------------------------------------------------------------
 //			MAIN
@@ -53,10 +54,6 @@ main {
   padding: 0 8px;	
 }
 
-.txt-bold {
-	font-weight: bold;
-}
-
 .opacity70 {
     opacity: .7;
 }
@@ -104,11 +101,7 @@ main {
 }
 
 .validation-summary-errors {
-    background: none repeat scroll 0 0 #FBE3E4;
-    color: #8A1F11;
-    border: 1px solid #FBC2C4;
-    margin: 1em 0;
-    padding: 0.8em;
+	@include validation-block(#FBE3E4, #8A1F11, #FBC2C4, (0 0.8rem));	
 
     ul {
         margin-left: 20px;
@@ -119,6 +112,16 @@ main {
             list-style-type: disc;
         }
     }
+}
+
+.validation-summary-success {
+	@include validation-block(#e8f5e9, #2e7d32, #4caf50, 1rem);
+}
+
+#confirm {
+	p {
+		padding-bottom: 0;
+	}
 }
 
 //-------------------------------------------------------------------
@@ -156,11 +159,7 @@ main {
   }
 
   .card-body {
-    width: 100%;   
-
-    a {            
-      font-weight: 500;
-    }
+    width: 100%;  
 
     p {
       line-height: 45px;
