@@ -13,7 +13,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: .2em;
+	padding: 2rem;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -27,11 +27,12 @@
 	width: 90%;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	display: none;
 }
 .ui-dialog .ui-dialog-titlebar-close {
 	position: absolute;
-	right: .3em;
-	top: 50%;
+	right: 0;
+	top: 0;
 	width: 20px;
 	margin: -10px 0 0 0;
 	padding: 1px;
@@ -46,7 +47,7 @@
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
-	border-width: 1px 0 0 0;
+	border: none;
 	background-image: none;
 	margin-top: .5em;
 	padding: .3em 1em .5em .4em;

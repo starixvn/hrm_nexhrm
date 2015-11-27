@@ -31,9 +31,12 @@
 
                             if (ViewBag.Requested == true)
                             {
-                            <div class="success">@Messages.RequestCreated</div>
-                            <input type="hidden" id="successed" value="true" />
-                            <input type="hidden" id="year" value="@ViewBag.Year" />
+                            <div class="row">
+                                <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestCreated</div>
+                                <input type="hidden" id="successed" value="true" />
+                                <input type="hidden" id="year" value="@ViewBag.Year" />
+                            </div>
+                            
                             }
                             @Html.HiddenFor(model => model.EmployeeId)
 
@@ -90,9 +93,11 @@
                                             @Html.DropDownList("FromTime", Utilities.TimeSteps(30))
                                         </span>
                                     </div>
-                                </div>
+                                </div>                                
+                            </div>      
+                            <div class="row form-input">
                                 <div class="col">
-                                    <div class="left label-s">
+                                    <div class="left label-m">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="datepicker-button select-m left">
@@ -103,13 +108,13 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>                      
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label-m">
                                         @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
                                     </div>
-                                    <div class="left input-m">
+                                    <div class="left input-s">
                                         @Html.EditorFor(model => model.TotalDays)
                                     </div>
                                 </div>                                
