@@ -2,7 +2,7 @@
 /*global _global:false , autoIndex*/
 
 function cancelRequest(id) {
-    confirm('Are you sure you want to cancel this request?', function () {
+    confirm('<p>Are you sure you want to cancel this request?</p>', function () {
         $.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function () {
             $('#row' + id).remove();
             autoIndex();

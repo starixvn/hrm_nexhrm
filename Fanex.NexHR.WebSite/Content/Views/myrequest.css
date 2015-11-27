@@ -2,12 +2,7 @@
   font-size: 1.3rem;
   opacity: 1 !important; }
   .tipsy.leave-request .tipsy-arrow {
-    border: 5px dashed #0789d1;
-    border-top: none;
-    border-left-color: transparent;
-    border-right-color: transparent; }
-    .tipsy.leave-request .tipsy-arrow .tipsy-arrow-n {
-      border-bottom-color: #0789d1; }
+    border: none; }
   .tipsy.leave-request .tipsy-inner {
     max-width: none;
     background: #fff;
@@ -21,5 +16,11 @@
       font-weight: bold; }
       .tipsy.leave-request .tipsy-inner ul li {
         list-style-type: disc; }
+
+.my-request .validation-summary-errors {
+  width: 97%; }
+.my-request #legendInfo {
+  float: right;
+  margin-right: 0.5%; }
 
 /*# sourceMappingURL=myrequest.css.map */

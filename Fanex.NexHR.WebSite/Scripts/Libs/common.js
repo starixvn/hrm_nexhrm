@@ -27,22 +27,30 @@ $.extend({
 function confirm(message, callback, options) {
     var defaults = {
         title: 'NexHRM',
-        modal        : true,
-        resizable    : false,
-        buttons        : {
-            OK: function() {
-                $(this).dialog('close');
-                if(callback != null)
-                {
-                    callback();
+        modal       : true,
+        resizable   : false,
+        buttons     : [
+            {
+                text: 'OK',
+                class: 'btn-ok',
+                click: function() {
+                    $(this).dialog('close');
+                    if(callback != null)
+                    {
+                        callback();
+                    }
+                    return true;
                 }
-                return true;
             },
-            Cancel: function() {
-                $(this).dialog('close');
-                return false;
+            {
+                text: 'Cancel',
+                class: 'btn-cancel',
+                click: function() {
+                    $(this).dialog('close');
+                    return false;
+                }
             }
-        },
+        ],
         show        : 'fade',
         hide        : 'fade',
         minHeight    : 50,
@@ -51,7 +59,7 @@ function confirm(message, callback, options) {
 
     $confirm = $.getOrCreateDialog('confirm');
     // set message
-    $("p", $confirm).html(message);
+    $($confirm).html(message);
     // init dialog
     $confirm.dialog($.extend({}, defaults, options));
 }

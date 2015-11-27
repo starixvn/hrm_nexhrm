@@ -4,14 +4,7 @@
         opacity: 1 !important;
 
         .tipsy-arrow {
-            border: 5px dashed #0789d1;
-            border-top: none;
-            border-left-color: transparent;
-            border-right-color: transparent;
-
-            .tipsy-arrow-n {
-                border-bottom-color: #0789d1;
-            }
+            border: none;
         }
 
         .tipsy-inner {
@@ -32,5 +25,16 @@
                 }
             }
         }
+    }
+}
+
+.my-request {
+    .validation-summary-errors {
+        width: 97%;
+    }
+
+    #legendInfo {
+        float: right;
+        margin-right: 0.5%;
     }
 }

@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     $('#legendInfo').tipsy({
         className: 'leave-request',
-        gravity: 'nw',
+        gravity: 'ne',
         html: true,
         title: function () {
             return $('#requestInfo .requestInfo').html();
@@ -69,9 +69,11 @@ $(document).ready(function () {
     });
 
     if (successed === "true") {
-        confirm('Successfull!\nPress OK to continue', function () {
-            document.location = _global.root + "Leave/EmployeeView/" + year;
-        });
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+            function () {
+                document.location = _global.root + "Leave/EmployeeView/" + year;
+            }
+        );
     }
 
     $('#TotalDays').prop('readonly', true);
