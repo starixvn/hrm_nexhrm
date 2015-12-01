@@ -11,149 +11,149 @@
 }
 <div class="row content">
     <div class="col s12 l7 card-container-base">
-    <div class="card">
-        <div class="card-content">
-            <div class="card-title-block">
-                <span class="card-title txt-uppercase left">@Labels.Edit</span>
-            </div>
-            <div class="card-body">
-                <div class="form">
-                @using (Html.BeginForm())
-                {
-                    @Html.ValidationSummary(true)
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Labels.Edit</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
 
-                    if (ViewBag.Updated == true)
-                    {
-                    <div class="row">
-                        <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestUpdated</div>
-                        <input type="hidden" id="successed" value="true" />
-                        <input type="hidden" id="year" value="@ViewBag.Year" />
-                    </div>
-                    
-                    }
+                            if (ViewBag.Updated == true)
+                            {
+                            <div class="row">
+                                <div class="col success green-text m-b--m">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestUpdated</div>
+                                <input type="hidden" id="successed" value="true" />
+                                <input type="hidden" id="year" value="@ViewBag.Year" />
+                            </div>
 
-                    <div class="row form-input">
-                        <div class="col m-b--m">
-                            <div class="left label--l">
-                                <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
+                            }
+
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--l">
+                                        <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
+                                    </div>
+                                    <div class="left label--m">
+                                        <label class="txt-bold">
+                                            Rq.@Model.Id</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="left label--m">
-                                <label class="txt-bold">Rq.@Model.Id</label>
+
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
+                                        @Html.ValidationMessageFor(model => model.LeaveTypeId)
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.LeaveTypeId)
+
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.CheckBoxFor(model => model.HalfDayOff)
+                                    </div>
+                                </div>
                             </div>
-                            <div class="left input--m">
-                                @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
-                                @Html.ValidationMessageFor(model => model.LeaveTypeId)
+
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                    </div>
+                                    <div class="left">
+                                        <span class="label">@Html.DisplayFor(model => model.Employee)</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row form-input">
-                        <div class="col m-b--m">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.HalfDayOff)
-                            </div>
-                            <div class="left input--m">
-                                @Html.CheckBoxFor(model => model.HalfDayOff)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row form-input">
-                        <div class="col m-b--m">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.Employee)
-                            </div>
-                            <div class="left">
-                                <span class="label">@Html.DisplayFor(model => model.Employee)</span>
-                            </div>                        
-                        </div>                        
-                    </div>
-                    
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.FromDate, Labels.FromDate)
-                            </div>
-                            <div class="datepicker-button select--m left">
-                                @Html.DatePickerFor(model => model.FromDate,
+
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                    </div>
+                                    <div class="datepicker-button select--m left">
+                                        @Html.DatePickerFor(model => model.FromDate,
                                  Utilities.RequestAvailableFromDate,
                                  Utilities.RequestAvailableToDate,
                                  unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                 <i class="mdi-action-event calendar-icon left"></i>
-                                <span class="time hide">
-                                    @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))
-                                </span>
+                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                            @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.ToDate, Labels.ToDate)
-                            </div>
-                            <div class="datepicker-button select--m left">
-                                @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                <i class="mdi-action-event calendar-icon left"></i>
-                                <span class="time hide">
-                                    @Html.DropDownListFor(model => model.ToTime, Utilities.TimeSteps(30))
-                                </span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.TotalDays)
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                    </div>
+                                    <div class="datepicker-button select--m left">
+                                        @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                            @Html.DropDownListFor(model => model.ToTime, Utilities.TimeSteps(30))
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="left input--s">
-                                @Html.EditorFor(model => model.TotalDays)
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.Remark)
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+                                    </div>
+                                    <div class="left input--s">
+                                        @Html.EditorFor(model => model.TotalDays)
+                                    </div>
+                                </div>
                             </div>
-                            <div class="left input--m">                                
-                                @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row form-input">
-                        <div class="col">
-                            <div class="left label--l">
-                                @Html.HiddenFor(model => model.DisplayName)
-                                @Html.HiddenFor(model => model.Employee)
-                                @Html.HiddenFor(model => model.EmployeeId)
-                                @Html.HiddenFor(model => model.Id)
-                                @Html.HiddenFor(model => model.LeaveTypeName)
-                                @Html.HiddenFor(model => model.ForRequest)
-                                &nbsp;
-                            </div>                            
-                        </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Remark)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.HiddenFor(model => model.DisplayName)
+                                        @Html.HiddenFor(model => model.Employee)
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.LeaveTypeName)
+                                        @Html.HiddenFor(model => model.ForRequest)
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-action">
+                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r-s">
+                                    <input type="submit" value="@Labels.Update" /></span> <a class="button-hrm waves-effect waves-light btn white-text grey darken-1 z-depth-2" href="@Url.Action("employeeview", "leave")" class="button">@Labels.Back</a>
+                            </div>
+                        }
                     </div>
-                    
-                    <div class="card-action">                        
-                        <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Update" /></span>
-                        <a class="button-hrm waves-effect waves-light btn white-text grey darken-1 z-depth-2" href="@Url.Action("employeeview", "leave")" class="button">@Labels.Back</a>                            
-                    </div>
-                }
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>

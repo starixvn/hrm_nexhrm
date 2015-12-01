@@ -90,7 +90,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Mvc.Html5, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MVCHtml5Toolkit.1.6\lib\System.Web.Mvc.Html5.dll</HintPath>
+      <HintPath>..\packages\MVCHtml5Toolkit.1.5\lib\System.Web.Mvc.Html5.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
