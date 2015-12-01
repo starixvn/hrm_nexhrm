@@ -13,97 +13,110 @@
 }
 @section Breadcrumb {
 }
-<div class="row content">
-    <h6 class="title-page txt-uppercase">@ViewBag.Title</h6>
-    @using (Html.BeginForm("employeeview", "checkinout", FormMethod.Post, new { @class = "form" }))
+<div class="row content">    
+    @using (Html.BeginForm("employeeview", "checkinout", FormMethod.Post))
     {
-        <div class="row form-input">
-            <input type="hidden" value="CheckInOut" id="RequestType" />
-            <div class="col">
-                <div class="left label-m">
-                    <label>
-                        @Labels.Year:</label>
-                </div>
-                <div class="left select--s">
-                    @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
-                </div>
-            </div>
-            <div class="col button">
-                <input type="submit" id="submit" value="@Labels.Submit" class="button-hrm btn white-text blue darken-2 z-depth-2" />
-            </div>
-            <div class="col button">
-                <a href="@Url.Action("Create")" class="button-hrm btn white-text yellow darken-4 z-depth-2 teal">Check In/Out Request</a>
-            </div>
-        </div>
-        <div class="row">
-            <table class="table bordered striped highlight centered table-custom">
-                <thead>
-                    <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>@Labels.Employee
-                        </th>
-                        <th>@Labels.Team
-                        </th>
-                        <th>@Labels.Request
-                        </th>
-                        <th>@Labels.Shift
-                        </th>
-                        <th>@Labels.RequestDate
-                        </th>
-                        <th>@Labels.CreatedDate
-                        </th>
-                        <th>@Labels.Status
-                        </th>
-                    </tr>
-                </thead>
-                @if (Model.Count > 0)
-                {
-                    <tbody>
-                        @{int index = 1;}
-                        @{string selectedClass = string.Empty;}
-                        @foreach (RequestEntity request in Model)
-                        {
-                            selectedClass = (index % 2 == 0) ? "class=odd" : string.Empty;
+        <div class="col s12 l7 card-container-base my-request">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form">
+                            <div class="row form-input">
+                                <input type="hidden" value="CheckInOut" id="RequestType" />
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>
+                                            @Labels.Year:</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
+                                    </div>
+                                </div>
+                                <div class="col button">
+                                    <span class="button-hrm waves-effect waves-light btn white-text blue darken-2 z-depth-2"><input type="submit" id="submit" value="@Labels.Submit" /></span>
+                                </div>
+                                <div class="col button">
+                                    <a href="@Url.Action("Create")" class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2">Check In/Out Request</a>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr  @selectedClass id="row@(request.Id)">
-                                <td>@(index++)
-                                </td>
-                                <td class="tooltip" title="@request.Requester.FullName">
-                                    @request.Requester.NickName
-                                </td>
-                                <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
-                                </td>
-                                <td class="highlight">@request.RequestType.ToString()
-                                </td>
-                                <td class="highlight">@request.FromShift.Name.ToString()
-                                </td>
-                                <td class="highlight">@request.FromDate.ToShortFormatedDate()
-                                </td>
-                                <td>@request.CreatedDate.ToShortFormatedDate()
-                                </td>
-                                @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                        <div class="col s12">
+                            <table class="table bordered striped highlight centered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>@Labels.Employee
+                                        </th>
+                                        <th>@Labels.Team
+                                        </th>
+                                        <th>@Labels.Request
+                                        </th>
+                                        <th>@Labels.Shift
+                                        </th>
+                                        <th>@Labels.RequestDate
+                                        </th>
+                                        <th>@Labels.CreatedDate
+                                        </th>
+                                        <th>@Labels.Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Count > 0)
                                 {
-                                    <td>
-                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString()">@request.Status.ToString()</a>
-                                    </td>
+                                    <tbody>
+                                        @{int index = 1;}
+                                        @{string selectedClass = string.Empty;}
+                                        @foreach (RequestEntity request in Model)
+                                        {
+                                            selectedClass = (index % 2 == 0) ? "class=odd" : string.Empty;
+
+                                            <tr  @selectedClass id="row@(request.Id)">
+                                                <td>@(index++)
+                                                </td>
+                                                <td class="tooltip" title="@request.Requester.FullName">
+                                                    @request.Requester.NickName
+                                                </td>
+                                                <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
+                                                </td>
+                                                <td class="highlight">@request.RequestType.ToString()
+                                                </td>
+                                                <td class="highlight">@request.FromShift.Name.ToString()
+                                                </td>
+                                                <td class="highlight">@request.FromDate.ToShortFormatedDate()
+                                                </td>
+                                                <td>@request.CreatedDate.ToShortFormatedDate()
+                                                </td>
+                                                @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                                                {
+                                                    <td>
+                                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString()">@request.Status.ToString()</a>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
                                 }
                                 else
                                 {
-                                    <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()
-                                    </td>
+                                    @RazorHelper.DisplayNoInformation(colspan: 10);
                                 }
-                            </tr>
-                        }
-                    </tbody>
-                }
-                else
-                {
-                    @RazorHelper.DisplayNoInformation(colspan: 10);
-                }
-            </table>
-        </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
     }
     @RazorHelper.EmployeeProcessMenu()
 </div>

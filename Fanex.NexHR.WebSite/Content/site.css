@@ -242,34 +242,37 @@ main {
   white-space: pre;
   width: 77px; }
 
+.col.button {
+  padding-left: 0; }
+
 .select--xs {
   width: 70px; }
 
-.select--s, .input-s {
+.select--s, .input--s {
   width: 114px; }
   @media (min-width: 1900px) {
-    .select--s, .input-s {
+    .select--s, .input--s {
       width: 214px; } }
 
-.select-m, .input-m {
+.select--m, .input--m {
   width: 310px; }
   @media (min-width: 1900px) {
-    .select-m, .input-m {
+    .select--m, .input--m {
       width: 410px; } }
 
-.select-large {
+.select--l {
   width: 410px; }
   @media (min-width: 1900px) {
-    .select-large {
+    .select--l {
       width: 510px; } }
 
-.label-s {
-  width: 60px; }
+.label--s {
+  width: 50px; }
 
-.label-m {
+.label--m {
   width: 80px; }
 
-.label-l {
+.label--l {
   width: 100px; }
 
 .form-input .col {
@@ -285,7 +288,8 @@ main {
   display: block;
   color: #6f8396; }
 .form-input span.label {
-  margin-top: 4px; }
+  margin-top: 5px;
+  display: block; }
 .form-input .site-label {
   margin-left: 6px; }
 .form-input .btn-datepicker {

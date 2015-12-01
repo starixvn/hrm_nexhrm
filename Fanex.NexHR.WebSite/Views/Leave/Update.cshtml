@@ -34,10 +34,10 @@
 
                     <div class="row form-input">
                         <div class="col m-b--m">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
                             </div>
-                            <div class="left label-m">
+                            <div class="left label--m">
                                 <label class="txt-bold">Rq.@Model.Id</label>
                             </div>
                         </div>
@@ -45,10 +45,10 @@
                     
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.LeaveTypeId)
                             </div>
-                            <div class="left input-m">
+                            <div class="left input--m">
                                 @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
                                 @Html.ValidationMessageFor(model => model.LeaveTypeId)
                             </div>
@@ -57,10 +57,10 @@
                     
                     <div class="row form-input">
                         <div class="col m-b--m">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.HalfDayOff)
                             </div>
-                            <div class="left input-m">
+                            <div class="left input--m">
                                 @Html.CheckBoxFor(model => model.HalfDayOff)
                             </div>
                         </div>
@@ -68,21 +68,21 @@
                     
                     <div class="row form-input">
                         <div class="col m-b--m">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.Employee)
                             </div>
                             <div class="left">
-                                @Html.DisplayFor(model => model.Employee)
+                                <span class="label">@Html.DisplayFor(model => model.Employee)</span>
                             </div>                        
                         </div>                        
                     </div>
                     
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                             </div>
-                            <div class="datepicker-button select-m left">
+                            <div class="datepicker-button select--m left">
                                 @Html.DatePickerFor(model => model.FromDate,
                                  Utilities.RequestAvailableFromDate,
                                  Utilities.RequestAvailableToDate,
@@ -97,10 +97,10 @@
                     
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                             </div>
-                            <div class="datepicker-button select-m left">
+                            <div class="datepicker-button select--m left">
                                 @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                                 <i class="mdi-action-event calendar-icon left"></i>
                                 <span class="time hide">
@@ -112,10 +112,10 @@
 
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.TotalDays)
                             </div>
-                            <div class="left input-s">
+                            <div class="left input--s">
                                 @Html.EditorFor(model => model.TotalDays)
                             </div>
                         </div>
@@ -123,10 +123,10 @@
 
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.LabelFor(model => model.Remark)
                             </div>
-                            <div class="left input-m">                                
+                            <div class="left input--m">                                
                                 @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
                             </div>
                         </div>
@@ -134,7 +134,7 @@
 
                     <div class="row form-input">
                         <div class="col">
-                            <div class="left label-l">
+                            <div class="left label--l">
                                 @Html.HiddenFor(model => model.DisplayName)
                                 @Html.HiddenFor(model => model.Employee)
                                 @Html.HiddenFor(model => model.EmployeeId)
