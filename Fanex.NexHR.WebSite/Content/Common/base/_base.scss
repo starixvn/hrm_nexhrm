@@ -67,8 +67,20 @@ main {
 	padding-top: $b-space--m;
 }
 
+.p-l-s {
+	padding-left: $b-space--s;
+}
+
+.p-0 {
+	padding: 0 !important;
+}
+
 .m-t--m {				//margin top medium size
 	margin-top: $b-space--m;
+}
+
+.m-l--m {
+	margin-left: $b-space--m;
 }
 
 .m-b--m {
@@ -170,3 +182,8 @@ main {
     }
   }
 }
+
+#legendInfo {
+    float: right;
+    margin-right: 0.5%;		
+}	

@@ -44,18 +44,17 @@
 
 .button-hrm {    
   @extend %boxshadow;  
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   height: 3rem;
   line-height: 3rem;
-  border-radius: 0;
-  color: #fff;
-  font-size: 1.3rem;  
+  border-radius: 0;    
     
   &.right {
     height: 2.5rem;
     margin-top: 8px;
     line-height: 2.5rem;
   }
+
   input {
 	background: transparent;
 	box-shadow: none;

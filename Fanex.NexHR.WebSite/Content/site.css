@@ -35,8 +35,17 @@ main {
 .p-t--m {
   padding-top: 16px; }
 
+.p-l-s {
+  padding-left: 8px; }
+
+.p-0 {
+  padding: 0 !important; }
+
 .m-t--m {
   margin-top: 16px; }
+
+.m-l--m {
+  margin-left: 16px; }
 
 .m-b--m {
   margin-bottom: 16px; }
@@ -106,6 +115,10 @@ main {
     color: #4c5e70;
     overflow: hidden; }
 
+#legendInfo {
+  float: right;
+  margin-right: 0.5%; }
+
 .opacity70 {
   opacity: .7; }
 
@@ -151,12 +164,10 @@ main {
       width: 214px; } }
 
 .button-hrm {
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   height: 3rem;
   line-height: 3rem;
-  border-radius: 0;
-  color: #fff;
-  font-size: 1.3rem; }
+  border-radius: 0; }
   .button-hrm.right {
     height: 2.5rem;
     margin-top: 8px;
@@ -274,6 +285,9 @@ main {
 
 .label--l {
   width: 100px; }
+
+.label--xl {
+  width: 120px; }
 
 .form-input .col {
   padding-right: 1.6rem; }

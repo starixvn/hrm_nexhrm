@@ -7,93 +7,107 @@
     ViewBag.Title = Labels.NewCheckInOutRequest;
 }
 @section css{
+    @Styles.Render("~/Content/checkInOutcss")
 }
 @section js{
 }
 @section Breadcrumb {
 }
 <div class="row content">
-    <h6 class="title-page txt-uppercase">@ViewBag.Title</h6>
-    <div class="col s6">
-        <a style="float: right;" id="legendInfo" href="javascript:;"><span class="icon shiftinfo">
-        </span></a>
-        @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "card blue-grey lighten-5" }))
-        {
-            @Html.ValidationSummary(true)
-
-            if (ViewBag.Requested == true)
-            {
-            <div class="success">@Messages.RequestCreated</div>
-            <input type="hidden" id="successed" value="true" />
-            <input type="hidden" id="year" value="@ViewBag.Year" />
-            }
-
-            if (ViewBag.TotalRequest >= 2)
-            {
-
-            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                <p>
-                    <a href="@Url.Action("EmployeeView")">You've already requested for Check in/out
-                        @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
-                </p>
-            </div>
-            }
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
             <div class="card-content">
-                <div class="row form-input">
-                    <div class="left s2">
-                        @Html.LabelFor(model => model.CheckInOutType, Labels.CheckInOutType)
-                    </div>
-                    <div class="left">
-                        @Html.RadioButtonList(model => model.CheckInOutType, Utilities.CheckInOutTypes)
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span></a>
+                        @using (Html.BeginForm("create", "checkinout", FormMethod.Post))
+                        {
+                            @Html.ValidationSummary(true)
+
+                            if (ViewBag.Requested == true)
+                            {
+                            <div class="success">@Messages.RequestCreated</div>
+                            <input type="hidden" id="successed" value="true" />
+                            <input type="hidden" id="year" value="@ViewBag.Year" />
+                            }
+
+                            if (ViewBag.TotalRequest >= 2)
+                            {
+
+                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                <p>
+                                    <a href="@Url.Action("EmployeeView")">You've already requested for Check in/out
+                                        @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
+                                </p>
+                            </div>
+                            }
+                            <div class="card-content">
+                                <div class="row form-input">
+                                    <div class="left label--xl">
+                                        @Html.LabelFor(model => model.CheckInOutType, Labels.CheckInOutType)
+                                    </div>
+                                    <div class="left checkInOut">
+                                        @Html.RadioButtonList(model => model.CheckInOutType, Utilities.CheckInOutTypes)
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="left label--xl">
+                                        @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                    </div>
+                                    <div class="left input--s">
+                                        @Html.EditorFor(model => model.Employee)
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="left label--xl">
+                                        <label>@Labels.RequestTime</label>
+                                    </div>
+                                    <div class="left">
+                                        <div class="datepicker-button left select--s">
+                                            @Html.DatePickerFor(model => model.ForDate, Utilities.RequestAvailableFromDate, DateTime.Now, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                        <div class="col m-l--m">
+                                            @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
+                                        </div>
+                                        <div class="col p-0">:</div>
+                                        <div class="col">
+                                                @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="left label--xl">
+                                        <label>@Labels.Shift</label>
+                                    </div>
+                                    <div class="left">
+                                        <span class="label" id="shiftname">@Model.Shift</span>
+                                    </div>
+                                </div>
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                    @Html.HiddenFor(model => model.Employee)
+                                    @Html.HiddenFor(model => model.DisplayName)
+                                    @Html.HiddenFor(model => model.Shift)
+                                    @Html.HiddenFor(model => model.ForRequest)
+                                    @Html.Hidden("InTime")
+                                    @Html.Hidden("OutTime")
+                            </div>
+                            <div class="col">
+                                <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Request" /></span>
+                                <a href="@Url.Action("EmployeeView")" class="button-hrm waves-effect waves-light btn grey darken-1 z-depth-2">@Labels.Back</a>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="row form-input">
-                    <div class="left s2">
-                        @Html.LabelFor(model => model.Employee, Labels.Employee)
-                    </div>
-                    <div class="left">
-                        @Html.EditorFor(model => model.Employee)
-                    </div>
-                </div>
-                <div class="row form-input">
-                    <div class="left s2">
-                        @Labels.RequestTime
-                    </div>
-                    <div class="left">
-                        <div class="col datepicker-button">
-                            @Html.DatePickerFor(model => model.ForDate, Utilities.RequestAvailableFromDate, DateTime.Now, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                            <i class="mdi-action-event calendar-icon left"></i>
-                        </div>
-                        <div class="col">
-                            @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
-                        </div>
-                        <div class="col">:</div>
-                        <div class="col">
-                             @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-input">
-                    <div class="left s2">
-                        @Labels.Shift
-                    </div>
-                    <div class="left">
-                        <span id="shiftname">@Model.Shift</span>
-                    </div>
-                </div>
-                    @Html.HiddenFor(model => model.EmployeeId)
-                    @Html.HiddenFor(model => model.Employee)
-                    @Html.HiddenFor(model => model.DisplayName)
-                    @Html.HiddenFor(model => model.Shift)
-                    @Html.HiddenFor(model => model.ForRequest)
-                    @Html.Hidden("InTime")
-                    @Html.Hidden("OutTime")
             </div>
-            <div class="card-action center-align">
-                <input type="submit" value="@Labels.Request" class="button-hrm btn white-text blue darken-2 z-depth-2" />
-                <a href="@Url.Action("EmployeeView")" class="button-hrm btn white-text blue darken-2 z-depth-2">@Labels.Back</a>
-            </div>
-        }
+        </div>
+    </div>   
+    <div class="col s6">
+        
+        
     </div>
     <div class="hide">
         @RazorHelper.RequestCheckInOutLegend()

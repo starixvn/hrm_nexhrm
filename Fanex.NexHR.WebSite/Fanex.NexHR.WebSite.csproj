@@ -244,6 +244,9 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Views\checkInOut.css">
+      <DependentUpon>checkInOut.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\mydashboard.css">
       <DependentUpon>mydashboard.scss</DependentUpon>
     </Content>
@@ -297,6 +300,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Content\Views\myrequest.scss" />
+    <None Include="Content\Views\checkInOut.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

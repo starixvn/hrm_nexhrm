@@ -46,6 +46,10 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/myrequestcss",
                 "~/Content/Views/myrequest.css");
 
+            bundles.AddAndInclude(
+                "~/Content/checkInOutcss",
+                "~/Content/Views/checkInOut.css");
+
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Views/employee.dashboard.js"));
