@@ -5,120 +5,128 @@
 @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
 @using (Html.BeginGetForm())
 {
-    <div class="container_24 bunhat">
-        <div class="grid_2">
-            @Labels.DateRange
+<div class="form">
+    <div class="row form-input">
+        <div class="col m-r-m">
+            <div class="left label--m">
+                <label>@Labels.DateRange</label>
+            </div>
+            <div class="left select--m">
+                <select id="Date" name="Date">
+                    <option value="0" selected= "@(Model.DateOption == 0)">@Labels.DateRange</option>
+                    <option value="1" selected= "@(Model.DateOption == 1)">@Labels.ToDay</option>
+                    <option value="2" selected= "@(Model.DateOption == 2)">@Labels.Yesterday</option>
+                    <option value="3" selected= "@(Model.DateOption == 3)">@Labels.CurrentWeek</option>
+                    <option value="4" selected= "@(Model.DateOption == 4)">@Labels.LastWeek</option>
+                    <option value="5" selected= "@(Model.DateOption == 5)">@Labels.CurrentMonth</option>
+                    <option value="6" selected= "@(Model.DateOption == 6)">@Labels.LastMonth</option>
+                    <option value="7" selected= "@(Model.DateOption == 7)">@Labels.SinceLastMonth</option>
+                </select>
+                @Html.Hidden("DateOption", Model.DateOption)
+            </div>
         </div>
-        <div class="grid_4">
-            <select id="Date" name="Date">
-                <option value="0" selected= "@(Model.DateOption == 0)">
-                    @Labels.DateRange</option>
-                <option value="1" selected= "@(Model.DateOption == 1)">
-                    @Labels.ToDay</option>
-                <option value="2" selected= "@(Model.DateOption == 2)">
-                    @Labels.Yesterday</option>
-                <option value="3" selected= "@(Model.DateOption == 3)">
-                    @Labels.CurrentWeek</option>
-                <option value="4" selected= "@(Model.DateOption == 4)">
-                    @Labels.LastWeek</option>
-                <option value="5" selected= "@(Model.DateOption == 5)">
-                    @Labels.CurrentMonth</option>
-                <option value="6" selected= "@(Model.DateOption == 6)">
-                    @Labels.LastMonth</option>
-                <option value="7" selected= "@(Model.DateOption == 7)">
-                    @Labels.SinceLastMonth</option>
-            </select>
-            @Html.Hidden("DateOption", Model.DateOption)
+
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.FromDate)
+            </div>
+            <div class="left datepicker-button select--s">
+                @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
         </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.FromDate)
+
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.ToDate)
+            </div>
+            <div class="left datepicker-button select--s">
+                @Html.DatePickerFor(model => model.ToDate)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
         </div>
-        <div class="grid_4">
-            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.ToDate)
-        </div>
-        <div class="grid_4">
-            @Html.DatePickerFor(model => model.ToDate)
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
-        </div>
-        <div class="grid_4">
-            @{
-    var filteringDateType = new List<SelectListItem>
+
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
+            </div>
+            <div class="left select--s">
+                @{
+                    var filteringDateType = new List<SelectListItem>
                     {
                         new SelectListItem() {Text = "Effected Date", Value = "true"},
                         new SelectListItem() {Text = "Created Date", Value = "false"},
                     };
-            }
-            @Html.DropDownListFor(model => model.IsFilterByEffectedDate, filteringDateType)
+                }
+                @Html.DropDownListFor(model => model.IsFilterByEffectedDate, filteringDateType)                
+            </div>
         </div>
-        <div class="clear">
+    </div>
+    
+    <div class="row form-input">
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.StatusId)
+            </div>
+            <div class="left select--m">
+                @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
+            </div>
         </div>
-        <div class="space">
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.StatusId)
-        </div>
-        <div class="grid_4">
-            @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.TeamCollection)
-        </div>
-        <div class="grid_4">
-            @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.Employee)
-        </div>
-        <div class="grid_4">
-            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.EmployeeId)
-        </div>
-        <div class="clear">
-        </div>
-        <div class="space">
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.LeaveTypeId)
-        </div>
-        <div class="grid_4">
-            @{
-    var leaveTypes = (IList<LeaveType>)ViewBag.LeaveTypes;
-    leaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
-            }
-            @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(leaveTypes, "Id", "Name"))
-        </div>
-        <div class="grid_2">
-            @Html.LabelFor(model => model.RequestType, "Request")
-        </div>
-        <div class="grid_6">
-            @{
-    var types = new List<SelectListItem>
-            {
-                new SelectListItem() {Text = Labels.All, Value = "5"},
-                new SelectListItem() {Text = Labels.Leave, Value = "1"},
-                new SelectListItem() {Text = Labels.CheckInOut, Value = "4"}
-            };
-            }
-            @Html.RadioButtonList(model => model.RequestType, types)
-        </div>
-        <div class="grid_6">
-            <input class="processing-submit" type="submit" value="@Labels.Submit" />
-        </div>
-        <div class="clear">
-            &nbsp;
-        </div>
-        <div class="space">
-        </div>
-        <div class="clear">
-            &nbsp;
-        </div>
-        <div class="space">
+
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.TeamCollection)
+            </div>
+            <div class="left select--s">
+                @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
+            </div>
+        </div> 
+
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.Employee)
+            </div>
+            <div class="left input--s">
+                @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                @Html.HiddenFor(model => model.EmployeeId)
+            </div>
         </div>
     </div>
 
+    <div class="row form-input">
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.LeaveTypeId)
+            </div>
+            <div class="left select--m">
+                @{
+                    var leaveTypes = (IList<LeaveType>)ViewBag.LeaveTypes;
+                    leaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+                }
+                @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(leaveTypes, "Id", "Name"))
+            </div>
+        </div>
+
+        <div class="col m-r-m">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.RequestType, "Request")
+            </div>
+            <div class="left">
+                @{
+                    var types = new List<SelectListItem>
+                    {
+                        new SelectListItem() {Text = Labels.All, Value = "5"},
+                        new SelectListItem() {Text = Labels.Leave, Value = "1"},
+                        new SelectListItem() {Text = Labels.CheckInOut, Value = "4"}
+                    };
+                }
+                @Html.RadioButtonList(model => model.RequestType, types)
+            </div>
+        </div>
+
+        <div class="col">
+            <span class="button-hrm waves-effect waves-light btn white-text blue darken-2 z-depth-2"><input class="processing-submit" type="submit" value="@Labels.Submit" /></span>
+        </div>
+    </div>
+</div>    
 }

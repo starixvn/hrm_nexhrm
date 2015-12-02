@@ -15,6 +15,11 @@
     width: 163px;
 }
 
+.radioButton {
+	float: left;
+	margin-right: 16px;
+}
+
 .column-truncate {
     display: inline-block;
     overflow: hidden;
@@ -33,24 +38,15 @@
 }
 
 .select--s, .input--s {
-    width: 114px;
-    @media (min-width:1900px) {
-        width: 214px;
-    }
+    width: 150px;
 }
 
 .select--m, .input--m {
-    width: 310px;
-    @media (min-width:1900px) {
-        width: 410px;
-    }
+    width: 250px;
 }
 
 .select--l {
-    width: 410px;
-    @media (min-width:1900px) {
-        width: 510px;
-    }
+    width: 400px;
 }
 
 .label--s {
@@ -84,9 +80,6 @@
     @extend %boxshadow; 
     padding-left: 7px !important;
     border: none !important;
-    position: none !important;
-    visibility: unset !important;
-    left: unset !important;
   }
 
   

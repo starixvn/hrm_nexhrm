@@ -9,93 +9,112 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-@using (Html.BeginGetForm())
-{
-    @Html.ValidationSummary(true)
-    <div class="container_24">
-        <div class="grid_1 gridlabel">
-            Month
-        </div>
-        <div class="grid_4">
-            <div id="monthPickr">
+<div class="row content">
+    @using (Html.BeginGetForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="col s12 card-container-base my-request">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>Month</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <div id="monthPickr">
+                                        </div>
+                                        <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
+                                        <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
+                                        <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
+                                        @Html.HiddenFor(model => model.EmpId)
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.RequestType)
+                                    </div>
+                                    <div class="left select--s">
+                                        @{
+                                            var types = new List<SelectListItem>
+                                            {
+                                                new SelectListItem() {Text = "All", Value = "0"},
+                                                new SelectListItem() {Text = "Checkin", Value = "1"},
+                                                new SelectListItem() {Text = "Checkout", Value = "2"},
+                                                new SelectListItem() {Text = "Late in", Value = "3"},
+                                                new SelectListItem() {Text = "Early out", Value = "4"},
+                                                new SelectListItem() {Text = "Not working", Value = "5"},
+                                            };
+                                        }
+                                        @Html.DropDownListFor(model => model.RequestType, types)
+                                        @Html.ValidationMessageFor(model => model.RequestType)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <span class="button-hrm waves-effect waves-light btn white-text blue darken-2 z-depth-2"><input type="submit" id="view" value="Submit" name="@Labels.View" /></span>
+                                </div>
+                            </div>                           
+                        </div>
+                        <div class="col s12">
+                            <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
+                                <thead>
+                                    <tr class="persist-header">
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            @Labels.Date
+                                        </th>
+                                        <th>
+                                            @Labels.Nick
+                                        </th>
+                                        <th>
+                                            @Labels.Team
+                                        </th>
+                                        <th>
+                                            @Labels.Shift
+                                        </th>
+                                        <th>
+                                            @Labels.CheckIn
+                                        </th>
+                                        <th>
+                                            @Labels.CheckOut
+                                        </th>
+                                        <th>
+                                            @Labels.TotalHours
+                                        </th>
+                                        <th>
+                                            @Labels.LateIn
+                                        </th>
+                                        <th>
+                                            @Labels.EarlyOut
+                                        </th>
+                                        <th>
+                                            @Labels.Request
+                                        </th>
+                                        <th>
+                                            @Labels.Note
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
-            <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
-            <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
-            @Html.HiddenFor(model => model.EmpId)
-        </div>
-        <div class="grid_3 gridlabel">
-            @Html.LabelFor(model => model.RequestType)
-        </div>
-        <div class="grid_4 pull_1">
-            @{
-    var types = new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = "All", Value = "0"},
-                    new SelectListItem() {Text = "Checkin", Value = "1"},
-                    new SelectListItem() {Text = "Checkout", Value = "2"},
-                    new SelectListItem() {Text = "Late in", Value = "3"},
-                    new SelectListItem() {Text = "Early out", Value = "4"},
-                    new SelectListItem() {Text = "Not working", Value = "5"},
-                };
-            }
-            @Html.DropDownListFor(model => model.RequestType, types)
-            @Html.ValidationMessageFor(model => model.RequestType)
-        </div>
-        <div class="grid_3 pull_1">
-            <input type="submit" id="view" value="Submit" name="@Labels.View" />
-        </div>
-        <div class="clear">
-        </div>
-    </div>
-}
-<div class="clear">
+        </div>        
+    }
 </div>
-<table id="data" class="data persist-area">
-    <thead>
-        <tr class="persist-header">
-            <th>
-                #
-            </th>
-            <th>
-                @Labels.Date
-            </th>
-            <th>
-                @Labels.Nick
-            </th>
-            <th>
-                @Labels.Team
-            </th>
-            <th>
-                @Labels.Shift
-            </th>
-            <th>
-                @Labels.CheckIn
-            </th>
-            <th>
-                @Labels.CheckOut
-            </th>
-            <th>
-                @Labels.TotalHours
-            </th>
-            <th>
-                @Labels.LateIn
-            </th>
-            <th>
-                @Labels.EarlyOut
-            </th>
-            <th>
-                @Labels.Request
-            </th>
-            <th>
-                @Labels.Note
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+
+
 <script id="itemTemplate" type="text/x-jquery-tmpl">
     <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId }} {{else}} class="noshift"{{/if}}>
         <td>${index()}</td>
