@@ -34,62 +34,77 @@
                                     <input type="hidden" id="year" value="@ViewBag.Year" />
                                 </div>                            
                             }
-
-                            <div class="formrow">
-                                <div class="label">
-                                    @Fanex.NexHR.Resources.Labels.RequestCode
-                                </div>
-                                <div class="input">
-                                    <strong>Rq.@Model.Id</strong>
-                                </div>
-                            </div>
-
-                            <div class="formrow">
-                                <div class="label">
-                                    @Html.LabelFor(model => model.CheckInOutType)
-                                </div>
-                                <div class="input">
-                                    @Model.CheckInOutType.ToText()
-                                </div>
-                            </div>
-
-                            <div class="formrow">
-                                <div class="label">
-                                    @Html.LabelFor(model => model.Employee)
-                                </div>
-                                <div class="input">
-                                    @Html.DisplayFor(model => model.Employee)
-                                </div>
-                                <div class="clear">
-                                </div>
-                            </div>
-
-                            <div class="formrow">
-                                <div class="label">
-                                    @Fanex.NexHR.Resources.Labels.RequestTime
-                                </div>
-                                <div class="input">
-                                    @Html.DatePickerFor(model => model.ForDate, Utilities.RequestAvailableFromDate, DateTime.Now, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                    @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
-                                    :
-                                    @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
-                                </div>
-                            </div>
-
-                            <div class="formrow">
-                                <div class="label">
-                                    @Html.LabelFor(model => model.Shift)
-                                </div>
-                                <div class="input">
-                                    <span id="shiftname">@Model.Shift</span> <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo">
-                                        <span class="icon shiftinfo"></span></a>
-                                    <div class="hide">
-                                        @RazorHelper.ShiftInfoTable(ViewBag.Shifts)
+                            
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--xl">
+                                        <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
+                                    </div>
+                                    <div class="left label--m">
+                                        <label class="txt-bold">
+                                            Rq.@Model.Id</label>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--xl">
+                                        @Html.LabelFor(model => model.CheckInOutType)
+                                    </div>
+                                    <div class="left input--m">
+                                        <span class="label">@Model.CheckInOutType.ToText()</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--xl">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left">
+                                        <span class="label">@Html.DisplayFor(model => model.Employee)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--xl">
+                                        <label>@Fanex.NexHR.Resources.Labels.RequestTime</label>
+                                    </div>
+                                    <div class="left">
+                                        <div class="datepicker-button left select--s">
+                                            @Html.DatePickerFor(model => model.ForDate, Utilities.RequestAvailableFromDate, DateTime.Now, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                        <div class="col m-l--m">
+                                            @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
+                                        </div>
+                                        <div class="col p-0">:</div>
+                                        <div class="col">
+                                                @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--xl">
+                                        @Html.LabelFor(model => model.Shift)
+                                    </div>
+                                    <div class="left">
+                                        <span id="shiftname" class="label">@Model.Shift</span> <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo">
+                                            <span class="icon shiftinfo"></span></a>
+                                        <div class="hide">
+                                            @RazorHelper.ShiftInfoTable(ViewBag.Shifts)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
 
-                            <div class="formrow">
+                            <div class="col">
                                 <div class="label">
                                 </div>
                                 <div class="input">
@@ -102,8 +117,8 @@
                                     @Html.HiddenFor(model => model.ForRequest)
                                     @Html.Hidden("InTime")
                                     @Html.Hidden("OutTime")
-                                    <input type="submit" value="@Labels.Update" />
-                                    <a href="@Url.Action("employeeview", "checkinout")" class="button">@Labels.Back</a>
+                                    <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Update" /></span>
+                                    <a class="button-hrm waves-effect waves-light btn grey darken-1 z-depth-2" href="@Url.Action("employeeview", "checkinout")" class="button">@Labels.Back</a>
                                 </div>
                             </div>
                         }
