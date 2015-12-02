@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col s12 m6 l3 card-container-base">
             <div class="card teal">
-                <div class="card-content white-text">
+                <div class="card-content white-text hidden">
                     <div class="col s3">
                         <i class="mdi-action-alarm left medium"></i>
                     </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card indigo darken-1">
-                <div class="card-content white-text">
+                <div class="card-content white-text hidden">
                     <div class="col s3">
                         <i class="mdi-action-alarm-add left medium"></i>
                     </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card yellow darken-4">
-                <div class="card-content white-text">
+                <div class="card-content white-text hidden">
                     <div class="col s3">
                         <i class="mdi-action-perm-identity left medium"></i>
                     </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card light-green darken-2 z-depth-1">
-                <div class="card-content white-text">
+                <div class="card-content white-text hidden">
                     <div class="col s3">
                         <img class="circle" src="../../Content/Images/user.png" />
                     </div>
@@ -98,7 +98,7 @@
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">Information</span>                        
                     </div>
-                    <div class="col card-body">
+                    <div class="card-body p-x--s">
                         <p>
                             <span class="left-align">Check in (Today):</span>
                             <span class="right"><a href="#" class="blue-grey-text text-darken-3">08:46</a></span>
@@ -129,7 +129,7 @@
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">To do list</span>                        
                     </div>
-                    <div class="col card-body">
+                    <div class="card-body p-x--s">
                         <p class="green-border">
                             <span class="left-align">You forgot check in today</span>                                   
                             <a class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">Request</a>
@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s12">
+                        <div class="p-x--s">
                             <table class="table bordered striped highlight centered table-custom">
                                 <thead>
                                     <tr>
@@ -348,31 +348,7 @@
                     <div class="card-title-block">
                         <span class="card-title left primary-color"><span class="txt-uppercase">Workload </span><small>(Working Hours in Month)</small></span>                        
                     </div>
-                    <div class="col card-body">
-                        @*<div class="pie-chart">
-                            <canvas id="serverstatus02" height="200" width="200"></canvas>
-                            <script>
-                                var doughnutData = [
-                                        {
-                                            value: 35,
-                                            color: "#44b2d7"
-                                        },
-                                        {
-                                            value: 17,
-                                            color: "#59c2e6"
-                                        },
-                                        {
-                                            value: 9,
-                                            color: "#71d0f1"
-                                        },
-                                        {
-                                            value: 25,
-                                            color: "#96e4ff"
-                                        },
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>*@
+                    <div class="card-body p-x--s">
                         <div class="total-hours">
                             <img src="~/Content/Images/chart.jpg" />
                         </div>

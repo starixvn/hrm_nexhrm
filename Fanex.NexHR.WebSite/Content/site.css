@@ -32,11 +32,17 @@ main {
 .opacity50 {
   opacity: .5; }
 
+.hidden {
+  overflow: hidden; }
+
 .p-t--m {
   padding-top: 16px; }
 
 .p-l-s {
   padding-left: 8px; }
+
+.p-x--s {
+  padding: 0 8px; }
 
 .p-0 {
   padding: 0 !important; }
@@ -96,7 +102,6 @@ main {
 .card-container-base .txt-12px {
   font-size: 1.2rem; }
 .card-container-base .card-content {
-  overflow: hidden;
   padding-bottom: 16px; }
   .card-container-base .card-content.white-text {
     padding: 20px; }
