@@ -9,10 +9,7 @@
 }
 @section Breadcrumb {
 }
-<div class="row content">
-    @using (Html.BeginGetForm())
-    {
-        @Html.ValidationSummary(true)
+<div class="row content">   
         <div class="col s12 card-container-base my-request">
             <div class="card">
                 <div class="card-content">
@@ -21,6 +18,9 @@
                     </div>
                     <div class="card-body">
                         <div class="form">
+                         @using (Html.BeginGetForm())
+                         {
+                            @Html.ValidationSummary(true)
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--s">
@@ -59,7 +59,8 @@
                                 <div class="col">
                                     <span class="button-hrm waves-effect waves-light btn white-text blue darken-2 z-depth-2"><input type="submit" id="view" value="Submit" name="@Labels.View" /></span>
                                 </div>
-                            </div>                           
+                            </div>
+                        }                            
                         </div>
                         <div class="p-x--s">
                             <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
@@ -110,8 +111,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
-    }
+        </div>
 </div>
 
 

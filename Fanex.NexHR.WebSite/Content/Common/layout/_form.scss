@@ -18,6 +18,9 @@
 .radioButton {
 	float: left;
 	margin-right: 16px;
+	label {
+		margin-top: 2px !important;
+	}
 }
 
 .column-truncate {
@@ -80,6 +83,9 @@
     @extend %boxshadow; 
     padding-left: 7px !important;
     border: none !important;
+	position: none !important;
+    visibility: unset !important;
+    left: unset !important;
   }
 
   

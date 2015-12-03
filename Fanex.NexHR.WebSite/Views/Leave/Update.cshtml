@@ -25,7 +25,7 @@
                             if (ViewBag.Updated == true)
                             {
                             <div class="row">
-                                <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestUpdated</div>
+                                <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
                                 <input type="hidden" id="successed" value="true" />
                                 <input type="hidden" id="year" value="@ViewBag.Year" />
                             </div>
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="card-action">
-                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r-s">
+                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r--s">
                                     <input type="submit" value="@Labels.Update" /></span> <a class="button-hrm waves-effect waves-light btn white-text grey darken-1 z-depth-2" href="@Url.Action("employeeview", "leave")" class="button">@Labels.Back</a>
                             </div>
                         }

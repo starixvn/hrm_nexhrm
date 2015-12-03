@@ -31,7 +31,7 @@
                             if (ViewBag.Requested == true)
                             {
                             <div class="row validation-summary-success">
-                                <i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestCreated
+                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
                                 <input type="hidden" id="successed" value="true" />
                                 <input type="hidden" id="year" value="@ViewBag.Year" />
                             </div>
@@ -50,7 +50,7 @@
                             }
 
                             <div class="row form-input">
-                                <div class="col m-r-m">
+                                <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
                                     </div>
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col m-r-m">
+                                <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
@@ -129,7 +129,7 @@
                             @Html.HiddenFor(model => model.DisplayName)
                             @Html.HiddenFor(model => model.ForRequest)
                             <div class="card-action">
-                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Request" /></span>
+                                <span class="button-hrm waves-effect waves-light btn white-text yellow darken-4 z-depth-2 m-r--s"><input type="submit" value="@Labels.Request" /></span>
                                 <a href="@Url.Action("employeeview", "leave")" class="button-hrm waves-effect waves-light btn white-text grey darken-1 z-depth-2">@Labels.Back</a>
                             </div>
                         }

@@ -30,7 +30,7 @@
                             if (ViewBag.Requested == true)
                             {
                                 <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r-s"></i>@Messages.RequestCreated
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
                                     <input type="hidden" id="successed" value="true" />
                                     <input type="hidden" id="year" value="@ViewBag.Year" />
                                 </div>  
@@ -47,7 +47,7 @@
                             </div>
                             }
                             <div class="card-content">
-                                <div class="row form-input">
+                                <div class="row form-input m-b--m">
                                     <div class="left label--xl">
                                         @Html.LabelFor(model => model.CheckInOutType, Labels.CheckInOutType)
                                     </div>
@@ -100,7 +100,7 @@
                                 @Html.HiddenFor(model => model.ForRequest)
                                 @Html.Hidden("InTime")
                                 @Html.Hidden("OutTime")
-                                <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r-s"><input type="submit" value="@Labels.Request" /></span>
+                                <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r--s"><input type="submit" value="@Labels.Request" /></span>
                                 <a href="@Url.Action("EmployeeView")" class="button-hrm waves-effect waves-light btn grey darken-1 z-depth-2">@Labels.Back</a>
                             </div>
                         }

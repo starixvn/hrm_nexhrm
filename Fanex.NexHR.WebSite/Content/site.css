@@ -35,44 +35,11 @@ main {
 .hidden {
   overflow: hidden; }
 
-.p-t--m {
-  padding-top: 16px; }
-
-.p-l-s {
-  padding-left: 8px; }
-
-.p-x--s {
-  padding: 0 8px; }
-
-.p-0 {
-  padding: 0 !important; }
-
-.m-t--m {
-  margin-top: 16px; }
-
-.m-l--m {
-  margin-left: 16px; }
-
-.m-b--m {
-  margin-bottom: 16px; }
-
-.m-r-s {
-  margin-right: 8px; }
-
-.m-r-m {
-  margin-right: 16px; }
-
 .circle {
   border-radius: 50%; }
 
 .content {
   padding-top: 10px; }
-
-.c-pedding {
-  color: #EF9E35; }
-
-.c-approve {
-  color: #69B829; }
 
 .validation-summary-errors {
   margin: 1rem 4rem 1.6rem 0.8rem;
@@ -97,6 +64,43 @@ main {
 #confirm p {
   padding-bottom: 0; }
 
+#legendInfo {
+  float: right;
+  margin-right: 0.5%; }
+
+.p-t--m {
+  padding-top: 16px; }
+
+.p-l-s {
+  padding-left: 8px; }
+
+.p-x--s {
+  padding: 0 8px; }
+
+.p-0 {
+  padding: 0 !important; }
+
+.m-t--m {
+  margin-top: 16px; }
+
+.m-l--m {
+  margin-left: 16px; }
+
+.m-b--m {
+  margin-bottom: 16px; }
+
+.m-r--s {
+  margin-right: 8px; }
+
+.m-r--m {
+  margin-right: 16px; }
+
+.c-pedding {
+  color: #EF9E35; }
+
+.c-approve {
+  color: #69B829; }
+
 .card-container-base .txt-tittle {
   font-size: 2rem; }
 .card-container-base .txt-12px {
@@ -119,10 +123,6 @@ main {
     line-height: 45px;
     color: #4c5e70;
     overflow: hidden; }
-
-#legendInfo {
-  float: right;
-  margin-right: 0.5%; }
 
 .opacity70 {
   opacity: .7; }
@@ -253,6 +253,8 @@ main {
 .radioButton {
   float: left;
   margin-right: 16px; }
+  .radioButton label {
+    margin-top: 2px !important; }
 
 .column-truncate {
   display: inline-block;
@@ -293,7 +295,10 @@ main {
   padding-right: 1.6rem; }
 .form-input input, .form-input textarea {
   padding-left: 7px !important;
-  border: none !important; }
+  border: none !important;
+  position: none !important;
+  visibility: unset !important;
+  left: unset !important; }
 .form-input label {
   margin-top: 5px;
   display: block;

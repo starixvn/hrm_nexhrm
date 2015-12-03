@@ -10,11 +10,21 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<div>
-    @Html.Partial("CriteriaPanel", Model)
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @Html.Partial("CriteriaPanel", Model)
+                    @{
+                        Html.RenderPartial("AllRequest", requests);
+                    }
+                    <div id="dialoghistorycontent" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-@{
-    Html.RenderPartial("AllRequest", requests);
-}
-<div id="dialoghistorycontent" />
