@@ -186,7 +186,6 @@
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
     <None Include="Content\Common\layout\_form.scss" />
-    <None Include="Content\Common\pages\_mydashboard.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
     <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
     <None Include="Content\ContextMenu\font\context-menu-icons.ttf" />
@@ -303,6 +302,7 @@
     <None Include="Content\Views\checkInOut.scss" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Common\pages\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

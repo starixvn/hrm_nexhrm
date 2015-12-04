@@ -10,208 +10,229 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-@using (Html.BeginForm())
-{
-    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-    <div class="container_24 bunhat">
-        <div class="grid_19">
-            <div class="grid_2 gridlabel">
-                @Labels.DateRange
-            </div>
-            <div class="grid_4">
-                <select id="Date" name="Date">
-                    <option value="0">
-                        @Labels.DateRange</option>
-                    <option value="1">
-                        @Labels.ToDay</option>
-                    <option value="2">
-                        @Labels.Yesterday</option>
-                    <option value="3">
-                        @Labels.CurrentWeek</option>
-                    <option value="4">
-                        @Labels.LastWeek</option>
-                    <option value="5">
-                        @Labels.CurrentMonth</option>
-                    <option value="6">
-                        @Labels.LastMonth</option>
-                    <option value="7">
-                        @Labels.SinceLastMonth</option>
-                </select>
-                @Html.Hidden("DateOption", Model.DateOption)
-            </div>
-            <div class="grid_2 gridlabel">
-                @Html.LabelFor(model => model.FromDate)
-            </div>
-            <div class="grid_4">
-                @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-            </div>
-            <div class="grid_2 gridlabel">
-                @Html.LabelFor(model => model.ToDate)
-            </div>
-            <div class="grid_4">
-                @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-            </div>
-        </div>
-        <div class="clear">
-        </div>
-        <div class="space">
-        </div>
-        <div class="grid_19">
-            <div class="grid_2 gridlabel">
-                @Html.LabelFor(model => model.Team)
-            </div>
-            <div class="grid_4">
-                <select id="TeamId" name="TeamId">
-                    <option value="">@Labels.AllTeams</option>
-                    @foreach (Fanex.NexHR.Models.Team team in ViewBag.Groups)
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
                     {
-                        <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <div class="form">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="Date" name="Date">
+                                            <option value="0">@Labels.DateRange</option>
+                                            <option value="1">@Labels.ToDay</option>
+                                            <option value="2">@Labels.Yesterday</option>
+                                            <option value="3">@Labels.CurrentWeek</option>
+                                            <option value="4">@Labels.LastWeek</option>
+                                            <option value="5">@Labels.CurrentMonth</option>
+                                            <option value="6">@Labels.LastMonth</option>
+                                            <option value="7">@Labels.SinceLastMonth</option>
+                                        </select>
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button input--m">
+                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="col">
+                                    <div class="left label--s m-r--s">
+                                        @Html.LabelFor(model => model.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button input--m">
+                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Team)
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="TeamId" name="TeamId">
+                                            <option value="">@Labels.AllTeams</option>
+                                            @foreach (Fanex.NexHR.Models.Team team in ViewBag.Groups)
+                                            {
+                                                <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r--s"><input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" /></span>
+                                    <span class="button-hrm waves-effect waves-light btn green darken-1 z-depth-2 m-r--s">
+                                        <input type="submit" value="Excel" onclick="submitForm('True')" />
+                                        @Html.HiddenFor(model => model.IsExportExcel)
+                                    </span>                                    
+                                </div> 
+                            </div>                            
+                        </div>
                     }
-                </select>
+
+                    <div class="p-x--s">
+                        <table class="data persist-area table bordered striped highlight table-custom">
+                            <thead>
+                                <tr class="persist-header">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>@Labels.Code
+                                    </th>
+                                    <th>@Labels.Name
+                                    </th>
+                                    <th>@Labels.Nick
+                                    </th>
+                                    <th>@Labels.Team
+                                    </th>
+                                    <th>@Labels.WorkigDay
+                                    </th>
+                                    <th>@Labels.ActualWorkingDay
+                                    </th>
+                                    <th>@Labels.PaidLeave
+                                    </th>
+                                    <th>@Labels.UnpaidLeave
+                                    </th>
+                                    <th>@Labels.SickLeave
+                                    </th>
+                                    <th>@Labels.AccidentLaborLeave
+                                    </th>
+                                    <th>@Labels.LateIn
+                                    </th>
+                                    <th>@Labels.EarlyOut
+                                    </th>
+                                    <th>@Labels.TotalHours
+                                    </th>
+                                    <th>
+                                        Average Hours
+                                    </th>
+                                </tr>
+                            </thead>
+                            @if (ViewBag.EntityList.Count > 0)
+                            {
+                                <tbody>
+                                    @{int index = 1;}
+                                    @foreach (Fanex.NexHR.Models.TotalWorkingHours item in ViewBag.EntityList)
+                                    {
+                                        var requestModel = new RequestViewModel
+                                        {
+                                            DateOption = Model.DateOption,
+                                            FromDate = Model.FromDate,
+                                            ToDate = Model.ToDate,
+                                            EmployeeId = item.Employee.Id,
+                                            Employee = item.Employee.NickName + " (" + item.Employee.FullName + ")",
+                                            TeamId = Model.TeamId == null ? -2 : Model.TeamId,
+                                            StatusId = 0,
+                                            RequestType = 1,
+                                            IsFilterByEffectedDate = true
+                                        };
+                                        <tr>
+                                            <td>@(index++)
+                                            </td>
+                                            <td>@item.Employee.Code
+                                            </td>
+                                            <td>@item.Employee.FullName
+                                            </td>
+                                            <td>@item.Employee.NickName
+                                            </td>
+                                            <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
+                                            </td>
+                                            <td>@item.WorkingDay
+                                            </td>
+                                            <td>@item.ActualWorkingDay
+                                            </td>
+                                            <td>@item.PaidLeave.ToString("0.0")
+                                            </td>
+                                            <td>
+                                                @if (item.UnpaidLeave > 0 && Roles.IsUserInRole("HR"))
+                                                {
+                                                    requestModel.LeaveTypeId = 26;
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">
+                                                        @item.UnpaidLeave.ToString("0.0")
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    @item.UnpaidLeave.ToString("0.0")
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.SickLeave > 0 && Roles.IsUserInRole("HR"))
+                                                {
+                                                    requestModel.LeaveTypeId = 28;
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">
+                                                        @item.SickLeave.ToString("0.0")
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    @item.SickLeave.ToString("0.0")
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.AccidentLaborLeave > 0 && Roles.IsUserInRole("HR"))
+                                                {
+                                                    requestModel.LeaveTypeId = 29;
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">
+                                                        @item.AccidentLaborLeave.ToString("0.0")
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    @item.AccidentLaborLeave.ToString("0.0")
+                                                }
+                                            </td>
+                                            <td>@Utilities.MinuteToTime(item.LateIn)
+                                            </td>
+                                            <td>@Utilities.MinuteToTime(item.EarlyOut)
+                                            </td>
+                                            <td>@Utilities.TotalHoursToTime(item.TotalHours)
+                                            </td>
+                                            <td>@Utilities.TotalHoursToTime(item.AverageHours)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            }
+                            else
+                            {
+                                @RazorHelper.DisplayNoInformation(colspan: 11);
+                            }
+                        </table>
+                    </div>                    
+                </div>
             </div>
-            <div class="grid_2">
-                @Html.LabelFor(model => model.Employee)
-            </div>
-            <div class="grid_4">
-                @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
-                @Html.HiddenFor(model => model.EmployeeId)
-            </div>
-            <div class="grid_5">
-                <input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" />
-                <input type="submit" value="Excel" onclick="submitForm('True')" />
-                @Html.HiddenFor(model => model.IsExportExcel)
-            </div>
-        </div>
-        <div class="clear">
         </div>
     </div>
-}
-<table class="data persist-area">
-    <thead>
-        <tr class="persist-header">
-            <th>
-                #
-            </th>
-            <th>@Labels.Code
-            </th>
-            <th>@Labels.Name
-            </th>
-            <th>@Labels.Nick
-            </th>
-            <th>@Labels.Team
-            </th>
-            <th>@Labels.WorkigDay
-            </th>
-            <th>@Labels.ActualWorkingDay
-            </th>
-            <th>@Labels.PaidLeave
-            </th>
-            <th>@Labels.UnpaidLeave
-            </th>
-            <th>@Labels.SickLeave
-            </th>
-            <th>@Labels.AccidentLaborLeave
-            </th>
-            <th>@Labels.LateIn
-            </th>
-            <th>@Labels.EarlyOut
-            </th>
-            <th>@Labels.TotalHours
-            </th>
-            <th>
-                Average Hours
-            </th>
-        </tr>
-    </thead>
-    @if (ViewBag.EntityList.Count > 0)
-    {
-        <tbody>
-            @{int index = 1;}
-            @foreach (Fanex.NexHR.Models.TotalWorkingHours item in ViewBag.EntityList)
-            {
-                var requestModel = new RequestViewModel
-                {
-                    DateOption = Model.DateOption,
-                    FromDate = Model.FromDate,
-                    ToDate = Model.ToDate,
-                    EmployeeId = item.Employee.Id,
-                    Employee = item.Employee.NickName + " (" + item.Employee.FullName + ")",
-                    TeamId = Model.TeamId == null ? -2 : Model.TeamId,
-                    StatusId = 0,
-                    RequestType = 1,
-                    IsFilterByEffectedDate = true
-                };
-                <tr>
-                    <td>@(index++)
-                    </td>
-                    <td>@item.Employee.Code
-                    </td>
-                    <td class="left">@item.Employee.FullName
-                    </td>
-                    <td>@item.Employee.NickName
-                    </td>
-                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
-                    </td>
-                    <td>@item.WorkingDay
-                    </td>
-                    <td>@item.ActualWorkingDay
-                    </td>
-                    <td>@item.PaidLeave.ToString("0.0")
-                    </td>
-                    <td>
-                        @if (item.UnpaidLeave > 0 && Roles.IsUserInRole("HR"))
-                        {
-                            requestModel.LeaveTypeId = 26;
-                            <a href="@Url.Action("hrview", "request", requestModel)">
-                                @item.UnpaidLeave.ToString("0.0")
-                            </a>
-                        }
-                        else
-                        {
-                            @item.UnpaidLeave.ToString("0.0")
-                        }
-                    </td>
-                    <td>
-                        @if (item.SickLeave > 0 && Roles.IsUserInRole("HR"))
-                        {
-                            requestModel.LeaveTypeId = 28;
-                            <a href="@Url.Action("hrview", "request", requestModel)">
-                                @item.SickLeave.ToString("0.0")
-                            </a>
-                        }
-                        else
-                        {
-                            @item.SickLeave.ToString("0.0")
-                        }
-                    </td>
-                    <td>
-                        @if (item.AccidentLaborLeave > 0 && Roles.IsUserInRole("HR"))
-                        {
-                            requestModel.LeaveTypeId = 29;
-                            <a href="@Url.Action("hrview", "request", requestModel)">
-                                @item.AccidentLaborLeave.ToString("0.0")
-                            </a>
-                        }
-                        else
-                        {
-                            @item.AccidentLaborLeave.ToString("0.0")
-                        }
-                    </td>
-                    <td>@Utilities.MinuteToTime(item.LateIn)
-                    </td>
-                    <td>@Utilities.MinuteToTime(item.EarlyOut)
-                    </td>
-                    <td>@Utilities.TotalHoursToTime(item.TotalHours)
-                    </td>
-                    <td>@Utilities.TotalHoursToTime(item.AverageHours)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    }
-    else
-    {
-        @RazorHelper.DisplayNoInformation(colspan: 11);
-    }
-</table>
+</div>
+
