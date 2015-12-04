@@ -176,6 +176,20 @@
   <ItemGroup>
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Avatars\avatar.jpg" />
+    <Content Include="App_Data\Emails\ApprovalNotification.cshtml" />
+    <Content Include="App_Data\Emails\ChangeShift.Request.cshtml" />
+    <Content Include="App_Data\Emails\ChangeShiftApprovalNotification.cshtml" />
+    <Content Include="App_Data\Emails\CheckInOut.Request.cshtml" />
+    <Content Include="App_Data\Emails\CheckInOutApprovalNotification.cshtml" />
+    <Content Include="App_Data\Emails\EditMemoNotification.cshtml" />
+    <Content Include="App_Data\Emails\LateInEarlyOut.Request.cshtml" />
+    <Content Include="App_Data\Emails\LateInEarlyOutApprovalNotification.cshtml" />
+    <Content Include="App_Data\Emails\Leave.Request.cshtml" />
+    <Content Include="App_Data\Emails\LeaveApprovalNotification.cshtml" />
+    <Content Include="App_Data\Emails\MemoNotification.cshtml" />
+    <Content Include="App_Data\Emails\Process.Request.cshtml" />
+    <Content Include="App_Data\Emails\TOEICScoreUpdatedNotification.cshtml" />
+    <Content Include="App_Data\Emails\UnpaidLeave.Request.cshtml" />
     <None Include="Content\Common\base\_base.scss" />
     <None Include="Content\Common\base\_typhography.scss" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.eot" />
@@ -300,9 +314,44 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Content\Views\myrequest.scss" />
     <None Include="Content\Views\checkInOut.scss" />
+    <Content Include="Views\AnnualLeaveBalance\Create.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\Edit.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\Employee.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\Index.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\MultipleInsert.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\MultipleReset.cshtml" />
+    <Content Include="Views\Employee\Birthday.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Detail.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Employee\MonthSchedule.cshtml" />
+    <Content Include="Views\Employee\TOEICManagement.cshtml" />
+    <Content Include="Views\Employee\UpdateFullTOEIC.cshtml" />
+    <Content Include="Views\Employee\UpdateTOEIC.cshtml" />
+    <Content Include="Views\Employee\UserManagement.cshtml" />
+    <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
+    <Content Include="Views\Employee\WorkingCalendars.cshtml" />
+    <Content Include="Views\Employee\WorkingCalendarsEdit.cshtml" />
+    <Content Include="Views\Employee\DefaultSchedule.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\JobTitle\JobTitleManagement.cshtml" />
+    <Content Include="Views\Holiday\Create.cshtml" />
+    <Content Include="Views\Holiday\Edit.cshtml" />
+    <Content Include="Views\Holiday\Index.cshtml" />
+    <Content Include="Views\Shift\Index.cshtml" />
+    <Content Include="Views\GeographicMap\Index.cshtml" />
+    <Content Include="Views\ExtensionNo\AddNewMember.cshtml" />
+    <Content Include="Views\ExtensionNo\EditExtensionNumber.cshtml" />
+    <Content Include="Views\ExtensionNo\Index.cshtml" />
+    <Content Include="Views\ExtensionNo\ManageExternalGroup.cshtml" />
+    <Content Include="Views\Memo\Create.cshtml" />
+    <Content Include="Views\Memo\Detail.cshtml" />
+    <Content Include="Views\Memo\Edit.cshtml" />
+    <Content Include="Views\Memo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Common\pages\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = @Labels.TOEICScoreMgmt;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isHRRole = Roles.IsUserInRole("HR");
+}
+@section css {
+    <style>
+        input[type="number"]
+        {
+            width: 230px;
+        }
+    </style>
+}
+@section js {
+}
+@section Breadcrumb {
+}
+<h2>@ViewBag.Title</h2>
+<div class="container_24 bunhat">
+    <div class="grid_24">
+        <div class="grid_2 gridlabel">@Labels.Nickname</div>
+        <div class="grid_7">
+            <input id="keyword" type="text" />
+        </div>
+        <div class="grid_1 gridlabel">@Labels.Team</div>
+        <div class="grid_6">
+            <select id="group" class="team-select">
+                <option value="">@Labels.AllTeams</option>
+                @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="grid_1 gridlabel">@Labels.Title</div>
+        <div class="grid_5">
+            @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="space">
+    </div>
+    <div class="clear">
+    </div>
+    <div class="space">
+    </div>
+    <div class="grid_16">
+        <div class="grid_2 gridlabel">
+            &nbsp;</div>
+        <div class="grid_7">
+            <input id="query" type="button" value="@Labels.Submit" />
+            @if (isHRRole)
+            {
+                <div class="button-icon">
+                    <span class="icon plus"></span><a id="btnNewTOEIC" href="javascript:;">Update TOEIC
+                        Score</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="space">
+</div>
+<div class="clear">
+</div>
+<div id="cont">
+    &nbsp;</div>
+<table id="data" class="data persist-area">
+    <thead class="persist-header">
+        <tr>
+            <th rowspan="2">
+                #
+            </th>
+            <th rowspan="2">@Labels.Nick/@Labels.Email
+            </th>
+            <th rowspan="2">@Labels.Team
+            </th>
+            <th rowspan="2">@Labels.JobTitle
+            </th>
+            <th colspan="4">@Labels.Listening/@Labels.Reading
+            </th>
+            <th colspan="3">@Labels.Speaking/@Labels.Writing
+            </th>
+            <th rowspan="2">@Labels.ExpiredDate
+            </th>
+            @if (isHRRole)
+            {
+                <th rowspan="2">@Labels.Edit
+                </th>
+            }
+        </tr>
+        <tr>
+            <th>@Labels.L
+            </th>
+            <th>@Labels.R
+            </th>
+            <th>@Labels.LRTotal
+            </th>
+            <th>@Labels.ExamDate
+            </th>
+            <th>@Labels.S
+            </th>
+            <th>@Labels.W
+            </th>
+            <th>@Labels.ExamDate
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
+<input type="hidden" id="userRole" value="@isHRRole.ToString()" />
+<div id="dialog-toeic" title="Update TOEIC Score">
+    &nbsp;</div>
+<script id="tplAllSkill" type="text/x-jquery-tmpl">
+    <tr id="row${Id}">
+        <td>
+          ${index()}
+        </td>
+        <td title="${FullName}" class="tooltip">
+            <a href="/employee/detail/${Id}">${NickName}</a>
+        </td>
+        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>
+        <td class="left">${JobTitle}</td>
+        <td>
+            {{if ToeicScore.Listening == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Listening}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Reading == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Reading}
+            {{/if}}
+        </td>
+        <td class="highlight">
+            {{if ToeicScore.LRTotal == 0}}
+                -
+            {{else}}
+                ${ToeicScore.LRTotal}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.LRExamDate == null}}
+                -
+            {{else}}
+                ${jsonTojsDate(ToeicScore.LRExamDate).format("dd mmm, yyyy")}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Speaking == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Speaking}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Writing == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Writing}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.SWExamDate == null}}
+                -
+            {{else}}
+                ${jsonTojsDate(ToeicScore.SWExamDate).format("dd mmm, yyyy")}
+            {{/if}}
+        </td>
+
+            {{if ToeicScore.InputDate != null }}
+                {{if checkExpiredDate(ToeicScore.InputDate)}}
+                <td class="expired-date">
+                    ${jsonTojsDate(ToeicScore.InputDate).format("dd mmm, yyyy")}
+                </td>
+                {{else}}
+                <td>
+                    ${jsonTojsDate(ToeicScore.InputDate).format("dd mmm, yyyy")}
+                </td>
+                {{/if}}
+            {{else}}
+                <td>
+                    -
+                </td>
+            {{/if}}
+
+        {{if isShowEdit()}}
+            <td style="width: 45px;">
+                {{if !IsDeleted}}
+                    <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="/Styles/Images/edit-icon.png"></a>
+                {{else}}
+                    -
+                {{/if}}
+            </td>
+        {{/if}}
+    </tr>
+</script>

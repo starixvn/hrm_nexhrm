@@ -1,0 +1,14 @@
+﻿@model IList<Fanex.NexHR.Models.Shift>
+@section css {
+}
+@section js {
+}
+@{
+    ViewBag.Title = Labels.ShiftInfo;
+}
+@section Breadcrumb {
+}
+<h2>@ViewBag.Title</h2>
+<div class="grid_24">
+    @RazorHelper.ShiftInfoTable(Model)
+</div>
