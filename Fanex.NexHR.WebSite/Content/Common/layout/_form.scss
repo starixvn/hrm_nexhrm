@@ -61,7 +61,7 @@
 }
 
 .label--l {
-    width: 100px;
+    width: 110px;
 }
 
 .label--xl {
@@ -79,13 +79,17 @@
 	padding-right: 1.6rem;
   }
 
-  input, textarea {
+  input[type="text"], textarea, input[type=number] {
     @extend %boxshadow; 
     padding-left: 7px !important;
     border: none !important;
 	position: none !important;
     visibility: unset !important;
     left: unset !important;
+  }
+
+  input[type=number] {
+    text-align: center;
   }
 
   

@@ -10,68 +10,69 @@
 <script type="text/javascript">
     var enable = null;
 </script>
-<h2>@ViewBag.Title</h2>
-<div class="container_24 bunhat">
-    <div class="grid_24">
-        <div class="grid_2 gridlabel">@Labels.Keyword</div>
-        <div class="grid_7">
-            <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--m"><label>@Labels.Keyword</label></div>
+                                <div class="left input--s">
+                                    <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
+                                </div>
+                            </div>
+
+                            <div class="col m-r--m">                                
+                                <div class="left label--s"><label>@Labels.Team</label></div>
+                                <div class="left select--m">
+                                    <select id="group" class="team-select">
+                                        <option value="">@Labels.AllTeams</option>
+                                        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col m-r--m">                            
+                                <div class="left label--s"><label>@Labels.Title</label></div>
+                                <div class="left select--m">
+                                    @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
+                                </div>
+                            </div>                            
+                        </div>
+                       
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">&nbsp;</div>
+                                <div class="left radioButton">
+                                    <input class="with-gap" name="name" type="radio" id="active" checked="checked" />
+                                    <label for="active" class="m-r--s">Active Users</label>
+                                    <input class="with-gap" name="name" type="radio" id="enable" />
+                                    <label class="m-r--s" for="enable">Disabled Users</label>
+                                    <input class="with-gap" name="name" type="radio" id="IsDeleted" />
+                                    <label  class="m-r--s" for="IsDeleted">Deleted Users</label>
+                                </div>
+                            </div>   
+                            
+                            <div class="col">
+                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s">
+                                    <input id="query" type="button" value="@Labels.Submit" />
+                                </span>
+                            </div>                         
+                        </div>
+                    </div>                   
+                    <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
+                    <div id="gridUserManagement" class="freegrid"></div>
+                </div>
+            </div>
         </div>
-        <div class="grid_1 gridlabel">@Labels.Team</div>
-        <div class="grid_6">
-            <select id="group" class="team-select">
-                <option value="">@Labels.AllTeams</option>
-                @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="grid_1 gridlabel">@Labels.Title</div>
-        <div class="grid_5">
-            @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
-        </div>
     </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="grid_16">
-        <div class="grid_2 gridlabel">
-            <br />
-        </div>
-        <div class="grid_8 gridlabel">
-            <input name="name" type="radio" id="active" checked="checked" />
-            <label for="active">
-                Active Users</label>
-            <input name="name" type="radio" id="enable" />
-            <label for="enable">
-                Disabled Users</label>
-            <input name="name" type="radio" id="IsDeleted" />
-            <label for="IsDeleted">
-                Deleted Users</label>
-        </div>
-    </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="grid_2 prefix_2">
-        <input id="query" type="button" value="@Labels.Submit" />
-    </div>
-</div>
-<div class="space">
-</div>
-<div class="clear">
-</div>
-<input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
-<div id="gridUserManagement" class="freegrid">
 </div>

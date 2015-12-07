@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="col p-0">:</div>
                                         <div class="col">
-                                                @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
+                                            @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
                                         </div>
                                     </div>
                                 </div>
@@ -100,8 +100,8 @@
                                 @Html.HiddenFor(model => model.ForRequest)
                                 @Html.Hidden("InTime")
                                 @Html.Hidden("OutTime")
-                                <span class="button-hrm waves-effect waves-light btn yellow darken-4 z-depth-2 m-r--s"><input type="submit" value="@Labels.Request" /></span>
-                                <a href="@Url.Action("EmployeeView")" class="button-hrm waves-effect waves-light btn grey darken-1 z-depth-2">@Labels.Back</a>
+                                <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="@Labels.Request" /></span>
+                                <a href="@Url.Action("EmployeeView")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back</a>
                             </div>
                         }
                     </div>

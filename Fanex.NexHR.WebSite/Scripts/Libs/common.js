@@ -32,7 +32,7 @@ function confirm(message, callback, options) {
         buttons     : [
             {
                 text: 'OK',
-                class: 'btn-ok button-hrm waves-effect waves-light btn white-text green',
+                class: 'btn-ok button-hrm waves-effect waves-light btn green',
                 click: function() {
                     $(this).dialog('close');
                     if(callback != null)
@@ -44,7 +44,7 @@ function confirm(message, callback, options) {
             },
             {
                 text: 'Cancel',
-                class: 'btn-cancel button-hrm waves-effect waves-light btn white-text grey',
+                class: 'btn-cancel button-hrm waves-effect waves-light btn grey',
                 click: function() {
                     $(this).dialog('close');
                     return false;

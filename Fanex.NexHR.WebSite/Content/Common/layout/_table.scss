@@ -8,9 +8,9 @@
                 font-weight: normal;
                 vertical-align: middle;
                 padding: 8px 7px;
-                border-bottom: none;
-                border-right: 1px solid rgba(0, 0, 0, 0.15);
-                border-left: 1px solid rgba(0, 0, 0, 0.15);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
+                border-left: 1px solid rgba(0, 0, 0, 0.05);
                 text-align: center;
                 line-height: 1.42857143;
             }
@@ -49,10 +49,9 @@ table {
     }
   }
 
-  .material-icons {
-    font-size: 22px;
-    vertical-align: middle;
-    line-height: 16px;
+  .mdi-border-color, .mdi-delete {
+	position: relative;
+	top: 2px;
   }
 
   .trigger {
@@ -122,7 +121,7 @@ table {
     }
 
     i {
-      color: $color-text-main;
+      color: $color-text-main;	  
     }
   } 
 
@@ -182,3 +181,13 @@ table {
     }
   }
 }
+
+table.data thead tr:nth-child(even) {
+    background-color: #4a5267;
+	th {
+		border-left: none;
+		border-right: none;
+	}
+	
+}
+

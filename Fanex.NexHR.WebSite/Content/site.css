@@ -6,7 +6,7 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.button-hrm, .form-input input, .form-input textarea, .form-input .btn-datepicker, .datetime-picker, table, table .pagination li {
+.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, .datetime-picker, table, table .pagination li {
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
@@ -96,7 +96,7 @@ main {
   margin-right: 16px; }
 
 .c-pedding {
-  color: #EF9E35; }
+  color: #f4783d; }
 
 .c-approve {
   color: #69B829; }
@@ -240,6 +240,12 @@ main {
   font-size: 30px;
   color: #2AAA55; }
 
+.mdi-border-color:hover {
+  color: #fc9715; }
+
+.mdi-delete:hover {
+  color: #ff0909; }
+
 .form {
   margin-top: 16px;
   margin-bottom: 3rem;
@@ -286,19 +292,21 @@ main {
   width: 80px; }
 
 .label--l {
-  width: 100px; }
+  width: 110px; }
 
 .label--xl {
   width: 120px; }
 
 .form-input .col {
   padding-right: 1.6rem; }
-.form-input input, .form-input textarea {
+.form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
   padding-left: 7px !important;
   border: none !important;
   position: none !important;
   visibility: unset !important;
   left: unset !important; }
+.form-input input[type=number] {
+  text-align: center; }
 .form-input label {
   margin-top: 5px;
   display: block;
@@ -438,9 +446,9 @@ main {
     font-weight: normal;
     vertical-align: middle;
     padding: 8px 7px;
-    border-bottom: none;
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
     line-height: 1.42857143; }
 .table.table-custom tbody tr td {
@@ -459,10 +467,9 @@ table .striped thead {
   color: #fff; }
   table .striped thead th {
     font-weight: normal; }
-table .material-icons {
-  font-size: 22px;
-  vertical-align: middle;
-  line-height: 16px; }
+table .mdi-border-color, table .mdi-delete {
+  position: relative;
+  top: 2px; }
 table .trigger {
   color: #fff;
   padding: 0 4px;
@@ -539,6 +546,12 @@ table .mail-item {
     border-radius: 5px;
     background: #ff0101;
     color: #fff; }
+
+table.data thead tr:nth-child(even) {
+  background-color: #4a5267; }
+  table.data thead tr:nth-child(even) th {
+    border-left: none;
+    border-right: none; }
 
 #logo-container {
   margin-top: 8px; }
