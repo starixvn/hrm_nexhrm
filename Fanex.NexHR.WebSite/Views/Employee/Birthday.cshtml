@@ -12,73 +12,87 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<table id="data" class="data persist-area" style="width: auto; min-width: 700px;">
-    <thead class="persist-header">
-        <tr>
-            <th>
-                #
-            </th>
-            <th>@Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.NickName)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.Month)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            switch (item.Month)
-            {
-                case 1: cssClass = "january";
-                    break;
-                case 2: cssClass = "february";
-                    break;
-                case 3: cssClass = "march";
-                    break;
-                case 4: cssClass = "april";
-                    break;
-                case 5: cssClass = "may";
-                    break;
-                case 6: cssClass = "june";
-                    break;
-                case 7: cssClass = "july";
-                    break;
-                case 8: cssClass = "august";
-                    break;
-                case 9: cssClass = "september";
-                    break;
-                case 10: cssClass = "october";
-                    break;
-                case 11: cssClass = "november";
-                    break;
-                case 12: cssClass = "december";
-                    break;
-                default:
-                    break;
-            }
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="p-x--s m-t--m">
+                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom" style="width: 700px;">
+                            <thead class="persist-header">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>@Html.DisplayNameFor(model => model.FullName)
+                                    </th>
+                                    <th>@Html.DisplayNameFor(model => model.NickName)
+                                    </th>
+                                    <th>@Html.DisplayNameFor(model => model.DateOfBirth)
+                                    </th>
+                                    <th>@Html.DisplayNameFor(model => model.Month)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    switch (item.Month)
+                                    {
+                                        case 1: cssClass = "january";
+                                            break;
+                                        case 2: cssClass = "february";
+                                            break;
+                                        case 3: cssClass = "march";
+                                            break;
+                                        case 4: cssClass = "april";
+                                            break;
+                                        case 5: cssClass = "may";
+                                            break;
+                                        case 6: cssClass = "june";
+                                            break;
+                                        case 7: cssClass = "july";
+                                            break;
+                                        case 8: cssClass = "august";
+                                            break;
+                                        case 9: cssClass = "september";
+                                            break;
+                                        case 10: cssClass = "october";
+                                            break;
+                                        case 11: cssClass = "november";
+                                            break;
+                                        case 12: cssClass = "december";
+                                            break;
+                                        default:
+                                            break;
+                                    }
 
-            <tr class="@cssClass">
-                <td>@index
-                </td>
-                <td class="left">
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NickName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Month)
-                </td>
-            </tr>
-            index++;
-        }
-    </tbody>
-</table>
+                                    <tr class="@cssClass">
+                                        <td>@index
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NickName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Month)
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

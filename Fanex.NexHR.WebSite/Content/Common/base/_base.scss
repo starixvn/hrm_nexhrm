@@ -74,6 +74,8 @@ main {
   padding-top: 10px;
 }
 
+//-------------------------//
+
 .validation-summary-errors {
 	@include validation-block(#FBE3E4, #8A1F11, #FBC2C4, (0 0.8rem));	
 
@@ -92,6 +94,13 @@ main {
 	@include validation-block(#e8f5e9, #2e7d32, #4caf50, 1rem);
 }
 
+.field-validation-error {
+	position: relative;
+	top: -10px;
+	font-size: 12px;
+	color: $c-idel--hover;
+}
+
 #confirm {
 	p {
 		padding-bottom: 0;
@@ -102,6 +111,7 @@ main {
     float: right;
     margin-right: 0.5%;		
 }
+
 
 //------------------------SPACING UTILITY CLASSESS------------------//
 //	p - padding		m - margin	
@@ -200,4 +210,5 @@ main {
     }
   }
 }
-	
+
+

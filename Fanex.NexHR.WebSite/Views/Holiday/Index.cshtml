@@ -3,6 +3,7 @@
 @model IList<Fanex.NexHR.Models.Holiday>
 @{
     ViewBag.Title = "Holiday";
+    bool isHRRole = Roles.IsUserInRole("HR");
 }
 @section css {
 }
@@ -10,74 +11,98 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-@using (Html.BeginGetForm())
-{
-    <span style="padding-right: 5px;">Year</span>
-    @Html.YearPicker("year", 2010, (int)ViewBag.year)
-    <input type="button" id="submit" value="@Labels.Submit" class="processing-submit" />
-    if (Roles.IsUserInRole("HR"))
-    {
-    <div class="button-icon">
-        <span class="icon plus"></span>@Html.ActionLink("Holiday", "Create")</div>
-    }
-}
-<table id="data" class="data persist-area">
-    <thead>
-        <tr class="persist-header">
-            <th>
-                #
-            </th>
-            <th>@Labels.Name
-            </th>
-            <th>@Labels.From
-            </th>
-            <th>@Labels.To
-            </th>
-            @if (Roles.IsUserInRole("HR"))
-            {
-                <th>@Labels.Edit
-                </th>
-                <th>@Labels.Delete
-                </th>
-            }
-        </tr>
-    </thead>
-    @if (Model.Any())
-    {
-        <tbody>
-            @{int index = 1;}
-            @foreach (Holiday item in Model)
-            {
-                <tr id="row@(item.Id)">
-                    <td>@(index++)
-                    </td>
-                    <td class="left">
-                        @item.HolidayName
-                    </td>
-                    <td class="ddMMyyyy">
-                        @item.FromDate.ToDateMonthYearFormatedDate()
-                    </td>
-                    <td class="ddMMyyyy">
-                        @item.ToDate.ToDateMonthYearFormatedDate()
-                    </td>
-                    @if (Roles.IsUserInRole("HR"))
+<div class="row content">
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginGetForm())
                     {
-                        <td class="cmd">
-                            <a href="@Url.Action("Edit", "Holiday", new { Id = item.Id })">
-                                <img src="~/Styles/Images/edit-icon.png" /></a>
-                        </td>
-                        <td class="cmd">
-                            <a href="javascript:;" onclick="deleteHoliday(@item.Id);">
-                                <img src="~/Styles/Images/delete-icon.png" /></a>
-                        </td>
+                        <div class="form">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <label>
+                                        Year</label>
+                                </div>
+                                <div class="col select--m">
+                                    @Html.YearPicker("year", 2010, (int)ViewBag.year)
+                                </div>
+                                <div class="col">
+                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input type="button" id="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                    @if (isHRRole)
+                                    {
+                                        <span class="button-hrm waves-effect waves-light btn orange darken-1 white-text">@Html.ActionLink("Holiday", "Create", "", new {@class = "white-text" })</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     }
-                </tr>
-            }
-        </tbody>
-    }
-    else
-    {
-        @RazorHelper.DisplayNoInformation(colspan: 7);
-    }
-</table>
+                    <div class="p-x--s">
+                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr class="persist-header">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>@Labels.Name
+                                    </th>
+                                    <th>@Labels.From
+                                    </th>
+                                    <th>@Labels.To
+                                    </th>
+                                    @if (Roles.IsUserInRole("HR"))
+                                    {
+                                        <th>@Labels.Edit
+                                        </th>
+                                        <th>@Labels.Delete
+                                        </th>
+                                    }
+                                </tr>
+                            </thead>
+                            @if (Model.Any())
+                            {
+                                <tbody>
+                                    @{int index = 1;}
+                                    @foreach (Holiday item in Model)
+                                    {
+                                        <tr id="row@(item.Id)">
+                                            <td>@(index++)
+                                            </td>
+                                            <td>
+                                                @item.HolidayName
+                                            </td>
+                                            <td class="ddMMyyyy">
+                                                @item.FromDate.ToDateMonthYearFormatedDate()
+                                            </td>
+                                            <td class="ddMMyyyy">
+                                                @item.ToDate.ToDateMonthYearFormatedDate()
+                                            </td>
+                                            @if (Roles.IsUserInRole("HR"))
+                                            {
+                                                <td class="cmd">
+                                                    <a href="@Url.Action("Edit", "Holiday", new { Id = item.Id })"><i class="mdi mdi-border-color mdi-dark">
+                                                    </i>
+                                                </td>
+                                                <td class="cmd">
+                                                    <a href="javascript:;" onclick="deleteHoliday(@item.Id);"><i class="mdi mdi-delete mdi-dark">
+                                                    </i>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            }
+                            else
+                            {
+                                @RazorHelper.DisplayNoInformation(colspan: 7);
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

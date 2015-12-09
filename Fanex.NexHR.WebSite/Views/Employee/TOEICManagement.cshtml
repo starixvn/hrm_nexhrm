@@ -15,105 +15,113 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<div class="container_24 bunhat">
-    <div class="grid_24">
-        <div class="grid_2 gridlabel">@Labels.Nickname</div>
-        <div class="grid_7">
-            <input id="keyword" type="text" />
-        </div>
-        <div class="grid_1 gridlabel">@Labels.Team</div>
-        <div class="grid_6">
-            <select id="group" class="team-select">
-                <option value="">@Labels.AllTeams</option>
-                @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="grid_1 gridlabel">@Labels.Title</div>
-        <div class="grid_5">
-            @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
-        </div>
-    </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="clear">
-    </div>
-    <div class="space">
-    </div>
-    <div class="grid_16">
-        <div class="grid_2 gridlabel">
-            &nbsp;</div>
-        <div class="grid_7">
-            <input id="query" type="button" value="@Labels.Submit" />
-            @if (isHRRole)
-            {
-                <div class="button-icon">
-                    <span class="icon plus"></span><a id="btnNewTOEIC" href="javascript:;">Update TOEIC
-                        Score</a>
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
-            }
+                <div class="card-body">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--m">
+                                    <label>@Labels.Nickname</label>
+                                </div>
+                                <div class="left input--s">
+                                    <input id="keyword" type="text" />
+                                </div>
+                            </div>
+                            
+                            <div class="col m-r--m">
+                                <div class="left label--s">
+                                    <label>@Labels.Team</label>
+                                </div>
+                                <div class="left select--m">
+                                    <select id="group" class="team-select">
+                                        <option value="">@Labels.AllTeams</option>
+                                        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Title</label>
+                                </div>
+                                <div class="left select--m">
+                                    @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input id="query" type="button" value="@Labels.Submit" /></span>
+                                @if (isHRRole)
+                                {
+                                    <a class="button-hrm waves-effect waves-light btn orange darken-1" id="btnNewTOEIC" href="javascript:;">Update TOEIC                                            Score</a>
+                                    
+                                }
+                            </div>                            
+                        </div>                        
+                    </div>                    
+                    <div id="cont"> &nbsp;</div>
+                    <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
+                        <thead class="persist-header">
+                            <tr>
+                                <th rowspan="2">
+                                    #
+                                </th>
+                                <th rowspan="2">@Labels.Nick/@Labels.Email
+                                </th>
+                                <th rowspan="2">@Labels.Team
+                                </th>
+                                <th rowspan="2">@Labels.JobTitle
+                                </th>
+                                <th colspan="4">@Labels.Listening/@Labels.Reading
+                                </th>
+                                <th colspan="3">@Labels.Speaking/@Labels.Writing
+                                </th>
+                                <th rowspan="2">@Labels.ExpiredDate
+                                </th>
+                                @if (isHRRole)
+                                {
+                                    <th rowspan="2">@Labels.Edit
+                                    </th>
+                                }
+                            </tr>
+                            <tr>
+                                <th>@Labels.L
+                                </th>
+                                <th>@Labels.R
+                                </th>
+                                <th>@Labels.LRTotal
+                                </th>
+                                <th>@Labels.ExamDate
+                                </th>
+                                <th>@Labels.S
+                                </th>
+                                <th>@Labels.W
+                                </th>
+                                <th>@Labels.ExamDate
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
+                    <input type="hidden" id="userRole" value="@isHRRole.ToString()" />
+                    <div id="dialog-toeic" title="Update TOEIC Score">
+                        &nbsp;</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="space">
-</div>
-<div class="clear">
-</div>
-<div id="cont">
-    &nbsp;</div>
-<table id="data" class="data persist-area">
-    <thead class="persist-header">
-        <tr>
-            <th rowspan="2">
-                #
-            </th>
-            <th rowspan="2">@Labels.Nick/@Labels.Email
-            </th>
-            <th rowspan="2">@Labels.Team
-            </th>
-            <th rowspan="2">@Labels.JobTitle
-            </th>
-            <th colspan="4">@Labels.Listening/@Labels.Reading
-            </th>
-            <th colspan="3">@Labels.Speaking/@Labels.Writing
-            </th>
-            <th rowspan="2">@Labels.ExpiredDate
-            </th>
-            @if (isHRRole)
-            {
-                <th rowspan="2">@Labels.Edit
-                </th>
-            }
-        </tr>
-        <tr>
-            <th>@Labels.L
-            </th>
-            <th>@Labels.R
-            </th>
-            <th>@Labels.LRTotal
-            </th>
-            <th>@Labels.ExamDate
-            </th>
-            <th>@Labels.S
-            </th>
-            <th>@Labels.W
-            </th>
-            <th>@Labels.ExamDate
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
-<input type="hidden" id="userRole" value="@isHRRole.ToString()" />
-<div id="dialog-toeic" title="Update TOEIC Score">
-    &nbsp;</div>
 <script id="tplAllSkill" type="text/x-jquery-tmpl">
     <tr id="row${Id}">
         <td>

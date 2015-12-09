@@ -23,7 +23,9 @@
                             @Html.ValidationSummary(true)
                             @if (ViewBag.Inserted == true)
                             {
-                                <div class="success">@Messages.TeamCreated</div>
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamCreated</div>                                    
+                                </div>
                             }
                             @Html.HiddenFor(model => model.CreatedDate)
                             @Html.HiddenFor(model => model.CreatedBy)
@@ -104,7 +106,7 @@
                                 <div class="col">
                                     <div class="input">
                                         <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="@Labels.Add" /></span>
-                                        <a href="@Url.Action("index", "team")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back</a>
+                                        <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("index", "team")">@Labels.Back</a>
                                     </div>
                                 </div>
                             </div>                            

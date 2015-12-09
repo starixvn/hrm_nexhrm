@@ -24,8 +24,8 @@
 
                             if (ViewBag.Updated == true)
                             {
-                            <div class="row">
-                                <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
+                            <div class="row validation-summary-success">
+                                <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
                                 <input type="hidden" id="successed" value="true" />
                                 <input type="hidden" id="year" value="@ViewBag.Year" />
                             </div>

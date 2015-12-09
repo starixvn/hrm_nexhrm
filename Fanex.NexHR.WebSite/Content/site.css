@@ -61,6 +61,12 @@ main {
   color: #2e7d32;
   border: 1px solid #4caf50; }
 
+.field-validation-error {
+  position: relative;
+  top: -10px;
+  font-size: 12px;
+  color: #ff0909; }
+
 #confirm p {
   padding-bottom: 0; }
 
@@ -282,7 +288,7 @@ main {
 .select--m, .input--m {
   width: 250px; }
 
-.select--l {
+.select--l, .input--l {
   width: 400px; }
 
 .label--s {
@@ -296,6 +302,9 @@ main {
 
 .label--xl {
   width: 120px; }
+
+.input-spvn {
+  width: 350px; }
 
 .form-input .col {
   padding-right: 1.6rem; }
@@ -327,6 +336,23 @@ main {
     padding: 0; }
   .form-input .btn-add i {
     margin-right: 0; }
+.form-input .subteam {
+  width: 240px;
+  height: 210px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border: solid 1px #ccc;
+  padding-bottom: 8px; }
+  .form-input .subteam label {
+    display: block;
+    border-top: solid 1px #ccc;
+    padding-top: 4px;
+    margin-top: 4px;
+    line-height: 20px; }
+  .form-input .subteam [type="checkbox"]:not(:checked), .form-input .subteam [type="checkbox"]:checked {
+    position: relative;
+    left: 0;
+    visibility: inherit; }
 
 .datetime-picker {
   margin-right: 9px;

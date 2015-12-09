@@ -48,7 +48,7 @@
     width: 250px;
 }
 
-.select--l {
+.select--l, .input--l {
     width: 400px;
 }
 
@@ -68,6 +68,9 @@
 	width: 120px;
 }
 
+.input-spvn {
+	width: 350px;
+}
 
 
 //---------------------------------------------
@@ -126,6 +129,29 @@
     i {
       margin-right: 0;
     }
+  }
+
+  .subteam {
+    width: 240px;
+    height: 210px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: solid 1px #ccc;
+    padding-bottom: 8px;
+
+	label {
+		display: block;
+		border-top: solid 1px #ccc;
+		padding-top: 4px;
+		margin-top: 4px;
+		line-height: 20px;
+	}
+
+	[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+		position: relative;
+		left: 0;
+		visibility: inherit;
+	}	
   }
 }
 
