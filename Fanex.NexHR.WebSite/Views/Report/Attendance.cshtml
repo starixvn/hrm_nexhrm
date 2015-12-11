@@ -72,11 +72,11 @@
                                             var types = new List<SelectListItem>
                                             {
                                                 new SelectListItem() {Text = "All", Value = "0"},
-                                                new SelectListItem() {Text = "Checkin", Value = "1"},
-                                                new SelectListItem() {Text = "Checkout", Value = "2"},
-                                                new SelectListItem() {Text = "Late in", Value = "3"},
-                                                new SelectListItem() {Text = "Early out", Value = "4"},
-                                                new SelectListItem() {Text = "Not working", Value = "5"},
+                                                new SelectListItem() {Text = "Check In", Value = "1"},
+                                                new SelectListItem() {Text = "Check Out", Value = "2"},
+                                                new SelectListItem() {Text = "Late In", Value = "3"},
+                                                new SelectListItem() {Text = "Early Out", Value = "4"},
+                                                new SelectListItem() {Text = "Not Working", Value = "5"},
                                             };
                                         }
                                         @Html.DropDownListFor(model => model.AttendanceType, types)
@@ -114,7 +114,7 @@
                                 <div class="col">
                                     <div class="left label--m">&nbsp</div>
                                     <div class="left select--m">
-                                        <label for="ExcludeUserDelete">Exclude Users deleted</label>
+                                        <label for="ExcludeUserDelete">Exclude former employees</label>
                                         @Html.CheckBoxFor(model => model.ExcludeUserDelete)                                        
                                     </div>
                                 </div>

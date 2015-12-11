@@ -44,7 +44,7 @@
                                 
                                 <div class="col m-r--m">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate)
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
                                     <div class="left datepicker-button input--m">
                                         @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -54,7 +54,7 @@
                                 
                                 <div class="col">
                                     <div class="left label--s m-r--s">
-                                        @Html.LabelFor(model => model.ToDate)
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="left datepicker-button input--m">
                                         @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)

@@ -8,7 +8,20 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<div class="grid_24">
-    @RazorHelper.ShiftInfoTable(Model)
+<div class="row content">
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="p-x--s">
+                        @RazorHelper.ShiftInfoTable(Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

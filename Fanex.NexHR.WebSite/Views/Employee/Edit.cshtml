@@ -239,12 +239,14 @@
                             </div>
                             @*Google Map*@
                             <div class="row form-input" id="geolocationMap">
-                                <div style="border: 1px solid #ccc; background: #e5e5e5; padding: 10px;">
-                                    <input type="text" id="geoMapAddress" />
-                                    <input type="button" value="Search" id="searchmap" />
-                                    Latitude: @Html.TextBoxFor(model => model.GeoMapLatitude, new { @class = "latlng" })
-                                    Longtitude: @Html.TextBoxFor(model => model.GeoMapLongtitude, new { @class = "latlng" })
-                                    Distance: @Html.TextBoxFor(model => model.DistanceToCompany, new { @class = "distance" })
+                                <div class="col">
+                                    <div class='left input--s m-r--m'><input type="text" id="geoMapAddress" /></div>
+                                    <div class='left button-hrm waves-effect waves-light btn grey darken-1'><input type="button" value="Search" id="searchmap" /></div>
+                                </div>    
+                                <div class='col geolocationMap'>
+                                    <div class='left select--s'>Latitude: @Html.TextBoxFor(model => model.GeoMapLatitude, new { @class = "latlng" })</div>
+                                    <div class='left select--s'>Longtitude: @Html.TextBoxFor(model => model.GeoMapLongtitude, new { @class = "latlng" })</div>
+                                    <div class='left select--xs'>Distance: @Html.TextBoxFor(model => model.DistanceToCompany, new { @class = "distance" })</div>
                                 </div>
                                 <div id="map-canvas" style="min-width: 930px; height: 500px">
                                 </div>
@@ -505,7 +507,11 @@
                     }
                     else
                     {
-                        <h2>@Messages.NoDataIsAvailable</h2>
+                        <div class='row form-input m-t--m'>
+                            <div class='col'>
+                                <span>@Messages.NoDataIsAvailable</span>
+                            </div>
+                        </div>                       
                     }
                 </div>
             </div>

@@ -10,76 +10,91 @@
 }
 @section Breadcrumb {
 }
-@if (!ReferenceEquals(Model, null))
-{
-    <table class="data memo">
-        <thead>
-            <tr>
-                <th colspan="4">@Model.Subject
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="left">
-                    <b>@Labels.To</b>
-                </td>
-                <td class="left">
-                    @Model.SentTo
-                </td>
-                <td>
-                    <b>@Labels.RefNo</b>
-                </td>
-                <td>
-                    <b>@Model.RefNo</b>
-                </td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <b>@Labels.ForInfo</b>
-                </td>
-                <td class="left">
-                    @Model.ForInfo
-                </td>
-                <td>
-                    <b>@Labels.TotalPages</b>
-                </td>
-                <td>
-                    @Model.TotalPages
-                </td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <b>@Labels.From</b>
-                </td>
-                <td class="left">
-                    @Model.SentFrom
-                </td>
-                <td>
-                    <b>@Labels.Date</b>
-                </td>
-                <td class="ddMMyyyyhhmm">
-                    @Model.SentDate.ToDateMonthYearFormatedDate()
-                </td>
-            </tr>
-            <tr>
-                <td class="left">
-                    <b>Category</b>
-                </td>
-                <td colspan="3">
-                    <b>@Model.CategoryName</b>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    @Html.Raw(Model.Contents)
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="@Url.Action("index")" class="button">@Labels.Back</a>
-}
-else
-{
-    <h2>@Messages.ThisContentHasAlreadyBeenDeleted</h2>
-}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Labels.EditMemo</span>
+                </div>
+                <div class="card-body">
+                    <div class='p-x--s'>
+                        @if (!ReferenceEquals(Model, null))
+                        {
+                            <table class="data memo table bordered striped highlight table-custom">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">@Model.Subject
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>@Labels.To</b>
+                                        </td>
+                                        <td>
+                                            @Model.SentTo
+                                        </td>
+                                        <td>
+                                            <b>@Labels.RefNo</b>
+                                        </td>
+                                        <td>
+                                            <b>@Model.RefNo</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>@Labels.ForInfo</b>
+                                        </td>
+                                        <td>
+                                            @Model.ForInfo
+                                        </td>
+                                        <td>
+                                            <b>@Labels.TotalPages</b>
+                                        </td>
+                                        <td>
+                                            @Model.TotalPages
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>@Labels.From</b>
+                                        </td>
+                                        <td>
+                                            @Model.SentFrom
+                                        </td>
+                                        <td>
+                                            <b>@Labels.Date</b>
+                                        </td>
+                                        <td class="ddMMyyyyhhmm">
+                                            @Model.SentDate.ToDateMonthYearFormatedDate()
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Category</b>
+                                        </td>
+                                        <td colspan="3">
+                                            <b>@Model.CategoryName</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            @Html.Raw(Model.Contents)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="@Url.Action("index")" class="button-hrm waves-effect waves-light btn grey darken-1 m-t--m">@Labels.Back</a>
+                        }
+                        else
+                        {
+                            <h2>@Messages.ThisContentHasAlreadyBeenDeleted</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

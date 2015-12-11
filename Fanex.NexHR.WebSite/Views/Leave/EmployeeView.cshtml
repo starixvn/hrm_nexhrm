@@ -11,9 +11,6 @@
 @section js{
     @Scripts.Render("~/bundles/leavejs")
 }
-@{
-    ViewBag.Title = Labels.LeaveRequest;
-}
 @section Breadcrumb {
 }
 <div class="row content">    
@@ -32,7 +29,7 @@
                                 <div class="col m-r--m">
                                     <div class="left label--s">
                                         <label>
-                                            @Labels.Year:
+                                            @Labels.Year
                                         </label>
                                     </div>
                                     <div class="left select--xs">
@@ -48,7 +45,7 @@
                             </div>
                         </div>
                         <div class="p-x--s">
-                             <table class="table bordered striped highlight centered table-custom" id="data">
+                             <table class="table bordered striped highlight table-custom" id="data">
                                 <thead>
                                     <tr>
                                         <th>
@@ -81,7 +78,7 @@
                                         foreach (RequestEntity request in Model)
                                         {
                                         <tr id="row@(request.Id)">
-                                            <td>@(index++)
+                                            <td class='center'>@(index++)
                                             </td>
                                             <td class="tooltip" title="@request.Requester.FullName">
                                                 @request.Requester.NickName
@@ -104,20 +101,20 @@
                                                 <td class="highlight">@request.ToDate.ToDateMonthYearFormatedDate()
                                                 </td>
                                             }
-                                            <td class="highlight">@request.TotalDays.ToString("0.0")
+                                            <td class="highlight center">@request.TotalDays.ToString("0.0")
                                             </td>
                                             <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
                                                 @request.CreatedDate.ToDateMonthYearFormatedDate()
                                             </td>
                                             @if (!string.IsNullOrWhiteSpace(request.Remark))
                                             {
-                                                <td class="tooltip" title="@request.Remark">
+                                                <td class="tooltip center" title="@request.Remark">
                                                     <span class="mdi mdi-message-text" alt="remark" />
                                                 </td>
                                             }
                                             else
                                             {
-                                                <td>
+                                                <td class='center'>
                                                     -
                                                 </td>
                                             }

@@ -39,16 +39,16 @@
                                     </select>
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate)
+                                    @Html.LabelFor(model => model.FromDate, "From Date")
                                 </div>
                                 <div class="left datepicker-button select--m">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col m-r--m">
                                 <div class="left label--m">
                                     @Html.LabelFor(model => model.ToDate)
@@ -57,7 +57,7 @@
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
-                            </div>                         
+                            </div>
                         </div>
                         <div class="row form-input">
                             <div class="col m-r--m">
@@ -84,7 +84,8 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s"><input id="btnSubmit" type="button" value="@Labels.Submit" /></span>
+                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s">
+                                    <input id="btnSubmit" type="button" value="@Labels.Submit" /></span>
                             </div>
                         </div>
                     </div>

@@ -130,6 +130,10 @@ main {
 	padding: 0 $b-space--s;
 }
 
+.p-y--m {
+	padding: $b-space--m 0;
+}
+
 .p-0 {
 	padding: 0 !important;
 }
@@ -140,6 +144,10 @@ main {
 
 .m-l--m {
 	margin-left: $b-space--m;
+}
+
+.m-l--s {
+	margin-left: $b-space--s;
 }
 
 .m-b--m {

@@ -8,82 +8,108 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<div class="bunhat container_24">
-    @{ Html.EnableClientValidation(false); }
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary()
+<div class="row content">
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @{ Html.EnableClientValidation(false); }
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary()
 
-        if (ViewBag.Requested == true)
-        {
-        <div class="success">
-            Extension number has been created successfully!</div>
-        <input type="hidden" id="successed" value="true" />
-        }
+                            if (ViewBag.Requested == true)
+                            {
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has been created successfully!</div>                                    
+                                </div>
+                                <input type="hidden" id="successed" value="true" />
+                            }
 
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.IsInternal)
-            </div>
-            <div class="input">
-                @Html.CheckBoxFor(model => model.IsInternal)
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.IsInternal)
+                                    </div>
+                                    <div class="left input">
+                                        @Html.CheckBoxFor(model => model.IsInternal)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.Label("Group")
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TeamId, new List<SelectListItem>())
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row form-input" id="EmployeeField">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee)
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FullName)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.FullName)
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.NickName)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.NickName)
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ExtensionNo)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.ExtensionNo)
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="label">
+                                    @Html.Hidden("EmpId")
+                                    @Html.Hidden("IsAddForm", true)
+                                </div>
+                                <div class="col">
+                                    <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s"><input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span>
+                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="~/extensionno/index" class="button">@Labels.Back</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.Label("Group")
-            </div>
-            <div class="input">
-                @Html.DropDownListFor(model => model.TeamId, new List<SelectListItem>())
-            </div>
-        </div>
-
-        <div class="formrow" id="EmployeeField">
-            <div class="label">
-                @Html.LabelFor(model => model.Employee)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.Employee)
-            </div>
-        </div>
-
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.FullName)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.FullName)
-            </div>
-        </div>
-
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.NickName)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.NickName)
-            </div>
-        </div>
-
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.ExtensionNo)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.ExtensionNo)
-            </div>
-        </div>
-
-        <div class="formrow">
-            <div class="label">
-                @Html.Hidden("EmpId")
-                @Html.Hidden("IsAddForm", true)
-            </div>
-            <div class="input">
-                <input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" />
-                <a href="~/extensionno/index" class="button">@Labels.Back</a>
-            </div>
-        </div>
-    }
+    </div>
 </div>

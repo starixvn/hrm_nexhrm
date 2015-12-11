@@ -8,74 +8,104 @@
 }
 @section Breadcrumb {
 }
-<h2>@ViewBag.Title</h2>
-<div class="bunhat container_24">
-    @{ Html.EnableClientValidation(false); }
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary()
-        if (ViewBag.Updated == true)
-        {
-        <div class="success">
-            Extension number has been updated successfully!</div>
-        <input type="hidden" id="successed" value="true" />
-        }
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.IsInternal)
-            </div>
-            <div class="input">
-                @Html.CheckBoxFor(model => model.IsInternal, new { @checked = "checked" })
+<div class="row content">
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @{ Html.EnableClientValidation(false); }
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary()
+                            if (ViewBag.Updated == true) {
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has been updated successfully!</div>                                    
+                                </div>
+                                <input type="hidden" id="successed" value="true" />
+                            }
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.IsInternal)
+                                    </div>
+                                    <div class="left checkbox">
+                                        @Html.CheckBoxFor(model => model.IsInternal, new { @checked = "checked" })
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.Label("Group")
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TeamId, (List<SelectListItem>)ViewBag.Group)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input" id="EmployeeField">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.FullName)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.FullName)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.NickName)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.NickName)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ExtensionNo)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.ExtensionNo)
+                                    </div>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row form-input">
+                                <div class='col'>
+                                    @Html.Hidden("EmpId")
+                                    <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--m"><input type="submit" value="@Fanex.NexHR.Resources.Labels.Update" /></span>
+                                    <a class="button-hrm waves-effect waves-light btn white-text grey darken-1" href="~/extensionno/index" class="button">@Labels.Back</a>
+                                </div>                                
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.Label("Group")
-            </div>
-            <div class="input">
-                @Html.DropDownListFor(model => model.TeamId, (List<SelectListItem>)ViewBag.Group)
-            </div>
-        </div>
-        <div class="formrow" id="EmployeeField">
-            <div class="label">
-                @Html.LabelFor(model => model.Employee)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.Employee)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.FullName)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.FullName)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.NickName)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.NickName)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.ExtensionNo)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(model => model.ExtensionNo)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.Hidden("EmpId")
-            </div>
-            <div class="input">
-                <input type="submit" value="@Fanex.NexHR.Resources.Labels.Update" />
-                <a href="~/extensionno/index" class="button">@Labels.Back</a>
-            </div>
-        </div>
-    }
+    </div>
 </div>
+
