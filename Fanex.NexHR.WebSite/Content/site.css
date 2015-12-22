@@ -136,6 +136,38 @@ main {
     color: #4c5e70;
     overflow: hidden; }
 
+.datagrid-wrap {
+  position: relative; }
+  .datagrid-wrap .datagrid-view {
+    position: relative;
+    overflow: hidden; }
+    .datagrid-wrap .datagrid-view .datagrid-view1 {
+      position: absolute;
+      overflow: hidden;
+      left: 0;
+      top: 0; }
+      .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
+        overflow: hidden; }
+    .datagrid-wrap .datagrid-view .datagrid-view2 {
+      position: absolute;
+      overflow: hidden;
+      top: 0; }
+
+#colordef .grid_2 {
+  height: 30px;
+  width: 50px;
+  display: inline-block;
+  margin-right: 5px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid #555; }
+
+.datagrid-body {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  zoom: 1; }
+
 .opacity70 {
   opacity: .7; }
 
