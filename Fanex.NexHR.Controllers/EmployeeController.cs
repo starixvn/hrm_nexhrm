@@ -675,6 +675,30 @@ namespace Fanex.NexHR.Controllers
             return View(sortedEmployees);
         }
 
+        [HttpPost]
+        public ActionResult GetEmployees(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        {
+            if (groupId == -1)
+            {
+                groupId = null;
+            }
+
+            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            {
+                Query = query,
+                GroupId = groupId,
+                TitleId = titleId,
+                Enable = CheckUserEnableCondition(enable),
+                IsDelete = CheckDeletedUserCondition(isDelete),
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+            var entityList = _employeeService.Query(getAllEmployeeCriteria);
+
+            return Json(new { employees = entityList }, JsonRequestBehavior.AllowGet);
+        }
+
         #region TOEIC
 
         /// <summary>
@@ -750,14 +774,22 @@ namespace Fanex.NexHR.Controllers
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
                     var toeicCriteria = new UpdateFullToeicScoreCriteria()
                     {
-                        CreatedBy = currentUserId, CreatedDate = DateTime.Now,
-                        EmpId = model.EmpId, InputDate = model.InputDate,
-                        Listening = model.Listening, LRExamDate = model.LRExamDate,
-                        ModifiedBy = currentUserId, ModifiedDate = DateTime.Now,
-                        OldListening = model.OldListening, OldReading = model.OldReading,
-                        OldSpeaking = model.OldSpeaking, OldWriting = model.OldWriting,
-                        Reading = model.Reading, Speaking = model.Speaking,
-                        SWExamDate = model.SWExamDate, Writing = model.Writing
+                        CreatedBy = currentUserId,
+                        CreatedDate = DateTime.Now,
+                        EmpId = model.EmpId,
+                        InputDate = model.InputDate,
+                        Listening = model.Listening,
+                        LRExamDate = model.LRExamDate,
+                        ModifiedBy = currentUserId,
+                        ModifiedDate = DateTime.Now,
+                        OldListening = model.OldListening,
+                        OldReading = model.OldReading,
+                        OldSpeaking = model.OldSpeaking,
+                        OldWriting = model.OldWriting,
+                        Reading = model.Reading,
+                        Speaking = model.Speaking,
+                        SWExamDate = model.SWExamDate,
+                        Writing = model.Writing
                     };
                     effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
 
@@ -798,12 +830,18 @@ namespace Fanex.NexHR.Controllers
                 var currentDate = DateTime.Now;
                 var toeic = new Toeic
                 {
-                    EmpId = model.EmpId, InputDate = model.InputDate,
-                    LRExamDate = model.LRExamDate, Listening = model.Listening,
-                    Reading = model.Reading, SWExamDate = model.SWExamDate,
-                    Speaking = model.Speaking, Writing = model.Writing,
-                    CreatedBy = CurrentUser.Id, CreatedDate = currentDate,
-                    ModifiedBy = CurrentUser.Id, ModifiedDate = currentDate
+                    EmpId = model.EmpId,
+                    InputDate = model.InputDate,
+                    LRExamDate = model.LRExamDate,
+                    Listening = model.Listening,
+                    Reading = model.Reading,
+                    SWExamDate = model.SWExamDate,
+                    Speaking = model.Speaking,
+                    Writing = model.Writing,
+                    CreatedBy = CurrentUser.Id,
+                    CreatedDate = currentDate,
+                    ModifiedBy = CurrentUser.Id,
+                    ModifiedDate = currentDate
                 };
 
                 ValidateTOEIC(toeic);
@@ -815,12 +853,18 @@ namespace Fanex.NexHR.Controllers
 
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria()
                     {
-                        EmpId = model.EmpId, InputDate = model.InputDate,
-                        LRExamDate = model.LRExamDate, Listening = model.Listening,
-                        Reading = model.Reading, SWExamDate = model.SWExamDate,
-                        Speaking = model.Speaking, Writing = model.Writing,
-                        CreatedBy = CurrentUser.Id, CreatedDate = currentDate,
-                        ModifiedBy = CurrentUser.Id, ModifiedDate = currentDate
+                        EmpId = model.EmpId,
+                        InputDate = model.InputDate,
+                        LRExamDate = model.LRExamDate,
+                        Listening = model.Listening,
+                        Reading = model.Reading,
+                        SWExamDate = model.SWExamDate,
+                        Speaking = model.Speaking,
+                        Writing = model.Writing,
+                        CreatedBy = CurrentUser.Id,
+                        CreatedDate = currentDate,
+                        ModifiedBy = CurrentUser.Id,
+                        ModifiedDate = currentDate
                     };
                     effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
 
@@ -1030,7 +1074,7 @@ namespace Fanex.NexHR.Controllers
             return score;
         }
 
-        #endregion
+        #endregion TOEIC
 
         #region BIRTHDAY
 
@@ -1083,6 +1127,44 @@ namespace Fanex.NexHR.Controllers
             return _employeeService.Query(getAllEmployeeCriteria);
         }
 
-        #endregion
+        #endregion BIRTHDAY
+
+        private int? CheckUserEnableCondition(bool? enable)
+        {
+            int? disableUsers;
+            if (enable == true)
+            {
+                disableUsers = 0;
+            }
+            else if (enable == false)
+            {
+                disableUsers = 1;
+            }
+            else
+            {
+                disableUsers = null;
+            }
+
+            return disableUsers;
+        }
+
+        private int? CheckDeletedUserCondition(bool? isDelete)
+        {
+            int? deleteUsers;
+            if (isDelete == true)
+            {
+                deleteUsers = 1;
+            }
+            else if (isDelete == false)
+            {
+                deleteUsers = 0;
+            }
+            else
+            {
+                deleteUsers = null;
+            }
+
+            return deleteUsers;
+        }
     }
 }

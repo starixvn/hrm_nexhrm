@@ -3,6 +3,7 @@
 "use strict";
 
 var nickName;
+
 $(document).ready(function () {
     $("#Employee").autocomplete({
         source: function (request, response) {
@@ -14,13 +15,13 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: _global.root + 'api/employee/GetEmployees',
-                type: 'GET',
+                url: _global.root + 'employee/GetEmployees',
+                type: 'POST',
                 dataType: 'json',
                 data: { query: term },
                 success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
+                    if (data.employees && data.employees.length > 0) {
+                        response($.map(data.employees, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id
@@ -33,6 +34,7 @@ $(document).ready(function () {
                 }
             });
         },
+        delay: 500,
         minLength: 1,
         select: function (event, ui) {
             nickName = ui.item.label;
@@ -68,13 +70,16 @@ $(document).ready(function () {
             }
         },
         focus: function (event, ui) {
-            nickName = ui.item.label;
-            $('#Employee').val(nickName);
-            $('#EmployeeId').val(ui.item.value);
             event.preventDefault();
+
+            $('#Employee').val(ui.item.label);
         },
         close: function () {
-            $('#Employee').val(nickName);
+            if (nickName) {
+                $('#Employee').val(nickName);
+            } else {
+                $('#Employee').val(_global.nickName);
+            }
         }
-    });
+    }).autocomplete("widget").addClass("employee-autocomplete");
 });

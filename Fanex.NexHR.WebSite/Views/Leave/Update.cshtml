@@ -4,8 +4,10 @@
     ViewBag.Title = Labels.LeaveRequest;
 }
 @section css{
+    @Styles.Render("~/Content/myrequestcss")
 }
 @section js{
+    @Scripts.Render("~/bundles/leavejs")
 }
 @section Breadcrumb {
 }
@@ -18,32 +20,27 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("update", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)
-
                             if (ViewBag.Updated == true)
                             {
-                            <div class="row validation-summary-success">
-                                <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
-                                <input type="hidden" id="successed" value="true" />
-                                <input type="hidden" id="year" value="@ViewBag.Year" />
-                            </div>
-
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
+                                    <input type="hidden" id="successed" value="true" />
+                                    <input type="hidden" id="year" value="@ViewBag.Year" />
+                                </div>
                             }
-
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
                                         <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
                                     </div>
                                     <div class="left label--m">
-                                        <label class="txt-bold">
-                                            Rq.@Model.Id</label>
+                                        <label class="txt-bold">Rq.@Model.Id</label>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -55,18 +52,16 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
                                     </div>
                                     <div class="left input--m">
-                                        @Html.CheckBoxFor(model => model.HalfDayOff)
+                                        @Html.MaterializeCheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
@@ -77,38 +72,45 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
                                     <div class="datepicker-button select--m left">
                                         @Html.DatePickerFor(model => model.FromDate,
-                                 Utilities.RequestAvailableFromDate,
-                                 Utilities.RequestAvailableToDate,
-                                 unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                             Utilities.RequestAvailableFromDate,
+                                             Utilities.RequestAvailableToDate,
+                                             unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select--s">
+                                        <span class="time hide">
                                             @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))
                                         </span>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="datepicker-button select--m left">
                                         @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select--s">
+                                        <span class="time hide">
                                             @Html.DropDownListFor(model => model.ToTime, Utilities.TimeSteps(30))
                                         </span>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -119,7 +121,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -130,7 +131,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -144,7 +144,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s">

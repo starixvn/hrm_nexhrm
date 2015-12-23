@@ -1,7 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels
-@model LeaveRequestViewModel
+@model Fanex.NexHR.ViewModels.LeaveRequestViewModel
 @{
     ViewBag.Title = Labels.NewLeaveRequest;
 }
@@ -24,10 +23,9 @@
                     <div class="form">
                         <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
                         </a>
-                        @using (Html.BeginForm("create", "leave", FormMethod.Post))
+                        @using (Html.BeginForm("create", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
-
                             if (ViewBag.Requested == true)
                             {
                             <div class="row validation-summary-success">
@@ -35,20 +33,17 @@
                                 <input type="hidden" id="successed" value="true" />
                                 <input type="hidden" id="year" value="@ViewBag.Year" />
                             </div>
-
                             }
                             @Html.HiddenFor(model => model.EmployeeId)
-
                             if (ViewBag.TotalRequest > 0)
                             {
-                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                <p>
-                                    <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
-                                        day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
-                                </p>
-                            </div>
+                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                    <p>
+                                        <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
+                                            day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
+                                    </p>
+                                </div>
                             }
-
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--m">
@@ -64,7 +59,7 @@
                                         @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
                                     </div>
                                     <div class="left">
-                                        @Html.CheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
@@ -85,22 +80,32 @@
                                     </div>
                                     <div class="datepicker-button left select--m">
                                         @Html.DatePickerFor(model => model.FromDate, Utilities.RequestAvailableFromDate,
-                                        Utilities.RequestAvailableToDate,
-                                        unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                            Utilities.RequestAvailableToDate,
+                                            unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select--s">
+                                        <span class="time hide">
                                             @Html.DropDownList("FromTime", Utilities.TimeSteps(30))
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="datepicker-button select--m left">
                                         @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i><span class="time hide">
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select--s">
+                                        <span class="time hide">
                                             @Html.DropDownList("ToTime", Utilities.TimeSteps(30))
                                         </span>
                                     </div>

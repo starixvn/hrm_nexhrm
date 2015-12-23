@@ -17,4 +17,12 @@
       .tipsy.leave-request .tipsy-inner ul li {
         list-style-type: disc; }
 
+.employee-autocomplete {
+  max-height: 40rem;
+  overflow-y: auto;
+  overflow-x: hidden; }
+
+.dropdown-content {
+  max-height: 40rem; }
+
 /*# sourceMappingURL=myrequest.css.map */

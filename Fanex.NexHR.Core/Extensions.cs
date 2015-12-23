@@ -93,19 +93,19 @@ namespace Fanex.NexHR.Core
 
             if (listOfValues != null)
             {
-                // Create a radio button for each item in the list 
+                // Create a radio button for each item in the list
                 foreach (SelectListItem item in listOfValues)
                 {
-                    // Generate an id to be given to the radio button field 
+                    // Generate an id to be given to the radio button field
                     var id = string.Format("{0}_{1}", metaData.PropertyName, item.Value);
 
-                    // Create and populate a radio button using the existing html helpers 
+                    // Create and populate a radio button using the existing html helpers
                     var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
                     var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id = id }).ToHtmlString();
 
-                    // Create the html string that will be returned to the client 
+                    // Create the html string that will be returned to the client
                     // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" />
-                    // <label for="TestRadio_1">Line1</label> 
+                    // <label for="TestRadio_1">Line1</label>
                     sb.AppendFormat("<div class=\"radioButton\">{0}{1}</div>", radio, label);
                 }
             }
@@ -196,11 +196,11 @@ namespace Fanex.NexHR.Core
             }
 
             return html.DatePicker(
-                ExpressionHelper.GetExpressionText(expression), 
-                value, 
-                minDate, 
-                maxDate, 
-                formatDate, 
+                ExpressionHelper.GetExpressionText(expression),
+                value,
+                minDate,
+                maxDate,
+                formatDate,
                 unavailDates);
         }
 
@@ -228,9 +228,9 @@ namespace Fanex.NexHR.Core
         /// <param name="currentYear">Default currentYear year 2000.</param>
         /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString YearPicker(
-            this HtmlHelper htmlHelper, 
-            string name, 
-            int fromYear = 2000, 
+            this HtmlHelper htmlHelper,
+            string name,
+            int fromYear = 2000,
             int currentYear = 2000)
         {
             var list = new List<SelectListItem>();
@@ -312,8 +312,8 @@ namespace Fanex.NexHR.Core
         /// <param name="selectList">Select item list.</param>
         /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(
-            this HtmlHelper htmlHelper, 
-            string name, 
+            this HtmlHelper htmlHelper,
+            string name,
             IEnumerable<SelectListItem> selectList)
         {
             return CheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
@@ -328,9 +328,9 @@ namespace Fanex.NexHR.Core
         /// <param name="htmlAttributes">HTML attributes.</param>
         /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(
-            this HtmlHelper htmlHelper, 
-            string name, 
-            IEnumerable<SelectListItem> selectList, 
+            this HtmlHelper htmlHelper,
+            string name,
+            IEnumerable<SelectListItem> selectList,
             object htmlAttributes)
         {
             return CheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
@@ -346,9 +346,9 @@ namespace Fanex.NexHR.Core
         /// <returns>MVC HTML string.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxList(
-            this HtmlHelper htmlHelper, 
-            string name, 
-            IEnumerable<SelectListItem> selectList, 
+            this HtmlHelper htmlHelper,
+            string name,
+            IEnumerable<SelectListItem> selectList,
             IDictionary<string, object> htmlAttributes)
         {
             string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
@@ -433,7 +433,7 @@ namespace Fanex.NexHR.Core
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
+            this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression)
         {
             return CheckBoxListFor(htmlHelper, expression, null);
@@ -441,8 +441,8 @@ namespace Fanex.NexHR.Core
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
             IEnumerable<SelectListItem> selectList)
         {
             return CheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
@@ -450,9 +450,9 @@ namespace Fanex.NexHR.Core
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList, 
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList,
             object htmlAttributes)
         {
             return CheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
@@ -461,9 +461,9 @@ namespace Fanex.NexHR.Core
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList, 
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList,
             IDictionary<string, object> htmlAttributes)
         {
             if (expression == null)
@@ -474,7 +474,55 @@ namespace Fanex.NexHR.Core
             return CheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
         }
 
+        public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, bool>> expression
+        )
+        {
+            return MaterializeCheckBoxFor(htmlHelper, expression, null);
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, bool>> expression,
+            object htmlAttributes
+        )
+        {
+            return MaterializeCheckBoxFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, bool>> expression,
+            IDictionary<string, object> htmlAttributes)
+        {
+            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression<TModel, bool>(expression, htmlHelper.ViewData);
+            string propertyName = expression.Body.ToString().Split('.').Last();
+
+            TagBuilder checkbox = new TagBuilder("input");
+            checkbox.MergeAttribute("id", propertyName);
+            checkbox.MergeAttribute("name", propertyName);
+            checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
+            checkbox.MergeAttribute("value", "true");
+            if ((bool)modelMetadata.Model)
+            {
+                checkbox.MergeAttribute("checked", "checked");
+            }
+            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            TagBuilder label = new TagBuilder("label");
+            label.MergeAttribute("for", propertyName);
+
+            TagBuilder hidden = new TagBuilder("input");
+            hidden.MergeAttribute("name", propertyName);
+            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+            hidden.MergeAttribute("value", "false");
+
+            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
+        }
+
         #region Business
+
         /// <summary>
         /// Convert status to display string.
         /// </summary>
@@ -679,6 +727,6 @@ namespace Fanex.NexHR.Core
             return SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
         }
 
-        #endregion
+        #endregion Business
     }
 }

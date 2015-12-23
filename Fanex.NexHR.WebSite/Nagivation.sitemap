@@ -2,43 +2,41 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
     <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
         <siteMapNode title="Personal">
-            <siteMapNode title="My dashboard" controller="employee" action="MySpace" icon="home" />
-            <siteMapNode title="My dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
-            <siteMapNode title="Leave request" controller="leave" action="employeeview" icon="account-box" hoverController="leave" hoverAction="create" hoverIcon="plus" />
-            <siteMapNode title="Check in - Check out" controller="checkinout" action="employeeview" icon="clock" hoverController="checkinout" hoverAction="create" hoverIcon="plus" />
+            <siteMapNode title="My Dashboard" controller="employee" action="MySpace" icon="home" />
+            <siteMapNode title="My Dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
+            <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
+            <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
             <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
             <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
-            <siteMapNode title="My calendar" controller="employee" action="myworkingschedule" icon="calendar-check" />
-            <siteMapNode title="Members' requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
-            <siteMapNode title="Requests statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
-            <siteMapNode title="My profile" controller="account" action="index" icon="account-box-outline" />
+            <siteMapNode title="My Calendar" controller="employee" action="myworkingschedule" icon="calendar-check" />
+            <siteMapNode title="Members' Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
+            <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
+            <siteMapNode title="My Profile" controller="account" action="index" icon="account-box-outline" />
         </siteMapNode>
-        <siteMapNode title="HR space" roles="HR">
-            <siteMapNode title="Employees' requests" controller="request" action="hrview" icon="account-box" roles="HR" />
-            <siteMapNode title="Requests monitoring" controller="report" action="HRRequestMonitoring" icon="eye" roles="HR" />
-            <siteMapNode title="Annual leave balance" controller="annualleavebalance" action="index" icon="clipboard-text" />
-            <siteMapNode title="User management" controller="employee" action="UserManagement" icon="settings-box" />
-            <siteMapNode title="Team management" controller="team" action="index" icon="account-multiple" />
-            <siteMapNode title="Create account" controller="employee" action="create" icon="account-plus" />
-            <siteMapNode title="Job title management" controller="jobtitle" action="jobtitlemanagement" icon="book" />
-            <!--<siteMapNode title="Department management" controller="department" action="index" icon="setting" />-->
+        <siteMapNode title="HR Space" roles="HR">
+            <siteMapNode title="Employee Requests" controller="request" action="hrview" icon="account-box" roles="HR" />
+            <siteMapNode title="Requests Monitoring" controller="report" action="HRRequestMonitoring" icon="eye" roles="HR" />
+            <siteMapNode title="Annual Leave Nalance" controller="annualleavebalance" action="index" icon="clipboard-text" />
+            <siteMapNode title="User Management" controller="employee" action="UserManagement" icon="settings-box" />
+            <siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" />
+            <siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" />
+            <siteMapNode title="Job Title Management" controller="jobtitle" action="jobtitlemanagement" icon="book" />
             <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar-clock" />
         </siteMapNode>
-        <siteMapNode title="Company space">
-            <siteMapNode title="Staff info" controller="employee" action="index" icon="folder-account" />
-            <siteMapNode title="Staff TOEIC score" controller="employee" action="toeicmanagement" icon="trophy-award" />
-            <siteMapNode title="Working calendars" controller="employee" action="workingcalendars" icon="timetable" />
-            <siteMapNode title="Employees' requests" controller="request" action="employeeview"  icon="account-box" />
-            <siteMapNode title="Attendance report" controller="report" action="attendance" icon="bulletin-board" />
-
+        <siteMapNode title="Company Space">
+            <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" />
+            <siteMapNode title="Staff TOEIC Score" controller="employee" action="toeicmanagement" icon="trophy-award" />
+            <siteMapNode title="Working Calendar" controller="employee" action="workingcalendars" icon="timetable" />
+            <siteMapNode title="Employee Requests" controller="request" action="employeeview"  icon="account-box" />
+            <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
             <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyoutsummary" icon="alarm" />
-            <siteMapNode title="Leave summary" controller="report" action="leavesummary" icon="clipboard-text" />
-            <siteMapNode title="Total working hours" controller="report" action="totalworkinghours" icon="alarm-plus" />
-            <siteMapNode title="Holiday" controller="holiday" action="index" icon="umbrella-outline" />
-            <siteMapNode title="Shift info" controller="shift" action="index" icon="information-outline" />
-            <siteMapNode title="Geolocation map" controller="geographicmap" action="index" icon="map-marker" />
-            <siteMapNode title="Extension numbers" controller="ExtensionNo" action="index" icon="cellphone" />
-            <siteMapNode title="Company memo" controller="memo" action="index" icon="file-document-box" />
+            <siteMapNode title="Leave Summary" controller="report" action="leavesummary" icon="clipboard-text" />
+            <siteMapNode title="Total Working Hours" controller="report" action="totalworkinghours" icon="alarm-plus" />
+            <siteMapNode title="Holidays" controller="holiday" action="index" icon="umbrella-outline" />
+            <siteMapNode title="Shift Info" controller="shift" action="index" icon="information-outline" />
+            <siteMapNode title="Geolocation Map" controller="geographicmap" action="index" icon="map-marker" />
+            <siteMapNode title="Extension Numbers" controller="ExtensionNo" action="index" icon="cellphone" />
+            <siteMapNode title="Company Memo" controller="memo" action="index" icon="file-document-box" />
         </siteMapNode>
     </siteMapNode>
 </siteMap>

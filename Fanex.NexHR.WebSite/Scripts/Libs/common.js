@@ -89,7 +89,6 @@ $(document).ready(function(){
     $('.modal-trigger').leanModal();
     $('.scrollspy').scrollSpy();
     $('.button-collapse').sideNav({'edge': 'left'});
-    $('.datepicker').pickadate({selectYears: 20});
     $('select').not('.disabled').material_select();
 
     $('.flash').animate({opacity: 0.25},3500, function(){
@@ -134,25 +133,6 @@ $(document).ready(function(){
             }
         }
     });
-
-    if($('.datepicker').length > 0) {
-        // get minDate, maxDate, disabledDates
-        var mindate = $('.datepicker').attr('mindate');
-        var maxdate = $('.datepicker').attr('maxdate');
-        var disabledDates = $('.datepicker').attr('disabledDate');
-
-        if(typeof(initDatePicker) != "function") //check if (isExit include date.filter.js) then (mindate, maxdate include after function initDatePicker)
-        {
-            if (mindate != 'null') {
-                mindate = mindate.split("/");
-                $('.datepicker').datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
-            }
-            if (maxdate != 'null') {
-                maxdate = maxdate.split("/");
-                $('.datepicker').datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
-            }
-        }
-    }
 
     var clonedHeaderRow;
     $(".persist-area").each(function () {
