@@ -484,7 +484,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created date.
+        ///   Looks up a localized string similar to Created Date.
         /// </summary>
         public static string CreatedDate {
             get {
@@ -1474,6 +1474,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Leave Request Summary.
+        /// </summary>
+        public static string MyLeaveRequestSummary {
+            get {
+                return ResourceManager.GetString("MyLeaveRequestSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My members&apos; requests.
         /// </summary>
         public static string MyMemberRequest {
@@ -2176,7 +2185,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total days.
+        ///   Looks up a localized string similar to Total Days.
         /// </summary>
         public static string TotalDays {
             get {

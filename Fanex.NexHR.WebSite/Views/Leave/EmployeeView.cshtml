@@ -3,7 +3,7 @@
 @using Fanex.NexHR.Models.Request
 @model IList<RequestEntity>
 @{
-    ViewBag.Title = Labels.LeaveRequest;
+    ViewBag.Title = Labels.MyLeaveRequestSummary;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
@@ -61,7 +61,7 @@
                                         </th>
                                         <th>@Labels.To
                                         </th>
-                                        <th>@Labels.Total
+                                        <th>@Labels.TotalDays
                                         </th>
                                         <th>@Labels.CreatedDate
                                         </th>

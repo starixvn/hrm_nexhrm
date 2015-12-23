@@ -139,7 +139,7 @@
     <value>Change shift</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
-    <value>Created date</value>
+    <value>Created Date</value>
   </data>
   <data name="RequestDate" xml:space="preserve">
     <value>Request date</value>
@@ -382,7 +382,7 @@
     <value>Date</value>
   </data>
   <data name="TotalDays" xml:space="preserve">
-    <value>Total days</value>
+    <value>Total Days</value>
   </data>
   <data name="ChangeFromShift" xml:space="preserve">
     <value>Change from shift</value>
@@ -878,5 +878,8 @@
   </data>
   <data name="CheckInOutType" xml:space="preserve">
     <value>Check In Out Type</value>
+  </data>
+  <data name="MyLeaveRequestSummary" xml:space="preserve">
+    <value>My Leave Request Summary</value>
   </data>
 </root>
