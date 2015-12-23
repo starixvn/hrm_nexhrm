@@ -99,7 +99,10 @@
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="datepicker-button select--m left">
-                                        @Html.DatePickerFor(model => model.ToDate, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                        @Html.DatePickerFor(model => model.ToDate,
+                                            Utilities.RequestAvailableFromDate,
+                                            Utilities.RequestAvailableToDate,
+                                            unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>

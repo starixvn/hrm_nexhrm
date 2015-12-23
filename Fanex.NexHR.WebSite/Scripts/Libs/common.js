@@ -64,6 +64,38 @@ function confirm(message, callback, options) {
     $confirm.dialog($.extend({}, defaults, options));
 }
 
+function initDatePicker(el) {
+    var $input = $(el).pickadate({ selectYears: 2 });
+    var picker = $input.pickadate('picker');
+
+    // get minDate, maxDate, disabledDates
+    var mindate = $(el).attr('mindate');
+    var maxdate = $(el).attr('maxdate');
+    var disabledDates = $(el).attr('disabledDate');
+
+    if (mindate !== 'null') {
+        mindate = mindate.split('/');
+        picker.set('min', new Date(mindate[0], mindate[1] - 1, mindate[2]));
+    }
+
+    if (maxdate !== 'null') {
+        maxdate = maxdate.split('/');
+        picker.set('max', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+    }
+
+    if (disabledDates.length > 0) {
+        var disabledDays = [],
+            disabledDates = disabledDates.split(',');
+
+        $.each(disabledDates, function (index, disabledDate) {
+            var date = new Date(disabledDate).format('yyyy/mm/dd').split('/');
+            disabledDays.push(new Date(date[0], date[1] - 1, date[2]));
+        });
+
+        picker.set('disable', disabledDays);
+    }
+}
+
 $(document).ready(function(){
     var currentUrl = $("#controller").val() + "_" + $("#action").val();
     var selectNavItem = $("#" + currentUrl);

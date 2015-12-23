@@ -46,10 +46,6 @@ $(document).ready(function () {
                 $.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
                     function (response) {
                         if (response != null) {
-                            $("#ForDate").attr("disableddate", response.join(","));
-                            $("#FromDate, #ToDate").attr("disableddate", response.join(","));
-                            $('.datepicker').change();
-
                             var forRequest = parseInt($("#ForRequest").val());
                             switch (forRequest) {
                                 case 0: // leave
@@ -61,7 +57,6 @@ $(document).ready(function () {
                                     break;
                                 case 2: // check in out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    $('.datepicker').change();
                                     break;
                             }
                         }
