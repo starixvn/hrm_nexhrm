@@ -21,8 +21,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
-                        </a>
+                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span></a>
                         @using (Html.BeginForm("create", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
@@ -39,8 +38,7 @@
                             {
                                 <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
                                     <p>
-                                        <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
-                                            day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
+                                        <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
                                     </p>
                                 </div>
                             }

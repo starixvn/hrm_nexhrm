@@ -28,9 +28,7 @@
                                 <input type="hidden" value="Leave" id="RequestType" />
                                 <div class="col m-r--m">
                                     <div class="left label--s">
-                                        <label>
-                                            @Labels.Year
-                                        </label>
+                                        <label>@Labels.Year</label>
                                     </div>
                                     <div class="left select--xs">
                                         @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
@@ -45,30 +43,19 @@
                             </div>
                         </div>
                         <div class="p-x--s">
-                             <table class="table bordered striped highlight table-custom" id="data">
+                             <table class="table bordered striped highlight centered table-custom" id="data">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            #
-                                        </th>
-                                        <th>@Labels.Employee
-                                        </th>
-                                        <th>@Labels.Team
-                                        </th>
-                                        <th>@Labels.LeaveType
-                                        </th>
-                                        <th>@Labels.From
-                                        </th>
-                                        <th>@Labels.To
-                                        </th>
-                                        <th>@Labels.TotalDays
-                                        </th>
-                                        <th>@Labels.CreatedDate
-                                        </th>
-                                        <th>@Labels.Remark
-                                        </th>
-                                        <th>@Labels.Status
-                                        </th>
+                                        <th>#</th>
+                                        <th>@Labels.Employee</th>
+                                        <th>@Labels.Team</th>
+                                        <th>@Labels.LeaveType</th>
+                                        <th>@Labels.From</th>
+                                        <th>@Labels.To</th>
+                                        <th>@Labels.TotalDays</th>
+                                        <th>@Labels.CreatedDate</th>
+                                        <th>@Labels.Remark</th>
+                                        <th>@Labels.Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,31 +65,23 @@
                                         foreach (RequestEntity request in Model)
                                         {
                                         <tr id="row@(request.Id)">
-                                            <td class='center'>@(index++)
-                                            </td>
+                                            <td>@(index++)</td>
                                             <td class="tooltip" title="@request.Requester.FullName">
                                                 @request.Requester.NickName
                                             </td>
-                                            <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
-                                            </td>
-                                            <td>@request.LeaveType.Name
-                                            </td>
+                                            <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code</td>
+                                            <td>@request.LeaveType.Name</td>
                                             @if (request.TotalDays == (decimal)0.5)
                                             {
-                                                <td class="highlight">@request.FromDate.ToShortFormatedDate()
-                                                </td>
-                                                <td class="highlight">@request.ToDate.ToShortFormatedDate()
-                                                </td>
+                                                <td class="highlight">@request.FromDate.ToShortFormatedDate()</td>
+                                                <td class="highlight">@request.ToDate.ToShortFormatedDate()</td>
                                             }
                                             else
                                             {
-                                                <td class="highlight">@request.FromDate.ToDateMonthYearFormatedDate()
-                                                </td>
-                                                <td class="highlight">@request.ToDate.ToDateMonthYearFormatedDate()
-                                                </td>
+                                                <td class="highlight">@request.FromDate.ToDateMonthYearFormatedDate()</td>
+                                                <td class="highlight">@request.ToDate.ToDateMonthYearFormatedDate()</td>
                                             }
-                                            <td class="highlight center">@request.TotalDays.ToString("0.0")
-                                            </td>
+                                            <td class="highlight center">@request.TotalDays.ToString("0.0")</td>
                                             <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
                                                 @request.CreatedDate.ToDateMonthYearFormatedDate()
                                             </td>
@@ -114,9 +93,7 @@
                                             }
                                             else
                                             {
-                                                <td class='center'>
-                                                    -
-                                                </td>
+                                                <td class='center'>-</td>
                                             }
                                             @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
                                             {
@@ -126,8 +103,7 @@
                                             }
                                             else
                                             {
-                                                <td class="tooltip c-approve" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()
-                                                </td>
+                                                <td class="tooltip c-approve" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</td>
                                             }
                                         </tr>
                                         }
@@ -144,5 +120,4 @@
             </div>
         </div>
     }
-    @RazorHelper.EmployeeProcessMenu()
 </div>

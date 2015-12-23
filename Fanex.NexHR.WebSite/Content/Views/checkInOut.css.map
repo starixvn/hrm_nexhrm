@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,YAAa;EACZ,KAAK,EAAE,IAAI",
-"sources": ["checkInOut.scss"],
+"mappings": "AAEA,YAAa;EACZ,KAAK,EAAE,IAAI",
+"sources": ["checkinout.scss"],
 "names": [],
 "file": "checkInOut.css"
 }

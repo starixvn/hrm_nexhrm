@@ -257,9 +257,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="Content\Views\checkInOut.css">
-      <DependentUpon>checkInOut.scss</DependentUpon>
-    </Content>
     <Content Include="Content\Views\mydashboard.css">
       <DependentUpon>mydashboard.scss</DependentUpon>
     </Content>
@@ -294,6 +291,7 @@
     <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
+    <Content Include="Scripts\Views\checkinout.request.js" />
     <Content Include="Scripts\Views\myworkingschedule.js" />
     <Content Include="Scripts\Views\checkinout.byemployee.js" />
     <Content Include="Scripts\Views\employee.dashboard.js" />
@@ -313,7 +311,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Content\Views\myrequest.scss" />
-    <None Include="Content\Views\checkInOut.scss" />
     <Content Include="Views\AnnualLeaveBalance\Create.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\Edit.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\Employee.cshtml" />

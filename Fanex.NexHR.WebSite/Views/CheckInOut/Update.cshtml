@@ -3,15 +3,16 @@
 @using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.CheckInOutRequestViewModel
 @{
-    ViewBag.Title = Labels.MyCheckInOutRequests;
+    ViewBag.Title = Labels.MyCheckInOutSummary;
 }
 @section css{
+    @Styles.Render("~/Content/myrequestcss")
 }
 @section js{
+    @Scripts.Render("~/bundles/empcheckinoutjs")
 }
 @section Breadcrumb {
 }
-
 <div class="row content">
     <div class="col s12 l7 card-container-base">
         <div class="card">
@@ -21,42 +22,37 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("update", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
-
                             @Html.ValidationSummary(true)
-
                             if (ViewBag.Updated == true)
                             {
                                 <div class="row">
                                     <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Fanex.NexHR.Resources.Messages.RequestUpdated</div>
                                     <input type="hidden" id="successed" value="true" />
                                     <input type="hidden" id="year" value="@ViewBag.Year" />
-                                </div>                            
+                                </div>
                             }
-                            
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
                                         <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
                                     </div>
                                     <div class="left label--m">
-                                        <label class="txt-bold">
-                                            Rq.@Model.Id</label>
+                                        <label class="txt-bold">Rq.@Model.Id</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
-                                        @Html.LabelFor(model => model.CheckInOutType)
+                                        @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
                                     </div>
                                     <div class="left input--m">
                                         <span class="label">@Model.CheckInOutType.ToText()</span>
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
@@ -67,7 +63,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--xl">
@@ -75,7 +70,10 @@
                                     </div>
                                     <div class="left">
                                         <div class="datepicker-button left select--s">
-                                            @Html.DatePickerFor(model => model.ForDate, Utilities.RequestAvailableFromDate, DateTime.Now, unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                            @Html.DatePickerFor(model => model.ForDate,
+                                                Utilities.RequestAvailableFromDate,
+                                                DateTime.Now,
+                                                unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                         <div class="col m-l--m">
@@ -88,25 +86,22 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--xl">
                                         @Html.LabelFor(model => model.Shift)
                                     </div>
                                     <div class="left">
-                                        <span id="shiftname" class="label">@Model.Shift</span> <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo">
-                                            <span class="icon shiftinfo"></span></a>
+                                        <span id="shiftname" class="label">@Model.Shift</span>
+                                        <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo"><span class="icon shiftinfo"></span></a>
                                         <div class="hide">
                                             @RazorHelper.ShiftInfoTable(ViewBag.Shifts)
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-
+                            </div>
                             <div class="col">
-                                <div class="label">
-                                </div>
+                                <div class="label"></div>
                                 <div class="input">
                                     @Html.HiddenFor(model => model.Employee)
                                     @Html.HiddenFor(model => model.DisplayName)

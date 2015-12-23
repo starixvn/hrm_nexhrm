@@ -142,7 +142,7 @@
     <value>Created Date</value>
   </data>
   <data name="RequestDate" xml:space="preserve">
-    <value>Request date</value>
+    <value>Request Date</value>
   </data>
   <data name="Disapproved" xml:space="preserve">
     <value>Disapproved</value>
@@ -823,7 +823,7 @@
     <value>Absent</value>
   </data>
   <data name="CheckInOutRequest" xml:space="preserve">
-    <value>Check In/Out Request</value>
+    <value>Check In/Check Out Request</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
     <value>Filter By</value>
@@ -878,6 +878,9 @@
   </data>
   <data name="CheckInOutType" xml:space="preserve">
     <value>Check In Out Type</value>
+  </data>
+  <data name="MyCheckInOutSummary" xml:space="preserve">
+    <value>My Check In/Check Out Summary</value>
   </data>
   <data name="MyLeaveRequestSummary" xml:space="preserve">
     <value>My Leave Request Summary</value>

@@ -1,5 +1,5 @@
 .tipsy.leave-request {
-  max-width: 400px;
+  max-width: 50rem;
   font-size: 1.3rem;
   opacity: 1 !important; }
   .tipsy.leave-request .tipsy-arrow {
@@ -16,6 +16,10 @@
       list-style-type: disc; }
       .tipsy.leave-request .tipsy-inner ul li {
         list-style-type: disc; }
+      .tipsy.leave-request .tipsy-inner ul ul {
+        list-style-type: circle; }
+        .tipsy.leave-request .tipsy-inner ul ul li {
+          list-style-type: circle; }
 
 .employee-autocomplete {
   max-height: 40rem;
@@ -24,5 +28,8 @@
 
 .dropdown-content {
   max-height: 40rem; }
+
+.radioButton {
+  float: left; }
 
 /*# sourceMappingURL=myrequest.css.map */
