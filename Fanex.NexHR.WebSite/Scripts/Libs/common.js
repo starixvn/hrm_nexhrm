@@ -101,7 +101,7 @@ function initDatePicker(el) {
             disabledDates = disabledDates.split(',');
 
         $.each(disabledDates, function (index, disabledDate) {
-            var date = new Date(disabledDate).format('yyyy/mm/dd').split('/');
+            var date = $.format.date(new Date(disabledDate), 'yyyy/MM/dd').split('/');
             disabledDays.push(new Date(date[0], date[1] - 1, date[2]));
         });
 
