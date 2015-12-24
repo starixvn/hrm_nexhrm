@@ -1528,6 +1528,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Timesheet.
+        /// </summary>
+        public static string MyTimesheet {
+            get {
+                return ResourceManager.GetString("MyTimesheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Working Schedule.
         /// </summary>
         public static string MyWorkingSchedule {
@@ -1951,7 +1960,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request time.
+        ///   Looks up a localized string similar to Request Time.
         /// </summary>
         public static string RequestTime {
             get {

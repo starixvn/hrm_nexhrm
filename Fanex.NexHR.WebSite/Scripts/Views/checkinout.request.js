@@ -1,6 +1,8 @@
 ﻿'use strict';
 /*global _global:alse , _messages: false, zeroPrefix*/
 
+var pickerDate;
+
 function updateZeroPrefix() {
     //add zeroPrefix
     $('input[Name=Hour]').val(zeroPrefix($('input[Name=Hour]').val()));
@@ -69,7 +71,7 @@ $(document).ready(function () {
             }
         });
 
-        initDatePicker('.datepicker');
+        pickerDate = initDatePicker('.datepicker');
 
         $('.datepicker').on('change', function () {
             var empId = parseInt($('#EmployeeId').val());

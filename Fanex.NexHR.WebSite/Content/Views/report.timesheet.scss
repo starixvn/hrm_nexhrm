@@ -1,0 +1,80 @@
+@import '../Common/utils/mixins';
+@import 'tipsy';
+
+.monpickr-wrap-parent {
+    .monpickr-wrap {
+        .monpickr.monpickr-arrows {
+            border: .1rem solid #b6b6b6;
+            color: #4f4f4f;
+            font-weight: bold;
+            @include css3(border-radius, .3rem);
+
+            .monpickr-prev, .monpickr-next {
+                .ui-icon {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
+
+                &:hover {
+                    border: .1rem solid #c8c8c8 !important;
+                    @include css3(border-radius, .3rem);
+                }
+            }
+
+            .monpickr-input {
+                border: .1rem solid #c8c8c8 !important;
+                @include css3(border-radius, .3rem);
+                padding-left: 0 !important;
+                font-weight: normal;
+            }
+        }
+
+        .monpickr-dropdown {
+            .ui-widget-content {
+                a {
+                    color: #0789d1 !important;
+                }
+
+                .year {
+                    &:hover {
+                        border: .1rem solid #7096ab;
+                        @include css3(border-radius, .3rem);
+                    }
+                }
+
+                .month-wrap.selected {
+                    li.ui-corner-all {
+                        &.ui-state-active {
+                            background: #e3f2fd;
+                            border: .1rem solid #7096ab;
+                            @include css3(border-radius, .3rem);
+                        }
+
+                        &:hover {
+                            border: .1rem solid #7096ab;
+                            @include css3(border-radius, .3rem);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.table tbody tr {
+    &.offdate, &.noshift {
+        background: #ccc !important;
+    }
+
+    td {
+        &.col-request {
+            text-align: left;
+        }
+
+        a.tooltip-request {
+            padding: .4rem .6rem;
+            border: .1rem solid #0789d1;
+            @include css3(border-radius, .3rem);
+        }
+    }
+}

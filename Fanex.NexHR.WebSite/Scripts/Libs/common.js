@@ -3,13 +3,25 @@
 
 (function() {
     var proxied = window.alert;
+
     window.alert = function() {
-        $('<div class="dialogcontent">' + arguments[0] + '<input class="dialogokbutton" type="button" value="OK" onclick="$(\'.ui-dialog-content\').dialog(\'close\');" /></div>').dialog({
-            title: 'NexHRM',
-            height: 120,
-            show: 'fade',
-            hide: 'fade',
-            modal: true
+        $('<div>' + '<p>' + arguments[0] + '</p>').dialog({
+            title       : 'NexHRM',
+            modal       : true,
+            resizable   : false,
+            buttons     : [{
+                    text    : 'OK',
+                    class   : 'btn-ok button-hrm waves-effect waves-light btn green',
+                    click   : function() {
+                        $(this).dialog('close');
+                        return true;
+                    }
+                }
+            ],
+            show        : 'fade',
+            hide        : 'fade',
+            minHeight   : 50,
+            dialogClass : 'modal-shadow'
         });
     };
 })();
@@ -20,13 +32,14 @@ $.extend({
         if (!$box.length) {
             $box = $('<div id="' + id + '"><p></p></div>').hide().appendTo('body');
         }
+
         return $box;
     }
 });
 
 function confirm(message, callback, options) {
     var defaults = {
-        title: 'NexHRM',
+        title       : 'NexHRM',
         modal       : true,
         resizable   : false,
         buttons     : [
@@ -53,8 +66,8 @@ function confirm(message, callback, options) {
         ],
         show        : 'fade',
         hide        : 'fade',
-        minHeight    : 50,
-        dialogClass    : 'modal-shadow'
+        minHeight   : 50,
+        dialogClass : 'modal-shadow'
     }
 
     $confirm = $.getOrCreateDialog('confirm');
@@ -65,13 +78,13 @@ function confirm(message, callback, options) {
 }
 
 function initDatePicker(el) {
-    var $input = $(el).pickadate({ selectYears: 2 });
-    var picker = $input.pickadate('picker');
+    var $input = $(el).pickadate({ selectYears: 2 }),
+        picker = $input.pickadate('picker');
 
     // get minDate, maxDate, disabledDates
-    var mindate = $(el).attr('mindate');
-    var maxdate = $(el).attr('maxdate');
-    var disabledDates = $(el).attr('disabledDate');
+    var mindate = $(el).attr('mindate'),
+        maxdate = $(el).attr('maxdate'),
+        disabledDates = $(el).attr('disabledDate');
 
     if (mindate !== 'null') {
         mindate = mindate.split('/');
@@ -94,6 +107,8 @@ function initDatePicker(el) {
 
         picker.set('disable', disabledDays);
     }
+
+    return picker;
 }
 
 $(document).ready(function(){
@@ -176,9 +191,8 @@ $(document).ready(function(){
             .removeClass("persist-header");
     });
 
-    $(".content_scroll")
-        .scroll(updateTableHeaders)
-        .trigger("scroll");
+    $(".content_scroll").scroll(updateTableHeaders).trigger("scroll");
+
     $(window).resize(function() {
         updateTableHeaders();
     });
@@ -187,6 +201,71 @@ $(document).ready(function(){
         actingButton('.processing-submit', true);
     });
 });
+
+function updateTableHeaders() {
+    if($(".persist-area").val() != undefined)
+    {
+        var i = 0,
+            leftspace= 191,
+            widthspace = $(".persist-area").width() + 18;
+        widthspace = widthspace - 17;
+
+        if(widthspace < 1051) {
+            widthspace = 1051;
+        }
+
+        $('.floatingHeader').width(widthspace);
+        var left = $('table thead tr:first').position()["left"];
+
+        $(".persist-area").each(function () {
+            var el = $(this),
+                offset = el.offset(),
+                scrollTop = $(window).scrollTop(),
+                floatingHeader = $(".floatingHeader", this);
+
+            if ((scrollTop > offset.top - 60) && (scrollTop < offset.top + el.height())) {
+                floatingHeader.css({
+                    "visibility": "visible",
+                    "left": (leftspace + left)
+                });
+            } else {
+                floatingHeader.css({
+                    "visibility": "hidden"
+                });
+            };
+        });
+
+        $("table .persist-header th").each(function () {
+            var x = $(this).width();
+            $($("table .floatingHeader th")[i]).width(x);
+            i++;
+        });
+    }
+}
+
+function totalHoursToTime(value) {
+    var display = '',
+        hour = Math.floor(value);
+
+    if(hour > 0)
+    {
+        display = hour < 10 ? '0' + hour + 'h' : hour + 'h';
+    }
+
+    var minute = Math.round((value - hour) * 60);
+    return minute < 10 ? display + '0' + minute + '\'' : display + minute + '\'';
+}
+
+function displayMinute(minutes) {
+    var hour = Math.floor(minutes / 60),
+        minute = minutes % 60;
+
+    if(hour == 0)
+    {
+        return minute > 9 ? '00:' + minute : '00:0' + minute;
+    }
+    return (hour > 9 ? hour : '0' + hour) + ':' + (minute > 9 ? minute : '0' + minute);
+}
 
 function checkBadDates(mydate) {
     var isEnable = true;
@@ -269,6 +348,7 @@ function actingButton(element, disabled)
     $(element).attr("value", 'Processing');
     $(element).addClass("disabled");
 }
+
 function reloadButtonText(element)
 {
     $(element).attr("value", $(element).attr("origin-value"));
@@ -289,23 +369,15 @@ function getEncodePlainText(text) {
     return encodeURIComponent(text.replace(/<[^>]*>/g, ''));
 }
 
-function jsonToDate(jsonDate) {
-    var date = Date.parse(jsonDate);
-    return date.format("mm/dd/yyyy HH:MM:ss");
-}
+function formatJsonDate(jsonDate, mask) {
+    var date = new Date(parseInt(jsonDate.substr(6)));
 
-function jsonToShortDate(jsonDate) {
-    var date = Date.parse(jsonDate);
-    return date.format("dd mmm, yyyy");
-}
+    if(mask){
+        date = $.format.date(date, mask);
+    }
 
-function jsonTojsDate(jsonDate) {
-    return Date.parse(jsonDate);
-}
-
-function dateToString(date) {
-    return date.format("mm/dd/yyyy HH:MM:ss");
-}
+    return date;
+};
 
 function initEditor(element, type) {
     switch (type) {
@@ -404,132 +476,6 @@ function getImage(text) {
     }
 }
 
-/*
- * Date Format 1.2.3
- * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
- * MIT license
- *
- * Includes enhancements by Scott Trenda <scott.trenda.net>
- * and Kris Kowal <cixar.com/~kris.kowal/>
- *
- * Accepts a date, a mask, or a date and a mask.
- * Returns a formatted version of the given date.
- * The date defaults to the current date/time.
- * The mask defaults to dateFormat.masks.default.
- */
-
-var dateFormat = function () {
-    var    token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-        timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
-        timezoneClip = /[^-+\dA-Z]/g,
-        pad = function (val, len) {
-            val = String(val);
-            len = len || 2;
-            while (val.length < len) val = "0" + val;
-            return val;
-        };
-
-    // Regexes and supporting functions are cached through closure
-    return function (date, mask, utc) {
-        var dF = dateFormat;
-
-        // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-        if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-            mask = date;
-            date = undefined;
-        }
-
-        // Passing date through Date applies Date.parse, if necessary
-        date = date ? new Date(date) : new Date;
-        if (isNaN(date)) throw SyntaxError("invalid date");
-
-        mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-
-        // Allow setting the utc argument via the mask
-        if (mask.slice(0, 4) == "UTC:") {
-            mask = mask.slice(4);
-            utc = true;
-        }
-
-        var _ = utc ? "getUTC" : "get",
-            d = date[_ + "Date"](),
-            D = date[_ + "Day"](),
-            m = date[_ + "Month"](),
-            y = date[_ + "FullYear"](),
-            H = date[_ + "Hours"](),
-            M = date[_ + "Minutes"](),
-            s = date[_ + "Seconds"](),
-            L = date[_ + "Milliseconds"](),
-            o = utc ? 0 : date.getTimezoneOffset(),
-            flags = {
-                d:    d,
-                dd:   pad(d),
-                ddd:  dF.i18n.dayNames[D],
-                dddd: dF.i18n.dayNames[D + 7],
-                m:    m + 1,
-                mm:   pad(m + 1),
-                mmm:  dF.i18n.monthNames[m],
-                mmmm: dF.i18n.monthNames[m + 12],
-                yy:   String(y).slice(2),
-                yyyy: y,
-                h:    H % 12 || 12,
-                hh:   pad(H % 12 || 12),
-                H:    H,
-                HH:   pad(H),
-                M:    M,
-                MM:   pad(M),
-                s:    s,
-                ss:   pad(s),
-                l:    pad(L, 3),
-                L:    pad(L > 99 ? Math.round(L / 10) : L),
-                t:    H < 12 ? "a"  : "p",
-                tt:   H < 12 ? "am" : "pm",
-                T:    H < 12 ? "A"  : "P",
-                TT:   H < 12 ? "AM" : "PM",
-                Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-                o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-                S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-            };
-
-        return mask.replace(token, function ($0) {
-            return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-        });
-    };
-}();
-
-// Some common format strings
-dateFormat.masks = {
-    "default":      "ddd mmm dd yyyy HH:MM:ss",
-    shortDate:      "m/d/yy",
-    mediumDate:     "mmm d, yyyy",
-    longDate:       "mmmm d, yyyy",
-    fullDate:       "dddd, mmmm d, yyyy",
-    shortTime:      "h:MM TT",
-    mediumTime:     "h:MM:ss TT",
-    longTime:       "h:MM:ss TT Z",
-    isoDate:        "yyyy-mm-dd",
-    isoTime:        "HH:MM:ss",
-    isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-    isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-};
-
-// Internationalization strings
-dateFormat.i18n = {
-    dayNames: [
-        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-    ],
-    monthNames: [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-    ]
-};
-
-// For convenience...
-Date.prototype.format = function (mask, utc) {
-    return dateFormat(this, mask, utc);
-};
-
 jQuery.cookie = function (key, value, options) {
     // key and at least value given, set cookie...
     if (arguments.length > 1 && String(value) !== "[object Object]") {
@@ -604,16 +550,6 @@ function  isInteger(str) {
     return /^ *[0-9]+ *$/.test(str);
 }
 
-function displayMinute(minutes) {
-    var hour = Math.floor(minutes / 60);
-    var minute = minutes % 60;
-    if(hour == 0)
-    {
-        return minute > 9 ? '00:' + minute : '00:0' + minute;
-    }
-    return (hour > 9 ? hour : '0' + hour) + ':' + (minute > 9 ? minute : '0' + minute);
-}
-
 function noInformation(col) {
     return '<tr><td colspan="'+col+'"></td></tr><tr><td colspan="'+col+'">No information available</td></tr>';
 }
@@ -629,64 +565,4 @@ function autoIndex() {
 function zeroPrefix(value) {
     if(parseInt(value) < 10) return "0" + parseInt(value);
     return value;
-}
-
-function totalHoursToTime(value) {
-    var display = '';
-    var hour = Math.floor(value);
-
-    if(hour > 0)
-    {
-        display = hour < 10 ? '0' + hour + 'h' : hour + 'h';
-    }
-
-    var minute = Math.round((value - hour) * 60);
-    return minute < 10 ? display + '0' + minute + '\'' : display + minute + '\'';
-}
-
-function updateTableHeaders() {
-    if($(".persist-area").val() != undefined)
-    {
-        var leftspace= 191;
-        var widthspace = $(".persist-area").width() + 18;
-        if($.browser.safari)
-        {
-            leftspace=192;
-            widthspace = widthspace - 8;
-            if(widthspace < 1060)
-                widthspace = 1060;
-        }
-        else
-        {
-            widthspace = widthspace - 17;
-            if(widthspace < 1051)
-                widthspace = 1051;
-        }
-
-        $('.floatingHeader').width(widthspace);
-        var left = $('table thead tr:first').position()["left"];
-        $(".persist-area").each(function () {
-            var el = $(this),
-                    offset = el.offset(),
-                    scrollTop = $(window).scrollTop(),
-                    floatingHeader = $(".floatingHeader", this)
-            if ((scrollTop > offset.top -60) && (scrollTop < offset.top + el.height())) {
-                floatingHeader.css({
-                    "visibility": "visible",
-                    "left": (leftspace+left)
-                });
-            } else {
-                floatingHeader.css({
-                    "visibility": "hidden"
-                });
-            };
-        });
-
-        var i = 0;
-        $("table .persist-header th").each(function () {
-            var x = $(this).width();
-            $($("table .floatingHeader th")[i]).width(x);
-            i++;
-        });
-    }
 }

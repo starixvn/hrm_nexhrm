@@ -15,13 +15,16 @@ namespace Fanex.NexHR.WebSite
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            // common
+            #region Common
+
             bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
                         "~/Scripts/Libs/jquery-{version}.js",
                         "~/Scripts/Libs/jquery-ui-{version}.js",
                         "~/Scripts/Libs/jquery.validate*",
+                        "~/Scripts/Libs/jquery-dateFormat.min.js",
                         "~/Scripts/Libs/materialize.js",
                         "~/Scripts/Libs/jquery.tipsy.js",
+                        "~/Scripts/Libs/jquery.tmpl.min.js",
                         "~/Scripts/Libs/jquery.cookie.js",
                         "~/Scripts/Libs/chart.js",
                         "~/Scripts/Libs/common.js",
@@ -38,13 +41,27 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/fullcalendarcss",
                 "~/Content/Common/fullcalendar.css");
 
+            // context menu
+            bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.js"));
+
             bundles.AddAndInclude(
                 "~/Content/contextmenucss",
                 "~/Content/ContextMenu/contextMenu.css");
 
+            // month picker
+            bundles.AddAndInclude(
+                "~/Content/monthpickercss",
+                "~/Content/Common/monPickr-0.0.3.css");
+
+            bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
+                "~/Scripts/Libs/monPickr-0.0.3.js"));
+
             bundles.AddAndInclude(
                 "~/Content/myrequestcss",
                 "~/Content/Views/myrequest.css");
+
+            #endregion Common
 
             // dashboard
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
@@ -56,17 +73,24 @@ namespace Fanex.NexHR.WebSite
 
             // leave request
             bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
-                "~/Scripts/Libs/jquery.contextMenu.js",
                 "~/Scripts/Views/leave.request.js",
                 "~/Scripts/Views/checkinout.byemployee.js",
                 "~/Scripts/Views/search.request.js"));
 
             // check in out
             bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
-                "~/Scripts/Libs/jquery.contextMenu.js",
                 "~/Scripts/Views/checkinout.request.js",
                 "~/Scripts/Views/checkinout.byemployee.js",
                 "~/Scripts/Views/search.request.js"));
+
+            // my timesheet
+            bundles.Add(new ScriptBundle("~/bundles/mytimesheetjs").Include(
+                "~/Scripts/Views/report.timesheet.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/mytimesheetcss",
+                "~/Content/Views/report.timesheet.css");
+            
 
             // my working schedule
             bundles.Add(new ScriptBundle("~/bundles/myworkingschedulejs").Include(

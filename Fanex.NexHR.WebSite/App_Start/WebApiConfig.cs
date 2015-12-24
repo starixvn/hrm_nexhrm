@@ -10,6 +10,8 @@
 namespace Fanex.NexHR.WebSite
 {
     using System.Web.Http;
+    using Newtonsoft.Json.Serialization;
+    using Newtonsoft.Json;
 
     public static class WebApiConfig
     {
@@ -19,6 +21,10 @@ namespace Fanex.NexHR.WebSite
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
+
+            var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            jsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
+            ((DefaultContractResolver)jsonFormatter.SerializerSettings.ContractResolver).IgnoreSerializableAttribute = true;
         }
     }
 }

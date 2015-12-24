@@ -1,40 +1,5 @@
-.tipsy {
-    &.leave-request {
-        max-width: 50rem;
-        font-size: 1.3rem;
-        opacity: 1 !important;
-
-        .tipsy-arrow {
-            border: none;
-        }
-
-        .tipsy-inner {
-            max-width: none;
-            background: #fff9c4;
-            color: #4f4f4f;
-            text-align: left;
-            line-height: 2.2rem;
-            box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-
-            ul {
-                padding-left: 2rem;
-                list-style-type: disc;
-
-                li {
-                    list-style-type: disc;
-                }
-
-                ul {
-                    list-style-type: circle;
-
-                    li {
-                        list-style-type: circle;
-                    }
-                }
-            }
-        }
-    }
-}
+@import '../Common/utils/mixins';
+@import 'tipsy';
 
 .employee-autocomplete {
     max-height: 40rem;

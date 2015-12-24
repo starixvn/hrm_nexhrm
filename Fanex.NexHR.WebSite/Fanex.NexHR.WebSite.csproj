@@ -199,6 +199,7 @@
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
+    <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
     <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
@@ -208,6 +209,7 @@
     <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.svg" />
     <Content Include="Content\Common\components\materialdesignicons.css" />
     <Content Include="Content\Common\fullcalendar.css" />
+    <Content Include="Content\Common\monPickr-0.0.3.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
@@ -263,15 +265,19 @@
     <Content Include="Content\Views\myrequest.css">
       <DependentUpon>myrequest.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\report.timesheet.css">
+      <DependentUpon>report.timesheet.scss</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
-    <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\fullcalendar.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\Libs\jquery-dateFormat.js" />
+    <Content Include="Scripts\Libs\jquery-dateFormat.min.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\Libs\jquery.contextMenu.js" />
@@ -291,6 +297,7 @@
     <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
+    <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />
     <Content Include="Scripts\Views\myworkingschedule.js" />
     <Content Include="Scripts\Views\checkinout.byemployee.js" />
@@ -298,6 +305,7 @@
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\leave.request.js" />
+    <Content Include="Scripts\Views\report.timesheet.js" />
     <Content Include="Scripts\Views\search.request.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -347,6 +355,7 @@
     <Content Include="Views\Memo\Detail.cshtml" />
     <Content Include="Views\Memo\Edit.cshtml" />
     <Content Include="Views\Memo\Index.cshtml" />
+    <None Include="Content\Views\report.timesheet.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

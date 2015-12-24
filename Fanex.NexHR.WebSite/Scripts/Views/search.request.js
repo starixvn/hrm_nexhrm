@@ -50,9 +50,12 @@ $(document).ready(function () {
                             switch (forRequest) {
                                 case 0: // leave
                                     $("#FromDate, #ToDate").attr("disableddate", response.join(","));
+                                    pickerFromDate.render();
+                                    pickerToDate.render();
                                     break;
                                 case 1: // late in early out
                                     $("#ForDate").attr("disabledDate", response.join(","));
+                                    pickerDate.render();
                                     shiftChange();
                                     break;
                                 case 2: // check in out

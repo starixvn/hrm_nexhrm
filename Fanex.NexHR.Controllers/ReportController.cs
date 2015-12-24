@@ -92,6 +92,20 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
+        {
+            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = new DateTime(model.Year, model.Month, 1),
+                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
+                ReportType = model.RequestType,
+                EmployeeId = model.EmpId
+            };
+
+            return Json(new { data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria) }, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// Employee request monitoring in current month.
         /// </summary>

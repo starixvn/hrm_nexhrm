@@ -699,6 +699,8 @@ namespace Fanex.NexHR.Controllers
             return Json(new { employees = entityList }, JsonRequestBehavior.AllowGet);
         }
 
+
+
         #region TOEIC
 
         /// <summary>

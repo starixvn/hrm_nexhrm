@@ -22,7 +22,7 @@ namespace Fanex.NexHR.ViewModels
 
         public int? EmpId { get; set; }
 
-        [Display(Name = "Request type")]
+        [Display(Name = "Request Type")]
         public short RequestType { get; set; }
     }
 }

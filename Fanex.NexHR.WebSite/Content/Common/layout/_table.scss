@@ -34,24 +34,31 @@
             }
         }
     }
+
+    .floatingHeader
+    {
+        z-index: 999;
+        position: fixed;
+        top: 6.5rem;
+    }
 }
 
-table {    
+table {
   @extend %boxshadow;
   .striped {
     thead {
       background: #3b4354;
       color: #fff;
 
-	  th {
-	    font-weight: normal;
-	  }
+      th {
+        font-weight: normal;
+      }
     }
   }
 
   .mdi-border-color, .mdi-delete {
-	position: relative;
-	top: 2px;
+    position: relative;
+    top: 2px;
   }
 
   .trigger {
@@ -60,11 +67,11 @@ table {
     border-radius: 2px;
     font-size: 12px;
 
-    &.schedule {        
+    &.schedule {
       background: $color-trigger-bgschedule;
     }
 
-    &.function {        
+    &.function {
       background: $color-trigger-bgfunction;
     }
   }
@@ -121,13 +128,13 @@ table {
     }
 
     i {
-      color: $color-text-main;	  
+      color: $color-text-main;
     }
   } 
 
-  .pagination {   
-    margin: 7px 1.6rem 0 10px;     
-		  
+  .pagination {
+    margin: 7px 1.6rem 0 10px;
+
     li {
       float: left;
       height: 30px;
@@ -135,7 +142,7 @@ table {
       margin: 0 3px;
       padding: 4px 2px;
       width: 30px;
-      @extend %boxshadow;                
+      @extend %boxshadow;
       &.active {
         background: $color-second;
       }
@@ -173,21 +180,20 @@ table {
 
     span.badge {
       right: -10px !important;
-      top: -13px;      
+      top: -13px;
       min-width: 2rem;
-      border-radius: 5px;      
-	  background: $color-danger;
-	  color: #fff;
+      border-radius: 5px;
+      background: $color-danger;
+      color: #fff;
     }
   }
 }
 
 table.data thead tr:nth-child(even) {
     background-color: #4a5267;
-	th {
-		border-left: none;
-		border-right: none;
-	}
-	
+    th {
+        border-left: none;
+        border-right: none;
+    }
+    
 }
-
