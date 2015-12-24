@@ -73,6 +73,7 @@
 
         a.tooltip-request {
             padding: .4rem .6rem;
+            margin-right: .5rem;
             border: .1rem solid #0789d1;
             @include css3(border-radius, .3rem);
         }

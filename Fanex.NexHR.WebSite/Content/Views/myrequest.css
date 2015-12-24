@@ -39,14 +39,17 @@
     .tipsy.tipsy-request table.table-tooltip tr td {
       padding: .2rem .5rem;
       border-left: .1rem solid #0789d1; }
-      .tipsy.tipsy-request table.table-tooltip tr td span.leave {
-        background-color: #b71c1c;
+      .tipsy.tipsy-request table.table-tooltip tr td span.leave, .tipsy.tipsy-request table.table-tooltip tr td span.checkinout {
         color: #fff;
         padding: .3rem .5rem;
         -webkit-border-radius: 0.3rem;
         -moz-border-radius: 0.3rem;
         -ms-border-radius: 0.3rem;
         border-radius: 0.3rem; }
+      .tipsy.tipsy-request table.table-tooltip tr td span.leave {
+        background-color: #b71c1c; }
+      .tipsy.tipsy-request table.table-tooltip tr td span.checkinout {
+        background-color: #1565c0; }
       .tipsy.tipsy-request table.table-tooltip tr td:first-child {
         border-left: none; }
     .tipsy.tipsy-request table.table-tooltip tr:last-child {
