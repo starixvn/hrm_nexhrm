@@ -12,11 +12,13 @@ namespace Fanex.NexHR.Controllers.Request
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
@@ -34,6 +36,7 @@ namespace Fanex.NexHR.Controllers.Request
         private readonly IRequestService _requestService;
 
         #region Ctor
+
         public LeaveController()
             : this(null, null, null)
         {
@@ -49,7 +52,7 @@ namespace Fanex.NexHR.Controllers.Request
             _requestService = requestService ?? new RequestService();
         }
 
-        #endregion
+        #endregion Ctor
 
         /// <summary>
         /// Create leave request.
@@ -59,7 +62,8 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
@@ -67,9 +71,6 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            var listUnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-            ViewBag.UnavailDates = listUnavailDates;
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
             var model = new LeaveRequestViewModel
             {
                 Employee = employee.NickName,
@@ -78,7 +79,9 @@ namespace Fanex.NexHR.Controllers.Request
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
                 TotalDays = 1,
-                By = this.CurrentUser.Id
+                By = this.CurrentUser.Id,
+                LeaveTypes = _leaveTypeService.GetAll().ToList(),
+                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
             // Count number days of Leave request in current month.
@@ -92,8 +95,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = (int)RequestType.Leave
             };
 
-            decimal numberDaysOfRequest = _requestService.GetNumberRequestInMonth(criteria);
-            ViewBag.TotalRequest = numberDaysOfRequest;
+            ViewBag.TotalRequest = (decimal)_requestService.GetNumberRequestInMonth(criteria);
             return View(model);
         }
 
@@ -105,16 +107,16 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
-
             if (model.EmployeeId <= 0)
             {
                 ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
             }
             else
             {
+                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
                 model.By = this.CurrentUser.Id;
                 ViewBag.Year = model.FromDate.Year;
+
                 if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
                 {
                     model.DisplayName = model.Employee;
@@ -127,9 +129,7 @@ namespace Fanex.NexHR.Controllers.Request
                     ToDate = Utilities.RequestAvailableToDate
                 };
 
-                var listUnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-                ViewBag.UnavailDates = listUnavailDates;
-
+                model.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
                 ViewBag.Requested = _requestService.Leave(ModelState, model);
             }
 
@@ -150,12 +150,12 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+            RequestEntity request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -171,10 +171,10 @@ namespace Fanex.NexHR.Controllers.Request
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
-                HalfDayOff = request.TotalDays == (decimal)0.5
+                HalfDayOff = request.TotalDays == (decimal)0.5,
+                LeaveTypes = _leaveTypeService.GetAll().ToList(),
+                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
-
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             return View(model);
         }
@@ -187,8 +187,9 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            model.LeaveTypes = _leaveTypeService.GetAll().ToList();
             ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
+
             return View(model);
         }
 

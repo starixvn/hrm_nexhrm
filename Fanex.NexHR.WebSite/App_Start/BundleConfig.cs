@@ -41,6 +41,10 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/fullcalendarcss",
                 "~/Content/Common/fullcalendar.css");
 
+            // date js
+            bundles.Add(new ScriptBundle("~/bundles/datejs").Include(
+                "~/Scripts/Libs/date.js"));
+
             // context menu
             bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
                 "~/Scripts/Libs/jquery.contextMenu.js"));
@@ -90,7 +94,13 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/mytimesheetcss",
                 "~/Content/Views/report.timesheet.css");
-            
+
+            // time record
+            bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
+                "~/Scripts/Views/report.timerecord.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/timerecordcss");
 
             // my working schedule
             bundles.Add(new ScriptBundle("~/bundles/myworkingschedulejs").Include(

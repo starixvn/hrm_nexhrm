@@ -1,5 +1,4 @@
 ﻿/// <reference path="jquery.min.js" />
-/// <reference path="date.js" />
 
 (function() {
     var proxied = window.alert;
@@ -78,7 +77,11 @@ function confirm(message, callback, options) {
 }
 
 function initDatePicker(el) {
-    var $input = $(el).pickadate({ selectYears: 2 }),
+    var $input = $(el).pickadate({
+            selectMonths: true,
+            selectYears: true,
+            showMonthsShort: true
+        }),
         picker = $input.pickadate('picker');
 
     // get minDate, maxDate, disabledDates

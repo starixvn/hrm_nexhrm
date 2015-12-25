@@ -1,12 +1,12 @@
 ﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.ViewModels
-@model TimeRecordViewModel
+@model Fanex.NexHR.ViewModels.TimeRecordViewModel
 @{
     ViewBag.Title = @Labels.MyTimeRecord;
 }
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/datejs", "~/bundles/timerecordjs")
 }
 @section Breadcrumb {
 }
@@ -26,40 +26,28 @@
                                     <label>@Labels.DateRange</label>
                                 </div>
                                 <div class="left select--s">
-                                    <select id="Date" name="Date">
-                                        <option value="0">@Labels.DateRange</option>
-                                        <option value="1">@Labels.ToDay</option>
-                                        <option value="2">@Labels.Yesterday</option>
-                                        <option value="3">@Labels.CurrentWeek</option>
-                                        <option value="4">@Labels.LastWeek</option>
-                                        <option value="5">@Labels.CurrentMonth</option>
-                                        <option value="6">@Labels.LastMonth</option>
-                                        <option value="7">@Labels.SinceLastMonth</option>
-                                    </select>
+                                    @Html.DropDownList("Date", Model.DateRanges)
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
-
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate, "From Date")
+                                    @Html.LabelFor(model => model.FromDate, @Labels.FromDate)
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-
                             <div class="col">
-                                <div class="left label--s">
-                                   @Html.LabelFor(model => model.ToDate, "To Day")
+                                <div class="left label--m">
+                                   @Html.LabelFor(model => model.ToDate, @Labels.ToDate)
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-
                             <div class="col">
                                 <span class="button-hrm waves-effect waves-light btn blue darken-2">
                                     <input id="btnSubmit" type="button" value="@Labels.Submit" />

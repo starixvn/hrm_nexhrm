@@ -42,18 +42,7 @@
                                     @Html.LabelFor(model => model.RequestType)
                                 </div>
                                 <div class="left select--s">
-                                    @{
-                                        var types = new List<SelectListItem>
-                                        {
-                                            new SelectListItem() {Text = "All", Value = "0"},
-                                            new SelectListItem() {Text = "Check In", Value = "1"},
-                                            new SelectListItem() {Text = "Check Out", Value = "2"},
-                                            new SelectListItem() {Text = "Late In", Value = "3"},
-                                            new SelectListItem() {Text = "Early Out", Value = "4"},
-                                            new SelectListItem() {Text = "Not Working", Value = "5"},
-                                        };
-                                    }
-                                    @Html.DropDownListFor(model => model.RequestType, types)
+                                    @Html.DropDownListFor(model => model.RequestType, Model.RequestTypes)
                                     @Html.ValidationMessageFor(model => model.RequestType)
                                 </div>
                             </div>

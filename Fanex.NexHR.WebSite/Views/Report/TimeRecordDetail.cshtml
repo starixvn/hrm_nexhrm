@@ -1,86 +1,66 @@
 ﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Models
-@model IList<TimeRecordModel>
+@model IList<Fanex.NexHR.Models.TimeRecordModel>
 @{
     Layout = null;
 }
-<table id="data" class="data">
+<table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th>
-                #
-            </th>
-            <th>
-                @Labels.Code
-            </th>
-            <th>
-                @Labels.Nick
-            </th>
-            <th>
-                @Labels.Team
-            </th>
-            <th>
-                @Labels.TimeRecord
-            </th>
-            <th>
-                @Labels.InOut
-            </th>
+            <th>#</th>
+            <th>@Labels.Code</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.TimeRecord</th>
+            <th>@Labels.InOut</th>
         </tr>
     </thead>
     <tbody>
         @if (Model != null && Model.Any())
         {
             var i = 0;
-            foreach (TimeRecordModel item in Model)
+            foreach (Fanex.NexHR.Models.TimeRecordModel item in Model)
             {
                 i++;
-            <tr>
-                <td>@i
-                </td>
-                <td>
-                    @item.Employee.Code
-                </td>
-                <td class="tooltip" title="@item.Employee.FullName">
-                    @item.Employee.NickName
-                </td>
-                <td class="tooltip" title="@item.Employee.Team.Name">
-                    @item.Employee.Team.Code
-                </td>
-                <td>
-                    @item.RecordTime.ToDetailFormatedDate()
-                </td>
-                @*<td>
-                        @item.GetInOutName
-                    </td>*@
-                <td>
-                    @if (Roles.IsUserInRole("HR"))
-                    {
-                        if (item.InOutType == 0)
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Employee.Code</td>
+                    <td class="tooltip" title="@item.Employee.FullName">
+                        @item.Employee.NickName
+                    </td>
+                    <td class="tooltip" title="@item.Employee.Team.Name">
+                        @item.Employee.Team.Code
+                    </td>
+                    <td>
+                        @item.RecordTime.ToDetailFormatedDate()
+                    </td>
+                    <td>
+                        @if (Roles.IsUserInRole("HR"))
                         {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
-                            @item.GetInOutName
-                        </a>
-                        }
-                        else if (item.InOutType == 1)
-                        {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
-                            @item.GetInOutName
-                        </a>
+                            if (item.InOutType == 0)
+                            {
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
+                                    @item.GetInOutName
+                                </a>
+                            }
+                            else if (item.InOutType == 1)
+                            {
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
+                                    @item.GetInOutName
+                                </a>
+                            }
+                            else
+                            {
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
+                                    @item.GetInOutName
+                                </a>
+                            }
                         }
                         else
                         {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
                             @item.GetInOutName
-                        </a>
                         }
-                    }
-                    else
-                    {
-                        @item.GetInOutName
-                    }
-                </td>
-            </tr>
-
+                    </td>
+                </tr>
             }
         }
         else

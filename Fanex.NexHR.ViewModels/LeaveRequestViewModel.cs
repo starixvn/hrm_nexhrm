@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add LeaveTypes, UnavailDates</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -13,6 +14,7 @@ namespace Fanex.NexHR.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
     /// <summary>
@@ -83,5 +85,9 @@ namespace Fanex.NexHR.ViewModels
 
             return result;
         }
+
+        public List<LeaveType> LeaveTypes { get; set; }
+
+        public List<DateTime> UnavailDates { get; set; }
     }
 }

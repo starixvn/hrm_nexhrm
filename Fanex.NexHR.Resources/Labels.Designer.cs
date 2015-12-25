@@ -556,7 +556,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date range.
+        ///   Looks up a localized string similar to Date Range.
         /// </summary>
         public static string DateRange {
             get {
@@ -1686,6 +1686,15 @@ namespace Fanex.NexHR.Resources {
         public static string Note {
             get {
                 return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Working.
+        /// </summary>
+        public static string NotWorking {
+            get {
+                return ResourceManager.GetString("NotWorking", resourceCulture);
             }
         }
         

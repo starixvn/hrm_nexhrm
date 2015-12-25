@@ -47,7 +47,7 @@
                                         @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
                                     </div>
                                     <div class="left input--m">
-                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(ViewBag.LeaveTypes, "Id", "Name"))
+                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypes, "Id", "Name"))
                                         @Html.ValidationMessageFor(model => model.LeaveTypeId)
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         @Html.DatePickerFor(model => model.FromDate,
                                              Utilities.RequestAvailableFromDate,
                                              Utilities.RequestAvailableToDate,
-                                             unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                             unavailDates: Model.UnavailDates)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         @Html.DatePickerFor(model => model.ToDate,
                                             Utilities.RequestAvailableFromDate,
                                             Utilities.RequestAvailableToDate,
-                                            unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                            unavailDates: Model.UnavailDates)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                         <input type="submit" value="@Labels.Update" />
                                     </span> 
                                     <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("employeeview", "leave")">@Labels.Back</a>
-                                </div>                                
+                                </div>
                             </div>
                         }
                     </div>
