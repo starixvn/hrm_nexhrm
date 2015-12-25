@@ -11,12 +11,14 @@ namespace Fanex.NexHR.Controllers.Request
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Shift;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -33,6 +35,7 @@ namespace Fanex.NexHR.Controllers.Request
         private readonly IRequestService _requestService;
 
         #region Ctor
+
         public CheckInOutController()
             : this(null, null, null)
         {
@@ -48,7 +51,7 @@ namespace Fanex.NexHR.Controllers.Request
             _requestService = requestService ?? new RequestService();
         }
 
-        #endregion
+        #endregion Ctor
 
         /// <summary>
         /// Create check in/out request.
@@ -65,10 +68,9 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            ViewBag.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-            ViewBag.Shifts = _shiftService.GetAll(new GetAllShiftCriteria());
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
             var viewModel = new CheckInOutRequestViewModel
             {
                 Employee = employee.NickName,
@@ -78,14 +80,17 @@ namespace Fanex.NexHR.Controllers.Request
                 Hour = DateTime.Now.Hour,
                 Minute = DateTime.Now.Minute,
                 CheckInOutType = type.HasValue ? type.Value : (short)RequestType.CheckIn,
-                By = this.CurrentUser.Id
+                By = this.CurrentUser.Id,
+                Shifts = _shiftService.GetAll(new GetAllShiftCriteria()).ToList(),
+                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
                 EmployeeId = employee.Id,
                 Date = DateTime.Now
             };
-            var shift = _shiftService.GetByDate(getShiftByDateCriteria);
+
+            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
             if (shift != null)
             {
                 viewModel.Hour = int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[0]);
@@ -93,8 +98,9 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             viewModel.Shift = (shift == null) ? string.Empty : shift.Name;
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
+
+            int year = DateTime.Now.Year,
+                month = DateTime.Now.Month;
             var criteria = new GetNumberRequestInMonthCriteria()
             {
                 EmpId = this.CurrentUser.Id,
@@ -103,8 +109,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = (int)RequestType.Leave
             };
 
-            decimal numberDaysOfRequest = _requestService.GetNumberRequestInMonth(criteria);
-            ViewBag.TotalRequest = numberDaysOfRequest;
+            ViewBag.TotalRequest = _requestService.GetNumberRequestInMonth(criteria);
 
             return View(viewModel);
         }
@@ -117,8 +122,6 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
-            ViewBag.Shifts = _shiftService.GetAll(new GetAllShiftCriteria());
-
             if (model.EmployeeId <= 0)
             {
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
@@ -131,6 +134,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
+                model.Shifts = _shiftService.GetAll(new GetAllShiftCriteria()).ToList();
                 ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
                 ViewBag.Year = model.ForDate.Year;
             }
@@ -152,12 +156,8 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            var listUnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-            ViewBag.UnavailDates = listUnavailDates;
-
-            ViewBag.Shifts = _shiftService.GetAll(new GetAllShiftCriteria());
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+            RequestEntity request = _requestService.GetRequestEntity(getRequestByIdCriteria);
 
             if (!this.Editable(request.Status.Id, request.Requester.Id))
             {
@@ -165,15 +165,16 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
                 EmployeeId = employee.Id,
                 Date = DateTime.Now
             };
-            var shift = _shiftService.GetByDate(getShiftByDateCriteria);
-            return View(new CheckInOutRequestViewModel
+            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
+
+            var model = new CheckInOutRequestViewModel
             {
                 Id = request.Id,
                 Employee = employee.NickName,
@@ -184,8 +185,12 @@ namespace Fanex.NexHR.Controllers.Request
                 Minute = request.FromDate.Minute,
                 CheckInOutType = request.RequestType.Id,
                 By = this.CurrentUser.Id,
-                Shift = (shift == null) ? string.Empty : shift.Name
-            });
+                Shift = (shift == null) ? string.Empty : shift.Name,
+                Shifts = _shiftService.GetAll(new GetAllShiftCriteria()).ToList(),
+                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
+            };
+
+            return View(model);
         }
 
         /// <summary>
@@ -197,9 +202,10 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            ViewBag.Shifts = _shiftService.GetAll(new GetAllShiftCriteria());
+            model.Shifts = _shiftService.GetAll(new GetAllShiftCriteria()).ToList();
             ViewBag.Updated = _requestService.UpdateCheckInOut(ModelState, model);
             ViewBag.Year = model.ForDate.Year;
+
             return View(model);
         }
 
@@ -246,19 +252,20 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+
             return View(entityList);
         }
 
         private bool Editable(byte status, int employeeId)
         {
+            bool result = true;
+
             if (status != (byte)RequestStatuse.Pending || employeeId != this.CurrentUser.Id)
             {
-                return false;
+                result = false;
             }
-            else
-            {
-                return true;
-            }
+
+            return result;
         }
 
         /// <summary>
@@ -267,10 +274,10 @@ namespace Fanex.NexHR.Controllers.Request
         /// <returns>Number of request.</returns>
         private int CountRequestInMonth()
         {
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
-            int numberOfRequest = 0;
-            
+            int year = DateTime.Now.Year,
+                month = DateTime.Now.Month,
+                numberOfRequest = 0;
+
             var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.Member,

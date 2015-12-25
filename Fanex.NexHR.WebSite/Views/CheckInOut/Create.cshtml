@@ -68,7 +68,7 @@
                                             @Html.DatePickerFor(model => model.ForDate,
                                                 Utilities.RequestAvailableFromDate,
                                                 DateTime.Now,
-                                                unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                                unavailDates: Model.UnavailDates)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                         <div class="col m-l--m">

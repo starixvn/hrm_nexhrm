@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add Shifts, UnavailDates</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -13,6 +14,7 @@ namespace Fanex.NexHR.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
 
     /// <summary>
     /// Check in/out request view model.
@@ -82,5 +84,9 @@ namespace Fanex.NexHR.ViewModels
 
             return result;
         }
+
+        public List<Shift> Shifts { get; set; }
+
+        public List<DateTime> UnavailDates { get; set; }
     }
 }

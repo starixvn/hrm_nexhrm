@@ -73,7 +73,7 @@
                                             @Html.DatePickerFor(model => model.ForDate,
                                                 Utilities.RequestAvailableFromDate,
                                                 DateTime.Now,
-                                                unavailDates: (IEnumerable<DateTime>)ViewBag.UnavailDates)
+                                                unavailDates: Model.UnavailDates)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                         <div class="col m-l--m">
@@ -95,7 +95,7 @@
                                         <span id="shiftname" class="label">@Model.Shift</span>
                                         <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo"><span class="icon shiftinfo"></span></a>
                                         <div class="hide">
-                                            @RazorHelper.ShiftInfoTable(ViewBag.Shifts)
+                                            @RazorHelper.ShiftInfoTable(Model.Shifts)
                                         </div>
                                     </div>
                                 </div>
