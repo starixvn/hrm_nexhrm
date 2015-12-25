@@ -1,9 +1,9 @@
 ﻿@model IList<Fanex.NexHR.ViewModels.WorkingScheduleModel>
 @section css{
-    @Styles.Render("~/Content/fullcalendarcss")
+    @Styles.Render("~/Content/fullcalendarcss", "~/Content/mycalendarcss")
 }
 @section js{
-    @Scripts.Render("~/bundles/myworkingschedulejs")
+    @Scripts.Render("~/bundles/fullcalendarjs", "~/bundles/mycalendarjs")
 }
 @{
     ViewBag.Title = Labels.MyCalendar;

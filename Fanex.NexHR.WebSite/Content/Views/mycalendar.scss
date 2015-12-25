@@ -1,0 +1,80 @@
+@import '../Common/utils/mixins';
+
+#calendar {
+    &.fc {
+        th, td {
+            border: .1rem solid #c8c8c8;
+        }
+    }
+
+    .fc-toolbar {
+        margin-top: 1rem;
+
+        .fc-prev-button, .fc-next-button {
+            border: .1rem solid #c8c8c8;
+            height: 2.1em;
+            padding: 0 .6em;
+            font-size: 1em;
+
+            .ui-icon {
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+        }
+
+        .fc-prev-button {
+            @include css3(border-top-left-radius, .4rem);
+            @include css3(border-bottom-left-radius, .4rem);
+        }
+
+        .fc-next-button {
+            @include css3(border-top-right-radius, .4rem);
+            @include css3(border-bottom-right-radius, .4rem);
+        }
+    }
+
+    .fc-view-container {
+        table {
+            @include css3(box-shadow, none);
+        }
+
+        .fc-head {
+            table {
+                thead {
+                    background: #3b4354;
+                    color: #fff;
+
+                    tr {
+                        th {
+                            padding: .8rem .7rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .fc-body {
+            .fc-row.fc-week {
+                .fc-event-container {
+                    text-align: center;
+
+                    .fc-content {
+                        .fc-time {
+                            display: none;
+                        }
+                    }
+                }
+
+                .fc-day {
+                    &.fc-sat, &.fc-sun {
+                        background: #e0e0e0;
+                    }
+
+                    &.fc-today {
+                        background: #fff9c4;
+                    }
+                }
+            }
+        }
+    }
+}

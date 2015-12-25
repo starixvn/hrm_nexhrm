@@ -1,0 +1,50 @@
+#calendar.fc th, #calendar.fc td {
+  border: .1rem solid #c8c8c8; }
+#calendar .fc-toolbar {
+  margin-top: 1rem; }
+  #calendar .fc-toolbar .fc-prev-button, #calendar .fc-toolbar .fc-next-button {
+    border: .1rem solid #c8c8c8;
+    height: 2.1em;
+    padding: 0 .6em;
+    font-size: 1em; }
+    #calendar .fc-toolbar .fc-prev-button .ui-icon, #calendar .fc-toolbar .fc-next-button .ui-icon {
+      width: 1.6rem;
+      height: 1.6rem; }
+  #calendar .fc-toolbar .fc-prev-button {
+    -webkit-border-top-left-radius: 0.4rem;
+    -moz-border-top-left-radius: 0.4rem;
+    -ms-border-top-left-radius: 0.4rem;
+    border-top-left-radius: 0.4rem;
+    -webkit-border-bottom-left-radius: 0.4rem;
+    -moz-border-bottom-left-radius: 0.4rem;
+    -ms-border-bottom-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem; }
+  #calendar .fc-toolbar .fc-next-button {
+    -webkit-border-top-right-radius: 0.4rem;
+    -moz-border-top-right-radius: 0.4rem;
+    -ms-border-top-right-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    -webkit-border-bottom-right-radius: 0.4rem;
+    -moz-border-bottom-right-radius: 0.4rem;
+    -ms-border-bottom-right-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem; }
+#calendar .fc-view-container table {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none; }
+#calendar .fc-view-container .fc-head table thead {
+  background: #3b4354;
+  color: #fff; }
+  #calendar .fc-view-container .fc-head table thead tr th {
+    padding: .8rem .7rem; }
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
+  text-align: center; }
+  #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-content .fc-time {
+    display: none; }
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-sat, #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-sun {
+  background: #e0e0e0; }
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-today {
+  background: #fff9c4; }
+
+/*# sourceMappingURL=mycalendar.css.map */
