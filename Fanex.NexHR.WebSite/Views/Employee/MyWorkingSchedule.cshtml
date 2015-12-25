@@ -6,12 +6,20 @@
     @Scripts.Render("~/bundles/myworkingschedulejs")
 }
 @{
-    ViewBag.Title = Labels.MyWorkingSchedule;
+    ViewBag.Title = Labels.MyCalendar;
 }
 @section Breadcrumb {
 }
 <div class="row content">
-    <h6 class="title-page txt-uppercase">@Labels.MyWorkingSchedule</h6>
-    <div class="col s6" id="calendar">
-    </div>
+    <div class="col s12 l7 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
 </div>

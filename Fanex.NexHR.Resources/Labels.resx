@@ -891,4 +891,7 @@
   <data name="NotWorking" xml:space="preserve">
     <value>Not Working</value>
   </data>
+  <data name="MyCalendar" xml:space="preserve">
+    <value>My Calendar</value>
+  </data>
 </root>

@@ -1429,6 +1429,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Calendar.
+        /// </summary>
+        public static string MyCalendar {
+            get {
+                return ResourceManager.GetString("MyCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Change Shift Request(s).
         /// </summary>
         public static string MyChangeShiftRequest {
