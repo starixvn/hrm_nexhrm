@@ -20,8 +20,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -90,20 +88,6 @@ namespace Fanex.NexHR.Controllers
                 EmpId = CurrentUser.Id
             };
             return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
-        {
-            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
-            {
-                FromDate = new DateTime(model.Year, model.Month, 1),
-                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
-                ReportType = model.RequestType,
-                EmployeeId = model.EmpId
-            };
-
-            return Json(new { data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria) }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -416,7 +400,7 @@ namespace Fanex.NexHR.Controllers
                 var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Employee = employee.DisplayName;
             }
-            
+
             return LateInEarlyOutDetail(model);
         }
 

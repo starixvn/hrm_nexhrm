@@ -119,28 +119,27 @@ $(document).ready(function () {
             var empId = parseInt($('#EmployeeId').val());
 
             if (empId > 0) {
-                if ($('#HalfDayOff').attr('checked')) {
+                if ($('#HalfDayOff').prop('checked')) {
                     $('#ToDate').val($('#FromDate').val());
                     $.getJSON(_global.root + 'api/shift/GetShiftByDate', { employeeId: empId, date: $('#FromDate').val() },
-                    function (response) {
-                        if (response != null) {
-                            $('#FromTime').val(response.BeginCheckInTime);
-                            $('#FromTime').material_select();
-                            setValueforToTime();
-                            $('input[type=submit]').show();
-                        } else {
-                            $('input[type=submit]').hide();
-                        }
-                    }
-                );
+                        function (response) {
+                            if (response != null) {
+                                $('#FromTime').val(response.BeginCheckInTime);
+                                $('#FromTime').material_select();
+                                setValueforToTime();
+                                $('input[type=submit]').show();
+                            } else {
+                                $('input[type=submit]').hide();
+                            }
+                        });
                 } else {
                     $.getJSON(_global.root + 'api/employee/GetRangeDate',
-                    { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
-                    function (response) {
-                        if (response != null) {
-                            $('#TotalDays').val(response);
-                        }
-                    });
+                        { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
+                        function (response) {
+                            if (response != null) {
+                                $('#TotalDays').val(response);
+                            }
+                        });
                 }
             }
         });

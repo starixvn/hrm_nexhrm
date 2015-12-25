@@ -52,11 +52,11 @@ namespace Fanex.NexHR.Controllers
         }
 
         public AjaxController(
-            IEmployeeService employeeService = null, 
-            IRequestService requestService = null, 
-            IHolidayService holidayService = null, 
-            IMemoService memoService = null, 
-            ITeamService teamService = null, 
+            IEmployeeService employeeService = null,
+            IRequestService requestService = null,
+            IHolidayService holidayService = null,
+            IMemoService memoService = null,
+            ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IReportService reportService = null,
             IExtensionNoService extensionNoService = null,
@@ -519,6 +519,82 @@ namespace Fanex.NexHR.Controllers
             CommandResult commandResult = _departmentService.DeleteDepartment(criteria);
             JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
             return result;
+        }
+
+        [HttpPost]
+        public JsonResult GetEmployees(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        {
+            if (groupId == -1)
+            {
+                groupId = null;
+            }
+
+            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            {
+                Query = query,
+                GroupId = groupId,
+                TitleId = titleId,
+                Enable = CheckUserEnableCondition(enable),
+                IsDelete = CheckDeletedUserCondition(isDelete),
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+            var entityList = _employeeService.Query(getAllEmployeeCriteria);
+
+            return Json(new { employees = entityList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
+        {
+            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = new DateTime(model.Year, model.Month, 1),
+                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
+                ReportType = model.RequestType,
+                EmployeeId = model.EmpId
+            };
+
+            return Json(new { data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria) }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int? CheckUserEnableCondition(bool? enable)
+        {
+            int? disableUsers;
+            if (enable == true)
+            {
+                disableUsers = 0;
+            }
+            else if (enable == false)
+            {
+                disableUsers = 1;
+            }
+            else
+            {
+                disableUsers = null;
+            }
+
+            return disableUsers;
+        }
+
+        private int? CheckDeletedUserCondition(bool? isDelete)
+        {
+            int? deleteUsers;
+            if (isDelete == true)
+            {
+                deleteUsers = 1;
+            }
+            else if (isDelete == false)
+            {
+                deleteUsers = 0;
+            }
+            else
+            {
+                deleteUsers = null;
+            }
+
+            return deleteUsers;
         }
     }
 }

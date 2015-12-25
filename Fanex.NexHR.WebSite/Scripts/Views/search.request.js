@@ -15,7 +15,7 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: _global.root + 'employee/GetEmployees',
+                url: _global.root + 'ajax/GetEmployees',
                 type: 'POST',
                 dataType: 'json',
                 data: { query: term },
@@ -60,6 +60,7 @@ $(document).ready(function () {
                                     break;
                                 case 2: // check in out
                                     $("#ForDate").attr("disabledDate", response.join(","));
+                                    pickerDate.render();
                                     break;
                             }
                         }

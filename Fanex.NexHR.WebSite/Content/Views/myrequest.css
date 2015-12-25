@@ -1,4 +1,4 @@
-.tipsy .tipsy-inner {
+.tipsy.leave-request .tipsy-inner, .tipsy.tipsy-request .tipsy-inner {
   max-width: none;
   font-size: 1.3rem;
   text-align: left;

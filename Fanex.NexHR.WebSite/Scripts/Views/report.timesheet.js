@@ -34,7 +34,7 @@ function view() {
     $('#nodata').remove();
 
     $.ajax({
-        url: _global.root + 'report/timesheet',
+        url: _global.root + 'ajax/timesheet',
         type: 'POST',
         dataType: 'json',
         data: $('form').serialize(),

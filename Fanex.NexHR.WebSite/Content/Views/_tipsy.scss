@@ -1,13 +1,13 @@
 .tipsy {
-    .tipsy-inner {
-        max-width: none;
-        font-size: 1.3rem;
-        text-align: left;
-        line-height: 2.2rem;
-        @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
-    }
-
     &.leave-request, &.tipsy-request {
+        .tipsy-inner {
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
         .tipsy-arrow {
             border: none;
         }
