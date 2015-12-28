@@ -120,7 +120,11 @@ $(document).ready(function(){
 
     if (selectNavItem !== undefined) {
         selectNavItem.addClass('active');
-        selectNavItem.closest('div.collapsible-body').closest('li.section').find('> a.collapsible-header').trigger('click');
+
+        var section = selectNavItem.closest('div.collapsible-body').closest('li.section');
+        if(!$(section).hasClass('active')){
+            $(section).find('> a.collapsible-header').trigger('click');
+        }
     }
 
     $('.tooltip').tipsy({
