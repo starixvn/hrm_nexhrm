@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.min.js" />
+﻿/// <reference path='jquery.min.js' />
 
 (function() {
     var proxied = window.alert;
@@ -115,19 +115,13 @@ function initDatePicker(el) {
 }
 
 $(document).ready(function(){
-    var currentUrl = $("#controller").val() + "_" + $("#action").val();
-    var selectNavItem = $("#" + currentUrl);
-    if (selectNavItem !== undefined) {
-        selectNavItem.addClass("active");
-    }
+    var currentUrl = $('#controller').val() + '_' + $('#action').val(),
+        selectNavItem = $('#' + currentUrl);
 
-    $('.el[data-hashovermenu=True], .el[data-hashovermenu=data-hashovermenu]').hover(
-        function () {
-            $(this).find('.hoveraction').removeClass('hide').fadeIn(400);
-        }, function () {
-            $(this).find('.hoveraction').addClass('hide').hide();
-        }
-    );
+    if (selectNavItem !== undefined) {
+        selectNavItem.addClass('active');
+        selectNavItem.closest('div.collapsible-body').closest('li.section').find('> a.collapsible-header').trigger('click');
+    }
 
     $('.tooltip').tipsy({
         live: true,
@@ -162,11 +156,11 @@ $(document).ready(function(){
     });
 
     //Handle event when click search icon
-    $("#searchIcon").click(function(){
-        document.location = _global.root + 'employee/index?query=' + $("#searchbox").val();
+    $('#searchIcon').click(function(){
+        document.location = _global.root + 'employee/index?query=' + $('#searchbox').val();
     });
 
-    $("input[type=number]").keydown(function(event) {
+    $('input[type=number]').keydown(function(event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode === 13 ||
             // Allow: Ctrl+A
@@ -185,16 +179,16 @@ $(document).ready(function(){
     });
 
     var clonedHeaderRow;
-    $(".persist-area").each(function () {
-        clonedHeaderRow = $(".persist-header", this);
+    $('.persist-area').each(function () {
+        clonedHeaderRow = $('.persist-header', this);
         clonedHeaderRow
             .before(clonedHeaderRow.clone())
-            .css("width", clonedHeaderRow.width())
-            .addClass("floatingHeader")
-            .removeClass("persist-header");
+            .css('width', clonedHeaderRow.width())
+            .addClass('floatingHeader')
+            .removeClass('persist-header');
     });
 
-    $(".content_scroll").scroll(updateTableHeaders).trigger("scroll");
+    $('.content_scroll').scroll(updateTableHeaders).trigger('scroll');
 
     $(window).resize(function() {
         updateTableHeaders();
@@ -206,11 +200,11 @@ $(document).ready(function(){
 });
 
 function updateTableHeaders() {
-    if($(".persist-area").val() != undefined)
+    if($('.persist-area').val() != undefined)
     {
         var i = 0,
             leftspace= 191,
-            widthspace = $(".persist-area").width() + 18;
+            widthspace = $('.persist-area').width() + 18;
         widthspace = widthspace - 17;
 
         if(widthspace < 1051) {
@@ -218,29 +212,29 @@ function updateTableHeaders() {
         }
 
         $('.floatingHeader').width(widthspace);
-        var left = $('table thead tr:first').position()["left"];
+        var left = $('table thead tr:first').position()['left'];
 
-        $(".persist-area").each(function () {
+        $('.persist-area').each(function () {
             var el = $(this),
                 offset = el.offset(),
                 scrollTop = $(window).scrollTop(),
-                floatingHeader = $(".floatingHeader", this);
+                floatingHeader = $('.floatingHeader', this);
 
             if ((scrollTop > offset.top - 60) && (scrollTop < offset.top + el.height())) {
                 floatingHeader.css({
-                    "visibility": "visible",
-                    "left": (leftspace + left)
+                    'visibility': 'visible',
+                    'left': (leftspace + left)
                 });
             } else {
                 floatingHeader.css({
-                    "visibility": "hidden"
+                    'visibility': 'hidden'
                 });
             };
         });
 
-        $("table .persist-header th").each(function () {
+        $('table .persist-header th').each(function () {
             var x = $(this).width();
-            $($("table .floatingHeader th")[i]).width(x);
+            $($('table .floatingHeader th')[i]).width(x);
             i++;
         });
     }
@@ -273,11 +267,11 @@ function displayMinute(minutes) {
 function checkBadDates(mydate) {
     var isEnable = true;
     var disabledDates = $('.datepicker').attr('disabledDate');
-    var myBadDates = disabledDates.split(",");
+    var myBadDates = disabledDates.split(',');
 
-    var checkdate = new Date(mydate).format("dd mmm, yyyy");
+    var checkdate = new Date(mydate).format('dd mmm, yyyy');
     for (var i = 0; i < myBadDates.length; i++) {
-        var date = new Date(myBadDates[i]).format("dd mmm, yyyy");
+        var date = new Date(myBadDates[i]).format('dd mmm, yyyy');
         if (date == checkdate) {
             isEnable = false;
         }
@@ -295,13 +289,13 @@ function tooltip(element, enable) {
     });
     }
     else {
-        $(element).tipsy("hide");
+        $(element).tipsy('hide');
     }
 }
 
 function getParam(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+    var regexS = '[\\?&]' + name + '=([^&#]*)';
     var regex = new RegExp(regexS);
     var results = regex.exec(window.location.href);
     if (results == null)
@@ -324,7 +318,7 @@ function stringToBool(value)
 }
 
 function showMessage(message) {
-    $('#message').html(message + ' <img src="/images/ajax-loader.gif" />').css('left',$(window).width()/2);
+    $('#message').html(message + " <img src='/images/ajax-loader.gif' />").css('left', $(window).width()/2);
     $('#message').slideDown();
 }
 
@@ -347,15 +341,15 @@ function flashMessage(message) {
 
 function actingButton(element, disabled)
 {
-    $(element).attr("origin-value", $(element).attr("value"));
-    $(element).attr("value", 'Processing');
-    $(element).addClass("disabled");
+    $(element).attr('origin-value', $(element).attr('value'));
+    $(element).attr('value', 'Processing');
+    $(element).addClass('disabled');
 }
 
 function reloadButtonText(element)
 {
-    $(element).attr("value", $(element).attr("origin-value"));
-    $(element).removeClass("disabled");
+    $(element).attr('value', $(element).attr('origin-value'));
+    $(element).removeClass('disabled');
 }
 
 function getDomain(url) {
@@ -363,12 +357,12 @@ function getDomain(url) {
 }
 
 function getPlainText(text) {
-    if(text == null || typeof(text) != "string") return null;
+    if(text == null || typeof(text) != 'string') return null;
     return text.replace(/<[^>]*>/g, '');
 }
 
 function getEncodePlainText(text) {
-    if(text == null || typeof(text) != "string") return null;
+    if(text == null || typeof(text) != 'string') return null;
     return encodeURIComponent(text.replace(/<[^>]*>/g, ''));
 }
 
@@ -384,37 +378,37 @@ function formatJsonDate(jsonDate, mask) {
 
 function initEditor(element, type) {
     switch (type) {
-        case "basic":
+        case 'basic':
             tinyMCE.init({
-                mode: "exact",
+                mode: 'exact',
                 elements: element,
-                theme: "advanced",
-                theme_advanced_toolbar_location: "top",
-                theme_advanced_toolbar_align: "left",
-                theme_advanced_statusbar_location: "bottom",
-                plugins: "safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+                theme: 'advanced',
+                theme_advanced_toolbar_location: 'top',
+                theme_advanced_toolbar_align: 'left',
+                theme_advanced_statusbar_location: 'bottom',
+                plugins: 'safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
 
-                theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,forecolor,backcolor",
-                theme_advanced_buttons2: "bullist,numlist,|,outdent,indent,|,link,unlink,image,|,table,|,hr,|,sub,sup,|,charmap,emotions,|,ltr,rtl",
-                theme_advanced_buttons3: "",
+                theme_advanced_buttons1: 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,forecolor,backcolor',
+                theme_advanced_buttons2: 'bullist,numlist,|,outdent,indent,|,link,unlink,image,|,table,|,hr,|,sub,sup,|,charmap,emotions,|,ltr,rtl',
+                theme_advanced_buttons3: '',
                 content_css: '/styles/tinymce.css',
                 force_br_newlines: true,
                 force_p_newlines: false
             });
             break;
-        case "full":
+        case 'full':
             tinyMCE.init({
-                mode: "exact",
+                mode: 'exact',
                 elements: element,
-                theme: "advanced",
-                theme_advanced_toolbar_location: "top",
-                theme_advanced_toolbar_align: "left",
-                theme_advanced_statusbar_location: "bottom",
-                plugins: "safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+                theme: 'advanced',
+                theme_advanced_toolbar_location: 'top',
+                theme_advanced_toolbar_align: 'left',
+                theme_advanced_statusbar_location: 'bottom',
+                plugins: 'safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
 
-                theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
-                theme_advanced_buttons2: "pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,spellchecker",
-                theme_advanced_buttons3: "table,|,hr,removeformat,|,sub,sup,|,charmap,emotions,iespell,media,|,ltr,rtl,|,fullscreen",
+                theme_advanced_buttons1: 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor',
+                theme_advanced_buttons2: 'pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,spellchecker',
+                theme_advanced_buttons3: 'table,|,hr,removeformat,|,sub,sup,|,charmap,emotions,iespell,media,|,ltr,rtl,|,fullscreen',
                 content_css: '/styles/tinymce.css',
                 force_br_newlines: false,
                 force_p_newlines: true
@@ -425,22 +419,23 @@ function initEditor(element, type) {
 
 function removeSign(str) {
     str = str.toLowerCase();
-    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-    str = str.replace(/đ/g, "d");
-    str = str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g, "-");
-    str = str.replace(/-+-/g, "-"); //change -- become -
-    str = str.replace(/^\-+|\-+$/g, ""); //remove - at begin and end of string
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    str = str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\'|\&|\#|\[|\]|~/g, '-');
+    str = str.replace(/-+-/g, '-'); //change -- become -
+    str = str.replace(/^\-+|\-+$/g, ''); //remove - at begin and end of string
     return str;
 }
 
 function enableEmotion(str) {
-    var path = '<img src="/images/emoticon/';
-    var endClose = '.gif" />';
+    var path = "<img src='/images/emoticon/",
+        endClose = ".gif' />";
+
     str = str.replace(/\n/g, '<br />');
     str = str.replace(/\*:\)/g, path + 'devilish' + endClose);
     str = str.replace(/:\)\)/g, path + 'laughing' + endClose);
@@ -467,8 +462,8 @@ function enableEmotion(str) {
 }
 
 function getImage(text) {
-    text = text.replace(/\)|\(|&quot;/g, "");
-    var img = $(text).find("img:first").attr("src");
+    text = text.replace(/\)|\(|&quot;/g, '');
+    var img = $(text).find('img:first').attr('src');
     if(img != null && img != undefined)
     {
         return "<img alt='' src='" + img + "' />";
@@ -481,7 +476,7 @@ function getImage(text) {
 
 jQuery.cookie = function (key, value, options) {
     // key and at least value given, set cookie...
-    if (arguments.length > 1 && String(value) !== "[object Object]") {
+    if (arguments.length > 1 && String(value) !== '[object Object]') {
         options = jQuery.extend({}, options);
 
         if (value === null || value === undefined) {
@@ -560,12 +555,12 @@ function noInformation(col) {
 function autoIndex() {
     var index = 0;
     $('tr').each(function () {
-        $(this).children("td").eq(0).html(index);
+        $(this).children('td').eq(0).html(index);
         index = index + 1;
     });
 }
 
 function zeroPrefix(value) {
-    if(parseInt(value) < 10) return "0" + parseInt(value);
+    if(parseInt(value) < 10) return '0' + parseInt(value);
     return value;
 }

@@ -1,22 +1,20 @@
-﻿@using Fanex.NexHR.ViewModels
-@helper NagivationItem(List<NavigationViewModel> navItemList)
+﻿@helper NagivationItem(List<Fanex.NexHR.ViewModels.NavigationViewModel> navItemList)
     {
         foreach (var navItem in navItemList)
         {
-            <li id="@navItem.Id" class="el" data-hashovermenu="@(!string.IsNullOrWhiteSpace(navItem.HoverController))">
+            <li id="@navItem.Id" class="el">
                 <i class="mdi mdi-@navItem.Icon"></i>
-                @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)                
+                @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)
             </li>
         }
 }
-@helper NavigationSection(List<NavigationViewModel> sectionItemList)
+@helper NavigationSection(List<Fanex.NexHR.ViewModels.NavigationViewModel> sectionItemList)
     {
-        int sectionCount = sectionItemList.Count;
-        for (int i = 0; i < sectionCount; i++)
+        for (int i = 0; i < sectionItemList.Count; i++)
         {
             var sectionItem = sectionItemList[i];
             
-            <li class="bold" id="@i">
+            <li class="bold section" id="@i">
                 <a class="collapsible-header waves-effect waves-orange active">
                     @sectionItem.Title<i class="right mdi-navigation-chevron-right"></i>
                 </a>
@@ -30,8 +28,8 @@
 }
 
 <li class="no-padding">
-    <ul class="collapsible collapsible-expandable" data-collapsible="accordion">
-    @NavigationSection(ViewBag.NavigationItems)
+    <ul id="navbar" class="collapsible collapsible-expandable" data-collapsible="accordion">
+        @NavigationSection(ViewBag.NavigationItems)
     </ul>
 </li>
 
