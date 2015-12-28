@@ -894,4 +894,10 @@
   <data name="MyCalendar" xml:space="preserve">
     <value>My Calendar</value>
   </data>
+  <data name="EffectedDate" xml:space="preserve">
+    <value>Effected Date</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
 </root>

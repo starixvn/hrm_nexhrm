@@ -69,9 +69,8 @@ $(document).ready(function () {
             }
         },
         focus: function (event, ui) {
-            event.preventDefault();
-
             $('#Employee').val(ui.item.label);
+            event.preventDefault();
         },
         close: function () {
             if (nickName) {

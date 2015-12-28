@@ -37,7 +37,7 @@ namespace Fanex.NexHR.ViewModels
 
         public int DateOption { get; set; }
 
-        public List<SelectListItem> DateRanges
+        public List<SelectListItem> FilteringDateRanges
         {
             get
             {

@@ -114,6 +114,11 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/mycalendarcss",
                 "~/Content/Views/mycalendar.css");
+
+            // member requests
+            bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
+                "~/Scripts/Views/mgr.requests.js",
+                "~/Scripts/Views/_employee.search.in.team.js"));
         }
     }
 }

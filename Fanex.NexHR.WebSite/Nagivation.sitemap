@@ -9,7 +9,7 @@
             <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
             <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
             <siteMapNode title="My Calendar" controller="employee" action="myworkingschedule" icon="calendar-check" />
-            <siteMapNode title="Members' Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
+            <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
             <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
             <siteMapNode title="My Profile" controller="account" action="index" icon="account-box-outline" />
         </siteMapNode>

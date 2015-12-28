@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Tim.Trinh" date="2015.12.25">Add RequestTypes</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add FilteringRequestTypes</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -29,7 +29,7 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Request Type")]
         public short RequestType { get; set; }
 
-        public List<SelectListItem> RequestTypes
+        public List<SelectListItem> FilteringRequestTypes
         {
             get
             {

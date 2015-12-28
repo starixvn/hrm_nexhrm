@@ -5,8 +5,13 @@
     IList<RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
+    @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
+    @Scripts.Render(
+        "~/bundles/contextmenujs",
+        "~/bundles/datejs",
+        "~/bundles/managerequestsjs")
 }
 @section Breadcrumb {
 }
@@ -22,7 +27,7 @@
                     @{
                         Html.RenderPartial("AllRequest", requests);
                     }
-                    <div id="dialoghistorycontent" />
+                    <div id="dialoghistorycontent"></div>
                 </div>
             </div>
         </div>

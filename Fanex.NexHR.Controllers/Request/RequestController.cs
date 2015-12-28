@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
@@ -19,6 +20,8 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
 
     /// <summary>
     /// Request controller.
@@ -87,11 +90,13 @@ namespace Fanex.NexHR.Controllers.Request
             request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
             GetRequest(request, (short)Role.AssistantLeader);
 
+            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
             ViewBag.Leader = true;
             ViewBag.Options = request;
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             return View(request);
         }

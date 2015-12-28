@@ -646,6 +646,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disapprove.
         /// </summary>
         public static string Disapprove {
@@ -714,6 +723,15 @@ namespace Fanex.NexHR.Resources {
         public static string EditMemo {
             get {
                 return ResourceManager.GetString("EditMemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected Date.
+        /// </summary>
+        public static string EffectedDate {
+            get {
+                return ResourceManager.GetString("EffectedDate", resourceCulture);
             }
         }
         

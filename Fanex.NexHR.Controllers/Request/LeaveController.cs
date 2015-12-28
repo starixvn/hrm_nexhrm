@@ -63,7 +63,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
             Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            
+
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
@@ -80,13 +80,13 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = DateTime.Now.Date,
                 TotalDays = 1,
                 By = this.CurrentUser.Id,
-                LeaveTypes = _leaveTypeService.GetAll().ToList(),
+                FilteringLeaveTypes = _leaveTypeService.GetAll().ToList(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
             // Count number days of Leave request in current month.
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year,
+                month = DateTime.Now.Month;
             var criteria = new GetNumberRequestInMonthCriteria()
             {
                 EmpId = this.CurrentUser.Id,
@@ -113,7 +113,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
             else
             {
-                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
+                model.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
                 model.By = this.CurrentUser.Id;
                 ViewBag.Year = model.FromDate.Year;
 
@@ -172,7 +172,7 @@ namespace Fanex.NexHR.Controllers.Request
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                LeaveTypes = _leaveTypeService.GetAll().ToList(),
+                FilteringLeaveTypes = _leaveTypeService.GetAll().ToList(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
@@ -187,7 +187,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            model.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            model.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
             ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
 
             return View(model);

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Tim.Trinh" date="2015.12.25">Add Shifts, UnavailDates</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add ShiftInfos, UnavailDates</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -85,7 +85,7 @@ namespace Fanex.NexHR.ViewModels
             return result;
         }
 
-        public List<Shift> Shifts { get; set; }
+        public List<Shift> ShiftInfos { get; set; }
 
         public List<DateTime> UnavailDates { get; set; }
     }

@@ -99,5 +99,50 @@ namespace Fanex.NexHR.ViewModels
 
             return selecListItemTeam;
         }
+
+        public List<LeaveType> FilteringLeaveTypes { get; set; }
+
+        public List<SelectListItem> FilteringDateRanges
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = Labels.DateRange, Value = "0"},
+                    new SelectListItem() {Text = Labels.ToDay, Value = "1"},
+                    new SelectListItem() {Text = Labels.Yesterday, Value = "2"},
+                    new SelectListItem() {Text = Labels.CurrentWeek, Value = "3"},
+                    new SelectListItem() {Text = Labels.LastWeek, Value = "4"},
+                    new SelectListItem() {Text = Labels.CurrentMonth, Value = "5"},
+                    new SelectListItem() {Text = Labels.LastMonth, Value = "6"},
+                    new SelectListItem() {Text = Labels.SinceLastMonth, Value = "7"}
+                };
+            }
+        }
+
+        public List<SelectListItem> FilteringDateTypes
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = Labels.EffectedDate, Value = "true"},
+                    new SelectListItem() {Text = Labels.CreatedDate, Value = "false"},
+                };
+            }
+        }
+
+        public List<SelectListItem> FilteringRequestTypes
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = Labels.All, Value = "5"},
+                    new SelectListItem() {Text = Labels.Leave, Value = "1"},
+                    new SelectListItem() {Text = Labels.CheckInOut, Value = "4"}
+                };
+            }
+        }
     }
 }

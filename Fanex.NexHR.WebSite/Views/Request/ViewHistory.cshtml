@@ -1,9 +1,8 @@
 ﻿@model Fanex.NexHR.ViewModels.RequestViewModel
-@using Fanex.NexHR.Models.Request
 @{
     ViewBag.Title = Labels.RequestHistory;
     Layout = null;
-    IList<RequestEntity> requests = ViewBag.EntityList;
+    IList<Fanex.NexHR.Models.Request.RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
 }
