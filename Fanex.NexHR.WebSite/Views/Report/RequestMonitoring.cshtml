@@ -1,6 +1,5 @@
 ﻿@using Fanex.NexHR.Core;
 @using Fanex.NexHR.Core.Enums;
-@using Fanex.NexHR.Models;
 @using Fanex.NexHR.ViewModels;
 @model RequestsMonitoringViewModel
 @{
@@ -30,23 +29,14 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--s">
-                                        <select id="Date" name="Date" style="min-width: 150px;">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
+                                        @Html.DropDownList("Date", Model.FilteringDateRanges)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
 
                                 <div class="col m-r--m">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate)
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.FromDate)
@@ -56,7 +46,7 @@
 
                                 <div class="col">
                                     <div class="left label--s">
-                                        @Html.LabelFor(model => model.ToDate)
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.ToDate)
@@ -74,7 +64,6 @@
                                         @RazorHelper.MaxRequestDropDownList(Model.MaxRequest)
                                     </div>
                                 </div>
-                            
                                 <div class="col">
                                     <span class="button-hrm waves-effect waves-light btn blue darken-2">
                                         <input type="submit" value="@Labels.Submit" class="processing-submit" />
@@ -87,43 +76,22 @@
                         <table class="data persist-area table bordered striped highlight centered table-custom">
                             <thead class="persist-header">
                                 <tr>
-                                    <th rowspan="2">
-                                        #
-                                    </th>
-                                    <th rowspan="2">@Labels.Name
-                                    </th>
-                                    <th rowspan="2">@Labels.Nick
-                                    </th>
-                                    <th rowspan="2">@Labels.Team
-                                    </th>
-                                    <th colspan="4">@Labels.Leave
-                                    </th>
-                                    <th colspan="2">@Labels.CheckInOut
-                                    </th>
-                                    <th rowspan="2">@Labels.LateInEarlyOut (Times)
-                                    </th>
-                                    <th rowspan="2">@Labels.Absent (Times)
-                                    </th>
+                                    <th rowspan="2">#</th>
+                                    <th rowspan="2">@Labels.Name</th>
+                                    <th rowspan="2">@Labels.Nick</th>
+                                    <th rowspan="2">@Labels.Team</th>
+                                    <th colspan="4">@Labels.Leave</th>
+                                    <th colspan="2">@Labels.CheckInOut</th>
+                                    <th rowspan="2">@Labels.LateInEarlyOut (Times)</th>
+                                    <th rowspan="2">@Labels.Absent (Times)</th>
                                 </tr>
                                 <tr>
-                                    <th>
-                                        Request (Times)
-                                    </th>
-                                    <th>
-                                        Annual (Days)
-                                    </th>
-                                    <th>
-                                        Unpaid (Days)
-                                    </th>
-                                    <th>
-                                        Others (Days)
-                                    </th>
-                                    <th>
-                                        Request (Times)
-                                    </th>
-                                    <th>
-                                        Missing (Times)
-                                    </th>
+                                    <th>Request (Times)</th>
+                                    <th>Annual (Days)</th>
+                                    <th>Unpaid (Days)</th>
+                                    <th>Others (Days)</th>
+                                    <th>Request (Times)</th>
+                                    <th>Missing (Times)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,7 +100,7 @@
                                     int index = 1;
                                     var requestModel = new RequestViewModel();
 
-                                    foreach (RequestsMonitoring request in ViewBag.EntityList)
+                                    foreach (Fanex.NexHR.Models.RequestsMonitoring request in ViewBag.EntityList)
                                     {
                                         requestModel = new RequestViewModel
                                         {
@@ -145,7 +113,6 @@
                                             StatusId = (byte)RequestStatuse.Approve,
                                             IsFilterByEffectedDate = true
                                         };
-
                                     <tr>
                                         <td>@(index++)
                                         </td>
@@ -161,11 +128,11 @@
                                                 requestModel.RequestType = 1;
                                                 if ((bool)ViewBag.isLeader)
                                                 {
-                                                <a href="@Url.Action("member", "request", requestModel)">@request.TotalLeaveTimes</a>
+                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalLeaveTimes</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLeaveTimes</a>
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLeaveTimes</a>
                                                 }
                                             }
                                             else
@@ -179,11 +146,11 @@
                                                 requestModel.RequestType = 1;
                                                 if ((bool)ViewBag.isLeader)
                                                 {
-                                                <a href="@Url.Action("member", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
                                                 }
                                             }
                                             else
@@ -197,11 +164,11 @@
                                                 requestModel.RequestType = 1;
                                                 if ((bool)ViewBag.isLeader)
                                                 {
-                                                <a href="@Url.Action("member", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
                                                 }
                                             }
                                             else
@@ -215,11 +182,11 @@
                                                 requestModel.RequestType = 1;
                                                 if ((bool)ViewBag.isLeader)
                                                 {
-                                                <a href="@Url.Action("member", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
                                                 }
                                             }
                                             else
@@ -233,11 +200,11 @@
                                                 requestModel.RequestType = 4;
                                                 if ((bool)ViewBag.isLeader)
                                                 {
-                                                <a href="@Url.Action("member", "request", requestModel)">@request.TotalCheckInOutTimes</a>
+                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalCheckInOutTimes</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalCheckInOutTimes</a>
+                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalCheckInOutTimes</a>
                                                 }
                                             }
                                             else

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2015.7.14">Created</change>
-//   <change who="Tim.Trinh" date="2015.12.25">Add DateRanges</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add FilteringDateRanges</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels

@@ -34,7 +34,7 @@ function bindMenuPending(element) {
                         processRequest(key, element);
                     });
                     break;
-                case 'reject':
+                case 'Reject':
                     confirm('Are you sure you want to Reject?', function () {
                         processRequest(key, element);
                     });

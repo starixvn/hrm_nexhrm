@@ -28,8 +28,30 @@
                 border-left: 1px solid #d2d2d2;
                 border-right: 1px solid #d2d2d2;
 
+                &.txt-left {
+                    text-align: left;
+                }
+
                 &.highlight {
                     background-color: #F2F2C2;
+                }
+
+                span.req {
+                    color: #fff;
+                    padding: .3rem .6rem;
+                    margin-right: .5rem;
+
+                    &.checkinout {
+                        background: #3366ff;
+                    }
+
+                    &.leave {
+                        background: #a63c45;
+                    }
+
+                    &.inout {
+                        background: #999900;
+                    }
                 }
             }
         }
@@ -80,8 +102,8 @@ table {
     color: $color-text-main;
   }
 
-  .drop-down-icon {       
-    background: url('../../images/dropdown-icon.png');    
+  .drop-down-icon {
+    background: url('../../images/dropdown-icon.png');
     box-shadow: none;    
     width: 108px !important;
     height: 44px !important;

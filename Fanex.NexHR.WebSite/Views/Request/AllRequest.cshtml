@@ -95,20 +95,20 @@
                                 }
                             }
                         </td>
-                        <td>
+                        <td class="txt-left">
                             @Html.Raw(Fanex.NexHR.Services.RequestService.ToRequestMessage(request))
                         </td>
                         @if (!string.IsNullOrWhiteSpace(request.Remark))
                         {
                             <td class="tooltip" title="@request.Remark">
-                                <span class="icon remark" alt="remark" />
+                                <span class="mdi mdi-message-text" alt="remark" />
                             </td>
                         }
                         else
                         {
                             <td>-</td>
                         }
-                        <td class="ddMMyyyyhhmm">
+                        <td>
                             @request.CreatedDate.ToShortFormatedDate()
                         </td>
                         @if ((bool)ViewBag.IsAllowChangeStatus && (!(bool)ViewBag.Leader || ((bool)ViewBag.Leader && request.IsAllowUpdateStatus)))
@@ -193,5 +193,4 @@
             @RazorHelper.DisplayNoInformation(colspan: 9);
         }
     </table>
-    @RazorHelper.ProcessMenu()
 </div>

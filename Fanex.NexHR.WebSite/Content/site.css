@@ -523,8 +523,20 @@ main {
   border-bottom: 1px solid #d2d2d2;
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2; }
+  .table.table-custom tbody tr td.txt-left {
+    text-align: left; }
   .table.table-custom tbody tr td.highlight {
     background-color: #F2F2C2; }
+  .table.table-custom tbody tr td span.req {
+    color: #fff;
+    padding: .3rem .6rem;
+    margin-right: .5rem; }
+    .table.table-custom tbody tr td span.req.checkinout {
+      background: #3366ff; }
+    .table.table-custom tbody tr td span.req.leave {
+      background: #a63c45; }
+    .table.table-custom tbody tr td span.req.inout {
+      background: #999900; }
 .table.table-custom .floatingHeader {
   z-index: 999;
   position: fixed;
