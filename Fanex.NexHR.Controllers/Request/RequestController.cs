@@ -169,11 +169,13 @@ namespace Fanex.NexHR.Controllers.Request
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
             GetRequest(request, (short)Role.HR);
 
+            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
 
             return View(request);
         }

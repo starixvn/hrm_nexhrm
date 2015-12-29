@@ -1,6 +1,5 @@
 ﻿/*global _global, showMessage, fadeOutMessage, tooltip*/
 /*global actingButton: false, sleep: false, reloadButtonText: false, setDateTimeRange: false*/
-/*exported bindProcessedInfo*/
 'use strict';
 
 function processRequest(command, eventElement) {
@@ -59,27 +58,6 @@ function bindMenuApproved(element) {
             'Disapprove': { name: 'Disapprove', icon: 'delete' }
         }
     });
-}
-
-function bindProcessedInfo(element, type) {
-    var now = new Date(), msg;
-
-    switch (type) {
-        case 'Approve':
-            msg = 'Approved by ' + _global.nickName + '( ' + now.format('dd mmm yyyy- HH') + 'h' + now.format('MM\'') + ')';
-            $(element).addClass('tooltip').attr('title', msg);
-            tooltip(element, true);
-            break;
-        case 'Reject':
-            msg = 'Rejected by ' + _global.nickName + '( ' + now.format('dd mmm yyyy- HH') + 'h' + now.format('MM\'') + ')';
-            $(element).addClass('tooltip').attr('title', msg);
-            tooltip(element, true);
-            break;
-        case 'Disapprove':
-            $(element).removeClass('tooltip').removeAttr('original-title');
-            tooltip(element, false);
-            break;
-    }
 }
 
 $(document).ready(function () {
