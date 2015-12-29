@@ -915,4 +915,10 @@
   <data name="Unpaid" xml:space="preserve">
     <value>Unpaid</value>
   </data>
+  <data name="CompanyMemo" xml:space="preserve">
+    <value>COMPANY MEMO</value>
+  </data>
+  <data name="ExtensionNumber" xml:space="preserve">
+    <value>EXTENSION NUMBERS</value>
+  </data>
 </root>
