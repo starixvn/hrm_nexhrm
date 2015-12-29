@@ -8,6 +8,7 @@
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/requeststatisticjs")
 }
 @section Breadcrumb {
 }
@@ -19,7 +20,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">  
+                    <div class="form">
                         @using (Html.BeginForm())
                         {
                             @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
@@ -33,7 +34,6 @@
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
-
                                 <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
@@ -43,9 +43,8 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-
                                 <div class="col">
-                                    <div class="left label--s">
+                                    <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
@@ -54,7 +53,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -82,16 +80,16 @@
                                     <th rowspan="2">@Labels.Team</th>
                                     <th colspan="4">@Labels.Leave</th>
                                     <th colspan="2">@Labels.CheckInOut</th>
-                                    <th rowspan="2">@Labels.LateInEarlyOut (Times)</th>
-                                    <th rowspan="2">@Labels.Absent (Times)</th>
+                                    <th rowspan="2">@Labels.LateInEarlyOut (@Labels.Times)</th>
+                                    <th rowspan="2">@Labels.Absent (@Labels.Times)</th>
                                 </tr>
                                 <tr>
-                                    <th>Request (Times)</th>
-                                    <th>Annual (Days)</th>
-                                    <th>Unpaid (Days)</th>
-                                    <th>Others (Days)</th>
-                                    <th>Request (Times)</th>
-                                    <th>Missing (Times)</th>
+                                    <th>@Labels.Request (@Labels.Times)</th>
+                                    <th>@Labels.Annual (Days)</th>
+                                    <th>@Labels.Unpaid (Days)</th>
+                                    <th>@Labels.Others (Days)</th>
+                                    <th>@Labels.Request (@Labels.Times)</th>
+                                    <th>@Labels.Missing (@Labels.Times)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +114,7 @@
                                     <tr>
                                         <td>@(index++)
                                         </td>
-                                        <td class="left">@request.Requester.FullName
+                                        <td class="txt-left">@request.Requester.FullName
                                         </td>
                                         <td>@request.Requester.NickName
                                         </td>

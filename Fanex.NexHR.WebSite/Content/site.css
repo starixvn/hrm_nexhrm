@@ -526,7 +526,9 @@ main {
   .table.table-custom tbody tr td.txt-left {
     text-align: left; }
   .table.table-custom tbody tr td.highlight {
-    background-color: #F2F2C2; }
+    background-color: #f2f2c2; }
+  .table.table-custom tbody tr td.overloadRequest a {
+    color: #f44336; }
   .table.table-custom tbody tr td span.req {
     color: #fff;
     padding: .3rem .6rem;

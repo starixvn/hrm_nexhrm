@@ -27,6 +27,7 @@ namespace Fanex.NexHR.WebSite
                         "~/Scripts/Libs/jquery.tmpl.min.js",
                         "~/Scripts/Libs/jquery.cookie.js",
                         "~/Scripts/Libs/chart.js",
+                        "~/Scripts/Libs/date.js",
                         "~/Scripts/Libs/common.js",
                         "~/Scripts/Views/language.js"));
 
@@ -45,10 +46,6 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/fullcalendarcss",
                 "~/Content/Common/fullcalendar.css");
-
-            // date js
-            bundles.Add(new ScriptBundle("~/bundles/datejs").Include(
-                "~/Scripts/Libs/date.js"));
 
             // context menu
             bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
@@ -119,6 +116,10 @@ namespace Fanex.NexHR.WebSite
             bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
                 "~/Scripts/Views/mgr.requests.js",
                 "~/Scripts/Views/_employee.search.in.team.js"));
+
+            // requests statistic
+            bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
+                "~/Scripts/Views/leader.request.monitoring.js"));
         }
     }
 }

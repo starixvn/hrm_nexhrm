@@ -33,7 +33,13 @@
                 }
 
                 &.highlight {
-                    background-color: #F2F2C2;
+                    background-color: #f2f2c2;
+                }
+
+                &.overloadRequest {
+                    a {
+                        color: #f44336;
+                    }
                 }
 
                 span.req {

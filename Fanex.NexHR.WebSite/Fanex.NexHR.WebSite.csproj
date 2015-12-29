@@ -304,6 +304,7 @@
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
+    <Content Include="Scripts\Views\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />
     <Content Include="Scripts\Views\mgr.requests.js" />
     <Content Include="Scripts\Views\mycalendar.js" />
