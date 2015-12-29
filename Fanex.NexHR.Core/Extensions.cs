@@ -474,6 +474,113 @@ namespace Fanex.NexHR.Core
             return CheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
         }
 
+        #region MaterializeCheckBox
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name)
+        {
+            return MaterializeCheckBox(htmlHelper, name, false);
+        }
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name,
+            bool isChecked)
+        {
+            TagBuilder checkbox = new TagBuilder("input");
+            checkbox.MergeAttribute("id", name);
+            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
+            checkbox.MergeAttribute("value", "true");
+            if (isChecked)
+            {
+                checkbox.MergeAttribute("checked", "checked");
+            }
+
+            TagBuilder label = new TagBuilder("label");
+            label.MergeAttribute("for", name);
+
+            TagBuilder hidden = new TagBuilder("input");
+            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+            hidden.MergeAttribute("value", "false");
+
+            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
+        }
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name,
+            object htmlAttributes)
+        {
+            return MaterializeCheckBox(htmlHelper, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name,
+            IDictionary<string, object> htmlAttributes)
+        {
+            TagBuilder checkbox = new TagBuilder("input");
+            checkbox.MergeAttribute("id", name);
+            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
+            checkbox.MergeAttribute("value", "true");
+            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            TagBuilder label = new TagBuilder("label");
+            label.MergeAttribute("for", name);
+
+            TagBuilder hidden = new TagBuilder("input");
+            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+            hidden.MergeAttribute("value", "false");
+
+            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
+        }
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name,
+            bool isChecked,
+            object htmlAttributes)
+        {
+            return MaterializeCheckBox(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static MvcHtmlString MaterializeCheckBox(
+            this HtmlHelper htmlHelper,
+            string name,
+            bool isChecked,
+            IDictionary<string, object> htmlAttributes)
+        {
+            TagBuilder checkbox = new TagBuilder("input");
+            checkbox.MergeAttribute("id", name);
+            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
+            checkbox.MergeAttribute("value", "true");
+            if (isChecked)
+            {
+                checkbox.MergeAttribute("checked", "checked");
+            }
+            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            TagBuilder label = new TagBuilder("label");
+            label.MergeAttribute("for", name);
+
+            TagBuilder hidden = new TagBuilder("input");
+            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+            hidden.MergeAttribute("value", "false");
+
+            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
+        }
+
+        #endregion MaterializeCheckBox
+
+        #region MaterializeCheckBoxFor
+
         public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, bool>> expression
@@ -520,6 +627,8 @@ namespace Fanex.NexHR.Core
 
             return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
+
+        #endregion MaterializeCheckBoxFor
 
         #region Business
 
