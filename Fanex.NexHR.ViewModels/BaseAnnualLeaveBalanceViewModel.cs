@@ -27,7 +27,7 @@ namespace Fanex.NexHR.ViewModels
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Affect from")]
+        [Display(Name = "Affect From")]
         public DateTime AffectedFrom { get; set; }
 
         public decimal DeductDays

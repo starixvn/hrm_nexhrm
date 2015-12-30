@@ -115,6 +115,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Balance.
+        /// </summary>
+        public static string AddBalance {
+            get {
+                return ResourceManager.GetString("AddBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add/Edit Team.
         /// </summary>
         public static string AddEditTeam {
@@ -147,6 +156,15 @@ namespace Fanex.NexHR.Resources {
         public static string AdjustAnnualLeaveBalance {
             get {
                 return ResourceManager.GetString("AdjustAnnualLeaveBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjustment.
+        /// </summary>
+        public static string Adjustment {
+            get {
+                return ResourceManager.GetString("Adjustment", resourceCulture);
             }
         }
         
@@ -475,6 +493,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close Balance.
+        /// </summary>
+        public static string CloseBalance {
+            get {
+                return ResourceManager.GetString("CloseBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string Code {
@@ -723,6 +750,15 @@ namespace Fanex.NexHR.Resources {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Annual Leave Balance.
+        /// </summary>
+        public static string EditAnnualLeaveBalance {
+            get {
+                return ResourceManager.GetString("EditAnnualLeaveBalance", resourceCulture);
             }
         }
         

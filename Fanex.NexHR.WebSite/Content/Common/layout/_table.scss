@@ -1,4 +1,15 @@
 .table.table-custom {
+    th, td {
+        &.col-checkbox {
+            text-align: left;
+
+            [type="checkbox"] + label {
+                height: 1.5rem;
+                padding-left: .3rem;
+            }
+        }
+    }
+
     thead {
         color: #fff;
         background: #3b4254;
@@ -13,6 +24,14 @@
                 border-left: 1px solid rgba(0, 0, 0, 0.05);
                 text-align: center;
                 line-height: 1.42857143;
+
+                &.col-checkbox {
+                    [type="checkbox"] + label {
+                        &:after {
+                            border-color: #fff;
+                        }
+                    }
+                }
             }
         }
     }
@@ -59,6 +78,14 @@
                         background: #999900;
                     }
                 }
+            }
+
+            &.row-divider td {
+                text-align: left;
+            }
+
+            &.row-selected {
+                background: #ffff8d;
             }
         }
     }

@@ -10,89 +10,107 @@
 }
 @section Breadcrumb {
 }
-@if (ViewBag.Employee != null)
-{
-    <h2>@ViewBag.Title</h2>
-    using (Html.BeginForm())
-    {
-    <span>@Html.LabelFor(model => model.Year)</span>
-    @Html.YearPickerFor(model => model.Year, 2010)
-
-    @Html.CheckBoxFor(model => model.ExcludedRequestTrans)
-    @Html.LabelFor(model => model.ExcludedRequestTrans)
-
-    @Html.HiddenFor(model => model.EmployeeId)
-    <input type="submit" value="@Labels.View" />
-
-    <div class="button-icon">
-        <span class="icon plus"></span>@Html.ActionLink("Adjustment", "Create", new { id = ViewBag.Employee.Id })
-    </div>
-    }
-
-    <table class="data">
-        <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>@Labels.AffectFrom
-                </th>
-                <th>@Labels.TotalDays
-                </th>
-                <th>@Labels.Description
-                </th>
-                <th>@Labels.CreatedDate
-                </th>
-                <th>@Labels.Edit
-                </th>
-            </tr>
-        </thead>
-        @if (ViewBag.Data.Count > 0)
-        {
-            <tbody>
-                @{int index = 1;}
-                @foreach (Fanex.NexHR.ViewModels.AnnualLeaveBalanceModel item in ViewBag.Data)
-                {
-                    <tr>
-                        <td>@(index++)
-                        </td>
-                        <td class="ddMMyyyy">@item.AffectedFrom.ToDateMonthYearFormatedDate()
-                        </td>
-                        <td>@item.TotalDays
-                        </td>
-                        <td class="left">
-                            @if (item.RequestId != null)
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+            @if (ViewBag.Employee != null)
+            {
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--s">
+                                    @Html.LabelFor(model => model.Year)
+                                </div>
+                                <div class="left select--xs">
+                                    @Html.YearPickerFor(model => model.Year, 2010)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left">
+                                    @Html.MaterializeCheckBoxFor(model => model.ExcludedRequestTrans, new { @class = "filled-in" })
+                                </div>
+                                <div class="left">
+                                    @Html.LabelFor(model => model.ExcludedRequestTrans)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="button-hrm waves-effect waves-light btn blue darken-2">
+                                    <input type="submit" value="@Labels.View" />
+                                </span>
+                            </div>
+                            <div class="col">
+                                @Html.ActionLink("Adjustment", "Create", new { id = ViewBag.Employee.Id }, new { @class = "button-hrm waves-effect waves-light btn orange darken-1" })
+                            </div>
+                            @Html.HiddenFor(model => model.EmployeeId)
+                        </div>
+                    }
+                    </div>
+                    <div class="p-x--s">
+                        <table class="data table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Labels.AffectFrom</th>
+                                    <th>@Labels.TotalDays</th>
+                                    <th>@Labels.Description</th>
+                                    <th>@Labels.CreatedDate</th>
+                                    <th>@Labels.Edit</th>
+                                </tr>
+                            </thead>
+                            @if (ViewBag.Data.Count > 0)
                             {
-                                <span>[request]</span>
+                                <tbody>
+                                    @{int index = 1;}
+                                    @foreach (Fanex.NexHR.ViewModels.AnnualLeaveBalanceModel item in ViewBag.Data)
+                                    {
+                                        <tr>
+                                            <td>@(index++)</td>
+                                            <td class="ddMMyyyy">@item.AffectedFrom.ToDateMonthYearFormatedDate()</td>
+                                            <td>@item.TotalDays</td>
+                                            <td class="txt-left">
+                                                @if (item.RequestId != null)
+                                                {
+                                                    <span>[request]</span>
+                                                }
+                                                @item.Description
+                                            </td>
+                                            <td>@item.CreatedDate.ToShortFormatedDate()</td>
+                                            @if (item.RequestId == null)
+                                            {
+                                                <td>
+                                                    <a href="~/annualleavebalance/edit/@item.Id">@Labels.Edit</a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>-</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
                             }
-                            @item.Description
-                        </td>
-                        <td>@item.CreatedDate.ToShortFormatedDate()
-                        </td>
-                        @if (item.RequestId == null)
-                        {
-                            <td>
-                                <a href="~/annualleavebalance/edit/@item.Id">@Labels.Edit</a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                -
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-
-        }
-        else
-        {
-            @RazorHelper.DisplayNoInformation(6)
-        }
-    </table>
-}
-else
-{
-    <h2>@Messages.NoDataIsAvailable</h2>
-}
+                            else
+                            {
+                                @RazorHelper.DisplayNoInformation(6)
+                            }
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+</div>

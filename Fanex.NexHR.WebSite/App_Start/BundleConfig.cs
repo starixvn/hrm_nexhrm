@@ -120,6 +120,15 @@ namespace Fanex.NexHR.WebSite
             // requests statistic
             bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
                 "~/Scripts/Views/leader.request.monitoring.js"));
+
+            // annual leave balance
+            bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
+                "~/Scripts/Views/annualleavebalance.js",
+                "~/Scripts/Views/_employee.search.in.company.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/annualleavebalancecss",
+                "~/Content/Views/annualleavebalance.css");
         }
     }
 }

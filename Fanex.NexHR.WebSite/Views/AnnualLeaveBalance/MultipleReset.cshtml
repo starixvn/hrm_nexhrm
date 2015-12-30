@@ -1,26 +1,41 @@
-﻿@using (Html.BeginForm())
-{
-    <div class="formrow">
-        <div class="label">
-            @Html.Label("Max Balance")
-        </div>
-        <div class="input">
-            @Html.Editor("MinBalance")
-        </div>
-    </div>
+﻿@using Fanex.NexHR.Resources;
 
-    <div class="formrow">
-        <div class="label">
-            @Html.Label("Description")
+<div id="resetform" title="Close balance for year @DateTime.Now.AddYears(-1).Year">
+    <div class="form">
+    @using (Html.BeginForm())
+    {
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--l">
+                    @Html.Label("Max Balance")
+                </div>
+                <div class="left input--m">
+                    @Html.Editor("MinBalance")
+                </div>
+            </div>
         </div>
-        <div class="input">
-            @Html.TextArea("DescriptionReset")
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--l">
+                    @Html.Label("Description")
+                </div>
+                <div class="left input--m">
+                    @Html.TextArea("DescriptionReset", new { @class = "materialize-textarea" })
+                </div>
+            </div>
         </div>
+        <div class="row right">
+            <div class="col">
+                <span class="button-hrm waves-effect waves-light btn blue darken-2">
+                    <input type="submit" id="insert" value="@Labels.Submit" />
+                </span>
+            </div>
+            <div class="col">
+                <span class="button-hrm waves-effect waves-light btn grey darken-2">
+                    <input type="submit" id="cancelReset" value="@Labels.Cancel" />
+                </span>
+            </div>
+        </div>
+    }
     </div>
-    <div class="formrow">
-        <div class="input">
-            <input type="submit" value="@Fanex.NexHR.Resources.Labels.Submit" id="insert" />
-            <input type="button" value="@Fanex.NexHR.Resources.Labels.Cancel" id="cancelReset" />
-        </div>
-    </div>
-}
+</div>

@@ -921,4 +921,16 @@
   <data name="ExtensionNumber" xml:space="preserve">
     <value>EXTENSION NUMBERS</value>
   </data>
+  <data name="AddBalance" xml:space="preserve">
+    <value>Add Balance</value>
+  </data>
+  <data name="Adjustment" xml:space="preserve">
+    <value>Adjustment</value>
+  </data>
+  <data name="CloseBalance" xml:space="preserve">
+    <value>Close Balance</value>
+  </data>
+  <data name="EditAnnualLeaveBalance" xml:space="preserve">
+    <value>Edit Annual Leave Balance</value>
+  </data>
 </root>

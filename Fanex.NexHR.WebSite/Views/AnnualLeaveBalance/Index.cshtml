@@ -7,8 +7,10 @@
     var showOpenAndCloseAnnualBalance = (ShowOpenAndCloseAnnualBalance)ViewBag.ShowOpenAndCloseAnnualBalance;
 }
 @section css{
+    @Styles.Render("~/Content/annualleavebalancecss")
 }
 @section js{
+    @Scripts.Render("~/bundles/annualleavebalancejs")
 }
 @section Breadcrumb {
 }
@@ -32,7 +34,6 @@
                                         @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
                                 </div>
-                                
                                 <div class="col m-r--m">
                                     <div class="left label--s">
                                         @Html.LabelFor(model => model.Team)
@@ -47,7 +48,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.Label(@Labels.MinBalance)
@@ -62,7 +62,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                
                                 <div class="col">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Employee)
@@ -71,79 +70,62 @@
                                         @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark, style = "width:183px;" })
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
-                                </div> 
-                                
+                                </div>
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2"><input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
-                                    
-                                    @if (showOpenAndCloseAnnualBalance.IsShowCloseBalance)
-                                    {
-                                        
-                                            <span class="icon adjustsub"></span><a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;" id="resetblc">Close Balance</a>
-                                        
-                                    }
-                                    @if (showOpenAndCloseAnnualBalance.IsShowOpenBalance)
-                                    {
-                                        
-                                            <span class="icon adjustadd"></span><a class="button-hrm waves-effect waves-light btn blue darken-2" href="javascript:;" id="addbalance">Add Balance</a>
-                                        
-                                    }
-                                   
-                                        <span class="icon adjust"></span><a class="button-hrm waves-effect waves-light btn green darken-2" href="javascript:;" id="addadj">Adjustment</a>
-                                    
-                                </div>                               
+                                    <span class="button-hrm waves-effect waves-light btn blue darken-2">
+                                        <input type="submit" value="@Labels.Submit" class="processing-submit" />
+                                    </span>
+                                </div>
+                                @if (showOpenAndCloseAnnualBalance.IsShowCloseBalance)
+                                {
+                                    <div class="col">
+                                        <a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;" id="resetblc">@Labels.CloseBalance</a>
+                                    </div>
+                                }
+                                @if (showOpenAndCloseAnnualBalance.IsShowOpenBalance)
+                                {
+                                    <div class="col">
+                                        <a class="button-hrm waves-effect waves-light btn blue darken-2" href="javascript:;" id="addbalance">@Labels.AddBalance</a>
+                                    </div>
+                                }
+                                <div class="col">
+                                    <a class="button-hrm waves-effect waves-light btn green darken-2" href="javascript:;" id="addadj">@Labels.Adjustment</a>
+                                </div>
                             </div>
                         }
                     </div>
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight table-custom">
+                        <table class="data persist-area table bordered striped highlight centered table-custom">
                             <thead class="persist-header">
                                 <tr>
-                                    <th rowspan="2">
-                                        <input type="checkbox" class="checkuncheckall" />
+                                    <th rowspan="2" class="col-checkbox">
+                                        @Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })
                                     </th>
-                                    <th rowspan="2">@Labels.Nick
-                                    </th>
-                                    <th colspan="2">@Labels.AnnualLeave
-                                    </th>
+                                    <th rowspan="2">@Labels.Nick</th>
+                                    <th colspan="2">@Labels.AnnualLeave</th>
                                     <th colspan="12">
                                         Take Annual Leave @Model.Year
                                     </th>
                                     <th rowspan="2">
                                         Balance of AL @Model.Year
                                     </th>
-                                    <th rowspan="2">@Labels.Edit
-                                    </th>
+                                    <th rowspan="2">@Labels.Edit</th>
                                 </tr>
                                 <tr>
-                                    <th>@(Model.Year - 1)
-                                    </th>
-                                    <th>@Model.Year
-                                    </th>
-                                    <th>@Labels.Jan
-                                    </th>
-                                    <th>@Labels.Feb
-                                    </th>
-                                    <th>@Labels.Mar
-                                    </th>
-                                    <th>@Labels.Apr
-                                    </th>
-                                    <th>@Labels.May
-                                    </th>
-                                    <th>@Labels.Jun
-                                    </th>
-                                    <th>@Labels.Jul
-                                    </th>
-                                    <th>@Labels.Aug
-                                    </th>
-                                    <th>@Labels.Sep
-                                    </th>
-                                    <th>@Labels.Oct
-                                    </th>
-                                    <th>@Labels.Nov
-                                    </th>
-                                    <th>@Labels.Dec
-                                    </th>
+                                    <th>@(Model.Year - 1)</th>
+                                    <th>@Model.Year</th>
+                                    <th>@Labels.Jan</th>
+                                    <th>@Labels.Feb</th>
+                                    <th>@Labels.Mar</th>
+                                    <th>@Labels.Apr</th>
+                                    <th>@Labels.May</th>
+                                    <th>@Labels.Jun</th>
+                                    <th>@Labels.Jul</th>
+                                    <th>@Labels.Aug</th>
+                                    <th>@Labels.Sep</th>
+                                    <th>@Labels.Oct</th>
+                                    <th>@Labels.Nov</th>
+                                    <th>@Labels.Dec</th>
                                 </tr>
                             </thead>
                             @*Check if exists*@
@@ -160,65 +142,52 @@
                                     {
                                         checkSummaryList = false;
                                     }
-
                                 }
                             }
                             @if (checkSummaryList)
                             {
                                 <tbody>
-                                    @{int index = 1;}
                                     @foreach (LeaveSummaryByTeam item in ViewBag.LeaveSummaryByTeamList)
                                     {
                                         if (item.LeaveSummaryInTeam.Count > 0)
                                         {
-                                        <tr>
-                                            <td class="rowdivider highlight" colspan="19">
+                                        <tr class="row-divider">
+                                            <td class="highlight" colspan="19">
                                                 <b>@item.Team.Name.ToUpper()</b>
                                             </td>
                                         </tr>
                                         }
-
                                         foreach (LeaveSummary leave in item.LeaveSummaryInTeam)
                                         {
+                                            var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
+                                                new
+                                                {
+                                                    @class = "aba filled-in",
+                                                    data_id = leave.Employee.Id
+                                                });
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" data-id="@leave.Employee.Id" />
+                                            <td class="col-checkbox">
+                                                @Html.MaterializeCheckBox("checkbox_" + @leave.Employee.Id, htmlAttributes)
                                             </td>
-                                            <td class="tooltip" title="@leave.Employee.FullName">@leave.Employee.NickName
-                                            </td>
-                                            <td style="@(leave.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">@leave.AnnualLeaveLastYear.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">@leave.AnnualLeaveCurrentYear.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jan < 0 ? "color:red;" : string.Empty)">@leave.Jan.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Feb < 0 ? "color:red;" : string.Empty)">@leave.Feb.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Mar < 0 ? "color:red;" : string.Empty)">@leave.Mar.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Apr < 0 ? "color:red;" : string.Empty)">@leave.Apr.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.May < 0 ? "color:red;" : string.Empty)">@leave.May.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jun < 0 ? "color:red;" : string.Empty)">@leave.Jun.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jul < 0 ? "color:red;" : string.Empty)">@leave.Jul.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Aug < 0 ? "color:red;" : string.Empty)">@leave.Aug.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Sep < 0 ? "color:red;" : string.Empty)">@leave.Sep.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Oct < 0 ? "color:red;" : string.Empty)">@leave.Oct.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Nov < 0 ? "color:red;" : string.Empty)">@leave.Nov.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Dec < 0 ? "color:red;" : string.Empty)">@leave.Dec.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.LeaveBalance < 0 ? "color:red;" : string.Empty)">@leave.LeaveBalance.ToString("0.0")
-                                            </td>
+                                            <td class="tooltip" title="@leave.Employee.FullName">@leave.Employee.NickName</td>
+                                            <td style="@(leave.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">@leave.AnnualLeaveLastYear.ToString("0.0")</td>
+                                            <td style="@(leave.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">@leave.AnnualLeaveCurrentYear.ToString("0.0")</td>
+                                            <td style="@(leave.Jan < 0 ? "color:red;" : string.Empty)">@leave.Jan.ToString("0.0")</td>
+                                            <td style="@(leave.Feb < 0 ? "color:red;" : string.Empty)">@leave.Feb.ToString("0.0")</td>
+                                            <td style="@(leave.Mar < 0 ? "color:red;" : string.Empty)">@leave.Mar.ToString("0.0")</td>
+                                            <td style="@(leave.Apr < 0 ? "color:red;" : string.Empty)">@leave.Apr.ToString("0.0")</td>
+                                            <td style="@(leave.May < 0 ? "color:red;" : string.Empty)">@leave.May.ToString("0.0")</td>
+                                            <td style="@(leave.Jun < 0 ? "color:red;" : string.Empty)">@leave.Jun.ToString("0.0")</td>
+                                            <td style="@(leave.Jul < 0 ? "color:red;" : string.Empty)">@leave.Jul.ToString("0.0")</td>
+                                            <td style="@(leave.Aug < 0 ? "color:red;" : string.Empty)">@leave.Aug.ToString("0.0")</td>
+                                            <td style="@(leave.Sep < 0 ? "color:red;" : string.Empty)">@leave.Sep.ToString("0.0")</td>
+                                            <td style="@(leave.Oct < 0 ? "color:red;" : string.Empty)">@leave.Oct.ToString("0.0")</td>
+                                            <td style="@(leave.Nov < 0 ? "color:red;" : string.Empty)">@leave.Nov.ToString("0.0")</td>
+                                            <td style="@(leave.Dec < 0 ? "color:red;" : string.Empty)">@leave.Dec.ToString("0.0")</td>
+                                            <td style="@(leave.LeaveBalance < 0 ? "color:red;" : string.Empty)">@leave.LeaveBalance.ToString("0.0")</td>
                                             <td class="center">
                                                 <a href="~/annualleavebalance/employee/@leave.Employee.Id">
-                                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i></a>
                                             </td>
                                         </tr>
                                         }
@@ -231,21 +200,14 @@
                             }
                         </table>
                     </div>
-                    
                     <div class="row hide">
-                        <div id="insertform" title="Adjust annual leave balance">
-                            @Html.Action("MultipleInsert")
-                        </div>
+                        @Html.Action("MultipleInsert")
                     </div>
-
                     <div class="row hide">
-                        <div id="resetform" title="Close balance for year @DateTime.Now.AddYears(-1).Year">
-                            @Html.Action("MultipleReset")
-                        </div>
+                        @Html.Action("MultipleReset")
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
-

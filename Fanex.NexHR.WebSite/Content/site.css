@@ -63,7 +63,6 @@ main {
 
 .field-validation-error {
   position: relative;
-  top: -10px;
   font-size: 12px;
   color: #ff0909; }
 
@@ -224,7 +223,8 @@ main {
   .button-hrm input {
     background: transparent;
     box-shadow: none;
-    border: none; }
+    border: none;
+    font-style: normal; }
     .button-hrm input:focus, .button-hrm input:active {
       box-shadow: none;
       outline: none; }
@@ -503,6 +503,11 @@ main {
     .search_bar.focused label {
       color: #303f4d; }
 
+.table.table-custom th.col-checkbox, .table.table-custom td.col-checkbox {
+  text-align: left; }
+  .table.table-custom th.col-checkbox [type="checkbox"] + label, .table.table-custom td.col-checkbox [type="checkbox"] + label {
+    height: 1.5rem;
+    padding-left: .3rem; }
 .table.table-custom thead {
   color: #fff;
   background: #3b4254; }
@@ -515,6 +520,8 @@ main {
     border-left: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
     line-height: 1.42857143; }
+    .table.table-custom thead tr th.col-checkbox [type="checkbox"] + label:after {
+      border-color: #fff; }
 .table.table-custom tbody tr td {
   font-weight: normal;
   vertical-align: middle;
@@ -539,6 +546,10 @@ main {
       background: #a63c45; }
     .table.table-custom tbody tr td span.req.inout {
       background: #999900; }
+.table.table-custom tbody tr.row-divider td {
+  text-align: left; }
+.table.table-custom tbody tr.row-selected {
+  background: #ffff8d; }
 .table.table-custom .floatingHeader {
   z-index: 999;
   position: fixed;

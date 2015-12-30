@@ -58,7 +58,8 @@
   input {
 	background: transparent;
 	box-shadow: none;
-	border: none; 
+	border: none;
+    font-style: normal;
 
 	&:focus, &:active {
 	   box-shadow: none;

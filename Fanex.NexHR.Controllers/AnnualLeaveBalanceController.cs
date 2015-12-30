@@ -113,6 +113,7 @@ namespace Fanex.NexHR.Controllers
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
             ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
+
             return View(model);
         }
 

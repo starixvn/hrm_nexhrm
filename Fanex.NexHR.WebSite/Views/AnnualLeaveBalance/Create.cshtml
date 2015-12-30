@@ -6,68 +6,82 @@
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/annualleavebalancejs")
 }
 @section Breadcrumb
 {
-    <span class="step">HR Space</span> <a class="step" href="@Url.Action("index", "annualleavebalance")">@Labels.AnualLeaveBalance</a>
-    @if (ViewBag.Employee != null)
-    {
-        <a class="step" href="~/annualleavebalance/employee/@ViewBag.Employee.Id">@ViewBag.Employee.NickName's
-            annual leave balance</a>
-        <span class="step">@Labels.Adjust</span>
-    }
 }
-@if (ViewBag.Employee != null)
-{
-    <h2>@Labels.Adjust</h2>
-
-    using (Html.BeginForm())
-    {
-    <div class="bunhat" style="min-width: 400px">
-        @Html.ValidationSummary(true)
-        @if (ViewBag.Inserted == true)
-        {
-            <div class="success">@Messages.AdjustSuccessfully</div>
-        }
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.TotalDays)
-            </div>
-            <div class="input">
-                @Html.EditorFor(model => model.TotalDays)
-                @Html.ValidationMessageFor(model => model.TotalDays)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.Description)
-            </div>
-            <div class="input">
-                @Html.TextAreaFor(model => model.Description)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.LabelFor(model => model.AffectedFrom)
-            </div>
-            <div class="input">
-                @Html.DatePickerFor(model => model.AffectedFrom)
-                @Html.ValidationMessageFor(model => model.AffectedFrom)
-            </div>
-        </div>
-        <div class="formrow">
-            <div class="label">
-                @Html.HiddenFor(model => model.EmpId)
-            </div>
-            <div class="input">
-                <input type="submit" value="@Labels.Adjust" />
-                <a class="button" href="~/annualleavebalance/employee/@ViewBag.Employee.Id">@Labels.Cancel</a>
+<div class="row content">
+    <div class="col s12 l6 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+            @if (ViewBag.Employee != null)
+            {
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+                        if (ViewBag.Inserted == true)
+                        {
+                            <div class="row validation-summary-success">
+                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
+                            </div>
+                        }
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+                                </div>
+                                <div class="left input--m">
+                                    @Html.EditorFor(model => model.TotalDays)
+                                </div>
+                            </div>
+                            <div class="col">
+                                @Html.ValidationMessageFor(model => model.TotalDays)
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.Description)
+                                </div>
+                                <div class="left input--m">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.AffectedFrom)
+                                </div>
+                                <div class="left input--m datepicker-button">
+                                    @Html.DatePickerFor(model => model.AffectedFrom)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                    @Html.ValidationMessageFor(model => model.AffectedFrom)
+                                </div>
+                            </div>
+                        </div>
+                        @Html.HiddenFor(model => model.EmpId)
+                        <div class="col">
+                            <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s"><input type="submit" value="@Labels.Adjust" /></span>
+                            @Html.ActionLink(@Labels.Cancel, "employee", new { id = ViewBag.Employee.Id }, new { @class = "button-hrm waves-effect waves-light btn grey darken-1" })
+                        </div>
+                    }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
+                </div>
+            }
             </div>
         </div>
     </div>
-    }
-}
-else
-{
-    <h2>@Messages.NoDataIsAvailable</h2>
-}
+</div>
