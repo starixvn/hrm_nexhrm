@@ -309,6 +309,7 @@
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
+    <Content Include="Scripts\Views\employee.toeic.js" />
     <Content Include="Scripts\Views\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />
     <Content Include="Scripts\Views\mgr.requests.js" />

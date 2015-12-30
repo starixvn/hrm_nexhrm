@@ -16,7 +16,7 @@
 <h2>@ViewBag.Title</h2>
 <div class="container_24 bunhat">
     <div class="grid_24">
-        <div class="grid_2 gridlabel">@Labels.Nickname</div>
+        <div class="grid_2 gridlabel">@Labels.Nick</div>
         <div class="grid_7">
             <input id="keyword" type="text" />
         </div>
@@ -64,7 +64,7 @@
 	<thead class="persist-header">
         <tr>
             <th rowspan="2">#</th>
-            <th rowspan="2">@Labels.Nick/@Labels.Email</th>
+            <th rowspan="2">@Labels.Nick</th>
 			<th rowspan="2">@Labels.Team</th>
             <th rowspan="2">@Labels.JobTitle</th>
             <th colspan="4">@Labels.Listening/@Labels.Reading</th>
@@ -170,7 +170,7 @@
 		{{if isShowEdit()}}
 			<td style="width: 45px;">
 				{{if !IsDeleted}}
-					<a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="/Styles/Images/edit-icon.png"></a>
+					<a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="~/Content/Images/edit-icon.png"></a>
 				{{else}}
 					-
 				{{/if}}

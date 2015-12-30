@@ -12,6 +12,7 @@
     </style>
 }
 @section js {
+    @Scripts.Render("~/bundles/toeicjs");
 }
 @section Breadcrumb {
 }
@@ -201,7 +202,7 @@
         {{if isShowEdit()}}
             <td style="width: 45px;">
                 {{if !IsDeleted}}
-                    <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="/Styles/Images/edit-icon.png"></a>
+                    <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="/Content/Images/edit-icon.png"></a>
                 {{else}}
                     -
                 {{/if}}

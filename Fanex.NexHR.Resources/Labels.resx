@@ -679,7 +679,7 @@
     <value>Speaking</value>
   </data>
   <data name="TOEICScoreMgmt" xml:space="preserve">
-    <value>TOEIC score management</value>
+    <value>STAFF TOEIC SCORE</value>
   </data>
   <data name="UpdateDate" xml:space="preserve">
     <value>Update Date</value>
@@ -736,7 +736,7 @@
     <value>Update {0}'s TOEIC Score</value>
   </data>
   <data name="ExpiredDate" xml:space="preserve">
-    <value>Expired Date</value>
+    <value>Expiry Date</value>
   </data>
   <data name="Birthday" xml:space="preserve">
     <value>Birthday</value>

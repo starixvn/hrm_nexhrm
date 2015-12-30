@@ -862,7 +862,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expired Date.
+        ///   Looks up a localized string similar to Expiry Date.
         /// </summary>
         public static string ExpiredDate {
             get {
@@ -2329,7 +2329,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TOEIC score management.
+        ///   Looks up a localized string similar to STAFF TOEIC SCORE.
         /// </summary>
         public static string TOEICScoreMgmt {
             get {
