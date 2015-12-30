@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015.11.6">Created</change>
-// </history>
-
-namespace Fanex.NexHR.WebSite
+﻿namespace Fanex.NexHR.WebSite
 {
     using System.Web.Optimization;
 
@@ -110,12 +101,31 @@ namespace Fanex.NexHR.WebSite
             // team management
             bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
                 "~/Scripts/Views/team.management.js"));
-            "~/Scripts/Libs/jquery.tmpl.min.js",
-            "~/Scripts/Libs/jquery.cookie.js",
-            "~/Scripts/Libs/chart.js",
-            "~/Scripts/Libs/date.js",
-            "~/Scripts/Libs/common.js",
-            "~/Scripts/Views/language.js"));
+
+            BuildBundleForToeic(bundles);
+        }
+
+        private static void BuildBundleForToeic(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
+                "~/Scripts/Views/employee.toeic.js"));
+        }
+
+        private static void BuildBundleForCommon(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
+                         "~/Scripts/Libs/jquery-{version}.js",
+                         "~/Scripts/Libs/jquery-ui-{version}.js",
+                         "~/Scripts/Libs/jquery.validate*",
+                         "~/Scripts/Libs/jquery-dateFormat.min.js",
+                         "~/Scripts/Libs/materialize.js",
+                         "~/Scripts/Libs/jquery.tipsy.js",
+                         "~/Scripts/Libs/jquery.tmpl.min.js",
+                         "~/Scripts/Libs/jquery.cookie.js",
+                         "~/Scripts/Libs/chart.js",
+                         "~/Scripts/Libs/date.js",
+                         "~/Scripts/Libs/common.js",
+                         "~/Scripts/Views/language.js"));
 
             bundles.AddAndInclude(
                 "~/Content/sitecss",
@@ -123,12 +133,6 @@ namespace Fanex.NexHR.WebSite
                 "~/Content/Common/components/materialdesignicons.css",
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
-        }
-
-        private static void BuildBundleForToeic(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
-                "~/Scripts/Views/employee.toeic.js"));
         }
     }
 }
