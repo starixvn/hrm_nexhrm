@@ -942,4 +942,16 @@
   <data name="Schedule" xml:space="preserve">
     <value>Schedule</value>
   </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Send Mail</value>
+  </data>
+  <data name="SentDate" xml:space="preserve">
+    <value>Sent Date</value>
+  </data>
+  <data name="SentFrom" xml:space="preserve">
+    <value>Sent From</value>
+  </data>
+  <data name="SentTo" xml:space="preserve">
+    <value>Sent To</value>
+  </data>
 </root>

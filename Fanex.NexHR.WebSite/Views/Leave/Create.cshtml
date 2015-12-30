@@ -21,7 +21,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span></a>
+                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline">
+                        </i></span></a>
                         @using (Html.BeginForm("create", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
@@ -36,11 +37,12 @@
                             @Html.HiddenFor(model => model.EmployeeId)
                             if (ViewBag.TotalRequest > 0)
                             {
-                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                    <p>
-                                        <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
-                                    </p>
-                                </div>
+                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                <p>
+                                    <a href="@Url.Action("EmployeeView")">You've already requested for Leave <strong>@ViewBag.TotalRequest
+                                        day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")</a>
+                                </p>
+                            </div>
                             }
                             <div class="row form-input">
                                 <div class="col m-r--m">
@@ -136,8 +138,11 @@
                             @Html.HiddenFor(model => model.DisplayName)
                             @Html.HiddenFor(model => model.ForRequest)
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s"><input type="submit" value="@Labels.Request" /></span>
-                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back</a>
+                                <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s">
+                                    <input type="submit" value="@Labels.Request" />
+                                </span>
+                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back
+                                </a>
                             </div>
                         }
                     </div>

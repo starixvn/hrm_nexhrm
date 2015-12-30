@@ -2149,11 +2149,47 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send Mail.
+        /// </summary>
+        public static string SendMail {
+            get {
+                return ResourceManager.GetString("SendMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send to all employee.
         /// </summary>
         public static string SendToAllEmployee {
             get {
                 return ResourceManager.GetString("SendToAllEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sent Date.
+        /// </summary>
+        public static string SentDate {
+            get {
+                return ResourceManager.GetString("SentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sent From.
+        /// </summary>
+        public static string SentFrom {
+            get {
+                return ResourceManager.GetString("SentFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sent To.
+        /// </summary>
+        public static string SentTo {
+            get {
+                return ResourceManager.GetString("SentTo", resourceCulture);
             }
         }
         

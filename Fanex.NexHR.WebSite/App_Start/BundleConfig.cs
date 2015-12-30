@@ -94,6 +94,11 @@
                 "~/Scripts/Views/annualleavebalance.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
 
+            //company memo
+            bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(
+                "~/Scripts/Views/memo.js",
+                "~/Scripts/tiny_mce/tiny_mce_src.js",
+                "~/Scripts/Views/memo.edit.js"));
             bundles.AddAndInclude(
                 "~/Content/annualleavebalancecss",
                 "~/Content/Views/annualleavebalance.css");
