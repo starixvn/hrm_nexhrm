@@ -4,13 +4,10 @@
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/usermanagementjs")
 }
 @section Breadcrumb {
 }
-<script type="text/javascript">
-    var enable = null;
-</script>
-
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -22,14 +19,17 @@
                     <div class="form">
                         <div class="row form-input">
                             <div class="col m-r--m">
-                                <div class="left label--m"><label>@Labels.Keyword</label></div>
+                                <div class="left label--m">
+                                    <label>@Labels.Keyword</label>
+                                </div>
                                 <div class="left input--s">
                                     <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
                                 </div>
                             </div>
-
-                            <div class="col m-r--m">                                
-                                <div class="left label--s"><label>@Labels.Team</label></div>
+                            <div class="col m-r--m">
+                                <div class="left label--s">
+                                    <label>@Labels.Team</label>
+                                </div>
                                 <div class="left select--m">
                                     <select id="group" class="team-select">
                                         <option value="">@Labels.AllTeams</option>
@@ -40,15 +40,13 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col m-r--m">                            
+                            <div class="col m-r--m">
                                 <div class="left label--s"><label>@Labels.Title</label></div>
                                 <div class="left select--m">
                                     @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-                       
                         <div class="row form-input">
                             <div class="col">
                                 <div class="left label--m">&nbsp;</div>
@@ -60,19 +58,103 @@
                                     <input class="with-gap" name="name" type="radio" id="IsDeleted" />
                                     <label  class="m-r--s" for="IsDeleted">Deleted Users</label>
                                 </div>
-                            </div>   
-                            
+                            </div>
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s">
-                                    <input id="query" type="button" value="@Labels.Submit" />
-                                </span>
-                            </div>                         
+                                <a id="query" class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s" href="javascript:;">@Labels.Submit</a>
+                            </div>
                         </div>
-                    </div>                   
+                    </div>
                     <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
-                    <div id="gridUserManagement" class="freegrid"></div>
+                </div>
+                <div class="p-x--s">
+                    <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="col-sorter">
+                                    @Labels.Code
+                                    <div class="sorter" data-property="Code"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Nick
+                                    <div class="sorter" data-property="NickName"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Name
+                                    <div class="sorter" data-property="FullName"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Team
+                                    <div class="sorter" data-property=""></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Gender
+                                    <div class="sorter" data-property="Gender"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JobTitle
+                                    <div class="sorter" data-property="JobTitle"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.DoB
+                                    <div class="sorter" data-property="DateOfBirth"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JoinedDate
+                                    <div class="sorter" data-property="JoinedDate"></div>
+                                </th>
+                                <th>@Labels.Edit</th>
+                                <th>@Labels.Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script id="itemTemplate" type="text/x-jquery-tmpl">
+    <tr id="row${Id}" {{if Enabled == false }}class="disabled"{{/if}}>
+        <td>
+            ${index()}
+        </td>
+        <td>
+            ${Code}
+        </td>
+        <td class="nick" data-code="${Code}">
+            <a href="/employee/detail/${Id}">${NickName}</a>
+        </td>
+        <td class="txt-left">${FullName}</td>
+        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>  
+        <td>
+            {{if Gender == 0 }}
+                F
+            {{else}}
+                M
+            {{/if}}
+        </td>
+        <td class="txt-left">${JobTitle}</td>
+        <td>${formatJsonDate(DateOfBirth, 'dd MMM, yyyy')}</td>
+        <td>
+            {{if JoinedDate != null}}
+                ${formatJsonDate(JoinedDate, 'dd MMM, yyyy')}
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+                <a href="/employee/edit/${Id}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+                <a href="/employee/defaultschedule/${Id}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+    </tr>
+</script>

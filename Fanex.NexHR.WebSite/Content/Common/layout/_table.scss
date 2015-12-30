@@ -32,6 +32,25 @@
                         }
                     }
                 }
+
+                &.col-sorter {
+                    .sorter {
+                        background: url('Images/sort-icon.png') no-repeat 0 -.5rem;
+                        width: 1rem;
+                        height: 1.6rem;
+                        cursor: pointer;
+                        display: inline-block;
+                        float: right;
+
+                        &.desc {
+                            background-position: 0 -5.3rem;
+                        }
+
+                        &.asc {
+                            background-position: 0 -3.2rem;
+                        }
+                    }
+                }
             }
         }
     }

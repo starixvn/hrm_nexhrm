@@ -221,6 +221,7 @@
     <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\skype.png" />
+    <Content Include="Content\Images\sort-icon.png" />
     <Content Include="Content\Images\sprite_ico_2012-05-15.png" />
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
@@ -323,6 +324,7 @@
     <Content Include="Scripts\Views\search.request.js" />
     <Content Include="Scripts\Views\report.timerecord.js" />
     <Content Include="Scripts\Views\team.management.js" />
+    <Content Include="Scripts\Views\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\_employee.search.in.team.js" />
     <Content Include="Web.config" />

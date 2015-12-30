@@ -98,6 +98,10 @@
                 "~/Content/annualleavebalancecss",
                 "~/Content/Views/annualleavebalance.css");
 
+            // user management
+            bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
+                "~/Scripts/Views/user.management.js"));
+
             // team management
             bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
                 "~/Scripts/Views/team.management.js"));

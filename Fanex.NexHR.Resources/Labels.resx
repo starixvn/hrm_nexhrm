@@ -939,4 +939,7 @@
   <data name="NewTeam" xml:space="preserve">
     <value>New Team</value>
   </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
 </root>
