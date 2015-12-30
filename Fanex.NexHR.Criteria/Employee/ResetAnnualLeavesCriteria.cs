@@ -10,15 +10,34 @@
 namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// Reset annual leaves criteria.
-    /// </summary>
     public class ResetAnnualLeavesCriteria : CriteriaBase
     {
+        private const string XmlTemplate = "<Employee Id='{0}' LeaveBalance='{1}' />";
+        private const string BeginRootTag = "<ROOT>";
+        private const string EndRootTag = "</ROOT>";
+
         [SpParam(SqlParamName = "EmpValue")]
-        public string EmployeeValue { get; set; }
+        public string EmployeeValue
+        {
+            get
+            {
+                var xmlTemplate = new StringBuilder(BeginRootTag);
+
+                foreach (var item in LeaveSummaries)
+                {
+                    xmlTemplate.Append(string.Format(XmlTemplate, item.Employee.Id, item.LeaveBalance));
+                }
+
+                xmlTemplate.Append(EndRootTag);
+
+                return xmlTemplate.ToString();
+            }
+        }
 
         public string Description { get; set; }
 
@@ -29,6 +48,9 @@ namespace Fanex.NexHR.Criteria.Employee
         public DateTime CreatedDate { get; set; }
 
         public int CreatedBy { get; set; }
+
+        [SpParam(Ignored = true)]
+        public IList<LeaveSummary> LeaveSummaries { get; set; }
 
         public override string GetSettingKey()
         {

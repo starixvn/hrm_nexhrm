@@ -3,6 +3,7 @@
 /*exported submitForm*/
 
 var nickName;
+
 $(document).ready(function () {
     $("#Employee").autocomplete({
         source: function (request, response) {
@@ -43,9 +44,7 @@ $(document).ready(function () {
             $('#EmployeeId').val(ui.item.value);
         },
         focus: function (event, ui) {
-            nickName = ui.item.label;
-            $('#Employee').val(nickName);
-            $('#EmployeeId').val(ui.item.value);
+            $('#Employee').val(ui.item.label);
             event.preventDefault();
         },
         change: function (event, ui) {
@@ -58,7 +57,11 @@ $(document).ready(function () {
             }
         },
         close: function () {
-            $('#Employee').val(nickName);
+            if (nickName) {
+                $('#Employee').val(nickName);
+            } else {
+                $('#Employee').val('');
+            }
         }
     });
 

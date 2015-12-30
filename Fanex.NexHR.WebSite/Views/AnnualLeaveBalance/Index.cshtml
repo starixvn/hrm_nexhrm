@@ -4,7 +4,6 @@
 @model Fanex.NexHR.ViewModels.LeaveSummaryViewModel
 @{
     ViewBag.Title = Labels.AnualLeaveBalance;
-    var showOpenAndCloseAnnualBalance = (ShowOpenAndCloseAnnualBalance)ViewBag.ShowOpenAndCloseAnnualBalance;
 }
 @section css{
     @Styles.Render("~/Content/annualleavebalancecss")
@@ -39,13 +38,7 @@
                                         @Html.LabelFor(model => model.Team)
                                     </div>
                                     <div class="left select--m">
-                                        <select id="TeamId" name="TeamId" class="yearpicker">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team team in ViewBag.Groups)
-                                            {
-                                                <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.FilteringGroups, "Id", "Name"), Labels.None)
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -53,13 +46,7 @@
                                         @Html.Label(@Labels.MinBalance)
                                     </div>
                                     <div class="left select--s">
-                                        <select id="MinAnnualBalance" name="MinAnnualBalance" class="yearpicker">
-                                            <option value="0">@Labels.None</option>
-                                            @for (int i = 1; i <= 10; i++)
-                                            {
-                                                <option value="@i">@i</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model => model.MinAnnualBalance, Model.FilteringMinAnnualBalances, Labels.None)
                                     </div>
                                 </div>
                                 <div class="col">
@@ -76,13 +63,13 @@
                                         <input type="submit" value="@Labels.Submit" class="processing-submit" />
                                     </span>
                                 </div>
-                                @if (showOpenAndCloseAnnualBalance.IsShowCloseBalance)
+                                @if (Model.ShowOpenAndCloseAnnualBalance.IsShowCloseBalance)
                                 {
                                     <div class="col">
                                         <a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;" id="resetblc">@Labels.CloseBalance</a>
                                     </div>
                                 }
-                                @if (showOpenAndCloseAnnualBalance.IsShowOpenBalance)
+                                @if (Model.ShowOpenAndCloseAnnualBalance.IsShowOpenBalance)
                                 {
                                     <div class="col">
                                         <a class="button-hrm waves-effect waves-light btn blue darken-2" href="javascript:;" id="addbalance">@Labels.AddBalance</a>
@@ -131,7 +118,7 @@
                             @*Check if exists*@
                             @{
                                 bool checkSummaryList = true;
-                                foreach (LeaveSummaryByTeam leaveSumaryByTeam in ViewBag.LeaveSummaryByTeamList)
+                                foreach (LeaveSummaryByTeam leaveSumaryByTeam in Model.LeaveSummaryByTeamList)
                                 {
                                     if (leaveSumaryByTeam.LeaveSummaryInTeam.Count > 0)
                                     {
@@ -147,7 +134,7 @@
                             @if (checkSummaryList)
                             {
                                 <tbody>
-                                    @foreach (LeaveSummaryByTeam item in ViewBag.LeaveSummaryByTeamList)
+                                    @foreach (LeaveSummaryByTeam item in Model.LeaveSummaryByTeamList)
                                     {
                                         if (item.LeaveSummaryInTeam.Count > 0)
                                         {

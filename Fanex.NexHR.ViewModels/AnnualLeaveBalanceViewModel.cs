@@ -9,18 +9,23 @@
 
 namespace Fanex.NexHR.ViewModels
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    /// <summary>
-    /// Annual leave balance view model.
-    /// </summary>
     public class AnnualLeaveBalanceViewModel
     {
+        public AnnualLeaveBalanceViewModel()
+        {
+            AnnualLeaveTransactions = new List<AnnualLeaveBalanceModel>();
+        }
+
         public int EmployeeId { get; set; }
 
         public int Year { get; set; }
 
         [Display(Name = "Include employee's request")]
         public bool ExcludedRequestTrans { get; set; }
+
+        public IList<AnnualLeaveBalanceModel> AnnualLeaveTransactions { get; set; }
     }
 }

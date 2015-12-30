@@ -916,10 +916,10 @@
     <value>Unpaid</value>
   </data>
   <data name="CompanyMemo" xml:space="preserve">
-    <value>COMPANY MEMO</value>
+    <value>Company Memo</value>
   </data>
   <data name="ExtensionNumber" xml:space="preserve">
-    <value>EXTENSION NUMBERS</value>
+    <value>Extension Numbers</value>
   </data>
   <data name="AddBalance" xml:space="preserve">
     <value>Add Balance</value>

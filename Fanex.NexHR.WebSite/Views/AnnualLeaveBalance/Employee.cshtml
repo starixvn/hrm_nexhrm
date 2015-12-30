@@ -64,11 +64,11 @@
                                     <th>@Labels.Edit</th>
                                 </tr>
                             </thead>
-                            @if (ViewBag.Data.Count > 0)
+                            @if (Model.AnnualLeaveTransactions.Any())
                             {
                                 <tbody>
                                     @{int index = 1;}
-                                    @foreach (Fanex.NexHR.ViewModels.AnnualLeaveBalanceModel item in ViewBag.Data)
+                                    @foreach (Fanex.NexHR.ViewModels.AnnualLeaveBalanceModel item in Model.AnnualLeaveTransactions)
                                     {
                                         <tr>
                                             <td>@(index++)</td>

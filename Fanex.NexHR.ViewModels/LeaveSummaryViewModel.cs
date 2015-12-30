@@ -9,11 +9,18 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    /// <summary>
-    /// Leave summary view model.
-    /// </summary>
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Models;
+
     public class LeaveSummaryViewModel
     {
+        public LeaveSummaryViewModel()
+        {
+            FilteringGroups = new List<Team>();
+            LeaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
+        }
+
         public int Year { get; set; }
 
         public string Team { get; set; }
@@ -25,5 +32,32 @@ namespace Fanex.NexHR.ViewModels
         public int EmployeeId { get; set; }
 
         public int MinAnnualBalance { get; set; }
+
+        public IList<Team> FilteringGroups { get; set; }
+
+        public IList<LeaveSummaryByTeam> LeaveSummaryByTeamList { get; set; }
+
+        public ShowOpenAndCloseAnnualBalance ShowOpenAndCloseAnnualBalance { get; set; }
+
+        public IList<SelectListItem> FilteringMinAnnualBalances
+        {
+            get
+            {
+                IList<SelectListItem> filteringMinAnnualBalances = new List<SelectListItem>();
+
+                for (int i = 1; i <= 10; i++)
+                {
+                    SelectListItem item = new SelectListItem()
+                    {
+                        Text = i.ToString(),
+                        Value = i.ToString()
+                    };
+
+                    filteringMinAnnualBalances.Add(item);
+                }
+
+                return filteringMinAnnualBalances;
+            }
+        }
     }
 }

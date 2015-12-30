@@ -27,9 +27,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Annual leave balance controller.
-    /// </summary>
     [Authorize(Roles = "HR")]
     public class AnnualLeaveBalanceController : BaseController
     {
@@ -57,11 +54,6 @@ namespace Fanex.NexHR.Controllers
             return Index(null);
         }
 
-        /// <summary>
-        /// Index page.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Index(LeaveSummaryViewModel model)
@@ -76,13 +68,6 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
-            {
-                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId,
-                Year = model.Year
-            };
-            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
             IList<Team> listTeam = new List<Team>();
             if (model.TeamId != null)
             {
@@ -90,6 +75,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Id = (int)model.TeamId
                 };
+
                 Team team = _teamService.GetById(criteria);
                 listTeam.Add(team);
             }
@@ -97,6 +83,14 @@ namespace Fanex.NexHR.Controllers
             {
                 listTeam = allTeam;
             }
+
+            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
+            {
+                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId,
+                Year = model.Year
+            };
+            IList<LeaveSummary> entityList = _reportRepository.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
 
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, listTeam);
             if (model.MinAnnualBalance > 0)
@@ -107,12 +101,9 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            ShowOpenAndCloseAnnualBalance showOpenAndClose = GetOpenAndCloseAnnualBalance();
-            ViewBag.ShowOpenAndCloseAnnualBalance = showOpenAndClose;
-            ViewBag.Groups = allTeam;
-            ViewBag.TeamId = model.TeamId;
-            ViewBag.EntityList = entityList;
-            ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
+            model.FilteringGroups = allTeam;
+            model.ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance();
+            model.LeaveSummaryByTeamList = leaveSummaryByTeamList;
 
             return View(model);
         }
@@ -135,22 +126,17 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
-        /// <summary>
-        /// Employee annual leave balance.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Employee(int id = -1)
         {
             var model = new AnnualLeaveBalanceViewModel
             {
                 EmployeeId = id,
                 Year = DateTime.Now.Year,
-                ExcludedRequestTrans = true
+                ExcludedRequestTrans = false
             };
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (employee != null)
             {
@@ -162,23 +148,18 @@ namespace Fanex.NexHR.Controllers
                     ExcludedRequestTransactions = false
                 };
 
-                ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
+                model.AnnualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
             }
             
             return View(model);
         }
 
-        /// <summary>
-        /// Employee annual leave balance.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)
         {
-            model.ExcludedRequestTrans = model.ExcludedRequestTrans ? false : true;
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
             var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
             {
                 EmployeeId = model.EmployeeId,
@@ -186,16 +167,11 @@ namespace Fanex.NexHR.Controllers
                 ExcludedRequestTransactions = model.ExcludedRequestTrans
             };
 
-            ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
+            model.AnnualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
 
             return View(model);
         }
 
-        /// <summary>
-        /// Edit employee annual leave balance.
-        /// </summary>
-        /// <param name="id">Annual leave transaction ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Edit(int id = -1)
         {
             var getAnnualLeaveByIdCriteria = new GetAnnualLeaveByIdCriteria
@@ -203,6 +179,7 @@ namespace Fanex.NexHR.Controllers
                 Id = id
             };
             var model = _employeeService.GetAnnualLeaveTransactionById(getAnnualLeaveByIdCriteria);
+            
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
@@ -212,12 +189,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit employee annual leave balance.
-        /// </summary>
-        /// <param name="formCollection">The form collection.</param>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Edit(FormCollection formCollection, AnnualLeaveBalanceModel model)
         {
@@ -269,15 +240,11 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Create employee annual leave balance.
-        /// </summary>
-        /// <param name="id">Annual leave balance ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Create(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
             return View(new AnnualLeaveBalanceModel
             {
                 EmpId = id,
@@ -285,11 +252,6 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
-        /// <summary>
-        /// Create employee annual leave balance.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(AnnualLeaveBalanceModel model)
         {
@@ -320,10 +282,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Method to get Model for show and hide open balance or close balance.
-        /// </summary>
-        /// <returns>Show Open And Close Annual Balance.</returns>
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
         {
             var model = new ShowOpenAndCloseAnnualBalance();
@@ -332,6 +290,7 @@ namespace Fanex.NexHR.Controllers
                 OpenDate = new DateTime(model.ToDate.Year, 1, 1),
                 CloseDate = new DateTime(model.FromDate.Year, 12, 31)
             };
+
             model = _employeeService.GetOpenAndCloseAnnualBalance(criteria);
 
             return model;

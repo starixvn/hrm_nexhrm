@@ -77,7 +77,6 @@ $(document).ready(function () {
                         $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
                     });
 
-                    $('#insertform').closeModal();
                     document.location = _global.root + 'annualleavebalance/index';
                 } else {
                     alert(_messages.errorTryAgain);
