@@ -1,9 +1,13 @@
 @import "../utils/variables";
 
 #dropdown1, #dropdown-notification {
-  top: auto !important;    
+  top: auto !important;
 }
 
-.dropdown-content li > a, .dropdown-content li > span {
-	padding: 0.7rem 1rem;
+.dropdown-content {
+    max-height: 42rem;
+
+    li > a, .dropdown-content li > span {
+        padding: 0.7rem 1rem;
+    }
 }

@@ -1,19 +1,2 @@
 @import '../Common/utils/mixins';
 @import 'tipsy';
-
-.employee-autocomplete {
-    max-height: 40rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    .ui-state-focus {
-    }
-}
-
-.dropdown-content {
-    max-height: 40rem;
-}
-
-.radioButton {
-    float: left;
-}

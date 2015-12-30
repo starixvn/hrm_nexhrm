@@ -79,5 +79,5 @@ $(document).ready(function () {
                 $('#Employee').val(_global.nickName);
             }
         }
-    }).autocomplete("widget").addClass("employee-autocomplete");
+    });
 });

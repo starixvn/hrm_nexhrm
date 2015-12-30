@@ -53,15 +53,4 @@
     .tipsy.tipsy-request table.table-tooltip tr:last-child {
       border-bottom: none; }
 
-.employee-autocomplete {
-  max-height: 40rem;
-  overflow-y: auto;
-  overflow-x: hidden; }
-
-.dropdown-content {
-  max-height: 40rem; }
-
-.radioButton {
-  float: left; }
-
 /*# sourceMappingURL=myrequest.css.map */

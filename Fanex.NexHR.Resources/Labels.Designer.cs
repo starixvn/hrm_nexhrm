@@ -1744,6 +1744,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Team.
+        /// </summary>
+        public static string NewTeam {
+            get {
+                return ResourceManager.GetString("NewTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nick.
         /// </summary>
         public static string Nick {
@@ -2244,6 +2253,15 @@ namespace Fanex.NexHR.Resources {
         public static string Team {
             get {
                 return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team Management.
+        /// </summary>
+        public static string TeamManagement {
+            get {
+                return ResourceManager.GetString("TeamManagement", resourceCulture);
             }
         }
         

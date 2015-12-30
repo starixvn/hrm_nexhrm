@@ -129,6 +129,10 @@ namespace Fanex.NexHR.WebSite
             bundles.AddAndInclude(
                 "~/Content/annualleavebalancecss",
                 "~/Content/Views/annualleavebalance.css");
+
+            // team management
+            bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
+                "~/Scripts/Views/team.management.js"));
         }
     }
 }

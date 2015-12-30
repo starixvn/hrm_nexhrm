@@ -933,4 +933,10 @@
   <data name="EditAnnualLeaveBalance" xml:space="preserve">
     <value>Edit Annual Leave Balance</value>
   </data>
+  <data name="TeamManagement" xml:space="preserve">
+    <value>Team Management</value>
+  </data>
+  <data name="NewTeam" xml:space="preserve">
+    <value>New Team</value>
+  </data>
 </root>

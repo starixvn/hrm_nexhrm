@@ -20,9 +20,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Team controller.
-    /// </summary>
     [Authorize]
     public class TeamController : BaseController
     {
@@ -40,10 +37,6 @@ namespace Fanex.NexHR.Controllers
             _departmentService = departmentService ?? new DepartmentService();
         }
 
-        /// <summary>
-        /// Index page.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             var criteria = new GetAllTeamCriteria();
@@ -52,31 +45,21 @@ namespace Fanex.NexHR.Controllers
             return View(teams);
         }
 
-        /// <summary>
-        /// Create team.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            var criteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(criteria);
-            ViewBag.Departments = departments;
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
             var model = new TeamViewModel
             {
                 CreatedDate = DateTime.Now,
                 CreatedBy = this.CurrentUser.Id
             };
+
+            model.FilteringDepartments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.FilteringGroups = _teamService.GetAll(new GetAllTeamCriteria());
+
             return View(model);
         }
 
-        /// <summary>
-        /// Create team.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)
@@ -96,7 +79,7 @@ namespace Fanex.NexHR.Controllers
                 };
 
                 var id = _teamService.AddNewTeam(criteria);
-                if (id == -1)
+                if (id.Equals(-1))
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateTeamCode);
                 }
@@ -110,19 +93,12 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
-            ViewBag.Departments = departments;
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+            model.FilteringDepartments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.FilteringGroups = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(model);
         }
 
-        /// <summary>
-        /// Edit team.
-        /// </summary>
-        /// <param name="id">The team ID.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
@@ -150,21 +126,12 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
-            ViewBag.Departments = departments;
-
-            IEnumerable<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.Groups = teams.Where(p => p.Id != id);
+            model.FilteringDepartments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.FilteringGroups = _teamService.GetAll(new GetAllTeamCriteria()).Where(p => p.Id != id).ToList();
 
             return View(model);
         }
 
-        /// <summary>
-        /// Edit team.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(TeamViewModel model)
@@ -197,12 +164,8 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
-            ViewBag.Departments = departments;
-
-            IEnumerable<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.Groups = teams.Where(p => p.Id != model.Id);
+            model.FilteringDepartments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.FilteringGroups = _teamService.GetAll(new GetAllTeamCriteria()).Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

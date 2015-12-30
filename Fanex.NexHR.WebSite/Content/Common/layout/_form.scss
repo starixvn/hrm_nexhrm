@@ -2,14 +2,12 @@
 
 .form {
 	margin-top: 16px;
-    margin-bottom: 3rem;    
+    margin-bottom: 3rem;
 	padding: 0 !important;
-	  .btn {              
-		//background: $color-btn-bgprimary;
+	  .btn {
 		text-transform: none;
 	  }
 }
-
 
 .input {
     width: 163px;
@@ -165,4 +163,17 @@
   margin-right: 9px;
   margin-top: 0;
   padding: 1.6rem 0.5rem 1.6rem 0;    
+}
+
+//---------------------------------------------
+//			SEARCH AUTOCOMPLETE
+//---------------------------------------------
+
+.ui-autocomplete {
+    max-height: 40rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .ui-state-focus {
+    }
 }

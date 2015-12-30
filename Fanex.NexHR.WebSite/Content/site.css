@@ -250,8 +250,10 @@ main {
 #dropdown1, #dropdown-notification {
   top: auto !important; }
 
-.dropdown-content li > a, .dropdown-content li > span {
-  padding: 0.7rem 1rem; }
+.dropdown-content {
+  max-height: 42rem; }
+  .dropdown-content li > a, .dropdown-content .dropdown-content li > span {
+    padding: 0.7rem 1rem; }
 
 .icon {
   background-repeat: no-repeat;
@@ -396,6 +398,11 @@ main {
   margin-right: 9px;
   margin-top: 0;
   padding: 1.6rem 0.5rem 1.6rem 0; }
+
+.ui-autocomplete {
+  max-height: 40rem;
+  overflow-y: auto;
+  overflow-x: hidden; }
 
 .navbar-fixed .top-nav {
   font-size: 24px;

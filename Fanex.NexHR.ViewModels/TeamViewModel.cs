@@ -10,14 +10,19 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Team view model.
-    /// </summary>
     public class TeamViewModel
     {
+        public TeamViewModel()
+        {
+            FilteringDepartments = new List<DepartmentModel>();
+            FilteringGroups = new List<Team>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -54,5 +59,9 @@ namespace Fanex.NexHR.ViewModels
         public DateTime ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }
+
+        public IList<DepartmentModel> FilteringDepartments { get; set; }
+
+        public IList<Team> FilteringGroups { get; set; }
     }
 }
