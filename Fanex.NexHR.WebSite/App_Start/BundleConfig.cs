@@ -93,7 +93,9 @@
             bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
                 "~/Scripts/Views/annualleavebalance.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
-            
+
+            BuildBundleForExtension(bundles);
+
             BuildBundleForMemo(bundles);
 
             // user management
@@ -105,6 +107,14 @@
                 "~/Scripts/Views/team.management.js"));
 
             BuildBundleForToeic(bundles);
+        }
+
+        private static void BuildBundleForExtension(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/addextensionnojs").Include(
+                "~/Scripts/Views/addextensionno.js"));
+            bundles.Add(new ScriptBundle("~/bundles/extensionnojs").Include(
+                "~/Scripts/Views/extensionno.js"));
         }
 
         private static void BuildBundleForMemo(BundleCollection bundles)
