@@ -89,17 +89,17 @@ function initDatePicker(el) {
         maxdate = $(el).attr('maxdate'),
         disabledDates = $(el).attr('disabledDate');
 
-    if (mindate !== 'null') {
+    if (mindate !== 'null' && mindate !== undefined) {
         mindate = mindate.split('/');
         picker.set('min', new Date(mindate[0], mindate[1] - 1, mindate[2]));
     }
 
-    if (maxdate !== 'null') {
+    if (maxdate !== 'null' && maxdate !== undefined) {
         maxdate = maxdate.split('/');
         picker.set('max', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
     }
 
-    if (disabledDates.length > 0) {
+    if (disabledDates !== undefined && disabledDates.length > 0) {
         var disabledDays = [],
             disabledDates = disabledDates.split(',');
 

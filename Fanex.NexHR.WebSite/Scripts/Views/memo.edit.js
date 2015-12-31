@@ -175,8 +175,7 @@ function validateForm() {
 
 $(document).ready(function () {
     initEditor('Contents', 'basic');
-    $("#error").hide();
-    $("#SentDate").attr('readonly', 'readonly');
+    $("#error").hide();    
 
     initDatePicker('#SentDate');
 
