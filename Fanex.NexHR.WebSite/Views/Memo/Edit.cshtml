@@ -6,10 +6,10 @@
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/memoeditjs");
 }
 @section Breadcrumb {
 }
-
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -21,11 +21,13 @@
                     @using (Html.BeginForm())
                     {
                         <div class="form">
-                            <div class="validation-summary-errors" id="error" style="display: none;"></div>
+                            <div class="validation-summary-errors" id="error" style="display: none;">
+                            </div>
                             @if ((bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
-                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!</div>                                    
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!</div>
                                 </div>
                             }
                             @Html.HiddenFor(model => model.Id)
@@ -35,16 +37,15 @@
                             @Html.Hidden("pathName", Model.Contents)
                             <!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
                             <div class='row form-input'>
-                                <div class='col'>                                    
+                                <div class='col'>
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Subject)
-                                    </div>                                    
+                                    </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Subject)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-                            
                             <div class='row form-input'>
                                 <div class="col m-r--m">
                                     <div class="left label--m">
@@ -54,7 +55,6 @@
                                         @Html.EditorFor(model => model.RefNo)
                                     </div>
                                 </div>
-                                
                                 <div class='col'>
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Category)
@@ -64,7 +64,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class='row form-input'>
                                 <div class='col m-r--m'>
                                     <div class="left label--m">
@@ -74,7 +73,6 @@
                                         @Html.EditorFor(model => model.ForInfo)
                                     </div>
                                 </div>
-
                                 <div class='col'>
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.SentDate)
@@ -84,8 +82,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
                             <div class='row form-input'>
                                 <div class='col m-r--m'>
                                     <div class="left label--m">
@@ -114,12 +110,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class='row form-input'>                                
+                            <div class='row form-input'>
                                 <div class='col'>
-                                    <div class='left label--m'>&nbsp;</div>    
+                                    <div class='left label--m'>
+                                        &nbsp;</div>
                                     <div class="left">
                                         @{
-                                            var types = new List<SelectListItem>
+                            var types = new List<SelectListItem>
                                             {
                                                 new SelectListItem() {Text = "Upload", Value = "1", Selected = true},
                                                 new SelectListItem() {Text = "FCK Editor", Value = "0"},
@@ -128,12 +125,13 @@
                                         @Html.RadioButtonList(model => model.MemoType, types)
                                     </div>
                                 </div>
-                            </div> 
-                            <div id="upload">                                
-                                <div id="upload">                                    
+                            </div>
+                            <div id="upload">
+                                <div id="upload">
                                     <div class="row form-input m-t--m">
                                         <div class='col'>
-                                            <div class='left label--m'>&nbsp;</div>
+                                            <div class='left label--m'>
+                                                &nbsp;</div>
                                             <div class="left input--m">
                                                 <input type="file" id="fileName" size="55" multiple />
                                             </div>
@@ -143,7 +141,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                                 <div id="attach" class="grid_20 formrow">
                                     <div class="grid_2">
                                         <br />
@@ -158,24 +156,21 @@
                                 <div class="space">
                                 </div>
                             </div>
-                            <div id="content">
-                                <div class="row fomr-input" id="content">
-                                    <div class="col">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.Contents)
-                                        </div>
-                                        <div class="left select--l">
-                                            @Html.TextAreaFor(model => model.Contents)
-                                        </div>
-                                    </div>                                    
+                            <div class="row fomr-input" id="content">
+                                <div class="col">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Contents)
+                                    </div>
+                                    <div class="left select--l">
+                                        @Html.TextAreaFor(model => model.Contents)
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="row form-input m-t--m">                                
+                            <div class="row form-input m-t--m">
                                 <div class="col">
                                     @Html.AntiForgeryToken()
-                                    <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="Save" id="saveMemo" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("index", "memo")">@Labels.Back</a>
+                                    <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s">
+                                        <input type="submit" value="Save" id="saveMemo" /></span> <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("index", "memo")">@Labels.Back</a>
                                 </div>
                             </div>
                         </div>                        
