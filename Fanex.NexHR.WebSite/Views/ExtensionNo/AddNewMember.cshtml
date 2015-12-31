@@ -1,5 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@model Fanex.NexHR.Models.ExtensionNoModel
+﻿@model Fanex.NexHR.Models.ExtensionNoModel
 @{
     ViewBag.Title = "New Extension Number";
 }
@@ -37,7 +36,7 @@
                                         @Html.LabelFor(model => model.IsInternal)
                                     </div>
                                     <div class="left input">
-                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal)
+                                        @Html.CheckBoxFor(model => model.IsInternal)
                                     </div>
                                 </div>                                
                             </div>
@@ -102,10 +101,9 @@
                                     @Html.Hidden("EmpId")
                                     @Html.Hidden("IsAddForm", true)
                                 </div>
-                                
                                 <div class="col">
                                     <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s"><input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="~/extensionno/index">@Labels.Back</a>
+                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="~/extensionno/index" class="button">@Labels.Back</a>
                                 </div>
                             </div>
                         }

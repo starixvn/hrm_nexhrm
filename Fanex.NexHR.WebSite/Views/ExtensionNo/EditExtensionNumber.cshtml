@@ -1,12 +1,10 @@
-﻿@using Fanex.NexHR.Core
-@model Fanex.NexHR.Models.ExtensionNoModel
+﻿@model Fanex.NexHR.Models.ExtensionNoModel
 @{
     ViewBag.Title = "Update Extension Number";
 }
 @section css {
 }
 @section js {
-    @Scripts.Render("~/bundles/addextensionnojs");
 }
 @section Breadcrumb {
 }
@@ -23,14 +21,11 @@
                         @using (Html.BeginForm())
                         {
                             @Html.ValidationSummary()
-                            if (ViewBag.Updated == true)
-                            {
-                            <div class="row validation-summary-success">
-                                <div class="col success green-text">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has
-                                    been updated successfully!</div>
-                            </div>
-                            <input type="hidden" id="successed" value="true" />
+                            if (ViewBag.Updated == true) {
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has been updated successfully!</div>                                    
+                                </div>
+                                <input type="hidden" id="successed" value="true" />
                             }
                             
                             <div class="row form-input">
@@ -39,9 +34,9 @@
                                         @Html.LabelFor(model => model.IsInternal)
                                     </div>
                                     <div class="left checkbox">
-                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal, new { @checked = "checked", @class = "filled-in" })
+                                        @Html.CheckBoxFor(model => model.IsInternal, new { @checked = "checked" })
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input">
@@ -52,7 +47,7 @@
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.TeamId, (List<SelectListItem>)ViewBag.Group)
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input" id="EmployeeField">
@@ -63,7 +58,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.Employee)
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input">
@@ -74,7 +69,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.FullName)
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input">
@@ -85,7 +80,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.NickName)
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input">
@@ -96,16 +91,15 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.ExtensionNo)
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                             
                             <div class="row form-input">
                                 <div class='col'>
                                     @Html.Hidden("EmpId")
-                                    <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--m">
-                                        <input type="submit" value="@Fanex.NexHR.Resources.Labels.Update" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn white-text grey darken-1" href="~/extensionno/index">@Labels.Back</a>
-                                </div>
+                                    <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--m"><input type="submit" value="@Fanex.NexHR.Resources.Labels.Update" /></span>
+                                    <a class="button-hrm waves-effect waves-light btn white-text grey darken-1" href="~/extensionno/index" class="button">@Labels.Back</a>
+                                </div>                                
                             </div>
                         }
                     </div>
@@ -114,3 +108,4 @@
         </div>
     </div>
 </div>
+

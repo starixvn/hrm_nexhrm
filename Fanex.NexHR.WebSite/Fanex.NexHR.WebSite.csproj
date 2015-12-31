@@ -310,7 +310,6 @@
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
-    <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
     <Content Include="Scripts\Views\Employee\employee.toeic.js" />
     <Content Include="Scripts\Tiny_mce\langs\en.js" />
@@ -566,7 +565,6 @@
     <Content Include="Scripts\Tiny_mce\utils\form_utils.js" />
     <Content Include="Scripts\Tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
-    <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Scripts\Views\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />
     <Content Include="Scripts\Views\memo.edit.js" />
