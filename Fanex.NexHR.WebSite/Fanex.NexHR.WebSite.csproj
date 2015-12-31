@@ -215,6 +215,7 @@
     <Content Include="Content\Common\monPickr-0.0.3.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\calendar.jpg" />
+    <Content Include="Content\Images\calendar.png" />
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\chevron-right.png" />
     <Content Include="Content\Images\logo.png" />
@@ -310,7 +311,7 @@
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
-    <Content Include="Scripts\Views\employee.toeic.js" />
+    <Content Include="Scripts\Views\Employee\employee.toeic.js" />
     <Content Include="Scripts\Tiny_mce\langs\en.js" />
     <Content Include="Scripts\Tiny_mce\license.txt" />
     <Content Include="Scripts\Tiny_mce\plugins\advhr\css\advhr.css" />

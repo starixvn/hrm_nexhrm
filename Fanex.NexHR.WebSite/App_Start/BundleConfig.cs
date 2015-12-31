@@ -121,7 +121,7 @@
         private static void BuildBundleForToeic(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
-                "~/Scripts/Views/employee.toeic.js"));
+                "~/Scripts/Views/Employee/employee.toeic.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

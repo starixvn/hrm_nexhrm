@@ -4,15 +4,9 @@
     bool isHRRole = Roles.IsUserInRole("HR");
 }
 @section css {
-    <style>
-        input[type="number"]
-        {
-            width: 230px;
-        }
-    </style>
 }
 @section js {
-    @Scripts.Render("~/bundles/toeicjs");
+    @Scripts.Render("~/bundles/toeicjs")
 }
 @section Breadcrumb {
 }
@@ -28,13 +22,12 @@
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    <label>@Labels.Nickname</label>
+                                    <label>@Labels.Nick</label>
                                 </div>
                                 <div class="left input--s">
                                     <input id="keyword" type="text" />
                                 </div>
                             </div>
-                            
                             <div class="col m-r--m">
                                 <div class="left label--s">
                                     <label>@Labels.Team</label>
@@ -42,14 +35,13 @@
                                 <div class="left select--m">
                                     <select id="group" class="team-select">
                                         <option value="">@Labels.AllTeams</option>
-                                        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                                        @foreach (Team item in ViewBag.Groups)
                                         {
                                             <option value="@item.Id">@item.Name</option>
                                         }
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="col">
                                 <div class="left label--s">
                                     <label>@Labels.Title</label>
@@ -58,25 +50,26 @@
                                     @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
                                 </div>
                             </div>
-
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input id="query" type="button" value="@Labels.Submit" /></span>
+                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m">
+                                    <input id="query" type="button" value="@Labels.Submit" /></span>
                                 @if (isHRRole)
                                 {
-                                    <a class="button-hrm waves-effect waves-light btn orange darken-1" id="btnNewTOEIC" href="javascript:;">Update TOEIC                                            Score</a>
-                                    
+                                    <a class="button-hrm waves-effect waves-light btn orange darken-1" id="btnNewTOEIC"
+                                        href="javascript:;">Update TOEIC Score</a>                                    
                                 }
-                            </div>                            
-                        </div>                        
-                    </div>                    
-                    <div id="cont"> &nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cont">
+                        &nbsp;</div>
                     <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
                         <thead class="persist-header">
                             <tr>
                                 <th rowspan="2">
                                     #
                                 </th>
-                                <th rowspan="2">@Labels.Nick/@Labels.Email
+                                <th rowspan="2">@Labels.Nick
                                 </th>
                                 <th rowspan="2">@Labels.Team
                                 </th>
@@ -114,8 +107,6 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
-                    <input type="hidden" id="userRole" value="@isHRRole.ToString()" />
                     <div id="dialog-toeic" title="Update TOEIC Score">
                         &nbsp;</div>
                 </div>
@@ -126,7 +117,7 @@
 <script id="tplAllSkill" type="text/x-jquery-tmpl">
     <tr id="row${Id}">
         <td>
-          ${index()}
+          ${rowIndex++}
         </td>
         <td title="${FullName}" class="tooltip">
             <a href="/employee/detail/${Id}">${NickName}</a>
@@ -184,7 +175,7 @@
         </td>
 
             {{if ToeicScore.InputDate != null }}
-                {{if checkExpiredDate(ToeicScore.InputDate)}}
+                {{if isExpiredDate(ToeicScore.InputDate)}}
                 <td class="expired-date">
                     ${jsonTojsDate(ToeicScore.InputDate).format("dd mmm, yyyy")}
                 </td>
@@ -199,7 +190,7 @@
                 </td>
             {{/if}}
 
-        {{if isShowEdit()}}
+        {{if isHRRole}}
             <td style="width: 45px;">
                 {{if !IsDeleted}}
                     <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');"><img src="/Content/Images/edit-icon.png"></a>
@@ -209,4 +200,7 @@
             </td>
         {{/if}}
     </tr>
+</script>
+<script type="text/javascript">
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
