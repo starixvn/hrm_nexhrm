@@ -32,28 +32,6 @@ function query() {
     $('#keyword').focus().select();
 }
 
-function initNumberTextbox() {
-    var numbericTextbox = $('input[type=number]');
-    numbericTextbox.attr('maxlength', '3');
-    numbericTextbox.keydown(function (event) {
-        // Allow: backspace, delete, tab, escape, and enter
-        if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-        // Allow: Ctrl+A
-			(event.keyCode === 65 && event.ctrlKey === true) ||
-        // Allow: home, end, left, right
-			(event.keyCode >= 35 && event.keyCode <= 39)) {
-            // let it happen, don't do anything
-            return;
-        }
-        else {
-            // Ensure that it is a number and stop the keypress
-            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-                event.preventDefault();
-            }
-        }
-    });
-}
-
 function isExpiredDate(date) {
     var dateNow = new Date();
     var expiredDate = new Date(date);
@@ -61,11 +39,15 @@ function isExpiredDate(date) {
     return (expiredDate.toString("yyyy-MM-dd") < dateNow.toString("yyyy-MM-dd"));
 }
 
-function openAddToeicDialog(divContent) {
-    divContent.dialog({
+function openDialog() {
+    $('#dialog-toeic').dialog({
         modal: true,
         width: 500
     });
+}
+
+function closeDialog() {
+    $('#dialog-toeic').dialog('close');
 }
 
 function initAutocomplete() {
@@ -96,91 +78,6 @@ function initAutocomplete() {
     });
 }
 
-function initDatepicker() {
-    if ($('.datepicker').length > 0) {
-        // get minDate, maxDate, disabledDates
-        var mindate = $('.datepicker').attr('mindate');
-        var maxdate = $('.datepicker').attr('maxdate');
-        var disabledDates = $('.datepicker').attr('disabledDate');
-
-        if (disabledDates.length > 0) {
-            $('.datepicker').datepicker({
-                dateFormat: "dd M, yy",
-                beforeShowDay: checkBadDates,
-                showOn: "button",
-                buttonImageOnly: true,
-                buttonImage: _global.root + "Content/Images/calendar.png"
-            });
-        }
-        else {
-            $('.datepicker').datepicker({
-                dateFormat: "dd M, yy",
-                showOn: "button",
-                buttonImageOnly: true,
-                buttonImage: _global.root + "Content/Images/calendar.png"
-            });
-        }
-
-        if (typeof (initDatePicker) !== "function") //check if (isExit include date.filter.js) then (mindate, maxdate include after function initDatePicker)
-        {
-            if (mindate != 'null') {
-                mindate = mindate.split("/");
-                $('.datepicker').datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
-            }
-            if (maxdate != 'null') {
-                maxdate = maxdate.split("/");
-                $('.datepicker').datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
-            }
-        }
-    }
-}
-
-function initEditDialog(divContent) {
-    divContent.dialog({
-        modal: true,
-        width: 500,
-        buttons: {
-            Submit: function () {
-                $.ajax({
-                    type: 'POST',
-                    url: _global.root + 'employee/updatefulltoeic',
-                    dataType: 'json',
-                    data: $('#frmUpdFullTOEIC').serialize(),
-                    success: function (data) {
-                        if (data) {
-                            var errorCont = $('#divErrorCont');
-                            errorCont.removeClass();
-                            errorCont.html('');
-
-                            if (data.code === 1) {
-                                errorCont.addClass('success');
-                                errorCont.append('Update TOEIC score for Employee successfully');
-                                setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
-                            }
-                            else {
-                                var errors = '<ul>';
-                                $(data.error).each(function (i, value) {
-                                    errors += '<li>' + value.ErrorMessage + '</li>';
-                                });
-                                errors += '</ul>';
-
-                                errorCont.addClass('validation-summary-errors');
-                                errorCont.append(errors);
-                            }
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus + ': ' + errorThrown);
-                    }
-                });
-            },
-            Close: function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-}
-
 function editTOEIC(id, name) {
     if (id > 0) {
         $.ajax({
@@ -189,12 +86,9 @@ function editTOEIC(id, name) {
             dataType: 'html',
             success: function (data) {
                 if (data) {
-                    var divContent = $('#dialog-toeic');
-                    divContent.html(data);
-
-                    initNumberTextbox();
-                    initDatepicker();
-                    initEditDialog(divContent);
+                    $('#dialog-toeic').html(data);
+                    initEditToeicDialog();
+                    openDialog();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -204,9 +98,43 @@ function editTOEIC(id, name) {
     }
 }
 
-function initAddToeicEvent() {
+function initEvent() {
+    $('#keyword').keyup(function (event) {
+        if (event.keyCode === 13) {
+            query();
+        }
+    });
+
+    $('#query').click(function (evt) {
+        evt.preventDefault();
+        query();
+    });
+
+    $('#btnNewTOEIC').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: _global.root + 'employee/updatetoeic',
+            dataType: 'html',
+            success: function (data) {
+                if (data) {
+                    $('#dialog-toeic').html(data);
+                    initAddToeicDialog();
+                    openDialog();
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }
+        });
+    });
+}
+
+function initAddToeicDialog() {
+
+    initDatePicker(".datepicker");
+    initAutocomplete();
     $('#cancelAddToeic').click(function () {
-        $('#dialog-toeic').dialog('close');
+        closeDialog();
     });
 
     $('#submitAddToeic').click(function () {
@@ -245,45 +173,51 @@ function initAddToeicEvent() {
     })
 }
 
-function initEvent() {
-    $('#keyword').keyup(function (event) {
-        if (event.keyCode === 13) {
-            query();
-        }
+function initEditToeicDialog() {
+    initDatePicker(".datepicker");
+
+    $('#cancelEditToeic').click(function () {
+        closeDialog();
     });
 
-    $('#query').click(function (evt) {
-        evt.preventDefault();
-        query();
-    });
-
-    $('#btnNewTOEIC').click(function () {
+    $('#submitEditToeic').click(function () {
         $.ajax({
-            type: 'GET',
-            url: _global.root + 'employee/updatetoeic',
-            dataType: 'html',
+            type: 'POST',
+            url: _global.root + 'employee/updatefulltoeic',
+            dataType: 'json',
+            data: $('#frmUpdFullTOEIC').serialize(),
             success: function (data) {
                 if (data) {
-                    var divContent = $('#dialog-toeic');
-                    divContent.html(data);
+                    var errorCont = $('#divErrorCont');
+                    errorCont.removeClass();
+                    errorCont.html('');
 
-                    initNumberTextbox();
-                    initDatepicker();
-                    initAutocomplete();
-                    openAddToeicDialog(divContent);
+                    if (data.code === 1) {
+                        errorCont.addClass('success');
+                        errorCont.append('Update TOEIC score for Employee successfully');
+                        setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
+                    }
+                    else {
+                        var errors = '<ul>';
+                        $(data.error).each(function (i, value) {
+                            errors += '<li>' + value.ErrorMessage + '</li>';
+                        });
+                        errors += '</ul>';
+
+                        errorCont.addClass('validation-summary-errors');
+                        errorCont.append(errors);
+                    }
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus + ': ' + errorThrown);
             }
         });
-    });
+    })
 }
 
 $(document).ready(function () {
-
     query();
-
     initEvent();
 
     //	$('#title').val(jobTitleId);

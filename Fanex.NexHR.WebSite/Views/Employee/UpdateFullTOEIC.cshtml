@@ -91,4 +91,15 @@
             @Html.ValidationMessageFor(model => model.OldWriting)
         </div>
     </div>
+
+    <div class="row form-input">
+    <div class="right label--l">
+        <span class="btn-cancel waves-effect waves-light m-r--m">
+            <input id="cancelEditToeic" type="button" value="@Labels.Close" /></span>
+    </div>
+    <div class="right label--l">
+        <span class="btn-submit waves-effect waves-light m-r--m">
+            <input id="submitEditToeic" type="button" value="@Labels.Submit" /></span>
+    </div>
+</div>
 </form>

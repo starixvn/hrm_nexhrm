@@ -973,4 +973,7 @@
   <data name="NewJobTitle" xml:space="preserve">
     <value>New Job Title</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
