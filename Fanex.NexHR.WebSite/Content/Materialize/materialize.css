@@ -2064,7 +2064,7 @@ ul {
 blockquote {
   margin: 20px 0;
   padding-left: 1.5rem;
-  border-left: 5px solid #ee6e73; }
+  border-left: 5px solid #f4783d; }
 
 i {
   line-height: inherit; }
@@ -2100,7 +2100,7 @@ video.responsive-video {
   .pagination li.active a {
     color: #fff; }
   .pagination li.active {
-    background-color: #ee6e73; }
+    background-color: #f4783d; }
   .pagination li.disabled a {
     cursor: default;
     color: #999; }
@@ -2209,7 +2209,7 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #ee6e73; }
+  background-color: #f4783d; }
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
@@ -5752,7 +5752,7 @@ small {
     letter-spacing: .8px;
     width: 15%; }
     .tabs .tab a {
-      color: #ee6e73;
+      color: #f4783d;
       display: block;
       width: 100%;
       height: 100%;
@@ -5762,15 +5762,15 @@ small {
       -ms-transition: color 0.28s ease;
       transition: color 0.28s ease; }
       .tabs .tab a:hover {
-        color: #f9c9cb; }
+        color: #f9bb9e; }
     .tabs .tab.disabled a {
-      color: #f9c9cb;
+      color: #f9bb9e;
       cursor: default; }
   .tabs .indicator {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #f6b2b5;
+    background-color: #f8aa85;
     will-change: left, right; }
 
 .tabs .tab {
@@ -6814,8 +6814,8 @@ form p:last-child {
   top: 0px;
   width: 20px;
   height: 20px;
-  border: 2px solid #3477b9;
-  background-color: #3477b9;
+  border: 2px solid #f4783d;
+  background-color: #f4783d;
   z-index: 0; }
 [type="checkbox"].filled-in:disabled:not(:checked) + label:before {
   background-color: transparent;

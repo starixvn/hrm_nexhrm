@@ -185,34 +185,64 @@ main {
 .align-left {
   text-align: left !important; }
 
-.btn-primary {
-  margin-bottom: 1.4rem;
-  padding: 0 7px;
-  background: #0048ba; }
-  .btn-primary:hover {
-    background: #0048ba; }
-  .btn-primary i {
-    font-size: 1.8rem; }
+.btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete {
+  padding: 0 1.5rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 0;
+  color: #fff; }
 
-.btn-cancel {
-  background: #6d7772; }
-  .btn-cancel:hover, .btn-cancel:active {
-    background: #87938d; }
+.btn-submit input, .btn-request input {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  font-style: normal; }
+  .btn-submit input:focus, .btn-request input:focus, .btn-submit input:active, .btn-request input:active {
+    box-shadow: none;
+    outline: none; }
 
-.btn-create {
-  background: #0048ba; }
+.btn-submit {
+  background-color: #1d79ac !important; }
+  .btn-submit:hover {
+    background: #196a96;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
-.button-block {
-  margin-top: 5rem; }
+.btn-request {
+  background-color: #f4783d !important; }
+  .btn-request:hover {
+    background: #f36725;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
-.datepicker-button {
-  position: relative;
-  width: 114px; }
-  .datepicker-button .datepicker {
-    cursor: pointer; }
-  @media (min-width: 1900px) {
-    .datepicker-button {
-      width: 214px; } }
+.btn-back {
+  background-color: #757575 !important; }
+  .btn-back:hover {
+    background: #686868;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-ok {
+  background-color: #4CAF50 !important;
+  margin-right: 16px; }
+  .btn-ok:hover {
+    background: #449d48;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-cancel, .btn-close {
+  background-color: #9e9e9e !important; }
+  .btn-cancel:hover, .btn-close:hover {
+    background: #919191;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-export-excel {
+  background-color: #388E3C !important; }
+  .btn-export-excel:hover {
+    background: #317c34;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-delete {
+  background-color: #D32F2F !important; }
+  .btn-delete:hover {
+    background: #c02929;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
 .button-hrm {
   padding: 0 1.5rem;
@@ -232,8 +262,17 @@ main {
       box-shadow: none;
       outline: none; }
 
-.btn-ok {
-  margin-right: 16px; }
+.button-block {
+  margin-top: 5rem; }
+
+.datepicker-button {
+  position: relative;
+  width: 114px; }
+  .datepicker-button .datepicker {
+    cursor: pointer; }
+  @media (min-width: 1900px) {
+    .datepicker-button {
+      width: 214px; } }
 
 .primary-color {
   color: #f4783d; }

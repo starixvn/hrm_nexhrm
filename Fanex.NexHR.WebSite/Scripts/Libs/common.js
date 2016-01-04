@@ -10,7 +10,7 @@
             resizable   : false,
             buttons     : [{
                     text    : 'OK',
-                    class   : 'btn-ok button-hrm waves-effect waves-light btn green',
+                    class   : 'btn-ok waves-effect waves-light',
                     click   : function() {
                         $(this).dialog('close');
                         return true;
@@ -44,7 +44,7 @@ function confirm(message, callback, options) {
         buttons     : [
             {
                 text: 'OK',
-                class: 'btn-ok button-hrm waves-effect waves-light btn green',
+                class: 'btn-ok waves-effect waves-light',
                 click: function() {
                     $(this).dialog('close');
                     if(callback != null)
@@ -56,7 +56,7 @@ function confirm(message, callback, options) {
             },
             {
                 text: 'Cancel',
-                class: 'btn-cancel button-hrm waves-effect waves-light btn grey',
+                class: 'btn-cancel waves-effect waves-light',
                 click: function() {
                     $(this).dialog('close');
                     return false;

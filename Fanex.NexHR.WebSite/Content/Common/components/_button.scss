@@ -1,45 +1,65 @@
 @import "../utils/variables";
 
-.btn-primary {
-  margin-bottom: 1.4rem;
-  padding: 0 7px;
-  background: $color-second;
-
-  &:hover {
-    background: $color-second;
-  }
-
-  i {
-    font-size: 1.8rem;
-  }
+%button {
+	padding: 0 1.5rem;
+	height: 3rem;
+	line-height: 3rem;
+	border-radius: 0;
+	color: #fff;
 }
 
-.btn-cancel {
-    background: #6d7772;
-    &:hover, &:active {
-        background: #87938d;
-    }
+@mixin button($bg) {
+	@extend %button;
+	background-color: $bg !important;
+	&:hover {
+		background: darken($bg,5%);
+		box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15)
+	}
 }
 
-.btn-create {
-    background: $color-second;
+%input-button {
+	input {
+		background: transparent;
+		box-shadow: none;
+		border: none;
+		font-style: normal;
+
+		&:focus, &:active {
+			box-shadow: none;
+			outline: none;
+		}
+	}
 }
 
-.button-block {
-    margin-top: 5rem;
+.btn-submit {
+	@include button(#1d79ac);	
+	@extend %input-button;
 }
 
-.datepicker-button {   
-  position: relative; 
-  width: 114px;  
+.btn-request {
+	@include button(#f4783d);
+	@extend %input-button;
+}
 
-  .datepicker {
-    cursor: pointer;
-  }
+.btn-back {
+	@include button(#757575);
+}
 
-  @media (min-width:1900px) {
-    width: 214px;
-  }
+.btn-ok {
+	@include button(#4CAF50);
+	margin-right: $b-space--m;
+}
+
+.btn-cancel, .btn-close {
+	@include button(#9e9e9e);
+}
+
+.btn-export-excel {
+	@include button(#388E3C);
+}
+
+.btn-delete {
+	@include button(#D32F2F);
 }
 
 .button-hrm {    
@@ -68,6 +88,19 @@
   }
 }
 
-.btn-ok {
-	margin-right: $b-space--m;
+.button-block {
+    margin-top: 5rem;
+}
+
+.datepicker-button {   
+  position: relative; 
+  width: 114px;  
+
+  .datepicker {
+    cursor: pointer;
+  }
+
+  @media (min-width:1900px) {
+    width: 214px;
+  }
 }

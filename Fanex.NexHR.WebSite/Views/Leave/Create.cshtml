@@ -138,10 +138,10 @@
                             @Html.HiddenFor(model => model.DisplayName)
                             @Html.HiddenFor(model => model.ForRequest)
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s">
+                                <span class="btn-request waves-effect waves-light m-r--s">
                                     <input type="submit" value="@Labels.Request" />
                                 </span>
-                                <a href="@Url.Action("employeeview", "leave")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back
+                                <a href="@Url.Action("employeeview", "leave")" class="btn-back waves-effect waves-light">@Labels.Back
                                 </a>
                             </div>
                         }

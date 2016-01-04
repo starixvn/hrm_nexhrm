@@ -1,91 +1,94 @@
 ﻿@using Fanex.NexHR.Core
 @model Fanex.NexHR.Models.Toeic
 @{ DateTime currentDate = DateTime.Today; }
-<form id="frmUpdFullTOEIC">
-<div id="divErrorCont" class="">
-    &nbsp;</div>
-<div class="formrow">
-    <div class="label">
-        @Labels.Employee
+<form id="frmUpdFullTOEIC" class="form">
+    <div id="divErrorCont" class="">
+        &nbsp;</div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.Employee</label>
+        </div>
+        <div class="left input">
+            <input type="text" value="@ViewBag.EmployeeName" disabled />
+            @Html.HiddenFor(model => model.EmpId)
+        </div>
     </div>
-    <div class="input">
-        <input type="text" value="@ViewBag.EmployeeName" disabled />
-        @Html.HiddenFor(model => model.EmpId)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
+        </div>
+        <div class="datepicker-button left select--m">
+            @Html.DatePickerFor(model => model.InputDate)
+            @Html.ValidationMessageFor(model => model.InputDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
     </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.LRExamDate)
+        </div>
+        <div class="datepicker-button left select--m">
+            @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
+            @Html.ValidationMessageFor(model => model.LRExamDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
     </div>
-    <div class="input">
-        @Html.DatePickerFor(model => model.InputDate)
-        @Html.ValidationMessageFor(model => model.InputDate)
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.NewOldListening</label>
+        </div>
+        <div class="left input">
+            @Html.EditorFor(model => model.Listening)
+            @Html.ValidationMessageFor(model => model.Listening)
+            /
+            @Html.EditorFor(model => model.OldListening)
+            @Html.ValidationMessageFor(model => model.OldListening)
+        </div>
     </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Html.LabelFor(model => model.LRExamDate)
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.NewOldReading</label>
+        </div>
+        <div class="left input">
+            @Html.EditorFor(model => model.Reading)
+            @Html.ValidationMessageFor(model => model.Reading)
+            /
+            @Html.EditorFor(model => model.OldReading)
+            @Html.ValidationMessageFor(model => model.OldReading)
+        </div>
     </div>
-    <div class="input">
-        @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
-        @Html.ValidationMessageFor(model => model.LRExamDate)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.SWExamDate)
+        </div>
+        <div class="datepicker-button left select--m">
+            @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
+            @Html.ValidationMessageFor(model => model.SWExamDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
     </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Labels.NewOldListening
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.NewOldSpeaking</label>
+        </div>
+        <div class="left input">
+            @Html.EditorFor(model => model.Speaking)
+            @Html.ValidationMessageFor(model => model.Speaking)
+            /
+            @Html.EditorFor(model => model.OldSpeaking)
+            @Html.ValidationMessageFor(model => model.OldSpeaking)
+        </div>
     </div>
-    <div class="input">
-        @Html.EditorFor(model => model.Listening)
-        @Html.ValidationMessageFor(model => model.Listening)
-        /
-        @Html.EditorFor(model => model.OldListening)
-        @Html.ValidationMessageFor(model => model.OldListening)
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.NewOldWriting</label>
+        </div>
+        <div class="left input">
+            @Html.EditorFor(model => model.Writing)
+            @Html.ValidationMessageFor(model => model.Writing)
+            /
+            @Html.EditorFor(model => model.OldWriting)
+            @Html.ValidationMessageFor(model => model.OldWriting)
+        </div>
     </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Labels.NewOldReading
-    </div>
-    <div class="input">
-        @Html.EditorFor(model => model.Reading)
-        @Html.ValidationMessageFor(model => model.Reading)
-        /
-        @Html.EditorFor(model => model.OldReading)
-        @Html.ValidationMessageFor(model => model.OldReading)
-    </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Html.LabelFor(model => model.SWExamDate)
-    </div>
-    <div class="input">
-        @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
-        @Html.ValidationMessageFor(model => model.SWExamDate)
-    </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Labels.NewOldSpeaking
-    </div>
-    <div class="input">
-        @Html.EditorFor(model => model.Speaking)
-        @Html.ValidationMessageFor(model => model.Speaking)
-        /
-        @Html.EditorFor(model => model.OldSpeaking)
-        @Html.ValidationMessageFor(model => model.OldSpeaking)
-    </div>
-</div>
-<div class="formrow">
-    <div class="label">
-        @Labels.NewOldWriting
-    </div>
-    <div class="input">
-        @Html.EditorFor(model => model.Writing)
-        @Html.ValidationMessageFor(model => model.Writing)
-        /
-        @Html.EditorFor(model => model.OldWriting)
-        @Html.ValidationMessageFor(model => model.OldWriting)
-    </div>
-</div>
 </form>
