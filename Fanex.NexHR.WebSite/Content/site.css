@@ -613,6 +613,8 @@ main {
   text-align: left; }
 .table.table-custom tbody tr.row-selected {
   background: #ffff8d; }
+.table.table-custom tbody tr.disabled {
+  background: #c8c8c8; }
 .table.table-custom .floatingHeader {
   z-index: 999;
   position: fixed;
@@ -904,5 +906,21 @@ body {
   border-left: none;
   border-top-color: transparent;
   border-bottom-color: transparent; }
+
+.tipsy.tipsy-avatar .tipsy-inner {
+  background: #fff;
+  max-width: none;
+  font-size: 1.3rem;
+  text-align: left;
+  line-height: 2.2rem;
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  border: .1rem solid #0789d1;
+  padding: .5rem;
+  border-radius: unset; }
+  .tipsy.tipsy-avatar .tipsy-inner img {
+    width: 6.5rem;
+    height: 6.5rem; }
+.tipsy.tipsy-avatar .tipsy-arrow {
+  border: none; }
 
 /*# sourceMappingURL=site.css.map */

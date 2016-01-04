@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -21,11 +22,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Newtonsoft.Json;
     using NPOI.HSSF.UserModel;
 
-    /// <summary>
-    /// Export controller.
-    /// </summary>
     public class ExportController : BaseController
     {
         private readonly IEmployeeService _employeeService;
@@ -47,11 +46,6 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
-        /// <summary>
-        /// Export total working hours.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             var year = DateTime.Now.Year;
@@ -89,22 +83,14 @@ namespace Fanex.NexHR.Controllers
             return File(output.ToArray(), "application/vnd.ms-excel", fileName);
         }
 
-        /// <summary>
-        /// Export employee profile.
-        /// </summary>
-        /// <param name="query">String to query.</param>
-        /// <param name="groupId">Employee group id.</param>
-        /// <param name="enable">Is enabled.</param>
-        /// <param name="isDelete">Is Deleted.</param>
-        /// <param name="titleId">Job title id.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult EmployeeProfile(
             string query = null,
             int? groupId = null,
             bool? enable = null,
             bool? isDelete = null,
-            int? titleId = null)
+            int? titleId = null,
+            string sort = null)
         {
             if (groupId == -1)
             {
@@ -129,6 +115,13 @@ namespace Fanex.NexHR.Controllers
 
             IList<Employee> listEmployees = _employeeService.Query(getAllEmployeeCriteria);
 
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+
+                listEmployees = MultipleSort(listEmployees, sorts);
+            }
+
             _exportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
 
             MemoryStream output = new MemoryStream();
@@ -139,16 +132,6 @@ namespace Fanex.NexHR.Controllers
             return File(output.ToArray(), "application/vnd.ms-excel", fileName);
         }
 
-        /// <summary>
-        /// Export employee attendance.
-        /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <param name="empId">Employee id.</param>
-        /// <param name="groupId">Employee group id.</param>
-        /// <param name="attendanceType">Attendance type.</param>
-        /// <param name="excludeUserDelete">Exclude user delete.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult Attendance(
             DateTime fromDate,
@@ -189,11 +172,6 @@ namespace Fanex.NexHR.Controllers
             return File(output.ToArray(), "application/vnd.ms-excel", fileName);
         }
 
-        /// <summary>
-        /// Method check User query condition.
-        /// </summary>
-        /// <param name="enable">Enable condition.</param>
-        /// <returns>A value to query DB.</returns>
         private int? CheckUserEnableCondition(bool? enable)
         {
             int? disableUsers;
@@ -213,11 +191,6 @@ namespace Fanex.NexHR.Controllers
             return disableUsers;
         }
 
-        /// <summary>
-        /// Method check User query condition.
-        /// </summary>
-        /// <param name="isDelete">Is deleted.</param>
-        /// <returns>A value to query DB.</returns>
         private int? CheckDeletedUserCondition(bool? isDelete)
         {
             int? deleteUsers;
@@ -235,6 +208,41 @@ namespace Fanex.NexHR.Controllers
             }
 
             return deleteUsers;
+        }
+
+        private IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
+        {
+            // No sorting needed.
+            if (sortExpressions == null || !sortExpressions.Any())
+            {
+                return data;
+            }
+
+            // Let us sort it.
+            IEnumerable<T> query = from item in data select item;
+            IOrderedEnumerable<T> orderedQuery = null;
+
+            for (int i = 0; i < sortExpressions.Count; i++)
+            {
+                // We need to keep the loop index, not sure why it is altered by the Linq.
+                var index = i;
+                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
+
+                if (sortExpressions[index].Direction == "asc")
+                {
+                    orderedQuery = (index == 0) ? query.OrderBy(expression)
+                      : orderedQuery.ThenBy(expression);
+                }
+                else
+                {
+                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
+                             : orderedQuery.ThenByDescending(expression);
+                }
+            }
+
+            query = orderedQuery;
+
+            return query.ToList();
         }
     }
 }

@@ -420,6 +420,14 @@ function formatJsonDate(jsonDate, mask) {
     return date;
 };
 
+function formatDate(date, mask) {
+    if(mask){
+        date = $.format.date(date, mask);
+    }
+
+    return date;
+};
+
 function initEditor(element, type) {
     switch (type) {
         case 'basic':

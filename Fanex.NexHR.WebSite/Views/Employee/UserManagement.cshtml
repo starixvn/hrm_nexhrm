@@ -31,19 +31,13 @@
                                     <label>@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    <select id="group" class="team-select">
-                                        <option value="">@Labels.AllTeams</option>
-                                        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
-                                        {
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
-                                    </select>
+                                    @Html.DropDownList("group", new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--m">
                                 <div class="left label--s"><label>@Labels.Title</label></div>
                                 <div class="left select--m">
-                                    @Html.DropDownList("title", (List<SelectListItem>)ViewBag.JobTitles, Labels.AllTitles, new { @class = "title-select" })
+                                    @Html.DropDownList("title", new SelectList(Model.JobTitles, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
                                 </div>
                             </div>
                         </div>
@@ -62,9 +56,12 @@
                             <div class="col">
                                 <a id="query" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
                             </div>
+                            <div class="col">
+                                <a id="exportExcel" class="button-hrm waves-effect waves-light btn blue darken-2 btn-export-excel" href="javascript:;">@Labels.Excel</a>
+                            </div>
                         </div>
                     </div>
-                    <input type="hidden" id="jobtitleid" value="@ViewBag.JobTitleId" />
+                    <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
                 </div>
                 <div class="p-x--s">
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
@@ -85,7 +82,7 @@
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Team
-                                    <div class="sorter" data-property=""></div>
+                                    <div class="sorter" data-property="CodeOfTeam"></div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Gender
@@ -127,7 +124,7 @@
             <a href="/employee/detail/${Id}">${NickName}</a>
         </td>
         <td class="txt-left">${FullName}</td>
-        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>  
+        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>
         <td>
             {{if Gender == 0 }}
                 F
@@ -136,10 +133,10 @@
             {{/if}}
         </td>
         <td class="txt-left">${JobTitle}</td>
-        <td>${formatJsonDate(DateOfBirth, 'dd MMM, yyyy')}</td>
+        <td>${formatDate(DateOfBirth, 'dd MMM, yyyy')}</td>
         <td>
             {{if JoinedDate != null}}
-                ${formatJsonDate(JoinedDate, 'dd MMM, yyyy')}
+                ${formatDate(JoinedDate, 'dd MMM, yyyy')}
             {{/if}}
         </td>
         <td>

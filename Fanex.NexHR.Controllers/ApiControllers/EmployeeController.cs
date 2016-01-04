@@ -19,10 +19,8 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Newtonsoft.Json;
 
-    /// <summary>
-    /// Employee controller.
-    /// </summary>
     public class EmployeeController : ApiController
     {
         private readonly IEmployeeService _employeeService;
@@ -37,16 +35,13 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             _employeeService = employeeService ?? new EmployeeService();
         }
 
-        /// <summary>
-        /// Method get Employees.
-        /// </summary>
-        /// <param name="query">String to query.</param>
-        /// <param name="groupId">Employee group id.</param>
-        /// <param name="enable">Is enabled.</param>
-        /// <param name="isDelete">Is Deleted.</param>
-        /// <param name="titleId">Job title id.</param>
-        /// <returns>List of Employee.</returns>
-        public IQueryable<Employee> GetEmployees(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null)
+        public IQueryable<Employee> GetEmployees(
+            string query,
+            int? groupId = null,
+            bool? enable = null,
+            bool? isDelete = null,
+            int? titleId = null,
+            string sort = null)
         {
             if (groupId == -1)
             {
@@ -64,7 +59,15 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 PageSize = int.MaxValue,
                 TotalRow = 2000
             };
+
             var entityList = _employeeService.Query(getAllEmployeeCriteria);
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+
+                entityList = MultipleSort(entityList, sorts);
+            }
 
             return entityList.AsQueryable();
         }
@@ -80,13 +83,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _employeeService.GetWorkingSchedule(workingScheduleCriteria);
         }
 
-        /// <summary>
-        /// Get date range.
-        /// </summary>
-        /// <param name="employeeId">Employee id.</param>
-        /// <param name="fromDate">Get from date.</param>
-        /// <param name="toDate">Get to date.</param>
-        /// <returns>Total days.</returns>
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
@@ -113,16 +109,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
         }
 
-        /// <summary>
-        /// Get TOEIC score.
-        /// </summary>
-        /// <param name="query">The query.</param>
-        /// <param name="groupId">The group ID.</param>
-        /// <param name="titleId">The title ID.</param>
-        /// <param name="score">The score.</param>
-        /// <param name="enable">The enable.</param>
-        /// <param name="isDelete">The is delete.</param>
-        /// <returns>List Employee with TOEIC score.</returns>
         public IList<Employee> GetToeic(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
         {
             if (groupId == -1)
@@ -143,11 +129,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return employees;
         }
 
-        /// <summary>
-        /// Method check User query condition.
-        /// </summary>
-        /// <param name="enable">Enable condition.</param>
-        /// <returns>A value to query DB.</returns>
         private int? CheckUserEnableCondition(bool? enable)
         {
             int? disableUsers;
@@ -167,11 +148,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return disableUsers;
         }
 
-        /// <summary>
-        /// Method check User query condition.
-        /// </summary>
-        /// <param name="isDelete">Is deleted.</param>
-        /// <returns>A value to query DB.</returns>
         private int? CheckDeletedUserCondition(bool? isDelete)
         {
             int? deleteUsers;
@@ -189,6 +165,41 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             }
 
             return deleteUsers;
+        }
+
+        private IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
+        {
+            // No sorting needed.
+            if (sortExpressions == null || !sortExpressions.Any())
+            {
+                return data;
+            }
+
+            // Let us sort it.
+            IEnumerable<T> query = from item in data select item;
+            IOrderedEnumerable<T> orderedQuery = null;
+
+            for (int i = 0; i < sortExpressions.Count; i++)
+            {
+                // We need to keep the loop index, not sure why it is altered by the Linq.
+                var index = i;
+                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
+
+                if (sortExpressions[index].Direction == "asc")
+                {
+                    orderedQuery = (index == 0) ? query.OrderBy(expression)
+                      : orderedQuery.ThenBy(expression);
+                }
+                else
+                {
+                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
+                             : orderedQuery.ThenByDescending(expression);
+                }
+            }
+
+            query = orderedQuery;
+
+            return query.ToList();
         }
     }
 }

@@ -35,15 +35,22 @@ function query(jobTitleId) {
     }
 
     $.ajax({
-        url: _global.root + 'ajax/getemployees',
-        type: 'POST',
-        dataType: 'json',
+        url: _global.root + 'api/employee/getemployees',
         data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
         success: function (data) {
-            if (data.employees.length > 0) {
+            if (data.length > 0) {
                 rowIndex = 1;
                 $('#data tbody').children().remove();
-                $('#itemTemplate').tmpl(data.employees).appendTo('#data');
+                $('#itemTemplate').tmpl(data).appendTo('#data');
+
+                $('.nick').tipsy({
+                    className: 'tipsy-avatar',
+                    gravity: $.fn.tipsy.autoNS,
+                    html: true,
+                    title: function () {
+                        return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+                    }
+                });
             } else {
                 $('#data tbody').children().remove();
                 $(noInformation(11)).appendTo('#data');
@@ -69,9 +76,9 @@ $(document).ready(function () {
     $('th.col-sorter').on('click', function () {
         var $this = $(this).find('div.sorter'),
             property = $this.attr('data-property'),
-            direction;
+            direction, index;
 
-        sorts = $.grep(sorts, function (o, i) { return o.Property !== property; }, true);
+        index = sorts.map(function (e) { return e.Property; }).indexOf(property);
 
         if ($this.hasClass('desc')) {
             $this.removeClass('asc').removeClass('desc').addClass('asc');
@@ -83,8 +90,40 @@ $(document).ready(function () {
             $this.removeClass('asc').removeClass('desc').addClass('desc');
             direction = 'desc';
         }
-        sorts.push({ Property: property, Direction: direction });
+
+        if (index !== -1) {
+            sorts[index].Direction = direction;
+        } else {
+            sorts.push({ Property: property, Direction: direction });
+        }
+
         query(jobTitleId);
+    });
+
+    $('#exportExcel').on('click', function (evt) {
+        evt.preventDefault();
+
+        var enable = null;
+        if ($("#enable").prop("checked")) {
+            enable = true;
+        } else {
+            if ($("#active").prop("checked")) {
+                enable = false;
+            } else {
+                enable = null;
+            }
+        }
+
+        var isDelete = null;
+        if ($("#IsDeleted").prop("checked")) {
+            isDelete = true;
+        } else {
+            isDelete = null;
+        }
+
+
+        window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#keyword').val() + '&groupId=' + $('#group').val() +
+            '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
 
     $('#keyword').keyup(function (event) {

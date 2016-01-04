@@ -202,6 +202,7 @@
     <None Include="Content\Common\components\_button.scss" />
     <None Include="Content\Common\layout\_scrollbars.scss" />
     <None Include="Content\Views\mycalendar.scss" />
+    <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />

@@ -1,0 +1,24 @@
+.tipsy {
+    &.tipsy-avatar {
+        .tipsy-inner {
+            background: #fff;
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+            border: .1rem solid #0789d1;
+            padding: .5rem;
+            border-radius: unset;
+
+            img {
+                width: 6.5rem;
+                height: 6.5rem;
+            }
+        }
+
+        .tipsy-arrow {
+            border: none;
+        }
+    }
+}

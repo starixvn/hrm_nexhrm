@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Core
 @model Fanex.NexHR.Models.Employee
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Labels.Edit;
 }
 @section css {
 }
@@ -44,7 +44,7 @@
                                         <span class="fileUpload"><input class="chooseFile" type="file" id="file" /></span>
                                         <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="button" id="upload" value="Upload" /></span>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -55,7 +55,7 @@
                                         @Html.EditorFor(model => model.Code)
                                         @Html.ValidationMessageFor(model => model.Code)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -66,7 +66,7 @@
                                         @Html.TextBoxFor(model => model.EmployeeCard, new { maxlength = "10" })
                                         @Html.ValidationMessageFor(model => model.EmployeeCard)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -77,7 +77,7 @@
                                         @Html.EditorFor(model => model.DomainUsername)
                                         @Html.ValidationMessageFor(model => model.DomainUsername)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -88,7 +88,7 @@
                                         @Html.EditorFor(model => model.FullName)
                                         @Html.ValidationMessageFor(model => model.FullName)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -100,7 +100,6 @@
                                         @Html.ValidationMessageFor(model => model.NickName)
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="row form-input">
                                 <div class="col">
@@ -115,9 +114,8 @@
                                     <div class="input" id="DOBPicker">
                                     </div>
                                     @Html.HiddenFor(model => model.DateOfBirth)
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -127,9 +125,8 @@
                                         @Html.EditorFor(model => model.Email)
                                         @Html.ValidationMessageFor(model => model.Email)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -139,9 +136,8 @@
                                         @Html.DropDownListFor(model => model.JobTitleId, new SelectList(ViewBag.JobTitles, "Id", "Name"), new { @style = "width : 230px;" })
                                         @Html.ValidationMessageFor(model => model.JobTitleId)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -153,7 +149,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -172,7 +167,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -181,9 +175,8 @@
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.CardNo)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -193,20 +186,18 @@
                                         @Html.DatePickerFor(model => model.IssuedDate, maxDate: DateTime.Now)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.IssuedPlace, "Issuing Authority")
                                     </div>
                                     <div class="left input--l">
-                                        @Html.TextAreaFor(model => model.IssuedPlace, new { @class = "materialize-textarea" })                                        
+                                        @Html.TextAreaFor(model => model.IssuedPlace, new { @class = "materialize-textarea" })
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -215,9 +206,8 @@
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Address, new { @class = "materialize-textarea" })
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -271,9 +261,7 @@
                                         @Html.CheckBoxListFor(p => p.SubGroupArray, new SelectList(ViewBag.Groups, "Id", "Name"))
                                     </div>
                                 </div>
-                                
                             </div>
-
                             <div class="row form-input m-b--m">
                                 <div class="col">
                                     <div class="left label--l">
@@ -282,9 +270,8 @@
                                     <div class="left input--l subteam">
                                         @Html.CheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(ViewBag.Groups, "Id", "Name"))
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -306,9 +293,7 @@
                                         @Html.ValidationMessageFor(model => model.RoleArray)
                                     </div>
                                 </div>
-                                
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -319,9 +304,8 @@
                                         @Html.ValidationMessageFor(model => model.JoinedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -332,9 +316,8 @@
                                         @Html.ValidationMessageFor(model => model.ConfirmedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -345,9 +328,8 @@
                                         @Html.ValidationMessageFor(model => model.ResignedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -357,9 +339,8 @@
                                         @Html.EditorFor(model => model.Skype)
                                         @Html.ValidationMessageFor(model => model.Skype)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -369,9 +350,8 @@
                                         @Html.EditorFor(model => model.Yahoo)
                                         @Html.ValidationMessageFor(model => model.Yahoo)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -381,9 +361,8 @@
                                         @Html.EditorFor(model => model.Mariage)
                                         @Html.ValidationMessageFor(model => model.Mariage)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -392,9 +371,8 @@
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.PassportNo)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -404,9 +382,8 @@
                                         @Html.DatePickerFor(model => model.PassportExp)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -415,9 +392,8 @@
                                     <div class="left input--l">
                                         <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span> <a href="~/annualleavebalance/employee/@Model.Id">Update</a>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
@@ -427,7 +403,6 @@
                                         <a href="~/employee/defaultschedule/@Model.Id">Update</a>
                                     </div>
                                 </div>
-                                
                             </div>
                             <!--TOEIC score-->
                             <div class="row form-input">
@@ -444,26 +419,18 @@
                                                         <table class="toeic">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>@Labels.L
-                                                                    </th>
-                                                                    <th>@Labels.R
-                                                                    </th>
-                                                                    <th>@Labels.S
-                                                                    </th>
-                                                                    <th>@Labels.W
-                                                                    </th>
+                                                                    <th>@Labels.L</th>
+                                                                    <th>@Labels.R</th>
+                                                                    <th>@Labels.S</th>
+                                                                    <th>@Labels.W</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td>@(Model.ToeicScore.Listening.HasValue ? Model.ToeicScore.Listening.Value.ToString() : "-")
-                                                                    </td>
-                                                                    <td>@(Model.ToeicScore.Reading.HasValue ? Model.ToeicScore.Reading.Value.ToString() : "-")
-                                                                    </td>
-                                                                    <td>@(Model.ToeicScore.Speaking.HasValue ? Model.ToeicScore.Speaking.Value.ToString() : "-")
-                                                                    </td>
-                                                                    <td>@(Model.ToeicScore.Writing.HasValue ? Model.ToeicScore.Writing.Value.ToString() : "-")
-                                                                    </td>
+                                                                    <td>@(Model.ToeicScore.Listening.HasValue ? Model.ToeicScore.Listening.Value.ToString() : "-")</td>
+                                                                    <td>@(Model.ToeicScore.Reading.HasValue ? Model.ToeicScore.Reading.Value.ToString() : "-")</td>
+                                                                    <td>@(Model.ToeicScore.Speaking.HasValue ? Model.ToeicScore.Speaking.Value.ToString() : "-")</td>
+                                                                    <td>@(Model.ToeicScore.Writing.HasValue ? Model.ToeicScore.Writing.Value.ToString() : "-")</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -479,7 +446,7 @@
                                             <a id="toeic" href="javascript:;">Update</a>
                                         }
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <!--End of TOEIC score-->
                             <div class="row form-input">
@@ -491,9 +458,9 @@
                                         @Html.EditorFor(model => model.Enabled)
                                         @Html.ValidationMessageFor(model => model.Enabled)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-                            <div class="row form-input">                                
+                            <div class="row form-input">
                                 <div class="col">
                                     @Html.AntiForgeryToken()
                                     @Html.HiddenFor(model => model.Id)
@@ -511,7 +478,7 @@
                             <div class='col'>
                                 <span>@Messages.NoDataIsAvailable</span>
                             </div>
-                        </div>                       
+                        </div>
                     }
                 </div>
             </div>

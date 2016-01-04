@@ -89,18 +89,17 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(string jobTitleId = "")
         {
-            ViewBag.JobTitleId = jobTitleId;
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-            var listJobTitle = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            ViewBag.JobTitles = listJobTitle.Select(j => new SelectListItem
+            var model = new UserManagementViewModel()
             {
-                Text = j.Name,
-                Value = j.Id.ToString(),
-                Selected = j.Id.ToString() == jobTitleId
-            }).ToList();
+                JobTitleId = jobTitleId
+            };
 
-            return View();
+            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
+            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+
+            return View(model);
         }
 
         /// <summary>

@@ -47,6 +47,14 @@ namespace Fanex.NexHR.Models
 
         public byte? Gender { get; set; }
 
+        public string CodeOfTeam
+        {
+            get
+            {
+                return Team.Code;
+            }
+        }
+
         public Team Team { get; set; }
 
         public string Roles { get; set; }
