@@ -52,7 +52,7 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember()
         {
-            return View();
+            return View(new ExtensionNoModel());
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Fanex.NexHR.Controllers
                 ViewBag.Updated = result.Code == 0;
             }
 
-            return View();
+            return View(model);
         }
 
         public ActionResult ManageExternalGroup()

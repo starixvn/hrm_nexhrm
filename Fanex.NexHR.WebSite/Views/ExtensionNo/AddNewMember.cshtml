@@ -6,6 +6,7 @@
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/addextensionnojs");
 }
 @section Breadcrumb {
 }
@@ -25,10 +26,12 @@
 
                             if (ViewBag.Requested == true)
                             {
-                                <div class="row validation-summary-success">
-                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has been created successfully!</div>                                    
-                                </div>
-                                <input type="hidden" id="successed" value="true" />
+                            <div class="row validation-summary-success">
+                                <div class="col success green-text">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has
+                                    been created successfully!</div>
+                            </div>
+                            <input type="hidden" id="successed" value="true" />
                             }
 
                             <div class="row form-input">
@@ -37,9 +40,9 @@
                                         @Html.LabelFor(model => model.IsInternal)
                                     </div>
                                     <div class="left input">
-                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal)
+                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal, new { @checked = "checked", @class = "filled-in" })
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             
                             <div class="row form-input">
@@ -50,7 +53,7 @@
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.TeamId, new List<SelectListItem>())
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="row form-input" id="EmployeeField">
@@ -61,7 +64,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.Employee)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="row form-input">
@@ -72,7 +75,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.FullName)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="row form-input">
@@ -83,7 +86,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.NickName)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="row form-input">
@@ -94,7 +97,7 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.ExtensionNo)
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="row form-input">
@@ -102,10 +105,10 @@
                                     @Html.Hidden("EmpId")
                                     @Html.Hidden("IsAddForm", true)
                                 </div>
-                                
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s"><input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="~/extensionno/index">@Labels.Back</a>
+                                    <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s">
+                                        <input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span> <a class="button-hrm waves-effect waves-light btn grey darken-1"
+                                            href="~/extensionno/index">@Labels.Back</a>
                                 </div>
                             </div>
                         }
