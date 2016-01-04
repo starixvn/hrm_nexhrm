@@ -1177,6 +1177,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job Title Management.
+        /// </summary>
+        public static string JobTitleManagement {
+            get {
+                return ResourceManager.GetString("JobTitleManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joined Date.
         /// </summary>
         public static string JoinedDate {
@@ -1713,6 +1722,15 @@ namespace Fanex.NexHR.Resources {
         public static string NewCheckInOutRequest {
             get {
                 return ResourceManager.GetString("NewCheckInOutRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Job Title.
+        /// </summary>
+        public static string NewJobTitle {
+            get {
+                return ResourceManager.GetString("NewJobTitle", resourceCulture);
             }
         }
         
@@ -2325,6 +2343,15 @@ namespace Fanex.NexHR.Resources {
         public static string SWScore {
             get {
                 return ResourceManager.GetString("SWScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #.
+        /// </summary>
+        public static string SymbolCount {
+            get {
+                return ResourceManager.GetString("SymbolCount", resourceCulture);
             }
         }
         

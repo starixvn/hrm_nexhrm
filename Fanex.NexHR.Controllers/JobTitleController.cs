@@ -10,33 +10,12 @@
 namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Job title controller.
-    /// </summary>
     [Authorize]
     public class JobTitleController : BaseController
     {
-        private readonly ILookupDataService _lookupDataService;
-
-        public JobTitleController()
-            : this(null)
-        {
-        }
-
-        public JobTitleController(ILookupDataService lookupDataService)
-        {
-            _lookupDataService = lookupDataService ?? new LookupDataService();
-        }
-
         public ActionResult JobTitleManagement()
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-            ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-
             return View();
         }
     }

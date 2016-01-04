@@ -107,12 +107,15 @@
                 "~/Scripts/Views/team.management.js"));
 
             BuildBundleForToeic(bundles);
+
+            BuildBundleForJobTitle(bundles);
         }
 
         private static void BuildBundleForExtension(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/addextensionnojs").Include(
                 "~/Scripts/Views/addextensionno.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/extensionnojs").Include(
                 "~/Scripts/Views/extensionno.js"));
         }
@@ -123,6 +126,7 @@
                 "~/Scripts/Views/memo.js",
                 "~/Scripts/tiny_mce/tiny_mce_src.js",
                 "~/Scripts/Views/memo.edit.js"));
+
             bundles.AddAndInclude(
                 "~/Content/annualleavebalancecss",
                 "~/Content/Views/annualleavebalance.css");
@@ -156,6 +160,16 @@
                 "~/Content/Common/components/materialdesignicons.css",
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
+        }
+
+        private static void BuildBundleForJobTitle(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/jobtitlejs").Include(
+                "~/Scripts/Views/jobtitle.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/jobtitlecss",
+                "~/Content/Views/jobtitle.css");
         }
     }
 }

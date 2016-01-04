@@ -1,0 +1,45 @@
+.ui-dialog {
+    &.create-job-title {
+        padding: 0 0 .5rem;
+
+        .ui-dialog-titlebar {
+            border-bottom: .1rem solid #d2d2d2;
+
+            .ui-dialog-title {
+                display: inline;
+            }
+
+            .ui-dialog-titlebar-close {
+                margin: .5rem .5rem 0 0;
+            }
+        }
+
+        .ui-dialog-content {
+            padding: .5rem;
+        }
+
+        .ui-dialog-buttonpane {
+            padding: .5rem;
+            margin: 0;
+
+            .btn-submit {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
+
+table.table-custom {
+    tr td.col-delete {
+        a {
+            i {
+                color: red;
+
+                &.mdi-disabled {
+                    color: rgba(0, 0, 0, 0.54);
+                    cursor: default;
+                }
+            }
+        }
+    }
+}

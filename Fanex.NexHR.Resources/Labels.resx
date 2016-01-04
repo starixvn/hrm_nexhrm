@@ -964,4 +964,13 @@
 	<data name="IsInternal" xml:space="preserve">
     <value>Is Internal</value>
   </data>
+  <data name="SymbolCount" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="JobTitleManagement" xml:space="preserve">
+    <value>Job Title Management</value>
+  </data>
+  <data name="NewJobTitle" xml:space="preserve">
+    <value>New Job Title</value>
+  </data>
 </root>
