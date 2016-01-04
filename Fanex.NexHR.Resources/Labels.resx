@@ -919,7 +919,7 @@
     <value>Company Memo</value>
   </data>
   <data name="ExtensionNumber" xml:space="preserve">
-    <value>Extension Numbers</value>
+    <value>EXTENSION NUMBERS</value>
   </data>
   <data name="AddBalance" xml:space="preserve">
     <value>Add Balance</value>
@@ -956,8 +956,12 @@
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create Account</value>
+  <data name="ExtensionNo" xml:space="preserve">
+    <value>Extension No</value>
   </data>
   <data name="DomainUsername" xml:space="preserve">
     <value>Domain Username</value>
+  <data name="IsInternal" xml:space="preserve">
+    <value>Is Internal</value>
   </data>
 </root>

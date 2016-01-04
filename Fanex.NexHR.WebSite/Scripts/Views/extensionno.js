@@ -3,7 +3,7 @@
 
 $(document).ready(function () {
 
-    $("#deleteExt").on("click", function () {
+    $(".deleteExt").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
             $.post(_global.root + 'ajax/DeleteExtensionNumber',
@@ -21,7 +21,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#deleteExternal").on("click", function () {
+    $(".deleteExternal").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
             $.post(_global.root + 'ajax/DeleteExternalGroup',
@@ -123,7 +123,7 @@ $(function () {
         }
     }
 
-    $("#editExternal").on("click", function () {
+    $(".editExternal").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         var currentName = $(this).closest('tr').find('.groupName').text().trim();
         $("#name_edit").val(currentName);

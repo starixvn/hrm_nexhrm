@@ -81,7 +81,7 @@ namespace Fanex.NexHR.Controllers
                 ViewBag.Requested = result.Code == 0;
             }
 
-            return View();
+            return View(model);
         }
 
         /// <summary>

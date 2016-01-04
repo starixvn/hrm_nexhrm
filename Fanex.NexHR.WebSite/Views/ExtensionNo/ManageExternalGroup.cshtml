@@ -2,6 +2,7 @@
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/extensionnojs");
 }
 @{
     ViewBag.Title = "External Group";
@@ -18,7 +19,8 @@
                 <div class="card-body">
                     <div class="row form-input p-y--m">
                         <div class="col">
-                            <a class="button-hrm waves-effect waves-light btn white-text orange darken-1" href="#" id="btnNewExternalGroup">New External Group</a>
+                            <a class="button-hrm waves-effect waves-light btn white-text orange darken-1" href="#"
+                                id="btnNewExternalGroup">New External Group</a>
                         </div>
                     </div>
                     <div class='p-x--s'>
@@ -53,20 +55,17 @@
                                             <span class="groupName">@item.TeamName</span>
                                         </td>
                                         <td class='center'>
-                                            <a href="javascript:;" id="editExternal">
-                                                <i class='mdi mdi-border-color mdi-dark'></i></a>
+                                            <a href="javascript:;" class="editExternal"><i class='mdi mdi-border-color mdi-dark'></i>
+                                            </a>
                                         </td>
                                         <td class='center'>
                                             @if (item.TotalMember > 0)
                                             {
-                                                <a href="#" style="cursor: default">
-                                                    <i class='mdi mdi-delete mdi-dark'></i>
-                                                </a>
+                                                <a href="javascript:;" style="cursor: default"><i class='mdi mdi-delete mdi-dark'></i></a>
                                             }
                                             else
                                             {
-                                                <a href="javascript:;" id="deleteExternal">
-                                                    <i class='mdi mdi-delete mdi-dark'></i></a>
+                                                <a href="javascript:;" class="deleteExternal"><i class='mdi mdi-delete mdi-dark'></i></a>
                                             }
                                         </td>
                                     </tr>
@@ -80,7 +79,6 @@
                             </tbody>
                         </table>
                     </div>
-                    
                     <div id="dialog-form" title="Add new External Group" style="display: none">
                         <p class="validateTips">
                         </p>
@@ -118,4 +116,3 @@
         </div>
     </div>
 </div>
-

@@ -36,29 +36,29 @@
 
                             <div class="row form-input">
                                 <div class='col'>
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.IsInternal)
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.IsInternal, Labels.IsInternal)
                                     </div>
                                     <div class="left input">
-                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal, new { @checked = "checked", @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxFor(model => model.IsInternal, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="row form-input">
                                 <div class='col'>
-                                    <div class="left label--m">
+                                    <div class="left label--l">
                                         @Html.Label("Group")
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TeamId, new List<SelectListItem>())
+                                        @Html.DropDownListFor(model => model.TeamId, new List<SelectListItem>(), "all")
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row form-input" id="EmployeeField">
                                 <div class='col'>
-                                    <div class="left label--m">
+                                    <div class="left label--l">
                                         @Html.LabelFor(model => model.Employee)
                                     </div>
                                     <div class="left input--m">
@@ -69,8 +69,8 @@
 
                             <div class="row form-input">
                                 <div class='col'>
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FullName)
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.FullName, Labels.FullName)
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.FullName)
@@ -80,8 +80,8 @@
 
                             <div class="row form-input">
                                 <div class='col'>
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.NickName)
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.NickName, Labels.Nickname)
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.NickName)
@@ -91,8 +91,8 @@
 
                             <div class="row form-input">
                                 <div class='col'>
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.ExtensionNo)
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ExtensionNo, Labels.ExtensionNo)
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.ExtensionNo)
@@ -101,11 +101,11 @@
                             </div>
 
                             <div class="row form-input">
-                                <div class="label">
-                                    @Html.Hidden("EmpId")
-                                    @Html.Hidden("IsAddForm", true)
-                                </div>
                                 <div class="col">
+                                    <div class="left label--l">&nbsp;
+                                        @Html.Hidden("EmpId")
+                                        @Html.Hidden("IsAddForm", true)
+                                    </div>
                                     <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s">
                                         <input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span> <a class="button-hrm waves-effect waves-light btn grey darken-1"
                                             href="~/extensionno/index">@Labels.Back</a>

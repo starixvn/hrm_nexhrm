@@ -1,8 +1,7 @@
 ﻿'use strict';
 /*global _global:false */
 
-$(document).ready(function () {
-
+$(document).ready(function () {   
 	var bindingDataToDropdown = function () {
 		if ($("#IsInternal").is(":checked")) {
 			$.getJSON(_global.root + 'api/report/GetGroupExtension', { isInternal: true, groupId: null },
