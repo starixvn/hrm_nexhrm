@@ -1,75 +1,90 @@
 ﻿@model ToeicViewModel
 @{ DateTime currentDate = DateTime.Today; }
-
 <form id="frmUpdateTOEIC" class="form">
-    <div id="divErrorCont" class="">
-        &nbsp;</div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Employee</label>
-        </div>
-        <div class="left input--m">
-            @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.EmpId)
-        </div>
+<div id="divErrorCont" class="">
+    &nbsp;</div>
+<div class="row form-input">
+    <div class="left label--l">
+        <label>@Labels.Employee</label>
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
-        </div>
-        <div class="datepicker-button left select--m">
-            @Html.DatePickerFor(model => model.InputDate)
-            <i class="mdi-action-event calendar-icon left"></i>
-        </div>
+    <div class="left input--m">
+        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+        @Html.HiddenFor(model => model.EmpId)
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            @Html.LabelFor(model => model.LRExamDate)
-        </div>
-        <div class="datepicker-button left select--m">
-            @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
-            <i class="mdi-action-event calendar-icon left"></i>
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Listening</label>
-        </div>
-        <div class="left input--m">
-            @Html.EditorFor(model => model.Listening)
-        </div>
+    <div class="datepicker-button left select--m">
+        @Html.DatePickerFor(model => model.InputDate)
+        <i class="mdi-action-event calendar-icon left"></i>
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Reading</label>
-        </div>
-        <div class="left input--m">
-            @Html.EditorFor(model => model.Reading)
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.LRExamDate)
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            @Html.LabelFor(model => model.SWExamDate)
-        </div>
-        <div class="datepicker-button left select--m">
-            @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
-            <i class="mdi-action-event calendar-icon left"></i>
-        </div>
+    <div class="datepicker-button left select--m">
+        @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
+        <i class="mdi-action-event calendar-icon left"></i>
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Speaking</label>
-        </div>
-        <div class="left input--m">
-            @Html.EditorFor(model => model.Speaking)
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        <label>@Labels.Listening</label>
     </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Writing</label>
-        </div>
-        <div class="left input--m">
-            @Html.EditorFor(model => model.Writing)
-        </div>
+    <div class="left input--m">
+        @Html.EditorFor(model => model.Listening)
     </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        <label>@Labels.Reading</label>
+    </div>
+    <div class="left input--m">
+        @Html.EditorFor(model => model.Reading)
+    </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.SWExamDate)
+    </div>
+    <div class="datepicker-button left select--m">
+        @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
+        <i class="mdi-action-event calendar-icon left"></i>
+    </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        <label>@Labels.Speaking</label>
+    </div>
+    <div class="left input--m">
+        @Html.EditorFor(model => model.Speaking)
+    </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        <label>@Labels.Writing</label>
+    </div>
+    <div class="left input--m">
+        @Html.EditorFor(model => model.Writing)
+    </div>
+</div>
+<div class="row form-input">
+    <div class="right label--l">
+        <span class="btn-cancel waves-effect waves-light m-r--m">
+            <input id="cancelAddToeic" type="button" value="@Labels.Cancel" /></span>
+    </div>
+    <div class="right label--l">
+        <span class="btn-submit waves-effect waves-light m-r--m">
+            <input id="submitAddToeic" type="button" value="@Labels.Submit" /></span>
+    </div>
+</div>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        initAddToeicEvent();
+    });
+</script>

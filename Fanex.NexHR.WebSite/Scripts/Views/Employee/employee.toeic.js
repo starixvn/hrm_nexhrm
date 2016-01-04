@@ -61,49 +61,10 @@ function isExpiredDate(date) {
     return (expiredDate.toString("yyyy-MM-dd") < dateNow.toString("yyyy-MM-dd"));
 }
 
-function initDialog(divContent) {
+function openAddToeicDialog(divContent) {
     divContent.dialog({
         modal: true,
-        width: 500,
-        buttons: {
-            Submit: function () {
-                $.ajax({
-                    type: 'POST',
-                    url: _global.root + 'employee/updatetoeic',
-                    dataType: 'json',
-                    data: $('#frmUpdateTOEIC').serialize(),
-                    success: function (data) {
-                        if (data) {
-                            var errorCont = $('#divErrorCont');
-                            errorCont.removeClass();
-                            errorCont.html('');
-
-                            if (data.code === 1) {
-                                errorCont.addClass('success');
-                                errorCont.append('Update TOEIC score for Employee successfully');
-                                setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
-                            }
-                            else {
-                                var errors = '<ul>';
-                                $(data.error).each(function (i, value) {
-                                    errors += '<li>' + value.ErrorMessage + '</li>';
-                                });
-                                errors += '</ul>';
-
-                                errorCont.addClass('validation-summary-errors');
-                                errorCont.append(errors);
-                            }
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus + ': ' + errorThrown);
-                    }
-                });
-            },
-            Close: function () {
-                $(this).dialog('close');
-            }
-        }
+        width: 500
     });
 }
 
@@ -243,6 +204,47 @@ function editTOEIC(id, name) {
     }
 }
 
+function initAddToeicEvent() {
+    $('#cancelAddToeic').click(function () {
+        $('#dialog-toeic').dialog('close');
+    });
+
+    $('#submitAddToeic').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: _global.root + 'employee/updatetoeic',
+            dataType: 'json',
+            data: $('#frmUpdateTOEIC').serialize(),
+            success: function (data) {
+                if (data) {
+                    var errorCont = $('#divErrorCont');
+                    errorCont.removeClass();
+                    errorCont.html('');
+
+                    if (data.code === 1) {
+                        errorCont.addClass('success');
+                        errorCont.append('Update TOEIC score for Employee successfully');
+                        setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
+                    }
+                    else {
+                        var errors = '<ul>';
+                        $(data.error).each(function (i, value) {
+                            errors += '<li>' + value.ErrorMessage + '</li>';
+                        });
+                        errors += '</ul>';
+
+                        errorCont.addClass('validation-summary-errors');
+                        errorCont.append(errors);
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }
+        });
+    })
+}
+
 function initEvent() {
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
@@ -268,7 +270,7 @@ function initEvent() {
                     initNumberTextbox();
                     initDatepicker();
                     initAutocomplete();
-                    initDialog(divContent);
+                    openAddToeicDialog(divContent);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
