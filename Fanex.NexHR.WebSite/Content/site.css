@@ -192,12 +192,12 @@ main {
   border-radius: 0;
   color: #fff; }
 
-.btn-submit input, .btn-request input {
+.btn-submit input, .btn-request input, .btn-back input, .btn-ok input, .btn-cancel input, .btn-close input, .btn-export-excel input, .btn-delete input {
   background: transparent;
   box-shadow: none;
   border: none;
   font-style: normal; }
-  .btn-submit input:focus, .btn-request input:focus, .btn-submit input:active, .btn-request input:active {
+  .btn-submit input:focus, .btn-request input:focus, .btn-back input:focus, .btn-ok input:focus, .btn-cancel input:focus, .btn-close input:focus, .btn-export-excel input:focus, .btn-delete input:focus, .btn-submit input:active, .btn-request input:active, .btn-back input:active, .btn-ok input:active, .btn-cancel input:active, .btn-close input:active, .btn-export-excel input:active, .btn-delete input:active {
     box-shadow: none;
     outline: none; }
 
