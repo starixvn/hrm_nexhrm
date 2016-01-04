@@ -36,9 +36,6 @@ namespace Fanex.NexHR.Controllers
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
 
-    /// <summary>
-    /// Employee controller.
-    /// </summary>
     [Authorize]
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeController : BaseController
@@ -71,21 +68,12 @@ namespace Fanex.NexHR.Controllers
             _emailService = emailService ?? new EmailService();
         }
 
-        /// <summary>
-        /// Index page.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             return View();
         }
 
-        /// <summary>
-        /// Manage user.
-        /// </summary>
-        /// <param name="jobTitleId">The job title ID.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(string jobTitleId = "")
         {
@@ -102,11 +90,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Employee detail.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Detail(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
@@ -141,43 +124,38 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Create employee.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            ViewBag.Shifts = _shiftService.GetSelectList();
-            ViewBag.TeamList = _teamService.GetAll(new GetAllTeamCriteria());
+            var teams = _teamService.GetAll(new GetAllTeamCriteria());
+            var shifts = _shiftService.GetSelectList();
 
-            return View(new CreateEmployeeViewModel
+            var model = new CreateEmployeeViewModel()
             {
                 MonShift = 1,
                 TueShift = 1,
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-            });
+                Teams = teams,
+                Shifts = shifts
+            };
+
+            return View(model);
         }
 
-        /// <summary>
-        /// Create employee.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
             model.ProcessBy = this.CurrentUser.Id;
-
-            ViewBag.Shifts = _shiftService.GetSelectList();
-            ViewBag.TeamList = _teamService.GetAll(new GetAllTeamCriteria());
+            model.Shifts = _shiftService.GetSelectList();
+            model.Teams = _teamService.GetAll(new GetAllTeamCriteria());
 
             if (ModelState.IsValid)
             {
                 model.DomainUsername = ConfigurationManager.AppSettings["domain"] + model.DomainUsername;
+
                 var insertEmployeeCriteria = new InsertEmployeeCriteria()
                 {
                     Code = model.Code,
@@ -195,6 +173,7 @@ namespace Fanex.NexHR.Controllers
                     ThuShift = model.ThuShift,
                     WedShift = model.WedShift
                 };
+
                 var id = _employeeService.Insert(insertEmployeeCriteria);
                 if (id == -1)
                 {
@@ -213,11 +192,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit employee.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
@@ -271,11 +245,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit employee.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -314,11 +283,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Default schedule.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult DefaultSchedule(int id = -1)
         {
@@ -335,11 +299,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Default schedule.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult DefaultSchedule(EmployeeShift model)
@@ -371,11 +330,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Month schedule.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult MonthSchedule(int id = -1)
         {
@@ -387,11 +341,6 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Employee avatar.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>The file result.</returns>
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
@@ -412,12 +361,6 @@ namespace Fanex.NexHR.Controllers
             return File("/avatars/avatar.jpg", "image/jpeg");
         }
 
-        /// <summary>
-        /// Upload avatar.
-        /// </summary>
-        /// <param name="code">The avatar code.</param>
-        /// <param name="file">The avatar file.</param>
-        /// <returns>The JSON result.</returns>
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult UploadAvatar(string code, HttpPostedFileBase file)
@@ -442,10 +385,6 @@ namespace Fanex.NexHR.Controllers
             return Json(null);
         }
 
-        /// <summary>
-        /// My space view.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult MySpace()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
@@ -468,10 +407,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// MY working schedule.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult MyWorkingSchedule()
         {
             var workingScheduleCriteria = new GetWorkingScheduleCriteria
@@ -484,12 +419,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Working calendar.
-        /// </summary>
-        /// <param name="month">The month value.</param>
-        /// <param name="year">The year value.</param>
-        /// <returns>Action result.</returns>
         public ActionResult WorkingCalendars(int month = 0, int year = 0)
         {
             var currentDate = new StringBuilder();
@@ -532,10 +461,6 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
-        /// <summary>
-        /// Edit working calendar.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult WorkingCalendarsEdit()
@@ -550,11 +475,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit working calendar.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult WorkingCalendarsEdit(ChangeWorkingCalendarsViewModel model)
@@ -574,10 +494,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Manage dashboard.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [ChildActionOnly]
         public ActionResult ManagementDashboard()
         {
@@ -594,10 +510,6 @@ namespace Fanex.NexHR.Controllers
             return Content(string.Empty);
         }
 
-        /// <summary>
-        /// Manage team.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult TeamManagement()
         {
@@ -606,11 +518,6 @@ namespace Fanex.NexHR.Controllers
             return View(teams);
         }
 
-        /// <summary>
-        /// Add new team.
-        /// </summary>
-        /// <param name="teamId">The team ID.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult AddTeam(int teamId = -1)
         {
@@ -662,10 +569,6 @@ namespace Fanex.NexHR.Controllers
             return Content(string.Empty);
         }
 
-        /// <summary>
-        /// The birthday page which sorted by month.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult Birthday()
         {
             var allEmployees = GetAllEmployees();
@@ -676,11 +579,6 @@ namespace Fanex.NexHR.Controllers
 
         #region TOEIC
 
-        /// <summary>
-        /// Manage TOEIC score.
-        /// </summary>
-        /// <param name="jobTitleId">The job title ID.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult ToeicManagement(string jobTitleId = "")
         {
@@ -698,12 +596,6 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Update full TOEIC.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <param name="name">Employee name.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullToeic(int? id, string name)
@@ -725,11 +617,6 @@ namespace Fanex.NexHR.Controllers
             return PartialView(toeic);
         }
 
-        /// <summary>
-        /// Update full TOEIC.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullToeic(Toeic model)
@@ -778,10 +665,6 @@ namespace Fanex.NexHR.Controllers
             return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
-        /// <summary>
-        /// Update TOEIC score.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic()
@@ -789,11 +672,6 @@ namespace Fanex.NexHR.Controllers
             return PartialView(new ToeicViewModel());
         }
 
-        /// <summary>
-        /// Update TOEIC.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(ToeicViewModel model)
@@ -853,10 +731,6 @@ namespace Fanex.NexHR.Controllers
             return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
-        /// <summary>
-        /// Validate TOEIC score.
-        /// </summary>
-        /// <param name="model">The model object.</param>
         private void ValidateTOEIC(Toeic model)
         {
             if (model.EmpId <= 0)
@@ -906,12 +780,6 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
-        /// <summary>
-        /// Validate number pair.
-        /// </summary>
-        /// <param name="number1">The first number.</param>
-        /// <param name="number2">The second number.</param>
-        /// <returns>The result.</returns>
         private bool ValidateNumberPair(int? number1, int? number2)
         {
             if ((number1.HasValue && number1.Value > 0) &&
@@ -928,11 +796,6 @@ namespace Fanex.NexHR.Controllers
             return false;
         }
 
-        /// <summary>
-        /// Fill Data Update Employee Criteria.
-        /// </summary>
-        /// <param name="model">Employee Model.</param>
-        /// <returns>UpdateEmployeeCriteria Entity.</returns>
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(Employee model)
         {
             var criteria = new UpdateEmployeeCriteria()
@@ -976,12 +839,6 @@ namespace Fanex.NexHR.Controllers
             return criteria;
         }
 
-        /// <summary>
-        /// Send an email to the list of related people.
-        /// </summary>
-        /// <param name="empId">The employee ID updated score.</param>
-        /// <param name="newScore">The new TOEIC score.</param>
-        /// <param name="oldScore">The old TOEIC score.</param>
         private void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
         {
             var receiverEmail = string.Empty;
@@ -1032,11 +889,6 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
-        /// <summary>
-        /// Get the current TOEIC score.
-        /// </summary>
-        /// <param name="empid">The Employee ID.</param>
-        /// <returns>The TOEIC score of employee.</returns>
         private Toeic GetToeicScore(int empid)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empid };
@@ -1053,11 +905,6 @@ namespace Fanex.NexHR.Controllers
 
         #region BIRTHDAY
 
-        /// <summary>
-        /// Sort employee by birthday.
-        /// </summary>
-        /// <param name="employees">All current employees.</param>
-        /// <returns>List of employees sorted by month.</returns>
         private IEnumerable<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
         {
             var sortedEmployees = new List<EmployeeBirthdayViewModel>();
@@ -1081,10 +928,6 @@ namespace Fanex.NexHR.Controllers
             return sortedEmployees;
         }
 
-        /// <summary>
-        /// Get all employees.
-        /// </summary>
-        /// <returns>The information of all employees in company.</returns>
         private IEnumerable<Employee> GetAllEmployees()
         {
             var getAllEmployeeCriteria = new GetAllEmployeeCriteria()

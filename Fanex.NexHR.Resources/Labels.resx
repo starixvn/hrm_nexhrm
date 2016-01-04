@@ -481,7 +481,7 @@
     <value>Keyword</value>
   </data>
   <data name="WorkingSchedule" xml:space="preserve">
-    <value>Working schedule</value>
+    <value>Working Schedule</value>
   </data>
   <data name="RequestMonitoring" xml:space="preserve">
     <value>Request Monitoring</value>
@@ -730,7 +730,7 @@
     <value>S</value>
   </data>
   <data name="Nickname" xml:space="preserve">
-    <value>Nickname</value>
+    <value>Nick Name</value>
   </data>
   <data name="UpdateTOEICScore" xml:space="preserve">
     <value>Update {0}'s TOEIC Score</value>
@@ -953,5 +953,11 @@
   </data>
   <data name="SentTo" xml:space="preserve">
     <value>Sent To</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="DomainUsername" xml:space="preserve">
+    <value>Domain Username</value>
   </data>
 </root>

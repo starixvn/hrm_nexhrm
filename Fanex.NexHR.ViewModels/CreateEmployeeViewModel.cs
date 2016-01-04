@@ -5,17 +5,24 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
+//   <change who="Tim.Trinh" date="2015.01.04">Add Teams, Shifts</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// Create employee view model.
-    /// </summary>
     public class CreateEmployeeViewModel
     {
+        public CreateEmployeeViewModel()
+        {
+            Teams = new List<Team>();
+            Shifts = new List<SelectListItem>();
+        }
+
         [Required]
         public string FullName { get; set; }
 
@@ -46,5 +53,9 @@ namespace Fanex.NexHR.ViewModels
         public int TeamId { get; set; }
 
         public int ProcessBy { get; set; }
+
+        public IList<Team> Teams { get; set; }
+
+        public IList<SelectListItem> Shifts { get; set; }
     }
 }

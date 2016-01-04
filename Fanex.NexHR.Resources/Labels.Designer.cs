@@ -529,6 +529,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Account.
+        /// </summary>
+        public static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created Date.
         /// </summary>
         public static string CreatedDate {
@@ -723,6 +732,15 @@ namespace Fanex.NexHR.Resources {
         public static string DoB {
             get {
                 return ResourceManager.GetString("DoB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Domain Username.
+        /// </summary>
+        public static string DomainUsername {
+            get {
+                return ResourceManager.GetString("DomainUsername", resourceCulture);
             }
         }
         
@@ -1762,7 +1780,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nickname.
+        ///   Looks up a localized string similar to Nick Name.
         /// </summary>
         public static string Nickname {
             get {
@@ -2536,7 +2554,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Working schedule.
+        ///   Looks up a localized string similar to Working Schedule.
         /// </summary>
         public static string WorkingSchedule {
             get {

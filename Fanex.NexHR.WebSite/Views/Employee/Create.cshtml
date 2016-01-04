@@ -1,6 +1,6 @@
 ﻿@model Fanex.NexHR.ViewModels.CreateEmployeeViewModel
 @{
-    ViewBag.Title = "Create account";
+    ViewBag.Title = Labels.CreateAccount;
 }
 @section css {
 }
@@ -18,116 +18,116 @@
                 <div class="card-body">
                     @using (Html.BeginForm()) {
                         <div class="form">
-                            @Html.ValidationSummary(true)                                
+                            @Html.ValidationSummary(true)
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FullName)
+                                        @Html.LabelFor(model => model.FullName, Labels.FullName)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.FullName)
-                                        @Html.ValidationMessageFor(model => model.FullName)
-                                    </div>                                    
-                                </div>                                
-                            </div>
-
-                            <div class="row form-input">
+                                    </div>
+                                </div>
                                 <div class="col">
+                                    @Html.ValidationMessageFor(model => model.FullName)
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.NickName)
+                                        @Html.LabelFor(model => model.NickName, Labels.Nickname)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.NickName)
-                                        @Html.ValidationMessageFor(model => model.NickName)
-                                    </div>     
-                                </div>                                                               
-                            </div>
-
-                            <div class="row form-input">
-                                <div class="col">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.DomainUsername)                                        
                                     </div>
-
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.NickName)
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.DomainUsername, Labels.DomainUsername)
+                                    </div>
                                     <div class="left label--s">
                                         <label><strong>@System.Configuration.ConfigurationManager.AppSettings["domain"]</strong></label>
                                     </div>
-
-                                    <div class="left input-spvn">                                        
+                                    <div class="left input-spvn">
                                         @Html.EditorFor(model => model.DomainUsername)
-                                        @Html.ValidationMessageFor(model => model.DomainUsername)
                                     </div>
-                                </div>                                
-                            </div>
-
-                            <div class="row form-input">
+                                </div>
                                 <div class="col">
+                                    @Html.ValidationMessageFor(model => model.DomainUsername)
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Code)
+                                        @Html.LabelFor(model => model.Code, Labels.Code)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Code)
-                                        @Html.ValidationMessageFor(model => model.Code)
                                     </div>
-                                </div>                                
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Code)
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.TeamId)
+                                        @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
                                     <div class="left select--l">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(ViewBag.TeamList, "Id", "Name"))
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"))
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        <label>Working schedule</label>
+                                        <label>@Labels.WorkingSchedule</label>
                                     </div>
-                                    <div class="left">                                        
+                                    <div class="left">
                                         <div class="col">
                                             <label>Sun</label><br />
-                                            @RazorHelper.ShiftDropDownList("SunShift", Model.SunShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.SunShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Mon</label><br />
-                                            @RazorHelper.ShiftDropDownList("MonShift", Model.MonShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.MonShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Tue</label><br />
-                                            @RazorHelper.ShiftDropDownList("TueShift", Model.TueShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.TueShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Wed</label><br />
-                                            @RazorHelper.ShiftDropDownList("WedShift", Model.WedShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.WedShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Thu</label><br />
-                                            @RazorHelper.ShiftDropDownList("ThuShift", Model.ThuShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.ThuShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Fri</label><br />
-                                            @RazorHelper.ShiftDropDownList("FriShift", Model.FriShift, (IList<SelectListItem>)ViewBag.Shifts)
+                                            @Html.DropDownListFor(model => model.FriShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>Sat</label><br />
-                                            @RazorHelper.ShiftDropDownList("SatShift", Model.SatShift, (IList<SelectListItem>)ViewBag.Shifts)
-                                        </div>                                        
+                                            @Html.DropDownListFor(model => model.SatShift, Model.Shifts, Labels.Off)
+                                        </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-
-                            <div class="row form-input">                                
+                            <div class="row form-input">
                                 <div class="col">
                                     <span class="button-hrm waves-effect waves-light btn blue darken-2"><input type="submit" value="Next" /></span>
                                 </div>
                             </div>
                         </div>
-                    }                   
+                    }
                 </div>
             </div>
         </div>
