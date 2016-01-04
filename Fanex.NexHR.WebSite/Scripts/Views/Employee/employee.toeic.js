@@ -23,12 +23,12 @@ function query() {
 	    else {
 	        $(noInformation(12)).appendTo('#data');
 	    }
-	    
-	}).error(function () {	    
+
+	}).error(function () {
 	    alert(_messages.errorTryAgain);
 	});
 
-	reloadButtonText('#query');
+    reloadButtonText('#query');
     $('#keyword').focus().select();
 }
 
@@ -118,15 +118,20 @@ function initAutocomplete() {
                 },
                 success: function (data) {
                     response($.map(data, function (item) {
-                        return {
-                            value: item.NickName + ' (' + item.FullName + ')',
-                            id: item.Id
+                        return { label: item.NickName + ' (' + item.FullName + ')',
+                            value: item.Id
                         };
                     }));
                 }
             });
         },
-        minLength: 1        
+        select: function (event, ui) {
+            event.preventDefault();
+            var nickName = ui.item.label;
+            $('#Employee').val(nickName);
+            $('#EmpId').val(ui.item.value);
+        },
+        minLength: 1
     });
 }
 
@@ -224,7 +229,7 @@ function editTOEIC(id, name) {
             success: function (data) {
                 if (data) {
                     var divContent = $('#dialog-toeic');
-                    divContent.html(data);                    
+                    divContent.html(data);
 
                     initNumberTextbox();
                     initDatepicker();
@@ -238,12 +243,12 @@ function editTOEIC(id, name) {
     }
 }
 
-$(document).ready(function () {
-    //	$('#title').val(jobTitleId);
-    //	$('#title').chosen();
-    //	$("#title").trigger("liszt:updated");   
-
-    query();
+function initEvent() {
+    $('#keyword').keyup(function (event) {
+        if (event.keyCode === 13) {
+            query();
+        }
+    });
 
     $('#query').click(function (evt) {
         evt.preventDefault();
@@ -258,7 +263,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     var divContent = $('#dialog-toeic');
-                    divContent.html(data);                    
+                    divContent.html(data);
 
                     initNumberTextbox();
                     initDatepicker();
@@ -271,4 +276,17 @@ $(document).ready(function () {
             }
         });
     });
+}
+
+$(document).ready(function () {
+
+    query();
+
+    initEvent();
+
+    //	$('#title').val(jobTitleId);
+    //	$('#title').chosen();
+    //	$("#title").trigger("liszt:updated");   
+
+
 });
