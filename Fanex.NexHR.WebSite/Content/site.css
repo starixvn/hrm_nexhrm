@@ -182,6 +182,9 @@ main {
 .txt-bold {
   font-weight: 500; }
 
+.align-left {
+  text-align: left !important; }
+
 .btn-primary {
   margin-bottom: 1.4rem;
   padding: 0 7px;
@@ -403,6 +406,9 @@ main {
   max-height: 40rem;
   overflow-y: auto;
   overflow-x: hidden; }
+
+#dialog-toeic {
+  text-align: left; }
 
 .navbar-fixed .top-nav {
   font-size: 24px;
