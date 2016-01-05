@@ -49,7 +49,6 @@ function openDialog() {
 function closeDialog() {
     $('#dialog-toeic').dialog('close');
 }
-
 function initAutocomplete() {
     $('#Employee').autocomplete({
         source: function (request, response) {
@@ -72,11 +71,11 @@ function initAutocomplete() {
                             return { label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id
                             };
-                        }));                    
-                }else{
-                    $('#EmpId').val('0');
+                        }));
+                    } else {
+                        $('#EmpId').val('0');
+                    }
                 }
-
             });
         },
         select: function (event, ui) {
@@ -88,7 +87,6 @@ function initAutocomplete() {
         minLength: 1
     });
 }
-
 function editTOEIC(id, name) {
     if (id > 0) {
         $.ajax({
