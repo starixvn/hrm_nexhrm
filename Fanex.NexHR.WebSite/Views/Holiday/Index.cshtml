@@ -24,17 +24,20 @@
                         <div class="form">
                             <div class="row form-input">
                                 <div class="col">
-                                    <label>
-                                        Year</label>
-                                </div>
-                                <div class="col select--m">
-                                    @Html.YearPicker("year", 2010, (int)ViewBag.year)
-                                </div>
+                                    <div class="left label--s">
+                                        <label>
+                                            Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.YearPicker("year", 2010, (int)ViewBag.year)
+                                    </div>
+                                </div>                                
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input type="button" id="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m">
+                                        <input type="button" id="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                     @if (isHRRole)
                                     {
-                                        <span class="button-hrm waves-effect waves-light btn orange darken-1 white-text">@Html.ActionLink("Holiday", "Create", "", new {@class = "white-text" })</span>
+                                        <span class="button-hrm waves-effect waves-light btn orange darken-1 white-text">@Html.ActionLink("Holiday", "Create", "", new { @class = "white-text" })</span>
                                     }
                                 </div>
                             </div>

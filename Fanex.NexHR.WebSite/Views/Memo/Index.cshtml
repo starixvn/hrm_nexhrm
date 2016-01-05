@@ -37,7 +37,7 @@
                                     <div class='left label--s'>
                                         @Html.LabelFor(model => model.Year)
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--xs">
                                         @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                         </div>
                             
                         <div class='p-x--s'>
-                            <table id="memo" class="data persist-area table bordered striped highlight table-custom">
+                            <table id="memo" class="data persist-area table bordered striped highlight table-custom centered">
                                 <thead>
                                     <tr class="persist-header">
                                         <th>
@@ -110,11 +110,11 @@
                                                 </td>
                                                 @if (Roles.IsUserInRole("HR"))
                                                 {
-                                                    <td class="center" title="Edit">
+                                                    <td title="Edit">
                                                         <a href="@Url.Action("edit", "memo", new { Id = item.Id })"><i class='mdi mdi-border-color mdi-dark'>
                                                         </i></a>
                                                     </td>
-                                                    <td class="center" title="Delete">
+                                                    <td title="Delete">
                                                         <a href="javascript:;" onclick="deleteMemo(@item.Id, '@System.Web.HttpUtility.HtmlEncode(item.Contents)', @item.MemoType);">
                                                             <i class='mdi mdi-delete mdi-dark'></i></a>
                                                     </td>

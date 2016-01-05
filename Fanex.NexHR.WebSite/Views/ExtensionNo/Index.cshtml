@@ -2,7 +2,7 @@
 @section css {
 }
 @section js {
-    @Scripts.Render("~/bundles/extensionnojs");    
+    @Scripts.Render("~/bundles/extensionnojs");
 }
 @{
     ViewBag.Title = Labels.ExtensionNumber;
@@ -21,89 +21,91 @@
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <div class="col">
-                            <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s">@Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class="white-text"})</span>
-                            <span class="button-hrm waves-effect waves-light btn white-text green darken-1">@Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "white-text"})</span>
+                                <span class="btn-request waves-effect waves-light m-r--s">@Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "white-text" })</span>
+                                <span class="btn-submit waves-effect waves-light">@Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "white-text" })</span>
                             </div>
                         }
                     </div>
-                    <table class="data table bordered striped highlight table-custom" id="data">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Full Name
-                                </th>
-                                <th>
-                                    Nick
-                                </th>
-                                <th>
-                                    Extension Number
-                                </th>
-                                @if (Roles.IsUserInRole("HR"))
-                                {
-                                    <th>
-                                        Edit
-                                    </th>
-                                    <th>
-                                        Delete
-                                    </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null)
-                            {
-                                int index = 1;
-                                foreach (Fanex.NexHR.ViewModels.ExtensionNoViewModel item in Model)
-                                {
-                                    if (item.ListExt.Count > 0)
-                                    {
+                    <div class="p-x--s">
+                        <table class="data table bordered striped highlight table-custom centered" id="data">
+                            <thead>
                                 <tr>
-                                    <td class="rowdivider highlight" colspan="19">
-                                        <b>@item.Name.ToUpper()</b>
-                                    </td>
-                                </tr>
-                                    }
-                                    foreach (Fanex.NexHR.Models.ExtensionNoModel ext in item.ListExt)
-                                    {
-                                <tr id="@ext.EmpExtId">
-                                    <td class='center'>
-                                        @(index++)
-                                    </td>
-                                    <td>
-                                        @ext.FullName
-                                    </td>
-                                    <td>
-                                        @ext.NickName
-                                    </td>
-                                    <td style="color: #0789D1;">
-                                        @ext.ExtensionNo
-                                    </td>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Full Name
+                                    </th>
+                                    <th>
+                                        Nick
+                                    </th>
+                                    <th>
+                                        Extension Number
+                                    </th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <td class='center'>
-                                            <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtId })">
-                                                <i class='mdi mdi-border-color mdi-dark'></i></a>
-                                        </td>
-                                        <td class='center'>
-                                            <a href="javascript:;" class="deleteExt"><i class='mdi mdi-delete mdi-dark'></i></a>
-                                        </td>
+                                        <th>
+                                            Edit
+                                        </th>
+                                        <th>
+                                            Delete
+                                        </th>
                                     }
                                 </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    int index = 1;
+                                    foreach (Fanex.NexHR.ViewModels.ExtensionNoViewModel item in Model)
+                                    {
+                                        if (item.ListExt.Count > 0)
+                                        {
+                                    <tr>
+                                        <td class="rowdivider highlight txt-left" colspan="19">
+                                            <b>@item.Name.ToUpper()</b>
+                                        </td>
+                                    </tr>
+                                        }
+                                        foreach (Fanex.NexHR.Models.ExtensionNoModel ext in item.ListExt)
+                                        {
+                                    <tr id="@ext.EmpExtId">
+                                        <td>
+                                            @(index++)
+                                        </td>
+                                        <td>
+                                            @ext.FullName
+                                        </td>
+                                        <td>
+                                            @ext.NickName
+                                        </td>
+                                        <td style="color: #0789D1;">
+                                            @ext.ExtensionNo
+                                        </td>
+                                        @if (Roles.IsUserInRole("HR"))
+                                        {
+                                            <td>
+                                                <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtId })">
+                                                    <i class='mdi mdi-border-color mdi-dark'></i></a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="deleteExt"><i class='mdi mdi-delete mdi-dark'></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                @RazorHelper.DisplayNoInformation(colspan: 5);
-                            }
-                        </tbody>
-                    </table>
+                                else
+                                {
+                                    @RazorHelper.DisplayNoInformation(colspan: 5);
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

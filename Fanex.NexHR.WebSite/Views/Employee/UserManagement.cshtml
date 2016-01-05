@@ -18,46 +18,53 @@
                 <div class="card-body">
                     <div class="form">
                         <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--m">
-                                    <label>@Labels.Keyword</label>
+                            <div class="col s4">
+                                <div class="row">
+                                    <div class="left label--m">
+                                        <label>@Labels.Keyword</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
+                                    </div>
                                 </div>
-                                <div class="left input--s">
-                                    <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
-                                </div>
-                            </div>
-                            <div class="col m-r--m">
-                                <div class="left label--s">
-                                    <label>@Labels.Team</label>
-                                </div>
-                                <div class="left select--m">
-                                    @Html.DropDownList("group", new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
-                                </div>
-                            </div>
-                            <div class="col m-r--m">
-                                <div class="left label--s"><label>@Labels.Title</label></div>
-                                <div class="left select--m">
-                                    @Html.DropDownList("title", new SelectList(Model.JobTitles, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
+                                <div class="row">
+                                    <div class="left label--m">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownList("group", new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--m">&nbsp;</div>
-                                <div class="left radioButton">
-                                    <input class="with-gap" name="name" type="radio" id="active" checked="checked" />
-                                    <label for="active" class="m-r--s">Active Users</label>
-                                    <input class="with-gap" name="name" type="radio" id="enable" />
-                                    <label class="m-r--s" for="enable">Disabled Users</label>
-                                    <input class="with-gap" name="name" type="radio" id="IsDeleted" />
-                                    <label  class="m-r--s" for="IsDeleted">Deleted Users</label>
+                            <div class="col s4">
+                                <div class="row">
+                                    <div class="left label--s">
+                                        <label>@Labels.Title</label></div>
+                                    <div class="left select--m">
+                                        @Html.DropDownList("title", new SelectList(Model.JobTitles, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="left radioButton">
+                                        <input class="with-gap" name="name" type="radio" id="active" checked="checked" />
+                                        <label for="active" class="m-r--s">
+                                            Active Users</label>
+                                        <input class="with-gap" name="name" type="radio" id="enable" />
+                                        <label class="m-r--s" for="enable">
+                                            Disabled Users</label>
+                                        <input class="with-gap" name="name" type="radio" id="IsDeleted" />
+                                        <label class="m-r--s" for="IsDeleted">
+                                            Deleted Users</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <a id="query" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
-                            </div>
-                            <div class="col">
-                                <a id="exportExcel" class="button-hrm waves-effect waves-light btn blue darken-2 btn-export-excel" href="javascript:;">@Labels.Excel</a>
+                            <div class="col s2">
+                                <div class="col">
+                                    <a id="query" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
+                                </div>
+                                <div class="col">
+                                    <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,41 +74,52 @@
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                         <thead>
                             <tr>
-                                <th>@Labels.SymbolCount</th>
+                                <th>@Labels.SymbolCount
+                                </th>
                                 <th class="col-sorter">
                                     @Labels.Code
-                                    <div class="sorter" data-property="Code"></div>
+                                    <div class="sorter" data-property="Code">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Nick
-                                    <div class="sorter" data-property="NickName"></div>
+                                    <div class="sorter" data-property="NickName">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Name
-                                    <div class="sorter" data-property="FullName"></div>
+                                    <div class="sorter" data-property="FullName">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Team
-                                    <div class="sorter" data-property="CodeOfTeam"></div>
+                                    <div class="sorter" data-property="CodeOfTeam">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Gender
-                                    <div class="sorter" data-property="Gender"></div>
+                                    <div class="sorter" data-property="Gender">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.JobTitle
-                                    <div class="sorter" data-property="JobTitle"></div>
+                                    <div class="sorter" data-property="JobTitle">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.DoB
-                                    <div class="sorter" data-property="DateOfBirth"></div>
+                                    <div class="sorter" data-property="DateOfBirth">
+                                    </div>
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.JoinedDate
-                                    <div class="sorter" data-property="JoinedDate"></div>
+                                    <div class="sorter" data-property="JoinedDate">
+                                    </div>
                                 </th>
-                                <th>@Labels.Edit</th>
-                                <th>@Labels.Schedule</th>
+                                <th>@Labels.Edit
+                                </th>
+                                <th>@Labels.Schedule
+                                </th>
                             </tr>
                         </thead>
                         <tbody>

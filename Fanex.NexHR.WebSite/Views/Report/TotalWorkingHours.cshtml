@@ -23,83 +23,82 @@
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
                             <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        <label>@Labels.DateRange</label>
+                                <div class="col s4">
+                                    <div>
+                                        <div class="left label--m">
+                                            <label>@Labels.DateRange</label>
+                                        </div>
+                                        <div class="left select--m">
+                                            <select id="Date" name="Date">
+                                                <option value="0">@Labels.DateRange</option>
+                                                <option value="1">@Labels.ToDay</option>
+                                                <option value="2">@Labels.Yesterday</option>
+                                                <option value="3">@Labels.CurrentWeek</option>
+                                                <option value="4">@Labels.LastWeek</option>
+                                                <option value="5">@Labels.CurrentMonth</option>
+                                                <option value="6">@Labels.LastMonth</option>
+                                                <option value="7">@Labels.SinceLastMonth</option>
+                                            </select>
+                                            @Html.Hidden("DateOption", Model.DateOption)
+                                        </div>
                                     </div>
-                                    <div class="left select--m">
-                                        <select id="Date" name="Date">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
-                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    <div>
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.Team)
+                                        </div>
+                                        <div class="left select--m">
+                                            <select id="TeamId" name="TeamId">
+                                                <option value="">@Labels.AllTeams</option>
+                                                @foreach (Fanex.NexHR.Models.Team team in ViewBag.Groups)
+                                                {
+                                                    <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                <div class="col s3">
+                                    <div class="row">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        </div>
+                                        <div class="left datepicker-button input--s">
+                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
                                     </div>
-                                    <div class="left datepicker-button input--s">
-                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    <div class="row">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        </div>
+                                        <div class="left datepicker-button input--s">
+                                            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="col">
-                                    <div class="left label--s m-r--s">
-                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                <div class="col s4">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.Employee)
+                                        </div>
+                                        <div class="left input--m">
+                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                            @Html.HiddenFor(model => model.EmployeeId)
+                                        </div>
                                     </div>
-                                    <div class="left datepicker-button input--s">
-                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    <div class="col">
+                                        <span class="btn-submit waves-effect waves-light m-r--m">
+                                            <input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" /></span>
+                                        <span class="btn-export-excel waves-effect waves-light">
+                                            <input type="submit" value="Excel" onclick="submitForm('True')" />
+                                            @Html.HiddenFor(model => model.IsExportExcel)
+                                        </span>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-                            
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Team)
-                                    </div>
-                                    <div class="left select--m">
-                                        <select id="TeamId" name="TeamId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Fanex.NexHR.Models.Team team in ViewBag.Groups)
-                                            {
-                                                <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s"><input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" /></span>
-                                    <span class="button-hrm waves-effect waves-light btn green darken-1">
-                                        <input type="submit" value="Excel" onclick="submitForm('True')" />
-                                        @Html.HiddenFor(model => model.IsExportExcel)
-                                    </span>                                    
-                                </div> 
-                            </div>                            
                         </div>
                     }
-
                     <div class="p-x--s">
                         <table class="data persist-area table bordered striped highlight table-custom">
                             <thead>
@@ -229,10 +228,9 @@
                                 @RazorHelper.DisplayNoInformation(colspan: 11);
                             }
                         </table>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -17,7 +17,7 @@
 table.table-custom tr td.col-delete a i {
   color: red; }
   table.table-custom tr td.col-delete a i.mdi-disabled {
-    color: rgba(0, 0, 0, 0.54);
+    color: rgba(0, 0, 0, 0.3);
     cursor: default; }
 
 /*# sourceMappingURL=jobtitle.css.map */

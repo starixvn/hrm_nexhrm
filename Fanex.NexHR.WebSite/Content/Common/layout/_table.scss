@@ -19,7 +19,7 @@
                 font-weight: normal;
                 vertical-align: middle;
                 padding: 8px 7px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                border-top: 1px solid rgba(0, 0, 0, 0.05);
                 border-right: 1px solid rgba(0, 0, 0, 0.05);
                 border-left: 1px solid rgba(0, 0, 0, 0.05);
                 text-align: center;
@@ -137,6 +137,9 @@ table {
   .mdi-border-color, .mdi-delete {
     position: relative;
     top: 2px;
+	&:focus, &:active {
+		outline: none;
+	}
   }
 
   .trigger {

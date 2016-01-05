@@ -1,5 +1,11 @@
 @import "../utils/variables";
 
+a {
+	&:active, &:focus {
+		outline: none;
+	}
+}
+
 .opacity70 {
   opacity: .7;
 }

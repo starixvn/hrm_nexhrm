@@ -4,10 +4,11 @@
 .monpickr-wrap-parent {
     .monpickr-wrap {
         .monpickr.monpickr-arrows {
-            border: .1rem solid #b6b6b6;
+            //border: .1rem solid #b6b6b6;
             color: #4f4f4f;
             font-weight: bold;
-            @include css3(border-radius, .3rem);
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+
 
             .monpickr-prev, .monpickr-next {
                 .ui-icon {
@@ -21,11 +22,10 @@
                 }
             }
 
-            .monpickr-input {
-                border: .1rem solid #c8c8c8 !important;
-                @include css3(border-radius, .3rem);
+            .monpickr-input {                
                 padding-left: 0 !important;
                 font-weight: normal;
+				padding: 7px;
             }
         }
 
