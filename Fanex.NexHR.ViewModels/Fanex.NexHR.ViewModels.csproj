@@ -97,6 +97,7 @@
     <Compile Include="EmployeeAttendanceViewModel.cs" />
     <Compile Include="MySpaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToeicManagementViewModel.cs" />
     <Compile Include="ToeicViewModel.cs" />
     <Compile Include="TotalWorkingHoursViewModel.cs" />
     <Compile Include="UserManagementViewModel.cs" />

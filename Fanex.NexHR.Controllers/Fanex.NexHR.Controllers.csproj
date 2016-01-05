@@ -141,7 +141,6 @@
     <Compile Include="AnnualLeaveBalanceController.cs" />
     <Compile Include="ApiControllers\EmployeeController.cs" />
     <Compile Include="ApiControllers\HolidayController.cs" />
-    <Compile Include="ApiControllers\JobTitleController.cs" />
     <Compile Include="ApiControllers\ReportController.cs" />
     <Compile Include="ApiControllers\ShiftController.cs" />
     <Compile Include="BaseController.cs" />
@@ -164,6 +163,7 @@
     <Compile Include="Request\RequestController.cs" />
     <Compile Include="ShiftController.cs" />
     <Compile Include="TeamController.cs" />
+    <Compile Include="ToeicController.cs" />
     <Compile Include="UIController.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,214 @@
+﻿@model Fanex.NexHR.ViewModels.ToeicManagementViewModel
+
+@{
+    ViewBag.Title = Labels.TOEICScoreMgmt;
+    bool isHRRole = Roles.IsUserInRole("HR");
+}
+@section css {
+}
+@section js {
+    @Scripts.Render("~/bundles/toeicjs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm())
+                        {
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--m">
+                                    <label>@Labels.Nick</label>
+                                </div>
+                                <div class="left input--s">
+                                    @Html.TextBoxFor(model=>model.Query)
+                                </div>
+                            </div>
+                            <div class="col m-r--m">
+                                <div class="left label--s">
+                                    <label>@Labels.Team</label>
+                                </div>
+                                <div class="left select--m">
+                                    @Html.DropDownListFor(model=>model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Title</label>
+                                </div>
+                                <div class="left select--m">
+                                    @Html.DropDownListFor(model=>model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input id="submit" type="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                @if (isHRRole)
+                                {
+                                    <a class="btn-request waves-effect waves-light" id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
+                                }
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div class="p-x--s">
+                        <table id="data" class="data persist-area table bordered striped highlight centered responsive-table table-custom">
+                            <thead class="persist-header">
+                                <tr>
+                                    <th rowspan="2">@Labels.SymbolCount</th>
+                                    <th rowspan="2">@Labels.Nick</th>
+                                    <th rowspan="2">@Labels.Team</th>
+                                    <th rowspan="2">@Labels.JobTitle</th>
+                                    <th colspan="4">@Labels.Listening/@Labels.Reading</th>
+                                    <th colspan="3">@Labels.Speaking/@Labels.Writing</th>
+                                    <th rowspan="2">@Labels.ExpiredDate</th>
+                                    @if (isHRRole)
+                                    {
+                                        <th rowspan="2">@Labels.Edit</th>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>@Labels.L</th>
+                                    <th>@Labels.R</th>
+                                    <th>@Labels.LRTotal</th>
+                                    <th>@Labels.ExamDate</th>
+                                    <th>@Labels.S</th>
+                                    <th>@Labels.W</th>
+                                    <th>@Labels.ExamDate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int index = 1;}
+                                @if (Model.Employees.Any())
+                                {
+                                    foreach (Employee employee in Model.Employees)
+                                    {
+                                    <tr id="row_@employee.Id">
+                                        <td>@(index++)</td>
+                                        <td class="tooltip" title="@employee.FullName">
+                                            <a href="/employee/detail/@employee.Id">@employee.NickName</a>
+                                        </td>
+                                        <td class="tooltip" title="@employee.Team.Name">
+                                            @employee.Team.Code
+                                        </td>
+                                        <td class="align-left">@employee.JobTitle</td>
+                                        <td>
+                                            @if (employee.ToeicScore.Listening.Equals(0))
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.Listening</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.Reading.Equals(0))
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.Reading</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.LRTotal.Equals(0))
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.LRTotal</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.LRExamDate == null)
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.Speaking.Equals(0))
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.Speaking</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.Writing.Equals(0))
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.Writing</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (employee.ToeicScore.SWExamDate == null)
+                                            {
+                                                <div>-</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@employee.ToeicScore.SWExamDate.ToDateMonthYearFormatedDate()</div>
+                                            }
+                                        </td>
+                                        @if (employee.ToeicScore.InputDate != null){
+                                            if (employee.ToeicScore.InputDate < DateTime.Now){
+                                                <td class="expired-date">
+                                                    @employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()
+                                                </td>
+                                            }
+                                            else {
+                                                <td>
+                                                    @employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()
+                                                </td>
+                                            }
+                                        }
+                                        else {
+                                            <td>-</td>
+                                        }
+                                        @if (isHRRole) {
+                                            <td>
+                                                @if (!employee.IsDeleted){
+                                                    <a href="javascript:;" onclick="editTOEIC(@employee.Id,'@employee.NickName');"><i class="mdi mdi-border-color mdi-dark"></i></a>
+                                                }
+                                                else{
+                                                    <div>-</div>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    }
+                                    }
+                                else
+                                {
+                                    @RazorHelper.DisplayNoInformation(colspan: 13);
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
+</script>

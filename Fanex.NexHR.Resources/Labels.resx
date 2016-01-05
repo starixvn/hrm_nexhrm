@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,909 +59,911 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AllTeams" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllTeams" xml:space="preserve">
     <value>All teams</value>
   </data>
-	<data name="Approved" xml:space="preserve">
+  <data name="Approved" xml:space="preserve">
     <value>Approved</value>
   </data>
-	<data name="CheckIn" xml:space="preserve">
+  <data name="CheckIn" xml:space="preserve">
     <value>Check In</value>
   </data>
-	<data name="CheckOut" xml:space="preserve">
+  <data name="CheckOut" xml:space="preserve">
     <value>Check Out</value>
   </data>
-	<data name="ApprovedBy" xml:space="preserve">
+  <data name="ApprovedBy" xml:space="preserve">
     <value>Approved by</value>
   </data>
-	<data name="ApprovedDate" xml:space="preserve">
+  <data name="ApprovedDate" xml:space="preserve">
     <value>Approved date</value>
   </data>
-	<data name="ChangeShift" xml:space="preserve">
+  <data name="ChangeShift" xml:space="preserve">
     <value>Change shift</value>
   </data>
-	<data name="CreatedDate" xml:space="preserve">
+  <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
-	<data name="RequestDate" xml:space="preserve">
+  <data name="RequestDate" xml:space="preserve">
     <value>Request Date</value>
   </data>
-	<data name="Disapproved" xml:space="preserve">
+  <data name="Disapproved" xml:space="preserve">
     <value>Disapproved</value>
   </data>
-	<data name="EarlyOut" xml:space="preserve">
+  <data name="EarlyOut" xml:space="preserve">
     <value>Early Out</value>
   </data>
-	<data name="LateIn" xml:space="preserve">
+  <data name="LateIn" xml:space="preserve">
     <value>Late In</value>
   </data>
-	<data name="Leave" xml:space="preserve">
+  <data name="Leave" xml:space="preserve">
     <value>Leave</value>
   </data>
-	<data name="NewRequest" xml:space="preserve">
+  <data name="NewRequest" xml:space="preserve">
     <value>Make A New Request</value>
   </data>
-	<data name="Off" xml:space="preserve">
+  <data name="Off" xml:space="preserve">
     <value>OFF</value>
   </data>
-	<data name="Pending" xml:space="preserve">
+  <data name="Pending" xml:space="preserve">
     <value>Pending</value>
   </data>
-	<data name="Rejected" xml:space="preserve">
+  <data name="Rejected" xml:space="preserve">
     <value>Rejected</value>
   </data>
-	<data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-	<data name="Submit" xml:space="preserve">
+  <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-	<data name="Type" xml:space="preserve">
+  <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>
-	<data name="Unknown" xml:space="preserve">
+  <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
-	<data name="AnualLeaveBalance" xml:space="preserve">
+  <data name="AnualLeaveBalance" xml:space="preserve">
     <value>Annual Leave Balance</value>
   </data>
-	<data name="Approve" xml:space="preserve">
+  <data name="Approve" xml:space="preserve">
     <value>Approve</value>
   </data>
-	<data name="Cancel" xml:space="preserve">
+  <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="CreateRequest" xml:space="preserve">
+  <data name="CreateRequest" xml:space="preserve">
     <value>Create Request</value>
   </data>
-	<data name="CurrentMonth" xml:space="preserve">
+  <data name="CurrentMonth" xml:space="preserve">
     <value>Current Month</value>
   </data>
-	<data name="CurrentWeek" xml:space="preserve">
+  <data name="CurrentWeek" xml:space="preserve">
     <value>Current Week</value>
   </data>
-	<data name="DateRange" xml:space="preserve">
+  <data name="DateRange" xml:space="preserve">
     <value>Date Range</value>
   </data>
-	<data name="Edit" xml:space="preserve">
+  <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-	<data name="Employee" xml:space="preserve">
+  <data name="Employee" xml:space="preserve">
     <value>Employee</value>
   </data>
-	<data name="FromDate" xml:space="preserve">
+  <data name="FromDate" xml:space="preserve">
     <value>From Date</value>
   </data>
-	<data name="HRViewCheckInOut" xml:space="preserve">
+  <data name="HRViewCheckInOut" xml:space="preserve">
     <value>HR's View Request Check In/Out</value>
   </data>
-	<data name="LastMonth" xml:space="preserve">
+  <data name="LastMonth" xml:space="preserve">
     <value>Last Month</value>
   </data>
-	<data name="LastWeek" xml:space="preserve">
+  <data name="LastWeek" xml:space="preserve">
     <value>Last Week</value>
   </data>
-	<data name="LateInEarlyOut" xml:space="preserve">
+  <data name="LateInEarlyOut" xml:space="preserve">
     <value>Late In/Early Out</value>
   </data>
-	<data name="LeaderViewCheckInOut" xml:space="preserve">
+  <data name="LeaderViewCheckInOut" xml:space="preserve">
     <value>Leader's View Request Check In/Out</value>
   </data>
-	<data name="LeaveRequest" xml:space="preserve">
+  <data name="LeaveRequest" xml:space="preserve">
     <value>My Leave Request(s)</value>
   </data>
-	<data name="Month" xml:space="preserve">
+  <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
-	<data name="MyCheckInOutRequest" xml:space="preserve">
+  <data name="MyCheckInOutRequest" xml:space="preserve">
     <value>My Check In/Out Request(s)</value>
   </data>
-	<data name="PendingRequest" xml:space="preserve">
+  <data name="PendingRequest" xml:space="preserve">
     <value>Pending Request</value>
   </data>
-	<data name="ProcessedBy" xml:space="preserve">
+  <data name="ProcessedBy" xml:space="preserve">
     <value>Processed By</value>
   </data>
-	<data name="ProcessedDate" xml:space="preserve">
+  <data name="ProcessedDate" xml:space="preserve">
     <value>Processed Date</value>
   </data>
-	<data name="Reject" xml:space="preserve">
+  <data name="Reject" xml:space="preserve">
     <value>Reject</value>
   </data>
-	<data name="Request" xml:space="preserve">
+  <data name="Request" xml:space="preserve">
     <value>Request</value>
   </data>
-	<data name="RequestCheckInOut" xml:space="preserve">
+  <data name="RequestCheckInOut" xml:space="preserve">
     <value>Request Check In/ Out</value>
   </data>
-	<data name="Requester" xml:space="preserve">
+  <data name="Requester" xml:space="preserve">
     <value>Requester</value>
   </data>
-	<data name="RequestTime" xml:space="preserve">
+  <data name="RequestTime" xml:space="preserve">
     <value>Request Time</value>
   </data>
-	<data name="Shift" xml:space="preserve">
+  <data name="Shift" xml:space="preserve">
     <value>Shift</value>
   </data>
-	<data name="SinceLastMonth" xml:space="preserve">
+  <data name="SinceLastMonth" xml:space="preserve">
     <value>Since Last Month</value>
   </data>
-	<data name="Team" xml:space="preserve">
+  <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
-	<data name="ToDate" xml:space="preserve">
+  <data name="ToDate" xml:space="preserve">
     <value>To Date</value>
   </data>
-	<data name="ToDay" xml:space="preserve">
+  <data name="ToDay" xml:space="preserve">
     <value>Today</value>
   </data>
-	<data name="TotalWorkingHours" xml:space="preserve">
+  <data name="TotalWorkingHours" xml:space="preserve">
     <value>Total Working Hour(s)</value>
   </data>
-	<data name="Yesterday" xml:space="preserve">
+  <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>
-	<data name="AllShifts" xml:space="preserve">
+  <data name="AllShifts" xml:space="preserve">
     <value>All shifts</value>
   </data>
-	<data name="BreakTimeMins" xml:space="preserve">
+  <data name="BreakTimeMins" xml:space="preserve">
     <value>Break</value>
   </data>
-	<data name="CheckInTime" xml:space="preserve">
+  <data name="CheckInTime" xml:space="preserve">
     <value>Check in time</value>
   </data>
-	<data name="CheckOutTime" xml:space="preserve">
+  <data name="CheckOutTime" xml:space="preserve">
     <value>Check out time</value>
   </data>
-	<data name="Name" xml:space="preserve">
+  <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-	<data name="ShiftInfo" xml:space="preserve">
+  <data name="ShiftInfo" xml:space="preserve">
     <value>Shift information</value>
   </data>
-	<data name="Back" xml:space="preserve">
+  <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
-	<data name="CheckInOut" xml:space="preserve">
+  <data name="CheckInOut" xml:space="preserve">
     <value>Check in/out</value>
   </data>
-	<data name="Update" xml:space="preserve">
+  <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
-	<data name="NoData" xml:space="preserve">
+  <data name="NoData" xml:space="preserve">
     <value>No Data</value>
   </data>
-	<data name="All" xml:space="preserve">
+  <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
-	<data name="HolidayIn" xml:space="preserve">
+  <data name="HolidayIn" xml:space="preserve">
     <value>Holiday In</value>
   </data>
-	<data name="LateInEarlyOutRequest" xml:space="preserve">
+  <data name="LateInEarlyOutRequest" xml:space="preserve">
     <value>Late In Early Out Request</value>
   </data>
-	<data name="EmployeeView" xml:space="preserve">
+  <data name="EmployeeView" xml:space="preserve">
     <value>Employee's view</value>
   </data>
-	<data name="HRView" xml:space="preserve">
+  <data name="HRView" xml:space="preserve">
     <value>HR's View</value>
   </data>
-	<data name="HRViewLateInEarlyOut" xml:space="preserve">
+  <data name="HRViewLateInEarlyOut" xml:space="preserve">
     <value>HR's View Request Late In/Early Out</value>
   </data>
-	<data name="LeaderViewLateInEarlyOut" xml:space="preserve">
+  <data name="LeaderViewLateInEarlyOut" xml:space="preserve">
     <value>Leader's View Request Late In/Early Out</value>
   </data>
-	<data name="ManagerView" xml:space="preserve">
+  <data name="ManagerView" xml:space="preserve">
     <value>Manager's View</value>
   </data>
-	<data name="MyLateInEarlyOutRequest" xml:space="preserve">
+  <data name="MyLateInEarlyOutRequest" xml:space="preserve">
     <value>My Late In Early Out Request(s)</value>
   </data>
-	<data name="Time" xml:space="preserve">
+  <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
-	<data name="ChangeShiftRequest" xml:space="preserve">
+  <data name="ChangeShiftRequest" xml:space="preserve">
     <value>Change Shift Request</value>
   </data>
-	<data name="From" xml:space="preserve">
+  <data name="From" xml:space="preserve">
     <value>From</value>
   </data>
-	<data name="HRViewChangeShift" xml:space="preserve">
+  <data name="HRViewChangeShift" xml:space="preserve">
     <value>HR's View Request Change Shift</value>
   </data>
-	<data name="LeaderViewChangeShift" xml:space="preserve">
+  <data name="LeaderViewChangeShift" xml:space="preserve">
     <value>Leader's View Request Change Shift</value>
   </data>
-	<data name="MyChangeShiftRequest" xml:space="preserve">
+  <data name="MyChangeShiftRequest" xml:space="preserve">
     <value>My Change Shift Request(s)</value>
   </data>
-	<data name="To" xml:space="preserve">
+  <data name="To" xml:space="preserve">
     <value>To</value>
   </data>
-	<data name="Disapprove" xml:space="preserve">
+  <data name="Disapprove" xml:space="preserve">
     <value>Disapprove</value>
   </data>
-	<data name="LeaderViewRequestLeave" xml:space="preserve">
+  <data name="LeaderViewRequestLeave" xml:space="preserve">
     <value>Leader's View Request Leave</value>
   </data>
-	<data name="LeaveType" xml:space="preserve">
+  <data name="LeaveType" xml:space="preserve">
     <value>Leave Type</value>
   </data>
-	<data name="MyLeaveRequest" xml:space="preserve">
+  <data name="MyLeaveRequest" xml:space="preserve">
     <value>Employee's Leave Request</value>
   </data>
-	<data name="Remark" xml:space="preserve">
+  <data name="Remark" xml:space="preserve">
     <value>Remark</value>
   </data>
-	<data name="Total" xml:space="preserve">
+  <data name="Total" xml:space="preserve">
     <value>Total(s)</value>
   </data>
-	<data name="HRViewLeaveRequest" xml:space="preserve">
+  <data name="HRViewLeaveRequest" xml:space="preserve">
     <value>HR's View Request Leave</value>
   </data>
-	<data name="Date" xml:space="preserve">
+  <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
-	<data name="TotalDays" xml:space="preserve">
+  <data name="TotalDays" xml:space="preserve">
     <value>Total Days</value>
   </data>
-	<data name="ChangeFromShift" xml:space="preserve">
+  <data name="ChangeFromShift" xml:space="preserve">
     <value>Change from shift</value>
   </data>
-	<data name="RequestCode" xml:space="preserve">
+  <data name="RequestCode" xml:space="preserve">
     <value>Request code</value>
   </data>
-	<data name="ForInfo" xml:space="preserve">
+  <data name="ForInfo" xml:space="preserve">
     <value>For Info</value>
   </data>
-	<data name="InternalMemo" xml:space="preserve">
+  <data name="InternalMemo" xml:space="preserve">
     <value>Internal memo</value>
   </data>
-	<data name="RefNo" xml:space="preserve">
+  <data name="RefNo" xml:space="preserve">
     <value>Ref.No.</value>
   </data>
-	<data name="Subject" xml:space="preserve">
+  <data name="Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
-	<data name="TotalPages" xml:space="preserve">
+  <data name="TotalPages" xml:space="preserve">
     <value>Total Pages</value>
   </data>
-	<data name="EmployeeCalendar" xml:space="preserve">
+  <data name="EmployeeCalendar" xml:space="preserve">
     <value>Employees' calendar</value>
   </data>
-	<data name="Add" xml:space="preserve">
+  <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
-	<data name="Insert" xml:space="preserve">
+  <data name="Insert" xml:space="preserve">
     <value>Insert</value>
   </data>
-	<data name="View" xml:space="preserve">
+  <data name="View" xml:space="preserve">
     <value>View</value>
   </data>
-	<data name="Delete" xml:space="preserve">
+  <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-	<data name="Adjust" xml:space="preserve">
+  <data name="Adjust" xml:space="preserve">
     <value>Adjust</value>
   </data>
-	<data name="Code" xml:space="preserve">
+  <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
-	<data name="DoB" xml:space="preserve">
+  <data name="DoB" xml:space="preserve">
     <value>DoB</value>
   </data>
-	<data name="Email" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="FullName" xml:space="preserve">
+  <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
   </data>
-	<data name="Gender" xml:space="preserve">
+  <data name="Gender" xml:space="preserve">
     <value>Gender</value>
   </data>
-	<data name="JoinedDate" xml:space="preserve">
+  <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
   </data>
-	<data name="Nick" xml:space="preserve">
+  <data name="Nick" xml:space="preserve">
     <value>Nick</value>
   </data>
-	<data name="SearchEmployee" xml:space="preserve">
+  <data name="SearchEmployee" xml:space="preserve">
     <value>Search Employee</value>
   </data>
-	<data name="Skype" xml:space="preserve">
+  <data name="Skype" xml:space="preserve">
     <value>Skype</value>
   </data>
-	<data name="NewCheckInOutRequest" xml:space="preserve">
+  <data name="NewCheckInOutRequest" xml:space="preserve">
     <value>New Check In Out Request</value>
   </data>
-	<data name="Memo" xml:space="preserve">
+  <data name="Memo" xml:space="preserve">
     <value>Memo</value>
   </data>
-	<data name="Create" xml:space="preserve">
+  <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
-	<data name="MyProfile" xml:space="preserve">
+  <data name="MyProfile" xml:space="preserve">
     <value>My profile</value>
   </data>
-	<data name="ActualDate" xml:space="preserve">
+  <data name="ActualDate" xml:space="preserve">
     <value>Actual Date</value>
   </data>
-	<data name="Holiday" xml:space="preserve">
+  <data name="Holiday" xml:space="preserve">
     <value>Holiday</value>
   </data>
-	<data name="HolidayName" xml:space="preserve">
+  <data name="HolidayName" xml:space="preserve">
     <value>Holiday Name</value>
   </data>
-	<data name="MyWorkingSchedule" xml:space="preserve">
+  <data name="MyWorkingSchedule" xml:space="preserve">
     <value>My Working Schedule</value>
   </data>
-	<data name="EmployeeManagement" xml:space="preserve">
+  <data name="EmployeeManagement" xml:space="preserve">
     <value>Employee management</value>
   </data>
-	<data name="Keyword" xml:space="preserve">
+  <data name="Keyword" xml:space="preserve">
     <value>Keyword</value>
   </data>
-	<data name="WorkingSchedule" xml:space="preserve">
+  <data name="WorkingSchedule" xml:space="preserve">
     <value>Working Schedule</value>
   </data>
-	<data name="RequestMonitoring" xml:space="preserve">
+  <data name="RequestMonitoring" xml:space="preserve">
     <value>Request Monitoring</value>
   </data>
-	<data name="ActualWorkingDay" xml:space="preserve">
+  <data name="ActualWorkingDay" xml:space="preserve">
     <value>Actual working day</value>
   </data>
-	<data name="LeaveTaken" xml:space="preserve">
+  <data name="LeaveTaken" xml:space="preserve">
     <value>Leave taken</value>
   </data>
-	<data name="Note" xml:space="preserve">
+  <data name="Note" xml:space="preserve">
     <value>Notes</value>
   </data>
-	<data name="ReportWorkingHours" xml:space="preserve">
+  <data name="ReportWorkingHours" xml:space="preserve">
     <value>Total Working Hours Report</value>
   </data>
-	<data name="TotalHours" xml:space="preserve">
+  <data name="TotalHours" xml:space="preserve">
     <value>Total hours</value>
   </data>
-	<data name="WorkigDay" xml:space="preserve">
+  <data name="WorkigDay" xml:space="preserve">
     <value>Working day</value>
   </data>
-	<data name="Save" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-	<data name="MemberRequest" xml:space="preserve">
+  <data name="MemberRequest" xml:space="preserve">
     <value>Member's Request</value>
   </data>
-	<data name="RequestType" xml:space="preserve">
+  <data name="RequestType" xml:space="preserve">
     <value>Request type</value>
   </data>
-	<data name="EmployeeRequest" xml:space="preserve">
+  <data name="EmployeeRequest" xml:space="preserve">
     <value>Employee's requests</value>
   </data>
-	<data name="AddAjustment" xml:space="preserve">
+  <data name="AddAjustment" xml:space="preserve">
     <value>Add adjustment</value>
   </data>
-	<data name="AffectFrom" xml:space="preserve">
+  <data name="AffectFrom" xml:space="preserve">
     <value>Affect from</value>
   </data>
-	<data name="AnnualLeaveBalanceAdjustment" xml:space="preserve">
+  <data name="AnnualLeaveBalanceAdjustment" xml:space="preserve">
     <value>Annual leave balance adjustment</value>
   </data>
-	<data name="CheckUnCheckAll" xml:space="preserve">
+  <data name="CheckUnCheckAll" xml:space="preserve">
     <value>Check/Uncheck all</value>
   </data>
-	<data name="Description" xml:space="preserve">
+  <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-	<data name="AdjustAnnualLeaveBalance" xml:space="preserve">
+  <data name="AdjustAnnualLeaveBalance" xml:space="preserve">
     <value>Adjust annual leave balance</value>
   </data>
-	<data name="EarlyOutMin" xml:space="preserve">
+  <data name="EarlyOutMin" xml:space="preserve">
     <value>Early Out(m)</value>
   </data>
-	<data name="LateInMin" xml:space="preserve">
+  <data name="LateInMin" xml:space="preserve">
     <value>Late In(m)</value>
   </data>
-	<data name="MultipleInsert" xml:space="preserve">
+  <data name="MultipleInsert" xml:space="preserve">
     <value>MultipleInsert</value>
   </data>
-	<data name="LeaveSummary" xml:space="preserve">
+  <data name="LeaveSummary" xml:space="preserve">
     <value>Leave summary</value>
   </data>
-	<data name="AnnualLeave" xml:space="preserve">
+  <data name="AnnualLeave" xml:space="preserve">
     <value>Annual Leave</value>
   </data>
-	<data name="Apr" xml:space="preserve">
+  <data name="Apr" xml:space="preserve">
     <value>Apr</value>
   </data>
-	<data name="Aug" xml:space="preserve">
+  <data name="Aug" xml:space="preserve">
     <value>Aug</value>
   </data>
-	<data name="Dec" xml:space="preserve">
+  <data name="Dec" xml:space="preserve">
     <value>Dec</value>
   </data>
-	<data name="Feb" xml:space="preserve">
+  <data name="Feb" xml:space="preserve">
     <value>Feb</value>
   </data>
-	<data name="Jan" xml:space="preserve">
+  <data name="Jan" xml:space="preserve">
     <value>Jan</value>
   </data>
-	<data name="Jul" xml:space="preserve">
+  <data name="Jul" xml:space="preserve">
     <value>Jul</value>
   </data>
-	<data name="Jun" xml:space="preserve">
+  <data name="Jun" xml:space="preserve">
     <value>Jun</value>
   </data>
-	<data name="Mar" xml:space="preserve">
+  <data name="Mar" xml:space="preserve">
     <value>Mar</value>
   </data>
-	<data name="May" xml:space="preserve">
+  <data name="May" xml:space="preserve">
     <value>May</value>
   </data>
-	<data name="Nov" xml:space="preserve">
+  <data name="Nov" xml:space="preserve">
     <value>Nov</value>
   </data>
-	<data name="Oct" xml:space="preserve">
+  <data name="Oct" xml:space="preserve">
     <value>Oct</value>
   </data>
-	<data name="Sep" xml:space="preserve">
+  <data name="Sep" xml:space="preserve">
     <value>Sep</value>
   </data>
-	<data name="CreateMemo" xml:space="preserve">
+  <data name="CreateMemo" xml:space="preserve">
     <value>Create Memo</value>
   </data>
-	<data name="EditMemo" xml:space="preserve">
+  <data name="EditMemo" xml:space="preserve">
     <value>Edit Memo</value>
   </data>
-	<data name="CreateHoliday" xml:space="preserve">
+  <data name="CreateHoliday" xml:space="preserve">
     <value>Create Holiday</value>
   </data>
-	<data name="EditHoliday" xml:space="preserve">
+  <data name="EditHoliday" xml:space="preserve">
     <value>Edit Holiday</value>
   </data>
-	<data name="AddEditTeam" xml:space="preserve">
+  <data name="AddEditTeam" xml:space="preserve">
     <value>Add/Edit Team</value>
   </data>
-	<data name="AssitantLeader" xml:space="preserve">
+  <data name="AssitantLeader" xml:space="preserve">
     <value>Assistant Leader</value>
   </data>
-	<data name="Leader" xml:space="preserve">
+  <data name="Leader" xml:space="preserve">
     <value>Leader</value>
   </data>
-	<data name="MySpace" xml:space="preserve">
+  <data name="MySpace" xml:space="preserve">
     <value>My space</value>
   </data>
-	<data name="AssistantLeader" xml:space="preserve">
+  <data name="AssistantLeader" xml:space="preserve">
     <value>Assistant Leader</value>
   </data>
-	<data name="History" xml:space="preserve">
+  <data name="History" xml:space="preserve">
     <value>History</value>
   </data>
-	<data name="RequestHistory" xml:space="preserve">
+  <data name="RequestHistory" xml:space="preserve">
     <value>Request History</value>
   </data>
-	<data name="DateType" xml:space="preserve">
+  <data name="DateType" xml:space="preserve">
     <value>Date Type</value>
   </data>
-	<data name="Work" xml:space="preserve">
+  <data name="Work" xml:space="preserve">
     <value>Work</value>
   </data>
-	<data name="ChangeWorkingDayForWholeCompany" xml:space="preserve">
+  <data name="ChangeWorkingDayForWholeCompany" xml:space="preserve">
     <value>Change working day for whole company</value>
   </data>
-	<data name="Phone" xml:space="preserve">
+  <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
-	<data name="NewChangeShiftRequest" xml:space="preserve">
+  <data name="NewChangeShiftRequest" xml:space="preserve">
     <value>New Change Shift Request</value>
   </data>
-	<data name="MyCheckInOutRequests" xml:space="preserve">
+  <data name="MyCheckInOutRequests" xml:space="preserve">
     <value>My Check In Out Request(s)</value>
   </data>
-	<data name="NewLateInEarlyOutRequest" xml:space="preserve">
+  <data name="NewLateInEarlyOutRequest" xml:space="preserve">
     <value>New Late In Early Out Request</value>
   </data>
-	<data name="Title" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
-	<data name="AllTitles" xml:space="preserve">
+  <data name="AllTitles" xml:space="preserve">
     <value>All Titles</value>
   </data>
-	<data name="JobTitle" xml:space="preserve">
+  <data name="JobTitle" xml:space="preserve">
     <value>Job Title</value>
   </data>
-	<data name="SendToAllEmployee" xml:space="preserve">
+  <data name="SendToAllEmployee" xml:space="preserve">
     <value>Send to all employee</value>
   </data>
-	<data name="MinBalance" xml:space="preserve">
+  <data name="MinBalance" xml:space="preserve">
     <value>Min Balance</value>
   </data>
-	<data name="None" xml:space="preserve">
+  <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
-	<data name="Reset" xml:space="preserve">
+  <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
-	<data name="DailyRequests" xml:space="preserve">
+  <data name="DailyRequests" xml:space="preserve">
     <value>Daily Requests</value>
   </data>
-	<data name="RequestFor" xml:space="preserve">
+  <data name="RequestFor" xml:space="preserve">
     <value>Request For</value>
   </data>
-	<data name="Listening" xml:space="preserve">
+  <data name="Listening" xml:space="preserve">
     <value>Listening</value>
   </data>
-	<data name="OldScore" xml:space="preserve">
+  <data name="OldScore" xml:space="preserve">
     <value>Old Score</value>
   </data>
-	<data name="Reading" xml:space="preserve">
+  <data name="Reading" xml:space="preserve">
     <value>Reading</value>
   </data>
-	<data name="Speaking" xml:space="preserve">
+  <data name="Speaking" xml:space="preserve">
     <value>Speaking</value>
   </data>
-	<data name="TOEICScoreMgmt" xml:space="preserve">
+  <data name="TOEICScoreMgmt" xml:space="preserve">
     <value>STAFF TOEIC SCORE</value>
   </data>
-	<data name="UpdateDate" xml:space="preserve">
+  <data name="UpdateDate" xml:space="preserve">
     <value>Update Date</value>
   </data>
-	<data name="Writing" xml:space="preserve">
+  <data name="Writing" xml:space="preserve">
     <value>Writing</value>
   </data>
-	<data name="LRScore" xml:space="preserve">
+  <data name="LRScore" xml:space="preserve">
     <value>L/R Score &gt;=</value>
   </data>
-	<data name="LRTotal" xml:space="preserve">
+  <data name="LRTotal" xml:space="preserve">
     <value>L + R</value>
   </data>
-	<data name="SWScore" xml:space="preserve">
+  <data name="SWScore" xml:space="preserve">
     <value>S/W Score &gt;=</value>
   </data>
-	<data name="ExamDate" xml:space="preserve">
+  <data name="ExamDate" xml:space="preserve">
     <value>Exam Date</value>
   </data>
-	<data name="L" xml:space="preserve">
+  <data name="L" xml:space="preserve">
     <value>L</value>
   </data>
-	<data name="New" xml:space="preserve">
+  <data name="New" xml:space="preserve">
     <value>New</value>
   </data>
-	<data name="NewOldListening" xml:space="preserve">
+  <data name="NewOldListening" xml:space="preserve">
     <value>Listening/Old</value>
   </data>
-	<data name="NewOldReading" xml:space="preserve">
+  <data name="NewOldReading" xml:space="preserve">
     <value>Reading/Old</value>
   </data>
-	<data name="NewOldSpeaking" xml:space="preserve">
+  <data name="NewOldSpeaking" xml:space="preserve">
     <value>Speaking/Old</value>
   </data>
-	<data name="NewOldWriting" xml:space="preserve">
+  <data name="NewOldWriting" xml:space="preserve">
     <value>Writing/Old</value>
   </data>
-	<data name="Old" xml:space="preserve">
+  <data name="Old" xml:space="preserve">
     <value>Old</value>
   </data>
-	<data name="OldScores" xml:space="preserve">
+  <data name="OldScores" xml:space="preserve">
     <value>Old Scores (L/R/S/W)</value>
   </data>
-	<data name="R" xml:space="preserve">
+  <data name="R" xml:space="preserve">
     <value>R</value>
   </data>
-	<data name="S" xml:space="preserve">
+  <data name="S" xml:space="preserve">
     <value>S</value>
   </data>
-	<data name="Nickname" xml:space="preserve">
+  <data name="Nickname" xml:space="preserve">
     <value>Nick Name</value>
   </data>
-	<data name="UpdateTOEICScore" xml:space="preserve">
+  <data name="UpdateTOEICScore" xml:space="preserve">
     <value>Update {0}'s TOEIC Score</value>
   </data>
-	<data name="ExpiredDate" xml:space="preserve">
+  <data name="ExpiredDate" xml:space="preserve">
     <value>Expiry Date</value>
   </data>
-	<data name="Birthday" xml:space="preserve">
+  <data name="Birthday" xml:space="preserve">
     <value>Birthday</value>
   </data>
-	<data name="FirstWorkingDay" xml:space="preserve">
+  <data name="FirstWorkingDay" xml:space="preserve">
     <value>First working day</value>
   </data>
-	<data name="Forum" xml:space="preserve">
+  <data name="Forum" xml:space="preserve">
     <value>Forum</value>
   </data>
-	<data name="DepartmentManagement" xml:space="preserve">
+  <data name="DepartmentManagement" xml:space="preserve">
     <value>Department Management</value>
   </data>
-	<data name="Manager" xml:space="preserve">
+  <data name="Manager" xml:space="preserve">
     <value>Manager</value>
   </data>
-	<data name="Parent" xml:space="preserve">
+  <data name="Parent" xml:space="preserve">
     <value>Parent</value>
   </data>
-	<data name="HRSpace" xml:space="preserve">
+  <data name="HRSpace" xml:space="preserve">
     <value>HR Space</value>
   </data>
-	<data name="AddEmployeeCalendar" xml:space="preserve">
+  <data name="AddEmployeeCalendar" xml:space="preserve">
     <value>Add calendars for employee</value>
   </data>
-	<data name="Excel" xml:space="preserve">
+  <data name="Excel" xml:space="preserve">
     <value>Excel</value>
   </data>
-	<data name="In" xml:space="preserve">
+  <data name="In" xml:space="preserve">
     <value>In</value>
   </data>
-	<data name="Out" xml:space="preserve">
+  <data name="Out" xml:space="preserve">
     <value>Out</value>
   </data>
-	<data name="TimeRecord" xml:space="preserve">
+  <data name="TimeRecord" xml:space="preserve">
     <value>Time Record</value>
   </data>
-	<data name="InOut" xml:space="preserve">
+  <data name="InOut" xml:space="preserve">
     <value>In/Out</value>
   </data>
-	<data name="LeaveDeductionDescription" xml:space="preserve">
+  <data name="LeaveDeductionDescription" xml:space="preserve">
     <value>Deduct 0.5 day leave for 4 hours late in/early out</value>
   </data>
-	<data name="InvalidTotalDays" xml:space="preserve">
+  <data name="InvalidTotalDays" xml:space="preserve">
     <value>Invalid Total Days</value>
   </data>
-	<data name="Balance" xml:space="preserve">
+  <data name="Balance" xml:space="preserve">
     <value>Balance</value>
   </data>
-	<data name="Deduct" xml:space="preserve">
+  <data name="Deduct" xml:space="preserve">
     <value>Deduct</value>
   </data>
-	<data name="Hours" xml:space="preserve">
+  <data name="Hours" xml:space="preserve">
     <value>Hours</value>
   </data>
-	<data name="LateInEarlyOutDetail" xml:space="preserve">
+  <data name="LateInEarlyOutDetail" xml:space="preserve">
     <value>Late In/Early Out Detail</value>
   </data>
-	<data name="LateInEarlyOutSummary" xml:space="preserve">
+  <data name="LateInEarlyOutSummary" xml:space="preserve">
     <value>Late In/Early Out Summary</value>
   </data>
-	<data name="LeaveDeduction" xml:space="preserve">
+  <data name="LeaveDeduction" xml:space="preserve">
     <value>Leave Deduction</value>
   </data>
-	<data name="LeaveDeductionDetail" xml:space="preserve">
+  <data name="LeaveDeductionDetail" xml:space="preserve">
     <value>Leave Deduction Detail</value>
   </data>
-	<data name="DeductDate" xml:space="preserve">
+  <data name="DeductDate" xml:space="preserve">
     <value>Deduct Date</value>
   </data>
-	<data name="Days" xml:space="preserve">
+  <data name="Days" xml:space="preserve">
     <value>Day(s)</value>
   </data>
-	<data name="W" xml:space="preserve">
+  <data name="W" xml:space="preserve">
     <value>W</value>
   </data>
-	<data name="UnpaidLeave" xml:space="preserve">
+  <data name="UnpaidLeave" xml:space="preserve">
     <value>Unpaid Leave</value>
   </data>
-	<data name="DeductionTaken" xml:space="preserve">
+  <data name="DeductionTaken" xml:space="preserve">
     <value>Deduction Taken</value>
   </data>
-	<data name="Absent" xml:space="preserve">
+  <data name="Absent" xml:space="preserve">
     <value>Absent</value>
   </data>
-	<data name="CheckInOutRequest" xml:space="preserve">
+  <data name="CheckInOutRequest" xml:space="preserve">
     <value>Check In/Check Out Request</value>
   </data>
-	<data name="FilterBy" xml:space="preserve">
+  <data name="FilterBy" xml:space="preserve">
     <value>Filter By</value>
   </data>
-	<data name="LeaveRequestTimes" xml:space="preserve">
+  <data name="LeaveRequestTimes" xml:space="preserve">
     <value>Leave Request (Times)</value>
   </data>
-	<data name="MissingCheckInOut" xml:space="preserve">
+  <data name="MissingCheckInOut" xml:space="preserve">
     <value>Missing Check In/Out</value>
   </data>
-	<data name="OtherLeaves" xml:space="preserve">
+  <data name="OtherLeaves" xml:space="preserve">
     <value>Other Leaves</value>
   </data>
-	<data name="MyTimeRecord" xml:space="preserve">
+  <data name="MyTimeRecord" xml:space="preserve">
     <value>My Time Record</value>
   </data>
-	<data name="LeaveRequests" xml:space="preserve">
+  <data name="LeaveRequests" xml:space="preserve">
     <value>Leave Request</value>
   </data>
-	<data name="WorkingHoursAverage" xml:space="preserve">
+  <data name="WorkingHoursAverage" xml:space="preserve">
     <value>Working Hours Average</value>
   </data>
-	<data name="AccidentLaborLeave" xml:space="preserve">
+  <data name="AccidentLaborLeave" xml:space="preserve">
     <value>Accident Labor Leave</value>
   </data>
-	<data name="PaidLeave" xml:space="preserve">
+  <data name="PaidLeave" xml:space="preserve">
     <value>Paid Leave</value>
   </data>
-	<data name="SickLeave" xml:space="preserve">
+  <data name="SickLeave" xml:space="preserve">
     <value>Sick Leave</value>
   </data>
-	<data name="CheckInTimeToday" xml:space="preserve">
+  <data name="CheckInTimeToday" xml:space="preserve">
     <value>Check In Time (today)</value>
   </data>
-	<data name="CheckOutTimeYesterday" xml:space="preserve">
+  <data name="CheckOutTimeYesterday" xml:space="preserve">
     <value>Check Out Time (yesterday)</value>
   </data>
-	<data name="GeneralInfo" xml:space="preserve">
+  <data name="GeneralInfo" xml:space="preserve">
     <value>General Info</value>
   </data>
-	<data name="MyMemberRequest" xml:space="preserve">
+  <data name="MyMemberRequest" xml:space="preserve">
     <value>My members' requests</value>
   </data>
-	<data name="Year" xml:space="preserve">
+  <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
-	<data name="HalfDayOff" xml:space="preserve">
+  <data name="HalfDayOff" xml:space="preserve">
     <value>Half Day Off</value>
   </data>
-	<data name="NewLeaveRequest" xml:space="preserve">
+  <data name="NewLeaveRequest" xml:space="preserve">
     <value>New Leave Request</value>
   </data>
-	<data name="CheckInOutType" xml:space="preserve">
+  <data name="CheckInOutType" xml:space="preserve">
     <value>Check In Out Type</value>
   </data>
-	<data name="MyCheckInOutSummary" xml:space="preserve">
+  <data name="MyCheckInOutSummary" xml:space="preserve">
     <value>My Check In/Check Out Summary</value>
   </data>
-	<data name="MyLeaveRequestSummary" xml:space="preserve">
+  <data name="MyLeaveRequestSummary" xml:space="preserve">
     <value>My Leave Request Summary</value>
   </data>
-	<data name="MyTimesheet" xml:space="preserve">
+  <data name="MyTimesheet" xml:space="preserve">
     <value>My Timesheet</value>
   </data>
-	<data name="NotWorking" xml:space="preserve">
+  <data name="NotWorking" xml:space="preserve">
     <value>Not Working</value>
   </data>
-	<data name="MyCalendar" xml:space="preserve">
+  <data name="MyCalendar" xml:space="preserve">
     <value>My Calendar</value>
   </data>
-	<data name="EffectedDate" xml:space="preserve">
+  <data name="EffectedDate" xml:space="preserve">
     <value>Effected Date</value>
   </data>
-	<data name="Details" xml:space="preserve">
+  <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
-	<data name="Annual" xml:space="preserve">
+  <data name="Annual" xml:space="preserve">
     <value>Annual</value>
   </data>
-	<data name="Missing" xml:space="preserve">
+  <data name="Missing" xml:space="preserve">
     <value>Missing</value>
   </data>
-	<data name="Others" xml:space="preserve">
+  <data name="Others" xml:space="preserve">
     <value>Others</value>
   </data>
-	<data name="Times" xml:space="preserve">
+  <data name="Times" xml:space="preserve">
     <value>Times</value>
   </data>
-	<data name="Unpaid" xml:space="preserve">
+  <data name="Unpaid" xml:space="preserve">
     <value>Unpaid</value>
   </data>
-	<data name="CompanyMemo" xml:space="preserve">
+  <data name="CompanyMemo" xml:space="preserve">
     <value>Company Memo</value>
   </data>
-	<data name="ExtensionNumber" xml:space="preserve">
+  <data name="ExtensionNumber" xml:space="preserve">
     <value>EXTENSION NUMBERS</value>
   </data>
-	<data name="AddBalance" xml:space="preserve">
+  <data name="AddBalance" xml:space="preserve">
     <value>Add Balance</value>
   </data>
-	<data name="Adjustment" xml:space="preserve">
+  <data name="Adjustment" xml:space="preserve">
     <value>Adjustment</value>
   </data>
-	<data name="CloseBalance" xml:space="preserve">
+  <data name="CloseBalance" xml:space="preserve">
     <value>Close Balance</value>
   </data>
-	<data name="EditAnnualLeaveBalance" xml:space="preserve">
+  <data name="EditAnnualLeaveBalance" xml:space="preserve">
     <value>Edit Annual Leave Balance</value>
   </data>
-	<data name="TeamManagement" xml:space="preserve">
+  <data name="TeamManagement" xml:space="preserve">
     <value>Team Management</value>
   </data>
-	<data name="NewTeam" xml:space="preserve">
+  <data name="NewTeam" xml:space="preserve">
     <value>New Team</value>
   </data>
-	<data name="Schedule" xml:space="preserve">
+  <data name="Schedule" xml:space="preserve">
     <value>Schedule</value>
   </data>
-	<data name="SendMail" xml:space="preserve">
+  <data name="SendMail" xml:space="preserve">
     <value>Send Mail</value>
   </data>
-	<data name="SentDate" xml:space="preserve">
+  <data name="SentDate" xml:space="preserve">
     <value>Sent Date</value>
   </data>
-	<data name="SentFrom" xml:space="preserve">
+  <data name="SentFrom" xml:space="preserve">
     <value>Sent From</value>
   </data>
-	<data name="SentTo" xml:space="preserve">
+  <data name="SentTo" xml:space="preserve">
     <value>Sent To</value>
   </data>
-	<data name="CreateAccount" xml:space="preserve">
-    <value>Create Account</value></data>
-	<data name="ExtensionNo" xml:space="preserve">
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="ExtensionNo" xml:space="preserve">
     <value>Extension No</value>
   </data>
-	<data name="DomainUsername" xml:space="preserve">
-    <value>Domain Username</value></data>
-	<data name="IsInternal" xml:space="preserve">
+  <data name="DomainUsername" xml:space="preserve">
+    <value>Domain Username</value>
+  </data>
+  <data name="IsInternal" xml:space="preserve">
     <value>Is Internal</value>
   </data>
   <data name="SymbolCount" xml:space="preserve">

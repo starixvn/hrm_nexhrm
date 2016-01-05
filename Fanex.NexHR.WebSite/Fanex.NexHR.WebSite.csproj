@@ -640,6 +640,9 @@
     <Content Include="Views\Memo\Edit.cshtml" />
     <Content Include="Views\Memo\Index.cshtml" />
     <None Include="Content\Views\report.timesheet.scss" />
+    <Content Include="Views\Toeic\ToeicManagement.cshtml" />
+    <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
+    <Content Include="Views\Toeic\UpdateToeic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
