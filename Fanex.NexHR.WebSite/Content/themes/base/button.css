@@ -77,7 +77,7 @@ input.ui-button {
 .ui-button-icons-only .ui-icon {
 	position: absolute;
 	top: 50%;
-	margin-top: -8px;
+	margin-top: 8px;
 }
 .ui-button-icon-only .ui-icon {
 	left: 50%;

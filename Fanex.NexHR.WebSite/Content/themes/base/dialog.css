@@ -13,21 +13,25 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: 16px;
+	padding: 0 16px 16px 16px;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
 	position: relative;
+	border-bottom: 1px solid #e5e5e5;
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
-	margin: .1em 0;
+	margin: 1.4em 0 .1em;
 	white-space: nowrap;
 	width: 90%;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	display: none;
+	font-size: 14px;
+	line-height: 30px;
+	font-weight: bold;
+	/*display: none;*/
 }
 .ui-dialog .ui-dialog-titlebar-close {
 	position: absolute;
@@ -41,9 +45,9 @@
 .ui-dialog .ui-dialog-content {
 	position: relative;
 	border: 0;
-	padding: .5em 2em;
+	padding: 2.3em 1em 0.5em;
 	background: none;
-	overflow: auto;
+	/*overflow: auto;*/
 	text-align: center;
 }
 .ui-dialog .ui-dialog-buttonpane {

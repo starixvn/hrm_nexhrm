@@ -55,17 +55,19 @@
                                             <span class="groupName">@item.TeamName</span>
                                         </td>
                                         <td class='center'>
-                                            <a href="javascript:;" class="editExternal"><i class='mdi mdi-border-color mdi-dark'></i>
-                                            </a>
+                                            <a href="javascript:;" class="editExternal"><i class='mdi mdi-border-color mdi-dark'>
+                                            </i></a>
                                         </td>
                                         <td class='center'>
                                             @if (item.TotalMember > 0)
                                             {
-                                                <a href="javascript:;" style="cursor: default"><i class='mdi mdi-delete mdi-dark'></i></a>
+                                                <a href="javascript:;" style="cursor: default"><i class='mdi mdi-delete mdi-dark'></i>
+                                                </a>
                                             }
                                             else
                                             {
-                                                <a href="javascript:;" class="deleteExternal"><i class='mdi mdi-delete mdi-dark'></i></a>
+                                                <a href="javascript:;" class="deleteExternal"><i class='mdi mdi-delete mdi-dark'></i>
+                                                </a>
                                             }
                                         </td>
                                     </tr>
@@ -79,18 +81,16 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="dialog-form" title="Add new External Group" style="display: none">
+                    <div id="dialog-form" title="Add new External Group">
                         <p class="validateTips">
                         </p>
-                        <form>
-                        <div class="formrow">
-                            <div class="label">
-                                Group Name
+                        <form class="form">
+                        <div class="row form-input">
+                            <div class="left label--m left-align">
+                                <label>Group Name</label>
                             </div>
-                            <div class="input">
+                            <div class="left input--m input">
                                 <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-                                <div class="clear">
-                                </div>
                             </div>
                         </div>
                         </form>
@@ -98,15 +98,13 @@
                     <div id="dialog-form_edit" title="Update External Group" style="display: none">
                         <p class="validateTips">
                         </p>
-                        <form>
-                        <div class="formrow">
-                            <div class="label">
-                                Group Name
+                        <form class="form">
+                        <div class="row form-input">
+                            <div class="left label--m left-align">
+                                <label>Group Name</label>
                             </div>
-                            <div class="input">
+                            <div class="left input--m input">
                                 <input type="text" name="name" id="name_edit" class="text ui-widget-content ui-corner-all" />
-                                <div class="clear">
-                                </div>
                             </div>
                         </div>
                         </form>
