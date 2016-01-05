@@ -203,6 +203,7 @@
     <None Include="Content\Common\layout\_scrollbars.scss" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
+    <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
@@ -269,6 +270,9 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\Views\annualleavebalance.css">
       <DependentUpon>annualleavebalance.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\geolocation.css">
+      <DependentUpon>geolocation.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\jobtitle.css">
       <DependentUpon>jobtitle.scss</DependentUpon>

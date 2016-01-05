@@ -117,6 +117,10 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
                 "~/Scripts/Views/geolocationmap.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/geolocationcss",
+                "~/Content/Views/geolocation.css");
         }
 
         private static void BuildBundleForExtension(BundleCollection bundles)
