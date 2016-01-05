@@ -26,23 +26,31 @@
                                 <input id="keyword" type="text" placeholder="@Fanex.NexHR.Resources.Messages.JobTitle" />
                             </div>
                             <div class="col">
-                                <a class="button-hrm waves-effect waves-light btn orange darken-2" href="#" id="btnNewJobTitle"><i class="left mdi mdi-plus"></i>@Labels.NewJobTitle</a>
+                                <a class="button-hrm waves-effect waves-light btn orange darken-2" href="#" id="btnNewJobTitle">
+                                    <i class="left mdi mdi-plus"></i>@Labels.NewJobTitle</a>
                             </div>
                         </div>
                     </div>
-                    <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
-                        <thead>
-                            <tr class="persist-header">
-                                <th>@Labels.SymbolCount</th>
-                                <th>@Labels.JobTitle</th>
-                                <th>@Labels.Employee</th>
-                                <th>@Labels.Edit</th>
-                                <th>@Labels.Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="p-x--s">
+                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr class="persist-header">
+                                    <th>@Labels.SymbolCount
+                                    </th>
+                                    <th>@Labels.JobTitle
+                                    </th>
+                                    <th>@Labels.Employee
+                                    </th>
+                                    <th>@Labels.Edit
+                                    </th>
+                                    <th>@Labels.Delete
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,9 +58,10 @@
 </div>
 <div class="row hide">
     <div id="dialog-form" title="Create an job title">
-        <p class="validateTips"></p>
-            @using (Html.BeginForm())
-            {
+        <p class="validateTips">
+        </p>
+        @using (Html.BeginForm())
+        {
             <div class="row form-input">
                 <div class="col">
                     <div class="left label--l">
@@ -63,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            }
+        }
     </div>
 </div>
 <script id="itemTemplate" type="text/x-jquery-tmpl">

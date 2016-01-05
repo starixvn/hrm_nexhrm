@@ -45,7 +45,7 @@
                                     <div class="left label--m">
                                         <label>@Labels.FromDate</label>
                                     </div>
-                                    <div class="left datepicker-button input--m">
+                                    <div class="left datepicker-button input--s">
                                         @Html.DatePicker("FromDate", Model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -55,7 +55,7 @@
                                     <div class="left label--m">
                                         <label>@Labels.ToDate</label>
                                     </div>
-                                    <div class="left datepicker-button input--m">
+                                    <div class="left datepicker-button input--s">
                                         @Html.DatePicker("ToDate", Model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -120,8 +120,8 @@
                                 </div>
                                 
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s"><input type="button" value="@Labels.Submit" id="view" /></span>
-                                    <span class="button-hrm waves-effect waves-light btn green darken-1"><input type="button" value="@Labels.Excel" id="exportExcel" /></span>
+                                    <span class="btn-submit waves-effect waves-light m-r--s"><input type="button" value="@Labels.Submit" id="view" /></span>
+                                    <span class="btn-export-excel waves-effect waves-light"><input type="button" value="@Labels.Excel" id="exportExcel" /></span>
                                 </div>                                
                             </div>                            
                         }

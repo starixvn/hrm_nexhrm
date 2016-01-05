@@ -78,7 +78,7 @@
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
-                                    <div class="datepicker-button left select--m">
+                                    <div class="datepicker-button left select--s">
                                         @Html.DatePickerFor(model => model.FromDate,
                                             Utilities.RequestAvailableFromDate,
                                             Utilities.RequestAvailableToDate,
@@ -99,7 +99,7 @@
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
-                                    <div class="datepicker-button select--m left">
+                                    <div class="datepicker-button select--s left">
                                         @Html.DatePickerFor(model => model.ToDate,
                                             Utilities.RequestAvailableFromDate,
                                             Utilities.RequestAvailableToDate,
@@ -120,7 +120,7 @@
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
                                     </div>
-                                    <div class="left input--s">
+                                    <div class="left select--xs">
                                         @Html.EditorFor(model => model.TotalDays)
                                     </div>
                                 </div>

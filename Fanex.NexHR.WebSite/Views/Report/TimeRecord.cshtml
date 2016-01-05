@@ -44,7 +44,7 @@
                                 <div class="left label--m">
                                     @Html.LabelFor(model => model.FromDate, "From Date")
                                 </div>
-                                <div class="left datepicker-button select--m">
+                                <div class="left datepicker-button select--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
@@ -53,7 +53,7 @@
                                 <div class="left label--m">
                                     @Html.LabelFor(model => model.ToDate)
                                 </div>
-                                <div class="left datepicker-button select--m">
+                                <div class="left datepicker-button select--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>

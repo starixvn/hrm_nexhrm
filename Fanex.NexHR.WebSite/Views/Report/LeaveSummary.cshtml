@@ -57,14 +57,14 @@
                                 </div>
                                 
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s"><input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                    <span class="btn-submit waves-effect waves-light"><input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                 </div>
                             </div>
                         }
                     </div>
 
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight table-custom">
+                        <table class="data persist-area table bordered striped highlight table-custom centered">
                             <thead class="persist-header">
                                 <tr>
                                     <th rowspan="2">
@@ -140,7 +140,7 @@
                                         if (item.LeaveSummaryInTeam.Count > 0)
                                         {
                                         <tr>
-                                            <td class="rowdivider highlight" colspan="18">
+                                            <td class="rowdivider highlight txt-left" colspan="18">
                                                 <b>@item.Team.Name.ToUpper()</b>
                                             </td>
                                         </tr>
