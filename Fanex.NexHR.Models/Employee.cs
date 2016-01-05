@@ -55,7 +55,7 @@ namespace Fanex.NexHR.Models
 
                 if (Team != null)
                 {
-                    code =Team.Code;
+                    code = Team.Code;
                 }
 
                 return code;
