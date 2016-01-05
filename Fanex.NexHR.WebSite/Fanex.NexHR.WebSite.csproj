@@ -223,6 +223,7 @@
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo.svg" />
     <Content Include="Content\Images\logo1.png" />
+    <Content Include="Content\Images\Office_building_icon.png" />
     <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Images\sort-icon.png" />
     <Content Include="Content\Images\sprite_ico_2012-05-15.png" />
@@ -572,6 +573,7 @@
     <Content Include="Scripts\Tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
     <Content Include="Scripts\Views\extensionno.js" />
+    <Content Include="Scripts\Views\geolocationmap.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />

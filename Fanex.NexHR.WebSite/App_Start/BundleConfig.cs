@@ -94,6 +94,8 @@
                 "~/Scripts/Views/annualleavebalance.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
 
+            BuildBundleForGeolocation(bundles);
+
             BuildBundleForExtension(bundles);
 
             BuildBundleForMemo(bundles);
@@ -109,6 +111,12 @@
             BuildBundleForToeic(bundles);
 
             BuildBundleForJobTitle(bundles);
+        }
+
+        private static void BuildBundleForGeolocation(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
+                "~/Scripts/Views/geolocationmap.js"));
         }
 
         private static void BuildBundleForExtension(BundleCollection bundles)
@@ -137,7 +145,7 @@
             bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
                 "~/Scripts/Views/Employee/employee.toeic.js"));
         }
-        
+
         private static void BuildBundleForCommon(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
