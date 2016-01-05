@@ -18,7 +18,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.ExtensionNo;
-    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
@@ -38,13 +37,12 @@ namespace Fanex.NexHR.Controllers
         private readonly IHolidayService _holidayService;
         private readonly IMemoService _memoService;
         private readonly ITeamService _teamService;
-        private readonly ILookupDataService _lookupDataService;
         private readonly IReportService _reportService;
         private readonly IExtensionNoService _extensionNoService;
         private readonly IDepartmentService _departmentService;
 
         public AjaxController()
-            : this(null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null)
         {
         }
 
@@ -54,7 +52,6 @@ namespace Fanex.NexHR.Controllers
             IHolidayService holidayService = null,
             IMemoService memoService = null,
             ITeamService teamService = null,
-            ILookupDataService lookupDataService = null,
             IReportService reportService = null,
             IExtensionNoService extensionNoService = null,
             IDepartmentService departmentService = null)
@@ -64,7 +61,6 @@ namespace Fanex.NexHR.Controllers
             _holidayService = holidayService ?? new HolidayService();
             _memoService = memoService ?? new MemoService();
             _teamService = teamService ?? new TeamService();
-            _lookupDataService = lookupDataService ?? new LookupDataService();
             _reportService = reportService ?? new ReportService();
             _extensionNoService = extensionNoService ?? new ExtensionNoService();
             _departmentService = departmentService ?? new DepartmentService();
@@ -331,46 +327,6 @@ namespace Fanex.NexHR.Controllers
                 ModifiedDate = DateTime.Now.Date
             };
             bool updated = _employeeService.UpdateShift(updateShiftCriteria);
-
-            return updated;
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public bool DeleteJobTitle(int id)
-        {
-            var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
-            bool deleted = _lookupDataService.Delete(deleteLookupDataCriteria);
-
-            return deleted;
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public bool InsertJobTitle(string name)
-        {
-            bool inserted = false;
-            var insertLookupDataCriteria = new InsertLookupDataCriteria()
-            {
-                LookupCode = LookupCodeName.JobTitle,
-                Name = name
-            };
-            inserted = _lookupDataService.Insert(insertLookupDataCriteria);
-
-            return inserted;
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public bool UpdatetJobTitle(int id, string name)
-        {
-            bool updated = false;
-            var updateLookupDataCriteria = new UpdateLookupDataCriteria()
-            {
-                Id = id,
-                Name = name
-            };
-            updated = _lookupDataService.Update(updateLookupDataCriteria);
 
             return updated;
         }

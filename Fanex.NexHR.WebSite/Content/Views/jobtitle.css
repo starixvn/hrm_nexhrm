@@ -14,6 +14,10 @@
     .ui-dialog.create-job-title .ui-dialog-buttonpane .btn-submit {
       margin-right: 1rem; }
 
+table.table-custom tr td.col-edit .action-update, table.table-custom tr td.col-edit .action-cancel {
+  display: none; }
+table.table-custom tr td.col-edit .action-cancel {
+  margin-left: 1rem; }
 table.table-custom tr td.col-delete a i {
   color: red; }
   table.table-custom tr td.col-delete a i.mdi-disabled {

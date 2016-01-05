@@ -614,9 +614,6 @@
     <Content Include="Views\Employee\Detail.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\MonthSchedule.cshtml" />
-    <Content Include="Views\Employee\TOEICManagement.cshtml" />
-    <Content Include="Views\Employee\UpdateFullTOEIC.cshtml" />
-    <Content Include="Views\Employee\UpdateTOEIC.cshtml" />
     <Content Include="Views\Employee\UserManagement.cshtml" />
     <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
     <Content Include="Views\Employee\WorkingCalendars.cshtml" />
@@ -640,6 +637,9 @@
     <Content Include="Views\Memo\Edit.cshtml" />
     <Content Include="Views\Memo\Index.cshtml" />
     <None Include="Content\Views\report.timesheet.scss" />
+    <Content Include="Views\Toeic\ToeicManagement.cshtml" />
+    <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
+    <Content Include="Views\Toeic\UpdateToeic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

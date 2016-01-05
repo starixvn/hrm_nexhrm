@@ -1,36 +1,7 @@
 ﻿'use strict';
-/*global _global:false, reloadButtonText:false, noInformation:false, getParam:false, checkBadDates:false, actingButton:false,
-_messages:false*/
+/*global _global:false, reloadButtonText:false, sleep: false, noInformation:false,
+getParam:false, checkBadDates:false, actingButton:false, _messages:false*/
 /*exported isShowEdit, editTOEIC, iskExpiredDate*/
-
-var rowIndex = 1;
-function query() {
-    var keyword = $('#keyword').val();
-    var group = $('#group').val();
-    var jobTitleId = $('#title').val();
-
-    actingButton('#query', true);
-    $.getJSON(
-	_global.root + 'api/employee/gettoeic',
-	{ query: keyword, groupId: group, titleId: jobTitleId },
-	function (data) {
-	    $('#data tbody').children().remove();
-	    if (data.length > 0) {
-	        rowIndex = 1;
-	        $('#tplAllSkill').tmpl(data).appendTo('#data');
-	        $("#title").trigger("liszt:updated");
-	    }
-	    else {
-	        $(noInformation(12)).appendTo('#data');
-	    }
-
-	}).error(function () {
-	    alert(_messages.errorTryAgain);
-	});
-
-    reloadButtonText('#query');
-    $('#keyword').focus().select();
-}
 
 function isExpiredDate(date) {
     var dateNow = new Date();
@@ -49,22 +20,32 @@ function openDialog() {
 function closeDialog() {
     $('#dialog-toeic').dialog('close');
 }
-
 function initAutocomplete() {
     $('#Employee').autocomplete({
         source: function (request, response) {
             var term = request.term;
+
+            var index = term.indexOf(' (');
+
+            if (index > 0) {
+                term = term.substr(0, index);
+            }
+
             $.ajax({
                 url: _global.root + 'api/employee/getemployees',
                 data: {
                     query: term
                 },
                 success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.NickName + ' (' + item.FullName + ')',
-                            value: item.Id
-                        };
-                    }));
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
+                            return { label: item.NickName + ' (' + item.FullName + ')',
+                                value: item.Id
+                            };
+                        }));
+                    } else {
+                        $('#EmpId').val('0');
+                    }
                 }
             });
         },
@@ -74,15 +55,24 @@ function initAutocomplete() {
             $('#Employee').val(nickName);
             $('#EmpId').val(ui.item.value);
         },
+        change: function (event, ui) {
+            if (ui && ui.item) {
+                var nickName = ui.item.label;
+                $('#Employee').val(nickName);
+                $('#EmpId').val(ui.item.value);
+            }
+            else {
+                $('#EmpId').val('0');
+            }
+        },
         minLength: 1
     });
 }
-
 function editTOEIC(id, name) {
     if (id > 0) {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'employee/updatefulltoeic?id=' + id + '&name=' + name,
+            url: _global.root + 'toeic/updatefulltoeic?id=' + id + '&name=' + name,
             dataType: 'html',
             success: function (data) {
                 if (data) {
@@ -101,19 +91,20 @@ function editTOEIC(id, name) {
 function initEvent() {
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
-            query();
+            $('#submit').submit();
         }
     });
 
-    $('#query').click(function (evt) {
-        evt.preventDefault();
-        query();
+    $('#submit').click(function () {
+        actingButton('#submit', true);
+        sleep(1000);
+        reloadButtonText('#submit');
     });
 
     $('#btnNewTOEIC').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'employee/updatetoeic',
+            url: _global.root + 'toeic/updatetoeic',
             dataType: 'html',
             success: function (data) {
                 if (data) {
@@ -130,7 +121,6 @@ function initEvent() {
 }
 
 function initAddToeicDialog() {
-
     initDatePicker(".datepicker");
     initAutocomplete();
     $('#cancelAddToeic').click(function () {
@@ -140,7 +130,7 @@ function initAddToeicDialog() {
     $('#submitAddToeic').click(function () {
         $.ajax({
             type: 'POST',
-            url: _global.root + 'employee/updatetoeic',
+            url: _global.root + 'toeic/updatetoeic',
             dataType: 'json',
             data: $('#frmUpdateTOEIC').serialize(),
             success: function (data) {
@@ -183,7 +173,7 @@ function initEditToeicDialog() {
     $('#submitEditToeic').click(function () {
         $.ajax({
             type: 'POST',
-            url: _global.root + 'employee/updatefulltoeic',
+            url: _global.root + 'toeic/updatefulltoeic',
             dataType: 'json',
             data: $('#frmUpdFullTOEIC').serialize(),
             success: function (data) {
@@ -217,12 +207,5 @@ function initEditToeicDialog() {
 }
 
 $(document).ready(function () {
-    query();
     initEvent();
-
-    //	$('#title').val(jobTitleId);
-    //	$('#title').chosen();
-    //	$("#title").trigger("liszt:updated");   
-
-
 });

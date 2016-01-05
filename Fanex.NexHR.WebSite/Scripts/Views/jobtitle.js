@@ -1,42 +1,15 @@
 ﻿/// <reference path='../Libs/jquery.min.js' />
-/*global actingButton, _global, noInformation, reloadButtonText, _messages, getParam*/
-/*exported deleteJobTitle, index, editJobTile, CancelUpdate, UpdateJobTitle*/
+/*global _global, _messages, getParam*/
+/*exported deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
 'use strict';
 
-var rowIndex = 1;
 var canNotUpdate = function (id) {
     $('#txtJobTile_' + id).val($('#spanJobTitle_' + id).text());
 };
 
-function index() {
-    return rowIndex++;
-}
-
-function query() {
-    var queryJobTitle = $('#keyword').val();
-    actingButton('#query', true);
-
-    $.getJSON(
-    _global.root + 'api/jobtitle/getjobtitle', { query: queryJobTitle }, function (data) {
-        if (data.length > 0) {
-            rowIndex = 1;
-
-            $('#data tbody').children().remove();
-            $('#itemTemplate').tmpl(data).appendTo('#data');
-        } else {
-            $('#data tbody').children().remove();
-            $(noInformation(12)).appendTo('#data');
-        }
-        reloadButtonText('#query');
-    }).error(function () {
-        reloadButtonText('#query');
-        alert(_messages.errorTryAgain);
-    });
-}
-
 function deleteJobTitle(id) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'ajax/DeleteJobTitle',
+        $.post(_global.root + 'jobtitle/DeleteJobTitle',
         { id: id },
         function (response) {
             if (response) {
@@ -84,7 +57,7 @@ function updateJobTitle(id) {
         }
         var oldTitle = $('#spanJobTitle_' + id).val();
         if (jobTitle !== oldTitle) {
-            $.post(_global.root + 'ajax/UpdatetJobTitle', { id: id, name: jobTitle }, function (response) {
+            $.post(_global.root + 'jobtitle/UpdatetJobTitle', { id: id, name: jobTitle }, function (response) {
                 if (response) {
                     document.location = _global.root + 'jobtitle/jobtitlemanagement';
                 }
@@ -125,21 +98,21 @@ $(function () {
 
     $('#dialog-form').dialog({
         title: $('#dialog-form').attr('title'),
-        autoOpen    : false,
-        width       : 450,
-        modal       : true,
-        buttons     : [
+        autoOpen: false,
+        width: 450,
+        modal: true,
+        buttons: [
             {
                 text: 'Create',
                 class: 'btn-submit waves-effect waves-light',
-                click: function() {
+                click: function () {
                     var bValid = true;
 
                     allFields.removeClass('ui-state-error');
                     bValid = bValid && checkLength(name, 'job title', 3, 100);
 
                     if (bValid) {
-                        $.post(_global.root + 'ajax/InsertJobTitle',
+                        $.post(_global.root + 'jobtitle/InsertJobTitle',
                         { name: name.val() },
                         function (response) {
                             if (response) {
@@ -156,7 +129,7 @@ $(function () {
             {
                 text: 'Cancel',
                 class: 'btn-cancel waves-effect waves-light',
-                click: function() {
+                click: function () {
                     $(this).dialog('close');
                     return false;
                 }
@@ -179,26 +152,13 @@ $(document).ready(function () {
 
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
-            query();
+            $('#submit').submit();
         }
     });
 
     var q = getParam('query');
     if (q != null) {
         $('#keyword').val(q);
+        $('#submit').submit();
     }
-
-    //search onload
-    query();
-
-    $('#query').on('click', function (evt) {
-        evt.preventDefault();
-        query();
-    });
-
-    $('#keyword').keypress(function () {
-        if ($(this).val().length >= 2) {
-            query();
-        }
-    });
 });
