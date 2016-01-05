@@ -55,6 +55,16 @@ function initAutocomplete() {
             $('#Employee').val(nickName);
             $('#EmpId').val(ui.item.value);
         },
+        change: function (event, ui) {
+            if (ui && ui.item) {
+                var nickName = ui.item.label;
+                $('#Employee').val(nickName);
+                $('#EmpId').val(ui.item.value);
+            }
+            else {
+                $('#EmpId').val('0');
+            }
+        },
         minLength: 1
     });
 }
