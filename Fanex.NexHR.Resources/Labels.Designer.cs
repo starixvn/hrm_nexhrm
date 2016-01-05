@@ -79,6 +79,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Users.
+        /// </summary>
+        public static string ActiveUsers {
+            get {
+                return ResourceManager.GetString("ActiveUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Date.
         /// </summary>
         public static string ActualDate {
@@ -691,6 +700,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted Users.
+        /// </summary>
+        public static string DeletedUsers {
+            get {
+                return ResourceManager.GetString("DeletedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department Management.
         /// </summary>
         public static string DepartmentManagement {
@@ -714,6 +732,15 @@ namespace Fanex.NexHR.Resources {
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled Users.
+        /// </summary>
+        public static string DisabledUsers {
+            get {
+                return ResourceManager.GetString("DisabledUsers", resourceCulture);
             }
         }
         

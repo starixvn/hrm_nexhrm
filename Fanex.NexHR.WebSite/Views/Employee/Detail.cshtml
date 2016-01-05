@@ -1,9 +1,4 @@
-﻿@using Fanex.NexHR.Models
-@model Fanex.NexHR.Models.Employee
-@section css {
-}
-@section js {
-}
+﻿@model Employee
 @if (Model != null)
 {
     ViewBag.Title = Model.NickName + " - " + Model.FullName;
@@ -11,6 +6,11 @@
 else
 {
     ViewBag.Title = string.Empty;
+}
+
+@section css {
+}
+@section js {
 }
 @section Breadcrumb {
 }

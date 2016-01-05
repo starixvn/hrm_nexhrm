@@ -614,9 +614,6 @@
     <Content Include="Views\Employee\Detail.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\MonthSchedule.cshtml" />
-    <Content Include="Views\Employee\TOEICManagement.cshtml" />
-    <Content Include="Views\Employee\UpdateFullTOEIC.cshtml" />
-    <Content Include="Views\Employee\UpdateTOEIC.cshtml" />
     <Content Include="Views\Employee\UserManagement.cshtml" />
     <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
     <Content Include="Views\Employee\WorkingCalendars.cshtml" />
