@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.ViewModels
-@model IList<Fanex.NexHR.Models.Request.RequestEntity>
+﻿@model IList<RequestEntity>
 <div class="p-x--s">
     <table class="data persist-area table bordered striped highlight centered table-custom">
         <thead>
@@ -24,7 +21,7 @@
                     int index = 1;
                     RequestViewModel options = (RequestViewModel)ViewBag.Options;
                 }
-                @foreach (Fanex.NexHR.Models.Request.RequestEntity request in Model)
+                @foreach (RequestEntity request in Model)
                 {
                     var annualBalance = string.Empty;
                     if (request.LeaveType.Id == 2 || request.LeaveType.Id == 30)
@@ -96,7 +93,7 @@
                             }
                         </td>
                         <td class="txt-left">
-                            @Html.Raw(Fanex.NexHR.Services.RequestService.ToRequestMessage(request))
+                            @Html.Raw(RequestService.ToRequestMessage(request))
                         </td>
                         @if (!string.IsNullOrWhiteSpace(request.Remark))
                         {

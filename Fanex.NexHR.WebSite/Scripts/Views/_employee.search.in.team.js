@@ -1,18 +1,11 @@
 ﻿'use strict';
 /*global _global:false */
 
-var nickName;
-
 $(document).ready(function () {
     $("#Employee").autocomplete({
         source: function (request, response) {
             var term = request.term;
-            var index = term.indexOf(' (');
-
-            if (index > 0) {
-                term = term.substr(0, index);
-            }
-
+            
             $.ajax({
                 url: _global.root + 'ajax/getmembersbymanager',
                 data: {
@@ -36,31 +29,11 @@ $(document).ready(function () {
         },
         minLength: 1,
         select: function (event, ui) {
-            nickName = ui.item.label;
+            event.preventDefault();
+            var nickName = ui.item.label;
             $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);
-        },
-        focus: function (event, ui) {
-            $('#Employee').val(ui.item.label);
-            event.preventDefault();
-        },
-        change: function (event, ui) {
-            if (ui && ui.item) {
-                nickName = ui.item.label;
-                $('#Employee').val(nickName);
-                $('#EmployeeId').val(ui.item.value);
-            }
-            else {
-                $('#EmployeeId').val('0');
-            }
-        },
-        close: function () {
-            if (nickName) {
-                $('#Employee').val(nickName);
-            } else {
-                $('#Employee').val('');
-            }
-        }
+        }        
     });
 
     // when user clear the textbox, we must set employeeId field to -1 for seaching all employees

@@ -54,18 +54,29 @@ function initAutocomplete() {
     $('#Employee').autocomplete({
         source: function (request, response) {
             var term = request.term;
+
+            var index = term.indexOf(' (');
+
+            if (index > 0) {
+                term = term.substr(0, index);
+            }
+
             $.ajax({
                 url: _global.root + 'api/employee/getemployees',
                 data: {
                     query: term
                 },
                 success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.NickName + ' (' + item.FullName + ')',
-                            value: item.Id
-                        };
-                    }));
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
+                            return { label: item.NickName + ' (' + item.FullName + ')',
+                                value: item.Id
+                            };
+                        }));                    
+                }else{
+                    $('#EmpId').val('0');
                 }
+
             });
         },
         select: function (event, ui) {

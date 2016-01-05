@@ -1,7 +1,7 @@
-﻿@model Fanex.NexHR.ViewModels.RequestViewModel
+﻿@model RequestViewModel
 @{
     ViewBag.Title = Labels.EmployeeRequest;
-    IList<Fanex.NexHR.Models.Request.RequestEntity> requests = ViewBag.EntityList;
+    IList<RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
