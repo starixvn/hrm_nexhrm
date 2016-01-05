@@ -101,7 +101,7 @@ namespace Fanex.NexHR.Core
 
                     // Create and populate a radio button using the existing html helpers
                     var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
-                    var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id = id }).ToHtmlString();
+                    var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id = id, @class = "with-gap" }).ToHtmlString();
 
                     // Create the html string that will be returned to the client
                     // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" />
