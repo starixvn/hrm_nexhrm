@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class='p-x--s'>
-                        <table class="data table bordered striped highlight table-custom" id="data">
+                        <table class="data table bordered striped highlight table-custom centered" id="data">
                             <thead>
                                 <tr>
                                     <th>
@@ -48,17 +48,17 @@
                                     foreach (Fanex.NexHR.Models.ExtensionNoModel item in Model)
                                     {
                                     <tr id="@item.TeamId">
-                                        <td class='center'>
+                                        <td>
                                             @(index++)
                                         </td>
-                                        <td>
+                                        <td class="txt-left">
                                             <span class="groupName">@item.TeamName</span>
                                         </td>
-                                        <td class='center'>
+                                        <td>
                                             <a href="javascript:;" class="editExternal"><i class='mdi mdi-border-color mdi-dark'>
                                             </i></a>
                                         </td>
-                                        <td class='col-delete'>
+                                        <td>
                                             @if (item.TotalMember > 0)
                                             {
                                                 <a href="javascript:;" style="cursor: default"><i class='mdi mdi-delete mdi-disabled mdi-dark mdi-18px'></i>

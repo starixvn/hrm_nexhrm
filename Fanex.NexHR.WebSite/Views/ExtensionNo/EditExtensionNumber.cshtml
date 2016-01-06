@@ -80,7 +80,7 @@
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.NickName, Labels.Nickname)
+                                        @Html.LabelFor(model => model.NickName, Labels.NickName)
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.NickName)
@@ -100,8 +100,11 @@
                             </div>
                             
                             <div class="row form-input">
-                                <div class='col'>                                    
-                                    @Html.Hidden("EmpId")
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        &nbsp;
+                                        @Html.Hidden("EmpId")
+                                    </div>
                                     <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--m">
                                         <input type="submit" value="@Fanex.NexHR.Resources.Labels.Update" /></span>
                                     <a class="button-hrm waves-effect waves-light btn white-text grey darken-1" href="~/extensionno/index">@Labels.Back</a>

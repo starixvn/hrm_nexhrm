@@ -81,7 +81,7 @@
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.NickName, Labels.Nickname)
+                                        @Html.LabelFor(model => model.NickName, Labels.NickName)
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.NickName)
@@ -102,7 +102,8 @@
 
                             <div class="row form-input">
                                 <div class="col">
-                                    <div class="left label--l">&nbsp;
+                                    <div class="left label--l">
+                                        &nbsp;
                                         @Html.Hidden("EmpId")
                                         @Html.Hidden("IsAddForm", true)
                                     </div>
