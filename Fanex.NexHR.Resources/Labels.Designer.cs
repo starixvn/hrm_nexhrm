@@ -340,7 +340,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attendance Report.
+        ///   Looks up a localized string similar to Attendance report.
         /// </summary>
         public static string AttendanceReport {
             get {
@@ -772,6 +772,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Working Schedule.
+        /// </summary>
+        public static string DefaultWorkingSchedule {
+            get {
+                return ResourceManager.GetString("DefaultWorkingSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -894,6 +903,15 @@ namespace Fanex.NexHR.Resources {
         public static string EditAnnualLeaveBalance {
             get {
                 return ResourceManager.GetString("EditAnnualLeaveBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit By Month.
+        /// </summary>
+        public static string EditByMonth {
+            get {
+                return ResourceManager.GetString("EditByMonth", resourceCulture);
             }
         }
         

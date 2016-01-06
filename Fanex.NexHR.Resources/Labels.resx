@@ -994,7 +994,7 @@
     <value>Annual Leave Balance</value>
   </data>
   <data name="AttendanceReport" xml:space="preserve">
-    <value>Attendance Report</value>
+    <value>Attendance report</value>
   </data>
   <data name="ConfirmedDate" xml:space="preserve">
     <value>Confirmed Date</value>
@@ -1065,9 +1065,6 @@
   <data name="Yahoo" xml:space="preserve">
     <value>Yahoo</value>
   </data>
-  <data name="AttendanceReport" xml:space="preserve">
-    <value>Attendance report</value>
-  </data>
   <data name="ExcludeUserDelete" xml:space="preserve">
     <value>Exclude User Delete</value>
   </data>
@@ -1103,5 +1100,11 @@
   </data>
   <data name="StaffCode" xml:space="preserve">
     <value> Staff Code</value>
+  </data>
+  <data name="DefaultWorkingSchedule" xml:space="preserve">
+    <value>Default Working Schedule</value>
+  </data>
+  <data name="EditByMonth" xml:space="preserve">
+    <value>Edit By Month</value>
   </data>
 </root>

@@ -204,6 +204,7 @@
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\employee.edit.scss" />
+    <None Include="Content\Views\employee.monthschedule.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
@@ -274,6 +275,9 @@
     <Content Include="Content\Views\employee.edit.css">
       <DependentUpon>employee.edit.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\employee.monthschedule.css">
+      <DependentUpon>employee.monthschedule.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\geolocation.css">
       <DependentUpon>geolocation.scss</DependentUpon>
     </Content>
@@ -326,6 +330,8 @@
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
+    <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
+    <Content Include="Scripts\Views\Employee\employee.defaultschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.edit.js" />
     <Content Include="Scripts\Views\Employee\employee.toeic.js" />
     <Content Include="Scripts\Tiny_mce\langs\en.js" />

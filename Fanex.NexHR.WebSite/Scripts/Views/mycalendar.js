@@ -12,14 +12,12 @@ $(document).ready(function () {
         },
         editable: true,
         events: function (start, end, timezone, callback) {
-            var date = $('#calendar').fullCalendar('getDate').format('MM/DD/YYYY');
-
             $.ajax({
                 url: '/api/employee/GetWorkingSchedule',
                 dataType: 'json',
                 data:
                 {
-                    date: date,
+                    date: $('#calendar').fullCalendar('getDate').format('MM/DD/YYYY'),
                     id: _global.employeeId
                 },
                 success: function (data) {

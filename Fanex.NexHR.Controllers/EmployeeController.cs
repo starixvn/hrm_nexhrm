@@ -285,7 +285,7 @@ namespace Fanex.NexHR.Controllers
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
                 ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-                ViewBag.Shifts = _shiftService.GetSelectList();
+                model.Shifts = _shiftService.GetSelectList();
             }
 
             return View(model);
@@ -317,7 +317,7 @@ namespace Fanex.NexHR.Controllers
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            ViewBag.Shifts = _shiftService.GetSelectList();
+            model.Shifts = _shiftService.GetSelectList();
 
             return View(model);
         }

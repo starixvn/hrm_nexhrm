@@ -84,8 +84,12 @@
             BuildBundleForJobTitle(bundles);
 
             BuildBundleForAttendanceReport(bundles);
-            
+
             BuildBundleForEditEmployee(bundles);
+
+            BuildBundleForDefaultSchedule(bundles);
+
+            BuildBundleForMonthSchedule(bundles);
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)
@@ -190,8 +194,8 @@
                 "~/bundles/attendancejs",
                 "~/Scripts/Views/Report/report.attendance.js");
         }
-        
-         private static void BuildBundleForUserManagement(BundleCollection bundles)
+
+        private static void BuildBundleForUserManagement(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
                 "~/Scripts/Views/user.management.js"));
@@ -212,6 +216,22 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
                 "~/Scripts/Views/team.management.js"));
+        }
+
+        private static void BuildBundleForDefaultSchedule(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/defaultschedulejs").Include(
+                "~/Scripts/Views/Employee/employee.defaultschedule.js"));
+        }
+
+        private static void BuildBundleForMonthSchedule(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/Content/monthschedulecss",
+                "~/Content/Views/employee.monthschedule.css");
+
+            bundles.Add(new ScriptBundle("~/bundles/monthschedulejs").Include(
+                "~/Scripts/Views/Employee/employee.monthschedule.js"));
         }
     }
 }

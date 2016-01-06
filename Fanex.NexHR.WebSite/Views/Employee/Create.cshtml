@@ -9,7 +9,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -35,7 +35,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.NickName, Labels.Nickname)
+                                        @Html.LabelFor(model => model.NickName, Labels.NickName)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.NickName)
@@ -91,31 +91,31 @@
                                     </div>
                                     <div class="left">
                                         <div class="col">
-                                            <label>Sun</label><br />
+                                            <label>@Labels.Sun</label><br />
                                             @Html.DropDownListFor(model => model.SunShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Mon</label><br />
+                                            <label>@Labels.Mon</label><br />
                                             @Html.DropDownListFor(model => model.MonShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Tue</label><br />
+                                            <label>@Labels.Tue</label><br />
                                             @Html.DropDownListFor(model => model.TueShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Wed</label><br />
+                                            <label>@Labels.Wed</label><br />
                                             @Html.DropDownListFor(model => model.WedShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Thu</label><br />
+                                            <label>@Labels.Thu</label><br />
                                             @Html.DropDownListFor(model => model.ThuShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Fri</label><br />
+                                            <label>@Labels.Fri</label><br />
                                             @Html.DropDownListFor(model => model.FriShift, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>Sat</label><br />
+                                            <label>@Labels.Sat</label><br />
                                             @Html.DropDownListFor(model => model.SatShift, Model.Shifts, Labels.Off)
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
                             </div>
                             <div class="row form-input">
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2"><input type="submit" value="Next" /></span>
+                                    <input class="btn-submit waves-effect waves-light" type="submit" value="Next" />
                                 </div>
                             </div>
                         </div>

@@ -9,11 +9,16 @@
 
 namespace Fanex.NexHR.Models
 {
-    /// <summary>
-    /// Employee shift.
-    /// </summary>
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+
     public class EmployeeShift
     {
+        public EmployeeShift()
+        {
+            Shifts = new List<SelectListItem>();
+        }
+
         public int EmpId { get; set; }
 
         public int? MonShiftId { get; set; }
@@ -43,5 +48,9 @@ namespace Fanex.NexHR.Models
         public string SatShiftName { get; set; }
 
         public string SunShiftName { get; set; }
+
+
+
+        public IList<SelectListItem> Shifts { get; set; }
     }
 }
