@@ -139,16 +139,16 @@
             <thead>
                 <tr>
                     <th>
-                        Shift
+                        @Labels.Shift
                     </th>
                     <th>
-                        Checkin time
+                        @Labels.CheckIn
                     </th>
                     <th>
-                        Checkout time
+                        @Labels.CheckOut
                     </th>
                     <th>
-                        Break
+                        @Labels.BreakTimeMins
                     </th>
                 </tr>
             </thead>
@@ -163,7 +163,7 @@
                         <td>
                             @item.BeginCheckOutTime &nbsp;@((item.BeginCheckOutTime == item.EndCheckOutTime) ? string.Empty : "- " + item.EndCheckOutTime)
                         </td>
-                        <td>@((item.BreakTimeMins == 0) ? string.Empty : "11h30' - 12h30'")
+                        <td>@((item.BreakTimeMins == 0) ? string.Empty : "11:30 - 12:30")
                         </td>
                     </tr>
                 }
