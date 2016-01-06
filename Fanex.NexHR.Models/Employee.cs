@@ -19,6 +19,12 @@ namespace Fanex.NexHR.Models
 
     public class Employee : EntityBase<int>
     {
+        public Employee()
+        {
+            JobTitles = new List<LookupData>();
+            Groups = new List<Team>();
+        }
+
         public string DomainUsername { get; set; }
 
         [Required]
@@ -259,5 +265,13 @@ namespace Fanex.NexHR.Models
         }
 
         public EmployeeShift WorkingCalendar { get; set; }
+
+        #region Filtering
+
+        public IList<LookupData> JobTitles { get; set; }
+
+        public IList<Team> Groups { get; set; }
+
+        #endregion Filtering
     }
 }

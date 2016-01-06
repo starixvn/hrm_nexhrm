@@ -28,7 +28,7 @@
                                     <label>@Labels.Nick</label>
                                 </div>
                                 <div class="left input--s">
-                                    @Html.TextBoxFor(model=>model.Query)
+                                    @Html.TextBoxFor(model => model.Query)
                                 </div>
                             </div>
                             <div class="col m-r--m">
@@ -36,7 +36,7 @@
                                     <label>@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model=>model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                    @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col">
@@ -44,7 +44,7 @@
                                     <label>@Labels.Title</label>
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model=>model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
+                                    @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
                                 </div>
                             </div>
                             <div class="col">

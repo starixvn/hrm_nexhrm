@@ -24,18 +24,10 @@ namespace Fanex.NexHR.Core
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Extension class.
-    /// </summary>
     public static class Extensions
     {
         private static readonly object _O = new object();
 
-        /// <summary>
-        /// Convert Command enumerable to string.
-        /// </summary>
-        /// <param name="value">Command enumerable.</param>
-        /// <returns>Command string.</returns>
         public static string EnumToString(this Command value)
         {
             var type = value.GetType();
@@ -45,11 +37,6 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
-        /// <summary>
-        /// Convert ENUM to string.
-        /// </summary>
-        /// <param name="value">The enumerable value.</param>
-        /// <returns>The return string.</returns>
         public static string EnumToString(this Role value)
         {
             var type = value.GetType();
@@ -59,11 +46,6 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
-        /// <summary>
-        /// Convert ENUM to string.
-        /// </summary>
-        /// <param name="value">The enumerable value.</param>
-        /// <returns>The return string.</returns>
         public static string EnumToString(this RequestType value)
         {
             var type = value.GetType();
@@ -73,15 +55,6 @@ namespace Fanex.NexHR.Core
             return attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
-        /// <summary>
-        /// Radio button list.
-        /// </summary>
-        /// <typeparam name="TModel">The model type.</typeparam>
-        /// <typeparam name="TProperty">The property type.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">The expression.</param>
-        /// <param name="listOfValues">List of value.</param>
-        /// <returns>MVC HTML string.</returns>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString RadioButtonList<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
@@ -113,27 +86,11 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(sb.ToString());
         }
 
-        /// <summary>
-        /// Begin get form.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <returns>The MVC form.</returns>
         public static MvcForm BeginGetForm(this HtmlHelper htmlHelper)
         {
             return htmlHelper.BeginForm(null, null, FormMethod.Get);
         }
 
-        /// <summary>
-        /// Date picker.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">The element name.</param>
-        /// <param name="date">The date value.</param>
-        /// <param name="minDate">The min date.</param>
-        /// <param name="maxDate">The max date.</param>
-        /// <param name="formatDate">The format date.</param>
-        /// <param name="unavailDates">The unavailable dates.</param>
-        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString DatePicker(
             this HtmlHelper htmlHelper,
             string name,
@@ -162,18 +119,6 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(textbox.ToString());
         }
 
-        /// <summary>
-        /// Date picker.
-        /// </summary>
-        /// <typeparam name="TModel">The model type.</typeparam>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        /// <param name="html">HTML helper.</param>
-        /// <param name="expression">The expression.</param>
-        /// <param name="minDate">The min date.</param>
-        /// <param name="maxDate">The max date.</param>
-        /// <param name="formatDate">The format date.</param>
-        /// <param name="unavailDates">The unavailable dates.</param>
-        /// <returns>MVC HTML string.</returns>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString DatePickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
@@ -204,11 +149,6 @@ namespace Fanex.NexHR.Core
                 unavailDates);
         }
 
-        /// <summary>
-        /// Get max date.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return date time.</returns>
         public static DateTime GetMaxDate(this DateTime date)
         {
             if (date.AddMonths(1).Year > DateTime.Now.Year)
@@ -219,14 +159,6 @@ namespace Fanex.NexHR.Core
             return date;
         }
 
-        /// <summary>
-        /// Year picker.
-        /// </summary>
-        /// <param name="htmlHelper">HTML Helper.</param>
-        /// <param name="name">Input name.</param>
-        /// <param name="fromYear">Default from year 2000.</param>
-        /// <param name="currentYear">Default currentYear year 2000.</param>
-        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString YearPicker(
             this HtmlHelper htmlHelper,
             string name,
@@ -250,15 +182,6 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(dropDownList.ToString());
         }
 
-        /// <summary>
-        /// Year picker.
-        /// </summary>
-        /// <typeparam name="TModel">The model type.</typeparam>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        /// <param name="html">HTML helper.</param>
-        /// <param name="expression">The expression.</param>
-        /// <param name="fromYear">The from year.</param>
-        /// <returns>MVC HTML string.</returns>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString YearPickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
@@ -271,13 +194,6 @@ namespace Fanex.NexHR.Core
             return html.YearPicker(metaData.PropertyName, fromYear, currentYear);
         }
 
-        /// <summary>
-        /// Render section.
-        /// </summary>
-        /// <param name="page">The web page.</param>
-        /// <param name="sectionName">The section name.</param>
-        /// <param name="defaultContent">The default content.</param>
-        /// <returns>Helper result.</returns>
         public static HelperResult RenderSection(
             this WebPageBase page,
             string sectionName,
@@ -293,24 +209,11 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        /// <summary>
-        /// Check box list.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">The element name.</param>
-        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name)
         {
             return CheckBoxList(htmlHelper, name, null);
         }
 
-        /// <summary>
-        /// Check box list.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">The element name.</param>
-        /// <param name="selectList">Select item list.</param>
-        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(
             this HtmlHelper htmlHelper,
             string name,
@@ -319,14 +222,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
         }
 
-        /// <summary>
-        /// Check box list.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">The element name.</param>
-        /// <param name="selectList">Select item list.</param>
-        /// <param name="htmlAttributes">HTML attributes.</param>
-        /// <returns>MVC HTML string.</returns>
         public static MvcHtmlString CheckBoxList(
             this HtmlHelper htmlHelper,
             string name,
@@ -336,14 +231,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        /// <summary>
-        /// Check box list.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">The element name.</param>
-        /// <param name="selectList">Select item list.</param>
-        /// <param name="htmlAttributes">HTML attributes.</param>
-        /// <returns>MVC HTML string.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxList(
             this HtmlHelper htmlHelper,
@@ -611,7 +498,7 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttribute("name", propertyName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
-            if ((bool)modelMetadata.Model)
+            if (modelMetadata.Model != null && (bool)modelMetadata.Model)
             {
                 checkbox.MergeAttribute("checked", "checked");
             }
@@ -629,6 +516,163 @@ namespace Fanex.NexHR.Core
         }
 
         #endregion MaterializeCheckBoxFor
+
+        #region MaterializeCheckBoxList
+
+        public static MvcHtmlString MaterializeCheckBoxList(
+            this HtmlHelper htmlHelper,
+            string name)
+        {
+            return MaterializeCheckBoxList(htmlHelper, name, null);
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxList(
+            this HtmlHelper htmlHelper,
+            string name,
+            IEnumerable<SelectListItem> selectList)
+        {
+            return MaterializeCheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxList(
+            this HtmlHelper htmlHelper,
+            string name,
+            IEnumerable<SelectListItem> selectList,
+            object htmlAttributes)
+        {
+            return MaterializeCheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxList(
+            this HtmlHelper htmlHelper,
+            string name,
+            IEnumerable<SelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
+        {
+            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            if (string.IsNullOrEmpty(fullHtmlFieldName))
+            {
+                throw new ArgumentException("name cannot be null or empty.", "name");
+            }
+
+            bool selectListFromViewData = false;
+
+            if (selectList == null)
+            {
+                selectList = htmlHelper.ViewData.Eval(fullHtmlFieldName) as IEnumerable<SelectListItem>;
+                selectListFromViewData = true;
+            }
+
+            if (selectList == null)
+            {
+                throw new ArgumentNullException("selectList");
+            }
+
+            object values = null;
+            ModelState state;
+
+            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state)
+               && (state.Value != null))
+            {
+                values = state.Value.ConvertTo(typeof(string[]), null);
+            }
+
+            if (!selectListFromViewData && (values == null))
+            {
+                values = htmlHelper.ViewData.Eval(fullHtmlFieldName);
+            }
+
+            if (values != null)
+            {
+                var valueList = values.GetType() == typeof(string[])
+                ? values as string[]
+                : values.ToString().Split(new[] { ',' });
+
+                var list = new List<SelectListItem>();
+
+                foreach (SelectListItem item in selectList)
+                {
+                    item.Selected = (item.Value != null) && valueList.Contains(item.Value);
+                    list.Add(item);
+                }
+
+                selectList = list;
+            }
+
+            var sb = new StringBuilder();
+
+            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            htmlAttributes.Remove("checked");
+
+            foreach (var item in selectList)
+            {
+                TagBuilder input = new TagBuilder("input");
+
+                input.MergeAttributes(htmlAttributes);
+                input.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
+                input.MergeAttribute("id", name + item.Value);
+                input.MergeAttribute("name", name + item.Value, replaceExisting: true);
+                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, replaceExisting: true);
+
+                if (item.Selected)
+                {
+                    input.MergeAttribute("checked", "checked");
+                }
+
+                TagBuilder label = new TagBuilder("label");
+                label.MergeAttribute("for", name + item.Value, replaceExisting: true);
+                label.InnerHtml = item.Text;
+
+                sb.Append(input.ToString(TagRenderMode.SelfClosing) + label);
+            }
+
+            return MvcHtmlString.Create(sb.ToString());
+        }
+
+        #endregion MaterializeCheckBoxList
+
+        #region MaterializeCheckBoxListFor
+
+        public static MvcHtmlString MaterializeCheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression)
+        {
+            return MaterializeCheckBoxListFor(htmlHelper, expression, null);
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList)
+        {
+            return MaterializeCheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList,
+            object htmlAttributes)
+        {
+            return MaterializeCheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static MvcHtmlString MaterializeCheckBoxListFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            return MaterializeCheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
+        }
+
+        #endregion MaterializeCheckBoxListFor
 
         #region Business
 

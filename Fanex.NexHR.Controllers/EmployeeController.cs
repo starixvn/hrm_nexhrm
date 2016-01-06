@@ -227,9 +227,10 @@ namespace Fanex.NexHR.Controllers
 
                 model.LeaderGroups = leaderGroups;
                 model.ToeicScore = _toeicService.GetById(employeeToeicCriteria);
-                ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+                model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-                ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+                model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
             }
 
             return View(model);
@@ -242,9 +243,10 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(Employee model)
         {
             model.Modifier = this.CurrentUser;
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-            ViewBag.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
 
             if (ModelState.IsValid)
             {

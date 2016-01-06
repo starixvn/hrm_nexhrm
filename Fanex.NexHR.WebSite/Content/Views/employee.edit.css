@@ -1,0 +1,34 @@
+#DOBPicker .birthday-picker {
+  border: unset;
+  margin: 0;
+  padding: 0 0 1rem; }
+  #DOBPicker .birthday-picker select {
+    display: inline-block;
+    width: auto;
+    margin-right: .5rem; }
+
+.showHideGeolocationMap a {
+  cursor: pointer; }
+
+.subteam [type="checkbox"].filled-in + label, .role [type="checkbox"].filled-in + label {
+  color: #303f4d;
+  font-size: 1.3rem; }
+  .subteam [type="checkbox"].filled-in + label:after, .role [type="checkbox"].filled-in + label:after {
+    width: 1.8rem;
+    height: 1.8rem; }
+
+.subteam {
+  width: 24rem;
+  height: 20rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border: solid .1rem #ccc; }
+  .subteam [type="checkbox"].filled-in + label:before, .subteam [type="checkbox"].filled-in + label:after {
+    margin-left: .4rem;
+    margin-top: .3rem; }
+  .subteam label {
+    display: block;
+    border-top: solid .1rem #ccc;
+    margin-top: 0; }
+
+/*# sourceMappingURL=employee.edit.css.map */

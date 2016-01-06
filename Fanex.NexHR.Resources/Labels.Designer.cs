@@ -358,6 +358,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avatar.
+        /// </summary>
+        public static string Avatar {
+            get {
+                return ResourceManager.GetString("Avatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string Back {
@@ -556,6 +565,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse.
+        /// </summary>
+        public static string Collapse {
+            get {
+                return ResourceManager.GetString("Collapse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company Memo.
         /// </summary>
         public static string CompanyMemo {
@@ -678,6 +696,15 @@ namespace Fanex.NexHR.Resources {
         public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Of Birth.
+        /// </summary>
+        public static string DateOfBirth {
+            get {
+                return ResourceManager.GetString("DateOfBirth", resourceCulture);
             }
         }
         
@@ -925,6 +952,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Card.
+        /// </summary>
+        public static string EmployeeCard {
+            get {
+                return ResourceManager.GetString("EmployeeCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee management.
         /// </summary>
         public static string EmployeeManagement {
@@ -975,6 +1011,15 @@ namespace Fanex.NexHR.Resources {
         public static string ExcludeUserDelete {
             get {
                 return ResourceManager.GetString("ExcludeUserDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expanse.
+        /// </summary>
+        public static string Expanse {
+            get {
+                return ResourceManager.GetString("Expanse", resourceCulture);
             }
         }
         
@@ -1101,6 +1146,15 @@ namespace Fanex.NexHR.Resources {
         public static string GeneralInfo {
             get {
                 return ResourceManager.GetString("GeneralInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geolocation Map.
+        /// </summary>
+        public static string GeolocationMap {
+            get {
+                return ResourceManager.GetString("GeolocationMap", resourceCulture);
             }
         }
         
@@ -1290,6 +1344,15 @@ namespace Fanex.NexHR.Resources {
         public static string IssuedPlace {
             get {
                 return ResourceManager.GetString("IssuedPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issuing Authority.
+        /// </summary>
+        public static string IssuingAuthority {
+            get {
+                return ResourceManager.GetString("IssuingAuthority", resourceCulture);
             }
         }
         
@@ -1510,6 +1573,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Balance.
+        /// </summary>
+        public static string LeaveBalance {
+            get {
+                return ResourceManager.GetString("LeaveBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave Deduction.
         /// </summary>
         public static string LeaveDeduction {
@@ -1659,6 +1731,15 @@ namespace Fanex.NexHR.Resources {
         public static string May {
             get {
                 return ResourceManager.GetString("May", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member.
+        /// </summary>
+        public static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
             }
         }
         
@@ -2401,6 +2482,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        public static string Saved {
+            get {
+                return ResourceManager.GetString("Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Schedule.
         /// </summary>
         public static string Schedule {
@@ -2523,6 +2613,15 @@ namespace Fanex.NexHR.Resources {
         public static string Speaking {
             get {
                 return ResourceManager.GetString("Speaking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Staff Code.
+        /// </summary>
+        public static string StaffCode {
+            get {
+                return ResourceManager.GetString("StaffCode", resourceCulture);
             }
         }
         

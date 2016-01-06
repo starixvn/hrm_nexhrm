@@ -1071,4 +1071,37 @@
   <data name="ExcludeUserDelete" xml:space="preserve">
     <value>Exclude User Delete</value>
   </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="EmployeeCard" xml:space="preserve">
+    <value>Employee Card</value>
+  </data>
+  <data name="Expanse" xml:space="preserve">
+    <value>Expanse</value>
+  </data>
+  <data name="GeolocationMap" xml:space="preserve">
+    <value>Geolocation Map</value>
+  </data>
+  <data name="IssuingAuthority" xml:space="preserve">
+    <value>Issuing Authority</value>
+  </data>
+  <data name="LeaveBalance" xml:space="preserve">
+    <value>Leave Balance</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="StaffCode" xml:space="preserve">
+    <value> Staff Code</value>
+  </data>
 </root>

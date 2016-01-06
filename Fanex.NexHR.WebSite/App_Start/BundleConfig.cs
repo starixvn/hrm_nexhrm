@@ -8,31 +8,6 @@
         {
             BuildBundleForCommon(bundles);
 
-            // full calendar
-            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
-                "~/Scripts/Libs/moment.js",
-                "~/Scripts/Libs/fullcalendar.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/fullcalendarcss",
-                "~/Content/Common/fullcalendar.css");
-
-            // context menu
-            bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
-                "~/Scripts/Libs/jquery.contextMenu.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/contextmenucss",
-                "~/Content/ContextMenu/contextMenu.css");
-
-            // month picker
-            bundles.AddAndInclude(
-                "~/Content/monthpickercss",
-                "~/Content/Common/monPickr-0.0.3.css");
-
-            bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
-                "~/Scripts/Libs/monPickr-0.0.3.js"));
-
             bundles.AddAndInclude(
                 "~/Content/myrequestcss",
                 "~/Content/Views/myrequest.css");
@@ -100,19 +75,17 @@
 
             BuildBundleForMemo(bundles);
 
-            // user management
-            bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
-                "~/Scripts/Views/user.management.js"));
+            BuildBundleForUserManagement(bundles);
 
-            // team management
-            bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
-                "~/Scripts/Views/team.management.js"));
+            BuildBundleForTeamManagement(bundles);
 
             BuildBundleForToeic(bundles);
 
             BuildBundleForJobTitle(bundles);
 
             BuildBundleForAttendanceReport(bundles);
+            
+            BuildBundleForEditEmployee(bundles);
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)
@@ -174,6 +147,31 @@
                 "~/Content/Common/components/materialdesignicons.css",
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
+
+            // full calendar
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
+                "~/Scripts/Libs/moment.js",
+                "~/Scripts/Libs/fullcalendar.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/fullcalendarcss",
+                "~/Content/Common/fullcalendar.css");
+
+            // context menu
+            bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/contextmenucss",
+                "~/Content/ContextMenu/contextMenu.css");
+
+            // month picker
+            bundles.AddAndInclude(
+                "~/Content/monthpickercss",
+                "~/Content/Common/monPickr-0.0.3.css");
+
+            bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
+                "~/Scripts/Libs/monPickr-0.0.3.js"));
         }
 
         private static void BuildBundleForJobTitle(BundleCollection bundles)
@@ -191,6 +189,29 @@
             bundles.AddAndInclude(
                 "~/bundles/attendancejs",
                 "~/Scripts/Views/Report/report.attendance.js");
+        }
+        
+         private static void BuildBundleForUserManagement(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
+                "~/Scripts/Views/user.management.js"));
+        }
+
+        private static void BuildBundleForEditEmployee(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/Content/employeeeditcss",
+                "~/Content/Views/employee.edit.css");
+
+            bundles.Add(new ScriptBundle("~/bundles/employeeeditjs").Include(
+                "~/Scripts/Libs/birthdaypicker.js",
+                "~/Scripts/Views/Employee/employee.edit.js"));
+        }
+
+        private static void BuildBundleForTeamManagement(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
+                "~/Scripts/Views/team.management.js"));
         }
     }
 }

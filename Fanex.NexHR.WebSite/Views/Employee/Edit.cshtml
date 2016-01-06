@@ -4,8 +4,10 @@
     ViewBag.Title = Labels.Edit;
 }
 @section css {
+    @Styles.Render("~/Content/employeeeditcss")
 }
 @section js {
+    @Scripts.Render("~/bundles/employeeeditjs")
 }
 @section Breadcrumb {
 }
@@ -20,15 +22,15 @@
                 <div class="card-body">
                     @if (Model != null) {
                         using (Html.BeginForm()) {
-
                         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
                         <div class="form">
                             @Html.ValidationSummary(true)
                             @if (ViewBag.Updated == true)
                             {
-                                <div class="success flash">
-                                    Saved</div>
+                                <div class="success flash row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Labels.Saved
+                                </div>
                             }
                             else if (ViewBag.Updated == false)
                             {
@@ -37,7 +39,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        <label>Avatar</label>
+                                        <label>@Labels.Avatar</label>
                                     </div>
                                     <div class="left m-b--m">
                                         <img id="avatar" src="~/employee/avatar/@(Model.Code)?f=@(Fanex.NexHR.Core.Utilities.RandomString(4))" alt="@Model.FullName" /><br />
@@ -47,112 +49,135 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Code, "Staff Code")
+                                        @Html.LabelFor(model => model.Code, Labels.StaffCode)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Code)
-                                        @Html.ValidationMessageFor(model => model.Code)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Code)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.EmployeeCard)
+                                        @Html.LabelFor(model => model.EmployeeCard, Labels.EmployeeCard)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextBoxFor(model => model.EmployeeCard, new { maxlength = "10" })
-                                        @Html.ValidationMessageFor(model => model.EmployeeCard)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.EmployeeCard)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.DomainUsername)
+                                        @Html.LabelFor(model => model.DomainUsername, Labels.DomainUsername)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.DomainUsername)
-                                        @Html.ValidationMessageFor(model => model.DomainUsername)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.DomainUsername)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FullName)
+                                        @Html.LabelFor(model => model.FullName, Labels.FullName)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.FullName)
-                                        @Html.ValidationMessageFor(model => model.FullName)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.FullName)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.NickName)
+                                        @Html.LabelFor(model => model.NickName, Labels.NickName)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.NickName)
-                                        @Html.ValidationMessageFor(model => model.NickName)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.NickName)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.DateOfBirth)
+                                        @Html.LabelFor(model => model.DateOfBirth, Labels.DateOfBirth)
                                     </div>
-                                    <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.DateOfBirth)
-                                        @Html.ValidationMessageFor(model => model.DateOfBirth)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                    <div class="input" id="DOBPicker">
+                                    <div class="left">
+                                        <div class="row input--l">
+                                            <div class="datepicker-button select--s">
+                                                @Html.DatePickerFor(model => model.DateOfBirth)
+                                                <i class="mdi-action-event calendar-icon left"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="DOBPicker"></div>
+                                        </div>
                                     </div>
                                     @Html.HiddenFor(model => model.DateOfBirth)
                                 </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.DateOfBirth)
+                                </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Email)
+                                        @Html.LabelFor(model => model.Email, Labels.Email)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Email)
-                                        @Html.ValidationMessageFor(model => model.Email)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Email)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.JobTitleId)
+                                        @Html.LabelFor(model => model.JobTitleId, Labels.JobTitle)
                                     </div>
                                     <div class="left select--l">
-                                        @Html.DropDownListFor(model => model.JobTitleId, new SelectList(ViewBag.JobTitles, "Id", "Name"), new { @style = "width : 230px;" })
-                                        @Html.ValidationMessageFor(model => model.JobTitleId)
+                                        @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"))
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.JobTitleId)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Phone)
+                                        @Html.LabelFor(model => model.Phone, Labels.Phone)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Phone)
-                                        @Html.ValidationMessageFor(model => model.Phone)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Phone)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Gender)
+                                        @Html.LabelFor(model => model.Gender, Labels.Gender)
                                     </div>
                                     <div class="left select--l">
                                         @{
@@ -163,14 +188,16 @@
                                             };
                                         }
                                         @Html.DropDownListFor(model => model.Gender, gender)
-                                        @Html.ValidationMessageFor(model => model.Gender)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Gender)
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.CardNo, "Id No.")
+                                        @Html.LabelFor(model => model.CardNo, Labels.IdNo + ".")
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.CardNo)
@@ -180,7 +207,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.IssuedDate)
+                                        @Html.LabelFor(model => model.IssuedDate, Labels.IssuedDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.IssuedDate, maxDate: DateTime.Now)
@@ -191,7 +218,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.IssuedPlace, "Issuing Authority")
+                                        @Html.LabelFor(model => model.IssuedPlace, Labels.IssuingAuthority)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.IssuedPlace, new { @class = "materialize-textarea" })
@@ -201,7 +228,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Address)
+                                        @Html.LabelFor(model => model.Address, Labels.Address)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Address, new { @class = "materialize-textarea" })
@@ -211,7 +238,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.CurrentAddress)
+                                        @Html.LabelFor(model => model.CurrentAddress, Labels.CurrentAddress)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.CurrentAddress, new { @class = "materialize-textarea" })
@@ -220,7 +247,7 @@
                             </div>
                             <div class="row form-input">
                                 <div class="label showHideGeolocationMap">
-                                    <a id="showHideMap">Geolocation Map (Expanse/Collapse)</a>
+                                    <a id="showHideMap">@Labels.GeolocationMap (@Labels.Expanse/@Labels.Collapse)</a>
                                 </div>
                                 <div class="input">
                                     <label>
@@ -232,24 +259,26 @@
                                 <div class="col">
                                     <div class='left input--s m-r--m'><input type="text" id="geoMapAddress" /></div>
                                     <div class='left button-hrm waves-effect waves-light btn grey darken-1'><input type="button" value="Search" id="searchmap" /></div>
-                                </div>    
+                                </div>
                                 <div class='col geolocationMap'>
                                     <div class='left select--s'>Latitude: @Html.TextBoxFor(model => model.GeoMapLatitude, new { @class = "latlng" })</div>
                                     <div class='left select--s'>Longtitude: @Html.TextBoxFor(model => model.GeoMapLongtitude, new { @class = "latlng" })</div>
                                     <div class='left select--xs'>Distance: @Html.TextBoxFor(model => model.DistanceToCompany, new { @class = "distance" })</div>
                                 </div>
-                                <div id="map-canvas" style="min-width: 930px; height: 500px">
+                                <div id="map-canvas" style="width: 100%; height: 50rem">
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Team)
+                                        @Html.LabelFor(model => model.Team, Labels.Team)
                                     </div>
                                     <div class="left select--l">
-                                        @Html.DropDownListFor(model => model.Team.Id, new SelectList(ViewBag.Groups, "Id", "Name"))
-                                        @Html.ValidationMessageFor(model => model.Team.Id)
+                                        @Html.DropDownListFor(model => model.Team.Id, new SelectList(Model.Groups, "Id", "Name"))
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Team.Id)
                                 </div>
                             </div>
                             <div class="row form-input m-b--m">
@@ -258,7 +287,7 @@
                                         @Html.LabelFor(model => model.SubGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.CheckBoxListFor(p => p.SubGroupArray, new SelectList(ViewBag.Groups, "Id", "Name"))
+                                        @Html.MaterializeCheckBoxListFor(p => p.SubGroupArray, new SelectList(Model.Groups, "Id", "Name"), new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
@@ -268,16 +297,16 @@
                                         @Html.LabelFor(model => model.LeaderGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.CheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(ViewBag.Groups, "Id", "Name"))
+                                        @Html.MaterializeCheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(Model.Groups, "Id", "Name"), new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.Roles)
                                     </div>
-                                    <div class="input">
+                                    <div class="left role input--l">
                                         @{
                                             var roles = new List<SelectListItem>
                                             {
@@ -287,86 +316,100 @@
                                                 new SelectListItem() {Text = "System admin", Value = "4"}
                                             };
                                         }
-                                        @Html.CheckBox("Member", true, new { disabled = true })
-                                        @Html.Label("Member", "Member")
-                                        @Html.CheckBoxListFor(model => model.RoleArray, roles)
-                                        @Html.ValidationMessageFor(model => model.RoleArray)
+                                        <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked" disabled="disabled" value="true" />
+                                        <label for="Member">@Labels.Member</label>
+                                        @Html.MaterializeCheckBoxListFor(model => model.RoleArray, roles, new { @class = "filled-in" })
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.RoleArray)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.JoinedDate)
+                                        @Html.LabelFor(model => model.JoinedDate, Labels.JoinedDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.JoinedDate)
-                                        @Html.ValidationMessageFor(model => model.JoinedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.JoinedDate)
+                                </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.ConfirmedDate)
+                                        @Html.LabelFor(model => model.ConfirmedDate, Labels.ConfirmedDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.ConfirmedDate)
-                                        @Html.ValidationMessageFor(model => model.ConfirmedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.ConfirmedDate)
+                                </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.ResignedDate, "Last Working Date")
+                                        @Html.LabelFor(model => model.ResignedDate, Labels.LastWorkingDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.ResignedDate)
-                                        @Html.ValidationMessageFor(model => model.ResignedDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.ResignedDate)
+                                </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Skype)
+                                        @Html.LabelFor(model => model.Skype, Labels.Skype)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Skype)
-                                        @Html.ValidationMessageFor(model => model.Skype)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Skype)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Yahoo)
+                                        @Html.LabelFor(model => model.Yahoo, Labels.Yahoo)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Yahoo)
-                                        @Html.ValidationMessageFor(model => model.Yahoo)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Yahoo)
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Mariage, "Marriage")
+                                        @Html.LabelFor(model => model.Mariage, Labels.Marriage)
                                     </div>
                                     <div class="left input--l">
-                                        @Html.EditorFor(model => model.Mariage)
-                                        @Html.ValidationMessageFor(model => model.Mariage)
+                                        @Html.MaterializeCheckBoxFor(model => model.Mariage, new { @class = "filled-in" })
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Mariage)
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.PassportNo)
+                                        @Html.LabelFor(model => model.PassportNo, Labels.PassportNo)
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.PassportNo)
@@ -376,7 +419,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.PassportExp)
+                                        @Html.LabelFor(model => model.PassportExp, Labels.PassportExp)
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.PassportExp)
@@ -387,20 +430,21 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        <label>Leave balance</label>
+                                        <label>@Labels.LeaveBalance</label>
                                     </div>
                                     <div class="left input--l">
-                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span> <a href="~/annualleavebalance/employee/@Model.Id">Update</a>
+                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span>
+                                        <a href="~/annualleavebalance/employee/@Model.Id">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        <label>Working calendar</label>
+                                        <label>@Labels.WorkingCalendar</label>
                                     </div>
                                     <div class="left">
-                                        <a href="~/employee/defaultschedule/@Model.Id">Update</a>
+                                        <a href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -408,12 +452,12 @@
                             <div class="row form-input">
                                 <div class="col">
                                    <div class="left label--l">
-                                        <label>TOEIC score</label>
+                                        <label>@Labels.ToeicScore</label>
                                     </div>
                                     <div class="left input">
                                         @if (Model.ToeicScore != null)
                                         {
-                                            <table>
+                                            <table class="table bordered striped highlight centered table-custom">
                                                 <tr>
                                                     <td style="padding-right: 10px;">
                                                         <table class="toeic">
@@ -436,28 +480,30 @@
                                                         </table>
                                                     </td>
                                                     <td>
-                                                        <a id="toeic" href="javascript:;">Update</a>
+                                                        <a id="toeic" href="javascript:;">@Labels.Update</a>
                                                     </td>
                                                 </tr>
                                             </table>
                                         }
                                         else
                                         {
-                                            <a id="toeic" href="javascript:;">Update</a>
+                                            <a id="toeic" href="javascript:;">@Labels.Update</a>
                                         }
                                     </div>
                                 </div>
                             </div>
                             <!--End of TOEIC score-->
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.Enabled)
                                     </div>
                                     <div class="left input">
-                                        @Html.EditorFor(model => model.Enabled)
-                                        @Html.ValidationMessageFor(model => model.Enabled)
+                                        @Html.MaterializeCheckBoxFor(model => model.Enabled, new { @class = "filled-in" })
                                     </div>
+                                </div>
+                                <div class="col">
+                                    @Html.ValidationMessageFor(model => model.Enabled)
                                 </div>
                             </div>
                             <div class="row form-input">
