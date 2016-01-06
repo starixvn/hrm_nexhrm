@@ -1,11 +1,11 @@
-﻿@using Fanex.NexHR.Core;
-@model Fanex.NexHR.ViewModels.EmployeeAttendanceViewModel
+﻿@model EmployeeAttendanceViewModel
 @{
-    ViewBag.Title = "Attendance report";
+    ViewBag.Title = Labels.AttendanceReport;
 }
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/attendancejs");
 }
 @section Breadcrumb {
 }
@@ -28,16 +28,7 @@
                                             <label>@Labels.DateRange</label>
                                         </div>
                                         <div class="left select--s">
-                                            <select id="Date" name="Date">
-                                                <option value="0">@Labels.DateRange</option>
-                                                <option value="1">@Labels.ToDay</option>
-                                                <option value="2">@Labels.Yesterday</option>
-                                                <option value="3">@Labels.CurrentWeek</option>
-                                                <option value="4">@Labels.LastWeek</option>
-                                                <option value="5">@Labels.CurrentMonth</option>
-                                                <option value="6">@Labels.LastMonth</option>
-                                                <option value="7">@Labels.SinceLastMonth</option>
-                                            </select>
+                                            @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
                                             @Html.Hidden("DateOption", Model.DateOption)
                                         </div>
                                     </div>
@@ -57,6 +48,7 @@
                                                 new SelectListItem() {Text = "Not Working", Value = "5"},
                                             };
                                             }
+                                            
                                             @Html.DropDownListFor(model => model.AttendanceType, types)
                                         </div>
                                     </div>
@@ -64,19 +56,19 @@
                                 <div class="col s3">
                                     <div class="row">
                                         <div class="left label--m">
-                                            <label>@Labels.FromDate</label>
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                         </div>
-                                        <div class="left datepicker-button input--s">
-                                            @Html.DatePicker("FromDate", Model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
+                                        <div class="left datepicker-button select--s">
+                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1), maxDate: DateTime.Now.AddMonths(4))                                            
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="left label--m">
-                                            <label>@Labels.ToDate</label>
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                         </div>
-                                        <div class="left datepicker-button input--s">
-                                            @Html.DatePicker("ToDate", Model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now.AddMonths(4))
+                                        <div class="left datepicker-button select--s">
+                                            @Html.DatePickerFor(model => model.ToDate)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                     </div>
@@ -89,7 +81,7 @@
                                         <div class="left select--m">
                                             <select id="GroupId" name="GroupId">
                                                 <option value="">@Labels.AllTeams</option>
-                                                @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
+                                                @foreach (Team item in ViewBag.Groups)
                                                 {
                                                     <option value="@item.Id">@item.Name</option>
                                                 }
@@ -101,18 +93,19 @@
                                             @Html.LabelFor(model => model.EmpId)
                                         </div>
                                         <div class="left input--m">
-                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Messages.SearchEmployeeWatermark })
                                             @Html.HiddenFor(model => model.EmpId)
                                             @Html.ValidationMessageFor(model => model.EmpId)
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col s4">
-                                    <div class="col">                                        
-                                        <div class="left select--m">
-                                            <label for="ExcludeUserDelete">
-                                                Exclude former employees</label>
-                                            @Html.CheckBoxFor(model => model.ExcludeUserDelete)
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.MaterializeCheckBoxFor(model => model.ExcludeUserDelete, new { @class = "filled-in" })
+                                        </div>
+                                        <div class="left input--m">
+                                            @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
                                         </div>
                                     </div>
                                     <div class="col m-t--m">

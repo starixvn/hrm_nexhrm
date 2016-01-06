@@ -970,6 +970,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude User Delete.
+        /// </summary>
+        public static string ExcludeUserDelete {
+            get {
+                return ResourceManager.GetString("ExcludeUserDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expiry Date.
         /// </summary>
         public static string ExpiredDate {

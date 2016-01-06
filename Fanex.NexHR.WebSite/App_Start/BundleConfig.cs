@@ -111,6 +111,8 @@
             BuildBundleForToeic(bundles);
 
             BuildBundleForJobTitle(bundles);
+
+            BuildBundleForAttendanceReport(bundles);
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)
@@ -182,6 +184,13 @@
             bundles.AddAndInclude(
                 "~/Content/jobtitlecss",
                 "~/Content/Views/jobtitle.css");
+        }
+
+        private static void BuildBundleForAttendanceReport(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/attendancejs",
+                "~/Scripts/Views/Report/report.attendance.js");
         }
     }
 }

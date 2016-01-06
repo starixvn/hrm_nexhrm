@@ -750,7 +750,6 @@
     <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\memo.js" />
     <Content Include="Scripts\Views\memo.edit.js" />
-    <Content Include="Scripts\Views\report.attendance.js" />
     <Content Include="Scripts\Views\employee.workingschedule.js" />
     <Content Include="Scripts\Views\employee.edit.js" />
     <Content Include="Scripts\Views\employee.js" />

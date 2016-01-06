@@ -2,7 +2,6 @@
 /*exported index*/
 "use strict";
 
-var nickName;
 var rowIndex = 1;
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
@@ -110,27 +109,20 @@ $(document).ready(function () {
         },
         minLength: 1,
         select: function (event, ui) {
-            nickName = ui.item.label;
-            $('#EmpId').val(ui.item.value);
-        },
-        focus: function (event, ui) {
-            nickName = ui.item.label;
+            event.preventDefault();
+            var nickName = ui.item.label;
             $('#Employee').val(nickName);
             $('#EmpId').val(ui.item.value);
-            event.preventDefault();
         },
         change: function (event, ui) {
             if (ui && ui.item) {
-                nickName = ui.item.label;
+                var nickName = ui.item.label;
                 $('#Employee').val(nickName);
                 $('#EmpId').val(ui.item.value);
             }
             else {
                 $('#EmpId').val('0');
             }
-        },
-        close: function () {
-            $('#Employee').val(nickName);
         }
     });
 
@@ -154,6 +146,7 @@ $(document).ready(function () {
 			'&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
     });
 
+    initDatePicker('.datepicker');
     view();
 });
 

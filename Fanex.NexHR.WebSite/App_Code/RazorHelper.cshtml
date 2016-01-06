@@ -271,3 +271,16 @@
         }
     </select>
 }
+@helper DateRangeDropDownList(string name, int selectValue)
+    {
+    <select id="@name" name="@name">
+        @{
+            var a = Enum.GetValues(typeof(DateRange));
+
+            for (var i = 0; i < a.Length; i++)
+            {
+            <option value="@i" selected="@(i == selectValue)">@Labels.ResourceManager.GetString(a.GetValue(i).ToString())</option>
+            }
+        }
+    </select>    
+}

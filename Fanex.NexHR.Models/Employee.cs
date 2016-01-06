@@ -48,14 +48,7 @@ namespace Fanex.NexHR.Models
         {
             get
             {
-                string code = string.Empty;
-
-                if (Team != null)
-                {
-                    code = Team.Code;
-                }
-
-                return code;
+                return Team != null ? Team.Code : string.Empty;
             }
         }
 

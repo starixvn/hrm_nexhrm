@@ -1065,4 +1065,10 @@
   <data name="Yahoo" xml:space="preserve">
     <value>Yahoo</value>
   </data>
+  <data name="AttendanceReport" xml:space="preserve">
+    <value>Attendance report</value>
+  </data>
+  <data name="ExcludeUserDelete" xml:space="preserve">
+    <value>Exclude User Delete</value>
+  </data>
 </root>
