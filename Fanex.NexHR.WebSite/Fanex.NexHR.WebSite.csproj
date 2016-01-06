@@ -590,6 +590,8 @@
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
     <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
+    <Content Include="Scripts\Views\holiday.edit.js" />
+    <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\checkinout.request.js" />

@@ -64,6 +64,8 @@
                 "~/Scripts/Views/annualleavebalance.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
 
+            BuildBundleForHolidays(bundles);
+
             BuildBundleForGeolocation(bundles);
 
             BuildBundleForExtension(bundles);
@@ -88,6 +90,14 @@
             BuildBundleForMonthSchedule(bundles);
 
             BuildBundleForReportTimeRecord(bundles);
+        }
+
+        private static void BuildBundleForHolidays(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/holidays").Include(
+                "~/Scripts/Views/holiday.js"));
+            bundles.Add(new ScriptBundle("~/bundles/holidayedit").Include(
+                "~/Scripts/Views/holiday.edit.js"));
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)

@@ -7,6 +7,7 @@
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/holidayedit");
 }
 @section Breadcrumb {
 }
@@ -85,6 +86,9 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         @Html.AntiForgeryToken()
+                                        <div class="left label--l">
+                                            &nbsp;
+                                        </div>
                                         <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s"><input type="submit" value="Add" /></span>
                                         <a class="button-hrm waves-effect waves-light btn white-text grey darken-1" href="@Url.Action("index", "holiday")" class="button">@Labels.Back</a>
                                     </div>                                    

@@ -295,7 +295,7 @@
     <value>Name</value>
   </data>
   <data name="ShiftInfo" xml:space="preserve">
-    <value>Shift information</value>
+    <value>SHIFT INFORMATION</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
@@ -1070,6 +1070,8 @@
   </data>
   <data name="Avatar" xml:space="preserve">
     <value>Avatar</value>
+  <data name="Holidays" xml:space="preserve">
+    <value>HOLIDAYS</value>
   </data>
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>

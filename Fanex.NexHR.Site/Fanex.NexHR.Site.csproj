@@ -329,6 +329,7 @@
     <Content Include="Scripts\Views\department.edit.js" />
     <Content Include="Scripts\Views\department.js" />
     <Content Include="Scripts\Views\extensionno.js" />
+    <Content Include="Scripts\Views\report.attendance.js" />
     <Content Include="Scripts\Views\timerecord.detail.js" />
     <Content Include="Scripts\Views\timerecord.js" />
     <Content Include="Styles\birthday.css" />
