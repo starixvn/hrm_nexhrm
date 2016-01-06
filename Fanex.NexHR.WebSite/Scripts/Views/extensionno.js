@@ -137,8 +137,9 @@ $(function () {
         $("#dialog-form_edit").dialog({
             autoOpen: false,
             height: 180,
-            width: 400,
+            width: 450,
             modal: true,
+            class: "btn-ok waves-effect waves-light",
             buttons: [{
                 text: "Update",
                 class: "btn-ok waves-effect waves-light",
