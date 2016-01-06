@@ -9,14 +9,14 @@ $(document).ready(function () {
             $.post(_global.root + 'ajax/DeleteExtensionNumber',
 			{ extId: id },
 			function (response) {
-				if (response) {
-					document.location = '/extensionno/index';
-				}
-				else {
-					alert(_messages.errorTryAgain);
-				}
+			    if (response) {
+			        document.location = '/extensionno/index';
+			    }
+			    else {
+			        alert(_messages.errorTryAgain);
+			    }
 			}).error(function () {
-				alert(_messages.errorTryAgain);
+			    alert(_messages.errorTryAgain);
 			});
         });
     });
@@ -27,14 +27,14 @@ $(document).ready(function () {
             $.post(_global.root + 'ajax/DeleteExternalGroup',
 			{ extId: id },
 			function (response) {
-				if (response) {
-				document.location = '/extensionno/ManageExternalGroup';
-				}
-				else {
-					alert(_messages.errorTryAgain);
-				}
+			    if (response) {
+			        document.location = '/extensionno/ManageExternalGroup';
+			    }
+			    else {
+			        alert(_messages.errorTryAgain);
+			    }
 			}).error(function () {
-				alert(_messages.errorTryAgain);
+			    alert(_messages.errorTryAgain);
 			});
         });
     });
@@ -67,8 +67,10 @@ $(function () {
         height: 180,
         width: 400,
         modal: true,
-        buttons: {
-            "Create": function () {
+        buttons: [{
+            text: "Create",
+            class: "btn-ok waves-effect waves-light",
+            click: function () {
                 var bValid = true;
                 allFields.removeClass("ui-state-error");
                 bValid = bValid && checkLength(name, "job title", 3, 100);
@@ -77,21 +79,25 @@ $(function () {
                     $.post(_global.root + 'ajax/AddNewExternalGroup',
 						{ groupName: name.val() },
 						function (response) {
-						if (response) {
-								document.location = '/extensionno/ManageExternalGroup';
-							}
-							else {
-								alert(_messages.errorTryAgain);
-							}
+						    if (response) {
+						        document.location = '/extensionno/ManageExternalGroup';
+						    }
+						    else {
+						        alert(_messages.errorTryAgain);
+						    }
 						}).error(function () {
-							alert(_messages.errorTryAgain);
+						    alert(_messages.errorTryAgain);
 						});
                 }
-            },
-            Cancel: function () {
-                $(this).dialog("close");
             }
         },
+        {
+            text: "Cancel",
+            class: "btn-cancel waves-effect waves-light",
+            click: function () {
+                $(this).dialog("close");
+            }
+        }],
         close: function () {
             updateTips('');
             allFields.val("").removeClass("ui-state-error");
@@ -133,8 +139,10 @@ $(function () {
             height: 180,
             width: 400,
             modal: true,
-            buttons: {
-                "Update": function () {
+            buttons: [{
+                text: "Update",
+                class: "btn-ok waves-effect waves-light",
+                click: function () {
                     var bValid = true;
                     allFields.removeClass("ui-state-error");
                     bValid = bValid && checkLength(name, "job title", 3, 100);
@@ -143,21 +151,25 @@ $(function () {
                         $.post(_global.root + 'ajax/EditExternalGroup',
 						{ groupName: name.val(), extId: id },
 						function (response) {
-							if (response) {
-								document.location = '/extensionno/ManageExternalGroup';
-						}
-							else {
-								alert(_messages.errorTryAgain);
-							}
+						    if (response) {
+						        document.location = '/extensionno/ManageExternalGroup';
+						    }
+						    else {
+						        alert(_messages.errorTryAgain);
+						    }
 						}).error(function () {
-							alert(_messages.errorTryAgain);
+						    alert(_messages.errorTryAgain);
 						});
                     }
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
                 }
             },
+            {
+                text: "Cancel",
+                class: "btn-cancel waves-effect waves-light",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }],
             close: function () {
                 updateTips('');
                 allFields.val("").removeClass("ui-state-error");
