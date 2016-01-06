@@ -18,6 +18,12 @@ main {
   header, main, footer {
     padding-left: 0; } }
 @media (min-width: 1900px) {
+  .row .col.s1 {
+    width: 10%; }
+
+  .row .col.s2 {
+    width: 15%; }
+
   .row .col.s3 {
     width: 20%; }
 
@@ -60,6 +66,20 @@ main {
   background: #e8f5e9;
   color: #2e7d32;
   border: 1px solid #4caf50; }
+
+.validation-summary-info {
+  margin: 1rem 4rem 1.6rem 0.8rem;
+  padding: 0.5rem 1rem 1rem;
+  background: #c0e9fa;
+  color: #0e7fad;
+  border: 1px solid #0e7fad;
+  margin-bottom: 2rem;
+  margin-right: 0;
+  margin-left: 0;
+  text-align: left; }
+  .validation-summary-info .mdi-action-info-outline {
+    position: relative;
+    top: 5px; }
 
 .field-validation-error {
   position: relative;
@@ -438,11 +458,18 @@ a:active, a:focus {
 #dialog-toeic {
   text-align: left; }
 
-#dialog-form, #dialog-form_edit {
+#dialog-form, #dialog-form_edit, #insertform {
   height: 100% !important; }
-  #dialog-form .form, #dialog-form_edit .form {
+  #dialog-form .form, #dialog-form_edit .form, #insertform .form {
     margin-bottom: 0;
     margin-top: 0; }
+
+#insertform {
+  text-align: left; }
+  #insertform .text-box {
+    margin: 0; }
+  #insertform .row {
+    margin-bottom: 1rem; }
 
 .navbar-fixed .top-nav {
   font-size: 24px;

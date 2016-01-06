@@ -159,7 +159,7 @@
 	text-align: left;
 }
 
-#dialog-form, #dialog-form_edit {
+#dialog-form, #dialog-form_edit, #insertform {
 	height: 100% !important;
 	.form {
 		margin-bottom: 0;	
@@ -167,5 +167,17 @@
 	}
 	.validateTips {
 		//display: none;
+	}
+}
+
+#insertform {
+	text-align: left;
+
+	.text-box {
+		margin: 0;
+	}
+
+	.row {
+		margin-bottom: 1rem;
 	}
 }

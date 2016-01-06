@@ -20,8 +20,8 @@
                     <div class="form">
                         @using (Html.BeginForm())
                         {
-                            <div class="row form-input">
-                                <div class="col m-r--m">
+                            <div class="row form-input">                                
+                                <div class="col s2">
                                     <div class="left label--s">
                                         @Html.LabelFor(model => model.Year)
                                     </div>
@@ -29,8 +29,8 @@
                                         @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="left label--s">
+                                <div class="col s4">
+                                    <div class="left label--m">
                                         @Html.LabelFor(model => model.TeamId)
                                     </div>
                                     <div class="left select--m">
@@ -43,7 +43,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col m-r--m">
+                                <div class="col s4">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Employee)
                                     </div>
@@ -52,7 +52,7 @@
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col s1">
                                     <span class="btn-submit waves-effect waves-light">
                                         <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                 </div>

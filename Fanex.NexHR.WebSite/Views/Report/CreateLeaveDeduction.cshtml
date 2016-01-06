@@ -3,16 +3,15 @@
     ViewBag.Title = Labels.MultipleInsert;
 }
 <form class="form">
-<div class="ui-state-error ui-corner-all" style="padding: 0 .6em; text-align:center; font-weight:bold">
-    <p>
-        Annual leave balance: <span id="annualBalance"></span>
-    </p>
+<div class="validation-summary-info ui-corner-all">
+    <span><i class="mdi-action-info-outline mdi-24px m-r--s"></i>Annual leave balance: <span
+        id="annualBalance" class="txt-bold"></span></span>
 </div>
 <div class="row form-input">
     <div class="left label--l">
         @Html.LabelFor(model => model.TotalDays)
     </div>
-    <div class="left input--l">
+    <div class="left input--s">
         @Html.EditorFor(model => model.TotalDays)
     </div>
 </div>
@@ -42,13 +41,11 @@
     </div>
 </div>
 <div class="row form-input">
-    @Html.HiddenFor(model => model.EmpId)
-    <div class="right input--l">
-        <span class="btn-cancel waves-effect waves-light m-r--m">
-            <input id="cancel" type="button" value="@Labels.Cancel" />
-        </span><span class="btn-submit waves-effect waves-light m-r--m">
-            <input id="insert" type="button" value="@Labels.Add" />
-        </span>
-    </div>
+    @Html.HiddenFor(model => model.EmpId)    
+    <span class="btn-ok waves-effect waves-light m-r--m">
+        <input id="insert" type="button" value="@Labels.Add" />
+    </span><span class="btn-cancel waves-effect waves-light m-r--m">
+        <input id="cancel" type="button" value="@Labels.Cancel" />
+    </span>    
 </div>
 </form>

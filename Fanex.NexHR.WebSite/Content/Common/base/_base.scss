@@ -42,6 +42,12 @@ main {
 }
 
 @media (min-width:1900px) {
+  .row .col.s1 {
+    width: 10%; 
+  }	
+  .row .col.s2 {
+    width: 15%; 
+  }
   .row .col.s3 {
     width: 20%; 
   }
@@ -92,6 +98,19 @@ main {
 
 .validation-summary-success {
 	@include validation-block(#e8f5e9, #2e7d32, #4caf50, 1rem);
+}
+
+.validation-summary-info {
+	@include validation-block(#c0e9fa, #0e7fad, #0e7fad, 0.5rem 1rem 1rem);
+	margin-bottom: 2rem;
+	margin-right: 0;
+	margin-left: 0;
+	text-align: left;
+
+	.mdi-action-info-outline {
+		position: relative;
+		top: 5px;
+	}
 }
 
 .field-validation-error {
