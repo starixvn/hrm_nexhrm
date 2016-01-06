@@ -17,9 +17,6 @@ namespace Fanex.NexHR.Models
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Attributes;
 
-    /// <summary>
-    /// Employee class.
-    /// </summary>
     public class Employee : EntityBase<int>
     {
         public string DomainUsername { get; set; }
@@ -213,11 +210,6 @@ namespace Fanex.NexHR.Models
         // TOEIC score
         public Toeic ToeicScore { get; set; }
 
-        /// <summary>
-        /// Check user is in specific roles.
-        /// </summary>
-        /// <param name="roles">Role of user.</param>
-        /// <returns>Return Boolean.</returns>
         public bool IsInRoles(params Role[] roles)
         {
             if (RoleList == null)
@@ -229,11 +221,6 @@ namespace Fanex.NexHR.Models
             return roles.Any(role => userRoles.Contains(role.EnumToString()));
         }
 
-        /// <summary>
-        /// Check user is in specific roles.
-        /// </summary>
-        /// <param name="roles">Role of user.</param>
-        /// <returns>Return Boolean.</returns>
         public bool IsInRoles(IList<string> roles)
         {
             if (roles == null || roles.Count == 0)
@@ -245,10 +232,6 @@ namespace Fanex.NexHR.Models
             return roles.Any(role => userRoles.Contains(role));
         }
 
-        /// <summary>
-        /// Display roles.
-        /// </summary>
-        /// <returns>Role string.</returns>
         public string DisplayRoles()
         {
             var roles = "Member";
@@ -264,12 +247,15 @@ namespace Fanex.NexHR.Models
                     case "1":
                         roles += ", AssistantLeader";
                         break;
+
                     case "2":
                         roles += ", Leader";
                         break;
+
                     case "3":
                         roles += ", HR";
                         break;
+
                     case "4":
                         roles = "System admin";
                         break;
@@ -278,5 +264,7 @@ namespace Fanex.NexHR.Models
 
             return roles;
         }
+
+        public EmployeeShift WorkingCalendar { get; set; }
     }
 }

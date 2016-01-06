@@ -729,7 +729,7 @@
   <data name="S" xml:space="preserve">
     <value>S</value>
   </data>
-  <data name="Nickname" xml:space="preserve">
+  <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
   <data name="UpdateTOEICScore" xml:space="preserve">
@@ -986,5 +986,83 @@
   </data>
   <data name="DisabledUsers" xml:space="preserve">
     <value>Disabled Users</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AnnualLeaveBalance" xml:space="preserve">
+    <value>Annual Leave Balance</value>
+  </data>
+  <data name="AttendanceReport" xml:space="preserve">
+    <value>Attendance Report</value>
+  </data>
+  <data name="ConfirmedDate" xml:space="preserve">
+    <value>Confirmed Date</value>
+  </data>
+  <data name="ContactDetails" xml:space="preserve">
+    <value>Contact Details</value>
+  </data>
+  <data name="CurrentAddress" xml:space="preserve">
+    <value>Current Address</value>
+  </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="IdNo" xml:space="preserve">
+    <value>Id No</value>
+  </data>
+  <data name="IssuedDate" xml:space="preserve">
+    <value>Issued Date</value>
+  </data>
+  <data name="IssuedPlace" xml:space="preserve">
+    <value>Issued Place</value>
+  </data>
+  <data name="JobInformation" xml:space="preserve">
+    <value>Job Information</value>
+  </data>
+  <data name="LastWorkingDate" xml:space="preserve">
+    <value>Last Working Date</value>
+  </data>
+  <data name="Marriage" xml:space="preserve">
+    <value>Marriage</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Mon</value>
+  </data>
+  <data name="PassportExp" xml:space="preserve">
+    <value>Passport Exp</value>
+  </data>
+  <data name="PassportNo" xml:space="preserve">
+    <value>Passport No</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Personal Information</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Sat</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Sun</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Thu</value>
+  </data>
+  <data name="ToeicScore" xml:space="preserve">
+    <value>Toeic Score</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Tue</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Wed</value>
+  </data>
+  <data name="WorkingCalendar" xml:space="preserve">
+    <value>Working Calendar</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>Yahoo</value>
   </data>
 </root>

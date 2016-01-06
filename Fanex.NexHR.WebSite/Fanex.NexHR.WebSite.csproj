@@ -200,7 +200,6 @@
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
-    <None Include="Content\Common\layout\_scrollbars.scss" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />

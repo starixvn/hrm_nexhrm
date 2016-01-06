@@ -97,24 +97,16 @@ namespace Fanex.NexHR.Controllers
             if (model != null)
             {
                 ViewBag.JobTitle = (model.JobTitleId == null)
-                ? Resources.Labels.Unknown
-                : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
+                    ? Resources.Labels.Unknown : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
                 var getMySpaceCriteria = new GetMySpaceCriteria()
                 {
                     EmpId = id
                 };
                 ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
-                var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
-                var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
-                ViewBag.Sun = workingCalendar.SunShiftName;
-                ViewBag.Mon = workingCalendar.MonShiftName;
-                ViewBag.Tue = workingCalendar.TueShiftName;
-                ViewBag.Wed = workingCalendar.WedShiftName;
-                ViewBag.Thu = workingCalendar.ThuShiftName;
-                ViewBag.Fri = workingCalendar.FriShiftName;
-                ViewBag.Sat = workingCalendar.SatShiftName;
+                var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
+                model.WorkingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
             }
 
             ViewBag.TOEIC = _toeicService.GetById(toeicScoreCriteria);

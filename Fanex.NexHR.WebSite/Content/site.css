@@ -759,49 +759,6 @@ table.data thead tr:nth-child(even) {
 #nav-mobile .collapsible-body li:hover a, #nav-mobile .collapsible-body li:hover i, #nav-mobile .collapsible-body li.active a, #nav-mobile .collapsible-body li.active i {
   color: #f4783d; }
 
-::-webkit-scrollbar {
-  width: 1rem;
-  height: .5rem;
-  background-color: #f5f5f5; }
-
-::-webkit-scrollbar-thumb {
-  background-color: #aaa;
-  border-radius: 1rem; }
-
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 0.6rem rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
-  border-radius: 1rem; }
-
-@-moz-document url-prefix("http://"), url-prefix("https://") {
-  scrollbar {
-    -moz-appearance: none !important;
-    background: #aaa !important; }
-
-  thumb, scrollbarbutton {
-    -moz-appearance: none !important;
-    background-color: #aaa !important; }
-
-  thumb:hover, scrollbarbutton:hover {
-    -moz-appearance: none !important;
-    background-color: #aaa !important; }
-
-  scrollbarbutton {
-    display: none !important; }
-
-  scrollbar[orient="vertical"] {
-    min-width: 1.5rem !important; } }
-body {
-  scrollbar-face-color: #aaa;
-  scrollbar-base-color: #aaa;
-  scrollbar-base-color: #aaa;
-  scrollbar-3dlight-color: #aaa;
-  scrollbar-highlight-color: #aaa;
-  scrollbar-track-color: #aaa;
-  scrollbar-arrow-color: #aaa;
-  scrollbar-shadow-color: #aaa;
-  scrollbar-dark-shadow-color: #aaa; }
-
 .tipsy {
   font-size: 10px;
   position: absolute;
