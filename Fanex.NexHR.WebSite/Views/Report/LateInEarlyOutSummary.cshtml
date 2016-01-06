@@ -1,14 +1,11 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Models;
-@using Fanex.NexHR.Models.Report;
-@using Fanex.NexHR.Resources;
-@model Fanex.NexHR.ViewModels.Report.LateInEarlyOutSummaryViewModel
+﻿@model LateInEarlyOutSummaryViewModel
 @{
     ViewBag.Title = Labels.LateInEarlyOutSummary;
 }
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/lateinearlyoutsummaryjs");
 }
 @section Breadcrumb {
 }
@@ -32,12 +29,11 @@
                                         @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
                                 </div>
-
-                                <div class="col m-r--m">
-                                    <div class="left label--s m-r--s">
+                                <div class="col">
+                                    <div class="left label--s">
                                         @Html.LabelFor(model => model.TeamId)
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--m">
                                         <select id="TeamId" name="TeamId" class="yearpicker">
                                             <option value="">@Labels.AllTeams</option>
                                             @foreach (Team team in Model.Groups)
@@ -47,19 +43,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                
                                 <div class="col m-r--m">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Employee)
                                     </div>
-                                    <div class="left input--s">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s"><input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                    <span class="btn-submit waves-effect waves-light">
+                                        <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                 </div>
                             </div>   
                             
@@ -80,30 +75,49 @@
                         <table class="data persist-area table bordered striped highlight table-custom centered">
                             <thead class="persist-header">
                                 <tr>
-                                    <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@(Model.Year - 1)(Hours)</th>
-                                    <th colspan="13">@Model.Year (Hours / Times)</th>
-                                    <th rowspan="2">@Labels.DeductionTaken (Hours)</th>
-                                    <th rowspan="2">@Labels.Balance (Hours)</th>
+                                    <th rowspan="2">@Labels.Nick
+                                    </th>
+                                    <th rowspan="2">@(Model.Year - 1)(Hours)
+                                    </th>
+                                    <th colspan="13">@Model.Year (Hours / Times)
+                                    </th>
+                                    <th rowspan="2">@Labels.DeductionTaken (Hours)
+                                    </th>
+                                    <th rowspan="2">@Labels.Balance (Hours)
+                                    </th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th rowspan="2">@Labels.Deduct</th>
+                                        <th rowspan="2">@Labels.Deduct
+                                        </th>
                                     }
                                 </tr>
                                 <tr>
-                                    <th>@Labels.Jan</th>
-                                    <th>@Labels.Feb</th>
-                                    <th>@Labels.Mar</th>
-                                    <th>@Labels.Apr</th>
-                                    <th>@Labels.May</th>
-                                    <th>@Labels.Jun</th>
-                                    <th>@Labels.Jul</th>
-                                    <th>@Labels.Aug</th>
-                                    <th>@Labels.Sep</th>
-                                    <th>@Labels.Oct</th>
-                                    <th>@Labels.Nov</th>
-                                    <th>@Labels.Dec</th>
-                                    <th>@Labels.Total</th>
+                                    <th>@Labels.Jan
+                                    </th>
+                                    <th>@Labels.Feb
+                                    </th>
+                                    <th>@Labels.Mar
+                                    </th>
+                                    <th>@Labels.Apr
+                                    </th>
+                                    <th>@Labels.May
+                                    </th>
+                                    <th>@Labels.Jun
+                                    </th>
+                                    <th>@Labels.Jul
+                                    </th>
+                                    <th>@Labels.Aug
+                                    </th>
+                                    <th>@Labels.Sep
+                                    </th>
+                                    <th>@Labels.Oct
+                                    </th>
+                                    <th>@Labels.Nov
+                                    </th>
+                                    <th>@Labels.Dec
+                                    </th>
+                                    <th>@Labels.Total
+                                    </th>
                                 </tr>
                             </thead>
                             @if (Model.LateInEarlyOutSummary != null && Model.LateInEarlyOutSummary.Any())
@@ -123,8 +137,10 @@
                                         foreach (LateInEarlyOutSummary lateIn in item.LateInEarlyOutSummaryInTeam)
                                         {
                                         <tr>
-                                            <td class="tooltip" title="@lateIn.Employee.FullName">@lateIn.Employee.NickName</td>
-                                            <td>@(lateIn.BalanceLastYear != 0 ? (lateIn.BalanceLastYear / 60.0).ToString("0.0") : "-")</td>
+                                            <td class="tooltip" title="@lateIn.Employee.FullName">@lateIn.Employee.NickName
+                                            </td>
+                                            <td>@(lateIn.BalanceLastYear != 0 ? (lateIn.BalanceLastYear / 60.0).ToString("0.0") : "-")
+                                            </td>
                                             @DisplayFormatTotalLateInEarlyOut(lateIn.Jan, lateIn.TimesInJan, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 1, 31))
                                             @DisplayFormatTotalLateInEarlyOut(lateIn.Feb, lateIn.TimesInFeb, lateIn.Employee.Id, new DateTime(Model.Year, 2, 1), new DateTime(Model.Year, 3, 1).AddDays(-1))
                                             @DisplayFormatTotalLateInEarlyOut(lateIn.Mar, lateIn.TimesInMar, lateIn.Employee.Id, new DateTime(Model.Year, 3, 1), new DateTime(Model.Year, 3, 31))
@@ -139,13 +155,13 @@
                                             @DisplayFormatTotalLateInEarlyOut(lateIn.Dec, lateIn.TimesInDec, lateIn.Employee.Id, new DateTime(Model.Year, 12, 1), new DateTime(Model.Year, 12, 31))
                                             @DisplayFormatTotalLateInEarlyOut(lateIn.TotalCurrentYear, lateIn.TotalTimesCurrentYear, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31), false)
                                             @DisplayNumberHours(lateIn.LeaveDeduction, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31))
-                                            <td class="@(lateIn.BalanceCurrentYear >= 240 ? "red-color bold-color" : "bold-color")">@(lateIn.BalanceCurrentYear != 0 ? (lateIn.BalanceCurrentYear / 60.0).ToString("0.0") : "-")</td>
+                                            <td class="@(lateIn.BalanceCurrentYear >= 240 ? "red-color bold-color" : "bold-color")">@(lateIn.BalanceCurrentYear != 0 ? (lateIn.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
+                                            </td>
                                             @if (Roles.IsUserInRole("HR"))
                                             {
                                                 <td class="center">
                                                     <a href="javascript:;" class="addLeavededuction" data-id="@lateIn.Employee.Id" data-annualbalance="@lateIn.Employee.AnnualLeaveBalance">
-                                                        <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
-                                                    </a>
+                                                        <i class="mdi mdi-border-color mdi-18px mdi-dark"></i></a>
                                                 </td>
                                             }
                                         </tr>
@@ -159,7 +175,6 @@
                             }
                         </table>
                     </div>
-                    
                     <div class="hide">
                         <div id="insertform" title="Add leave deduction">
                             @Html.Action("CreateLeaveDeduction")
@@ -209,4 +224,3 @@
         </div>
     </div>
 </div>
-

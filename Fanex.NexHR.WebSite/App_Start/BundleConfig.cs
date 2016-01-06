@@ -86,6 +86,7 @@
             BuildBundleForAttendanceReport(bundles);
 
             BuildBundleForEditEmployee(bundles);
+            BuildBundleForLateInEarlyOut(bundles);
 
             BuildBundleForDefaultSchedule(bundles);
 
@@ -200,7 +201,13 @@
             bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
                 "~/Scripts/Views/user.management.js"));
         }
-
+ private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/lateinearlyoutsummaryjs",
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/leavededuction.js");
+                }
         private static void BuildBundleForEditEmployee(BundleCollection bundles)
         {
             bundles.AddAndInclude(

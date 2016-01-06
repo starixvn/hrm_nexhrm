@@ -13,7 +13,7 @@
                         <label>@Labels.DateRange</label>
                     </div>
                     <div class="left select--m">
-                        @Html.DropDownList("Date", new SelectList(Model.FilteringDateRanges, "Value", "Text", Model.DateOption.ToString()))
+                        @RazorHelper.DateRangeDropDownList("Date", Model.DateOption)                        
                         @Html.Hidden("DateOption", Model.DateOption)
                     </div>
                 </div>
