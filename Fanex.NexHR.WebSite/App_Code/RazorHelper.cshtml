@@ -275,11 +275,11 @@
     {
     <select id="@name" name="@name">
         @{
-            var a = Enum.GetValues(typeof(DateRange));
+            var list = Enum.GetValues(typeof(DateRange));
 
-            for (var i = 0; i < a.Length; i++)
+            for (var i = 0; i < list.Length; i++)
             {
-            <option value="@i" selected="@(i == selectValue)">@Labels.ResourceManager.GetString(a.GetValue(i).ToString())</option>
+            <option value="@i" selected="@(i == selectValue)">@Labels.ResourceManager.GetString(list.GetValue(i).ToString())</option>
             }
         }
     </select>    
