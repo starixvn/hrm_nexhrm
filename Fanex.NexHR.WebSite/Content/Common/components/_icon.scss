@@ -42,6 +42,13 @@
    color: $c-iedit--hover;	
 }
 
-.mdi-delete:hover {
-   color: $c-idel--hover;	
+.mdi-delete {
+	&:hover {
+		color: $c-idel--hover;	
+	}
+	&.mdi-disabled {
+		color: rgba(0, 0, 0, 0.2);
+		cursor: default;
+	}
 }
+

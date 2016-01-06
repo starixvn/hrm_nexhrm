@@ -18,10 +18,5 @@ table.table-custom tr td.col-edit .action-update, table.table-custom tr td.col-e
   display: none; }
 table.table-custom tr td.col-edit .action-cancel {
   margin-left: 1rem; }
-table.table-custom tr td.col-delete a i {
-  color: red; }
-  table.table-custom tr td.col-delete a i.mdi-disabled {
-    color: rgba(0, 0, 0, 0.3);
-    cursor: default; }
 
 /*# sourceMappingURL=jobtitle.css.map */

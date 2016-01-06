@@ -43,14 +43,7 @@ table.table-custom {
 
         &.col-delete {
             a {
-                i {
-                    color: red;
-
-                    &.mdi-disabled {
-                    	color: rgba(0, 0, 0, 0.3);
-                        cursor: default;
-                    }
-                }
+               
             }
         }
     }

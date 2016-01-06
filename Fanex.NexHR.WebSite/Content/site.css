@@ -336,6 +336,9 @@ a:active, a:focus {
 
 .mdi-delete:hover {
   color: #ff0909; }
+.mdi-delete.mdi-disabled {
+  color: rgba(0, 0, 0, 0.2);
+  cursor: default; }
 
 .form {
   margin-top: 16px;
@@ -451,6 +454,12 @@ a:active, a:focus {
 
 #dialog-toeic {
   text-align: left; }
+
+#dialog-form, #dialog-form_edit {
+  height: 100% !important; }
+  #dialog-form .form, #dialog-form_edit .form {
+    margin-bottom: 0;
+    margin-top: 0; }
 
 .navbar-fixed .top-nav {
   font-size: 24px;
