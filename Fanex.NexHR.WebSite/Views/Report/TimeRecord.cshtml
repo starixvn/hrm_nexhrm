@@ -1,13 +1,14 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Models
-@using Fanex.NexHR.ViewModels
-@model TimeRecordViewModel
+﻿@model TimeRecordViewModel
 @{
     ViewBag.Title = @Labels.TimeRecord;
 }
 @section css{
+    @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
+    @Scripts.Render(
+        "~/bundles/contextmenujs",
+        "~/bundles/timerecordjs")
 }
 @section Breadcrumb {
 }
@@ -27,22 +28,13 @@
                                     <label>@Labels.DateRange</label>
                                 </div>
                                 <div class="left select--m">
-                                    <select id="Date" name="Date">
-                                        <option value="0">@Labels.DateRange</option>
-                                        <option value="1">@Labels.ToDay</option>
-                                        <option value="2">@Labels.Yesterday</option>
-                                        <option value="3">@Labels.CurrentWeek</option>
-                                        <option value="4">@Labels.LastWeek</option>
-                                        <option value="5">@Labels.CurrentMonth</option>
-                                        <option value="6">@Labels.LastMonth</option>
-                                        <option value="7">@Labels.SinceLastMonth</option>
-                                    </select>
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate, "From Date")
+                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                 </div>
                                 <div class="left datepicker-button select--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -51,7 +43,7 @@
                             </div>
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.ToDate)
+                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                 </div>
                                 <div class="left datepicker-button select--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -62,16 +54,10 @@
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.TeamIds)
+                                    @Html.LabelFor(model => model.TeamIds, Labels.Team)
                                 </div>
                                 <div class="left select--m">
-                                    <select id="GroupId" name="GroupId">
-                                        <option value="">@Labels.AllTeams</option>
-                                        @foreach (Team item in Model.Teams)
-                                        {
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
-                                    </select>
+                                    @Html.DropDownList("GroupId", new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--m">

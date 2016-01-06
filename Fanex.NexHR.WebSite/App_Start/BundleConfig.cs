@@ -40,12 +40,7 @@
                 "~/Content/mytimesheetcss",
                 "~/Content/Views/report.timesheet.css");
 
-            // time record
-            bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
-                "~/Scripts/Views/report.timerecord.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/timerecordcss");
+            BuildBundleForReportMyTimeRecord(bundles);
 
             // my calendar
             bundles.Add(new ScriptBundle("~/bundles/mycalendarjs").Include(
@@ -91,6 +86,8 @@
             BuildBundleForDefaultSchedule(bundles);
 
             BuildBundleForMonthSchedule(bundles);
+
+            BuildBundleForReportTimeRecord(bundles);
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)
@@ -239,6 +236,19 @@
 
             bundles.Add(new ScriptBundle("~/bundles/monthschedulejs").Include(
                 "~/Scripts/Views/Employee/employee.monthschedule.js"));
+        }
+
+        private static void BuildBundleForReportMyTimeRecord(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/mytimerecordjs").Include(
+                "~/Scripts/Views/Report/report.mytimerecord.js"));
+        }
+
+        private static void BuildBundleForReportTimeRecord(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/report.timerecord.js"));
         }
     }
 }

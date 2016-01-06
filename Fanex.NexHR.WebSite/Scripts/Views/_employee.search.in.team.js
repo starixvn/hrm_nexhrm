@@ -39,7 +39,6 @@ $(document).ready(function () {
             $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);
         },
-        
         change: function (event, ui) {
             if (ui && ui.item) {
                 var nickName = ui.item.label;

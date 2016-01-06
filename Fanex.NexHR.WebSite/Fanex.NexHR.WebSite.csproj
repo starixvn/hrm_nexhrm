@@ -218,6 +218,7 @@
     <Content Include="Content\Common\fullcalendar.css" />
     <Content Include="Content\Common\monPickr-0.0.3.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
+    <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\calendar.png" />
     <Content Include="Content\Images\cancel.png" />
@@ -603,8 +604,9 @@
     <Content Include="Scripts\Views\leave.request.js" />
     <Content Include="Scripts\Views\report.timesheet.js" />
     <Content Include="Scripts\Views\Report\report.attendance.js" />
+    <Content Include="Scripts\Views\Report\report.mytimerecord.js" />
     <Content Include="Scripts\Views\search.request.js" />
-    <Content Include="Scripts\Views\report.timerecord.js" />
+    <Content Include="Scripts\Views\Report\report.timerecord.js" />
     <Content Include="Scripts\Views\team.management.js" />
     <Content Include="Scripts\Views\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />

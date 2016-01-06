@@ -362,7 +362,7 @@ function stringToBool(value)
 }
 
 function showMessage(message) {
-    $('#message').html(message + " <img src='/images/ajax-loader.gif' />").css('left', $(window).width()/2);
+    $('#message').html(message + " <img src='/content/images/ajax-loader.gif' />").css('left', $(window).width()/2);
     $('#message').slideDown();
 }
 

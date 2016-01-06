@@ -2,8 +2,6 @@
 /*global _global:false*/
 /*exported submitForm*/
 
-var nickName;
-
 $(document).ready(function () {
     $("#Employee").autocomplete({
         source: function (request, response) {
@@ -39,28 +37,17 @@ $(document).ready(function () {
         },
         minLength: 1,
         select: function (event, ui) {
-            nickName = ui.item.label;
+            var nickName = ui.item.label;
             $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);
         },
-        focus: function (event, ui) {
-            $('#Employee').val(ui.item.label);
-            event.preventDefault();
-        },
         change: function (event, ui) {
             if (ui && ui.item) {
-                nickName = ui.item.label;
+                var nickName = ui.item.label;
                 $('#Employee').val(nickName);
                 $('#EmployeeId').val(ui.item.value);
             } else {
                 $('#EmployeeId').val('0');
-            }
-        },
-        close: function () {
-            if (nickName) {
-                $('#Employee').val(nickName);
-            } else {
-                $('#Employee').val('');
             }
         }
     });

@@ -1,39 +1,29 @@
-﻿@using Fanex.NexHR.Core
-@model IList<Fanex.NexHR.Models.TimeRecordModel>
+﻿@model IList<TimeRecordModel>
 @{
     Layout = null;
 }
 <div class="p-x--s">
-    <table id="data" class="table bordered striped highlight centered table-custom">
+    <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
         <thead>
             <tr>
-                <th>
-                    #
-                </th>
-                <th>@Labels.Code
-                </th>
-                <th>@Labels.Nick
-                </th>
-                <th>@Labels.Team
-                </th>
-                <th>@Labels.TimeRecord
-                </th>
-                <th>@Labels.InOut
-                </th>
+                <th>@Labels.SymbolCount</th>
+                <th>@Labels.Code</th>
+                <th>@Labels.Nick</th>
+                <th>@Labels.Team</th>
+                <th>@Labels.TimeRecord</th>
+                <th>@Labels.InOut</th>
             </tr>
         </thead>
         <tbody>
             @if (Model != null && Model.Any())
             {
                 var i = 0;
-                foreach (Fanex.NexHR.Models.TimeRecordModel item in Model)
+                foreach (TimeRecordModel item in Model)
                 {
                     i++;
                 <tr>
-                    <td>@i
-                    </td>
-                    <td>@item.Employee.Code
-                    </td>
+                    <td>@i</td>
+                    <td>@item.Employee.Code</td>
                     <td class="tooltip" title="@item.Employee.FullName">
                         @item.Employee.NickName
                     </td>

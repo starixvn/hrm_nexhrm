@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global*/
+/*global _global, fadeOutMessage, showMessage*/
 
 var TimeRecord = (function ($) {
     return {
@@ -53,7 +53,83 @@ var TimeRecord = (function ($) {
             }
         }
     };
-} (jQuery));
+    } (jQuery));
+
+function processInOut(inoutType, eventElement) {
+    var recordTimeId = $(eventElement).attr('data-id');
+    showMessage('Processing');
+
+    $.post(_global.root + 'Report/ProcessInOut',
+    { inoutType: inoutType, recordTimeId: recordTimeId },
+    function (response) {
+        if (response.Code === 0) {
+            TimeRecord.fillData();
+        }
+        else {
+            alert(response.Message);
+            return;
+        }
+    });
+
+    fadeOutMessage();
+}
+
+function bindMenuIn(element) {
+    $.contextMenu({
+        selector: element,
+        trigger: 'left',
+        callback: function (key, options) {
+            confirm('Are you sure you change to in?', function () {
+                processInOut(0, element);
+            });
+        },
+        items: {
+            'in': { name: 'In' }
+        }
+    });
+}
+
+function bindMenuOut(element) {
+    $.contextMenu({
+        selector: element,
+        trigger: 'left',
+        callback: function (key, options) {
+            confirm('Are you sure you change to out?', function () {
+                processInOut(1, element);
+            });
+        },
+        items: {
+            'out': { name: 'Out'}
+        }
+    });
+}
+
+function bindMenuInOut(element) {
+    $.contextMenu({
+        selector: element,
+        trigger: 'left',
+        callback: function (key, options) {
+            switch (command) {
+                case 'in':
+                    confirm('Are you sure you change to in?', function () {
+                        processInOut(0, element);
+                    });
+
+                    break;
+                case 'out':
+                    confirm('Are you sure you change to out?', function () {
+                        processInOut(1, element);
+                    });
+
+                    break;
+            }
+        },
+        items: {
+            'in': { name: 'In' },
+            'out': { name: 'Out' }
+        }
+    });
+}
 
 $(document).ready(function () {
     TimeRecord.init();
@@ -74,4 +150,8 @@ $(document).ready(function () {
 
     initDatePicker('#FromDate');
     initDatePicker('#ToDate');
+
+    bindMenuIn('.in-action');
+    bindMenuOut('.out-action');
+    bindMenuInOut('.inout-action')
 });
