@@ -8,6 +8,8 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none">
+</div>
 <div class="row content">
     <div class="col s12 card-container-base">
         <div class="card">
@@ -53,7 +55,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
+                                <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
                                 <a id="query" class="btn-submit waves-effect waves-light m-r--m" href="javascript:;">@Labels.Submit</a>
                                 <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
                             </div>
@@ -78,7 +80,7 @@
                                     </div>
                                 </th>
                                 <th class="col-sorter">
-                                    @Labels.Name
+                                    @Labels.FullName
                                     <div class="sorter" data-property="FullName">
                                     </div>
                                 </th>
@@ -121,7 +123,7 @@
         </div>
     </div>
 </div>
-<script id="itemTemplate" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jquery-tmpl">
     <tr id="row${Id}" {{if Enabled == false }}class="disabled"{{/if}}>
         <td>
             ${index()}
@@ -132,7 +134,7 @@
         <td class="nick" data-code="${Code}">
             <a href="/employee/detail/${Id}">${NickName}</a>
         </td>
-        <td class="txt-left">${FullName}</td>
+        <td class="align-left">${FullName}</td>
         <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>
         <td>
             {{if Gender == 0 }}
@@ -141,7 +143,7 @@
                 M
             {{/if}}
         </td>
-        <td class="txt-left">${JobTitle}</td>
+        <td class="align-left">${JobTitle}</td>
         <td>${formatDate(DateOfBirth, 'dd MMM, yyyy')}</td>
         <td>
             {{if JoinedDate != null}}

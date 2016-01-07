@@ -1,0 +1,51 @@
+table {
+    tr {
+        &.january {
+            background-color: #f7e1e1 !important;
+        }
+
+        &.february {
+            background-color: #ccffff !important;
+        }
+
+        &.march {
+            background-color: #ededd0 !important;
+        }
+
+        &.april {
+            background-color: #ffcc99 !important;
+        }
+
+        &.may {
+            background-color: #ccff99 !important;
+        }
+
+        &.june {
+            background-color: #c5d6f7 !important;
+        }
+
+        &.july {
+            background-color: #fbd6e2 !important;
+        }
+
+        &.august {
+            background-color: #f1ddca !important;
+        }
+
+        &.september {
+            background-color: #ded4f1 !important;
+        }
+
+        &.october {
+            background-color: #f7eab9 !important;
+        }
+
+        &.november {
+            background-color: #d3ebf3 !important;
+        }
+
+        &.december {
+            background-color: #e2efba !important;
+        }
+    }
+}

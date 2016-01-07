@@ -970,6 +970,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Birthday.
+        /// </summary>
+        public static string EmployeeBirthday {
+            get {
+                return ResourceManager.GetString("EmployeeBirthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employees&apos; calendar.
         /// </summary>
         public static string EmployeeCalendar {
@@ -2653,11 +2662,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Staff Birthday.
+        /// </summary>
+        public static string StaffBirthday {
+            get {
+                return ResourceManager.GetString("StaffBirthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  Staff Code.
         /// </summary>
         public static string StaffCode {
             get {
                 return ResourceManager.GetString("StaffCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Staff Info.
+        /// </summary>
+        public static string StaffInfo {
+            get {
+                return ResourceManager.GetString("StaffInfo", resourceCulture);
             }
         }
         

@@ -83,6 +83,7 @@
     <Compile Include="RequestViewModel.cs" />
     <Compile Include="SearchEmployeeModel.cs" />
     <Compile Include="SortModel.cs" />
+    <Compile Include="StaffInfoViewModel.cs" />
     <Compile Include="TeamViewModel.cs" />
     <Compile Include="TimeRecordViewModel.cs" />
     <Compile Include="TimesheetViewModel.cs" />

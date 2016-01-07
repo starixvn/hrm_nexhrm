@@ -558,3 +558,10 @@ function zeroPrefix(value) {
     if(parseInt(value) < 10) return '0' + parseInt(value);
     return value;
 }
+
+function floatThead(el){
+    $(el).floatThead({
+        top: 64,
+        zIndex: 888
+    });
+}

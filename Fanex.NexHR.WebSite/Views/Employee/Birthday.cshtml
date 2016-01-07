@@ -1,19 +1,17 @@
-﻿@using Fanex.NexHR.ViewModels
-@model IEnumerable<EmployeeBirthdayViewModel>
+﻿@model IEnumerable<EmployeeBirthdayViewModel>
 @{
-    ViewBag.Title = "Employee Birthday";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var index = 1;
-    var cssClass = string.Empty;
+    ViewBag.Title = Labels.EmployeeBirthday;
 }
 @section css {
+    @Styles.Render("~/Content/staffbirthdaycss")
 }
 @section js {
+    @Scripts.Render("~/bundles/staffbirthdayjs")
 }
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 l7 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -21,24 +19,22 @@
                 </div>
                 <div class="card-body">
                     <div class="p-x--s m-t--m">
-                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom" style="width: 700px;">
-                            <thead class="persist-header">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom" style="width: 700px;">
+                            <thead>
                                 <tr>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>@Html.DisplayNameFor(model => model.FullName)
-                                    </th>
-                                    <th>@Html.DisplayNameFor(model => model.NickName)
-                                    </th>
-                                    <th>@Html.DisplayNameFor(model => model.DateOfBirth)
-                                    </th>
-                                    <th>@Html.DisplayNameFor(model => model.Month)
-                                    </th>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.FullName</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.DateOfBirth</th>
+                                    <th>@Labels.Month</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @{
+                                var index = 1; 
+                                var cssClass = string.Empty;
+                                
+                                foreach (var item in Model)
                                 {
                                     switch (item.Month)
                                     {
@@ -71,22 +67,15 @@
                                     }
 
                                     <tr class="@cssClass">
-                                        <td>@index
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FullName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NickName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateOfBirth)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Month)
-                                        </td>
+                                        <td>@index</td>
+                                        <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NickName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Month)</td>
                                     </tr>
+                                    
                                     index++;
+                                }
                                 }
                             </tbody>
                         </table>

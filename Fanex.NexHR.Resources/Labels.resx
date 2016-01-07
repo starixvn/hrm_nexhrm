@@ -1113,4 +1113,13 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="StaffInfo" xml:space="preserve">
+    <value>Staff Info</value>
+  </data>
+  <data name="EmployeeBirthday" xml:space="preserve">
+    <value>Employee Birthday</value>
+  </data>
+  <data name="StaffBirthday" xml:space="preserve">
+    <value>Staff Birthday</value>
+  </data>
 </root>

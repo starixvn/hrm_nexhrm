@@ -1,12 +1,16 @@
-﻿@{
-    ViewBag.Title = "Staff info";
+﻿@model StaffInfoViewModel
+@{
+    ViewBag.Title = Labels.StaffInfo;
 }
 @section css {
 }
 @section js {
+    @Scripts.Render("~/bundles/staffinfojs")
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none">
+</div>
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -25,7 +29,7 @@
                                     <label>@Labels.Keyword</label>
                                 </div>
                                 <div class="left input--m">
-                                    <input id="keyword" type="text" placeholder="@Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark" />   
+                                    <input id="keyword" type="text" placeholder="@Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark" />
                                 </div>
                             </div>
                             <div class="col">
@@ -33,25 +37,108 @@
                                     <label>@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    <select id="group" class="team-select">
-                                        <option value="">All teams</option>
-                                        @foreach (Fanex.NexHR.Models.Team item in ViewBag.Groups)
-                                        {
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
-                                    </select>
+                                    @Html.DropDownList("group", new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col">
-                                <span class="btn-submit waves-effect waves-light m-r--s"><input id="query" type="button" value="Submit" /></span>
-                                <a class="btn-request waves-effect waves-light" href="~/employee/birthday">Staff Birthday</a>
+                                <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
+                                <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--s" >@Labels.Excel</a>
+                                <a class="btn-request waves-effect waves-light" href="@Url.Action("birthday", "employee")">@Labels.StaffBirthday</a>
                             </div>
                         </div> 
                     </div>
-                    <div id="gridStaffInfo" class="freegrid">
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                        <thead>
+                            <tr>
+                                <th>@Labels.SymbolCount</th>
+                                <th class="col-sorter">
+                                    @Labels.Code
+                                    <div class="sorter" data-property="Code"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Nick
+                                    <div class="sorter" data-property="NickName"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.FullName
+                                    <div class="sorter" data-property="FullName"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Team
+                                    <div class="sorter" data-property="CodeOfTeam"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Gender
+                                    <div class="sorter" data-property="Gender">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JobTitle
+                                    <div class="sorter" data-property="JobTitle"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.DoB
+                                    <div class="sorter" data-property="DateOfBirth"></div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JoinedDate
+                                    <div class="sorter" data-property="JoinedDate"></div>
+                                </th>
+                                <th>@Labels.Edit</th>
+                                <th>@Labels.Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script id="template" type="text/x-jquery-tmpl">
+    <tr id="row${Id}" {{if Enabled == false }}class="disabled"{{/if}}>
+        <td>
+            ${index()}
+        </td>
+        <td>
+            ${Code}
+        </td>
+        <td class="nick" data-code="${Code}">
+            <a href="/employee/detail/${Id}">${NickName}</a>
+        </td>
+        <td class="align-left">${FullName}</td>
+        <td title="${Team["Name"]}" class="tooltip">${Team["Code"]}</td>
+        <td>
+            {{if Gender == 0 }}
+                F
+            {{else}}
+                M
+            {{/if}}
+        </td>
+        <td class="align-left">${JobTitle}</td>
+        <td>${formatDate(DateOfBirth, 'dd MMM, yyyy')}</td>
+        <td>
+            {{if JoinedDate != null}}
+                ${formatDate(JoinedDate, 'dd MMM, yyyy')}
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+                <a href="/employee/edit/${Id}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+                <a href="/employee/defaultschedule/${Id}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+    </tr>
+</script>

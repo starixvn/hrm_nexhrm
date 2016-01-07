@@ -68,8 +68,10 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            return View();
+            var model = new StaffInfoViewModel();
+            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+
+            return View(model);
         }
 
         [Authorize(Roles = "HR")]

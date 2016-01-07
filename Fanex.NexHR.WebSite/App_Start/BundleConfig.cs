@@ -60,7 +60,12 @@
             BuildBundleForReportTimeRecord(bundles);
 
             BuildBundleForLeaveSummary(bundles);
+            
             BuildBundleForWorkingCanlendar(bundles);
+            
+            BuildBundleForStaffInfo(bundles);
+
+            BuildBundleForStaffBirthday(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -320,6 +325,22 @@
             bundles.Add(new ScriptBundle("~/bundles/workingcalendarsjs").Include(
                 "~/Scripts/Views/Employee/employee.workingcalendars.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
+        }
+        
+         private static void BuildBundleForStaffInfo(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/staffinfojs").Include(
+                "~/Scripts/Views/Employee/employee.index.js"));
+        }
+
+        private static void BuildBundleForStaffBirthday(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/staffbirthdayjs").Include(
+                "~/Scripts/Views/Employee/employee.birthday.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/staffbirthdaycss",
+                "~/Content/Views/employee.birthday.css");
         }
     }
 }
