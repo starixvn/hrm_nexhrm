@@ -58,7 +58,7 @@ $input-disabled-solid-color: #BDBDBD !default;
 
 // Radio Buttons
 $radio-fill-color: #f4783d !default;
-$radio-empty-color: #5a5a5a !default;
+$radio-empty-color: rgba(90, 90, 90, .7) !default;
 
 // Switches
 $switch-bg-color: $secondary-color !default;
