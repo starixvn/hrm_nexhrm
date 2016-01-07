@@ -29,6 +29,7 @@
             BuildBundleForRequestsStatistic(bundles);
 
             BuildBundleForAnnualLeaveBalance(bundles);
+
             BuildBundleForTotalWorkingHours(bundles);
 
             BuildBundleForHolidays(bundles);
@@ -122,8 +123,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
                 "~/Scripts/Views/_employee.search.in.company.js",
-                //"~/Scripts/Libs/date.js",
-                "~/Scripts/Views/date.filter.js"));
+                "~/Scripts/Views/totalworkinghours.js"));
         }
 
         private static void BuildBundleForHolidays(BundleCollection bundles)

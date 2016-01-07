@@ -45,7 +45,7 @@
                                     <div class='left label--m'>
                                         @Html.LabelFor(model => model.Category)
                                     </div>
-                                    <div class="left select--m">
+                                    <div class="left select--s">
                                         @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.MemoCategories, "id", "Name"), new SelectListItem() { Value = "-1", Text = "All" }, new { @class = "aaaa" })
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                                 <td>
                                                     @item.RefNo
                                                 </td>
-                                                <td>
+                                                <td class="txt-left">
                                                     <a href="@Url.Action("detail", "memo", new { Id = item.Id })">@item.Subject</a>
                                                 </td>
                                                 <td>

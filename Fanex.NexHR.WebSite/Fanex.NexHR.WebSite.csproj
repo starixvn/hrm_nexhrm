@@ -338,7 +338,6 @@
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
-    <Content Include="Scripts\Views\date.filter.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
@@ -622,6 +621,7 @@
     <Content Include="Scripts\Views\Request\search.request.js" />
     <Content Include="Scripts\Views\Report\report.timerecord.js" />
     <Content Include="Scripts\Views\team.management.js" />
+    <Content Include="Scripts\Views\totalworkinghours.js" />
     <Content Include="Scripts\Views\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\_employee.search.in.team.js" />

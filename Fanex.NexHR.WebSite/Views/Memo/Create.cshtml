@@ -11,7 +11,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 l12 card-container-base my-request">
+    <div class="col s12 l10 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -56,7 +56,7 @@
                                         <div class="left label--m">
                                             @Html.LabelFor(model => model.Category)
                                         </div>
-                                        <div class="left select--m">
+                                        <div class="left select--s">
                                             @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.MemoCategories, "Id", "Name"))
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.SendMail)
+                                            @Html.LabelFor(model => model.SendMail, Labels.SendMail)
                                         </div>
                                         <div class="left">
                                             @Html.MaterializeCheckBoxFor(model => model.SendMail, new { @class = "filled-in" })
@@ -154,14 +154,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="left">
-                                        @Html.AntiForgeryToken()
-                                        <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s">
-                                            <input type="submit" class="button-primary submit" value="@Labels.Save" />
-                                        </span><a href="@Url.Action("index", "memo")" class="button-hrm waves-effect waves-light btn grey darken-1">
-                                            @Labels.Back
-                                        </a>
+                                <div class="row m-t--m">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            &nbsp;
+                                        </div>
+                                        <div class="left">
+                                            @Html.AntiForgeryToken()
+                                            <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s">
+                                                <input type="submit" class="button-primary submit" value="@Labels.Save" />
+                                            </span><a href="@Url.Action("index", "memo")" class="button-hrm waves-effect waves-light btn grey darken-1">
+                                                @Labels.Back
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
