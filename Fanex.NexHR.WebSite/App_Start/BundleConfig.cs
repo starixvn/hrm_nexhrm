@@ -20,49 +20,21 @@
                 "~/Content/dashboardcss",
                 "~/Content/Views/mydashboard.css");
 
-            // leave request
-            bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
-                "~/Scripts/Views/leave.request.js",
-                "~/Scripts/Views/checkinout.byemployee.js",
-                "~/Scripts/Views/search.request.js"));
+            BuildBundleForLeaveRequest(bundles);
 
-            // check in out
-            bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
-                "~/Scripts/Views/checkinout.request.js",
-                "~/Scripts/Views/checkinout.byemployee.js",
-                "~/Scripts/Views/search.request.js"));
+            BuildBundleForCheckInOutRequest(bundles);
 
-            // my timesheet
-            bundles.Add(new ScriptBundle("~/bundles/mytimesheetjs").Include(
-                "~/Scripts/Views/report.timesheet.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/mytimesheetcss",
-                "~/Content/Views/report.timesheet.css");
+            BuildBundleForMyTimeSheetReport(bundles);
 
             BuildBundleForReportMyTimeRecord(bundles);
 
-            // my calendar
-            bundles.Add(new ScriptBundle("~/bundles/mycalendarjs").Include(
-                "~/Scripts/Views/mycalendar.js"));
+            BuildBundleForMyCalendar(bundles);
 
-            bundles.AddAndInclude(
-                "~/Content/mycalendarcss",
-                "~/Content/Views/mycalendar.css");
+            BuildBundleForMemberRequests(bundles);
 
-            // member requests
-            bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
-                "~/Scripts/Views/mgr.requests.js",
-                "~/Scripts/Views/_employee.search.in.team.js"));
+            BuildBundleForRequestsStatistic(bundles);
 
-            // requests statistic
-            bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
-                "~/Scripts/Views/leader.request.monitoring.js"));
-
-            // annual leave balance
-            bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
-                "~/Scripts/Views/annualleavebalance.js",
-                "~/Scripts/Views/_employee.search.in.company.js"));
+            BuildBundleForAnnualLeaveBalance(bundles);
 
             BuildBundleForHolidays(bundles);
 
@@ -93,51 +65,6 @@
             BuildBundleForReportTimeRecord(bundles);
 
             BuildBundleForLeaveSummary(bundles);
-        }
-
-        private static void BuildBundleForHolidays(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/holidays").Include(
-                "~/Scripts/Views/holiday.js"));
-            bundles.Add(new ScriptBundle("~/bundles/holidayedit").Include(
-                "~/Scripts/Views/holiday.edit.js"));
-        }
-
-        private static void BuildBundleForGeolocation(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
-                "~/Scripts/Views/geolocationmap.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/geolocationcss",
-                "~/Content/Views/geolocation.css");
-        }
-
-        private static void BuildBundleForExtension(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/addextensionnojs").Include(
-                "~/Scripts/Views/addextensionno.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/extensionnojs").Include(
-                "~/Scripts/Views/extensionno.js"));
-        }
-
-        private static void BuildBundleForMemo(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(
-                "~/Scripts/Views/memo.js",
-                "~/Scripts/tiny_mce/tiny_mce_src.js",
-                "~/Scripts/Views/memo.edit.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/annualleavebalancecss",
-                "~/Content/Views/annualleavebalance.css");
-        }
-
-        private static void BuildBundleForToeic(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
-                "~/Scripts/Views/Employee/employee.toeic.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -189,6 +116,107 @@
                 "~/Scripts/Libs/monPickr-0.0.3.js"));
         }
 
+        private static void BuildBundleForHolidays(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/holidays").Include(
+                "~/Scripts/Views/holiday.js"));
+            bundles.Add(new ScriptBundle("~/bundles/holidayedit").Include(
+                "~/Scripts/Views/holiday.edit.js"));
+        }
+
+        private static void BuildBundleForGeolocation(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
+                "~/Scripts/Views/geolocationmap.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/geolocationcss",
+                "~/Content/Views/geolocation.css");
+        }
+
+        private static void BuildBundleForExtension(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/addextensionnojs").Include(
+                "~/Scripts/Views/addextensionno.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/extensionnojs").Include(
+                "~/Scripts/Views/extensionno.js"));
+        }
+
+        private static void BuildBundleForMemo(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(
+                "~/Scripts/Views/memo.js",
+                "~/Scripts/tiny_mce/tiny_mce_src.js",
+                "~/Scripts/Views/memo.edit.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/annualleavebalancecss",
+                "~/Content/Views/annualleavebalance.css");
+        }
+
+        private static void BuildBundleForToeic(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
+                "~/Scripts/Views/Employee/employee.toeic.js"));
+        }
+
+        private static void BuildBundleForLeaveRequest(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
+                "~/Scripts/Views/leave.request.js",
+                "~/Scripts/Views/checkinout.byemployee.js",
+                "~/Scripts/Views/search.request.js"));
+        }
+
+        private static void BuildBundleForCheckInOutRequest(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
+                "~/Scripts/Views/checkinout.request.js",
+                "~/Scripts/Views/checkinout.byemployee.js",
+                "~/Scripts/Views/search.request.js"));
+        }
+
+        private static void BuildBundleForMyTimeSheetReport(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/mytimesheetjs").Include(
+                "~/Scripts/Views/report.timesheet.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/mytimesheetcss",
+                "~/Content/Views/report.timesheet.css");
+        }
+
+        private static void BuildBundleForMyCalendar(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/mycalendarjs").Include(
+                "~/Scripts/Views/mycalendar.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/mycalendarcss",
+                "~/Content/Views/mycalendar.css");
+        }
+
+        private static void BuildBundleForMemberRequests(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
+                "~/Scripts/Views/mgr.requests.js",
+                "~/Scripts/Views/_employee.search.in.team.js"));
+        }
+
+        private static void BuildBundleForRequestsStatistic(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
+                "~/Scripts/Views/leader.request.monitoring.js"));
+        }
+
+        private static void BuildBundleForAnnualLeaveBalance(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
+                "~/Scripts/Views/annualleavebalance.js",
+                "~/Scripts/Views/_employee.search.in.company.js"));
+        }
+
         private static void BuildBundleForJobTitle(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jobtitlejs").Include(
@@ -219,6 +247,7 @@
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/leavededuction.js");
         }
+
         private static void BuildBundleForEditEmployee(BundleCollection bundles)
         {
             bundles.AddAndInclude(
