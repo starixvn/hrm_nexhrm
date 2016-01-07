@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="row">
                                         <span class="btn-submit waves-effect waves-light m-r--m">
-                                            <input type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" /></span>
+                                            <input id="btnSubmit" type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="processing-submit" /></span>
                                         <span class="btn-export-excel waves-effect waves-light">
                                             <input type="submit" value="Excel" onclick="submitForm('True')" />
                                             @Html.HiddenFor(model => model.IsExportExcel)
