@@ -80,6 +80,7 @@
                          "~/Scripts/Libs/jquery.cookie.js",
                          "~/Scripts/Libs/chart.js",
                          "~/Scripts/Libs/date.js",
+                         "~/Scripts/Libs/jquery.floatThead.min.js",
                          "~/Scripts/Libs/common.js",
                          "~/Scripts/Views/language.js"));
 
@@ -164,17 +165,17 @@
         private static void BuildBundleForLeaveRequest(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
-                "~/Scripts/Views/leave.request.js",
-                "~/Scripts/Views/checkinout.byemployee.js",
-                "~/Scripts/Views/search.request.js"));
+                "~/Scripts/Views/Request/leave.request.js",
+                "~/Scripts/Views/Request/checkinout.byemployee.js",
+                "~/Scripts/Views/Request/search.request.js"));
         }
 
         private static void BuildBundleForCheckInOutRequest(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
-                "~/Scripts/Views/checkinout.request.js",
-                "~/Scripts/Views/checkinout.byemployee.js",
-                "~/Scripts/Views/search.request.js"));
+                "~/Scripts/Views/Request/checkinout.request.js",
+                "~/Scripts/Views/Request/checkinout.byemployee.js",
+                "~/Scripts/Views/Request/search.request.js"));
         }
 
         private static void BuildBundleForMyTimeSheetReport(BundleCollection bundles)
@@ -200,14 +201,14 @@
         private static void BuildBundleForMemberRequests(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
-                "~/Scripts/Views/mgr.requests.js",
+                "~/Scripts/Views/Request/mgr.requests.js",
                 "~/Scripts/Views/_employee.search.in.team.js"));
         }
 
         private static void BuildBundleForRequestsStatistic(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
-                "~/Scripts/Views/leader.request.monitoring.js"));
+                "~/Scripts/Views/Request/leader.request.monitoring.js"));
         }
 
         private static void BuildBundleForAnnualLeaveBalance(BundleCollection bundles)

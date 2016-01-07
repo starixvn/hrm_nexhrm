@@ -53,4 +53,7 @@
     .tipsy.tipsy-request table.table-tooltip tr:last-child {
       border-bottom: none; }
 
+.select-time {
+  width: 6rem; }
+
 /*# sourceMappingURL=myrequest.css.map */

@@ -1,8 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Models.Request
-@model IList<RequestEntity>
-@{
+﻿@{
     ViewBag.Title = Labels.MyLeaveRequestSummary;
 }
 @section css{
@@ -13,111 +9,96 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none">
+</div>
 <div class="row content">
-    @using (Html.BeginForm("employeeview", "leave", FormMethod.Post, new { @class = "page" }))
-    {
-        <div class="col s12 card-container-base my-request">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-title-block">
-                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="form">
-                            <div class="row form-input">
-                                <input type="hidden" value="Leave" id="RequestType" />
-                                <div class="col m-r--m">
-                                    <div class="left label--s">
-                                        <label>@Labels.Year</label>
-                                    </div>
-                                    <div class="left select--xs">
-                                        @Html.YearPicker("Year", 2010, (int)ViewBag.Year)
-                                    </div>
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <div class="row form-input">
+                            <input type="hidden" value="Leave" id="RequestType" />
+                            <div class="col m-r--m">
+                                <div class="left label--s">
+                                    <label>@Labels.Year</label>
                                 </div>
-                                <div class="col button">
-                                    <span class="btn-submit waves-effect waves-light"><input type="submit" id="submit" value="@Labels.Submit" /></span>
-                                </div>
-                                <div>
-                                    <a href="@Url.Action("Create")" class="btn-request waves-effect waves-light">@Labels.LeaveRequests</a>
+                                <div class="left select--xs">
+                                    @Html.YearPicker("Year", 2010, DateTime.Now.Year)
                                 </div>
                             </div>
+                            <div class="col button">
+                                <input type="submit" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Create")" class="btn-request waves-effect waves-light">@Labels.LeaveRequests</a>
+                            </div>
                         </div>
-                        <div class="p-x--s">
-                             <table class="table bordered striped highlight centered table-custom" id="data">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>@Labels.Employee</th>
-                                        <th>@Labels.Team</th>
-                                        <th>@Labels.LeaveType</th>
-                                        <th>@Labels.From</th>
-                                        <th>@Labels.To</th>
-                                        <th>@Labels.TotalDays</th>
-                                        <th>@Labels.CreatedDate</th>
-                                        <th>@Labels.Remark</th>
-                                        <th>@Labels.Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{int index = 1;}
-                                    @if (Model.Count > 0)
-                                    {
-                                        foreach (RequestEntity request in Model)
-                                        {
-                                        <tr id="row@(request.Id)">
-                                            <td>@(index++)</td>
-                                            <td class="tooltip" title="@request.Requester.FullName">
-                                                @request.Requester.NickName
-                                            </td>
-                                            <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code</td>
-                                            <td>@request.LeaveType.Name</td>
-                                            @if (request.TotalDays == (decimal)0.5)
-                                            {
-                                                <td class="highlight">@request.FromDate.ToShortFormatedDate()</td>
-                                                <td class="highlight">@request.ToDate.ToShortFormatedDate()</td>
-                                            }
-                                            else
-                                            {
-                                                <td class="highlight">@request.FromDate.ToDateMonthYearFormatedDate()</td>
-                                                <td class="highlight">@request.ToDate.ToDateMonthYearFormatedDate()</td>
-                                            }
-                                            <td class="highlight center">@request.TotalDays.ToString("0.0")</td>
-                                            <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
-                                                @request.CreatedDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            @if (!string.IsNullOrWhiteSpace(request.Remark))
-                                            {
-                                                <td class="tooltip center" title="@request.Remark">
-                                                    <span class="mdi mdi-message-text" alt="remark" />
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td class='center'>-</td>
-                                            }
-                                            @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
-                                            {
-                                                <td>
-                                                    <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pedding">@request.Status.ToString()</a>
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td class="tooltip c-approve" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</td>
-                                            }
-                                        </tr>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @RazorHelper.DisplayNoInformation(colspan: 10);
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
+                    <div class="p-x--s">
+                            <table class="table bordered striped highlight centered responsive-table table-custom" id="data">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Employee</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.LeaveType</th>
+                                    <th>@Labels.From</th>
+                                    <th>@Labels.To</th>
+                                    <th>@Labels.TotalDays</th>
+                                    <th>@Labels.CreatedDate</th>
+                                    <th>@Labels.Remark</th>
+                                    <th>@Labels.Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    }
+    </div>
 </div>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr class="row_${Id}">
+        <td>${index()}</td>
+        <td class="tooltip" title="${Requester.FullName}">
+            ${Requester.NickName}
+        </td>
+        <td class="tooltip" title="${Requester.Team.Name}">
+            ${Requester.Team.Code}
+        </td>
+        <td>
+            ${LeaveType.Name}
+        </td>
+        {{if TotalDays == 0.5}}
+            <td class="highlight">${formatJsonDateToShortFormatedDate(FromDate)}</td>
+            <td class="highlight">${formatJsonDateToShortFormatedDate(ToDate)}</td>
+        {{else}}
+            <td class="highlight">${formatJsonDate(FromDate, 'dd MMM, yyyy')}</td>
+            <td class="highlight">${formatJsonDate(ToDate, 'dd MMM, yyyy')}</td>
+        {{/if}}
+        <td class="highlight center">${formatTotalDays(TotalDays)}</td>
+        <td class="tooltip" title="${formatJsonDateToShortFormatedDate(CreatedDate)}">
+            ${formatJsonDate(CreatedDate, 'dd MMM, yyyy')}
+        </td>
+        {{if Remark.length > 0}}
+            <td class="tooltip" title="${Remark}">
+                <span class="mdi mdi-message-text" alt="remark" />
+            </td>
+        {{else}}
+            <td>-</td>
+        {{/if}}
+        {{if Status.Name == 'Pending'}}
+            <td class="tooltip" title="${Remark}">
+                <a requestid="${Id}" href="javascript:;" class="${Status} c-pedding">${Status.Name}</a>
+            </td>
+        {{else}}
+            <td class="tooltip c-approve" title="${Status.Name} by ${ModifiedBy.NickName} (${formatJsonDateToShortFormatedDate(ModifiedDate)})">${Status.Name}</td>
+        {{/if}}
+    </tr>
+</script>

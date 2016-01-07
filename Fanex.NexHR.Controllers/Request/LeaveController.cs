@@ -10,7 +10,6 @@
 namespace Fanex.NexHR.Controllers.Request
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -25,9 +24,6 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Leave controller.
-    /// </summary>
     [Authorize]
     public class LeaveController : BaseController
     {
@@ -54,10 +50,33 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion Ctor
 
-        /// <summary>
-        /// Create leave request.
-        /// </summary>
-        /// <returns>Action result.</returns>
+        [HttpGet]
+        public ActionResult EmployeeView()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult EmployeeView(int year)
+        {
+            var criteria = new GetRequestCriteria()
+            {
+                Role = (short)Role.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.Leave),
+                IsFilterByEffectedDate = true
+            };
+
+            var data = _requestService.GetRequest(criteria);
+
+            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+        }
+
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
@@ -99,11 +118,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Create leave request.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
@@ -136,11 +150,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Update leave request.
-        /// </summary>
-        /// <param name="id">The employee ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
@@ -179,11 +188,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Update leave request.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
@@ -191,43 +195,6 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
 
             return View(model);
-        }
-
-        /// <summary>
-        /// Employee view.
-        /// </summary>
-        /// <returns>Action result.</returns>
-        [HttpGet]
-        public ActionResult EmployeeView()
-        {
-            return EmployeeView(DateTime.Now.Year);
-        }
-
-        /// <summary>
-        /// Employee view.
-        /// </summary>
-        /// <param name="year">The year value.</param>
-        /// <returns>Action result.</returns>
-        [HttpPost]
-        public ActionResult EmployeeView(int year)
-        {
-            ViewBag.Year = year;
-            var criteria = new GetRequestCriteria()
-            {
-                Role = (short)Role.Member,
-                FromDate = new DateTime(year, 1, 1),
-                ToDate = new DateTime(year, 12, 31),
-                EmployeeId = this.CurrentUser.Id,
-                GroupId = null,
-                Status = null,
-                ExcludeEmployeeId = null,
-                RequestType = Convert.ToString((int)RequestType.Leave),
-                IsFilterByEffectedDate = true
-            };
-
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
-
-            return View(entityList);
         }
     }
 }

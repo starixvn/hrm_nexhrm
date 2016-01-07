@@ -1,6 +1,6 @@
 ﻿'use strict';
 /*global _global:false, reloadButtonText:false, sleep: false, noInformation:false,
-getParam:false, checkBadDates:false, actingButton:false, _messages:false*/
+getParam:false, actingButton:false, _messages:false*/
 /*exported isShowEdit, editTOEIC, iskExpiredDate*/
 
 function isExpiredDate(date) {

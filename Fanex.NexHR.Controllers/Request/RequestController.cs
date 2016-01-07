@@ -57,11 +57,6 @@ namespace Fanex.NexHR.Controllers.Request
             return PartialView(request);
         }
 
-        /// <summary>
-        /// View member request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
@@ -101,11 +96,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(request);
         }
 
-        /// <summary>
-        /// Employee view request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Action result.</returns>
         public ActionResult EmployeeView(RequestViewModel request)
         {
             // Default view all request type
@@ -134,18 +124,12 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.IsAllowChangeStatus = false;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-            
             request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
             request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             return View("HRView", request);
         }
 
-        /// <summary>
-        /// HR view request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Action result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel request)
         {

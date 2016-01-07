@@ -187,6 +187,15 @@ main {
   overflow: auto;
   zoom: 1; }
 
+.loading-process {
+  background: rgba(255, 255, 255, 0.8) url("Images/loding.gif") 50% 50% no-repeat;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0; }
+
 a:active, a:focus {
   outline: none; }
 
@@ -362,7 +371,7 @@ a:active, a:focus {
 
 .form {
   margin-top: 16px;
-  margin-bottom: 3rem;
+  margin-bottom: 16px;
   padding: 0 !important; }
   .form .btn {
     text-transform: none; }

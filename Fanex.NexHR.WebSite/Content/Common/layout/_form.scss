@@ -1,12 +1,12 @@
 @import "../utils/variables";
 
 .form {
-	margin-top: 16px;
-    margin-bottom: 3rem;
-	padding: 0 !important;
-	  .btn {
-		text-transform: none;
-	  }
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 0 !important;
+      .btn {
+        text-transform: none;
+      }
 }
 
 .input {
@@ -14,11 +14,11 @@
 }
 
 .radioButton {
-	float: left;
-	margin-right: 16px;
-	label {
-		margin-top: 2px !important;
-	}
+    float: left;
+    margin-right: 16px;
+    label {
+        margin-top: 2px !important;
+    }
 }
 
 .column-truncate {
@@ -31,11 +31,11 @@
 }
 
 .col.button {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 .select--xs {
-	width: 70px;
+    width: 70px;
 }
 
 .select--s, .input--s {
@@ -63,11 +63,11 @@
 }
 
 .label--xl {
-	width: 120px;
+    width: 120px;
 }
 
 .input-spvn {
-	width: 350px;
+    width: 350px;
 }
 
 .txtArea {
@@ -79,19 +79,19 @@
 
 
 //---------------------------------------------
-//			FORM INPUT
+//            FORM INPUT
 //---------------------------------------------
 
 .form-input { 
   .col {
-	padding-right: 1.6rem;
+    padding-right: 1.6rem;
   }
 
   input[type="text"], textarea, input[type=number] {
     @extend %boxshadow; 
     padding-left: 7px !important;
     border: none !important;
-	position: none !important;
+    position: none !important;
     visibility: unset !important;
     left: unset !important;
   }
@@ -109,7 +109,7 @@
 
   span.label {
     margin-top: 5px;
-	display: block;
+    display: block;
   }
 
   .site-label {
@@ -139,18 +139,18 @@
 
 
 //---------------------------------------------
-//			DATE TIME PICKER
+//            DATE TIME PICKER
 //---------------------------------------------
 
 .datetime-picker {    
   @extend %boxshadow;
   margin-right: 9px;
   margin-top: 0;
-  padding: 1.6rem 0.5rem 1.6rem 0;    
+  padding: 1.6rem 0.5rem 1.6rem 0;
 }
 
 //---------------------------------------------
-//			SEARCH AUTOCOMPLETE
+//            SEARCH AUTOCOMPLETE
 //---------------------------------------------
 
 .ui-autocomplete {
@@ -163,28 +163,28 @@
 }
 
 #dialog-toeic {
-	text-align: left;
+    text-align: left;
 }
 
 #dialog-form, #dialog-form_edit, #insertform {
-	height: 100% !important;
-	.form {
-		margin-bottom: 0;	
-		margin-top: 0;
-	}
-	.validateTips {
-		//display: none;
-	}
+    height: 100% !important;
+    .form {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .validateTips {
+        //display: none;
+    }
 }
 
 #insertform {
-	text-align: left;
+    text-align: left;
 
-	.text-box {
-		margin: 0;
-	}
+    .text-box {
+        margin: 0;
+    }
 
-	.row {
-		margin-bottom: 1rem;
-	}
+    .row {
+        margin-bottom: 1rem;
+    }
 }

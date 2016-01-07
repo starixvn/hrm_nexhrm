@@ -276,3 +276,14 @@ main {
     overflow: auto;
     zoom: 1;
 }
+
+//-------------------Loading process----------------------//
+.loading-process {
+   background: rgba( 255, 255, 255, .8 ) url('Images/loding.gif') 50% 50% no-repeat;
+   height: 100%;
+   width: 100%;
+   position: fixed;
+   z-index: 1000;
+   left: 0;
+   top: 0;
+}
