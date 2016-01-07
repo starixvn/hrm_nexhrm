@@ -29,6 +29,7 @@
             BuildBundleForRequestsStatistic(bundles);
 
             BuildBundleForAnnualLeaveBalance(bundles);
+            BuildBundleForTotalWorkingHours(bundles);
 
             BuildBundleForHolidays(bundles);
 
@@ -110,6 +111,14 @@
 
             bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
                 "~/Scripts/Libs/monPickr-0.0.3.js"));
+        }
+
+        private static void BuildBundleForTotalWorkingHours(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
+                "~/Scripts/Views/_employee.search.in.company.js",
+                //"~/Scripts/Libs/date.js",
+                "~/Scripts/Views/date.filter.js"));
         }
 
         private static void BuildBundleForHolidays(BundleCollection bundles)

@@ -334,6 +334,7 @@
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
+    <Content Include="Scripts\Views\date.filter.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.defaultschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.edit.js" />

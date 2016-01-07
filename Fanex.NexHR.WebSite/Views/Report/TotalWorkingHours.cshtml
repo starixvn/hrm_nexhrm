@@ -7,6 +7,7 @@
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/totalworkinghourjs")
 }
 @section Breadcrumb {
 }
@@ -100,7 +101,7 @@
                         </div>
                     }
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight table-custom">
+                        <table class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr class="persist-header">
                                     <th>
@@ -160,7 +161,7 @@
                                             </td>
                                             <td>@item.Employee.Code
                                             </td>
-                                            <td>@item.Employee.FullName
+                                            <td class="txt-left">@item.Employee.FullName
                                             </td>
                                             <td>@item.Employee.NickName
                                             </td>
@@ -225,7 +226,7 @@
                             }
                             else
                             {
-                                @RazorHelper.DisplayNoInformation(colspan: 11);
+                                @RazorHelper.DisplayNoInformation(colspan: 15);
                             }
                         </table>
                     </div>
