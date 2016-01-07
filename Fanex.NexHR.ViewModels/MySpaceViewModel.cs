@@ -17,13 +17,10 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// My space view model.
-    /// </summary>
     public class MySpaceViewModel
     {
         private const string _DisplayCellTpl = "<span class='lnk-days'><a href='javascript:;'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
-        private const string _DisplayCellDetailTpl = "<li><span class='chevron-right'></span><span>{0}</span></li>";
+        private const string _DisplayCellDetailTpl = "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
         public decimal AnnualLeaveBalance { get; set; }
 

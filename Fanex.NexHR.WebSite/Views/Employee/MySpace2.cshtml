@@ -1,6 +1,4 @@
-﻿@using Fanex.NexHR.Resources;
-@using Fanex.NexHR.Core;
-@model Fanex.NexHR.ViewModels.MySpaceViewModel
+﻿@model MySpaceViewModel
 @section css{
     @Styles.Render("~/Content/dashboardcss")
 }
@@ -8,7 +6,7 @@
     @Scripts.Render("~/bundles/dashboardjs")
 }
 @{
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = Labels.Dashboard;
 }
 @section Breadcrumb {
 }
@@ -18,65 +16,43 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">General Info</span>                   
+                    <span class="card-title txt-uppercase left">@Labels.GeneralInfo</span>
                 </div>
                 <div class="card-body p-t--m">
                     <div class="p-x--s">
-                        <table class="table bordered striped highlight table-custom">
+                        <table class="table bordered striped highlight responsive-table table-custom">
                             <thead>
                                 <tr>
-                                    <th>
-                                    </th>
-                                    <th>@Labels.ToDay
-                                    </th>
-                                    <th>@Labels.Yesterday
-                                    </th>
+                                    <th></th>
+                                    <th>@Labels.ToDay</th>
+                                    <th>@Labels.Yesterday</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="first-column">@Labels.LeaveRequests
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.CompanyLeaveToDay)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.CompanyLeaveYesterday)
-                                    </td>
+                                    <td class="first-column">@Labels.LeaveRequests</td>
+                                    <td>@Html.Raw(Model.CompanyLeaveToDay)</td>
+                                    <td>@Html.Raw(Model.CompanyLeaveYesterday)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">@Labels.CheckInOutRequest
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.CompanyCheckInOutToDay)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.CompanyCheckInOutYesterday)
-                                    </td>
+                                    <td class="first-column">@Labels.CheckInOutRequest</td>
+                                    <td>@Html.Raw(Model.CompanyCheckInOutToDay)</td>
+                                    <td>@Html.Raw(Model.CompanyCheckInOutYesterday)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">@Labels.MissingCheckInOut
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyMissingCheckInOutToDay)
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyMissingCheckInOutYesterday)
-                                    </td>
+                                    <td class="first-column">@Labels.MissingCheckInOut</td>
+                                    <td>@Html.Raw(Model.CompanyMissingCheckInOutToDay)</td>
+                                    <td>@Html.Raw(Model.CompanyMissingCheckInOutYesterday)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">@Labels.LateInEarlyOut
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyLateInEarlyOutToDay)
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyLateInEarlyOutYesterday)
-                                    </td>
+                                    <td class="first-column">@Labels.LateInEarlyOut</td>
+                                    <td>@Html.Raw(Model.CompanyLateInEarlyOutToDay)</td>
+                                    <td>@Html.Raw(Model.CompanyLateInEarlyOutYesterday)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">@Labels.Absent
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyAbsentToDay)
-                                    </td>
-                                    <td>@Html.Raw(Model.CompanyAbsentYesterday)
-                                    </td>
+                                    <td class="first-column">@Labels.Absent</td>
+                                    <td>@Html.Raw(Model.CompanyAbsentToDay)</td>
+                                    <td>@Html.Raw(Model.CompanyAbsentYesterday)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -86,7 +62,6 @@
         </div>
     </div>
 </div>
-
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -95,92 +70,62 @@
                     <span class="card-title txt-uppercase left">@Labels.MySpace</span>
                 </div>
                 <div class="card-body p-t--m">
-                    <div class="col s12">
-                        <div class="row">
-                            Check Out Time (yesterday): <span class="checkInOutTime">@Model.DisplayCheckOutTime</span>.
+                    <div class="row">
+                        <div class="col">
+                            @Labels.AnualLeaveBalance:<strong style="font-weight: bold"> @Model.AnnualLeaveBalance day(s)</strong>
                         </div>
-                        <div class="row">
-                            Check In Time (today): <span class="checkInOutTime">@Model.DisplayCheckInTime</span>.
-                        </div>                        
                     </div>
-                    <div class="col s12">
-                        @Labels.AnualLeaveBalance:<strong> @Model.AnnualLeaveBalance day(s)</strong>
+                    <div class="row">
+                        <div class="col">
+                            Check Out Time (yesterday): <strong style="font-size: 1.6rem; font-weight: bold; color: #0d1be4">@Model.DisplayCheckOutTime</strong>.
+                        </div>
+                        <div class="col">
+                            Check In Time (today): <strong style="font-size: 1.6rem; font-weight: bold; color: #0d1be4">@Model.DisplayCheckInTime</strong>.
+                        </div>
                     </div>
                     <div class="p-x--s">
-                        <table class="table bordered striped highlight table-custom m-t--m" id="myspace">
+                        <table class="table bordered striped highlight table-custom responsive-table m-t--m" id="myspace">
                             <thead>
                                 <tr>
-                                    <th class="first-column">
-                                    </th>
-                                    <th>@Labels.CurrentMonth
-                                    </th>
-                                    <th>
-                                        @Labels.LastMonth
-                                    </th>
+                                    <th></th>
+                                    <th>@Labels.CurrentMonth</th>
+                                    <th>@Labels.LastMonth</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.LeaveRequests <a href="~/leave/create" class="icon plus" title="Create leave request">
-                                        </a>
-                                    </td>
                                     <td>
-                                        @Html.Raw(Model.PersonalLeaveCurrentMonth)
+                                        @Labels.LeaveRequests
+                                        <a href="@Url.Action("create", "leave")" class="mdi mdi-plus" title="Create leave request"></a>
                                     </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalLeaveLastMonth)
-                                    </td>
+                                    <td>@Html.Raw(Model.PersonalLeaveCurrentMonth)</td>
+                                    <td>@Html.Raw(Model.PersonalLeaveLastMonth)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.CheckInOutRequest <a href="~/checkinout/create" class="icon plus" title="Create check in/out request">
-                                        </a>
-                                    </td>
                                     <td>
-                                        @Html.Raw(Model.PersonalCheckInOutCurrentMonth)
+                                        @Labels.CheckInOutRequest
+                                        <a href="@Url.Action("create", "checkinout")" class="mdi mdi-plus" title="Create check in/out request"></a>
                                     </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalCheckInOutLastMonth)
-                                    </td>
+                                    <td>@Html.Raw(Model.PersonalCheckInOutCurrentMonth)</td>
+                                    <td>@Html.Raw(Model.PersonalCheckInOutLastMonth)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.MissingCheckInOut
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalMissingCheckInOutLastMonth)
-                                    </td>
+                                    <td>@Labels.MissingCheckInOut</td>
+                                    <td>@Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)</td>
+                                    <td>@Html.Raw(Model.PersonalMissingCheckInOutLastMonth)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.LateInEarlyOut
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalLateInEarlyOutCurrentMonth)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalLateInEarlyOutLastMonth)
-                                    </td>
+                                    <td>@Labels.LateInEarlyOut</td>
+                                    <td>@Html.Raw(Model.PersonalLateInEarlyOutCurrentMonth)</td>
+                                    <td>@Html.Raw(Model.PersonalLateInEarlyOutLastMonth)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.Absent
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalAbsentCurrentMonth)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(Model.PersonalAbsentLastMonth)
-                                    </td>
+                                    <td>@Labels.Absent</td>
+                                    <td>@Html.Raw(Model.PersonalAbsentCurrentMonth)</td>
+                                    <td>@Html.Raw(Model.PersonalAbsentLastMonth)</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">
-                                        @Labels.WorkingHoursAverage
-                                    </td>
+                                    <td>@Labels.WorkingHoursAverage</td>
                                     @if (Model.NumberWorkingDayCurrentMonth != 0)
                                     {
                                         <td>
@@ -189,9 +134,7 @@
                                     }
                                     else
                                     {
-                                        <td>
-                                            0
-                                        </td>
+                                        <td>0</td>
                                     }
                                     @if (Model.NumberWorkingDayLastMonth != 0)
                                     {
@@ -201,9 +144,7 @@
                                     }
                                     else
                                     {
-                                        <td>
-                                            0
-                                        </td>
+                                        <td>0</td>
                                     }
                                 </tr>
                             </tbody>

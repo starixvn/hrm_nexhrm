@@ -12,13 +12,7 @@
                 "~/Content/myrequestcss",
                 "~/Content/Views/myrequest.css");
 
-            // dashboard
-            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
-                "~/Scripts/Views/employee.dashboard.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/dashboardcss",
-                "~/Content/Views/mydashboard.css");
+            BuildBundleForDashboard(bundles);
 
             BuildBundleForLeaveRequest(bundles);
 
@@ -299,6 +293,16 @@
         {
                bundles.Add(new ScriptBundle("~/bundles/leavesummaryjs").Include(
                 "~/Scripts/Views/_employee.search.in.company.js"));
-        }        
+        }
+
+        private static void BuildBundleForDashboard(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                "~/Scripts/Views/employee.dashboard.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/dashboardcss",
+                "~/Content/Views/mydashboard.css");
+        }
     }
 }

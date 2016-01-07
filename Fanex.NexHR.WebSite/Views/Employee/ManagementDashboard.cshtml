@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.ViewModels
-@model HRLeaderDashboardModel
-
+﻿@model HRLeaderDashboardModel
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -11,29 +8,19 @@
                 </div>
                 <div class="card-body p-t--m">
                     <div class="p-x--s">
-                        <table class="table bordered striped highlight table-custom" id="myspace">
+                        <table class="table bordered striped highlight responsive-table table-custom" id="myspace">
                             <thead>
                                 <tr>
-                                    <th rowspan="2" class="first-column">@Labels.Request
-                                    </th>
-                                    <th rowspan="2">@Labels.Pending
-                                    </th>
-                                    <th colspan="2" class="center">
-                                        @Labels.CurrentMonth
-                                    </th>
-                                    <th colspan="2" class="center">
-                                        @Labels.LastMonth
-                                    </th>
+                                    <th rowspan="2">@Labels.Request</th>
+                                    <th rowspan="2">@Labels.Pending</th>
+                                    <th colspan="2">@Labels.CurrentMonth</th>
+                                    <th colspan="2">@Labels.LastMonth</th>
                                 </tr>
                                 <tr>
-                                    <th>@Labels.Approved
-                                    </th>
-                                    <th>@Labels.Rejected
-                                    </th>
-                                    <th>@Labels.Approved
-                                    </th>
-                                    <th>@Labels.Rejected
-                                    </th>
+                                    <th>@Labels.Approved</th>
+                                    <th>@Labels.Rejected</th>
+                                    <th>@Labels.Approved</th>
+                                    <th>@Labels.Rejected</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,8 +36,7 @@
                                     };
                                 }
                                 <tr>
-                                    <td class="first-column">@Labels.Leave
-                                    </td>
+                                    <td class="first-column">@Labels.Leave</td>
                                     <td>
                                         @if (Model.LeavePending > 0)
                                         {
@@ -62,18 +48,13 @@
                                             <span>0</span>
                                         }
                                     </td>
-                                    <td>@Model.LeaveApprovedCurrentMonth
-                                    </td>
-                                    <td>@Model.LeaveRejectedCurrentMonth
-                                    </td>
-                                    <td>@Model.LeaveApprovedLastMonth
-                                    </td>
-                                    <td>@Model.LeaveRejectedLastMonth
-                                    </td>
+                                    <td>@Model.LeaveApprovedCurrentMonth</td>
+                                    <td>@Model.LeaveRejectedCurrentMonth</td>
+                                    <td>@Model.LeaveApprovedLastMonth</td>
+                                    <td>@Model.LeaveRejectedLastMonth</td>
                                 </tr>
                                 <tr>
-                                    <td class="first-column">@Labels.CheckInOut
-                                    </td>
+                                    <td class="first-column">@Labels.CheckInOut</td>
                                     <td>
                                         @if (Model.CheckInOutPending > 0)
                                         {
@@ -85,14 +66,10 @@
                                             <span>0</span>
                                         }
                                     </td>
-                                    <td>@Model.CheckInOutApprovedCurrentMonth
-                                    </td>
-                                    <td>@Model.CheckInOutRejectedCurrentMonth
-                                    </td>
-                                    <td>@Model.CheckInOutApprovedLastMonth
-                                    </td>
-                                    <td>@Model.CheckInOutRejectedLastMonth
-                                    </td>
+                                    <td>@Model.CheckInOutApprovedCurrentMonth</td>
+                                    <td>@Model.CheckInOutRejectedCurrentMonth</td>
+                                    <td>@Model.CheckInOutApprovedLastMonth</td>
+                                    <td>@Model.CheckInOutRejectedLastMonth</td>
                                 </tr>
                             </tbody>
                         </table>
