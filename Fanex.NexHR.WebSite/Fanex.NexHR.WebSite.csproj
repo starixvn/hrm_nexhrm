@@ -591,6 +591,7 @@
     <Content Include="Scripts\Tiny_mce\utils\form_utils.js" />
     <Content Include="Scripts\Tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
+    <Content Include="Scripts\Views\Employee\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
     <Content Include="Scripts\Views\holiday.edit.js" />
@@ -695,6 +696,10 @@
     <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj">
       <Project>{C7D47FA8-C2DD-4C1A-BEC9-B9D5316E9168}</Project>
       <Name>Fanex.NexHR.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NexHR.Services\Fanex.NexHR.Services.csproj">
+      <Project>{7789CD20-1DC9-4077-921C-2548023BBC62}</Project>
+      <Name>Fanex.NexHR.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj">
       <Project>{41C13575-C69E-442C-BB46-665FFDF81164}</Project>

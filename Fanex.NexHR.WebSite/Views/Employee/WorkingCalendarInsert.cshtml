@@ -2,42 +2,39 @@
 @{
     ViewBag.Title = Labels.MultipleInsert;
 }
-@using (Html.BeginForm())
-{
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.FromDate)
-        </div>
-        <div class="input">
-            @Html.DatePickerFor(model => model.FromDate)
-        </div>
+<form class="form">
+<div class="row form-input">
+    <div class="left label--m">
+        @Html.LabelFor(model => model.FromDate)
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.ToDate)
-        </div>
-        <div class="input">
-            @Html.DatePickerFor(model => model.ToDate)
-        </div>
+    <div class="left datepicker-button select--s">
+        @Html.DatePickerFor(model => model.FromDate)
+        <i class="mdi-action-event calendar-icon left"></i>
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.Employee)
-        </div>
-        <div class="input">
-            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.EmployeeId)
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--m">
+        @Html.LabelFor(model => model.ToDate)
     </div>
-
-    <br />
-
-    <div class="formrow">
-        <div class="input">
-            <input type="submit" value="@Labels.Add" id="btnAdd" />
-            <input type="button" value="@Labels.Cancel" id="btnCancel" />
-        </div>
+    <div class="left datepicker-button select--s">
+        @Html.DatePickerFor(model => model.ToDate)
+        <i class="mdi-action-event calendar-icon left"></i>
     </div>
-}
+</div>
+<div class="row form-input">
+    <div class="left label--m">
+        @Html.LabelFor(model => model.Employee)
+    </div>
+    <div class="left input--m">
+        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+        @Html.HiddenFor(model => model.EmployeeId)
+    </div>
+</div>
+<div class="row form-input">
+    <span class="btn-ok waves-effect waves-light m-r--m">
+        <input id="btnAdd" type="submit" value="@Labels.Add" />
+    </span><span class="btn-cancel waves-effect waves-light m-r--m">
+        <input id="btnCancel" type="button" value="@Labels.Cancel" />
+    </span>
+</div>
+</form>

@@ -59,6 +59,7 @@
             BuildBundleForReportTimeRecord(bundles);
 
             BuildBundleForLeaveSummary(bundles);
+            BuildBundleForWorkingCanlendar(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -303,6 +304,13 @@
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
                 "~/Content/Views/mydashboard.css");
+        }
+        
+         private static void BuildBundleForWorkingCanlendar(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/workingcalendarsjs").Include(
+                "~/Scripts/Views/Employee/employee.workingcalendars.js",
+                "~/Scripts/Views/_employee.search.in.company.js"));
         }
     }
 }

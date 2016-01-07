@@ -1,7 +1,9 @@
 ﻿@model IList<WorkingCalendarsViewModel>
 @section css {
+    @Styles.Render("~/Content/monthpickercss", "~/Content/monthpickercss")
 }
 @section js {
+    @Scripts.Render("~/bundles/workingcalendarsjs", "~/bundles/monthpickerjs")
 }
 @{
     ViewBag.Title = "Working calendar";
@@ -28,36 +30,35 @@
                         @using (Html.BeginGetForm())
                         {
                             <div class="row form-input">
-                                <div class="col m-r--m">
+                                <div class="col">
                                     <div class="left label--s">
                                         <label>@Labels.Month</label>
                                     </div>
-                                    <div class="left input--s">
+                                    <div class="left select--m">
+                                        <div id="monthPickr"></div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@ViewBag.CurrentDate" />
-                                        <div id="DateControl">
-                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="col m-r--m">
+                                <div class="col">
                                     <div class="left">
                                         <input type="hidden" id="Year" name="Year" value="@ViewBag.Year" />
                                         <input type="hidden" id="Month" name="Month" value="@ViewBag.Month" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                        <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                        <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m">
+                                            <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                     </div>
                                     <div class="left">
                                         @if (Roles.IsUserInRole("HR"))
                                         {
-                                            <a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;" id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
+                                            <a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;"
+                                                id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
                                         }
                                     </div>
                                 </div>
                             </div>   
                         }
                     </div>
-                    
                     <div style="width: 1200px; height: 520px" class="datagrid-wrap panel-body p-x--s">
                         <div style="width: 1200px; height: 500px" class="datagrid-view">
                             <div style="width: 400px;" class="datagrid-view1">
@@ -98,7 +99,7 @@
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 @{int rowId = 1;}
-                                                @foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+                                                @foreach (WorkingCalendarsViewModel employee in Model)
                                                 {
                                                     <tr>
                                                         <td class="datagrid-header-rownumber">
@@ -164,9 +165,9 @@
                                     <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
                                         <tbody>
                                             @{
-                                                foreach (Fanex.NexHR.Models.UserChangedShift user in ViewBag.UserChangeShift)
+                                                foreach (UserChangedShift user in ViewBag.UserChangeShift)
                                                 {
-                                                    foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+                                                    foreach (WorkingCalendarsViewModel employee in Model)
                                                     {
                                                         if (employee.EmpId == user.Id)
                                                         {
@@ -182,9 +183,9 @@
                                                     }
                                                 }
 
-                                                foreach (Fanex.NexHR.ViewModels.HalfDayOff item in ViewBag.HalfDayOffs)
+                                                foreach (HalfDayOff item in ViewBag.HalfDayOffs)
                                                 {
-                                                    foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+                                                    foreach (WorkingCalendarsViewModel employee in Model)
                                                     {
                                                         if (employee.EmpId == item.Id)
                                                         {
@@ -200,7 +201,7 @@
 
                                                 }
                                             }
-                                            @foreach (Fanex.NexHR.ViewModels.WorkingCalendarsViewModel employee in Model)
+                                            @foreach (WorkingCalendarsViewModel employee in Model)
                                             {
                                                 var day = 1;
                                                 <tr class="row">
@@ -328,4 +329,3 @@
         </div>
     </div>
 </div>
-
