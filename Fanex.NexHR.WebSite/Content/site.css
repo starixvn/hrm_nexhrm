@@ -321,6 +321,11 @@ a:active, a:focus {
     .datepicker-button {
       width: 214px; } }
 
+.waves-input-wrapper {
+  padding: 0; }
+  .waves-input-wrapper .waves-button-input {
+    padding: 0.8rem 1.6rem; }
+
 .primary-color {
   color: #f4783d; }
 

@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A0210FE-616F-4A2C-90B3-59C26F3D3DB1}"
 	ProjectSection(SolutionItems) = preProject
 		Dependencies\RazorEngine.dll = Dependencies\RazorEngine.dll
+		Dependencies\Simplicode.Imaging.dll = Dependencies\Simplicode.Imaging.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Models", "Fanex.NexHR.Models\Fanex.NexHR.Models.csproj", "{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F}"
@@ -42,13 +43,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoJobs", "AutoJobs\AutoJobs.csproj", "{E0F23F85-57F1-408B-8DE7-2C47516BC84B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.WebSite", "Fanex.NexHR.WebSite\Fanex.NexHR.WebSite.csproj", "{A06A4E0F-8FA4-4A74-819D-47BCB0099082}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2289B5C4-DE47-4403-B5C5-5E404484AB3D}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
