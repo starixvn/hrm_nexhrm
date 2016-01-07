@@ -414,6 +414,11 @@ a:active, a:focus {
 .input-spvn {
   width: 350px; }
 
+.txtArea {
+  width: 500px; }
+  .txtArea textarea {
+    height: 50px; }
+
 .form-input .col {
   padding-right: 1.6rem; }
 .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {

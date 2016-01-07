@@ -97,8 +97,10 @@
                                 @Html.HiddenFor(model => model.ForRequest)
                                 @Html.Hidden("InTime")
                                 @Html.Hidden("OutTime")
-                                <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="@Labels.Request" /></span>
-                                <a href="@Url.Action("EmployeeView")" class="button-hrm waves-effect waves-light btn grey darken-1">@Labels.Back</a>
+                                <span class="btn-request waves-effect waves-light">
+                                    <input type="submit" value="@Labels.Request" />
+                                </span>
+                                <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                             </div>
                         }
                     </div>

@@ -100,15 +100,16 @@
                                     </div>
                                 </div>
                                 <div class="col s4">
-                                    <div class="col">
-                                        <div class="left label--m">
+                                    <div class="row">                                        
+                                        <div class="left">
                                             @Html.MaterializeCheckBoxFor(model => model.ExcludeUserDelete, new { @class = "filled-in" })
+                                            
                                         </div>
-                                        <div class="left input--m">
-                                            @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
+                                        <div class="left">
+                                        @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
                                         </div>
                                     </div>
-                                    <div class="col m-t--m">
+                                    <div class="row m-t--m">
                                         <span class="btn-submit waves-effect waves-light m-r--s">
                                             <input type="button" value="@Labels.Submit" id="view" /></span> <span class="btn-export-excel waves-effect waves-light">
                                                 <input type="button" value="@Labels.Excel" id="exportExcel" /></span>
