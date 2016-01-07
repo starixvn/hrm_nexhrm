@@ -1,18 +1,16 @@
-.ui-dialog.create-job-title {
-  padding: 0 0 .5rem; }
-  .ui-dialog.create-job-title .ui-dialog-titlebar {
-    border-bottom: .1rem solid #d2d2d2; }
-    .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-title {
-      display: inline; }
-    .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-titlebar-close {
-      margin: .5rem .5rem 0 0; }
-  .ui-dialog.create-job-title .ui-dialog-content {
-    padding: .5rem; }
-  .ui-dialog.create-job-title .ui-dialog-buttonpane {
-    padding: .5rem;
-    margin: 0; }
-    .ui-dialog.create-job-title .ui-dialog-buttonpane .btn-submit {
-      margin-right: 1rem; }
+.ui-dialog.create-job-title .ui-dialog-titlebar {
+  border-bottom: .1rem solid #d2d2d2; }
+  .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-title {
+    display: inline; }
+  .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    margin: .5rem .5rem 0 0; }
+.ui-dialog.create-job-title .ui-dialog-content {
+  padding: .5rem; }
+.ui-dialog.create-job-title .ui-dialog-buttonpane {
+  padding: .5rem;
+  margin: 0; }
+  .ui-dialog.create-job-title .ui-dialog-buttonpane .btn-submit {
+    margin-right: 1rem; }
 
 table.table-custom tr td.col-edit .action-update, table.table-custom tr td.col-edit .action-cancel {
   display: none; }

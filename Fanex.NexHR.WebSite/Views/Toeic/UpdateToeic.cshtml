@@ -71,14 +71,10 @@
         @Html.EditorFor(model => model.Writing)
     </div>
 </div>
-<div class="row form-input">
-    <div class="right label--l">
-        <span class="btn-cancel waves-effect waves-light m-r--m">
+<div class="row form-input m-t--m">
+    <span class="btn-ok waves-effect waves-light m-r--m">
+        <input id="submitAddToeic" type="button" value="@Labels.Submit" /></span> 
+    <span class="btn-cancel waves-effect waves-light">
             <input id="cancelAddToeic" type="button" value="@Labels.Cancel" /></span>
-    </div>
-    <div class="right label--l">
-        <span class="btn-submit waves-effect waves-light m-r--m">
-            <input id="submitAddToeic" type="button" value="@Labels.Submit" /></span>
-    </div>
 </div>
 </form>

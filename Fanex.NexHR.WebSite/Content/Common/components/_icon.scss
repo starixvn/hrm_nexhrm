@@ -52,3 +52,16 @@
 	}
 }
 
+.mdi-action-done {
+	font-weight: 600;
+	&:hover {
+		color: $green;
+	}
+}
+
+.mdi-action-highlight-remove {
+	font-weight: 500;
+	&:hover {
+		color: $c-idel--hover;
+	}
+}

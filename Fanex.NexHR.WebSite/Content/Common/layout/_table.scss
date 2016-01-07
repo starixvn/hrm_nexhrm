@@ -2,6 +2,7 @@
     th, td {
         &.col-checkbox {
             text-align: left;
+			width: 32px;
 
             [type="checkbox"] + label {
                 height: 1.5rem;

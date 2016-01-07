@@ -30,11 +30,12 @@
                                 @Html.TextBox("JobTitle", (string)ViewBag.JobTitle, new { id = "keyword", placeholder = Messages.JobTitle })
                             </div>
                             <div class="col">
-                                <input type="submit" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                                <input type="submit" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
+                                <a class="btn-request waves-effect waves-light btn" href="#" id="btnNewJobTitle">
+                                    <i class="left mdi mdi-plus"></i>@Labels.NewJobTitle</a>
                             </div>
                             <div class="col">
-                                <a class="button-hrm waves-effect waves-light btn orange darken-2" href="#" id="btnNewJobTitle">
-                                    <i class="left mdi mdi-plus"></i>@Labels.NewJobTitle</a>
+                                
                             </div>
                         </div>
                         }
@@ -60,7 +61,7 @@
                                         <td>@(index++)</td>
                                         <td class="txt-left">
                                             <span id="spanJobTitle_@jobTitle.Id">@jobTitle.Name</span>
-                                            <input type="text" value="@jobTitle.Name" id="txtJobTile_@jobTitle.Id" style="display:none;" />
+                                            <input class="jobTitle" type="text" value="@jobTitle.Name" id="txtJobTile_@jobTitle.Id" style="display:none;" />
                                         </td>
                                         <td>
                                             @if (jobTitle.Value.Equals("0"))

@@ -53,7 +53,19 @@ main {
   }
   .row .col.s4 {
     width: 25%;
-  }  
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1899px) {
+	.row .col.s1 {
+		width: 20%; 
+	}		
+	.row .col.s3 {
+		width: 30%; 
+	}
+	.row .col.s4 {
+		width: 44%;
+	}
 }
 
 #section_content {
@@ -180,6 +192,13 @@ main {
 	margin-right: $b-space--m;
 }
 
+.m-r--l {
+	margin-right: $b-space--l;
+}
+
+.m-r--xl {
+	margin-right: 48px;
+}
 //-------------------COLOR CLASSESS----------------------//
 
 .c-pedding {
