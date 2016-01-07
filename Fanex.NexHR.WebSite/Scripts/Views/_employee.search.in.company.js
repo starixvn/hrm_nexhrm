@@ -37,6 +37,7 @@ $(document).ready(function () {
         },
         minLength: 1,
         select: function (event, ui) {
+            event.preventDefault();
             var nickName = ui.item.label;
             $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);

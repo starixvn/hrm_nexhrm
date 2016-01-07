@@ -9,19 +9,19 @@ $(document).ready(function () {
         $('#annualBalance').text(annualBalance);
         $('#insertform').dialog({
             modal: true,
-            width: 800,
+            width: 700,
             height: 370,
             open: function () {
                 $('#TotalDays').val('0.5');
+                initDatePicker('.datepicker');
             }
         });
     });
 
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
-        var $form = $(this);
-        if ($form.valid()) {
-            $.post(_global.root + 'ajax/AddLeaveDeduction',
+
+        $.post(_global.root + 'ajax/AddLeaveDeduction',
             {
                 empId: $('#EmpId').val(),
                 totalDays: $('#TotalDays').val(),
@@ -37,7 +37,6 @@ $(document).ready(function () {
                     alert(response.Message);
                 }
             });
-        }
     });
 
     $('.editLeaveDeduction').click(function () {

@@ -134,7 +134,9 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.IsAllowChangeStatus = false;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-            ViewBag.LeaveTypes = _leaveTypeService.GetAll();
+            
+            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             return View("HRView", request);
         }

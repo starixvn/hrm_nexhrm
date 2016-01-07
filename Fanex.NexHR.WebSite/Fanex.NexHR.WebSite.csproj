@@ -605,6 +605,7 @@
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\leave.request.js" />
     <Content Include="Scripts\Views\report.timesheet.js" />
+    <Content Include="Scripts\Views\Report\leavededuction.js" />
     <Content Include="Scripts\Views\Report\report.attendance.js" />
     <Content Include="Scripts\Views\Report\report.mytimerecord.js" />
     <Content Include="Scripts\Views\search.request.js" />

@@ -83,6 +83,7 @@
             BuildBundleForAttendanceReport(bundles);
 
             BuildBundleForEditEmployee(bundles);
+
             BuildBundleForLateInEarlyOut(bundles);
 
             BuildBundleForDefaultSchedule(bundles);
@@ -90,6 +91,8 @@
             BuildBundleForMonthSchedule(bundles);
 
             BuildBundleForReportTimeRecord(bundles);
+
+            BuildBundleForLeaveSummary(bundles);
         }
 
         private static void BuildBundleForHolidays(BundleCollection bundles)
@@ -208,13 +211,14 @@
             bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
                 "~/Scripts/Views/user.management.js"));
         }
- private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
+
+        private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
         {
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutsummaryjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/leavededuction.js");
-                }
+        }
         private static void BuildBundleForEditEmployee(BundleCollection bundles)
         {
             bundles.AddAndInclude(
@@ -260,5 +264,11 @@
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.timerecord.js"));
         }
+
+        private static void BuildBundleForLeaveSummary(BundleCollection bundles)
+        {
+               bundles.Add(new ScriptBundle("~/bundles/leavesummaryjs").Include(
+                "~/Scripts/Views/_employee.search.in.company.js"));
+        }        
     }
 }
