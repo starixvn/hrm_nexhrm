@@ -95,7 +95,7 @@
         {{/if}}
         {{if Status.Name == 'Pending'}}
             <td class="tooltip" title="${Remark}">
-                <a requestid="${Id}" href="javascript:;" class="${Status} c-pedding">${Status.Name}</a>
+                <a requestid="${Id}" href="javascript:;" class="${Status} c-pending">${Status.Name}</a>
             </td>
         {{else}}
             <td class="tooltip c-approve" title="${Status.Name} by ${ModifiedBy.NickName} (${formatJsonDateToShortFormatedDate(ModifiedDate)})">${Status.Name}</td>

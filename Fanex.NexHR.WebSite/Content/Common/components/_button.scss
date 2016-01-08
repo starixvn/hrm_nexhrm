@@ -47,7 +47,7 @@
 }
 
 .btn-ok {
-	@include button(#4CAF50);
+	@include button(#2aaa55);
 	margin-right: $b-space--m;
 	@extend %input-button;
 }
@@ -116,5 +116,6 @@
 
 	.waves-button-input {
 		padding: 0.8rem 1.6rem;
+		font-size: 13px;
 	}
 }

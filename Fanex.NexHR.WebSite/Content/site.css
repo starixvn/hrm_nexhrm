@@ -95,8 +95,10 @@ main {
   font-size: 12px;
   color: #ff0909; }
 
-#confirm p {
-  padding-bottom: 0; }
+#confirm {
+  text-align: center !important; }
+  #confirm p {
+    padding-bottom: 0; }
 
 #legendInfo {
   float: right;
@@ -147,7 +149,7 @@ main {
 .m-l--xl {
   margin-left: 50px; }
 
-.c-pedding {
+.c-pending {
   color: #f4783d; }
 
 .c-approve {
@@ -273,10 +275,10 @@ a:active, a:focus {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-ok {
-  background-color: #4CAF50 !important;
+  background-color: #2aaa55 !important;
   margin-right: 16px; }
   .btn-ok:hover {
-    background: #449d48;
+    background: #25964b;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-cancel, .btn-close {
@@ -331,7 +333,8 @@ a:active, a:focus {
   padding: 0;
   float: left; }
   .waves-input-wrapper .waves-button-input {
-    padding: 0.8rem 1.6rem; }
+    padding: 0.8rem 1.6rem;
+    font-size: 13px; }
 
 .primary-color {
   color: #f4783d; }
@@ -433,7 +436,7 @@ a:active, a:focus {
 .col.button {
   padding-left: 0; }
 
-.select--xs, input--xs {
+.select--xs, .input--xs {
   width: 70px; }
 
 .select--s, .input--s {
@@ -514,6 +517,9 @@ a:active, a:focus {
   overflow-y: auto;
   overflow-x: hidden; }
 
+.form-input.center .waves-input-wrapper {
+  float: none; }
+
 #dialog-toeic {
   text-align: left;
   padding-top: 0; }
@@ -530,6 +536,9 @@ a:active, a:focus {
     margin: 0; }
   #insertform .row {
     margin-bottom: 1rem; }
+
+#frmUpdateTOEIC, #frmUpdFullTOEIC {
+  margin-bottom: 0; }
 
 #calendar .fc-toolbar {
   background: #353c4e;
@@ -698,11 +707,12 @@ a:active, a:focus {
   .table.table-custom tbody tr td span.req {
     color: #fff;
     padding: .3rem .6rem;
-    margin-right: .5rem; }
+    margin-right: .5rem;
+    border-radius: 2px; }
     .table.table-custom tbody tr td span.req.checkinout {
       background: #3366ff; }
     .table.table-custom tbody tr td span.req.leave {
-      background: #a63c45; }
+      background: #da871c; }
     .table.table-custom tbody tr td span.req.inout {
       background: #999900; }
 .table.table-custom tbody tr.row-divider td {

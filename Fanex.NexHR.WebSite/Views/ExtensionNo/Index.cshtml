@@ -21,8 +21,8 @@
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <div class="col">
-                                <span class="btn-request waves-effect waves-light m-r--s">@Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "white-text" })</span>
-                                <span class="btn-submit waves-effect waves-light">@Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "white-text" })</span>
+                                @Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "btn-request waves-effect waves-light m-r--s" })
+                                @Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "btn-submit waves-effect waves-light" })
                             </div>
                         }
                     </div>

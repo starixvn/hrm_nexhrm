@@ -11,7 +11,7 @@
     <div class="left label--l">
         @Html.LabelFor(model => model.TotalDays)
     </div>
-    <div class="left input--s">
+    <div class="left input--xs">
         @Html.EditorFor(model => model.TotalDays)
     </div>
 </div>
@@ -40,12 +40,10 @@
         <i class="mdi-action-event calendar-icon left"></i>
     </div>
 </div>
-<div class="row form-input">
-    @Html.HiddenFor(model => model.EmpId)    
-    <span class="btn-ok waves-effect waves-light m-r--m">
-        <input id="insert" type="submit" value="@Labels.Add" />
-    </span><span class="btn-cancel waves-effect waves-light m-r--m">
-        <input id="cancel" type="button" value="@Labels.Cancel" />
-    </span>    
+<div class="row form-input center">
+    @Html.HiddenFor(model => model.EmpId)
+    
+    <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+    <input class="btn-ok waves-effect waves-light" id="insert" type="submit" value="@Labels.Add" />
 </div>
 </form>

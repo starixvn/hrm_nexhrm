@@ -34,7 +34,7 @@
                             <input type="hidden" id="successed" value="true" />
                             }
 
-                            <div class="row form-input">
+                            <div class="row form-input m-b--m">
                                 <div class='col'>
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.IsInternal, Labels.IsInternal)
@@ -107,8 +107,9 @@
                                         @Html.Hidden("EmpId")
                                         @Html.Hidden("IsAddForm", true)
                                     </div>
-                                    <span class="button-hrm waves-effect waves-light btn orange darken-2 m-r--s">
-                                        <input type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /></span> <a class="button-hrm waves-effect waves-light btn grey darken-1"
+                                    
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Fanex.NexHR.Resources.Labels.Add" /> 
+                                        <a class="btn-back waves-effect waves-light"
                                             href="~/extensionno/index">@Labels.Back</a>
                                 </div>
                             </div>

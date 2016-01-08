@@ -6790,8 +6790,8 @@ form p:last-child {
   -webkit-transform-origin: 20% 40%;
   transform-origin: 100% 100%; }
 [type="checkbox"].filled-in:not(:checked) + label:after {
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   background-color: transparent;
   border: 2px solid #6f8396;
   top: 0px;
@@ -6799,8 +6799,8 @@ form p:last-child {
 [type="checkbox"].filled-in:checked + label:before {
   top: 0;
   left: 0;
-  width: 8px;
-  height: 13px;
+  width: 7px;
+  height: 11px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-right: 2px solid #fff;
@@ -6811,8 +6811,8 @@ form p:last-child {
   transform-origin: 100% 100%; }
 [type="checkbox"].filled-in:checked + label:after {
   top: 0px;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border: 2px solid #6f8396;
   background-color: #6f8396;
   z-index: 0; }

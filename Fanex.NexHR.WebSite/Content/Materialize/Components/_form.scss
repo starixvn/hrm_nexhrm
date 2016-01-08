@@ -480,8 +480,8 @@ form p:last-child {
              transform-origin: 100% 100%;
   }
   &:not(:checked) + label:after {
-    height: 18px;
-    width: 18px;
+    height: 16px;
+    width: 16px;
     background-color: transparent;
     border: 2px solid $radio-empty-color;
     top: 0px;
@@ -492,8 +492,8 @@ form p:last-child {
     + label:before {
       top: 0;
       left: 0;
-      width: 8px;
-      height: 13px;
+      width: 7px;
+      height: 11px;
       border-top: 2px solid transparent;
       border-left: 2px solid transparent;
       border-right: 2px solid $input-bg-color;
@@ -506,8 +506,8 @@ form p:last-child {
     }
     + label:after {
       top: 0px;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border: 2px solid $radio-empty-color;
       background-color: $radio-empty-color;
       z-index: 0;

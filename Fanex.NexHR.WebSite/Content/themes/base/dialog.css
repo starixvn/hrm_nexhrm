@@ -13,24 +13,25 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: 0 32px 32px 32px;
+	padding: 0 32px 20px 32px;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
 	position: relative;
-	border-bottom: 1px solid #e5e5e5;
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
 	margin: 1.4em 0 .1em;
 	white-space: nowrap;
-	width: 90%;
+	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 30px;
 	font-weight: bold;
+	text-align: center;
+	color: #4c5e70;
 	/*display: none;*/
 }
 .ui-dialog .ui-dialog-titlebar-close {
@@ -51,13 +52,13 @@
 	text-align: left;
 }
 .ui-dialog .ui-dialog-buttonpane {
-	text-align: left;
+	text-align: center;
 	border: none;
 	background-image: none;
 	margin-top: 1.5em;	
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-	float: right;
+	/*float: right;*/
 }
 .ui-dialog .ui-dialog-buttonpane button {	
 	cursor: pointer;

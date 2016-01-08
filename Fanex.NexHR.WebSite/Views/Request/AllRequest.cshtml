@@ -48,7 +48,7 @@
                         <td class="tooltip" title="@request.Requester.FullName">
                             @request.Requester.NickName.ToString()
                         </td>
-                        <td class="highlight">
+                        <td>
                             @if ((bool)ViewBag.Leader)
                             {
                                 <a href="@Url.Action("member", "request", requestModel)">
@@ -117,21 +117,21 @@
                                     if (request.RequestType.Id == 6)
                                     {
                                         <td>
-                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" 
+                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending" 
                                                 title="@(annualBalance + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">@request.Status.ToString()</a>
                                         </td>
                                     }
                                     else
                                     {
                                         <td>
-                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" 
+                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending" 
                                                 title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</a>
                                         </td>
                                     }
                                     break;
                                 case 2: //Approve
                                     <td>
-                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip" 
+                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</a>
                                     </td>
                                     break;
@@ -152,27 +152,27 @@
                                     if (request.RequestType.Id == 6)
                                     {
                                         <td>
-                                            <span class="tooltip status-nochange" 
+                                            <span class="tooltip status-nochange c-pending" 
                                                 title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                         </td>
                                     }
                                     else
                                     {
                                         <td>
-                                            <span class="tooltip status-nochange" 
+                                            <span class="tooltip status-nochange c-pending" 
                                                 title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                         </td>
                                     }
                                     break;
                                 case 2: //Approve
                                     <td>
-                                        <span class="tooltip status-nochange" 
+                                        <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
                                     break;
                                 case 3: //Reject
                                     <td>
-                                        <span class="tooltip status-nochange" 
+                                        <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
                                     break;

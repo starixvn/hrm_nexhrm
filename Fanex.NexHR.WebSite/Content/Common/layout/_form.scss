@@ -34,7 +34,7 @@
     padding-left: 0;
 }
 
-.select--xs, input--xs {
+.select--xs, .input--xs {
     width: 70px;
 }
 
@@ -172,6 +172,14 @@
     }
 }
 
+//----------------------DIALOG POPUP-----------------------
+
+.form-input.center {
+	.waves-input-wrapper {
+		float: none;
+	}
+}
+
 #dialog-toeic {
     text-align: left;
 	padding-top: 0;
@@ -198,6 +206,10 @@
     .row {
         margin-bottom: 1rem;
     }
+}
+
+#frmUpdateTOEIC, #frmUpdFullTOEIC {
+	margin-bottom: 0;
 }
 
 //------------------------Calendar--------------------------------------

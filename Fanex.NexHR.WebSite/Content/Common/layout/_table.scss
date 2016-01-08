@@ -85,13 +85,14 @@
                     color: #fff;
                     padding: .3rem .6rem;
                     margin-right: .5rem;
+					border-radius:2px;
 
                     &.checkinout {
                         background: #3366ff;
                     }
 
                     &.leave {
-                        background: #a63c45;
+                        background: #da871c;
                     }
 
                     &.inout {
