@@ -15,63 +15,67 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 l7 card-container-base my-request">
+    <div class="col s12 l7 card-container-base">
         <div class="card">
             <div class="card-content">
                 @if (ViewBag.Employee != null)
                 {
-                <script type="text/javascript">
+                    <script type="text/javascript">
                     var id = @ViewBag.Id;
-                </script>
-                <div class="card-title-block">
-                    <span class="card-title left">Working schedule of @ViewBag.Employee.NickName</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
-                        <label for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
-                        <input id="monthschedule" class="with-gap" type="radio" name="monthschedule" checked="checked" />
-                        <label for="monthschedule">@Labels.EditByMonth</label>
+                    </script>
+                    <div class="card-title-block">
+                        <span class="card-title left">Working schedule of @ViewBag.Employee.NickName</span>
                     </div>
-                    <div class="row">
-                        <div id="calendar"></div>
+                    <div class="card-body">
+                        <div class="form">
+                            <div class="row">
+                                <div class="col">
+                                    <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
+                                    <label class="m-r--m" for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
+                                    <input id="monthschedule" class="with-gap" type="radio" name="monthschedule" checked="checked" />
+                                    <label class="m-r--m" for="monthschedule">@Labels.EditByMonth</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-x--s">
+                            <div id="calendar">
+                            </div>
+                        </div>
                     </div>
-                </div>
                 }
                 else
                 {
-                <div class="card-title-block">
-                    <span class="card-title left">@Messages.NoDataIsAvailable</span>
-                </div>
+                    <div class="card-title-block">
+                        <span class="card-title left">@Messages.NoDataIsAvailable</span>
+                    </div>
                 }
             </div>
         </div>
-</div>
-
-<div class="row hide">
-    <div id="dialog" title="Update shift">
-        <div class="form">
-            <div class="row form-input">
-                <div class="col">
+    </div>
+    <div class="row hide">
+        <div id="dialog" title="Update shift">
+            <div class="form">
+                <div class="row form-input">
+                    <div class="col">
+                        <div class="left label--l">
+                            @Html.Label("Current Shift")
+                        </div>
+                        <div class="left">
+                            <span id="current"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-input">
                     <div class="left label--l">
-                        @Html.Label("Current Shift")
+                        @Html.Label("Change To")
                     </div>
-                    <div class="left">
-                        <span id="current"></span>
+                    <div class="left input--s">
+                        @Html.DropDownList("shifts", (List<SelectListItem>)ViewBag.Shifts, Labels.Off)
                     </div>
                 </div>
-            </div>
-            <div class="row form-input">
-                <div class="left label--l">
-                    @Html.Label("Change To")
+                <div class="row">
+                    <input type="submit" id="update" class="btn-submit waves-effect waves-light" value="@Labels.Update" />
                 </div>
-                <div class="left input--s">
-                    @Html.DropDownList("shifts", (List<SelectListItem>)ViewBag.Shifts, Labels.Off)
-                </div>
-            </div>
-            <div class="row">
-                <input type="submit" id="update" class="btn-submit waves-effect waves-light" value="@Labels.Update" />
             </div>
         </div>
     </div>
-</div>

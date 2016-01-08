@@ -14,7 +14,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 l7 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -22,25 +22,27 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline"></i></span></a>
+                        <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline">
+                        </i></span></a>
                         @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)
                             if (ViewBag.Requested == true)
                             {
-                                <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
-                                    <input type="hidden" id="successed" value="true" />
-                                    <input type="hidden" id="year" value="@ViewBag.Year" />
-                                </div>
+                            <div class="row validation-summary-success">
+                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                <input type="hidden" id="successed" value="true" />
+                                <input type="hidden" id="year" value="@ViewBag.Year" />
+                            </div>
                             }
                             if (ViewBag.TotalRequest >= 2)
                             {
-                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                    <p>
-                                        <a href="@Url.Action("EmployeeView")">You've already requested for Check in/Check out @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
-                                    </p>
-                                </div>
+                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                <p>
+                                    <a href="@Url.Action("EmployeeView")">You've already requested for Check in/Check out
+                                        @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
+                                </p>
+                            </div>
                             }
                             <div class="card-content">
                                 <div class="row form-input m-b--m">
@@ -74,13 +76,14 @@
                                         <div class="col m-l--m">
                                             @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
                                         </div>
-                                        <div class="col p-0">:</div>
+                                        <div class="col p-0">
+                                            :</div>
                                         <div class="col">
                                             @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-input">
+                                <div class="row form-input m-b--m">
                                     <div class="left label--xl">
                                         <label>@Labels.Shift</label>
                                     </div>
@@ -88,20 +91,23 @@
                                         <span class="label" id="shiftname">@Model.Shift</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                @Html.HiddenFor(model => model.EmployeeId)
-                                @Html.HiddenFor(model => model.Employee)
-                                @Html.HiddenFor(model => model.DisplayName)
-                                @Html.HiddenFor(model => model.Shift)
-                                @Html.HiddenFor(model => model.ForRequest)
-                                @Html.Hidden("InTime")
-                                @Html.Hidden("OutTime")
-                                <span class="btn-request waves-effect waves-light">
-                                    <input type="submit" value="@Labels.Request" />
-                                </span>
-                                <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
-                            </div>
+                                <div class="row form-input">
+                                    <div class="left label--xl">
+                                        &nbsp;</div>
+                                    <div class="left">
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        @Html.HiddenFor(model => model.Employee)
+                                        @Html.HiddenFor(model => model.DisplayName)
+                                        @Html.HiddenFor(model => model.Shift)
+                                        @Html.HiddenFor(model => model.ForRequest)
+                                        @Html.Hidden("InTime")
+                                        @Html.Hidden("OutTime")
+                                        
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Labels.Request" />
+                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                    </div>
+                                </div>
+                            </div>                            
                         }
                     </div>
                 </div>

@@ -15,7 +15,7 @@
 
 .radioButton {
     float: left;
-    margin-right: 16px;
+    margin-right: 21px;
     label {
         margin-top: 2px !important;
     }
@@ -44,6 +44,10 @@
 
 .select--m, .input--m {
     width: 250px;
+}
+
+.select-team {
+	width: 200px;
 }
 
 .select--l, .input--l {
@@ -90,7 +94,7 @@
   input[type="text"], textarea, input[type=number] {
     @extend %boxshadow; 
     padding-left: 7px !important;
-    border: none !important;
+    border: 1px solid #d0d0d0;
     position: none !important;
     visibility: unset !important;
     left: unset !important;
@@ -194,4 +198,30 @@
     .row {
         margin-bottom: 1rem;
     }
+}
+
+//------------------------Calendar--------------------------------------
+#calendar {
+	.fc-toolbar {
+		background: #353c4e;
+		margin: 0;
+		padding: 1.4rem;
+		h2 {
+			font-size: 25px;
+			color: #fff;
+		}	
+	}
+	
+	.fc-view-container {
+		.fc-head {
+			.ui-widget-header {
+				border: 1px solid #3c4355 !important;
+				font-weight: normal;
+			}
+		}
+	}
+	.fc-day-number {
+		border-bottom: none;
+	}
+	
 }

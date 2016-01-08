@@ -22,7 +22,94 @@
                         {
                             @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                             <div class="row form-input">
-                                <div class="col s3">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1), maxDate: DateTime.Now.AddMonths(4))
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.AttendanceType, "Request")
+                                    </div>
+                                    <div class="left select--s">
+                                        @{
+                            var types = new List<SelectListItem>
+                                            {
+                                                new SelectListItem() {Text = "All", Value = "0"},
+                                                new SelectListItem() {Text = "Check In", Value = "1"},
+                                                new SelectListItem() {Text = "Check Out", Value = "2"},
+                                                new SelectListItem() {Text = "Late In", Value = "3"},
+                                                new SelectListItem() {Text = "Early Out", Value = "4"},
+                                                new SelectListItem() {Text = "Not Working", Value = "5"},
+                                            };
+                                        }
+                                        @Html.DropDownListFor(model => model.AttendanceType, types)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select id="GroupId" name="GroupId">
+                                            <option value="">@Labels.AllTeams</option>
+                                            @foreach (Team item in ViewBag.Groups)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = @Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmpId)
+                                        @Html.ValidationMessageFor(model => model.EmpId)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="view" />
+                                    <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">&nbsp;</div>
+                                    <div class="left">
+                                        @Html.MaterializeCheckBoxFor(model => model.ExcludeUserDelete, new { @class = "filled-in" })
+                                    </div>
+                                    <div class="left">
+                                        @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
+                                    </div>
+                                </div>                                
+                                @*<div class="col s3">
                                     <div>
                                         <div class="left label--m">
                                             <label>@Labels.DateRange</label>
@@ -48,7 +135,6 @@
                                                 new SelectListItem() {Text = "Not Working", Value = "5"},
                                             };
                                             }
-                                            
                                             @Html.DropDownListFor(model => model.AttendanceType, types)
                                         </div>
                                     </div>
@@ -59,7 +145,7 @@
                                             @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                         </div>
                                         <div class="left datepicker-button select--s">
-                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1), maxDate: DateTime.Now.AddMonths(4))                                            
+                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1), maxDate: DateTime.Now.AddMonths(4))
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                     </div>
@@ -93,36 +179,31 @@
                                             @Html.LabelFor(model => model.Employee)
                                         </div>
                                         <div class="left input--m">
-                                            @Html.TextBoxFor(model=>model.Employee, new { placeholder = @Messages.SearchEmployeeWatermark })
+                                            @Html.TextBoxFor(model => model.Employee, new { placeholder = @Messages.SearchEmployeeWatermark })
                                             @Html.HiddenFor(model => model.EmpId)
                                             @Html.ValidationMessageFor(model => model.EmpId)
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col s4">
-                                    <div class="row">                                        
+                                    <div class="row">
                                         <div class="left">
                                             @Html.MaterializeCheckBoxFor(model => model.ExcludeUserDelete, new { @class = "filled-in" })
-                                            
                                         </div>
                                         <div class="left">
-                                        @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
+                                            @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
                                         </div>
                                     </div>
                                     <div class="row m-t--m">
-                                        <span class="btn-submit waves-effect waves-light m-r--s">
-                                            <input type="button" value="@Labels.Submit" id="view" /></span> <span class="btn-export-excel waves-effect waves-light">
-                                                <input type="button" value="@Labels.Excel" id="exportExcel" /></span>
+                                        <input class="btn-submit waves-effect waves-light m-r--s" type="button" value="@Labels.Submit" id="view" />
+                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
                                     </div>
-                                </div>
-                            </div>   
-                                                     
-                            <div class="row form-input">
-                            </div>                            
+                                </div>*@
+                            </div>
                         }
                     </div>
                     <div class="p-x--s">
-                        <table id="data" class="data persist-area table bordered striped highlight table-custom">
+                        <table id="data" class="data persist-area table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr class="persist-header">
                                     <th>
@@ -187,10 +268,10 @@
         <td>
             ${Code}
         </td>
-        <td title="${FullName}" class="left tooltip">
+        <td title="${FullName}" class="tooltip">
             ${NickName}
         </td>
-        <td class="left">
+        <td class="txt-left">
             ${FullName}
         </td>
         <td class="tooltip" title="${Team}">
@@ -220,7 +301,7 @@
                 ${displayMinute(EarlyOut)}
             {{/if}}
         </td>
-        <td class='left'>
+        <td class='txt-left'>
             {{if Requests != null > 0}}
                 {{each Requests}}
                     <a href='javascript:;' class="tooltip-request req"
@@ -239,7 +320,7 @@
 
             {{/if}}
         </td>
-        <td class="left">
+        <td class="txt-left">
             ${Notes}
         </td>
     </tr>

@@ -6557,7 +6557,7 @@ textarea {
 [type="radio"]:not(:checked) + label,
 [type="radio"]:checked + label {
   position: relative;
-  padding-left: 30px;
+  padding-left: 25px;
   cursor: pointer;
   display: inline-block;
   height: 25px;
@@ -6596,11 +6596,11 @@ textarea {
 /* Unchecked styles */
 [type="radio"]:not(:checked) + label:before {
   border-radius: 50%;
-  border: 2px solid rgba(90, 90, 90, 0.7); }
+  border: 2px solid #6f8396; }
 
 [type="radio"]:not(:checked) + label:after {
   border-radius: 50%;
-  border: 2px solid rgba(90, 90, 90, 0.7);
+  border: 2px solid #6f8396;
   z-index: -1;
   -webkit-transform: scale(0);
   -moz-transform: scale(0);
@@ -6615,8 +6615,8 @@ textarea {
 
 [type="radio"]:checked + label:after {
   border-radius: 50%;
-  border: 2px solid #f4783d;
-  background-color: #f4783d;
+  border: 2px solid #6f8396;
+  background-color: #6f8396;
   z-index: 0;
   -webkit-transform: scale(1.02);
   -moz-transform: scale(1.02);
@@ -6627,12 +6627,12 @@ textarea {
 /* Radio With gap */
 [type="radio"].with-gap:checked + label:before {
   border-radius: 50%;
-  border: 2px solid #f4783d; }
+  border: 2px solid #6f8396; }
 
 [type="radio"].with-gap:checked + label:after {
   border-radius: 50%;
-  border: 2px solid #f4783d;
-  background-color: #f4783d;
+  border: 2px solid #6f8396;
+  background-color: #6f8396;
   z-index: 0;
   -webkit-transform: scale(0.5);
   -moz-transform: scale(0.5);
@@ -6708,7 +6708,7 @@ form p:last-child {
     width: 18px;
     height: 18px;
     z-index: 0;
-    border: 2px solid rgba(90, 90, 90, 0.7);
+    border: 2px solid #6f8396;
     border-radius: 1px;
     margin-top: 2px;
     -webkit-transition: 0.2s;
@@ -6727,8 +6727,8 @@ form p:last-child {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #f4783d;
-  border-bottom: 2px solid #f4783d;
+  border-right: 2px solid #6f8396;
+  border-bottom: 2px solid #6f8396;
   -webkit-transform: rotate(40deg);
   -moz-transform: rotate(40deg);
   -ms-transform: rotate(40deg);
@@ -6752,7 +6752,7 @@ form p:last-child {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #f4783d;
+  border-right: 2px solid #6f8396;
   border-bottom: none;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -6793,7 +6793,7 @@ form p:last-child {
   height: 18px;
   width: 18px;
   background-color: transparent;
-  border: 2px solid rgba(90, 90, 90, 0.7);
+  border: 2px solid #6f8396;
   top: 0px;
   z-index: 0; }
 [type="checkbox"].filled-in:checked + label:before {
@@ -6813,8 +6813,8 @@ form p:last-child {
   top: 0px;
   width: 18px;
   height: 18px;
-  border: 2px solid #f4783d;
-  background-color: #f4783d;
+  border: 2px solid #6f8396;
+  background-color: #6f8396;
   z-index: 0; }
 [type="checkbox"].filled-in:disabled:not(:checked) + label:before {
   background-color: transparent;
@@ -7010,7 +7010,7 @@ input[type=range] + .thumb {
   height: 0;
   width: 0;
   border-radius: 50%;
-  background-color: #f4783d;
+  background-color: #6f8396;
   top: 10px;
   margin-left: -6px;
   -webkit-transform-origin: 50% 50%;
@@ -7027,7 +7027,7 @@ input[type=range] + .thumb {
     display: block;
     width: 30px;
     text-align: center;
-    color: #f4783d;
+    color: #6f8396;
     font-size: 0;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
@@ -7059,7 +7059,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background-color: #f4783d;
+  background-color: #6f8396;
   transform-origin: 50% 50%;
   margin: -5px 0 0 0;
   -webkit-transition: 0.3s;
@@ -7086,7 +7086,7 @@ input[type=range]::-moz-range-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #f4783d;
+  background: #6f8396;
   margin-top: -5px; }
 
 /*hide the outline behind the border*/
@@ -7118,7 +7118,7 @@ input[type=range]::-ms-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #f4783d; }
+  background: #6f8396; }
 
 input[type=range]:focus::-ms-fill-lower {
   background: #888; }

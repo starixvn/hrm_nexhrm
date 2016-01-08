@@ -250,7 +250,7 @@ textarea {
 [type="radio"]:not(:checked) + label,
 [type="radio"]:checked + label {
   position: relative;
-  padding-left: 30px;
+  padding-left: 25px;
   cursor: pointer;
   display: inline-block;
   height: 25px;
@@ -508,8 +508,8 @@ form p:last-child {
       top: 0px;
       width: 18px;
       height: 18px;
-      border: 2px solid $primary-color;
-      background-color: $primary-color;
+      border: 2px solid $radio-empty-color;
+      background-color: $radio-empty-color;
       z-index: 0;
     }
   }

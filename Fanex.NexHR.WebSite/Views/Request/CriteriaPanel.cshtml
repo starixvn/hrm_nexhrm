@@ -7,92 +7,85 @@
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <div class="form">
         <div class="row form-input">
-            <div class="col s4">
-                <div>
-                    <div class="left label--m">
-                        <label>@Labels.DateRange</label>
-                    </div>
-                    <div class="left select--m">
-                        @RazorHelper.DateRangeDropDownList("Date", Model.DateOption)                        
-                        @Html.Hidden("DateOption", Model.DateOption)
-                    </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    <label>@Labels.DateRange</label>
                 </div>
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
-                    </div>
-                    <div class="left datepicker-button select--s">
-                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
-                        <i class="mdi-action-event calendar-icon left"></i>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
-                    </div>
-                    <div class="left datepicker-button select--s">
-                        @Html.DatePickerFor(model => model.ToDate)
-                        <i class="mdi-action-event calendar-icon left"></i>
-                    </div>
-                </div>
-                <div>
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
-                    </div>
-                    <div class="left select--s">
-                        @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.FilteringDateTypes)
-                    </div>
+                <div class="left select--m">
+                    @RazorHelper.DateRangeDropDownList("Date", Model.DateOption)
+                    @Html.Hidden("DateOption", Model.DateOption)
                 </div>
             </div>
-            <div class="col s4">
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.StatusId)
-                    </div>
-                    <div class="left select--m">
-                        @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
-                    </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                 </div>
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.TeamCollection)
-                    </div>
-                    <div class="left select--m">
-                        @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.Employee)
-                    </div>
-                    <div class="left input--m">
-                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                        @Html.HiddenFor(model => model.EmployeeId)
-                    </div>
+                <div class="left datepicker-button select--s">
+                    @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                    <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>
-            <div class="col s5">
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.LeaveTypeId)
-                    </div>
-                    <div class="left select--m">
-                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.FilteringLeaveTypes, "Id", "Name"))
-                    </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                 </div>
-                <div class="row">
-                    <div class="left label--m">
-                        @Html.LabelFor(model => model.RequestType, Labels.Request)
-                    </div>
-                    <div class="left">
-                        @Html.RadioButtonList(model => model.RequestType, Model.FilteringRequestTypes)
-                    </div>
-                </div>
-                <div class="row p-t--m">
-                    <span class="btn-submit waves-effect waves-light">
-                        <input class="processing-submit" type="submit" value="@Labels.Submit" /></span>
+                <div class="left datepicker-button select--s">
+                    @Html.DatePickerFor(model => model.ToDate)
+                    <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
+                </div>
+                <div class="left select--m">
+                    @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.FilteringDateTypes)
+                </div>
+            </div>            
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.TeamCollection)
+                </div>
+                <div class="left select--m">
+                    @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
+                </div>
+            </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.StatusId)
+                </div>
+                <div class="left select--s">
+                    @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
+                </div>
+            </div>
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.Employee)
+                </div>
+                <div class="left input--m">
+                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                    @Html.HiddenFor(model => model.EmployeeId)
+                </div>
+            </div>
+        </div>
+        <div class="row form-input">
+            <div class="col m-r--m">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.LeaveTypeId)
+                </div>
+                <div class="left select--m">
+                    @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.FilteringLeaveTypes, "Id", "Name"))
+                </div>
+            </div>
+            <div class="col">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.RequestType, Labels.Request)
+                </div>
+                <div class="left">
+                    @Html.RadioButtonList(model => model.RequestType, Model.FilteringRequestTypes)
+                </div>
+            </div>
+            <input class="btn-submit waves-effect waves-light processing-submit m-l--s-" type="submit" value="@Labels.Submit" />
         </div>
     </div>
 }

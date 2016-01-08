@@ -25,8 +25,8 @@
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	/*font-family: Verdana,Arial,sans-serif{ffDefault};*/
-	font-size: 1em;
+	/*font-family: Verdana,Arial,sans-serif{ffDefault};
+	font-size: 1em;*/
 }
 .ui-widget-content {
 	border: 1px solid #aaaaaa/*{borderColorContent}*/;

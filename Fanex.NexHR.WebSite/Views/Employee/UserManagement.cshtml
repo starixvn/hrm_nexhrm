@@ -24,7 +24,7 @@
                                 <div class="left label--m">
                                     <label>@Labels.Keyword</label>
                                 </div>
-                                <div class="left input--m">
+                                <div class="left input--s">
                                     <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
                                 </div>
                             </div>
@@ -46,22 +46,24 @@
                             <div class="col">
                                 <div class="left radioButton">
                                     <input class="with-gap" name="name" type="radio" id="active" checked="checked" />
-                                    <label for="active" class="m-r--s">@Labels.ActiveUsers</label>
+                                    <label for="active" class="m-r--l">@Labels.ActiveUsers</label>
                                     <input class="with-gap" name="name" type="radio" id="enable" />
-                                    <label class="m-r--s" for="enable">@Labels.DisabledUsers</label>
+                                    <label class="m-r--l" for="enable">@Labels.DisabledUsers</label>
                                     <input class="with-gap" name="name" type="radio" id="IsDeleted" />
-                                    <label class="m-r--s" for="IsDeleted">@Labels.DeletedUsers</label>
+                                    <label class="m-r--l" for="IsDeleted">@Labels.DeletedUsers</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                                <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
-                                <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
+                            <div class="col">
+                            <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
+                            <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
                             </div>
                         </div>
+                        <div class="row m-l--s">                            
+                            
+                        </div>
                     </div>
-                    <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
                 </div>
+                <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
                 <div class="p-x--s">
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                         <thead>
@@ -122,6 +124,7 @@
         </div>
     </div>
 </div>
+
 <script id="template" type="text/x-jquery-tmpl">
     <tr id="row${Id}" {{if Enabled == false }}class="disabled"{{/if}}>
         <td>

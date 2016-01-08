@@ -126,6 +126,9 @@ main {
 .m-l--s {
   margin-left: 8px; }
 
+.m-l--s- {
+  margin-left: -9px; }
+
 .m-b--m {
   margin-bottom: 16px; }
 
@@ -139,7 +142,10 @@ main {
   margin-right: 24px; }
 
 .m-r--xl {
-  margin-right: 48px; }
+  margin-right: 50px; }
+
+.m-l--xl {
+  margin-left: 50px; }
 
 .c-pedding {
   color: #f4783d; }
@@ -322,7 +328,8 @@ a:active, a:focus {
       width: 214px; } }
 
 .waves-input-wrapper {
-  padding: 0; }
+  padding: 0;
+  float: left; }
   .waves-input-wrapper .waves-button-input {
     padding: 0.8rem 1.6rem; }
 
@@ -411,7 +418,7 @@ a:active, a:focus {
 
 .radioButton {
   float: left;
-  margin-right: 16px; }
+  margin-right: 21px; }
   .radioButton label {
     margin-top: 2px !important; }
 
@@ -434,6 +441,9 @@ a:active, a:focus {
 
 .select--m, .input--m {
   width: 250px; }
+
+.select-team {
+  width: 200px; }
 
 .select--l, .input--l {
   width: 400px; }
@@ -462,7 +472,7 @@ a:active, a:focus {
   padding-right: 1.6rem; }
 .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
   padding-left: 7px !important;
-  border: none !important;
+  border: 1px solid #d0d0d0;
   position: none !important;
   visibility: unset !important;
   left: unset !important; }
@@ -520,6 +530,19 @@ a:active, a:focus {
     margin: 0; }
   #insertform .row {
     margin-bottom: 1rem; }
+
+#calendar .fc-toolbar {
+  background: #353c4e;
+  margin: 0;
+  padding: 1.4rem; }
+  #calendar .fc-toolbar h2 {
+    font-size: 25px;
+    color: #fff; }
+#calendar .fc-view-container .fc-head .ui-widget-header {
+  border: 1px solid #3c4355 !important;
+  font-weight: normal; }
+#calendar .fc-day-number {
+  border-bottom: none; }
 
 .navbar-fixed .top-nav {
   font-size: 24px;

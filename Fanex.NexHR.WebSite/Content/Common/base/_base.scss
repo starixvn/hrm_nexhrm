@@ -180,6 +180,10 @@ main {
 	margin-left: $b-space--s;
 }
 
+.m-l--s- {
+	margin-left: -$b-space--s - 1px;
+}
+
 .m-b--m {
 	margin-bottom: $b-space--m;
 }
@@ -197,8 +201,13 @@ main {
 }
 
 .m-r--xl {
-	margin-right: 48px;
+	margin-right: 50px;
 }
+
+.m-l--xl {
+	margin-left: 50px;
+}
+
 //-------------------COLOR CLASSESS----------------------//
 
 .c-pedding {

@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 l7 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -108,9 +108,10 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col"> 
-                                    <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="@Labels.Update" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("index", "team")">@Labels.Back</a>
+                                <div class="left label--l">&nbsp;</div>
+                                <div class="left col"> 
+                                    <input class="btn-submit waves-effect waves-light m-r--s" type="submit" value="@Labels.Update" />
+                                    <a class="btn-cancel waves-effect waves-light" href="@Url.Action("index", "team")">@Labels.Back</a>
                                 </div>
                             </div>
                         </div>

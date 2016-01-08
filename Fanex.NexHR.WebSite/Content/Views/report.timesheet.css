@@ -96,7 +96,7 @@
   border-radius: 0.3rem; }
 
 .table tbody tr.offdate, .table tbody tr.noshift {
-  background: #ccc !important; }
+  /* background: #ccc !important;*/ }
 .table tbody tr td.col-request {
   text-align: left; }
 .table tbody tr td a.tooltip-request {

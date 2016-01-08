@@ -24,70 +24,70 @@
                     </div>
                     <div class="card-body">
                         <div class="form">
-                        @using (Html.BeginForm())
-                        {
-                            @Html.ValidationSummary(true)
-                            if (ViewBag.Updated == true)
+                            @using (Html.BeginForm())
                             {
+                                @Html.ValidationSummary(true)
+                                if (ViewBag.Updated == true)
+                                {
                                 <div class="row validation-summary-success success flash">
                                     <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
                                 </div>
-                            }
-                            <div class="row form-input">
-                                <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
-                                <label for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
-                                <input id="monthschedule" class="with-gap" type="radio" name="monthschedule" />
-                                <label for="monthschedule">@Labels.EditByMonth</label>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col">
+                                }
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
+                                        <label class="m-r--m" for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
+                                        <input id="monthschedule" class="with-gap" type="radio" name="monthschedule" />
+                                        <label class="m-r--m" for="monthschedule">@Labels.EditByMonth</label>
+                                    </div>
+                                </div>
+                                <div class="row form-input m-t--m">
                                     <div class="left">
                                         <div class="col">
-                                            <label>@Labels.Sun</label><br />
+                                            <label>@Labels.Sun</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[0].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.SunShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Mon</label><br />
+                                            <label>@Labels.Mon</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[1].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.MonShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Tue</label><br />
+                                            <label>@Labels.Tue</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[2].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.TueShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Wed</label><br />
+                                            <label>@Labels.Wed</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[3].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.WedShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Thu</label><br />
+                                            <label>@Labels.Thu</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[4].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.ThuShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Fri</label><br />
+                                            <label>@Labels.Fri</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[5].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.FriShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                         <div class="col">
-                                            <label>@Labels.Sat</label><br />
+                                            <label>@Labels.Sat</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[6].WorkDate.ToShortDateString() : string.Empty)
                                             @Html.DropDownListFor(model => model.SatShiftId, Model.Shifts, Labels.Off)
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-input">
-                                @Html.AntiForgeryToken()
-                                @Html.HiddenFor(model => model.EmpId)
-                                <div class="col">
-                                    <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Save" />
+                                <div class="row form-input">
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(model => model.EmpId)
+                                    <div class="col">
+                                        <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Save" />
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
                         </div>
                     </div>
                 }
