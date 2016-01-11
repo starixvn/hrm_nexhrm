@@ -1,4 +1,4 @@
-﻿@model List<Fanex.NexHR.ViewModels.ExtensionNoViewModel>
+﻿@model List<ExtensionNoViewModel>
 @section css {
 }
 @section js {
@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s9 l9 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -21,8 +21,8 @@
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <div class="col">
-                                @Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "btn-request waves-effect waves-light m-r--s" })
-                                @Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "btn-submit waves-effect waves-light" })
+                                @Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "white-text btn-request waves-effect waves-light m-r--s" })
+                                @Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "white-text btn-submit waves-effect waves-light m-r--s" })
                             </div>
                         }
                     </div>
@@ -73,7 +73,7 @@
                                         <td>
                                             @(index++)
                                         </td>
-                                        <td>
+                                        <td class="txt-left">
                                             @ext.FullName
                                         </td>
                                         <td>
