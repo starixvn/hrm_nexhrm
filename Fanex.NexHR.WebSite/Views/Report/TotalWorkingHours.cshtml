@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s3">
+                                <div class="col s4">
                                     <div class="row">
                                         <div class="left label--m">
                                             @Html.LabelFor(model => model.FromDate, Labels.FromDate)
@@ -70,22 +70,23 @@
                                     </div>
                                     <div class="row">
                                         <div class="left label--m">
+                                            @Html.LabelFor(model => model.Employee)
+                                        </div>
+                                        <div class="left input--m">
+                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                            @Html.HiddenFor(model => model.EmployeeId)
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col s3">
+                                    <div class="row">
+                                        <div class="left label--m">
                                             @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                         </div>
                                         <div class="left datepicker-button input--s">
                                             @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
                                             <i class="mdi-action-event calendar-icon left"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s3">
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.Employee)
-                                        </div>
-                                        <div class="left input--s">
-                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
                                         </div>
                                     </div>
                                     <div class="row">

@@ -224,7 +224,7 @@ function initDialog(divContent) {
                                 errorCont.html('');
 
                                 if (data.code === 1) {
-                                    errorCont.addClass('success');
+                                    errorCont.addClass('validation-summary-success');
                                     errorCont.append('Update TOEIC score for Employee successfully.');
                                     setTimeout(function () { $('#dialog-toeic').dialog('close'); location.reload(); }, 3000);
                                 } else {

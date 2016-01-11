@@ -285,3 +285,18 @@ table.data thead tr:nth-child(even) {
     }
     
 }
+
+
+.fc-content-skeleton {
+	thead {
+		border-bottom: none;
+
+		.fc-day-number {
+			border: none !important;
+		}
+	}
+
+	.fc-event-container {
+		border-top: none !important;
+	}
+}

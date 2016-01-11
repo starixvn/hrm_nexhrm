@@ -69,12 +69,20 @@ main {
       margin: 4px 0;
       list-style-type: disc; }
 
+#frmUpdateTOEIC .validation-summary-errors, #frmUpdFullTOEIC .validation-summary-errors {
+  margin-left: 0;
+  margin-right: 0; }
+
 .validation-summary-success {
   margin: 1rem 4rem 1.6rem 0.8rem;
   padding: 1rem;
   background: #e8f5e9;
   color: #2e7d32;
   border: 1px solid #4caf50; }
+
+#frmUpdateTOEIC .validation-summary-success, #frmUpdFullTOEIC .validation-summary-success {
+  margin-left: 0;
+  margin-right: 0; }
 
 .validation-summary-info {
   margin: 1rem 4rem 1.6rem 0.8rem;
@@ -479,8 +487,6 @@ a:active, a:focus {
   position: none !important;
   visibility: unset !important;
   left: unset !important; }
-.form-input input[type=number] {
-  text-align: center; }
 .form-input label {
   margin-top: 5px;
   display: block;
@@ -820,6 +826,13 @@ table.data thead tr:nth-child(even) {
   table.data thead tr:nth-child(even) th {
     border-left: none;
     border-right: none; }
+
+.fc-content-skeleton thead {
+  border-bottom: none; }
+  .fc-content-skeleton thead .fc-day-number {
+    border: none !important; }
+.fc-content-skeleton .fc-event-container {
+  border-top: none !important; }
 
 #logo-container {
   margin-top: 8px; }

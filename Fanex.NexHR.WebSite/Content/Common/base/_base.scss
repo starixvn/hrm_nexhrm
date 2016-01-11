@@ -108,10 +108,23 @@ main {
     }
 }
 
+#frmUpdateTOEIC, #frmUpdFullTOEIC {
+	.validation-summary-errors {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
 .validation-summary-success {
 	@include validation-block(#e8f5e9, #2e7d32, #4caf50, 1rem);
 }
 
+#frmUpdateTOEIC, #frmUpdFullTOEIC {
+	.validation-summary-success {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
 .validation-summary-info {
 	@include validation-block(#c0e9fa, #0e7fad, #0e7fad, 0.5rem 1rem 1rem);
 	margin-bottom: 2rem;
