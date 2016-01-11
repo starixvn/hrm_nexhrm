@@ -142,6 +142,9 @@ main {
 .m-b--m {
   margin-bottom: 16px; }
 
+.m-b--s {
+  margin-bottom: 8px; }
+
 .m-r--s {
   margin-right: 8px; }
 
@@ -553,6 +556,9 @@ a:active, a:focus {
 
 #frmUpdateTOEIC, #frmUpdFullTOEIC {
   margin-bottom: 0; }
+
+#updateform {
+  text-align: left; }
 
 #calendar .fc-toolbar {
   background: #353c4e;
