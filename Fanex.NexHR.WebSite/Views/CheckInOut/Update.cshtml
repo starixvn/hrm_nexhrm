@@ -1,7 +1,4 @@
-﻿@using System.Web.Mvc.Html5;
-@using Fanex.NexHR.Core
-@using Fanex.NexHR.Resources
-@model Fanex.NexHR.ViewModels.CheckInOutRequestViewModel
+﻿@model CheckInOutRequestViewModel
 @{
     ViewBag.Title = Labels.MyCheckInOutSummary;
 }
@@ -28,7 +25,9 @@
                             if (ViewBag.Updated == true)
                             {
                                 <div class="row">
-                                    <div class="col success green-text m-b--m"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Fanex.NexHR.Resources.Messages.RequestUpdated</div>
+                                    <div class="col success green-text m-b--m">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated
+                                    </div>
                                     <input type="hidden" id="successed" value="true" />
                                     <input type="hidden" id="year" value="@ViewBag.Year" />
                                 </div>
@@ -36,7 +35,7 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
-                                        <label>@Fanex.NexHR.Resources.Labels.RequestCode</label>
+                                        <label>@Labels.RequestCode</label>
                                     </div>
                                     <div class="left label--m">
                                         <label class="txt-bold">Rq.@Model.Id</label>
@@ -66,7 +65,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--xl">
-                                        <label>@Fanex.NexHR.Resources.Labels.RequestTime</label>
+                                        <label>@Labels.RequestTime</label>
                                     </div>
                                     <div class="left">
                                         <div class="datepicker-button left select--s">
@@ -93,16 +92,16 @@
                                     </div>
                                     <div class="left">
                                         <span id="shiftname" class="label">@Model.Shift</span>
-                                        <a id="shiftinfo" href="javascript:;" title="@Fanex.NexHR.Resources.Labels.ShiftInfo"><span class="icon shiftinfo"></span></a>
+                                        <a id="shiftinfo" href="javascript:;" title="@Labels.ShiftInfo"><span class="icon shiftinfo"></span></a>
                                         <div class="hide">
                                             @RazorHelper.ShiftInfoTable(Model.ShiftInfos)
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="label"></div>
-                                <div class="input">
+                            <div class="row form-input">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">
                                     @Html.HiddenFor(model => model.Employee)
                                     @Html.HiddenFor(model => model.DisplayName)
                                     @Html.HiddenFor(model => model.EmployeeId)
@@ -112,8 +111,8 @@
                                     @Html.HiddenFor(model => model.ForRequest)
                                     @Html.Hidden("InTime")
                                     @Html.Hidden("OutTime")
-                                    <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s"><input type="submit" value="@Labels.Update" /></span>
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("employeeview", "checkinout")">@Labels.Back</a>
+                                    <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Labels.Update" />
+                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                 </div>
                             </div>
                         }

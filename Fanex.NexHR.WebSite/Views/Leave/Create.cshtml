@@ -134,10 +134,14 @@
                                     </div>
                                     <div class="left input--m">
                                         @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
-                                        <br />
-                                        <input type="submit" class="btn-submit waves-effect waves-light m-r--s" value="@Labels.Save" />
-                                        <a href="@Url.Action("employeeview", "leave")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">
+                                    <input type="submit" class="btn-submit waves-effect waves-light m-r--s" value="@Labels.Save" />
+                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                 </div>
                             </div>
                             @Html.HiddenFor(model => model.DisplayName)

@@ -1,7 +1,4 @@
-﻿@using System.Web.Mvc.Html5
-@using Fanex.NexHR.Core
-@using Fanex.NexHR.Resources
-@model Fanex.NexHR.ViewModels.CheckInOutRequestViewModel
+﻿@model CheckInOutRequestViewModel
 @{
     ViewBag.Title = Labels.NewCheckInOutRequest;
 }
@@ -39,8 +36,9 @@
                             {
                             <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
                                 <p>
-                                    <a href="@Url.Action("EmployeeView")">You've already requested for Check in/Check out
-                                        @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")</a>
+                                    <a href="@Url.Action("EmployeeView")">
+                                        You've already requested for Check in/Check out @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
+                                    </a>
                                 </p>
                             </div>
                             }
@@ -92,8 +90,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-input">
-                                    <div class="left label--xl">
-                                        &nbsp;</div>
+                                    <div class="left label--xl">&nbsp;</div>
                                     <div class="left">
                                         @Html.HiddenFor(model => model.EmployeeId)
                                         @Html.HiddenFor(model => model.Employee)
@@ -102,12 +99,12 @@
                                         @Html.HiddenFor(model => model.ForRequest)
                                         @Html.Hidden("InTime")
                                         @Html.Hidden("OutTime")
-                                        
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Labels.Request" />
+
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Labels.Save" />
                                         <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         }
                     </div>
                 </div>

@@ -30,11 +30,9 @@
                                     @Html.YearPicker("Year", 2010, DateTime.Now.Year)
                                 </div>
                             </div>
-                            <div class="col button">
-                                <input type="submit" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
-                            </div>
-                            <div>
-                                <a href="@Url.Action("Create")" class="btn-request waves-effect waves-light">@Labels.LeaveRequests</a>
+                            <div class="col">
+                                <a id="submit" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
+                                <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.LeaveRequests</a>
                             </div>
                         </div>
                     </div>
@@ -95,7 +93,9 @@
         {{/if}}
         {{if Status.Name == 'Pending'}}
             <td class="tooltip" title="${Remark}">
-                <a requestid="${Id}" href="javascript:;" class="${Status} c-pending">${Status.Name}</a>
+                <a requestid="${Id}" href="javascript:;" class="${Status.Name} c-pedding">
+                    ${Status.Name}<i class="mdi-navigation-arrow-drop-down"></i>
+                </a>
             </td>
         {{else}}
             <td class="tooltip c-approve" title="${Status.Name} by ${ModifiedBy.NickName} (${formatJsonDateToShortFormatedDate(ModifiedDate)})">${Status.Name}</td>

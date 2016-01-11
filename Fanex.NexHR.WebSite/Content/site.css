@@ -721,6 +721,8 @@ a:active, a:focus {
   background: #ffff8d; }
 .table.table-custom tbody tr.disabled {
   background: #c8c8c8; }
+.table.table-custom tbody tr a.c-pedding i.mdi-navigation-arrow-drop-down {
+  font-size: 2rem; }
 .table.table-custom .floatingHeader {
   z-index: 999;
   position: fixed;

@@ -91,10 +91,10 @@ function query() {
                 $(noInformation(10)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(200);
         },
         error: function () {
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(200);
             alert(_messages.errorTryAgain);
         }
     });
