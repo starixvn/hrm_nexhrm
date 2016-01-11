@@ -461,6 +461,8 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
+        #region Time Record
+
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             if (!fromDate.HasValue || !toDate.HasValue)
@@ -518,6 +520,8 @@ namespace Fanex.NexHR.Controllers
 
             return View(timeRecords);
         }
+
+        #endregion Time Record
 
         [Authorize(Roles = "HR")]
         [HttpPost]

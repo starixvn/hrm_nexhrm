@@ -1,5 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@model Fanex.NexHR.ViewModels.TimeRecordViewModel
+﻿@model TimeRecordViewModel
 @{
     ViewBag.Title = @Labels.MyTimeRecord;
 }
@@ -10,6 +9,7 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none"></div>
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -26,7 +26,7 @@
                                     <label>@Labels.DateRange</label>
                                 </div>
                                 <div class="left select--s">
-                                    @Html.DropDownList("Date", Model.FilteringDateRanges)
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
@@ -49,10 +49,8 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2">
-                                    <input id="btnSubmit" type="button" value="@Labels.Submit" />
-                                    @Html.HiddenFor(model => model.EmployeeId)
-                                </span>
+                                @Html.HiddenFor(model => model.EmployeeId)
+                                <input id="btnSubmit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                             </div>
                         </div>
                     </div>

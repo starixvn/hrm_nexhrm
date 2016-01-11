@@ -7,8 +7,6 @@ var TimeRecord = (function ($) {
         timeRecordContent: null,
         fromDate: null,
         toDate: null,
-        employeeId: null,
-        employee: null,
         btnSubmit: null,
         init: function () {
             $('#checkin').attr('checked', true);
@@ -22,14 +20,6 @@ var TimeRecord = (function ($) {
             TimeRecord.btnSubmit.on('click', function () {
                 TimeRecord.fillData();
             });
-
-            TimeRecord.employee.change(function () {
-                if ($.trim(TimeRecord.employee.val()).length === 0) {
-                    TimeRecord.employeeId.val('');
-                }
-
-                return false;
-            });
         },
         fillData: function () {
             var params = {
@@ -38,10 +28,21 @@ var TimeRecord = (function ($) {
             };
 
             if (TimeRecord.timeRecordContent.length > 0) {
-                $.get(_global.root + 'Report/TimeRecordDetail', params)
-                    .done(function (content) {
+                $.ajax({
+                    url: _global.root + 'Report/TimeRecordDetail',
+                    type: 'GET',
+                    data: params,
+                    beforeSend: function () {
+                        $('.loading-process').fadeIn(200);
+                    },
+                    success: function (content) {
                         TimeRecord.timeRecordContent.empty();
                         TimeRecord.timeRecordContent.html(content);
+
+                        floatThead('table#data');
+
+                        $('.loading-process').fadeOut(200);
+                    }
                 });
             }
         }
@@ -49,8 +50,6 @@ var TimeRecord = (function ($) {
 } (jQuery));
 
 $(document).ready(function () {
-    TimeRecord.init();
-
     $('#Date').change(function () {
         setDateTimeRange($(this).val());
         $('#DateOption').attr('value', $(this).val());
@@ -67,4 +66,6 @@ $(document).ready(function () {
 
     initDatePicker('#FromDate');
     initDatePicker('#ToDate');
+
+    TimeRecord.init();
 });
