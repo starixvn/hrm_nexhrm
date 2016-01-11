@@ -514,7 +514,7 @@
     <value>Request type</value>
   </data>
   <data name="EmployeeRequest" xml:space="preserve">
-    <value>Employee's requests</value>
+    <value>Employee requests</value>
   </data>
   <data name="AddAjustment" xml:space="preserve">
     <value>Add adjustment</value>

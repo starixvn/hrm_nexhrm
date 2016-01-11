@@ -68,9 +68,9 @@
         {
             <option selected="@(status == 0)" value="0">All</option>
         }
-        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@RequestStatuse.Pending.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@RequestStatuse.Reject.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@RequestStatuse.Approve.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@Labels.Rejected.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@Labels.Approve.ToString()</option>
     </select>
 
 }

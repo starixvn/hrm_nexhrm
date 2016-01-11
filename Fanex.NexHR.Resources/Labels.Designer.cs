@@ -1006,7 +1006,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employee&apos;s requests.
+        ///   Looks up a localized string similar to Employee requests.
         /// </summary>
         public static string EmployeeRequest {
             get {
