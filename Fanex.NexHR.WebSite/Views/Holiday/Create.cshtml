@@ -34,7 +34,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--l">
-                                            @Html.LabelFor(model => model.HolidayName)
+                                            @Html.LabelFor(model => model.HolidayName, Labels.HolidayName)
                                         </div>
                                         <div class="left input--m">
                                             @Html.EditorFor(model => model.HolidayName)
@@ -48,7 +48,7 @@
                                         <div class="left label--l">
                                             <label>Date(s)</label>
                                         </div>
-                                        <div class="left select--xs">
+                                        <div class="left">
                                             @{
                                                 var numDay = Model.ToDate.Day - Model.FromDate.Day + 1;
                                             }
@@ -60,7 +60,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--l">
-                                            @Html.LabelFor(model => model.FromDate)
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                         </div>
                                         <div class="left select--s datepicker-button">
                                             @Html.DatePickerFor(model => model.FromDate)
@@ -73,7 +73,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--l">
-                                            @Html.LabelFor(model => model.ToDate)
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                         </div>
                                         <div class="left select--s datepicker-button">
                                             @Html.DatePickerFor(model => model.ToDate)

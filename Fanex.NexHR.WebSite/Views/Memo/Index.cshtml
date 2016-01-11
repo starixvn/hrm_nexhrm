@@ -50,12 +50,10 @@
                                     </div>
                                 </div>
                                 <div class='col'>
-                                    <span class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s">
-                                        <input type="submit" id="submit" class="processing-submit" value="@Labels.Submit" />
-                                    </span>
+                                    <input type="submit" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s" value="@Labels.Submit" />
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <span class="button-hrm waves-effect waves-light btn white-text orange darken-1">@Html.ActionLink("Create new Memo", "Create", null, new { @class = "white-text" })</span>
+                                        @Html.ActionLink("Create new Memo", "Create", null, new { @class = "button-hrm waves-effect waves-light btn white-text orange darken-1 white-text" })
                                     }
                                 </div>
                             </div>
