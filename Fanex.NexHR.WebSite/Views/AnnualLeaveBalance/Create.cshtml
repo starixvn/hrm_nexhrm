@@ -12,75 +12,81 @@
 {
 }
 <div class="row content">
-    <div class="col s12 l6 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
-            @if (ViewBag.Employee != null)
-            {
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
-                </div>
-                <div class="card-body">
-                    <div class="form">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.ValidationSummary(true)
-                        if (ViewBag.Inserted == true)
-                        {
-                            <div class="row validation-summary-success">
-                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
-                            </div>
-                        }
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.EditorFor(model => model.TotalDays)
-                                </div>
-                            </div>
-                            <div class="col">
-                                @Html.ValidationMessageFor(model => model.TotalDays)
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.Description)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.AffectedFrom)
-                                </div>
-                                <div class="left input--m datepicker-button">
-                                    @Html.DatePickerFor(model => model.AffectedFrom)
-                                    <i class="mdi-action-event calendar-icon left"></i>
-                                    @Html.ValidationMessageFor(model => model.AffectedFrom)
-                                </div>
-                            </div>
-                        </div>
-                        @Html.HiddenFor(model => model.EmpId)
-                        <div class="col">
-                            <span class="button-hrm waves-effect waves-light btn white-text orange darken-1 m-r--s"><input type="submit" value="@Labels.Adjust" /></span>
-                            @Html.ActionLink(@Labels.Cancel, "employee", new { id = ViewBag.Employee.Id }, new { @class = "button-hrm waves-effect waves-light btn grey darken-1" })
-                        </div>
-                    }
+                @if (ViewBag.Employee != null)
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
-                </div>
-            }
+                    <div class="card-body">
+                        <div class="form">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                if (ViewBag.Inserted == true)
+                                {
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
+                                </div>
+                                }
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+                                        </div>
+                                        <div class="left input--xs">
+                                            @Html.EditorFor(model => model.TotalDays)
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        @Html.ValidationMessageFor(model => model.TotalDays)
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.Description)
+                                        </div>
+                                        <div class="left input--l">
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.AffectedFrom)
+                                        </div>
+                                        <div class="left input--s datepicker-button">
+                                            @Html.DatePickerFor(model => model.AffectedFrom)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                            @Html.ValidationMessageFor(model => model.AffectedFrom)
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(model => model.EmpId)
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            &nbsp;</div>
+                                        <div class="left">
+                                            <input class="btn-submit waves-effect waves-light m-r--s" type="submit" value="@Labels.Adjust" />
+                                            @Html.ActionLink(@Labels.Cancel, "employee", new { id = ViewBag.Employee.Id }, new { @class = "btn-cancel waves-effect waves-light" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
+                    </div>
+                }
             </div>
         </div>
     </div>

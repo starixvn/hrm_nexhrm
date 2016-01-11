@@ -453,6 +453,9 @@ a:active, a:focus {
 .select--m, .input--m {
   width: 250px; }
 
+.input-subject {
+  width: 518px; }
+
 .select-team {
   width: 200px; }
 
@@ -542,6 +545,11 @@ a:active, a:focus {
     margin: 0; }
   #insertform .row {
     margin-bottom: 1rem; }
+  #insertform .waves-input-wrapper {
+    float: none; }
+
+#resetform .waves-input-wrapper {
+  float: none; }
 
 #frmUpdateTOEIC, #frmUpdFullTOEIC {
   margin-bottom: 0; }

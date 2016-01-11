@@ -1,37 +1,32 @@
 ﻿@using Fanex.NexHR.Resources;
-
 <div id="resetform" title="Close balance for year @DateTime.Now.AddYears(-1).Year">
     <div class="form">
-    @using (Html.BeginForm())
-    {
-        <div class="row form-input">
-            <div class="col">
-                <div class="left label--l">
-                    @Html.Label("Max Balance")
-                </div>
-                <div class="left input--m">
-                    @Html.Editor("MinBalance")
-                </div>
-            </div>
-        </div>
-        <div class="row form-input">
-            <div class="col">
-                <div class="left label--l">
-                    @Html.Label("Description")
-                </div>
-                <div class="left input--m">
-                    @Html.TextArea("DescriptionReset", new { @class = "materialize-textarea" })
+        @using (Html.BeginForm())
+        {
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        @Html.Label("Max Balance")
+                    </div>
+                    <div class="left input--m">
+                        @Html.Editor("MinBalance")
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row right">
-            <div class="col">
-                <input type="submit" id="insert" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        @Html.Label("Description")
+                    </div>
+                    <div class="left input--m">
+                        @Html.TextArea("DescriptionReset", new { @class = "materialize-textarea" })
+                    </div>
+                </div>
             </div>
-            <div class="col">
+            <div class="row center">
+                <input type="submit" id="insert" class="btn-ok waves-effect waves-light m-r--m" value="@Labels.Submit" />
                 <input type="submit" id="cancelReset" class="btn-cancel waves-effect waves-light" value="@Labels.Cancel" />
             </div>
-        </div>
-    }
+        }
     </div>
 </div>

@@ -1,7 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.AnnualLeaveBalanceMultiViewModel
-
 <div id="insertform" title="Adjust annual leave balance">
     <div class="form">
         @using (Html.BeginForm())
@@ -40,17 +39,9 @@
                 </div>
             </div>
             @Html.HiddenFor(model => model.EmpIds)
-            <div class="row right">
-                <div class="col">
-                    <span class="button-hrm waves-effect waves-light btn blue darken-2">
-                        <input type="submit" id="insert" value="@Labels.Add" />
-                    </span>
-                </div>
-                <div class="col">
-                    <span class="button-hrm waves-effect waves-light btn grey darken-2">
-                        <input type="submit" id="cancel" value="@Labels.Cancel" />
-                    </span>
-                </div>
+            <div class="row center">
+                <input class="btn-ok waves-effect waves-light m-r--m" type="submit" id="insert" value="@Labels.Add" />
+                <input class="btn-cancel waves-effect waves-light" type="submit" id="cancel" value="@Labels.Cancel" />
             </div>
         }
     </div>

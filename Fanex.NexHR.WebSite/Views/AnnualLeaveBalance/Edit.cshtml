@@ -11,81 +11,80 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 l6 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
-            @if (Model != null)
-            {
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@Labels.Edit</span>
-                </div>
-                <div class="card-body">
-                    <div class="form">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.ValidationSummary(true)
-                        if (ViewBag.Updated == true)
-                        {
-                            <div class="row validation-summary-success">
-                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
-                            </div>
-                        }
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.EditorFor(model => model.TotalDays)
-                                </div>
-                            </div>
-                            <div class="col">
-                                @Html.ValidationMessageFor(model => model.TotalDays)
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.Description)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.AffectedFrom)
-                                </div>
-                                <div class="left input--s datepicker-button">
-                                    @Html.DatePickerFor(model => model.AffectedFrom)
-                                    <i class="mdi-action-event calendar-icon left"></i>
-                                    @Html.ValidationMessageFor(model => model.AffectedFrom)
-                                </div>
-                            </div>
-                        </div>
-                        @Html.HiddenFor(model => model.EmpId)
-                        <div class="col">
-                            <span class="button-hrm waves-effect waves-light btn blue darken-2">
-                                <input type="submit" name="command" value="@Labels.Update" />
-                            </span>
-                        </div>
-                        <div class="col">
-                            <span class="button-hrm waves-effect waves-light btn red darken-2">
-                                <input type="submit" class="cancel delete" value="@Labels.Delete" name="command" />
-                            </span>
-                        </div>
-                    }
+                @if (Model != null)
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@Labels.Edit</span>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
-                </div>
-            }
+                    <div class="card-body">
+                        <div class="form">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                if (ViewBag.Updated == true)
+                                {
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
+                                </div>
+                                }
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+                                        </div>
+                                        <div class="left input--xs">
+                                            @Html.EditorFor(model => model.TotalDays)
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        @Html.ValidationMessageFor(model => model.TotalDays)
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.Description)
+                                        </div>
+                                        <div class="left input--m">
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.AffectedFrom)
+                                        </div>
+                                        <div class="left input--s datepicker-button">
+                                            @Html.DatePickerFor(model => model.AffectedFrom)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                            @Html.ValidationMessageFor(model => model.AffectedFrom)
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(model => model.EmpId)
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            &nbsp;</div>
+                                        <div class="left">
+                                            <input class="btn-submit waves-effect waves-light m-r--m" type="submit" name="command" value="@Labels.Update" />
+                                            <input type="submit" class="cancel delete btn-delete waves-effect waves-light" value="@Labels.Delete" name="command" /></div>
+                                    </div>
+                                </div>                        
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
+                    </div>
+                }
             </div>
         </div>
     </div>
