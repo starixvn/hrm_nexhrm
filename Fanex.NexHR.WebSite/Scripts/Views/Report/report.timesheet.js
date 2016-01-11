@@ -1,8 +1,9 @@
-﻿/*global actingButton, noInformation, reloadButtonText, _messages, _global*/
+﻿/*global noInformation, _messages, _global*/
 /*exported index*/
 'use strict';
 
 var rowIndex = 1;
+
 function index() {
     return rowIndex++;
 }
@@ -24,20 +25,20 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
     return result;
 }
 
-function view() {
+function query() {
     var $form = $('form');
     if (!$form.valid()) {
         return;
     }
 
-    actingButton('#view', true);
-    $('#nodata').remove();
-
     $.ajax({
-        url: _global.root + 'ajax/timesheet',
+        url: _global.root + 'report/timesheet',
         type: 'POST',
         dataType: 'json',
         data: $('form').serialize(),
+        beforeSend: function () {
+            $('.loading-process').fadeIn(200);
+        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
@@ -77,10 +78,11 @@ function view() {
                 $('#data tbody').children().remove();
                 $(noInformation(12)).appendTo('#data');
             }
-            reloadButtonText('#view');
+
+            $('.loading-process').fadeOut(200);
         },
         error: function () {
-            reloadButtonText('#view');
+            $('.loading-process').fadeOut(200);
             alert(_messages.errorTryAgain);
         }
     });
@@ -101,10 +103,11 @@ $(document).ready(function () {
         }
     });
 
-    view();
+    floatThead('table#data');
+    query();
 
-    $('#view').click(function (evt) {
+    $('#query').click(function (evt) {
         evt.preventDefault();
-        view();
+        query();
     });
 });

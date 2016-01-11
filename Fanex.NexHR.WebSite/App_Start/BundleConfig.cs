@@ -190,7 +190,7 @@
         private static void BuildBundleForMyTimeSheetReport(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/mytimesheetjs").Include(
-                "~/Scripts/Views/report.timesheet.js"));
+                "~/Scripts/Views/Report/report.timesheet.js"));
 
             bundles.AddAndInclude(
                 "~/Content/mytimesheetcss",

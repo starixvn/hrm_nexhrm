@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Tim.Trinh" date="2015.12.25">Add FilteringRequestTypes</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add RequestTypes</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -15,9 +15,6 @@ namespace Fanex.NexHR.ViewModels
     using System.Web.Mvc;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Time sheet view model.
-    /// </summary>
     public class TimesheetViewModel
     {
         public int Year { get; set; }
@@ -29,7 +26,7 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Request Type")]
         public short RequestType { get; set; }
 
-        public List<SelectListItem> FilteringRequestTypes
+        public List<SelectListItem> RequestTypes
         {
             get
             {

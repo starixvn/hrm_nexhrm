@@ -68,6 +68,8 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        #region Timesheet
+
         public ActionResult Timesheet()
         {
             var model = new TimesheetViewModel
@@ -75,8 +77,27 @@ namespace Fanex.NexHR.Controllers
                 Year = DateTime.Now.Year,
                 EmpId = CurrentUser.Id
             };
+
             return View(model);
         }
+
+        [HttpPost]
+        public JsonResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
+        {
+            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = new DateTime(model.Year, model.Month, 1),
+                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
+                ReportType = model.RequestType,
+                EmployeeId = model.EmpId
+            };
+
+            var data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+
+            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+        }
+
+        #endregion Timesheet
 
         [Authorize(Roles = "HR")]
         public ActionResult HRRequestMonitoring()

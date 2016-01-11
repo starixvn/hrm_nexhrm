@@ -429,20 +429,6 @@ namespace Fanex.NexHR.Controllers
             return Json(new { employees = entityList }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
-        {
-            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
-            {
-                FromDate = new DateTime(model.Year, model.Month, 1),
-                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
-                ReportType = model.RequestType,
-                EmployeeId = model.EmpId
-            };
-
-            return Json(new { data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria) }, JsonRequestBehavior.AllowGet);
-        }
-
         private int? CheckUserEnableCondition(bool? enable)
         {
             int? disableUsers;

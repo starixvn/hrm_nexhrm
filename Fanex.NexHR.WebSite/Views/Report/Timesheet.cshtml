@@ -1,6 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Resources
-@model Fanex.NexHR.ViewModels.TimesheetViewModel
+﻿@model TimesheetViewModel
 @{
     ViewBag.Title = Labels.MyTimesheet;
 }
@@ -12,6 +10,7 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none"></div>
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -42,21 +41,21 @@
                                     @Html.LabelFor(model => model.RequestType)
                                 </div>
                                 <div class="left select--s">
-                                    @Html.DropDownListFor(model => model.RequestType, Model.FilteringRequestTypes)
+                                    @Html.DropDownListFor(model => model.RequestType, Model.RequestTypes)
                                     @Html.ValidationMessageFor(model => model.RequestType)
                                 </div>
                             </div>
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2"><input type="submit" id="view" value="Submit" name="@Labels.View" /></span>
+                                <a id="query" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
                             </div>
                         </div>
                     }
                     </div>
                     <div class="p-x--s">
-                        <table id="data" class="persist-area table bordered striped highlight centered table-custom">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>#</th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
                                     <th>@Labels.Date</th>
                                     <th>@Labels.Nick</th>
                                     <th>@Labels.Team</th>

@@ -1,8 +1,9 @@
 @import '../Common/utils/mixins';
-@import 'tipsy';
 
 .monpickr-wrap-parent {
     .monpickr-wrap {
+        z-index: 999 !important;
+
         .monpickr.monpickr-arrows {
             //border: .1rem solid #b6b6b6;
             color: #4f4f4f;
@@ -22,7 +23,7 @@
                 }
             }
 
-            .monpickr-input {                
+            .monpickr-input {
                 padding-left: 0 !important;
                 font-weight: normal;
 				padding: 7px;
@@ -76,6 +77,70 @@
             margin-right: .5rem;
             border: .1rem solid #0789d1;
             @include css3(border-radius, .3rem);
+        }
+    }
+}
+
+.tipsy {
+    &.tipsy-request {
+        .tipsy-inner {
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .tipsy-arrow {
+            border: none;
+        }
+    }
+
+    &.tipsy-request {
+        .tipsy-inner {
+            background: #fff;
+            color: #000;
+            border: .1rem solid #0789d1;
+        }
+
+        table.table-tooltip {
+            min-width: 32rem;
+            @include css3(box-shadow, none);
+
+            tr {
+                border-bottom: .1rem solid #0789d1;
+
+                td {
+                    padding: .5rem;
+                    border-left: .1rem solid #0789d1;
+
+                    span.req {
+                        color: #fff;
+                        padding: .3rem .5rem;
+                        @include css3(border-radius, .3rem);
+
+                        &.leave {
+                            background: #a63c45;
+                        }
+
+                        &.checkinout {
+                            background: #3366ff;
+                        }
+
+                        &.inout {
+                            background: #999900;
+                        }
+                    }
+
+                    &:first-child {
+                        border-left: none;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
         }
     }
 }
