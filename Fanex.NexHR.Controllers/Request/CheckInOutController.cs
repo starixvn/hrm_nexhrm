@@ -6,11 +6,10 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Apply StyleCop</change>
 // </history>
+
 namespace Fanex.NexHR.Controllers.Request
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
@@ -18,15 +17,11 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Shift;
-    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Check in/out controller.
-    /// </summary>
     [Authorize]
     public class CheckInOutController : BaseController
     {
@@ -53,12 +48,35 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion Ctor
 
-        /// <summary>
-        /// Create check in/out request.
-        /// </summary>
-        /// <param name="type">Check in or check out.</param>
-        /// <param name="date">Request date.</param>
-        /// <returns>Action result.</returns>
+        [HttpGet]
+        public ActionResult EmployeeView()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult EmployeeView(int year)
+        {
+            ViewBag.Year = year;
+
+            var criteria = new GetRequestCriteria()
+            {
+                Role = (short)Role.Member,
+                FromDate = new DateTime(year, 1, 1),
+                ToDate = new DateTime(year, 12, 31),
+                EmployeeId = this.CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut),
+                IsFilterByEffectedDate = true
+            };
+
+            var data = _requestService.GetRequest(criteria);
+
+            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+        }
+
         public ActionResult Create(short? type = 1, DateTime? date = null)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
@@ -69,7 +87,7 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             var viewModel = new CheckInOutRequestViewModel
             {
@@ -90,7 +108,7 @@ namespace Fanex.NexHR.Controllers.Request
                 Date = DateTime.Now
             };
 
-            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
+            var shift = _shiftService.GetByDate(getShiftByDateCriteria);
             if (shift != null)
             {
                 viewModel.Hour = int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[0]);
@@ -114,11 +132,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(viewModel);
         }
 
-        /// <summary>
-        /// Create check in/out request.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
@@ -142,11 +155,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Update check in/out request.
-        /// </summary>
-        /// <param name="id">The check in/out request ID.</param>
-        /// <returns>Action result.</returns>
         public ActionResult Update(int id)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
@@ -157,7 +165,7 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            RequestEntity request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
 
             if (!this.Editable(request.Status.Id, request.Requester.Id))
             {
@@ -165,14 +173,14 @@ namespace Fanex.NexHR.Controllers.Request
             }
 
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
                 EmployeeId = employee.Id,
                 Date = DateTime.Now
             };
-            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
+            var shift = _shiftService.GetByDate(getShiftByDateCriteria);
 
             var model = new CheckInOutRequestViewModel
             {
@@ -193,11 +201,6 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Update check in/out request.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
@@ -209,51 +212,9 @@ namespace Fanex.NexHR.Controllers.Request
             return View(model);
         }
 
-        /// <summary>
-        /// Delete check in/out request.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult Delete()
         {
             return View();
-        }
-
-        /// <summary>
-        /// Employee view.
-        /// </summary>
-        /// <returns>Action result.</returns>
-        [HttpGet]
-        public ActionResult EmployeeView()
-        {
-            return EmployeeView(DateTime.Now.Year);
-        }
-
-        /// <summary>
-        /// Get check in/out request of a specific employee in a year.
-        /// </summary>
-        /// <param name="year">The input year.</param>
-        /// <returns>Action result.</returns>
-        [HttpPost]
-        public ActionResult EmployeeView(int year)
-        {
-            ViewBag.Year = year;
-
-            var criteria = new GetRequestCriteria()
-            {
-                Role = (short)Role.Member,
-                FromDate = new DateTime(year, 1, 1),
-                ToDate = new DateTime(year, 12, 31),
-                EmployeeId = this.CurrentUser.Id,
-                GroupId = null,
-                Status = null,
-                ExcludeEmployeeId = null,
-                RequestType = Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut),
-                IsFilterByEffectedDate = true
-            };
-
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
-
-            return View(entityList);
         }
 
         private bool Editable(byte status, int employeeId)
@@ -268,10 +229,6 @@ namespace Fanex.NexHR.Controllers.Request
             return result;
         }
 
-        /// <summary>
-        /// Count number of Check in/out request in current month.
-        /// </summary>
-        /// <returns>Number of request.</returns>
         private int CountRequestInMonth()
         {
             int year = DateTime.Now.Year,
@@ -291,7 +248,7 @@ namespace Fanex.NexHR.Controllers.Request
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+            var entityList = _requestService.GetRequest(criteria);
 
             foreach (RequestEntity request in entityList)
             {

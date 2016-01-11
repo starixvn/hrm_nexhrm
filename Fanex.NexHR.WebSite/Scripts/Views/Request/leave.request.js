@@ -1,9 +1,10 @@
-﻿/*global _global, _messages, noInformation*/
+﻿/*global _global: false, _messages: false, noInformation: false*/
 /*exported index*/
 'use strict';
 
-var pickerFromDate, pickerToDate;
-var rowIndex = 1;
+var pickerFromDate, pickerToDate,
+    rowIndex = 1;
+
 function index() {
     return rowIndex++;
 }

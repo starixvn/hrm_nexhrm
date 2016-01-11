@@ -17,8 +17,6 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -81,15 +79,13 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
                 FromDate = Utilities.RequestAvailableFromDate,
                 ToDate = Utilities.RequestAvailableToDate
             };
-
             var model = new LeaveRequestViewModel
             {
                 Employee = employee.NickName,
@@ -115,6 +111,7 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             ViewBag.TotalRequest = (decimal)_requestService.GetNumberRequestInMonth(criteria);
+
             return View(model);
         }
 
@@ -158,13 +155,10 @@ namespace Fanex.NexHR.Controllers.Request
                 FromDate = Utilities.RequestAvailableFromDate,
                 ToDate = Utilities.RequestAvailableToDate
             };
-
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            RequestEntity request = _requestService.GetRequestEntity(getRequestByIdCriteria);
-
+            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
+            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
