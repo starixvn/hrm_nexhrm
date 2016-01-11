@@ -1,55 +1,44 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels
-@model LeaveDeductionViewModel
+﻿@model LeaveDeductionViewModel
 @{
     ViewBag.Title = Labels.MultipleInsert;
 }
-@using (Html.BeginForm())
-{
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.TotalDays)
-        </div>
-        <div class="input">
-            @Html.EditorFor(model => model.TotalDays)
-        </div>
+<form class="form">
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.TotalDays)
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.IsAnnual)
-        </div>
-        <div class="input">
-            @Html.CheckBoxFor(model => model.IsAnnual)
-        </div>
+    <div class="left input--xs">
+        @Html.EditorFor(model => model.TotalDays)
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="input">
-            @Html.TextAreaFor(model => model.Description)
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.IsAnnual)
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.LabelFor(model => model.DeductDate)
-        </div>
-        <div class="input">
-            @Html.DatePickerFor(model => model.DeductDate)
-        </div>
+    <div class="left input--l">
+        @Html.MaterializeCheckBoxFor(model => model.IsAnnual, new { @class = "filled-in" })
     </div>
-
-    <div class="formrow">
-        <div class="label">
-            @Html.HiddenFor(model => model.LeaveDeductionId)
-        </div>
-        <div class="input">
-            <input type="submit" value="@Labels.Update" id="update" />
-            <input type="button" value="@Labels.Cancel" id="cancel" />
-        </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.Description)
     </div>
-}
+    <div class="left txtArea">
+        @Html.TextAreaFor(model => model.Description)
+    </div>
+</div>
+<div class="row form-input">
+    <div class="left label--l">
+        @Html.LabelFor(model => model.DeductDate)
+    </div>
+    <div class="left datepicker-button select--s">
+        @Html.DatePickerFor(model => model.DeductDate)
+        <i class="mdi-action-event calendar-icon left"></i>
+    </div>
+</div>
+<div class="row form-input center">
+    @Html.HiddenFor(model => model.LeaveDeductionId)
+    <input class="btn-ok waves-effect waves-light" id="update" type="submit" value="@Labels.Update" />
+    <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+</div>
+</form>

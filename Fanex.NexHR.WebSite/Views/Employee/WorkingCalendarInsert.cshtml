@@ -30,11 +30,8 @@
         @Html.HiddenFor(model => model.EmployeeId)
     </div>
 </div>
-<div class="row form-input">
-    <span class="btn-ok waves-effect waves-light m-r--m">
-        <input id="btnAdd" type="submit" value="@Labels.Add" />
-    </span><span class="btn-cancel waves-effect waves-light m-r--m">
-        <input id="btnCancel" type="button" value="@Labels.Cancel" />
-    </span>
+<div class="row form-input center">
+    <input class="btn-ok waves-effect waves-light" id="btnAdd" type="submit" value="@Labels.Add" />
+    <input class="btn-cancel waves-effect waves-light m-r--m" id="btnCancel" type="button" value="@Labels.Cancel" />
 </div>
 </form>

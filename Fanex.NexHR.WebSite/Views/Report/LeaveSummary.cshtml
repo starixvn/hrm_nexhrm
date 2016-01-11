@@ -78,9 +78,7 @@
                                     </th>
                                     <th rowspan="2">
                                         Balance of AL @Model.Year
-                                    </th>
-                                    <th rowspan="2">@Labels.Remark
-                                    </th>
+                                    </th>                                    
                                 </tr>
                                 <tr>
                                     <th>@(Model.Year - 1)
@@ -181,9 +179,7 @@
                                             <td style="@(leave.Dec < 0 ? "color:red;" : string.Empty)">@leave.Dec.ToString("0.0")
                                             </td>
                                             <td style="@(leave.LeaveBalance < 0 ? "color:red;" : string.Empty)">@leave.LeaveBalance.ToString("0.0")
-                                            </td>
-                                            <td>@leave.Remark
-                                            </td>
+                                            </td>                                            
                                         </tr>
                                         }
                                     }

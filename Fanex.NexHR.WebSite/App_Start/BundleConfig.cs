@@ -67,6 +67,8 @@
             BuildBundleForStaffInfo(bundles);
 
             BuildBundleForStaffBirthday(bundles);
+
+            BuildBundleForLeaveDeductionDetail(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -341,6 +343,14 @@
             bundles.AddAndInclude(
                 "~/Content/staffbirthdaycss",
                 "~/Content/Views/employee.birthday.css");
+        }
+
+        private static void BuildBundleForLeaveDeductionDetail(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/leaveDeductionDetailjs",
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/leaveDeductionDetail.js");
         }
     }
 }

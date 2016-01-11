@@ -1,8 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Models;
-@using Fanex.NexHR.ViewModels.Report
-@using Fanex.NexHR.Models.Report
-@model LeaveDeductionDetailViewModel
+﻿@model LeaveDeductionDetailViewModel
 @{
     ViewBag.Title = Labels.LeaveDeductionDetail;
 }
@@ -11,6 +7,7 @@
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/leaveDeductionDetailjs");
 }
 <div class="row content">
     <div class="col s12 card-container-base my-request">
@@ -31,22 +28,13 @@
                                             <label>@Labels.DateRange</label>
                                         </div>
                                         <div class="left select--m">
-                                            <select id="Date" name="Date">
-                                                <option value="0">@Labels.DateRange</option>
-                                                <option value="1">@Labels.ToDay</option>
-                                                <option value="2">@Labels.Yesterday</option>
-                                                <option value="3">@Labels.CurrentWeek</option>
-                                                <option value="4">@Labels.LastWeek</option>
-                                                <option value="5">@Labels.CurrentMonth</option>
-                                                <option value="6">@Labels.LastMonth</option>
-                                                <option value="7">@Labels.SinceLastMonth</option>
-                                            </select>
+                                            @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
                                             @Html.Hidden("DateOption", Model.DateOption)
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.TeamId)
+                                            @Html.LabelFor(model => model.TeamId, @Labels.Team)
                                         </div>
                                         <div class="left select--m">
                                             <select id="TeamId" name="TeamId">
@@ -62,7 +50,7 @@
                                 <div class="col s3">
                                     <div class="row">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.FromDate)
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                         </div>
                                         <div class="left datepicker-button select--s">
                                             @Html.DatePickerFor(model => model.FromDate)
@@ -71,7 +59,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.ToDate)
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                         </div>
                                         <div class="left datepicker-button select--s">
                                             @Html.DatePickerFor(model => model.ToDate)
@@ -90,11 +78,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                    <span class="btn-submit waves-effect waves-light">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                        <span class="btn-submit waves-effect waves-light">
+                                            <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     }
                     <div class="p-x--s">
@@ -155,8 +143,8 @@
                                                 <td>
                                                     <a href="javascript:;" class="editLeaveDeduction"
                         data-id="@item.LeaveDeductionId" data-leavedays="@item.LeaveDays" data-isannual="@item.IsAnnual"
-                        data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()">
-                                                        <i class="mdi mdi-border-color mdi-dark"></i></a>
+                        data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()"><i class="mdi mdi-border-color mdi-dark">
+                        </i></a>
                                                 </td>
 
                                                 <td>
@@ -174,7 +162,6 @@
                             }
                         </table>
                     </div>
-                    
                     <div class="hide">
                         <div id="updateform" title="Edit leave deduction">
                             @Html.Action("EditLeaveDeduction")
