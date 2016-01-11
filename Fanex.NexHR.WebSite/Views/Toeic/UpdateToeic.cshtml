@@ -35,7 +35,7 @@
         <label>@Labels.Listening</label>
     </div>
     <div class="left input--s">
-        @Html.EditorFor(model => model.Listening)
+        @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5" })
     </div>
 </div>
 <div class="row form-input">
@@ -43,7 +43,7 @@
         <label>@Labels.Reading</label>
     </div>
     <div class="left input--s">
-        @Html.EditorFor(model => model.Reading)
+        @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5" })
     </div>
 </div>
 <div class="row form-input">
@@ -60,7 +60,7 @@
         <label>@Labels.Speaking</label>
     </div>
     <div class="left input--s">
-        @Html.EditorFor(model => model.Speaking)
+        @Html.TextBoxFor(m => m.Speaking, new { type = "number", step = "5" })
     </div>
 </div>
 <div class="row form-input">
@@ -68,13 +68,12 @@
         <label>@Labels.Writing</label>
     </div>
     <div class="left input--s">
-        @Html.EditorFor(model => model.Writing)
+        @Html.TextBoxFor(m => m.Writing, new { type = "number", step = "5" })
     </div>
 </div>
 <div class="row form-input center m-t--m">
     <span class="btn-ok waves-effect waves-light m-r--m">
-        <input id="submitAddToeic" type="button" value="@Labels.Submit" /></span> 
-    <span class="btn-cancel waves-effect waves-light">
+        <input id="submitAddToeic" type="button" value="@Labels.Submit" /></span> <span class="btn-cancel waves-effect waves-light">
             <input id="cancelAddToeic" type="button" value="@Labels.Cancel" /></span>
 </div>
 </form>
