@@ -22,65 +22,70 @@
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
                             <div class="row form-input">
-                                <div class="col s4">
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            <label>@Labels.DateRange</label>
-                                        </div>
-                                        <div class="left select--m">
-                                            @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
-                                            @Html.Hidden("DateOption", Model.DateOption)
-                                        </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
                                     </div>
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.TeamId, @Labels.Team)
-                                        </div>
-                                        <div class="left select--m">
-                                            <select id="TeamId" name="TeamId">
-                                                <option value="">@Labels.AllTeams</option>
-                                                @foreach (Team team in Model.Teams)
-                                                {
-                                                    <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                                }
-                                            </select>
-                                        </div>
+                                    <div class="left select--m">
+                                        <select id="Date" name="Date">
+                                            <option value="0">@Labels.DateRange</option>
+                                            <option value="1">@Labels.ToDay</option>
+                                            <option value="2">@Labels.Yesterday</option>
+                                            <option value="3">@Labels.CurrentWeek</option>
+                                            <option value="4">@Labels.LastWeek</option>
+                                            <option value="5">@Labels.CurrentMonth</option>
+                                            <option value="6">@Labels.LastMonth</option>
+                                            <option value="7">@Labels.SinceLastMonth</option>
+                                        </select>
+                                        @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
-                                <div class="col s3">
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
-                                        </div>
-                                        <div class="left datepicker-button select--s">
-                                            @Html.DatePickerFor(model => model.FromDate)
-                                            <i class="mdi-action-event calendar-icon left"></i>
-                                        </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate)
                                     </div>
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
-                                        </div>
-                                        <div class="left datepicker-button select--s">
-                                            @Html.DatePickerFor(model => model.ToDate)
-                                            <i class="mdi-action-event calendar-icon left"></i>
-                                        </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.FromDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col s4">
-                                    <div class="row">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.Employee)
-                                        </div>
-                                        <div class="left input--m">
-                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
-                                        </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate)
                                     </div>
-                                    <div class="row">
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.TeamId)
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="TeamId" name="TeamId">
+                                            <option value="">@Labels.AllTeams</option>
+                                            @foreach (Team team in Model.Teams)
+                                            {
+                                                <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left select-team">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col">
                                         <span class="btn-submit waves-effect waves-light">
-                                            <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
-                                    </div>
+                                        <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
                                 </div>
                             </div>
                         </div>
