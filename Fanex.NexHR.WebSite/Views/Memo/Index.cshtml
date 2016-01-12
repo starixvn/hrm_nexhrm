@@ -7,7 +7,7 @@
 @section css {
 }
 @section js {
-    @Scripts.Render("~/bundles/memoeditjs");
+    @Scripts.Render("~/bundles/memoindexjs");
 }
 @section Breadcrumb {
 }
@@ -52,7 +52,8 @@
                                     </div>
                                 </div>
                                 <div class='col'>
-                                    <input type="submit" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s" value="@Labels.Submit" />
+                                    <a href="javascript:;" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s">
+                                        Submit</a> @*<input type="submit" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s" value="@Labels.Submit" />*@
                                     @if (Roles.IsUserInRole("HR"))
                                     {
                                         @Html.ActionLink("Create new Memo", "Create", null, new { @class = "button-hrm waves-effect waves-light btn white-text orange darken-1 white-text" })
@@ -86,47 +87,8 @@
                                         }
                                     </tr>
                                 </thead>
-                                @if (ViewBag.EntityList.Count > 0)
-                                {
-                                    <tbody>
-                                        @{int index = 1;}
-                                        @foreach (Memo item in ViewBag.EntityList)
-                                        {
-
-                                            <tr id="row_@item.Id">
-                                                <td class='center'>@(index++)
-                                                </td>
-                                                <td>
-                                                    @item.RefNo
-                                                </td>
-                                                <td class="txt-left">
-                                                    <a href="@Url.Action("detail", "memo", new { Id = item.Id })">@item.Subject</a>
-                                                </td>
-                                                <td>
-                                                    @item.CategoryName
-                                                </td>
-                                                <td class="ddMMyyyy">
-                                                    @item.SentDate.ToDateMonthYearFormatedDate()
-                                                </td>
-                                                @if (Roles.IsUserInRole("HR"))
-                                                {
-                                                    <td title="Edit">
-                                                        <a href="@Url.Action("edit", "memo", new { Id = item.Id })"><i class='mdi mdi-border-color mdi-dark'>
-                                                        </i></a>
-                                                    </td>
-                                                    <td title="Delete">
-                                                        <a href="javascript:;" onclick="deleteMemo(@item.Id, '@System.Web.HttpUtility.HtmlEncode(item.Contents)', @item.MemoType);">
-                                                            <i class='mdi mdi-delete mdi-dark'></i></a>
-                                                    </td>
-                                                }
-                                            </tr>
-                                        }
-                                    </tbody>
-                                }
-                                else
-                                {
-                                    @RazorHelper.DisplayNoInformation(7)
-                                }
+                                <tbody>
+                                </tbody>
                             </table>
                         </div>                            
                     }
@@ -135,7 +97,10 @@
         </div>
     </div>
 </div>
-@*<script id="template" type="text/x-jquery-tmpl">
+<script type="text/javascript">
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;    
+</script>
+<script id="template" type="text/x-jquery-tmpl"> 
     <tr id="row_${Id}">
         <td class='center'>
             ${index()}
@@ -151,17 +116,17 @@
         </td>
         <td class="ddMMyyyy">
             ${formatDate(SentDate, 'dd MMM, yyyy')}                                                    
-        </td>
-        @if (Roles.IsUserInRole("HR"))
-        {
+        </td>      
+
+        {{if isHR}}
             <td title="Edit">
-                <a href="/memo/edit/${Id}"><i class='mdi mdi-border-color mdi-dark'>
-                </i></a>
+            <a href="/memo/edit/${Id}"><i class='mdi mdi-border-color mdi-dark'>
+            </i></a>
             </td>
             <td title="Delete">
                 <a href="javascript:;" onclick="deleteMemo(${Id}, '${Contents}', ${MemoType});">
                     <i class='mdi mdi-delete mdi-dark'></i></a>
-            </td>
-        }
-    </tr>   
-</script>*@
+            </td>                                    
+        {{/if}}           
+    </tr> 
+</script>

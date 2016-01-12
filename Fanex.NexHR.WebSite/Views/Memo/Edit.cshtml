@@ -21,8 +21,7 @@
                     @using (Html.BeginForm())
                     {
                         <div class="form">
-                            <div class="validation-summary-errors" id="error" style="display: none;">
-                            </div>
+                            @Html.ValidationSummary()
                             @if ((bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">

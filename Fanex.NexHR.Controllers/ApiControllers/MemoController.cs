@@ -11,6 +11,14 @@
     public class MemoController : ApiController
     {
         private readonly IMemoService _memoService;
+
+        public MemoController() : this(null)
+        { 
+        }
+        public MemoController(IMemoService memoService) 
+        {
+            _memoService = memoService ?? new MemoService();
+        }
         public IQueryable<Memo> GetMemos(int category, int year)
         {
             var getAllMemoCriteria = new GetAllMemoCriteria()

@@ -8,7 +8,8 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-namespace Fanex.NexHR.Repositories
+//namespace Fanex.NexHR.Repositories
+namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
     using System.Configuration;
@@ -16,6 +17,7 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;

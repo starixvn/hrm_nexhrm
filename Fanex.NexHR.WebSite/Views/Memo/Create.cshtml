@@ -20,10 +20,9 @@
                 <div class="card-body">
                     <div class="form">
                         @using (Html.BeginForm())
-                        {
+                        {                            
                             <div class="container_24 bunhat">
-                                <div class="validation-summary-errors" id="error">
-                                </div>
+                                @Html.ValidationSummary()
                                 @if ((bool)ViewBag.Updated)
                                 {
                                     <div class="success flash">
@@ -161,8 +160,7 @@
                                         </div>
                                         <div class="left">
                                             @Html.AntiForgeryToken()
-                                            
-                                                <input type="submit" class="button-primary submit btn-submit waves-effect waves-light m-r--m" value="@Labels.Save" />
+                                            <input type="submit" class="button-primary submit btn-submit waves-effect waves-light m-r--m" value="@Labels.Save" />
                                             <a href="@Url.Action("index", "memo")" class="btn-back waves-effect waves-light">
                                                 @Labels.Back
                                             </a>

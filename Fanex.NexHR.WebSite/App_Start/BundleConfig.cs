@@ -157,6 +157,9 @@
 
         private static void BuildBundleForMemo(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/memoindexjs").Include(
+                "~/Scripts/Views/Memo/memo.index.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(
                 "~/Scripts/Views/memo.js",
                 "~/Scripts/tiny_mce/tiny_mce_src.js",
