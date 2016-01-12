@@ -75,20 +75,81 @@
                             </div>
                         </div>
                     </div>
-                    <div id="TimeRecordContent">
+                     <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Code</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.TimeRecord</th>
+                                    <th>@Labels.InOut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
                     </div>
-                    <ul id="outMenu" class="hide">
-                        <li class="out"><a command="out" href="javascript:;">@Labels.Out</a> </li>
-                    </ul>
-                    <ul id="inMenu" class="hide">
-                        <li class="in"><a command="in" href="javascript:;">@Labels.In</a> </li>
-                    </ul>
-                    <ul id="inOutMenu" class="hide">
-                        <li class="in"><a command="in" href="javascript:;">@Labels.In</a> </li>
-                        <li class="out"><a command="out" href="javascript:;">@Labels.Out</a> </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="pager" class="hide">
+    <table>
+        <tfoot>
+            <tr>
+                <td colspan="6" id="pagination" class="row">
+                    <div class="col">
+                        <div class="left label--m">
+                            <label>Page size</label>
+                        </div>
+                        <div class="left">
+                            @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
+                        </div>
+                        <div class="left">
+                            <ul id="numberlist" class="pagination"></ul>
+                        </div>
+                    </div>
+                    <div id="detailtext" class="col right">
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script id="template" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${index()}</td>
+        <td>
+            ${Employee.Code}
+        </td>
+        <td class="tooltip" title="${Employee.FullName}">
+            ${Employee.NickName}
+        </td>
+        <td class="tooltip" title="${Employee.Team.Name}">
+            ${Employee.Team.Code}
+        </td>
+        <td>${formatJsonDateToDetailFormatedDate(RecordTime)}</td>
+        <td>
+        {{if InOutType == 0}}
+            <a data-id="${RecordTimeId}" href="javascript:void(0);" class="out-action">
+                ${GetInOutName}
+            </a>
+        {{else InOutType == 1}}
+            <a data-id="${RecordTimeId}" href="javascript:void(0);" class="in-action">
+                ${GetInOutName}
+            </a>
+        {{else}}
+            <a data-id="${RecordTimeId}" href="javascript:void(0);" class="inout-action">
+                ${GetInOutName}
+            </a>
+        {{/if}}
+        </td>
+    </tr>
+</script>

@@ -102,10 +102,6 @@
     </table>
 </div>
 
-<script type="text/javascript">
-    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;
-</script>
-
 <script id="template" type="text/x-jquery-tmpl">
     <tr>
         <td>${index()}</td>
@@ -119,25 +115,7 @@
             ${Employee.Team.Code}
         </td>
         <td>${formatJsonDateToDetailFormatedDate(RecordTime)}</td>
-        <td>
-        {{if isHRRole}}
-            {{if InOutType == 0}}
-                <a data-id="${RecordTimeId}" href="javascript:void(0);" class="out-action">
-                    ${GetInOutName}
-                </a>
-            {{else InOutType == 1}}
-                <a data-id="${RecordTimeId}" href="javascript:void(0);" class="in-action">
-                    ${GetInOutName}
-                </a>
-            {{else}}
-                <a data-id="${RecordTimeId}" href="javascript:void(0);" class="inout-action">
-                    ${GetInOutName}
-                </a>
-            {{/if}}
-        {{else}}
-            ${GetInOutName}
-        {{/if}}
-        </td>
+        <td>${GetInOutName}</td>
     </tr>
 </script>
 

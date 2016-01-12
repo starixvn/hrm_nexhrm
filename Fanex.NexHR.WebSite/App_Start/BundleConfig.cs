@@ -306,6 +306,7 @@
         private static void BuildBundleForReportTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
+                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.timerecord.js"));
         }

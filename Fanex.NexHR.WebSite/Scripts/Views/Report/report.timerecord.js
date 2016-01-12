@@ -1,59 +1,110 @@
 ﻿'use strict';
-/*global _global, fadeOutMessage, showMessage*/
+/*global _global*/
 
-var TimeRecord = (function ($) {
-    return {
-        teamIds: null,
-        timeRecordContent: null,
-        fromDate: null,
-        toDate: null,
-        employeeId: null,
-        employee: null,
-        btnSubmit: null,
-        init: function () {
-            $('#checkin').attr('checked', true);
-            TimeRecord.groupId = $('#GroupId');
-            TimeRecord.timeRecordContent = $('#TimeRecordContent');
-            TimeRecord.fromDate = $('#FromDate');
-            TimeRecord.toDate = $('#ToDate');
-            TimeRecord.employeeId = $('#EmployeeId');
-            TimeRecord.employee = $('#Employee');
-            TimeRecord.btnSubmit = $('#btnSubmit');
+var rowIndex = 1,
+params = {
+    fromDate: null,
+    toDate: null,
+    employeeId: null,
+    groupIds: null,
+    itemsPerPage: null,
+    currentPage: null
+};
 
-            TimeRecord.fillData();
+function index() {
+    return rowIndex++;
+}
 
-            TimeRecord.btnSubmit.on('click', function () {
-                TimeRecord.fillData();
-            });
+function formatJsonDateToDetailFormatedDate(jsonDate) {
+    var date = new Date(parseInt(jsonDate.substr(6))),
+    h = date.getHours(),
+    m = date.getMinutes();
 
-            TimeRecord.employee.change(function () {
-                if ($.trim(TimeRecord.employee.val()).length === 0) {
-                    TimeRecord.employeeId.val('');
-                }
+    if (h < 10) {
+        h = '0' + h;
+    }
 
-                return false;
-            });
-        },
-        fillData: function () {
-            var employeeId = TimeRecord.employeeId.val();
+    if (m < 10) {
+        m = '0' + m;
+    }
 
-            var params = {
-                'fromDate': TimeRecord.fromDate.val(),
-                'toDate': TimeRecord.toDate.val(),
-                'employeeId': ((employeeId === '0') ? null : employeeId),
-                'groupIds': TimeRecord.groupId.val()
-            };
+    date = $.format.date(date, 'E, dd MMM, yyyy');
 
-            if (TimeRecord.timeRecordContent.length > 0) {
-                $.get(_global.root + 'Report/TimeRecordDetail', params)
-                    .done(function (content) {
-                        TimeRecord.timeRecordContent.empty();
-                        TimeRecord.timeRecordContent.html(content);
-                });
-            }
+    return date + ' - ' + h + 'h' + m + '\'';
+};
+
+function fillData(response) {
+    floatThead('table#data');
+
+    rowIndex = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1;
+
+    $('#template').tmpl(response.data).appendTo('#data');
+
+    bindMenuIn('.in-action');
+    bindMenuOut('.out-action');
+    bindMenuInOut('.inout-action');
+
+    var pager = $('#pager').html();
+    $('#data tfoot').html(pager);
+
+    $('#data #pagination #numberlist').twbsPagination({
+        totalPages: response.pagerOption.TotalPage,
+        startPage: response.pagerOption.CurrentPage,
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        href: 'javascript:;',
+        first: '',
+        prev: '<i class="mdi-image-navigate-before"></i>',
+        next: '<i class="mdi-image-navigate-next"></i>',
+        last: '',
+        onPageClick: function (event, page) {
+            params.currentPage = page;
+            query();
         }
-    };
-    } (jQuery));
+    });
+
+    $('#data #pagination #ItemsPerPage').val(response.pagerOption.ItemsPerPage);
+
+    var from = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1,
+    to = from + response.data.length - 1;
+    var detailtext = 'Displaying <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.pagerOption.TotalItem + '</strong> item(s)';
+    $('#data #pagination #detailtext').html(detailtext);
+
+    $('#data #pagination #ItemsPerPage').on('change', function () {
+        params.currentPage = 1;
+        query();
+    });
+}
+
+function query() {
+    params.fromDate = $('#FromDate').val();
+    params.toDate = $('#ToDate').val();
+    params.employeeId = $('#EmployeeId').val() === '0' ? null : $('#EmployeeId').val();
+    params.groupIds = $('#GroupId').val();
+    params.itemsPerPage = $('#ItemsPerPage').val();
+
+    $.ajax({
+        url: _global.root + 'Report/TimeRecord',
+        type: 'POST',
+        dataType: 'json',
+        data: params,
+        beforeSend: function () {
+            $('.loading-process').fadeIn(200);
+        },
+        success: function (response) {
+            $('#data tbody').children().remove();
+            $('#data tfoot').children().remove();
+
+            if (response.data.length > 0) {
+                fillData(response);
+            } else {
+                $(noInformation(6)).appendTo('#data');
+            }
+
+            $('.loading-process').fadeOut(200);
+        }
+    });
+}
 
 function processInOut(inoutType, eventElement) {
     var recordTimeId = $(eventElement).attr('data-id');
@@ -63,7 +114,7 @@ function processInOut(inoutType, eventElement) {
     { inoutType: inoutType, recordTimeId: recordTimeId },
     function (response) {
         if (response.Code === 0) {
-            TimeRecord.fillData();
+            query();
         }
         else {
             alert(response.Message);
@@ -132,8 +183,6 @@ function bindMenuInOut(element) {
 }
 
 $(document).ready(function () {
-    TimeRecord.init();
-
     $('#Date').change(function () {
         setDateTimeRange($(this).val());
         $('#DateOption').attr('value', $(this).val());
@@ -151,7 +200,9 @@ $(document).ready(function () {
     initDatePicker('#FromDate');
     initDatePicker('#ToDate');
 
-    bindMenuIn('.in-action');
-    bindMenuOut('.out-action');
-    bindMenuInOut('.inout-action')
+    $('#btnSubmit').on('click', function () {
+        query();
+    });
+
+    query();
 });
