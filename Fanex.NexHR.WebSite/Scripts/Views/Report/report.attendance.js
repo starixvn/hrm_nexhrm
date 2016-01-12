@@ -26,25 +26,24 @@ function view() {
     if (!$form.valid()) {
         return;
     }
-
-    actingButton('#view', true);
+    $('.loading-process').fadeIn(200)
 
     //if no user is selected, clear the empId also
     if ($('#Employee').val() === '') {
         $('#EmpId').val('');
     }
     $('#nodata').remove();
-    $.getJSON("/api/report/getemployeeattendances", $('form').serialize(), function (response) {
+    $.getJSON("/api/report/getemployeeattendances",$('form').serialize(),function (response) {
         if (response.length > 0) {
             rowIndex = 1;
             $('#data tbody').children().remove();
             $('#itemTemplate').tmpl(response).appendTo('#data');
 
-            $('.tooltip-request').tooltip({
-                track: true,
-                delay: 0,
-                showURL: false,
-                bodyHandler: function () {
+            $('.tooltip-request').tipsy({
+                className: 'tipsy-request',
+                gravity: 'ne',
+                html: true,
+                title: function () {
                     var object = $(this);
                     var result = getRequestDetail(
                         object.attr('data-requesttype'),
@@ -56,14 +55,16 @@ function view() {
                         object.attr('data-totaldays'),
                         object.attr('data-totalmins'));
 
-                    return "<div class='tooltip'>" +
-						"<table class='table-tooltip checkinout'>" +
-						"<tr class='hasborder'>" +
-						"<td class='col1'>Details</td>" +
-						"<td class='col2'>" + result +
-						"</td></tr><tr><td>Remark</td><td class='col2'>" +
-						object.attr('data-remark') +
-						"</td></tr></table></div>";
+                    return "<table class='table-tooltip'>" +
+                                "<tr>" +
+                                    "<td>Details</td>" +
+                                    "<td>" + result + "</td>" +
+                                "</tr>" +
+                                "<tr>" +
+                                    "<td>Remark</td>" +
+                                    "<td>" + object.attr('data-remark') + "</td>" +
+                                "</tr>" +
+                            "</table>";
                 }
             });
         }
@@ -71,9 +72,9 @@ function view() {
             $('#data tbody').children().remove();
             $(noInformation(14)).appendTo('#data');
         }
-        reloadButtonText('#view');
+        $('.loading-process').fadeOut(500);
     }).error(function () {
-        reloadButtonText('#view');
+        $('.loading-process').fadeOut(500);
         alert(_messages.errorTryAgain);
     });
 }

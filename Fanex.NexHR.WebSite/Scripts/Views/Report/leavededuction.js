@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
-
+        $('.loading-process').fadeIn(200)
         $.post(_global.root + 'ajax/AddLeaveDeduction',
             {
                 empId: $('#EmpId').val(),
@@ -36,6 +36,7 @@ $(document).ready(function () {
                 else {
                     alert(response.Message);
                 }
+                $('.loading-process').fadeOut(500);
             });
     });
 

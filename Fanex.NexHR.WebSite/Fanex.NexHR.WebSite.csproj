@@ -207,6 +207,7 @@
     <None Include="Content\Views\employee.monthschedule.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
+    <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
     <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
@@ -603,6 +604,7 @@
     <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\Report\leaveDeductionDetail.js" />
+    <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
     <Content Include="Scripts\Views\memo.edit.js" />
@@ -614,7 +616,6 @@
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\Request\leave.request.js" />
-    <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Report\leavededuction.js" />
     <Content Include="Scripts\Views\Report\report.attendance.js" />
     <Content Include="Scripts\Views\Report\report.mytimerecord.js" />

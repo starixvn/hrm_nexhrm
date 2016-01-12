@@ -74,14 +74,20 @@ function editTOEIC(id, name) {
             type: 'GET',
             url: _global.root + 'toeic/updatefulltoeic?id=' + id + '&name=' + name,
             dataType: 'html',
+            beforeSend: function () {
+                $('.loading-process').fadeIn(200);
+            },
+
             success: function (data) {
                 if (data) {
                     $('#dialog-toeic').html(data);
                     initEditToeicDialog();
                     openDialog();
                 }
+                $('.loading-process').fadeOut(500);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                $('.loading-process').fadeOut(500);
                 alert(textStatus + ': ' + errorThrown);
             }
         });
@@ -106,14 +112,20 @@ function initEvent() {
             type: 'GET',
             url: _global.root + 'toeic/updatetoeic',
             dataType: 'html',
+            beforeSend: function () {
+                $('.loading-process').fadeIn(200);
+            },
+
             success: function (data) {
                 if (data) {
                     $('#dialog-toeic').html(data);
                     initAddToeicDialog();
                     openDialog();
                 }
+                $('.loading-process').fadeOut(500);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                $('.loading-process').fadeOut(500);
                 alert(textStatus + ': ' + errorThrown);
             }
         });

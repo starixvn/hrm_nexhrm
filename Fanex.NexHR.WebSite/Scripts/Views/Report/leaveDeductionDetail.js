@@ -27,9 +27,7 @@ $(document).ready(function () {
     $('#updateform form').submit(function (evt) {
         evt.preventDefault();
         var url = window.location.href;
-        var $form = $(this);
-        if ($form.valid()) {
-            $.post(_global.root + 'ajax/EditLeaveDeduction',
+        $.post(_global.root + 'ajax/EditLeaveDeduction',
             {
                 leaveDeductionId: $('#LeaveDeductionId').val(),
                 totalDays: $('#TotalDays').val(),
@@ -45,15 +43,14 @@ $(document).ready(function () {
                     alert(response.Message);
                 }
             });
-        }
     });
 
     $('.deleteLeaveDeduction').click(function () {
+        var leaveDeductionId = $(this).attr('data-id');
         confirm('Are you sure you want to delete this leave deduction?', function () {
-            var leaveDeductionId = $(this).attr('data-id');
             var url = window.location.href;
-
-            $.post(_global.root + 'ajax/DeleteLeaveDeduction', { leavededuction: leaveDeductionId }, function (response) {
+            $.post(_global.root + 'ajax/DeleteLeaveDeduction', { leaveDeductionId: leaveDeductionId }, function (response) {
+                alert('response.Message');
                 if (response.Code === 0) {
                     document.location = url;
                 }
@@ -64,7 +61,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#cancel').click(function () {        
+    $('#cancel').click(function () {
         $('#updateform').dialog('close');
     });
 });
