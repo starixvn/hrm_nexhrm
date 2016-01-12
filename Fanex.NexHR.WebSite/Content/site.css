@@ -784,7 +784,7 @@ a:active, a:focus {
     margin-right: .5rem;
     border-radius: 2px; }
     .table.table-custom tbody tr td span.req.checkinout {
-      background: #3366ff; }
+      background: #15af93; }
     .table.table-custom tbody tr td span.req.leave {
       background: #da871c; }
     .table.table-custom tbody tr td span.req.inout {
@@ -795,8 +795,11 @@ a:active, a:focus {
   background: #ffff8d; }
 .table.table-custom tbody tr.disabled {
   background: #c8c8c8; }
-.table.table-custom tbody tr a.c-pedding i.mdi-navigation-arrow-drop-down {
-  font-size: 2rem; }
+.table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down {
+  font-size: 2rem;
+  position: relative;
+  top: 4px;
+  left: 4px; }
 .table.table-custom tfoot tr {
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2;

@@ -88,7 +88,7 @@
 					border-radius:2px;
 
                     &.checkinout {
-                        background: #3366ff;
+                        background: #15af93;
                     }
 
                     &.leave {
@@ -113,9 +113,12 @@
                 background: #c8c8c8;
             }
 
-            a.c-pedding {
+            a.c-pending {
                 i.mdi-navigation-arrow-drop-down {
                     font-size: 2rem;
+					position: relative;
+					top: 4px;
+					left: 4px;
                 }
             }
         }
