@@ -74,7 +74,7 @@ namespace Fanex.NexHR.Controllers
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
             ViewBag.EntityList = _memoService.GetAll(getAllMemoCriteria);
-
+            
             return View(model);
         }
 

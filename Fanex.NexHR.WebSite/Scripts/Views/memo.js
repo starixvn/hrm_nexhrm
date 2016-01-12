@@ -3,6 +3,11 @@
 /*global _global, autoIndex*/
 /*exported deleteMemoFile, deleteMemo*/
 "use strict";
+var rowIndex = 1;    
+function index() {
+    return rowIndex++;
+}
+
 function uploadFailed() {
 }
 
@@ -34,4 +39,33 @@ function deleteMemo(id, fileName, type) {
 			}
 		});
 	});
+}
+
+function query() {   
+    var category = null,
+        year = null;       
+
+    $.ajax({
+        url: _global.root + 'api/memo/getmemos',
+        data: { category: category, year: year},
+        beforeSend: function () {
+            $('.loading-process').fadeIn(200);
+        },
+        success: function (data) {
+            if (data.length > 0) {
+                rowIndex = 1;
+                $('#memo tbody').children().remove();
+                $('#template').tmpl(data).appendTo('#memo');                
+            } else {
+                $('#memo tbody').children().remove();
+                $(noInformation(11)).appendTo('#memo');
+            }
+
+            $('.loading-process').fadeOut(500);
+        },
+        error: function () {
+            $('.loading-process').fadeOut(500);
+            alert(_messages.errorTryAgain);
+        }
+    });    
 }

@@ -11,6 +11,8 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none">
+</div>
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -133,3 +135,33 @@
         </div>
     </div>
 </div>
+@*<script id="template" type="text/x-jquery-tmpl">
+    <tr id="row_${Id}">
+        <td class='center'>
+            ${index()}
+        </td>
+        <td>
+            ${RefNo}
+        </td>
+        <td class="txt-left">
+            <a href="/memo/detail/${Id}">${Subject}</a>
+        </td>
+        <td>
+            ${CategoryName}
+        </td>
+        <td class="ddMMyyyy">
+            ${formatDate(SentDate, 'dd MMM, yyyy')}                                                    
+        </td>
+        @if (Roles.IsUserInRole("HR"))
+        {
+            <td title="Edit">
+                <a href="/memo/edit/${Id}"><i class='mdi mdi-border-color mdi-dark'>
+                </i></a>
+            </td>
+            <td title="Delete">
+                <a href="javascript:;" onclick="deleteMemo(${Id}, '${Contents}', ${MemoType});">
+                    <i class='mdi mdi-delete mdi-dark'></i></a>
+            </td>
+        }
+    </tr>   
+</script>*@
