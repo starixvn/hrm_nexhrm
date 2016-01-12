@@ -326,6 +326,8 @@
     <Content Include="Scripts\Libs\jquery.tipsy.js" />
     <Content Include="Scripts\Libs\jquery.tmpl.js" />
     <Content Include="Scripts\Libs\jquery.tmpl.min.js" />
+    <Content Include="Scripts\Libs\jquery.twbsPagination.js" />
+    <Content Include="Scripts\Libs\jquery.twbsPagination.min.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Libs\jquery.validate.js" />

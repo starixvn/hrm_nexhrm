@@ -296,6 +296,7 @@
         private static void BuildBundleForReportMyTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/mytimerecordjs").Include(
+                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/Report/report.mytimerecord.js"));
         }
 

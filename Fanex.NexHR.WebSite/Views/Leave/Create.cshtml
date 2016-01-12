@@ -11,7 +11,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 l7 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -50,7 +50,7 @@
                                         @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.FilteringLeaveTypes, "Id", "Name"))
+                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypes, "Id", "Name"))
                                         @Html.HiddenFor(model => model.LeaveTypeName)
                                     </div>
                                 </div>

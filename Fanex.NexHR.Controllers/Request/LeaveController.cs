@@ -95,7 +95,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = DateTime.Now.Date,
                 TotalDays = 1,
                 By = this.CurrentUser.Id,
-                FilteringLeaveTypes = _leaveTypeService.GetAll().ToList(),
+                LeaveTypes = _leaveTypeService.GetAll().ToList(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
@@ -124,7 +124,7 @@ namespace Fanex.NexHR.Controllers.Request
             }
             else
             {
-                model.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
+                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
                 model.By = this.CurrentUser.Id;
                 ViewBag.Year = model.FromDate.Year;
 
@@ -175,7 +175,7 @@ namespace Fanex.NexHR.Controllers.Request
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                FilteringLeaveTypes = _leaveTypeService.GetAll().ToList(),
+                LeaveTypes = _leaveTypeService.GetAll().ToList(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
@@ -185,7 +185,7 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            model.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
+            model.LeaveTypes = _leaveTypeService.GetAll().ToList();
             ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
 
             return View(model);

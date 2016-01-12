@@ -12,8 +12,9 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels.Common;
 
-    public class TimeRecordViewModel
+    public class TimeRecordViewModel : PagerOptionModel
     {
         public DateTime FromDate { get; set; }
 

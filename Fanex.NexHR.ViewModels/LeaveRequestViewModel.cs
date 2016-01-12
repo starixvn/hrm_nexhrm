@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Tim.Trinh" date="2015.12.25">Add FilteringLeaveTypes, UnavailDates</change>
+//   <change who="Tim.Trinh" date="2015.12.25">Add LeaveTypes, UnavailDates</change>
 // </history>
 
 namespace Fanex.NexHR.ViewModels
@@ -17,9 +17,6 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Leave request view model.
-    /// </summary>
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
         [Required]
@@ -57,11 +54,6 @@ namespace Fanex.NexHR.ViewModels
             }
         }
 
-        /// <summary>
-        /// Validate context.
-        /// </summary>
-        /// <param name="validationContext">Validation context.</param>
-        /// <returns>List of validation result.</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             IList<ValidationResult> result = new List<ValidationResult>();
@@ -86,7 +78,7 @@ namespace Fanex.NexHR.ViewModels
             return result;
         }
 
-        public List<LeaveType> FilteringLeaveTypes { get; set; }
+        public List<LeaveType> LeaveTypes { get; set; }
 
         public List<DateTime> UnavailDates { get; set; }
     }

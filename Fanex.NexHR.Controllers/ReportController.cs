@@ -24,6 +24,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
 
     [Authorize]
@@ -479,6 +480,40 @@ namespace Fanex.NexHR.Controllers
             };
 
             return View(timeRecordViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult MyTimeRecord(DateTime fromDate, DateTime toDate, int itemsPerPage = 50, int currentPage = 1)
+        {
+            int? employeeId = null;
+
+            if (!Roles.IsUserInRole("HR"))
+            {
+                employeeId = this.CurrentUser.Id;
+            }
+
+            var criteria = new GetTimeRecordCriteria()
+            {
+                EmpId = employeeId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            var timeRecords = _reportService.GetTimeRecords(criteria);
+
+            var totalPage = Decimal.Divide(timeRecords.Count(), itemsPerPage) == 0 ? (timeRecords.Count() / itemsPerPage) : ((timeRecords.Count() / itemsPerPage) + 1);
+
+            var pagerOption = new PagerOptionModel()
+            {
+                CurrentPage = currentPage,
+                ItemsPerPage = itemsPerPage,
+                TotalItem = timeRecords.Count(),
+                TotalPage = totalPage
+            };
+
+            timeRecords = timeRecords.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+
+            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.DenyGet);
         }
 
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
