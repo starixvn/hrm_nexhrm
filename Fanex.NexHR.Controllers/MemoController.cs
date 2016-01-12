@@ -54,27 +54,6 @@ namespace Fanex.NexHR.Controllers
                 Category = -1
             };
 
-            return Index(model);
-        }
-
-        /// <summary>
-        /// Index page.
-        /// </summary>
-        /// <param name="model">The model object.</param>
-        /// <returns>Action result.</returns>
-        [HttpPost]
-        public ActionResult Index(MemoViewModel model)
-        {
-            var getAllMemoCriteria = new GetAllMemoCriteria()
-            {
-                Category = model.Category,
-                Content = model.Content,
-                Year = model.Year
-            };
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            ViewBag.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            ViewBag.EntityList = _memoService.GetAll(getAllMemoCriteria);
-            
             return View(model);
         }
 
