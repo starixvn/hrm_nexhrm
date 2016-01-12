@@ -35,7 +35,7 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc
 $tf*/
-
+*.css.map
 
 Fanex.NexHR.Controllers/Settings.StyleCop
 
