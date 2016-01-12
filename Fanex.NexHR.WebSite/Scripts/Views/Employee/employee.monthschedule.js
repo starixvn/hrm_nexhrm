@@ -34,9 +34,9 @@ $(document).ready(function () {
     $('#calendar').fullCalendar({
         theme: true,
         header: {
-            left: '',
+            left: 'prev',
             center: 'title',
-            right: 'prev,next'
+            right: 'next'
         },
         editable: false,
         events: function (start, end, timezone, callback) {

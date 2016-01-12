@@ -207,7 +207,6 @@
     <None Include="Content\Views\employee.monthschedule.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
-    <None Include="Content\Views\_tipsy.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
     <None Include="Content\ContextMenu\font\context-menu-icons.eot" />
@@ -861,7 +860,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54954</DevelopmentServerPort>
+          <DevelopmentServerPort>63201</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

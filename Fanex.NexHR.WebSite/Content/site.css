@@ -614,19 +614,6 @@ a:active, a:focus {
 #updateform {
   text-align: left; }
 
-#calendar .fc-toolbar {
-  background: #353c4e;
-  margin: 0;
-  padding: 1.4rem; }
-  #calendar .fc-toolbar h2 {
-    font-size: 25px;
-    color: #fff; }
-#calendar .fc-view-container .fc-head .ui-widget-header {
-  border: 1px solid #3c4355 !important;
-  font-weight: normal; }
-#calendar .fc-day-number {
-  border-bottom: none; }
-
 .navbar-fixed .top-nav {
   font-size: 24px;
   padding: 12px 0;
@@ -897,13 +884,6 @@ table.data thead tr:nth-child(even) {
   table.data thead tr:nth-child(even) th {
     border-left: none;
     border-right: none; }
-
-.fc-content-skeleton thead {
-  border-bottom: none; }
-  .fc-content-skeleton thead .fc-day-number {
-    border: none !important; }
-.fc-content-skeleton .fc-event-container {
-  border-top: none !important; }
 
 #logo-container {
   margin-top: 8px; }

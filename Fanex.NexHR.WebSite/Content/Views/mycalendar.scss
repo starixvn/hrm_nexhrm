@@ -1,14 +1,15 @@
 @import '../Common/utils/mixins';
 
 #calendar {
-    &.fc {
-        th, td {
-            border: .1rem solid #c8c8c8;
-        }
-    }
-
     .fc-toolbar {
-        margin-top: 1rem;
+        background: #353c4e;
+        margin: 1rem 0 0 0;
+        padding: 1.4rem;
+
+        h2 {
+            font-size: 25px;
+            color: #fff;
+        }
 
         .fc-prev-button, .fc-next-button {
             border: .1rem solid #c8c8c8;
@@ -47,6 +48,8 @@
                     tr {
                         th {
                             padding: .8rem .7rem;
+                            border: 1px solid #3c4355 !important;
+                            font-weight: normal;
                         }
                     }
                 }
@@ -55,12 +58,32 @@
 
         .fc-body {
             .fc-row.fc-week {
+                .fc-content-skeleton {
+                    table thead {
+                        border-bottom: none;
+
+                        .fc-day-number {
+                            border: none !important;
+
+                            &.fc-today {
+                            }
+                        }
+                    }
+                }
+
                 .fc-event-container {
                     text-align: center;
+                    border-top: none !important;
 
-                    .fc-content {
-                        .fc-time {
-                            display: none;
+                    .fc-event {
+                        background: none;
+                        color: #303f4d;
+                        border: none;
+
+                        .fc-content {
+                            .fc-time {
+                                display: none;
+                            }
                         }
                     }
                 }
@@ -71,7 +94,7 @@
                     }
 
                     &.fc-today {
-                        background: #fff9c4;
+                        background: #ffa726;
                     }
                 }
             }

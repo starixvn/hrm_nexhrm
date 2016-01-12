@@ -228,29 +228,3 @@
 #updateform {
 	text-align: left;
 }
-
-//------------------------Calendar--------------------------------------
-#calendar {
-	.fc-toolbar {
-		background: #353c4e;
-		margin: 0;
-		padding: 1.4rem;
-		h2 {
-			font-size: 25px;
-			color: #fff;
-		}	
-	}
-	
-	.fc-view-container {
-		.fc-head {
-			.ui-widget-header {
-				border: 1px solid #3c4355 !important;
-				font-weight: normal;
-			}
-		}
-	}
-	.fc-day-number {
-		border-bottom: none;
-	}
-	
-}
