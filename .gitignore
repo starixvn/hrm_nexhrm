@@ -41,3 +41,4 @@ Fanex.NexHR.Controllers/Settings.StyleCop
 
 packages/
 Fanex.NexHR.Site/
+.sass-cache/
