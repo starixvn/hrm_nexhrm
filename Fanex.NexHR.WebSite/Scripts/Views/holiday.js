@@ -2,13 +2,17 @@
 /*global _global:false, autoIndex: false*/
 /*exported deleteHoliday*/
 
-$(document).ready(function () {
-	var year = $('#year').val();
+var rowIndex = 1;
+function index() {
+    return rowIndex++;
+}
 
-	$('#submit').click(function () {
-		year = $('#year').val();
-		location.href = "/Holiday/Index?year=" + year;
-	});
+$(document).ready(function () {
+    var year = $('#year').val();
+
+    $('#submit').click(function () {
+        query();
+    });
 });
 
 
@@ -19,4 +23,30 @@ function deleteHoliday(id) {
 			autoIndex();
 		});
 	});
+}
+
+function query() {
+    $.ajax({
+        url: _global.root + 'api/holiday/getholidays',
+        data: { year: $('#year').val() },
+        beforeSend: function () {
+            $('.loading-process').fadeIn(400);
+        },
+        success: function (data) {
+            if (data.length > 0) {
+                rowIndex = 1;
+                $('#data tbody').children().remove();
+                $('#template').tmpl(data).appendTo('#data');
+            } else {
+                $('#data tbody').children().remove();
+                $(noInformation(11)).appendTo('#data');
+            }
+
+            $('.loading-process').fadeOut(250);
+        },
+        error: function () {
+            $('.loading-process').fadeOut(250);
+            alert(_messages.errorTryAgain);
+        }
+    });
 }

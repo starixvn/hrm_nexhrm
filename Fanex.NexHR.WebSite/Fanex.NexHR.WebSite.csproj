@@ -609,8 +609,8 @@
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
-    <Content Include="Scripts\Views\memo.edit.js" />
-    <Content Include="Scripts\Views\memo.js" />
+    <Content Include="Scripts\Views\Memo\memo.edit.js" />
+    <Content Include="Scripts\Views\Memo\memo.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\mycalendar.js" />
     <Content Include="Scripts\Views\Request\checkinout.byemployee.js" />

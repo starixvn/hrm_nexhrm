@@ -19,7 +19,6 @@ function deleteMemo(id, fileName, type) {
 }
 
 function query() {
-
     $.ajax({
         url: _global.root + 'api/memo/getmemos',
         data: { category: $('#Category').val(), year: $('#Year').val() },

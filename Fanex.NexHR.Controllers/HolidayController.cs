@@ -34,20 +34,14 @@ namespace Fanex.NexHR.Controllers
         { 
         }
 
-        public ActionResult Index()
-        {
-            return View(_holidayService.GetByYear(DateTime.Now.Year));
-        }
-
         /// <summary>
         /// Index page.
         /// </summary>
         /// <param name="year">The year value.</param>
-        /// <returns>Action result.</returns>
-        [HttpGet]
+        /// <returns>Action result.</returns>        
         public ActionResult Index(int? year)
         {
-            ViewBag.year = year ?? DateTime.Now.Year;
+            ViewBag.year = year ?? DateTime.Now.Year;            
             return View(_holidayService.GetByYear(ViewBag.year));
         }
 

@@ -12,6 +12,8 @@
 }
 @section Breadcrumb {
 }
+<div class="loading-process" style="display: none">
+</div>
 <div class="row content">
     <div class="col s12 l7 card-container-base my-request">
         <div class="card">
@@ -32,10 +34,9 @@
                                     <div class="left select--xs">
                                         @Html.YearPicker("year", 2010, (int)ViewBag.year)
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="col">
-                                    
-                                        <input type="button" id="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                    <input type="button" id="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     @if (isHRRole)
                                     {
                                         @Html.ActionLink("New Holiday", "Create", "", new { @class = "button-hrm waves-effect waves-light btn orange darken-1 white-text" })
@@ -110,3 +111,33 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;    
+</script>
+<script id="template" type="text/x-jquery-tmpl"> 
+    <tr id="row_${Id}">
+        <td class='center'>
+            ${index()}
+        </td>
+        <td class="txt-left">
+            ${HolidayName}
+        </td>
+        <td>            
+            ${formatDate(FromDate, 'dd MMM, yyyy')}   
+        </td>
+        <td class="ddMMyyyy">
+            ${formatDate(ToDate, 'dd MMM, yyyy')}                                                    
+        </td>      
+
+        {{if isHR}}
+            <td class="cmd">            
+                <a href="/holiday/edit/${Id}"><i class="mdi mdi-border-color mdi-dark">
+                </i>
+            </td>
+            <td class="cmd">
+                <a href="javascript:;" onclick="deleteHoliday(${Id});"><i class="mdi mdi-delete mdi-dark">
+                </i>
+            </td>                                  
+        {{/if}}           
+    </tr> 
+</script>
