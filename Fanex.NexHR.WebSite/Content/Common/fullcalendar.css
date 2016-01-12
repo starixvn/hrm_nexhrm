@@ -653,7 +653,7 @@ be a descendant of the grid when it is being dragged.
 
 .fc-day-grid-event
 {
-    margin: 1px 2px 0; /* spacing between events and edges */
+    margin: 10px 2px 0; /* spacing between events and edges */
     padding: 0 1px;
 }
 
@@ -731,11 +731,15 @@ a.fc-more:hover
 .fc-toolbar .fc-left
 {
     float: left;
+    position: relative;
+    left: 140px;
 }
 
 .fc-toolbar .fc-right
 {
     float: right;
+    position: relative;
+    right: 140px;
 }
 
 .fc-toolbar .fc-center
