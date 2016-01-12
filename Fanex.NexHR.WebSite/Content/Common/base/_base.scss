@@ -222,6 +222,13 @@ main {
 	margin-left: 48px;
 }
 
+.m-l--70 {
+	margin-left: 28px;
+	@media (min-width: 1900px) {
+		margin-left: 70px;
+	}
+}
+
 //-------------------COLOR CLASSESS----------------------//
 
 .c-pending {

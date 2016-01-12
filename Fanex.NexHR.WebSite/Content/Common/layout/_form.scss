@@ -43,7 +43,7 @@
 }
 
 .select--m, .input--m {
-    width: 250px;
+    width: 220px;
 }
 
 .input-subject {
@@ -84,6 +84,24 @@
 	}
 }
 
+//------------------Filter specific -----------------//
+.filter-status {
+	width: 220px;	
+	/*@media (min-width: 1900px) {
+		width: 150px;
+	}*/
+}
+//------------------Filter specific usermanagement -----------------//
+.filter-title-lbl {
+	width: 78px;
+
+	@media (min-width: 1900px){
+		 width: 50px;
+	}
+}
+.filter-title, .filter-keyword {
+	width: 300px;
+}
 
 //---------------------------------------------
 //            FORM INPUT
@@ -143,14 +161,6 @@
     }
   }
 }
-
-.jobTitle {
-	margin: 0 !important;
-	&:focus {
-		border-bottom: 1px solid $blue;
-	}
-}
-
 //---------------------------------------------
 //            DATE TIME PICKER
 //---------------------------------------------

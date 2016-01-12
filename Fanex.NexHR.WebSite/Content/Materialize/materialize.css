@@ -2236,7 +2236,7 @@ table {
     -ms-transition: background-color 0.25s ease;
     transition: background-color 0.25s ease; }
     table.highlight > tbody > tr:hover {
-      background-color: #e0e0e0; }
+      background-color: #f4d1c0; }
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 

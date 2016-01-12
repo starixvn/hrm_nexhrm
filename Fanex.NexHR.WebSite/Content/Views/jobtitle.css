@@ -1,9 +1,7 @@
-.ui-dialog.create-job-title .ui-dialog-titlebar {
-  border-bottom: .1rem solid #d2d2d2; }
-  .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-title {
-    display: inline; }
-  .ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-titlebar-close {
-    margin: .5rem .5rem 0 0; }
+.ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-title {
+  display: inline; }
+.ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  margin: .5rem .5rem 0 0; }
 .ui-dialog.create-job-title .ui-dialog-content {
   padding: .5rem; }
 .ui-dialog.create-job-title .ui-dialog-buttonpane {
@@ -16,5 +14,10 @@ table.table-custom tr td.col-edit .action-update, table.table-custom tr td.col-e
   display: none; }
 table.table-custom tr td.col-edit .action-cancel {
   margin-left: 1rem; }
+
+.jobTitle {
+  margin: 0 !important; }
+  .jobTitle:focus {
+    border-bottom: 1px solid #1d79ac; }
 
 /*# sourceMappingURL=jobtitle.css.map */

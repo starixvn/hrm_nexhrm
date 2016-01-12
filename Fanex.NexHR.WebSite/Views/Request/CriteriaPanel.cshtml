@@ -7,7 +7,7 @@
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <div class="form">
         <div class="row form-input">
-            <div class="col m-r--m">
+            <div class="col m-r--l">
                 <div class="left label--m">
                     <label>@Labels.DateRange</label>
                 </div>
@@ -16,7 +16,7 @@
                     @Html.Hidden("DateOption", Model.DateOption)
                 </div>
             </div>
-            <div class="col m-r--m">
+            <div class="col m-r--l">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                 </div>
@@ -25,7 +25,7 @@
                     <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>
-            <div class="col m-r--m">
+            <div class="col m-r--l m-l--70">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                 </div>
@@ -34,15 +34,23 @@
                     <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>
-            <div class="col m-r--m">
+            <div class="col m-r--l">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
                 </div>
                 <div class="left select--m">
                     @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.FilteringDateTypes)
                 </div>
-            </div>            
-            <div class="col m-r--m">
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.StatusId)
+                </div>
+                <div class="left filter-status">
+                    @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
+                </div>
+            </div>
+            <div class="col m-r--l">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.TeamCollection)
                 </div>
@@ -50,15 +58,7 @@
                     @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
                 </div>
             </div>
-            <div class="col m-r--m">
-                <div class="left label--m">
-                    @Html.LabelFor(model => model.StatusId)
-                </div>
-                <div class="left select--s">
-                    @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
-                </div>
-            </div>
-            <div class="col m-r--m">
+            <div class="col m-r--l">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.Employee)
                 </div>
@@ -69,7 +69,10 @@
             </div>
         </div>
         <div class="row form-input">
-            <div class="col m-r--m">
+            
+        </div>
+        <div class="row form-input">
+            <div class="col m-r--l">
                 <div class="left label--m">
                     @Html.LabelFor(model => model.LeaveTypeId)
                 </div>

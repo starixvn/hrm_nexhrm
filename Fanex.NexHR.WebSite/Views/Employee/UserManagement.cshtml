@@ -24,7 +24,7 @@
                                 <div class="left label--m">
                                     <label>@Labels.Keyword</label>
                                 </div>
-                                <div class="left input--s">
+                                <div class="left filter-keyword">
                                     <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
                                 </div>
                             </div>
@@ -37,13 +37,16 @@
                                 </div>
                             </div>
                             <div class="col m-r--l">
-                                <div class="left label--s">
+                                <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label></div>
-                                <div class="left select--m">
+                                <div class="left filter-title">
                                     @Html.DropDownList("title", new SelectList(Model.JobTitles, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
                                 </div>
-                            </div>
+                            </div>                            
+                        </div>
+                        <div class="row form-input">                            
                             <div class="col">
+                                <div class="left label--m">&nbsp;</div>
                                 <div class="left radioButton">
                                     <input class="with-gap" name="name" type="radio" id="active" checked="checked" />
                                     <label for="active" class="m-r--l">@Labels.ActiveUsers</label>
@@ -54,12 +57,9 @@
                                 </div>
                             </div>
                             <div class="col">
-                            <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;">@Labels.Submit</a>
+                            <a id="query" class="btn-submit waves-effect waves-light m-r--s" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
                             <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
                             </div>
-                        </div>
-                        <div class="row m-l--s">                            
-                            
                         </div>
                     </div>
                 </div>

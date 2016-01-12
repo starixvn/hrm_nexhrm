@@ -157,6 +157,12 @@ main {
 .m-l--xl {
   margin-left: 48px; }
 
+.m-l--70 {
+  margin-left: 28px; }
+  @media (min-width: 1900px) {
+    .m-l--70 {
+      margin-left: 70px; } }
+
 .c-pending {
   color: #f4783d; }
 
@@ -508,7 +514,7 @@ a:active, a:focus {
   width: 150px; }
 
 .select--m, .input--m {
-  width: 250px; }
+  width: 220px; }
 
 .input-subject {
   width: 518px; }
@@ -539,6 +545,21 @@ a:active, a:focus {
   .txtArea textarea {
     height: 50px; }
 
+.filter-status {
+  width: 220px;
+  /*@media (min-width: 1900px) {
+  	width: 150px;
+  }*/ }
+
+.filter-title-lbl {
+  width: 78px; }
+  @media (min-width: 1900px) {
+    .filter-title-lbl {
+      width: 50px; } }
+
+.filter-title, .filter-keyword {
+  width: 300px; }
+
 .form-input .col {
   padding-right: 1.6rem; }
 .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
@@ -567,11 +588,6 @@ a:active, a:focus {
     padding: 0; }
   .form-input .btn-add i {
     margin-right: 0; }
-
-.jobTitle {
-  margin: 0 !important; }
-  .jobTitle:focus {
-    border-bottom: 1px solid #1d79ac; }
 
 .datetime-picker {
   margin-right: 9px;

@@ -1,15 +1,17 @@
 @import '../Common/utils/mixins';
 
 #calendar {
+	width: 560px;
     .fc-toolbar {
         background: #353c4e;
-        margin: 1rem 0 0 0;
-        padding: 1.4rem;
+		background: #353c4e;
+		margin: 0;
+		padding: 1.4rem;
 
-        h2 {
-            font-size: 25px;
-            color: #fff;
-        }
+		h2 {
+			font-size: 25px;
+			color: #fff;
+		}
 
         .fc-prev-button, .fc-next-button {
             border: .1rem solid #c8c8c8;
@@ -38,8 +40,12 @@
         table {
             @include css3(box-shadow, none);
         }
-
+		
         .fc-head {
+			.ui-widget-header {
+				border: 1px solid #3c4355 !important;
+				font-weight: normal;
+			}
             table {
                 thead {
                     background: #3b4354;
@@ -55,6 +61,10 @@
                 }
             }
         }
+
+		.fc-day-number {
+			border-bottom: none;
+		}
 
         .fc-body {
             .fc-row.fc-week {
@@ -101,3 +111,4 @@
         }
     }
 }
+
