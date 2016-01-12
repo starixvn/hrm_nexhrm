@@ -223,7 +223,7 @@ $(document).ready(function(){
     });
 
     $('.processing-submit').click(function (evt) {
-        actingButton('.processing-submit', true);
+        $('.loading-process').fadeIn(200);        
     });
 });
 
