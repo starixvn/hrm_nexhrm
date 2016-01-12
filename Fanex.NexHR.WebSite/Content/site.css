@@ -611,6 +611,9 @@ a:active, a:focus {
 #frmUpdateTOEIC, #frmUpdFullTOEIC {
   margin-bottom: 0; }
 
+#updateform {
+  text-align: left; }
+
 #calendar .fc-toolbar {
   background: #353c4e;
   margin: 0;
@@ -794,10 +797,10 @@ a:active, a:focus {
   background: #c8c8c8; }
 .table.table-custom tbody tr a.c-pedding i.mdi-navigation-arrow-drop-down {
   font-size: 2rem; }
-.table.table-custom .floatingHeader {
-  z-index: 999;
-  position: fixed;
-  top: 6.5rem; }
+.table.table-custom tfoot tr {
+  border-left: 1px solid #d2d2d2;
+  border-right: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2; }
 
 table .striped thead {
   background: #3b4354;

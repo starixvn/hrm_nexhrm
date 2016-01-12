@@ -41,7 +41,7 @@ function fillData(response) {
     var pager = $('#pager').html();
     $('#data tfoot').html(pager);
 
-    $('#data #pagination').twbsPagination({
+    $('#data #pagination #numberlist').twbsPagination({
         totalPages: response.pagerOption.TotalPage,
         startPage: response.pagerOption.CurrentPage,
         visiblePages: 5,
@@ -57,9 +57,15 @@ function fillData(response) {
         }
     });
 
-    $('#data #ItemsPerPage').val(response.pagerOption.ItemsPerPage);
+    $('#data #pagination #ItemsPerPage').val(response.pagerOption.ItemsPerPage);
 
-    $('#data #ItemsPerPage').on('change', function () {
+    var from = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1,
+        to = from + response.data.length - 1;
+    var detailtext = 'Displaying <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.pagerOption.TotalItem + '</strong> item(s)';
+    $('#data #pagination #detailtext').html(detailtext);
+
+    $('#data #pagination #ItemsPerPage').on('change', function () {
+        params.currentPage = 1;
         query();
     });
 }

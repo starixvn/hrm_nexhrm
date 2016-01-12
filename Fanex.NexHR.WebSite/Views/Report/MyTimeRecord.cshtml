@@ -69,7 +69,6 @@
                             <tbody>
                             </tbody>
                             <tfoot>
-                                <tr></tr>
                             </tfoot>
                         </table>
                     </div>
@@ -83,7 +82,7 @@
     <table>
         <tfoot>
             <tr>
-                <td colspan="6" class="row">
+                <td colspan="6" id="pagination" class="row">
                     <div class="col">
                         <div class="left label--m">
                             <label>Page size</label>
@@ -92,10 +91,10 @@
                             @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
                         </div>
                         <div class="left">
-                            <ul id="pagination" class="pagination"></ul>
+                            <ul id="numberlist" class="pagination"></ul>
                         </div>
                     </div>
-                    <div class="col right">
+                    <div id="detailtext" class="col right">
                     </div>
                 </td>
             </tr>
