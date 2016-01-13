@@ -598,7 +598,7 @@ a:active, a:focus {
   max-height: 40rem;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 999 !important; }
+  z-index: 1003 !important; }
 
 .form-input.center .waves-input-wrapper {
   float: none; }
