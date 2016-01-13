@@ -46,8 +46,7 @@
 }
 
 .context-menu-icon-approve:before {
-    content: "\f206";
-    color: rgba(0, 0, 0, 0.6);
+    content: "\f206";    
     font-weight: bold;
 }
 
@@ -56,8 +55,7 @@
 }
 
 .context-menu-icon-reject:before {
-    content: "\f22f";
-    color: rgba(0, 0, 0, 0.6);
+    content: "\f22f";    
 }
 
 .context-menu-icon-reject.context-menu-hover:before {
@@ -160,6 +158,16 @@
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
+}
+
+.context-menu-icon-approve.context-menu-hover {
+  color: #69b829;
+  cursor: pointer;  
+}
+
+.context-menu-icon-reject.context-menu-hover {
+  color: #ff0909;
+  cursor: pointer;  
 }
 
 .context-menu-icon-edit.context-menu-hover {
