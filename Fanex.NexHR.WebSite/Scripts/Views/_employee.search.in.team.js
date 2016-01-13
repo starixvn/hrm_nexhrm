@@ -36,7 +36,7 @@ $(document).ready(function () {
         select: function (event, ui) {
             event.preventDefault();
             var nickName = ui.item.label;
-            //$('#Employee').val(nickName);
+            $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);
         },
         change: function (event, ui) {

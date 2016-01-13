@@ -1,12 +1,11 @@
-﻿@using Fanex.NexHR.Resources;
-<div id="resetform" title="Close balance for year @DateTime.Now.AddYears(-1).Year">
+﻿<div id="resetform">
     <div class="form">
         @using (Html.BeginForm())
         {
             <div class="row form-input">
                 <div class="col">
                     <div class="left label--l">
-                        @Html.Label("Max Balance")
+                        @Html.Label(Labels.MaxBalance)
                     </div>
                     <div class="left input--m">
                         @Html.Editor("MinBalance")
@@ -16,7 +15,7 @@
             <div class="row form-input">
                 <div class="col">
                     <div class="left label--l">
-                        @Html.Label("Description")
+                        @Html.Label(Labels.Description)
                     </div>
                     <div class="left input--m">
                         @Html.TextArea("DescriptionReset", new { @class = "materialize-textarea" })
@@ -25,7 +24,7 @@
             </div>
             <div class="row center">
                 <input type="submit" id="insert" class="btn-ok waves-effect waves-light m-r--m" value="@Labels.Submit" />
-                <input type="submit" id="cancelReset" class="btn-cancel waves-effect waves-light" value="@Labels.Cancel" />
+                <input type="button" id="cancelReset" class="btn-cancel waves-effect waves-light" value="@Labels.Cancel" />
             </div>
         }
     </div>

@@ -37,7 +37,7 @@ function query(jobTitleId) {
         url: _global.root + 'api/employee/getemployees',
         data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
-            $('.loading-process').fadeIn(200);
+            $('.loading-process').fadeIn(300);
         },
         success: function (data) {
             if (data.length > 0) {
@@ -58,10 +58,12 @@ function query(jobTitleId) {
                 $(noInformation(11)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
+
+            floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });
@@ -150,7 +152,6 @@ $(document).ready(function () {
 
     eventSorting(jobTitleId);
     eventExportExcel(jobTitleId);
-    floatThead('table#data');
 
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {

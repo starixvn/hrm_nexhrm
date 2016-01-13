@@ -99,6 +99,8 @@ function query() {
             }
 
             $('.loading-process').fadeOut(300);
+
+            floatThead('table#data');
         },
         error: function () {
             $('.loading-process').fadeOut(300);
@@ -110,7 +112,6 @@ function query() {
 $(document).ready(function () {
     initMonthPicker();
 
-    floatThead('table#data');
     query();
 
     $('#query').click(function (evt) {

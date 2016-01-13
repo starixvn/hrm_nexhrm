@@ -223,7 +223,7 @@ $(document).ready(function(){
     });
 
     $('.processing-submit').click(function (evt) {
-        $('.loading-process').fadeIn(200);        
+        $('.loading-process').fadeIn(200);
     });
 });
 
@@ -551,8 +551,10 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el){
-//    $(el).floatThead({
-//        top: 64,
-//        zIndex: 888
-//    });
+    $(el).floatThead('destroy');
+
+    $(el).floatThead({
+        top: 64,
+        zIndex: 888
+    });
 }

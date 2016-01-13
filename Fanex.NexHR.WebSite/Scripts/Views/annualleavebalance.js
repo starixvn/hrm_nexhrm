@@ -1,13 +1,11 @@
 ﻿'use strict';
 /*global _global:false , _messages:false, initDatePicker:false*/
 
-var _checked = false;
-var _totalDays = 0;
-var _ids;
+var _checked = false,
+    _totalDays = 0,
+    _ids;
 
-$(document).ready(function () {
-    initDatePicker('#AffectedFrom');
-
+function eventAdjustment() {
     $('#addadj').on('click', function () {
         _ids = [];
         $('.aba').each(function (index, item) {
@@ -20,10 +18,10 @@ $(document).ready(function () {
         $('#EmpIds').val(_ids);
 
         if (_ids.length > 0) {
-            var title = $(this).attr('title');
+            var title = $('#insertform').attr('title');
 
             $('#insertform').dialog({
-                title: title,
+                title: 'Adjust annual leave balance',
                 modal: true,
                 width: 450,
                 dialogClass: 'add-adjustment',
@@ -36,34 +34,9 @@ $(document).ready(function () {
         }
     });
 
-    $('#resetblc').on('click', function () {
-        var title = $(this).attr('title');
-
-        $('#resetform').dialog({
-            title: title,
-            modal: true,
-            width: 450,
-            dialogClass: 'reset-balance',
-            open: function () {
-                $('#TotalDays').val('');
-            }
-        });
-    });
-
-    $('#addbalance').on('click', function () {
-        confirm('Are you sure you add annual leave balance for new year?', function () {
-            $.post(_global.root + 'ajax/OpenAnnualLeaves', function (response) {
-                if (response) {
-                    document.location = _global.root + 'annualleavebalance/index';
-                } else {
-                    alert(_messages.errorTryAgain);
-                }
-            });
-        });
-    });
-
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
+
         var $form = $(this);
         _totalDays = parseFloat($('#TotalDays').val());
 
@@ -85,8 +58,43 @@ $(document).ready(function () {
         }
     });
 
+    $('#cancel').click(function () {
+        $('#insertform').dialog('close');
+    });
+}
+
+function eventAddBalance() {
+    $('#addbalance').on('click', function () {
+        confirm('Are you sure you add annual leave balance for new year?', function () {
+            $.post(_global.root + 'ajax/OpenAnnualLeaves', function (response) {
+                if (response) {
+                    document.location = _global.root + 'annualleavebalance/index';
+                } else {
+                    alert(_messages.errorTryAgain);
+                }
+            });
+        });
+    });
+}
+
+function eventCloseBalance() {
+    $('#resetblc').on('click', function () {
+        var lastYear = (new Date()).getFullYear() - 1;
+
+        $('#resetform').dialog({
+            title: 'Close balance for year ' + lastYear,
+            modal: true,
+            width: 450,
+            dialogClass: 'reset-balance',
+            open: function () {
+                $('#TotalDays').val('');
+            }
+        });
+    });
+
     $('#resetform form').submit(function (evt) {
         evt.preventDefault();
+
         var $form = $(this);
         _totalDays = parseFloat($('#TotalDays').val());
 
@@ -103,13 +111,16 @@ $(document).ready(function () {
         }
     });
 
-    $('#cancel').click(function () {
-        $('#insertform').dialog('close');
-    });
-
     $('#cancelReset').click(function () {
         $('#resetform').dialog('close');
     });
+}
+
+$(document).ready(function () {
+    initDatePicker('#AffectedFrom');
+    eventAdjustment();
+    eventAddBalance();
+    eventCloseBalance();
 
     $('.aba').each(function () {
         if ($(this).prop('checked')) {

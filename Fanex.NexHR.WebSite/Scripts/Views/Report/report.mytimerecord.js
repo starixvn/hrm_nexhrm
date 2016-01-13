@@ -26,8 +26,6 @@ function formatJsonDateToDetailFormatedDate(jsonDate) {
 };
 
 function fillData(response) {
-    floatThead('table#data');
-
     rowIndex = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1;
 
     $('#template').tmpl(response.data).appendTo('#data');
@@ -84,6 +82,8 @@ function query() {
             }
 
             $('.loading-process').fadeOut(300);
+
+            floatThead('table#data');
         }
     });
 }
@@ -100,6 +100,7 @@ $(document).ready(function () {
     });
 
     $('#submit').on('click', function () {
+        $('#form #CurrentPage').val(1);
         query();
     });
 

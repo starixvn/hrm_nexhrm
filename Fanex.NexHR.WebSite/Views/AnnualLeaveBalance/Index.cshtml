@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Models
-@using Fanex.NexHR.Resources;
-@model Fanex.NexHR.ViewModels.LeaveSummaryViewModel
+﻿@model LeaveSummaryViewModel
 @{
     ViewBag.Title = Labels.AnualLeaveBalance;
 }
@@ -14,7 +11,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -60,7 +57,6 @@
                                 </div>
                                 <div class="col">
                                         <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light" />
-                                    
                                 </div>
                                 @if (Model.ShowOpenAndCloseAnnualBalance.IsShowCloseBalance)
                                 {
@@ -81,8 +77,8 @@
                         }
                     </div>
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight centered table-custom">
-                            <thead class="persist-header">
+                        <table class="data table bordered striped highlight centered table-custom">
+                            <thead>
                                 <tr>
                                     <th rowspan="2" class="col-checkbox">
                                         @Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })
