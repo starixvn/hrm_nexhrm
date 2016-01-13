@@ -799,7 +799,7 @@ a:active, a:focus {
   background: #ffff8d; }
 .table.table-custom tbody tr.disabled {
   background: #c8c8c8; }
-.table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down {
+.table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {
   font-size: 2rem;
   position: relative;
   top: 4px;

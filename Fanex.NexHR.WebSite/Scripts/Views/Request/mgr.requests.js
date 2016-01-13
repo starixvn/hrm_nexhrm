@@ -39,8 +39,8 @@ function bindMenuPending(element) {
             }
         },
         items: {
-            'Approve': { name: 'Approve', icon: 'edit' },
-            'Reject': { name: 'Reject', icon: 'delete' }
+            'Approve': { name: 'Approve', icon: 'approve' },
+            'Reject': { name: 'Reject', icon: 'reject' }
         }
     });
 }
@@ -55,7 +55,7 @@ function bindMenuApproved(element) {
             });
         },
         items: {
-            'Disapprove': { name: 'Disapprove', icon: 'delete' }
+            'Disapprove': { name: 'Disapprove', icon: 'reject' }
         }
     });
 }
