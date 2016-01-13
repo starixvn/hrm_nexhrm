@@ -472,44 +472,42 @@ namespace Fanex.NexHR.Controllers
                 toDate = DateTime.Now.Date;
             }
 
-            var timeRecordViewModel = new TimeRecordViewModel
+            var model = new TimeRecordViewModel
             {
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
-                EmployeeId = this.CurrentUser.Id
+                EmployeeId = this.CurrentUser.Id,
+                CurrentPage = 1,
+                ItemsPerPage = 50
             };
 
-            return View(timeRecordViewModel);
+            return View(model);
         }
 
         [HttpPost]
-        public JsonResult MyTimeRecord(
-            DateTime fromDate,
-            DateTime toDate,
-            int itemsPerPage = 50,
-            int currentPage = 1)
+        public JsonResult MyTimeRecord(TimeRecordViewModel model)
         {
             var criteria = new GetTimeRecordCriteria()
             {
                 EmpId = this.CurrentUser.Id,
-                FromDate = fromDate,
-                ToDate = toDate
+                FromDate = model.FromDate,
+                ToDate = model.ToDate
             };
 
             var timeRecords = _reportService.GetTimeRecords(criteria);
-            var totalPage = timeRecords.Count() / itemsPerPage;
+            var totalPage = timeRecords.Count() / model.ItemsPerPage;
 
-            totalPage = Decimal.Divide(timeRecords.Count(), itemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            totalPage = Decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
 
             var pagerOption = new PagerOptionModel()
             {
-                CurrentPage = currentPage,
-                ItemsPerPage = itemsPerPage,
+                CurrentPage = model.CurrentPage,
+                ItemsPerPage = model.ItemsPerPage,
                 TotalItem = timeRecords.Count(),
                 TotalPage = totalPage
             };
 
-            timeRecords = timeRecords.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+            timeRecords = timeRecords.Skip((model.CurrentPage - 1) * model.ItemsPerPage).Take(model.ItemsPerPage).ToList();
 
             return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.DenyGet);
         }
@@ -522,54 +520,47 @@ namespace Fanex.NexHR.Controllers
                 toDate = DateTime.Now.Date;
             }
 
-            var teamCriteria = new GetAllTeamCriteria();
-            IList<Team> teams = _teamService.GetAll(teamCriteria);
+            var teams = _teamService.GetAll(new GetAllTeamCriteria());
 
-            var timeRecordViewModel = new TimeRecordViewModel
+            var model = new TimeRecordViewModel
             {
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
-                Teams = teams
+                Teams = teams,
+                CurrentPage = 1,
+                ItemsPerPage = 50
             };
 
-            return View(timeRecordViewModel);
+            return View(model);
         }
 
+        [Authorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult TimeRecord(
-            DateTime fromDate,
-            DateTime toDate,
-            string groupIds,
-            int? employeeId = null,
-            int itemsPerPage = 50,
-            int currentPage = 1)
+        public JsonResult TimeRecord(TimeRecordViewModel model)
         {
-            if (!Roles.IsUserInRole("HR"))
-            {
-                employeeId = this.CurrentUser.Id;
-            }
+            int? employeeId = null;
 
             var criteria = new GetTimeRecordCriteria()
             {
-                EmpId = employeeId,
-                GroupIds = groupIds,
-                FromDate = fromDate,
-                ToDate = toDate
+                EmpId = model.EmployeeId == 0 ? employeeId : model.EmployeeId,
+                GroupIds = model.TeamIds,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate
             };
             var timeRecords = _reportService.GetTimeRecords(criteria);
-            var totalPage = timeRecords.Count() / itemsPerPage;
+            var totalPage = timeRecords.Count() / model.ItemsPerPage;
 
-            totalPage = Decimal.Divide(timeRecords.Count(), itemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            totalPage = Decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
 
             var pagerOption = new PagerOptionModel()
             {
-                CurrentPage = currentPage,
-                ItemsPerPage = itemsPerPage,
+                CurrentPage = model.CurrentPage,
+                ItemsPerPage = model.ItemsPerPage,
                 TotalItem = timeRecords.Count(),
                 TotalPage = totalPage
             };
 
-            timeRecords = timeRecords.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+            timeRecords = timeRecords.Skip((model.CurrentPage - 1) * model.ItemsPerPage).Take(model.ItemsPerPage).ToList();
 
             return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.DenyGet);
         }

@@ -1,14 +1,10 @@
-﻿/*global _global, showMessage, fadeOutMessage, tooltip*/
-/*global actingButton: false, sleep: false, reloadButtonText: false, setDateTimeRange: false*/
+﻿/*global _global, actingButton: false, sleep: false, reloadButtonText: false, setDateTimeRange: false*/
 'use strict';
 
 function processRequest(command, eventElement) {
-    var requestId = $(eventElement).attr('requestId');
-    showMessage('Processing');
     $.post(_global.root + 'ajax/processrequest',
-    { command: command, id: requestId },
+    { command: command, id: $(eventElement).attr('requestId') },
         function (response) {
-            fadeOutMessage();
             if (response !== true) {
                 alert(response);
                 return;

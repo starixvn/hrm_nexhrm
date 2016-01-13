@@ -51,8 +51,7 @@
                                     <th>@Labels.Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -73,13 +72,13 @@
             ${LeaveType.Name}
         </td>
         {{if TotalDays == 0.5}}
-            <td class="highlight">${formatJsonDateToShortFormatedDate(FromDate)}</td>
-            <td class="highlight">${formatJsonDateToShortFormatedDate(ToDate)}</td>
+            <td>${formatJsonDateToShortFormatedDate(FromDate)}</td>
+            <td>${formatJsonDateToShortFormatedDate(ToDate)}</td>
         {{else}}
-            <td class="highlight">${formatJsonDate(FromDate, 'dd MMM, yyyy')}</td>
-            <td class="highlight">${formatJsonDate(ToDate, 'dd MMM, yyyy')}</td>
+            <td>${formatJsonDate(FromDate, 'dd MMM, yyyy')}</td>
+            <td>${formatJsonDate(ToDate, 'dd MMM, yyyy')}</td>
         {{/if}}
-        <td class="highlight center">${formatTotalDays(TotalDays)}</td>
+        <td>${formatTotalDays(TotalDays)}</td>
         <td class="tooltip" title="${formatJsonDateToShortFormatedDate(CreatedDate)}">
             ${formatJsonDate(CreatedDate, 'dd MMM, yyyy')}
         </td>

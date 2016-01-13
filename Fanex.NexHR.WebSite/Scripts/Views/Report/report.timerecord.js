@@ -1,15 +1,7 @@
 ﻿'use strict';
 /*global _global*/
 
-var rowIndex = 1,
-params = {
-    fromDate: null,
-    toDate: null,
-    employeeId: null,
-    groupIds: null,
-    itemsPerPage: null,
-    currentPage: null
-};
+var rowIndex = 1;
 
 function index() {
     return rowIndex++;
@@ -58,7 +50,7 @@ function fillData(response) {
         next: '<i class="mdi-image-navigate-next"></i>',
         last: '',
         onPageClick: function (event, page) {
-            params.currentPage = page;
+            $('#form #CurrentPage').val(page);
             query();
         }
     });
@@ -71,25 +63,19 @@ function fillData(response) {
     $('#data #pagination #detailtext').html(detailtext);
 
     $('#data #pagination #ItemsPerPage').on('change', function () {
-        params.currentPage = 1;
+        $('#form #ItemsPerPage').val($('#data #pagination #ItemsPerPage').val());
         query();
     });
 }
 
 function query() {
-    params.fromDate = $('#FromDate').val();
-    params.toDate = $('#ToDate').val();
-    params.employeeId = $('#EmployeeId').val() === '0' ? null : $('#EmployeeId').val();
-    params.groupIds = $('#GroupId').val();
-    params.itemsPerPage = $('#ItemsPerPage').val();
-
     $.ajax({
         url: _global.root + 'Report/TimeRecord',
         type: 'POST',
         dataType: 'json',
-        data: params,
+        data: $('#form').serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(200);
+            $('.loading-process').fadeIn(300);
         },
         success: function (response) {
             $('#data tbody').children().remove();
@@ -101,28 +87,22 @@ function query() {
                 $(noInformation(6)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(200);
+            $('.loading-process').fadeOut(300);
         }
     });
 }
 
 function processInOut(inoutType, eventElement) {
-    var recordTimeId = $(eventElement).attr('data-id');
-    showMessage('Processing');
-
     $.post(_global.root + 'Report/ProcessInOut',
-    { inoutType: inoutType, recordTimeId: recordTimeId },
+    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
     function (response) {
         if (response.Code === 0) {
             query();
-        }
-        else {
+        } else {
             alert(response.Message);
             return;
         }
     });
-
-    fadeOutMessage();
 }
 
 function bindMenuIn(element) {
@@ -200,7 +180,7 @@ $(document).ready(function () {
     initDatePicker('#FromDate');
     initDatePicker('#ToDate');
 
-    $('#btnSubmit').on('click', function () {
+    $('#submit').on('click', function () {
         query();
     });
 

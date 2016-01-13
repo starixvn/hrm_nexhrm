@@ -776,10 +776,6 @@ a:active, a:focus {
   border-bottom: 1px solid #d2d2d2;
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2; }
-  .table.table-custom tbody tr td.txt-left {
-    text-align: left; }
-  .table.table-custom tbody tr td.highlight {
-    background-color: #f2f2c2; }
   .table.table-custom tbody tr td.overloadRequest a {
     color: #f44336; }
   .table.table-custom tbody tr td span.req {

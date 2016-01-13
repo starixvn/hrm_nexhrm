@@ -21,6 +21,8 @@
                 </div>
                 <div class="card-body">
                     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                    @using (Html.BeginForm("timerecord", "report", FormMethod.Post, new { id = "form" }))
+                    {
                     <div class="form">
                         <div class="row form-input">
                             <div class="col m-r--m">
@@ -57,7 +59,7 @@
                                     @Html.LabelFor(model => model.TeamIds, Labels.Team)
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownList("GroupId", new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    @Html.DropDownListFor(model => model.TeamIds, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--m">
@@ -70,11 +72,13 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--s">
-                                    <input id="btnSubmit" type="button" value="@Labels.Submit" /></span>
+                                @Html.HiddenFor(model => model.ItemsPerPage)
+                                @Html.HiddenFor(model => model.CurrentPage)
+                                <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                             </div>
                         </div>
                     </div>
+                    }
                      <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
@@ -87,10 +91,8 @@
                                     <th>@Labels.InOut</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                            </tfoot>
+                            <tbody></tbody>
+                            <tfoot></tfoot>
                         </table>
                     </div>
                 </div>

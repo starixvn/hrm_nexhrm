@@ -287,15 +287,6 @@ function stringToBool(value) {
     }
 }
 
-function showMessage(message) {
-    $('#message').html(message + " <img src='/content/images/ajax-loader.gif' />").css('left', $(window).width()/2);
-    $('#message').slideDown();
-}
-
-function fadeOutMessage() {
-    $('#message').fadeOut(500);
-}
-
 function hideMessage() {
     $('#message').text('Done');
     $('#message').fadeOut(500);

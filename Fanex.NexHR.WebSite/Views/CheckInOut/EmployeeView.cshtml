@@ -71,11 +71,11 @@
         <td class="tooltip" title="${Requester.Team.Name}">
             ${Requester.Team.Code}
         </td>
-        <td class="highlight">
+        <td>
             ${RequestType.Name}
         </td>
-        <td class="highlight">${FromShift.Name}</td>
-        <td class="highlight">${formatJsonDateToShortFormatedDate(FromDate)}</td>
+        <td>${FromShift.Name}</td>
+        <td>${formatJsonDateToShortFormatedDate(FromDate)}</td>
         <td>${formatJsonDateToShortFormatedDate(CreatedDate)}</td>
         {{if Status.Name == 'Pending'}}
             <td>

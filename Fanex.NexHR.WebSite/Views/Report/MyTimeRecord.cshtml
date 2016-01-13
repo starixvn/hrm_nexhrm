@@ -9,7 +9,6 @@
 }
 @section Breadcrumb {
 }
-<div class="loading-process" style="display: none"></div>
 <div class="row content">
     <div class="col s12 card-container-base my-request">
         <div class="card">
@@ -19,6 +18,8 @@
                 </div>
                 <div class="card-body">
                     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                    @using (Html.BeginForm("mytimerecord", "report", FormMethod.Post, new { id = "form" }))
+                    {
                     <div class="form">
                         <div class="row form-input">
                             <div class="col m-r--m">
@@ -50,10 +51,13 @@
                             </div>
                             <div class="col">
                                 @Html.HiddenFor(model => model.EmployeeId)
-                                <input id="btnSubmit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+                                @Html.HiddenFor(model => model.ItemsPerPage)
+                                @Html.HiddenFor(model => model.CurrentPage)
+                                <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                             </div>
                         </div>
                     </div>
+                    }
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
@@ -66,10 +70,8 @@
                                     <th>@Labels.InOut</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                            </tfoot>
+                            <tbody></tbody>
+                            <tfoot></tfoot>
                         </table>
                     </div>
                 </div>
