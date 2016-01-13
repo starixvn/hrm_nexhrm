@@ -600,6 +600,7 @@
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
     <Content Include="Scripts\Views\Employee\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\extensionno.js" />
+    <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
     <Content Include="Scripts\Views\holiday.edit.js" />
     <Content Include="Scripts\Views\holiday.js" />
