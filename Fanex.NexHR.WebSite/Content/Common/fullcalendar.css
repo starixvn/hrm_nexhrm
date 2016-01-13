@@ -856,8 +856,9 @@ a.fc-more:hover
 
 .fc-basic-view td.fc-week-number span, .fc-basic-view td.fc-day-number
 {
-    padding-top: 2px;
+    padding-top: 5px;
     padding-bottom: 2px;
+    padding-right: 8px;
 }
 
 .fc-basic-view .fc-week-number
