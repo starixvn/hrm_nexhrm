@@ -152,8 +152,13 @@ main {
 }
 
 #legendInfo {
-    float: right;
-    margin-right: 0.5%;		
+    display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+
+	.tooltip {
+		color: #303f4d;
+	}
 }
 
 

@@ -8,14 +8,36 @@
             //border: .1rem solid #b6b6b6;
             color: #4f4f4f;
             font-weight: bold;
-            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
-
 
             .monpickr-prev, .monpickr-next {
                 .ui-icon {
                     width: 1.6rem;
                     height: 1.6rem;
+					background: none;
+					text-indent: initial;
+
+					&.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						width: 28px;
+						font-family: "Material Design Icons";
+						font-size: 20px;
+						font-style: normal;
+						font-weight: normal;
+					}
+
+					&.ui-icon-circle-triangle-e:after {
+						content: "\f417";
+					}
+
+					&.ui-icon-circle-triangle-w:after {
+					    content: "\f416";
+					}
+
                 }
+
+
 
                 &:hover {
                     border: .1rem solid #c8c8c8 !important;

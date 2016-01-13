@@ -109,8 +109,11 @@ main {
     padding-bottom: 0; }
 
 #legendInfo {
-  float: right;
-  margin-right: 0.5%; }
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px; }
+  #legendInfo .tooltip {
+    color: #303f4d; }
 
 .p-t--m {
   padding-top: 16px; }
