@@ -54,7 +54,7 @@ function query() {
         dataType: 'json',
         data: { year: $('#Year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(200);
+            $('.loading-process').fadeIn(300);
         },
         success: function (response) {
             if (response.data.length > 0) {
@@ -66,10 +66,10 @@ function query() {
                 $(noInformation(8)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(200);
+            $('.loading-process').fadeOut(300);
         },
         error: function () {
-            $('.loading-process').fadeOut(200);
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });

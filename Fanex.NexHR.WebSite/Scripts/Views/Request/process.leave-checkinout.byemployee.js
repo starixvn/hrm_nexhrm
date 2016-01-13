@@ -1,10 +1,10 @@
 ﻿'use strict';
-/*global _global:false , autoIndex*/
+/*global _global:false , autoIndex:false*/
 
 function cancelRequest(id) {
     confirm('<p>Are you sure you want to cancel this request?</p>', function () {
         $.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function () {
-            $('#row' + id).remove();
+            $('#row_' + id).remove();
             autoIndex();
         });
     });

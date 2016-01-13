@@ -607,13 +607,13 @@
     <Content Include="Scripts\Views\Memo\memo.index.js" />
     <Content Include="Scripts\Views\Report\leaveDeductionDetail.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
+    <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
     <Content Include="Scripts\Views\Memo\memo.edit.js" />
     <Content Include="Scripts\Views\Memo\memo.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\mycalendar.js" />
-    <Content Include="Scripts\Views\Request\checkinout.byemployee.js" />
     <Content Include="Scripts\Views\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />

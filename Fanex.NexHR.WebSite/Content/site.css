@@ -280,9 +280,9 @@ main {
         -ms-border-radius: 0.3rem;
         border-radius: 0.3rem; }
         .tipsy.tipsy-request table.table-tooltip tr td span.req.leave {
-          background: #a63c45; }
+          background: #da871c; }
         .tipsy.tipsy-request table.table-tooltip tr td span.req.checkinout {
-          background: #3366ff; }
+          background: #15af93; }
         .tipsy.tipsy-request table.table-tooltip tr td span.req.inout {
           background: #999900; }
       .tipsy.tipsy-request table.table-tooltip tr td:first-child {

@@ -180,7 +180,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/leavejs").Include(
                 "~/Scripts/Views/Request/leave.request.js",
-                "~/Scripts/Views/Request/checkinout.byemployee.js",
+                "~/Scripts/Views/Request/process.leave-checkinout.byemployee.js",
                 "~/Scripts/Views/Request/search.request.js"));
         }
 
@@ -188,7 +188,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/empcheckinoutjs").Include(
                 "~/Scripts/Views/Request/checkinout.request.js",
-                "~/Scripts/Views/Request/checkinout.byemployee.js",
+                "~/Scripts/Views/Request/process.leave-checkinout.byemployee.js",
                 "~/Scripts/Views/Request/search.request.js"));
         }
 
