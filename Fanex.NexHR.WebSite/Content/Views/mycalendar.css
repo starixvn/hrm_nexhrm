@@ -1,31 +1,78 @@
-/*
-Error: Invalid CSS after "    }": expected selector or at-rule, was "}"
-        on line 116 of D:\02.Project\14.NexHRM\nexhrm\Fanex.NexHR.WebSite\Content\Views\mycalendar.scss
+#calendar {
+  width: 560px; }
+  #calendar .ui-widget-content {
+    border: none; }
+  #calendar .fc-toolbar {
+    background: #353c4e;
+    background: #353c4e;
+    margin: 0;
+    padding: 1.4rem; }
+    #calendar .fc-toolbar h2 {
+      font-size: 25px;
+      color: #fff; }
+    #calendar .fc-toolbar .fc-prev-button, #calendar .fc-toolbar .fc-next-button {
+      border: .1rem solid #c8c8c8;
+      height: 2.1em;
+      padding: 0 .6em;
+      font-size: 1em; }
+      #calendar .fc-toolbar .fc-prev-button .ui-icon, #calendar .fc-toolbar .fc-next-button .ui-icon {
+        width: 1.6rem;
+        height: 1.6rem; }
+    #calendar .fc-toolbar .fc-prev-button {
+      -webkit-border-top-left-radius: 0.4rem;
+      -moz-border-top-left-radius: 0.4rem;
+      -ms-border-top-left-radius: 0.4rem;
+      border-top-left-radius: 0.4rem;
+      -webkit-border-bottom-left-radius: 0.4rem;
+      -moz-border-bottom-left-radius: 0.4rem;
+      -ms-border-bottom-left-radius: 0.4rem;
+      border-bottom-left-radius: 0.4rem; }
+    #calendar .fc-toolbar .fc-next-button {
+      -webkit-border-top-right-radius: 0.4rem;
+      -moz-border-top-right-radius: 0.4rem;
+      -ms-border-top-right-radius: 0.4rem;
+      border-top-right-radius: 0.4rem;
+      -webkit-border-bottom-right-radius: 0.4rem;
+      -moz-border-bottom-right-radius: 0.4rem;
+      -ms-border-bottom-right-radius: 0.4rem;
+      border-bottom-right-radius: 0.4rem; }
+  #calendar .fc-view-container table {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none; }
+  #calendar .fc-view-container .fc-head .ui-widget-header {
+    border: 1px solid #3c4355 !important;
+    font-weight: normal; }
+  #calendar .fc-view-container .fc-head table thead {
+    background: #3b4354;
+    color: #fff; }
+    #calendar .fc-view-container .fc-head table thead tr th {
+      padding: .8rem .7rem;
+      border: 1px solid #3c4355 !important;
+      font-weight: normal; }
+  #calendar .fc-view-container .fc-body {
+    border: 1px solid #d2d2d2; }
+    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead {
+      border-bottom: none; }
+      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead .fc-day-number.fc-today {
+        color: #fff; }
+    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
+      text-align: center;
+      border-top: none !important; }
+      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event {
+        background: none;
+        color: #303f4d;
+        border: none; }
+        #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
+          display: none; }
+        #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event.today {
+          color: #fff; }
+    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day {
+      border: 1px solid #d2d2d2; }
+      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-sat, #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-sun {
+        background: #e0e0e0; }
+      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-today {
+        background: #f4773d; }
 
-111:                     }
-112:                 }
-113:             }
-114:         }
-115:     }
-116: }
-
-Backtrace:
-D:\02.Project\14.NexHRM\nexhrm\Fanex.NexHR.WebSite\Content\Views\mycalendar.scss:116
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/scss/parser.rb:1165:in `expected'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/scss/parser.rb:1099:in `expected'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/scss/parser.rb:43:in `parse'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/engine.rb:393:in `_to_tree'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/engine.rb:368:in `_render_with_sourcemap'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/engine.rb:285:in `render_with_sourcemap'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/exec/sass_scss.rb:375:in `run'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/exec/sass_scss.rb:62:in `process_result'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/exec/base.rb:40:in `parse'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/lib/sass/exec/base.rb:19:in `parse!'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.4.3/bin/sass:13:in `<top (required)>'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/bin/sass:19:in `load'
-C:/Users/theresa.le/AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/bin/sass:19:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid CSS after \"    }\": expected selector or at-rule, was \"}\"\A         on line 116 of D:\02.Project\14.NexHRM\nexhrm\Fanex.NexHR.WebSite\Content\Views\mycalendar.scss\A \A 111:                     }\A 112:                 }\A 113:             }\A 114:         }\A 115:     }\A 116: }"; }
+/*# sourceMappingURL=mycalendar.css.map */

@@ -1,22 +1,22 @@
 @import '../Common/utils/mixins';
 
 #calendar {
-	width: 560px;
+    width: 560px;
 
-	.ui-widget-content {
-		border: none;
-	}
+    .ui-widget-content {
+        border: none;
+    }
 
     .fc-toolbar {
         background: #353c4e;
-		background: #353c4e;
-		margin: 0;
-		padding: 1.4rem;
+        background: #353c4e;
+        margin: 0;
+        padding: 1.4rem;
 
-		h2 {
-			font-size: 25px;
-			color: #fff;
-		}
+        h2 {
+            font-size: 25px;
+            color: #fff;
+        }
 
         .fc-prev-button, .fc-next-button {
             border: .1rem solid #c8c8c8;
@@ -37,8 +37,7 @@
 
         .fc-next-button {
             @include css3(border-top-right-radius, .4rem);
-            @include css3(border-bottom-right-radius, .4rem);			
-			}
+            @include css3(border-bottom-right-radius, .4rem);
         }
     }
 
@@ -46,12 +45,12 @@
         table {
             @include css3(box-shadow, none);
         }
-		
+        
         .fc-head {
-			.ui-widget-header {
-				border: 1px solid #3c4355 !important;
-				font-weight: normal;
-			}
+            .ui-widget-header {
+                border: 1px solid #3c4355 !important;
+                font-weight: normal;
+            }
             table {
                 thead {
                     background: #3b4354;
@@ -69,7 +68,8 @@
         }
 
         .fc-body {
-			border: 1px solid #d2d2d2;
+            border: 1px solid #d2d2d2;
+
             .fc-row.fc-week {
                 .fc-content-skeleton {
                     table thead {
@@ -77,6 +77,7 @@
 
                         .fc-day-number {
                             &.fc-today {
+                                color: #fff;
                             }
                         }
                     }
@@ -96,18 +97,22 @@
                                 display: none;
                             }
                         }
+
+                        &.today {
+                            color: #fff;
+                        }
                     }
                 }
 
                 .fc-day {
-					border: 1px solid #d2d2d2;
+                    border: 1px solid #d2d2d2;
+
                     &.fc-sat, &.fc-sun {
                         background: #e0e0e0;
                     }
 
                     &.fc-today {
                         background: #f4773d;
-						color: #fff;						
                     }
                 }
             }

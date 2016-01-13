@@ -560,8 +560,8 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el){
-    $(el).floatThead({
-        top: 64,
-        zIndex: 888
-    });
+//    $(el).floatThead({
+//        top: 64,
+//        zIndex: 888
+//    });
 }

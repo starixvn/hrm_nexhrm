@@ -23,14 +23,21 @@ $(document).ready(function () {
                 success: function (data) {
                     var events = [];
                     $(data).each(function (index, item) {
+                        var today = formatDate(new Date(), 'dd/MM/yyyy'),
+                            currentDay = formatDate(new Date(item.Start), 'dd/MM/yyyy');
+
+                        var cssClass = item.Title;
+                        if (today === currentDay) {
+                            cssClass = cssClass + ' ' + 'today';
+                        }
+
                         events.push({
                             title: item.Title,
                             start: item.Start,
-                            className: item.Title
+                            className: cssClass
                         });
                     });
                     callback(events);
-                    $('.OFF').find('.fc-event-title').addClass('OFF');
                 }
             });
         }
