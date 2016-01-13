@@ -17,6 +17,10 @@ function validateDate(e) {
     }
 }
 
+$("#Date").change(function () {
+    setDateTimeRange($("#Date").val())
+})
+
 $("form").submit(function (e) {
     validateDate(e);
 });
