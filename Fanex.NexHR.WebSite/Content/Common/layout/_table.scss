@@ -106,6 +106,8 @@
             }
 
             a.c-pending, a.c-approve {
+				position: relative;
+				top: -5px;
                 i.mdi-navigation-arrow-drop-down {
                     font-size: 2rem;
 					position: relative;

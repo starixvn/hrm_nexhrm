@@ -156,7 +156,7 @@
                 @foreach (Fanex.NexHR.Models.Shift item in shiftInfoList)
                 {
                     <tr>
-                        <td class="align-left">@item.Name
+                        <td>@item.Name
                         </td>
                         <td>@item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
                         </td>

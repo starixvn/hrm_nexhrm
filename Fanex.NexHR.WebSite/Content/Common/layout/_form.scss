@@ -102,6 +102,21 @@
 .filter-title, .filter-keyword {
 	width: 300px;
 }
+//------------------Filter specific attendace report -----------------//
+.label--m.label {
+	width: 78px;
+	margin-bottom: 10px;
+	@media (min-width: 1900px) {
+		width: 0;
+	}
+}
+
+.checkBox {
+	margin-top: 8px;
+	@media (min-width: 1900px) {
+		margin-top: 0;
+	}	
+}
 
 //---------------------------------------------
 //            FORM INPUT

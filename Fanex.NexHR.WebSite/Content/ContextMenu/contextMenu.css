@@ -24,7 +24,7 @@
        url("../ContextMenu/font/icomoon.ttf") format("truetype");
 }*/
 
-.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before {
+.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before, .context-menu-icon-reject:before, .context-menu-icon-approve:before {
   position: absolute;
   top: 50%;
   left: 0;
@@ -45,6 +45,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.context-menu-icon-approve:before {
+    content: "\f206";
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+}
+
+.context-menu-icon-approve.context-menu-hover:before {
+    color: #69b829;
+}
+
+.context-menu-icon-reject:before {
+    content: "\f22f";
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.context-menu-icon-reject.context-menu-hover:before {
+    color: #ff0909;
+}
 .context-menu-icon-add:before {
   content: "";
 }
