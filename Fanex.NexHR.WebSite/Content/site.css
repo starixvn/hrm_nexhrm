@@ -647,6 +647,12 @@ a:active, a:focus {
 #updateform {
   text-align: left; }
 
+#dialog {
+  padding-top: 0;
+  text-align: left; }
+  #dialog .form {
+    margin-bottom: 200px; }
+
 .navbar-fixed .top-nav {
   font-size: 24px;
   padding: 12px 0;

@@ -254,3 +254,12 @@
 #updateform {
 	text-align: left;
 }
+
+#dialog {
+	padding-top: 0;
+	text-align: left;
+
+	.form {
+		margin-bottom: 200px;
+	}
+}

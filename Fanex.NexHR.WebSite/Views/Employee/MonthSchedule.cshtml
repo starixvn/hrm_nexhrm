@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form">
-                            <div class="row">
+                            <div class="row form-input">
                                 <div class="col">
                                     <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
                                     <label class="m-r--m" for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
@@ -55,14 +55,12 @@
     <div class="row hide">
         <div id="dialog" title="Update shift">
             <div class="form">
-                <div class="row form-input">
-                    <div class="col">
-                        <div class="left label--l">
-                            @Html.Label("Current Shift")
-                        </div>
-                        <div class="left">
-                            <span id="current"></span>
-                        </div>
+                <div class="row form-input m-b--m">
+                    <div class="left label--l">
+                        @Html.Label("Current Shift")
+                    </div>
+                    <div class="left">
+                        <span id="current"></span>
                     </div>
                 </div>
                 <div class="row form-input">

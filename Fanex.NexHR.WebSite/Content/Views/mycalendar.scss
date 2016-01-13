@@ -87,6 +87,10 @@
                     text-align: center;
                     border-top: none !important;
 
+					.fc-day-grid-event .fc-content {
+						cursor: pointer;
+					}
+
                     .fc-event {
                         background: none;
                         color: #303f4d;
