@@ -8,6 +8,25 @@ function index() {
     return rowIndex++;
 }
 
+function initMonthPicker() {
+    $('#monthPickr').monPickr({
+        showDateRange: false,
+        sortDesc: true,
+        today: new Date(),
+        minDate: '2010/1/1',
+        maxDate: $('#maxDate').val(),
+        afterChangeMonth: function () {
+            var Month = $('#monthPickr').monPickr('getMonth', 'MM'),
+                Year = $('#monthPickr').monPickr('getMonth', 'yyyy');
+            $('#Month').val(Month);
+            $('#Year').val(Year);
+        }
+    });
+
+    $('#monthPickr .monpickr-prev span.ui-icon-circle-triangle-w').empty();
+    $('#monthPickr .monpickr-next span.ui-icon-circle-triangle-e').empty();
+}
+
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
     $.ajax({
@@ -89,19 +108,7 @@ function query() {
 }
 
 $(document).ready(function () {
-    $('#monthPickr').monPickr({
-        showDateRange: false,
-        sortDesc: true,
-        today: new Date(),
-        minDate: '2010/1/1',
-        maxDate: $('#maxDate').val(),
-        afterChangeMonth: function () {
-            var Month = $('#monthPickr').monPickr('getMonth', 'MM'),
-                Year = $('#monthPickr').monPickr('getMonth', 'yyyy');
-            $('#Month').val(Month);
-            $('#Year').val(Year);
-        }
-    });
+    initMonthPicker();
 
     floatThead('table#data');
     query();

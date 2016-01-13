@@ -18,12 +18,15 @@ function initMonthPick(today, month) {
         }
     });
 
+    $('#monthPickr .monpickr-prev span.ui-icon-circle-triangle-w').empty();
+    $('#monthPickr .monpickr-next span.ui-icon-circle-triangle-e').empty();
+
     $('.row').hover(
-		function () {
-		    $(this).addClass('rowhover');
-		}, function () {
-		    $(this).removeClass('rowhover');
-		});
+        function () {
+            $(this).addClass('rowhover');
+        }, function () {
+            $(this).removeClass('rowhover');
+        });
 }
 
 $(document).ready(function () {
@@ -35,9 +38,7 @@ $(document).ready(function () {
             width: 410,
             height: 300,
             open: function () {
-                
                 initDatePicker(".datepicker");
-                
             }
         });
     });
@@ -50,17 +51,17 @@ $(document).ready(function () {
     $('#btnAdd').click(function () {
         confirm('Are you sure you add calendars?', function () {
             $.post(_global.root + 'ajax/InsertWorkingCalendar',
-				{ EmployeeId: $.trim($("#Employee").val()).length > 0 ? $("#EmployeeId").val() : null,
-				    FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
-				},
-				function (response) {
-				    if (response) {
-				        document.location = _global.root + 'employee/workingcalendars';
-				    }
-				    else {
-				        alert(_messages.errorTryAgain);
-				    }
-				});
+                { EmployeeId: $.trim($("#Employee").val()).length > 0 ? $("#EmployeeId").val() : null,
+                    FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
+                },
+                function (response) {
+                    if (response) {
+                        document.location = _global.root + 'employee/workingcalendars';
+                    }
+                    else {
+                        alert(_messages.errorTryAgain);
+                    }
+                });
         });
     });
 });

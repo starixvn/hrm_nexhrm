@@ -13,31 +13,28 @@
                 .ui-icon {
                     width: 1.6rem;
                     height: 1.6rem;
-					background: none;
-					text-indent: initial;
+                    background: none;
+                    text-indent: initial;
 
-					&.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
-						position: absolute;
-						top: 50%;
-						left: 0;
-						width: 28px;
-						font-family: "Material Design Icons";
-						font-size: 20px;
-						font-style: normal;
-						font-weight: normal;
-					}
+                    &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: 28px;
+                        font-family: "Material Design Icons";
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: normal;
+                    }
 
-					&.ui-icon-circle-triangle-e:after {
-						content: "\f417";
-					}
+                    &.ui-icon-circle-triangle-e:after {
+                        content: "\f417";
+                    }
 
-					&.ui-icon-circle-triangle-w:after {
-					    content: "\f416";
-					}
-
+                    &.ui-icon-circle-triangle-w:after {
+                        content: "\f416";
+                    }
                 }
-
-
 
                 &:hover {
                     border: .1rem solid #c8c8c8 !important;
@@ -48,7 +45,7 @@
             .monpickr-input {
                 padding-left: 0 !important;
                 font-weight: normal;
-				padding: 7px;
+                padding: 7px;
             }
         }
 
