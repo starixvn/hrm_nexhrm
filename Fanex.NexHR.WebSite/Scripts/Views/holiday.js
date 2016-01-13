@@ -30,7 +30,7 @@ function query() {
         url: _global.root + 'api/holiday/getholidays',
         data: { year: $('#year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(400);
+            $('.loading-process').fadeIn(500);
         },
         success: function (data) {
             if (data.length > 0) {
@@ -39,13 +39,13 @@ function query() {
                 $('#template').tmpl(data).appendTo('#data');
             } else {
                 $('#data tbody').children().remove();
-                $(noInformation(11)).appendTo('#data');
+                $(noInformation(4)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(250);
+            $('.loading-process').fadeOut(500);
         },
         error: function () {
-            $('.loading-process').fadeOut(250);
+            $('.loading-process').fadeOut(500);
             alert(_messages.errorTryAgain);
         }
     });

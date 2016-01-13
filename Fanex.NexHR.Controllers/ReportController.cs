@@ -203,11 +203,20 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult TotalWorkingHours()
         {
-            return TotalWorkingHours(null);
+            var model = new TotalWorkingHoursViewModel
+            {
+                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
+                ToDate = DateTime.Now,
+                DateOption = 5,
+                IsExportExcel = false
+            };
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+            ViewBag.TeamId = model.TeamId;
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
+        public JsonResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             if (model == null)
             {
@@ -222,14 +231,9 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            if (model.IsExportExcel)
-            {
-                var export = new ExportController();
-                return export.TotalWorkingHours(model);
-            }
-
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.TeamId = model.TeamId;
+            if (model.IsExportExcel)                            
+                ExportExcel(model);
+            
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
                 FromDate = model.FromDate,
@@ -238,11 +242,15 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId
             };
 
-            var totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);           
 
-            ViewBag.EntityList = totalWorkingHours;
+            return Json(totalWorkingHours,JsonRequestBehavior.AllowGet);
+        }
 
-            return View(model);
+        public ActionResult ExportExcel(TotalWorkingHoursViewModel model)
+        {
+            var export = new ExportController();
+            return export.TotalWorkingHours(model);
         }
 
         public ActionResult LeaveSummary()

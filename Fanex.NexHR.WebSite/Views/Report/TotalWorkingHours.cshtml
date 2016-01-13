@@ -1,8 +1,10 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.ViewModels
+@using Newtonsoft.Json;
 @model TotalWorkingHoursViewModel
 @{
-    ViewBag.Title = Labels.ReportWorkingHours;
+    ViewBag.Title = Labels.ReportWorkingHours;    
+    var form = JsonConvert.SerializeObject(Model);
 }
 @section css{
 }
@@ -19,7 +21,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm(null, null,FormMethod.Post, new { id="form" }))
                     {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
@@ -86,7 +88,7 @@
                                         </div>
                                     </div>
                                 <div>                                    
-                                    <input id="btnSubmit" type="submit" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m processing-submit" />
+                                            <input id="btnSubmit" type="button" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m" />
                                     <input class="btn-export-excel waves-effect waves-light" type="submit" value="Excel"
                                         onclick="submitForm('True')" />
                                     @Html.HiddenFor(model => model.IsExportExcel)
@@ -94,7 +96,7 @@
                             </div>
                             &nbsp;
                             <div class="p-x--s">
-                                <table class="table bordered striped highlight table-custom centered">
+                                <table id="data" class="table bordered striped highlight table-custom centered">
                                     <thead>
                                         <tr class="persist-header">
                                             <th>
@@ -131,7 +133,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    @if (ViewBag.EntityList.Count > 0)
+                                    @if (ViewBag.EntityList != null && ViewBag.EntityList.Count > 0)
                                     {
                                         <tbody>
                                             @{int index = 1;}
@@ -229,3 +231,26 @@
             </div>
         </div>
     </div>
+</div>
+<script type="text/javascript">
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;
+</script>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${index()}</td>
+        <td>${Employee.Code}</td>
+        <td class="txt-left">${Employee.FullName}</td>
+        <td>${Employee.NickName}</td>
+        <td class="tooltip" title="${Employee.Team.Name}">${Employee.Team.Code}</td>
+        <td>${WorkingDay}</td>
+        <td>${ActualWorkingDay}</td>
+        <td>${PaidLeave}</td>
+        <td>${UnpaidLeave}</td>
+        <td>${SickLeave}</td>
+        <td>${AccidentLaborLeave}</td>
+        <td>${LateIn}</td>
+        <td>${EarlyOut}</td>
+        <td>${TotalHours}</td>        
+        <td>${AverageHours}</td>
+    </tr>    
+</script>

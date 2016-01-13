@@ -23,7 +23,7 @@ function query() {
         url: _global.root + 'api/memo/getmemos',
         data: { category: $('#Category').val(), year: $('#Year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(400);
+            $('.loading-process').fadeIn(500);
         },
         success: function (data) {
             if (data.length > 0) {
@@ -35,10 +35,10 @@ function query() {
                 $(noInformation(11)).appendTo('#memo');
             }
 
-            $('.loading-process').fadeOut(250);
+            $('.loading-process').fadeOut(500);
         },
         error: function () {
-            $('.loading-process').fadeOut(250);
+            $('.loading-process').fadeOut(500);
             alert(_messages.errorTryAgain);
         }
     });
