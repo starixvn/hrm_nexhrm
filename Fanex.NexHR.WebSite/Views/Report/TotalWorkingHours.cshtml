@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @model TotalWorkingHoursViewModel
 @{
-    ViewBag.Title = Labels.ReportWorkingHours;    
+    ViewBag.Title = Labels.ReportWorkingHours;
     var form = JsonConvert.SerializeObject(Model);
 }
 @section css{
@@ -21,7 +21,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm(null, null,FormMethod.Post, new { id="form" }))
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                     {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
@@ -79,16 +79,16 @@
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.Employee)
-                                        </div>
-                                        <div class="left input--m">
-                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
-                                        </div>
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
                                     </div>
-                                <div>                                    
-                                            <input id="btnSubmit" type="button" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m" />
+                                    <div class="left input--m">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div>
+                                    <input id="btnSubmit" type="button" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m" />
                                     <input class="btn-export-excel waves-effect waves-light" type="submit" value="Excel"
                                         onclick="submitForm('True')" />
                                     @Html.HiddenFor(model => model.IsExportExcel)
@@ -239,18 +239,18 @@
     <tr>
         <td>${index()}</td>
         <td>${Employee.Code}</td>
-        <td class="txt-left">${Employee.FullName}</td>
+        <td class="align-left">${Employee.FullName}</td>
         <td>${Employee.NickName}</td>
         <td class="tooltip" title="${Employee.Team.Name}">${Employee.Team.Code}</td>
         <td>${WorkingDay}</td>
         <td>${ActualWorkingDay}</td>
-        <td>${PaidLeave}</td>
-        <td>${UnpaidLeave}</td>
-        <td>${SickLeave}</td>
-        <td>${AccidentLaborLeave}</td>
-        <td>${LateIn}</td>
-        <td>${EarlyOut}</td>
-        <td>${TotalHours}</td>        
-        <td>${AverageHours}</td>
+        <td>${PaidLeave.toFixed(1)}</td>
+        <td>${UnpaidLeave.toFixed(1)}</td>
+        <td>${SickLeave.toFixed(1)}</td>
+        <td>${AccidentLaborLeave.toFixed(1)}</td>
+        <td>${displayMinute(LateIn)}</td>
+        <td>${displayMinute(EarlyOut)}</td>
+        <td>${totalHoursToTime(TotalHours)}</td>        
+        <td>${totalHoursToTime(AverageHours)}</td>
     </tr>    
 </script>

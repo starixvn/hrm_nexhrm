@@ -26,7 +26,7 @@ $(document).ready(function () {
     initDatePicker("#ToDate");
 
     //search onload
-    //query();
+    query();
 
     $('#btnSubmit').click(function (evt) {
         evt.preventDefault();
