@@ -99,33 +99,33 @@ namespace Fanex.NexHR.Controllers
 
         #endregion Timesheet
 
+        #region HRRequestMonitoring
+
         [Authorize(Roles = "HR")]
         public ActionResult HRRequestMonitoring()
         {
-            return HRRequestMonitoring(null);
-        }
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
 
-        [HttpPost]
-        [Authorize(Roles = "HR")]
-        public ActionResult HRRequestMonitoring(RequestsMonitoringViewModel model)
-        {
-            if (model == null)
+            var model = new RequestsMonitoringViewModel
             {
-                var year = DateTime.Now.Year;
-                var month = DateTime.Now.Month;
-                model = new RequestsMonitoringViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    MaxRequest = 2,
-                    DateOption = 0
-                };
-            }
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                MaxRequest = 1,
+                DateOption = 0
+            };
 
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = false;
 
+            return View("RequestMonitoring", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public JsonResult HRRequestMonitoring(RequestsMonitoringViewModel model)
+        {
             IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
             IList<short> roleList = this.CurrentUser.RoleList;
@@ -146,38 +146,39 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            ViewBag.EntityList = requestMonitorings;
-
-            return View("RequestMonitoring", model);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
         }
+
+        #endregion HRRequestMonitoring
+
+        #region LeaderRequestMonitoring
 
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring()
         {
-            return LeaderRequestMonitoring(null);
-        }
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
 
-        [HttpPost]
-        [Authorize(Roles = "AssistantLeader")]
-        public ActionResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
-        {
-            if (model == null)
+            var model = new RequestsMonitoringViewModel
             {
-                var year = DateTime.Now.Year;
-                var month = DateTime.Now.Month;
-                model = new RequestsMonitoringViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    MaxRequest = 1,
-                    DateOption = 0
-                };
-            }
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                MaxRequest = 1,
+                DateOption = 0
+            };
 
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = true;
-            ViewBag.EntityList = new List<RequestsMonitoring>();
+
+            return View("RequestMonitoring", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "AssistantLeader")]
+        public JsonResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
+        {
+            IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
             IList<short> roleList = this.CurrentUser.RoleList;
             if (roleList != null)
@@ -193,12 +194,14 @@ namespace Fanex.NexHR.Controllers
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    ViewBag.EntityList = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
+                    requestMonitorings = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
-            return View("RequestMonitoring", model);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
         }
+
+        #endregion LeaderRequestMonitoring
 
         public ActionResult TotalWorkingHours()
         {

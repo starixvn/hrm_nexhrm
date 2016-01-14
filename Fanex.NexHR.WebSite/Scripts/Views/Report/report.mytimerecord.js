@@ -58,6 +58,7 @@ function fillData(response) {
 
     $('#data #pagination #ItemsPerPage').on('change', function () {
         $('#form #ItemsPerPage').val($('#data #pagination #ItemsPerPage').val());
+        $('#form #CurrentPage').val(1);
         query();
     });
 }
