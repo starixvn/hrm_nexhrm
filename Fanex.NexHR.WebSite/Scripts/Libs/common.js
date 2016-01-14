@@ -251,6 +251,18 @@ function displayMinute(minutes) {
     return (hour > 9 ? hour : '0' + hour) + ':' + (minute > 9 ? minute : '0' + minute);
 }
 
+function displayMinuteForTotalWorking(minutes) {
+    var hour = Math.floor(minutes / 60),
+        minute = minutes % 60;
+
+    if(hour == 0)
+    {
+        if (minute == 0) return ""
+        return minute > 9 ? minute + '\'' : '0' + minute + '\'';
+    }
+    return (hour > 9 ? hour : '0' + hour) + 'h' + (minute > 9 ? minute : '0' + minute) + '\'';
+}
+
 //required: jquery.tipsy.js
 function tooltip(element, enable) {
     if (enable) {
