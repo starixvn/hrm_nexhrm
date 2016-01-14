@@ -129,6 +129,8 @@
       .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-body {
         width: 100%;
         height: 517px; }
+        .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-body tr:hover {
+          background: #f4d1c0; }
         .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-body td {
           border-left: 1px solid #d2d2d2;
           border-bottom: 1px solid #d2d2d2; }
@@ -163,5 +165,7 @@
   padding: 0;
   overflow: auto;
   zoom: 1; }
+  .datagrid-body table tbody > tr:nth-child(odd) {
+    background: #ededed; }
 
 /*# sourceMappingURL=report.timesheet.css.map */

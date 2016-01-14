@@ -46,8 +46,7 @@
                                         <input type="hidden" id="Year" name="Year" value="@ViewBag.Year" />
                                         <input type="hidden" id="Month" name="Month" value="@ViewBag.Month" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                        <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m">
-                                            <input type="submit" value="@Labels.Submit" class="processing-submit" /></span>
+                                        <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     </div>
                                     <div class="left">
                                         @if (Roles.IsUserInRole("HR"))
