@@ -94,14 +94,14 @@
 
 .datagrid-wrap {
 	width: 976px;
-	height: 520px;
+	height: 600px;
 	@media (min-width: 1900px) {
 		width: 1616px;
 	}
 
 	.datagrid-view {
 		width: 100%; 
-		height: 500px;
+		height: 580px;
 
 		.datagrid-view1 {
 			width: 30%;
@@ -123,6 +123,18 @@
 						td {
 							border-left: 1px solid #4d5568;
 							border-bottom: 1px solid #4d5568;
+							&.rownumber {
+								width: 26px;
+								@media (min-width: 1900px) {
+									width: 43px;
+								}
+							}
+							&.rowfullname {
+								width: 189px;
+								@media (min-width: 1900px) {
+									width: 315px;
+								}
+							}
 						}
 						tr:first-child {
 							background:#353c4e;
@@ -137,11 +149,14 @@
 
 			.datagrid-body {
 				width: 100%;
-				height: 450px;
+				height: 500px;
 
 				td {
 					border-left: 1px solid #d2d2d2;
 					border-bottom: 1px solid #d2d2d2;
+					&:last-child {
+						border-right: 1px solid #d2d2d2;
+					}
 				}
 			}
 		}
@@ -183,7 +198,7 @@
 
 			.datagrid-body {
 				width: 100%;
-				height: 450px;
+				height: 517px;
 				td {
 					border-left: 1px solid #d2d2d2;
 					border-bottom: 1px solid #d2d2d2;

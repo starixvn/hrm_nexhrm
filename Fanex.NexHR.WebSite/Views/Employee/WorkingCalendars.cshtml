@@ -68,19 +68,19 @@
                                             <tbody>
                                                 <tr>
                                                     <td colspan="3" align="right">
-                                                        <div class="datagrid-cell">
+                                                        <div class="datagrid-cell p-l--s">
                                                             <b style="text-transform: uppercase">@(new DateTime(ViewBag.Year, ViewBag.Month, 1).ToString("MMM yyyy"))</b>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td class="rownumber">
                                                         <div class="datagrid-cell-rownumber center">#</div>
                                                     </td>
-                                                    <td>
+                                                    <td class="p-l--s rowfullname">
                                                         <div class="datagrid-cell ">@Labels.FullName</div>
                                                     </td>
-                                                    <td>
+                                                    <td class="p-l--s rownick">
                                                         <div class="datagrid-cell ">@Labels.Nick</div>
                                                     </td>
                                                 </tr>
@@ -99,11 +99,11 @@
                                                         <td class="datagrid-header-rownumber center">
                                                             <div class="datagrid-cell-rownumber">@rowId</div>
                                                         </td>
-                                                        <td class="datagrid-fullname">
+                                                        <td class="datagrid-fullname p-l--s">
                                                             <div class="datagrid-cell">@employee.FullName</div>
                                                         </td>
                                                         <td>
-                                                            <div class="datagrid-cell">@employee.NickName</div>
+                                                            <div class="datagrid-cell p-l--s">@employee.NickName</div>
                                                         </td>
                                                     </tr>
                                                     rowId++;
@@ -285,9 +285,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container_24" id="colordef">
-                        <div class="grid_2 AL tooltip alpha" title="Annual Leave">
-                            AL</div>
+                    <div class="row form-input" id="colordef">
+                        <div class="col m-r--m">
+                            <div class="left">
+                                <div class="grid_2 AL tooltip alpha" title="Annual Leave">AL</div>
+                            </div>
+                            <div class="left label">
+                                <label>Annual Leave</label>
+                            </div>
+                        </div>
+                        
                         <div class="grid_2 HAL tooltip" title="Half Annual Leave">
                             AL</div>
                         <div class="grid_2 UPL tooltip alpha" title="Unpaid Leave">

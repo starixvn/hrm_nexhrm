@@ -121,8 +121,8 @@ main {
 .p-t--m {
   padding-top: 16px; }
 
-.p-l-s {
-  padding-left: 8px; }
+.p-l--s {
+  padding-left: 8px !important; }
 
 .p-x--s {
   padding: 0 8px; }
