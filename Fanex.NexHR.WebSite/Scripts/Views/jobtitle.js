@@ -1,7 +1,13 @@
 ﻿/// <reference path='../Libs/jquery.min.js' />
 /*global _global, _messages, getParam*/
-/*exported deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
+/*exported index, deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
 'use strict';
+
+var rowIndex = 1;
+
+function index() {
+    return rowIndex++;
+}
 
 var canNotUpdate = function (id) {
     $('#txtJobTile_' + id).val($('#spanJobTitle_' + id).text());
@@ -147,18 +153,48 @@ $(function () {
     });
 });
 
+function query() {
+    $.ajax({
+        url: _global.root + 'jobtitle/JobTitleManagement',
+        type: 'POST',
+        dataType: 'json',
+        data: { jobTitle: $('#keyword').val() },
+        beforeSend: function () {
+            $('.loading-process').fadeIn(300);
+        },
+        success: function (response) {
+            if (response.data.length > 0) {
+                rowIndex = 1;
+                $('#data tbody').children().remove();
+                $('#template').tmpl(response.data).appendTo('#data');
+            } else {
+                $('#data tbody').children().remove();
+                $(noInformation(10)).appendTo('#data');
+            }
+
+            $('.loading-process').fadeOut(300);
+
+            floatThead('table#data');
+        },
+        error: function () {
+            $('.loading-process').fadeOut(300);
+            alert(_messages.errorTryAgain);
+        }
+    });
+}
+
 $(document).ready(function () {
     var enable = true;
 
-    $('#keyword').keyup(function (event) {
-        if (event.keyCode === 13) {
-            $('#submit').submit();
-        }
+    $('#submit').on('click', function () {
+        query();
     });
 
     var q = getParam('query');
     if (q != null) {
         $('#keyword').val(q);
-        $('#submit').submit();
+        query();
+    } else {
+        query();
     }
 });

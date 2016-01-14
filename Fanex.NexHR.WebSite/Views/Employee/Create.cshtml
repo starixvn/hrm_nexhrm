@@ -1,4 +1,4 @@
-﻿@model Fanex.NexHR.ViewModels.CreateEmployeeViewModel
+﻿@model CreateEmployeeViewModel
 @{
     ViewBag.Title = Labels.CreateAccount;
 }
@@ -21,7 +21,7 @@
                             @Html.ValidationSummary(true)
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--l">
+                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.FullName, Labels.FullName)
                                     </div>
                                     <div class="left input--l">
@@ -34,7 +34,7 @@
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--l">
+                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.NickName, Labels.NickName)
                                     </div>
                                     <div class="left input--l">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--l">
+                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.DomainUsername, Labels.DomainUsername)
                                     </div>
                                     <div class="left label--s">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--l">
+                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.Code, Labels.Code)
                                     </div>
                                     <div class="left input--l">
@@ -75,8 +75,8 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
-                                    <div class="left label--l">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
                                     <div class="left select--l">
@@ -85,8 +85,8 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
-                                    <div class="left label--l">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
                                         <label>@Labels.WorkingSchedule</label>
                                     </div>
                                     <div class="left">
@@ -122,8 +122,11 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
-                                    <input class="btn-submit waves-effect waves-light" type="submit" value="Next" />
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">&nbsp;</div>
+                                    <div class="left col">
+                                        <input class="btn-submit waves-effect waves-light" type="submit" value="Next" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

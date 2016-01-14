@@ -1,5 +1,4 @@
-﻿@using Fanex.NexHR.Resources
-@model IList<LookupData>
+﻿@model IList<LookupData>
 @{
     ViewBag.Title = Labels.JobTitleManagement;
 }
@@ -30,9 +29,10 @@
                                     @Html.TextBox("JobTitle", (string)ViewBag.JobTitle, new { id = "keyword", placeholder = Messages.JobTitle })
                                 </div>
                                 <div class="col">
-                                    <input type="submit" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
-                                    <a class="btn-request waves-effect waves-light btn" href="#" id="btnNewJobTitle"><i
-                                        class="left mdi mdi-plus"></i>@Labels.NewJobTitle</a>
+                                    <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
+                                    <a class="btn-request waves-effect waves-light btn" href="#" id="btnNewJobTitle">
+                                        <i class="left mdi mdi-plus"></i>@Labels.NewJobTitle
+                                    </a>
                                 </div>
                                 <div class="col">
                                 </div>
@@ -40,70 +40,17 @@
                         }
                     </div>
                     <div class="p-x--s">
-                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>@Labels.SymbolCount
-                                    </th>
-                                    <th>@Labels.JobTitle
-                                    </th>
-                                    <th>@Labels.Employee
-                                    </th>
-                                    <th>@Labels.Edit
-                                    </th>
-                                    <th>@Labels.Delete
-                                    </th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.JobTitle</th>
+                                    <th>@Labels.Employee</th>
+                                    <th>@Labels.Edit</th>
+                                    <th>@Labels.Delete</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @{int index = 1;}
-                                @if (Model.Count > 0)
-                                {
-                                    foreach (LookupData jobTitle in Model)
-                                    {
-                                    <tr id="row_@jobTitle.Id">
-                                        <td>@(index++)
-                                        </td>
-                                        <td class="align-left">
-                                            <span id="spanJobTitle_@jobTitle.Id">@jobTitle.Name</span>
-                                            <input class="jobTitle" type="text" value="@jobTitle.Name" id="txtJobTile_@jobTitle.Id" style="display:none;" />
-                                        </td>
-                                        <td>
-                                            @if (jobTitle.Value.Equals("0"))
-                                            {
-                                                @Html.Label(jobTitle.Value)
-                                            }
-                                            else
-                                            {
-                                                <a href="/employee/usermanagement/?jobtitleid=@jobTitle.Id">@jobTitle.Value</a>
-                                            }
-                                        </td>
-                                        <td class="col-edit">
-                                            <a href="javascript:;" onclick="editJobTile('@jobTitle.Id')" id='btnEditJobTitle_@jobTitle.Id'>
-                                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a><a href="javascript:;" id="btnUpdateJT_@jobTitle.Id" class="action-update" onclick="updateJobTitle('@jobTitle.Id')" title="Apply">
-                                                    <i class="mdi-action-done mdi-dark mdi-18px"></i></a><a href="javascript:;" id="btnCancelUpdateJT_@jobTitle.Id" class="action-cancel" onclick="cancelUpdate('@jobTitle.Id')" title="Cancel">
-                                                        <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i></a>
-                                        </td>
-                                        <td class="col-delete">
-                                            @if (jobTitle.Value.Equals("0"))
-                                            {
-                                                <a href="javascript:;" onclick="deleteJobTitle('@jobTitle.Id')" id="@jobTitle.Id"><i
-                                                    class="mdi mdi-delete mdi-dark mdi-18px"></i></a>
-                                            }
-                                            else
-                                            {
-                                                <a href="javascript:;"><i class="mdi mdi-delete mdi-disabled mdi-dark mdi-18px"></i>
-                                                </a>
-                                            }
-                                        </td>
-                                    </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    @RazorHelper.DisplayNoInformation(colspan: 5);
-                                }
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -113,8 +60,7 @@
 </div>
 <div class="row hide">
     <div id="dialog-form" title="Create an job title">
-        <p class="validateTips">
-        </p>
+        <p class="validateTips"></p>
         @using (Html.BeginForm())
         {
             <div class="row form-input">
@@ -128,3 +74,40 @@
         }
     </div>
 </div>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr id="row_${Id}">
+        <td>${index()}</td>
+        <td class="align-left">
+            <span id="spanJobTitle_${Id}">${Name}</span>
+            <input class="jobTitle" type="text" value="${Name}" id="txtJobTile_${Id}" style="display:none;" />
+        </td>
+        <td>
+        {{if Value == '0'}}
+            ${Value}
+        {{else}}
+            <a href="/employee/usermanagement/?jobtitleid=${Id}">${Value}</a>
+        {{/if}}
+        </td>
+        <td class="col-edit">
+            <a href="javascript:;" onclick="editJobTile('${Id}')" id='btnEditJobTitle_${Id}'>
+                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+            </a>
+            <a href="javascript:;" id="btnUpdateJT_${Id}" class="action-update" onclick="updateJobTitle('${Id}')" title="Apply">
+                <i class="mdi-action-done mdi-dark mdi-18px"></i></a>
+            <a href="javascript:;" id="btnCancelUpdateJT_${Id}" class="action-cancel" onclick="cancelUpdate('${Id}')" title="Cancel">
+                <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+            </a>
+        </td>
+        <td class="col-delete">
+        {{if Value == '0'}}
+            <a href="javascript:;" onclick="deleteJobTitle('${Id}')" id="${Id}">
+                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+            </a>
+        {{else}}
+            <a href="javascript:;">
+                <i class="mdi mdi-delete mdi-disabled mdi-dark mdi-18px"></i>
+            </a>
+        {{/if}}
+        </td>
+    </tr>
+</script>

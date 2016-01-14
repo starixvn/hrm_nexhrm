@@ -149,6 +149,7 @@ $(document).ready(function () {
         jobTitleId = $('#jobtitleid').val();
 
     $("#title").val(jobTitleId);
+    $('#title').material_select();
 
     eventSorting(jobTitleId);
     eventExportExcel(jobTitleId);

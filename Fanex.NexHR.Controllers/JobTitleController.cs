@@ -32,18 +32,18 @@ namespace Fanex.NexHR.Controllers
         [HttpGet]
         public ActionResult JobTitleManagement()
         {
-            return JobTitleManagement(string.Empty);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult JobTitleManagement(string jobTitle = "")
+        public JsonResult JobTitleManagement(string jobTitle = "")
         {
             ViewBag.JobTitle = jobTitle;
 
             var lookupDataJobTitleCriteria = new GetLookupDataJobTitleCriteria() { JobTitle = jobTitle };
             var data = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
 
-            return View(data);
+            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
         }
 
         [Authorize(Roles = "HR")]
