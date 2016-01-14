@@ -2,22 +2,21 @@
 /*global _global:false, _messages:false*/
 
 $(document).ready(function () {
-
     $(".deleteExt").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
             $.post(_global.root + 'ajax/DeleteExtensionNumber',
-			{ extId: id },
-			function (response) {
-			    if (response) {
-			        document.location = '/extensionno/index';
-			    }
-			    else {
-			        alert(_messages.errorTryAgain);
-			    }
-			}).error(function () {
-			    alert(_messages.errorTryAgain);
-			});
+            { extId: id },
+            function (response) {
+                if (response) {
+                    document.location = _global.root + 'extensionno/index';
+                }
+                else {
+                    alert(_messages.errorTryAgain);
+                }
+            }).error(function () {
+                alert(_messages.errorTryAgain);
+            });
         });
     });
 
@@ -25,27 +24,26 @@ $(document).ready(function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
             $.post(_global.root + 'ajax/DeleteExternalGroup',
-			{ extId: id },
-			function (response) {
-			    if (response) {
-			        document.location = '/extensionno/ManageExternalGroup';
-			    }
-			    else {
-			        alert(_messages.errorTryAgain);
-			    }
-			}).error(function () {
-			    alert(_messages.errorTryAgain);
-			});
+            { extId: id },
+            function (response) {
+                if (response) {
+                    document.location = _global.root + 'extensionno/ManageExternalGroup';
+                }
+                else {
+                    alert(_messages.errorTryAgain);
+                }
+            }).error(function () {
+                alert(_messages.errorTryAgain);
+            });
         });
     });
 
 });
 
-
 $(function () {
     var name = $("#name"),
-			allFields = $([]).add(name),
-			tips = $(".validateTips");
+            allFields = $([]).add(name),
+            tips = $(".validateTips");
 
     function updateTips(t) {
         tips.text(t);
@@ -55,7 +53,7 @@ $(function () {
         if (o.val().length > max || o.val().length < min) {
             o.addClass("ui-state-error");
             updateTips("Length of " + n + " must be between " +
-					min + " and " + max + ".");
+                    min + " and " + max + ".");
             return false;
         } else {
             return true;
@@ -77,17 +75,17 @@ $(function () {
 
                 if (bValid) {
                     $.post(_global.root + 'ajax/AddNewExternalGroup',
-						{ groupName: name.val() },
-						function (response) {
-						    if (response) {
-						        document.location = '/extensionno/ManageExternalGroup';
-						    }
-						    else {
-						        alert(_messages.errorTryAgain);
-						    }
-						}).error(function () {
-						    alert(_messages.errorTryAgain);
-						});
+                        { groupName: name.val() },
+                        function (response) {
+                            if (response) {
+                                document.location = _global.root + 'extensionno/ManageExternalGroup';
+                            }
+                            else {
+                                alert(_messages.errorTryAgain);
+                            }
+                        }).error(function () {
+                            alert(_messages.errorTryAgain);
+                        });
                 }
             }
         },
@@ -111,8 +109,8 @@ $(function () {
 //function update GroupName
 $(function () {
     var name = $("#name_edit"),
-			allFields = $([]).add(name),
-			tips = $(".validateTips");
+            allFields = $([]).add(name),
+            tips = $(".validateTips");
 
     function updateTips(t) {
         tips.text(t);
@@ -122,7 +120,7 @@ $(function () {
         if (o.val().length > max || o.val().length < min) {
             o.addClass("ui-state-error");
             updateTips("Length of " + n + " must be between " +
-					min + " and " + max + ".");
+                    min + " and " + max + ".");
             return false;
         } else {
             return true;
@@ -150,17 +148,17 @@ $(function () {
 
                     if (bValid) {
                         $.post(_global.root + 'ajax/EditExternalGroup',
-						{ groupName: name.val(), extId: id },
-						function (response) {
-						    if (response) {
-						        document.location = '/extensionno/ManageExternalGroup';
-						    }
-						    else {
-						        alert(_messages.errorTryAgain);
-						    }
-						}).error(function () {
-						    alert(_messages.errorTryAgain);
-						});
+                        { groupName: name.val(), extId: id },
+                        function (response) {
+                            if (response) {
+                                document.location = _global.root + 'extensionno/ManageExternalGroup';
+                            }
+                            else {
+                                alert(_messages.errorTryAgain);
+                            }
+                        }).error(function () {
+                            alert(_messages.errorTryAgain);
+                        });
                     }
                 }
             },

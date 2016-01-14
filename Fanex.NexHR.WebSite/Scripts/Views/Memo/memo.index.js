@@ -23,7 +23,7 @@ function query() {
         url: _global.root + 'api/memo/getmemos',
         data: { category: $('#Category').val(), year: $('#Year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(500);
+            $('.loading-process').fadeIn(300);
         },
         success: function (data) {
             if (data.length > 0) {
@@ -35,17 +35,16 @@ function query() {
                 $(noInformation(11)).appendTo('#memo');
             }
 
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
         },
         error: function () {
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });
 }
 
 $(document).ready(function () {
-
     //search onload
     query();
 

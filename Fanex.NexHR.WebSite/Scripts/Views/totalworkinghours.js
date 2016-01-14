@@ -44,11 +44,11 @@ function query() {
         type: 'POST',
         data: $("#form").serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(500);
+            $('.loading-process').fadeIn(300);
         },
         success: function (data) {
             if (data.length > 0) {
-                rowIndex = 1;                
+                rowIndex = 1;
                 $('#data tbody').children().remove();
                 $('#template').tmpl(data).appendTo('#data');
             } else {
@@ -56,10 +56,12 @@ function query() {
                 $(noInformation(11)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
+
+            floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(500);
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });

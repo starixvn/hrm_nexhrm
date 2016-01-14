@@ -1,4 +1,4 @@
-﻿@model List<Fanex.NexHR.Models.ExtensionNoModel>
+﻿@model List<ExtensionNoModel>
 @section css {
 }
 @section js {
@@ -19,33 +19,24 @@
                 <div class="card-body">
                     <div class="row form-input p-y--m">
                         <div class="col">
-                            <a class="button-hrm waves-effect waves-light btn white-text orange darken-1" href="#"
-                                id="btnNewExternalGroup">New External Group</a>
+                            <a id="btnNewExternalGroup" class="btn-request waves-effect waves-light" href="javascript:;">@Labels.NewExternalGroup</a>
                         </div>
                     </div>
                     <div class='p-x--s'>
-                        <table class="data table bordered striped highlight table-custom centered" id="data">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>
-                                        Group Name
-                                    </th>
-                                    <th>
-                                        Edit
-                                    </th>
-                                    <th>
-                                        Delete
-                                    </th>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.GroupName</th>
+                                    <th>@Labels.Edit</th>
+                                    <th>@Labels.Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (Model != null)
                                 {
                                     int index = 1;
-                                    foreach (Fanex.NexHR.Models.ExtensionNoModel item in Model)
+                                    foreach (ExtensionNoModel item in Model)
                                     {
                                     <tr id="@item.TeamId">
                                         <td>
@@ -55,24 +46,26 @@
                                             <span class="groupName">@item.TeamName</span>
                                         </td>
                                         <td>
-                                            <a href="javascript:;" class="editExternal"><i class='mdi mdi-border-color mdi-dark'>
-                                            </i></a>
+                                            <a href="javascript:;" class="editExternal">
+                                                <i class='mdi mdi-border-color mdi-dark'></i>
+                                            </a>
                                         </td>
                                         <td>
                                             @if (item.TotalMember > 0)
                                             {
-                                                <a href="javascript:;" style="cursor: default"><i class='mdi mdi-delete mdi-disabled mdi-dark mdi-18px'></i>
+                                                <a href="javascript:;" style="cursor: default">
+                                                    <i class='mdi mdi-delete mdi-disabled mdi-dark mdi-18px'></i>
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a href="javascript:;" class="deleteExternal"><i class='mdi mdi-delete mdi-dark mdi-18px'></i>
+                                                <a href="javascript:;" class="deleteExternal">
+                                                    <i class='mdi mdi-delete mdi-dark mdi-18px'></i>
                                                 </a>
                                             }
                                         </td>
                                     </tr>
                                     }
-
                                 }
                                 else
                                 {
@@ -82,12 +75,11 @@
                         </table>
                     </div>
                     <div id="dialog-form" title="Add new External Group">
-                        <p class="validateTips">
-                        </p>
+                        <p class="validateTips"></p>
                         <form class="form">
                         <div class="row form-input">
                             <div class="left label--m left-align">
-                                <label>Group Name</label>
+                                <label>@Labels.GroupName</label>
                             </div>
                             <div class="left input--m input">
                                 <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
@@ -96,12 +88,11 @@
                         </form>
                     </div>
                     <div id="dialog-form_edit" title="Update External Group" style="display: none">
-                        <p class="validateTips">
-                        </p>
+                        <p class="validateTips"></p>
                         <form class="form">
                         <div class="row form-input">
                             <div class="left label--l left-align">
-                                <label>Group Name</label>
+                                <label>@Labels.GroupName</label>
                             </div>
                             <div class="left input--m input">
                                 <input type="text" name="name" id="name_edit" class="text ui-widget-content ui-corner-all" />

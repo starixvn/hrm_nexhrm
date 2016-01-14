@@ -1,4 +1,4 @@
-﻿/*global _global, actingButton, noInformation, reloadButtonText, _messages*/
+﻿/*global _global, noInformation, _messages*/
 /*exported index*/
 "use strict";
 
@@ -26,14 +26,14 @@ function view() {
     if (!$form.valid()) {
         return;
     }
-    $('.loading-process').fadeIn(200)
+    $('.loading-process').fadeIn(300)
 
     //if no user is selected, clear the empId also
     if ($('#Employee').val() === '') {
         $('#EmpId').val('');
     }
     $('#nodata').remove();
-    $.getJSON("/api/report/getemployeeattendances",$('form').serialize(),function (response) {
+    $.getJSON("/api/report/getemployeeattendances", $('form').serialize(), function (response) {
         if (response.length > 0) {
             rowIndex = 1;
             $('#data tbody').children().remove();
@@ -72,9 +72,12 @@ function view() {
             $('#data tbody').children().remove();
             $(noInformation(14)).appendTo('#data');
         }
-        $('.loading-process').fadeOut(500);
+
+        $('.loading-process').fadeOut(300);
+
+        floatThead('table#data');
     }).error(function () {
-        $('.loading-process').fadeOut(500);
+        $('.loading-process').fadeOut(300);
         alert(_messages.errorTryAgain);
     });
 }
@@ -136,6 +139,7 @@ $(document).ready(function () {
         evt.preventDefault();
         view();
     });
+
     $('#exportExcel').click(function (evt) {
         evt.preventDefault();
         if ($('#Employee').val() === '') {
@@ -143,11 +147,11 @@ $(document).ready(function () {
         }
 
         window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
-			'&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
-			'&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
+            '&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
+            '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
     });
 
     initDatePicker('.datepicker');
+
     view();
 });
-

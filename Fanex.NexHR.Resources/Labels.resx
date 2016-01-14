@@ -918,8 +918,8 @@
   <data name="CompanyMemo" xml:space="preserve">
     <value>Company Memo</value>
   </data>
-  <data name="ExtensionNumber" xml:space="preserve">
-    <value>EXTENSION NUMBERS</value>
+  <data name="ExtensionNumbers" xml:space="preserve">
+    <value>Extension Numbers</value>
   </data>
   <data name="AddBalance" xml:space="preserve">
     <value>Add Balance</value>
@@ -1124,5 +1124,29 @@
   </data>
   <data name="MaxBalance" xml:space="preserve">
     <value>Max Balance</value>
+  </data>
+  <data name="AverageHours" xml:space="preserve">
+    <value>Average Hours</value>
+  </data>
+  <data name="NewHoliday" xml:space="preserve">
+    <value>New Holiday</value>
+  </data>
+  <data name="ExtensionNumber" xml:space="preserve">
+    <value>Extension Number</value>
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="ManageExternalGroup" xml:space="preserve">
+    <value>Manage External Group</value>
+  </data>
+  <data name="NewExtensionNumber" xml:space="preserve">
+    <value>New Extension Number</value>
+  </data>
+  <data name="NewExternalGroup" xml:space="preserve">
+    <value>New External Group</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
   </data>
 </root>

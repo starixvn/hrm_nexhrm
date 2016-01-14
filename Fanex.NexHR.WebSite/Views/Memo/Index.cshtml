@@ -1,6 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Models
-@model Fanex.NexHR.ViewModels.MemoViewModel
+﻿@model MemoViewModel
 @{
     ViewBag.Title = Labels.CompanyMemo;
 }
@@ -50,45 +48,35 @@
                                     </div>
                                 </div>
                                 <div class='col'>
-                                    <a href="javascript:;" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s">
-                                        Submit</a> @*<input type="submit" id="submit" class="button-hrm waves-effect waves-light btn white-text blue darken-2 m-r--s" value="@Labels.Submit" />*@
+                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--s">
+                                        @Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        @Html.ActionLink("Create new Memo", "Create", null, new { @class = "button-hrm waves-effect waves-light btn white-text orange darken-1 white-text" })
+                                        @Html.ActionLink("Create new Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })
                                     }
                                 </div>
                             </div>
                         </div>
-                            
                         <div class='p-x--s'>
-                            <table id="memo" class="data persist-area table bordered striped highlight table-custom centered">
+                            <table id="memo" class="data table bordered striped highlight table-custom centered">
                                 <thead>
-                                    <tr class="persist-header">
-                                        <th>
-                                            #
-                                        </th>
-                                        <th>@Labels.RefNo
-                                        </th>
-                                        <th>@Labels.Subject
-                                        </th>
-                                        <th>
-                                            Category
-                                        </th>
-                                        <th>@Labels.Date
-                                        </th>
+                                    <tr>
+                                        <th>@Labels.SymbolCount</th>
+                                        <th>@Labels.RefNo</th>
+                                        <th>@Labels.Subject</th>
+                                        <th>@Labels.Category</th>
+                                        <th>@Labels.Date</th>
                                         @if (Roles.IsUserInRole("HR"))
                                         {
-                                            <th>@Labels.Edit
-                                            </th>
-                                            <th>@Labels.Delete
-                                            </th>
+                                            <th>@Labels.Edit</th>
+                                            <th>@Labels.Delete</th>
                                         }
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
-                        </div>                            
+                        </div>
                     }
                 </div>
             </div>
@@ -96,7 +84,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;    
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;
 </script>
 <script id="template" type="text/x-jquery-tmpl"> 
     <tr id="row_${Id}">
@@ -113,7 +101,7 @@
             ${CategoryName}
         </td>
         <td class="ddMMyyyy">
-            ${formatDate(SentDate, 'dd MMM, yyyy')}                                                    
+            ${formatDate(SentDate, 'dd MMM, yyyy')}
         </td>      
 
         {{if isHR}}
@@ -124,7 +112,7 @@
             <td title="Delete">
                 <a href="javascript:;" onclick="deleteMemo(${Id}, '${Contents}', ${MemoType});">
                     <i class='mdi mdi-delete mdi-dark'></i></a>
-            </td>                                    
-        {{/if}}           
+            </td>
+        {{/if}}
     </tr> 
 </script>

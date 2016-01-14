@@ -220,4 +220,6 @@ function initEditToeicDialog() {
 
 $(document).ready(function () {
     initEvent();
+
+    floatThead('table#data');
 });

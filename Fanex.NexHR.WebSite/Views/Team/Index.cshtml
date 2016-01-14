@@ -1,4 +1,4 @@
-﻿@model IList<Fanex.NexHR.Models.Team>
+﻿@model IList<Team>
 @{
     ViewBag.Title = Labels.TeamManagement;
 }
@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -25,10 +25,10 @@
                         </div>
                     </div>
                     <div class="p-x--s m-t--m">
-                        <table class="table bordered striped highlight centered responsive-table table-custom">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>@Labels.SymbolCount</th>
                                     <th>@Labels.Code</th>
                                     <th>@Labels.Team</th>
                                     <th>@Labels.Leader</th>
@@ -50,11 +50,11 @@
                                         <td class="tooltip" title="@team.Leader.FullName">@team.Leader.NickName</td>
                                         <td class="tooltip" title="@assistantLeaderFullName">@assistantLeaderNickName
                                         </td>
-                                        <td class="cmd center">
+                                        <td class="cmd">
                                             <a href="@Url.Action("Edit", "Team", new { Id = team.Id })">
                                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
                                         </td>
-                                        <td class="cmd center">
+                                        <td class="cmd">
                                             <a href="javascript:;" onclick="deleteTeam(@team.Id);">
                                                 <i class="mdi mdi-delete mdi-dark mdi-18px"></i></a>
                                         </td>

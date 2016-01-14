@@ -150,4 +150,6 @@ $(document).ready(function () {
             $('tbody tr').not('.row-divider').removeClass('row-selected');
         }
     });
+
+    floatThead('table#data');
 });

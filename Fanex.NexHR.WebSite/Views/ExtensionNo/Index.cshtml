@@ -5,7 +5,7 @@
     @Scripts.Render("~/bundles/extensionnojs");
 }
 @{
-    ViewBag.Title = Labels.ExtensionNumber;
+    ViewBag.Title = Labels.ExtensionNumbers;
 }
 @section Breadcrumb {
 }
@@ -21,35 +21,23 @@
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <div class="col">
-                                @Html.ActionLink("New Extension Number", "AddNewMember", null, new { @class = "white-text btn-request waves-effect waves-light m-r--s" })
-                                @Html.ActionLink("Manage External Group", "ManageExternalGroup", null, new { @class = "white-text btn-submit waves-effect waves-light m-r--s" })
+                                @Html.ActionLink(Labels.NewExtensionNumber, "AddNewMember", null, new { @class = "btn-request waves-effect waves-light m-r--s" })
+                                @Html.ActionLink(Labels.ManageExternalGroup, "ManageExternalGroup", null, new { @class = "btn-submit waves-effect waves-light" })
                             </div>
                         }
                     </div>
                     <div class="p-x--s">
-                        <table class="data table bordered striped highlight table-custom centered" id="data">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>
-                                        Full Name
-                                    </th>
-                                    <th>
-                                        Nick
-                                    </th>
-                                    <th>
-                                        Extension Number
-                                    </th>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.FullName</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.ExtensionNumber</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th>
-                                            Edit
-                                        </th>
-                                        <th>
-                                            Delete
-                                        </th>
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
                                     }
                                 </tr>
                             </thead>
@@ -57,7 +45,7 @@
                                 @if (Model != null)
                                 {
                                     int index = 1;
-                                    foreach (Fanex.NexHR.ViewModels.ExtensionNoViewModel item in Model)
+                                    foreach (ExtensionNoViewModel item in Model)
                                     {
                                         if (item.ListExt.Count > 0)
                                         {
@@ -67,7 +55,7 @@
                                         </td>
                                     </tr>
                                         }
-                                        foreach (Fanex.NexHR.Models.ExtensionNoModel ext in item.ListExt)
+                                        foreach (ExtensionNoModel ext in item.ListExt)
                                         {
                                     <tr id="@ext.EmpExtId">
                                         <td>
@@ -86,10 +74,12 @@
                                         {
                                             <td>
                                                 <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtId })">
-                                                    <i class='mdi mdi-border-color mdi-dark'></i></a>
+                                                    <i class='mdi mdi-border-color mdi-dark'></i>
+                                                </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="deleteExt"><i class='mdi mdi-delete mdi-dark'></i>
+                                                <a href="javascript:;" class="deleteExt">
+                                                    <i class='mdi mdi-delete mdi-dark'></i>
                                                 </a>
                                             </td>
                                         }

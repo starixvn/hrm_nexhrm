@@ -1,5 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@model Fanex.NexHR.Models.Memo
+﻿@model Memo
 @{
     ViewBag.Title = Labels.Edit;
 }
@@ -11,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -34,7 +33,6 @@
                             @Html.HiddenFor(model => model.AttachFile)
                             @Html.HiddenFor(model => model.MemoType)
                             @Html.Hidden("pathName", Model.Contents)
-                            <!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
                             <div class='row form-input'>
                                 <div class='col'>
                                     <div class="left label--m">
@@ -119,7 +117,7 @@
                                         &nbsp;</div>
                                     <div class="left">
                                         @{
-                            var types = new List<SelectListItem>
+                                        var types = new List<SelectListItem>
                                             {
                                                 new SelectListItem() {Text = "Upload", Value = "1", Selected = true},
                                                 new SelectListItem() {Text = "FCK Editor", Value = "0"},
@@ -172,11 +170,11 @@
                                         &nbsp;
                                     </div>
                                     @Html.AntiForgeryToken()
-                                    <input type="submit" value="Save" id="saveMemo" class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s" />
-                                    <a class="button-hrm waves-effect waves-light btn grey darken-1" href="@Url.Action("index", "memo")">@Labels.Back</a>
+                                    <input type="submit" value="@Labels.Save" id="saveMemo" class="btn-submit waves-effect waves-light m-r--s" />
+                                    <a class="btn-back waves-effect waves-light" href="@Url.Action("index", "memo")">@Labels.Back</a>
                                 </div>
                             </div>
-                        </div>                                                
+                        </div>
                     }
                 </div>
             </div>

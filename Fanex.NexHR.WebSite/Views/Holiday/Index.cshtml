@@ -1,9 +1,6 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Models
-@model IList<Fanex.NexHR.Models.Holiday>
+﻿@model IList<Holiday>
 @{
     ViewBag.Title = Labels.Holidays;
-    bool isHRRole = Roles.IsUserInRole("HR");
 }
 @section css {
 }
@@ -26,82 +23,38 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--s">
-                                        <label>
-                                            Year</label>
+                                        <label>@Labels.Year</label>
                                     </div>
                                     <div class="left select--xs">
                                         @Html.YearPicker("year", 2010, (int)ViewBag.year)
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input type="button" id="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
-                                    @if (isHRRole)
+                                    <input type="button" id="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                    @if (Roles.IsUserInRole("HR"))
                                     {
-                                        @Html.ActionLink("New Holiday", "Create", "", new { @class = "button-hrm waves-effect waves-light btn orange darken-1 white-text" })
+                                        @Html.ActionLink(Labels.NewHoliday, "Create", "", new { @class = "btn-request waves-effect waves-light" })
                                     }
                                 </div>
                             </div>
                         </div>
                     }
                     <div class="p-x--s">
-                        <table id="data" class="data persist-area table bordered striped highlight centered table-custom" style="width: 800px;">
+                        <table id="data" class="table bordered striped highlight centered table-custom" style="width: 800px;">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>@Labels.Name
-                                    </th>
-                                    <th>@Labels.From
-                                    </th>
-                                    <th>@Labels.To
-                                    </th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.From</th>
+                                    <th>@Labels.To</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th>@Labels.Edit
-                                        </th>
-                                        <th>@Labels.Delete
-                                        </th>
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
                                     }
                                 </tr>
                             </thead>
-                            @if (Model.Any())
-                            {
-                                <tbody>
-                                    @{int index = 1;}
-                                    @foreach (Holiday item in Model)
-                                    {
-                                        <tr id="row@(item.Id)">
-                                            <td>@(index++)
-                                            </td>
-                                            <td class="align-left">
-                                                @item.HolidayName
-                                            </td>
-                                            <td class="ddMMyyyy">
-                                                @item.FromDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            <td class="ddMMyyyy">
-                                                @item.ToDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            @if (Roles.IsUserInRole("HR"))
-                                            {
-                                                <td class="cmd">
-                                                    <a href="@Url.Action("Edit", "Holiday", new { Id = item.Id })"><i class="mdi mdi-border-color mdi-dark">
-                                                    </i>
-                                                </td>
-                                                <td class="cmd">
-                                                    <a href="javascript:;" onclick="deleteHoliday(@item.Id);"><i class="mdi mdi-delete mdi-dark">
-                                                    </i>
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            }
-                            else
-                            {                                
-                                @RazorHelper.DisplayNoInformation(colspan: 7);
-                            }
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -110,7 +63,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;    
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;
 </script>
 <script id="template" type="text/x-jquery-tmpl"> 
     <tr id="row_${Id}">
@@ -120,22 +73,21 @@
         <td class="align-left">
             ${HolidayName}
         </td>
-        <td>            
-            ${formatDate(FromDate, 'dd MMM, yyyy')}   
+        <td>
+            ${formatDate(FromDate, 'dd MMM, yyyy')}
         </td>
         <td class="ddMMyyyy">
-            ${formatDate(ToDate, 'dd MMM, yyyy')}                                                    
-        </td>      
-
+            ${formatDate(ToDate, 'dd MMM, yyyy')}
+        </td>
         {{if isHR}}
-            <td class="cmd">            
+            <td class="cmd">
                 <a href="/holiday/edit/${Id}"><i class="mdi mdi-border-color mdi-dark">
                 </i>
             </td>
             <td class="cmd">
                 <a href="javascript:;" onclick="deleteHoliday(${Id});"><i class="mdi mdi-delete mdi-dark">
                 </i>
-            </td>                                  
-        {{/if}}           
+            </td>
+        {{/if}}
     </tr> 
 </script>

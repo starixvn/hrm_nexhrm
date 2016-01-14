@@ -68,4 +68,6 @@ $(document).ready(function () {
         $('#insertform').dialog('close');
         $('#updateform').dialog('close');
     });
+
+    floatThead('table#data');
 });

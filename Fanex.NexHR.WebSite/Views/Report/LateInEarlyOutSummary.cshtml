@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -67,56 +67,37 @@
                                         <span class="bold-color">※ Balance (Hours):</span><span class="font-description"> @Messages.BalanceDescription.</span>
                                     </div>
                                 </div>
-                            </div>                         
+                            </div>
                         }
                     </div>
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight table-custom centered">
-                            <thead class="persist-header">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
                                 <tr>
-                                    <th rowspan="2">@Labels.Nick
-                                    </th>
-                                    <th rowspan="2">@(Model.Year - 1)(Hours)
-                                    </th>
-                                    <th colspan="13">@Model.Year (Hours / Times)
-                                    </th>
-                                    <th rowspan="2">@Labels.DeductionTaken (Hours)
-                                    </th>
-                                    <th rowspan="2">@Labels.Balance (Hours)
-                                    </th>
+                                    <th rowspan="2">@Labels.Nick</th>
+                                    <th rowspan="2">@(Model.Year - 1)(Hours)</th>
+                                    <th colspan="13">@Model.Year (Hours / Times)</th>
+                                    <th rowspan="2">@Labels.DeductionTaken (Hours)</th>
+                                    <th rowspan="2">@Labels.Balance (Hours)</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th rowspan="2">@Labels.Deduct
-                                        </th>
+                                        <th rowspan="2">@Labels.Deduct</th>
                                     }
                                 </tr>
                                 <tr>
-                                    <th>@Labels.Jan
-                                    </th>
-                                    <th>@Labels.Feb
-                                    </th>
-                                    <th>@Labels.Mar
-                                    </th>
-                                    <th>@Labels.Apr
-                                    </th>
-                                    <th>@Labels.May
-                                    </th>
-                                    <th>@Labels.Jun
-                                    </th>
-                                    <th>@Labels.Jul
-                                    </th>
-                                    <th>@Labels.Aug
-                                    </th>
-                                    <th>@Labels.Sep
-                                    </th>
-                                    <th>@Labels.Oct
-                                    </th>
-                                    <th>@Labels.Nov
-                                    </th>
-                                    <th>@Labels.Dec
-                                    </th>
-                                    <th>@Labels.Total
-                                    </th>
+                                    <th>@Labels.Jan</th>
+                                    <th>@Labels.Feb</th>
+                                    <th>@Labels.Mar</th>
+                                    <th>@Labels.Apr</th>
+                                    <th>@Labels.May</th>
+                                    <th>@Labels.Jun</th>
+                                    <th>@Labels.Jul</th>
+                                    <th>@Labels.Aug</th>
+                                    <th>@Labels.Sep</th>
+                                    <th>@Labels.Oct</th>
+                                    <th>@Labels.Nov</th>
+                                    <th>@Labels.Dec</th>
+                                    <th>@Labels.Total</th>
                                 </tr>
                             </thead>
                             @if (Model.LateInEarlyOutSummary != null && Model.LateInEarlyOutSummary.Any())

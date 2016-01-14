@@ -1,5 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@model Fanex.NexHR.Models.Memo
+﻿@model Memo
 @{
     var memoSubject = Model != null ? Model.Subject : Labels.NoData;
     ViewBag.Title = memoSubject + " - " + Labels.Memo;
@@ -11,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -24,60 +23,33 @@
                             <table class="data memo table bordered striped highlight table-custom">
                                 <thead>
                                     <tr>
-                                        <th colspan="4">@Model.Subject
-                                        </th>
+                                        <th colspan="4">@Model.Subject</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <b>@Labels.To</b>
-                                        </td>
-                                        <td>
-                                            @Model.SentTo
-                                        </td>
-                                        <td>
-                                            <b>@Labels.RefNo</b>
-                                        </td>
-                                        <td>
-                                            <b>@Model.RefNo</b>
-                                        </td>
+                                        <td><b>@Labels.To</b></td>
+                                        <td>@Model.SentTo</td>
+                                        <td><b>@Labels.RefNo</b></td>
+                                        <td><b>@Model.RefNo</b></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <b>@Labels.ForInfo</b>
-                                        </td>
-                                        <td>
-                                            @Model.ForInfo
-                                        </td>
-                                        <td>
-                                            <b>@Labels.TotalPages</b>
-                                        </td>
-                                        <td>
-                                            @Model.TotalPages
-                                        </td>
+                                        <td><b>@Labels.ForInfo</b></td>
+                                        <td>@Model.ForInfo</td>
+                                        <td><b>@Labels.TotalPages</b></td>
+                                        <td>@Model.TotalPages</td>
                                     </tr>
                                     <tr>
+                                        <td><b>@Labels.From</b></td>
+                                        <td>@Model.SentFrom</td>
+                                        <td><b>@Labels.Date</b></td>
                                         <td>
-                                            <b>@Labels.From</b>
-                                        </td>
-                                        <td>
-                                            @Model.SentFrom
-                                        </td>
-                                        <td>
-                                            <b>@Labels.Date</b>
-                                        </td>
-                                        <td class="ddMMyyyyhhmm">
                                             @Model.SentDate.ToDateMonthYearFormatedDate()
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <b>Category</b>
-                                        </td>
-                                        <td colspan="3">
-                                            <b>@Model.CategoryName</b>
-                                        </td>
+                                        <td><b>Category</b></td>
+                                        <td colspan="3"><b>@Model.CategoryName</b></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4">
@@ -86,7 +58,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="@Url.Action("index")" class="button-hrm waves-effect waves-light btn grey darken-1 m-t--m">@Labels.Back</a>
+                            <a href="@Url.Action("index")" class="btn-back waves-effect waves-light m-t--m">@Labels.Back</a>
                         }
                         else
                         {

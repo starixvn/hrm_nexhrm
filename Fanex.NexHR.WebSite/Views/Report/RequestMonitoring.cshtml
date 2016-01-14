@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core;
-@using Fanex.NexHR.Core.Enums;
-@using Fanex.NexHR.ViewModels;
-@model RequestsMonitoringViewModel
+﻿@model RequestsMonitoringViewModel
 @{
     ViewBag.Title = Labels.RequestMonitoring;
 }
@@ -71,8 +68,8 @@
                         }
                     </div>
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight centered table-custom">
-                            <thead class="persist-header">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
+                            <thead>
                                 <tr>
                                     <th rowspan="2">#</th>
                                     <th rowspan="2">@Labels.Name</th>

@@ -1,6 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.ViewModels
-@using Newtonsoft.Json;
+﻿@using Newtonsoft.Json;
 @model TotalWorkingHoursViewModel
 @{
     ViewBag.Title = Labels.ReportWorkingHours;
@@ -98,39 +96,22 @@
                             <div class="p-x--s">
                                 <table id="data" class="table bordered striped highlight table-custom centered">
                                     <thead>
-                                        <tr class="persist-header">
-                                            <th>
-                                                #
-                                            </th>
-                                            <th>@Labels.Code
-                                            </th>
-                                            <th>@Labels.FullName
-                                            </th>
-                                            <th>@Labels.Nick
-                                            </th>
-                                            <th>@Labels.Team
-                                            </th>
-                                            <th>@Labels.WorkigDay
-                                            </th>
-                                            <th>@Labels.ActualWorkingDay
-                                            </th>
-                                            <th>@Labels.PaidLeave
-                                            </th>
-                                            <th>@Labels.UnpaidLeave
-                                            </th>
-                                            <th>@Labels.SickLeave
-                                            </th>
-                                            <th>@Labels.AccidentLaborLeave
-                                            </th>
-                                            <th>@Labels.LateIn
-                                            </th>
-                                            <th>@Labels.EarlyOut
-                                            </th>
-                                            <th>@Labels.TotalHours
-                                            </th>
-                                            <th>
-                                                Average Hours
-                                            </th>
+                                        <tr>
+                                            <th>@Labels.SymbolCount</th>
+                                            <th>@Labels.Code</th>
+                                            <th>@Labels.FullName</th>
+                                            <th>@Labels.Nick</th>
+                                            <th>@Labels.Team</th>
+                                            <th>@Labels.WorkigDay</th>
+                                            <th>@Labels.ActualWorkingDay</th>
+                                            <th>@Labels.PaidLeave</th>
+                                            <th>@Labels.UnpaidLeave</th>
+                                            <th>@Labels.SickLeave</th>
+                                            <th>@Labels.AccidentLaborLeave</th>
+                                            <th>@Labels.LateIn</th>
+                                            <th>@Labels.EarlyOut</th>
+                                            <th>@Labels.TotalHours</th>
+                                            <th>@Labels.AverageHours</th>
                                         </tr>
                                     </thead>
                                     @if (ViewBag.EntityList != null && ViewBag.EntityList.Count > 0)
@@ -152,22 +133,14 @@
                                                     IsFilterByEffectedDate = true
                                                 };
                                                 <tr>
-                                                    <td>@(index++)
-                                                    </td>
-                                                    <td>@item.Employee.Code
-                                                    </td>
-                                                    <td class="align-left">@item.Employee.FullName
-                                                    </td>
-                                                    <td>@item.Employee.NickName
-                                                    </td>
-                                                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
-                                                    </td>
-                                                    <td>@item.WorkingDay
-                                                    </td>
-                                                    <td>@item.ActualWorkingDay
-                                                    </td>
-                                                    <td>@item.PaidLeave.ToString("0.0")
-                                                    </td>
+                                                    <td>@(index++)</td>
+                                                    <td>@item.Employee.Code</td>
+                                                    <td class="align-left">@item.Employee.FullName</td>
+                                                    <td>@item.Employee.NickName</td>
+                                                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
+                                                    <td>@item.WorkingDay</td>
+                                                    <td>@item.ActualWorkingDay</td>
+                                                    <td>@item.PaidLeave.ToString("0.0")</td>
                                                     <td>
                                                         @if (item.UnpaidLeave > 0 && Roles.IsUserInRole("HR"))
                                                         {
@@ -207,14 +180,10 @@
                                                             @item.AccidentLaborLeave.ToString("0.0")
                                                         }
                                                     </td>
-                                                    <td>@Utilities.MinuteToTime(item.LateIn)
-                                                    </td>
-                                                    <td>@Utilities.MinuteToTime(item.EarlyOut)
-                                                    </td>
-                                                    <td>@Utilities.TotalHoursToTime(item.TotalHours)
-                                                    </td>
-                                                    <td>@Utilities.TotalHoursToTime(item.AverageHours)
-                                                    </td>
+                                                    <td>@Utilities.MinuteToTime(item.LateIn)</td>
+                                                    <td>@Utilities.MinuteToTime(item.EarlyOut)</td>
+                                                    <td>@Utilities.TotalHoursToTime(item.TotalHours)</td>
+                                                    <td>@Utilities.TotalHoursToTime(item.AverageHours)</td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -250,7 +219,7 @@
         <td>${AccidentLaborLeave.toFixed(1)}</td>
         <td>${displayMinute(LateIn)}</td>
         <td>${displayMinute(EarlyOut)}</td>
-        <td>${totalHoursToTime(TotalHours)}</td>        
+        <td>${totalHoursToTime(TotalHours)}</td>
         <td>${totalHoursToTime(AverageHours)}</td>
     </tr>    
 </script>

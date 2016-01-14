@@ -24,4 +24,6 @@ $(document).ready(function () {
         sleep(1000);
         reloadButtonText('#submit');
     });
+
+    floatThead('table#data');
 });

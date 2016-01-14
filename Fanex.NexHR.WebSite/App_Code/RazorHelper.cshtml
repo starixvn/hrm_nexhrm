@@ -4,6 +4,7 @@
 @using Fanex.NexHR.Core.Enums;
 @using Fanex.NexHR.Core;
 @using Fanex.NexHR.Models;
+@using Fanex.NexHR.Resources;
 @helper RequestType(short type)
     {
         switch (type)
@@ -28,7 +29,6 @@
                 break;
         }
 }
-@using Fanex.NexHR.Resources;
 @helper FormatDate(DateTime? date)
     {
     <span>
@@ -57,7 +57,7 @@
     </tr>
     <tr>
         <td colspan="@colspan" rowspan="2">
-            @Fanex.NexHR.Resources.Messages.NoInformation
+            @Messages.NoInformation
         </td>
     </tr>
 }
@@ -110,12 +110,12 @@
     </td>
         }
 }
-@helper TeamDropDownList(List<Fanex.NexHR.Models.Team> teamList, string controlName = "team")
+@helper TeamDropDownList(List<Team> teamList, string controlName = "team")
     {
     <select name="@controlName" id="@controlName">
         @if (teamList != null && teamList.Count > 0)
         {
-            foreach (Fanex.NexHR.Models.Team team in teamList)
+            foreach (Team team in teamList)
             {
             <option value="@team.Name" >@team.Name</option>
             }
@@ -133,7 +133,6 @@
 }
 @helper ShiftInfoTable(dynamic shiftInfoList)
     {
-
     <div id="shifts" class="m-t--m">
         <table class="table bordered striped highlight table-custom centered" style="width: 700px;">
             <thead>
@@ -153,17 +152,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Fanex.NexHR.Models.Shift item in shiftInfoList)
+                @foreach (Shift item in shiftInfoList)
                 {
                     <tr>
                         <td>@item.Name
                         </td>
-                        <td>@item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
+                        <td>
+                            @item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
                         </td>
                         <td>
                             @item.BeginCheckOutTime &nbsp;@((item.BeginCheckOutTime == item.EndCheckOutTime) ? string.Empty : "- " + item.EndCheckOutTime)
                         </td>
-                        <td>@((item.BreakTimeMins == 0) ? string.Empty : "11:30 - 12:30")
+                        <td>
+                            @((item.BreakTimeMins == 0) ? string.Empty : "11:30 - 12:30")
                         </td>
                     </tr>
                 }
@@ -214,28 +215,6 @@
     <span>-@mins'</span>
         }
 }
-@helper ProcessMenu()
-    {
-    <ul id="pendingMenu" class="hide">
-        <li class="approve"><a command="Approve" href="javascript:;">@Fanex.NexHR.Resources.Labels.Approve</a>
-        </li>
-        <li class="reject"><a command="Reject" href="javascript:;">@Fanex.NexHR.Resources.Labels.Reject</a>
-        </li>
-    </ul>
-    <ul id="approvedMenu" class="hide">
-        <li class="disapprove"><a command="Disapprove" href="javascript:;">@Fanex.NexHR.Resources.Labels.Disapprove</a>
-        </li>
-    </ul>
-}
-@helper EmployeeProcessMenu()
-    {
-    <ul id="pendingMenu" class="hide">
-        <li class="edit"><a command="Edit" href="javascript:;">@Fanex.NexHR.Resources.Labels.Edit</a>
-        </li>
-        <li class="reject"><a command="Cancel" href="javascript:;">@Fanex.NexHR.Resources.Labels.Cancel</a>
-        </li>
-    </ul>
-}
 @helper MinuteDropDownList(string name, int step)
     {
     <select id="@name" name="@name">
@@ -282,5 +261,5 @@
             <option value="@i" selected="@(i == selectValue)">@Labels.ResourceManager.GetString(list.GetValue(i).ToString())</option>
             }
         }
-    </select>    
+    </select>
 }
