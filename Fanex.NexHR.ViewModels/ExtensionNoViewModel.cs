@@ -12,9 +12,6 @@ namespace Fanex.NexHR.ViewModels
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// Extension Number ViewModel.
-    /// </summary>
     public class ExtensionNoViewModel
     {
         public string Name { get; set; }

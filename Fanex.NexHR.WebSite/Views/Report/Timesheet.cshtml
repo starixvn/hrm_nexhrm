@@ -41,8 +41,7 @@
                                     @Html.LabelFor(model => model.RequestType)
                                 </div>
                                 <div class="left select--s">
-                                    @Html.DropDownListFor(model => model.RequestType, Model.RequestTypes)
-                                    @Html.ValidationMessageFor(model => model.RequestType)
+                                    @RazorHelper.RequestTypeFiltering("RequestType", Model.RequestType)
                                 </div>
                             </div>
                             <div class="col">

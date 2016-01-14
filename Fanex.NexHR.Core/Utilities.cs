@@ -11,8 +11,10 @@ namespace Fanex.NexHR.Core
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
@@ -264,6 +266,21 @@ namespace Fanex.NexHR.Core
             query = orderedQuery;
 
             return query.ToList();
+        }
+
+        public static string GetDescription(Enum enumType)
+        {
+            FieldInfo fi = enumType.GetType().GetField(enumType.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (attributes.Length > 0)
+            {
+                return attributes[0].Description;
+            }
+            else
+            {
+                return enumType.ToString();
+            }
         }
     }
 }

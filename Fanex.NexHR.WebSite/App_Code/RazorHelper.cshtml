@@ -38,17 +38,6 @@
         }
     </span>
 }
-@helper YearDropDownList(int year)
-    {
-    <span style="font-size: 12px">Year:</span>
-    <select id="year" name="year">
-        @for (int i = DateTime.Now.Year; i >= 2010; i--)
-        {
-            var selected = year == i ? "selected='true'" : string.Empty;
-            <option @selected value="@i">@i</option>
-        }
-    </select>
-}
 @helper DisplayNoInformation(int colspan)
     {
     <tr>
@@ -254,11 +243,22 @@
     {
     <select id="@name" name="@name">
         @{
-            var list = Enum.GetValues(typeof(DateRange));
-
-            for (var i = 0; i < list.Length; i++)
+            foreach (DateRangeFiltering dateRange in (DateRangeFiltering[])Enum.GetValues(typeof(DateRangeFiltering)))
             {
-            <option value="@i" selected="@(i == selectValue)">@Labels.ResourceManager.GetString(list.GetValue(i).ToString())</option>
+                var value = (int)dateRange;
+                <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(dateRange)</option>
+            }
+        }
+    </select>
+}
+@helper RequestTypeFiltering(string name, int selectValue)
+    {
+    <select id="@name" name="@name">
+        @{
+            foreach (RequestTypeFiltering requestType in (RequestTypeFiltering[])Enum.GetValues(typeof(RequestTypeFiltering)))
+            {
+                var value = (int)requestType;
+                <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(requestType)</option>
             }
         }
     </select>

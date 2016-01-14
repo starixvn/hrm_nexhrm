@@ -27,7 +27,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--s">
-                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -56,18 +56,7 @@
                                         @Html.LabelFor(model => model.AttendanceType, "Request")
                                     </div>
                                     <div class="left select--s">
-                                        @{
-                            var types = new List<SelectListItem>
-                                            {
-                                                new SelectListItem() {Text = "All", Value = "0"},
-                                                new SelectListItem() {Text = "Check In", Value = "1"},
-                                                new SelectListItem() {Text = "Check Out", Value = "2"},
-                                                new SelectListItem() {Text = "Late In", Value = "3"},
-                                                new SelectListItem() {Text = "Early Out", Value = "4"},
-                                                new SelectListItem() {Text = "Not Working", Value = "5"},
-                                            };
-                                        }
-                                        @Html.DropDownListFor(model => model.AttendanceType, types)
+                                        @RazorHelper.RequestTypeFiltering("AttendanceType", Model.AttendanceType)
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
@@ -94,14 +83,6 @@
                                         @Html.ValidationMessageFor(model => model.EmpId)
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="left label--m label">
-                                        &nbsp;</div>
-                                    <div class="left">
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="view" />
-                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
-                                    </div>
-                                </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--l checkBox">
@@ -112,6 +93,14 @@
                                     </div>
                                     <div class="left">
                                         @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m label">
+                                        &nbsp;</div>
+                                    <div class="left">
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="view" />
+                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
                                     </div>
                                 </div>
                             </div>
@@ -197,14 +186,21 @@
                             data-todate="${ToDate}"
                             data-createddate="${CreatedDate}"
                             data-fromshift="${FromShift.Name}"
-                            {{if ToShift != null}} data-toshift="${ToShift.Name}" {{else}} data-toshift="" {{/if}}
+                            {{if ToShift != null}}
+                                data-toshift="${ToShift.Name}"
+                            {{else}}
+                                data-toshift=""
+                            {{/if}}
                             data-totaldays="${TotalDays}"
                             data-totalmins="${TotalMins}"
                             data-remark='${Remark}'>
-                            {{if RequestType.Id == 6}}  ${RequestType.Name} {{else}} ${RequestType.Name} {{/if}}
-                        </a>
+                        {{if RequestType.Id == 6}}
+                            ${RequestType.Name}
+                        {{else}}
+                            ${RequestType.Name}
+                        {{/if}}
+                    </a>
                 {{/each}}
-
             {{/if}}
         </td>
         <td class="align-left">

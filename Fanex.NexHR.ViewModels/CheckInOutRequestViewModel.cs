@@ -16,9 +16,6 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// Check in/out request view model.
-    /// </summary>
     public class CheckInOutRequestViewModel : BaseRequestModel, IValidatableObject
     {
         [Required]

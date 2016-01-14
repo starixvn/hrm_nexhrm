@@ -12,9 +12,6 @@ namespace Fanex.NexHR.ViewModels
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// The view model of Department.
-    /// </summary>
     public class DepartmentViewModel
     {
         public int DepartmentId { get; set; }
