@@ -54,6 +54,10 @@ namespace Fanex.NexHR.ViewModels
             }
         }
 
+        public List<LeaveType> LeaveTypes { get; set; }
+
+        public List<DateTime> UnavailDates { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             IList<ValidationResult> result = new List<ValidationResult>();
@@ -77,9 +81,5 @@ namespace Fanex.NexHR.ViewModels
 
             return result;
         }
-
-        public List<LeaveType> LeaveTypes { get; set; }
-
-        public List<DateTime> UnavailDates { get; set; }
     }
 }

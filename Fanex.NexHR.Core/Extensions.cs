@@ -451,6 +451,7 @@ namespace Fanex.NexHR.Core
             {
                 checkbox.MergeAttribute("checked", "checked");
             }
+
             checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             TagBuilder label = new TagBuilder("label");
@@ -470,8 +471,7 @@ namespace Fanex.NexHR.Core
 
         public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
             this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, bool>> expression
-        )
+            Expression<Func<TModel, bool>> expression)
         {
             return MaterializeCheckBoxFor(htmlHelper, expression, null);
         }
@@ -479,8 +479,7 @@ namespace Fanex.NexHR.Core
         public static MvcHtmlString MaterializeCheckBoxFor<TModel>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, bool>> expression,
-            object htmlAttributes
-        )
+            object htmlAttributes)
         {
             return MaterializeCheckBoxFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -502,6 +501,7 @@ namespace Fanex.NexHR.Core
             {
                 checkbox.MergeAttribute("checked", "checked");
             }
+
             checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             TagBuilder label = new TagBuilder("label");

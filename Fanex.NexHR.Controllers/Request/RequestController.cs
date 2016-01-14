@@ -16,26 +16,26 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Team;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Request controller.
-    /// </summary>
     [Authorize]
     public class RequestController : BaseController
     {
         #region private services
+
         private readonly IRequestService _requestService;
         private readonly ITeamService _teamService;
         private readonly ILeaveTypeService _leaveTypeService;
-        #endregion
+
+        #endregion private services
 
         #region Ctor
+
         public RequestController()
             : this(null, null, null)
         {
@@ -50,7 +50,8 @@ namespace Fanex.NexHR.Controllers.Request
             _teamService = teamService ?? new TeamService();
             _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
         }
-        #endregion
+
+        #endregion Ctor
 
         public PartialViewResult CriteriaPanel(RequestViewModel request)
         {
@@ -85,8 +86,8 @@ namespace Fanex.NexHR.Controllers.Request
             request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
             GetRequest(request, (short)Role.AssistantLeader);
 
-            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
-            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
@@ -124,8 +125,8 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.IsAllowChangeStatus = false;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
-            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             return View("HRView", request);
         }
@@ -155,8 +156,8 @@ namespace Fanex.NexHR.Controllers.Request
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
             GetRequest(request, (short)Role.HR);
 
-            request.FilteringLeaveTypes = _leaveTypeService.GetAll().ToList();
-            request.FilteringLeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = true;
@@ -182,9 +183,9 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public bool DeleteWorkingTimeRequest(int id)
         {
-            var criteria = new DeleteRequestCriteria() 
-            { 
-                Id = id 
+            var criteria = new DeleteRequestCriteria()
+            {
+                Id = id
             };
             bool deleted = _requestService.DeleteRequest(criteria);
             return deleted;

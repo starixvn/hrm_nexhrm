@@ -209,6 +209,16 @@ namespace Fanex.NexHR.Models
         // TOEIC score
         public Toeic ToeicScore { get; set; }
 
+        public EmployeeShift WorkingCalendar { get; set; }
+
+        #region Filtering
+
+        public IList<LookupData> JobTitles { get; set; }
+
+        public IList<Team> Groups { get; set; }
+
+        #endregion Filtering
+
         public bool IsInRoles(params Role[] roles)
         {
             if (RoleList == null)
@@ -263,15 +273,5 @@ namespace Fanex.NexHR.Models
 
             return roles;
         }
-
-        public EmployeeShift WorkingCalendar { get; set; }
-
-        #region Filtering
-
-        public IList<LookupData> JobTitles { get; set; }
-
-        public IList<Team> Groups { get; set; }
-
-        #endregion Filtering
     }
 }

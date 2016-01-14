@@ -11,16 +11,14 @@ namespace Fanex.NexHR.Core
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Model;
 
-    /// <summary>
-    /// Utilities class.
-    /// </summary>
     public static class Utilities
     {
         public static DateTime RequestAvailableFromDate
@@ -85,11 +83,6 @@ namespace Fanex.NexHR.Core
             return ZeroPrefix(value.Hour) + ":" + ZeroPrefix(value.Minute);
         }
 
-        /// <summary>
-        /// Read text file.
-        /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>The text file content.</returns>
         public static string ReadTextFile(string filePath)
         {
             using (var sr = new StreamReader(filePath))
@@ -98,11 +91,6 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        /// <summary>
-        /// Random string.
-        /// </summary>
-        /// <param name="length">The string length.</param>
-        /// <returns>The return string.</returns>
         public static string RandomString(int length)
         {
             // returns random string of length specified with characters including: 0-9, a-z, A-Z
@@ -125,7 +113,7 @@ namespace Fanex.NexHR.Core
                     }
                     else
                     {
-                        // get a new random int. 
+                        // get a new random int.
                         var single = new byte[1];
                         rng.GetBytes(single);
                         rand = single[0];
@@ -139,11 +127,6 @@ namespace Fanex.NexHR.Core
             return new string(ca).ToLower();
         }
 
-        /// <summary>
-        /// Get minute steps.
-        /// </summary>
-        /// <param name="step">Step value.</param>
-        /// <returns>List of select list item.</returns>
         public static IList<SelectListItem> MinuteSteps(int step)
         {
             var list = new List<SelectListItem>();
@@ -161,11 +144,6 @@ namespace Fanex.NexHR.Core
             return list;
         }
 
-        /// <summary>
-        /// The time steps.
-        /// </summary>
-        /// <param name="minuteStep">The minute step.</param>
-        /// <returns>List of select list item.</returns>
         public static IList<SelectListItem> TimeSteps(int minuteStep)
         {
             var list = new List<SelectListItem>();
@@ -191,31 +169,16 @@ namespace Fanex.NexHR.Core
             return list;
         }
 
-        /// <summary>
-        /// The zero prefix.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The return string.</returns>
         public static string ZeroPrefix(int value)
         {
             return value < 10 ? "0" + value : value.ToString();
         }
 
-        /// <summary>
-        /// The zero prefix.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The return string.</returns>
         public static string ZeroPrefix(string value)
         {
             return int.Parse(value) < 10 ? "0" + value : value;
         }
 
-        /// <summary>
-        /// Convert array of string to string.
-        /// </summary>
-        /// <param name="array">Array of string.</param>
-        /// <returns>The return string.</returns>
         public static string StringArrayToString(string[] array)
         {
             if (array == null || array.Length == 0)
@@ -233,11 +196,6 @@ namespace Fanex.NexHR.Core
             return result.Substring(0, result.Length - 1);
         }
 
-        /// <summary>
-        /// Is valid email or not.
-        /// </summary>
-        /// <param name="email">The email address.</param>
-        /// <returns>True : valid, false : invalid.</returns>
         public static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -249,11 +207,6 @@ namespace Fanex.NexHR.Core
             return regex.IsMatch(email);
         }
 
-        /// <summary>
-        /// Convert total hours to time.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The return string.</returns>
         public static string TotalHoursToTime(float value)
         {
             int hour = (int)value;
@@ -263,11 +216,6 @@ namespace Fanex.NexHR.Core
                 : ZeroPrefix(minute) + "'";
         }
 
-        /// <summary>
-        /// Convert minute to time.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The return string.</returns>
         public static string MinuteToTime(int value)
         {
             if (value == 0)
@@ -281,6 +229,41 @@ namespace Fanex.NexHR.Core
             return hour > 0
                 ? ZeroPrefix(hour) + "h" + ZeroPrefix(minute) + "'"
                 : ZeroPrefix(minute) + "'";
+        }
+
+        public static IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
+        {
+            // No sorting needed.
+            if (sortExpressions == null || !sortExpressions.Any())
+            {
+                return data;
+            }
+
+            // Let us sort it.
+            IEnumerable<T> query = from item in data select item;
+            IOrderedEnumerable<T> orderedQuery = null;
+
+            for (int i = 0; i < sortExpressions.Count; i++)
+            {
+                // We need to keep the loop index, not sure why it is altered by the Linq.
+                var index = i;
+                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
+
+                if (sortExpressions[index].Direction == "asc")
+                {
+                    orderedQuery = (index == 0) ? query.OrderBy(expression)
+                      : orderedQuery.ThenBy(expression);
+                }
+                else
+                {
+                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
+                             : orderedQuery.ThenByDescending(expression);
+                }
+            }
+
+            query = orderedQuery;
+
+            return query.ToList();
         }
     }
 }

@@ -13,8 +13,9 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
@@ -119,7 +120,7 @@ namespace Fanex.NexHR.Controllers
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
 
-                listEmployees = MultipleSort(listEmployees, sorts);
+                listEmployees = Utilities.MultipleSort(listEmployees, sorts);
             }
 
             _exportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
@@ -208,41 +209,6 @@ namespace Fanex.NexHR.Controllers
             }
 
             return deleteUsers;
-        }
-
-        private IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
-        {
-            // No sorting needed.
-            if (sortExpressions == null || !sortExpressions.Any())
-            {
-                return data;
-            }
-
-            // Let us sort it.
-            IEnumerable<T> query = from item in data select item;
-            IOrderedEnumerable<T> orderedQuery = null;
-
-            for (int i = 0; i < sortExpressions.Count; i++)
-            {
-                // We need to keep the loop index, not sure why it is altered by the Linq.
-                var index = i;
-                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
-
-                if (sortExpressions[index].Direction == "asc")
-                {
-                    orderedQuery = (index == 0) ? query.OrderBy(expression)
-                      : orderedQuery.ThenBy(expression);
-                }
-                else
-                {
-                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
-                             : orderedQuery.ThenByDescending(expression);
-                }
-            }
-
-            query = orderedQuery;
-
-            return query.ToList();
         }
     }
 }

@@ -49,11 +49,10 @@ namespace Fanex.NexHR.ViewModels
             }
         }
 
-        /// <summary>
-        /// Validate context.
-        /// </summary>
-        /// <param name="validationContext">Validation context.</param>
-        /// <returns>List of validation result.</returns>
+        public List<Shift> ShiftInfos { get; set; }
+
+        public List<DateTime> UnavailDates { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             IList<ValidationResult> result = new List<ValidationResult>();
@@ -84,9 +83,5 @@ namespace Fanex.NexHR.ViewModels
 
             return result;
         }
-
-        public List<Shift> ShiftInfos { get; set; }
-
-        public List<DateTime> UnavailDates { get; set; }
     }
 }

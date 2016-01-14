@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using System.Linq;
     using System.Web.Http;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
@@ -66,7 +67,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
 
-                entityList = MultipleSort(entityList, sorts);
+                entityList = Utilities.MultipleSort(entityList, sorts);
             }
 
             return entityList.AsQueryable();
@@ -109,7 +110,13 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
         }
 
-        public IList<Employee> GetToeic(string query, int? groupId = null, int? titleId = null, int? score = null, bool? enable = null, bool? isDelete = null)
+        public IList<Employee> GetToeic(
+            string query,
+            int? groupId = null,
+            int? titleId = null,
+            int? score = null,
+            bool? enable = null,
+            bool? isDelete = null)
         {
             if (groupId == -1)
             {
@@ -165,41 +172,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             }
 
             return deleteUsers;
-        }
-
-        private IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
-        {
-            // No sorting needed.
-            if (sortExpressions == null || !sortExpressions.Any())
-            {
-                return data;
-            }
-
-            // Let us sort it.
-            IEnumerable<T> query = from item in data select item;
-            IOrderedEnumerable<T> orderedQuery = null;
-
-            for (int i = 0; i < sortExpressions.Count; i++)
-            {
-                // We need to keep the loop index, not sure why it is altered by the Linq.
-                var index = i;
-                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
-
-                if (sortExpressions[index].Direction == "asc")
-                {
-                    orderedQuery = (index == 0) ? query.OrderBy(expression)
-                      : orderedQuery.ThenBy(expression);
-                }
-                else
-                {
-                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
-                             : orderedQuery.ThenByDescending(expression);
-                }
-            }
-
-            query = orderedQuery;
-
-            return query.ToList();
         }
     }
 }

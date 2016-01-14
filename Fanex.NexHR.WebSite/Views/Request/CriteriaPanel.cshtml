@@ -39,7 +39,7 @@
                     @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
                 </div>
                 <div class="left select--m">
-                    @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.FilteringDateTypes)
+                    @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.DateTypes)
                 </div>
             </div>
             <div class="col m-r--l">
@@ -76,7 +76,7 @@
                     @Html.LabelFor(model => model.LeaveTypeId)
                 </div>
                 <div class="left select--m">
-                    @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.FilteringLeaveTypes, "Id", "Name"))
+                    @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypeCollection, "Id", "Name"))
                 </div>
             </div>
             <div class="col">
@@ -84,7 +84,7 @@
                     @Html.LabelFor(model => model.RequestType, Labels.Request)
                 </div>
                 <div class="left">
-                    @Html.RadioButtonList(model => model.RequestType, Model.FilteringRequestTypes)
+                    @Html.RadioButtonList(model => model.RequestType, Model.RequestTypes)
                 </div>
             </div>
             <input class="btn-submit waves-effect waves-light processing-submit m-l--s-" type="submit" value="@Labels.Submit" />

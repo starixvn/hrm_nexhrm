@@ -23,11 +23,9 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using Newtonsoft.Json;
 
     [Authorize]
     public class AjaxController : BaseController
@@ -396,110 +394,6 @@ namespace Fanex.NexHR.Controllers
             CommandResult commandResult = _departmentService.DeleteDepartment(criteria);
             JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
             return result;
-        }
-
-        [HttpPost]
-        public JsonResult GetEmployees(string query, int? groupId = null, bool? enable = null, bool? isDelete = null, int? titleId = null, string sort = null)
-        {
-            if (groupId == -1)
-            {
-                groupId = null;
-            }
-
-            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
-            {
-                Query = query,
-                GroupId = groupId,
-                TitleId = titleId,
-                Enable = CheckUserEnableCondition(enable),
-                IsDelete = CheckDeletedUserCondition(isDelete),
-                PageNumber = 1,
-                PageSize = int.MaxValue,
-                TotalRow = 2000
-            };
-            var entityList = _employeeService.Query(getAllEmployeeCriteria);
-
-            if (sort != null)
-            {
-                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
-
-                entityList = MultipleSort(entityList, sorts);
-            }
-
-            return Json(new { employees = entityList }, JsonRequestBehavior.AllowGet);
-        }
-
-        private int? CheckUserEnableCondition(bool? enable)
-        {
-            int? disableUsers;
-            if (enable == true)
-            {
-                disableUsers = 0;
-            }
-            else if (enable == false)
-            {
-                disableUsers = 1;
-            }
-            else
-            {
-                disableUsers = null;
-            }
-
-            return disableUsers;
-        }
-
-        private int? CheckDeletedUserCondition(bool? isDelete)
-        {
-            int? deleteUsers;
-            if (isDelete == true)
-            {
-                deleteUsers = 1;
-            }
-            else if (isDelete == false)
-            {
-                deleteUsers = 0;
-            }
-            else
-            {
-                deleteUsers = null;
-            }
-
-            return deleteUsers;
-        }
-
-        private IList<T> MultipleSort<T>(IList<T> data, IList<SortModel> sortExpressions)
-        {
-            // No sorting needed.
-            if (sortExpressions == null || !sortExpressions.Any())
-            {
-                return data;
-            }
-
-            // Let us sort it.
-            IEnumerable<T> query = from item in data select item;
-            IOrderedEnumerable<T> orderedQuery = null;
-
-            for (int i = 0; i < sortExpressions.Count; i++)
-            {
-                // We need to keep the loop index, not sure why it is altered by the Linq.
-                var index = i;
-                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
-
-                if (sortExpressions[index].Direction == "asc")
-                {
-                    orderedQuery = (index == 0) ? query.OrderBy(expression)
-                      : orderedQuery.ThenBy(expression);
-                }
-                else
-                {
-                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
-                             : orderedQuery.ThenByDescending(expression);
-                }
-            }
-
-            query = orderedQuery;
-
-            return query.ToList();
         }
     }
 }

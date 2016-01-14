@@ -32,15 +32,14 @@ $(document).ready(function () {
         $('#Leader').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: _global.root + 'ajax/GetEmployees',
-                    type: 'POST',
+                    url: _global.root + 'api/employee/GetEmployees',
                     dataType: 'json',
                     data: {
                         query: request.term,
                         $top: 10
                     },
                     success: function (data) {
-                        response($.map(data.employees, function (item) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id
@@ -72,15 +71,14 @@ $(document).ready(function () {
         $('#AssistantLeader').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: _global.root + 'ajax/GetEmployees',
-                    type: 'POST',
+                    url: _global.root + 'api/employee/GetEmployees',
                     dataType: 'json',
                     data: {
                         query: request.term,
                         $top: 10
                     },
                     success: function (data) {
-                        response($.map(data.employees, function (item) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id

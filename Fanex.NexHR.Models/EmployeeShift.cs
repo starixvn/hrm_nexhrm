@@ -49,8 +49,6 @@ namespace Fanex.NexHR.Models
 
         public string SunShiftName { get; set; }
 
-
-
         public IList<SelectListItem> Shifts { get; set; }
     }
 }

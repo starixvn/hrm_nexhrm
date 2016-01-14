@@ -6,6 +6,7 @@
 // <history>
 //   <change who="Anders.Le" date="2012.5.18">Created</change>
 // </history>
+
 namespace Fanex.NexHR.ViewModels
 {
     using System;
@@ -16,9 +17,6 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// Request view model.
-    /// </summary>
     public class RequestViewModel
     {
         public RequestViewModel()
@@ -62,11 +60,33 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Team")]
         public IList<Team> TeamCollection { get; set; }
 
-        /// <summary>
-        /// Get select list item team.
-        /// </summary>
-        /// <param name="teamId">The team ID.</param>
-        /// <returns>List of select list item.</returns>
+        public IList<LeaveType> LeaveTypeCollection { get; set; }
+
+        public List<SelectListItem> DateTypes
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = Labels.EffectedDate, Value = "true" },
+                    new SelectListItem() { Text = Labels.CreatedDate, Value = "false" },
+                };
+            }
+        }
+
+        public List<SelectListItem> RequestTypes
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = Labels.All, Value = "5" },
+                    new SelectListItem() { Text = Labels.Leave, Value = "1" },
+                    new SelectListItem() { Text = Labels.CheckInOut, Value = "4" }
+                };
+            }
+        }
+
         public IList<SelectListItem> GetSelectListItemTeam(int? teamId)
         {
             IList<SelectListItem> selecListItemTeam = new List<SelectListItem>();
@@ -98,34 +118,6 @@ namespace Fanex.NexHR.ViewModels
             }
 
             return selecListItemTeam;
-        }
-
-        public List<LeaveType> FilteringLeaveTypes { get; set; }
-        
-
-        public List<SelectListItem> FilteringDateTypes
-        {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = Labels.EffectedDate, Value = "true"},
-                    new SelectListItem() {Text = Labels.CreatedDate, Value = "false"},
-                };
-            }
-        }
-
-        public List<SelectListItem> FilteringRequestTypes
-        {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = Labels.All, Value = "5"},
-                    new SelectListItem() {Text = Labels.Leave, Value = "1"},
-                    new SelectListItem() {Text = Labels.CheckInOut, Value = "4"}
-                };
-            }
         }
     }
 }

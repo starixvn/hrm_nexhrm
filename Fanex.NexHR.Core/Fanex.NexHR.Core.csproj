@@ -87,6 +87,7 @@
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Model\SortModel.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />

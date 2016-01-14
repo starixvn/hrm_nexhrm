@@ -13,16 +13,15 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: _global.root + 'ajax/getemployees',
-                type: 'POST',
+                url: _global.root + 'api/employee/getemployees',
                 dataType: 'json',
                 data: {
                     query: term,
                     $top: 10
                 },
                 success: function (data) {
-                    if (data.employees && data.employees.length > 0) {
-                        response($.map(data.employees, function (item) {
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id

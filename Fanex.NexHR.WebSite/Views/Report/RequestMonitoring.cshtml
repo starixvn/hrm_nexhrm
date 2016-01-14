@@ -30,7 +30,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--s">
-                                        @Html.DropDownList("Date", Model.FilteringDateRanges)
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRange.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>

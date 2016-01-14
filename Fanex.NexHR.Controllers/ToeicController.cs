@@ -23,7 +23,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using System.Collections.Generic;
 
     [Authorize]
     public class ToeicController : BaseController

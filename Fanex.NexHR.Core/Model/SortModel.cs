@@ -7,7 +7,7 @@
 //   <change who="Tim.Trinh" date="2015.12.30">Created</change>
 // </history>
 
-namespace Fanex.NexHR.ViewModels
+namespace Fanex.NexHR.Core.Model
 {
     public class SortModel
     {

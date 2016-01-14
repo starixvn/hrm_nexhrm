@@ -13,7 +13,6 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.Security;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -231,9 +230,11 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            if (model.IsExportExcel)                            
+            if (model.IsExportExcel)
+            {
                 ExportExcel(model);
-            
+            }
+
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
                 FromDate = model.FromDate,
@@ -242,9 +243,9 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);           
+            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            return Json(totalWorkingHours,JsonRequestBehavior.AllowGet);
+            return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportExcel(TotalWorkingHoursViewModel model)
@@ -505,7 +506,7 @@ namespace Fanex.NexHR.Controllers
             var timeRecords = _reportService.GetTimeRecords(criteria);
             var totalPage = timeRecords.Count() / model.ItemsPerPage;
 
-            totalPage = Decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            totalPage = decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
 
             var pagerOption = new PagerOptionModel()
             {
@@ -558,7 +559,7 @@ namespace Fanex.NexHR.Controllers
             var timeRecords = _reportService.GetTimeRecords(criteria);
             var totalPage = timeRecords.Count() / model.ItemsPerPage;
 
-            totalPage = Decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            totalPage = decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
 
             var pagerOption = new PagerOptionModel()
             {

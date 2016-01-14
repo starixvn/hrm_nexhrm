@@ -35,16 +35,17 @@ namespace Fanex.NexHR.Controllers
         private readonly IReportRepository _reportRepository;
 
         public AnnualLeaveBalanceController()
+            : this(null, null, null)
         {
-            _employeeService = new EmployeeService();
-            _teamService = new TeamService();
-            _reportRepository = new ReportRepository();
         }
 
-        public AnnualLeaveBalanceController(IEmployeeService employeeService, ITeamService teamService, IReportRepository reportRepository)
+        public AnnualLeaveBalanceController(
+            IEmployeeService employeeService,
+            ITeamService teamService,
+            IReportRepository reportRepository)
         {
-            _employeeService = employeeService;
-            _teamService = teamService;
+            _employeeService = employeeService ?? new EmployeeService();
+            _teamService = teamService ?? new TeamService();
             _reportRepository = reportRepository ?? new ReportRepository();
         }
 
@@ -141,7 +142,7 @@ namespace Fanex.NexHR.Controllers
             if (employee != null)
             {
                 ViewBag.Employee = employee;
-                var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria 
+                var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
                 {
                     EmployeeId = model.EmployeeId,
                     Year = model.Year,
@@ -150,7 +151,7 @@ namespace Fanex.NexHR.Controllers
 
                 model.AnnualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
             }
-            
+
             return View(model);
         }
 
@@ -179,7 +180,7 @@ namespace Fanex.NexHR.Controllers
                 Id = id
             };
             var model = _employeeService.GetAnnualLeaveTransactionById(getAnnualLeaveByIdCriteria);
-            
+
             if (model != null)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };

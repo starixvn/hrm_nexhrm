@@ -32,12 +32,12 @@ namespace Fanex.NexHR.ViewModels
             {
                 return new List<SelectListItem>
                 {
-                    new SelectListItem() {Text = Labels.All, Value = "0"},
-                    new SelectListItem() {Text = Labels.CheckIn, Value = "1"},
-                    new SelectListItem() {Text = Labels.CheckOut, Value = "2"},
-                    new SelectListItem() {Text = Labels.LateIn, Value = "3"},
-                    new SelectListItem() {Text = Labels.EarlyOut, Value = "4"},
-                    new SelectListItem() {Text = Labels.NotWorking, Value = "5"}
+                    new SelectListItem() { Text = Labels.All, Value = "0" },
+                    new SelectListItem() { Text = Labels.CheckIn, Value = "1" },
+                    new SelectListItem() { Text = Labels.CheckOut, Value = "2" },
+                    new SelectListItem() { Text = Labels.LateIn, Value = "3" },
+                    new SelectListItem() { Text = Labels.EarlyOut, Value = "4" },
+                    new SelectListItem() { Text = Labels.NotWorking, Value = "5" }
                 };
             }
         }

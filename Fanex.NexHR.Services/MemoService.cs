@@ -8,7 +8,6 @@
 //   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
 // </history>
 
-//namespace Fanex.NexHR.Repositories
 namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
@@ -23,9 +22,6 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Memo service.
-    /// </summary>
     public class MemoService : IMemoService
     {
         private readonly IMemoRepository _memoRepository;
