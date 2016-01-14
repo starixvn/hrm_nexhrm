@@ -64,9 +64,9 @@ main {
 	.row .col.s1 {
 		width: 20%; 
 	}		
-	.row .col.s3 {
+	/*.row .col.s3 {
 		width: 30%; 
-	}
+	}*/
 	.row .col.s4 {
 		width: 44%;
 	}
@@ -293,46 +293,6 @@ main {
       
     }
   }
-}
-
-
-.datagrid-wrap {
-	position: relative;
-	.datagrid-view {
-		position: relative;
-		overflow: hidden;
-		.datagrid-view1 {
-			position: absolute;
-			overflow: hidden;
-			left: 0;
-			top: 0;
-			.datagrid-body {
-				overflow: hidden;
-			}
-		}
-		.datagrid-view2 {
-			position: absolute;
-			overflow: hidden;			
-			top: 0;		
-		}
-	}
-}
-
-#colordef .grid_2 {
-	height: 30px;
-	width: 50px;
-	display: inline-block;
-	margin-right: 5px;
-	text-align: center;
-	line-height: 30px;
-	border: 1px solid #555;
-}
-
-.datagrid-body {
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    zoom: 1;
 }
 
 //-------------------Loading process----------------------//

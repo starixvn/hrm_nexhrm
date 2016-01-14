@@ -35,7 +35,8 @@
                                         <label>@Labels.Month</label>
                                     </div>
                                     <div class="left select--m">
-                                        <div id="monthPickr"></div>
+                                        <div id="monthPickr">
+                                        </div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@ViewBag.CurrentDate" />
                                     </div>
@@ -75,7 +76,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="rownumber">
-                                                        <div class="datagrid-cell-rownumber center">#</div>
+                                                        <div class="datagrid-cell-rownumber center">
+                                                            #</div>
                                                     </td>
                                                     <td class="p-l--s rowfullname">
                                                         <div class="datagrid-cell ">@Labels.FullName</div>
@@ -286,33 +288,114 @@
                         </div>
                     </div>
                     <div class="row form-input" id="colordef">
-                        <div class="col m-r--m">
-                            <div class="left">
-                                <div class="grid_2 AL tooltip alpha" title="Annual Leave">AL</div>
+                        <div class="col s3">
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 AL tooltip alpha" title="Annual Leave">
+                                        AL</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Annual Leave</label>
+                                </div>
                             </div>
-                            <div class="left label">
-                                <label>Annual Leave</label>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 HAL tooltip" title="Half Annual Leave">
+                                        AL</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Hafl Annual Leave</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 ML tooltip" title="Maternity Leave">
+                                        ML</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Maternity Leave</label>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="grid_2 HAL tooltip" title="Half Annual Leave">
-                            AL</div>
-                        <div class="grid_2 UPL tooltip alpha" title="Unpaid Leave">
-                            UPL</div>
-                        <div class="grid_2 OFF tooltip" title="Public Holiday/Off Day">
-                            PH/OFF</div>
-                        <div class="grid_2 BL tooltip" title="Bereavement Leave">
-                            BL</div>
-                        <div class="grid_2 BT tooltip" title="Business Trip">
-                            BT</div>
-                        <div class="grid_2 ChangeShift tooltip" title="Change Shift">
-                            CS</div>
-                        <div class="grid_2 tooltip" title="Wedding Leave">
-                            WL</div>
-                        <div class="grid_2 tooltip" title="Maternity Leave">
-                            ML</div>
-                        <div class="grid_2 HH tooltip" title="2 Leave Half Day">
-                            H/H</div>
+                        <div class="col s3">
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 UPL tooltip alpha" title="Unpaid Leave">
+                                        UPL</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Unpaid Leave</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 OFF tooltip" title="Public Holiday/Off Day">
+                                        PH/OFF</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Public Holiday/Off Day</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 HH tooltip" title="2 Leave Half Day">
+                                        H/H</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        2 Leave Half Day</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 BL tooltip" title="Bereavement Leave">
+                                        BL</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Bereavement Leave</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 BT tooltip" title="Business Trip">
+                                        BT</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Business Trip</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 ChangeShift tooltip" title="Change Shift">
+                                        CS</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Change Shift</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 WL tooltip" title="Wedding Leave">
+                                        WL</div>
+                                </div>
+                                <div class="left label">
+                                    <label>
+                                        Wedding Leave</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="hide">
                         <div id="addform" title="Add Calendars">

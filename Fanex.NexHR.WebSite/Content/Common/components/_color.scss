@@ -42,11 +42,15 @@
 }
 
 .OFF {
-	@include leaveColor(#bdbdbd);
+	background: #bdbdbd;
 }
 
 .BL {
 	@include leaveColor(#4a148c);
+}
+
+.BT {
+	@include leaveColor(#01bfa5);
 }
 
 .ChangeShift {

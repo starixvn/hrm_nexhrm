@@ -11,7 +11,7 @@ body {
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
 
-.AL, .HAL, .UPL, .OFF, .BL, .ChangeShift, .WL, .ML, .HH {
+.AL, .HAL, .UPL, .BL, .BT, .ChangeShift, .WL, .ML, .HH {
   color: #fff; }
 
 main {
@@ -36,9 +36,9 @@ main {
   .row .col.s1 {
     width: 20%; }
 
-  .row .col.s3 {
-    width: 30%; }
-
+  /*.row .col.s3 {
+  	width: 30%; 
+  }*/
   .row .col.s4 {
     width: 44%; } }
 #section_content {
@@ -197,38 +197,6 @@ main {
     line-height: 45px;
     color: #4c5e70;
     overflow: hidden; }
-
-.datagrid-wrap {
-  position: relative; }
-  .datagrid-wrap .datagrid-view {
-    position: relative;
-    overflow: hidden; }
-    .datagrid-wrap .datagrid-view .datagrid-view1 {
-      position: absolute;
-      overflow: hidden;
-      left: 0;
-      top: 0; }
-      .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
-        overflow: hidden; }
-    .datagrid-wrap .datagrid-view .datagrid-view2 {
-      position: absolute;
-      overflow: hidden;
-      top: 0; }
-
-#colordef .grid_2 {
-  height: 30px;
-  width: 50px;
-  display: inline-block;
-  margin-right: 5px;
-  text-align: center;
-  line-height: 30px;
-  border: 1px solid #555; }
-
-.datagrid-body {
-  margin: 0;
-  padding: 0;
-  overflow: auto;
-  zoom: 1; }
 
 .loading-process {
   background: rgba(255, 255, 255, 0.8) url("Images/loding.gif") 50% 50% no-repeat;
@@ -442,6 +410,9 @@ a:active, a:focus {
 
 .BL {
   background: #4a148c; }
+
+.BT {
+  background: #01bfa5; }
 
 .ChangeShift {
   background: #9ea8db; }
