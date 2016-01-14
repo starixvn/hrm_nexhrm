@@ -60,4 +60,28 @@
       -ms-border-radius: 0.3rem;
       border-radius: 0.3rem; }
 
+.datagrid-wrap {
+  width: 100%;
+  height: 520px; }
+  .datagrid-wrap .datagrid-view {
+    width: 100%;
+    height: 500px; }
+    .datagrid-wrap .datagrid-view .datagrid-view1 {
+      width: 30%; }
+      .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header {
+        width: 100%;
+        height: 80px; }
+      .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
+        width: 100%;
+        height: 450px; }
+    .datagrid-wrap .datagrid-view .datagrid-view2 {
+      width: 70%;
+      left: 30%; }
+      .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
+        width: 100%;
+        height: 80px; }
+      .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-body {
+        width: 100%;
+        height: 450px; }
+
 /*# sourceMappingURL=report.timesheet.css.map */
