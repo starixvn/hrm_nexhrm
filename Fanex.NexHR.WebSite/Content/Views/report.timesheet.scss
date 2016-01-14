@@ -162,8 +162,13 @@
 		}
 
 		.datagrid-view2 {
-			width: 70%;
+			width: 633px;
 			left: 30%;
+
+			@media (min-width: 1900px) {
+				width: 1084px;
+			}
+
 
 			td {
 				padding: 0;
@@ -177,8 +182,11 @@
 			}
 
 			.datagrid-header {
-				width: 100%;
+				width: 616px;
 				overflow: hidden;
+				@media (min-width: 1900px) {
+					width: 1067px;
+				}
 				.datagrid-header-inner {
 					color: #fff;
 					td {
