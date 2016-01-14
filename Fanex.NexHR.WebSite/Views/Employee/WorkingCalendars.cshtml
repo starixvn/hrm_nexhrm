@@ -63,31 +63,25 @@
                         <div class="datagrid-view">
                             <div class="datagrid-view1">
                                 <div class="datagrid-header">
-                                    <div style="display: block;" class="datagrid-header-inner">
+                                    <div class="datagrid-header-inner">
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
-                                                <tr style="background-color: #ccc;">
+                                                <tr>
                                                     <td colspan="3" align="right">
-                                                        <div style="width: 150px; text-align: right;" class="datagrid-cell">
+                                                        <div class="datagrid-cell">
                                                             <b style="text-transform: uppercase">@(new DateTime(ViewBag.Year, ViewBag.Month, 1).ToString("MMM yyyy"))</b>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="datagrid-cell-rownumber">
-                                                            #
-                                                        </div>
+                                                        <div class="datagrid-cell-rownumber center">#</div>
                                                     </td>
                                                     <td>
-                                                        <div style="width: 150px; text-align: left;" class="datagrid-cell ">
-                                                            @Labels.FullName
-                                                        </div>
+                                                        <div class="datagrid-cell ">@Labels.FullName</div>
                                                     </td>
                                                     <td>
-                                                        <div style="width: 90px; text-align: left;" class="datagrid-cell ">
-                                                            @Labels.Nick
-                                                        </div>
+                                                        <div class="datagrid-cell ">@Labels.Nick</div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -102,20 +96,14 @@
                                                 @foreach (WorkingCalendarsViewModel employee in Model)
                                                 {
                                                     <tr>
-                                                        <td class="datagrid-header-rownumber">
-                                                            <div class="datagrid-cell-rownumber">
-                                                                @rowId
-                                                            </div>
+                                                        <td class="datagrid-header-rownumber center">
+                                                            <div class="datagrid-cell-rownumber">@rowId</div>
                                                         </td>
                                                         <td class="datagrid-fullname">
-                                                            <div style="width: 150px; text-align: left;" class="datagrid-cell ">
-                                                                @employee.FullName
-                                                            </div>
+                                                            <div class="datagrid-cell">@employee.FullName</div>
                                                         </td>
                                                         <td>
-                                                            <div style="width: 90px; text-align: left;" class="datagrid-cell ">
-                                                                @employee.NickName
-                                                            </div>
+                                                            <div class="datagrid-cell">@employee.NickName</div>
                                                         </td>
                                                     </tr>
                                                     rowId++;
@@ -127,19 +115,19 @@
                             </div>
                             <div class="datagrid-view2">
                                 <div class="datagrid-header">
-                                    <div style="display: block;" class="datagrid-header-inner">
+                                    <div class="datagrid-header-inner">
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 @{
                                                     int daysInMonth = Model.Count != 0
                                                         ? Model[0].Days
                                                         : DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month);
-                                                    <tr style="background-color: #ccc;">
+                                                    <tr>
                                                         @for (int i = 1; i <= daysInMonth; i++)
                                                         {
 
                                                             <td>
-                                                                <div style="width: 50px; text-align: center;" class="datagrid-cell ">
+                                                                <div class="datagrid-cell ">
                                                                     @i
                                                                 </div>
                                                             </td>
@@ -150,7 +138,7 @@
                                                         {
                                                             DateTime dt = new DateTime(ViewBag.Year, ViewBag.Month, i);
                                                             <td class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
-                                                                <div style="width: 50px; text-align: center;" class="datagrid-cell">
+                                                                <div class="datagrid-cell">
                                                                     @dt.ToString("ddd")
                                                                 </div>
                                                             </td>

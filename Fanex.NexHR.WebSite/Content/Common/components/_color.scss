@@ -19,3 +19,48 @@
 .black-text-75 {
    color: rgba(0, 0, 0, 0.75);
 }
+
+//-------------------Color working calendar-------------------
+%txt-White {
+	color: #fff;
+}
+
+@mixin leaveColor($color) {
+	@extend %whiteText;
+	background: $color;
+}
+.AL {
+	@include leaveColor(#00b8d4);
+}
+
+.HAL {
+	@include leaveColor(#cf92d7);
+}
+
+.UPL {
+	@include leaveColor(#f54337);
+}
+
+.OFF {
+	@include leaveColor(#bdbdbd);
+}
+
+.BL {
+	@include leaveColor(#4a148c);
+}
+
+.ChangeShift {
+	@include leaveColor(#9ea8db);
+}
+
+.WL {
+	@include leaveColor(#ff4181);
+}
+
+.ML {
+	@include leaveColor(#b0b42b);
+}
+
+.HH {
+	@include leaveColor(#aa00ff);
+}
