@@ -229,12 +229,7 @@ namespace Fanex.NexHR.Controllers
                     IsExportExcel = false
                 };
             }
-
-            if (model.IsExportExcel)
-            {
-                ExportExcel(model);
-            }
-
+            
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
                 FromDate = model.FromDate,
