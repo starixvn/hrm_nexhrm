@@ -1,4 +1,4 @@
-﻿/*global _global, shiftChange*/
+﻿/*global _global, shiftChange, initDatePicker*/
 /*exported */
 "use strict";
 
@@ -49,17 +49,17 @@ $(document).ready(function () {
                             switch (forRequest) {
                                 case 0: // leave
                                     $("#FromDate, #ToDate").attr("disableddate", response.join(","));
-                                    pickerFromDate.render();
-                                    pickerToDate.render();
+                                    pickerFromDate = initDatePicker('#FromDate');
+                                    pickerToDate = initDatePicker('#ToDate');
                                     break;
                                 case 1: // late in early out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate.render();
+                                    pickerDate = initDatePicker('.datepicker');
                                     shiftChange();
                                     break;
                                 case 2: // check in out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate.render();
+                                    pickerDate = initDatePicker('.datepicker');
                                     break;
                             }
                         }

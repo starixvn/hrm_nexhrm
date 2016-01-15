@@ -62,6 +62,7 @@ $(document).ready(function () {
     bindMenuApproved('.Approved');
 
     $('#Date').val($('#DateOption').val());
+    $('#Date').material_select();
     setDateTimeRange($('#DateOption').val());
 
     initDatePicker('#FromDate');
@@ -75,8 +76,8 @@ $(document).ready(function () {
 
             $('#dialoghistorycontent').dialog({
                 modal: true,
-                minHeight: 0,
-                width: 1100,
+                height: 'auto',
+                width: 'auto',
                 title: 'Request History'
             });
         });
@@ -89,6 +90,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
+        $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
 

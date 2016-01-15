@@ -204,7 +204,6 @@
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\employee.edit.scss" />
-    <None Include="Content\Views\employee.monthschedule.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
@@ -277,9 +276,6 @@
     </Content>
     <Content Include="Content\Views\employee.edit.css">
       <DependentUpon>employee.edit.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Views\employee.monthschedule.css">
-      <DependentUpon>employee.monthschedule.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\geolocation.css">
       <DependentUpon>geolocation.scss</DependentUpon>
@@ -721,7 +717,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\RazorHelper.cshtml" />
-    <Content Include="App_Code\UIHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UI\GlobalScript.cshtml" />

@@ -119,9 +119,9 @@
         <td {{if TotalLeaveTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalLeaveTimes > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="DateOption" value="0" />
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmployeeId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
                     <input type="text" name="TeamId" value="-2" />
@@ -141,9 +141,9 @@
         <td {{if TotalAnnualLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalAnnualLeave > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="DateOption" value="0" />
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmployeeId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
                     <input type="text" name="TeamId" value="-2" />
@@ -163,9 +163,9 @@
         <td {{if TotalUnpaidLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalUnpaidLeave > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="DateOption" value="0" />
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmployeeId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
                     <input type="text" name="TeamId" value="-2" />
@@ -185,9 +185,9 @@
         <td {{if TotalOtherLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalOtherLeave > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="DateOption" value="0" />
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmployeeId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
                     <input type="text" name="TeamId" value="-2" />
@@ -207,9 +207,9 @@
         <td {{if TotalCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalCheckInOutTimes > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="DateOption" value="0" />
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmployeeId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
                     <input type="text" name="TeamId" value="-2" />
@@ -229,8 +229,8 @@
         <td {{if TotalMissingCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalMissingCheckInOutTimes > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmpId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.DisplayName}" />
                 </form>
@@ -242,8 +242,8 @@
         <td {{if LateInEarlyOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if LateInEarlyOutTimes > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmpId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.DisplayName}" />
                 </form>
@@ -255,8 +255,8 @@
         <td {{if TotalAbsent > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
             {{if TotalAbsent > 0}}
                 <form class="request-model hide">
-                    <input type="text" name="FromDate" value="${fromDate}" />
-                    <input type="text" name="ToDate" value="${toDate}" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
                     <input type="text" name="EmpId" value="${Requester.Id}" />
                     <input type="text" name="Employee" value="${Requester.DisplayName}" />
                 </form>

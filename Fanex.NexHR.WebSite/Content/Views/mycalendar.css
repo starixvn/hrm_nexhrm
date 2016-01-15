@@ -77,4 +77,7 @@
       #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-day.fc-today {
         background: #f4773d; }
 
+.ui-dialog.dialog-update-shift {
+  overflow: visible; }
+
 /*# sourceMappingURL=mycalendar.css.map */

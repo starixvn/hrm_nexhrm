@@ -12,23 +12,23 @@ function formatTotalDays(totalDays) {
     return totalDays.toFixed(1);
 };
 
-function query() {
+function query(isFirstLoad) {
     var action = $('.form form').attr('action').split('/');
+
+    ajaxLoadingProcess();
 
     $.ajax({
         url: _global.root + 'report/' + action[action.length - 1],
         type: 'POST',
         dataType: 'json',
         data: $('.form form').serialize(),
-        beforeSend: function () {
-            $('.loading-process').fadeIn(300);
-        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
                 $('#data tbody').children().remove();
                 $('#template').tmpl(response.data).appendTo('#data');
 
+                $("table#data .DateOption").val($('#Date').val());
                 $('table#data tbody tr td a').click(function () {
                     var model = $(this).closest('td').find('.request-model').serialize(),
                         controller = $(this).attr('data-controller'),
@@ -41,12 +41,11 @@ function query() {
                 $(noInformation(10)).appendTo('#data');
             }
 
-            $('.loading-process').fadeOut(300);
-
-            floatThead('table#data');
+            if (isFirstLoad) {
+                floatThead('table#data');
+            }
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });
@@ -54,6 +53,7 @@ function query() {
 
 $(document).ready(function () {
     $('#Date').val($('#DateOption').val());
+    $('#Date').material_select();
     setDateTimeRange($('#DateOption').val());
 
     initDatePicker('#FromDate');
@@ -66,12 +66,16 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
+        $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
 
     $('#submit').click(function () {
-        query();
+        fromDate = $("#FromDate").val();
+        toDate = $("#ToDate").val();
+
+        query(false);
     });
 
-    query();
+    query(true);
 });

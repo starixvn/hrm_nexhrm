@@ -124,3 +124,8 @@
     }
 }
 
+.ui-dialog {
+    &.dialog-update-shift {
+        overflow: visible;
+    }
+}

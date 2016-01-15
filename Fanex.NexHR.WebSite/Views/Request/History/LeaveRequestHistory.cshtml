@@ -1,9 +1,8 @@
-﻿@using Fanex.NexHR.Core
-@model IList<Fanex.NexHR.Models.Request.RequestEntity>
-<table class="data table bordered striped highlight centered table-custom">
+﻿@model IList<RequestEntity>
+<table class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th>#</th>
+            <th>@Labels.SymbolCount</th>
             <th>@Labels.Team</th>
             <th>@Labels.Employee</th>
             <th>@Labels.LeaveType</th>
@@ -20,7 +19,7 @@
     {
         <tbody>
             @{int index = 1;}
-            @foreach (Fanex.NexHR.Models.Request.RequestEntity request in Model)
+            @foreach (RequestEntity request in Model)
             {
                 <tr id="row@(request.Id)">
                     <td>@(index++)</td>
@@ -29,15 +28,15 @@
                     <td>@request.LeaveType.Name</td>
                     @if (request.TotalDays == (decimal)0.5)
                     {
-                        <td class="highlight">@request.FromDate.ToShortFormatedDate()</td>
-                        <td class="highlight">@request.ToDate.ToShortFormatedDate()</td>
+                        <td>@request.FromDate.ToShortFormatedDate()</td>
+                        <td>@request.ToDate.ToShortFormatedDate()</td>
                     }
                     else
                     {
-                        <td class="highlight">@request.FromDate.ToDateMonthYearFormatedDate()</td>
-                        <td class="highlight">@request.ToDate.ToDateMonthYearFormatedDate()</td>
+                        <td>@request.FromDate.ToDateMonthYearFormatedDate()</td>
+                        <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
                     }
-                    <td class="highlight">@request.TotalDays.ToString("0.0")</td>
+                    <td>@request.TotalDays.ToString("0.0")</td>
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     @if (!string.IsNullOrWhiteSpace(request.Remark))
                     {

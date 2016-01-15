@@ -570,3 +570,11 @@ function floatThead(el){
         zIndex: 888
     });
 }
+
+function ajaxLoadingProcess() {
+    $(document).ajaxStart(function () {
+        $('.loading-process').fadeIn(300);
+    }).ajaxStop(function () {
+        $('.loading-process').fadeOut(300);
+    });
+}

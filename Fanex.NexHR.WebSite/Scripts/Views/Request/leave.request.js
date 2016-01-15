@@ -1,5 +1,5 @@
 ﻿/*global _global: false, _messages: false, noInformation: false*/
-/*exported index*/
+/*exported index, formatTotalDays*/
 'use strict';
 
 var pickerFromDate, pickerToDate,
@@ -34,10 +34,9 @@ function enableControlforHalfday() {
         $('#ToDate').val($('#FromDate').val());
         $('.time').removeClass('hide');
         pickerToDate.stop();
-    }
-    else {
+    } else {
         $('.time').addClass('hide');
-        pickerToDate.start();
+        pickerToDate = initDatePicker('#ToDate');
     }
 }
 
@@ -72,14 +71,13 @@ function formatTotalDays(totalDays) {
 };
 
 function query() {
+    ajaxLoadingProcess();
+
     $.ajax({
         url: _global.root + 'Leave/EmployeeView',
         type: 'POST',
         dataType: 'json',
         data: { year: $('#Year').val() },
-        beforeSend: function () {
-            $('.loading-process').fadeIn(300);
-        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
@@ -89,19 +87,62 @@ function query() {
                 $('#data tbody').children().remove();
                 $(noInformation(10)).appendTo('#data');
             }
-
-            $('.loading-process').fadeOut(300);
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });
 }
 
+function initEventForFromDateAndToDate() {
+    $('#FromDate, #ToDate').on('change', function () {
+        var empId = parseInt($('#EmployeeId').val());
+
+        if (empId > 0) {
+            if ($('#HalfDayOff').prop('checked')) {
+                $('#ToDate').val($('#FromDate').val());
+
+                $.getJSON(_global.root + 'api/shift/GetShiftByDate',
+                    { employeeId: empId, date: $('#FromDate').val() },
+                    function (response) {
+                        if (response != null) {
+                            $('#FromTime').val(response.BeginCheckInTime);
+                            $('#FromTime').material_select();
+                            setValueforToTime();
+                            $('input[type=submit]').show();
+                        } else {
+                            $('input[type=submit]').hide();
+                        }
+                    });
+            } else {
+                $.getJSON(_global.root + 'api/employee/GetRangeDate',
+                    { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
+                    function (response) {
+                        if (response != null) {
+                            $('#TotalDays').val(response);
+                        }
+                    });
+            }
+        }
+    });
+
+    $('.calendar-icon.from-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerFromDate.open();
+    });
+
+    $('.calendar-icon.to-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerToDate.open();
+    });
+}
+
 function initCreateUpdatePage() {
-    var successed = $('#successed').val(),
-        year = $('#year').val();
+    var successed = $('#successed').val();
 
     $('#legendInfo').tipsy({
         className: 'leave-request',
@@ -115,7 +156,7 @@ function initCreateUpdatePage() {
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
                 function () {
-                    document.location = _global.root + 'Leave/EmployeeView/' + year;
+                    document.location = _global.root + 'Leave/EmployeeView/' + $('#year').val();
                 }
             );
     }
@@ -150,34 +191,7 @@ function initCreateUpdatePage() {
         }
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        var empId = parseInt($('#EmployeeId').val());
-
-        if (empId > 0) {
-            if ($('#HalfDayOff').prop('checked')) {
-                $('#ToDate').val($('#FromDate').val());
-                $.getJSON(_global.root + 'api/shift/GetShiftByDate', { employeeId: empId, date: $('#FromDate').val() },
-                        function (response) {
-                            if (response != null) {
-                                $('#FromTime').val(response.BeginCheckInTime);
-                                $('#FromTime').material_select();
-                                setValueforToTime();
-                                $('input[type=submit]').show();
-                            } else {
-                                $('input[type=submit]').hide();
-                            }
-                        });
-            } else {
-                $.getJSON(_global.root + 'api/employee/GetRangeDate',
-                        { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
-                        function (response) {
-                            if (response != null) {
-                                $('#TotalDays').val(response);
-                            }
-                        });
-            }
-        }
-    });
+    initEventForFromDateAndToDate();
 
     $('form').submit(function () {
         $('#LeaveTypeName').val($('#LeaveTypeId').find(':selected').text().trim());

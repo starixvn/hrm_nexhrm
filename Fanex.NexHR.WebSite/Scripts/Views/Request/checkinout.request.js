@@ -1,4 +1,4 @@
-﻿/*global _global: false , _messages: false, noInformation: false, zeroPrefix: false*/
+﻿/*global _global, _messages, noInformation, zeroPrefix*/
 /*exported index*/
 'use strict';
 
@@ -48,14 +48,13 @@ function getShiftByDate() {
 }
 
 function query() {
+    ajaxLoadingProcess();
+
     $.ajax({
         url: _global.root + 'CheckInOut/EmployeeView',
         type: 'POST',
         dataType: 'json',
         data: { year: $('#Year').val() },
-        beforeSend: function () {
-            $('.loading-process').fadeIn(300);
-        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
@@ -65,25 +64,52 @@ function query() {
                 $('#data tbody').children().remove();
                 $(noInformation(8)).appendTo('#data');
             }
-
-            $('.loading-process').fadeOut(300);
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });
 }
 
+function initEventPickerDate() {
+    $('.datepicker').on('change', function () {
+        var empId = parseInt($('#EmployeeId').val());
+
+        if (empId > 0) {
+            $.getJSON(_global.root + 'api/shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
+                function (data) {
+                    if (data != null) {
+                        $('#shiftname').text(data.Name);
+                        $('#Shift').val(data.Name);
+                        $('#InTime').val(data.BeginCheckInTime);
+                        $('#OutTime').val(data.BeginCheckOutTime);
+                        bindingHourAndMinute();
+                        $('input[type=submit]').show();
+                    } else {
+                        $('#shiftname').text(_messages.notAvailable);
+                        $('#Shift').val(_messages.notAvailable);
+                        $('input[type=submit]').hide();
+                    }
+                });
+        }
+    });
+
+    $('.calendar-icon').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerDate.open();
+    });
+}
+
 function initCreateUpdatePage() {
     //Process redirect to Check In/Out request.
-    var successed = $('#successed').val(),
-            year = $('#year').val();
+    var successed = $('#successed').val();
 
     if (successed === 'true') {
         if (successed === 'true') {
             confirm('Successfull!\nPress OK to continue', function () {
-                document.location = _global.root + 'checkinout/EmployeeView/' + year;
+                document.location = _global.root + 'checkinout/EmployeeView/' + $('#year').val();
             });
         }
     }
@@ -106,28 +132,7 @@ function initCreateUpdatePage() {
 
     pickerDate = initDatePicker('.datepicker');
 
-    $('.datepicker').on('change', function () {
-        var empId = parseInt($('#EmployeeId').val());
-
-        if (empId > 0) {
-            $.getJSON(_global.root + 'api/shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
-                function (data) {
-                    if (data != null) {
-                        $('#shiftname').text(data.Name);
-                        $('#Shift').val(data.Name);
-                        $('#InTime').val(data.BeginCheckInTime);
-                        $('#OutTime').val(data.BeginCheckOutTime);
-                        bindingHourAndMinute();
-                        $('input[type=submit]').show();
-                    }
-                    else {
-                        $('#shiftname').text(_messages.notAvailable);
-                        $('#Shift').val(_messages.notAvailable);
-                        $('input[type=submit]').hide();
-                    }
-                });
-        }
-    });
+    initEventPickerDate();
 
     $('form').submit(function (e) {
         if ($('#Shift').val() !== 'U1' && ($("#$('#CheckInOutType_1')_2").prop('checked'))) {

@@ -11,8 +11,8 @@ function cancelRequest(id) {
 }
 
 function processRequest(command, eventElement) {
-    var requestId = $(eventElement).attr('requestId');
-    var requestType = $("#RequestType").val();
+    var requestId = $(eventElement).attr('requestId'),
+        requestType = $("#RequestType").val();
 
     switch (command) {
         case 'edit':

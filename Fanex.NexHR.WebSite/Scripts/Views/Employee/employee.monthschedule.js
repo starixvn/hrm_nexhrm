@@ -5,8 +5,10 @@ var _event = null;
 
 function updateShiftDialog() {
     $('#dialog').dialog({
-        modal: false,
-        width: 400,
+        modal: true,
+        width: 'auto',
+        height: 230,
+        dialogClass: 'dialog-update-shift',
         title: 'Shift on ' + _event.start.format('MM/DD/YYYY'),
         open: function () {
             $('#current').text(_event.title);

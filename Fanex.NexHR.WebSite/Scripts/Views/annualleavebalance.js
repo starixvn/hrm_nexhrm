@@ -23,7 +23,7 @@ function eventAdjustment() {
             $('#insertform').dialog({
                 title: 'Adjust annual leave balance',
                 modal: true,
-                width: 450,
+                width: 'auto',
                 dialogClass: 'add-adjustment',
                 open: function () {
                     $('#TotalDays').val('');
@@ -84,7 +84,7 @@ function eventCloseBalance() {
         $('#resetform').dialog({
             title: 'Close balance for year ' + lastYear,
             modal: true,
-            width: 450,
+            width: 'auto',
             dialogClass: 'reset-balance',
             open: function () {
                 $('#TotalDays').val('');

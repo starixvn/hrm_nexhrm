@@ -368,7 +368,7 @@ a:active, a:focus {
 .datepicker-button {
   position: relative;
   width: 114px; }
-  .datepicker-button .datepicker {
+  .datepicker-button .datepicker, .datepicker-button .calendar-icon {
     cursor: pointer; }
   @media (min-width: 1900px) {
     .datepicker-button {

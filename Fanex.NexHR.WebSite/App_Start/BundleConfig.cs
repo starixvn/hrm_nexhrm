@@ -288,10 +288,6 @@
 
         private static void BuildBundleForMonthSchedule(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/monthschedulecss",
-                "~/Content/Views/employee.monthschedule.css");
-
             bundles.Add(new ScriptBundle("~/bundles/monthschedulejs").Include(
                 "~/Scripts/Views/Employee/employee.monthschedule.js"));
         }
