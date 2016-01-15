@@ -108,12 +108,19 @@
             a.c-pending, a.c-approve {
 				position: relative;
 				top: -5px;
+				left: 7px;
                 i.mdi-navigation-arrow-drop-down {
                     font-size: 2rem;
 					position: relative;
 					top: 4px;
 					left: 4px;
+					opacity: 0;
                 }
+				&:hover {
+					i.mdi-navigation-arrow-drop-down {
+						opacity: 1;
+					}
+				}
             }
         }
     }

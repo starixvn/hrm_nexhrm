@@ -820,12 +820,16 @@ a:active, a:focus {
   background: #c8c8c8; }
 .table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve {
   position: relative;
-  top: -5px; }
+  top: -5px;
+  left: 7px; }
   .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {
     font-size: 2rem;
     position: relative;
     top: 4px;
-    left: 4px; }
+    left: 4px;
+    opacity: 0; }
+  .table.table-custom tbody tr a.c-pending:hover i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve:hover i.mdi-navigation-arrow-drop-down {
+    opacity: 1; }
 .table.table-custom tfoot tr {
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2;

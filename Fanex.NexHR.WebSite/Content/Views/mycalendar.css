@@ -11,31 +11,25 @@
       font-size: 25px;
       color: #fff; }
     #calendar .fc-toolbar .fc-prev-button, #calendar .fc-toolbar .fc-next-button {
-      border: .1rem solid #c8c8c8;
-      height: 2.1em;
-      padding: 0 .6em;
-      font-size: 1em; }
+      background: #78828c;
+      padding: 0;
+      border-radius: 1px; }
       #calendar .fc-toolbar .fc-prev-button .ui-icon, #calendar .fc-toolbar .fc-next-button .ui-icon {
-        width: 1.6rem;
-        height: 1.6rem; }
-    #calendar .fc-toolbar .fc-prev-button {
-      -webkit-border-top-left-radius: 0.4rem;
-      -moz-border-top-left-radius: 0.4rem;
-      -ms-border-top-left-radius: 0.4rem;
-      border-top-left-radius: 0.4rem;
-      -webkit-border-bottom-left-radius: 0.4rem;
-      -moz-border-bottom-left-radius: 0.4rem;
-      -ms-border-bottom-left-radius: 0.4rem;
-      border-bottom-left-radius: 0.4rem; }
-    #calendar .fc-toolbar .fc-next-button {
-      -webkit-border-top-right-radius: 0.4rem;
-      -moz-border-top-right-radius: 0.4rem;
-      -ms-border-top-right-radius: 0.4rem;
-      border-top-right-radius: 0.4rem;
-      -webkit-border-bottom-right-radius: 0.4rem;
-      -moz-border-bottom-right-radius: 0.4rem;
-      -ms-border-bottom-right-radius: 0.4rem;
-      border-bottom-right-radius: 0.4rem; }
+        width: 30px;
+        height: 30px;
+        background: none;
+        text-indent: initial; }
+        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
+          width: 30px;
+          height: 30px;
+          font-family: "Material Design Icons";
+          font-size: 18px;
+          line-height: 30px;
+          color: #fff; }
+        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after {
+          content: "\f417"; }
+        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
+          content: "\f416"; }
   #calendar .fc-view-container table {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
