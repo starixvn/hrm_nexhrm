@@ -71,13 +71,14 @@ function formatTotalDays(totalDays) {
 };
 
 function query() {
-    ajaxLoadingProcess();
-
     $.ajax({
         url: _global.root + 'Leave/EmployeeView',
         type: 'POST',
         dataType: 'json',
         data: { year: $('#Year').val() },
+        beforeSend: function () {
+            $('.loading-process').fadeIn(300);
+        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
@@ -87,8 +88,11 @@ function query() {
                 $('#data tbody').children().remove();
                 $(noInformation(10)).appendTo('#data');
             }
+
+            $('.loading-process').fadeOut(300);
         },
         error: function () {
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
     });

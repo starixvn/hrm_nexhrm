@@ -1,5 +1,7 @@
-﻿/*global _global, actingButton: false, sleep: false, reloadButtonText: false, setDateTimeRange: false*/
+﻿/*global _global, actingButton, sleep, reloadButtonText, setDateTimeRange, floatThead*/
 'use strict';
+
+var pickerFromDate, pickerToDate;
 
 function processRequest(command, eventElement) {
     $.post(_global.root + 'ajax/processrequest',
@@ -56,6 +58,28 @@ function bindMenuApproved(element) {
     });
 }
 
+function initEventForFromDateAndToDate() {
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+
+    $('.calendar-icon.from-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerFromDate.open();
+    });
+
+    $('.calendar-icon.to-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerToDate.open();
+    });
+}
+
 $(document).ready(function () {
     // menu
     bindMenuPending('.Pending');
@@ -64,9 +88,6 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val());
     $('#Date').material_select();
     setDateTimeRange($('#DateOption').val());
-
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
 
     $('.viewhistory').click(function () {
         var url = $(this).attr('id');
@@ -88,11 +109,10 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        $('#Date').val('0');
-        $('#Date').material_select();
-        $('#DateOption').attr('value', '0');
-    });
+    pickerFromDate = initDatePicker('#FromDate');
+    pickerToDate = initDatePicker('#ToDate');
+
+    initEventForFromDateAndToDate();
 
     $('#submit').click(function () {
         actingButton('#submit', true);

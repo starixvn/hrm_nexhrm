@@ -1,8 +1,8 @@
-﻿/*global _global, setDateTimeRange*/
+﻿/*global _global, setDateTimeRange, initDatePicker, floatThead*/
 /*exported index, formatTotalDays*/
 'use strict';
 
-var rowIndex = 1;
+var rowIndex = 1, pickerFromDate, pickerToDate;
 
 function index() {
     return rowIndex++;
@@ -12,16 +12,17 @@ function formatTotalDays(totalDays) {
     return totalDays.toFixed(1);
 };
 
-function query(isFirstLoad) {
+function query() {
     var action = $('.form form').attr('action').split('/');
-
-    ajaxLoadingProcess();
 
     $.ajax({
         url: _global.root + 'report/' + action[action.length - 1],
         type: 'POST',
         dataType: 'json',
         data: $('.form form').serialize(),
+        beforeSend: function () {
+            $('.loading-process').fadeIn(300);
+        },
         success: function (response) {
             if (response.data.length > 0) {
                 rowIndex = 1;
@@ -41,13 +42,35 @@ function query(isFirstLoad) {
                 $(noInformation(10)).appendTo('#data');
             }
 
-            if (isFirstLoad) {
-                floatThead('table#data');
-            }
+            $('.loading-process').fadeOut(300);
+            floatThead('table#data');
         },
         error: function () {
+            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
         }
+    });
+}
+
+function initEventForFromDateAndToDate() {
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+
+    $('.calendar-icon.from-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerFromDate.open();
+    });
+
+    $('.calendar-icon.to-date').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        pickerToDate.open();
     });
 }
 
@@ -56,26 +79,22 @@ $(document).ready(function () {
     $('#Date').material_select();
     setDateTimeRange($('#DateOption').val());
 
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
-
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());
         $('#DateOption').attr('value', $(this).val());
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        $('#Date').val('0');
-        $('#Date').material_select();
-        $('#DateOption').attr('value', '0');
-    });
+    pickerFromDate = initDatePicker('#FromDate');
+    pickerToDate = initDatePicker('#ToDate');
+
+    initEventForFromDateAndToDate();
 
     $('#submit').click(function () {
         fromDate = $("#FromDate").val();
         toDate = $("#ToDate").val();
 
-        query(false);
+        query();
     });
 
-    query(true);
+    query();
 });

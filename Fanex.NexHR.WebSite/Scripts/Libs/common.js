@@ -563,12 +563,12 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el){
-    $(el).floatThead('destroy');
-
     $(el).floatThead({
         top: 64,
         zIndex: 888
     });
+
+    $('table#data').floatThead('reflow');
 }
 
 function ajaxLoadingProcess() {

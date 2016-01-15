@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                    <i class="mdi-action-event calendar-icon from-date left"></i>
                                 </div>
                             </div>
                             <div class="col">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                    <i class="mdi-action-event calendar-icon to-date left"></i>
                                 </div>
                             </div>
                             <div class="col">
