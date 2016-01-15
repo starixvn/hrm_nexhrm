@@ -819,16 +819,18 @@ a:active, a:focus {
 .table.table-custom tbody tr.disabled {
   background: #c8c8c8; }
 .table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve {
-  position: relative;
-  top: -5px;
-  left: 7px; }
+  position: relative; }
   .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {
-    font-size: 2rem;
-    position: relative;
-    top: 4px;
-    left: 4px;
+    display: none; }
+  .table.table-custom tbody tr a.c-pending:after, .table.table-custom tbody tr a.c-approve:after {
+    font-family: "Material Design Icons";
+    font-size: 19px;
+    content: "\f415";
+    position: absolute;
+    right: -22px;
+    top: -4px;
     opacity: 0; }
-  .table.table-custom tbody tr a.c-pending:hover i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve:hover i.mdi-navigation-arrow-drop-down {
+  .table.table-custom tbody tr a.c-pending:hover:after, .table.table-custom tbody tr a.c-approve:hover:after {
     opacity: 1; }
 .table.table-custom tfoot tr {
   border-left: 1px solid #d2d2d2;
