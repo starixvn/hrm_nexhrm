@@ -60,14 +60,14 @@
                     }
                     <div id="datatable_length" class="row m-b--m hide">
                         <div class="col">
-                            <div class="left label--s">
-                                <label>Show</label>
+                            <div class="inline label--s">
+                                <span>Show</span>
                             </div>
-                            <div class="left select--xs m-r--s">
+                            <div class="inline select--xs m-r--s">
                                 @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
                             </div>
-                            <div class="left label--m">
-                                <label>entries</label>
+                            <div class="inline label--m">
+                                <span>entries</span>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
         <tfoot>
             <tr>
                 <td colspan="6" id="pagination" class="row form-input">
-                    <div id="detailtext" class="col"></div>
+                    <div id="detailtext" class="col m-t--s"></div>
                     <div class="right">
                         <ul id="numberlist" class="pagination"></ul>
                     </div>

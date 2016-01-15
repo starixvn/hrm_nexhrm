@@ -243,9 +243,14 @@ table {
       padding: 4px 2px;
       width: 30px;
       @extend %boxshadow;
-      &.active {
-        background: #78828b;
-      }
+	  &.page {
+			box-shadow: none;
+		  &.active {
+			background: #78828b;
+			@extend %boxshadow;
+		  }
+	  }
+      
 	  &.prev, &.next {
 		background: rgba(120, 130, 139, 1);		
 
@@ -310,9 +315,7 @@ table.data thead tr:nth-child(even) {
     
 }
 
-#pagination {
-	.browser-default {
-		border: 1px solid #d0d0d0;
-		box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-	}
+.browser-default {
+	border: 1px solid #d0d0d0;
+	box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
 }

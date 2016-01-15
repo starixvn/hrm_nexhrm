@@ -6,7 +6,7 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, .datetime-picker, table .pagination li {
+.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, .datetime-picker, table .pagination li, table .pagination li.page.active {
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
@@ -58,6 +58,9 @@ main {
 
 .content {
   padding-top: 10px; }
+
+.inline {
+  display: inline-block; }
 
 .validation-summary-errors {
   margin: 1rem 4rem 1.6rem 0.8rem;
@@ -901,8 +904,10 @@ table .pagination {
     margin: 0 3px;
     padding: 4px 2px;
     width: 30px; }
-    table .pagination li.active {
-      background: #78828b; }
+    table .pagination li.page {
+      box-shadow: none; }
+      table .pagination li.page.active {
+        background: #78828b; }
     table .pagination li.prev, table .pagination li.next {
       background: #78828b; }
       table .pagination li.prev .mdi-image-navigate-next, table .pagination li.prev .mdi-image-navigate-before, table .pagination li.next .mdi-image-navigate-next, table .pagination li.next .mdi-image-navigate-before {
@@ -941,7 +946,7 @@ table.data thead tr:nth-child(even) {
     border-left: none;
     border-right: none; }
 
-#pagination .browser-default {
+.browser-default {
   border: 1px solid #d0d0d0;
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
 
