@@ -406,7 +406,7 @@
                                     @Html.ValidationMessageFor(model => model.Mariage)
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="col">
                                     <div class="left label--xl">
                                         @Html.LabelFor(model => model.PassportNo, Labels.PassportNo)
@@ -438,7 +438,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="col">
                                     <div class="left label--xl">
                                         <label>@Labels.WorkingCalendar</label>
@@ -449,7 +449,7 @@
                                 </div>
                             </div>
                             <!--TOEIC score-->
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="col">
                                    <div class="left label--xl">
                                         <label>@Labels.ToeicScore</label>
@@ -493,7 +493,7 @@
                                 </div>
                             </div>
                             <!--End of TOEIC score-->
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="col m-r--m">
                                     <div class="left label--xl">
                                         @Html.LabelFor(model => model.Enabled)
@@ -506,12 +506,12 @@
                                     @Html.ValidationMessageFor(model => model.Enabled)
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="col">
                                     @Html.AntiForgeryToken()
                                     @Html.HiddenFor(model => model.Id)
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2 m-r--m"><input type="submit" value="Save" /></span>
-                                    <span class="button-hrm waves-effect waves-light btn red darken-1"><input type="button" id="delete" value="Delete?" /></span>
+                                    <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="Save" />
+                                    <input class="btn-delete waves-effect waves-light" type="button" id="delete" value="Delete?" />
                                 </div>
                             </div>
                         </div>
