@@ -137,8 +137,8 @@
         <td>${WorkingDay}</td>
         <td>${ActualWorkingDay}</td>
         <td>${PaidLeave.toFixed(1)}</td>
-        <td id="unpaidLeave">                   
-            {{if isHR && UnpaidLeave > 0}}
+        <td id="unpaidLeave">     
+            {{if isHR }}     
                 <form id="form" style="display:none;">
                     <input type="type" class="DateOption" id="DateOption" name="DateOption"/>
                     <input type="type" class="FromDate" id="FromDate" name="FromDate" />
@@ -150,7 +150,9 @@
                     <input type="type" id="RequestType" name="RequestType" value="1" />
                     <input type="type" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />     
                     <input type="type" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26"/>                         
-                </form>
+                </form>       
+            {{/if}}                          
+            {{if isHR && UnpaidLeave > 0}}                
                 <a class="UnpaidLeave" href="javascript:;">
                     ${UnpaidLeave.toFixed(1)}
                 </a>

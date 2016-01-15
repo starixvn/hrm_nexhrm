@@ -28,22 +28,6 @@ $("#Date").change(function () {
     $("#ToDate").change();    
 });
 
-$("#FromDate").change(function () {
-    $(".FromDate").val($("#FromDate").val());    
-});
-
-$("#ToDate").change(function () {
-    $(".ToDate").val($("#ToDate").val());
-});
-
-$("#TeamId").change(function () {
-    $(".TeamId").val($("#TeamId").val());
-});
-
-$("form").submit(function (e) {
-    validateDate(e);
-});
-
 $(document).ready(function () {
     initDatePicker("#FromDate");
     initDatePicker("#ToDate");
@@ -58,7 +42,24 @@ $(document).ready(function () {
 
     $('#btnExport').click(function () {
         document.location = _global.root + "report/ExportExcel?" + $("#form").serialize();
-    });    
+    });
+
+    $("#FromDate").change(function () {
+        $(".FromDate").val($("#FromDate").val());
+    });
+
+    $("#ToDate").change(function () {
+        $(".ToDate").val($("#ToDate").val());
+    });
+
+    $("#TeamId").change(function () {
+        $(".TeamId").val($("#TeamId").val());
+    });
+
+    $("form").submit(function (e) {
+        validateDate(e);
+    });
+
 });
 
 function query() {
