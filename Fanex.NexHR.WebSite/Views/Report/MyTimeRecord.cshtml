@@ -84,19 +84,19 @@
     <table>
         <tfoot>
             <tr>
-                <td colspan="6" id="pagination" class="row">
-                    <div class="col">
+                <td colspan="6" id="pagination" class="row form-input">                    
+                    <div class="col left m-t--s">
                         <div class="left label--m">
                             <label>Page size</label>
                         </div>
-                        <div class="left">
+                        <div class="left select--xs">
                             @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
                         </div>
-                        <div class="left">
-                            <ul id="numberlist" class="pagination"></ul>
-                        </div>
                     </div>
-                    <div id="detailtext" class="col right">
+                    <div class="col right">
+                        <ul id="numberlist" class="pagination"></ul>
+                    </div>
+                    <div id="detailtext" class="col">
                     </div>
                 </td>
             </tr>

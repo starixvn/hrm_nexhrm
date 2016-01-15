@@ -243,8 +243,20 @@ table {
       width: 30px;
       @extend %boxshadow;
       &.active {
-        background: $color-second;
+        background: #78828b;
       }
+	  &.prev, &.next {
+		background: rgba(120, 130, 139, 1);		
+
+		.mdi-image-navigate-next, .mdi-image-navigate-before {
+			color: #fff;
+			font-size: 18px;
+		}
+
+		&.disabled {
+			background: rgba(120, 130, 139, 0.6);
+		}
+	  }
     }
 
     &.right p {
@@ -295,4 +307,14 @@ table.data thead tr:nth-child(even) {
         border-right: none;
     }
     
+}
+
+#pagination {
+	#detailtext {
+		display: none;
+	}
+	.browser-default {
+		border: 1px solid #d0d0d0;
+		box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+	}
 }
