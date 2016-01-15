@@ -892,7 +892,8 @@ table .run {
   table .run i {
     color: #303f4d; }
 table .pagination {
-  margin: 7px 1.6rem 0 10px; }
+  margin: 7px 0.5rem 0 10px;
+  overflow: hidden; }
   table .pagination li {
     float: left;
     height: 30px;

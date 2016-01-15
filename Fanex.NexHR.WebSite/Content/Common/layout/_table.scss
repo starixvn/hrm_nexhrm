@@ -232,7 +232,8 @@ table {
   } 
 
   .pagination {
-    margin: 7px 1.6rem 0 10px;
+    margin: 7px 0.5rem 0 10px;
+	overflow: hidden;
 
     li {
       float: left;
