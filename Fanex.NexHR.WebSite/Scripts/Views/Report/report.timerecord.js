@@ -53,18 +53,10 @@ function fillData(response) {
         }
     });
 
-    $('#data #pagination #ItemsPerPage').val(response.pagerOption.ItemsPerPage);
-
     var from = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1,
-    to = from + response.data.length - 1;
-    var detailtext = 'Displaying <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.pagerOption.TotalItem + '</strong> item(s)';
+        to = from + response.data.length - 1;
+    var detailtext = 'Showing <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.pagerOption.TotalItem + '</strong> entries';
     $('#data #pagination #detailtext').html(detailtext);
-
-    $('#data #pagination #ItemsPerPage').on('change', function () {
-        $('#form #ItemsPerPage').val($('#data #pagination #ItemsPerPage').val());
-        $('#form #CurrentPage').val(1);
-        query();
-    });
 }
 
 function query() {
@@ -81,8 +73,10 @@ function query() {
             $('#data tfoot').children().remove();
 
             if (response.data.length > 0) {
+                $('#datatable_length').removeClass('hide');
                 fillData(response);
             } else {
+                $('#datatable_length').removeClass('hide').addClass('hide');
                 $(noInformation(6)).appendTo('#data');
             }
 
@@ -182,6 +176,12 @@ $(document).ready(function () {
     initDatePicker('#ToDate');
 
     $('#submit').on('click', function () {
+        $('#form #CurrentPage').val(1);
+        query();
+    });
+
+    $('#datatable_length #ItemsPerPage').on('change', function () {
+        $('#form #ItemsPerPage').val($(this).val());
         $('#form #CurrentPage').val(1);
         query();
     });

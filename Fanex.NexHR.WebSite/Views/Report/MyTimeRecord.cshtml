@@ -58,6 +58,19 @@
                         </div>
                     </div>
                     }
+                    <div id="datatable_length" class="row m-b--m hide">
+                        <div class="col">
+                            <div class="left label--s">
+                                <label>Show</label>
+                            </div>
+                            <div class="left select--xs m-r--s">
+                                @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
+                            </div>
+                            <div class="left label--m">
+                                <label>entries</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
@@ -84,19 +97,10 @@
     <table>
         <tfoot>
             <tr>
-                <td colspan="6" id="pagination" class="row form-input">                    
-                    <div class="col left m-t--s">
-                        <div class="left label--m">
-                            <label>Page size</label>
-                        </div>
-                        <div class="left select--xs">
-                            @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
-                        </div>
-                    </div>
+                <td colspan="6" id="pagination" class="row form-input">
+                    <div id="detailtext" class="col"></div>
                     <div class="col right">
                         <ul id="numberlist" class="pagination"></ul>
-                    </div>
-                    <div id="detailtext" class="col">
                     </div>
                 </td>
             </tr>
