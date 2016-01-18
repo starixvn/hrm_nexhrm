@@ -385,7 +385,7 @@ namespace Fanex.NexHR.Controllers
             {
                 EmpId = this.CurrentUser.Id
             };
-            var model = _employeeService.GetMySpace(getMySpaceCriteria);
+            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);            
 
             return View(model);
         }

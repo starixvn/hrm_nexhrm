@@ -479,5 +479,20 @@ namespace Fanex.NexHR.ViewModels
                 return displayValue;
             }
         }
+
+        public string ToTalWorkingHoursToday
+        {
+            get 
+            {
+                string displayValue = "-";
+                if (CheckInTime != null)
+                {
+                    TimeSpan hourWorking = DateTime.Now - CheckInTime;
+                    
+                }
+
+                return displayValue;
+            }
+        }
     }
 }
