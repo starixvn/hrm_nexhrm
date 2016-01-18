@@ -181,7 +181,11 @@
 //            DATE TIME PICKER
 //---------------------------------------------
 
-.datetime-picker {    
+#ui-datepicker-div {
+    z-index: 1002 !important;
+}
+
+.datetime-picker {
   @extend %boxshadow;
   margin-right: 9px;
   margin-top: 0;

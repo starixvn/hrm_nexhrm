@@ -2,8 +2,7 @@
 /*exported index*/
 'use strict';
 
-var pickerDate,
-    rowIndex = 1;
+var rowIndex = 1;
 
 function index() {
     return rowIndex++;
@@ -76,7 +75,7 @@ function query() {
 }
 
 function initEventPickerDate() {
-    $('.datepicker').on('change', function () {
+    $('#ForDate').on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
 
         if (empId > 0) {
@@ -96,13 +95,6 @@ function initEventPickerDate() {
                     }
                 });
         }
-    });
-
-    $('.calendar-icon').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerDate.open();
     });
 }
 
@@ -134,7 +126,7 @@ function initCreateUpdatePage() {
         }
     });
 
-    pickerDate = initDatePicker('.datepicker');
+    initDatePicker('#ForDate');
 
     initEventPickerDate();
 

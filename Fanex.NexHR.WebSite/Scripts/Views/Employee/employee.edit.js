@@ -318,8 +318,9 @@ $(document).ready(function () {
     });
 
     $('input[name=SubGroupArray]').on('change', function () {
-        var id = $(this).val();
-        var teamId = $('#Team_Id').val();
+        var id = $(this).val(),
+            teamId = $('#Team_Id').val();
+
         if (id === teamId) {
             $(this).prop('checked', false);
         }
@@ -330,8 +331,8 @@ $(document).ready(function () {
     });
 
     $('input[name=LeaderGroupsArray]').on('change', function () {
-        var id = $(this).val();
-        var teamId = $('#Team_Id').val();
+        var id = $(this).val(),
+            teamId = $('#Team_Id').val();
 
         if (id !== teamId && $('#SubGroupArray' + id).prop('checked') === false) {
             $(this).prop('checked', false);
@@ -407,8 +408,7 @@ $(document).ready(function () {
     $('#showHideMap').on('click', function () {
         if ($('#geolocationMap').is(':visible')) {
             $('#geolocationMap').hide();
-        }
-        else {
+        } else {
             $('#geolocationMap').show();
 
             $('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);

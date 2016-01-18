@@ -1,8 +1,6 @@
 ﻿/*global _global, actingButton, sleep, reloadButtonText, setDateTimeRange, floatThead*/
 'use strict';
 
-var pickerFromDate, pickerToDate;
-
 function processRequest(command, eventElement) {
     $.post(_global.root + 'ajax/processrequest',
     { command: command, id: $(eventElement).attr('requestId') },
@@ -64,20 +62,6 @@ function initEventForFromDateAndToDate() {
         $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
-
-    $('.calendar-icon.from-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerFromDate.open();
-    });
-
-    $('.calendar-icon.to-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerToDate.open();
-    });
 }
 
 $(document).ready(function () {
@@ -109,8 +93,8 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    pickerFromDate = initDatePicker('#FromDate');
-    pickerToDate = initDatePicker('#ToDate');
+    initDatePicker('#FromDate');
+    initDatePicker('#ToDate');
 
     initEventForFromDateAndToDate();
 

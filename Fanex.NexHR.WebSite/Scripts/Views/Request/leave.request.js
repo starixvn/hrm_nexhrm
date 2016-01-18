@@ -2,8 +2,7 @@
 /*exported index, formatTotalDays*/
 'use strict';
 
-var pickerFromDate, pickerToDate,
-    rowIndex = 1;
+var rowIndex = 1;
 
 function index() {
     return rowIndex++;
@@ -33,10 +32,10 @@ function enableControlforHalfday() {
     if ($('#HalfDayOff').prop('checked')) {
         $('#ToDate').val($('#FromDate').val());
         $('.time').removeClass('hide');
-        pickerToDate.stop();
+        $('#ToDate').prop('readonly', true).datepicker('disable').prop('disabled', false);
     } else {
         $('.time').addClass('hide');
-        pickerToDate = initDatePicker('#ToDate');
+        $('#ToDate').prop('readonly', false).datepicker('enable');
     }
 }
 
@@ -129,20 +128,6 @@ function initEventForFromDateAndToDate() {
             }
         }
     });
-
-    $('.calendar-icon.from-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerFromDate.open();
-    });
-
-    $('.calendar-icon.to-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerToDate.open();
-    });
 }
 
 function initCreateUpdatePage() {
@@ -167,8 +152,8 @@ function initCreateUpdatePage() {
 
     $('#TotalDays').prop('readonly', true);
 
-    pickerFromDate = initDatePicker('#FromDate');
-    pickerToDate = initDatePicker('#ToDate');
+    initDatePicker('#FromDate');
+    initDatePicker('#ToDate');
 
     enableControlforHalfday();
 
@@ -187,8 +172,6 @@ function initCreateUpdatePage() {
                 function (response) {
                     if (response != null) {
                         $('#FromDate, #ToDate').attr('disableddate', response.join(','));
-                        pickerFromDate.render();
-                        pickerToDate.render();
                     }
                 }
             );

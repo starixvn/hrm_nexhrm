@@ -94,20 +94,6 @@ function initEventForFromDateAndToDate() {
         $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
-
-    $('.calendar-icon.from-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerFromDate.open();
-    });
-
-    $('.calendar-icon.to-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerToDate.open();
-    });
 }
 
 $(document).ready(function () {
@@ -124,8 +110,8 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val());
     setDateTimeRange($('#DateOption').val());
 
-    pickerFromDate = initDatePicker('#FromDate');
-    pickerToDate = initDatePicker('#ToDate');
+    initDatePicker('#FromDate');
+    initDatePicker('#ToDate');
 
     initEventForFromDateAndToDate();
 

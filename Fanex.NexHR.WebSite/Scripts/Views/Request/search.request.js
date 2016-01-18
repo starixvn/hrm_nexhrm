@@ -49,17 +49,16 @@ $(document).ready(function () {
                             switch (forRequest) {
                                 case 0: // leave
                                     $("#FromDate, #ToDate").attr("disableddate", response.join(","));
-                                    pickerFromDate = initDatePicker('#FromDate');
-                                    pickerToDate = initDatePicker('#ToDate');
+                                    $("#FromDate, #ToDate").change();
                                     break;
                                 case 1: // late in early out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate = initDatePicker('.datepicker');
+                                    $("#ForDate").change();
                                     shiftChange();
                                     break;
                                 case 2: // check in out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate = initDatePicker('.datepicker');
+                                    $("#ForDate").change();
                                     break;
                             }
                         }

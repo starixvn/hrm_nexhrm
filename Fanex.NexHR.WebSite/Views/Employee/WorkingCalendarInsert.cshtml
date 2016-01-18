@@ -5,7 +5,7 @@
 <form class="form">
 <div class="row form-input">
     <div class="left label--m">
-        @Html.LabelFor(model => model.FromDate)
+        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
     </div>
     <div class="left datepicker-button select--s">
         @Html.DatePickerFor(model => model.FromDate)
@@ -14,7 +14,7 @@
 </div>
 <div class="row form-input">
     <div class="left label--m">
-        @Html.LabelFor(model => model.ToDate)
+        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
     </div>
     <div class="left datepicker-button select--s">
         @Html.DatePickerFor(model => model.ToDate)

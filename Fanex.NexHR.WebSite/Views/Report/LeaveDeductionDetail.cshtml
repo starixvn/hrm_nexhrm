@@ -90,32 +90,21 @@
                         </div>
                     }
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight table-custom centered">
+                        <table class="data table bordered striped highlight table-custom centered">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>@Labels.Name
-                                    </th>
-                                    <th>@Labels.Nick
-                                    </th>
-                                    <th>@Labels.Team
-                                    </th>
-                                    <th>@Labels.DeductDate
-                                    </th>
-                                    <th>@Labels.Type
-                                    </th>
-                                    <th>@Labels.Days
-                                    </th>
-                                    <th>@Labels.Note
-                                    </th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.DeductDate</th>
+                                    <th>@Labels.Type</th>
+                                    <th>@Labels.Days</th>
+                                    <th>@Labels.Note</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th>@Labels.Edit
-                                        </th>
-                                        <th>@Labels.Delete
-                                        </th>
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
                                     }
                                 </tr>
                             </thead>
@@ -126,34 +115,31 @@
                                     @foreach (LeaveDeductionDetail item in Model.LeaveDeductions)
                                     {
                                         <tr>
-                                            <td>@(index++)
+                                            <td>@(index++)</td>
+                                            <td class="align-left">@item.Employee.FullName</td>
+                                            <td>@item.Employee.NickName</td>
+                                            <td>@item.Employee.Team.Code</td>
+                                            <td class="deductdate">
+                                                @item.DeductDate.ToDateMonthYearFormatedDate()
                                             </td>
-                                            <td class="align-left">@item.Employee.FullName
+                                            <td>
+                                                @(item.IsAnnual ? Labels.AnnualLeave : Labels.UnpaidLeave)
                                             </td>
-                                            <td>@item.Employee.NickName
-                                            </td>
-                                            <td>@item.Employee.Team.Code
-                                            </td>
-                                            <td class="deductdate">@item.DeductDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            <td>@(item.IsAnnual ? Labels.AnnualLeave : Labels.UnpaidLeave)
-                                            </td>
-                                            <td>@(item.LeaveDays.ToString("0.0"))
-                                            </td>
-                                            <td class="description">@item.Description
-                                            </td>
+                                            <td>@(item.LeaveDays.ToString("0.0"))</td>
+                                            <td class="description">@item.Description</td>
                                             @if (Roles.IsUserInRole("HR"))
                                             {
                                                 <td>
                                                     <a href="javascript:;" class="editLeaveDeduction"
-                        data-id="@item.LeaveDeductionId" data-leavedays="@item.LeaveDays" data-isannual="@item.IsAnnual"
-                        data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()"><i class="mdi mdi-border-color mdi-dark">
-                        </i></a>
+                                                        data-id="@item.LeaveDeductionId" data-leavedays="@item.LeaveDays" data-isannual="@item.IsAnnual"
+                                                        data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()">
+                                                        <i class="mdi mdi-border-color mdi-dark"></i>
+                                                    </a>
                                                 </td>
-
                                                 <td>
                                                     <a href="javascript:;" class="deleteLeaveDeduction" data-id="@item.LeaveDeductionId">
-                                                        <i class="mdi mdi-delete mdi-dark"></i></a>
+                                                        <i class="mdi mdi-delete mdi-dark"></i>
+                                                    </a>
                                                 </td>
                                             }
                                         </tr>

@@ -2,7 +2,7 @@
 /*exported index, formatTotalDays*/
 'use strict';
 
-var rowIndex = 1, pickerFromDate, pickerToDate;
+var rowIndex = 1;
 
 function index() {
     return rowIndex++;
@@ -58,20 +58,6 @@ function initEventForFromDateAndToDate() {
         $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
-
-    $('.calendar-icon.from-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerFromDate.open();
-    });
-
-    $('.calendar-icon.to-date').on('click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        pickerToDate.open();
-    });
 }
 
 $(document).ready(function () {
@@ -84,8 +70,8 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    pickerFromDate = initDatePicker('#FromDate');
-    pickerToDate = initDatePicker('#ToDate');
+    initDatePicker('#FromDate');
+    initDatePicker('#ToDate');
 
     initEventForFromDateAndToDate();
 

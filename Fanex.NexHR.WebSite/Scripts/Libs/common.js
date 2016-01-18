@@ -77,12 +77,28 @@ function confirm(message, callback, options) {
 }
 
 function initDatePicker(el) {
-    var $input = $(el).pickadate({
-            selectMonths: true,
-            selectYears: true,
-            showMonthsShort: true
-        }),
-        picker = $input.pickadate('picker');
+    $(el).datepicker({
+            dateFormat: "dd M, yy",
+            changeMonth: true,
+            changeYear: true,
+            beforeShowDay: function(mydate) {
+                var isEnable = true,
+                    disabledDates = $(el).attr('disabledDate'),
+                    badDates = disabledDates.split(","),
+                    checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
+
+                for (var i = 0; i < badDates.length; i++) {
+                    var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
+
+                    if (date == checkdate) {
+                        isEnable = false;
+                    }
+                }
+
+                return [isEnable];
+            },
+            showAnim: 'blind'
+        });
 
     // get minDate, maxDate, disabledDates
     var mindate = $(el).attr('mindate'),
@@ -91,27 +107,22 @@ function initDatePicker(el) {
 
     if (mindate !== 'null' && mindate !== undefined) {
         mindate = mindate.split('/');
-        picker.set('min', new Date(mindate[0], mindate[1] - 1, mindate[2]));
+        $(el).datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
     }
 
     if (maxdate !== 'null' && maxdate !== undefined) {
         maxdate = maxdate.split('/');
-        picker.set('max', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+        $(el).datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
     }
 
-    if (disabledDates !== undefined && disabledDates.length > 0) {
-        var disabledDays = [],
-            disabledDates = disabledDates.split(',');
+    $(el).closest('.datepicker-button').find('.calendar-icon').on('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
 
-        $.each(disabledDates, function (index, disabledDate) {
-            var date = $.format.date(new Date(disabledDate), 'yyyy/MM/dd').split('/');
-            disabledDays.push(new Date(date[0], date[1] - 1, date[2]));
-        });
-
-        picker.set('disable', disabledDays);
-    }
-
-    return picker;
+        if (!$(el).datepicker('widget').is(':visible')) {
+            $(el).datepicker('show');
+        }
+    });
 }
 
 function setDateTimeRange(selectedIndex) {

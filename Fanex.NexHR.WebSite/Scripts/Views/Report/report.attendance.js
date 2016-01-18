@@ -151,7 +151,8 @@ $(document).ready(function () {
             '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
     });
 
-    initDatePicker('.datepicker');
+    initDatePicker('#FromDate');
+    initDatePicker('#ToDate');
 
     view();
 });

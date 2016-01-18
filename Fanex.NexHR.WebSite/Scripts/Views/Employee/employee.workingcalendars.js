@@ -38,7 +38,8 @@ $(document).ready(function () {
             width: 410,
             height: 300,
             open: function () {
-                initDatePicker(".datepicker");
+                initDatePicker('#FromDate');
+                initDatePicker('#ToDate');
             }
         });
     });
