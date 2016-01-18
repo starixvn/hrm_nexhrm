@@ -148,8 +148,12 @@ main {
 
 .field-validation-error {
 	position: relative;
-	font-size: 12px;
+	font-size: 13px;
 	color: $c-idel--hover;
+}
+
+.input-validation-error {
+	border: 1px solid $c-idel--hover !important;
 }
 
 #confirm {
