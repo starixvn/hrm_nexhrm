@@ -107,10 +107,10 @@ main {
 .field-validation-error {
   position: relative;
   font-size: 13px;
-  color: #ff0909; }
+  color: #ff0a09; }
 
 .input-validation-error {
-  border: 1px solid #ff0909 !important; }
+  border: 1px solid #ff0a09 !important; }
 
 #confirm {
   text-align: center !important; }
@@ -478,7 +478,7 @@ a:active, a:focus {
   color: #fc9715; }
 
 .mdi-delete:hover {
-  color: #ff0909; }
+  color: #ff0a09; }
 .mdi-delete.mdi-disabled {
   color: rgba(0, 0, 0, 0.2);
   cursor: default; }
@@ -491,7 +491,7 @@ a:active, a:focus {
 .mdi-action-highlight-remove {
   font-weight: 500; }
   .mdi-action-highlight-remove:hover {
-    color: #ff0909; }
+    color: #ff0a09; }
 
 .form {
   margin-top: 16px;
@@ -593,7 +593,8 @@ a:active, a:focus {
   border: 1px solid #d0d0d0;
   position: none !important;
   visibility: unset !important;
-  left: unset !important; }
+  left: unset !important;
+  border-radius: 2px; }
 .form-input label {
   margin-top: 5px;
   display: block;
