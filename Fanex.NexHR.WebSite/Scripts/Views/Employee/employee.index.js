@@ -32,7 +32,9 @@ function query() {
                     gravity: $.fn.tipsy.autoNS,
                     html: true,
                     title: function () {
-                        return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
+                        var src = _global.root + 'employee/avatar/' + $(this).attr('data-code');
+
+                        return '<img src="' + src + '" />';
                     }
                 });
             } else {

@@ -206,12 +206,12 @@ function upload() {
 function initDialog(divContent) {
     divContent.dialog({
         modal: true,
-        width: 500,
+        width: 'auto',
         buttons: [
             {
                 text: 'Submit',
-                class: 'btn-submit waves-effect waves-light',
-                click: function() {
+                class: 'btn-submit waves-effect waves-light m-r--m',
+                click: function () {
                     $.ajax({
                         type: 'POST',
                         url: _global.root + 'toeic/updatefulltoeic',
@@ -248,29 +248,36 @@ function initDialog(divContent) {
             {
                 text: 'Close',
                 class: 'btn-cancel waves-effect waves-light',
-                click: function() {
+                click: function () {
                     $(this).dialog('close');
-                    return false;
                 }
             }
-        ]
+        ],
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
     });
 }
 
 function initNumberTextbox() {
     var numbericTextbox = $('#frmUpdFullTOEIC input[type=number]');
+
     numbericTextbox.attr('maxlength', '3');
     numbericTextbox.keydown(function (event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-        // Allow: Ctrl+A
+            // Allow: Ctrl+A
             (event.keyCode === 65 && event.ctrlKey === true) ||
-        // Allow: home, end, left, right
+            // Allow: home, end, left, right
             (event.keyCode >= 35 && event.keyCode <= 39)) {
             // let it happen, don't do anything
             return;
-        }
-        else {
+        } else {
             // Ensure that it is a number and stop the keypress
             if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
@@ -356,14 +363,14 @@ $(document).ready(function () {
             }
 
             $.post(_global.root + 'ajax/DeleteEmployee',
-			{ id: $('#Id').val(), resignedDate: resignedDate },
-			function (response) {
-			    if (response) {
-			        document.location = '/employee/usermanagement';
-			    } else {
-			        alert(_messages.errorTryAgain);
-			    }
-			}).error(function () { alert(_messages.errorTryAgain); });
+            { id: $('#Id').val(), resignedDate: resignedDate },
+            function (response) {
+                if (response) {
+                    document.location = '/employee/usermanagement';
+                } else {
+                    alert(_messages.errorTryAgain);
+                }
+            }).error(function () { alert(_messages.errorTryAgain); });
         });
     });
 
