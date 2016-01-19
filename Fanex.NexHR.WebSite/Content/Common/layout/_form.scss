@@ -181,35 +181,116 @@
 //            DATE TIME PICKER
 //---------------------------------------------
 
+
 #ui-datepicker-div {
     z-index: 1002 !important;
+	padding: 0;
+	width: 300px;
+	border: none;
+	@extend %boxshadow;
+
 	select {
 		display: inline-block !important;
+		width: 40%;
+		margin: 1px 8px;
 	}
+
 	.ui-icon {
-                    width: 30px;
-                    height: 30px;
-                    background: none;
-                    text-indent: initial;
+        width: 30px;
+        height: 30px;
+        background: none;
+        text-indent: initial;		
 
-                    &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {                       
-                        width: 30px;
-						height: 30px;
-                        font-family: "Material Design Icons";
-                        font-size: 18px;
-						line-height: 30px;
+        &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {                       
+            width: 30px;
+			height: 30px;
+            font-family: "Material Design Icons";
+            font-size: 20px;
+			color: #fff;
+			line-height: 30px;						
+			padding-left: 5px;
+        }
+
+        &.ui-icon-circle-triangle-e:after {
+            content: "\f417";
+        }
+
+        &.ui-icon-circle-triangle-w:after {
+            content: "\f416";
+        }
+    }
+
+	.ui-datepicker-prev, .ui-datepicker-next {
+		width: 30px;
+        height: 30px;
+		background: #78828c;
+		top: inherit;
+		border-radius: 1px;
+
+		span {
+			display: inherit;
+			position: inherit;
+			left: 0;
+			margin-left: 0;
+			top: inherit;
+			margin-top: 0;
+			
+		}
+	}
+
+	.ui-datepicker-prev {
+		left: 13px;
+		&-hover {
+			left: 13px;		
+		}
+	}
+
+	.ui-datepicker-next {
+		right: 13px;
+		&-hover {
+			right: 13px;
+		}
+	}
+	
+	.ui-datepicker-header {
+		padding: 10px 15px;
+		background: #343b4d;
+	}
+
+	.ui-datepicker-calendar {
+		table {
+			margin: .5rem 0 .5rem;
+		}
+		thead {
+			border: none;
+			th {
+				color: $c-primary;
+			}
+		}
+		tbody {
+			td {
+				padding: .7em .3em;
+				border-radius: 2px;
+				span, a {
+					padding: 0;
+					text-align: center;
+				}
+
+				&.ui-datepicker-today {
+					background: $c-primary;
+					a {
+						background: none;
+						border: none;
 						color: #fff;
-						padding-left: 6px;
-                    }
+					}
+				}
+			}
+		}
+	}
+}
 
-                    &.ui-icon-circle-triangle-e:after {
-                        content: "\f417";
-                    }
-
-                    &.ui-icon-circle-triangle-w:after {
-                        content: "\f416";
-                    }
-                }
+.ui-datepicker table {
+   margin: .5em 0 .5em !important;
 }
 
 .datetime-picker {
@@ -218,6 +299,7 @@
   margin-top: 0;
   padding: 1.6rem 0.5rem 1.6rem 0;
 }
+
 
 //---------------------------------------------
 //            SEARCH AUTOCOMPLETE
