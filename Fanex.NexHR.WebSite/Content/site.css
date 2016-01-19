@@ -618,6 +618,25 @@ a:active, a:focus {
 
 #ui-datepicker-div {
   z-index: 1002 !important; }
+  #ui-datepicker-div select {
+    display: inline-block !important; }
+  #ui-datepicker-div .ui-icon {
+    width: 30px;
+    height: 30px;
+    background: none;
+    text-indent: initial; }
+    #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after, #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
+      width: 30px;
+      height: 30px;
+      font-family: "Material Design Icons";
+      font-size: 18px;
+      line-height: 30px;
+      color: #fff;
+      padding-left: 6px; }
+    #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after {
+      content: "\f417"; }
+    #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
+      content: "\f416"; }
 
 .datetime-picker {
   margin-right: 9px;
