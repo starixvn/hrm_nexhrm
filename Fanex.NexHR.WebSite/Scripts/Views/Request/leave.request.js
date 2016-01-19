@@ -155,6 +155,7 @@ function initCreateUpdatePage() {
     initDatePicker('#FromDate');
     initDatePicker('#ToDate');
 
+
     enableControlforHalfday();
 
     $('#HalfDayOff').on('change', function () {

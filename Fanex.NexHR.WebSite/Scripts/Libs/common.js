@@ -123,6 +123,9 @@ function initDatePicker(el) {
             $(el).datepicker('show');
         }
     });
+
+    $(el).datepicker("option", "nextText", "");
+    $(el).datepicker("option", "prevText", "");
 }
 
 function setDateTimeRange(selectedIndex) {
