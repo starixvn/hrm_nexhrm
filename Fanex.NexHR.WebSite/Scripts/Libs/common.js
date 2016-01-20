@@ -81,6 +81,12 @@ function initDatePicker(el) {
             dateFormat: "dd M, yy",
             changeMonth: true,
             changeYear: true,
+            nextText: "",
+            prevText: "",
+            beforeShow: function() {
+                $('.ui-datepicker-prev span').addClass("waves-effect");
+                $('.ui-datepicker-next span').addClass("waves-effect");
+            },
             beforeShowDay: function(mydate) {
                 var isEnable = true,
                     disabledDates = $(el).attr('disabledDate'),
@@ -94,7 +100,6 @@ function initDatePicker(el) {
                         isEnable = false;
                     }
                 }
-
                 return [isEnable];
             },
             showAnim: 'blind'
@@ -122,10 +127,7 @@ function initDatePicker(el) {
         if (!$(el).datepicker('widget').is(':visible')) {
             $(el).datepicker('show');
         }
-    });
-
-    $(el).datepicker("option", "nextText", "");
-    $(el).datepicker("option", "prevText", "");
+    });    
 }
 
 function setDateTimeRange(selectedIndex) {
