@@ -66,3 +66,17 @@
 	}
 }
 
+input#fileName::-webkit-file-upload-button {
+	padding: 0 1.5rem;
+	height: 3rem;
+	line-height: 3rem;
+	border-radius: 0;
+	color: #fff;
+	background: #2aaa55;
+	border: none;
+	cursor: pointer;
+
+	&:focus, &:active {
+		outline: none;
+	}
+}

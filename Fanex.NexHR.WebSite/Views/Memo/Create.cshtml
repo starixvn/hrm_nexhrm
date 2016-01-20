@@ -160,10 +160,11 @@
                                         </div>
                                         <div class="left">
                                             @Html.AntiForgeryToken()
-                                            <input type="submit" class="button-primary submit btn-submit waves-effect waves-light m-r--m" value="@Labels.Save" />
                                             <a href="@Url.Action("index", "memo")" class="btn-back waves-effect waves-light">
                                                 @Labels.Back
                                             </a>
+                                            <input type="submit" class="button-primary submit btn-submit waves-effect waves-light right" value="@Labels.Save" />
+                                            
                                         </div>
                                     </div>
                                 </div>

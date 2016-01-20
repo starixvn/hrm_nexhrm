@@ -44,8 +44,9 @@
                                     <div class="left m-b--m">
                                         <img id="avatar" src="~/employee/avatar/@(Model.Code)?f=@(Utilities.RandomString(4))" alt="@Model.FullName" /><br />
                                         <span class="fileUpload">
-                                            <input class="chooseFile" type="file" id="file" /></span> <span class="button-hrm waves-effect waves-light btn orange darken-1 m-r--s">
-                                                <input type="button" id="upload" value="Upload" /></span>
+                                            <input class="chooseFile" type="file" id="file" />
+                                        </span>                                             
+                                        <input class="btn-request waves-effect waves-light m-r--s right" type="button" id="upload" value="Upload" />
                                     </div>
                                 </div>
                             </div>
@@ -459,7 +460,7 @@
                                         <label>@Labels.LeaveBalance</label>
                                     </div>
                                     <div class="left input--l">
-                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span> <a href="~/annualleavebalance/employee/@Model.Id">@Labels.Update</a>
+                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span> <a class="btn-ok waves-effect waves-light" href="~/annualleavebalance/employee/@Model.Id">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -469,7 +470,7 @@
                                         <label>@Labels.WorkingCalendar</label>
                                     </div>
                                     <div class="left">
-                                        <a href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
+                                        <a class="btn-ok waves-effect waves-light" href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -482,7 +483,7 @@
                                     <div class="left input">
                                         @if (Model.ToeicScore != null)
                                         {
-                                            <table class="table bordered striped highlight centered table-custom">
+                                            <table class="table centered">
                                                 <tr>
                                                     <td style="padding-right: 10px;">
                                                         <table class="toeic">
@@ -513,14 +514,14 @@
                                                         </table>
                                                     </td>
                                                     <td>
-                                                        <a id="toeic" href="javascript:;">@Labels.Update</a>
+                                                        <a class="btn-ok waves-effect waves-light" id="toeic" href="javascript:;">@Labels.Update</a>
                                                     </td>
                                                 </tr>
                                             </table>
                                         }
                                         else
                                         {
-                                            <a id="toeic" href="javascript:;">@Labels.Update</a>
+                                            <a class="btn-ok waves-effect waves-light" id="toeic" href="javascript:;">@Labels.Update</a>
                                         }
                                     </div>
                                 </div>
@@ -545,9 +546,8 @@
                                     <div class="left">
                                         @Html.AntiForgeryToken()
                                         @Html.HiddenFor(model => model.Id)
-
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="submit" value="@Labels.Save" />
-                                        <input class="btn-delete waves-effect waves-light" type="button" id="delete" value="@Labels.Delete?" />
+                                        <input class="btn-delete waves-effect waves-light m-r--m" type="button" id="delete" value="@Labels.Delete?" />
+                                        <input class="btn-submit waves-effect waves-light" type="submit" value="@Labels.Save" />                                        
                                     </div>
                                 </div>
                             </div>

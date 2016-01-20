@@ -47,8 +47,7 @@
 }
 
 .btn-ok {
-	@include button(#2aaa55);
-	margin-right: $b-space--m;
+	@include button(#2aaa55);	
 	@extend %input-button;
 }
 

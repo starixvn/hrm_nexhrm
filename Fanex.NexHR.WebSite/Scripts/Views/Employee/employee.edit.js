@@ -209,8 +209,15 @@ function initDialog(divContent) {
         width: 'auto',
         buttons: [
             {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
                 text: 'Submit',
-                class: 'btn-submit waves-effect waves-light m-r--m',
+                class: 'btn-submit waves-effect waves-light',
                 click: function () {
                     $.ajax({
                         type: 'POST',
@@ -244,14 +251,7 @@ function initDialog(divContent) {
                         }
                     });
                 }
-            },
-            {
-                text: 'Close',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function () {
-                    $(this).dialog('close');
-                }
-            }
+            }            
         ],
         show: {
             effect: "blind",

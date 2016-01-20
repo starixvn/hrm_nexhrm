@@ -41,7 +41,15 @@ function confirm(message, callback, options) {
         title       : 'NexHRM',
         modal       : true,
         resizable   : false,
-        buttons     : [
+        buttons     : [            
+            {
+                text: 'Cancel',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function() {
+                    $(this).dialog('close');
+                    return false;
+                }
+            },
             {
                 text: 'OK',
                 class: 'btn-ok waves-effect waves-light',
@@ -52,14 +60,6 @@ function confirm(message, callback, options) {
                         callback();
                     }
                     return true;
-                }
-            },
-            {
-                text: 'Cancel',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function() {
-                    $(this).dialog('close');
-                    return false;
                 }
             }
         ],

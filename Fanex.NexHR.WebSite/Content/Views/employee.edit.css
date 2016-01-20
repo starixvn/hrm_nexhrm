@@ -26,8 +26,8 @@
   overflow-y: scroll;
   border: solid .1rem #ccc; }
   .subteam [type="checkbox"] + label {
-    height: 30px;
-    line-height: 30px;
+    height: 35px;
+    line-height: 35px;
     padding-left: 40px; }
   .subteam [type="checkbox"].filled-in + label:before, .subteam [type="checkbox"].filled-in + label:after {
     margin-left: 1rem;
@@ -36,7 +36,36 @@
     top: 2px; }
   .subteam label {
     display: block;
-    border-top: solid .1rem #ccc;
     margin-top: 0; }
+
+.toeic {
+  -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  width: 250px; }
+  .toeic thead tr th {
+    background: #3B4254;
+    color: #fff;
+    font-weight: normal;
+    border-right: 1px solid #353a4a;
+    border-bottom: 1px solid #353a4a; }
+  .toeic td {
+    border-right: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2; }
+
+.fileUpload {
+  position: relative;
+  overflow: hidden; }
+  .fileUpload input.chooseFile::-webkit-file-upload-button {
+    padding: 0 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 0;
+    color: #fff;
+    background: #2aaa55;
+    border: none;
+    cursor: pointer; }
+    .fileUpload input.chooseFile::-webkit-file-upload-button:focus, .fileUpload input.chooseFile::-webkit-file-upload-button:active {
+      outline: none; }
 
 /*# sourceMappingURL=employee.edit.css.map */

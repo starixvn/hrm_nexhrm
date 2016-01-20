@@ -164,8 +164,15 @@ function initAddToeicDialog() {
         width: 'auto',
         buttons: [
             {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
                 text: 'Submit',
-                class: 'btn-submit waves-effect waves-light m-r--m',
+                class: 'btn-submit waves-effect waves-light',
                 click: function () {
                     $.ajax({
                         type: 'POST',
@@ -200,14 +207,7 @@ function initAddToeicDialog() {
                         }
                     });
                 }
-            },
-            {
-                text: 'Close',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function () {
-                    $(this).dialog('close');
-                }
-            }
+            }            
         ],
         show: {
             effect: "blind",
@@ -231,8 +231,15 @@ function initEditToeicDialog() {
         width: 'auto',
         buttons: [
             {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
                 text: 'Submit',
-                class: 'btn-submit waves-effect waves-light m-r--m',
+                class: 'btn-submit waves-effect waves-light',
                 click: function () {
                     $.ajax({
                         type: 'POST',
@@ -267,14 +274,7 @@ function initEditToeicDialog() {
                         }
                     });
                 }
-            },
-            {
-                text: 'Close',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function () {
-                    $(this).dialog('close');
-                }
-            }
+            }            
         ],
         show: {
             effect: "blind",

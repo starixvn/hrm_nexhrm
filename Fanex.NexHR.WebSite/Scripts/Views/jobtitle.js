@@ -109,6 +109,14 @@ $(function () {
         modal: true,
         buttons: [
             {
+                text: 'Cancel',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                    return false;
+                }
+            },
+            {
                 text: 'Create',
                 class: 'btn-submit waves-effect waves-light',
                 click: function () {
@@ -131,15 +139,7 @@ $(function () {
                         });
                     }
                 }
-            },
-            {
-                text: 'Cancel',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function () {
-                    $(this).dialog('close');
-                    return false;
-                }
-            }
+            }            
         ],
         close: function () {
             updateTips('');

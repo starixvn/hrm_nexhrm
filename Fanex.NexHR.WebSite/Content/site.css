@@ -329,8 +329,7 @@ a:active, a:focus {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-ok {
-  background-color: #2aaa55 !important;
-  margin-right: 16px; }
+  background-color: #2aaa55 !important; }
   .btn-ok:hover {
     background: #25964b;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
@@ -493,6 +492,18 @@ a:active, a:focus {
   .mdi-action-highlight-remove:hover {
     color: #ff0a09; }
 
+input#fileName::-webkit-file-upload-button {
+  padding: 0 1.5rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 0;
+  color: #fff;
+  background: #2aaa55;
+  border: none;
+  cursor: pointer; }
+  input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-upload-button:active {
+    outline: none; }
+
 .form {
   margin-top: 16px;
   margin-bottom: 16px;
@@ -624,27 +635,29 @@ a:active, a:focus {
   #ui-datepicker-div select {
     display: inline-block !important;
     width: 40%;
-    margin: 1px 8px; }
+    margin: 0 8px;
+    padding: 0 5px;
+    height: 25px; }
   #ui-datepicker-div .ui-icon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background: none;
     text-indent: initial; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after, #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
       font-family: "Material Design Icons";
-      font-size: 20px;
+      font-size: 19px;
       color: #fff;
-      line-height: 30px;
-      padding-left: 5px; }
+      line-height: 25px;
+      padding-left: 3px; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after {
       content: "\f417"; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
       content: "\f416"; }
   #ui-datepicker-div .ui-datepicker-prev, #ui-datepicker-div .ui-datepicker-next {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background: #78828c;
     top: inherit;
     border-radius: 1px; }
@@ -673,11 +686,15 @@ a:active, a:focus {
     #ui-datepicker-div .ui-datepicker-calendar thead th {
       color: #f4783d; }
   #ui-datepicker-div .ui-datepicker-calendar tbody td {
-    padding: .7em .3em;
+    width: 30px;
+    padding: .7em 0;
     border-radius: 2px; }
     #ui-datepicker-div .ui-datepicker-calendar tbody td span, #ui-datepicker-div .ui-datepicker-calendar tbody td a {
       padding: 0;
       text-align: center; }
+      #ui-datepicker-div .ui-datepicker-calendar tbody td span.ui-state-active, #ui-datepicker-div .ui-datepicker-calendar tbody td a.ui-state-active {
+        color: #f4783d;
+        font-weight: 600; }
     #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-today {
       background: #f4783d; }
       #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-today a {
@@ -727,7 +744,7 @@ a:active, a:focus {
 #frmUpdateTOEIC, #frmUpdFullTOEIC {
   margin-bottom: 0; }
 
-#updateform {
+#updateform, #addform {
   text-align: left; }
 
 #dialog {
