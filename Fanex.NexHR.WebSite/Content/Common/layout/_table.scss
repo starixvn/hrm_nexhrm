@@ -63,9 +63,9 @@
                 vertical-align: middle;
                 padding: 8px 7px;
                 line-height: 1.42857143;
-                border-bottom: 1px solid #d2d2d2;
-                border-left: 1px solid #d2d2d2;
-                border-right: 1px solid #d2d2d2;
+                border-bottom: 1px solid $c-border-table;
+                border-left: 1px solid $c-border-table;
+                border-right: 1px solid $c-border-table;
 
                 &.overloadRequest {
                     a {
@@ -133,9 +133,9 @@
 
     tfoot {
         tr {
-            border-left: 1px solid #d2d2d2;
-            border-right: 1px solid #d2d2d2;
-            border-bottom: 1px solid #d2d2d2;
+            border-left: 1px solid $c-border-table;
+            border-right: 1px solid $c-border-table;
+            border-bottom: 1px solid $c-border-table;
         }
     }
 }

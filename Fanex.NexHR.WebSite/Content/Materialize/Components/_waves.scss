@@ -83,7 +83,9 @@
     &.waves-teal .waves-ripple {
       background-color: rgba(0, 150, 136, 0.70);
     }
-
+	&.waves-deep-orange .waves-ripple {
+      background-color: rgba(244, 121, 61, 1);
+    }
 }
 
 .waves-notransition {
