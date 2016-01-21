@@ -69,6 +69,8 @@
             BuildBundleForStaffBirthday(bundles);
 
             BuildBundleForLeaveDeductionDetail(bundles);
+
+            BuildBundleForLateInEarlyOutDetail(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -260,7 +262,15 @@
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutsummaryjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/leavededuction.js");
+                "~/Scripts/Views/Report/report.latein.earlyout.summary.js");
+        }
+
+        private static void BuildBundleForLateInEarlyOutDetail(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/lateinearlyoutdetailjs",
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/report.latein.earlyout.detail.js");
         }
 
         private static void BuildBundleForEditEmployee(BundleCollection bundles)

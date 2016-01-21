@@ -1,5 +1,6 @@
 ﻿'use strict';
 /*global _global*/
+/*exported index*/
 
 var rowIndex = 1;
 

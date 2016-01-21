@@ -10,7 +10,7 @@
     @Scripts.Render("~/bundles/leaveDeductionDetailjs");
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -27,16 +27,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select id="Date" name="Date">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -65,13 +56,7 @@
                                         @Html.LabelFor(model => model.TeamId)
                                     </div>
                                     <div class="left select--m">
-                                        <select id="TeamId" name="TeamId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team team in Model.Teams)
-                                            {
-                                                <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
@@ -90,7 +75,7 @@
                         </div>
                     }
                     <div class="p-x--s">
-                        <table class="data table bordered striped highlight table-custom centered">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr>
                                     <th>@Labels.SymbolCount</th>

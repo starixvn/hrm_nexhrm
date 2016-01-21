@@ -25,7 +25,7 @@ function displayNumberHours(number, employeeId, fromMonth, toMonth) {
     var year = parseInt($('#Year').val()),
         fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
         toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-        url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate,
+        url = "LeaveDeductionDetail?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate,
         result = '-';
 
     if (number !== 0) {
@@ -57,10 +57,10 @@ function query(isFirstLoad) {
             }
         },
         success: function (response) {
-            $('#data tbody').children().remove();
+            $('table#data tbody').children().remove();
 
             if (response.data.length > 0) {
-                $('#template').tmpl(response.data).appendTo('#data');
+                $('#template').tmpl(response.data).appendTo('table#data');
 
                 $('.addLeavededuction').click(function () {
                     var employeeId = $(this).attr('data-id'),

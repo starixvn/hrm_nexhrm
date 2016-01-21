@@ -87,25 +87,6 @@ function initDatePicker() {
                 changeYear: true,
                 nextText: '',
                 prevText: '',
-            beforeShow: function() {
-                $('.ui-datepicker-prev span').addClass("waves-effect");
-                $('.ui-datepicker-next span').addClass("waves-effect");
-            },
-                beforeShowDay: function(mydate) {
-                    var isEnable = true,
-                        disabledDates = $datepicker.attr('disabledDate'),
-                        badDates = disabledDates.split(","),
-                        checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
-
-                    for (var i = 0; i < badDates.length; i++) {
-                        var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
-
-                        if (date == checkdate) {
-                            isEnable = false;
-                        }
-                    }
-                    return [isEnable];
-                },
                 showAnim: 'blind'
             });
 
@@ -116,12 +97,30 @@ function initDatePicker() {
 
         if (mindate !== 'null' && mindate !== undefined) {
             mindate = mindate.split('/');
-            $datepicker.datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
+            $datepicker.datepicker("option", 'minDate', new Date(mindate[0], mindate[1] - 1, mindate[2]));
         }
 
         if (maxdate !== 'null' && maxdate !== undefined) {
             maxdate = maxdate.split('/');
-            $datepicker.datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+            $datepicker.datepicker("option", 'maxDate', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+        }
+
+        if(disabledDates.length > 0) {
+            $datepicker.datepicker("option", 'beforeShowDay', function(mydate) {
+                var isEnable = true,
+                    badDates = disabledDates.split(","),
+                    checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
+
+                for (var i = 0; i < badDates.length; i++) {
+                    var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
+
+                    if (date == checkdate) {
+                        isEnable = false;
+                    }
+                }
+
+                return [isEnable];
+            });
         }
 
         $icon.on('click', function(event) {
