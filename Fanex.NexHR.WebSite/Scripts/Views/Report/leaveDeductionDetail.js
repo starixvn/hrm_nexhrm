@@ -2,18 +2,20 @@
 /*global _global:false */
 
 $(document).ready(function () {
-    initDatePicker('.datepicker');
+    initDatePicker();
+
     $('.editLeaveDeduction').click(function () {
-        var leaveDeductionId = $(this).attr('data-id');
-        var leaveDays = $(this).attr('data-leavedays');
-        var deductDate = $(this).attr('data-deductdate');
-        var isAnnual = $(this).attr('data-isannual') === "True";
-        var description = $(this).parent().parent().find(".description").first().html();
+        var leaveDeductionId = $(this).attr('data-id'),
+            leaveDays = $(this).attr('data-leavedays'),
+            deductDate = $(this).attr('data-deductdate'),
+            isAnnual = $(this).attr('data-isannual') === "True",
+            description = $(this).parent().parent().find(".description").first().html();
+
         $('#updateform').dialog({
             modal: true,
             width: 700,
             open: function () {
-                initDatePicker('.datepicker');
+                initDatePicker();
                 $('#TotalDays').val(leaveDays);
                 $('#DeductDate').val(deductDate);
                 $('#Description').val(description);
@@ -38,8 +40,7 @@ $(document).ready(function () {
                 if (response.Code === 0) {
                     $('#updateform').dialog('close');
                     document.location = url;
-                }
-                else {
+                } else {
                     alert(response.Message);
                 }
             });
@@ -53,8 +54,7 @@ $(document).ready(function () {
                 alert('response.Message');
                 if (response.Code === 0) {
                     document.location = url;
-                }
-                else {
+                } else {
                     alert(response.Message);
                 }
             });

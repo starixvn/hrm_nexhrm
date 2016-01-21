@@ -1,22 +1,23 @@
 ﻿'use strict';
-/*global _global:false, _messages:false, actingButton:false, initDatePicker:false,
-google:false, reloadButtonText:false, formatDate:false*/
-/* exported query */
+/*global _global, _messages, actingButton, google, reloadButtonText, formatDate*/
+/* exported query*/
 
 var directionsDisplay;
 
 function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
-    var directionsService = new google.maps.DirectionsService();
-    var curLatLng = marker.getPosition();
-    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
+    var directionsService = new google.maps.DirectionsService(),
+        curLatLng = marker.getPosition(),
+        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
 
     latitudeTextBox.val(curLatLng.lat());
     longitudeTextBox.val(curLatLng.lng());
+
     var request = {
         origin: curLatLng,
         destination: smsLatlng,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
+
     directionsService.route(request, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             var distance = response.routes[0].legs[0].distance.text;
@@ -33,6 +34,7 @@ function InitializeGoogleMap(map, latlng) {
         scrollwheel: true
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+
     return map;
 }
 
@@ -40,9 +42,9 @@ function initialize() {
     var marker, map, latlng,
         checkInitLatlng = false,
         latitudeTextBox = $('#GeoMapLatitude'),
-        longitudeTextBox = $('#GeoMapLongtitude');
+        longitudeTextBox = $('#GeoMapLongtitude'),
+        myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
 
-    var myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
     directionsDisplay = new google.maps.DirectionsRenderer(myOption);
 
     if (latitudeTextBox.val() === '' && longitudeTextBox.val() === '') {
@@ -295,13 +297,6 @@ $(document).ready(function () {
         defaultDate: $('#DateOfBirth').val()
     });
 
-    initDatePicker('#DateOfBirth');
-    initDatePicker('#IssuedDate');
-    initDatePicker('#JoinedDate');
-    initDatePicker('#ConfirmedDate');
-    initDatePicker('#ResignedDate');
-    initDatePicker('#PassportExp');
-
     $('#month, #day, #year').on('change', function () {
         var year = $('#year').val(),
             month = $('#month').val(),
@@ -390,9 +385,7 @@ $(document).ready(function () {
                         divContent.append(data);
 
                         initNumberTextbox();
-                        initDatePicker('#frmUpdFullTOEIC #InputDate');
-                        initDatePicker('#frmUpdFullTOEIC #LRExamDate');
-                        initDatePicker('#frmUpdFullTOEIC #SWExamDate');
+                        initDatePicker();
                         initDialog(divContent);
                     }
                 },

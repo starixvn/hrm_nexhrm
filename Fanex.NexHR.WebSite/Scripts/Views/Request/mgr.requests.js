@@ -93,9 +93,7 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
-
+    initDatePicker();
     initEventForFromDateAndToDate();
 
     $('#submit').click(function () {

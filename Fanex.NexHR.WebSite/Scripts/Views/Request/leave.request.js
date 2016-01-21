@@ -152,10 +152,7 @@ function initCreateUpdatePage() {
 
     $('#TotalDays').prop('readonly', true);
 
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
-
-
+    initDatePicker();
     enableControlforHalfday();
 
     $('#HalfDayOff').on('change', function () {

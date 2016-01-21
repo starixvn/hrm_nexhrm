@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false , _messages:false, initDatePicker:false*/
+/*global _global, _messages*/
 
 var _checked = false,
     _totalDays = 0,
@@ -117,7 +117,6 @@ function eventCloseBalance() {
 }
 
 $(document).ready(function () {
-    initDatePicker('#AffectedFrom');
     eventAdjustment();
     eventAddBalance();
     eventCloseBalance();

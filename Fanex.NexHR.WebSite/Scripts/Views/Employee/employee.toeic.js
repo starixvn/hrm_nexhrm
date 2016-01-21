@@ -153,9 +153,7 @@ function initialize() {
 }
 
 function initAddToeicDialog() {
-    initDatePicker('#InputDate');
-    initDatePicker('#LRExamDate');
-    initDatePicker('#SWExamDate');
+    initDatePicker();
     initAutocomplete();
     initNumberTextbox();
 
@@ -221,9 +219,7 @@ function initAddToeicDialog() {
 }
 
 function initEditToeicDialog() {
-    initDatePicker('#InputDate');
-    initDatePicker('#LRExamDate');
-    initDatePicker('#SWExamDate');
+    initDatePicker();
     initNumberTextbox();
 
     $('#dialog-toeic').dialog({

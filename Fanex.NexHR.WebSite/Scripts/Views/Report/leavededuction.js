@@ -3,8 +3,9 @@
 
 $(document).ready(function () {
     $('.addLeavededuction').click(function () {
-        var employeeId = $(this).attr('data-id');
-        var annualBalance = $(this).attr('data-annualbalance');
+        var employeeId = $(this).attr('data-id'),
+            annualBalance = $(this).attr('data-annualbalance');
+
         $('#EmpId').val(employeeId);
         $('#annualBalance').text(annualBalance);
         $('#insertform').dialog({
@@ -13,14 +14,14 @@ $(document).ready(function () {
             height: 370,
             open: function () {
                 $('#TotalDays').val('0.5');
-                initDatePicker('.datepicker');
+                initDatePicker();
             }
         });
     });
 
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
-        $('.loading-process').fadeIn(200)
+        $('.loading-process').fadeIn(300)
         $.post(_global.root + 'ajax/AddLeaveDeduction',
             {
                 empId: $('#EmpId').val(),
@@ -32,18 +33,19 @@ $(document).ready(function () {
                 if (response.Code === 0) {
                     $('#insertform').dialog('close');
                     document.location = _global.root + 'report/LateInEarlyOutSummary';
-                }
-                else {
+                } else {
                     alert(response.Message);
                 }
-                $('.loading-process').fadeOut(500);
+
+                $('.loading-process').fadeOut(300);
             });
     });
 
     $('#updateform form').submit(function (evt) {
         evt.preventDefault();
-        var url = window.location.href;
-        var $form = $(this);
+        var url = window.location.href,
+            $form = $(this);
+
         if ($form.valid()) {
             $.post(_global.root + 'ajax/EditLeaveDeduction',
             {
@@ -56,8 +58,7 @@ $(document).ready(function () {
                 if (response.Code === 0) {
                     $('#updateform').dialog('close');
                     document.location = url;
-                }
-                else {
+                } else {
                     alert(response.Message);
                 }
             });

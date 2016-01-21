@@ -126,8 +126,7 @@ function initCreateUpdatePage() {
         }
     });
 
-    initDatePicker('#ForDate');
-
+    initDatePicker();
     initEventPickerDate();
 
     $('form').submit(function (e) {

@@ -2,7 +2,7 @@
 'use strict';
 
 var rowIndex = 1;
-var dateOption, fromDate, toDate, teamId
+var dateOption, fromDate, toDate, teamId;
 
 function index() {
     return rowIndex++;
@@ -25,12 +25,11 @@ $("#Date").change(function () {
     $(".DateOption").val($("#Date").val());
 
     $("#FromDate").change();
-    $("#ToDate").change();    
+    $("#ToDate").change();
 });
 
 $(document).ready(function () {
-    initDatePicker("#FromDate");
-    initDatePicker("#ToDate");
+    initDatePicker();
 
     //search onload
     query();
@@ -59,7 +58,6 @@ $(document).ready(function () {
     $("form").submit(function (e) {
         validateDate(e);
     });
-
 });
 
 function query() {

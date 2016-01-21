@@ -172,8 +172,7 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val());
     setDateTimeRange($('#DateOption').val());
 
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
+    initDatePicker();
 
     $('#submit').on('click', function () {
         $('#form #CurrentPage').val(1);

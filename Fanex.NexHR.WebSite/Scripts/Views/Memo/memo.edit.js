@@ -4,7 +4,7 @@
 
 function removeAttachFile(filePath) {
     var attachFiles = $("#AttachFile").val().split(";"),
-		attachFileRemain = "";
+        attachFileRemain = "";
 
     for (var i = 0; i < attachFiles.length; i++) {
         var attachFileItem = attachFiles[i];
@@ -12,8 +12,7 @@ function removeAttachFile(filePath) {
         if (attachFileItem !== filePath) {
             if (attachFileRemain === "") {
                 attachFileRemain = attachFileItem;
-            }
-            else {
+            } else {
                 attachFileRemain += ";" + attachFileItem;
             }
         }
@@ -36,13 +35,13 @@ function attachFile(attachPath) {
 
         for (var i = 0; i < attachPathFiles.length; i++) {
             var attachLink = attachPathFiles[i],
-				attachLinkSplit = attachLink.split('/'),
-				attachFileName = attachLinkSplit[attachLinkSplit.length - 1],
-				pattern = '<div id="file_' + i + '"><a href="' + attachLink + '">' + attachFileName + '</a>&nbsp\
-								<a href="javascript:deleteFile(\'' + attachLink + '\', ' + i + ');">\
-									<span class="icon delete"></span>\
-								</a>\
-							</div>';
+                attachLinkSplit = attachLink.split('/'),
+                attachFileName = attachLinkSplit[attachLinkSplit.length - 1],
+                pattern = '<div id="file_' + i + '"><a href="' + attachLink + '">' + attachFileName + '</a>&nbsp\
+                                <a href="javascript:deleteFile(\'' + attachLink + '\', ' + i + ');">\
+                                    <span class="icon delete"></span>\
+                                </a>\
+                            </div>';
 
             attachFiles.append(pattern);
         }
@@ -129,26 +128,28 @@ function upload() {
 }
 
 function validateForm() {
-    var check = true;
-    var errorString = [];
-    var Subject = $("#Subject").val();
-    var RefNo = $("#RefNo").val();
-    var SentTo = $("#SentTo").val();
-    var SentFrom = $("#SentFrom").val();
-    var attachFile = $("#allAttachFile").children().length;
-    var fileName = $("#fileName").val();
-
-    var editorText = tinyMCE.activeEditor.getContent();
+    var check = true,
+        errorString = [],
+        Subject = $("#Subject").val(),
+        RefNo = $("#RefNo").val(),
+        SentTo = $("#SentTo").val(),
+        SentFrom = $("#SentFrom").val(),
+        attachFile = $("#allAttachFile").children().length,
+        fileName = $("#fileName").val(),
+        editorText = tinyMCE.activeEditor.getContent();
 
     if (Subject === null || Subject === "") {
         errorString.push("* The Subject field is required.");
     }
+
     if (RefNo === null || RefNo === "") {
         errorString.push("* The RefNo field is required.");
     }
+
     if (SentTo === null || SentTo === "") {
         errorString.push("* The SentTo field is required.");
     }
+
     if (SentFrom === null || SentFrom === "") {
         errorString.push("* The SentFrom field is required.");
     }
@@ -170,22 +171,23 @@ function validateForm() {
         $("#error").html(errorString.join("</br>"));
         return false;
     }
+
     return check;
 }
 
 $(document).ready(function () {
     initEditor('Contents', 'basic');
-    $("#error").hide();    
+    $("#error").hide();
 
-    initDatePicker('#SentDate');
+    initDatePicker();
 
-    var refNo = $("#RefNo").val();
-    var subJect = $("#Subject").val();
-    var forInfo = $("#ForInfo").val();
-    var sentDate = $("#SentDate").val();
-    var sentTo = $("#SentTo").val();
-    var sentFrom = $("#SentFrom").val();
-    var contents = $("#Contents").val();
+    var refNo = $("#RefNo").val(),
+        subJect = $("#Subject").val(),
+        forInfo = $("#ForInfo").val(),
+        sentDate = $("#SentDate").val(),
+        sentTo = $("#SentTo").val(),
+        sentFrom = $("#SentFrom").val(),
+        contents = $("#Contents").val();
 
     $("#btnClear").click(function () {
         $("#RefNo").val(refNo);
@@ -208,12 +210,10 @@ $(document).ready(function () {
         if ($("#AttachFile").val().length > 0) {
             $('#attach').show();
             attachFile($("#AttachFile").val());
-        }
-        else {
+        } else {
             $('#attach').hide();
         }
-    }
-    else {
+    } else {
         $("#MemoType_0").prop("checked", "checked");
     }
 
@@ -224,20 +224,17 @@ $(document).ready(function () {
         form = $(this);
 
         if ($("#MemoType").val() === "1") {
-            var attachFile = $("#allAttachFile").children().length;
-            var fileName = $("#fileName").val();
+            var attachFile = $("#allAttachFile").children().length,
+                fileName = $("#fileName").val();
 
             if (!validate) {
                 e.preventDefault();
                 $("#error").show();
-            }
-
-            else {
+            } else {
                 if (attachFile === 0 || (attachFile !== 0 && fileName !== "")) {
                     e.preventDefault();
                     upload();
-                }
-                else {
+                } else {
                     e.preventDefault();
                     $.ajax({
                         url: form.action,
@@ -245,18 +242,15 @@ $(document).ready(function () {
                         data: form.serialize(),
                         success: function () {
                             document.location = _global.root + "Memo/Index";
-
                         }
                     });
                 }
             }
-        }
-        else {
+        } else {
             if (!validate) {
                 $("#error").show();
                 return false;
-            }
-            else {
+            } else {
                 e.preventDefault();
                 $("#Contents").val(tinyMCE.activeEditor.getContent());
                 $.ajax({
@@ -265,15 +259,9 @@ $(document).ready(function () {
                     data: form.serialize(),
                     success: function () {
                         document.location = _global.root + "Memo/Index";
-
                     }
                 });
             }
-
         }
-
     });
-
 });
-
-

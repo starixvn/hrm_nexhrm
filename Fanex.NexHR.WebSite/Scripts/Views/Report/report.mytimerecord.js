@@ -110,8 +110,7 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val());
     setDateTimeRange($('#DateOption').val());
 
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
+    initDatePicker();
 
     initEventForFromDateAndToDate();
 

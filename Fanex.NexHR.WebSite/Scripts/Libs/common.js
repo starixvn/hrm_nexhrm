@@ -76,58 +76,63 @@ function confirm(message, callback, options) {
     $confirm.dialog($.extend({}, defaults, options));
 }
 
-function initDatePicker(el) {
-    $(el).datepicker({
-            dateFormat: "dd M, yy",
-            changeMonth: true,
-            changeYear: true,
-            nextText: "",
-            prevText: "",
+function initDatePicker() {
+    $('.datepicker-button').each(function() {
+        var $datepicker = $($(this).find('.datepicker')),
+            $icon = $($(this).find('.calendar-icon'));
+
+        $datepicker.datepicker({
+                dateFormat: "dd M, yy",
+                changeMonth: true,
+                changeYear: true,
+                nextText: '',
+                prevText: '',
             beforeShow: function() {
                 $('.ui-datepicker-prev span').addClass("waves-effect");
                 $('.ui-datepicker-next span').addClass("waves-effect");
             },
-            beforeShowDay: function(mydate) {
-                var isEnable = true,
-                    disabledDates = $(el).attr('disabledDate'),
-                    badDates = disabledDates.split(","),
-                    checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
+                beforeShowDay: function(mydate) {
+                    var isEnable = true,
+                        disabledDates = $datepicker.attr('disabledDate'),
+                        badDates = disabledDates.split(","),
+                        checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
 
-                for (var i = 0; i < badDates.length; i++) {
-                    var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
+                    for (var i = 0; i < badDates.length; i++) {
+                        var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
 
-                    if (date == checkdate) {
-                        isEnable = false;
+                        if (date == checkdate) {
+                            isEnable = false;
+                        }
                     }
-                }
-                return [isEnable];
-            },
-            showAnim: 'blind'
-        });
+                    return [isEnable];
+                },
+                showAnim: 'blind'
+            });
 
-    // get minDate, maxDate, disabledDates
-    var mindate = $(el).attr('mindate'),
-        maxdate = $(el).attr('maxdate'),
-        disabledDates = $(el).attr('disabledDate');
+        // get minDate, maxDate, disabledDates
+        var mindate = $datepicker.attr('mindate'),
+            maxdate = $datepicker.attr('maxdate'),
+            disabledDates = $datepicker.attr('disabledDate');
 
-    if (mindate !== 'null' && mindate !== undefined) {
-        mindate = mindate.split('/');
-        $(el).datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
-    }
-
-    if (maxdate !== 'null' && maxdate !== undefined) {
-        maxdate = maxdate.split('/');
-        $(el).datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
-    }
-
-    $(el).closest('.datepicker-button').find('.calendar-icon').on('click', function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        if (!$(el).datepicker('widget').is(':visible')) {
-            $(el).datepicker('show');
+        if (mindate !== 'null' && mindate !== undefined) {
+            mindate = mindate.split('/');
+            $datepicker.datepicker("option", "minDate", new Date(mindate[0], mindate[1] - 1, mindate[2]));
         }
-    });    
+
+        if (maxdate !== 'null' && maxdate !== undefined) {
+            maxdate = maxdate.split('/');
+            $datepicker.datepicker("option", "maxDate", new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+        }
+
+        $icon.on('click', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            if (!$datepicker.datepicker('widget').is(':visible')) {
+                $datepicker.datepicker('show');
+            }
+        });
+    });
 }
 
 function setDateTimeRange(selectedIndex) {
@@ -237,6 +242,10 @@ $(document).ready(function(){
             }
         }
     });
+
+    if($('.datepicker-button').length > 0) {
+        initDatePicker();
+    }
 
     $('.processing-submit').click(function (evt) {
         $('.loading-process').fadeIn(200);
