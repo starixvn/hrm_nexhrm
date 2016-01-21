@@ -36,10 +36,8 @@
                                         </div>
                                         <div class="left input--xs">
                                             @Html.EditorFor(model => model.TotalDays)
+                                            @Html.ValidationMessageFor(model => model.TotalDays)
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        @Html.ValidationMessageFor(model => model.TotalDays)
                                     </div>
                                 </div>
                                 <div class="row form-input">

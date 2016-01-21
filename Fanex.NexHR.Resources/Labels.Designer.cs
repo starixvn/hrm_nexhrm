@@ -2419,6 +2419,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Override.
+        /// </summary>
+        public static string Override {
+            get {
+                return ResourceManager.GetString("Override", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paid Leave.
         /// </summary>
         public static string PaidLeave {

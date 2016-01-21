@@ -26,10 +26,8 @@
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.FullName)
+                                        @Html.ValidationMessageFor(model => model.FullName)
                                     </div>
-                                </div>
-                                <div class="col">
-                                    @Html.ValidationMessageFor(model => model.FullName)
                                 </div>
                             </div>
                             <div class="row form-input">
@@ -39,10 +37,8 @@
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.NickName)
+                                        @Html.ValidationMessageFor(model => model.NickName)
                                     </div>
-                                </div>
-                                <div class="col">
-                                    @Html.ValidationMessageFor(model => model.NickName)
                                 </div>
                             </div>
                             <div class="row form-input">
@@ -55,10 +51,8 @@
                                     </div>
                                     <div class="left input-spvn">
                                         @Html.EditorFor(model => model.DomainUsername)
+                                        @Html.ValidationMessageFor(model => model.DomainUsername)
                                     </div>
-                                </div>
-                                <div class="col">
-                                    @Html.ValidationMessageFor(model => model.DomainUsername)
                                 </div>
                             </div>
                             <div class="row form-input">
@@ -68,10 +62,8 @@
                                     </div>
                                     <div class="left input--l">
                                         @Html.EditorFor(model => model.Code)
+                                        @Html.ValidationMessageFor(model => model.Code)
                                     </div>
-                                </div>
-                                <div class="col">
-                                    @Html.ValidationMessageFor(model => model.Code)
                                 </div>
                             </div>
                             <div class="row form-input">

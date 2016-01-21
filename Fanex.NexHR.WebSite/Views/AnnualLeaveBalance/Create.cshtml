@@ -37,10 +37,8 @@
                                         </div>
                                         <div class="left input--xs">
                                             @Html.EditorFor(model => model.TotalDays)
+                                            @Html.ValidationMessageFor(model => model.TotalDays)
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        @Html.ValidationMessageFor(model => model.TotalDays)
                                     </div>
                                 </div>
                                 <div class="row form-input">
@@ -72,7 +70,7 @@
                                             &nbsp;</div>
                                         <div class="left">
                                             @Html.ActionLink(@Labels.Cancel, "employee", new { id = ViewBag.Employee.Id }, new { @class = "btn-cancel waves-effect waves-light" })
-                                            <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />                                           
+                                            <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />
                                         </div>
                                     </div>
                                 </div>

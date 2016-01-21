@@ -16,20 +16,24 @@
         <div class="left label--l">
             @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
         </div>
-        <div class="datepicker-button left select--s">
-            @Html.DatePickerFor(model => model.InputDate)
+        <div class="left">
+            <div class="datepicker-button select--s">
+                @Html.DatePickerFor(model => model.InputDate)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
             @Html.ValidationMessageFor(model => model.InputDate)
-            <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
             @Html.LabelFor(model => model.LRExamDate)
         </div>
-        <div class="datepicker-button left select--s">
-            @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
+        <div class="left">
+            <div class="datepicker-button select--s">
+                @Html.DatePickerFor(model => model.LRExamDate, currentDate.AddYears(-100), currentDate)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
             @Html.ValidationMessageFor(model => model.LRExamDate)
-            <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
@@ -70,10 +74,12 @@
         <div class="left label--l">
             @Html.LabelFor(model => model.SWExamDate)
         </div>
-        <div class="datepicker-button left select--s">
-            @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
+        <div class="left">
+            <div class="datepicker-button select--s">
+                @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
             @Html.ValidationMessageFor(model => model.SWExamDate)
-            <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
