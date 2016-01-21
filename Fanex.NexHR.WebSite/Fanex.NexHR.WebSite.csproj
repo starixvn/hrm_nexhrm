@@ -222,6 +222,7 @@
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
+    <Content Include="Content\Images\infinity.gif" />
     <Content Include="Content\Images\loding.gif" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo.svg" />
