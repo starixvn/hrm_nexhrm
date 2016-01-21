@@ -3,46 +3,46 @@
     ViewBag.Title = Labels.MultipleInsert;
 }
 <form class="form">
-<div class="validation-summary-info ui-corner-all">
-    <span><i class="mdi-action-info-outline mdi-24px m-r--s"></i>Annual leave balance: <span
-        id="annualBalance" class="txt-bold"></span></span>
-</div>
-<div class="row form-input">
-    <div class="left label--l">
-        @Html.LabelFor(model => model.TotalDays)
+    <div class="validation-summary-info ui-corner-all">
+        <span><i class="mdi-action-info-outline mdi-24px m-r--s"></i>Annual leave balance: <span
+            id="annualBalance" class="txt-bold"></span></span>
     </div>
-    <div class="left input--xs">
-        @Html.EditorFor(model => model.TotalDays)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.TotalDays)
+        </div>
+        <div class="left input--xs">
+            @Html.EditorFor(model => model.TotalDays)
+        </div>
     </div>
-</div>
-<div class="row form-input">
-    <div class="left label--l">
-        @Html.LabelFor(model => model.IsAnnual)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.IsAnnual)
+        </div>
+        <div class="left input--l">
+            @Html.MaterializeCheckBoxFor(model => model.IsAnnual, new { @class = "filled-in" })
+        </div>
     </div>
-    <div class="left input--l">
-        @Html.MaterializeCheckBoxFor(model => model.IsAnnual, new { @class = "filled-in" })
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="left txtArea">
+            @Html.TextAreaFor(model => model.Description)
+        </div>
     </div>
-</div>
-<div class="row form-input">
-    <div class="left label--l">
-        @Html.LabelFor(model => model.Description)
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.DeductDate)
+        </div>
+        <div class="left datepicker-button select--s">
+            @Html.DatePickerFor(model => model.DeductDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
     </div>
-    <div class="left txtArea">
-        @Html.TextAreaFor(model => model.Description)
+    <div class="row form-input center">
+        @Html.HiddenFor(model => model.EmpId)
+        <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+        <input class="btn-ok waves-effect waves-light" id="insert" type="submit" value="@Labels.Add" />
     </div>
-</div>
-<div class="row form-input">
-    <div class="left label--l">
-        @Html.LabelFor(model => model.DeductDate)
-    </div>
-    <div class="left datepicker-button select--s">
-        @Html.DatePickerFor(model => model.DeductDate)
-        <i class="mdi-action-event calendar-icon left"></i>
-    </div>
-</div>
-<div class="row form-input center">
-    @Html.HiddenFor(model => model.EmpId)
-    <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
-    <input class="btn-ok waves-effect waves-light" id="insert" type="submit" value="@Labels.Add" />    
-</div>
 </form>

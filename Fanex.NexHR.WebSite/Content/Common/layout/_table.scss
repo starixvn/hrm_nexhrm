@@ -2,7 +2,7 @@
     th, td {
         &.col-checkbox {
             text-align: left;
-			width: 32px;
+            width: 32px;
 
             [type="checkbox"] + label {
                 height: 1.5rem;
@@ -77,7 +77,7 @@
                     color: #fff;
                     padding: .3rem .6rem;
                     margin-right: .5rem;
-					border-radius:2px;
+                    border-radius:2px;
 
                     &.checkinout {
                         background: #15af93;
@@ -93,8 +93,11 @@
                 }
             }
 
-            &.row-divider td {
-                text-align: left;
+            &.row-divider {
+                background: #f2f2c2;
+                td {
+                    text-align: left;
+                }
             }
 
             &.row-selected {
@@ -106,27 +109,27 @@
             }
 
             a.c-pending, a.c-approve {
-				position: relative;		
-					
-                i.mdi-navigation-arrow-drop-down {                    
-					display: none;
+                position: relative;
+                    
+                i.mdi-navigation-arrow-drop-down {
+                    display: none;
                 }
-				
-				&:after {
-					font-family: "Material Design Icons";
+                
+                &:after {
+                    font-family: "Material Design Icons";
                     font-size: 19px;
-					content: "\f415";
-					position: absolute;
-					right: -22px;
-					top: -4px;
-					opacity: 0;
-				}
-				
-				&:hover {
-					&:after {
-						opacity: 1;
-					}
-				}				
+                    content: "\f415";
+                    position: absolute;
+                    right: -22px;
+                    top: -4px;
+                    opacity: 0;
+                }
+                
+                &:hover {
+                    &:after {
+                        opacity: 1;
+                    }
+                }                
             }
         }
     }
@@ -155,9 +158,9 @@ table {
   .mdi-border-color, .mdi-delete {
     position: relative;
     top: 2px;
-	&:focus, &:active {
-		outline: none;
-	}
+    &:focus, &:active {
+        outline: none;
+    }
   }
 
   .trigger {
@@ -233,7 +236,7 @@ table {
 
   .pagination {
     margin: 7px 0.5rem 0 10px;
-	overflow: hidden;
+    overflow: hidden;
 
     li {
       float: left;
@@ -243,26 +246,26 @@ table {
       padding: 4px 2px;
       width: 30px;
       @extend %boxshadow;
-	  &.page {
-			box-shadow: none;
-		  &.active {
-			background: #78828b;
-			@extend %boxshadow;
-		  }
-	  }
+      &.page {
+            box-shadow: none;
+          &.active {
+            background: #78828b;
+            @extend %boxshadow;
+          }
+      }
       
-	  &.prev, &.next {
-		background: rgba(120, 130, 139, 1);		
+      &.prev, &.next {
+        background: rgba(120, 130, 139, 1);
 
-		.mdi-image-navigate-next, .mdi-image-navigate-before {
-			color: #fff;
-			font-size: 18px;
-		}
+        .mdi-image-navigate-next, .mdi-image-navigate-before {
+            color: #fff;
+            font-size: 18px;
+        }
 
-		&.disabled {
-			background: rgba(120, 130, 139, 0.6);
-		}
-	  }
+        &.disabled {
+            background: rgba(120, 130, 139, 0.6);
+        }
+      }
     }
 
     &.right p {
@@ -316,6 +319,6 @@ table.data thead tr:nth-child(even) {
 }
 
 .browser-default {
-	border: 1px solid #d0d0d0;
-	box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
 }

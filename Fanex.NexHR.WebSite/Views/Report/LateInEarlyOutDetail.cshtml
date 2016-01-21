@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Models.Report
-@using Fanex.NexHR.ViewModels.Report
-@model LateInEarlyOutDetailViewModel
+﻿@model LateInEarlyOutDetailViewModel
 @{
     ViewBag.Title = Labels.LateInEarlyOutDetail;
 }
@@ -12,7 +9,7 @@
 @section js{
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -29,16 +26,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select id="Date" name="Date">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -92,24 +80,16 @@
                         </div>
                     }
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight centered responsive-table table-custom">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>@Labels.Name
-                                    </th>
-                                    <th>@Labels.Nick
-                                    </th>
-                                    <th>@Labels.Team
-                                    </th>
-                                    <th>@Labels.WorkigDay
-                                    </th>
-                                    <th>@Labels.Type
-                                    </th>
-                                    <th>@Labels.Hours
-                                    </th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.WorkigDay</th>
+                                    <th>@Labels.Type</th>
+                                    <th>@Labels.Hours</th>
                                 </tr>
                             </thead>
                             @if (Model.LateInEarlyOuts != null && Model.LateInEarlyOuts.Any())
@@ -119,19 +99,20 @@
                                     @foreach (LateInEarlyOutDetail item in Model.LateInEarlyOuts)
                                     {
                                         <tr>
-                                            <td>@(index++)
+                                            <td>@(index++)</td>
+                                            <td class="align-left">@item.Employee.FullName</td>
+                                            <td>@item.Employee.NickName</td>
+                                            <td class="tooltip" title="@item.Employee.Team.Name">
+                                                @item.Employee.Team.Code
                                             </td>
-                                            <td class="left">@item.Employee.FullName
+                                            <td>
+                                                @item.WorkDate.ToDateMonthYearFormatedDate()
                                             </td>
-                                            <td>@item.Employee.NickName
+                                            <td>
+                                                @(item.TypeId == 0 ? Labels.LeaveDeduction : (item.TypeId == 1 ? Labels.LateIn : Labels.EarlyOut))
                                             </td>
-                                            <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
-                                            </td>
-                                            <td>@item.WorkDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            <td>@(item.TypeId == 0 ? Labels.LeaveDeduction : (item.TypeId == 1 ? Labels.LateIn : Labels.EarlyOut))
-                                            </td>
-                                            <td>@((item.Minutes / 60.0).ToString("0.0"))
+                                            <td>
+                                                @((item.Minutes / 60.0).ToString("0.0"))
                                             </td>
                                         </tr>
                                     }

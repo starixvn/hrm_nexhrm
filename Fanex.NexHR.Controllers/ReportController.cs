@@ -330,22 +330,22 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult LateInEarlyOutSummary()
         {
-            return LateInEarlyOutSummary(null);
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
+            var model = new LateInEarlyOutSummaryViewModel()
+            {
+                Year = DateTime.Now.Year,
+                Groups = teams
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        public JsonResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
         {
             IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            if (model == null)
-            {
-                model = new LateInEarlyOutSummaryViewModel()
-                {
-                    Year = DateTime.Now.Year
-                };
-            }
 
-            model.Groups = teams;
             var criteria = new GetLateInEarlyOutSummaryReportCriteria
             {
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
@@ -353,15 +353,15 @@ namespace Fanex.NexHR.Controllers
                 Year = model.Year
             };
             IList<LateInEarlyOutSummary> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+
             if (model.TeamId.HasValue)
             {
                 teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
             }
 
             IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
-            model.LateInEarlyOutSummary = lateInEarlyOutSummaryByTeam;
 
-            return View(model);
+            return Json(new { data = lateInEarlyOutSummaryByTeam }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LateInEarlyOutDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)

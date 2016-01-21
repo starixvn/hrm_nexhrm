@@ -79,12 +79,12 @@ function query() {
             $('.loading-process').fadeIn(300);
         },
         success: function (response) {
+            $('#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
                 $('#template').tmpl(response.data).appendTo('#data');
             } else {
-                $('#data tbody').children().remove();
                 $(noInformation(10)).appendTo('#data');
             }
 

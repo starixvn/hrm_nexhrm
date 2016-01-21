@@ -11,11 +11,7 @@ namespace Fanex.NexHR.ViewModels.Report
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Report;
 
-    /// <summary>
-    /// LateIn EarlyOut Summary ViewModel.
-    /// </summary>
     public class LateInEarlyOutSummaryViewModel
     {
         public int Year { get; set; }
@@ -27,7 +23,5 @@ namespace Fanex.NexHR.ViewModels.Report
         public int EmployeeId { get; set; }
 
         public IList<Team> Groups { get; set; }
-
-        public IList<LateInEarlyOutSummaryByTeam> LateInEarlyOutSummary { get; set; }
     }
 }

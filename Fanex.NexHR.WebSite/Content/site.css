@@ -905,8 +905,10 @@ input#fileName::-webkit-file-upload-button {
       background: #da871c; }
     .table.table-custom tbody tr td span.req.inout {
       background: #999900; }
-.table.table-custom tbody tr.row-divider td {
-  text-align: left; }
+.table.table-custom tbody tr.row-divider {
+  background: #f2f2c2; }
+  .table.table-custom tbody tr.row-divider td {
+    text-align: left; }
 .table.table-custom tbody tr.row-selected {
   background: #ffff8d; }
 .table.table-custom tbody tr.disabled {
