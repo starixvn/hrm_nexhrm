@@ -38,6 +38,7 @@
 
             return View(model);
         }
+
         private void Celebrate()
         {
             SystemReminderModel lstEmployee = null;
