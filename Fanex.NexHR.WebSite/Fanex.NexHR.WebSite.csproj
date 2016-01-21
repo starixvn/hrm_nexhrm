@@ -674,6 +674,7 @@
     <Content Include="Views\Toeic\ToeicManagement.cshtml" />
     <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
+    <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -801,7 +802,7 @@
     <None Include="Content\Common\layout\_navHeader.scss" />
     <None Include="Content\Common\layout\_sideNav.scss" />
     <None Include="Content\Common\utils\_variables.scss" />
-    <Content Include="Views\Employee\MySpace.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Leave\Create.cshtml" />
     <Content Include="Views\Leave\EmployeeView.cshtml" />
