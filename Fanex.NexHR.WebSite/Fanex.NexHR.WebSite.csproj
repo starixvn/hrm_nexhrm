@@ -674,7 +674,6 @@
     <Content Include="Views\Toeic\ToeicManagement.cshtml" />
     <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
-    <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
