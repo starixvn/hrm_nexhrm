@@ -61,7 +61,6 @@
     <Compile Include="BaseProcessModel.cs" />
     <Compile Include="BaseRequestModel.cs" />
     <Compile Include="ChangeShiftViewModel.cs" />
-    <Compile Include="ChangeWorkingCalendarsViewModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
     <Compile Include="LeaveDeductionViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />

@@ -652,7 +652,6 @@
     <Content Include="Views\Employee\UserManagement.cshtml" />
     <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
     <Content Include="Views\Employee\WorkingCalendars.cshtml" />
-    <Content Include="Views\Employee\WorkingCalendarsEdit.cshtml" />
     <Content Include="Views\Employee\DefaultSchedule.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />

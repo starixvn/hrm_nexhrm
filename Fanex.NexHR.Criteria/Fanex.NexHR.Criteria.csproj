@@ -104,7 +104,6 @@
     <Compile Include="Employee\UpdateEmployeeShiftCriteria.cs" />
     <Compile Include="Employee\UpdateAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\UpdateShiftCriteria.cs" />
-    <Compile Include="Employee\UpdateOffDayForAllEmployeesCriteria.cs" />
     <Compile Include="ExtensionNo\AddNewExtensionNoMemberCriteria.cs" />
     <Compile Include="ExtensionNo\AddNewExternalGroupCriteria.cs" />
     <Compile Include="ExtensionNo\DeleteExtensionNumberCriteria.cs" />

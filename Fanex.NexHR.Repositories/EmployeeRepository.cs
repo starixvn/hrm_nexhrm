@@ -16,12 +16,10 @@ namespace Fanex.NexHR.Repositories
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
 
@@ -44,7 +42,7 @@ namespace Fanex.NexHR.Repositories
                     {
                         e.Team = new Team { Id = t.TeamID, Name = t.Team };
                         return e;
-                    }, 
+                    },
                     "TeamID",
                     criteria.GetSpParams());
 
@@ -214,7 +212,7 @@ namespace Fanex.NexHR.Repositories
                         {
                             co.Employee = e;
                             return co;
-                        }, 
+                        },
                         "EmpId");
 
                     IEnumerable<DashboardPersonalSpaceModel> dashboardEmployeeSpace = multi.Read<DashboardPersonalSpaceModel, Employee, DashboardPersonalSpaceModel>(
@@ -222,7 +220,7 @@ namespace Fanex.NexHR.Repositories
                         {
                             pe.Employee = e;
                             return pe;
-                        }, 
+                        },
                         "EmpId");
 
                     dashboard.DashboardCompanySpace = dashboardCompanySpace.ToList();
@@ -245,7 +243,7 @@ namespace Fanex.NexHR.Repositories
                 return db.QueryEntity<HRLeaderDashboardModel>(criteria.GetSpParams());
             }
         }
-       
+
         /// <summary>
         /// Get working schedule.
         /// </summary>
@@ -448,20 +446,6 @@ namespace Fanex.NexHR.Repositories
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<HalfDayOff>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Update off day for all employees.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Output value.</returns>
-        public Hashtable UpdateOffDayForAllEmployees(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            { 
-                db.ExecuteNonQuery(criteria.GetSpParams());
-                return db.GetOuputParams();
             }
         }
 

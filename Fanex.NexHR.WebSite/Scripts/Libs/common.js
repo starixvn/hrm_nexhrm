@@ -200,7 +200,7 @@ $(document).ready(function(){
     $('.button-collapse').sideNav({'edge': 'left'});
     $('select').not('.disabled').material_select();
 
-    $('.flash').animate({opacity: 0.25},3500, function(){
+    $('.flash').animate({opacity: 0.25}, 3500, function(){
         $(this).slideUp().remove();
     });
 
@@ -248,7 +248,7 @@ $(document).ready(function(){
     }
 
     $('.processing-submit').click(function (evt) {
-        $('.loading-process').fadeIn(200);
+        $('.loading-process').fadeIn(300);
     });
 });
 

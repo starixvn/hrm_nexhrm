@@ -15,7 +15,6 @@ namespace Fanex.NexHR.Services
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.NexHR.Criteria;
@@ -305,8 +304,8 @@ namespace Fanex.NexHR.Services
                 return result;
             }
 
-            return new CommandResult() 
-            { 
+            return new CommandResult()
+            {
                 Code = 1,
                 Message = Labels.InvalidTotalDays
             };
@@ -352,37 +351,6 @@ namespace Fanex.NexHR.Services
         public IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria)
         {
             return this._employeeRepository.GetHalfDayOffs(criteria);
-        }
-
-        /// <summary>
-        /// Update off day for all employees.
-        /// </summary>
-        /// <param name="modelState">The model state.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateOffDayForAllEmployees(
-            ModelStateDictionary modelState, 
-            UpdateOffDayForAllEmployeesCriteria criteria)
-        { 
-            bool result = true;
-
-            if (modelState.IsValid)
-            {
-                Hashtable outputParams = this._employeeRepository.UpdateOffDayForAllEmployees(criteria);
-
-                if ((int)outputParams["errcode"] != 0)
-                {
-                    modelState.AddModelError(string.Empty, (string)outputParams["errmsg"]);
-                    result = false;
-                }
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
-                result = false;
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -440,7 +408,8 @@ namespace Fanex.NexHR.Services
 
             return leaveSummaryByTeamList;
         }
-        #endregion
+
+        #endregion Get leave summary by team
 
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
@@ -466,7 +435,7 @@ namespace Fanex.NexHR.Services
             {
                 lstEmployee = this._employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
-            
+
             return lstEmployee;
         }
 

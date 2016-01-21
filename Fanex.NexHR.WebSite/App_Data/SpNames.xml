@@ -30,7 +30,6 @@
         <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetHalfDayOff" SpName="EmployeeCalendar_GetHalfDayOff" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeCalendar_SetOffDayForAllEmployees" SpName="EmployeeCalendar_SetOffDayForAllEmployees" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>

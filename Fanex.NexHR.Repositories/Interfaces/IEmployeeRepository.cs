@@ -10,7 +10,6 @@
 namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria.Employee;
@@ -66,8 +65,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<UserChangedShift> GetUserChangedShift(ICriteria criteria);
 
         IList<HalfDayOff> GetHalfDayOffs(ICriteria criteria);
-
-        Hashtable UpdateOffDayForAllEmployees(ICriteria criteria);
 
         int GetRangeDate(ICriteria criteria);
 
