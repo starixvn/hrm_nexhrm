@@ -209,6 +209,18 @@ namespace Fanex.NexHR.Core
             return regex.IsMatch(email);
         }
 
+        /// <summary>
+        /// Display decimal numberic with time format
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string DecimalToTime(decimal value)
+        {
+            decimal hours = Math.Truncate(value);
+            decimal minutes = (value - hours) * 60;
+            return ZeroPrefix((int)hours) + ":" + ZeroPrefix((int)minutes);
+        }
+
         public static string TotalHoursToTime(float value)
         {
             int hour = (int)value;
