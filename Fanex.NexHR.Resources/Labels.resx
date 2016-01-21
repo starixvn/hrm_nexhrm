@@ -307,7 +307,7 @@
     <value>Update</value>
   </data>
   <data name="NoData" xml:space="preserve">
-    <value>No Data</value>
+    <value>No information available</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
@@ -1148,5 +1148,17 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
+  </data>
+  <data name="IsAnnual" xml:space="preserve">
+    <value>Is Annual</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>Verified</value>
   </data>
 </root>

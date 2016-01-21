@@ -1,15 +1,28 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Site", "Fanex.NexHR.Site\Fanex.NexHR.Site.csproj", "{405929F6-B1DC-49E5-B936-E342B36C87ED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Core", "Fanex.NexHR.Core\Fanex.NexHR.Core.csproj", "{2493CFDA-E539-4F5C-BE9D-4AE823E42473}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A0210FE-616F-4A2C-90B3-59C26F3D3DB1}"
 	ProjectSection(SolutionItems) = preProject
 		Dependencies\RazorEngine.dll = Dependencies\RazorEngine.dll
 		Dependencies\Simplicode.Imaging.dll = Dependencies\Simplicode.Imaging.dll
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{5F490EB2-2747-4165-A0D0-6F920A02A7F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2E6B8649-5225-47A3-A3F8-9FB7197F3A33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{06DF0F58-4553-4B75-A315-51A4AC5F7633}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Core", "Fanex.NexHR.Core\Fanex.NexHR.Core.csproj", "{2493CFDA-E539-4F5C-BE9D-4AE823E42473}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Models", "Fanex.NexHR.Models\Fanex.NexHR.Models.csproj", "{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F}"
 EndProject
@@ -23,26 +36,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Controllers", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Services", "Fanex.NexHR.Services\Fanex.NexHR.Services.csproj", "{7789CD20-1DC9-4077-921C-2548023BBC62}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{5F490EB2-2747-4165-A0D0-6F920A02A7F0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2E6B8649-5225-47A3-A3F8-9FB7197F3A33}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Web", "Fanex.NexHR.Web\Fanex.NexHR.Web.csproj", "{D1D9A098-0EE6-41F8-8198-111CB66A493A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{06DF0F58-4553-4B75-A315-51A4AC5F7633}"
-	ProjectSection(SolutionItems) = preProject
-		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Criteria", "Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj", "{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoJobs", "AutoJobs\AutoJobs.csproj", "{E0F23F85-57F1-408B-8DE7-2C47516BC84B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.WebSite", "Fanex.NexHR.WebSite\Fanex.NexHR.WebSite.csproj", "{A06A4E0F-8FA4-4A74-819D-47BCB0099082}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{3D377D83-CC56-4C30-80A4-6ACE9EDC550D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Controllers.Tests", "Fanex.NexHR.Controllers.Tests\Fanex.NexHR.Controllers.Tests.csproj", "{74C3985C-6334-4B27-A54F-0BCBD75C4910}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,16 +58,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|x86.ActiveCfg = Release|Any CPU
 		{2493CFDA-E539-4F5C-BE9D-4AE823E42473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2493CFDA-E539-4F5C-BE9D-4AE823E42473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2493CFDA-E539-4F5C-BE9D-4AE823E42473}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -174,24 +168,34 @@ Global
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|x86.ActiveCfg = Release|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{41C13575-C69E-442C-BB46-665FFDF81164} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 		{5DAA8E26-3353-4C6C-84DA-78261FEE6D7B} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{2493CFDA-E539-4F5C-BE9D-4AE823E42473} = {2E6B8649-5225-47A3-A3F8-9FB7197F3A33}
+		{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
+		{41C13575-C69E-442C-BB46-665FFDF81164} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{89E66795-E15A-41B8-9684-35B05739C1F7} = {5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}
+		{C7D47FA8-C2DD-4C1A-BEC9-B9D5316E9168} = {2E6B8649-5225-47A3-A3F8-9FB7197F3A33}
 		{E962400A-4E25-4F66-9E5B-5E69B0E057F3} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
-		{405929F6-B1DC-49E5-B936-E342B36C87ED} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{7789CD20-1DC9-4077-921C-2548023BBC62} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
 		{D1D9A098-0EE6-41F8-8198-111CB66A493A} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
 		{E0F23F85-57F1-408B-8DE7-2C47516BC84B} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
-		{C7D47FA8-C2DD-4C1A-BEC9-B9D5316E9168} = {2E6B8649-5225-47A3-A3F8-9FB7197F3A33}
-		{2493CFDA-E539-4F5C-BE9D-4AE823E42473} = {2E6B8649-5225-47A3-A3F8-9FB7197F3A33}
-		{7789CD20-1DC9-4077-921C-2548023BBC62} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
-		{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
-		{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
-		{89E66795-E15A-41B8-9684-35B05739C1F7} = {5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}
+		{74C3985C-6334-4B27-A54F-0BCBD75C4910} = {3D377D83-CC56-4C30-80A4-6ACE9EDC550D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35

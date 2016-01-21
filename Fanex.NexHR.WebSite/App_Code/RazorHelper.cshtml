@@ -251,15 +251,33 @@
         }
     </select>
 }
-@helper RequestTypeFiltering(string name, int selectValue)
+@helper RequestTypeFiltering(string name, int selectedValue)
     {
     <select id="@name" name="@name">
         @{
             foreach (RequestTypeFiltering requestType in (RequestTypeFiltering[])Enum.GetValues(typeof(RequestTypeFiltering)))
             {
                 var value = (int)requestType;
-                <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(requestType)</option>
+                <option value="@value" selected="@(value == selectedValue)">@Utilities.GetDescription(requestType)</option>
             }
         }
     </select>
+}
+
+@helper OTRequestStatusDropDownList(string name, int selectedValue, bool isShowAll = true)
+{
+    <select name="@name" id="@name">
+        @if (isShowAll)
+        {
+            <option selected="@(selectedValue == 0)" value="0">All</option>
+        }
+        @{
+            foreach (var item in (OTRequestStatus[])Enum.GetValues(typeof(OTRequestStatus)))
+            {
+                var value = (int)item;
+                <option value="@value" selected="@(value == selectedValue)">@Utilities.GetDescription(item)</option>
+            }
+        }        
+    </select>
+
 }

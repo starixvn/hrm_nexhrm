@@ -69,6 +69,15 @@
             BuildBundleForStaffBirthday(bundles);
 
             BuildBundleForLeaveDeductionDetail(bundles);
+
+            BuildBundlerForOverTime(bundles);
+        }
+
+        private static void BuildBundlerForOverTime(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
+                         "~/Scripts/Views/OverTime/create.js",
+                         "~/Scripts/Views/OverTime/summary.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

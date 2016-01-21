@@ -131,6 +131,11 @@
     <Compile Include="Memo\GetMemoByIdCriteria.cs" />
     <Compile Include="Memo\InsertMemoCriteria.cs" />
     <Compile Include="Memo\UpdateMemoCriteria.cs" />
+    <Compile Include="OverTime\GetByIdCriteria.cs" />
+    <Compile Include="OverTime\GetSummaryCriteria.cs" />
+    <Compile Include="OverTime\InsertOverTimeCriteria.cs" />
+    <Compile Include="OverTime\UpdateOverTimeCriteria.cs" />
+    <Compile Include="OverTime\UpdateStatusCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\DeleteLeaveDeductionCriteria.cs" />
     <Compile Include="Report\GetLeaveDeductionDetailCriteria.cs" />

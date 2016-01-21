@@ -637,6 +637,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created By.
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created Date.
         /// </summary>
         public static string CreatedDate {
@@ -1398,6 +1407,15 @@ namespace Fanex.NexHR.Resources {
         public static string InvalidTotalDays {
             get {
                 return ResourceManager.GetString("InvalidTotalDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Annual.
+        /// </summary>
+        public static string IsAnnual {
+            get {
+                return ResourceManager.GetString("IsAnnual", resourceCulture);
             }
         }
         
@@ -2203,7 +2221,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Data.
+        ///   Looks up a localized string similar to No information available.
         /// </summary>
         public static string NoData {
             get {
@@ -3045,6 +3063,24 @@ namespace Fanex.NexHR.Resources {
         public static string UpdateTOEICScore {
             get {
                 return ResourceManager.GetString("UpdateTOEICScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified.
+        /// </summary>
+        public static string Verified {
+            get {
+                return ResourceManager.GetString("Verified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string Verify {
+            get {
+                return ResourceManager.GetString("Verify", resourceCulture);
             }
         }
         

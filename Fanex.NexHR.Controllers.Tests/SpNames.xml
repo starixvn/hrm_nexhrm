@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+    <Function Name="OverTime">        
+        <Setting Key="OverTime_Insert" SpName="OverTime_Insert" DbName="nexhr" Plain="0"></Setting>        
+    </Function>
+</Functions>
