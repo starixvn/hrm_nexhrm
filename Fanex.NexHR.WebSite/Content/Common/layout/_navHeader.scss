@@ -3,37 +3,37 @@
 .navbar-fixed {
     //Icon hambuger responsive
     .top-nav {
-        font-size: 24px;
-        padding: 12px 0;
+        font-size: 2.4rem;
+        padding: 1.2rem 0;
         position: fixed;
         left: 1.6rem;
         color: $color-text-header;
     }
 
 	.logo {		
-		margin-left: 16px;
+		margin-left: 1.6rem;
 	}
 }
 
 // Header Top Right
 .nav-wrapper {
-    padding-right: 11px;
+    padding-right: 1.1rem;
     > div {
         float: right;
-        font-size: 13px;
+        font-size: 1.3rem;
     }
     .drop-down {
         .dropdown-button {
             padding: 0; 
             cursor: pointer;
             img {                
-                margin-right: 10px;
+                margin-right: 1rem;
                 position: relative;
-                top: 13px;
+                top: 1.3rem;
             }
             .name {
                 display: inline-block;
-                margin-right: 17px;                
+                margin-right: 1.7rem;                
                 p {
                     margin: 0;
                     line-height: 1.5;
@@ -41,14 +41,14 @@
             }
 
 			.avatar {
-				width: 37px;
-				height: 37px;
+				width: 3.7rem;
+				height: 3.7rem;
 				border-radius: 50%;	
 			}
 
             i {
                 display: inline-block;
-                font-size: 15px;
+                font-size: 1.5rem;
             }
         }
         .dropdown-content {
@@ -72,20 +72,20 @@
         position: relative;
         margin-right: 2rem;
         .badge {           
-            border-radius: 10px;    
+            border-radius: 1rem;    
             display: inline-block;    
             font-weight: bold;
             line-height: 1;
-            min-width: 10px;           
+            min-width: 1rem;           
             text-align: center;
             vertical-align: middle;
             white-space: nowrap;
             background-color: #ff0909;
             color: #fff;
             cursor: pointer;
-            font-size: 9px;
+            font-size: .9rem;
             font-weight: normal;            
-            padding: 4px 6px;           
+            padding: .4rem .6rem;           
             top: 15px;
             right: -3px;
         }
@@ -97,7 +97,7 @@
 	#dropdown-notification {
 		left: inherit !important;
 		right: -20px !important;
-		min-width: 400px;
+		min-width: 40rem;
 		.badge {
 			right: 16px;
 			font-size: 11px;
@@ -118,35 +118,35 @@
 		overflow: hidden;
 	}
 
-    input {
+    .placeholder {
         margin-bottom: 0;       
 		border-bottom: 1px solid transparent;
 		padding-left: 25px;
 		//margin-left: 10px;	
-		font-size: 13px;
+		font-size: 13px;		
     }
-
-	label {
+	
+	.label-search {
 		position: absolute;
 		top: 2px;
-		z-index: -1;
-		i {
+		z-index: 1;
+		
 			font-size: 24px;
 			 color: rgba(255, 255, 255, 0.7);
-		}
+		
 	}
 
     &.focused {
         width: 20rem;
         transition: all 0.2s ease-out;
-        input {
+        .placeholder {
             border-bottom: 1px solid $c-text-header;
             box-shadow: 0 1px 0 0 $c-text-header;
             vertical-align: middle;
 			background: transparent none repeat scroll 0 0;    
         }
 
-        input:focus {
+        .placeholder:focus {
             border-bottom: 1px solid $c-text-header;
             box-shadow: 0 1px 0 0 $c-text-header;
         }

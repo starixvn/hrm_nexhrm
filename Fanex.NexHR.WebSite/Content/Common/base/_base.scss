@@ -1,9 +1,7 @@
 @import "../utils/variables";
 @import "../utils/mixins";
 
-//------------------------------------------------------------
-//			MAIN
-//------------------------------------------------------------
+//----------------------------MAIN--------------------------------//
 
 html {
   font-size: 62.5%;
@@ -16,9 +14,7 @@ body
   font-size: 1.3rem;
 }
 
-//------------------------------------------------------------
-//			PLACEHOLDER
-//------------------------------------------------------------
+//----------------------------PLACEHOLDER-----------------------------//
 
 %boxshadow {
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
@@ -30,13 +26,10 @@ body
 	color: #fff;
 }
 
-//------------------------------------------------------------
-//			BASE ELEMENT
-//------------------------------------------------------------
-
+//--------------------------BASE ELEMENT----------------------------------//
 
 main {
-	padding-left: 256px;
+	padding-left: 25.6rem;
 }
 
 @media only screen and (max-width : 992px) {
@@ -63,17 +56,15 @@ main {
 @media (min-width: 1280px) and (max-width: 1899px) {
 	.row .col.s1 {
 		width: 20%; 
-	}		
-	/*.row .col.s3 {
-		width: 30%; 
-	}*/
+	}	
+	
 	.row .col.s4 {
 		width: 44%;
 	}
 }
 
 #section_content {
-  padding: 0 8px;
+  padding: 0 .8rem;
 }
 
 .opacity70 {
@@ -93,20 +84,20 @@ main {
 }
 
 .content {
-  padding-top: 10px;
+  padding-top: 1rem;
 }
 
 .inline {
 	display: inline-block;
 }
 
-//-------------------------//
+//--------------------------Validation Form--------------------------------//
 
 .validation-summary-errors {
 	@include validation-block(#FBE3E4, #8A1F11, #FBC2C4, (0 0.8rem));	
 
     ul {
-        margin-left: 20px;
+        margin-left: 2rem;
         list-style-type: disc;
 
         li {
@@ -148,7 +139,7 @@ main {
 
 .field-validation-error {
 	position: relative;
-	font-size: 13px;
+	font-size: 1.3px;
 	color: $c-idel--hover;
 }
 
@@ -166,7 +157,7 @@ main {
 #legendInfo {
     display: inline-block;
 	vertical-align: middle;
-	margin-left: 10px;
+	margin-left: 1rem;
 
 	.tooltip {
 		color: #303f4d;
@@ -260,9 +251,7 @@ main {
 	color: $green;
 }
 
-//-------------------------------------------------------------------
-//					CARD CONTAINER BASE
-//-------------------------------------------------------------------
+//---------------------CARD CONTAINER BASE----------------//
 
 .card-container-base { 
   .txt-tittle {
@@ -273,12 +262,11 @@ main {
     font-size: 1.2rem;
   }
 
-  .card-content {
-	//overflow: hidden;
+  .card-content {	
 	padding-bottom: 16px;
 
 	&.white-text {
-	  padding: 20px;
+	  padding: 2rem
 	}
   }
 
@@ -298,7 +286,7 @@ main {
     width: 100%;  
 
     p {
-      line-height: 45px;
+      line-height: 4.5rem;
       color: #4c5e70;
 	  overflow: hidden;
 
@@ -316,7 +304,7 @@ main {
    z-index: 1000;   
 }
 
-
+//--------------------------------------------------------//
 
 .table tbody tr {
     &.offdate, &.noshift {
@@ -333,6 +321,8 @@ main {
         }
     }
 }
+
+//-------------------Col Request----------------------//
 
 .tipsy {	
     &.tipsy-request {
@@ -353,8 +343,7 @@ main {
     &.tipsy-request {
         .tipsy-inner {
             background: #fff;
-            color: #000;
-            //border: .1rem solid #0789d1;
+            color: #000;            
         }
 
         table.table-tooltip {

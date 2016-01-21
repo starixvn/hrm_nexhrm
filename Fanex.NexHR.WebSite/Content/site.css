@@ -15,7 +15,7 @@ body {
   color: #fff; }
 
 main {
-  padding-left: 256px; }
+  padding-left: 25.6rem; }
 
 @media only screen and (max-width: 992px) {
   header, main, footer {
@@ -36,13 +36,10 @@ main {
   .row .col.s1 {
     width: 20%; }
 
-  /*.row .col.s3 {
-  	width: 30%; 
-  }*/
   .row .col.s4 {
     width: 44%; } }
 #section_content {
-  padding: 0 8px; }
+  padding: 0 .8rem; }
 
 .opacity70 {
   opacity: .7; }
@@ -57,7 +54,7 @@ main {
   border-radius: 50%; }
 
 .content {
-  padding-top: 10px; }
+  padding-top: 1rem; }
 
 .inline {
   display: inline-block; }
@@ -69,7 +66,7 @@ main {
   color: #8A1F11;
   border: 1px solid #FBC2C4; }
   .validation-summary-errors ul {
-    margin-left: 20px;
+    margin-left: 2rem;
     list-style-type: disc; }
     .validation-summary-errors ul li {
       margin: 4px 0;
@@ -106,7 +103,7 @@ main {
 
 .field-validation-error {
   position: relative;
-  font-size: 13px;
+  font-size: 1.3px;
   color: #ff0a09; }
 
 .input-validation-error {
@@ -120,7 +117,7 @@ main {
 #legendInfo {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 10px; }
+  margin-left: 1rem; }
   #legendInfo .tooltip {
     color: #303f4d; }
 
@@ -191,7 +188,7 @@ main {
 .card-container-base .card-content {
   padding-bottom: 16px; }
   .card-container-base .card-content.white-text {
-    padding: 20px; }
+    padding: 2rem; }
 .card-container-base .card-title-block {
   overflow: hidden;
   margin: 0 0.8rem;
@@ -203,7 +200,7 @@ main {
 .card-container-base .card-body {
   width: 100%; }
   .card-container-base .card-body p {
-    line-height: 45px;
+    line-height: 4.5rem;
     color: #4c5e70;
     overflow: hidden; }
 
@@ -499,20 +496,20 @@ input#fileName::-webkit-file-upload-button {
     outline: none; }
 
 .form {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
   padding: 0 !important; }
   .form .btn {
     text-transform: none; }
 
 .input {
-  width: 163px; }
+  width: 16.3rem; }
 
 .radioButton {
   float: left;
-  margin-right: 21px; }
+  margin-right: 2.1rem; }
   .radioButton label {
-    margin-top: 2px !important; }
+    margin-top: .2rem !important; }
 
 .column-truncate {
   display: inline-block;
@@ -520,73 +517,70 @@ input#fileName::-webkit-file-upload-button {
   position: relative;
   text-overflow: ellipsis;
   white-space: pre;
-  width: 77px; }
+  width: 7.7rem; }
 
 .col.button {
   padding-left: 0; }
 
 .select--xs, .input--xs {
-  width: 70px; }
+  width: 7rem; }
 
 .select--s, .input--s {
-  width: 150px; }
+  width: 15rem; }
 
 .select--m, .input--m {
-  width: 220px; }
+  width: 22rem; }
 
 .input-subject {
-  width: 518px; }
+  width: 51.8rem; }
 
 .select-team {
-  width: 200px; }
+  width: 20rem; }
 
 .select--l, .input--l {
-  width: 400px; }
+  width: 40rem; }
 
 .label--s {
-  width: 50px; }
+  width: 5rem; }
 
 .label--m {
-  width: 78px; }
+  width: 7.8rem; }
 
 .label--l {
-  width: 110px; }
+  width: 11rem; }
 
 .label--xl {
-  width: 120px; }
+  width: 12rem; }
 
 .input-spvn {
-  width: 350px; }
+  width: 35rem; }
 
 .txtArea {
-  width: 500px; }
+  width: 50rem; }
   .txtArea textarea {
     height: 50px; }
 
 .filter-status {
-  width: 220px;
-  /*@media (min-width: 1900px) {
-  	width: 150px;
-  }*/ }
+  width: 22rem; }
 
 .filter-title-lbl {
-  width: 78px; }
+  width: 7.8rem; }
   @media (min-width: 1900px) {
     .filter-title-lbl {
-      width: 50px; } }
+      width: 5rem; } }
 
 .filter-title, .filter-keyword {
-  width: 300px; }
+  width: 30rem; }
 
 .label--m.label {
-  width: 78px;
-  margin-bottom: 10px; }
+  width: 7.8rem;
+  margin-bottom: 1rem; }
   @media (min-width: 1900px) {
     .label--m.label {
       width: 0; } }
 
 .checkBox {
-  margin-top: 8px; }
+  margin-top: .8rem; }
   @media (min-width: 1900px) {
     .checkBox {
       margin-top: 0; } }
@@ -624,34 +618,34 @@ input#fileName::-webkit-file-upload-button {
 #ui-datepicker-div {
   z-index: 1002 !important;
   padding: 0;
-  width: 300px;
+  width: 30rem;
   border: none; }
   #ui-datepicker-div select {
     display: inline-block !important;
     width: 40%;
     margin: 0 8px;
     padding: 0 5px;
-    height: 25px; }
+    height: 2.5rem; }
   #ui-datepicker-div .ui-icon {
-    width: 25px;
-    height: 25px;
+    width: 2.5rem;
+    height: 2.5rem;
     background: none;
     text-indent: initial; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after, #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
-      width: 25px;
-      height: 25px;
+      width: 2.5rem;
+      height: 2.5rem;
       font-family: "Material Design Icons";
-      font-size: 19px;
+      font-size: 1.9rem;
       color: #fff;
-      line-height: 25px;
-      padding-left: 3px; }
+      line-height: 2.5rem;
+      padding-left: .3rem; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e:after {
       content: "\f417"; }
     #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w:after {
       content: "\f416"; }
   #ui-datepicker-div .ui-datepicker-prev, #ui-datepicker-div .ui-datepicker-next {
-    width: 25px;
-    height: 25px;
+    width: 2.5rem;
+    height: 2.5rem;
     background: #78828c;
     top: inherit;
     border-radius: 1px; }
@@ -663,13 +657,13 @@ input#fileName::-webkit-file-upload-button {
       top: inherit;
       margin-top: 0; }
   #ui-datepicker-div .ui-datepicker-prev {
-    left: 13px; }
+    left: 1.3rem; }
     #ui-datepicker-div .ui-datepicker-prev-hover {
-      left: 13px; }
+      left: 1.3rem; }
   #ui-datepicker-div .ui-datepicker-next {
-    right: 13px; }
+    right: 1.3rem; }
     #ui-datepicker-div .ui-datepicker-next-hover {
-      right: 13px; }
+      right: 1.3rem; }
   #ui-datepicker-div .ui-datepicker-header {
     padding: 10px 15px;
     background: #343b4d; }
@@ -686,21 +680,22 @@ input#fileName::-webkit-file-upload-button {
     #ui-datepicker-div .ui-datepicker-calendar tbody td span, #ui-datepicker-div .ui-datepicker-calendar tbody td a {
       padding: 0;
       text-align: center; }
-      #ui-datepicker-div .ui-datepicker-calendar tbody td span.ui-state-active, #ui-datepicker-div .ui-datepicker-calendar tbody td a.ui-state-active {
-        color: #f4783d;
-        font-weight: 600; }
-    #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-today {
+    #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-current-day {
       background: #f4783d; }
-      #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-today a {
+      #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-current-day .ui-state-active {
         background: none;
         border: none;
         color: #fff; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody td.ui-datepicker-today a {
+      border: none;
+      color: #f4783d;
+      font-weight: 600; }
 
 .ui-datepicker table {
   margin: .5em 0 .5em !important; }
 
 .datetime-picker {
-  margin-right: 9px;
+  margin-right: .9rem;
   margin-top: 0;
   padding: 1.6rem 0.5rem 1.6rem 0; }
 
@@ -745,42 +740,42 @@ input#fileName::-webkit-file-upload-button {
   padding-top: 0;
   text-align: left; }
   #dialog .form {
-    margin-bottom: 200px; }
+    margin-bottom: 20rem; }
 
 .navbar-fixed .top-nav {
-  font-size: 24px;
-  padding: 12px 0;
+  font-size: 2.4rem;
+  padding: 1.2rem 0;
   position: fixed;
   left: 1.6rem;
   color: #e8ecf0; }
 .navbar-fixed .logo {
-  margin-left: 16px; }
+  margin-left: 1.6rem; }
 
 .nav-wrapper {
-  padding-right: 11px; }
+  padding-right: 1.1rem; }
   .nav-wrapper > div {
     float: right;
-    font-size: 13px; }
+    font-size: 1.3rem; }
   .nav-wrapper .drop-down .dropdown-button {
     padding: 0;
     cursor: pointer; }
     .nav-wrapper .drop-down .dropdown-button img {
-      margin-right: 10px;
+      margin-right: 1rem;
       position: relative;
-      top: 13px; }
+      top: 1.3rem; }
     .nav-wrapper .drop-down .dropdown-button .name {
       display: inline-block;
-      margin-right: 17px; }
+      margin-right: 1.7rem; }
       .nav-wrapper .drop-down .dropdown-button .name p {
         margin: 0;
         line-height: 1.5; }
     .nav-wrapper .drop-down .dropdown-button .avatar {
-      width: 37px;
-      height: 37px;
+      width: 3.7rem;
+      height: 3.7rem;
       border-radius: 50%; }
     .nav-wrapper .drop-down .dropdown-button i {
       display: inline-block;
-      font-size: 15px; }
+      font-size: 1.5rem; }
   .nav-wrapper .drop-down .dropdown-content {
     top: auto !important; }
     .nav-wrapper .drop-down .dropdown-content li a {
@@ -790,20 +785,20 @@ input#fileName::-webkit-file-upload-button {
     position: relative;
     margin-right: 2rem; }
     .nav-wrapper .notification .badge {
-      border-radius: 10px;
+      border-radius: 1rem;
       display: inline-block;
       font-weight: bold;
       line-height: 1;
-      min-width: 10px;
+      min-width: 1rem;
       text-align: center;
       vertical-align: middle;
       white-space: nowrap;
       background-color: #ff0909;
       color: #fff;
       cursor: pointer;
-      font-size: 9px;
+      font-size: .9rem;
       font-weight: normal;
-      padding: 4px 6px;
+      padding: .4rem .6rem;
       top: 15px;
       right: -3px; }
     .nav-wrapper .notification i {
@@ -812,7 +807,7 @@ input#fileName::-webkit-file-upload-button {
   .nav-wrapper #dropdown-notification {
     left: inherit !important;
     right: -20px !important;
-    min-width: 400px; }
+    min-width: 40rem; }
     .nav-wrapper #dropdown-notification .badge {
       right: 16px;
       font-size: 11px; }
@@ -827,27 +822,26 @@ input#fileName::-webkit-file-upload-button {
   margin-right: 2rem; }
   .search_bar form {
     overflow: hidden; }
-  .search_bar input {
+  .search_bar .placeholder {
     margin-bottom: 0;
     border-bottom: 1px solid transparent;
     padding-left: 25px;
     font-size: 13px; }
-  .search_bar label {
+  .search_bar .label-search {
     position: absolute;
     top: 2px;
-    z-index: -1; }
-    .search_bar label i {
-      font-size: 24px;
-      color: rgba(255, 255, 255, 0.7); }
+    z-index: 1;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.7); }
   .search_bar.focused {
     width: 20rem;
     transition: all 0.2s ease-out; }
-    .search_bar.focused input {
+    .search_bar.focused .placeholder {
       border-bottom: 1px solid #aeb1b6;
       box-shadow: 0 1px 0 0 #aeb1b6;
       vertical-align: middle;
       background: transparent none repeat scroll 0 0; }
-    .search_bar.focused input:focus {
+    .search_bar.focused .placeholder:focus {
       border-bottom: 1px solid #aeb1b6;
       box-shadow: 0 1px 0 0 #aeb1b6; }
     .search_bar.focused label {
