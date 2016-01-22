@@ -196,6 +196,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AL.
+        /// </summary>
+        public static string AL {
+            get {
+                return ResourceManager.GetString("AL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -394,6 +403,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bereavement Leave.
+        /// </summary>
+        public static string BereavementLeave {
+            get {
+                return ResourceManager.GetString("BereavementLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday.
         /// </summary>
         public static string Birthday {
@@ -403,11 +421,38 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BL.
+        /// </summary>
+        public static string BL {
+            get {
+                return ResourceManager.GetString("BL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Break.
         /// </summary>
         public static string BreakTimeMins {
             get {
                 return ResourceManager.GetString("BreakTimeMins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.
+        /// </summary>
+        public static string BT {
+            get {
+                return ResourceManager.GetString("BT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Business Trip.
+        /// </summary>
+        public static string BusinessTrip {
+            get {
+                return ResourceManager.GetString("BusinessTrip", resourceCulture);
             }
         }
         
@@ -439,7 +484,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change shift.
+        ///   Looks up a localized string similar to Change Shift.
         /// </summary>
         public static string ChangeShift {
             get {
@@ -678,6 +723,15 @@ namespace Fanex.NexHR.Resources {
         public static string CreateRequest {
             get {
                 return ResourceManager.GetString("CreateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CS.
+        /// </summary>
+        public static string CS {
+            get {
+                return ResourceManager.GetString("CS", resourceCulture);
             }
         }
         
@@ -1240,6 +1294,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Half Annual Leave.
+        /// </summary>
+        public static string HalfAnnualLeave {
+            get {
+                return ResourceManager.GetString("HalfAnnualLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Half Day Off.
         /// </summary>
         public static string HalfDayOff {
@@ -1708,6 +1771,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Half Day.
+        /// </summary>
+        public static string LeaveHalfDay {
+            get {
+                return ResourceManager.GetString("LeaveHalfDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Leave Request(s).
         /// </summary>
         public static string LeaveRequest {
@@ -1834,6 +1906,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maternity Leave.
+        /// </summary>
+        public static string MaternityLeave {
+            get {
+                return ResourceManager.GetString("MaternityLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Balance.
         /// </summary>
         public static string MaxBalance {
@@ -1902,6 +1983,15 @@ namespace Fanex.NexHR.Resources {
         public static string MissingCheckInOut {
             get {
                 return ResourceManager.GetString("MissingCheckInOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ML.
+        /// </summary>
+        public static string ML {
+            get {
+                return ResourceManager.GetString("ML", resourceCulture);
             }
         }
         
@@ -2284,6 +2374,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off Day.
+        /// </summary>
+        public static string OffDay {
+            get {
+                return ResourceManager.GetString("OffDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old.
         /// </summary>
         public static string Old {
@@ -2334,6 +2433,15 @@ namespace Fanex.NexHR.Resources {
         public static string Out {
             get {
                 return ResourceManager.GetString("Out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override.
+        /// </summary>
+        public static string Override {
+            get {
+                return ResourceManager.GetString("Override", resourceCulture);
             }
         }
         
@@ -2401,6 +2509,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PH.
+        /// </summary>
+        public static string PH {
+            get {
+                return ResourceManager.GetString("PH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         public static string Phone {
@@ -2424,6 +2541,15 @@ namespace Fanex.NexHR.Resources {
         public static string ProcessedDate {
             get {
                 return ResourceManager.GetString("ProcessedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public Holiday.
+        /// </summary>
+        public static string PublicHoliday {
+            get {
+                return ResourceManager.GetString("PublicHoliday", resourceCulture);
             }
         }
         
@@ -3085,6 +3211,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UPL.
+        /// </summary>
+        public static string UPL {
+            get {
+                return ResourceManager.GetString("UPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         public static string View {
@@ -3108,6 +3243,24 @@ namespace Fanex.NexHR.Resources {
         public static string Wed {
             get {
                 return ResourceManager.GetString("Wed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wedding Leave.
+        /// </summary>
+        public static string WeddingLeave {
+            get {
+                return ResourceManager.GetString("WeddingLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WL.
+        /// </summary>
+        public static string WL {
+            get {
+                return ResourceManager.GetString("WL", resourceCulture);
             }
         }
         

@@ -71,6 +71,7 @@
             BuildBundleForLeaveDeductionDetail(bundles);
 
             BuildBundlerForOverTime(bundles);
+            BuildBundleForLateInEarlyOutDetail(bundles);
         }
 
         private static void BuildBundlerForOverTime(BundleCollection bundles)
@@ -270,7 +271,15 @@
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutsummaryjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/leavededuction.js");
+                "~/Scripts/Views/Report/report.latein.earlyout.summary.js");
+        }
+
+        private static void BuildBundleForLateInEarlyOutDetail(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/lateinearlyoutdetailjs",
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/report.latein.earlyout.detail.js");
         }
 
         private static void BuildBundleForEditEmployee(BundleCollection bundles)
@@ -298,10 +307,6 @@
 
         private static void BuildBundleForMonthSchedule(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/monthschedulecss",
-                "~/Content/Views/employee.monthschedule.css");
-
             bundles.Add(new ScriptBundle("~/bundles/monthschedulejs").Include(
                 "~/Scripts/Views/Employee/employee.monthschedule.js"));
         }
@@ -330,10 +335,12 @@
         private static void BuildBundleForDashboard(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                "~/Scripts/Libs/slick.min.js",
                 "~/Scripts/Views/employee.dashboard.js"));
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
+                "~/Content/Common/slick.css",
                 "~/Content/Views/mydashboard.css");
         }
 
@@ -368,9 +375,9 @@
         private static void BuildBundleForLeaveDeductionDetail(BundleCollection bundles)
         {
             bundles.AddAndInclude(
-                "~/bundles/leaveDeductionDetailjs",
+                "~/bundles/leavedeductiondetailjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/leaveDeductionDetail.js");
+                "~/Scripts/Views/Report/report.leave.deduction.detail.js");
         }
     }
 }

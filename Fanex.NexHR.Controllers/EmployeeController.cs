@@ -385,7 +385,7 @@ namespace Fanex.NexHR.Controllers
             {
                 EmpId = this.CurrentUser.Id
             };
-            var model = _employeeService.GetMySpace(getMySpaceCriteria);
+            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
 
             return View(model);
         }
@@ -453,39 +453,6 @@ namespace Fanex.NexHR.Controllers
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
             });
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "HR")]
-        public ActionResult WorkingCalendarsEdit()
-        {
-            var model = new ChangeWorkingCalendarsViewModel
-            {
-                Date = DateTime.Now,
-                IsOfDay = 0,
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = this.CurrentUser.Id
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "HR")]
-        public ActionResult WorkingCalendarsEdit(ChangeWorkingCalendarsViewModel model)
-        {
-            model.ModifiedDate = DateTime.Now;
-            model.ModifiedBy = this.CurrentUser.Id;
-            var updateOffDayForAllEmployeesCriteria = new UpdateOffDayForAllEmployeesCriteria
-            {
-                Date = model.Date,
-                IsOffDay = model.IsOfDay,
-                ModifiedBy = model.ModifiedBy,
-                ModifiedDate = model.ModifiedDate
-            };
-
-            ViewBag.Requested = _employeeService.UpdateOffDayForAllEmployees(ModelState, updateOffDayForAllEmployeesCriteria);
-
-            return View(model);
         }
 
         [ChildActionOnly]

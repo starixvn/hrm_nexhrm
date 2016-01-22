@@ -52,6 +52,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Index()
         {
             ViewBag.IsShowCloseBalance = AppSetting.IsShowCloseBalance;
+
             return Index(null);
         }
 

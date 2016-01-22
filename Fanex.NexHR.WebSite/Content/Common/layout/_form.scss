@@ -1,8 +1,8 @@
 @import "../utils/variables";
 
 .form {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
     padding: 0 !important;
       .btn {
         text-transform: none;
@@ -10,14 +10,14 @@
 }
 
 .input {
-    width: 163px;
+    width: 16.3rem;
 }
 
 .radioButton {
     float: left;
-    margin-right: 21px;
+    margin-right: 2.1rem;
     label {
-        margin-top: 2px !important;
+        margin-top: .2rem !important;
     }
 }
 
@@ -27,7 +27,7 @@
     position: relative;
     text-overflow: ellipsis;
     white-space: pre;
-    width: 77px;
+    width: 7.7rem;
 }
 
 .col.button {
@@ -35,84 +35,77 @@
 }
 
 .select--xs, .input--xs {
-    width: 70px;
+    width: 7rem;
 }
 
 .select--s, .input--s {
-    width: 150px;
+    width: 15rem;
 }
 
 .select--m, .input--m {
-    width: 220px;
+    width: 22rem;
 }
 
 .input-subject {
-	width: 518px;
+	width: 51.8rem;
 }
 .select-team {
-	width: 200px;
+	width: 20rem;
 }
 
 .select--l, .input--l {
-    width: 400px;
+    width: 40rem;
 }
 
 .label--s {
-    width: 50px;
+    width: 5rem;
 }
 
 .label--m {
-    width: 78px;
+    width: 7.8rem;
 }
 
 .label--l {
-    width: 110px;
+    width: 11rem;
 }
 
 .label--xl {
-    width: 120px;
+    width: 12rem;
 }
 
 .input-spvn {
-    width: 350px;
-}
-
-.txtArea {
-	width: 500px;	
-	textarea {
-		height: 50px;
-	}
+    width: 35rem;
 }
 
 //------------------Filter specific -----------------//
 .filter-status {
-	width: 220px;	
-	/*@media (min-width: 1900px) {
-		width: 150px;
-	}*/
+	width: 22rem;
+	
 }
+
 //------------------Filter specific usermanagement -----------------//
 .filter-title-lbl {
-	width: 78px;
+	width: 7.8rem;
 
 	@media (min-width: 1900px){
-		 width: 50px;
+		 width: 5rem;
 	}
 }
 .filter-title, .filter-keyword {
-	width: 300px;
+	width: 30rem;
 }
+
 //------------------Filter specific attendace report -----------------//
 .label--m.label {
-	width: 78px;
-	margin-bottom: 10px;
+	width: 7.8rem;
+	margin-bottom: 1rem;
 	@media (min-width: 1900px) {
 		width: 0;
 	}
 }
 
 .checkBox {
-	margin-top: 8px;
+	margin-top: .8rem;
 	@media (min-width: 1900px) {
 		margin-top: 0;
 	}	
@@ -134,6 +127,7 @@
     position: none !important;
     visibility: unset !important;
     left: unset !important;
+	border-radius: 2px;
   }
 
   input[type=number] {
@@ -180,12 +174,137 @@
 //            DATE TIME PICKER
 //---------------------------------------------
 
-.datetime-picker {    
-  @extend %boxshadow;
-  margin-right: 9px;
-  margin-top: 0;
-  padding: 1.6rem 0.5rem 1.6rem 0;
+
+#ui-datepicker-div {
+    z-index: 1002 !important;
+	padding: 0;
+	width: 30rem;
+	border: none;
+	@extend %boxshadow;
+
+	select {
+		display: inline-block !important;
+		width: 40%;
+		margin: 0 8px;
+		padding: 0 5px;
+		height: 2.5rem;
+	}
+
+	.ui-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: none;
+        text-indent: initial;		
+
+        &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {                       
+            width: 2.5rem;
+			height: 2.5rem;
+            font-family: "Material Design Icons";
+            font-size: 1.9rem;
+			color: #fff;
+			line-height: 2.5rem;						
+			padding-left: .3rem;
+        }
+
+        &.ui-icon-circle-triangle-e:after {
+            content: "\f417";
+        }
+
+        &.ui-icon-circle-triangle-w:after {
+            content: "\f416";
+        }
+    }
+
+	.ui-datepicker-prev, .ui-datepicker-next {
+		width: 2.5rem;
+        height: 2.5rem;
+		background: #78828c;
+		top: inherit;
+		border-radius: 1px;
+
+		span {
+			display: inherit;
+			position: inherit;
+			left: 0;
+			margin-left: 0;
+			top: inherit;
+			margin-top: 0;
+			
+		}
+	}
+
+	.ui-datepicker-prev {
+		left: 1.3rem;
+		&-hover {
+			left: 1.3rem;		
+		}
+	}
+
+	.ui-datepicker-next {
+		right: 1.3rem;
+		&-hover {
+			right: 1.3rem;
+		}
+	}
+	
+	.ui-datepicker-header {
+		padding: 10px 15px;
+		background: #343b4d;
+	}
+
+	.ui-datepicker-calendar {
+		table {
+			margin: .5rem 0 .5rem;
+		}
+		thead {
+			border: none;
+			th {
+				color: $c-primary;
+			}
+		}
+		tbody {
+			td {
+				width: 30px;
+				padding: .7em 0;
+				border-radius: 2px;
+				span, a {
+					padding: 0;
+					text-align: center;
+				}
+
+				&.ui-datepicker-current-day {
+					background: $c-primary;
+					.ui-state-active {
+						background: none;
+						border: none;
+						color: #fff;
+					}
+				}
+
+				&.ui-datepicker-today {
+					a {
+						border: none;
+						color: $c-primary;
+						font-weight: 600;
+					}
+					
+				}
+			}
+		}
+	}
 }
+
+.ui-datepicker table {
+   margin: .5em 0 .5em !important;
+}
+
+.datetime-picker {
+	@extend %boxshadow;
+	margin-right: .9rem;
+	margin-top: 0;
+	padding: 1.6rem 0.5rem 1.6rem 0;
+}
+
 
 //---------------------------------------------
 //            SEARCH AUTOCOMPLETE
@@ -251,7 +370,7 @@
 	margin-bottom: 0;
 }
 
-#updateform {
+#updateform, #addform {
 	text-align: left;
 }
 
@@ -260,6 +379,6 @@
 	text-align: left;
 
 	.form {
-		margin-bottom: 200px;
+		margin-bottom: 20rem;
 	}
 }

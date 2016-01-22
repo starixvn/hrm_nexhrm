@@ -67,8 +67,7 @@ function view() {
                             "</table>";
                 }
             });
-        }
-        else {
+        } else {
             $('#data tbody').children().remove();
             $(noInformation(14)).appendTo('#data');
         }
@@ -89,11 +88,13 @@ function index() {
 $(document).ready(function () {
     $("#Employee").autocomplete({
         source: function (request, response) {
-            var term = request.term;
-            var index = term.indexOf(' (');
+            var term = request.term,
+                index = term.indexOf(' (');
+
             if (index > 0) {
                 term = term.substr(0, index);
             }
+
             $.ajax({
                 dataType: 'json',
                 url: _global.root + 'api/employee/getemployees',
@@ -123,8 +124,7 @@ $(document).ready(function () {
                 var nickName = ui.item.label;
                 $('#Employee').val(nickName);
                 $('#EmpId').val(ui.item.value);
-            }
-            else {
+            } else {
                 $('#EmpId').val('0');
             }
         }
@@ -135,6 +135,7 @@ $(document).ready(function () {
             view();
         }
     });
+
     $('#view').click(function (evt) {
         evt.preventDefault();
         view();
@@ -151,7 +152,7 @@ $(document).ready(function () {
             '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
     });
 
-    initDatePicker('.datepicker');
+    initDatePicker();
 
     view();
 });

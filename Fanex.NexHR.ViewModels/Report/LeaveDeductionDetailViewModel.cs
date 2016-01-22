@@ -12,7 +12,6 @@ namespace Fanex.NexHR.ViewModels.Report
     using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Report;
 
     public class LeaveDeductionDetailViewModel
     {
@@ -28,8 +27,6 @@ namespace Fanex.NexHR.ViewModels.Report
 
         public DateTime ToDate { get; set; }
 
-        public IList<Team> Teams { get; set; }
-
-        public IList<LeaveDeductionDetail> LeaveDeductions { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Models.Report
-@using Fanex.NexHR.ViewModels.Report
-@model LateInEarlyOutDetailViewModel
+﻿@model LateInEarlyOutDetailViewModel
 @{
     ViewBag.Title = Labels.LateInEarlyOutDetail;
 }
@@ -10,137 +7,87 @@
 @section css{
 }
 @section js{
+    @Scripts.Render("~/bundles/lateinearlyoutdetailjs")
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
+                    <div class="form">
                     @using (Html.BeginForm())
                     {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        <div class="form">
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.DateRange</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select id="Date" name="Date">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
-                                        @Html.Hidden("DateOption", Model.DateOption)
-                                    </div>
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.DateRange</label>
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate)
-                                    </div>
-                                    <div class="left datepicker-button input--s">
-                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.ToDate)
-                                    </div>
-                                    <div class="left datepicker-button input--s">
-                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                <div class="left select--m">
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                    @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.TeamId)
-                                    </div>
-                                    <div class="left select--m">
-                                        <select id="TeamId" name="TeamId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team team in Model.Teams)
-                                            {
-                                                <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
-                                    </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
-                                    </div>
-                                    <div class="left input--s">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                    </div>
+                                <div class="left datepicker-button input--s">
+                                    @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                    <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
-                                <div class="col">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect wave-light" />
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                </div>
+                                <div class="left datepicker-button input--s">
+                                    @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                    <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
                         </div>
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.TeamId, Labels.Team)
+                                </div>
+                                <div class="left select--m">
+                                    @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.Employee)
+                                </div>
+                                <div class="left input--s">
+                                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect wave-light" />
+                            </div>
+                        </div>
                     }
+                    </div>
                     <div class="p-x--s">
-                        <table class="data persist-area table bordered striped highlight centered responsive-table table-custom">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>
-                                <tr class="persist-header">
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>@Labels.Name
-                                    </th>
-                                    <th>@Labels.Nick
-                                    </th>
-                                    <th>@Labels.Team
-                                    </th>
-                                    <th>@Labels.WorkigDay
-                                    </th>
-                                    <th>@Labels.Type
-                                    </th>
-                                    <th>@Labels.Hours
-                                    </th>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.WorkigDay</th>
+                                    <th>@Labels.Type</th>
+                                    <th>@Labels.Hours</th>
                                 </tr>
                             </thead>
-                            @if (Model.LateInEarlyOuts != null && Model.LateInEarlyOuts.Any())
-                            {
-                                int index = 1;
-                                <tbody>
-                                    @foreach (LateInEarlyOutDetail item in Model.LateInEarlyOuts)
-                                    {
-                                        <tr>
-                                            <td>@(index++)
-                                            </td>
-                                            <td class="left">@item.Employee.FullName
-                                            </td>
-                                            <td>@item.Employee.NickName
-                                            </td>
-                                            <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code
-                                            </td>
-                                            <td>@item.WorkDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            <td>@(item.TypeId == 0 ? Labels.LeaveDeduction : (item.TypeId == 1 ? Labels.LateIn : Labels.EarlyOut))
-                                            </td>
-                                            <td>@((item.Minutes / 60.0).ToString("0.0"))
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            }
-                            else
-                            {
-                                @RazorHelper.DisplayNoInformation(colspan: 7);
-                            }
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -148,3 +95,24 @@
         </div>
     </div>
 </div>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${index()}</td>
+        <td class="align-left">${Employee.FullName}</td>
+        <td>${Employee.NickName}</td>
+        <td class="tooltip" title="${Employee.Team.Name}">
+            ${Employee.Team.Code}
+        </td>
+        <td>${formatJsonDate(WorkDate, 'dd MMM, yyyy')}</td>
+        <td>
+            {{if TypeId == 0}}
+                Leave Deduction
+            {{else TypeId == 1}}
+                Late In
+            {{else}}
+                Early Out
+            {{/if}}
+        </td>
+        <td>${formatMinutes(Minutes)}</td>
+    </tr>
+</script>

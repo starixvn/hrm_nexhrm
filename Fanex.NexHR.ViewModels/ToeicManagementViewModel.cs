@@ -18,7 +18,6 @@ namespace Fanex.NexHR.ViewModels
         {
             Groups = new List<Team>();
             JobTitles = new List<LookupData>();
-            Employees = new List<Employee>();
         }
 
         #region Filter
@@ -34,7 +33,5 @@ namespace Fanex.NexHR.ViewModels
         public IList<LookupData> JobTitles { get; set; }
 
         #endregion Filter
-
-        public IList<Employee> Employees { get; set; }
     }
 }

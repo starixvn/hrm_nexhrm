@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DateRangeFiltering.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="DateRangeFilter.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Core
 {
     using System.ComponentModel;
 
-    public enum DateRangeFiltering : int
+    public enum DateRangeFilter : int
     {
         [Description("Date Range")]
         DateRange = 0,

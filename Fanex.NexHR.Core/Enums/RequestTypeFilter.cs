@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RequestTypeFiltering.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RequestTypeFilter.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Core.Enums
 {
     using System.ComponentModel;
 
-    public enum RequestTypeFiltering : int
+    public enum RequestTypeFilter : int
     {
         [Description("All")]
         All = 0,

@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false , _messages:false, initDatePicker:false*/
+/*global _global, _messages*/
 
 var _checked = false,
     _totalDays = 0,
@@ -21,9 +21,9 @@ function eventAdjustment() {
             var title = $('#insertform').attr('title');
 
             $('#insertform').dialog({
-                title: 'Adjust annual leave balance',
+                title: 'Adjust Annual Leave Balance',
                 modal: true,
-                width: 450,
+                width: 'auto',
                 dialogClass: 'add-adjustment',
                 open: function () {
                     $('#TotalDays').val('');
@@ -82,9 +82,9 @@ function eventCloseBalance() {
         var lastYear = (new Date()).getFullYear() - 1;
 
         $('#resetform').dialog({
-            title: 'Close balance for year ' + lastYear,
+            title: 'Close Balance For Year ' + lastYear,
             modal: true,
-            width: 450,
+            width: 'auto',
             dialogClass: 'reset-balance',
             open: function () {
                 $('#TotalDays').val('');
@@ -117,7 +117,6 @@ function eventCloseBalance() {
 }
 
 $(document).ready(function () {
-    initDatePicker('#AffectedFrom');
     eventAdjustment();
     eventAddBalance();
     eventCloseBalance();

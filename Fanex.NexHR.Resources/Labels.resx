@@ -136,7 +136,7 @@
     <value>Approved date</value>
   </data>
   <data name="ChangeShift" xml:space="preserve">
-    <value>Change shift</value>
+    <value>Change Shift</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
@@ -1160,5 +1160,59 @@
   </data>
   <data name="Verified" xml:space="preserve">
     <value>Verified</value>
+  </data>
+    <data name="AL" xml:space="preserve">
+    <value>AL</value>
+  </data>
+  <data name="BereavementLeave" xml:space="preserve">
+    <value>Bereavement Leave</value>
+  </data>
+  <data name="BL" xml:space="preserve">
+    <value>BL</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>BT</value>
+  </data>
+  <data name="BusinessTrip" xml:space="preserve">
+    <value>Business Trip</value>
+  </data>
+  <data name="CS" xml:space="preserve">
+    <value>CS</value>
+  </data>
+  <data name="HalfAnnualLeave" xml:space="preserve">
+    <value>Half Annual Leave</value>
+  </data>
+  <data name="LeaveHalfDay" xml:space="preserve">
+    <value>Leave Half Day</value>
+  </data>
+  <data name="MaternityLeave" xml:space="preserve">
+    <value>Maternity Leave</value>
+  </data>
+  <data name="ML" xml:space="preserve">
+    <value>ML</value>
+  </data>
+  <data name="OffDay" xml:space="preserve">
+    <value>Off Day</value>
+  </data>
+  <data name="PH" xml:space="preserve">
+    <value>PH</value>
+  </data>
+  <data name="PublicHoliday" xml:space="preserve">
+    <value>Public Holiday</value>
+  </data>
+  <data name="UPL" xml:space="preserve">
+    <value>UPL</value>
+  </data>
+  <data name="WeddingLeave" xml:space="preserve">
+    <value>Wedding Leave</value>
+  </data>
+  <data name="WL" xml:space="preserve">
+    <value>WL</value>
+  </data>
+  <data name="Override" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="IsAnnual" xml:space="preserve">
+    <value>Is Annual</value>
   </data>
 </root>

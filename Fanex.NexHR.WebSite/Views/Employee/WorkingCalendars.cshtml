@@ -1,12 +1,17 @@
 ﻿@model IList<WorkingCalendarsViewModel>
 @section css {
-    @Styles.Render("~/Content/monthpickercss", "~/Content/monthpickercss", "~/Content/workingcalendarscss")
+    @Styles.Render(
+        "~/Content/monthpickercss",
+        "~/Content/monthpickercss",
+        "~/Content/workingcalendarscss")
 }
 @section js {
-    @Scripts.Render("~/bundles/workingcalendarsjs", "~/bundles/monthpickerjs")
+    @Scripts.Render(
+        "~/bundles/workingcalendarsjs",
+        "~/bundles/monthpickerjs")
 }
 @{
-    ViewBag.Title = "Working calendar";
+    ViewBag.Title = Labels.WorkingCalendar;
 }
 @{
     //Set max month we can select in MonthPick
@@ -19,7 +24,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -35,8 +40,7 @@
                                         <label>@Labels.Month</label>
                                     </div>
                                     <div class="left select--m">
-                                        <div id="monthPickr">
-                                        </div>
+                                        <div id="monthPickr"></div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@ViewBag.CurrentDate" />
                                     </div>
@@ -51,12 +55,11 @@
                                     <div class="left">
                                         @if (Roles.IsUserInRole("HR"))
                                         {
-                                            <a class="button-hrm waves-effect waves-light btn orange darken-1" href="javascript:;"
-                                                id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
+                                            <a class="btn-request waves-effect waves-light" href="javascript:;" id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
                                         }
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                         }
                     </div>
                     <div class="datagrid-wrap panel-body p-x--s">
@@ -75,8 +78,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="rownumber">
-                                                        <div class="datagrid-cell-rownumber center">
-                                                            #</div>
+                                                        <div class="datagrid-cell-rownumber center">@Labels.SymbolCount</div>
                                                     </td>
                                                     <td class="p-l--s rowfullname">
                                                         <div class="datagrid-cell ">@Labels.FullName</div>
@@ -306,108 +308,108 @@
                         <div class="col s3">
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 AL tooltip alpha" title="Annual Leave">
-                                        AL</div>
+                                    <div class="grid_2 AL tooltip alpha" title="@Labels.AnnualLeave">
+                                        @Labels.AL
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Annual Leave</label>
+                                    <label>@Labels.AnnualLeave</label>
                                 </div>
                             </div>
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 HAL tooltip" title="Half Annual Leave">
-                                        AL</div>
+                                    <div class="grid_2 HAL tooltip" title="@Labels.HalfAnnualLeave">
+                                        @Labels.AL
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Hafl Annual Leave</label>
+                                    <label>@Labels.HalfAnnualLeave</label>
                                 </div>
                             </div>
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 ML tooltip" title="Maternity Leave">
-                                        ML</div>
+                                    <div class="grid_2 ML tooltip" title="@Labels.MaternityLeave">
+                                        @Labels.ML
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Maternity Leave</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s3">
-                            <div class="row m-b--m">
-                                <div class="left m-r--s">
-                                    <div class="grid_2 UPL tooltip alpha" title="Unpaid Leave">
-                                        UPL</div>
-                                </div>
-                                <div class="left label">
-                                    <label>
-                                        Unpaid Leave</label>
-                                </div>
-                            </div>
-                            <div class="row m-b--m">
-                                <div class="left m-r--s">
-                                    <div class="grid_2 OFF tooltip" title="Public Holiday/Off Day">
-                                        PH/OFF</div>
-                                </div>
-                                <div class="left label">
-                                    <label>
-                                        Public Holiday/Off Day</label>
-                                </div>
-                            </div>
-                            <div class="row m-b--m">
-                                <div class="left m-r--s">
-                                    <div class="grid_2 HH tooltip" title="2 Leave Half Day">
-                                        H/H</div>
-                                </div>
-                                <div class="left label">
-                                    <label>
-                                        2 Leave Half Day</label>
+                                    <label>@Labels.MaternityLeave</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col s3">
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 BL tooltip" title="Bereavement Leave">
-                                        BL</div>
+                                    <div class="grid_2 UPL tooltip alpha" title="@Labels.UnpaidLeave">
+                                        @Labels.UPL
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Bereavement Leave</label>
+                                    <label>@Labels.UnpaidLeave</label>
                                 </div>
                             </div>
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 BT tooltip" title="Business Trip">
-                                        BT</div>
+                                    <div class="grid_2 OFF tooltip" title="@Labels.PublicHoliday/@Labels.OffDay">
+                                        @Labels.PH/@Labels.Off
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Business Trip</label>
+                                    <label>@Labels.PublicHoliday/@Labels.OffDay</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 HH tooltip" title="2 @Labels.LeaveHalfDay">
+                                        H/H
+                                    </div>
+                                </div>
+                                <div class="left label">
+                                    <label>2 @Labels.LeaveHalfDay</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col s3">
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 ChangeShift tooltip" title="Change Shift">
-                                        CS</div>
+                                    <div class="grid_2 BL tooltip" title="@Labels.BereavementLeave">
+                                        @Labels.BL
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Change Shift</label>
+                                    <label>@Labels.BereavementLeave</label>
                                 </div>
                             </div>
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 WL tooltip" title="Wedding Leave">
-                                        WL</div>
+                                    <div class="grid_2 BT tooltip" title="@Labels.BusinessTrip">
+                                        @Labels.BT
+                                    </div>
                                 </div>
                                 <div class="left label">
-                                    <label>
-                                        Wedding Leave</label>
+                                    <label>@Labels.BusinessTrip</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 ChangeShift tooltip" title="@Labels.ChangeShift">
+                                        @Labels.CS
+                                    </div>
+                                </div>
+                                <div class="left label">
+                                    <label>@Labels.ChangeShift</label>
+                                </div>
+                            </div>
+                            <div class="row m-b--m">
+                                <div class="left m-r--s">
+                                    <div class="grid_2 WL tooltip" title="@Labels.WeddingLeave">
+                                        @Labels.WL
+                                    </div>
+                                </div>
+                                <div class="left label">
+                                    <label>@Labels.WeddingLeave</label>
                                 </div>
                             </div>
                         </div>

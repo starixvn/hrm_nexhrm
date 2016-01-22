@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -27,7 +27,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--s">
-                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.FromDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         @Html.DatePickerFor(model => model.ToDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                        <i class="mdi-action-event calendar-icon to-date left"></i>
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <span class="button-hrm waves-effect waves-light btn blue darken-2">
-                                        <input type="submit" value="@Labels.Submit" class="processing-submit" />
-                                    </span>
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                             </div>
                         }
@@ -71,7 +69,7 @@
                         <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>
                                 <tr>
-                                    <th rowspan="2">#</th>
+                                    <th rowspan="2">@Labels.SymbolCount</th>
                                     <th rowspan="2">@Labels.Name</th>
                                     <th rowspan="2">@Labels.Nick</th>
                                     <th rowspan="2">@Labels.Team</th>
@@ -90,181 +88,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (ViewBag.EntityList.Count > 0)
-                                {
-                                    int index = 1;
-                                    var requestModel = new RequestViewModel();
-
-                                    foreach (Fanex.NexHR.Models.RequestsMonitoring request in ViewBag.EntityList)
-                                    {
-                                        requestModel = new RequestViewModel
-                                        {
-                                            DateOption = 0,
-                                            FromDate = ViewBag.FromDate,
-                                            ToDate = ViewBag.ToDate,
-                                            EmployeeId = request.Requester.Id,
-                                            Employee = request.Requester.NickName + " (" + request.Requester.FullName + ")",
-                                            TeamId = -2,
-                                            StatusId = (byte)RequestStatuse.Approve,
-                                            IsFilterByEffectedDate = true
-                                        };
-                                    <tr>
-                                        <td>@(index++)
-                                        </td>
-                                        <td class="align-left">@request.Requester.FullName
-                                        </td>
-                                        <td>@request.Requester.NickName
-                                        </td>
-                                        <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
-                                        </td>
-                                        <td class="@(request.TotalLeaveTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalLeaveTimes > 0)
-                                            {
-                                                requestModel.RequestType = 1;
-                                                if ((bool)ViewBag.isLeader)
-                                                {
-                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalLeaveTimes</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalLeaveTimes</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalAnnualLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalAnnualLeave > 0)
-                                            {
-                                                requestModel.RequestType = 1;
-                                                if ((bool)ViewBag.isLeader)
-                                                {
-                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalAnnualLeave.ToString("0.0")</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalUnpaidLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalUnpaidLeave > 0)
-                                            {
-                                                requestModel.RequestType = 1;
-                                                if ((bool)ViewBag.isLeader)
-                                                {
-                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalUnpaidLeave.ToString("0.0")</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalOtherLeave > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalOtherLeave > 0)
-                                            {
-                                                requestModel.RequestType = 1;
-                                                if ((bool)ViewBag.isLeader)
-                                                {
-                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalOtherLeave.ToString("0.0")</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalCheckInOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalCheckInOutTimes > 0)
-                                            {
-                                                requestModel.RequestType = 4;
-                                                if ((bool)ViewBag.isLeader)
-                                                {
-                                                    <a href="@Url.Action("member", "request", requestModel)">@request.TotalCheckInOutTimes</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("hrview", "request", requestModel)">@request.TotalCheckInOutTimes</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalMissingCheckInOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalMissingCheckInOutTimes > 0)
-                                            {
-                                                var model = new EmployeeAttendanceViewModel()
-                                                {
-                                                    EmpId = request.Requester.Id,
-                                                    Employee = request.Requester.DisplayName,
-                                                    FromDate = ViewBag.FromDate,
-                                                    ToDate = ViewBag.ToDate
-                                                };
-                                                <a href="@Url.Action("attendance", "report", model)">@request.TotalMissingCheckInOutTimes</a>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.LateInEarlyOutTimes > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.LateInEarlyOutTimes > 0)
-                                            {
-                                                var model = new EmployeeAttendanceViewModel()
-                                                {
-                                                    EmpId = request.Requester.Id,
-                                                    Employee = request.Requester.DisplayName,
-                                                    FromDate = ViewBag.FromDate,
-                                                    ToDate = ViewBag.ToDate
-                                                };
-                                                <a href="@Url.Action("attendance", "report", model)">@request.LateInEarlyOutTimes</a>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                        <td class="@(request.TotalAbsent > Model.MaxRequest ? "overloadRequest" : string.Empty)">
-                                            @if (request.TotalAbsent > 0)
-                                            {
-                                                var model = new EmployeeAttendanceViewModel()
-                                                {
-                                                    EmpId = request.Requester.Id,
-                                                    Employee = request.Requester.DisplayName,
-                                                    FromDate = ViewBag.FromDate,
-                                                    ToDate = ViewBag.ToDate
-                                                };
-                                                <a href="@Url.Action("attendance", "report", model)">@request.TotalAbsent</a>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
-                                        </td>
-                                    </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    @RazorHelper.DisplayNoInformation(colspan: 12);
-                                }
                             </tbody>
                         </table>
                     </div>
@@ -273,3 +96,174 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var maxRequest = @Model.MaxRequest,
+        isLeader = '@ViewBag.isLeader' == 'True' ? true : false,
+        fromDate = '@ViewBag.FromDate',
+        toDate = '@ViewBag.ToDate';
+</script>
+
+<script id="template" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${index()}</td>
+        <td class="align-left">
+            ${Requester.FullName}
+        </td>
+        <td>
+            ${Requester.NickName}
+        </td>
+        <td class="tooltip" title="${Requester.Team.Name}">
+            ${Requester.Team.Code}
+        </td>
+        <td {{if TotalLeaveTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalLeaveTimes > 0}}
+                <form class="request-model hide">
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input type="text" name="TeamId" value="-2" />
+                    <input type="text" name="StatusId" value="2" />
+                    <input type="text" name="IsFilterByEffectedDate" value="true" />
+                    <input type="text" name="RequestType" value="1" />
+                </form>
+                {{if isLeader}}
+                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="member">${TotalLeaveTimes}</a>
+                {{else}}
+                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="hrview">${TotalLeaveTimes}</a>
+                {{/if}}
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalAnnualLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalAnnualLeave > 0}}
+                <form class="request-model hide">
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input type="text" name="TeamId" value="-2" />
+                    <input type="text" name="StatusId" value="2" />
+                    <input type="text" name="IsFilterByEffectedDate" value="true" />
+                    <input type="text" name="RequestType" value="1" />
+                </form>
+                {{if isLeader}}
+                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalAnnualLeave)}</a>
+                {{else}}
+                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalAnnualLeave)}</a>
+                {{/if}}
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalUnpaidLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalUnpaidLeave > 0}}
+                <form class="request-model hide">
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input type="text" name="TeamId" value="-2" />
+                    <input type="text" name="StatusId" value="2" />
+                    <input type="text" name="IsFilterByEffectedDate" value="true" />
+                    <input type="text" name="RequestType" value="1" />
+                </form>
+                {{if isLeader}}
+                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalUnpaidLeave)}</a>
+                {{else}}
+                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalUnpaidLeave)}</a>
+                {{/if}}
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalOtherLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalOtherLeave > 0}}
+                <form class="request-model hide">
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input type="text" name="TeamId" value="-2" />
+                    <input type="text" name="StatusId" value="2" />
+                    <input type="text" name="IsFilterByEffectedDate" value="true" />
+                    <input type="text" name="RequestType" value="1" />
+                </form>
+                {{if isLeader}}
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalOtherLeave)}</a>
+                {{else}}
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalOtherLeave)}</a>
+                {{/if}}
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalCheckInOutTimes > 0}}
+                <form class="request-model hide">
+                    <input class="DateOption" type="text" name="DateOption" value="0" />
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input type="text" name="TeamId" value="-2" />
+                    <input type="text" name="StatusId" value="2" />
+                    <input type="text" name="IsFilterByEffectedDate" value="true" />
+                    <input type="text" name="RequestType" value="4" />
+                </form>
+                {{if isLeader}}
+                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="member">${TotalCheckInOutTimes}</a>
+                {{else}}
+                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="hrview">${TotalCheckInOutTimes}</a>
+                {{/if}}
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalMissingCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalMissingCheckInOutTimes > 0}}
+                <form class="request-model hide">
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmpId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                </form>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${TotalMissingCheckInOutTimes}</a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if LateInEarlyOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if LateInEarlyOutTimes > 0}}
+                <form class="request-model hide">
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmpId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                </form>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${LateInEarlyOutTimes}</a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+        <td {{if TotalAbsent > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+            {{if TotalAbsent > 0}}
+                <form class="request-model hide">
+                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
+                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
+                    <input type="text" name="EmpId" value="${Requester.Id}" />
+                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                </form>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${TotalAbsent}</a>
+            {{else}}
+                -
+            {{/if}}
+        </td>
+    </tr>
+</script>

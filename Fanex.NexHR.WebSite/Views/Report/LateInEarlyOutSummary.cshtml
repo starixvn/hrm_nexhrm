@@ -34,13 +34,7 @@
                                         @Html.Label(@Labels.Team)
                                     </div>
                                     <div class="left select--m">
-                                        <select id="TeamId" name="TeamId" class="yearpicker">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team team in Model.Groups)
-                                            {
-                                                <option selected="@(Model.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), @Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col">
@@ -53,18 +47,18 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light" />
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
-                            </div>   
-                            
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="formrow">
-                                        <span class="bold-color">※ Deduction Taken (Hours): </span><span class="font-description">
-                                            @Messages.DeductionTakenDescription.</span>
+                                        <span class="bold-color">※ Deduction Taken (Hours): </span>
+                                        <span class="font-description">@Messages.DeductionTakenDescription.</span>
                                     </div>
                                     <div class="formrow">
-                                        <span class="bold-color">※ Balance (Hours):</span><span class="font-description"> @Messages.BalanceDescription.</span>
+                                        <span class="bold-color">※ Balance (Hours):</span>
+                                        <span class="font-description"> @Messages.BalanceDescription.</span>
                                     </div>
                                 </div>
                             </div>
@@ -75,9 +69,13 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@(Model.Year - 1)(Hours)</th>
-                                    <th colspan="13">@Model.Year (Hours / Times)</th>
-                                    <th rowspan="2">@Labels.DeductionTaken (Hours)</th>
+                                    <th rowspan="2">
+                                        <span id="last-year">@(Model.Year - 1)</span> (@Labels.Hours)
+                                    </th>
+                                    <th colspan="13">
+                                        <span id="current-year">@Model.Year</span> (@Labels.Hours / @Labels.Times)
+                                    </th>
+                                    <th rowspan="2">@Labels.DeductionTaken (@Labels.Hours)</th>
                                     <th rowspan="2">@Labels.Balance (Hours)</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
@@ -100,107 +98,96 @@
                                     <th>@Labels.Total</th>
                                 </tr>
                             </thead>
-                            @if (Model.LateInEarlyOutSummary != null && Model.LateInEarlyOutSummary.Any())
-                            {
-                                <tbody>
-                                    @{int index = 1;}
-                                    @foreach (LateInEarlyOutSummaryByTeam item in Model.LateInEarlyOutSummary)
-                                    {
-                                        if (item.LateInEarlyOutSummaryInTeam.Count > 0)
-                                        {
-                                        <tr>
-                                            <td class="rowdivider align-left" colspan="32">
-                                                <b>@item.Team.Name.ToUpper()</b>
-                                            </td>
-                                        </tr>
-                                        }
-                                        foreach (LateInEarlyOutSummary lateIn in item.LateInEarlyOutSummaryInTeam)
-                                        {
-                                        <tr>
-                                            <td class="tooltip" title="@lateIn.Employee.FullName">@lateIn.Employee.NickName
-                                            </td>
-                                            <td>@(lateIn.BalanceLastYear != 0 ? (lateIn.BalanceLastYear / 60.0).ToString("0.0") : "-")
-                                            </td>
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Jan, lateIn.TimesInJan, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 1, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Feb, lateIn.TimesInFeb, lateIn.Employee.Id, new DateTime(Model.Year, 2, 1), new DateTime(Model.Year, 3, 1).AddDays(-1))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Mar, lateIn.TimesInMar, lateIn.Employee.Id, new DateTime(Model.Year, 3, 1), new DateTime(Model.Year, 3, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Apr, lateIn.TimesInApr, lateIn.Employee.Id, new DateTime(Model.Year, 4, 1), new DateTime(Model.Year, 4, 30))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.May, lateIn.TimesInMay, lateIn.Employee.Id, new DateTime(Model.Year, 5, 1), new DateTime(Model.Year, 5, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Jun, lateIn.TimesInJun, lateIn.Employee.Id, new DateTime(Model.Year, 6, 1), new DateTime(Model.Year, 6, 30))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Jul, lateIn.TimesInJul, lateIn.Employee.Id, new DateTime(Model.Year, 7, 1), new DateTime(Model.Year, 7, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Aug, lateIn.TimesInAug, lateIn.Employee.Id, new DateTime(Model.Year, 8, 1), new DateTime(Model.Year, 8, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Sep, lateIn.TimesInSep, lateIn.Employee.Id, new DateTime(Model.Year, 9, 1), new DateTime(Model.Year, 9, 30))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Oct, lateIn.TimesInOct, lateIn.Employee.Id, new DateTime(Model.Year, 10, 1), new DateTime(Model.Year, 10, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Nov, lateIn.TimesInNov, lateIn.Employee.Id, new DateTime(Model.Year, 11, 1), new DateTime(Model.Year, 11, 30))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.Dec, lateIn.TimesInDec, lateIn.Employee.Id, new DateTime(Model.Year, 12, 1), new DateTime(Model.Year, 12, 31))
-                                            @DisplayFormatTotalLateInEarlyOut(lateIn.TotalCurrentYear, lateIn.TotalTimesCurrentYear, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31), false)
-                                            @DisplayNumberHours(lateIn.LeaveDeduction, lateIn.Employee.Id, new DateTime(Model.Year, 1, 1), new DateTime(Model.Year, 12, 31))
-                                            <td class="@(lateIn.BalanceCurrentYear >= 240 ? "red-color bold-color" : "bold-color")">@(lateIn.BalanceCurrentYear != 0 ? (lateIn.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
-                                            </td>
-                                            @if (Roles.IsUserInRole("HR"))
-                                            {
-                                                <td class="center">
-                                                    <a href="javascript:;" class="addLeavededuction" data-id="@lateIn.Employee.Id" data-annualbalance="@lateIn.Employee.AnnualLeaveBalance">
-                                                        <i class="mdi mdi-border-color mdi-18px mdi-dark"></i></a>
-                                                </td>
-                                            }
-                                        </tr>
-                                        }
-                                    }
-                                </tbody>
-                            }
-                            else
-                            {
-                                @RazorHelper.DisplayNoInformation(32)
-                            }
+                            <tbody></tbody>
                         </table>
                     </div>
                     <div class="hide">
-                        <div id="insertform" title="Add leave deduction">
+                        <div id="insertform" title="Add Leave Deduction">
                             @Html.Action("CreateLeaveDeduction")
                         </div>
                     </div>
-                    @helper DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHightlight = true)
-                        {
-                            var url = "LateInEarlyOutDetail?employeeId=" + employeeId
-                                + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
-                                + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
-
-                            if (minutes != 0)
-                            {
-                        <td>
-                            <a class="@((times > 3 && isHightlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0"))
-                                / @times</a>
-                        </td>
-                            }
-                            else
-                            {
-                        <td>
-                            -
-                        </td>
-                            }
-                    }
-                    @helper DisplayNumberHours(int number, int employeeId, DateTime fromDate, DateTime toDate)
-                        {
-                            var url = "LeaveDeductionDetail?employeeId=" + employeeId
-                                + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
-                                + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
-
-                            if (number != 0)
-                            {
-                        <td>
-                            <a href="@url">@((number / 60.0).ToString("0.0"))</a>
-                        </td>
-                            }
-                            else
-                            {
-                        <td>
-                            -
-                        </td>
-                            }
-                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
+</script>
+<script id="template" type="text/x-jquery-tmpl">
+    {{if LateInEarlyOutSummaryInTeam.length > 0}}
+        <tr class="row-divider">
+            <td class="align-left txt-uppercase" colspan="18">
+                <b>${Team.Name}</b>
+            </td>
+        </tr>
+    {{/if}}
+    {{each LateInEarlyOutSummaryInTeam}}
+        <tr>
+            <td class="tooltip" title="${Employee.FullName}">
+                ${Employee.NickName}
+            </td>
+            <td>
+                {{if BalanceLastYear != 0}}
+                    ${formatBalanceLastYear(BalanceLastYear)}
+                {{else}}
+                    -
+                {{/if}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Jan, TimesInJan, Employee.Id, 1, 1, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Feb, TimesInFeb, Employee.Id, 2, 2, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Mar, TimesInMar, Employee.Id, 3, 3, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Apr, TimesInApr, Employee.Id, 4, 4, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(May, TimesInMay, Employee.Id, 5, 5, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Jun, TimesInJun, Employee.Id, 6, 6, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Jul, TimesInJul, Employee.Id, 7, 7, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Aug, TimesInAug, Employee.Id, 8, 8, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Sep, TimesInSep, Employee.Id, 9, 9, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Oct, TimesInOct, Employee.Id, 10, 10, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Nov, TimesInNov, Employee.Id, 11, 11, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(Dec, TimesInDec, Employee.Id, 12, 12, true)}}
+            </td>
+            <td>
+                {{html displayFormatTotalLateInEarlyOut(TotalCurrentYear, TotalTimesCurrentYear, Employee.Id, 1, 12, false)}}
+            </td>
+            <td>
+                {{html displayNumberHours(LeaveDeduction, Employee.Id, 1, 12)}}
+            </td>
+            <td {{if BalanceCurrentYear >= 240}}style="color:red"{{/if}}>
+                <strong>
+                    ${displayBalance(BalanceCurrentYear)}
+                </strong>
+            </td>
+            {{if isHRRole}}
+                <td>
+                    <a href="javascript:;" class="addLeavededuction" data-id="${Employee.Id}" data-annualbalance="${Employee.AnnualLeaveBalance}">
+                        <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                    </a>
+                </td>
+            {{/if}}
+        </tr>
+    {{/each}}
+</script>

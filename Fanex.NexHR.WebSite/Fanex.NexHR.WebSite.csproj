@@ -178,7 +178,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SpNames.xml" />
+    <Content Include="App_Data\SpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Avatars\avatar.jpg" />
     <Content Include="App_Data\Emails\ApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\ChangeShift.Request.cshtml" />
@@ -208,7 +210,6 @@
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\employee.edit.scss" />
-    <None Include="Content\Views\employee.monthschedule.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
@@ -221,10 +222,12 @@
     <Content Include="Content\Common\components\materialdesignicons.css" />
     <Content Include="Content\Common\fullcalendar.css" />
     <Content Include="Content\Common\monPickr-0.0.3.css" />
+    <Content Include="Content\Common\slick.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />
     <Content Include="Content\Images\cancel.png" />
+    <Content Include="Content\Images\infinity.gif" />
     <Content Include="Content\Images\loding.gif" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo.svg" />
@@ -282,9 +285,6 @@
     <Content Include="Content\Views\employee.edit.css">
       <DependentUpon>employee.edit.scss</DependentUpon>
     </Content>
-    <Content Include="Content\Views\employee.monthschedule.css">
-      <DependentUpon>employee.monthschedule.scss</DependentUpon>
-    </Content>
     <Content Include="Content\Views\geolocation.css">
       <DependentUpon>geolocation.scss</DependentUpon>
     </Content>
@@ -339,6 +339,7 @@
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
+    <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
@@ -610,7 +611,9 @@
     <Content Include="Scripts\Views\Memo\memo.index.js" />
     <Content Include="Scripts\Views\OverTime\edit.js" />
     <Content Include="Scripts\Views\OverTime\summary.js" />
-    <Content Include="Scripts\Views\Report\leaveDeductionDetail.js" />
+    <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
+    <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
+    <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
@@ -623,7 +626,6 @@
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\Request\leave.request.js" />
-    <Content Include="Scripts\Views\Report\leavededuction.js" />
     <Content Include="Scripts\Views\Report\report.attendance.js" />
     <Content Include="Scripts\Views\Report\report.mytimerecord.js" />
     <Content Include="Scripts\Views\Request\search.request.js" />
@@ -661,7 +663,6 @@
     <Content Include="Views\Employee\UserManagement.cshtml" />
     <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
     <Content Include="Views\Employee\WorkingCalendars.cshtml" />
-    <Content Include="Views\Employee\WorkingCalendarsEdit.cshtml" />
     <Content Include="Views\Employee\DefaultSchedule.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
@@ -731,7 +732,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\RazorHelper.cshtml" />
-    <Content Include="App_Code\UIHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UI\GlobalScript.cshtml" />
@@ -814,7 +814,7 @@
     <None Include="Content\Common\layout\_navHeader.scss" />
     <None Include="Content\Common\layout\_sideNav.scss" />
     <None Include="Content\Common\utils\_variables.scss" />
-    <Content Include="Views\Employee\MySpace.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Leave\Create.cshtml" />
     <Content Include="Views\Leave\EmployeeView.cshtml" />
@@ -868,7 +868,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62186</DevelopmentServerPort>
+          <DevelopmentServerPort>52078</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

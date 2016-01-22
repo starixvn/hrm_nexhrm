@@ -1,9 +1,7 @@
 @import "../utils/variables";
 @import "../utils/mixins";
 
-//------------------------------------------------------------
-//			MAIN
-//------------------------------------------------------------
+//----------------------------MAIN--------------------------------//
 
 html {
   font-size: 62.5%;
@@ -16,9 +14,7 @@ body
   font-size: 1.3rem;
 }
 
-//------------------------------------------------------------
-//			PLACEHOLDER
-//------------------------------------------------------------
+//----------------------------PLACEHOLDER-----------------------------//
 
 %boxshadow {
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
@@ -30,13 +26,10 @@ body
 	color: #fff;
 }
 
-//------------------------------------------------------------
-//			BASE ELEMENT
-//------------------------------------------------------------
-
+//--------------------------BASE ELEMENT----------------------------------//
 
 main {
-	padding-left: 256px;
+	padding-left: 25.6rem;
 }
 
 @media only screen and (max-width : 992px) {
@@ -63,17 +56,15 @@ main {
 @media (min-width: 1280px) and (max-width: 1899px) {
 	.row .col.s1 {
 		width: 20%; 
-	}		
-	/*.row .col.s3 {
-		width: 30%; 
-	}*/
+	}	
+	
 	.row .col.s4 {
 		width: 44%;
 	}
 }
 
 #section_content {
-  padding: 0 8px;
+  padding: 0 .8rem;
 }
 
 .opacity70 {
@@ -93,16 +84,20 @@ main {
 }
 
 .content {
-  padding-top: 10px;
+  padding-top: 1rem;
 }
 
-//-------------------------//
+.inline {
+	display: inline-block;
+}
+
+//--------------------------Validation Form--------------------------------//
 
 .validation-summary-errors {
 	@include validation-block(#FBE3E4, #8A1F11, #FBC2C4, (0 0.8rem));	
 
     ul {
-        margin-left: 20px;
+        margin-left: 2rem;
         list-style-type: disc;
 
         li {
@@ -144,8 +139,12 @@ main {
 
 .field-validation-error {
 	position: relative;
-	font-size: 12px;
+	font-size: 1.3px;
 	color: $c-idel--hover;
+}
+
+.input-validation-error {
+	border: 1px solid $c-idel--hover !important;
 }
 
 #confirm {
@@ -158,7 +157,7 @@ main {
 #legendInfo {
     display: inline-block;
 	vertical-align: middle;
-	margin-left: 10px;
+	margin-left: 1rem;
 
 	.tooltip {
 		color: #303f4d;
@@ -189,6 +188,10 @@ main {
 
 .p-0 {
 	padding: 0 !important;
+}
+
+.m-t--s {				
+	margin-top: $b-space--s;
 }
 
 .m-t--m {				
@@ -248,9 +251,7 @@ main {
 	color: $green;
 }
 
-//-------------------------------------------------------------------
-//					CARD CONTAINER BASE
-//-------------------------------------------------------------------
+//---------------------CARD CONTAINER BASE----------------//
 
 .card-container-base { 
   .txt-tittle {
@@ -261,12 +262,11 @@ main {
     font-size: 1.2rem;
   }
 
-  .card-content {
-	//overflow: hidden;
+  .card-content {	
 	padding-bottom: 16px;
 
 	&.white-text {
-	  padding: 20px;
+	  padding: 2rem
 	}
   }
 
@@ -286,7 +286,7 @@ main {
     width: 100%;  
 
     p {
-      line-height: 45px;
+      line-height: 4.5rem;
       color: #4c5e70;
 	  overflow: hidden;
 
@@ -297,16 +297,14 @@ main {
 
 //-------------------Loading process----------------------//
 .loading-process {
-   background: rgba( 255, 255, 255, .8 ) url('Images/loding.gif') 50% 50% no-repeat;
+   background: rgba( 255, 255, 255, .7 ) url('Images/infinity.gif') 35% 50% no-repeat;
    height: 100%;
    width: 100%;
    position: fixed;
-   z-index: 1000;
-   left: 0;
-   top: 0;
+   z-index: 1000;   
 }
 
-
+//--------------------------------------------------------//
 
 .table tbody tr {
     &.offdate, &.noshift {
@@ -314,27 +312,27 @@ main {
     }
 
     td {
-        &.col-request {
-            text-align: left;
-        }
-
         a.tooltip-request {
             padding: .4rem .6rem;
             margin-right: .5rem;
-            border: .1rem solid #0789d1;
-            @include css3(border-radius, .3rem);
+            border: .1rem solid #1d79ac;
+			color: #1d79ac;
+            @include css3(border-radius, .2rem);
         }
     }
 }
 
-.tipsy {
+//-------------------Col Request----------------------//
+
+.tipsy {	
     &.tipsy-request {
+		opacity: 1 !important;
         .tipsy-inner {
             max-width: none;
             font-size: 1.3rem;
             text-align: left;
             line-height: 2.2rem;
-            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+            @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));			
         }
 
         .tipsy-arrow {
@@ -345,8 +343,7 @@ main {
     &.tipsy-request {
         .tipsy-inner {
             background: #fff;
-            color: #000;
-            border: .1rem solid #0789d1;
+            color: #000;            
         }
 
         table.table-tooltip {
@@ -354,16 +351,15 @@ main {
             @include css3(box-shadow, none);
 
             tr {
-                border-bottom: .1rem solid #0789d1;
+                border-bottom: .1rem solid $c-border-table;
 
                 td {
                     padding: .5rem;
-                    border-left: .1rem solid #0789d1;
+                    border-left: .1rem solid $c-border-table;
 
                     span.req {
                         color: #fff;
-                        padding: .3rem .5rem;
-                        @include css3(border-radius, .3rem);
+                        padding: .3rem .5rem;                        
 
                         &.leave {
                             background: #da871c;

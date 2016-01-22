@@ -1,9 +1,8 @@
-﻿@using Fanex.NexHR.Core
-@model IList<Fanex.NexHR.Models.Request.RequestEntity>
-<table class="data table bordered striped highlight centered table-custom">
+﻿@model IList<RequestEntity>
+<table class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th>#</th>
+            <th>@Labels.SymbolCount</th>
             <th>@Labels.Team</th>
             <th>@Labels.Employee</th>
             <th>@Labels.Request</th>
@@ -18,7 +17,7 @@
     {
         <tbody>
             @{int index = 1;}
-            @foreach (Fanex.NexHR.Models.Request.RequestEntity request in Model)
+            @foreach (RequestEntity request in Model)
             {
                 <tr id="row@(request.Id)">
                     <td>@(index++)</td>
@@ -26,9 +25,9 @@
                     <td class="tooltip" title="@request.Requester.FullName">
                         @request.Requester.NickName.ToString()
                     </td>
-                    <td class="highlight">@request.RequestType.ToString()</td>
-                    <td class="highlight">@request.FromShift.Name.ToString()</td>
-                    <td class="highlight">@request.FromDate.ToShortFormatedDate()</td>
+                    <td>@request.RequestType.ToString()</td>
+                    <td>@request.FromShift.Name.ToString()</td>
+                    <td>@request.FromDate.ToShortFormatedDate()</td>
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     <td>@request.Status.ToString()</td>
                     @RazorHelper.ModifierDisplay(request.ModifiedBy.NickName, request.ModifiedBy.FullName, request.ModifiedDate, request.Id)

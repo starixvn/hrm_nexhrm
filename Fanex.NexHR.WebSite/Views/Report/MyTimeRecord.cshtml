@@ -27,7 +27,7 @@
                                     <label>@Labels.DateRange</label>
                                 </div>
                                 <div class="left select--s">
-                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                    <i class="mdi-action-event calendar-icon from-date left"></i>
                                 </div>
                             </div>
                             <div class="col">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="datepicker-button left select--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                    <i class="mdi-action-event calendar-icon to-date left"></i>
                                 </div>
                             </div>
                             <div class="col">
@@ -58,6 +58,19 @@
                         </div>
                     </div>
                     }
+                    <div id="datatable_length" class="row m-b--m hide">
+                        <div class="col">
+                            <div class="inline label--s">
+                                <span>Show</span>
+                            </div>
+                            <div class="inline select--xs m-r--s">
+                                @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
+                            </div>
+                            <div class="inline label--m">
+                                <span>entries</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
@@ -84,19 +97,10 @@
     <table>
         <tfoot>
             <tr>
-                <td colspan="6" id="pagination" class="row">
-                    <div class="col">
-                        <div class="left label--m">
-                            <label>Page size</label>
-                        </div>
-                        <div class="left">
-                            @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
-                        </div>
-                        <div class="left">
-                            <ul id="numberlist" class="pagination"></ul>
-                        </div>
-                    </div>
-                    <div id="detailtext" class="col right">
+                <td colspan="6" id="pagination" class="row form-input">
+                    <div id="detailtext" class="col m-t--s"></div>
+                    <div class="right">
+                        <ul id="numberlist" class="pagination"></ul>
                     </div>
                 </td>
             </tr>

@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Services.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -76,8 +75,6 @@ namespace Fanex.NexHR.Services.Interfaces
         IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria);
 
         IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria);
-
-        bool UpdateOffDayForAllEmployees(ModelStateDictionary modelState, UpdateOffDayForAllEmployeesCriteria criteria);
 
         int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
 

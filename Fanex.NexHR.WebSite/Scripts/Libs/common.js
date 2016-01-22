@@ -41,7 +41,15 @@ function confirm(message, callback, options) {
         title       : 'NexHRM',
         modal       : true,
         resizable   : false,
-        buttons     : [
+        buttons     : [            
+            {
+                text: 'Cancel',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function() {
+                    $(this).dialog('close');
+                    return false;
+                }
+            },
             {
                 text: 'OK',
                 class: 'btn-ok waves-effect waves-light',
@@ -52,14 +60,6 @@ function confirm(message, callback, options) {
                         callback();
                     }
                     return true;
-                }
-            },
-            {
-                text: 'Cancel',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function() {
-                    $(this).dialog('close');
-                    return false;
                 }
             }
         ],
@@ -76,42 +76,62 @@ function confirm(message, callback, options) {
     $confirm.dialog($.extend({}, defaults, options));
 }
 
-function initDatePicker(el) {
-    var $input = $(el).pickadate({
-            selectMonths: true,
-            selectYears: true,
-            showMonthsShort: true
-        }),
-        picker = $input.pickadate('picker');
+function initDatePicker() {
+    $('.datepicker-button').each(function() {
+        var $datepicker = $($(this).find('.datepicker')),
+            $icon = $($(this).find('.calendar-icon'));
 
-    // get minDate, maxDate, disabledDates
-    var mindate = $(el).attr('mindate'),
-        maxdate = $(el).attr('maxdate'),
-        disabledDates = $(el).attr('disabledDate');
+        $datepicker.datepicker({
+                dateFormat: "dd M, yy",
+                changeMonth: true,
+                changeYear: true,
+                nextText: '',
+                prevText: '',
+                showAnim: 'blind'
+            });
 
-    if (mindate !== 'null' && mindate !== undefined) {
-        mindate = mindate.split('/');
-        picker.set('min', new Date(mindate[0], mindate[1] - 1, mindate[2]));
-    }
+        // get minDate, maxDate, disabledDates
+        var mindate = $datepicker.attr('mindate'),
+            maxdate = $datepicker.attr('maxdate'),
+            disabledDates = $datepicker.attr('disabledDate');
 
-    if (maxdate !== 'null' && maxdate !== undefined) {
-        maxdate = maxdate.split('/');
-        picker.set('max', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
-    }
+        if (mindate !== 'null' && mindate !== undefined) {
+            mindate = mindate.split('/');
+            $datepicker.datepicker("option", 'minDate', new Date(mindate[0], mindate[1] - 1, mindate[2]));
+        }
 
-    if (disabledDates !== undefined && disabledDates.length > 0) {
-        var disabledDays = [],
-            disabledDates = disabledDates.split(',');
+        if (maxdate !== 'null' && maxdate !== undefined) {
+            maxdate = maxdate.split('/');
+            $datepicker.datepicker("option", 'maxDate', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
+        }
 
-        $.each(disabledDates, function (index, disabledDate) {
-            var date = $.format.date(new Date(disabledDate), 'yyyy/MM/dd').split('/');
-            disabledDays.push(new Date(date[0], date[1] - 1, date[2]));
+        if(disabledDates.length > 0) {
+            $datepicker.datepicker("option", 'beforeShowDay', function(mydate) {
+                var isEnable = true,
+                    badDates = disabledDates.split(","),
+                    checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
+
+                for (var i = 0; i < badDates.length; i++) {
+                    var date = $.format.date(new Date(badDates[i]), 'dd MMM, yyyy');
+
+                    if (date == checkdate) {
+                        isEnable = false;
+                    }
+                }
+
+                return [isEnable];
+            });
+        }
+
+        $icon.on('click', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            if (!$datepicker.datepicker('widget').is(':visible')) {
+                $datepicker.datepicker('show');
+            }
         });
-
-        picker.set('disable', disabledDays);
-    }
-
-    return picker;
+    });
 }
 
 function setDateTimeRange(selectedIndex) {
@@ -179,7 +199,7 @@ $(document).ready(function(){
     $('.button-collapse').sideNav({'edge': 'left'});
     $('select').not('.disabled').material_select();
 
-    $('.flash').animate({opacity: 0.25},3500, function(){
+    $('.flash').animate({opacity: 0.25}, 3500, function(){
         $(this).slideUp().remove();
     });
 
@@ -222,8 +242,12 @@ $(document).ready(function(){
         }
     });
 
+    if($('.datepicker-button').length > 0) {
+        initDatePicker();
+    }
+
     $('.processing-submit').click(function (evt) {
-        $('.loading-process').fadeIn(200);
+        $('.loading-process').fadeIn(300);
     });
 });
 
@@ -249,6 +273,18 @@ function displayMinute(minutes) {
         return minute > 9 ? '00:' + minute : '00:0' + minute;
     }
     return (hour > 9 ? hour : '0' + hour) + ':' + (minute > 9 ? minute : '0' + minute);
+}
+
+function displayMinuteForTotalWorking(minutes) {
+    var hour = Math.floor(minutes / 60),
+        minute = minutes % 60;
+
+    if(hour == 0)
+    {
+        if (minute == 0) return ""
+        return minute > 9 ? minute + '\'' : '0' + minute + '\'';
+    }
+    return (hour > 9 ? hour : '0' + hour) + 'h' + (minute > 9 ? minute : '0' + minute) + '\'';
 }
 
 //required: jquery.tipsy.js
@@ -551,11 +587,19 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el){
-    $(el).floatThead('destroy');
-
     $(el).floatThead({
         top: 64,
         zIndex: 888
+    });
+
+    $('table#data').floatThead('reflow');
+}
+
+function ajaxLoadingProcess() {
+    $(document).ajaxStart(function () {
+        $('.loading-process').fadeIn(300);
+    }).ajaxStop(function () {
+        $('.loading-process').fadeOut(300);
     });
 }
 function initAutocomplete(selectorName, selectorId) {

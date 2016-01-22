@@ -1,9 +1,8 @@
 ﻿/*global _global: false, _messages: false, noInformation: false*/
-/*exported index*/
+/*exported index, formatTotalDays*/
 'use strict';
 
-var pickerFromDate, pickerToDate,
-    rowIndex = 1;
+var rowIndex = 1;
 
 function index() {
     return rowIndex++;
@@ -33,11 +32,10 @@ function enableControlforHalfday() {
     if ($('#HalfDayOff').prop('checked')) {
         $('#ToDate').val($('#FromDate').val());
         $('.time').removeClass('hide');
-        pickerToDate.stop();
-    }
-    else {
+        $('#ToDate').prop('readonly', true).datepicker('disable').prop('disabled', false);
+    } else {
         $('.time').addClass('hide');
-        pickerToDate.start();
+        $('#ToDate').prop('readonly', false).datepicker('enable');
     }
 }
 
@@ -81,12 +79,12 @@ function query() {
             $('.loading-process').fadeIn(300);
         },
         success: function (response) {
+            $('#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
                 $('#template').tmpl(response.data).appendTo('#data');
             } else {
-                $('#data tbody').children().remove();
                 $(noInformation(10)).appendTo('#data');
             }
 
@@ -99,9 +97,41 @@ function query() {
     });
 }
 
+function initEventForFromDateAndToDate() {
+    $('#FromDate, #ToDate').on('change', function () {
+        var empId = parseInt($('#EmployeeId').val());
+
+        if (empId > 0) {
+            if ($('#HalfDayOff').prop('checked')) {
+                $('#ToDate').val($('#FromDate').val());
+
+                $.getJSON(_global.root + 'api/shift/GetShiftByDate',
+                    { employeeId: empId, date: $('#FromDate').val() },
+                    function (response) {
+                        if (response != null) {
+                            $('#FromTime').val(response.BeginCheckInTime);
+                            $('#FromTime').material_select();
+                            setValueforToTime();
+                            $('input[type=submit]').show();
+                        } else {
+                            $('input[type=submit]').hide();
+                        }
+                    });
+            } else {
+                $.getJSON(_global.root + 'api/employee/GetRangeDate',
+                    { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
+                    function (response) {
+                        if (response != null) {
+                            $('#TotalDays').val(response);
+                        }
+                    });
+            }
+        }
+    });
+}
+
 function initCreateUpdatePage() {
-    var successed = $('#successed').val(),
-        year = $('#year').val();
+    var successed = $('#successed').val();
 
     $('#legendInfo').tipsy({
         className: 'leave-request',
@@ -115,16 +145,14 @@ function initCreateUpdatePage() {
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
                 function () {
-                    document.location = _global.root + 'Leave/EmployeeView/' + year;
+                    document.location = _global.root + 'Leave/EmployeeView/' + $('#year').val();
                 }
             );
     }
 
     $('#TotalDays').prop('readonly', true);
 
-    pickerFromDate = initDatePicker('#FromDate');
-    pickerToDate = initDatePicker('#ToDate');
-
+    initDatePicker();
     enableControlforHalfday();
 
     $('#HalfDayOff').on('change', function () {
@@ -142,42 +170,13 @@ function initCreateUpdatePage() {
                 function (response) {
                     if (response != null) {
                         $('#FromDate, #ToDate').attr('disableddate', response.join(','));
-                        pickerFromDate.render();
-                        pickerToDate.render();
                     }
                 }
             );
         }
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        var empId = parseInt($('#EmployeeId').val());
-
-        if (empId > 0) {
-            if ($('#HalfDayOff').prop('checked')) {
-                $('#ToDate').val($('#FromDate').val());
-                $.getJSON(_global.root + 'api/shift/GetShiftByDate', { employeeId: empId, date: $('#FromDate').val() },
-                        function (response) {
-                            if (response != null) {
-                                $('#FromTime').val(response.BeginCheckInTime);
-                                $('#FromTime').material_select();
-                                setValueforToTime();
-                                $('input[type=submit]').show();
-                            } else {
-                                $('input[type=submit]').hide();
-                            }
-                        });
-            } else {
-                $.getJSON(_global.root + 'api/employee/GetRangeDate',
-                        { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
-                        function (response) {
-                            if (response != null) {
-                                $('#TotalDays').val(response);
-                            }
-                        });
-            }
-        }
-    });
+    initEventForFromDateAndToDate();
 
     $('form').submit(function () {
         $('#LeaveTypeName').val($('#LeaveTypeId').find(':selected').text().trim());

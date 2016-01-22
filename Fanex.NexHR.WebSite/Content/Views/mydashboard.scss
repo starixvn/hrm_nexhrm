@@ -223,10 +223,10 @@
         background: #f7f5f5;
         min-width: 12rem;
         display: none;
-        border-bottom: .1rem solid #d2d2d2;
+        border-bottom: .1rem solid $c-border-table;
 
         li {
-            border: .1rem solid #d2d2d2;
+            border: .1rem solid $c-border-table;
             padding: .3rem 0;
             text-align: left;
             border-bottom: none;

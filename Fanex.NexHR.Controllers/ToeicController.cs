@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
@@ -60,18 +61,25 @@ namespace Fanex.NexHR.Controllers
                 JobTitleId = jobTitleId
             };
 
-            return ToeicManagement(model);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            {
+                LookupCode = LookupCodeName.JobTitle
+            };
+
+            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult ToeicManagement(ToeicManagementViewModel model)
+        public JsonResult ToeicManagement(ToeicManagementViewModel model)
         {
             if (model.GroupId == -1)
             {
                 model.GroupId = null;
             }
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
             var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
             {
                 Query = model.Query,
@@ -79,11 +87,9 @@ namespace Fanex.NexHR.Controllers
                 TitleId = model.JobTitleId
             };
 
-            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            model.Employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
 
-            return View(model);
+            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

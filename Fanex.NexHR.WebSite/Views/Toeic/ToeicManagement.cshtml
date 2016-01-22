@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("toeicmanagement", "toeic", FormMethod.Post, new { @class = "form-filter" }))
                         {
                         <div class="row form-input">
                             <div class="col m-r--m">
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <input id="submit" type="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
                                 @if (isHRRole)
                                 {
                                     <a class="btn-request waves-effect waves-light" id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
@@ -83,124 +83,7 @@
                                     <th>@Labels.ExamDate</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @{int index = 1;}
-                                @if (Model.Employees.Any())
-                                {
-                                    foreach (Employee employee in Model.Employees)
-                                    {
-                                    <tr id="row_@employee.Id">
-                                        <td>@(index++)</td>
-                                        <td class="tooltip" title="@employee.FullName">
-                                            <a href="/employee/detail/@employee.Id">@employee.NickName</a>
-                                        </td>
-                                        <td class="tooltip" title="@employee.Team.Name">
-                                            @employee.Team.Code
-                                        </td>
-                                        <td class="align-left">@employee.JobTitle</td>
-                                        <td>
-                                            @if (employee.ToeicScore.Listening.Equals(0))
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.Listening</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.Reading.Equals(0))
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.Reading</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.LRTotal.Equals(0))
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.LRTotal</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.LRExamDate == null)
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.Speaking.Equals(0))
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.Speaking</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.Writing.Equals(0))
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.Writing</div>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (employee.ToeicScore.SWExamDate == null)
-                                            {
-                                                <div>-</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@employee.ToeicScore.SWExamDate.ToDateMonthYearFormatedDate()</div>
-                                            }
-                                        </td>
-                                        @if (employee.ToeicScore.InputDate != null){
-                                            if (employee.ToeicScore.InputDate < DateTime.Now){
-                                                <td class="expired-date">
-                                                    @employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()
-                                                </td>
-                                            }
-                                            else {
-                                                <td>
-                                                    @employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()
-                                                </td>
-                                            }
-                                        }
-                                        else {
-                                            <td>-</td>
-                                        }
-                                        @if (isHRRole) {
-                                            <td>
-                                                @if (!employee.IsDeleted){
-                                                    <a href="javascript:;" onclick="editTOEIC(@employee.Id,'@employee.NickName');"><i class="mdi mdi-border-color mdi-dark"></i></a>
-                                                }
-                                                else{
-                                                    <div>-</div>
-                                                }
-                                            </td>
-                                        }
-                                    </tr>
-                                    }
-                                    }
-                                else
-                                {
-                                    @RazorHelper.DisplayNoInformation(colspan: 13);
-                                }
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                     <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
@@ -211,4 +94,85 @@
 </div>
 <script type="text/javascript">
     var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
+</script>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr id="row_${Id}">
+        <td>${index()}</td>
+        <td class="tooltip" title="${FullName}">
+            <a href="/employee/detail/${Id}">${NickName}</a>
+        </td>
+        <td class="tooltip" title="${Team.Name}">
+            ${Team.Code}
+        </td>
+        <td class="align-left">${JobTitle}</td>
+        <td>
+            {{if ToeicScore.Listening == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Listening}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Reading == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Reading}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.LRTotal == 0}}
+                -
+            {{else}}
+                ${ToeicScore.LRTotal}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.LRExamDate == null}}
+                -
+            {{else}}
+                ${formatJsonDate(ToeicScore.LRExamDate, 'dd MMM, yyyy')}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Speaking == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Speaking}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.Writing == 0}}
+                -
+            {{else}}
+                ${ToeicScore.Writing}
+            {{/if}}
+        </td>
+        <td>
+            {{if ToeicScore.SWExamDate == null}}
+                -
+            {{else}}
+                ${formatJsonDate(ToeicScore.SWExamDate, 'dd MMM, yyyy')}
+            {{/if}}
+        </td>
+        {{if ToeicScore.InputDate != null}}
+            {{if ToeicScore.InputDate < new Date()}}
+                <td class="expired-date">${formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}</td>
+            {{else}}
+                <td>${formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}</td>
+            {{/if}}
+        {{else}}
+            <td>-</td>
+        {{/if}}
+        {{if isHRRole}}
+            <td>
+                {{if !IsDeleted}}
+                    <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');">
+                        <i class="mdi mdi-border-color mdi-dark"></i>
+                    </a>
+                {{else}}
+                    -
+                {{/if}}
+            </td>
+        {{/if}}
+    </tr>
 </script>

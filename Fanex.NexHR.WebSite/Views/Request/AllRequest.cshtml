@@ -119,7 +119,7 @@
                                         <td>
                                             <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending" 
                                                 title="@(annualBalance + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">
-                                                @request.Status.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                                                @request.Status.ToString()
                                             </a>
                                         </td>
                                     }
@@ -128,7 +128,7 @@
                                         <td>
                                             <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending" 
                                                 title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">
-                                                @request.Status.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                                                @request.Status.ToString()
                                             </a>
                                         </td>
                                     }
@@ -137,7 +137,7 @@
                                     <td>
                                         <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
-                                            @request.Status.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                                            @request.Status.ToString()
                                         </a>
                                     </td>
                                     break;
@@ -145,7 +145,7 @@
                                     <td>
                                         <a requestid="@request.Id" href="javascript:;" class="tooltip" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
-                                            @request.Status.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                                            @request.Status.ToString()
                                         </a>
                                     </td>
                                     break;

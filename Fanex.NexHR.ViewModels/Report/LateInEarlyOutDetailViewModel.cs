@@ -12,7 +12,6 @@ namespace Fanex.NexHR.ViewModels.Report
     using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Report;
 
     public class LateInEarlyOutDetailViewModel
     {
@@ -30,8 +29,6 @@ namespace Fanex.NexHR.ViewModels.Report
 
         public bool IncludeLeaveDeduction { get; set; }
 
-        public IList<Team> Teams { get; set; }
-
-        public IList<LateInEarlyOutDetail> LateInEarlyOuts { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }

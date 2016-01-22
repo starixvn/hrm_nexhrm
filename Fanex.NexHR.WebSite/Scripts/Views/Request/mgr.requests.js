@@ -1,4 +1,4 @@
-﻿/*global _global, actingButton: false, sleep: false, reloadButtonText: false, setDateTimeRange: false*/
+﻿/*global _global, actingButton, sleep, reloadButtonText, setDateTimeRange, floatThead*/
 'use strict';
 
 function processRequest(command, eventElement) {
@@ -56,16 +56,22 @@ function bindMenuApproved(element) {
     });
 }
 
+function initEventForFromDateAndToDate() {
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+}
+
 $(document).ready(function () {
     // menu
     bindMenuPending('.Pending');
     bindMenuApproved('.Approved');
 
     $('#Date').val($('#DateOption').val());
+    $('#Date').material_select();
     setDateTimeRange($('#DateOption').val());
-
-    initDatePicker('#FromDate');
-    initDatePicker('#ToDate');
 
     $('.viewhistory').click(function () {
         var url = $(this).attr('id');
@@ -75,8 +81,8 @@ $(document).ready(function () {
 
             $('#dialoghistorycontent').dialog({
                 modal: true,
-                minHeight: 0,
-                width: 1100,
+                height: 'auto',
+                width: 'auto',
                 title: 'Request History'
             });
         });
@@ -87,10 +93,8 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        $('#Date').val('0');
-        $('#DateOption').attr('value', '0');
-    });
+    initDatePicker();
+    initEventForFromDateAndToDate();
 
     $('#submit').click(function () {
         actingButton('#submit', true);

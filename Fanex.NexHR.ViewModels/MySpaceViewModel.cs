@@ -15,7 +15,7 @@ namespace Fanex.NexHR.ViewModels
     using System.Text;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models;    
 
     public class MySpaceViewModel
     {
@@ -24,6 +24,8 @@ namespace Fanex.NexHR.ViewModels
 
         public decimal AnnualLeaveBalance { get; set; }
 
+        public decimal TotalWorkingHoursToday { get; set; }
+        
         public decimal TotalWorkingHoursCurrentMonth { get; set; }
 
         public decimal TotalWorkingHoursLastMonth { get; set; }
@@ -479,5 +481,22 @@ namespace Fanex.NexHR.ViewModels
                 return displayValue;
             }
         }
+
+        public string DisplayTotalWorkingHoursToday
+        {
+            get
+            {
+                var displayValue = "--:--";
+
+                if (TotalWorkingHoursToday != 0)
+                {
+                    return Utilities.DecimalToTime(TotalWorkingHoursToday);
+                }
+
+                return displayValue;
+            }
+        }
+
+        public SystemReminderModel SystemReminder { get; set; }
     }
 }

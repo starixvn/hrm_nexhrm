@@ -1,5 +1,4 @@
 ﻿/*global _global, shiftChange*/
-/*exported */
 "use strict";
 
 var nickName;
@@ -49,17 +48,16 @@ $(document).ready(function () {
                             switch (forRequest) {
                                 case 0: // leave
                                     $("#FromDate, #ToDate").attr("disableddate", response.join(","));
-                                    pickerFromDate.render();
-                                    pickerToDate.render();
+                                    $("#FromDate, #ToDate").change();
                                     break;
                                 case 1: // late in early out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate.render();
+                                    $("#ForDate").change();
                                     shiftChange();
                                     break;
                                 case 2: // check in out
                                     $("#ForDate").attr("disabledDate", response.join(","));
-                                    pickerDate.render();
+                                    $("#ForDate").change();
                                     break;
                             }
                         }

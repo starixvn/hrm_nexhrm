@@ -1,22 +1,23 @@
 ﻿'use strict';
-/*global _global:false, _messages:false, actingButton:false, initDatePicker:false,
-google:false, reloadButtonText:false, formatDate:false*/
-/* exported query */
+/*global _global, _messages, actingButton, google, reloadButtonText, formatDate*/
+/* exported query*/
 
 var directionsDisplay;
 
 function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
-    var directionsService = new google.maps.DirectionsService();
-    var curLatLng = marker.getPosition();
-    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
+    var directionsService = new google.maps.DirectionsService(),
+        curLatLng = marker.getPosition(),
+        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
 
     latitudeTextBox.val(curLatLng.lat());
     longitudeTextBox.val(curLatLng.lng());
+
     var request = {
         origin: curLatLng,
         destination: smsLatlng,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
+
     directionsService.route(request, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             var distance = response.routes[0].legs[0].distance.text;
@@ -33,6 +34,7 @@ function InitializeGoogleMap(map, latlng) {
         scrollwheel: true
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+
     return map;
 }
 
@@ -40,9 +42,9 @@ function initialize() {
     var marker, map, latlng,
         checkInitLatlng = false,
         latitudeTextBox = $('#GeoMapLatitude'),
-        longitudeTextBox = $('#GeoMapLongtitude');
+        longitudeTextBox = $('#GeoMapLongtitude'),
+        myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
 
-    var myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
     directionsDisplay = new google.maps.DirectionsRenderer(myOption);
 
     if (latitudeTextBox.val() === '' && longitudeTextBox.val() === '') {
@@ -206,12 +208,19 @@ function upload() {
 function initDialog(divContent) {
     divContent.dialog({
         modal: true,
-        width: 500,
+        width: 'auto',
         buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
             {
                 text: 'Submit',
                 class: 'btn-submit waves-effect waves-light',
-                click: function() {
+                click: function () {
                     $.ajax({
                         type: 'POST',
                         url: _global.root + 'toeic/updatefulltoeic',
@@ -244,33 +253,33 @@ function initDialog(divContent) {
                         }
                     });
                 }
-            },
-            {
-                text: 'Close',
-                class: 'btn-cancel waves-effect waves-light',
-                click: function() {
-                    $(this).dialog('close');
-                    return false;
-                }
-            }
-        ]
+            }            
+        ],
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
     });
 }
 
 function initNumberTextbox() {
     var numbericTextbox = $('#frmUpdFullTOEIC input[type=number]');
+
     numbericTextbox.attr('maxlength', '3');
     numbericTextbox.keydown(function (event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-        // Allow: Ctrl+A
+            // Allow: Ctrl+A
             (event.keyCode === 65 && event.ctrlKey === true) ||
-        // Allow: home, end, left, right
+            // Allow: home, end, left, right
             (event.keyCode >= 35 && event.keyCode <= 39)) {
             // let it happen, don't do anything
             return;
-        }
-        else {
+        } else {
             // Ensure that it is a number and stop the keypress
             if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
@@ -288,13 +297,6 @@ $(document).ready(function () {
         defaultDate: $('#DateOfBirth').val()
     });
 
-    initDatePicker('#DateOfBirth');
-    initDatePicker('#IssuedDate');
-    initDatePicker('#JoinedDate');
-    initDatePicker('#ConfirmedDate');
-    initDatePicker('#ResignedDate');
-    initDatePicker('#PassportExp');
-
     $('#month, #day, #year').on('change', function () {
         var year = $('#year').val(),
             month = $('#month').val(),
@@ -311,8 +313,9 @@ $(document).ready(function () {
     });
 
     $('input[name=SubGroupArray]').on('change', function () {
-        var id = $(this).val();
-        var teamId = $('#Team_Id').val();
+        var id = $(this).val(),
+            teamId = $('#Team_Id').val();
+
         if (id === teamId) {
             $(this).prop('checked', false);
         }
@@ -323,8 +326,8 @@ $(document).ready(function () {
     });
 
     $('input[name=LeaderGroupsArray]').on('change', function () {
-        var id = $(this).val();
-        var teamId = $('#Team_Id').val();
+        var id = $(this).val(),
+            teamId = $('#Team_Id').val();
 
         if (id !== teamId && $('#SubGroupArray' + id).prop('checked') === false) {
             $(this).prop('checked', false);
@@ -356,14 +359,14 @@ $(document).ready(function () {
             }
 
             $.post(_global.root + 'ajax/DeleteEmployee',
-			{ id: $('#Id').val(), resignedDate: resignedDate },
-			function (response) {
-			    if (response) {
-			        document.location = '/employee/usermanagement';
-			    } else {
-			        alert(_messages.errorTryAgain);
-			    }
-			}).error(function () { alert(_messages.errorTryAgain); });
+            { id: $('#Id').val(), resignedDate: resignedDate },
+            function (response) {
+                if (response) {
+                    document.location = '/employee/usermanagement';
+                } else {
+                    alert(_messages.errorTryAgain);
+                }
+            }).error(function () { alert(_messages.errorTryAgain); });
         });
     });
 
@@ -382,9 +385,7 @@ $(document).ready(function () {
                         divContent.append(data);
 
                         initNumberTextbox();
-                        initDatePicker('#frmUpdFullTOEIC #InputDate');
-                        initDatePicker('#frmUpdFullTOEIC #LRExamDate');
-                        initDatePicker('#frmUpdFullTOEIC #SWExamDate');
+                        initDatePicker();
                         initDialog(divContent);
                     }
                 },
@@ -400,8 +401,7 @@ $(document).ready(function () {
     $('#showHideMap').on('click', function () {
         if ($('#geolocationMap').is(':visible')) {
             $('#geolocationMap').hide();
-        }
-        else {
+        } else {
             $('#geolocationMap').show();
 
             $('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);

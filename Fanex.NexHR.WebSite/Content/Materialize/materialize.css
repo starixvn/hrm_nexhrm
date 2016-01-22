@@ -6014,6 +6014,8 @@ button.btn-floating {
     background-color: rgba(76, 175, 80, 0.7); }
   .waves-effect.waves-teal .waves-ripple {
     background-color: rgba(0, 150, 136, 0.7); }
+  .waves-effect.waves-deep-orange .waves-ripple {
+    background-color: #f4793d; }
 
 .waves-notransition {
   -webkit-transition: none !important;
@@ -6662,7 +6664,7 @@ textarea {
 
 [type="radio"]:disabled:checked + label:after {
   background-color: rgba(0, 0, 0, 0.26);
-  border-color: #BDBDBD; }
+  border-color: #b7c1ca; }
 
 /***************
    Checkboxes
@@ -6821,12 +6823,12 @@ form p:last-child {
   border: 2px solid transparent; }
 [type="checkbox"].filled-in:disabled:not(:checked) + label:after {
   border-color: transparent;
-  background-color: #BDBDBD; }
+  background-color: #b7c1ca; }
 [type="checkbox"].filled-in:disabled:checked + label:before {
   background-color: transparent; }
 [type="checkbox"].filled-in:disabled:checked + label:after {
-  background-color: #BDBDBD;
-  border-color: #BDBDBD; }
+  background-color: #b7c1ca;
+  border-color: #b7c1ca; }
 
 /***************
      Switch
@@ -6892,7 +6894,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
 
 .switch label input[type=checkbox][disabled] + .lever:after,
 .switch label input[type=checkbox][disabled]:checked + .lever:after {
-  background-color: #BDBDBD; }
+  background-color: #b7c1ca; }
 
 /***************
   Select Field

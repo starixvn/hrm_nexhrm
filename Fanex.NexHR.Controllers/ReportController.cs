@@ -99,33 +99,33 @@ namespace Fanex.NexHR.Controllers
 
         #endregion Timesheet
 
+        #region HRRequestMonitoring
+
         [Authorize(Roles = "HR")]
         public ActionResult HRRequestMonitoring()
         {
-            return HRRequestMonitoring(null);
-        }
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
 
-        [HttpPost]
-        [Authorize(Roles = "HR")]
-        public ActionResult HRRequestMonitoring(RequestsMonitoringViewModel model)
-        {
-            if (model == null)
+            var model = new RequestsMonitoringViewModel
             {
-                var year = DateTime.Now.Year;
-                var month = DateTime.Now.Month;
-                model = new RequestsMonitoringViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    MaxRequest = 2,
-                    DateOption = 0
-                };
-            }
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                MaxRequest = 1,
+                DateOption = 0
+            };
 
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = false;
 
+            return View("RequestMonitoring", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public JsonResult HRRequestMonitoring(RequestsMonitoringViewModel model)
+        {
             IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
             IList<short> roleList = this.CurrentUser.RoleList;
@@ -146,38 +146,39 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            ViewBag.EntityList = requestMonitorings;
-
-            return View("RequestMonitoring", model);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
         }
+
+        #endregion HRRequestMonitoring
+
+        #region LeaderRequestMonitoring
 
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring()
         {
-            return LeaderRequestMonitoring(null);
-        }
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
 
-        [HttpPost]
-        [Authorize(Roles = "AssistantLeader")]
-        public ActionResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
-        {
-            if (model == null)
+            var model = new RequestsMonitoringViewModel
             {
-                var year = DateTime.Now.Year;
-                var month = DateTime.Now.Month;
-                model = new RequestsMonitoringViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    MaxRequest = 1,
-                    DateOption = 0
-                };
-            }
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                MaxRequest = 1,
+                DateOption = 0
+            };
 
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
             ViewBag.isLeader = true;
-            ViewBag.EntityList = new List<RequestsMonitoring>();
+
+            return View("RequestMonitoring", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "AssistantLeader")]
+        public JsonResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
+        {
+            IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
             IList<short> roleList = this.CurrentUser.RoleList;
             if (roleList != null)
@@ -193,12 +194,14 @@ namespace Fanex.NexHR.Controllers
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    ViewBag.EntityList = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
+                    requestMonitorings = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
-            return View("RequestMonitoring", model);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
         }
+
+        #endregion LeaderRequestMonitoring
 
         public ActionResult TotalWorkingHours()
         {
@@ -228,11 +231,6 @@ namespace Fanex.NexHR.Controllers
                     DateOption = 5,
                     IsExportExcel = false
                 };
-            }
-
-            if (model.IsExportExcel)
-            {
-                ExportExcel(model);
             }
 
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
@@ -330,24 +328,26 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        #region Late In/Early Out
+
         public ActionResult LateInEarlyOutSummary()
         {
-            return LateInEarlyOutSummary(null);
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
+            var model = new LateInEarlyOutSummaryViewModel()
+            {
+                Year = DateTime.Now.Year,
+                TeamCollection = teams
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        public JsonResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
         {
             IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            if (model == null)
-            {
-                model = new LateInEarlyOutSummaryViewModel()
-                {
-                    Year = DateTime.Now.Year
-                };
-            }
 
-            model.Groups = teams;
             var criteria = new GetLateInEarlyOutSummaryReportCriteria
             {
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
@@ -355,98 +355,112 @@ namespace Fanex.NexHR.Controllers
                 Year = model.Year
             };
             IList<LateInEarlyOutSummary> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+
             if (model.TeamId.HasValue)
             {
                 teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
             }
 
             IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
-            model.LateInEarlyOutSummary = lateInEarlyOutSummaryByTeam;
 
-            return View(model);
+            return Json(new { data = lateInEarlyOutSummaryByTeam }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LateInEarlyOutDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)
+        [HttpGet]
+        public ActionResult LateInEarlyOutDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
         {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
             var model = new LateInEarlyOutDetailViewModel
             {
                 EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
                 FromDate = fromDate,
                 ToDate = toDate,
                 IncludeLeaveDeduction = false,
-                TeamId = teamId
+                TeamId = teamId,
+                TeamCollection = teams
             };
 
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId.Value };
-                var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Employee = employee.DisplayName;
             }
 
-            return LateInEarlyOutDetail(model);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult LateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
+        public JsonResult LateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            model.Teams = teams;
-
             var criteria = new GetLateInEarlyOutDetailReportCriteria()
             {
-                EmployeeId = model.EmployeeId == -1 ? null : new int?(model.EmployeeId),
+                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                 GroupId = model.TeamId,
                 IncludeLeaveDeduction = model.IncludeLeaveDeduction,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate
             };
 
-            var lateInEarlyOuts = _reportService.GetLateInEarlyOutDetail(criteria);
-            model.LateInEarlyOuts = lateInEarlyOuts;
+            IList<LateInEarlyOutDetail> lateInEarlyOuts = _reportService.GetLateInEarlyOutDetail(criteria);
 
-            return View(model);
+            return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LeaveDeductionDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)
+        #endregion Late In/Early Out
+
+        #region Leave Deduction
+
+        public ActionResult LeaveDeductionDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
         {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
             var model = new LeaveDeductionDetailViewModel
             {
                 EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
                 FromDate = fromDate,
                 ToDate = toDate,
-                TeamId = teamId
+                TeamId = teamId,
+                TeamCollection = teams
             };
 
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId.Value };
-                var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
                 model.Employee = employee.DisplayName;
             }
 
-            return LeaveDeductionDetail(model);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
+        public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            model.Teams = teams;
-
             var criteria = new GetLeaveDeductionDetailCriteria()
             {
-                EmployeeId = model.EmployeeId == -1 ? null : new int?(model.EmployeeId),
+                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                 GroupId = model.TeamId,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate
             };
 
-            var leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
-            model.LeaveDeductions = leaveDeductions;
+            IList<LeaveDeductionDetail> leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
 
-            return View(model);
+            return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion Leave Deduction
 
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)
