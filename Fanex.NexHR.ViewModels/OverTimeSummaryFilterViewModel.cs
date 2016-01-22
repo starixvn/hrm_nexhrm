@@ -27,5 +27,10 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Status", ResourceType = typeof(Labels))]
         public int Status { get; set; }
 
+        public OverTimeSummaryFilterViewModel()
+        {
+            FromDate = DateTime.Now;
+            ToDate = DateTime.Now;
+        }
     }
 }

@@ -26,10 +26,10 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate)
+                                        @Html.LabelFor(model => model.Date)
                                     </div>
                                     <div class="datepicker-button left select--s">
-                                        @Html.DatePickerFor(model => model.FromDate)
+                                        @Html.DatePickerFor(model => model.Date)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                     <div class="left input--m">
                                         <input type="text" id="Employee" placeholder = "@Messages.SearchEmployeeWatermark" />
                                         <input type="hidden" id="EmployeeId" /> 
-                                        @Html.HiddenFor(model=>model.Records)                                       
+                                        @Html.HiddenFor(model => model.RecordData)                                       
                                     </div>
                                 </div>
                             </div>

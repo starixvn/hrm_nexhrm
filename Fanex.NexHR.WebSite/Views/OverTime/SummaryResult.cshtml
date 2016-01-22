@@ -9,7 +9,7 @@
     foreach (var item in Model)
     {
         <tr>
-            <td>@item.FromDate.ToDateMonthYearFormatedDate()</td>
+            <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td>@item.CreatedBy.NickName</td>
             <td>@item.Employee.NickName (@item.Employee.FullName)</td>

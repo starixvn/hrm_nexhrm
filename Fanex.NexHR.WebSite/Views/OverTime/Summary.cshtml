@@ -64,8 +64,8 @@
                                         <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBox("CreateAccount")
-                                        @Html.HiddenFor(model => model.CreatedBy)
+                                        @Html.HiddenFor(m => m.CreatedBy)
+                                        @Html.TextBox("CreatedName")
                                     </div>
                                 </div>
 

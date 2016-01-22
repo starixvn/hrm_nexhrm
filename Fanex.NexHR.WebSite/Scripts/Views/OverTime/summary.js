@@ -1,6 +1,8 @@
 ﻿$().ready(function () {
     initDatePicker(".datepicker");
     initSubmitButton();
+    initAutocomplete("#CreatedName", "#CreatedBy")
+    initAutocomplete("#Employee", "#EmployeeId")
 })
 
 function loadSummary() {

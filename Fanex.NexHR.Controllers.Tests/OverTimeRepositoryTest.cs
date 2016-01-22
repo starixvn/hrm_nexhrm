@@ -28,7 +28,7 @@ namespace Fanex.NexHR.Controllers.Tests
             {
                 CreatedBy = 263,
                 Description = "NexHR",
-                FromDate = DateTime.Now,
+                Date = DateTime.Now,
                 Records = new List<OverTimeRecord>() { new OverTimeRecord() { EmployeeId = 263, Hour = 3 }, new OverTimeRecord() { EmployeeId = 265, Hour = 3 } }
             };
 

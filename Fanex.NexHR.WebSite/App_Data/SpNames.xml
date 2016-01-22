@@ -224,6 +224,6 @@
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />      
     </Setting>
-
+    <Setting Key="OverTime_Update" SpName="OverTime_Update" DbName="nexhr" Plain="0"></Setting>    
   </Function>
 </Functions>

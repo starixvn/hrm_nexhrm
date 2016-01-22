@@ -37,63 +37,9 @@ $().ready(function () {
     initDatePicker(".datepicker");
 
     $("#form").submit(function () {
-        $("#Records").val(JSON.stringify(memberList));
+        $("#RecordData").val(JSON.stringify(memberList));
     })
-    //    $("#save").click(function () {
-    //        var data = { FromDate: $("#FromDate").val(), Description: $("#Description").val(), Records: memberList };
-
-    //        $.ajax({
-    //            contentType: 'application/json; charset=utf-8',
-    //            dataType: 'json',
-    //            type: 'POST',
-    //            url: '/OverTime/Create',
-    //            data: JSON.stringify({ model: data })
-    //        });
-
-    //    });
-
-    $("#Employee").autocomplete({
-        source: function (request, response) {
-            var term = request.term;
-            var index = term.indexOf(' (');
-
-            if (index > 0) {
-                term = term.substr(0, index);
-            }
-
-            $.ajax({
-                url: _global.root + 'api/employee/getemployees',
-                dataType: 'json',
-                data: {
-                    query: term,
-                    $top: 10
-                },
-                success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.NickName + ' (' + item.FullName + ')',
-                                value: item.Id
-                            };
-                        }));
-                    }
-                }
-            });
-        },
-        minLength: 1,
-        select: function (event, ui) {
-            event.preventDefault();
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
-            $('#EmployeeId').val(ui.item.value);
-        },
-        close: function (event, ui) {
-            var nickName = $('#Employee').val();
-            var id = $("#EmployeeId").val();
-            createRow(nickName, id);
-            $('#Employee').val('');
-            $('#EmployeeId').val('');
-        }
-    });
+    
+    initAutocomplete("#Employee", "#EmployeeId")    
 });
 

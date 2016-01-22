@@ -77,7 +77,8 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
                          "~/Scripts/Views/OverTime/create.js",
-                         "~/Scripts/Views/OverTime/summary.js"));
+                         "~/Scripts/Views/OverTime/summary.js",
+                         "~/Scripts/Views/OverTime/edit.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

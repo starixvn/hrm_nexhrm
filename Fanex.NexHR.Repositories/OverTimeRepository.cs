@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Repositories
             {
                 CreatedBy = model.CreatedBy,
                 Description = model.Description,
-                FromDate = model.FromDate,
+                Date = model.Date,
                 Status = model.Status,
                 OverTimeRecord = model.Records
             };
@@ -101,8 +101,9 @@ namespace Fanex.NexHR.Repositories
         {
             var createCriteria = new UpdateOverTimeCriteria()
             {
+                Id = model.Id,
                 Description = model.Description,
-                FromDate = model.FromDate,
+                Date = model.Date,
                 Hour = model.Hour,
                 EmployeeId = model.Employee.Id
             };

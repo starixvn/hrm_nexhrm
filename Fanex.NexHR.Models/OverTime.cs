@@ -8,7 +8,7 @@ namespace Fanex.NexHR.Models
     public class OverTime
     {
         public int Id { get; set; }
-        public DateTime FromDate { get; set; }
+        public DateTime Date { get; set; }
         public string Description { get; set; }
         public float Hour { get; set; }
         public int Status { get; set; }

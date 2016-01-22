@@ -23,14 +23,9 @@ namespace Fanex.NexHR.Controllers
             _service = service ?? new OverTimeService();
         }
 
-        [HttpGet]
         public ActionResult Create()
         {
-            var model = new OverTimeViewModel()
-            {
-                FromDate = DateTime.Now,
-                Hour = 2
-            };
+            var model = new OverTimeViewModel();
 
             return View("Create", model);
         }
@@ -38,7 +33,7 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public ActionResult Create(OverTimeViewModel model)
         {
-            var list = JsonConvert.DeserializeObject<List<OverTimeRecord>>(Request["Records"]);
+            var list = JsonConvert.DeserializeObject<List<OverTimeRecord>>(model.RecordData);
             model.Records = list;
             model.CreatedBy = this.CurrentUser.Id;
             model.Status = (int)OTRequestStatus.New;
@@ -47,16 +42,10 @@ namespace Fanex.NexHR.Controllers
 
             return RedirectToAction("Summary");
         }
-
-        [HttpGet]
+        
         public ActionResult Summary()
         {
-            var model = new OverTimeSummaryFilterViewModel()
-            {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
-                Status = 0
-            };
+            var model = new OverTimeSummaryFilterViewModel();
 
             return View("Summary", model);
         }
@@ -84,8 +73,7 @@ namespace Fanex.NexHR.Controllers
 
             return Json(result);
         }
-
-        [HttpGet]
+        
         public ActionResult Edit(int id)
         {
             var model = _service.Get(id);
@@ -98,12 +86,7 @@ namespace Fanex.NexHR.Controllers
         {
             var result = _service.Update(model);
 
-            var viewModel = new OverTimeSummaryFilterViewModel()
-            {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
-                Status = 0
-            };
+            var viewModel = new OverTimeSummaryFilterViewModel();
 
             return View("Summary", viewModel);
         }

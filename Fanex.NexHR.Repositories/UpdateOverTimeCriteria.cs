@@ -8,9 +8,11 @@ namespace Fanex.NexHR.Criteria.OverTime
 {
     public class UpdateOverTimeCriteria : CriteriaBase
     {
+        public int Id { get; set; }
+
         public string Description { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public DateTime Date { get; set; }
 
         public float Hour { get; set; }
 

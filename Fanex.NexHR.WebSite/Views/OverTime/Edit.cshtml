@@ -6,6 +6,7 @@
 @section css{
 }
 @section js{
+@Scripts.Render("~/bundles/overtimejs");
 }
 @section Breadcrumb {
 }
@@ -19,17 +20,17 @@
                     </a>
                 </div>
                 <div class="card-body">
-
-                    <form id="form" class="form">
+                    @using (Html.BeginForm(new { @class = "form", Id = "form" }))
+                    {
                         <div id="divErrorCont" class="">
                             &nbsp;
                         </div>
                         <div class="row form-input">
                             <div class="left label--l">
-                                @Html.LabelFor(model => model.FromDate)
+                                @Html.LabelFor(model => model.Date)
                             </div>
                             <div class="datepicker-button left select--s">
-                                @Html.DatePickerFor(model => model.FromDate)
+                                @Html.DatePickerFor(model => model.Date)
                                 <i class="mdi-action-event calendar-icon left"></i>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                                 </div>
                                 <div class="left txtArea">
                                     <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
-                                    <input type="hidden" id="EmployeeId" />
+                                    @Html.HiddenFor(m=>m.Employee.Id)
                                 </div>
                             </div>
                         </div>
@@ -99,14 +100,15 @@
                                     @Html.LabelFor(model => model.VerifiedBy)
                                 </div>
                                 <div class="left txtArea">
-                                    @(Model.VerifiedBy != null ? Model.VerifiedBy.NickName : string.Empty)                                    
+                                    @(Model.VerifiedBy != null ? Model.VerifiedBy.NickName : string.Empty)
                                 </div>
                             </div>
                         </div>
                         <div class="row form-input m-t--m center">
-                            <input id="submitEdit" type="button" value="@Labels.Submit" class="btn-ok waves-effect waves-light m-r--m" />
-                        </div>
-                    </form>
+                            @Html.HiddenFor(m => m.Id)
+                        <input id="submitEdit" type="submit" value="@Labels.Submit" class="btn-ok waves-effect waves-light m-r--m" />
+                    </div>
+                    }
                 </div>
             </div>
         </div>
