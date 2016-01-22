@@ -218,6 +218,7 @@
     <Content Include="Content\Common\components\materialdesignicons.css" />
     <Content Include="Content\Common\fullcalendar.css" />
     <Content Include="Content\Common\monPickr-0.0.3.css" />
+    <Content Include="Content\Common\slick.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />
@@ -334,6 +335,7 @@
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
+    <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\annualleavebalance.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />

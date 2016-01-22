@@ -89,11 +89,11 @@
                     <div class="col s9 center">
                         <p class="txt-tittle">News</p>
                         <span class="txt-uppercase txt-12px">Read news in month</span>
-                    </div>
+                    </div>s
                 </div>
             </div>
         </div>*@
-    </div>
+    </div>    
     <div>
         <div class="col s12 m4 card-container-base">
             <div class="card">
@@ -104,15 +104,15 @@
                     <div class="card-body p-x--s">
                         <p>
                             <span class="left-align">Check In (Today):</span> <span class="right"><a href="#"
-                                class="blue-grey-text text-darken-3">08:46</a></span>
+                                class="blue-grey-text text-darken-3">@Model.DisplayCheckInTime</a></span>
                         </p>
                         <p>
                             <span class="left-align">Check Out (Yesterday):</span> <span class="right"><a href="#"
-                                class="blue-grey-text text-darken-3">17:59</a></span>
+                                class="blue-grey-text text-darken-3">@Model.DisplayCheckOutTime</a></span>
                         </p>
                         <p>
                             <span class="left-align">Leave Summary:</span> <span class="right"><a href="#" class="blue-grey-text text-darken-3">
-                                9.0</a></span>
+                                @Model.AnnualLeaveBalance</a></span>
                         </p>
                         <p>
                             <span class="left-align">Early Out:</span> <span class="right"><a href="#" class="blue-grey-text text-darken-3">
