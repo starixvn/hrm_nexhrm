@@ -249,6 +249,16 @@ $(document).ready(function(){
     $('.processing-submit').click(function (evt) {
         $('.loading-process').fadeIn(300);
     });
+
+    $('.slide').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: true,
+        nextArrow: false,
+        prevArrow: false,
+    });    
 });
 
 function totalHoursToTime(value) {

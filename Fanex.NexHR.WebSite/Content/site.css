@@ -830,7 +830,7 @@ input#fileName::-webkit-file-upload-button {
   .search_bar .label-search {
     position: absolute;
     top: 2px;
-    z-index: 1;
+    z-index: -1;
     font-size: 24px;
     color: rgba(255, 255, 255, 0.7); }
   .search_bar.focused {
