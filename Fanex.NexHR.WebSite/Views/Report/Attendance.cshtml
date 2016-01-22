@@ -27,7 +27,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--s">
-                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                         @Html.LabelFor(model => model.AttendanceType, "Request")
                                     </div>
                                     <div class="left select--s">
-                                        @RazorHelper.RequestTypeFiltering("AttendanceType", Model.AttendanceType)
+                                        @RazorHelper.RequestTypeFilter("AttendanceType", Model.AttendanceType)
                                     </div>
                                 </div>
                                 <div class="col m-r--l">

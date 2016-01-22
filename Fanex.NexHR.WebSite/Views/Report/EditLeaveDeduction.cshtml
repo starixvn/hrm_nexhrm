@@ -5,31 +5,31 @@
 <form class="form">
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.TotalDays)
+            @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
         </div>
         <div class="left input--xs">
             @Html.EditorFor(model => model.TotalDays)
         </div>
     </div>
-    <div class="row form-input m-b--s">
+    <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.IsAnnual)
+            @Html.LabelFor(model => model.IsAnnual, Labels.IsAnnual)
         </div>
-        <div class="left input--l">
+        <div class="left input--m">
             @Html.MaterializeCheckBoxFor(model => model.IsAnnual, new { @class = "filled-in" })
         </div>
     </div>
-    <div class="row form-input m-t--s">
+    <div class="row form-input">
         <div class="left label--l">
             @Html.LabelFor(model => model.Description)
         </div>
-        <div class="left txtArea">
-            @Html.TextAreaFor(model => model.Description)
+        <div class="left input--m">
+            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
         </div>
     </div>
-    <div class="row form-input m-t--s">
+    <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.DeductDate)
+            @Html.LabelFor(model => model.DeductDate, Labels.DeductDate)
         </div>
         <div class="left datepicker-button select--s">
             @Html.DatePickerFor(model => model.DeductDate)

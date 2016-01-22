@@ -555,11 +555,6 @@ input#fileName::-webkit-file-upload-button {
 .input-spvn {
   width: 35rem; }
 
-.txtArea {
-  width: 50rem; }
-  .txtArea textarea {
-    height: 50px; }
-
 .filter-status {
   width: 22rem; }
 

@@ -21,7 +21,7 @@ function eventAdjustment() {
             var title = $('#insertform').attr('title');
 
             $('#insertform').dialog({
-                title: 'Adjust annual leave balance',
+                title: 'Adjust Annual Leave Balance',
                 modal: true,
                 width: 'auto',
                 dialogClass: 'add-adjustment',
@@ -82,7 +82,7 @@ function eventCloseBalance() {
         var lastYear = (new Date()).getFullYear() - 1;
 
         $('#resetform').dialog({
-            title: 'Close balance for year ' + lastYear,
+            title: 'Close Balance For Year ' + lastYear,
             modal: true,
             width: 'auto',
             dialogClass: 'reset-balance',

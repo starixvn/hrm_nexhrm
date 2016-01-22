@@ -7,7 +7,7 @@
 @section css{
 }
 @section js{
-    @Scripts.Render("~/bundles/leaveDeductionDetailjs");
+    @Scripts.Render("~/bundles/leavedeductiondetailjs");
 }
 <div class="row content">
     <div class="col s12 card-container-base">
@@ -17,63 +17,63 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
+                    <div class="form">
                     @using (Html.BeginForm())
                     {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        <div class="form">
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.DateRange</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
-                                        @Html.Hidden("DateOption", Model.DateOption)
-                                    </div>
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.DateRange</label>
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate)
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.FromDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-l--xl m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.ToDate)
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.ToDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                <div class="left select--m">
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                    @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.TeamId)
-                                    </div>
-                                    <div class="left select--m">
-                                        @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
-                                    </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
-                                    </div>
-                                    <div class="left select-team">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                    </div>
+                                <div class="left datepicker-button select--s">
+                                    @Html.DatePickerFor(model => model.FromDate)
+                                    <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
-                                <div class="col">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light" />
+                            </div>
+                            <div class="col m-l--xl m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    @Html.DatePickerFor(model => model.ToDate)
+                                    <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
                         </div>
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.TeamId, Labels.Team)
+                                </div>
+                                <div class="left select--m">
+                                    @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.Employee)
+                                </div>
+                                <div class="left select-team">
+                                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                            </div>
+                        </div>
                     }
+                    </div>
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
@@ -93,52 +93,11 @@
                                     }
                                 </tr>
                             </thead>
-                            @if (Model.LeaveDeductions != null && Model.LeaveDeductions.Any())
-                            {
-                                int index = 1;
-                                <tbody>
-                                    @foreach (LeaveDeductionDetail item in Model.LeaveDeductions)
-                                    {
-                                        <tr>
-                                            <td>@(index++)</td>
-                                            <td class="align-left">@item.Employee.FullName</td>
-                                            <td>@item.Employee.NickName</td>
-                                            <td>@item.Employee.Team.Code</td>
-                                            <td class="deductdate">
-                                                @item.DeductDate.ToDateMonthYearFormatedDate()
-                                            </td>
-                                            <td>
-                                                @(item.IsAnnual ? Labels.AnnualLeave : Labels.UnpaidLeave)
-                                            </td>
-                                            <td>@(item.LeaveDays.ToString("0.0"))</td>
-                                            <td class="description">@item.Description</td>
-                                            @if (Roles.IsUserInRole("HR"))
-                                            {
-                                                <td>
-                                                    <a href="javascript:;" class="editLeaveDeduction"
-                                                        data-id="@item.LeaveDeductionId" data-leavedays="@item.LeaveDays" data-isannual="@item.IsAnnual"
-                                                        data-deductdate = "@item.DeductDate.ToDateMonthYearFormatedDate()">
-                                                        <i class="mdi mdi-border-color mdi-dark"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;" class="deleteLeaveDeduction" data-id="@item.LeaveDeductionId">
-                                                        <i class="mdi mdi-delete mdi-dark"></i>
-                                                    </a>
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            }
-                            else
-                            {
-                                @RazorHelper.DisplayNoInformation(colspan: 10)
-                            }
+                            <tbody></tbody>
                         </table>
                     </div>
                     <div class="hide">
-                        <div id="updateform" title="Edit leave deduction">
+                        <div id="updateform" title="Edit Leave Deduction">
                             @Html.Action("EditLeaveDeduction")
                         </div>
                     </div>
@@ -147,3 +106,42 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
+</script>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${index()}</td>
+        <td class="align-left">${Employee.FullName}</td>
+        <td>${Employee.NickName}</td>
+        <td class="tooltip" title="${Employee.Team.Name}">
+            ${Employee.Team.Code}
+        </td>
+        <td class="deductdate">${formatJsonDate(DeductDate, 'dd MMM, yyyy')}</td>
+        <td>
+            {{if IsAnnual}}
+                Annual Leave
+            {{else}}
+                Unpaid Leave
+            {{/if}}
+        </td>
+        <td>${formatLeaveDays(LeaveDays)}</td>
+        <td class="description">${Description}</td>
+        {{if isHRRole}}
+            <td>
+                <a href="javascript:;" class="editLeaveDeduction"
+                        data-id="${LeaveDeductionId}"
+                        data-leavedays="${LeaveDays}"
+                        data-isannual="${IsAnnual}"
+                        data-deductdate="${formatJsonDate(DeductDate, 'dd MMM, yyyy')}">
+                    <i class="mdi mdi-border-color mdi-dark"></i>
+                </a>
+            </td>
+            <td>
+                <a href="javascript:;" class="deleteLeaveDeduction" data-id="${LeaveDeductionId}">
+                    <i class="mdi mdi-delete mdi-dark"></i>
+                </a>
+            </td>
+        {{/if}}
+    </tr>
+</script>

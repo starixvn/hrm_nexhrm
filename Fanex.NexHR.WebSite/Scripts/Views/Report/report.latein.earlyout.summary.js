@@ -45,6 +45,58 @@ function displayBalance(balanceCurrentYear) {
     return result;
 }
 
+function initAddLeaveDeduction() {
+    $('.addLeavededuction').click(function () {
+        var employeeId = $(this).attr('data-id'),
+            annualBalance = $(this).attr('data-annualbalance');
+
+        $('#EmpId').val(employeeId);
+        $('#annualBalance').text(annualBalance);
+
+        $('#insertform').dialog({
+            modal: true,
+            width: 'auto',
+            height: 'auto',
+            open: function () {
+                $('#TotalDays').val('0.5');
+                initDatePicker();
+            },
+            show: {
+                effect: "blind",
+                duration: 200
+            },
+            hide: {
+                effect: "blind",
+                duration: 100
+            }
+        });
+    });
+
+    $('#insertform form').submit(function (evt) {
+        evt.preventDefault();
+
+        $.post(_global.root + 'ajax/AddLeaveDeduction',
+            {
+                empId: $('#EmpId').val(),
+                totalDays: $('#TotalDays').val(),
+                deductDate: $('#DeductDate').val(),
+                description: $('#Description').val(),
+                isAnnual: $("#IsAnnual").prop("checked")
+            }, function (response) {
+                if (response.Code === 0) {
+                    $('#insertform').dialog('close');
+                    document.location = _global.root + 'report/LateInEarlyOutSummary';
+                } else {
+                    alert(response.Message);
+                }
+            });
+    });
+
+    $('#cancel').click(function () {
+        $('#insertform').dialog('close');
+    });
+}
+
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'Report/LateInEarlyOutSummary',
@@ -61,71 +113,22 @@ function query(isFirstLoad) {
 
             if (response.data.length > 0) {
                 $('#template').tmpl(response.data).appendTo('table#data');
-
-                $('.addLeavededuction').click(function () {
-                    var employeeId = $(this).attr('data-id'),
-                        annualBalance = $(this).attr('data-annualbalance');
-
-                    $('#EmpId').val(employeeId);
-                    $('#annualBalance').text(annualBalance);
-                    $('#insertform').dialog({
-                        modal: true,
-                        width: 'auto',
-                        height: 'auto',
-                        open: function () {
-                            $('#TotalDays').val('0.5');
-                            initDatePicker();
-                        },
-                        show: {
-                            effect: "blind",
-                            duration: 200
-                        },
-                        hide: {
-                            effect: "blind",
-                            duration: 100
-                        }
-                    });
-                });
             } else {
-                $(noInformation(18)).appendTo('#data');
+                $(noInformation(18)).appendTo('table#data');
             }
-
-            $('.loading-process').fadeOut(300);
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            $('.loading-process').fadeOut(300);
         }
     });
 }
 
 $(document).ready(function () {
-    $('#insertform form').submit(function (evt) {
-        evt.preventDefault();
-
-        $.post(_global.root + 'ajax/AddLeaveDeduction',
-            {
-                empId: $('#EmpId').val(),
-                totalDays: $('#TotalDays').val(),
-                deductDate: $('#DeductDate').val(),
-                description: $('#Description').val(),
-                isAnnual: $("#IsAnnual").attr("checked") === "checked"
-            }, function (response) {
-                if (response.Code === 0) {
-                    $('#insertform').dialog('close');
-                    document.location = _global.root + 'report/LateInEarlyOutSummary';
-                } else {
-                    alert(response.Message);
-                }
-            });
-    });
-
-    $('#cancel').click(function () {
-        $('#insertform').dialog('close');
-    });
-
     query(true);
 
     $('#submit').on('click', function () {

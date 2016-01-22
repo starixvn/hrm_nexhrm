@@ -1465,6 +1465,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Annual.
+        /// </summary>
+        public static string IsAnnual {
+            get {
+                return ResourceManager.GetString("IsAnnual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is Internal.
         /// </summary>
         public static string IsInternal {

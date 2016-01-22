@@ -30,7 +30,7 @@ function query(isFirstLoad) {
                 rowIndex = 1;
                 $('#template').tmpl(response.data).appendTo('table#data');
             } else {
-                $(noInformation(7)).appendTo('#data');
+                $(noInformation(7)).appendTo('table#data');
             }
 
             $('.loading-process').fadeOut(300);

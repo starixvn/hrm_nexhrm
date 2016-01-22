@@ -27,13 +27,13 @@
                                     <label>@Labels.DateRange</label>
                                 </div>
                                 <div class="left select--m">
-                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFiltering.DateRange)
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
                             <div class="col m-r--l">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate)
+                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                 </div>
                                 <div class="left datepicker-button input--s">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col m-r--l">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.ToDate)
+                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                 </div>
                                 <div class="left datepicker-button input--s">
                                     @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -53,10 +53,10 @@
                         <div class="row form-input">
                             <div class="col m-r--l">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.TeamId)
+                                    @Html.LabelFor(model => model.TeamId, Labels.Team)
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--l">

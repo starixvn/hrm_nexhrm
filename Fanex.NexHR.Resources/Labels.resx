@@ -1200,4 +1200,7 @@
   <data name="Override" xml:space="preserve">
     <value>Override</value>
   </data>
+  <data name="IsAnnual" xml:space="preserve">
+    <value>Is Annual</value>
+  </data>
 </root>

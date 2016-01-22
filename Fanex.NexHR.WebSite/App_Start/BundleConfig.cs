@@ -366,9 +366,9 @@
         private static void BuildBundleForLeaveDeductionDetail(BundleCollection bundles)
         {
             bundles.AddAndInclude(
-                "~/bundles/leaveDeductionDetailjs",
+                "~/bundles/leavedeductiondetailjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/leaveDeductionDetail.js");
+                "~/Scripts/Views/Report/report.leave.deduction.detail.js");
         }
     }
 }

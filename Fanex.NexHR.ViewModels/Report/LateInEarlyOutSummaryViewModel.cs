@@ -22,6 +22,6 @@ namespace Fanex.NexHR.ViewModels.Report
 
         public int EmployeeId { get; set; }
 
-        public IList<Team> Groups { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }

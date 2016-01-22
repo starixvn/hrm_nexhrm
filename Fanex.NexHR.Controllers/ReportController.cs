@@ -232,7 +232,7 @@ namespace Fanex.NexHR.Controllers
                     IsExportExcel = false
                 };
             }
-            
+
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
                 FromDate = model.FromDate,
@@ -328,6 +328,8 @@ namespace Fanex.NexHR.Controllers
             });
         }
 
+        #region Late In/Early Out
+
         public ActionResult LateInEarlyOutSummary()
         {
             IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
@@ -335,7 +337,7 @@ namespace Fanex.NexHR.Controllers
             var model = new LateInEarlyOutSummaryViewModel()
             {
                 Year = DateTime.Now.Year,
-                Groups = teams
+                TeamCollection = teams
             };
 
             return View(model);
@@ -364,6 +366,7 @@ namespace Fanex.NexHR.Controllers
             return Json(new { data = lateInEarlyOutSummaryByTeam }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult LateInEarlyOutDetail(
             DateTime fromDate,
             DateTime toDate,
@@ -379,7 +382,7 @@ namespace Fanex.NexHR.Controllers
                 ToDate = toDate,
                 IncludeLeaveDeduction = false,
                 TeamId = teamId,
-                Teams = teams
+                TeamCollection = teams
             };
 
             if (employeeId.HasValue)
@@ -409,45 +412,55 @@ namespace Fanex.NexHR.Controllers
             return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LeaveDeductionDetail(DateTime fromDate, DateTime toDate, int? employeeId = null, int? teamId = null)
+        #endregion Late In/Early Out
+
+        #region Leave Deduction
+
+        public ActionResult LeaveDeductionDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
         {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
             var model = new LeaveDeductionDetailViewModel
             {
                 EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
                 FromDate = fromDate,
                 ToDate = toDate,
-                TeamId = teamId
+                TeamId = teamId,
+                TeamCollection = teams
             };
 
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeCriteria() { Id = employeeId.Value };
-                var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
                 model.Employee = employee.DisplayName;
             }
 
-            return LeaveDeductionDetail(model);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
+        public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            model.Teams = teams;
-
             var criteria = new GetLeaveDeductionDetailCriteria()
             {
-                EmployeeId = model.EmployeeId == -1 ? null : new int?(model.EmployeeId),
+                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                 GroupId = model.TeamId,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate
             };
 
-            var leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
-            model.LeaveDeductions = leaveDeductions;
+            IList<LeaveDeductionDetail> leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
 
-            return View(model);
+            return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion Leave Deduction
 
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)

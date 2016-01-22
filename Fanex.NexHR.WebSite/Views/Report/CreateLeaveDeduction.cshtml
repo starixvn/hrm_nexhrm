@@ -4,8 +4,10 @@
 }
 <form class="form">
     <div class="validation-summary-info ui-corner-all">
-        <span><i class="mdi-action-info-outline mdi-24px m-r--s"></i>Annual leave balance: <span
-            id="annualBalance" class="txt-bold"></span></span>
+        <span>
+            <i class="mdi-action-info-outline mdi-24px m-r--s"></i>
+            Annual leave balance: <span id="annualBalance" class="txt-bold"></span>
+        </span>
     </div>
     <div class="row form-input">
         <div class="left label--l">
@@ -19,7 +21,7 @@
         <div class="left label--l">
             @Html.LabelFor(model => model.IsAnnual)
         </div>
-        <div class="left input--l">
+        <div class="left input--m">
             @Html.MaterializeCheckBoxFor(model => model.IsAnnual, new { @class = "filled-in" })
         </div>
     </div>
@@ -27,8 +29,8 @@
         <div class="left label--l">
             @Html.LabelFor(model => model.Description)
         </div>
-        <div class="left txtArea">
-            @Html.TextAreaFor(model => model.Description)
+        <div class="left input--m">
+            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
         </div>
     </div>
     <div class="row form-input">

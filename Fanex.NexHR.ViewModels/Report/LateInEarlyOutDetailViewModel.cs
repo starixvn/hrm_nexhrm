@@ -29,6 +29,6 @@ namespace Fanex.NexHR.ViewModels.Report
 
         public bool IncludeLeaveDeduction { get; set; }
 
-        public IList<Team> Teams { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }
