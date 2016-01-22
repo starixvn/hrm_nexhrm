@@ -69,9 +69,13 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@(Model.Year - 1)(Hours)</th>
-                                    <th colspan="13">@Model.Year (Hours / Times)</th>
-                                    <th rowspan="2">@Labels.DeductionTaken (Hours)</th>
+                                    <th rowspan="2">
+                                        <span id="last-year">@(Model.Year - 1)</span> (@Labels.Hours)
+                                    </th>
+                                    <th colspan="13">
+                                        <span id="current-year">@Model.Year</span> (@Labels.Hours / @Labels.Times)
+                                    </th>
+                                    <th rowspan="2">@Labels.DeductionTaken (@Labels.Hours)</th>
                                     <th rowspan="2">@Labels.Balance (Hours)</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
