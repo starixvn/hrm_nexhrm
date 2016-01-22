@@ -817,12 +817,31 @@ input#fileName::-webkit-file-upload-button {
   margin-right: 2rem; }
   .search_bar form {
     overflow: hidden; }
+  .search_bar #label-search {
+    position: absolute;
+    top: 20px;
+    width: 25px;
+    height: 25px;
+    color: #aeb1b6;
+    cursor: pointer;
+    border-radius: 50%;
+    /*&:hover, &:focus {
+    	background: rgba(255,255,255,0.5);
+    	transition: background 0.3s ease-out;
+    }*/ }
+    .search_bar #label-search i {
+      position: relative;
+      bottom: 20px;
+      text-align: center; }
   .search_bar .placeholder {
     background: transparent none repeat scroll 0 0;
     display: block;
     margin-left: 2rem;
     width: calc(100% - 4rem);
-    margin-top: 16px; }
+    margin-top: 16px;
+    padding-left: 5px;
+    border-bottom: none;
+    opacity: 0.7; }
   .search_bar.focused {
     width: 20rem;
     transition: all 0.2s ease-out; }

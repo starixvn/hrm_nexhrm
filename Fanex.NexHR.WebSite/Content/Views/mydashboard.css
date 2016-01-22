@@ -61,7 +61,9 @@
       background: #96e4ff; }
 
 .card .slide .slick-dots {
-  margin-top: 0.5rem; }
+  text-align: center;
+  margin: 0;
+  margin-bottom: -12px; }
   .card .slide .slick-dots li {
     display: inline-block;
     width: 7px;

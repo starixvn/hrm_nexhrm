@@ -118,13 +118,38 @@
 		overflow: hidden;
 	}
 
-    .placeholder {
-         background: transparent none repeat scroll 0 0;
+	#label-search {
+		position: absolute;
+		top: 20px;
+		width: 25px;
+		height: 25px;
+		color: $c-text-header;		
+		cursor: pointer;
+		border-radius: 50%;
+		
+		
+		/*&:hover, &:focus {
+			background: rgba(255,255,255,0.5);
+			transition: background 0.3s ease-out;
+		}*/
+		
+		i {
+			position: relative;
+			bottom: 20px;
+			text-align: center;
+		}		
+	}
+
+	.placeholder {
+		background: transparent none repeat scroll 0 0;
 		display: block;
 		margin-left: 2rem;
 		width: calc(100% - 4rem);	
 		margin-top: 16px;	
-    }
+		padding-left: 5px;
+		border-bottom: none;
+		opacity: 0.7;
+	}
 	
     &.focused {
         width: 20rem;
