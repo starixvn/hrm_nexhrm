@@ -209,14 +209,12 @@ $(document).ready(function(){
         }
     });
 
-    $('#searchbox').focus(function () {
-        $('.search_bar').addClass('focused');
-    });
+    $('#searchbox').focus(function () { $(this).parent().addClass('focused'); });
 
     $('#searchbox').blur(function () {
-        if (!$(this).val()) {
-            $('.search_bar').removeClass('focused');
-        }
+                if (!$(this).val()) {
+                    $(this).parent().removeClass('focused');
+                }
     });
 
     //Handle event when click search icon

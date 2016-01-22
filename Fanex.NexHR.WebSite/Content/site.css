@@ -818,16 +818,11 @@ input#fileName::-webkit-file-upload-button {
   .search_bar form {
     overflow: hidden; }
   .search_bar .placeholder {
-    margin-bottom: 0;
-    border-bottom: 1px solid transparent;
-    padding-left: 25px;
-    font-size: 13px; }
-  .search_bar .label-search {
-    position: absolute;
-    top: 2px;
-    z-index: -1;
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.7); }
+    background: transparent none repeat scroll 0 0;
+    display: block;
+    margin-left: 2rem;
+    width: calc(100% - 4rem);
+    margin-top: 16px; }
   .search_bar.focused {
     width: 20rem;
     transition: all 0.2s ease-out; }
