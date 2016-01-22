@@ -29,6 +29,9 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class ReportController : BaseController
     {
+        private const int CurrentPage = 1;
+        private const int ItemsPerPage = 50;
+
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly ITeamService _teamService;
@@ -50,8 +53,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
-            var employee = this.CurrentUser;
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+            Employee employee = this.CurrentUser;
 
             if (model.FromDate == DateTime.MinValue)
             {
@@ -64,6 +66,8 @@ namespace Fanex.NexHR.Controllers
                     ExcludeUserDelete = true,
                 };
             }
+
+            model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(model);
         }
@@ -203,17 +207,21 @@ namespace Fanex.NexHR.Controllers
 
         #endregion LeaderRequestMonitoring
 
+        #region Total Working Hours
+
         public ActionResult TotalWorkingHours()
         {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria()); ;
+
             var model = new TotalWorkingHoursViewModel
             {
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Now,
                 DateOption = 5,
-                IsExportExcel = false
+                IsExportExcel = false,
+                TeamCollection = teams
             };
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.TeamId = model.TeamId;
+
             return View(model);
         }
 
@@ -222,8 +230,9 @@ namespace Fanex.NexHR.Controllers
         {
             if (model == null)
             {
-                var year = DateTime.Now.Year;
-                var month = DateTime.Now.Month;
+                int year = DateTime.Now.Year,
+                    month = DateTime.Now.Month;
+
                 model = new TotalWorkingHoursViewModel
                 {
                     FromDate = new DateTime(year, month, 1),
@@ -237,7 +246,7 @@ namespace Fanex.NexHR.Controllers
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
-                EmployeeId = (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId
             };
 
@@ -245,6 +254,8 @@ namespace Fanex.NexHR.Controllers
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion Total Working Hours
 
         public ActionResult ExportExcel(TotalWorkingHoursViewModel model)
         {
@@ -500,8 +511,8 @@ namespace Fanex.NexHR.Controllers
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
                 EmployeeId = this.CurrentUser.Id,
-                CurrentPage = 1,
-                ItemsPerPage = 50
+                CurrentPage = CurrentPage,
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(model);
@@ -550,8 +561,8 @@ namespace Fanex.NexHR.Controllers
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
                 Teams = teams,
-                CurrentPage = 1,
-                ItemsPerPage = 50
+                CurrentPage = CurrentPage,
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(model);

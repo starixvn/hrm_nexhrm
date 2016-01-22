@@ -14,11 +14,6 @@ namespace Fanex.NexHR.ViewModels
 
     public class StaffInfoViewModel
     {
-        public StaffInfoViewModel()
-        {
-            Groups = new List<Team>();
-        }
-
-        public IList<Team> Groups { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }

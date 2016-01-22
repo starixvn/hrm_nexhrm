@@ -1,5 +1,5 @@
 ﻿/*global _global, setDateTimeRange, initDatePicker, floatThead, noInformation*/
-/*exported index, formatTotalDays*/
+/*exported index*/
 'use strict';
 
 var rowIndex = 1;
@@ -7,10 +7,6 @@ var rowIndex = 1;
 function index() {
     return rowIndex++;
 }
-
-function formatTotalDays(totalDays) {
-    return totalDays.toFixed(1);
-};
 
 function query(isFirstLoad) {
     var action = $('.card-container-base .form form').attr('action').split('/');

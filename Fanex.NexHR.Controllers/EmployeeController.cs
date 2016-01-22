@@ -66,7 +66,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
+            model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(model);
         }

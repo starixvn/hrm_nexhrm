@@ -1,15 +1,11 @@
 ﻿'use strict';
 /*global _global, noInformation, initDatePicker, floatThead*/
-/*exported index, formatLeaveDays*/
+/*exported index*/
 
 var rowIndex = 1;
 
 function index() {
     return rowIndex++;
-}
-
-function formatLeaveDays(leaveDays) {
-    return leaveDays.toFixed(1);
 }
 
 function initEditLeaveDeduction() {

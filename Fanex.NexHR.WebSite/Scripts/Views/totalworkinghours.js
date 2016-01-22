@@ -1,4 +1,4 @@
-﻿/*global _labels: true, _messages: true*/
+﻿/*global _global, _messages*/
 'use strict';
 
 var rowIndex = 1;
@@ -9,12 +9,14 @@ function index() {
 }
 
 function validateDate(e) {
-    var fromDate = new Date($("#FromDate").val());
-    var toDate = new Date($("#ToDate").val());
-    var dayDiff = (toDate - fromDate) / 1000 / 60 / 60 / 24;
+    var fromDate = new Date($("#FromDate").val()),
+        toDate = new Date($("#ToDate").val()),
+        dayDiff = (toDate - fromDate) / 1000 / 60 / 60 / 24;
+
     if (dayDiff < 0) {
         alert("To Date must be equal or greater than From Date.");
         e.preventDefault();
+
         $("#btnSubmit").val("Submit");
     }
 }

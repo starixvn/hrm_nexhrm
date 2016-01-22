@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -64,13 +64,7 @@
                                         <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        <select id="GroupId" name="GroupId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team item in ViewBag.Groups)
-                                            {
-                                                <option value="@item.Id">@item.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col">
@@ -99,7 +93,7 @@
                                     <div class="left label--m label">
                                         &nbsp;</div>
                                     <div class="left">
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="view" />
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
                                         <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
                                     </div>
                                 </div>
@@ -135,11 +129,11 @@
         </div>
     </div>
 </div>
-<script id="itemTemplate" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jquery-tmpl">
     <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId}} {{else}} class="noshift"{{/if}}>
         <td>${index()}</td>
-        <td class="ddMMyyyy">
-            ${jsonToShortDate(AttendanceDate)}
+        <td>
+            ${formatDate(AttendanceDate, 'dd MMM, yyyy')}
         </td>
         <td>
             ${Code}
@@ -177,8 +171,8 @@
                 ${displayMinute(EarlyOut)}
             {{/if}}
         </td>
-        <td>
-            {{if Requests != null > 0}}
+        <td class="align-left">
+            {{if Requests != null}}
                 {{each Requests}}
                     <a href='javascript:;' class="tooltip-request req"
                             data-requesttype="${RequestType.Id}"

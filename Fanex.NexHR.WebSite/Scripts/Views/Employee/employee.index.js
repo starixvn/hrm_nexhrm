@@ -1,14 +1,15 @@
-﻿/*global _global:false, getParam:false, floatThead:false, _messages:false, moment: false*/
+﻿/*global _global, _messages, getParam, floatThead, noInformation*/
 /* exported index*/
 'use strict';
 
 var rowIndex = 1,
     sorts = [];
+
 function index() {
     return rowIndex++;
 }
 
-function query() {
+function query(isFirstLoad) {
     var keyword = $('#keyword').val();
 
     var enable = null,
@@ -19,13 +20,18 @@ function query() {
         url: _global.root + 'api/employee/getemployees',
         data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (data) {
+            $('table#data tbody').children().remove();
+
             if (data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(data).appendTo('#data');
+
+                $.template('template', $('#template'));
+                $.tmpl('template', data).appendTo('table#data');
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',
@@ -38,17 +44,18 @@ function query() {
                     }
                 });
             } else {
-                $('#data tbody').children().remove();
-                $(noInformation(11)).appendTo('#data');
+                $(noInformation(11)).appendTo('table#data');
             }
-
-            $('.loading-process').fadeOut(300);
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 
@@ -80,7 +87,7 @@ function eventSorting() {
             sorts.push({ Property: property, Direction: direction });
         }
 
-        query();
+        query(false);
     });
 }
 
@@ -109,7 +116,7 @@ function eventExportExcel() {
 $(document).ready(function () {
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
-            query();
+            query(false);
         }
     });
 
@@ -123,11 +130,11 @@ $(document).ready(function () {
     eventExportExcel();
 
     //search onload
-    query();
+    query(true);
 
     $('#query').click(function (evt) {
         evt.preventDefault();
         refreshSorting();
-        query();
+        query(false);
     });
 });

@@ -1,5 +1,4 @@
-﻿/// <reference path='../Libs/jquery.min.js' />
-/*global _global, _messages, getParam*/
+﻿/*global _global, _messages, getParam, noInformation, floatThead*/
 /*exported index, deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
 'use strict';
 
@@ -61,13 +60,13 @@ function updateJobTitle(id) {
             alert(_messages.errorTryAgain);
             canNotUpdate(id);
         }
+
         var oldTitle = $('#spanJobTitle_' + id).val();
         if (jobTitle !== oldTitle) {
             $.post(_global.root + 'jobtitle/UpdatetJobTitle', { id: id, name: jobTitle }, function (response) {
                 if (response) {
                     document.location = _global.root + 'jobtitle/jobtitlemanagement';
-                }
-                else {
+                } else {
                     alert(_messages.errorTryAgain);
                     canNotUpdate(id);
                 }
@@ -75,8 +74,7 @@ function updateJobTitle(id) {
                 alert(_messages.errorTryAgain);
                 canNotUpdate(id);
             });
-        }
-        else {
+        } else {
             alert(_messages.errorTryAgain);
             canNotUpdate(id);
         }
@@ -105,7 +103,7 @@ $(function () {
     $('#dialog-form').dialog({
         title: $('#dialog-form').attr('title'),
         autoOpen: false,
-        width: 450,
+        width: 'auto',
         modal: true,
         buttons: [
             {
@@ -139,7 +137,7 @@ $(function () {
                         });
                     }
                 }
-            }            
+            }
         ],
         close: function () {
             updateTips('');
@@ -153,32 +151,38 @@ $(function () {
     });
 });
 
-function query() {
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'jobtitle/JobTitleManagement',
         type: 'POST',
         dataType: 'json',
         data: { jobTitle: $('#keyword').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (response) {
+            $('table#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(response.data).appendTo('#data');
-            } else {
-                $('#data tbody').children().remove();
-                $(noInformation(10)).appendTo('#data');
-            }
 
-            $('.loading-process').fadeOut(300);
+                $.template('template', $('#template'));
+                $.tmpl('template', response.data).appendTo('table#data');
+            } else {
+                $(noInformation(10)).appendTo('table#data');
+            }
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -187,14 +191,14 @@ $(document).ready(function () {
     var enable = true;
 
     $('#submit').on('click', function () {
-        query();
+        query(false);
     });
 
     var q = getParam('query');
     if (q != null) {
         $('#keyword').val(q);
-        query();
+        query(true);
     } else {
-        query();
+        query(true);
     }
 });

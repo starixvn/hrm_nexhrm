@@ -78,7 +78,7 @@
             <td>${formatJsonDate(FromDate, 'dd MMM, yyyy')}</td>
             <td>${formatJsonDate(ToDate, 'dd MMM, yyyy')}</td>
         {{/if}}
-        <td>${formatTotalDays(TotalDays)}</td>
+        <td>${TotalDays.toFixed(1)}</td>
         <td class="tooltip" title="${formatJsonDateToShortFormatedDate(CreatedDate)}">
             ${formatJsonDate(CreatedDate, 'dd MMM, yyyy')}
         </td>

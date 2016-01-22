@@ -29,16 +29,7 @@
                                         <label>@Labels.DateRange</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select id="Date" name="Date">
-                                            <option value="0">@Labels.DateRange</option>
-                                            <option value="1">@Labels.ToDay</option>
-                                            <option value="2">@Labels.Yesterday</option>
-                                            <option value="3">@Labels.CurrentWeek</option>
-                                            <option value="4">@Labels.LastWeek</option>
-                                            <option value="5">@Labels.CurrentMonth</option>
-                                            <option value="6">@Labels.LastMonth</option>
-                                            <option value="7">@Labels.SinceLastMonth</option>
-                                        </select>
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
@@ -67,13 +58,7 @@
                                         @Html.LabelFor(model => model.Team)
                                     </div>
                                     <div class="left select--m">
-                                        <select id="TeamId" name="TeamId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Fanex.NexHR.Models.Team team in ViewBag.Groups)
-                                            {
-                                                <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model=>model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -81,7 +66,7 @@
                                         @Html.LabelFor(model => model.Employee)
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
@@ -113,8 +98,7 @@
                                             <th>@Labels.AverageHours</th>
                                         </tr>
                                     </thead>
-                                        <tbody>                                           
-                                        </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -125,9 +109,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;        
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
-<script id="template" type="text/x-jquery-tmpl">   
+<script id="template" type="text/x-jquery-tmpl">
     <tr>
         <td>${index()}</td>
         <td>${Employee.Code}</td>
@@ -137,22 +121,22 @@
         <td>${WorkingDay}</td>
         <td>${ActualWorkingDay}</td>
         <td>${PaidLeave.toFixed(1)}</td>
-        <td id="unpaidLeave">     
-            {{if isHR }}     
+        <td id="unpaidLeave">
+            {{if isHR}}
                 <form id="form" style="display:none;">
                     <input type="type" class="DateOption" id="DateOption" name="DateOption"/>
                     <input type="type" class="FromDate" id="FromDate" name="FromDate" />
                     <input type="type" class="ToDate" id="ToDate" name="ToDate"/>
-                    <input type="type" id="EmployeeId" name="EmployeeId" value="${Employee.Id}" />                
+                    <input type="type" id="EmployeeId" name="EmployeeId" value="${Employee.Id}" />
                     <input type="type" id="Employee" name="Employee" value="${Employee.NickName + ' (' + Employee.FullName + ')'}" />
                     <input type="type" class="TeamId" id="TeamId" name="TeamId" value="${Employee.TeamId == null ? -2 : Employee.TeamId}" />
                     <input type="type" id="StatusId" name="StatusId" value="0" />
                     <input type="type" id="RequestType" name="RequestType" value="1" />
-                    <input type="type" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />     
-                    <input type="type" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26"/>                         
-                </form>       
-            {{/if}}                          
-            {{if isHR && UnpaidLeave > 0}}                
+                    <input type="type" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />
+                    <input type="type" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26"/>
+                </form>
+            {{/if}}
+            {{if isHR && UnpaidLeave > 0}}
                 <a class="UnpaidLeave" href="javascript:;">
                     ${UnpaidLeave.toFixed(1)}
                 </a>
@@ -161,26 +145,26 @@
             {{/if}}
         </td>
         <td>
-            {{if isHR && SickLeave > 0}}                
+            {{if isHR && SickLeave > 0}}
                 <a class="SickLeave" href="javascript:;">
                     ${SickLeave.toFixed(1)}
                 </a>
             {{else}}
                 ${SickLeave.toFixed(1)}
-            {{/if}}            
+            {{/if}}
         </td>
         <td>
-            {{if isHR && AccidentLaborLeave > 0}}                
+            {{if isHR && AccidentLaborLeave > 0}}
                 <a class="AccidentLaborLeave" href="javascript:;">
                     ${AccidentLaborLeave.toFixed(1)}
                 </a>
             {{else}}
                 ${AccidentLaborLeave.toFixed(1)}
-            {{/if}}               
+            {{/if}}
         </td>
         <td>${displayMinuteForTotalWorking(LateIn)}</td>
         <td>${displayMinuteForTotalWorking(EarlyOut)}</td>
         <td>${totalHoursToTime(TotalHours)}</td>
         <td>${totalHoursToTime(AverageHours)}</td>
-    </tr>    
+    </tr>
 </script>

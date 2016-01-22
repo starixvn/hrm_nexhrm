@@ -10,11 +10,10 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Models;
 
-    /// <summary>
-    /// Total working hours view model.
-    /// </summary>
     public class TotalWorkingHoursViewModel
     {
         [DataType(DataType.DateTime)]
@@ -34,5 +33,7 @@ namespace Fanex.NexHR.ViewModels
         public int DateOption { get; set; }
 
         public bool IsExportExcel { get; set; }
+
+        public IList<Team> TeamCollection { get; set; }
     }
 }

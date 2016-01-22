@@ -1,5 +1,5 @@
 ﻿/*global _global: false, _messages: false, noInformation: false*/
-/*exported index, formatTotalDays*/
+/*exported index*/
 'use strict';
 
 var rowIndex = 1;
@@ -64,10 +64,6 @@ function bindHalfDay() {
         }
     }
 }
-
-function formatTotalDays(totalDays) {
-    return totalDays.toFixed(1);
-};
 
 function query(isFirstLoad) {
     $.ajax({

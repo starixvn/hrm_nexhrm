@@ -196,9 +196,9 @@
                     <input type="text" name="RequestType" value="1" />
                 </form>
                 {{if isLeader}}
-                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalOtherLeave)}</a>
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="member">${TotalOtherLeave.toFixed(1)}</a>
                 {{else}}
-                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalOtherLeave)}</a>
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="hrview">${TotalOtherLeave.toFixed(1)}</a>
                 {{/if}}
             {{else}}
                 -

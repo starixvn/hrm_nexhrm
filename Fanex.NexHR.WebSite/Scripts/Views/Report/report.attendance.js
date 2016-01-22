@@ -1,8 +1,12 @@
-﻿/*global _global, noInformation, _messages*/
+﻿/*global _global, _messages, noInformation, floatThead*/
 /*exported index*/
 "use strict";
 
 var rowIndex = 1;
+
+function index() {
+    return rowIndex++;
+}
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
@@ -21,31 +25,14 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
     return result;
 }
 
-function view() {
-    var $form = $('form');
-    if (!$form.valid()) {
-        return;
-    }
-    $('.loading-process').fadeIn(300)
-
-    //if no user is selected, clear the empId also
-    if ($('#Employee').val() === '') {
-        $('#EmpId').val('');
-    }
-    $('#nodata').remove();
-    $.getJSON("/api/report/getemployeeattendances", $('form').serialize(), function (response) {
-        if (response.length > 0) {
-            rowIndex = 1;
-            $('#data tbody').children().remove();
-            $('#itemTemplate').tmpl(response).appendTo('#data');
-
-            $('.tooltip-request').tipsy({
-                className: 'tipsy-request',
-                gravity: 'ne',
-                html: true,
-                title: function () {
-                    var object = $(this);
-                    var result = getRequestDetail(
+function initTooltip() {
+    $('.tooltip-request').tipsy({
+        className: 'tipsy-request',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            var object = $(this);
+            var result = getRequestDetail(
                         object.attr('data-requesttype'),
                         object.attr('data-fromdate'),
                         object.attr('data-todate'),
@@ -55,37 +42,34 @@ function view() {
                         object.attr('data-totaldays'),
                         object.attr('data-totalmins'));
 
-                    return "<table class='table-tooltip'>" +
-                                "<tr>" +
-                                    "<td>Details</td>" +
-                                    "<td>" + result + "</td>" +
-                                "</tr>" +
-                                "<tr>" +
-                                    "<td>Remark</td>" +
-                                    "<td>" + object.attr('data-remark') + "</td>" +
-                                "</tr>" +
-                            "</table>";
-                }
-            });
-        } else {
-            $('#data tbody').children().remove();
-            $(noInformation(14)).appendTo('#data');
+            return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td>Details</td>" +
+                            "<td>" + result + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Remark</td>" +
+                            "<td>" + object.attr('data-remark') + "</td>" +
+                        "</tr>" +
+                    "</table>";
         }
-
-        $('.loading-process').fadeOut(300);
-
-        floatThead('table#data');
-    }).error(function () {
-        $('.loading-process').fadeOut(300);
-        alert(_messages.errorTryAgain);
     });
 }
 
-function index() {
-    return rowIndex++;
+function initExportExcel() {
+    $('#exportExcel').on('click', function (evt) {
+        evt.preventDefault();
+        if ($('#Employee').val() === '') {
+            $('#EmpId').val('');
+        }
+
+        window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
+            '&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
+            '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete').prop('checked');
+    });
 }
 
-$(document).ready(function () {
+function initSearchAutoComplete() {
     $("#Employee").autocomplete({
         source: function (request, response) {
             var term = request.term,
@@ -115,44 +99,74 @@ $(document).ready(function () {
         minLength: 1,
         select: function (event, ui) {
             event.preventDefault();
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
+            $('#Employee').val(ui.item.label);
             $('#EmpId').val(ui.item.value);
         },
         change: function (event, ui) {
             if (ui && ui.item) {
-                var nickName = ui.item.label;
-                $('#Employee').val(nickName);
+                $('#Employee').val(ui.item.label);
                 $('#EmpId').val(ui.item.value);
             } else {
                 $('#EmpId').val('0');
             }
         }
     });
+}
 
-    $('input[type=text]').keypress(function (evt) {
-        if (evt.keyCode === 13) {
-            view();
+function query(isFirstLoad) {
+    var $form = $('form');
+    if (!$form.valid()) {
+        return;
+    }
+
+    //if no user is selected, clear the empId also
+    if ($('#Employee').val() === '') {
+        $('#EmpId').val('');
+    }
+
+    $.ajax({
+        url: _global.root + 'api/report/getemployeeattendances',
+        data: $('form').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('table#data tbody').children().remove();
+
+            if (data.length > 0) {
+                rowIndex = 1;
+
+                $.template('template', $('#template'));
+                $.tmpl('template', data).appendTo('table#data');
+
+                initTooltip();
+            } else {
+                $(noInformation(14)).appendTo('table#data');
+            }
+
+            floatThead('table#data');
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
+}
 
-    $('#view').click(function (evt) {
+$(document).ready(function () {
+    initSearchAutoComplete();
+    initExportExcel();
+
+    $('#submit').on('click', function (evt) {
         evt.preventDefault();
-        view();
+        query(false);
     });
 
-    $('#exportExcel').click(function (evt) {
-        evt.preventDefault();
-        if ($('#Employee').val() === '') {
-            $('#EmpId').val('');
-        }
-
-        window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
-            '&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
-            '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete:checked').val();
-    });
-
-    initDatePicker();
-
-    view();
+    query(true);
 });

@@ -95,14 +95,14 @@
         </td>
         <td>
             {{if InFixed}}
-                ${formatJsonDate(InFixed, 'HH:MM')}
+                ${formatJsonDate(InFixed, 'HH:mm')}
             {{else IsMissingCheckin == 1 }}
                 <a href="../checkinout/create?type=1&date=${formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}">Request</a>
             {{/if}}
         </td>
         <td>
             {{if OutFixed}}
-                ${formatJsonDate(OutFixed, 'HH:MM')}
+                ${formatJsonDate(OutFixed, 'HH:mm')}
             {{else IsMissingCheckOut == 1}}
                 <a href="../checkinout/create?type=2&date=${formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}">Request</a>
             {{/if}}
@@ -127,9 +127,9 @@
                 {{each Requests}}
                     <a href='javascript:;' class="tooltip-request req"
                             data-requesttype="${RequestType.Id}"
-                            data-fromdate="${formatJsonDate(FromDate, 'dd MMM, yyyy HH:MM:ss')}"
-                            data-todate="${formatJsonDate(ToDate, 'dd MMM, yyyy HH:MM:ss')}"
-                            data-createddate="${formatJsonDate(CreatedDate, 'dd MMM, yyyy HH:MM:ss')}"
+                            data-fromdate="${formatJsonDate(FromDate, 'dd MMM, yyyy HH:mm:ss')}"
+                            data-todate="${formatJsonDate(ToDate, 'dd MMM, yyyy HH:mm:ss')}"
+                            data-createddate="${formatJsonDate(CreatedDate, 'dd MMM, yyyy HH:mm:ss')}"
                             data-fromshift="${FromShift.Name}"
                             {{if ToShift != null}} data-toshift="${ToShift.Name}" {{else}} data-toshift="" {{/if}}
                             data-totaldays="${TotalDays}"

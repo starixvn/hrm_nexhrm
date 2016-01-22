@@ -18,37 +18,31 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models.Report;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Report controller.
-    /// </summary>
     public class ReportController : ApiController
     {
         private readonly IReportService _reportService;
         private readonly ITeamService _teamService;
         private readonly IExtensionNoService _extensionNoService;
 
-        public ReportController() : this(null, null, null)
+        public ReportController()
+            : this(null, null, null)
         {
         }
 
-        public ReportController(IReportService reportService = null, ITeamService teamService = null, IExtensionNoService extensionNoService = null)
+        public ReportController(
+            IReportService reportService = null,
+            ITeamService teamService = null,
+            IExtensionNoService extensionNoService = null)
         {
             _reportService = reportService ?? new ReportService();
             _teamService = teamService ?? new TeamService();
             _extensionNoService = extensionNoService ?? new ExtensionNoService();
         }
 
-        /// <summary>
-        /// Get employee attendance report.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns>Employee attendance model.</returns>
         public IList<EmployeeAttendanceModel> GetEmployeeAttendances([FromUri]EmployeeAttendanceViewModel model)
         {
             if (model.GroupId == -1)
@@ -69,11 +63,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
         }
 
-        /// <summary>
-        /// The timesheet.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns>Employee attendance model.</returns>
         [HttpGet]
         [HttpPost]
         public IList<EmployeeAttendanceModel> Timesheet([FromUri]TimesheetViewModel model)
@@ -89,12 +78,6 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
         }
 
-        /// <summary>
-        /// Method Get Group Extension.
-        /// </summary>
-        /// <param name="isInternal">Check is Internal or External group.</param>
-        /// <param name="groupId">Group's id.</param>
-        /// <returns>List of SelectListItem.</returns>
         [HttpGet]
         [HttpPost]
         public IList<System.Web.Mvc.SelectListItem> GetGroupExtension(bool isInternal, int? groupId)

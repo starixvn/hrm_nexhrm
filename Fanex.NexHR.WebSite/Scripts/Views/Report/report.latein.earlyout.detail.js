@@ -1,15 +1,11 @@
 ﻿'use strict';
 /*global _global, _messages, floatThead, noInformation, formatDate*/
-/*exported index, formatMinutes*/
+/*exported index*/
 
 var rowIndex = 1;
 
 function index() {
     return rowIndex++;
-}
-
-function formatMinutes(minutes) {
-    return (minutes / 60).toFixed(1);
 }
 
 function query(isFirstLoad) {

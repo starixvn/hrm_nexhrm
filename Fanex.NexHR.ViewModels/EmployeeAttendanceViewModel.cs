@@ -10,7 +10,9 @@
 namespace Fanex.NexHR.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Models;
 
     public class EmployeeAttendanceViewModel
     {
@@ -32,5 +34,7 @@ namespace Fanex.NexHR.ViewModels
         public int DateOption { get; set; }
 
         public bool ExcludeUserDelete { get; set; }
+
+        public IList<Team> TeamCollection { get; set; }
     }
 }

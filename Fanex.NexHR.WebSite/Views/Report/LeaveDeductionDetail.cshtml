@@ -125,7 +125,7 @@
                 Unpaid Leave
             {{/if}}
         </td>
-        <td>${formatLeaveDays(LeaveDays)}</td>
+        <td>${LeaveDays.toFixed(1)}</td>
         <td class="description">${Description}</td>
         {{if isHRRole}}
             <td>
