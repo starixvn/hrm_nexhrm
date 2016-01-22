@@ -19,4 +19,13 @@ var MyDashboard = (function ($) {
 
 $(document).ready(function () {
     MyDashboard.init();
+    $('.slide').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dots: true,
+            nextArrow: false,
+            prevArrow: false,
+        });
 });

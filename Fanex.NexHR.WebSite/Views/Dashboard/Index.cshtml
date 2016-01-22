@@ -66,52 +66,42 @@
                                 <span>Happy birthday Theresa!</span>
                             </div>
                         </div>
-                        <div class="slide-content">
-                            <div class="col s3">
-                                <img class="circle" alt="" ssrc="../../Content/Images/user.png"/>
-                            </div>
-                            <div class="col s9 center detail">
-                                <span>Happy birthday Faisall!</span>
-                            </div>
-                        </div>
-                        <div class="slide-content">
-                            <div class="col s3">
-                                <img class="circle" alt="" src="../../Content/Images/user.png"/>
-                            </div>
-                            <div class="col s9 center detail">
-                                <span>Happy birthday Natalie!</span>
-                            </div>
-                        </div>
+                        @{var birthdayList = @Model.SystemReminder.EmployeeHasBirthday; }
+                        @if (birthdayList != null && birthdayList.Count > 0)
+                        {
+                            foreach (var item in birthdayList)
+                            {
+                            <div class="slide-content">
+                                <div class="col s3">
+                                    <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                </div>
+                                <div class="col s9 center detail">
+                                    <span>Happy birthday @item.NickName!</span>
+                                </div>
+                            </div>      
+                            }
+                        }
+                        
+                        @{var firstWorkDay = @Model.SystemReminder.EmployeeHasFirstWorkingDay; }
+                        @if (firstWorkDay != null && firstWorkDay.Count > 0)
+                        {
+                            foreach (var item in firstWorkDay)
+                            {
+                            <div class="slide-content">
+                                <div class="col s3">
+                                    <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                </div>
+                                <div class="col s9 center detail">
+                                    <span>Happy birthday @item.NickName!</span>
+                                </div>
+                            </div>      
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </div>
-        @*<div class="col s12 m6 l3 card-container">
-            <div class="card double">
-                <div class="card-content white-text front light-green darken-2 z-depth-1">
-                    <div class="slide">
-                        <div class="slide-content">
-                            <div class="col s3">
-                                <img class="circle" src="../../Content/Images/user.png" />
-                            </div>
-                            <div class="col s9 detail">
-                                <span>Happy birthday Theresa!</span>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
-                <div class="card-content white-text back light-green darken-2 z-depth-1">
-                    <div class="col s3">
-                        <i class="mdi mdi-file left mdi-36px"></i>
-                    </div>
-                    <div class="col s9 center">
-                        <p class="txt-tittle">News</p>
-                        <span class="txt-uppercase txt-12px">Read news in month</span>
-                    </div>s
-                </div>
-            </div>
-        </div>*@
-    </div>    
+    </div>
     <div>
         <div class="col s12 m4 card-container-base">
             <div class="card">
@@ -203,19 +193,19 @@
                                     <div class="left label--m">
                                         <label>
                                             From date</label></div>
-                                    <div class="datepicker-button input-s left">
+                                    @*<div class="datepicker-button input-s left">
                                         <input type="date" class="datepicker left" />
                                         <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="col">
                                     <div class="left label--m">
                                         <label>
                                             To date</label></div>
-                                    <div class="datepicker-button input-s left">
+                                    @*<div class="datepicker-button input-s left">
                                         <input type="date" class="datepicker left" />
                                         <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                             <div class="row form-input">

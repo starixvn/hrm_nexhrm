@@ -496,5 +496,7 @@ namespace Fanex.NexHR.ViewModels
                 return displayValue;
             }
         }
+
+        public SystemReminderModel SystemReminder { get; set; }
     }
 }

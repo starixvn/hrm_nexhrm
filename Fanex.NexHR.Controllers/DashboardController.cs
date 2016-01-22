@@ -35,33 +35,36 @@
                 EmpId = this.CurrentUser.Id
             };
             MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
+            model.SystemReminder = GetRemind();
 
             return View(model);
         }
 
-        private void Celebrate()
+        private SystemReminderModel GetRemind()
         {
             SystemReminderModel lstEmployee = null;
-            List<Employee> employeesBirthday = null;
-            List<Employee> employeesFirstWorkingday = null;
+            //List<Employee> employeesBirthday = null;
+            //List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
                 OnDate = DateTime.Now.Date
             };
 
             lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
-            if (lstEmployee != null)
-            {
-                employeesBirthday = lstEmployee.EmployeeHasBirthday;
-                employeesFirstWorkingday = lstEmployee.EmployeeHasFirstWorkingDay;
-            }
+            //if (lstEmployee != null)
+            //{
+            //    employeesBirthday = lstEmployee.EmployeeHasBirthday;
+            //    employeesFirstWorkingday = lstEmployee.EmployeeHasFirstWorkingDay;
+            //}
 
-            var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
-                || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
+            //var hasBirthdayOrFirstWorkingday = (employeesBirthday != null && employeesBirthday.Any())
+            //    || (employeesFirstWorkingday != null && employeesFirstWorkingday.Any());
 
-            ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
-            ViewBag.EmployeesBirthday = employeesBirthday;
-            ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
+            //ViewBag.HasBirthdayOrFirstWorkingday = hasBirthdayOrFirstWorkingday;
+            //ViewBag.EmployeesBirthday = employeesBirthday;
+            //ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
+
+            return lstEmployee;
         }
     }
 }
