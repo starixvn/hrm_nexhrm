@@ -8,8 +8,6 @@
 }
 @section Breadcrumb {
 }
-<div class="loading-process" style="display: none">
-</div>
 <div class="row content">
     <div class="col s12 card-container-base">
         <div class="card">
@@ -33,18 +31,18 @@
                                     <label>@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownList("group", new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                    @Html.DropDownList("group", new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--l">
                                 <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label></div>
                                 <div class="left filter-title">
-                                    @Html.DropDownList("title", new SelectList(Model.JobTitles, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
+                                    @Html.DropDownList("title", new SelectList(Model.JobTitleCollection, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-                        <div class="row form-input">                            
+                        <div class="row form-input">
                             <div class="col">
                                 <div class="left label--m">&nbsp;</div>
                                 <div class="left radioButton">

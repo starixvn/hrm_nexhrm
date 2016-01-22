@@ -626,7 +626,7 @@
     <Content Include="Scripts\Views\Report\report.timerecord.js" />
     <Content Include="Scripts\Views\team.management.js" />
     <Content Include="Scripts\Views\totalworkinghours.js" />
-    <Content Include="Scripts\Views\user.management.js" />
+    <Content Include="Scripts\Views\Employee\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\_employee.search.in.team.js" />
     <Content Include="Web.config" />

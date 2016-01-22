@@ -46,30 +46,36 @@ function getShiftByDate() {
     }
 }
 
-function query() {
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'CheckInOut/EmployeeView',
         type: 'POST',
         dataType: 'json',
         data: { year: $('#Year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (response) {
+            $('table#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(response.data).appendTo('#data');
-            } else {
-                $('#data tbody').children().remove();
-                $(noInformation(8)).appendTo('#data');
-            }
 
-            $('.loading-process').fadeOut(300);
+                $.template('template', $('#template'));
+                $.tmpl('template', response.data).appendTo('table#data');
+            } else {
+                $(noInformation(8)).appendTo('table#data');
+            }
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -146,10 +152,10 @@ $(document).ready(function () {
     if ($('.form-create-update').length > 0) {
         initCreateUpdatePage();
     } else {
-        query();
+        query(true);
 
         $('#submit').on('click', function () {
-            query();
+            query(false);
         });
     }
 });

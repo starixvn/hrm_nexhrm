@@ -17,12 +17,6 @@ namespace Fanex.NexHR.ViewModels
 
     public class CreateEmployeeViewModel
     {
-        public CreateEmployeeViewModel()
-        {
-            Teams = new List<Team>();
-            Shifts = new List<SelectListItem>();
-        }
-
         [Required]
         public string FullName { get; set; }
 
@@ -54,8 +48,8 @@ namespace Fanex.NexHR.ViewModels
 
         public int ProcessBy { get; set; }
 
-        public IList<Team> Teams { get; set; }
+        public IList<Team> TeamCollection { get; set; }
 
-        public IList<SelectListItem> Shifts { get; set; }
+        public IList<SelectListItem> ShiftCollection { get; set; }
     }
 }

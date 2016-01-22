@@ -1,4 +1,4 @@
-﻿@model Fanex.NexHR.ViewModels.TeamViewModel
+﻿@model TeamViewModel
 @{
     ViewBag.Title = Labels.Team;
 }
@@ -19,21 +19,22 @@
                 <div class="card-body">
                     @if (Model != null)
                     {
-                        using (Html.BeginForm("edit", "team", FormMethod.Post, new { @class = "form-create-edit" }))
-                        {
                         <div class="form">
+                        @using (Html.BeginForm("edit", "team", FormMethod.Post, new { @class = "form-create-edit" }))
+                        {
                             @Html.ValidationSummary(true)
-                            @if (ViewBag.Updated == true)
+                            if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">
-                                    <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamUpdated</div>
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamUpdated
+                                    </div>
                                 </div>
                             }
                             @Html.HiddenFor(model => model.CreatedDate)
                             @Html.HiddenFor(model => model.CreatedBy)
                             @Html.HiddenFor(model => model.ModifiedDate)
                             @Html.HiddenFor(model => model.ModifiedBy)
-
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -87,7 +88,7 @@
                                         @Html.LabelFor(model => model.DepartmentId)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.FilteringDepartments, "DepartmentId", "Name"), "-- " + @Messages.SelectDepartment + " --")
+                                        @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.DepartmentCollection, "DepartmentId", "Name"), "-- " + @Messages.SelectDepartment + " --")
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +98,7 @@
                                         @Html.LabelFor(model => model.ParentId)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.FilteringGroups, "Id", "Name"), "-- " + @Messages.SelectParentTeam + " --")
+                                        @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.TeamCollection, "Id", "Name"), "-- " + @Messages.SelectParentTeam + " --")
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +109,8 @@
                                     <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />
                                 </div>
                             </div>
-                        </div>
                         }
+                        </div>
                     }
                     else
                     {

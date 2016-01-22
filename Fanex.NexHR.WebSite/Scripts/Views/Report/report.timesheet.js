@@ -44,7 +44,39 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
     return result;
 }
 
-function query() {
+function initTooltip() {
+    $('.tooltip-request').tipsy({
+        className: 'tipsy-request',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            var object = $(this),
+                result = getRequestDetail(
+                    object.attr('data-requesttype'),
+                    object.attr('data-fromdate'),
+                    object.attr('data-todate'),
+                    object.attr('data-createddate'),
+                    object.attr('data-fromshift'),
+                    object.attr('data-toshift'),
+                    object.attr('data-totaldays'),
+                    object.attr('data-totalmins')
+                );
+
+            return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td>Details</td>" +
+                            "<td>" + result + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Remark</td>" +
+                            "<td>" + object.attr('data-remark') + "</td>" +
+                        "</tr>" +
+                "</table>";
+        }
+    });
+}
+
+function query(isFirstLoad) {
     var $form = $('form');
     if (!$form.valid()) {
         return;
@@ -56,55 +88,33 @@ function query() {
         dataType: 'json',
         data: $('form').serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (response) {
+            $('table#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#itemTemplate').tmpl(response.data).appendTo('#data');
 
-                $('.tooltip-request').tipsy({
-                    className: 'tipsy-request',
-                    gravity: 'ne',
-                    html: true,
-                    title: function () {
-                        var object = $(this),
-                            result = getRequestDetail(
-                                object.attr('data-requesttype'),
-                                object.attr('data-fromdate'),
-                                object.attr('data-todate'),
-                                object.attr('data-createddate'),
-                                object.attr('data-fromshift'),
-                                object.attr('data-toshift'),
-                                object.attr('data-totaldays'),
-                                object.attr('data-totalmins')
-                            );
+                $.template('template', $('#template'));
+                $.tmpl('template', response.data).appendTo('table#data');
 
-                        return "<table class='table-tooltip'>" +
-                                "<tr>" +
-                                    "<td>Details</td>" +
-                                    "<td>" + result + "</td>" +
-                                "</tr>" +
-                                "<tr>" +
-                                    "<td>Remark</td>" +
-                                    "<td>" + object.attr('data-remark') + "</td>" +
-                                "</tr>" +
-                            "</table>";
-                    }
-                });
+                initTooltip();
             } else {
-                $('#data tbody').children().remove();
-                $(noInformation(12)).appendTo('#data');
+                $(noInformation(12)).appendTo('table#data');
             }
-
-            $('.loading-process').fadeOut(300);
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -112,10 +122,9 @@ function query() {
 $(document).ready(function () {
     initMonthPicker();
 
-    query();
+    query(true);
 
-    $('#query').click(function (evt) {
-        evt.preventDefault();
-        query();
+    $('#submit').click(function () {
+        query(false);
     });
 });

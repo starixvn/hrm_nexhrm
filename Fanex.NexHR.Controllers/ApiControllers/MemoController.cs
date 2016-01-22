@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Controllers.ApiControllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
@@ -29,8 +29,8 @@
                 Category = category,
                 Year = year
             };
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            var entityList = _memoService.GetAll(getAllMemoCriteria);
+
+            IList<Memo> entityList = _memoService.GetAll(getAllMemoCriteria);
 
             return entityList.AsQueryable();
         }

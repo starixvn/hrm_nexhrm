@@ -1,4 +1,4 @@
-﻿/*global _global, setDateTimeRange, initDatePicker, floatThead*/
+﻿/*global _global, setDateTimeRange, initDatePicker, floatThead, noInformation*/
 /*exported index, formatTotalDays*/
 'use strict';
 
@@ -12,22 +12,27 @@ function formatTotalDays(totalDays) {
     return totalDays.toFixed(1);
 };
 
-function query() {
-    var action = $('.form form').attr('action').split('/');
+function query(isFirstLoad) {
+    var action = $('.card-container-base .form form').attr('action').split('/');
 
     $.ajax({
         url: _global.root + 'report/' + action[action.length - 1],
         type: 'POST',
         dataType: 'json',
-        data: $('.form form').serialize(),
+        data: $('.card-container-base .form form').serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (response) {
+            $('table#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(response.data).appendTo('#data');
+
+                $.template('template', $('#template'));
+                $.tmpl('template', response.data).appendTo('table#data');
 
                 $("table#data .DateOption").val($('#Date').val());
                 $('table#data tbody tr td a').click(function () {
@@ -38,16 +43,18 @@ function query() {
                     document.location = _global.root + controller + '/' + action + '?' + model;
                 });
             } else {
-                $('#data tbody').children().remove();
-                $(noInformation(10)).appendTo('#data');
+                $(noInformation(10)).appendTo('table#data');
             }
 
-            $('.loading-process').fadeOut(300);
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -70,15 +77,14 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    initDatePicker();
     initEventForFromDateAndToDate();
 
     $('#submit').click(function () {
         fromDate = $("#FromDate").val();
         toDate = $("#ToDate").val();
 
-        query();
+        query(false);
     });
 
-    query();
+    query(true);
 });

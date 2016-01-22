@@ -1203,4 +1203,7 @@
   <data name="IsAnnual" xml:space="preserve">
     <value>Is Annual</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
 </root>

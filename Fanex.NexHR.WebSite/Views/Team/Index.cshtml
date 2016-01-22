@@ -19,8 +19,8 @@
                 <div class="card-body">
                     <div class="row m-t--m">
                         <div class="col">
-                            <a href="@Url.Action("Create", "Team")" class="white-text button-hrm waves-effect waves-light btn orange darken-1 m-r--s">
-                                <i class="mdi mdi-plus left mdi-18px"></i>@Labels.NewTeam
+                            <a class="btn-request waves-effect waves-light btn" href="@Url.Action("Create", "Team")">
+                                <i class="left mdi mdi-plus"></i>@Labels.NewTeam
                             </a>
                         </div>
                     </div>
@@ -52,11 +52,13 @@
                                         </td>
                                         <td class="cmd">
                                             <a href="@Url.Action("Edit", "Team", new { Id = team.Id })">
-                                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+                                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                                            </a>
                                         </td>
                                         <td class="cmd">
                                             <a href="javascript:;" onclick="deleteTeam(@team.Id);">
-                                                <i class="mdi mdi-delete mdi-dark mdi-18px"></i></a>
+                                                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }

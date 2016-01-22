@@ -14,16 +14,10 @@ namespace Fanex.NexHR.ViewModels
 
     public class UserManagementViewModel
     {
-        public UserManagementViewModel()
-        {
-            Groups = new List<Team>();
-            JobTitles = new List<LookupData>();
-        }
-
         public string JobTitleId { get; set; }
 
-        public IList<Team> Groups { get; set; }
+        public IList<Team> TeamCollection { get; set; }
 
-        public IList<LookupData> JobTitles { get; set; }
+        public IList<LookupData> JobTitleCollection { get; set; }
     }
 }

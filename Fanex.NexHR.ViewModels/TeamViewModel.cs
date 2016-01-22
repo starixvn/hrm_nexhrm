@@ -17,12 +17,6 @@ namespace Fanex.NexHR.ViewModels
 
     public class TeamViewModel
     {
-        public TeamViewModel()
-        {
-            FilteringDepartments = new List<DepartmentModel>();
-            FilteringGroups = new List<Team>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -60,8 +54,8 @@ namespace Fanex.NexHR.ViewModels
 
         public int ModifiedBy { get; set; }
 
-        public IList<DepartmentModel> FilteringDepartments { get; set; }
+        public IList<DepartmentModel> DepartmentCollection { get; set; }
 
-        public IList<Team> FilteringGroups { get; set; }
+        public IList<Team> TeamCollection { get; set; }
     }
 }

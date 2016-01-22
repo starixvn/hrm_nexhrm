@@ -1,21 +1,22 @@
 ﻿'use strict';
-/*global _global:false, getParam:false, floatThead:false, _messages:false, noInformation:false*/
+/*global _global, getParam, floatThead, _messages, noInformation*/
 /* exported index*/
 
 var rowIndex = 1,
     sorts = [];
+
 function index() {
     return rowIndex++;
 }
 
-function query(jobTitleId) {
+function query(jobTitleId, isFirstLoad) {
     if (jobTitleId === undefined || jobTitleId === '') {
         jobTitleId = $('#title').val();
     }
 
-    var keyword = $('#keyword').val();
+    var keyword = $('#keyword').val(),
+        enable = null;
 
-    var enable = null;
     if ($("#enable").prop("checked")) {
         enable = true;
     } else {
@@ -37,13 +38,18 @@ function query(jobTitleId) {
         url: _global.root + 'api/employee/getemployees',
         data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (data) {
+            $('#data tbody').children().remove();
+
             if (data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(data).appendTo('#data');
+
+                $.template('template', $('#template'));
+                $.tmpl('template', data).appendTo('table#data');
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',
@@ -54,17 +60,18 @@ function query(jobTitleId) {
                     }
                 });
             } else {
-                $('#data tbody').children().remove();
-                $(noInformation(11)).appendTo('#data');
+                $(noInformation(11)).appendTo('table#data');
             }
-
-            $('.loading-process').fadeOut(300);
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 
@@ -100,7 +107,7 @@ function eventSorting(jobTitleId) {
             sorts.push({ Property: property, Direction: direction });
         }
 
-        query(jobTitleId);
+        query(jobTitleId, false);
     });
 }
 
@@ -138,7 +145,6 @@ function eventExportExcel(jobTitleId) {
             isDelete = null;
         }
 
-
         window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#keyword').val() + '&groupId=' + $('#group').val() +
             '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
@@ -156,7 +162,7 @@ $(document).ready(function () {
 
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
-            query(jobTitleId);
+            query(jobTitleId, false);
         }
     });
 
@@ -166,11 +172,11 @@ $(document).ready(function () {
     }
 
     //search onload
-    query(jobTitleId);
+    query(jobTitleId, true);
 
     $('#query').click(function (evt) {
         evt.preventDefault();
         refreshSorting();
-        query(jobTitleId);
+        query(jobTitleId, false);
     });
 });

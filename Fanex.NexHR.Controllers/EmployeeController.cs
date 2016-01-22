@@ -43,10 +43,9 @@ namespace Fanex.NexHR.Controllers
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
         private readonly IToeicService _toeicService;
-        private readonly IEmailService _emailService;
 
         public EmployeeController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -55,15 +54,13 @@ namespace Fanex.NexHR.Controllers
             ITeamService teamService = null,
             ILookupDataService lookupDataService = null,
             IShiftService shiftService = null,
-            IToeicService toeicService = null,
-            IEmailService emailService = null)
+            IToeicService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
             _shiftService = shiftService ?? new ShiftService();
             _toeicService = toeicService ?? new ToeicService();
-            _emailService = emailService ?? new EmailService();
         }
 
         public ActionResult Index()
@@ -77,15 +74,20 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(string jobTitleId = "")
         {
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            {
+                LookupCode = LookupCodeName.JobTitle
+            };
+            IList<LookupData> jobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+
             var model = new UserManagementViewModel()
             {
-                JobTitleId = jobTitleId
+                JobTitleId = jobTitleId,
+                TeamCollection = teams,
+                JobTitleCollection = jobTitles
             };
-
-            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
 
             return View(model);
         }
@@ -119,8 +121,8 @@ namespace Fanex.NexHR.Controllers
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            var teams = _teamService.GetAll(new GetAllTeamCriteria());
-            var shifts = _shiftService.GetSelectList();
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            IList<SelectListItem> shifts = _shiftService.GetSelectList();
 
             var model = new CreateEmployeeViewModel()
             {
@@ -129,8 +131,8 @@ namespace Fanex.NexHR.Controllers
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                Teams = teams,
-                Shifts = shifts
+                TeamCollection = teams,
+                ShiftCollection = shifts
             };
 
             return View(model);
@@ -141,8 +143,8 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Create(CreateEmployeeViewModel model)
         {
             model.ProcessBy = this.CurrentUser.Id;
-            model.Shifts = _shiftService.GetSelectList();
-            model.Teams = _teamService.GetAll(new GetAllTeamCriteria());
+            model.ShiftCollection = _shiftService.GetSelectList();
+            model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             if (ModelState.IsValid)
             {
@@ -166,7 +168,7 @@ namespace Fanex.NexHR.Controllers
                     WedShift = model.WedShift
                 };
 
-                var id = _employeeService.Insert(insertEmployeeCriteria);
+                int id = _employeeService.Insert(insertEmployeeCriteria);
                 if (id == -1)
                 {
                     ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateEmployeeCode);
@@ -189,17 +191,19 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Edit(int id = -1)
         {
             var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var model = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var employeeToeicCriteria = new GetToeicScoreByEmployeeIdCriteria()
             {
                 EmpId = id
             };
 
+            Employee model = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
             if (model != null)
             {
                 var subTeamCriteria = new GetSubTeamOfEmployeeCriteria() { EmpId = id };
-                var subTeams = _teamService.GetSubTeamsOfEmployee(subTeamCriteria);
+                IList<Team> subTeams = _teamService.GetSubTeamsOfEmployee(subTeamCriteria);
                 var subGroups = string.Empty;
+
                 if (subTeams != null && subTeams.Count > 0)
                 {
                     foreach (var team in subTeams)
@@ -211,11 +215,12 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 model.SubGroups = subGroups;
+
                 var teamHandleRequestCriteria = new GetTeamHandleRequestOfEmployee()
                 {
                     Id = id
                 };
-                var teamsHandleRequests = _teamService.GetTeamsHandleRequestsOfEmployee(teamHandleRequestCriteria);
+                IList<Team> teamsHandleRequests = _teamService.GetTeamsHandleRequestsOfEmployee(teamHandleRequestCriteria);
                 var leaderGroups = string.Empty;
                 if (teamsHandleRequests != null && teamsHandleRequests.Count > 0)
                 {
@@ -258,14 +263,14 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 var criteria = FillDataUpdateEmployeeCriteria(model);
-                var result = _employeeService.Update(criteria);
+                bool result = _employeeService.Update(criteria);
                 ViewBag.Updated = result;
 
                 // update current user?
                 if (result && this.CurrentUser.Id == model.Id)
                 {
                     var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.Id };
-                    var currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                    Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
                     HttpContext.Session["CurrentUser"] = currentUser;
                 }
             }
@@ -281,7 +286,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult DefaultSchedule(int id = -1)
         {
             var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
-            var model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
+            EmployeeShift model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
             if (model != null)
             {

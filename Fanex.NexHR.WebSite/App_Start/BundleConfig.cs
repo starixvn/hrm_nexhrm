@@ -254,7 +254,7 @@
         private static void BuildBundleForUserManagement(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/usermanagementjs").Include(
-                "~/Scripts/Views/user.management.js"));
+                "~/Scripts/Views/Employee/user.management.js"));
         }
 
         private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
