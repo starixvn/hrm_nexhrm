@@ -326,10 +326,12 @@
         private static void BuildBundleForDashboard(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                "~/Scripts/Libs/slick.min.js",
                 "~/Scripts/Views/employee.dashboard.js"));
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
+                "~/Content/Common/slick.css",
                 "~/Content/Views/mydashboard.css");
         }
 
