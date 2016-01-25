@@ -15,7 +15,7 @@
             <th>@Labels.ProcessedBy</th>
         </tr>
     </thead>
-    @if (ViewBag.EntityList.Count > 0)
+    @if (Model.Any())
     {
         <tbody>
             @{int index = 1;}

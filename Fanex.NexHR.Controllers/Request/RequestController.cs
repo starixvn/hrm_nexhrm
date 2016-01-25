@@ -270,9 +270,10 @@ namespace Fanex.NexHR.Controllers.Request
             };
 
             IList<RequestEntity> requests = _requestService.GetRequestHistory(criteria);
-            ViewBag.EntityList = requests;
+
             ViewBag.requestType = requestType;
-            return View();
+
+            return View(requests);
         }
 
         [HttpPost]
@@ -282,7 +283,9 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 Id = id
             };
+
             bool deleted = _requestService.DeleteRequest(criteria);
+
             return deleted;
         }
 

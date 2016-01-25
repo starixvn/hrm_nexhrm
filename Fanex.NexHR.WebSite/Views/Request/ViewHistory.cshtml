@@ -1,8 +1,7 @@
-﻿@model RequestViewModel
+﻿@model IList<RequestEntity>
 @{
     ViewBag.Title = Labels.RequestHistory;
     Layout = null;
-    IList<RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
 }
@@ -13,15 +12,15 @@
 @switch ((int)ViewBag.requestType)
 {
     case 1:
-        Html.RenderPartial("History/CheckInOutRequestHistory", requests);
+        Html.RenderPartial("History/CheckInOutRequestHistory", Model);
         break;
     case 2:
-        Html.RenderPartial("History/LateInEarlyOutRequestHistory", requests);
+        Html.RenderPartial("History/LateInEarlyOutRequestHistory", Model);
         break;
     case 3:
-        Html.RenderPartial("History/ChangeShiftRequestHistory", requests);
+        Html.RenderPartial("History/ChangeShiftRequestHistory", Model);
         break;
     case 4:
-        Html.RenderPartial("History/LeaveRequestHistory", requests);
+        Html.RenderPartial("History/LeaveRequestHistory", Model);
         break;
 }
