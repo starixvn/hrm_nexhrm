@@ -17,8 +17,7 @@
             @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
             {
                 <td>@((OTRequestStatus)item.Status)</td>
-            }
-            else
+            }else
             {
                 if (item.Status == (int)OTRequestStatus.Pending)
                 {

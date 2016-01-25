@@ -82,7 +82,7 @@
                                 <div class="col m-r--l">
                                     <div class="left input--m">
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
-                                        @if (Roles.IsUserInRole("AssistantLeader") && Roles.IsUserInRole("Leader"))
+                                        @if (Roles.IsUserInRole(Role.AssistantLeader.ToString()) || Roles.IsUserInRole(Role.Leader.ToString()))
                                         {
                                             <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.LeaveRequests</a>
                                         }
@@ -116,4 +116,5 @@
 </div>
 <script type="text/javascript">
     var isHRRole = '@Roles.IsUserInRole(Role.HR.ToString ())' == 'True';
+    var isApproveRole = '@(Roles.IsUserInRole(Role.AssistantLeader.ToString ()) || Roles.IsUserInRole(Role.Leader.ToString ()))' == 'True';
 </script>
