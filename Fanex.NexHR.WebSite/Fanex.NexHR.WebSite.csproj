@@ -609,6 +609,7 @@
     <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
+    <Content Include="Scripts\Views\Report\report.leave.summary.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />

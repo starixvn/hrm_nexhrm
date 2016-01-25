@@ -323,7 +323,8 @@
         private static void BuildBundleForLeaveSummary(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leavesummaryjs").Include(
-             "~/Scripts/Views/_employee.search.in.company.js"));
+             "~/Scripts/Views/_employee.search.in.company.js",
+             "~/Scripts/Views/Report/report.leave.summary.js"));
         }
 
         private static void BuildBundleForDashboard(BundleCollection bundles)

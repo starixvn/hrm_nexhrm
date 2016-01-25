@@ -265,7 +265,14 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult LeaveSummary()
         {
-            return LeaveSummary(null);
+            var model = new LeaveSummaryViewModel
+            {
+                Year = DateTime.Now.Year,
+                EmployeeId = -1,
+                FilteringGroups = _teamService.GetAll(new GetAllTeamCriteria())
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -304,7 +311,6 @@ namespace Fanex.NexHR.Controllers
                 teams = _teamService.GetAll(new GetAllTeamCriteria());
             }
 
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
 
