@@ -10,11 +10,13 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.Criteria.Team;
 
     [Authorize]
     public class DashboardController : BaseController
     {
         private readonly IEmployeeService _employeeService;
+        private readonly ITeamService _teamService;
 
 
         public DashboardController() : this(null)
@@ -22,9 +24,11 @@
         }
 
         public DashboardController(
-            IEmployeeService employeeService = null)
+            IEmployeeService employeeService = null,
+            ITeamService teamService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
+            _teamService = teamService ?? new TeamService();
         }
 
 
@@ -37,6 +41,16 @@
             MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = GetRemind();
 
+            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel() 
+            {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
+                GroupId = this.CurrentUser.Team.Id,
+                DateOption = 0,
+                ExcludeUserDelete = true,
+            };
+            empAttendance.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            model.EmployeeAttendanceModel = empAttendance;
             return View(model);
         }
 

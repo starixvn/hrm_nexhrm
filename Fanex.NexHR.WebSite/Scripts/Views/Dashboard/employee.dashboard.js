@@ -28,8 +28,7 @@ $(document).ready(function () {
             dots: true,
             nextArrow: false,
             prevArrow: false,
-    });    
-    
+    });        
     var now;
     setInterval(function () {                
         now = new Date($.now());

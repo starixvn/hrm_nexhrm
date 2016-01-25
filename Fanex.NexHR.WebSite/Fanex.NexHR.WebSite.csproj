@@ -339,6 +339,7 @@
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
+    <Content Include="Scripts\Views\Dashboard\teamrequest.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
@@ -618,7 +619,7 @@
     <Content Include="Scripts\Views\Memo\memo.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\mycalendar.js" />
-    <Content Include="Scripts\Views\employee.dashboard.js" />
+    <Content Include="Scripts\Views\Dashboard\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\Request\leave.request.js" />

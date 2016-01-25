@@ -331,7 +331,8 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Libs/slick.min.js",
-                "~/Scripts/Views/employee.dashboard.js"));
+                "~/Scripts/Views/Dashboard/employee.dashboard.js",
+                "~/Scripts/Views/Dashboard/teamrequest.js"));
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",

@@ -498,5 +498,7 @@ namespace Fanex.NexHR.ViewModels
         }
 
         public SystemReminderModel SystemReminder { get; set; }
+
+        public EmployeeAttendanceViewModel EmployeeAttendanceModel { get; set; }
     }
 }

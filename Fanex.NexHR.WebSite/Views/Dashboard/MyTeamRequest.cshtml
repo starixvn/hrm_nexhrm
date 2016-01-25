@@ -1,336 +1,115 @@
-﻿@model TeamRequestViewModel
+﻿@model EmployeeAttendanceViewModel
 <div class="col s12 card-container-base my-request">
     <div class="card">
         <div class="card-content">
             <div class="card-title-block">
-                <span class="card-title txt-uppercase left">MY TEAM REQUEST</span>
+                <span class="card-title txt-uppercase left">MY TEAM ATTENDANCE</span>
             </div>
             <div class="card-body">
-                <div class="form">
-                    <div class="row form-input">
-                         <div class="col m-r--l">
-                            <div class="left label--m">
-                                <label>
-                                    Date range</label></div>
-                            <div class="left select--s">
-                                @RazorHelper.DateRangeDropDownList("Date", Model.DateRange)
-                                @Html.Hidden("DateOption", Model.DateRange)
+                @using (Html.BeginGetForm())
+                {
+                    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label>
+                                        Date range</label></div>
+                                <div class="left select--s">
+                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                    @Html.Hidden("DateOption", Model.DateOption)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label>
+                                        From date</label></div>
+                                <div class="datepicker-button input-s left">
+                                    @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label>
+                                        To date</label></div>
+                                <div class="datepicker-button input-m left">
+                                    @Html.DatePickerFor(model => model.ToDate)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
                             </div>
                         </div>
-                         <div class="col m-r--l">
-                            <div class="left label--m">
-                                <label>
-                                    From date</label></div>
-                            <div class="datepicker-button select--s left">
-                                @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
-                                <i class="mdi-action-event calendar-icon left"></i>
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.AttendanceType, "Request")
+                                </div>
+                                <div class="left select--s">
+                                    @RazorHelper.RequestTypeFilter("AttendanceType", Model.AttendanceType)
+                                </div>
                             </div>
-                        </div>
-                        <div class="col m-l--xl m-r--l">
-                            <div class="left label--m">
-                                <label>
-                                    To date</label></div>
-                            <div class="datepicker-button select--s left">
-                                @Html.DatePickerFor(model => model.ToDate)
-                                <i class="mdi-action-event calendar-icon left"></i>
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label>
+                                        Team</label></div>
+                                <div class="left select--s">
+                                    @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label>
+                                        Employee</label></div>
+                                <div class="left input--s">
+                                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(model => model.EmpId)
+                                </div>
+                            </div>
+                            <div class="col button">
+                                <button id="submit" class="button-hrm waves-effect waves-light btn blue darken-2" type="button">
+                                    Submit</button>                                
+                            </div>
+                            <div>
+                                <a class="button-hrm waves-effect waves-light btn orange darken-1">Leave Request</a>
                             </div>
                         </div>
                     </div>
-                    <div class="row form-input">
-                        <div class="col m-r--l">
-                            <div class="left label--m">
-                                <label>
-                                    Status</label></div>
-                            <div class="left select--s">
-                                @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
-                            </div>
-                        </div>
-                        <div class="col m-r--l">
-                            <div class="left label--m">
-                                <label>
-                                    Team</label></div>
-                            <div class="left select-team">
-                                @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="left label--m">
-                                <label>
-                                    Employee</label></div>
-                            <div class="left input--s">
-                                @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                @Html.HiddenFor(model => model.EmployeeId)
-                            </div>
-                        </div>
-                        <div class="col button">
-                            <a class="btn-request waves-effect waves-light m-r--m m-l--s">Submit</a>
-                            <a class="btn-submit waves-effect waves-light">Leave Request</a>
-                        </div>                        
-                    </div>
-                </div>
+                }
                 <div class="p-x--s">
-                    <table class="table bordered striped highlight centered table-custom">
+                    <table id="data" class="table bordered striped highlight centered table-custom">
                         <thead>
                             <tr>
-                                <th>
-                                    #
+                                <th>@Labels.SymbolCount
                                 </th>
-                                <th>
-                                    Date
+                                <th>@Labels.Date
                                 </th>
-                                <th>
-                                    Code
+                                <th>@Labels.Code
                                 </th>
-                                <th>
-                                    Nick
+                                <th>@Labels.Nick
                                 </th>
-                                <th>
-                                    Full Name
+                                @*<th>@Labels.FullName
+                                </th>*@
+                                <th>@Labels.Team
                                 </th>
-                                <th>
-                                    Team
+                                <th>@Labels.Shift
                                 </th>
-                                <th>
-                                    Shift
+                                <th>@Labels.CheckIn
                                 </th>
-                                <th>
-                                    Check in
+                                <th>@Labels.CheckOut
                                 </th>
-                                <th>
-                                    Check out
+                                <th>@Labels.TotalHours
                                 </th>
-                                <th>
-                                    Total hours
+                                <th>@Labels.LateIn
                                 </th>
-                                <th>
-                                    Late In
+                                <th>@Labels.EarlyOut
                                 </th>
-                                <th>
-                                    Early Out
+                                <th>@Labels.Request
                                 </th>
-                                <th>
-                                    Notes
+                                <th>@Labels.Note
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02215
-                                </td>
-                                <td>
-                                    April
-                                </td>
-                                <td>
-                                    Nguyễn Huy Cường
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                    08:44
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr class="darken">
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02261
-                                </td>
-                                <td>
-                                    Faisall
-                                </td>
-                                <td>
-                                    Trần Thị Thu Hồng
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                    08:21
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02275
-                                </td>
-                                <td>
-                                    Dustin
-                                </td>
-                                <td>
-                                    Nguyễn Hữu Dũng
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                    07:55
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    00:16
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr class="darken">
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02335
-                                </td>
-                                <td>
-                                    Alice
-                                </td>
-                                <td>
-                                    Lê Thị Thùy Dương
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    Maternity Leave 1
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02404
-                                </td>
-                                <td>
-                                    Theresa
-                                </td>
-                                <td>
-                                    Lê Thị Trà Duy
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                    08:16
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr class="darken">
-                                <td>
-                                    6
-                                </td>
-                                <td>
-                                    24 Jun, 2015
-                                </td>
-                                <td>
-                                    02215
-                                </td>
-                                <td>
-                                    Natalie
-                                </td>
-                                <td>
-                                    Đặng Thị Lan
-                                </td>
-                                <td>
-                                    DES
-                                </td>
-                                <td>
-                                    E3
-                                </td>
-                                <td>
-                                    08:43
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -338,3 +117,73 @@
         </div>
     </div>
 </div>
+<script id="template" type="text/x-jquery-tmpl">
+    <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId}} {{else}} class="noshift"{{/if}}>
+        <td>${index()}</td>
+        <td>
+            ${formatDate(AttendanceDate, 'dd MMM, yyyy')}
+        </td>
+        <td>
+            ${Code}
+        </td>
+        <td title="${FullName}" class="tooltip">
+            ${NickName}
+        </td>
+        <td class="tooltip" title="${Team}">
+            ${TeamCode}
+        </td>
+        <td>
+            ${ShiftCode}
+        </td>
+        <td>
+            {{if InFixed}}${jsonTojsDate(InFixed).format("HH:MM")}{{/if}}
+        </td>
+        <td>
+            {{if OutFixed}}${jsonTojsDate(OutFixed).format("HH:MM")}{{/if}}
+        </td>
+        <td>
+            {{if TotalWorkHours > 0}}
+                ${totalHoursToTime(TotalWorkHours)}
+            {{/if}}
+        </td>
+        <td>
+            {{if LateIn > 0}}
+                ${displayMinute(LateIn)}
+            {{/if}}
+        </td>
+        <td>
+            {{if EarlyOut > 0}}
+                ${displayMinute(EarlyOut)}
+            {{/if}}
+        </td>
+        <td class="align-left">
+            {{if Requests != null}}
+                {{each Requests}}
+                    <a href='javascript:;' class="tooltip-request req"
+                            data-requesttype="${RequestType.Id}"
+                            data-fromdate="${FromDate}"
+                            data-todate="${ToDate}"
+                            data-createddate="${CreatedDate}"
+                            data-fromshift="${FromShift.Name}"
+                            {{if ToShift != null}}
+                                data-toshift="${ToShift.Name}"
+                            {{else}}
+                                data-toshift=""
+                            {{/if}}
+                            data-totaldays="${TotalDays}"
+                            data-totalmins="${TotalMins}"
+                            data-remark='${Remark}'>
+                        {{if RequestType.Id == 6}}
+                            ${RequestType.Name}
+                        {{else}}
+                            ${RequestType.Name}
+                        {{/if}}
+                    </a>
+                {{/each}}
+            {{/if}}
+        </td>
+        <td class="align-left">
+            ${Notes}
+        </td>
+    </tr>
+</script>
