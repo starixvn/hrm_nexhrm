@@ -258,7 +258,7 @@
             foreach (RequestTypeFilter requestType in (RequestTypeFilter[])Enum.GetValues(typeof(RequestTypeFilter)))
             {
                 var value = (int)requestType;
-                <option value="@value" selected="@(value == selectedValue)">@Utilities.GetDescription(requestType)</option>
+                <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(requestType)</option>
             }
         }
     </select>

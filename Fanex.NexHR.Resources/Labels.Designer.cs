@@ -718,6 +718,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New OT Request.
+        /// </summary>
+        public static string CreateOTRequest {
+            get {
+                return ResourceManager.GetString("CreateOTRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Request.
         /// </summary>
         public static string CreateRequest {
@@ -1020,6 +1029,15 @@ namespace Fanex.NexHR.Resources {
         public static string EditMemo {
             get {
                 return ResourceManager.GetString("EditMemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit OT Request.
+        /// </summary>
+        public static string EditOTRequest {
+            get {
+                return ResourceManager.GetString("EditOTRequest", resourceCulture);
             }
         }
         
@@ -2428,6 +2446,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OT Request Summary.
+        /// </summary>
+        public static string OTRequestSummary {
+            get {
+                return ResourceManager.GetString("OTRequestSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out.
         /// </summary>
         public static string Out {
@@ -3193,6 +3220,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UPL.
+        /// </summary>
+        public static string UPL {
+            get {
+                return ResourceManager.GetString("UPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verified.
         /// </summary>
         public static string Verified {
@@ -3202,20 +3238,20 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verified By.
+        /// </summary>
+        public static string VerifiedBy {
+            get {
+                return ResourceManager.GetString("VerifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verify.
         /// </summary>
         public static string Verify {
             get {
                 return ResourceManager.GetString("Verify", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UPL.
-        /// </summary>
-        public static string UPL {
-            get {
-                return ResourceManager.GetString("UPL", resourceCulture);
             }
         }
         

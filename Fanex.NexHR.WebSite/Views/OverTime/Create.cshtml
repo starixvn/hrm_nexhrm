@@ -1,11 +1,12 @@
 ﻿@model OverTimeViewModel
+
 @{
-    ViewBag.Title = "New OT Request";
+    ViewBag.Title = Labels.CreateOTRequest;
 }
 @section css{
 }
 @section js{
-    @Scripts.Render("~/bundles/overtimejs");
+    @Scripts.Render("~/bundles/createovertimejs");
 }
 @section Breadcrumb {
 }
@@ -49,9 +50,9 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Description)
+                                        @Html.Label(Labels.Remark)
                                     </div>
-                                    <div class="left txtArea">
+                                    <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
                                     </div>
                                 </div>
@@ -63,53 +64,63 @@
                                         @Html.Label(Labels.Employee)
                                     </div>
                                     <div class="left input--m">
-                                        <input type="text" id="Employee" placeholder = "@Messages.SearchEmployeeWatermark" />
-                                        <input type="hidden" id="EmployeeId" /> 
-                                        @Html.HiddenFor(model => model.RecordData)                                       
+                                        <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" id="EmployeeId" />
+                                        @Html.HiddenFor(model => model.RecordOTSheet)
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.Label("Member List")
                                     </div>
                                 </div>
-                            </div>  
-
-                            <div class="p-x--s">
-                                <table class="table bordered striped highlight centered responsive-table table-custom"
-                                    style="width: 800px;">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                #
-                                            </th>
-                                            <th>@Labels.Employee
-                                            </th>
-                                            <th>
-                                                Hour
-                                            </th>
-                                            <th>@Labels.Delete
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="memberList">
-                                    </tbody>
-                                </table>
                             </div>
-                            
-                            <div class="row m-t--m">
-                                <div class="left label--l">
-                                    <input type="submit"  class="btn-submit waves-effect waves-light m-r--s" value="@Labels.Save" />
+
+                            <div class="row form-input">
+                                <div class="p-x--s">
+                                    <table class="table bordered striped highlight centered responsive-table table-custom"
+                                           style="width: 800px;">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    #
+                                                </th>
+                                                <th>
+                                                    @Labels.Employee
+                                                </th>
+                                                <th>
+                                                    Hour
+                                                </th>
+                                                <th>
+                                                    @Labels.Delete
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="memberList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left label--xl">&nbsp;</div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">                                    
+                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />                                    
+                                    <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                 </div>
                             </div>
                         }
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

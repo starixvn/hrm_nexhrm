@@ -8,6 +8,8 @@ using System.Text;
 using Fanex.NexHR.Repositories;
 using Fanex.NexHR.Models;
 using Fanex.NexHR.Core.Enums;
+using Fanex.NexHR.Criteria.OverTime;
+using Newtonsoft.Json;
 
 namespace Fanex.NexHR.Services
 {
@@ -27,7 +29,18 @@ namespace Fanex.NexHR.Services
 
         public bool Insert(OverTimeViewModel model)
         {
-            var result = _repository.Insert(model);
+            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);
+            var createCriteria = new InsertOverTimeCriteria()
+            {
+                CreatedBy = model.CreatedId,
+                Description = model.Description,
+                Date = model.Date,
+                Status = model.Status,
+                OverTimeRecord = record
+            };
+
+
+            var result = _repository.Insert(createCriteria);
 
             return result;
         }
@@ -39,11 +52,19 @@ namespace Fanex.NexHR.Services
             return result;
         }
 
-        public bool UpdateStatus(int id, OTRequestStatus status)
+        public bool ApproveRequest(int id, int approveUserId)
         {
-            var result = _repository.UpdateStatus(id, status);
+            var result = IsValidStatusForApprove(id);
 
-            return result;
+            return result ? _repository.ApproveRequest(id, approveUserId) : result;
+        }
+
+        public bool VerifyRequest(int id, int verifyUserId)
+        {
+            var result = IsValidStatusForVerify(id);
+
+            return result ? _repository.VerifyRequest(id, verifyUserId) : result;
+            
         }
 
         public OverTime Get(int id)
@@ -53,11 +74,32 @@ namespace Fanex.NexHR.Services
             return model;
         }
 
-        public bool Update(OverTime model)
+        public bool Update(OverTimeViewModel viewModel)
         {
-            var result = _repository.Update(model);
+            var result = IsValidStatusForUpdate(viewModel.Id);
 
-            return result;
+            return result ? _repository.Update(viewModel) : result;
+        }
+
+        private bool IsValidStatusForUpdate(int id)
+        {
+            var model = Get(id);
+
+            return (model != null && model.Status != (int)OTRequestStatus.Verified) ? true : false;
+        }
+
+        private bool IsValidStatusForVerify(int id) 
+        {            
+            var model = Get(id);
+
+            return (model != null && model.Status == (int)OTRequestStatus.Approved) ? true : false;
+        }
+
+        private bool IsValidStatusForApprove(int id)
+        {
+            var model = Get(id);
+
+            return (model != null && model.Status == (int)OTRequestStatus.Pending) ? true : false;
         }
     }
 }

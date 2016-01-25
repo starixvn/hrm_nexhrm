@@ -208,7 +208,8 @@
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
     </Setting>
-    <Setting Key="OverTime_UpdateStatus" SpName="OverTime_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_ApproveRequest" SpName="OverTime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_VerifyRequest" SpName="OverTime_VerifyRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="OverTime_GetById" SpName="OverTime_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="CreatedId" ObjectProperty="Id" />
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />

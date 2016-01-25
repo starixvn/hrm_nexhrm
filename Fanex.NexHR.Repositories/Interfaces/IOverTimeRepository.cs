@@ -1,4 +1,5 @@
-﻿using Fanex.NexHR.Core.Enums;
+﻿using Fanex.Data.Repository;
+using Fanex.NexHR.Core.Enums;
 using Fanex.NexHR.Models;
 using Fanex.NexHR.ViewModels;
 using System;
@@ -10,15 +11,17 @@ namespace Fanex.NexHR.Repositories.Interfaces
 {
     public interface IOverTimeRepository
     {
-        bool Insert(OverTimeViewModel model);
+        bool Insert(ICriteria createCriteria);
 
 
         IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model);
 
-        bool UpdateStatus(int id, OTRequestStatus status);
+        bool ApproveRequest(int id, int approveUserId);
+
+        bool VerifyRequest(int id, int verifyUserId);
 
         OverTime Get(int id);
 
-        bool Update(OverTime model);
+        bool Update(OverTimeViewModel model);
     }
 }

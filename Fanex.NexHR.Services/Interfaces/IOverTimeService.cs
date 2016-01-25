@@ -14,10 +14,12 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model);
 
-        bool UpdateStatus(int id, OTRequestStatus oTRequestStatus);
+        bool ApproveRequest(int id, int updatedUserId);
+
+        bool VerifyRequest(int id, int verifiedUserId);
 
         OverTime Get(int id);
 
-        bool Update(OverTime model);
+        bool Update(OverTimeViewModel model);
     }
 }

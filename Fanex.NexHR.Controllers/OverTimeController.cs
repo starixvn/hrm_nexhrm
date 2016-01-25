@@ -1,17 +1,13 @@
-﻿using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using Fanex.NexHR.Core.Enums;
 using Fanex.NexHR.Services;
-using Fanex.NexHR.Models;
-using Newtonsoft.Json;
-using Fanex.NexHR.Core.Enums;
+using Fanex.NexHR.Services.Interfaces;
+using Fanex.NexHR.ViewModels;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Fanex.NexHR.Controllers
 {
+    [Authorize]
     public class OverTimeController : BaseController
     {
         private readonly IOverTimeService _service;
@@ -23,6 +19,7 @@ namespace Fanex.NexHR.Controllers
             _service = service ?? new OverTimeService();
         }
 
+        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Create()
         {
             var model = new OverTimeViewModel();
@@ -31,22 +28,25 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Create(OverTimeViewModel model)
         {
-            var list = JsonConvert.DeserializeObject<List<OverTimeRecord>>(model.RecordData);
-            model.Records = list;
-            model.CreatedBy = this.CurrentUser.Id;
-            model.Status = (int)OTRequestStatus.New;
+            if (ModelState.IsValid)
+            {
+                model.CreatedId = this.CurrentUser.Id;
+                model.Status = (int)OTRequestStatus.Pending;
+                _service.Insert(model);
 
-            _service.Insert(model);
+                return RedirectToAction("Summary");
+            }
 
-            return RedirectToAction("Summary");
+            return View();
         }
-        
+
         public ActionResult Summary()
         {
             var model = new OverTimeSummaryFilterViewModel();
-
+            
             return View("Summary", model);
         }
 
@@ -59,36 +59,43 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult ApproveRequest(int id)
         {
-            var result = _service.UpdateStatus(id, OTRequestStatus.Approved);
+            var result = _service.ApproveRequest(id, this.CurrentUser.Id);
 
             return Json(result);
         }
 
         [HttpPost]
+        [Authorize(Roles = "HR")]
         public ActionResult VerifyRequest(int id)
         {
-            var result = _service.UpdateStatus(id, OTRequestStatus.Verified);
+            var result = _service.VerifyRequest(id, this.CurrentUser.Id);
 
             return Json(result);
         }
-        
+
+        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Edit(int id)
         {
             var model = _service.Get(id);
 
-            return View(model);
+            return View(OverTimeViewModel.Parse(model));
         }
 
         [HttpPost]
-        public ActionResult Edit(OverTime model)
+        [Authorize(Roles = "AssistantLeader,Leader")]
+        public ActionResult Edit(OverTimeViewModel model)
         {
-            var result = _service.Update(model);
+            if (ModelState.IsValid)
+            {
+                var result = _service.Update(model);
 
-            var viewModel = new OverTimeSummaryFilterViewModel();
+                return RedirectToAction("Summary");
+            }
 
-            return View("Summary", viewModel);
+            return View();
         }
     }
 }

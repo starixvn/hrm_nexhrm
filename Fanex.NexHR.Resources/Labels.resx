@@ -1161,7 +1161,7 @@
   <data name="Verified" xml:space="preserve">
     <value>Verified</value>
   </data>
-    <data name="AL" xml:space="preserve">
+  <data name="AL" xml:space="preserve">
     <value>AL</value>
   </data>
   <data name="BereavementLeave" xml:space="preserve">
@@ -1212,7 +1212,16 @@
   <data name="Override" xml:space="preserve">
     <value>Override</value>
   </data>
-  <data name="IsAnnual" xml:space="preserve">
-    <value>Is Annual</value>
+  <data name="CreateOTRequest" xml:space="preserve">
+    <value>New OT Request</value>
+  </data>
+  <data name="EditOTRequest" xml:space="preserve">
+    <value>Edit OT Request</value>
+  </data>
+  <data name="OTRequestSummary" xml:space="preserve">
+    <value>OT Request Summary</value>
+  </data>
+  <data name="VerifiedBy" xml:space="preserve">
+    <value>Verified By</value>
   </data>
 </root>

@@ -9,8 +9,8 @@ namespace Fanex.NexHR.Core.Enums
 {
     public enum OTRequestStatus : int
     {
-        [Description("New")]
-        New = 1,
+        [Description("Pending")]
+        Pending = 1,
 
         [Description("Approved")]
         Approved,

@@ -1,4 +1,5 @@
 ﻿using Fanex.Data;
+using Fanex.Data.Repository;
 using Fanex.NexHR.Core.Enums;
 using Fanex.NexHR.Criteria.OverTime;
 using Fanex.NexHR.Models;
@@ -13,16 +14,8 @@ namespace Fanex.NexHR.Repositories
 {
     public class OverTimeRepository : IOverTimeRepository
     {
-        public bool Insert(OverTimeViewModel model)
+        public bool Insert(ICriteria createCriteria)
         {
-            var createCriteria = new InsertOverTimeCriteria()
-            {
-                CreatedBy = model.CreatedBy,
-                Description = model.Description,
-                Date = model.Date,
-                Status = model.Status,
-                OverTimeRecord = model.Records
-            };
 
             using (var db = new ObjectDb(createCriteria.GetSettingKey()))
             {
@@ -59,12 +52,30 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public bool UpdateStatus(int id, OTRequestStatus status)
+        public bool ApproveRequest(int id, int approvedUserId)
         {
-            var criteria = new UpdateStatusCriteria()
+            var criteria = new ApproveRequestCriteria()
             {
                 Id = id,
-                Status = (int)status
+                Status = (int)OTRequestStatus.Approved,
+                ApprovedUserId = approvedUserId
+            };
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                db.ExecuteScalar(criteria.GetSpParams());
+
+                return true;
+            }
+        }
+
+        public bool VerifyRequest(int id, int verifiedUserId)
+        {
+            var criteria = new VerifyRequestCriteria()
+            {
+                Id = id,
+                Status = (int)OTRequestStatus.Verified,
+                VerifiedUserId = verifiedUserId
             };
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -97,7 +108,7 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public bool Update(OverTime model)
+        public bool Update(OverTimeViewModel model)
         {
             var createCriteria = new UpdateOverTimeCriteria()
             {
@@ -105,7 +116,7 @@ namespace Fanex.NexHR.Repositories
                 Description = model.Description,
                 Date = model.Date,
                 Hour = model.Hour,
-                EmployeeId = model.Employee.Id
+                EmployeeId = model.EmployeeId
             };
 
             using (var db = new ObjectDb(createCriteria.GetSettingKey()))

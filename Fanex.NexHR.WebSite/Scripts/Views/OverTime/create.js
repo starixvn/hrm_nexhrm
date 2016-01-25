@@ -37,9 +37,51 @@ $().ready(function () {
     initDatePicker(".datepicker");
 
     $("#form").submit(function () {
-        $("#RecordData").val(JSON.stringify(memberList));
+        $("#RecordOTSheet").val(JSON.stringify(memberList));
     })
     
-    initAutocomplete("#Employee", "#EmployeeId")    
+    $("#Employee").autocomplete({
+        source: function (request, response) {
+            var term = request.term;
+            var index = term.indexOf(' (');
+
+            if (index > 0) {
+                term = term.substr(0, index);
+            }
+
+            $.ajax({
+                url: _global.root + 'api/employee/getemployees',
+                dataType: 'json',
+                data: {
+                    query: term,
+                    $top: 10
+                },
+                success: function (data) {
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.NickName + ' (' + item.FullName + ')',
+                                value: item.Id
+                            };
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            event.preventDefault();
+            var nickName = ui.item.label;
+            $('#Employee').val(nickName);
+            $('#EmployeeId').val(ui.item.value);
+        },
+        close: function (event, ui) {
+            var nickName = $('#Employee').val();
+            var id = $("#EmployeeId").val();
+            createRow(nickName, id);
+            $('#Employee').val('');
+            $('#EmployeeId').val('');
+        }
+    });
 });
 

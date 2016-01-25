@@ -1,12 +1,12 @@
-﻿@model OverTime
+﻿@model OverTimeViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Labels.EditOTRequest;
 }
 @section css{
 }
 @section js{
-@Scripts.Render("~/bundles/overtimejs");
+    @Scripts.Render("~/bundles/editovertimejs");
 }
 @section Breadcrumb {
 }
@@ -16,98 +16,108 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase">@ViewBag.Title</span> <a id="legendInfo" href="javascript:;">
+                    <span class="card-title txt-uppercase">@Labels.EditOTRequest</span> <a id="legendInfo" href="javascript:;">
                     </a>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm(new { @class = "form", Id = "form" }))
+                    @using (Html.BeginForm())
                     {
-                        <div id="divErrorCont" class="">
-                            &nbsp;
-                        </div>
-                        <div class="row form-input">
-                            <div class="left label--l">
-                                @Html.LabelFor(model => model.Date)
-                            </div>
-                            <div class="datepicker-button left select--s">
-                                @Html.DatePickerFor(model => model.Date)
-                                <i class="mdi-action-event calendar-icon left"></i>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="left label--l">
-                                @Html.LabelFor(m => m.Hour)
-                            </div>
-                            <div class="left input--m">
-                                @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
-                            </div>
-                        </div>
+                        @Html.ValidationSummary()
 
                         <div class="row form-input">
-                            <div class="left label--l">
-                                @Html.LabelFor(m => m.Status)
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.Date)
+                                </div>
+                                <div class="datepicker-button left select--s">
+                                    @Html.DatePickerFor(model => model.Date)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
                             </div>
-                            <div class="left input--m">
-                                @((OTRequestStatus)Model.Status)
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(m => m.Hour)
+                                </div>
+                                <div class="left select--xs">
+                                    @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
+                                </div>
                             </div>
                         </div>
 
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--l">
-                                    @Html.LabelFor(model => model.Description)
+                                    @Html.Label(Labels.Remark)
                                 </div>
-                                <div class="left txtArea">
+                                <div class="left input--l">
                                     @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
                                 </div>
                             </div>
                         </div>
+
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--l">
-                                    @Html.LabelFor(model => model.Employee)
+                                    @Html.Label(Labels.Employee)
+                                </div>
+                                <div class="left input--m">
+                                    @Html.TextBox("Employee", Model.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(m => m.EmployeeId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(m => m.Status)
+                                </div>
+                                <div class="left input--m">
+                                    @((OTRequestStatus)Model.Status)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.CreatedNickName)
                                 </div>
                                 <div class="left txtArea">
-                                    <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
-                                    @Html.HiddenFor(m=>m.Employee.Id)
+                                    @(Model.CreatedNickName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.ApprovedNickName)
+                                </div>
+                                <div class="left txtArea">
+                                    @Model.ApprovedNickName
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.VerifiedNickName)
+                                </div>
+                                <div class="left txtArea">
+                                    @Model.VerifiedNickName
                                 </div>
                             </div>
                         </div>
 
                         <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.CreatedBy)
-                                </div>
-                                <div class="left txtArea">
-                                    @(Model.CreatedBy.NickName)
-                                </div>
+                            <div class="left label--xl">&nbsp;</div>
+                            <div class="left">
+                                @Html.HiddenFor(m => m.Id)
+                                <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                <input id="submitEdit" type="submit" value="@Labels.Submit" class="btn-ok waves-effect waves-light m-r--m" />
                             </div>
                         </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.ApprovedBy)
-                                </div>
-                                <div class="left txtArea">
-                                    @(Model.ApprovedBy != null ? Model.ApprovedBy.NickName : string.Empty)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.VerifiedBy)
-                                </div>
-                                <div class="left txtArea">
-                                    @(Model.VerifiedBy != null ? Model.VerifiedBy.NickName : string.Empty)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input m-t--m center">
-                            @Html.HiddenFor(m => m.Id)
-                        <input id="submitEdit" type="submit" value="@Labels.Submit" class="btn-ok waves-effect waves-light m-r--m" />
-                    </div>
+
                     }
                 </div>
             </div>

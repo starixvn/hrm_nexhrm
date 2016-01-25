@@ -2,7 +2,6 @@
 
 @{
     Layout = null;
-    ViewBag.Title = "SummaryResult";
 }
 @if (Model.Count() > 0)
 {
@@ -14,35 +13,46 @@
             <td>@item.CreatedBy.NickName</td>
             <td>@item.Employee.NickName (@item.Employee.FullName)</td>
             <td>@item.Description</td>
-            <td>@((OTRequestStatus)item.Status)</td>
-            <td>
-                @if (item.Status != (int)OTRequestStatus.Verified)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
 
-                    if (item.Status == (int)OTRequestStatus.New)
-                    {
-                        <a href="javascript:;" onclick="approveRequest(@item.Id);">
-                            <input class="btn-ok waves-effect waves-light m-r--m" type="button" value="@Labels.Approve" />
+            @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
+            {
+                <td>@((OTRequestStatus)item.Status)</td>
+            }
+            else
+            {
+                if (item.Status == (int)OTRequestStatus.Pending)
+                {
+                    <td>
+                        <a requestid="@item.Id" href="javascript:;" class="@OTRequestStatus.Pending.ToString() c-pending">
+                            @OTRequestStatus.Pending.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
                         </a>
-                    }
-                    if (item.Status == (int)OTRequestStatus.Approved)
-                    {
-                        <a href="javascript:;" onclick="verifyRequest(@item.Id);">
-                            <input class="btn-ok waves-effect waves-light m-r--m" type="button" value="@Labels.Verify" />
-                        </a>
-                    }
+                    </td>
                 }
-            </td>
+                if (item.Status == (int)OTRequestStatus.Approved)
+                {
+                    <td>
+                        <a requestid="@item.Id" href="javascript:;" class="@OTRequestStatus.Approved.ToString() c-approve">
+                            @OTRequestStatus.Approved.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                        </a>
+                    </td>
+                }
+                if (item.Status == (int)OTRequestStatus.Verified)
+                {
+                    <td>@OTRequestStatus.Verified</td>
+                }
+            }
+
+
+
         </tr>
     }
 }
 else
 {
     <tr>
-        <td colspan="7"></td>
+        <td colspan="6"></td>
     </tr>
     <tr>
-        <td colspan="7">@Labels.NoData</td>
+        <td colspan="6">@Labels.NoData</td>
     </tr>
 }

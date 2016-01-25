@@ -145,5 +145,10 @@ namespace Fanex.NexHR.Web.Providers
 
             return user;
         }
+
+        public bool jdjd()
+        {
+            return true;
+        }
     }
 }

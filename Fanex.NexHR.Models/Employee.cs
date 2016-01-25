@@ -273,5 +273,7 @@ namespace Fanex.NexHR.Models
 
             return roles;
         }
+
+        
     }
 }

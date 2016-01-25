@@ -26,7 +26,7 @@ namespace Fanex.NexHR.Controllers.Tests
             var repository = new OverTimeRepository();
             var model = new OverTimeViewModel()
             {
-                CreatedBy = 263,
+                CreatedId = 263,
                 Description = "NexHR",
                 Date = DateTime.Now,
                 Records = new List<OverTimeRecord>() { new OverTimeRecord() { EmployeeId = 263, Hour = 3 }, new OverTimeRecord() { EmployeeId = 265, Hour = 3 } }
