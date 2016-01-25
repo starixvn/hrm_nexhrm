@@ -1,7 +1,6 @@
 ﻿@model RequestViewModel
 @{
     ViewBag.Title = Labels.EmployeeRequest;
-    IList<RequestEntity> requests = ViewBag.EntityList;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
@@ -22,9 +21,7 @@
                 </div>
                 <div class="card-body">
                     @Html.Partial("CriteriaPanel", Model)
-                    @{
-                        Html.RenderPartial("AllRequest", requests);
-                    }
+                    <div id="all-request"></div>
                     <div id="dialoghistorycontent" />
                 </div>
             </div>

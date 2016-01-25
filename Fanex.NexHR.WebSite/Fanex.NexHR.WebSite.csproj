@@ -678,6 +678,7 @@
     <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
     <Content Include="Views\Dashboard\MyTeamRequest.cshtml" />
+    <Content Include="Views\Request\_AllRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

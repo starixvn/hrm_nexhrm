@@ -1,10 +1,8 @@
 ﻿@model RequestViewModel
-@{
-    var leaveTypes = (IList<LeaveType>)ViewBag.LeaveTypes;
-}
-@using (Html.BeginGetForm())
+@using (Html.BeginForm())
 {
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    @Html.Hidden("ActionName", (string)ViewBag.ActionName)
     <div class="form">
         <div class="row form-input">
             <div class="col m-r--l">
@@ -87,7 +85,7 @@
                     @Html.RadioButtonList(model => model.RequestType, Model.RequestTypes)
                 </div>
             </div>
-            <input class="btn-submit waves-effect waves-light processing-submit m-l--s-" type="submit" value="@Labels.Submit" />
+            <input id="submit" class="btn-submit waves-effect waves-light m-l--s-" type="button" value="@Labels.Submit" />
         </div>
     </div>
 }

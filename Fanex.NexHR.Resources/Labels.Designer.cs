@@ -1942,6 +1942,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Requests.
+        /// </summary>
+        public static string MemberRequests {
+            get {
+                return ResourceManager.GetString("MemberRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Memo.
         /// </summary>
         public static string Memo {

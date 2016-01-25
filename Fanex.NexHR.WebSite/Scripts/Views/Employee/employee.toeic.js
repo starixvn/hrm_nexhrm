@@ -22,9 +22,9 @@ function initNumberTextbox() {
     numbericTextbox.keydown(function (event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-            // Allow: Ctrl+A
+        // Allow: Ctrl+A
             (event.keyCode === 65 && event.ctrlKey === true) ||
-            // Allow: home, end, left, right
+        // Allow: home, end, left, right
             (event.keyCode >= 35 && event.keyCode <= 39)) {
             // let it happen, don't do anything
             return;
@@ -96,7 +96,6 @@ function editTOEIC(id, name) {
             beforeSend: function () {
                 $('.loading-process').fadeIn(300);
             },
-
             success: function (data) {
                 if (data) {
                     $('#dialog-toeic').html(data);
@@ -270,7 +269,7 @@ function initEditToeicDialog() {
                         }
                     });
                 }
-            }            
+            }
         ],
         show: {
             effect: "blind",
