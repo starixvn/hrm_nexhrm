@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="form">
                     <div class="row form-input">
-                        <div class="col">
+                         <div class="col m-r--l">
                             <div class="left label--m">
                                 <label>
                                     Date range</label></div>
@@ -17,27 +17,27 @@
                                 @Html.Hidden("DateOption", Model.DateRange)
                             </div>
                         </div>
-                        <div class="col">
+                         <div class="col m-r--l">
                             <div class="left label--m">
                                 <label>
                                     From date</label></div>
-                            <div class="datepicker-button input-s left">
+                            <div class="datepicker-button select--s left">
                                 @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
                                 <i class="mdi-action-event calendar-icon left"></i>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col m-l--xl m-r--l">
                             <div class="left label--m">
                                 <label>
                                     To date</label></div>
-                            <div class="datepicker-button input-m left">
+                            <div class="datepicker-button select--s left">
                                 @Html.DatePickerFor(model => model.ToDate)
                                 <i class="mdi-action-event calendar-icon left"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row form-input">
-                        <div class="col">
+                        <div class="col m-r--l">
                             <div class="left label--m">
                                 <label>
                                     Status</label></div>
@@ -45,11 +45,11 @@
                                 @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col m-r--l">
                             <div class="left label--m">
                                 <label>
                                     Team</label></div>
-                            <div class="left select--s">
+                            <div class="left select-team">
                                 @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
                             </div>
                         </div>
@@ -63,11 +63,9 @@
                             </div>
                         </div>
                         <div class="col button">
-                            <a class="button-hrm waves-effect waves-light btn blue darken-2">Submit</a>
-                        </div>
-                        <div>
-                            <a class="button-hrm waves-effect waves-light btn orange darken-1">Leave Request</a>
-                        </div>
+                            <a class="btn-request waves-effect waves-light m-r--m m-l--s">Submit</a>
+                            <a class="btn-submit waves-effect waves-light">Leave Request</a>
+                        </div>                        
                     </div>
                 </div>
                 <div class="p-x--s">
