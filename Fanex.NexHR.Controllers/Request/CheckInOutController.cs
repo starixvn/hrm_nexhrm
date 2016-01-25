@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Controllers.Request
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
@@ -48,14 +49,12 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion Ctor
 
-        [HttpGet]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult EmployeeView(int year)
+        public ActionResult ListCheckInOutRequest(int year)
         {
             ViewBag.Year = year;
 
@@ -72,9 +71,9 @@ namespace Fanex.NexHR.Controllers.Request
                 IsFilterByEffectedDate = true
             };
 
-            var data = _requestService.GetRequest(criteria);
+            IList<RequestEntity> checkInOutRequests = _requestService.GetRequest(criteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+            return PartialView(checkInOutRequests);
         }
 
         public ActionResult Create(short? type = 1, DateTime? date = null)

@@ -35,68 +35,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-x--s">
-                            <table class="table bordered striped highlight centered responsive-table table-custom" id="data">
-                            <thead>
-                                <tr>
-                                    <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Employee</th>
-                                    <th>@Labels.Team</th>
-                                    <th>@Labels.LeaveType</th>
-                                    <th>@Labels.From</th>
-                                    <th>@Labels.To</th>
-                                    <th>@Labels.TotalDays</th>
-                                    <th>@Labels.CreatedDate</th>
-                                    <th>@Labels.Remark</th>
-                                    <th>@Labels.Status</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                    <div id="list-leave-request" class="p-x--s">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script id="template" type="text/x-jquery-tmpl">
-    <tr id="row_${Id}">
-        <td>${index()}</td>
-        <td class="tooltip" title="${Requester.FullName}">
-            ${Requester.NickName}
-        </td>
-        <td class="tooltip" title="${Requester.Team.Name}">
-            ${Requester.Team.Code}
-        </td>
-        <td>
-            ${LeaveType.Name}
-        </td>
-        {{if TotalDays == 0.5}}
-            <td>${formatJsonDateToShortFormatedDate(FromDate)}</td>
-            <td>${formatJsonDateToShortFormatedDate(ToDate)}</td>
-        {{else}}
-            <td>${formatJsonDate(FromDate, 'dd MMM, yyyy')}</td>
-            <td>${formatJsonDate(ToDate, 'dd MMM, yyyy')}</td>
-        {{/if}}
-        <td>${TotalDays.toFixed(1)}</td>
-        <td class="tooltip" title="${formatJsonDateToShortFormatedDate(CreatedDate)}">
-            ${formatJsonDate(CreatedDate, 'dd MMM, yyyy')}
-        </td>
-        {{if Remark.length > 0}}
-            <td class="tooltip" title="${Remark}">
-                <span class="mdi mdi-message-text" alt="remark" />
-            </td>
-        {{else}}
-            <td>-</td>
-        {{/if}}
-        {{if Status.Name == 'Pending'}}
-            <td class="tooltip" title="${Remark}">
-                <a requestid="${Id}" href="javascript:;" class="${Status.Name} c-pending">
-                    ${Status.Name}<i class="mdi-navigation-arrow-drop-down"></i>
-                </a>
-            </td>
-        {{else}}
-            <td class="tooltip c-approve" title="${Status.Name} by ${ModifiedBy.NickName} (${formatJsonDateToShortFormatedDate(ModifiedDate)})">${Status.Name}</td>
-        {{/if}}
-    </tr>
-</script>

@@ -113,6 +113,8 @@ function query(isFirstLoad) {
 
             if (response.data.length > 0) {
                 $('#template').tmpl(response.data).appendTo('table#data');
+
+                initAddLeaveDeduction();
             } else {
                 $(noInformation(18)).appendTo('table#data');
             }

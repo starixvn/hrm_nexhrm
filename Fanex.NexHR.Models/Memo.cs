@@ -10,11 +10,9 @@
 namespace Fanex.NexHR.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    /// <summary>
-    /// Memo model.
-    /// </summary>
     public class Memo : EntityBase<int>
     {
         [Required]
@@ -54,5 +52,7 @@ namespace Fanex.NexHR.Models
         public int CheckForEdit { get; set; }
 
         public bool SendMail { get; set; }
+
+        public IList<LookupData> MemoCategories { get; set; }
     }
 }

@@ -37,7 +37,6 @@ $(document).ready(function () {
             });
         });
     });
-
 });
 
 $(function () {
@@ -178,6 +177,3 @@ $(function () {
         $("#dialog-form_edit").dialog("open");
     });
 });
-
-
-

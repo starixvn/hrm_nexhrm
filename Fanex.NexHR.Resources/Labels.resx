@@ -1209,4 +1209,10 @@
   <data name="MemberRequests" xml:space="preserve">
     <value>Member Requests</value>
   </data>
+  <data name="EmployeeGeolocationMap" xml:space="preserve">
+    <value>Employee Geolocation Map</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

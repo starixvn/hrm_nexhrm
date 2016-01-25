@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global,deleteMemoFile,initEditor,tinyMCE*/
+/*global _global, deleteMemoFile, initEditor, tinyMCE*/
 /*exported deleteFile*/
 
 function removeAttachFile(filePath) {

@@ -1069,6 +1069,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Geolocation Map.
+        /// </summary>
+        public static string EmployeeGeolocationMap {
+            get {
+                return ResourceManager.GetString("EmployeeGeolocationMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee management.
         /// </summary>
         public static string EmployeeManagement {
@@ -2775,6 +2784,15 @@ namespace Fanex.NexHR.Resources {
         public static string Schedule {
             get {
                 return ResourceManager.GetString("Schedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

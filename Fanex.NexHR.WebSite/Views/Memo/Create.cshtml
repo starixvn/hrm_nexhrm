@@ -55,7 +55,7 @@
                                             @Html.LabelFor(model => model.Category)
                                         </div>
                                         <div class="left select--s">
-                                            @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.MemoCategories, "Id", "Name"))
+                                            @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"))
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,7 @@
-﻿/*global _global:false, getParam:false, floatThead:false, _messages:false, moment: false*/
+﻿/*global _global, _messages, noInformation*/
 /* exported index*/
 'use strict';
+
 var rowIndex = 1;
 function index() {
     return rowIndex++;
@@ -18,38 +19,43 @@ function deleteMemo(id, fileName, type) {
     });
 }
 
-function query() {
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'api/memo/getmemos',
         data: { category: $('#Category').val(), year: $('#Year').val() },
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (data) {
+            $('#memo tbody').children().remove();
+
             if (data.length > 0) {
                 rowIndex = 1;
-                $('#memo tbody').children().remove();
+
                 $('#template').tmpl(data).appendTo('#memo');
             } else {
-                $('#memo tbody').children().remove();
                 $(noInformation(11)).appendTo('#memo');
             }
-
-            $('.loading-process').fadeOut(300);
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
 
 $(document).ready(function () {
     //search onload
-    query();
+    query(true);
 
     $('#submit').click(function (evt) {
         evt.preventDefault();
-        query();
+        query(false);
     });
 });

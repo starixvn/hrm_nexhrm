@@ -1,12 +1,5 @@
 ﻿/*global _global, _messages, noInformation, zeroPrefix*/
-/*exported index*/
 'use strict';
-
-var rowIndex = 1;
-
-function index() {
-    return rowIndex++;
-}
 
 function updateZeroPrefix() {
     //add zeroPrefix
@@ -48,9 +41,9 @@ function getShiftByDate() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'CheckInOut/EmployeeView',
-        type: 'POST',
-        dataType: 'json',
+        url: _global.root + 'CheckInOut/ListCheckInOutRequest',
+        type: 'GET',
+        dataType: 'html',
         data: { year: $('#Year').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -58,16 +51,7 @@ function query(isFirstLoad) {
             }
         },
         success: function (response) {
-            $('table#data tbody').children().remove();
-
-            if (response.data.length > 0) {
-                rowIndex = 1;
-
-                $.template('template', $('#template'));
-                $.tmpl('template', response.data).appendTo('table#data');
-            } else {
-                $(noInformation(8)).appendTo('table#data');
-            }
+            $('#list-check-in-out-request').html(response);
         },
         error: function () {
             alert(_messages.errorTryAgain);

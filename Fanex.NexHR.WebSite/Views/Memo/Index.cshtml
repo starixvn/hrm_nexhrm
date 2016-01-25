@@ -44,15 +44,14 @@
                                         @Html.LabelFor(model => model.Category)
                                     </div>
                                     <div class="left select--s">
-                                        @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.MemoCategories, "id", "Name"), new SelectListItem() { Value = "-1", Text = "All" }, new { @class = "aaaa" })
+                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" }, new { @class = "aaaa" })
                                     </div>
                                 </div>
                                 <div class='col'>
-                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--s">
-                                        @Labels.Submit</a>
+                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--s">@Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        @Html.ActionLink("Create new Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })
+                                        @Html.ActionLink("Create New Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })
                                     }
                                 </div>
                             </div>
@@ -84,11 +83,11 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True' ? true : false;
+    var isHR = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
 <script id="template" type="text/x-jquery-tmpl"> 
     <tr id="row_${Id}">
-        <td class='center'>
+        <td>
             ${index()}
         </td>
         <td>
@@ -100,18 +99,19 @@
         <td>
             ${CategoryName}
         </td>
-        <td class="ddMMyyyy">
+        <td>
             ${formatDate(SentDate, 'dd MMM, yyyy')}
-        </td>      
-
+        </td>
         {{if isHR}}
             <td title="Edit">
-            <a href="/memo/edit/${Id}"><i class='mdi mdi-border-color mdi-dark'>
-            </i></a>
+            <a href="/memo/edit/${Id}">
+                <i class='mdi mdi-border-color mdi-dark'></i>
+            </a>
             </td>
             <td title="Delete">
                 <a href="javascript:;" onclick="deleteMemo(${Id}, '${Contents}', ${MemoType});">
-                    <i class='mdi mdi-delete mdi-dark'></i></a>
+                    <i class='mdi mdi-delete mdi-dark'></i>
+                </a>
             </td>
         {{/if}}
     </tr> 

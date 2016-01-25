@@ -25,7 +25,8 @@
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!</div>
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!
+                                    </div>
                                 </div>
                             }
                             @Html.HiddenFor(model => model.Id)
@@ -57,7 +58,7 @@
                                         @Html.LabelFor(model => model.Category)
                                     </div>
                                     <div class="left input--s">
-                                        @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.MemoCategories, "Id", "Name"))
+                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"))
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +172,7 @@
                                     </div>
                                     @Html.AntiForgeryToken()
                                     <a class="btn-back waves-effect waves-light" href="@Url.Action("index", "memo")">@Labels.Back</a>
-                                    <input type="submit" value="@Labels.Save" id="saveMemo" class="btn-submit waves-effect waves-light right" />                                    
+                                    <input type="submit" value="@Labels.Save" id="saveMemo" class="btn-submit waves-effect waves-light right" />
                                 </div>
                             </div>
                         </div>

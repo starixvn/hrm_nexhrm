@@ -1,6 +1,4 @@
-﻿/// <reference path="../Libs/jquery.min.js" />
-/// <reference path="../Libs/fxHeader.js" />
-/*global _global, autoIndex*/
+﻿/*global _global, autoIndex*/
 /*exported deleteMemoFile, deleteMemo*/
 "use strict";
 var rowIndex = 1;

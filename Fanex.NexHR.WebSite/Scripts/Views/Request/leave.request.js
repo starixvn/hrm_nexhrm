@@ -1,12 +1,5 @@
-﻿/*global _global: false, _messages: false, noInformation: false*/
-/*exported index*/
+﻿/*global _global, _messages*/
 'use strict';
-
-var rowIndex = 1;
-
-function index() {
-    return rowIndex++;
-}
 
 function setValueforToTime() {
     var arr = $('#FromTime').val().split(':'),
@@ -67,9 +60,9 @@ function bindHalfDay() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Leave/EmployeeView',
-        type: 'POST',
-        dataType: 'json',
+        url: _global.root + 'Leave/ListLeaveRequest',
+        type: 'GET',
+        dataType: 'html',
         data: { year: $('#Year').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -77,16 +70,7 @@ function query(isFirstLoad) {
             }
         },
         success: function (response) {
-            $('table#data tbody').children().remove();
-
-            if (response.data.length > 0) {
-                rowIndex = 1;
-
-                $.template('template', $('#template'));
-                $.tmpl('template', response.data).appendTo('table#data');
-            } else {
-                $(noInformation(10)).appendTo('table#data');
-            }
+            $('#list-leave-request').html(response);
         },
         error: function () {
             alert(_messages.errorTryAgain);

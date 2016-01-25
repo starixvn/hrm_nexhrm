@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Controllers.Request
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -17,6 +18,7 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
+    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -48,14 +50,12 @@ namespace Fanex.NexHR.Controllers.Request
 
         #endregion Ctor
 
-        [HttpGet]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult EmployeeView(int year)
+        public ActionResult ListLeaveRequest(int year)
         {
             var criteria = new GetRequestCriteria()
             {
@@ -70,9 +70,9 @@ namespace Fanex.NexHR.Controllers.Request
                 IsFilterByEffectedDate = true
             };
 
-            var data = _requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = _requestService.GetRequest(criteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+            return PartialView(leaveRequests);
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]

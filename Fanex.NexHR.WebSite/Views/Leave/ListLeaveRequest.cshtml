@@ -1,0 +1,79 @@
+﻿@model IList<RequestEntity>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.LeaveType</th>
+            <th>@Labels.From</th>
+            <th>@Labels.To</th>
+            <th>@Labels.TotalDays</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Remark</th>
+            <th>@Labels.Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @if (Model.Any())
+        {
+            foreach (RequestEntity request in Model)
+            {
+                <tr id="row_@(request.Id)">
+                    <td>@(index++)</td>
+                    <td class="tooltip" title="@request.Requester.FullName">
+                        @request.Requester.NickName
+                    </td>
+                    <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
+                    </td>
+                    <td>@request.LeaveType.Name
+                    </td>
+                    @if (request.TotalDays == (decimal)0.5)
+                    { 
+                        <td>@request.FromDate.ToShortFormatedDate()</td>
+                        <td>@request.ToDate.ToShortFormatedDate()</td>
+                    }
+                    else
+                    {
+                        <td>@request.FromDate.ToDateMonthYearFormatedDate()</td>
+                        <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
+                    }
+                    <td>@request.TotalDays.ToString("0.0")</td>
+                    <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()" >
+                        @request.CreatedDate.ToDateMonthYearFormatedDate()
+                    </td>
+                    @if (!string.IsNullOrWhiteSpace(request.Remark))
+                    { 
+                        <td class="tooltip" title="@request.Remark">
+                            <span class="mdi mdi-message-text" alt="remark" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                    {
+                        <td>
+                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">
+                                @request.Status.ToString()
+                            </a>
+                        </td>
+                    }
+                    else
+                    { 
+                        <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
+                            @request.Status.ToString()
+                        </td>
+                    }
+                </tr>
+            }
+
+        }
+        else
+        { 
+            @RazorHelper.DisplayNoInformation(colspan: 10);
+        }
+    </tbody>
+</table>

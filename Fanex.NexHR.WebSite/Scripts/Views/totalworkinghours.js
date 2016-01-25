@@ -1,8 +1,8 @@
 ﻿/*global _global, _messages*/
+/*exported index*/
 'use strict';
 
 var rowIndex = 1;
-var dateOption, fromDate, toDate, teamId;
 
 function index() {
     return rowIndex++;
@@ -10,71 +10,33 @@ function index() {
 
 function validateDate() {
     var fromDate = new Date($("#FromDate").val()),
-    var toDate = new Date($("#ToDate").val());    
+        toDate = new Date($("#ToDate").val());
+
     if (toDate < fromDate) {
-
-        alert("To Date must be equal or greater than From Date.");            
-        return false;  
-
+        alert("To Date must be equal or greater than From Date.");
+        return false;
     }
+
     return true;
 }
 
-$("#Date").change(function () {
-    setDateTimeRange($("#Date").val())
-    dateOption = $('#Date').val();
-    $(".DateOption").val($("#Date").val());
-
-    $("#FromDate").change();
-    $("#ToDate").change();
-});
-
-$(document).ready(function () {
-    initDatePicker();
-
-    //search onload
-    query();
-
-    $('#btnSubmit').click(function (evt) {
-        evt.preventDefault();
-        if (validateDate()) {
-            query();
-        }
-    });
-
-
-
-
-    $('#btnExport').click(function () {
-        document.location = _global.root + "report/ExportExcel?" + $("#form").serialize();
-    });
-
-    $("#FromDate").change(function () {
-        $(".FromDate").val($("#FromDate").val());
-    });
-
-    $("#ToDate").change(function () {
-        $(".ToDate").val($("#ToDate").val());
-    });
-
-    $("#TeamId").change(function () {
-        $(".TeamId").val($("#TeamId").val());
-    });    
-});
-
-function query() {
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'report/totalworkinghours',
         type: 'POST',
         data: $("#form").serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (data) {
+            $('#data tbody').children().remove();
+
             if (data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(data).appendTo('#data');
+
+                $('#template').tmpl(data).appendTo('table#data');
 
                 $(".UnpaidLeave").click(function () {
                     var modelSerialize = $(this).parent().find('#form').serialize();
@@ -94,23 +56,53 @@ function query() {
                     var modelSerialize = leaveType.parent().serialize();
                     document.location = _global.root + "request/hrview?" + modelSerialize;
                 });
-
-                $(".DateOption").val($("#Date").val());
-                $(".FromDate").val($("#FromDate").val());
-                $(".ToDate").val($("#ToDate").val());
-                $(".TeamId").val($("#TeamId").val());
             } else {
-                $('#data tbody').children().remove();
-                $(noInformation(15)).appendTo('#data');
+                $(noInformation(15)).appendTo('table#data');
             }
-
-            $('.loading-process').fadeOut(300);
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
+
+$(document).ready(function () {
+    initDatePicker();
+
+    $("#Date").change(function () {
+        setDateTimeRange($("#Date").val());
+        dateOption = $('#Date').val();
+        $(".DateOption").val($("#Date").val());
+    });
+
+    //search onload
+    query(true);
+
+    $('#btnSubmit').click(function (evt) {
+        evt.preventDefault();
+        if (validateDate()) {
+            dateOption = $('#DateOption').val();
+            fromDate = $('#FromDate').val();
+            toDate = $('#ToDate').val();
+
+            query(false);
+        }
+    });
+
+    $('#btnExport').click(function () {
+        document.location = _global.root + "report/ExportExcel?" + $("#form").serialize();
+    });
+
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+});

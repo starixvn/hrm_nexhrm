@@ -1,0 +1,56 @@
+﻿@model IList<RequestEntity>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.Request</th>
+            <th>@Labels.Shift</th>
+            <th>@Labels.RequestDate</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Status</th>
+        </tr>
+    </thead>
+    @if (Model.Any())
+    {
+        <tbody>
+            @{int index = 1;}
+            @{string selectedClass = string.Empty;}
+            @foreach (RequestEntity request in Model)
+            {
+                <tr id="row_@(request.Id)">
+                    <td>@(index++)</td>
+                    <td class="tooltip" title="@request.Requester.FullName">
+                        @request.Requester.NickName
+                    </td>
+                    <td class="tooltip" title="@request.Requester.Team.Name">
+                        @request.Requester.Team.Code
+                    </td>
+                    <td>@request.RequestType.ToString()</td>
+                    <td>@request.FromShift.Name.ToString()</td>
+                    <td>@request.FromDate.ToShortFormatedDate()</td>
+                    <td>@request.CreatedDate.ToShortFormatedDate()</td>
+                    @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                    {
+                        <td >
+                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">
+                                @request.Status.ToString()
+                            </a>
+                        </td>
+                    }
+                    else
+                    { 
+                        <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
+                            @request.Status.ToString()
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        @RazorHelper.DisplayNoInformation(colspan: 10);
+    }
+</table>

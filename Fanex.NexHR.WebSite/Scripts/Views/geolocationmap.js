@@ -1,13 +1,13 @@
 ﻿'use strict';
-/*global _global:false, google:false*/
+/*global _global, google*/
 
-var directionsDisplay;
-var countDupe = 0;
+var directionsDisplay,
+    countDupe = 0;
 
 function displayDirection(marker) {
-    var directionsService = new google.maps.DirectionsService();
-    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
-    var curLatLng = marker.getPosition();
+    var directionsService = new google.maps.DirectionsService(),
+        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791),
+        curLatLng = marker.getPosition();
 
     if (curLatLng.lat() === 0 || curLatLng.lng() === 0) {
         curLatLng = smsLatlng;
@@ -27,9 +27,9 @@ function displayDirection(marker) {
 }
 
 function searchEmployeeDirection(lat, lng) {
-    var directionsService = new google.maps.DirectionsService();
-    var smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
-    var employeeLatLng = new google.maps.LatLng(lat, lng);
+    var directionsService = new google.maps.DirectionsService(),
+        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791),
+        employeeLatLng = new google.maps.LatLng(lat, lng);
 
     var request = {
         origin: employeeLatLng,
@@ -46,6 +46,7 @@ function searchEmployeeDirection(lat, lng) {
 
 function isDupeMarker(lat, lng, arrMarkers) {
     var isDupe = false;
+
     if (arrMarkers.length > 0) {
         for (var i in arrMarkers) {
             var curLatLng = arrMarkers[i].getPosition();
@@ -61,8 +62,8 @@ function isDupeMarker(lat, lng, arrMarkers) {
 
 //check duplicate lat, long
 function MapMarker(NickName, lat, lng, arrMarkers) {
-    var increment = 0.000025;
-    var isDupe = isDupeMarker(lat, lng, arrMarkers);
+    var increment = 0.000025,
+        isDupe = isDupeMarker(lat, lng, arrMarkers);
 
     while (isDupe) {
         if (countDupe > 1) {
@@ -129,22 +130,19 @@ function searchEmployeeInCompany() {
         },
         minLength: 1,
         select: function (event, ui) {
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
+            $('#Employee').val(ui.item.label);
             $('#Latitude').val(ui.item.lat);
             $('#Longitude').val(ui.item.lng);
         },
         focus: function (event, ui) {
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
+            $('#Employee').val(ui.item.label);
             $('#Latitude').val(ui.item.lat);
             $('#Longitude').val(ui.item.lng);
             event.preventDefault();
         },
         change: function (event, ui) {
             if (ui && ui.item) {
-                var nickName = ui.item.label;
-                $('#Employee').val(nickName);
+                $('#Employee').val(ui.item.label);
                 $('#Latitude').val(ui.item.lat);
                 $('#Longitude').val(ui.item.lng);
             }
@@ -192,10 +190,10 @@ function initialize() {
     });
 
     //Nexcel Employee Data
-    var data = [];
-    var markers = [];
-    var ZIndex = 1;
-    var highestZIndex = 0;
+    var data = [],
+        markers = [],
+        ZIndex = 1,
+        highestZIndex = 0;
 
     markers.push(marker);
 
@@ -216,8 +214,8 @@ function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
 
     $.each(data, function (i, item) {
-        var infowindow;
-        var checkDuplicateData = new MapMarker(item.NickName, item.GeoMapLatitude, item.GeoMapLongtitude, markers);
+        var infowindow,
+            checkDuplicateData = new MapMarker(item.NickName, item.GeoMapLatitude, item.GeoMapLongtitude, markers);
         var marker = new google.maps.Marker({
             'position': new google.maps.LatLng(checkDuplicateData[0], checkDuplicateData[1]),
             'map': map,
@@ -240,8 +238,7 @@ function initialize() {
             item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>" +
             item.DistanceToCompany + "</div></div></div></div></div>"
             });
-        }
-        else {
+        } else {
             infowindow = new google.maps.InfoWindow({
                 content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
             item.DisplayName + "</span></div><div><span class='headerInfo'>Team:</span> " +
@@ -301,12 +298,12 @@ function initialize() {
     searchEmployeeInCompany();
 
     $('#searchmap').on("click", function () {
-        var lat = $('#Latitude').val();
-        var lng = $('#Longitude').val();
+        var lat = $('#Latitude').val(),
+            lng = $('#Longitude').val();
+
         if (lat === "" && lng === "") {
             return false;
-        }
-        else {
+        } else {
             directionsDisplay.setMap(null);
             searchEmployeeDirection(lat, lng);
             directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
@@ -316,12 +313,12 @@ function initialize() {
 
     $('#Employee').keypress(function (event) {
         if (event.keyCode === 13) {
-            var lat = $('#Latitude').val();
-            var lng = $('#Longitude').val();
+            var lat = $('#Latitude').val(),
+                lng = $('#Longitude').val();
+
             if (lat === "" && lng === "") {
                 return false;
-            }
-            else {
+            } else {
                 directionsDisplay.setMap(null);
                 searchEmployeeDirection(lat, lng);
                 directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);

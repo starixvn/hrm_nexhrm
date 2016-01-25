@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    /// <summary>
-    /// Memo view model.
-    /// </summary>
+    using System.Collections.Generic;
+    using Fanex.NexHR.Models;
+
     public class MemoViewModel
     {
         public string Content { get; set; }
@@ -19,5 +19,7 @@ namespace Fanex.NexHR.ViewModels
         public int Year { get; set; }
 
         public int Category { get; set; }
+
+        public IList<LookupData> MemoCategories { get; set; }
     }
 }
