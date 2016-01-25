@@ -1,5 +1,6 @@
 ﻿'use strict';
 
+var firstloadTime = new Date($.now());
 var MyDashboard = (function ($) {
     return {
         linkDays: null,
@@ -27,5 +28,12 @@ $(document).ready(function () {
             dots: true,
             nextArrow: false,
             prevArrow: false,
-        });
+    });    
+    
+    var now;
+    setInterval(function () {                
+        now = new Date($.now());
+        var a = now - firstloadTime;
+        a
+    }, 60000);
 });

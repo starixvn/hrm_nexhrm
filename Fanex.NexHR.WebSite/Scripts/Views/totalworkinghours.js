@@ -8,17 +8,16 @@ function index() {
     return rowIndex++;
 }
 
-function validateDate(e) {
+function validateDate() {
     var fromDate = new Date($("#FromDate").val()),
-        toDate = new Date($("#ToDate").val()),
-        dayDiff = (toDate - fromDate) / 1000 / 60 / 60 / 24;
+    var toDate = new Date($("#ToDate").val());    
+    if (toDate < fromDate) {
 
-    if (dayDiff < 0) {
-        alert("To Date must be equal or greater than From Date.");
-        e.preventDefault();
+        alert("To Date must be equal or greater than From Date.");            
+        return false;  
 
-        $("#btnSubmit").val("Submit");
     }
+    return true;
 }
 
 $("#Date").change(function () {
@@ -38,8 +37,13 @@ $(document).ready(function () {
 
     $('#btnSubmit').click(function (evt) {
         evt.preventDefault();
-        query();
+        if (validateDate()) {
+            query();
+        }
     });
+
+
+
 
     $('#btnExport').click(function () {
         document.location = _global.root + "report/ExportExcel?" + $("#form").serialize();
@@ -55,11 +59,7 @@ $(document).ready(function () {
 
     $("#TeamId").change(function () {
         $(".TeamId").val($("#TeamId").val());
-    });
-
-    $("form").submit(function (e) {
-        validateDate(e);
-    });
+    });    
 });
 
 function query() {
@@ -101,7 +101,7 @@ function query() {
                 $(".TeamId").val($("#TeamId").val());
             } else {
                 $('#data tbody').children().remove();
-                $(noInformation(11)).appendTo('#data');
+                $(noInformation(15)).appendTo('#data');
             }
 
             $('.loading-process').fadeOut(300);
