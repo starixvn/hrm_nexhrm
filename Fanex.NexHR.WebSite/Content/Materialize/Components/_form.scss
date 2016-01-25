@@ -641,6 +641,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     right: 4px;
     top: 8px;
     font-size: 10px;
+	color: #6f8396;
     &.disabled {
       color: $input-disabled-color;
     }

@@ -66,6 +66,13 @@ $(function () {
         width: 400,
         modal: true,
         buttons: [{
+            text: "Cancel",
+            class: "btn-cancel waves-effect waves-light m-r--m",
+            click: function () {
+                $(this).dialog("close");
+            }
+        },
+        {
             text: "Create",
             class: "btn-ok waves-effect waves-light",
             click: function () {
@@ -87,13 +94,6 @@ $(function () {
                             alert(_messages.errorTryAgain);
                         });
                 }
-            }
-        },
-        {
-            text: "Cancel",
-            class: "btn-cancel waves-effect waves-light",
-            click: function () {
-                $(this).dialog("close");
             }
         }],
         close: function () {
@@ -139,6 +139,13 @@ $(function () {
             modal: true,
             class: "btn-ok waves-effect waves-light",
             buttons: [{
+                text: "Cancel",
+                class: "btn-cancel waves-effect waves-light m-r--m",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            },
+            {
                 text: "Update",
                 class: "btn-ok waves-effect waves-light",
                 click: function () {
@@ -160,13 +167,6 @@ $(function () {
                             alert(_messages.errorTryAgain);
                         });
                     }
-                }
-            },
-            {
-                text: "Cancel",
-                class: "btn-cancel waves-effect waves-light",
-                click: function () {
-                    $(this).dialog("close");
                 }
             }],
             close: function () {
