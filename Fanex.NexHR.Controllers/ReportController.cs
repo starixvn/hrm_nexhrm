@@ -304,6 +304,7 @@ namespace Fanex.NexHR.Controllers
                 teams = _teamService.GetAll(new GetAllTeamCriteria());
             }
 
+            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
             ViewBag.TeamId = model.TeamId;
             ViewBag.EntityList = entityList;
 
