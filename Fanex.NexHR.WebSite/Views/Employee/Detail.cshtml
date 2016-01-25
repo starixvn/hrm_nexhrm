@@ -7,301 +7,296 @@ else
 {
     ViewBag.Title = string.Empty;
 }
-
 @section css {
 }
 @section js {
 }
 @section Breadcrumb {
 }
-
 <div class="row content">
     <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
-                <div class="row card-body">
-                @if (Model != null)
-                {
-                    <div class="col s4">
-                        <div class="row avatarbox">
-                            <div class="avatar">
-                                <img src="~/employee/avatar/@(Model.Code)" alt="@Model.NickName" />
-                            </div>
-                            <div class="pinfo">
-                                <span class="name">@Model.FullName</span>
-                                <p class="accinfo">
-                                    @Model.DomainUsername<br />
-                                    Staff Code: @Model.Code
-                                </p>
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">Staff Info</span>
+                </div>
+                <div class="card-body">
+                    @if (Model != null)
+                    {                    
+                        <div class="avatarbox m-t--m">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avatar">
+                                        <img src="~/employee/avatar/@(Model.Code)" alt="@Model.NickName" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="name">@Model.FullName</div>
+                                    <div class="pinfo">
+                                        <p class="accinfo">
+                                            <span class="label--l">Staff Code:</span> <span>@Model.Code</span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--l">CPU:</span> <span>@Model.DomainUsername</span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--l">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--l">@Labels.Phone:</span> <span>@Model.Phone</span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--l">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--l">@Labels.Yahoo:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
+                                        </p>
+                                        @if (Roles.IsUserInRole("HR"))
+                                        {   
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Address:</span> <span>@Model.Address</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.CurrentAddress:</span> <span>@Model.CurrentAddress</span>
+                                            </p>                                                
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row personalinformation">
-                            <div class="row boxtitle txt-uppercase">
+                        <div class="personalinformation p-x--s m-t--m">
+                            <div class="boxtitle">
                                 @Labels.PersonalInformation
                             </div>
-                            <div class="row boxcontent">
-                                <div class="row">
-                                    <div class="col">@Labels.FullName:</div>
-                                    <div class="col">@Model.FullName</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.NickName:</div>
-                                    <div class="row">@Model.NickName</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">D.O.B:</div>
-                                    <div class="col">@Model.DateOfBirth.ToString("dd MMM, yyyy")</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Gender:</div>
-                                    <div class="col">@(Model.Gender == 1 ? "Male" : "Female")</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Marriage:</div>
-                                    <div class="col">
-                                        @(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))
-                                    </div>
-                                </div>
+                            <div class="pinfo">
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.NickName:</span> <span class="txt-bold">@Model.NickName</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
+                                </p>
                                 @if (Roles.IsUserInRole("HR"))
                                 {
-                                    <div class="row">
-                                        <div class="col">@Labels.IdNo.:</div>
-                                        <div class="col">@Model.CardNo</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">@Labels.IssuedDate:</div>
-                                        <div class="col">
-                                        @if (@Model.IssuedDate != null)
-                                        {
-                                            @Model.IssuedDate.Value.ToString("dd MMM, yyyy")
-                                        }
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">@Labels.IssuedPlace:</div>
-                                        <div class="col">@Model.IssuedPlace</div>
-                                    </div>
-                                    if (Model.PassportNo != null)
-                                    {
-                                    <div class="row">
-                                        <div class="col">@Labels.PassportNo:</div>
-                                        <div class="col">@Model.PassportNo</div>
-                                    </div>
-                                    }
-                                    if (Model.PassportExp != null)
-                                    {
-                                    <div class="row">
-                                        <div class="col">@Labels.PassportExp:</div>
-                                        <div class="col">@Model.PassportExp.ToDateMonthYearFormatedDate()</div>
-                                    </div>
-                                    }
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.IdNo.:</span> <span class="txt-bold">@Model.CardNo</span>
+                                    </p>
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.IssuedDate:</span> <span class="txt-bold">
+                                            @if (@Model.IssuedDate != null)
+                                            {
+                                                @Model.IssuedDate.Value.ToString("dd MMM, yyyy")
+                                            }</span>
+                                    </p>
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.IssuedPlace:</span> <span class="txt-bold">@Model.IssuedPlace</span>
+                                    </p>                                    
+                                            if (Model.PassportNo != null)
+                                            {
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
+                                    </p>                                        
+                                            }
+                                            if (Model.PassportExp != null)
+                                            {
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@Model.PassportExp.ToDateMonthYearFormatedDate()</span>
+                                    </p>                                        
+                                            }
                                 }
                             </div>
                         </div>
-                        <div class="row jobinformation">
-                            <div class="row boxtitle txt-uppercase">
+                        <div class="jobinformation m-t--m p-x--s">
+                            <div class="boxtitle">
                                 @Labels.JobInformation
                             </div>
-                            <div class="row boxcontent">
-                                <div class="row">
-                                    <div class="col">@Labels.JobTitle:</div>
-                                    <div class="col">@ViewBag.JobTitle</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Team:</div>
-                                    <div class="col">@Model.Team.Name</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Roles:</div>
-                                    <div class="col">@Model.DisplayRoles()</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.JoinedDate:</div>
-                                    <div class="col">
-                                    @if (Model.JoinedDate != null)
-                                    {
-                                        @Model.JoinedDate.ToDateMonthYearFormatedDate()
-                                    }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.ConfirmedDate:</div>
-                                    <div class="col">
-                                    @if (Model.ConfirmedDate != null)
-                                    {
-                                        @Model.ConfirmedDate.ToDateMonthYearFormatedDate()
-                                    }
-                                    </div>
-                                </div>
+                            <div class="pinfo">
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">@ViewBag.JobTitle</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Roles:</span> <span class="txt-bold">@Model.DisplayRoles()</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
+                                        @if (Model.JoinedDate != null)
+                                        {
+                                            @Model.JoinedDate.ToDateMonthYearFormatedDate()
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
+                                        @if (Model.ConfirmedDate != null)
+                                        {
+                                            @Model.ConfirmedDate.ToDateMonthYearFormatedDate()
+                                        }
+                                    </span>
+                                </p>
                                 @if (Model.ResignedDate != null)
                                 {
-                                <div class="row">
-                                    <div class="col">@Labels.LastWorkingDate:</div>
-                                    <div class="col">@Model.ResignedDate.ToDateMonthYearFormatedDate()</div>
-                                </div>
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.LastWorkingDate:</span> <span class="txt-bold">@Model.ResignedDate.ToDateMonthYearFormatedDate()</span>
+                                    </p>                                    
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div class="col s8">
-                        <div class="row personalinformation">
-                            <div class="row boxtitle txt-uppercase">
-                                @Labels.ContactDetails
-                            </div>
-                            <div class="row boxcontent">
-                                <div class="row">
-                                    <div class="col">@Labels.Email:</div>
-                                    <div class="col">
-                                        <a href="mailto:@Model.Email">@Model.Email</a>
-                                    </div>
+                    
+                        <div>
+                            <div class="attendacereport m-t--m p-x--s">
+                                <div class="boxtitle">
+                                    @Labels.AttendanceReport
                                 </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Phone:</div>
-                                    <div class="col">@Model.Phone</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Skype:</div>
-                                    <div class="col">
-                                        <a href="skype:@(Model.Skype)?chat">@Model.Skype</a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.Yahoo:</div>
-                                    <div class="col">
-                                        <a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a>
-                                    </div>
-                                </div>
-                                @if (Roles.IsUserInRole("HR"))
-                                {
-                                <div class="row">
-                                    <div class="col">@Labels.Address:</div>
-                                    <div class="col">@Model.Address</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">@Labels.CurrentAddress:</div>
-                                    <div class="col">@Model.CurrentAddress</div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="row attendacereport">
-                            <div class="row boxtitle txt-uppercase">
-                                @Labels.AttendanceReport
-                            </div>
-                            <div class="row boxcontent">
-                                <div class="row">
-                                    <div class="col">@Labels.AnnualLeaveBalance:</div>
-                                    <div class="col">
-                                        @ViewBag.Working.AnnualLeaveBalance day(s)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        @Labels.WorkingCalendar:
-                                    </div>
-                                    <div class="col">
-                                        <div class="scheduleoff">
-                                            <div class="day">@Labels.Sun</div>
-                                            <div class="shift">@Model.WorkingCalendar.SunShiftName</div>
-                                        </div>
-                                        <div class="schedule">
-                                            <div class="day">@Labels.Mon</div>
-                                            <div class="shift">@Model.WorkingCalendar.MonShiftName</div>
-                                        </div>
-                                        <div class="schedule">
-                                            <div class="day">@Labels.Tue</div>
-                                            <div class="shift">@Model.WorkingCalendar.TueShiftName</div>
-                                        </div>
-                                        <div class="schedule">
-                                            <div class="day">@Labels.Wed</div>
-                                            <div class="shift">@Model.WorkingCalendar.WedShiftName</div>
-                                        </div>
-                                        <div class="schedule">
-                                            <div class="day">@Labels.Thu</div>
-                                            <div class="shift">@Model.WorkingCalendar.ThuShiftName</div>
-                                        </div>
-                                        <div class="schedule">
-                                            <div class="day">@Labels.Fri</div>
-                                            <div class="shift">@Model.WorkingCalendar.FriShiftName</div>
-                                        </div>
-                                        <div class="scheduleoff">
-                                            <div class="day">@Labels.Sat</div>
-                                            <div class="shift">@Model.WorkingCalendar.SatShiftName</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
-                        <div class="row toeicscore">
-                            <div class="row boxtitle txt-uppercase">
-                                @Labels.ToeicScore
-                            </div>
-                            <div class="row boxcontent">
-                                <table class="table bordered striped highlight centered responsive-table table-custom">
-                                    <thead>
-                                        <tr>
-                                            <th>@Labels.Listening</th>
-                                            <th>@Labels.Reading</th>
-                                            <th>@Labels.Speaking</th>
-                                            <th>@Labels.Writing</th>
-                                            <th>@Labels.ExamDate (@Labels.L/@Labels.R & @Labels.S/@Labels.W)</th>
-                                            <th>@Labels.OldScores</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                @(toeic != null ? (toeic.Listening.HasValue ? toeic.Listening.Value.ToString() : "-") : "-")
-                                            </td>
-                                            <td>
-                                                @(toeic != null ? (toeic.Reading.HasValue ? toeic.Reading.Value.ToString() : "-") : "-")
-                                            </td>
-                                            <td>
-                                                @(toeic != null ? (toeic.Speaking.HasValue ? toeic.Speaking.Value.ToString() : "-") : "-")
-                                            </td>
-                                            <td>
-                                                @(toeic != null ? (toeic.Writing.HasValue ? toeic.Writing.Value.ToString() : "-") : "-")
-                                            </td>
-                                            @if (toeic == null || (toeic.LRTotal + toeic.Speaking + toeic.Writing) == 0)
-                                            {
-                                                <td>-</td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    @(toeic.LRExamDate.HasValue ? toeic.LRExamDate.Value.ToString("dd MMM, yyyy") : "-")
-                                                    /
-                                                    @(toeic.SWExamDate.HasValue ? toeic.SWExamDate.Value.ToString("dd MMM, yyyy") : "-")
+                                <div class="pinfo">
+                                    <p class="accinfo">
+                                        <span class="m-r--m">@Labels.AnnualLeaveBalance:</span> <span class="txt-bold">@ViewBag.Working.AnnualLeaveBalance
+                                            day(s)</span>
+                                    </p>
+                                    <table class="table bordered striped highlight centered table-custom" style="width: 500px;">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @Labels.Sun
+                                                </th>
+                                                <th>
+                                                    @Labels.Mon
+                                                </th>
+                                                <th>
+                                                    @Labels.Tue
+                                                </th>
+                                                <th>
+                                                    @Labels.Wed
+                                                </th>
+                                                <th>
+                                                    @Labels.Thu
+                                                </th>
+                                                <th>
+                                                    @Labels.Fri
+                                                </th>
+                                                <th>
+                                                    @Labels.Sat
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="scheduleoff">
+                                                    @Model.WorkingCalendar.SunShiftName
                                                 </td>
-                                            }
-                                            @if (toeic == null || (toeic.OldListening + toeic.OldReading + toeic.OldSpeaking + toeic.OldWriting) == 0)
-                                            {
-                                                <td>-</td>
-                                            }
-                                            else
-                                            {
                                                 <td>
-                                                    @(toeic.OldListening.HasValue ? toeic.OldListening.Value.ToString() : "-")
-                                                    /
-                                                    @(toeic.OldReading.HasValue ? toeic.OldReading.Value.ToString() : "-")
-                                                    /
-                                                    @(toeic.OldSpeaking.HasValue ? toeic.OldSpeaking.Value.ToString() : "-")
-                                                    /
-                                                    @(toeic.OldWriting.HasValue ? toeic.OldWriting.Value.ToString() : "-")
+                                                    @Model.WorkingCalendar.MonShiftName
                                                 </td>
-                                            }
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                <td>
+                                                    @Model.WorkingCalendar.TueShiftName
+                                                </td>
+                                                <td>
+                                                    @Model.WorkingCalendar.WedShiftName
+                                                </td>
+                                                <td>
+                                                    @Model.WorkingCalendar.ThuShiftName
+                                                </td>
+                                                <td>
+                                                    @Model.WorkingCalendar.FriShiftName
+                                                </td>
+                                                <td class="scheduleoff">
+                                                    @Model.WorkingCalendar.SatShiftName
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>                                    
+                                </div>
+                            </div>
+                            @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
+                            <div class="toeicscore m-t--m p-x--s">
+                                <div class="boxtitle txt-uppercase">
+                                    @Labels.ToeicScore
+                                </div>
+                                <div class="boxcontent">
+                                    <table class="table bordered striped highlight centered responsive-table table-custom" style="width: 650px;">
+                                        <thead>
+                                            <tr>
+                                                <th>@Labels.Listening
+                                                </th>
+                                                <th>@Labels.Reading
+                                                </th>
+                                                <th>@Labels.Speaking
+                                                </th>
+                                                <th>@Labels.Writing
+                                                </th>
+                                                <th>@Labels.ExamDate (@Labels.L/@Labels.R & @Labels.S/@Labels.W)
+                                                </th>
+                                                <th>@Labels.OldScores
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @(toeic != null ? (toeic.Listening.HasValue ? toeic.Listening.Value.ToString() : "-") : "-")
+                                                </td>
+                                                <td>
+                                                    @(toeic != null ? (toeic.Reading.HasValue ? toeic.Reading.Value.ToString() : "-") : "-")
+                                                </td>
+                                                <td>
+                                                    @(toeic != null ? (toeic.Speaking.HasValue ? toeic.Speaking.Value.ToString() : "-") : "-")
+                                                </td>
+                                                <td>
+                                                    @(toeic != null ? (toeic.Writing.HasValue ? toeic.Writing.Value.ToString() : "-") : "-")
+                                                </td>
+                                                @if (toeic == null || (toeic.LRTotal + toeic.Speaking + toeic.Writing) == 0)
+                                                {
+                                                    <td>
+                                                        -
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @(toeic.LRExamDate.HasValue ? toeic.LRExamDate.Value.ToString("dd MMM, yyyy") : "-")
+                                                        /
+                                                        @(toeic.SWExamDate.HasValue ? toeic.SWExamDate.Value.ToString("dd MMM, yyyy") : "-")
+                                                    </td>
+                                                }
+                                                @if (toeic == null || (toeic.OldListening + toeic.OldReading + toeic.OldSpeaking + toeic.OldWriting) == 0)
+                                                {
+                                                    <td>
+                                                        -
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @(toeic.OldListening.HasValue ? toeic.OldListening.Value.ToString() : "-")
+                                                        /
+                                                        @(toeic.OldReading.HasValue ? toeic.OldReading.Value.ToString() : "-")
+                                                        /
+                                                        @(toeic.OldSpeaking.HasValue ? toeic.OldSpeaking.Value.ToString() : "-")
+                                                        /
+                                                        @(toeic.OldWriting.HasValue ? toeic.OldWriting.Value.ToString() : "-")
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <h2>@Messages.NoDataIsAvailable</h2>
-                }
+                    }
+                    else
+                    {
+                        <h2>@Messages.NoDataIsAvailable</h2>
+                    }
                 </div>
             </div>
         </div>

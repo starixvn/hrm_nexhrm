@@ -264,6 +264,29 @@ main {
     .tipsy.tipsy-request table.table-tooltip tr:last-child {
       border-bottom: none; }
 
+.boxtitle, .avatarbox .name {
+  font-size: 1.4rem;
+  color: #f4783d;
+  font-weight: 500;
+  margin-bottom: 1rem; }
+
+.boxtitle {
+  text-transform: uppercase; }
+
+.pinfo .accinfo {
+  line-height: 2 !important;
+  color: #303e4b !important; }
+  .pinfo .accinfo > span {
+    float: left; }
+.pinfo .scheduleoff {
+  background: #bdbdbd; }
+
+.avatarbox .avatar {
+  width: 17rem;
+  border: 1px solid #d2d2d2; }
+  .avatarbox .avatar img {
+    width: 100%; }
+
 a:active, a:focus {
   outline: none; }
 
