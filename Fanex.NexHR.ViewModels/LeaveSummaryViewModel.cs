@@ -15,12 +15,6 @@ namespace Fanex.NexHR.ViewModels
 
     public class LeaveSummaryViewModel
     {
-        public LeaveSummaryViewModel()
-        {
-            FilteringGroups = new List<Team>();
-            LeaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
-        }
-
         public int Year { get; set; }
 
         public string Team { get; set; }
@@ -33,9 +27,7 @@ namespace Fanex.NexHR.ViewModels
 
         public int MinAnnualBalance { get; set; }
 
-        public IList<Team> FilteringGroups { get; set; }
-
-        public IList<LeaveSummaryByTeam> LeaveSummaryByTeamList { get; set; }
+        public IList<Team> TeamCollection { get; set; }
 
         public ShowOpenAndCloseAnnualBalance ShowOpenAndCloseAnnualBalance { get; set; }
 

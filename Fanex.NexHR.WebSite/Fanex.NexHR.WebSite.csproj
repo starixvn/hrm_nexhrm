@@ -337,7 +337,8 @@
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
-    <Content Include="Scripts\Views\annualleavebalance.js" />
+    <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
+    <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
@@ -679,6 +680,8 @@
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
     <Content Include="Views\Dashboard\MyTeamRequest.cshtml" />
     <Content Include="Views\Request\_AllRequest.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\_Index.cshtml" />
+    <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

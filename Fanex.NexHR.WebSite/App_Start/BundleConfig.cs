@@ -230,8 +230,11 @@
         private static void BuildBundleForAnnualLeaveBalance(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
-                "~/Scripts/Views/annualleavebalance.js",
+                "~/Scripts/Views/AnnualLeaveBalance/index.js",
                 "~/Scripts/Views/_employee.search.in.company.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/employeeannualleavebalancejs").Include(
+                "~/Scripts/Views/AnnualLeaveBalance/employee.js"));
         }
 
         private static void BuildBundleForJobTitle(BundleCollection bundles)

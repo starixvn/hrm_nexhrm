@@ -116,39 +116,70 @@ function eventCloseBalance() {
     });
 }
 
+function query(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'annualleavebalance/index',
+        type: 'POST',
+        dataType: 'html',
+        data: $('.card-container-base form').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#div-content').html(data);
+
+            $('.aba').each(function () {
+                if ($(this).prop('checked')) {
+                    $(this).closest('tr').addClass('row-selected');
+                }
+            });
+
+            $('.aba').on('click', function () {
+                var tr = $(this).closest('tr');
+
+                if (tr.hasClass('row-selected')) {
+                    tr.removeClass();
+                }
+                else {
+                    tr.addClass('row-selected');
+                }
+            });
+
+            $('.checkuncheckall').on('click', function () {
+                _checked = !_checked;
+                $('.aba').prop('checked', _checked);
+                $('.checkuncheckall').prop('checked', _checked);
+
+                if (_checked) {
+                    $('tbody tr').not('.row-divider').addClass('row-selected');
+                } else {
+                    $('tbody tr').not('.row-divider').removeClass('row-selected');
+                }
+            });
+
+            floatThead('table#data');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     eventAdjustment();
     eventAddBalance();
     eventCloseBalance();
 
-    $('.aba').each(function () {
-        if ($(this).prop('checked')) {
-            $(this).closest('tr').addClass('row-selected');
-        }
+    $('#submit').on('click', function () {
+        query(false);
     });
 
-    $('.aba').on('click', function () {
-        var tr = $(this).closest('tr');
-
-        if (tr.hasClass('row-selected')) {
-            tr.removeClass();
-        }
-        else {
-            tr.addClass('row-selected');
-        }
-    });
-
-    $('.checkuncheckall').on('click', function () {
-        _checked = !_checked;
-        $('.aba').prop('checked', _checked);
-        $('.checkuncheckall').prop('checked', _checked);
-
-        if (_checked) {
-            $('tbody tr').not('.row-divider').addClass('row-selected');
-        } else {
-            $('tbody tr').not('.row-divider').removeClass('row-selected');
-        }
-    });
-
-    floatThead('table#data');
+    query(true);
 });

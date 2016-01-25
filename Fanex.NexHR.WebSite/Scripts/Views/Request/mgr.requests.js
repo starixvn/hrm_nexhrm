@@ -124,7 +124,6 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    initDatePicker();
     initEventForFromDateAndToDate();
 
     $('#submit').on('click', function () {

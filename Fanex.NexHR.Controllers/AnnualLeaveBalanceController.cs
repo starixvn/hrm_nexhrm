@@ -15,7 +15,6 @@ namespace Fanex.NexHR.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
@@ -51,9 +50,17 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.IsShowCloseBalance = AppSetting.IsShowCloseBalance;
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
 
-            return Index(null);
+            var model = new LeaveSummaryViewModel
+            {
+                Year = DateTime.Now.Year,
+                EmployeeId = -1,
+                TeamCollection = teams,
+                ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance()
+            };
+
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -103,11 +110,9 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            model.FilteringGroups = allTeam;
-            model.ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance();
-            model.LeaveSummaryByTeamList = leaveSummaryByTeamList;
+            ViewBag.Year = model.Year;
 
-            return View(model);
+            return PartialView("_Index", leaveSummaryByTeamList);
         }
 
         [ChildActionOnly]
@@ -143,17 +148,9 @@ namespace Fanex.NexHR.Controllers
             if (employee != null)
             {
                 ViewBag.Employee = employee;
-                var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
-                {
-                    EmployeeId = model.EmployeeId,
-                    Year = model.Year,
-                    ExcludedRequestTransactions = false
-                };
-
-                model.AnnualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
             }
 
-            return View(model);
+            return View("Employee", model);
         }
 
         [HttpPost]
@@ -169,9 +166,9 @@ namespace Fanex.NexHR.Controllers
                 ExcludedRequestTransactions = model.ExcludedRequestTrans
             };
 
-            model.AnnualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
+            IList<AnnualLeaveBalanceModel> annualLeaveTransactions = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
 
-            return View(model);
+            return PartialView("_Employee", annualLeaveTransactions);
         }
 
         public ActionResult Edit(int id = -1)
@@ -180,7 +177,8 @@ namespace Fanex.NexHR.Controllers
             {
                 Id = id
             };
-            var model = _employeeService.GetAnnualLeaveTransactionById(getAnnualLeaveByIdCriteria);
+
+            AnnualLeaveBalanceModel model = _employeeService.GetAnnualLeaveTransactionById(getAnnualLeaveByIdCriteria);
 
             if (model != null)
             {
@@ -205,7 +203,8 @@ namespace Fanex.NexHR.Controllers
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id
                 };
-                var result = _employeeService.DeleteAnnualLeaveTransaction(deleteAnnualTransactionCriteria);
+
+                bool result = _employeeService.DeleteAnnualLeaveTransaction(deleteAnnualTransactionCriteria);
 
                 if (result)
                 {
