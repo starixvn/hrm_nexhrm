@@ -916,7 +916,7 @@ input#fileName::-webkit-file-upload-button {
 .table.table-custom tbody tr.row-selected {
   background: #ffff8d; }
 .table.table-custom tbody tr.disabled {
-  background: #c8c8c8; }
+  background: rgba(0, 0, 0, 0.15); }
 .table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve {
   position: relative; }
   .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {

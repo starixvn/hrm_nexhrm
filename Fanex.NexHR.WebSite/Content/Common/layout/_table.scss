@@ -105,7 +105,7 @@
             }
 
             &.disabled {
-                background: #c8c8c8;
+                background: rgba(0, 0, 0, 0.15);
             }
 
             a.c-pending, a.c-approve {
