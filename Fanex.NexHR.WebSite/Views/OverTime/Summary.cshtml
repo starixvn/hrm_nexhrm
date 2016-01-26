@@ -39,7 +39,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-l--xl m-r--l">
+                                <div class="col m-r--l m-l--70">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate)
                                     </div>
@@ -74,7 +74,7 @@
                                     <div class="left label--m">
                                         <label>@Labels.Employee</label>
                                     </div>
-                                    <div class="left select-team">
+                                    <div class="left input--m">
                                         @Html.TextBox("Employee", "", new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.EmployeeId)
                                     </div>
