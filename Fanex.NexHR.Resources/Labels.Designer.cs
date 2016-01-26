@@ -2428,6 +2428,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OT.
+        /// </summary>
+        public static string OT {
+            get {
+                return ResourceManager.GetString("OT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other Leaves.
         /// </summary>
         public static string OtherLeaves {

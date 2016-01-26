@@ -39,7 +39,6 @@ namespace Fanex.NexHR.Services
                 OverTimeRecord = record
             };
 
-
             var result = _repository.Insert(createCriteria);
 
             return result;

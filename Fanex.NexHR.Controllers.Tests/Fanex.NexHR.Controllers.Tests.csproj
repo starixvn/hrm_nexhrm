@@ -120,15 +120,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SpNames.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OverTimeControllerTest.cs" />
-    <Compile Include="OverTimeRepositoryTest.cs" />
     <Compile Include="OverTimeServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -136,6 +131,10 @@
     <ProjectReference Include="..\Fanex.NexHR.Controllers\Fanex.NexHR.Controllers.csproj">
       <Project>{e962400a-4e25-4f66-9e5b-5e69b0e057f3}</Project>
       <Name>Fanex.NexHR.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">
+      <Project>{2493cfda-e539-4f5c-be9d-4ae823e42473}</Project>
+      <Name>Fanex.NexHR.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj">
       <Project>{7b4cd745-4fc6-489e-bba6-9d21555b8bd7}</Project>

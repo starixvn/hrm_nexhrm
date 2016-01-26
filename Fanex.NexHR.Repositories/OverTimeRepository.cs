@@ -16,7 +16,6 @@ namespace Fanex.NexHR.Repositories
     {
         public bool Insert(ICriteria createCriteria)
         {
-
             using (var db = new ObjectDb(createCriteria.GetSettingKey()))
             {
                 db.ExecuteScalar(createCriteria.GetSpParams());

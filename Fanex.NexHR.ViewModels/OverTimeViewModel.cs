@@ -16,6 +16,9 @@ namespace Fanex.NexHR.ViewModels
         [Required]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Approved", ResourceType = typeof(Labels))]
+        public bool IsApprove { get; set; }
+
         [Display(Name = "Hours", ResourceType = typeof(Labels))]
         public float Hour { get; set; }
         public int CreatedId { get; set; }
@@ -44,6 +47,7 @@ namespace Fanex.NexHR.ViewModels
             Date = DateTime.Now;
             Hour = 2;
             Status = (int)OTRequestStatus.Pending;
+            IsApprove = true;
         }
 
         public static OverTimeViewModel Parse(OverTime overtime)

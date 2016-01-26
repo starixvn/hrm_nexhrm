@@ -50,6 +50,17 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
+                                        @Html.LabelFor(model => model.IsApprove)
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.MaterializeCheckBoxFor(m => m.IsApprove, new { @class = "filled-in" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input m-t--s">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
                                         @Html.Label(Labels.Remark)
                                     </div>
                                     <div class="left input--l">
@@ -113,8 +124,8 @@
                             <div class="row form-input">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">                                    
-                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />                                    
-                                    <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
+                                    <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>                                    
                                 </div>
                             </div>
                         }

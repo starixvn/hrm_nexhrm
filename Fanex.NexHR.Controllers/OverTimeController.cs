@@ -34,7 +34,7 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedId = this.CurrentUser.Id;
-                model.Status = (int)OTRequestStatus.Pending;
+                model.Status = model.IsApprove ? (int)OTRequestStatus.Approved : (int)OTRequestStatus.Pending;
                 _service.Insert(model);
 
                 return RedirectToAction("Summary");
@@ -46,7 +46,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Summary()
         {
             var model = new OverTimeSummaryFilterViewModel();
-            
+
             return View("Summary", model);
         }
 

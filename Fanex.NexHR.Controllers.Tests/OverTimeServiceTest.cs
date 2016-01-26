@@ -1,5 +1,7 @@
-﻿using Fanex.NexHR.Repositories.Interfaces;
+﻿using Fanex.NexHR.Criteria.OverTime;
+using Fanex.NexHR.Repositories.Interfaces;
 using Fanex.NexHR.Services;
+using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.ViewModels;
 using NSubstitute;
 using NUnit.Framework;
@@ -13,32 +15,27 @@ namespace Fanex.NexHR.Controllers.Tests
     [TestFixture]
     public class OverTimeServiceTest
     {
-        [Test]
-        public void Create_CallRepository()
+        private OverTimeViewModel _model;
+        private IOverTimeRepository _repository;
+        private IOverTimeService _service;
+        [SetUp]
+        public void Setup()
         {
-            // Arrange            
-            var repository = Substitute.For<IOverTimeRepository>();
-            var service = new OverTimeService(repository);
-            var model = new OverTimeViewModel();
-
-            // Action
-            var result = service.Insert(model);
-
-            // Assert
-            repository.Received().Insert(model);
+            _model = new OverTimeViewModel();
+            _repository = Substitute.For<IOverTimeRepository>();
+            _service = new OverTimeService(_repository);
         }
 
+
         [Test]
-        public void Create_ReturnTrue_WhenRepositoryReturnTrue()
+        public void Insert_ReturnTrue_WhenRepositoryReturnTrue()
         {
-            // Arrange            
-            var repository = Substitute.For<IOverTimeRepository>();
-            var service = new OverTimeService(repository);
-            var model = new OverTimeViewModel();
+            // Arrange                        
+            var criteria = new InsertOverTimeCriteria();
 
             // Action
-            repository.Insert(model).Returns(true);
-            var result = service.Insert(model);
+            _repository.Insert(criteria).Returns(true);
+            var result = _service.Insert(_model);
 
             // Assert
             Assert.IsTrue(result);
