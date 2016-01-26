@@ -26,9 +26,9 @@
     <siteMapNode title="Company Space">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" />
       <siteMapNode title="Staff TOEIC Score" controller="toeic" action="toeicmanagement" icon="trophy-award" />
-      <siteMapNode title="Working Calendar" controller="employee" action="workingcalendars" icon="timetable" />
+      <siteMapNode title="Working Calendar" controller="employee" action="workingcalendars" icon="calendar" />
       <siteMapNode title="Employee Requests" controller="request" action="employeeview"  icon="account-box" />
-      <siteMapNode title="OT Requests" controller="overtime" action="summary"  icon="account-box" />
+      <siteMapNode title="OT Requests" controller="overtime" action="summary"  icon="timetable" />
       <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
       <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyoutsummary" icon="alarm" />
       <siteMapNode title="Leave Summary" controller="report" action="leavesummary" icon="clipboard-text" />

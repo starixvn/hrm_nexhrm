@@ -24,7 +24,7 @@
        url("../ContextMenu/font/icomoon.ttf") format("truetype");
 }*/
 
-.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before, .context-menu-icon-reject:before, .context-menu-icon-approve:before {
+.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before, .context-menu-icon-reject:before, .context-menu-icon-approve:before, .context-menu-icon-verify:before {
   position: absolute;
   top: 50%;
   left: 0;
@@ -45,6 +45,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.context-menu-icon-verify:before {
+    content: "\f225";
+}
+
+.context-menu-icon-verify.context-menu-hover:before {
+    color: #1D79AC;
+}
 .context-menu-icon-approve:before {
     content: "\f206";    
     font-weight: bold;
@@ -158,6 +165,10 @@
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
+}
+.context-menu-icon-verify.context-menu-hover {
+    color: #1D79AC;
+    cursor: pointer; 
 }
 
 .context-menu-icon-approve.context-menu-hover {
