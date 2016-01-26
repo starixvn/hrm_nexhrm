@@ -98,7 +98,7 @@ namespace Fanex.NexHR.Controllers
 
             var data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Timesheet
@@ -150,7 +150,7 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion HRRequestMonitoring
@@ -202,7 +202,7 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            return Json(new { data = requestMonitorings }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = requestMonitorings }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion LeaderRequestMonitoring
@@ -525,25 +525,29 @@ namespace Fanex.NexHR.Controllers
             {
                 EmpId = this.CurrentUser.Id,
                 FromDate = model.FromDate,
-                ToDate = model.ToDate
+                ToDate = model.ToDate,
+                PageIndex = model.CurrentPage - 1,
+                ItemsPerPage = model.ItemsPerPage
             };
 
-            var timeRecords = _reportService.GetTimeRecords(criteria);
-            var totalPage = timeRecords.Count() / model.ItemsPerPage;
+            IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
+            int totalPage = 0;
 
-            totalPage = decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            if (criteria.TotalItem != null)
+            {
+                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
+                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            }
 
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = model.CurrentPage,
                 ItemsPerPage = model.ItemsPerPage,
-                TotalItem = timeRecords.Count(),
+                TotalItem = (int)criteria.TotalItem,
                 TotalPage = totalPage
             };
 
-            timeRecords = timeRecords.Skip((model.CurrentPage - 1) * model.ItemsPerPage).Take(model.ItemsPerPage).ToList();
-
-            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
@@ -554,7 +558,7 @@ namespace Fanex.NexHR.Controllers
                 toDate = DateTime.Now.Date;
             }
 
-            var teams = _teamService.GetAll(new GetAllTeamCriteria());
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
 
             var model = new TimeRecordViewModel
             {
@@ -579,24 +583,29 @@ namespace Fanex.NexHR.Controllers
                 EmpId = model.EmployeeId == 0 ? employeeId : model.EmployeeId,
                 GroupIds = model.TeamIds,
                 FromDate = model.FromDate,
-                ToDate = model.ToDate
+                ToDate = model.ToDate,
+                PageIndex = model.CurrentPage - 1,
+                ItemsPerPage = model.ItemsPerPage
             };
-            var timeRecords = _reportService.GetTimeRecords(criteria);
-            var totalPage = timeRecords.Count() / model.ItemsPerPage;
 
-            totalPage = decimal.Divide(timeRecords.Count(), model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
+            int totalPage = 0;
+
+            if (criteria.TotalItem != null)
+            {
+                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
+                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            }
 
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = model.CurrentPage,
                 ItemsPerPage = model.ItemsPerPage,
-                TotalItem = timeRecords.Count(),
+                TotalItem = (int)criteria.TotalItem,
                 TotalPage = totalPage
             };
 
-            timeRecords = timeRecords.Skip((model.CurrentPage - 1) * model.ItemsPerPage).Take(model.ItemsPerPage).ToList();
-
-            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Time Record

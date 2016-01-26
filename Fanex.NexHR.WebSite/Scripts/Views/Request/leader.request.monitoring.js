@@ -72,7 +72,9 @@ $(document).ready(function () {
         fromDate = $("#FromDate").val();
         toDate = $("#ToDate").val();
 
-        query(false);
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 
     query(true);

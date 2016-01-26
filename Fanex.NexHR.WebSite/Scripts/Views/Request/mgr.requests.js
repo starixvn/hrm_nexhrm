@@ -129,7 +129,9 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val()).change();
 
     $('#submit').on('click', function () {
-        query(false);
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 
     query(true);

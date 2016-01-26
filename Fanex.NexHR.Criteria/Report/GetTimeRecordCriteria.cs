@@ -11,10 +11,8 @@ namespace Fanex.NexHR.Criteria.Report
 {
     using System;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
 
-    /// <summary>
-    /// Get Time Record Criteria.
-    /// </summary>
     public class GetTimeRecordCriteria : CriteriaBase
     {
         public int? EmpId { get; set; }
@@ -24,6 +22,13 @@ namespace Fanex.NexHR.Criteria.Report
         public DateTime ToDate { get; set; }
 
         public string GroupIds { get; set; }
+
+        public int? PageIndex { get; set; }
+
+        public int? ItemsPerPage { get; set; }
+
+        [Output]
+        public int? TotalItem { get; set; }
 
         public override string GetSettingKey()
         {

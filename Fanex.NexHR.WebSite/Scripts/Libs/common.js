@@ -177,6 +177,21 @@ function setDateTimeRange(selectedIndex) {
     $('#ToDate').val(toDate);
 }
 
+function validateFromDateAndToDate() {
+    var fromDate = Date.parse($("#FromDate").val()).toString('dd/MM/yyyy'),
+        toDate = Date.parse($("#ToDate").val()).toString('dd/MM/yyyy'),
+        isValid = true;
+
+    if (toDate < fromDate) {
+        $('#toast-container').children().remove();
+        Materialize.toast('From Date must be less than or equal To Date', 2000);
+
+        isValid = false;
+    }
+
+    return isValid;
+}
+
 $(document).ready(function(){
     var currentUrl = $('#controller').val() + '_' + $('#action').val(),
         selectNavItem = $('#' + currentUrl);

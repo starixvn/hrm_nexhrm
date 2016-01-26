@@ -10,12 +10,15 @@
 
 namespace Fanex.NexHR.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Reflection;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Models.Request;
@@ -52,8 +55,8 @@ namespace Fanex.NexHR.Repositories
 
                     foreach (EmployeeAttendanceModel attendance in attendances)
                     {
-                        attendance.Requests = requests.Where(t => (t.Requester.Id == attendance.EmpId 
-                            && (attendance.AttendanceDate.Value.Date - t.FromDate.Date).Days >= 0 
+                        attendance.Requests = requests.Where(t => (t.Requester.Id == attendance.EmpId
+                            && (attendance.AttendanceDate.Value.Date - t.FromDate.Date).Days >= 0
                             && (t.ToDate.Date - attendance.AttendanceDate.Value.Date).Days >= 0)).ToList();
                         attendance.IsMissingCheckin = (attendance.IsMissingCheckin == 0 || (attendance.Requests.Where(t => t.RequestType.Id == 1).Count() > 0)) ? 0 : 1;
                         attendance.IsMissingCheckOut = (attendance.IsMissingCheckOut == 0 || (attendance.Requests.Where(t => t.RequestType.Id == 2).Count() > 0)) ? 0 : 1;
@@ -180,8 +183,17 @@ namespace Fanex.NexHR.Repositories
                         e.Team = g;
                         return t;
                     },
-                       splitOn: "EmpId, GroupId",
-                       parameterValues: criteria.GetSpParams()).ToList();
+                    splitOn: "EmpId, GroupId",
+                    parameterValues: criteria.GetSpParams()).ToList();
+
+                PropertyInfo totalitem = criteria.GetType().GetProperties().Where(
+                    prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) && prop.Name.ToLower().Equals("totalitem")).FirstOrDefault();
+
+                if (totalitem != null)
+                {
+                    var hashParam = db.GetOuputParams();
+                    totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
+                }
             }
 
             return timeRecords;

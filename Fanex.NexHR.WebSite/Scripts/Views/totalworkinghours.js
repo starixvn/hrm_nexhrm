@@ -8,18 +8,6 @@ function index() {
     return rowIndex++;
 }
 
-function validateDate() {
-    var fromDate = new Date($("#FromDate").val()),
-        toDate = new Date($("#ToDate").val());
-
-    if (toDate < fromDate) {
-        alert("To Date must be equal or greater than From Date.");
-        return false;
-    }
-
-    return true;
-}
-
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'report/totalworkinghours',
@@ -74,8 +62,6 @@ function query(isFirstLoad) {
 }
 
 $(document).ready(function () {
-    initDatePicker();
-
     $("#Date").change(function () {
         setDateTimeRange($("#Date").val());
         dateOption = $('#Date').val();
@@ -87,7 +73,8 @@ $(document).ready(function () {
 
     $('#btnSubmit').click(function (evt) {
         evt.preventDefault();
-        if (validateDate()) {
+
+        if (validateFromDateAndToDate()) {
             dateOption = $('#DateOption').val();
             fromDate = $('#FromDate').val();
             toDate = $('#ToDate').val();

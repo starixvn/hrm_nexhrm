@@ -119,12 +119,12 @@ function initialize() {
 
     $('form.form-filter #Query').keyup(function (event) {
         if (event.keyCode === 13) {
-            query();
+            query(false);
         }
     });
 
     $('form.form-filter #submit').on('click', function () {
-        query();
+        query(false);
     });
 
     $('#btnNewTOEIC').click(function () {
@@ -282,32 +282,37 @@ function initEditToeicDialog() {
     });
 }
 
-function query() {
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'toeic/ToeicManagement',
         type: 'POST',
         dataType: 'json',
         data: $('form.form-filter').serialize(),
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (response) {
+            $('table#data tbody').children().remove();
+
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#data tbody').children().remove();
-                $('#template').tmpl(response.data).appendTo('#data');
-            } else {
-                $('#data tbody').children().remove();
-                $(noInformation(13)).appendTo('#data');
-            }
 
-            $('.loading-process').fadeOut(300);
+                $('#template').tmpl(response.data).appendTo('table#data');
+            } else {
+                $(noInformation(13)).appendTo('table#data');
+            }
 
             floatThead('table#data');
         },
         error: function () {
-            $('.loading-process').fadeOut(300);
             alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -315,5 +320,5 @@ function query() {
 $(document).ready(function () {
     initialize();
 
-    query();
+    query(true);
 });

@@ -41,10 +41,10 @@ function fillData(response) {
         visiblePages: 5,
         initiateStartPageClick: false,
         href: 'javascript:;',
-        first: '',
-        prev: '<i class="mdi-image-navigate-before"></i>',
-        next: '<i class="mdi-image-navigate-next"></i>',
-        last: '',
+        first: '<i class="mdi mdi-chevron-double-left"></i>',
+        prev: '<i class="mdi mdi-chevron-left"></i>',
+        next: '<i class="mdi mdi-chevron-right"></i>',
+        last: '<i class="mdi mdi-chevron-double-right"></i>',
         onPageClick: function (event, page) {
             $('#form #CurrentPage').val(page);
             query();
@@ -113,13 +113,19 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         $('#form #CurrentPage').val(1);
-        query(false);
+
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 
     $('#datatable_length #ItemsPerPage').on('change', function () {
         $('#form #CurrentPage').val(1);
         $('#form #ItemsPerPage').val($(this).val());
-        query(false);
+
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 
     query(true);

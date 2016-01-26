@@ -135,7 +135,7 @@ function query(isFirstLoad) {
         success: function (data) {
             $('table#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
 
                 $.template('template', $('#template'));
@@ -176,9 +176,10 @@ $(document).ready(function () {
 
     $('#Date').val($('#DateOption').val()).change();
 
-    $('#submit').on('click', function (evt) {
-        evt.preventDefault();
-        query(false);
+    $('#submit').on('click', function () {
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 
     query(true);

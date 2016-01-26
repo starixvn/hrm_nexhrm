@@ -43,7 +43,7 @@ namespace Fanex.NexHR.Controllers
             var lookupDataJobTitleCriteria = new GetLookupDataJobTitleCriteria() { JobTitle = jobTitle };
             var data = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.DenyGet);
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "HR")]

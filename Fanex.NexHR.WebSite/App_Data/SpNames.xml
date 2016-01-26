@@ -158,9 +158,10 @@
     </Function>
 
     <Function Name="TimeRecord">
-        <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
+        <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get_xtest" DbName="nexhr" Plain="0">
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="GroupCode" ObjectProperty="Code" />
+            <Mapping DataField="GroupName" ObjectProperty="Name" />
         </Setting>
         <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
     </Function>

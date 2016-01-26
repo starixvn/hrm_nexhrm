@@ -1001,12 +1001,12 @@ table .pagination {
       box-shadow: none; }
       table .pagination li.page.active {
         background: #78828b; }
-    table .pagination li.prev, table .pagination li.next {
+    table .pagination li.first, table .pagination li.prev, table .pagination li.next, table .pagination li.last {
       background: #78828b; }
-      table .pagination li.prev .mdi-image-navigate-next, table .pagination li.prev .mdi-image-navigate-before, table .pagination li.next .mdi-image-navigate-next, table .pagination li.next .mdi-image-navigate-before {
+      table .pagination li.first .mdi-chevron-double-left, table .pagination li.first .mdi-chevron-left, table .pagination li.first .mdi-chevron-right, table .pagination li.first .mdi-chevron-double-right, table .pagination li.prev .mdi-chevron-double-left, table .pagination li.prev .mdi-chevron-left, table .pagination li.prev .mdi-chevron-right, table .pagination li.prev .mdi-chevron-double-right, table .pagination li.next .mdi-chevron-double-left, table .pagination li.next .mdi-chevron-left, table .pagination li.next .mdi-chevron-right, table .pagination li.next .mdi-chevron-double-right, table .pagination li.last .mdi-chevron-double-left, table .pagination li.last .mdi-chevron-left, table .pagination li.last .mdi-chevron-right, table .pagination li.last .mdi-chevron-double-right {
         color: #fff;
         font-size: 18px; }
-      table .pagination li.prev.disabled, table .pagination li.next.disabled {
+      table .pagination li.first.disabled, table .pagination li.prev.disabled, table .pagination li.next.disabled, table .pagination li.last.disabled {
         background: rgba(120, 130, 139, 0.6); }
   table .pagination.right p {
     margin-bottom: 0;

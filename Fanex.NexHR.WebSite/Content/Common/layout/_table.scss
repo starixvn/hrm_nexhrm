@@ -232,7 +232,7 @@ table {
     i {
       color: $color-text-main;
     }
-  } 
+  }
 
   .pagination {
     margin: 7px 0.5rem 0 10px;
@@ -254,10 +254,10 @@ table {
           }
       }
       
-      &.prev, &.next {
+      &.first, &.prev, &.next, &.last {
         background: rgba(120, 130, 139, 1);
 
-        .mdi-image-navigate-next, .mdi-image-navigate-before {
+        .mdi-chevron-double-left, .mdi-chevron-left, .mdi-chevron-right, .mdi-chevron-double-right {
             color: #fff;
             font-size: 18px;
         }
