@@ -538,6 +538,7 @@ input#fileName::-webkit-file-upload-button {
   width: 51.8rem; }
 
 .select-team {
+  pointer-events: none;
   width: 20rem; }
 
 .select--l, .input--l {
