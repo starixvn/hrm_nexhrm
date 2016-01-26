@@ -62,11 +62,11 @@
                                     @Html.DropDownListFor(model => model.TeamIds, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
-                            <div class="col m-r--m">
+                            <div class="col m-r--l">
                                 <div class="left label--m">
                                     @Html.LabelFor(model => model.Employee)
                                 </div>
-                                <div class="left select--m">
+                                <div class="left select--s">
                                     @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                     @Html.HiddenFor(model => model.EmployeeId)
                                 </div>

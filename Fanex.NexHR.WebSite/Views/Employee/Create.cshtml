@@ -24,7 +24,7 @@
                                 <div class="left label--xl">
                                     @Html.LabelFor(model => model.FullName, Labels.FullName)
                                 </div>
-                                <div class="left input--l">
+                                <div class="col left input--l">
                                     @Html.EditorFor(model => model.FullName)
                                     @Html.ValidationMessageFor(model => model.FullName)
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="left label--xl">
                                     @Html.LabelFor(model => model.NickName, Labels.NickName)
                                 </div>
-                                <div class="left input--l">
+                                <div class="col left input--l">
                                     @Html.EditorFor(model => model.NickName)
                                     @Html.ValidationMessageFor(model => model.NickName)
                                 </div>
@@ -60,7 +60,7 @@
                                 <div class="left label--xl">
                                     @Html.LabelFor(model => model.Code, Labels.Code)
                                 </div>
-                                <div class="left input--l">
+                                <div class="col left input--l">
                                     @Html.EditorFor(model => model.Code)
                                     @Html.ValidationMessageFor(model => model.Code)
                                 </div>
@@ -71,7 +71,7 @@
                                 <div class="left label--xl">
                                     @Html.LabelFor(model => model.TeamId, Labels.Team)
                                 </div>
-                                <div class="left select--l">
+                                <div class="col left select--l">
                                     @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"))
                                 </div>
                             </div>
@@ -83,31 +83,31 @@
                                 </div>
                                 <div class="left">
                                     <div class="col">
-                                        <label>@Labels.Sun</label><br />
+                                        <label>@Labels.Sun</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.SunShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Mon</label><br />
+                                        <label>@Labels.Mon</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.MonShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Tue</label><br />
+                                        <label>@Labels.Tue</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.TueShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Wed</label><br />
+                                        <label>@Labels.Wed</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.WedShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Thu</label><br />
+                                        <label>@Labels.Thu</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.ThuShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Fri</label><br />
+                                        <label>@Labels.Fri</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.FriShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                     <div class="col">
-                                        <label>@Labels.Sat</label><br />
+                                        <label>@Labels.Sat</label>
                                         <div class="select--xs">@Html.DropDownListFor(model => model.SatShift, Model.ShiftCollection, Labels.Off)</div>
                                     </div>
                                 </div>

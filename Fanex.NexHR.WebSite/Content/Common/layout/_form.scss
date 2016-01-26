@@ -74,7 +74,7 @@
 }
 
 .input-spvn {
-    width: 35rem;
+    width: 33.4rem;
 }
 
 //------------------Filter specific -----------------//
@@ -178,7 +178,7 @@
 #ui-datepicker-div {
     z-index: 1002 !important;
 	padding: 0;
-	width: 30rem;
+	width: 300px;
 	border: none;
 	@extend %boxshadow;
 
@@ -264,18 +264,16 @@
 		}
 		tbody {
 			td {
-				width: 30px;
-				padding: .7em 0;
-				border-radius: 2px;
+				padding: 5px;
 				span, a {
-					padding: 0;
-					text-align: center;
+					padding: 7px 5px;
+					text-align: center;									
+					border-radius: 2px;
 				}
 
-				&.ui-datepicker-current-day {
-					background: $c-primary;
+				&.ui-datepicker-current-day {					
 					.ui-state-active {
-						background: none;
+						background: $c-primary;
 						border: none;
 						color: #fff;
 					}

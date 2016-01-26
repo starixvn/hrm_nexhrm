@@ -11,7 +11,7 @@
                     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                     <div class="form">
                         <div class="row form-input">
-                            <div class="col">
+                            <div class="col m-r--l">
                                 <div class="left label--m">
                                     <label>
                                         Date range</label></div>
@@ -20,27 +20,27 @@
                                     @Html.Hidden("DateOption", Model.DateOption)
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col m-r--l">
                                 <div class="left label--m">
                                     <label>
                                         From date</label></div>
-                                <div class="datepicker-button input-s left">
+                                <div class="datepicker-button input--s left">
                                     @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col m-l--xl m-r--l">
                                 <div class="left label--m">
                                     <label>
                                         To date</label></div>
-                                <div class="datepicker-button input-m left">
+                                <div class="datepicker-button input--s left">
                                     @Html.DatePickerFor(model => model.ToDate)
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="row form-input">
-                            <div class="col">
+                            <div class="col m-r--l">
                                 <div class="left label--m">
                                     @Html.LabelFor(model => model.AttendanceType, "Request")
                                 </div>
@@ -48,11 +48,11 @@
                                     @RazorHelper.RequestTypeFilter("AttendanceType", Model.AttendanceType)
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col m-r--l">
                                 <div class="left label--m">
                                     <label>
                                         Team</label></div>
-                                <div class="left select--s">
+                                <div class="left select-team">
                                     @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
@@ -65,12 +65,9 @@
                                     @Html.HiddenFor(model => model.EmpId)
                                 </div>
                             </div>
-                            <div class="col button">
-                                <button id="submit" class="button-hrm waves-effect waves-light btn blue darken-2" type="button">
-                                    Submit</button>                                
-                            </div>
-                            <div>
-                                <a class="button-hrm waves-effect waves-light btn orange darken-1">Leave Request</a>
+                            <div class="col">
+                                <a id="submit" class="btn-submit waves-effect waves-light m-r--b" type="button">Submit</a>
+                                <a class="btn-request waves-effect waves-light">Leave Request</a>
                             </div>
                         </div>
                     </div>
@@ -156,7 +153,7 @@
                 ${displayMinute(EarlyOut)}
             {{/if}}
         </td>
-        <td class="align-left">
+        <td>
             {{if Requests != null}}
                 {{each Requests}}
                     <a href='javascript:;' class="tooltip-request req"

@@ -226,6 +226,10 @@ main {
 	margin-right: $b-space--l;
 }
 
+.m-r--b {
+	margin-right: $b-space--m - 4px;
+}
+
 .m-r--xl {
 	margin-right: 50px;
 }
