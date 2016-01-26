@@ -738,6 +738,30 @@ input#fileName::-webkit-file-upload-button {
   #dialog .form {
     margin-bottom: 20rem; }
 
+#toast-container {
+  display: block;
+  position: fixed;
+  z-index: 10000; }
+  @media (min-width: 1280px) {
+    #toast-container {
+      top: 9rem;
+      right: 27%; } }
+  @media (min-width: 1900px) {
+    #toast-container {
+      right: 35%; } }
+  #toast-container .toast {
+    background-color: #fccccc;
+    font-size: 1.3rem;
+    color: #ff0909;
+    border: 1px solid #f5a7a7;
+    font-weight: 400;
+    margin-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 15px; }
+    #toast-container .toast i {
+      color: #f15555; }
+
 .navbar-fixed .top-nav {
   font-size: 2.4rem;
   padding: 1.2rem 0;
