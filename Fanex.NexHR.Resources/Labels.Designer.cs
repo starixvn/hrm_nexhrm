@@ -2671,15 +2671,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TOTAL WORKING HOURS.
-        /// </summary>
-        public static string ReportWorkingHours {
-            get {
-                return ResourceManager.GetString("ReportWorkingHours", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Request.
         /// </summary>
         public static string Request {
@@ -3211,7 +3202,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Working Hour(s).
+        ///   Looks up a localized string similar to Total Working Hours.
         /// </summary>
         public static string TotalWorkingHours {
             get {
