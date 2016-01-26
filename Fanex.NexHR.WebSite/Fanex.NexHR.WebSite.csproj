@@ -207,6 +207,7 @@
     <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
+    <None Include="Content\Views\my.profile.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
@@ -286,6 +287,9 @@
     </Content>
     <Content Include="Content\Views\jobtitle.css">
       <DependentUpon>jobtitle.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\my.profile.css">
+      <DependentUpon>my.profile.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\mycalendar.css">
       <DependentUpon>mycalendar.scss</DependentUpon>
@@ -681,7 +685,7 @@
     <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
     <Content Include="Views\Dashboard\MyTeamRequest.cshtml" />
-    <Content Include="Views\Request\_AllRequest.cshtml" />
+    <Content Include="Views\Request\AllRequest.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\_Index.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
@@ -831,7 +835,6 @@
     <Content Include="Views\Report\TimeRecord.cshtml" />
     <Content Include="Views\Report\Timesheet.cshtml" />
     <Content Include="Views\Report\TotalWorkingHours.cshtml" />
-    <Content Include="Views\Request\AllRequest.cshtml" />
     <Content Include="Views\Request\CriteriaPanel.cshtml" />
     <Content Include="Views\Request\History\ChangeShiftRequestHistory.cshtml" />
     <Content Include="Views\Request\History\CheckInOutRequestHistory.cshtml" />

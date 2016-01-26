@@ -107,9 +107,7 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    $('#Date').val($('#DateOption').val());
-    $('#Date').material_select();
-    setDateTimeRange($('#DateOption').val());
+    $('#Date').val($('#DateOption').val()).change();
 
     initEventForFromDateAndToDate();
 

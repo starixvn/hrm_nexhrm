@@ -1,16 +1,16 @@
-﻿@using Fanex.NexHR.Models
-@model Fanex.NexHR.Models.Employee
+﻿@model Employee
 @{
     ViewBag.Title = Labels.MyProfile;
 }
 @section css{
+    @Styles.Render("~/Content/myprofilecss")
 }
 @section js{
 }
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -28,86 +28,85 @@
                                 <div class="pinfo">
                                     <div class="name">@Model.FullName</div>
                                     <p class="accinfo">
-                                        <span class="label--l">Staff Code:</span> <span>@Model.Code</span>
+                                        <span class="label--l">@Labels.StaffCode:</span> <span>@Model.Code</span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">CPU:</span> <span>@Model.DomainUsername</span>
+                                        <span class="label--l">@Labels.CPU:</span> <span>@Model.DomainUsername</span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                        <span class="label--l">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Phone:</span> <span>@Model.Phone</span>
+                                        <span class="label--l">@Labels.Phone:</span> <span>@Model.Phone</span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
+                                        <span class="label--l">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Yahoo:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
+                                        <span class="label--l">@Labels.Yahoo:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Address:</span> <span>@Model.Address</span>
+                                        <span class="label--l">@Labels.Address:</span> <span>@Model.Address</span>
                                     </p>
                                     <p class="accinfo">
-                                        <span class="label--l">Current Address:</span> <span>@Model.CurrentAddress</span>
+                                        <span class="label--l">@Labels.CurrentAddress:</span> <span>@Model.CurrentAddress</span>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="personalinformation p-x--s m-t--m">
-                        <div class="boxtitle">
-                            Personal information</div>
+                        <div class="boxtitle">@Labels.PersonalInformation</div>
                         <div class="pinfo">
                             <p class="accinfo">
-                                <span class="label--l">Full Name:</span> <span class="txt-bold">@Model.FullName</span>
+                                <span class="label--l">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Nick Name:</span> <span class="txt-bold">@Model.NickName</span>
+                                <span class="label--l">@Labels.NickName:</span> <span class="txt-bold">@Model.NickName</span>
                             </p>
                             <p class="accinfo">
                                 <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
+                                <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
+                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Id No:</span> <span class="txt-bold">@Model.CardNo</span>
+                                <span class="label--l">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
                             </p>
                             @if (Model.PassportNo != null)
                             {
                                 <p class="accinfo">
-                                    <span class="label--l">Passport No:</span> <span class="txt-bold">@Model.PassportNo</span>
-                                </p>                                
+                                    <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
+                                </p>
                             }
                             @if (Model.PassportExp != null)
                             {
                                 var date = (DateTime)Model.PassportExp;
                                 <p class="accinfo">
-                                    <span class="label--l">Passport Exp:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
-                                </p>                                
+                                    <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
+                                </p>
                             }
                         </div>
                     </div>
                     <div class="Jobinformation p-x--s m-t--m">
                         <div class="boxtitle">
-                            JOB INFORMATION
+                            @Labels.JobInformation
                         </div>
                         <div class="pinfo">
                             <p class="accinfo">
-                                <span class="label--l">Job Title:</span> <span class="txt-bold">@ViewBag.JobTitle</span>
+                                <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">@ViewBag.JobTitle</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Team:</span> <span class="txt-bold">@Model.Team.Name</span>
+                                <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Roles:</span> <span class="txt-bold">@Model.DisplayRoles()</span>
+                                <span class="label--l">@Labels.Roles:</span> <span class="txt-bold">@Model.DisplayRoles()</span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Joined Date:</span> <span class="txt-bold">
+                                <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
                                     @if (Model.JoinedDate != null)
                                     {
                                         var date = (DateTime)Model.JoinedDate;
@@ -116,7 +115,7 @@
                                 </span>
                             </p>
                             <p class="accinfo">
-                                <span class="label--l">Confirmed Date:</span> <span class="txt-bold">
+                                <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
                                     @if (Model.ConfirmedDate != null)
                                     {
                                         var date = (DateTime)Model.ConfirmedDate;
@@ -128,90 +127,92 @@
                             {
                                 var date = (DateTime)Model.ResignedDate;
                                 <p class="accinfo">
-                                    <span class="label--l">Last Working Date:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
-                                </p>                                
+                                    <span class="label--l">@Labels.LastWorkingDate:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
+                                </p>
                             }
                         </div>
                     </div>
                     <div class="scoreCertificates p-x--s m-t--m">
                         <div class="boxtitle">
-                            Score Certificates
+                            @Labels.ScoreCertificates
                         </div>
                         <div class="pinfo">
                             <p class="accinfo">
-                                <span class="label--xl">Technical Skill:</span> <span class="txt-bold">Photoshop, Illustrator,
-                                    Indesign, Dreamweaver...</span>
+                                <span class="label--xl">@Labels.TechnicalSkill:</span>
+                                <span class="txt-bold">
+                                    @Labels.Photoshop, @Labels.Illustrator, @Labels.Indesign, @Labels.Dreamweaver...
+                                </span>
                             </p>
                         </div>
                     </div>
                     <div class="attendacereport m-t--m p-x--s">
                         <div class="boxtitle">
-                            Schedule working
+                            @Labels.ScheduleWorking
                         </div>
                         <div class="pinfo">
                             <p class="accinfo">
-                                <span>Annual Leave Balance:</span> <span class="txt-bold m-l--m">@ViewBag.Working.AnnualLeaveBalance
+                                <span>@Labels.AnnualLeaveBalance:</span> <span class="txt-bold m-l--m">@ViewBag.Working.AnnualLeaveBalance
                                     day(s)</span>
                             </p>
                             <table class="table bordered striped highlight centered table-custom" style="width: 500px;">
                                 <thead>
                                     <tr>
                                         <th>
-                                            Sun
+                                            @Labels.Sun
                                         </th>
                                         <th>
-                                            Mon
+                                            @Labels.Mon
                                         </th>
                                         <th>
-                                            Tue
+                                            @Labels.Tue
                                         </th>
                                         <th>
-                                            Wed
+                                            @Labels.Wed
                                         </th>
                                         <th>
-                                            Thu
+                                            @Labels.Thu
                                         </th>
                                         <th>
-                                            Fri
+                                            @Labels.Fri
                                         </th>
                                         <th>
-                                            Sat
+                                            @Labels.Sat
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="scheduleoff">
-                                             @ViewBag.Sun
+                                             @Model.WorkingCalendar.SunShiftName
                                         </td>
                                         <td>
-                                             @ViewBag.Mon
+                                             @Model.WorkingCalendar.MonShiftName
                                         </td>
                                         <td>
-                                             @ViewBag.Tue
+                                             @Model.WorkingCalendar.TueShiftName
                                         </td>
                                         <td>
-                                             @ViewBag.Wed
+                                             @Model.WorkingCalendar.WedShiftName
                                         </td>
                                         <td>
-                                             @ViewBag.Thu
+                                             @Model.WorkingCalendar.ThuShiftName
                                         </td>
                                         <td>
-                                             @ViewBag.Fri
+                                             @Model.WorkingCalendar.FriShiftName
                                         </td>
                                         <td class="scheduleoff">
-                                             @ViewBag.Sat
+                                             @Model.WorkingCalendar.SatShiftName
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>                            
+                            </table>
                         </div>
                     </div>
                     @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
                     
                     <div class="toeicscore m-t--m p-x--s">
-                        <div class="boxtitle">
-                            TOEIC SCORE
+                        <div class="boxtitle txt-uppercase">
+                            @Labels.ToeicScore
                         </div>
                         <div class="boxcontent">
                             <table class="table bordered striped highlight centered table-custom" style="width: 650px;">

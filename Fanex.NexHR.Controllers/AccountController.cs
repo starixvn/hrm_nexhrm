@@ -9,18 +9,12 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Account controller.
-    /// </summary>
     [Authorize]
     public class AccountController : BaseController
     {
@@ -43,10 +37,6 @@ namespace Fanex.NexHR.Controllers
             _toeicService = toeicService ?? new ToeicService();
         }
 
-        /// <summary>
-        /// Index page.
-        /// </summary>
-        /// <returns>Action result.</returns>
         public ActionResult Index()
         {
             var model = this.CurrentUser;
@@ -54,24 +44,16 @@ namespace Fanex.NexHR.Controllers
             var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empId };
 
             ViewBag.JobTitle = model.JobTitleId == null
-            ? Resources.Labels.Unknown
-            : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
+                ? Resources.Labels.Unknown : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
 
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
                 EmpId = empId
             };
             ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
-            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = empId };
-            var workingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
-            ViewBag.Sun = workingCalendar.SunShiftName;
-            ViewBag.Mon = workingCalendar.MonShiftName;
-            ViewBag.Tue = workingCalendar.TueShiftName;
-            ViewBag.Wed = workingCalendar.WedShiftName;
-            ViewBag.Thu = workingCalendar.ThuShiftName;
-            ViewBag.Fri = workingCalendar.FriShiftName;
-            ViewBag.Sat = workingCalendar.SatShiftName;
+            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = empId };
+            model.WorkingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
             ViewBag.TOEIC = _toeicService.GetById(criteria);
             return View(model);

@@ -8,10 +8,6 @@
         {
             BuildBundleForCommon(bundles);
 
-            bundles.AddAndInclude(
-                "~/Content/myrequestcss",
-                "~/Content/Views/myrequest.css");
-
             BuildBundleForDashboard(bundles);
 
             BuildBundleForLeaveRequest(bundles);
@@ -71,6 +67,8 @@
             BuildBundleForLeaveDeductionDetail(bundles);
 
             BuildBundleForLateInEarlyOutDetail(bundles);
+
+            BuildBundleForMyProfile(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -121,6 +119,10 @@
 
             bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
                 "~/Scripts/Libs/monPickr-0.0.3.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/myrequestcss",
+                "~/Content/Views/myrequest.css");
         }
 
         private static void BuildBundleForTotalWorkingHours(BundleCollection bundles)
@@ -374,6 +376,13 @@
                 "~/bundles/leavedeductiondetailjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.leave.deduction.detail.js");
+        }
+
+        private static void BuildBundleForMyProfile(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/Content/myprofilecss",
+                "~/Content/Views/my.profile.css");
         }
     }
 }

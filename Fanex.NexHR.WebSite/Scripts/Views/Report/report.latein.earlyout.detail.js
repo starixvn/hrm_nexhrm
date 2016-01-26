@@ -46,9 +46,13 @@ $(document).ready(function () {
         $('#DateOption').attr('value', $(this).val());
     });
 
-    $('#Date').val($('#DateOption').val());
-    $('#Date').material_select();
-    setDateTimeRange($('#DateOption').val());
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+
+    $('#Date').val($('#DateOption').val()).change();
 
     query(true);
 

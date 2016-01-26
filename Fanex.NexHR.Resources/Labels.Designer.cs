@@ -664,6 +664,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPU.
+        /// </summary>
+        public static string CPU {
+            get {
+                return ResourceManager.GetString("CPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
@@ -948,6 +957,15 @@ namespace Fanex.NexHR.Resources {
         public static string DomainUsername {
             get {
                 return ResourceManager.GetString("DomainUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dreamweaver.
+        /// </summary>
+        public static string Dreamweaver {
+            get {
+                return ResourceManager.GetString("Dreamweaver", resourceCulture);
             }
         }
         
@@ -1429,11 +1447,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illustrator.
+        /// </summary>
+        public static string Illustrator {
+            get {
+                return ResourceManager.GetString("Illustrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In.
         /// </summary>
         public static string In {
             get {
                 return ResourceManager.GetString("In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indesign.
+        /// </summary>
+        public static string Indesign {
+            get {
+                return ResourceManager.GetString("Indesign", resourceCulture);
             }
         }
         
@@ -2545,6 +2581,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Photoshop.
+        /// </summary>
+        public static string Photoshop {
+            get {
+                return ResourceManager.GetString("Photoshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processed By.
         /// </summary>
         public static string ProcessedBy {
@@ -2788,6 +2833,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedule Working.
+        /// </summary>
+        public static string ScheduleWorking {
+            get {
+                return ResourceManager.GetString("ScheduleWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Certificates.
+        /// </summary>
+        public static string ScoreCertificates {
+            get {
+                return ResourceManager.GetString("ScoreCertificates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -3009,6 +3072,15 @@ namespace Fanex.NexHR.Resources {
         public static string TeamManagement {
             get {
                 return ResourceManager.GetString("TeamManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical Skill.
+        /// </summary>
+        public static string TechnicalSkill {
+            get {
+                return ResourceManager.GetString("TechnicalSkill", resourceCulture);
             }
         }
         

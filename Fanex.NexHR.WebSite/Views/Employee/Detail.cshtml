@@ -8,6 +8,7 @@ else
     ViewBag.Title = string.Empty;
 }
 @section css {
+    @Styles.Render("~/Content/myprofilecss")
 }
 @section js {
 }
@@ -18,11 +19,11 @@ else
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">Staff Info</span>
+                    <span class="card-title txt-uppercase left">@Labels.StaffInfo</span>
                 </div>
                 <div class="card-body">
                     @if (Model != null)
-                    {                    
+                    {
                         <div class="avatarbox m-t--m">
                             <div class="row">
                                 <div class="col">
@@ -34,7 +35,7 @@ else
                                     <div class="name">@Model.FullName</div>
                                     <div class="pinfo">
                                         <p class="accinfo">
-                                            <span class="label--l">Staff Code:</span> <span>@Model.Code</span>
+                                            <span class="label--l">@Labels.StaffCode:</span> <span>@Model.Code</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--l">CPU:</span> <span>@Model.DomainUsername</span>
@@ -58,7 +59,7 @@ else
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--l">@Labels.CurrentAddress:</span> <span>@Model.CurrentAddress</span>
-                                            </p>                                                
+                                            </p>
                                         }
                                     </div>
                                 </div>
@@ -98,19 +99,19 @@ else
                                     </p>
                                     <p class="accinfo">
                                         <span class="label--l">@Labels.IssuedPlace:</span> <span class="txt-bold">@Model.IssuedPlace</span>
-                                    </p>                                    
-                                            if (Model.PassportNo != null)
-                                            {
+                                    </p>
+                                    if (Model.PassportNo != null)
+                                    {
                                     <p class="accinfo">
                                         <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
-                                    </p>                                        
-                                            }
-                                            if (Model.PassportExp != null)
-                                            {
+                                    </p>
+                                    }
+                                    if (Model.PassportExp != null)
+                                    {
                                     <p class="accinfo">
                                         <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@Model.PassportExp.ToDateMonthYearFormatedDate()</span>
-                                    </p>                                        
-                                            }
+                                    </p>
+                                    }
                                 }
                             </div>
                         </div>
@@ -148,7 +149,7 @@ else
                                 {
                                     <p class="accinfo">
                                         <span class="label--l">@Labels.LastWorkingDate:</span> <span class="txt-bold">@Model.ResignedDate.ToDateMonthYearFormatedDate()</span>
-                                    </p>                                    
+                                    </p>
                                 }
                             </div>
                         </div>
@@ -214,7 +215,7 @@ else
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>                                    
+                                    </table>
                                 </div>
                             </div>
                             @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
@@ -223,7 +224,7 @@ else
                                     @Labels.ToeicScore
                                 </div>
                                 <div class="boxcontent">
-                                    <table class="table bordered striped highlight centered responsive-table table-custom" style="width: 650px;">
+                                    <table class="table bordered striped highlight centered table-custom" style="width: 650px;">
                                         <thead>
                                             <tr>
                                                 <th>@Labels.Listening

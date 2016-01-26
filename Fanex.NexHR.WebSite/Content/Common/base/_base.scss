@@ -41,7 +41,7 @@ main {
 @media (min-width:1900px) {
   .row .col.s1 {
     width: 10%; 
-  }	
+  }
   .row .col.s2 {
     width: 15%; 
   }
@@ -170,7 +170,7 @@ main {
 //	t - top			r - right		b - bottom		l - left		x - left and right		y - top and bottom
 //	s - small (8px)					m - medium (16px)				l - large (24px)	
 
-.p-t--m {				
+.p-t--m {
 	padding-top: $b-space--m;
 }
 
@@ -190,11 +190,11 @@ main {
 	padding: 0 !important;
 }
 
-.m-t--s {				
+.m-t--s {
 	margin-top: $b-space--s;
 }
 
-.m-t--m {				
+.m-t--m {
 	margin-top: $b-space--m;
 }
 
@@ -262,7 +262,7 @@ main {
     font-size: 1.2rem;
   }
 
-  .card-content {	
+  .card-content {
 	padding-bottom: 16px;
 
 	&.white-text {
@@ -324,7 +324,7 @@ main {
 
 //-------------------Col Request----------------------//
 
-.tipsy {	
+.tipsy {
     &.tipsy-request {
 		opacity: 1 !important;
         .tipsy-inner {
@@ -332,7 +332,7 @@ main {
             font-size: 1.3rem;
             text-align: left;
             line-height: 2.2rem;
-            @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));			
+            @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
         }
 
         .tipsy-arrow {
@@ -343,7 +343,7 @@ main {
     &.tipsy-request {
         .tipsy-inner {
             background: #fff;
-            color: #000;            
+            color: #000;
         }
 
         table.table-tooltip {
@@ -359,7 +359,7 @@ main {
 
                     span.req {
                         color: #fff;
-                        padding: .3rem .5rem;                        
+                        padding: .3rem .5rem;
 
                         &.leave {
                             background: #da871c;
@@ -386,43 +386,3 @@ main {
         }
     }
 }
-
-
-//-----------------------------My Profile Style------------------------------//
-%title {
-	font-size: 1.4rem;
-	color: $c-primary;
-	font-weight: 500;
-	margin-bottom: 1rem;
-}
-.boxtitle {
-	@extend %title;
-	text-transform: uppercase;
-}
-
-.pinfo {
-	.accinfo {
-		line-height: 2 !important;
-		color: #303e4b !important;
-		> span {
-			float: left;
-		}
-	}
-	.scheduleoff {
-		background: #bdbdbd;
-	}
-}
-
-.avatarbox {
-	.name {
-		@extend %title;
-	}
-	.avatar {
-		width: 17rem;
-		border: 1px solid $c-border-table;
-		img {
-			width: 100%;
-		}
-	}
-}
-

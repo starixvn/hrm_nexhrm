@@ -1,0 +1,38 @@
+@import "../Common/utils/variables";
+
+%title {
+    font-size: 1.4rem;
+    color: $c-primary;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.boxtitle {
+    @extend %title;
+    text-transform: uppercase;
+}
+
+.pinfo {
+    .accinfo {
+        line-height: 2 !important;
+        color: #303e4b !important;
+        > span {
+            float: left;
+        }
+    }
+    .scheduleoff {
+        background: #bdbdbd;
+    }
+}
+
+.avatarbox {
+    .name {
+        @extend %title;
+    }
+    .avatar {
+        width: 17rem;
+        border: 1px solid $c-border-table;
+        img {
+            width: 100%;
+        }
+    }
+}

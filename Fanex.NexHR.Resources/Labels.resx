@@ -1215,4 +1215,28 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="Dreamweaver" xml:space="preserve">
+    <value>Dreamweaver</value>
+  </data>
+  <data name="Illustrator" xml:space="preserve">
+    <value>Illustrator</value>
+  </data>
+  <data name="Indesign" xml:space="preserve">
+    <value>Indesign</value>
+  </data>
+  <data name="Photoshop" xml:space="preserve">
+    <value>Photoshop</value>
+  </data>
+  <data name="ScheduleWorking" xml:space="preserve">
+    <value>Schedule Working</value>
+  </data>
+  <data name="ScoreCertificates" xml:space="preserve">
+    <value>Score Certificates</value>
+  </data>
+  <data name="TechnicalSkill" xml:space="preserve">
+    <value>Technical Skill</value>
+  </data>
 </root>

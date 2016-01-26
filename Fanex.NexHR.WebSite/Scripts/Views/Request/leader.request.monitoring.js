@@ -55,25 +55,18 @@ function query(isFirstLoad) {
     });
 }
 
-function initEventForFromDateAndToDate() {
+$(document).ready(function () {
+    $('#Date').on('change', function () {
+        setDateTimeRange($(this).val());
+        $('#DateOption').attr('value', $(this).val());
+    });
+    $('#Date').val($('#DateOption').val()).change();
+
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
         $('#Date').material_select();
         $('#DateOption').attr('value', '0');
     });
-}
-
-$(document).ready(function () {
-    $('#Date').val($('#DateOption').val());
-    $('#Date').material_select();
-    setDateTimeRange($('#DateOption').val());
-
-    $('#Date').on('change', function () {
-        setDateTimeRange($(this).val());
-        $('#DateOption').attr('value', $(this).val());
-    });
-
-    initEventForFromDateAndToDate();
 
     $('#submit').click(function () {
         fromDate = $("#FromDate").val();

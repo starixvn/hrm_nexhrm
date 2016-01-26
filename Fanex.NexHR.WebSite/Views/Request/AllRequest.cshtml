@@ -2,7 +2,7 @@
 <div class="p-x--s">
     <table id="data" class="table bordered striped highlight centered table-custom">
         <thead>
-            <tr class="persist-header">
+            <tr>
                 <th>@Labels.SymbolCount</th>
                 <th>@Labels.Team</th>
                 <th>@Labels.Employee</th>
@@ -14,7 +14,7 @@
                 <th>@Labels.History</th>
             </tr>
         </thead>
-        @if (ViewBag.EntityList.Count > 0)
+        @if (Model.Any())
         {
             <tbody>
                 @{
@@ -28,18 +28,6 @@
                     {
                         annualBalance = "Annual Balance " + request.FromDate.Year + ": " + request.Requester.AnnualLeaveBalance + " && ";
                     }
-                    var requestModel = new RequestViewModel
-                    {
-                        DateOption = options.DateOption,
-                        FromDate = options.FromDate,
-                        ToDate = options.ToDate,
-                        EmployeeId = request.Requester.Id,
-                        Employee = request.Requester.NickName + " (" + request.Requester.FullName + ")",
-                        TeamId = options.TeamId == null ? -2 : options.TeamId,
-                        StatusId = options.StatusId,
-                        RequestType = request.RequestType.RequestFilter,
-                        IsFilterByEffectedDate = options.IsFilterByEffectedDate
-                    };
                     <tr id="row@(request.Id)">
                         <td>@(index++)</td>
                         <td  class="tooltip" title="@request.Requester.Team.Name">
@@ -48,10 +36,10 @@
                         <td class="tooltip" title="@request.Requester.FullName">
                             @request.Requester.NickName.ToString()
                         </td>
-                        <td>
+                        <td class="col-request">
                             @if ((bool)ViewBag.Leader)
                             {
-                                <a href="@Url.Action("member", "request", requestModel)">
+                                <a href="javascript:;" data-controller="request" data-action="member">
                                     @if (request.RequestType.Id == (int)RequestType.Leave)
                                     {
                                         @request.LeaveType.Name
@@ -61,12 +49,23 @@
                                         @request.RequestType.Name
                                     }
                                 </a>
+                                <form class="request-model hide" action="">
+                                    <input type="text" name="DateOption" value="0" />
+                                    <input type="text" name="FromDate" value="@options.FromDate.ToDateMonthYearFormatedDate()" />
+                                    <input type="text" name="ToDate" value="@options.ToDate.ToDateMonthYearFormatedDate()" />
+                                    <input type="text" name="EmployeeId" value="@request.Requester.Id" />
+                                    <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
+                                    <input type="text" name="TeamId" value="@(options.TeamId == null ? -2 : options.TeamId)" />
+                                    <input type="text" name="StatusId" value="@options.StatusId" />
+                                    <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
+                                    @Html.Hidden("IsFilterByEffectedDate", options.IsFilterByEffectedDate)
+                                </form>
                             }
                             else
                             {
                                 if ((bool)ViewBag.IsAllowChangeStatus)
                                 {
-                                    <a href="@Url.Action("hrview", "request", requestModel)">
+                                    <a href="javascript:;" data-controller="request" data-action="hrview">
                                         @if (request.RequestType.Id == (int)RequestType.Leave)
                                         {
                                             @request.LeaveType.Name
@@ -76,10 +75,21 @@
                                             @request.RequestType.Name
                                         }
                                     </a>
+                                    <form class="request-model hide" action="">
+                                        <input type="text" name="DateOption" value="0" />
+                                        <input type="text" name="FromDate" value="@options.FromDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="ToDate" value="@options.ToDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="EmployeeId" value="@request.Requester.Id" />
+                                        <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
+                                        <input type="text" name="TeamId" value="@(options.TeamId == null ? -2 : options.TeamId)" />
+                                        <input type="text" name="StatusId" value="@options.StatusId" />
+                                        <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
+                                        @Html.Hidden("IsFilterByEffectedDate", options.IsFilterByEffectedDate)
+                                    </form>
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("employeeview", "request", requestModel)">
+                                    <a href="javascript:;" data-controller="request" data-action="employeeview">
                                         @if (request.RequestType.Id == (int)RequestType.Leave)
                                         {
                                             @request.LeaveType.Name
@@ -89,6 +99,17 @@
                                             @request.RequestType.Name
                                         }
                                     </a>
+                                    <form class="request-model hide" action="">
+                                        <input type="text" name="DateOption" value="0" />
+                                        <input type="text" name="FromDate" value="@options.FromDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="ToDate" value="@options.ToDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="EmployeeId" value="@request.Requester.Id" />
+                                        <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
+                                        <input type="text" name="TeamId" value="@(options.TeamId == null ? -2 : options.TeamId)" />
+                                        <input type="text" name="StatusId" value="@options.StatusId" />
+                                        <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
+                                        @Html.Hidden("IsFilterByEffectedDate", options.IsFilterByEffectedDate)
+                                    </form>
                                 }
                             }
                         </td>
@@ -140,7 +161,7 @@
                                             @request.Status.ToString()
                                         </a>
                                     </td>
-                                    break;
+                                       break;
                                 case 3: //Reject
                                     <td>
                                         <a requestid="@request.Id" href="javascript:;" class="tooltip" 
@@ -148,7 +169,7 @@
                                             @request.Status.ToString()
                                         </a>
                                     </td>
-                                    break;
+                                       break;
                             }
                         }
                         else
@@ -177,13 +198,13 @@
                                         <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
-                                    break;
+                                                                                                                                                  break;
                                 case 3: //Reject
                                     <td>
                                         <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
-                                    break;
+                                                                                                                                                  break;
                             }
                         }
                         <td>

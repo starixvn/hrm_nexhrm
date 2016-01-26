@@ -163,6 +163,19 @@ $(document).ready(function () {
     initSearchAutoComplete();
     initExportExcel();
 
+    $('#Date').on('change', function () {
+        setDateTimeRange($(this).val());
+        $('#DateOption').attr('value', $(this).val());
+    });
+
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+
+    $('#Date').val($('#DateOption').val()).change();
+
     $('#submit').on('click', function (evt) {
         evt.preventDefault();
         query(false);

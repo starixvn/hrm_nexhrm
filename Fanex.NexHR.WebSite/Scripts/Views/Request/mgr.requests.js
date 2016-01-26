@@ -56,14 +56,6 @@ function bindMenuApproved(element) {
     });
 }
 
-function initEventForFromDateAndToDate() {
-    $('#FromDate, #ToDate').on('change', function () {
-        $('#Date').val('0');
-        $('#Date').material_select();
-        $('#DateOption').attr('value', '0');
-    });
-}
-
 function query(isFirstLoad) {
     var action = $('.card-container-base form').find('#ActionName').val();
 
@@ -100,6 +92,14 @@ function query(isFirstLoad) {
                     });
                 });
 
+                $('table#data tbody tr td.col-request a').click(function () {
+                    var model = $(this).closest('td').find('.request-model').serialize(),
+                        controller = $(this).attr('data-controller'),
+                        action = $(this).attr('data-action');
+
+                    document.location = _global.root + controller + '/' + action + '?' + model;
+                });
+
                 floatThead('table#data');
             }
         },
@@ -115,16 +115,18 @@ function query(isFirstLoad) {
 }
 
 $(document).ready(function () {
-    $('#Date').val($('#DateOption').val());
-    $('#Date').material_select();
-    setDateTimeRange($('#DateOption').val());
-
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());
         $('#DateOption').attr('value', $(this).val());
     });
 
-    initEventForFromDateAndToDate();
+    $('#FromDate, #ToDate').on('change', function () {
+        $('#Date').val('0');
+        $('#Date').material_select();
+        $('#DateOption').attr('value', '0');
+    });
+
+    $('#Date').val($('#DateOption').val()).change();
 
     $('#submit').on('click', function () {
         query(false);

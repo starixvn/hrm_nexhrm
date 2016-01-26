@@ -179,9 +179,7 @@ $(document).ready(function () {
         $('#DateOption').attr('value', '0');
     });
 
-    $('#Date').val($('#DateOption').val());
-    $('#Date').material_select();
-    setDateTimeRange($('#DateOption').val());
+    $('#Date').val($('#DateOption').val()).change();
 
     $('.card-container-base #submit').on('click', function () {
         $('.card-container-base #form #CurrentPage').val(1);

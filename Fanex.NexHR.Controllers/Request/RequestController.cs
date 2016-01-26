@@ -123,7 +123,7 @@ namespace Fanex.NexHR.Controllers.Request
             ViewBag.Leader = true;
             ViewBag.Options = request;
 
-            return PartialView("_AllRequest", entityList);
+            return PartialView("AllRequest", entityList);
         }
 
         #endregion Get Request By Assistant Leader
@@ -189,7 +189,7 @@ namespace Fanex.NexHR.Controllers.Request
 
             IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
 
-            return PartialView("_AllRequest", entityList);
+            return PartialView("AllRequest", entityList);
         }
 
         #endregion Get Request By Employee
@@ -252,12 +252,12 @@ namespace Fanex.NexHR.Controllers.Request
 
             ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
-            ViewBag.Leader = true;
+            ViewBag.Leader = false;
             ViewBag.Options = request;
 
             IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
 
-            return PartialView("_AllRequest", entityList);
+            return PartialView("AllRequest", entityList);
         }
 
         #endregion Get Request By HR

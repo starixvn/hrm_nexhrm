@@ -135,9 +135,12 @@ function initDatePicker() {
 }
 
 function setDateTimeRange(selectedIndex) {
-    var fromDate = new Date($('#FromDate').val()).toString('dd MMM, yyyy'),
-        toDate = new Date($('#ToDate').val()).toString('dd MMM, yyyy'),
+    var fromDate = new Date($('#FromDate').val()),
+        toDate = new Date($('#ToDate').val()),
         now = $('#DateTime-Now').val();
+
+    fromDate = $.format.date(fromDate, 'dd MMM, yyyy');
+    toDate = $.format.date(toDate, 'dd MMM, yyyy');
 
     switch (parseInt(selectedIndex)) {
         case 0: //default
