@@ -184,7 +184,7 @@ function validateFromDateAndToDate() {
 
     if (toDate < fromDate) {
         $('#toast-container').children().remove();
-        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date must be less than or equal To Date<span>', 10000);
+        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date must be less than or equal To Date<span>', 2000);
 
         isValid = false;
     }

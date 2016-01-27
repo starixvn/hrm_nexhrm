@@ -6,7 +6,7 @@
 }
 
 @mixin validation-block($c-bg, $c-color, $c-border, $padding) {
-	margin: 1rem 4rem 1.6rem 0.8rem;
+	margin: 1rem 0.8rem 1.6rem;
     padding: $padding;	
     background: $c-bg;
     color: $c-color;

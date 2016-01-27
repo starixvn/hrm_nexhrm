@@ -12,11 +12,16 @@
   color: #303e4b !important; }
   .pinfo .accinfo > span {
     float: left; }
+  .pinfo .accinfo .address {
+    width: 30rem; }
+    @media (min-width: 1900px) {
+      .pinfo .accinfo .address {
+        width: auto; } }
 .pinfo .scheduleoff {
   background: #bdbdbd; }
 
 .avatarbox .avatar {
-  width: 17rem;
+  width: 16rem;
   border: 1px solid #d2d2d2; }
   .avatarbox .avatar img {
     width: 100%; }

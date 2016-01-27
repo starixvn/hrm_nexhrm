@@ -260,6 +260,8 @@ table {
         .mdi-chevron-double-left, .mdi-chevron-left, .mdi-chevron-right, .mdi-chevron-double-right {
             color: #fff;
             font-size: 18px;
+			position: relative;
+			top: 2px;
         }
 
         &.disabled {

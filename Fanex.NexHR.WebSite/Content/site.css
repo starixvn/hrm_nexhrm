@@ -60,11 +60,11 @@ main {
   display: inline-block; }
 
 .validation-summary-errors {
-  margin: 1rem 4rem 1.6rem 0.8rem;
+  margin: 1rem 0.8rem 1.6rem;
   padding: 0 0.8rem;
-  background: #FBE3E4;
-  color: #8A1F11;
-  border: 1px solid #FBC2C4; }
+  background: #fccccc;
+  color: #ff0909;
+  border: 1px solid #f5a7a7; }
   .validation-summary-errors ul {
     margin-left: 2rem;
     list-style-type: disc; }
@@ -77,7 +77,7 @@ main {
   margin-right: 0; }
 
 .validation-summary-success {
-  margin: 1rem 4rem 1.6rem 0.8rem;
+  margin: 1rem 0.8rem 1.6rem;
   padding: 1rem;
   background: #e8f5e9;
   color: #2e7d32;
@@ -88,7 +88,7 @@ main {
   margin-right: 0; }
 
 .validation-summary-info {
-  margin: 1rem 4rem 1.6rem 0.8rem;
+  margin: 1rem 0.8rem 1.6rem;
   padding: 0.5rem 1rem 1rem;
   background: #c0e9fa;
   color: #0e7fad;
@@ -1029,7 +1029,9 @@ table .pagination {
       background: #78828b; }
       table .pagination li.first .mdi-chevron-double-left, table .pagination li.first .mdi-chevron-left, table .pagination li.first .mdi-chevron-right, table .pagination li.first .mdi-chevron-double-right, table .pagination li.prev .mdi-chevron-double-left, table .pagination li.prev .mdi-chevron-left, table .pagination li.prev .mdi-chevron-right, table .pagination li.prev .mdi-chevron-double-right, table .pagination li.next .mdi-chevron-double-left, table .pagination li.next .mdi-chevron-left, table .pagination li.next .mdi-chevron-right, table .pagination li.next .mdi-chevron-double-right, table .pagination li.last .mdi-chevron-double-left, table .pagination li.last .mdi-chevron-left, table .pagination li.last .mdi-chevron-right, table .pagination li.last .mdi-chevron-double-right {
         color: #fff;
-        font-size: 18px; }
+        font-size: 18px;
+        position: relative;
+        top: 2px; }
       table .pagination li.first.disabled, table .pagination li.prev.disabled, table .pagination li.next.disabled, table .pagination li.last.disabled {
         background: rgba(120, 130, 139, 0.6); }
   table .pagination.right p {

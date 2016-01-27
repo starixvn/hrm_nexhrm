@@ -94,7 +94,7 @@ main {
 //--------------------------Validation Form--------------------------------//
 
 .validation-summary-errors {
-	@include validation-block(#FBE3E4, #8A1F11, #FBC2C4, (0 0.8rem));	
+	@include validation-block(#fccccc, #ff0909, #f5a7a7, (0 0.8rem));	
 
     ul {
         margin-left: 2rem;

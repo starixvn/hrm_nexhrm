@@ -18,6 +18,12 @@
         > span {
             float: left;
         }
+		.address {
+			width: 30rem;
+			@media (min-width: 1900px) {
+				width: auto;
+			}
+		}
     }
     .scheduleoff {
         background: #bdbdbd;
@@ -29,7 +35,7 @@
         @extend %title;
     }
     .avatar {
-        width: 17rem;
+        width: 16rem;
         border: 1px solid $c-border-table;
         img {
             width: 100%;

@@ -25,72 +25,77 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="pinfo">
-                                    <div class="name">@Model.FullName</div>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.StaffCode:</span> <span>@Model.Code</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.CPU:</span> <span>@Model.DomainUsername</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.Phone:</span> <span>@Model.Phone</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.Yahoo:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.Address:</span> <span>@Model.Address</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--l">@Labels.CurrentAddress:</span> <span>@Model.CurrentAddress</span>
-                                    </p>
+                                <div class="row">
+                                    <div class="col name">@Model.FullName</div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col m-r--l">
+                                        <div class="pinfo">                                            
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.StaffCode:</span> <span>@Model.Code</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.CPU:</span> <span>@Model.DomainUsername</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Phone:</span> <span>@Model.Phone</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Yahoo:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Address:</span> <span>@Model.Address</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="pinfo">
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.NickName:</span> <span class="txt-bold">@Model.NickName</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
+                                            </p>
+                                            @if (Model.PassportNo != null)
+                                            {
+                                                <p class="accinfo">
+                                                    <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
+                                                </p>
+                                            }
+                                            @if (Model.PassportExp != null)
+                                            {
+                                                var date = (DateTime)Model.PassportExp;
+                                                <p class="accinfo">
+                                                    <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
-                    </div>
-                    <div class="personalinformation p-x--s m-t--m">
-                        <div class="boxtitle">@Labels.PersonalInformation</div>
-                        <div class="pinfo">
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.NickName:</span> <span class="txt-bold">@Model.NickName</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
-                            </p>
-                            @if (Model.PassportNo != null)
-                            {
-                                <p class="accinfo">
-                                    <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
-                                </p>
-                            }
-                            @if (Model.PassportExp != null)
-                            {
-                                var date = (DateTime)Model.PassportExp;
-                                <p class="accinfo">
-                                    <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
-                                </p>
-                            }
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="Jobinformation p-x--s m-t--m">
                         <div class="boxtitle">
                             @Labels.JobInformation
@@ -138,8 +143,7 @@
                         </div>
                         <div class="pinfo">
                             <p class="accinfo">
-                                <span class="label--xl">@Labels.TechnicalSkill:</span>
-                                <span class="txt-bold">
+                                <span class="label--xl">@Labels.TechnicalSkill:</span> <span class="txt-bold">
                                     @Labels.Photoshop, @Labels.Illustrator, @Labels.Indesign, @Labels.Dreamweaver...
                                 </span>
                             </p>
@@ -183,25 +187,25 @@
                                 <tbody>
                                     <tr>
                                         <td class="scheduleoff">
-                                             @Model.WorkingCalendar.SunShiftName
+                                            @Model.WorkingCalendar.SunShiftName
                                         </td>
                                         <td>
-                                             @Model.WorkingCalendar.MonShiftName
+                                            @Model.WorkingCalendar.MonShiftName
                                         </td>
                                         <td>
-                                             @Model.WorkingCalendar.TueShiftName
+                                            @Model.WorkingCalendar.TueShiftName
                                         </td>
                                         <td>
-                                             @Model.WorkingCalendar.WedShiftName
+                                            @Model.WorkingCalendar.WedShiftName
                                         </td>
                                         <td>
-                                             @Model.WorkingCalendar.ThuShiftName
+                                            @Model.WorkingCalendar.ThuShiftName
                                         </td>
                                         <td>
-                                             @Model.WorkingCalendar.FriShiftName
+                                            @Model.WorkingCalendar.FriShiftName
                                         </td>
                                         <td class="scheduleoff">
-                                             @Model.WorkingCalendar.SatShiftName
+                                            @Model.WorkingCalendar.SatShiftName
                                         </td>
                                     </tr>
                                 </tbody>
@@ -209,7 +213,6 @@
                         </div>
                     </div>
                     @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
-                    
                     <div class="toeicscore m-t--m p-x--s">
                         <div class="boxtitle txt-uppercase">
                             @Labels.ToeicScore
