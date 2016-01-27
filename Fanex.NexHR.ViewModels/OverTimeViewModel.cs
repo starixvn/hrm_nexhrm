@@ -25,14 +25,11 @@ namespace Fanex.NexHR.ViewModels
 
         [Display(Name = "CreatedBy", ResourceType = typeof(Labels))]
         public string CreatedNickName { get; set; }
+     
+        public int ModifiedId { get; set; }
+        [Display(Name = "ModifiedBy", ResourceType = typeof(Labels))]
+        public string ModifiedNickName { get; set; }
 
-        public int ApprovedId { get; set; }
-        [Display(Name = "ApprovedBy", ResourceType = typeof(Labels))]
-        public string ApprovedNickName { get; set; }
-
-        public int VerifiedId { get; set; }
-        [Display(Name = "VerifiedBy", ResourceType = typeof(Labels))]
-        public string VerifiedNickName { get; set; }
         public int EmployeeId { get; set; }
         public string EmployeeDisplayName { get; set; }
 
@@ -60,11 +57,9 @@ namespace Fanex.NexHR.ViewModels
                 EmployeeId = overtime.Employee.Id,
                 EmployeeDisplayName = string.Format("{0} ({1})", overtime.Employee.NickName, overtime.Employee.FullName),
                 CreatedId = overtime.CreatedBy.Id,
-                CreatedNickName = overtime.CreatedBy.NickName,
-                ApprovedId = overtime.ApprovedBy != null ? overtime.ApprovedBy.Id : 0,
-                ApprovedNickName = overtime.ApprovedBy != null ? overtime.ApprovedBy.NickName : string.Empty,
-                VerifiedId = overtime.VerifiedBy != null ? overtime.VerifiedBy.Id : 0,
-                VerifiedNickName = overtime.VerifiedBy != null ? overtime.VerifiedBy.NickName : string.Empty,
+                CreatedNickName = overtime.CreatedBy.NickName,                
+                ModifiedId = overtime.ModifiedBy != null ? overtime.ModifiedBy.Id : 0,
+                ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
                 Description = overtime.Description,
                 Status = overtime.Status
             };

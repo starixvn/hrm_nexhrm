@@ -2014,6 +2014,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified By.
+        /// </summary>
+        public static string ModifiedBy {
+            get {
+                return ResourceManager.GetString("ModifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mon.
         /// </summary>
         public static string Mon {

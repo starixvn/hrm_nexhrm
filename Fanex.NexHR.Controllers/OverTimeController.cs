@@ -34,7 +34,7 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedId = this.CurrentUser.Id;
-                model.Status = model.IsApprove ? (int)OTRequestStatus.Approved : (int)OTRequestStatus.Pending;
+                model.Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending;
                 _service.Insert(model);
 
                 return RedirectToAction("Summary");
@@ -68,10 +68,19 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
-        public ActionResult VerifyRequest(int id)
+        [Authorize(Roles = "AssistantLeader,Leader")]
+        public ActionResult RejectRequest(int id)
         {
-            var result = _service.VerifyRequest(id, this.CurrentUser.Id);
+            var result = _service.RejectRequest(id, this.CurrentUser.Id);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "AssistantLeader,Leader")]
+        public ActionResult DisapproveRequest(int id)
+        {
+            var result = _service.DisapproveRequest(id, this.CurrentUser.Id);
 
             return Json(result);
         }
@@ -90,6 +99,7 @@ namespace Fanex.NexHR.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.ModifiedId = this.CurrentUser.Id;
                 var result = _service.Update(model);
 
                 return RedirectToAction("Summary");

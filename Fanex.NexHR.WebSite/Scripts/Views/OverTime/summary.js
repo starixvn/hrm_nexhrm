@@ -23,8 +23,12 @@ function processRequest(command, eventElement) {
         case 'approve':
             approveRequest(requestId);
             break;
-        case 'verify':
-            verifyRequest(requestId);
+        case 'disapprove':
+            disapproveRequest(requestId);
+            break;
+        case 'reject':
+            rejectRequest(requestId);
+            break;
     }
 }
 
@@ -38,15 +42,16 @@ function bindPendingMenu() {
                 processRequest(key, element);
             },
             items: {
-                "edit": { name: "Edit", icon: "edit"},
-                "approve": { name: "Approve", icon: "approve"}
+                "approve": { name: "Approve", icon: "approve" },
+                "reject": { name: "Reject", icon: "reject" },
+                "edit": { name: "Edit", icon: "edit"},               
             }
         });
     }
 }
 
 function bindApproveMenu(element) {
-    var element = ".Approved";
+    var element = ".Approve";
     $.contextMenu({
         selector: element,
         trigger: 'left',
@@ -54,8 +59,7 @@ function bindApproveMenu(element) {
             processRequest(key, element);
         },
         items: {
-            "edit": { name: "Edit", icon: "edit", visible: isApproveRole },
-            "verify": { name: "Verify", icon: "verify", visible: isHRRole }
+            "disapprove": { name: "Disapprove", icon: "reject"}
         }
     });
 }
@@ -87,10 +91,21 @@ function approveRequest(id) {
 
 }
 
-function verifyRequest(id) {
-    confirm('<p>Are you sure you want to verify this request?</p>', function () {
+function disapproveRequest(id) {
+    confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
         $('.loading-process').fadeIn(200);
-        $.post(_global.root + "OverTime/VerifyRequest", { id: id }, function (response) {
+        $.post(_global.root + "OverTime/DisapproveRequest", { id: id }, function (response) {
+            $('.loading-process').fadeOut(500);
+            loadSummary();
+        });
+
+    });
+}
+
+function rejectRequest(id) {
+    confirm('<p>Are you sure you want to reject this request?</p>', function () {
+        $('.loading-process').fadeIn(200);
+        $.post(_global.root + "OverTime/RejectRequest", { id: id }, function (response) {
             $('.loading-process').fadeOut(500);
             loadSummary();
         });

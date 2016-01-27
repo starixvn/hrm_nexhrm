@@ -16,33 +16,34 @@
 
             @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
             {
-                <td>@((OTRequestStatus)item.Status)</td>
-            }else
+                <td>@((RequestStatuse)item.Status)</td>
+            }
+            else
             {
-                if (item.Status == (int)OTRequestStatus.Pending)
+                if (item.Status == (int)RequestStatuse.Pending)
                 {
                     <td>
-                        <a requestid="@item.Id" href="javascript:;" class="@OTRequestStatus.Pending.ToString() c-pending">
-                            @OTRequestStatus.Pending.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                        <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
+                            @Labels.Pending<i class="mdi-navigation-arrow-drop-down"></i>
                         </a>
                     </td>
                 }
-                if (item.Status == (int)OTRequestStatus.Approved)
+                if (item.Status == (int)RequestStatuse.Approve)
                 {
                     <td>
-                        <a requestid="@item.Id" href="javascript:;" class="@OTRequestStatus.Approved.ToString() c-approve">
-                            @OTRequestStatus.Approved.ToString()<i class="mdi-navigation-arrow-drop-down"></i>
+                        <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
+                            @Labels.Approved<i class="mdi-navigation-arrow-drop-down"></i>
                         </a>
                     </td>
                 }
-                if (item.Status == (int)OTRequestStatus.Verified)
+
+                if (item.Status == (int)RequestStatuse.Reject)
                 {
-                    <td class="c-verify">@OTRequestStatus.Verified</td>
+                    <td>
+                        @Labels.Rejected
+                    </td>
                 }
             }
-
-
-
         </tr>
     }
 }

@@ -51,19 +51,25 @@ namespace Fanex.NexHR.Services
             return result;
         }
 
-        public bool ApproveRequest(int id, int approveUserId)
+        public bool ApproveRequest(int id, int userId)
         {
             var result = IsValidStatusForApprove(id);
 
-            return result ? _repository.ApproveRequest(id, approveUserId) : result;
+            return result ? _repository.UpdateStatus(id, RequestStatuse.Approve, userId) : result;
         }
 
-        public bool VerifyRequest(int id, int verifyUserId)
+        public bool DisapproveRequest(int id, int userId)
         {
-            var result = IsValidStatusForVerify(id);
+            var result = IsValidStatusForDisapprove(id);
 
-            return result ? _repository.VerifyRequest(id, verifyUserId) : result;
-            
+            return result ? _repository.UpdateStatus(id, RequestStatuse.Pending, userId) : result;
+        }
+
+        public bool RejectRequest(int id, int userId)
+        {
+            var result = IsValidStatusForReject(id);
+
+            return result ? _repository.UpdateStatus(id, RequestStatuse.Reject, userId) : result;
         }
 
         public OverTime Get(int id)
@@ -84,21 +90,28 @@ namespace Fanex.NexHR.Services
         {
             var model = Get(id);
 
-            return (model != null && model.Status != (int)OTRequestStatus.Verified) ? true : false;
+            return (model != null && model.Status == (int)RequestStatuse.Pending);
         }
 
-        private bool IsValidStatusForVerify(int id) 
-        {            
+        private bool IsValidStatusForDisapprove(int id)
+        {
             var model = Get(id);
 
-            return (model != null && model.Status == (int)OTRequestStatus.Approved) ? true : false;
+            return (model != null && model.Status == (int)OTRequestStatus.Approved);
+        }
+
+        private bool IsValidStatusForReject(int id)
+        {
+            var model = Get(id);
+
+            return (model != null && model.Status == (int)OTRequestStatus.Pending);
         }
 
         private bool IsValidStatusForApprove(int id)
         {
             var model = Get(id);
 
-            return (model != null && model.Status == (int)OTRequestStatus.Pending) ? true : false;
+            return (model != null && model.Status == (int)OTRequestStatus.Pending);
         }
     }
 }

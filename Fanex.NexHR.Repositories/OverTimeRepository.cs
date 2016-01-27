@@ -51,30 +51,13 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public bool ApproveRequest(int id, int approvedUserId)
+        public bool UpdateStatus(int id, RequestStatuse status, int userId)
         {
-            var criteria = new ApproveRequestCriteria()
+            var criteria = new UpdateStatusCriteria()
             {
                 Id = id,
-                Status = (int)OTRequestStatus.Approved,
-                ApprovedUserId = approvedUserId
-            };
-
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                db.ExecuteScalar(criteria.GetSpParams());
-
-                return true;
-            }
-        }
-
-        public bool VerifyRequest(int id, int verifiedUserId)
-        {
-            var criteria = new VerifyRequestCriteria()
-            {
-                Id = id,
-                Status = (int)OTRequestStatus.Verified,
-                VerifiedUserId = verifiedUserId
+                Status = (int)status,
+                UserId = userId
             };
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -91,16 +74,15 @@ namespace Fanex.NexHR.Repositories
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var model = db.QueryEntity<OverTime, Employee, Employee, Employee, Employee, OverTime>(
-                    (o, e1, e2, e3, e4) =>
+                var model = db.QueryEntity<OverTime, Employee, Employee, Employee, OverTime>(
+                    (o, e1, e2, e3) =>
                     {
                         o.CreatedBy = e1;
-                        o.ApprovedBy = e2;
-                        o.VerifiedBy = e3;
-                        o.Employee = e4;
+                        o.ModifiedBy = e2;
+                        o.Employee = e3;
                         return o;
                     },
-                    "CreatedId, ApprovedId, VerifiedId, EmployeeId",
+                    "CreatedId, ModifiedId, EmployeeId",
                     criteria.GetSpParams());
 
                 return model;

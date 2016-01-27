@@ -55,7 +55,8 @@
                                         @Html.LabelFor(m => m.Status)
                                     </div>
                                     <div class="left filter-status">
-                                        @RazorHelper.OTRequestStatusDropDownList("Status", Model.Status)
+                                        @RazorHelper.StatusDropDownList((byte)Model.Status, true, "Status")
+
                                     </div>
                                 </div>
 

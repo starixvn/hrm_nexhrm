@@ -16,7 +16,9 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool ApproveRequest(int id, int updatedUserId);
 
-        bool VerifyRequest(int id, int verifiedUserId);
+        bool DisapproveRequest(int id, int verifiedUserId);
+
+        bool RejectRequest(int id, int rejectedUserId);
 
         OverTime Get(int id);
 

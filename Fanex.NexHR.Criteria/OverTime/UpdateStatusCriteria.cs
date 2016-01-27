@@ -6,14 +6,14 @@ using System.Text;
 
 namespace Fanex.NexHR.Criteria.OverTime
 {
-    public class VerifyRequestCriteria : CriteriaBase
+    public class UpdateStatusCriteria : CriteriaBase
     {
         public int Status { get; set; }
         public int Id { get; set; }
-        public int VerifiedUserId { get; set; }
+        public int UserId { get; set; }
         public override string GetSettingKey()
         {
-            return "OverTime_VerifyRequest";
+            return "OverTime_UpdateStatus";
         }        
     }
 }

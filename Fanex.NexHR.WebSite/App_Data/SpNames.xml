@@ -208,18 +208,14 @@
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
     </Setting>
-    <Setting Key="OverTime_ApproveRequest" SpName="OverTime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="OverTime_VerifyRequest" SpName="OverTime_VerifyRequest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_UpdateStatus" SpName="OverTime_UpdateStatus" DbName="nexhr" Plain="0"></Setting>    
     <Setting Key="OverTime_GetById" SpName="OverTime_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="CreatedId" ObjectProperty="Id" />
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
       <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
-      <Mapping DataField="ApprovedId" ObjectProperty="Id" />
-      <Mapping DataField="ApprovedNickName" ObjectProperty="NickName" />
-      <Mapping DataField="ApprovedFullName" ObjectProperty="FullName" />
-      <Mapping DataField="VerifiedId" ObjectProperty="Id" />
-      <Mapping DataField="VerifiedNickName" ObjectProperty="NickName" />
-      <Mapping DataField="VerifiedFullName" ObjectProperty="FullName" />
+      <Mapping DataField="ModifiedId" ObjectProperty="Id" />
+      <Mapping DataField="ModifiedNickName" ObjectProperty="NickName" />
+      <Mapping DataField="ModifiedFullName" ObjectProperty="FullName" />
       <Mapping DataField="EmployeeId" ObjectProperty="Id" />
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />      

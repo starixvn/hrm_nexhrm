@@ -24,8 +24,7 @@ namespace Fanex.NexHR.Models
 
         public int Status { get; set; }
         public Employee CreatedBy { get; set; }
-        public Employee ApprovedBy { get; set; }
-        public Employee VerifiedBy { get; set; }
+        public Employee ModifiedBy { get; set; }        
         public Employee Employee { get; set; }
 
     }
