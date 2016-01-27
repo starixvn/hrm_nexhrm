@@ -10,7 +10,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -18,8 +18,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginForm())
-                        {
+                        <form action="">
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--s">
@@ -29,164 +28,30 @@
                                         @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
                                 </div>
-
                                 <div class="col m-r--m">
                                     <div class="left label--s">
                                         @Html.LabelFor(model => model.Team)
                                     </div>
                                     <div class="left select--m">
-                                        <select id="TeamId" name="TeamId">
-                                            <option value="">@Labels.AllTeams</option>
-                                            @foreach (Team team in ViewBag.Groups)
-                                            {
-                                                <option selected="@(ViewBag.TeamId == team.Id)" value="@team.Id">@team.Name</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
-
                                 <div class="col">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.Employee)
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(model=>model.Employee, new { placeholder = @Fanex.NexHR.Resources.Messages.SearchEmployeeWatermark })
+                                        @Html.TextBoxFor(model=>model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                
                                 <div class="col">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light" />
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
-
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight table-custom centered">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">@Labels.SymbolCount</th>
-                                    <th rowspan="2">@Labels.Nick</th>
-                                    <th colspan="2">@Labels.AnnualLeave</th>
-                                    <th colspan="12">
-                                        Annual Leave Taken @Model.Year
-                                    </th>
-                                    <th rowspan="2">
-                                        AL Balance @Model.Year
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>@(Model.Year - 1)</th>
-                                    <th>@Model.Year</th>
-                                    <th>@Labels.Jan</th>
-                                    <th>@Labels.Feb</th>
-                                    <th>@Labels.Mar</th>
-                                    <th>@Labels.Apr</th>
-                                    <th>@Labels.May</th>
-                                    <th>@Labels.Jun</th>
-                                    <th>@Labels.Jul</th>
-                                    <th>@Labels.Aug</th>
-                                    <th>@Labels.Sep</th>
-                                    <th>@Labels.Oct</th>
-                                    <th>@Labels.Nov</th>
-                                    <th>@Labels.Dec</th>
-                                </tr>
-                            </thead>
-                            @*Check if exists*@
-                            @{
-                                bool checkSummaryList = true;
-                                foreach (LeaveSummaryByTeam leaveSumaryByTeam in ViewBag.LeaveSummaryByTeamList)
-                                {
-                                    if (leaveSumaryByTeam.LeaveSummaryInTeam.Count > 0)
-                                    {
-                                        checkSummaryList = true;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        checkSummaryList = false;
-                                    }
-
-                                }
-                            }
-                            @if (checkSummaryList)
-                            {
-                                <tbody>
-                                    @{int index = 1;}
-                                    @foreach (LeaveSummaryByTeam item in ViewBag.LeaveSummaryByTeamList)
-                                    {
-                                        if (item.LeaveSummaryInTeam.Count > 0)
-                                        {
-                                        <tr>
-                                            <td class="rowdivider align-left" colspan="18">
-                                                <b>@item.Team.Name.ToUpper()</b>
-                                            </td>
-                                        </tr>
-                                        }
-
-                                        foreach (LeaveSummary leave in item.LeaveSummaryInTeam)
-                                        {
-                                        <tr>
-                                            <td>@(index++)</td>
-                                            <td class="tooltip" title="@leave.Employee.FullName">
-                                                @leave.Employee.NickName
-                                            </td>
-                                            <td style="@(leave.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">
-                                                @leave.AnnualLeaveLastYear.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">
-                                                @leave.AnnualLeaveCurrentYear.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jan < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Jan.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Feb < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Feb.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Mar < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Mar.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Apr < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Apr.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.May < 0 ? "color:red;" : string.Empty)">
-                                                @leave.May.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jun < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Jun.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Jul < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Jul.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Aug < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Aug.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Sep < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Sep.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Oct < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Oct.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Nov < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Nov.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.Dec < 0 ? "color:red;" : string.Empty)">
-                                                @leave.Dec.ToString("0.0")
-                                            </td>
-                                            <td style="@(leave.LeaveBalance < 0 ? "color:red;" : string.Empty)">
-                                                @leave.LeaveBalance.ToString("0.0")
-                                            </td>
-                                        </tr>
-                                        }
-                                    }
-                                </tbody>
-                            }
-                            else
-                            {
-                                @RazorHelper.DisplayNoInformation(18)
-                            }
-                        </table>
+                    <div id="leave-summary-detail" class="p-x--s">
                     </div>
                 </div>
             </div>

@@ -263,9 +263,20 @@ namespace Fanex.NexHR.Controllers
             return export.TotalWorkingHours(model);
         }
 
+        #region Leave Summary
+
         public ActionResult LeaveSummary()
         {
-            return LeaveSummary(null);
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+
+            var model = new LeaveSummaryViewModel
+            {
+                Year = DateTime.Now.Year,
+                EmployeeId = -1,
+                TeamCollection = teams
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -296,6 +307,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     Id = (int)model.TeamId
                 };
+
                 Team team = _teamService.GetById(criteria);
                 teams.Add(team);
             }
@@ -304,16 +316,14 @@ namespace Fanex.NexHR.Controllers
                 teams = _teamService.GetAll(new GetAllTeamCriteria());
             }
 
-            ViewBag.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-            ViewBag.TeamId = model.TeamId;
-            ViewBag.EntityList = entityList;
-
+            ViewBag.CurrentYear = model.Year;
+            ViewBag.LastYear = model.Year - 1;
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, teams);
 
-            ViewBag.LeaveSummaryByTeamList = leaveSummaryByTeamList;
-
-            return View(model);
+            return PartialView("_LeaveSummary", leaveSummaryByTeamList);
         }
+
+        #endregion Leave Summary
 
         [ChildActionOnly]
         public PartialViewResult CreateLeaveDeduction()

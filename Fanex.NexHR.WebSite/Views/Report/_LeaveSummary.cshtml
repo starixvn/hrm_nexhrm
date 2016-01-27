@@ -1,0 +1,125 @@
+﻿@model IList<LeaveSummaryByTeam>
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th rowspan="2">@Labels.SymbolCount</th>
+            <th rowspan="2">@Labels.Nick</th>
+            <th colspan="2">@Labels.AnnualLeave</th>
+            <th colspan="12">
+                Annual Leave Taken @ViewBag.CurrentYear
+            </th>
+            <th rowspan="2">
+                AL Balance @ViewBag.CurrentYear
+            </th>
+        </tr>
+        <tr>
+            <th>@ViewBag.LastYear</th>
+            <th>@ViewBag.CurrentYear</th>
+            <th>@Labels.Jan</th>
+            <th>@Labels.Feb</th>
+            <th>@Labels.Mar</th>
+            <th>@Labels.Apr</th>
+            <th>@Labels.May</th>
+            <th>@Labels.Jun</th>
+            <th>@Labels.Jul</th>
+            <th>@Labels.Aug</th>
+            <th>@Labels.Sep</th>
+            <th>@Labels.Oct</th>
+            <th>@Labels.Nov</th>
+            <th>@Labels.Dec</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*Check if exists*@
+        @{
+            bool checkSummaryList = true;
+            foreach (LeaveSummaryByTeam leaveSumaryByTeam in Model)
+            {
+                if (leaveSumaryByTeam.LeaveSummaryInTeam.Any())
+                {
+                    checkSummaryList = true;
+                    break;
+                }
+                else
+                {
+                    checkSummaryList = false;
+                }
+
+            }
+        }
+        @if (checkSummaryList)
+        {
+            int index = 1;
+            foreach (LeaveSummaryByTeam item in Model)
+            {
+                if (item.LeaveSummaryInTeam.Any())
+                {
+                <tr>
+                    <td class="rowdivider align-left" colspan="18">
+                        <b>@item.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+                }
+
+                foreach (LeaveSummary leave in item.LeaveSummaryInTeam)
+                {
+                <tr>
+                    <td>@(index++)</td>
+                    <td class="tooltip" title="@leave.Employee.FullName">
+                        @leave.Employee.NickName
+                    </td>
+                    <td style="@(leave.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">
+                        @leave.AnnualLeaveLastYear.ToString("0.0")
+                    </td>
+                    <td style="@(leave.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">
+                        @leave.AnnualLeaveCurrentYear.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Jan < 0 ? "color:red;" : string.Empty)">
+                        @leave.Jan.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Feb < 0 ? "color:red;" : string.Empty)">
+                        @leave.Feb.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Mar < 0 ? "color:red;" : string.Empty)">
+                        @leave.Mar.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Apr < 0 ? "color:red;" : string.Empty)">
+                        @leave.Apr.ToString("0.0")
+                    </td>
+                    <td style="@(leave.May < 0 ? "color:red;" : string.Empty)">
+                        @leave.May.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Jun < 0 ? "color:red;" : string.Empty)">
+                        @leave.Jun.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Jul < 0 ? "color:red;" : string.Empty)">
+                        @leave.Jul.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Aug < 0 ? "color:red;" : string.Empty)">
+                        @leave.Aug.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Sep < 0 ? "color:red;" : string.Empty)">
+                        @leave.Sep.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Oct < 0 ? "color:red;" : string.Empty)">
+                        @leave.Oct.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Nov < 0 ? "color:red;" : string.Empty)">
+                        @leave.Nov.ToString("0.0")
+                    </td>
+                    <td style="@(leave.Dec < 0 ? "color:red;" : string.Empty)">
+                        @leave.Dec.ToString("0.0")
+                    </td>
+                    <td style="@(leave.LeaveBalance < 0 ? "color:red;" : string.Empty)">
+                        @leave.LeaveBalance.ToString("0.0")
+                    </td>
+                </tr>
+                }
+            }
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(18)
+        }
+    </tbody>
+</table>

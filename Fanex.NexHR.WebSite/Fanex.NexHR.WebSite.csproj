@@ -691,6 +691,7 @@
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
+    <Content Include="Views\Report\_LeaveSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
