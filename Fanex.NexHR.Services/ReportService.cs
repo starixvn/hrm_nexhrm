@@ -157,16 +157,17 @@ using Fanex.NexHR.ViewModels;
             return leaveBalances;
         }
 
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
+        public DetailEmployeeAttendanceModel GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<EmployeeAttendanceModel> attendances = null;
+            var detailAttendance = new DetailEmployeeAttendanceModel();
+
             if (criteria.IsValid())
             {
-                attendances = _reportRepository.GetEmployeeAttendanceReport(criteria);
+                detailAttendance = _reportRepository.GetEmployeeAttendanceReport(criteria);
             }
 
-            return attendances;
+            return detailAttendance;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
     public interface IReportRepository
     {
-        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria);
+        DetailEmployeeAttendanceModel GetEmployeeAttendanceReport(ICriteria criteria);
 
         IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria);
 

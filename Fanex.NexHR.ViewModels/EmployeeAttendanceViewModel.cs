@@ -12,6 +12,7 @@ namespace Fanex.NexHR.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
     using Fanex.NexHR.Models;
 
     public class EmployeeAttendanceViewModel
@@ -36,5 +37,13 @@ namespace Fanex.NexHR.ViewModels
         public bool ExcludeUserDelete { get; set; }
 
         public IList<Team> TeamCollection { get; set; }
+
+        public int ItemsPerPage { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public List<SelectListItem> ItemsPerPageArray { get; set; }
+
+        public bool GetAll { get; set; }
     }
 }

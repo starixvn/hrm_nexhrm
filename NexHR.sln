@@ -28,6 +28,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{5F490EB2-2747-4165-A0D0-6F920A02A7F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}"
+	ProjectSection(SolutionItems) = preProject
+		Fanex.NexHR.Models\Memo.cs = Fanex.NexHR.Models\Memo.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2E6B8649-5225-47A3-A3F8-9FB7197F3A33}"
 EndProject

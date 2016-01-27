@@ -64,6 +64,7 @@ namespace Fanex.NexHR.Controllers
                     GroupId = employee.Team.Id,
                     DateOption = 0,
                     ExcludeUserDelete = true,
+                    ItemsPerPageArray = new PagerOptionModel().ItemsPerPageArray
                 };
             }
 
@@ -93,10 +94,12 @@ namespace Fanex.NexHR.Controllers
                 FromDate = new DateTime(model.Year, model.Month, 1),
                 ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
                 ReportType = model.RequestType,
-                EmployeeId = model.EmpId
+                EmployeeId = model.EmpId,
+                GetAll = true
             };
 
-            var data = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            var data = detailAttendance.EmployeeAttendances;
 
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }

@@ -93,12 +93,28 @@
                                     <div class="left label--m label">
                                         &nbsp;</div>
                                     <div class="left">
+                                        @Html.HiddenFor(model => model.CurrentPage)
+                                        @Html.HiddenFor(model => model.ItemsPerPage)
+                                        @Html.HiddenFor(model => model.GetAll)
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
                                         <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
                                     </div>
                                 </div>
                             </div>
                         }
+                    </div>
+                    <div id="datatable_length" class="row m-b--m">
+                        <div class="col">
+                            <div class="inline label--s">
+                                <label>Show</label>
+                            </div>
+                            <div class="inline select--xs m-r--s">
+                                @Html.DropDownList("EntryId", Model.ItemsPerPageArray, new { @class = "browser-default" })
+                            </div>
+                            <div class="inline label--m">
+                                <label>entries</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight table-custom centered">
@@ -122,6 +138,7 @@
                             </thead>
                             <tbody>
                             </tbody>
+                            <tfoot></tfoot>
                         </table>
                     </div>
                 </div>
@@ -129,7 +146,22 @@
         </div>
     </div>
 </div>
-<script id="template" type="text/x-jsrender">
+
+<div id="pager" class="hide">
+    <table>
+        <tfoot>
+            <tr>
+                <td colspan="14" id="pagination" class="row form-input">
+                    <div id="detailtext" class="col m-t--s"></div>
+                    <div class="col right">
+                        <ul id="numberlist" class="pagination"></ul>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
     <tr {{if IsNotWork != 0}}class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
         <td>{{:~index()}}</td>
         <td>

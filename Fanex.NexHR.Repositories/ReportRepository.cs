@@ -34,12 +34,14 @@ namespace Fanex.NexHR.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>List of employee attendance model.</returns>
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
+        public DetailEmployeeAttendanceModel GetEmployeeAttendanceReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
+                    int totalItems = multi.Read<int>().ToList().First();
+
                     IList<EmployeeAttendanceModel> attendances = multi.Read<EmployeeAttendanceModel>().ToList();
                     IEnumerable<RequestEntity> requests = multi.Read<RequestEntity, RequestTypeModel, Shift, Shift, Employee, LeaveType, RequestEntity>(
                         (rq, ty, s1, s2, e, le) =>
@@ -62,7 +64,13 @@ namespace Fanex.NexHR.Repositories
                         attendance.IsMissingCheckOut = (attendance.IsMissingCheckOut == 0 || (attendance.Requests.Where(t => t.RequestType.Id == 2).Count() > 0)) ? 0 : 1;
                     }
 
-                    return attendances;
+                    var detailEmployeeAttendance = new DetailEmployeeAttendanceModel
+                    {
+                        TotalItems = totalItems,
+                        EmployeeAttendances = attendances
+                    };
+
+                    return detailEmployeeAttendance;
                 }
             }
         }

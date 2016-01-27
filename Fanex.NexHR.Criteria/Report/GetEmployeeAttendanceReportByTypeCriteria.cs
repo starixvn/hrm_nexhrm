@@ -33,6 +33,12 @@ namespace Fanex.NexHR.Criteria.Report
         [SpParam(SqlParamName = "Type")]
         public short ReportType { get; set; }
 
+        public int ItemsPerPage { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public bool GetAll { get; set; }
+
         public override string GetSettingKey()
         {
             return "EmployeeAttendance_GetByType";

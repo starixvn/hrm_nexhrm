@@ -3,6 +3,10 @@
 "use strict";
 
 var rowIndex = 1;
+var pagingOption = {
+    currentPage: 1,
+    itemsPerPage: 50
+};
 
 function index() {
     return rowIndex++;
@@ -113,6 +117,45 @@ function initSearchAutoComplete() {
     });
 }
 
+function fillData(response) {
+    rowIndex = 1;
+
+    $.template('template', $('#template'));
+    $.tmpl('template', response.EmployeeAttendances).appendTo('table#data');
+
+    var pager = $('#pager').html();
+    $('table#data tfoot').html(pager);
+
+    var currentPage = parseInt($('#CurrentPage').val()),
+        itemsPerPage = parseInt($('#ItemsPerPage').val()),
+        preNumberPages = parseInt(response.TotalItems / itemsPerPage),
+        totalPages = response.TotalItems % itemsPerPage == 0 ? preNumberPages : preNumberPages + 1;
+
+    $('table#data #pagination #numberlist').twbsPagination({
+        totalPages: totalPages,
+        startPage: currentPage,
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        href: 'javascript:;',
+        first: '',
+        prev: '<i class="mdi-image-navigate-before"></i>',
+        next: '<i class="mdi-image-navigate-next"></i>',
+        last: '',
+        activeClass: 'active',
+        onPageClick: function (event, page) {
+            $('#CurrentPage').val(page);
+            query();
+        }
+    });
+
+    initTooltip();
+
+    var from = (parseInt(currentPage) - 1) * parseInt(itemsPerPage) + 1,
+        to = from + response.EmployeeAttendances.length - 1;
+    var detailtext = 'Showing <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.TotalItems + '</strong> entries';
+    $('table#data #pagination #detailtext').html(detailtext);
+};
+
 function query(isFirstLoad) {
     var $form = $('form');
     if (!$form.valid()) {
@@ -135,21 +178,9 @@ function query(isFirstLoad) {
         success: function (data) {
             $('table#data tbody').children().remove();
 
-            if (data && data.length > 0) {
-                rowIndex = 1;
+            if (data != null && data.EmployeeAttendances != null && data.EmployeeAttendances.length > 0) {
+                fillData(data);
 
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        index: index,
-                        formatDate: formatDate,
-                        totalHoursToTime: totalHoursToTime,
-                        displayMinute: displayMinute
-                    },
-                    html = tmpl.render(data, helpers);
-
-                $(html).appendTo('table#data');
-
-                initTooltip();
             } else {
                 $(noInformation(14)).appendTo('table#data');
             }
@@ -168,6 +199,12 @@ function query(isFirstLoad) {
 }
 
 $(document).ready(function () {
+
+    $('#CurrentPage').val(pagingOption.currentPage);
+    $('#ItemsPerPage').val(pagingOption.itemsPerPage);
+    $('#EntryId').val(pagingOption.itemsPerPage);
+    $('#GetAll').val(false);
+
     initSearchAutoComplete();
     initExportExcel();
 
@@ -186,6 +223,14 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         if (validateFromDateAndToDate()) {
+        $('#CurrentPage').val(pagingOption.currentPage);
+        query(false);
+    });
+
+    $('#EntryId').on('change', function (evt) {
+        evt.preventDefault();
+        $('#ItemsPerPage').val($('#EntryId').val());
+        $('#CurrentPage').val(pagingOption.currentPage);
             query(false);
         }
     });

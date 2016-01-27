@@ -253,6 +253,7 @@
         {
             bundles.AddAndInclude(
                 "~/bundles/attendancejs",
+                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/Report/report.attendance.js");
         }
 

@@ -43,7 +43,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             _extensionNoService = extensionNoService ?? new ExtensionNoService();
         }
 
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendances([FromUri]EmployeeAttendanceViewModel model)
+        public DetailEmployeeAttendanceModel GetEmployeeAttendances([FromUri]EmployeeAttendanceViewModel model)
         {
             if (model.GroupId == -1)
             {
@@ -57,10 +57,14 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 ReportType = model.AttendanceType,
                 EmployeeId = model.EmpId,
                 GroupId = model.GroupId,
-                ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0
+                ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0,
+                ItemsPerPage = model.ItemsPerPage,
+                CurrentPage = model.CurrentPage,
+                GetAll = model.GetAll
             };
 
-            return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            return detailAttendance;
         }
 
         [HttpGet]
@@ -72,10 +76,12 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 FromDate = new DateTime(model.Year, model.Month, 1),
                 ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
                 ReportType = model.RequestType,
-                EmployeeId = model.EmpId
+                EmployeeId = model.EmpId,
+                GetAll = true
             };
 
-            return _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            return detailAttendance.EmployeeAttendances;
         }
 
         [HttpGet]
