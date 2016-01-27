@@ -1,53 +1,17 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead, noInformation*/
-/*exported index, formatJsonDateToDetailFormatedDate*/
+/*global _global, _messages, floatThead*/
+/*exported*/
 
-var rowIndex = 1;
+function initPagination() {
+    var totalPages = $('table#data #pagination #TotalPages').val(),
+        startPage = $('table#data #pagination #CurrentPage').val();
 
-function index() {
-    return rowIndex++;
-}
-
-function formatJsonDateToDetailFormatedDate(jsonDate) {
-    var date = new Date(parseInt(jsonDate.substr(6))),
-    h = date.getHours(),
-    m = date.getMinutes();
-
-    if (h < 10) {
-        h = '0' + h;
-    }
-
-    if (m < 10) {
-        m = '0' + m;
-    }
-
-    date = $.format.date(date, 'E, dd MMM, yyyy');
-
-    return date + ' - ' + h + 'h' + m + '\'';
-};
-
-function fillData(response) {
-    rowIndex = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1;
-
-    var tmpl = $.templates('#template'),
-        helpers = {
-            index: index,
-            formatJsonDateToDetailFormatedDate: formatJsonDateToDetailFormatedDate
-        },
-        html = tmpl.render(response.data, helpers);
-
-    $(html).appendTo('table#data');
-
-    bindMenuIn('.in-action');
-    bindMenuOut('.out-action');
-    bindMenuInOut('.inout-action');
-
-    var pager = $('#pager').html();
-    $('table#data tfoot').html(pager);
+    totalPages = totalPages ? parseInt(totalPages) : 0;
+    startPage = startPage ? parseInt(startPage) : 1;
 
     $('table#data #pagination #numberlist').twbsPagination({
-        totalPages: response.pagerOption.TotalPage,
-        startPage: response.pagerOption.CurrentPage,
+        totalPages: totalPages,
+        startPage: startPage,
         visiblePages: 5,
         initiateStartPageClick: false,
         href: 'javascript:;',
@@ -56,38 +20,43 @@ function fillData(response) {
         next: '<i class="mdi mdi-chevron-right"></i>',
         last: '<i class="mdi mdi-chevron-double-right"></i>',
         onPageClick: function (event, page) {
-            $('#form #CurrentPage').val(page);
-            query();
+            $('form.form-filter #CurrentPage').val(page);
+            query(false);
         }
     });
-
-    var from = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1,
-        to = from + response.data.length - 1;
-    var detailtext = 'Showing <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.pagerOption.TotalItem + '</strong> entries';
-    $('table#data #pagination #detailtext').html(detailtext);
 }
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/TimeRecord',
-        type: 'POST',
-        dataType: 'json',
-        data: $('.card-container-base #form').serialize(),
+        url: _global.root + 'Report/TimeRecordDetail',
+        type: 'GET',
+        dataType: 'html',
+        data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
-        success: function (response) {
-            $('table#data tbody').children().remove();
-            $('table#data tfoot').children().remove();
+        success: function (data) {
+            $('#time-record-detail').html(data);
 
-            if (response.data.length > 0) {
+            if ($('table#data #pagination').length > 0) {
+                bindMenuIn('.in-action');
+                bindMenuOut('.out-action');
+                bindMenuInOut('.inout-action');
+                initPagination();
+
                 $('#datatable_length').removeClass('hide');
-                fillData(response);
+                $('#datatable_length #ItemsPerPage').on('change', function () {
+                    $('form.form-filter #CurrentPage').val(1);
+                    $('form.form-filter #ItemsPerPage').val($(this).val());
+
+                    if (validateFromDateAndToDate()) {
+                        query(false);
+                    }
+                });
             } else {
-                $('#datatable_length').removeClass('hide').addClass('hide');
-                $(noInformation(6)).appendTo('table#data');
+                $('#datatable_length').addClass('hide');
             }
 
             floatThead('table#data');
@@ -187,17 +156,11 @@ $(document).ready(function () {
 
     $('#Date').val($('#DateOption').val()).change();
 
-    $('.card-container-base #submit').on('click', function () {
-        $('.card-container-base #form #CurrentPage').val(1);
-
-        if (validateFromDateAndToDate()) {
-            query(false);
-        }
-    });
-
-    $('.card-container-base #datatable_length #ItemsPerPage').on('change', function () {
-        $('.card-container-base #form #ItemsPerPage').val($(this).val());
-        $('.card-container-base #form #CurrentPage').val(1);
+    $('#submit').on('click', function () {
+        $('form.form-filter #CurrentPage').val(1);
+        $('#datatable_length #ItemsPerPage').prop('selectedIndex', 0);
+        $('#datatable_length #ItemsPerPage').material_select();
+        $('form.form-filter #ItemsPerPage').val($('#datatable_length #ItemsPerPage').val());
 
         if (validateFromDateAndToDate()) {
             query(false);

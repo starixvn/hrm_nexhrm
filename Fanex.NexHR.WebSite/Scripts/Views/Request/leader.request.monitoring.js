@@ -1,55 +1,30 @@
-﻿/*global _global, setDateTimeRange, initDatePicker, floatThead, noInformation*/
-/*exported index*/
+﻿/*global _global, _messages, setDateTimeRange, floatThead*/
+/*exported*/
 'use strict';
 
-var rowIndex = 1;
-
-function index() {
-    return rowIndex++;
-}
-
 function query(isFirstLoad) {
-    var action = $('.card-container-base .form form').attr('action').split('/');
+    var action = $('.card-container-base').find('#ActionName').val();
 
     $.ajax({
-        url: _global.root + 'report/' + action[action.length - 1],
-        type: 'POST',
-        dataType: 'json',
-        data: $('.card-container-base .form form').serialize(),
+        url: _global.root + 'report/' + action,
+        type: 'GET',
+        dataType: 'html',
+        data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
-        success: function (response) {
-            $('table#data tbody').children().remove();
+        success: function (data) {
+            $('#request-monitoring-detail').html(data);
 
-            if (response.data && response.data.length > 0) {
-                rowIndex = 1;
-
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        index: index,
-                        maxRequest: maxRequest,
-                        isLeader: isLeader,
-                        fromDate: fromDate,
-                        toDate: toDate
-                    },
-                    html = tmpl.render(response.data, helpers);
-
-                $(html).appendTo('table#data');
-
-                $("table#data .DateOption").val($('#Date').val());
-                $('table#data tbody tr td a').click(function () {
-                    var model = $(this).closest('td').find('.request-model').serialize(),
+            $('table#data tbody tr td a').click(function () {
+                var model = $(this).closest('td').find('.request-model').serialize(),
                         controller = $(this).attr('data-controller'),
                         action = $(this).attr('data-action');
 
-                    document.location = _global.root + controller + '/' + action + '?' + model;
-                });
-            } else {
-                $(noInformation(10)).appendTo('table#data');
-            }
+                document.location = _global.root + controller + '/' + action + '?' + model;
+            });
 
             floatThead('table#data');
         },
@@ -78,9 +53,6 @@ $(document).ready(function () {
     });
 
     $('#submit').click(function () {
-        fromDate = $("#FromDate").val();
-        toDate = $("#ToDate").val();
-
         if (validateFromDateAndToDate()) {
             query(false);
         }

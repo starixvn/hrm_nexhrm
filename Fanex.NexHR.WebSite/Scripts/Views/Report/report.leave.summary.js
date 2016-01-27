@@ -3,8 +3,8 @@
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'report/LeaveSummary',
-        type: 'POST',
+        url: _global.root + 'report/LeaveSummaryDetail',
+        type: 'GET',
         dataType: 'html',
         data: $('.card-container-base form').serialize(),
         beforeSend: function () {

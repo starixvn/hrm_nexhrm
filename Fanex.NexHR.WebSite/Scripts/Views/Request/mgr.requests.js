@@ -1,4 +1,4 @@
-﻿/*global _global, actingButton, sleep, reloadButtonText, setDateTimeRange, floatThead*/
+﻿/*global _global, _messages, setDateTimeRange, floatThead*/
 'use strict';
 
 function processRequest(command, eventElement) {
@@ -57,13 +57,13 @@ function bindMenuApproved(element) {
 }
 
 function query(isFirstLoad) {
-    var action = $('.card-container-base form').find('#ActionName').val();
+    var action = $('.card-container-base .form').find('#ActionName').val();
 
     $.ajax({
         url: _global.root + 'request/' + action,
         type: 'GET',
         dataType: 'html',
-        data: $('.card-container-base form').serialize(),
+        data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);

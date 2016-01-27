@@ -122,16 +122,13 @@ namespace Fanex.NexHR.Controllers
                 DateOption = 0
             };
 
-            ViewBag.FromDate = model.FromDate;
-            ViewBag.ToDate = model.ToDate;
-            ViewBag.isLeader = false;
+            ViewBag.ActionName = "HRRequestMonitoringDetail";
 
             return View("RequestMonitoring", model);
         }
 
-        [HttpPost]
         [Authorize(Roles = "HR")]
-        public JsonResult HRRequestMonitoring(RequestsMonitoringViewModel model)
+        public ActionResult HRRequestMonitoringDetail(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
@@ -153,7 +150,12 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            return Json(new { data = requestMonitorings }, JsonRequestBehavior.AllowGet);
+            ViewBag.FromDate = model.FromDate;
+            ViewBag.ToDate = model.ToDate;
+            ViewBag.isLeader = false;
+            ViewBag.MaxRequest = model.MaxRequest;
+
+            return PartialView("_RequestMonitoringDetail", requestMonitorings);
         }
 
         #endregion HRRequestMonitoring
@@ -174,16 +176,13 @@ namespace Fanex.NexHR.Controllers
                 DateOption = 0
             };
 
-            ViewBag.FromDate = model.FromDate;
-            ViewBag.ToDate = model.ToDate;
-            ViewBag.isLeader = true;
+            ViewBag.ActionName = "LeaderRequestMonitoringDetail";
 
             return View("RequestMonitoring", model);
         }
 
-        [HttpPost]
         [Authorize(Roles = "AssistantLeader")]
-        public JsonResult LeaderRequestMonitoring(RequestsMonitoringViewModel model)
+        public ActionResult LeaderRequestMonitoringDetail(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
 
@@ -205,7 +204,12 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-            return Json(new { data = requestMonitorings }, JsonRequestBehavior.AllowGet);
+            ViewBag.FromDate = model.FromDate;
+            ViewBag.ToDate = model.ToDate;
+            ViewBag.isLeader = true;
+            ViewBag.MaxRequest = model.MaxRequest;
+
+            return PartialView("_RequestMonitoringDetail", requestMonitorings);
         }
 
         #endregion LeaderRequestMonitoring
@@ -282,8 +286,7 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult LeaveSummary(LeaveSummaryViewModel model)
+        public ActionResult LeaveSummaryDetail(LeaveSummaryViewModel model)
         {
             if (model == null)
             {
@@ -323,7 +326,7 @@ namespace Fanex.NexHR.Controllers
             ViewBag.LastYear = model.Year - 1;
             IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, teams);
 
-            return PartialView("_LeaveSummary", leaveSummaryByTeamList);
+            return PartialView("_LeaveSummaryDetail", leaveSummaryByTeamList);
         }
 
         #endregion Leave Summary
@@ -531,8 +534,7 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public JsonResult MyTimeRecord(TimeRecordViewModel model)
+        public ActionResult MyTimeRecordDetail(TimeRecordViewModel model)
         {
             var criteria = new GetTimeRecordCriteria()
             {
@@ -560,9 +562,12 @@ namespace Fanex.NexHR.Controllers
                 TotalPage = totalPage
             };
 
-            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.AllowGet);
+            ViewBag.PagerOption = pagerOption;
+
+            return PartialView("_TimeRecordDetail", timeRecords);
         }
 
+        [Authorize(Roles = "HR")]
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             if (!fromDate.HasValue || !toDate.HasValue)
@@ -586,8 +591,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [Authorize(Roles = "HR")]
-        [HttpPost]
-        public JsonResult TimeRecord(TimeRecordViewModel model)
+        public ActionResult TimeRecordDetail(TimeRecordViewModel model)
         {
             int? employeeId = null;
 
@@ -618,7 +622,9 @@ namespace Fanex.NexHR.Controllers
                 TotalPage = totalPage
             };
 
-            return Json(new { data = timeRecords, pagerOption = pagerOption }, JsonRequestBehavior.AllowGet);
+            ViewBag.PagerOption = pagerOption;
+
+            return PartialView("_TimeRecordDetail", timeRecords);
         }
 
         #endregion Time Record
@@ -634,6 +640,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             CommandResult commandResult = _reportService.ProcessInOut(criteria);
+
             return Json(commandResult, JsonRequestBehavior.AllowGet);
         }
     }

@@ -18,110 +18,63 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                    @using (Html.BeginForm("mytimerecord", "report", FormMethod.Post, new { id = "form" }))
-                    {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--m">
-                                    <label>@Labels.DateRange</label>
+                        <form class="form-filter" action="">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
                                 </div>
-                                <div class="left select--s">
-                                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
-                                    @Html.Hidden("DateOption", Model.DateOption)
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, @Labels.FromDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                       @Html.LabelFor(model => model.ToDate, @Labels.ToDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon to-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                    @Html.HiddenFor(model => model.ItemsPerPage)
+                                    @Html.HiddenFor(model => model.CurrentPage)
+                                    <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                                 </div>
                             </div>
-                            <div class="col m-r--m">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate, @Labels.FromDate)
-                                </div>
-                                <div class="datepicker-button left select--s">
-                                    @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon from-date left"></i>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="left label--m">
-                                   @Html.LabelFor(model => model.ToDate, @Labels.ToDate)
-                                </div>
-                                <div class="datepicker-button left select--s">
-                                    @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                    <i class="mdi-action-event calendar-icon to-date left"></i>
-                                </div>
-                            </div>
-                            <div class="col">
-                                @Html.HiddenFor(model => model.EmployeeId)
-                                @Html.HiddenFor(model => model.ItemsPerPage)
-                                @Html.HiddenFor(model => model.CurrentPage)
-                                <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
-                            </div>
-                        </div>
-                    }
+                        </form>
                     </div>
                     <div id="datatable_length" class="row form-input m-b--m hide">
                         <div class="col">
                             <div class="inline label--s">
-                                <span>Show</span>
+                                <label>Show</label>
                             </div>
                             <div class="inline select--xs m-r--s">
                                 @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray)
                             </div>
                             <div class="inline label--m">
-                                <span>entries</span>
+                                <label>entries</label>
                             </div>
                         </div>
                     </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
-                            <thead>
-                                <tr>
-                                    <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Code</th>
-                                    <th>@Labels.Nick</th>
-                                    <th>@Labels.Team</th>
-                                    <th>@Labels.TimeRecord</th>
-                                    <th>@Labels.InOut</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot></tfoot>
-                        </table>
+                    <div id="time-record-detail" class="p-x--s">
                     </div>
                 </div>
             </div>
         </div>
     </div> 
 </div>
-
-<div id="pager" class="hide">
-    <table>
-        <tfoot>
-            <tr>
-                <td colspan="6" id="pagination" class="row form-input">
-                    <div id="detailtext" class="col m-t--s"></div>
-                    <div class="right">
-                        <ul id="numberlist" class="pagination"></ul>
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
-<script id="template" type="text/x-jsrender">
-    <tr>
-        <td>{{:~index()}}</td>
-        <td>
-            {{:Employee.Code}}
-        </td>
-        <td class="tooltip" title="{{:Employee.FullName}}">
-            ${Employee.NickName}
-        </td>
-        <td class="tooltip" title="{{:Employee.Team.Name}}">
-            {{:Employee.Team.Code}}
-        </td>
-        <td>{{:~formatJsonDateToDetailFormatedDate(RecordTime)}}</td>
-        <td>{{:GetInOutName}}</td>
-    </tr>
-</script>
 

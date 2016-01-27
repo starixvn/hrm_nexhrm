@@ -691,7 +691,9 @@
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
-    <Content Include="Views\Report\_LeaveSummary.cshtml" />
+    <Content Include="Views\Report\_LeaveSummaryDetail.cshtml" />
+    <Content Include="Views\Report\_TimeRecordDetail.cshtml" />
+    <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -844,7 +846,6 @@
     <Content Include="Views\Request\History\LeaveRequestHistory.cshtml" />
     <Content Include="Views\Request\HRView.cshtml" />
     <Content Include="Views\Request\HRViewHistory.cshtml" />
-    <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Request\Member.cshtml" />
     <Content Include="Views\Request\ViewHistory.cshtml" />
     <Content Include="Views\Employee\MyWorkingSchedule.cshtml" />
@@ -872,7 +873,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52078</DevelopmentServerPort>
+          <DevelopmentServerPort>51384</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

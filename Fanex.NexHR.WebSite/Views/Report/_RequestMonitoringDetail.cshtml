@@ -1,0 +1,253 @@
+﻿@model List<RequestsMonitoring>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th rowspan="2">@Labels.SymbolCount</th>
+            <th rowspan="2">@Labels.FullName</th>
+            <th rowspan="2">@Labels.Nick</th>
+            <th rowspan="2">@Labels.Team</th>
+            <th colspan="4">@Labels.Leave</th>
+            <th colspan="2">@Labels.CheckInOut</th>
+            <th rowspan="2">@Labels.LateInEarlyOut (@Labels.Times)</th>
+            <th rowspan="2">@Labels.Absent (@Labels.Times)</th>
+        </tr>
+        <tr>
+            <th>@Labels.Request (@Labels.Times)</th>
+            <th>@Labels.Annual (Days)</th>
+            <th>@Labels.Unpaid (Days)</th>
+            <th>@Labels.Others (Days)</th>
+            <th>@Labels.Request (@Labels.Times)</th>
+            <th>@Labels.Missing (@Labels.Times)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            int index = 1;
+
+            foreach (RequestsMonitoring request in Model)
+            {
+            <tr>
+                <td>@(index++)</td>
+                <td class="align-left">
+                    @request.Requester.FullName
+                </td>
+                <td>
+                    @request.Requester.NickName
+                </td>
+                <td class="tooltip" title="@request.Requester.Team.Name">
+                    @request.Requester.Team.Code
+                </td>
+                <td class="@(request.TotalLeaveTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalLeaveTimes > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("DateOption", 0)
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.NickName + " (" + request.Requester.FullName + ")")
+                            @Html.Hidden("TeamId", -2)
+                            @Html.Hidden("StatusId", (byte)RequestStatuse.Approve)
+                            @Html.Hidden("RequestType", 1)
+                            @Html.Hidden("IsFilterByEffectedDate", true)
+                        </form>
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="member">@request.TotalLeaveTimes</a>
+                        }
+                        else
+                        {
+                            <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="hrview">@request.TotalLeaveTimes</a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalAnnualLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAnnualLeave > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("DateOption", 0)
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.NickName + " (" + request.Requester.FullName + ")")
+                            @Html.Hidden("TeamId", -2)
+                            @Html.Hidden("StatusId", (byte)RequestStatuse.Approve)
+                            @Html.Hidden("RequestType", 1)
+                            @Html.Hidden("IsFilterByEffectedDate", true)
+                        </form>
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="member">
+                                @request.TotalAnnualLeave.ToString("0.0")
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="hrview">
+                                @request.TotalAnnualLeave.ToString("0.0")
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalUnpaidLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalUnpaidLeave > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("DateOption", 0)
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.NickName + " (" + request.Requester.FullName + ")")
+                            @Html.Hidden("TeamId", -2)
+                            @Html.Hidden("StatusId", (byte)RequestStatuse.Approve)
+                            @Html.Hidden("RequestType", 1)
+                            @Html.Hidden("IsFilterByEffectedDate", true)
+                        </form>
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="member">
+                                @request.TotalUnpaidLeave.ToString("0.0")
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="hrview">
+                                @request.TotalUnpaidLeave.ToString("0.0")
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalOtherLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalOtherLeave > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("DateOption", 0)
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.NickName + " (" + request.Requester.FullName + ")")
+                            @Html.Hidden("TeamId", -2)
+                            @Html.Hidden("StatusId", (byte)RequestStatuse.Approve)
+                            @Html.Hidden("RequestType", 1)
+                            @Html.Hidden("IsFilterByEffectedDate", true)
+                        </form>
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="member">
+                                @request.TotalOtherLeave.ToString("0.0")
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" data-controller="request" data-action="hrview">
+                                @request.TotalOtherLeave.ToString("0.0")
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalCheckInOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalCheckInOutTimes > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("DateOption", 0)
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.NickName + " (" + request.Requester.FullName + ")")
+                            @Html.Hidden("TeamId", -2)
+                            @Html.Hidden("StatusId", (byte)RequestStatuse.Approve)
+                            @Html.Hidden("RequestType", 4)
+                            @Html.Hidden("IsFilterByEffectedDate", true)
+                        </form>
+                        if ((bool)ViewBag.isLeader)
+                        {
+                            <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="member">
+                                @request.TotalCheckInOutTimes
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="hrview">
+                                @request.TotalCheckInOutTimes
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalMissingCheckInOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalMissingCheckInOutTimes > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.DisplayName)
+                        </form>
+                        <a href="javascript:;" data-controller="report" data-action="attendance">@request.TotalMissingCheckInOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.LateInEarlyOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.LateInEarlyOutTimes > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.DisplayName)
+                        </form>
+                        <a href="javascript:;" data-controller="report" data-action="attendance">@request.LateInEarlyOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalAbsent > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAbsent > 0)
+                    {
+                        <form action="" class="request-model hide">
+                            @Html.Hidden("FromDate", ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("ToDate", ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate())
+                            @Html.Hidden("EmployeeId", request.Requester.Id)
+                            @Html.Hidden("Employee", request.Requester.DisplayName)
+                        </form>
+                        <a href="javascript:;" data-controller="report" data-action="attendance">@request.TotalAbsent</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
+            }
+        }
+        else
+        { 
+            @RazorHelper.DisplayNoInformation(colspan: 12);
+        }
+    </tbody>
+</table>
