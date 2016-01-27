@@ -311,6 +311,7 @@
     <Content Include="Scripts\Libs\common.js" />
     <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\fullcalendar.js" />
+    <Content Include="Scripts\Libs\gcal.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.js" />
     <Content Include="Scripts\Libs\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Libs\jquery-dateFormat.js" />
@@ -342,6 +343,7 @@
     <Content Include="Scripts\Views\addextensionno.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
+    <Content Include="Scripts\Views\Dashboard\calendar.js" />
     <Content Include="Scripts\Views\Dashboard\teamrequest.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />

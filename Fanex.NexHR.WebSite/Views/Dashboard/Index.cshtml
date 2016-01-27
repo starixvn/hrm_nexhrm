@@ -41,7 +41,7 @@
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card yellow darken-4">
-                <a href="/leave/employeeview">
+                <a href="/leave/Create">
                     <div class="card-content white-text hidden">
                         <div class="col s3">
                             <i class="mdi-action-perm-identity left medium"></i>
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     @Html.Partial("MyTeamRequest", Model.EmployeeAttendanceModel)
     <div>
         <div class="col s12 m4 card-container-base workload">
@@ -267,8 +267,8 @@
         </div>
         <div class="col s12 m4 card-container-base">
             <div class="card">
-                <img alt="" src="../../Content/Images/calendar.jpg" />
-                
+                <div id="calendar">
+                </div>
             </div>
         </div>
     </div>
