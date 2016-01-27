@@ -3,7 +3,10 @@ $(document).ready(function () {
     $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyDJZUsIlBFo1uJvrlrKhH0pXcYwDx645PM',
         events: {
-            googleCalendarId: mail
+            googleCalendarId: mail,
+            eventMouseover: function (event, jsEvent, view) {
+                alert('ok');
+            }
         }
     });
 });

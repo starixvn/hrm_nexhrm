@@ -344,8 +344,8 @@
                 "~/Content/dashboardcss",
                 "~/Content/Common/slick.css",
                 "~/Content/Views/mydashboard.css",
-                "~/Content/Common/fullcalendar.css");
-                //"~/Content/Views/mycalendar.css");
+                "~/Content/Common/fullcalendar.css",
+                "~/Content/Views/mycalendar.css");
         }
 
         private static void BuildBundleForWorkingCanlendar(BundleCollection bundles)
