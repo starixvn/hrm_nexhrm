@@ -28,9 +28,17 @@ function query(isFirstLoad) {
         success: function (data) {
             $('#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
-                $('#template').tmpl(data).appendTo('#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatDate: formatDate,
+                        isHRRole: isHRRole
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#data');
             } else {
                 $(noInformation(6)).appendTo('#data');
             }

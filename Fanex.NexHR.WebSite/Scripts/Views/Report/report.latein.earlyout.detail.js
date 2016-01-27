@@ -24,7 +24,14 @@ function query(isFirstLoad) {
 
             if (response.data.length > 0) {
                 rowIndex = 1;
-                $('#template').tmpl(response.data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatJsonDate: formatJsonDate
+                    },
+                    html = tmpl.render(response.data, helpers);
+
+                $(html).appendTo('table#data');
             } else {
                 $(noInformation(7)).appendTo('table#data');
             }
@@ -57,6 +64,8 @@ $(document).ready(function () {
     query(true);
 
     $('#submit').on('click', function () {
-        query(false);
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 });

@@ -29,14 +29,22 @@ function query(isFirstLoad) {
             }
         },
         success: function (data) {
-            $('#memo tbody').children().remove();
+            $('table#memo tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
 
-                $('#template').tmpl(data).appendTo('#memo');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatDate: formatDate,
+                        isHRRole: isHRRole
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#memo');
             } else {
-                $(noInformation(11)).appendTo('#memo');
+                $(noInformation(11)).appendTo('table#memo');
             }
         },
         error: function () {

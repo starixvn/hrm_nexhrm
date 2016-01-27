@@ -63,30 +63,28 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True';
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
-<script id="template" type="text/x-jquery-tmpl"> 
-    <tr id="row_${Id}">
-        <td class='center'>
-            ${index()}
-        </td>
+<script id="template" type="text/x-jsrender"> 
+    <tr id="row_{{:Id}}">
+        <td>{{:~index()}}</td>
         <td class="align-left">
-            ${HolidayName}
+            {{:HolidayName}}
         </td>
         <td>
-            ${formatDate(FromDate, 'dd MMM, yyyy')}
+            {{:~formatDate(FromDate, 'dd MMM, yyyy')}}
         </td>
-        <td class="ddMMyyyy">
-            ${formatDate(ToDate, 'dd MMM, yyyy')}
+        <td>
+            {{:~formatDate(ToDate, 'dd MMM, yyyy')}}
         </td>
-        {{if isHR}}
+        {{if ~isHRRole}}
             <td class="cmd">
-                <a href="/holiday/edit/${Id}">
+                <a href="/holiday/edit/{{:Id}}">
                     <i class="mdi mdi-border-color mdi-dark"></i>
                 </a>
             </td>
             <td class="cmd">
-                <a href="javascript:;" onclick="deleteHoliday(${Id});">
+                <a href="javascript:;" onclick="deleteHoliday({{:Id}});">
                     <i class="mdi mdi-delete mdi-dark"></i>
                 </a>
             </td>

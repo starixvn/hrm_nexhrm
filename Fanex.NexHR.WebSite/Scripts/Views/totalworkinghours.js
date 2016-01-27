@@ -1,4 +1,4 @@
-﻿/*global _global, _messages*/
+﻿/*global _global, _messages, noInformation, setDateTimeRange*/
 /*exported index*/
 'use strict';
 
@@ -21,10 +21,22 @@ function query(isFirstLoad) {
         success: function (data) {
             $('#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
 
-                $('#template').tmpl(data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        displayMinuteForTotalWorking: displayMinuteForTotalWorking,
+                        totalHoursToTime: totalHoursToTime,
+                        isHRRole: isHRRole,
+                        dateOption: dateOption,
+                        fromDate: fromDate,
+                        toDate: toDate
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#data');
 
                 $(".UnpaidLeave").click(function () {
                     var modelSerialize = $(this).parent().find('#form').serialize();
@@ -79,7 +91,9 @@ $(document).ready(function () {
             fromDate = $('#FromDate').val();
             toDate = $('#ToDate').val();
 
-            query(false);
+            if (validateFromDateAndToDate()) {
+                query(false);
+            }
         }
     });
 

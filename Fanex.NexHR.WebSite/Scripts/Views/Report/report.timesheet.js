@@ -95,11 +95,19 @@ function query(isFirstLoad) {
         success: function (response) {
             $('table#data tbody').children().remove();
 
-            if (response.data.length > 0) {
+            if (response.data && response.data.length > 0) {
                 rowIndex = 1;
 
-                $.template('template', $('#template'));
-                $.tmpl('template', response.data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatJsonDate: formatJsonDate,
+                        totalHoursToTime: totalHoursToTime,
+                        displayMinute: displayMinute
+                    },
+                    html = tmpl.render(response.data, helpers);
+
+                $(html).appendTo('table#data');
 
                 initTooltip();
             } else {

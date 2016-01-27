@@ -17,9 +17,17 @@ function validateHoliday(e) {
     }
 }
 
-$(document).ready(function () {
-    initDatePicker();
+function setTheDate() {
+    var numday = $("#numDay").val(),
+        fromDate = $("#FromDate").val(),
+        date = Date.parse(fromDate),
+        theDate = new Date(date);
 
+    theDate.setDate(theDate.getDate() + parseInt(numday) - 1);
+    $("#ToDate").val(theDate.toString('dd MMM, yyyy'));
+}
+
+$(document).ready(function () {
     var holidayName = $("#HolidayName").val(),
         numday = $("#numDay").val(),
         fromDate = $("#FromDate").val(),
@@ -32,16 +40,6 @@ $(document).ready(function () {
     $("#numDay").click(function () {
         setTheDate();
     });
-
-    function setTheDate() {
-        var numday = $("#numDay").val(),
-            fromDate = $("#FromDate").val(),
-            date = Date.parse(fromDate),
-            theDate = new Date(date);
-
-        theDate.setDate(theDate.getDate() + parseInt(numday) - 1);
-        $("#ToDate").val(theDate.toString('dd MMM, yyyy'));
-    }
 
     $("#btnClear").click(function () {
         $("#HolidayName").val(holidayName);
@@ -63,6 +61,7 @@ $(document).ready(function () {
         if (dayDiff === 0) {
             dayDiff = 1;
         }
+
         $("#numDay").val(dayDiff);
     });
 });

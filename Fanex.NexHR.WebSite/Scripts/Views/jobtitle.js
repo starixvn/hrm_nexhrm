@@ -168,8 +168,13 @@ function query(isFirstLoad) {
             if (response.data.length > 0) {
                 rowIndex = 1;
 
-                $.template('template', $('#template'));
-                $.tmpl('template', response.data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index
+                    },
+                    html = tmpl.render(response.data, helpers);
+
+                $(html).appendTo('table#data');
             } else {
                 $(noInformation(10)).appendTo('table#data');
             }
@@ -190,6 +195,12 @@ function query(isFirstLoad) {
 $(document).ready(function () {
     var enable = true;
 
+    $('#keyword').keyup(function (event) {
+        if (event.keyCode === 13) {
+            query(false);
+        }
+    });
+
     $('#submit').on('click', function () {
         query(false);
     });
@@ -197,8 +208,7 @@ $(document).ready(function () {
     var q = getParam('query');
     if (q != null) {
         $('#keyword').val(q);
-        query(true);
-    } else {
-        query(true);
     }
+
+    query(true);
 });

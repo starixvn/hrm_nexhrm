@@ -7,22 +7,6 @@ function index() {
     return rowIndex++;
 }
 
-$(document).ready(function () {
-    setDateTimeRange(1);
-    initSearchAutoComplete();
-
-    $('#Date').on('change', function () {
-        setDateTimeRange($(this).val());
-        $('#DateOption').attr('value', $(this).val());
-    });
-
-    $('#submit').on('click', function (evt) {
-        evt.preventDefault();
-        query(false);
-    });
-    query(true);
-});
-
 function initSearchAutoComplete() {
     $("#Employee").autocomplete({
         source: function (request, response) {
@@ -96,11 +80,19 @@ function query(isFirstLoad) {
         success: function (data) {
             $('table#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
 
-                $.template('template', $('#template'));
-                $.tmpl('template', data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatDate: formatDate,
+                        totalHoursToTime: totalHoursToTime,
+                        displayMinute: displayMinute
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#data');
 
                 initTooltip();
             } else {
@@ -150,6 +142,7 @@ function initTooltip() {
         }
     });
 }
+
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
     $.ajax({
@@ -166,3 +159,22 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
 
     return result;
 }
+
+$(document).ready(function () {
+    setDateTimeRange(1);
+    initSearchAutoComplete();
+
+    $('#Date').on('change', function () {
+        setDateTimeRange($(this).val());
+        $('#DateOption').attr('value', $(this).val());
+    });
+
+    $('#submit').on('click', function (evt) {
+        evt.preventDefault();
+
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
+    });
+    query(true);
+});

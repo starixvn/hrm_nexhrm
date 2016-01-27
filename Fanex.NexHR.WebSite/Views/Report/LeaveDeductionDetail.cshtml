@@ -109,15 +109,15 @@
 <script type="text/javascript">
     var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
-<script id="template" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jsrender">
     <tr>
-        <td>${index()}</td>
-        <td class="align-left">${Employee.FullName}</td>
-        <td>${Employee.NickName}</td>
-        <td class="tooltip" title="${Employee.Team.Name}">
-            ${Employee.Team.Code}
+        <td>{{:~index()}}</td>
+        <td class="align-left">{{:Employee.FullName}}</td>
+        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.Team.Name}}">
+            {{:Employee.Team.Code}}
         </td>
-        <td class="deductdate">${formatJsonDate(DeductDate, 'dd MMM, yyyy')}</td>
+        <td class="deductdate">{{:~formatJsonDate(DeductDate, 'dd MMM, yyyy')}}</td>
         <td>
             {{if IsAnnual}}
                 Annual Leave
@@ -125,20 +125,20 @@
                 Unpaid Leave
             {{/if}}
         </td>
-        <td>${LeaveDays.toFixed(1)}</td>
-        <td class="description">${Description}</td>
-        {{if isHRRole}}
+        <td>{{:LeaveDays.toFixed(1)}}</td>
+        <td class="description">{{:Description}}</td>
+        {{if ~isHRRole}}
             <td>
                 <a href="javascript:;" class="editLeaveDeduction"
-                        data-id="${LeaveDeductionId}"
-                        data-leavedays="${LeaveDays}"
-                        data-isannual="${IsAnnual}"
-                        data-deductdate="${formatJsonDate(DeductDate, 'dd MMM, yyyy')}">
+                        data-id="{{:LeaveDeductionId}}"
+                        data-leavedays="{{:LeaveDays}}"
+                        data-isannual="{{:IsAnnual}}"
+                        data-deductdate="{{:~formatJsonDate(DeductDate, 'dd MMM, yyyy')}}">
                     <i class="mdi mdi-border-color mdi-dark"></i>
                 </a>
             </td>
             <td>
-                <a href="javascript:;" class="deleteLeaveDeduction" data-id="${LeaveDeductionId}">
+                <a href="javascript:;" class="deleteLeaveDeduction" data-id="{{:LeaveDeductionId}}">
                     <i class="mdi mdi-delete mdi-dark"></i>
                 </a>
             </td>

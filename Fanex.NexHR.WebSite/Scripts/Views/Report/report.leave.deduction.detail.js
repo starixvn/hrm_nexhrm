@@ -93,9 +93,18 @@ function query(isFirstLoad) {
         success: function (response) {
             $('table#data tbody').children().remove();
 
-            if (response.data.length > 0) {
+            if (response.data && response.data.length > 0) {
                 rowIndex = 1;
-                $('#template').tmpl(response.data).appendTo('table#data');
+
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatJsonDate: formatJsonDate,
+                        isHRRole: isHRRole
+                    },
+                    html = tmpl.render(response.data, helpers);
+
+                $(html).appendTo('table#data');
 
                 initEditLeaveDeduction();
                 initDeleteLeaveDeduction();
@@ -131,6 +140,8 @@ $(document).ready(function () {
     query(true);
 
     $('#submit').on('click', function () {
-        query(false);
+        if (validateFromDateAndToDate()) {
+            query(false);
+        }
     });
 });

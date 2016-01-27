@@ -95,78 +95,78 @@
 <script type="text/javascript">
     var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
-<script id="template" type="text/x-jquery-tmpl">
-    <tr id="row_${Id}">
-        <td>${index()}</td>
-        <td class="tooltip" title="${FullName}">
-            <a href="/employee/detail/${Id}">${NickName}</a>
+<script id="template" type="text/x-jsrender">
+    <tr id="row_{{:Id}}">
+        <td>{{:~index()}}</td>
+        <td class="tooltip" title="{{:FullName}}">
+            <a href="/employee/detail/{{:Id}}">{{:NickName}}</a>
         </td>
-        <td class="tooltip" title="${Team.Name}">
-            ${Team.Code}
+        <td class="tooltip" title="{{:Team.Name}}">
+            {{:Team.Code}}
         </td>
-        <td class="align-left">${JobTitle}</td>
+        <td class="align-left">{{:JobTitle}}</td>
         <td>
             {{if ToeicScore.Listening == 0}}
                 -
             {{else}}
-                ${ToeicScore.Listening}
+                {{:ToeicScore.Listening}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.Reading == 0}}
                 -
             {{else}}
-                ${ToeicScore.Reading}
+                {{:ToeicScore.Reading}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.LRTotal == 0}}
                 -
             {{else}}
-                ${ToeicScore.LRTotal}
+                {{:ToeicScore.LRTotal}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.LRExamDate == null}}
                 -
             {{else}}
-                ${formatJsonDate(ToeicScore.LRExamDate, 'dd MMM, yyyy')}
+                {{:~formatJsonDate(ToeicScore.LRExamDate, 'dd MMM, yyyy')}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.Speaking == 0}}
                 -
             {{else}}
-                ${ToeicScore.Speaking}
+                {{:ToeicScore.Speaking}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.Writing == 0}}
                 -
             {{else}}
-                ${ToeicScore.Writing}
+                {{:ToeicScore.Writing}}
             {{/if}}
         </td>
         <td>
             {{if ToeicScore.SWExamDate == null}}
                 -
             {{else}}
-                ${formatJsonDate(ToeicScore.SWExamDate, 'dd MMM, yyyy')}
+                {{:~formatJsonDate(ToeicScore.SWExamDate, 'dd MMM, yyyy')}}
             {{/if}}
         </td>
         {{if ToeicScore.InputDate != null}}
-            {{if ToeicScore.InputDate < new Date()}}
-                <td class="expired-date">${formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}</td>
+            {{if ToeicScore.InputDate < ~currentDate}}
+                <td class="expired-date">{{:~formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}}</td>
             {{else}}
-                <td>${formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}</td>
+                <td>{{:~formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}}</td>
             {{/if}}
         {{else}}
             <td>-</td>
         {{/if}}
-        {{if isHRRole}}
+        {{if ~isHRRole}}
             <td>
                 {{if !IsDeleted}}
-                    <a href="javascript:;" onclick="editTOEIC(${Id},'${NickName}');">
+                    <a href="javascript:;" onclick="editTOEIC({{:Id}},'{{:NickName}}');">
                         <i class="mdi mdi-border-color mdi-dark"></i>
                     </a>
                 {{else}}

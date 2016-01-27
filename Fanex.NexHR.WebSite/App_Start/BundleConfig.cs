@@ -80,7 +80,7 @@
                          "~/Scripts/Libs/jquery-dateFormat.min.js",
                          "~/Scripts/Libs/materialize.js",
                          "~/Scripts/Libs/jquery.tipsy.js",
-                         "~/Scripts/Libs/jquery.tmpl.min.js",
+                         "~/Scripts/Libs/jsrender.min.js",
                          "~/Scripts/Libs/jquery.cookie.js",
                          "~/Scripts/Libs/chart.js",
                          "~/Scripts/Libs/date.js",

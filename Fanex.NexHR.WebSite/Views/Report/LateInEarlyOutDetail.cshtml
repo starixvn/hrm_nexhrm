@@ -95,15 +95,15 @@
         </div>
     </div>
 </div>
-<script id="template" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jsrender">
     <tr>
-        <td>${index()}</td>
-        <td class="align-left">${Employee.FullName}</td>
-        <td>${Employee.NickName}</td>
-        <td class="tooltip" title="${Employee.Team.Name}">
-            ${Employee.Team.Code}
+        <td>{{:~index()}}</td>
+        <td class="align-left">{{:Employee.FullName}}</td>
+        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.Team.Name}}">
+            {{:Employee.Team.Code}}
         </td>
-        <td>${formatJsonDate(WorkDate, 'dd MMM, yyyy')}</td>
+        <td>{{:~formatJsonDate(WorkDate, 'dd MMM, yyyy')}}</td>
         <td>
             {{if TypeId == 0}}
                 Leave Deduction
@@ -113,6 +113,6 @@
                 Early Out
             {{/if}}
         </td>
-        <td>${(Minutes / 60).toFixed(1)}</td>
+        <td>{{:(Minutes / 60).toFixed(1)}}</td>
     </tr>
 </script>

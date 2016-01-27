@@ -138,8 +138,16 @@ function query(isFirstLoad) {
             if (data && data.length > 0) {
                 rowIndex = 1;
 
-                $.template('template', $('#template'));
-                $.tmpl('template', data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatDate: formatDate,
+                        totalHoursToTime: totalHoursToTime,
+                        displayMinute: displayMinute
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#data');
 
                 initTooltip();
             } else {

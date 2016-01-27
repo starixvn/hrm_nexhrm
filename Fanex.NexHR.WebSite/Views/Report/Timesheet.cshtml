@@ -12,7 +12,7 @@
 }
 
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -78,70 +78,70 @@
     </div>
 </div>
 
-<script id="template" type="text/x-jquery-tmpl">
-    <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId }} {{else}} class="noshift"{{/if}}>
-        <td>${index()}</td>
+<script id="template" type="text/x-jsrender">
+    <tr {{if IsNotWork != 0}} class="offdate" {{else ShiftId}} {{else}} class="noshift"{{/if}}>
+        <td>{{:~index()}}</td>
         <td>
-            ${formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}
+            {{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}
         </td>
-        <td title="${FullName}" class="tooltip">
-            ${NickName}
+        <td title="{{:FullName}}" class="tooltip">
+            {{:NickName}}
         </td>
-        <td class="tooltip" title="${Team}">
-            ${TeamCode}
+        <td class="tooltip" title="{{:Team}}">
+            {{:TeamCode}}
         </td>
         <td>
-            ${ShiftCode}
+            {{:ShiftCode}}
         </td>
         <td>
             {{if InFixed}}
-                ${formatJsonDate(InFixed, 'HH:mm')}
+                {{:~formatJsonDate(InFixed, 'HH:mm')}}
             {{else IsMissingCheckin == 1 }}
-                <a href="../checkinout/create?type=1&date=${formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}">Request</a>
+                <a href="../checkinout/create?type=1&date={{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}">Request</a>
             {{/if}}
         </td>
         <td>
             {{if OutFixed}}
-                ${formatJsonDate(OutFixed, 'HH:mm')}
+                {{:~formatJsonDate(OutFixed, 'HH:mm')}}
             {{else IsMissingCheckOut == 1}}
-                <a href="../checkinout/create?type=2&date=${formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}">Request</a>
+                <a href="../checkinout/create?type=2&date={{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}">Request</a>
             {{/if}}
         </td>
         <td>
             {{if TotalWorkHours > 0}}
-                ${totalHoursToTime(TotalWorkHours)}
+                {{:~totalHoursToTime(TotalWorkHours)}}
             {{/if}}
         </td>
         <td>
             {{if LateIn > 0}}
-                ${displayMinute(LateIn)}
+                {{:~displayMinute(LateIn)}}
             {{/if}}
         </td>
         <td>
             {{if EarlyOut > 0}}
-                ${displayMinute(EarlyOut)}
+                {{:~displayMinute(EarlyOut)}}
             {{/if}}
         </td>
-        <td>
-            {{if Requests != null > 0}}
-                {{each Requests}}
+        <td class="align-left">
+            {{if Requests != null}}
+                {{for Requests}}
                     <a href='javascript:;' class="tooltip-request req"
-                            data-requesttype="${RequestType.Id}"
-                            data-fromdate="${formatJsonDate(FromDate, 'dd MMM, yyyy HH:mm:ss')}"
-                            data-todate="${formatJsonDate(ToDate, 'dd MMM, yyyy HH:mm:ss')}"
-                            data-createddate="${formatJsonDate(CreatedDate, 'dd MMM, yyyy HH:mm:ss')}"
-                            data-fromshift="${FromShift.Name}"
-                            {{if ToShift != null}} data-toshift="${ToShift.Name}" {{else}} data-toshift="" {{/if}}
-                            data-totaldays="${TotalDays}"
-                            data-totalmins="${TotalMins}"
-                            data-remark='${Remark}'>
-                            {{if RequestType.Id == 6}}  ${RequestType.Name} {{else}} ${RequestType.Name} {{/if}}
-                        </a>
-                {{/each}}
+                        data-requesttype="{{:RequestType.Id}}"
+                        data-fromdate="{{:~formatJsonDate(FromDate, 'dd MMM, yyyy HH:mm:ss')}}"
+                        data-todate="{{:~formatJsonDate(ToDate, 'dd MMM, yyyy HH:mm:ss')}}"
+                        data-createddate="{{:~formatJsonDate(CreatedDate, 'dd MMM, yyyy HH:mm:ss')}}"
+                        data-fromshift="{{:FromShift.Name}}"
+                        {{if ToShift != null}} data-toshift="{{:ToShift.Name}}" {{else}} data-toshift="" {{/if}}
+                        data-totaldays="{{:TotalDays}}"
+                        data-totalmins="{{:TotalMins}}"
+                        data-remark='{{:Remark}}'>
+                        {{if RequestType.Id == 6}}  {{:RequestType.Name}} {{else}} {{:RequestType.Name}} {{/if}}
+                    </a>
+                {{/for}}
             {{/if}}
         </td>
-        <td>
-            ${Notes}
+        <td class="align-left">
+            {{:Notes}}
         </td>
     </tr>
 </script>

@@ -29,8 +29,14 @@ function formatJsonDateToDetailFormatedDate(jsonDate) {
 function fillData(response) {
     rowIndex = (response.pagerOption.CurrentPage - 1) * response.pagerOption.ItemsPerPage + 1;
 
-    $.template('template', $('#template'));
-    $.tmpl('template', response.data).appendTo('table#data');
+    var tmpl = $.templates('#template'),
+        helpers = {
+            index: index,
+            formatJsonDateToDetailFormatedDate: formatJsonDateToDetailFormatedDate
+        },
+        html = tmpl.render(response.data, helpers);
+
+    $(html).appendTo('table#data');
 
     var pager = $('#pager').html();
     $('table#data tfoot').html(pager);

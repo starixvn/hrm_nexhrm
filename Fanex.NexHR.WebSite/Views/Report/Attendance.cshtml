@@ -129,76 +129,76 @@
         </div>
     </div>
 </div>
-<script id="template" type="text/x-jquery-tmpl">
-    <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId}} {{else}} class="noshift"{{/if}}>
-        <td>${index()}</td>
+<script id="template" type="text/x-jsrender">
+    <tr {{if IsNotWork != 0}}class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
+        <td>{{:~index()}}</td>
         <td>
-            ${formatDate(AttendanceDate, 'dd MMM, yyyy')}
+            {{:~formatDate(AttendanceDate, 'dd MMM, yyyy')}}
         </td>
         <td>
-            ${Code}
+            {{:Code}}
         </td>
-        <td title="${FullName}" class="tooltip">
-            ${NickName}
+        <td>
+            {{:NickName}}
         </td>
         <td class="align-left">
-            ${FullName}
+            {{:FullName}}
         </td>
-        <td class="tooltip" title="${Team}">
-            ${TeamCode}
-        </td>
-        <td>
-            ${ShiftCode}
+        <td class="tooltip" title="{{:Team}}">
+            {{:TeamCode}}
         </td>
         <td>
-            {{if InFixed}}${jsonTojsDate(InFixed).format("HH:MM")}{{/if}}
+            {{:ShiftCode}}
         </td>
         <td>
-            {{if OutFixed}}${jsonTojsDate(OutFixed).format("HH:MM")}{{/if}}
+            {{if InFixed}} {{:~formatDate(InFixed, 'HH:mm')}} {{/if}}
+        </td>
+        <td>
+            {{if OutFixed}} {{:~formatDate(OutFixed, 'HH:mm')}} {{/if}}
         </td>
         <td>
             {{if TotalWorkHours > 0}}
-                ${totalHoursToTime(TotalWorkHours)}
+                {{:~totalHoursToTime(TotalWorkHours)}}
             {{/if}}
         </td>
         <td>
             {{if LateIn > 0}}
-                ${displayMinute(LateIn)}
+                {{:~displayMinute(LateIn)}}
             {{/if}}
         </td>
         <td>
             {{if EarlyOut > 0}}
-                ${displayMinute(EarlyOut)}
+                {{:~displayMinute(EarlyOut)}}
             {{/if}}
         </td>
         <td class="align-left">
             {{if Requests != null}}
-                {{each Requests}}
+                {{for Requests}}
                     <a href='javascript:;' class="tooltip-request req"
-                            data-requesttype="${RequestType.Id}"
-                            data-fromdate="${FromDate}"
-                            data-todate="${ToDate}"
-                            data-createddate="${CreatedDate}"
-                            data-fromshift="${FromShift.Name}"
+                            data-requesttype="{{:RequestType.Id}}"
+                            data-fromdate="{{:FromDate}}"
+                            data-todate="{{:ToDate}}"
+                            data-createddate="{{:CreatedDate}}"
+                            data-fromshift="{{:FromShift.Name}}"
                             {{if ToShift != null}}
-                                data-toshift="${ToShift.Name}"
+                                data-toshift="{{:ToShift.Name}}"
                             {{else}}
                                 data-toshift=""
                             {{/if}}
-                            data-totaldays="${TotalDays}"
-                            data-totalmins="${TotalMins}"
-                            data-remark='${Remark}'>
+                            data-totaldays="{{:TotalDays}}"
+                            data-totalmins="{{:TotalMins}}"
+                            data-remark='{{:Remark}}'>
                         {{if RequestType.Id == 6}}
-                            ${RequestType.Name}
+                            {{:RequestType.Name}}
                         {{else}}
-                            ${RequestType.Name}
+                            {{:RequestType.Name}}
                         {{/if}}
                     </a>
-                {{/each}}
+                {{/for}}
             {{/if}}
         </td>
         <td class="align-left">
-            ${Notes}
+            {{:Notes}}
         </td>
     </tr>
 </script>

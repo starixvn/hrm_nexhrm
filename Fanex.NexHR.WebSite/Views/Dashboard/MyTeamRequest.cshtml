@@ -1,5 +1,5 @@
 ﻿@model EmployeeAttendanceViewModel
-<div class="col s12 card-container-base my-request">
+<div class="col s12 card-container-base">
     <div class="card">
         <div class="card-content">
             <div class="card-title-block">
@@ -66,13 +66,13 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <a id="submit" class="btn-submit waves-effect waves-light m-r--b" type="button">Submit</a>                                
+                                <a id="submit" class="btn-submit waves-effect waves-light m-r--b" type="button">Submit</a>
                                 @if (Roles.IsUserInRole("AssistantLeader") || Roles.IsUserInRole("Leader"))
                                 {
                                     @Html.ActionLink("My Team Request", "member", "request", null, new { @class = "button-hrm waves-effect waves-light btn orange darken-1" })
                                 }
                                 else
-                                {                                    
+                                {
                                     @Html.ActionLink("My Leave Request", "employeeview", "leave", null, new { @class = "button-hrm waves-effect waves-light btn orange darken-1" })                                    
                                 }
                             </div>
@@ -91,8 +91,6 @@
                                 </th>
                                 <th>@Labels.Nick
                                 </th>
-                                @*<th>@Labels.FullName
-                                </th>*@
                                 <th>@Labels.Team
                                 </th>
                                 <th>@Labels.Shift
@@ -121,73 +119,73 @@
         </div>
     </div>
 </div>
-<script id="template" type="text/x-jquery-tmpl">
-    <tr {{if IsNotWork != 0}}class="offdate"{{else ShiftId}} {{else}} class="noshift"{{/if}}>
-        <td>${index()}</td>
+<script id="template" type="text/x-jsrender">
+    <tr {{if IsNotWork != 0}}class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
+        <td>{{:~index()}}</td>
         <td>
-            ${formatDate(AttendanceDate, 'dd MMM, yyyy')}
-        </td>
-        <td>
-            ${Code}
-        </td>
-        <td title="${FullName}" class="tooltip">
-            ${NickName}
-        </td>
-        <td class="tooltip" title="${Team}">
-            ${TeamCode}
+            {{:~formatDate(AttendanceDate, 'dd MMM, yyyy')}}
         </td>
         <td>
-            ${ShiftCode}
+            {{:Code}}
+        </td>
+        <td class="tooltip" title="{{:FullName}}">
+            {{:NickName}}
+        </td>
+        <td class="tooltip" title="{{:Team}}">
+            {{:TeamCode}}
         </td>
         <td>
-            {{if InFixed}}${jsonTojsDate(InFixed).format("HH:MM")}{{/if}}
+            {{:ShiftCode}}
         </td>
         <td>
-            {{if OutFixed}}${jsonTojsDate(OutFixed).format("HH:MM")}{{/if}}
+            {{if InFixed}} {{:~formatDate(InFixed, 'HH:mm')}} {{/if}}
+        </td>
+        <td>
+            {{if OutFixed}} {{:~formatDate(OutFixed, 'HH:mm')}} {{/if}}
         </td>
         <td>
             {{if TotalWorkHours > 0}}
-                ${totalHoursToTime(TotalWorkHours)}
+                {{:~totalHoursToTime(TotalWorkHours)}}
             {{/if}}
         </td>
         <td>
             {{if LateIn > 0}}
-                ${displayMinute(LateIn)}
+                {{:~displayMinute(LateIn)}}
             {{/if}}
         </td>
         <td>
             {{if EarlyOut > 0}}
-                ${displayMinute(EarlyOut)}
-            {{/if}}
-        </td>
-        <td>
-            {{if Requests != null}}
-                {{each Requests}}
-                    <a href='javascript:;' class="tooltip-request req"
-                            data-requesttype="${RequestType.Id}"
-                            data-fromdate="${FromDate}"
-                            data-todate="${ToDate}"
-                            data-createddate="${CreatedDate}"
-                            data-fromshift="${FromShift.Name}"
-                            {{if ToShift != null}}
-                                data-toshift="${ToShift.Name}"
-                            {{else}}
-                                data-toshift=""
-                            {{/if}}
-                            data-totaldays="${TotalDays}"
-                            data-totalmins="${TotalMins}"
-                            data-remark='${Remark}'>
-                        {{if RequestType.Id == 6}}
-                            ${RequestType.Name}
-                        {{else}}
-                            ${RequestType.Name}
-                        {{/if}}
-                    </a>
-                {{/each}}
+                {{:~displayMinute(EarlyOut)}}
             {{/if}}
         </td>
         <td class="align-left">
-            ${Notes}
+            {{if Requests != null}}
+                {{for Requests}}
+                    <a href='javascript:;' class="tooltip-request req"
+                            data-requesttype="{{:RequestType.Id}}"
+                            data-fromdate="{{:FromDate}}"
+                            data-todate="{{:ToDate}}"
+                            data-createddate="{{:CreatedDate}}"
+                            data-fromshift="{{:FromShift.Name}}"
+                            {{if ToShift != null}}
+                                data-toshift="{{:ToShift.Name}}"
+                            {{else}}
+                                data-toshift=""
+                            {{/if}}
+                            data-totaldays="{{:TotalDays}}"
+                            data-totalmins="{{:TotalMins}}"
+                            data-remark='{{:Remark}}'>
+                        {{if RequestType.Id == 6}}
+                            {{:RequestType.Name}}
+                        {{else}}
+                            {{:RequestType.Name}}
+                        {{/if}}
+                    </a>
+                {{/for}}
+            {{/if}}
+        </td>
+        <td class="align-left">
+            {{:Notes}}
         </td>
     </tr>
 </script>

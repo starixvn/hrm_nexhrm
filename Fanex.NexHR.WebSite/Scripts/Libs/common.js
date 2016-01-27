@@ -178,11 +178,11 @@ function setDateTimeRange(selectedIndex) {
 }
 
 function validateFromDateAndToDate() {
-    var fromDate = Date.parse($("#FromDate").val()).toString('dd/MM/yyyy'),
-        toDate = Date.parse($("#ToDate").val()).toString('dd/MM/yyyy'),
+    var fromDate = new Date($("#FromDate").val()),
+        toDate = new Date($("#ToDate").val()),
         isValid = true;
 
-    if (toDate < fromDate) {
+    if (toDate.getTime() < fromDate.getTime()) {
         $('#toast-container').children().remove();
         Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date must be less than or equal To Date<span>', 2000);
 

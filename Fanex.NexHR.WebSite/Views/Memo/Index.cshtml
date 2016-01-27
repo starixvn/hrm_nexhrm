@@ -83,33 +83,27 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHR = '@Roles.IsUserInRole("HR")' == 'True';
+    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
 </script>
-<script id="template" type="text/x-jquery-tmpl"> 
-    <tr id="row_${Id}">
-        <td>
-            ${index()}
-        </td>
-        <td>
-            ${RefNo}
-        </td>
+<script id="template" type="text/x-jsrender"> 
+    <tr id="row_{{:Id}}">
+        <td>{{:~index()}}</td>
+        <td>{{:RefNo}}</td>
         <td class="align-left">
-            <a href="/memo/detail/${Id}">${Subject}</a>
+            <a href="/memo/detail/{{:Id}}">{{:Subject}}</a>
         </td>
+        <td>{{:CategoryName}}</td>
         <td>
-            ${CategoryName}
+            {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
         </td>
-        <td>
-            ${formatDate(SentDate, 'dd MMM, yyyy')}
-        </td>
-        {{if isHR}}
+        {{if ~isHRRole}}
             <td title="Edit">
-            <a href="/memo/edit/${Id}">
-                <i class='mdi mdi-border-color mdi-dark'></i>
-            </a>
+                <a href="/memo/edit/{{:Id}}">
+                    <i class='mdi mdi-border-color mdi-dark'></i>
+                </a>
             </td>
             <td title="Delete">
-                <a href="javascript:;" onclick="deleteMemo(${Id}, '${Contents}', ${MemoType});">
+                <a href="javascript:;" onclick="deleteMemo({{:Id}}, '{{:Contents}}', {{:MemoType}});">
                     <i class='mdi mdi-delete mdi-dark'></i>
                 </a>
             </td>

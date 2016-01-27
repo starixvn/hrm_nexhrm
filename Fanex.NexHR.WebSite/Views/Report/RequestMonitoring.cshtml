@@ -104,163 +104,163 @@
         toDate = '@ViewBag.ToDate';
 </script>
 
-<script id="template" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jsrender">
     <tr>
-        <td>${index()}</td>
+        <td>{{:~index()}}</td>
         <td class="align-left">
-            ${Requester.FullName}
+            {{:Requester.FullName}}
         </td>
         <td>
-            ${Requester.NickName}
+            {{:Requester.NickName}}
         </td>
-        <td class="tooltip" title="${Requester.Team.Name}">
-            ${Requester.Team.Code}
+        <td class="tooltip" title="{{:Requester.Team.Name}}">
+            {{:Requester.Team.Code}}
         </td>
-        <td {{if TotalLeaveTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalLeaveTimes > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalLeaveTimes > 0}}
                 <form class="request-model hide">
                     <input class="DateOption" type="text" name="DateOption" value="0" />
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmployeeId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.NickName}} ({{:Requester.FullName}})" />
                     <input type="text" name="TeamId" value="-2" />
                     <input type="text" name="StatusId" value="2" />
                     <input type="text" name="IsFilterByEffectedDate" value="true" />
                     <input type="text" name="RequestType" value="1" />
                 </form>
-                {{if isLeader}}
-                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="member">${TotalLeaveTimes}</a>
+                {{if ~isLeader}}
+                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="member">{{:TotalLeaveTimes}}</a>
                 {{else}}
-                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="hrview">${TotalLeaveTimes}</a>
+                    <a class="TotalLeaveTimes" href="javascript:;" data-controller="request" data-action="hrview">{{:TotalLeaveTimes}}</a>
                 {{/if}}
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalAnnualLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalAnnualLeave > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalAnnualLeave > 0}}
                 <form class="request-model hide">
                     <input class="DateOption" type="text" name="DateOption" value="0" />
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmployeeId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.NickName}} ({{:Requester.FullName}})" />
                     <input type="text" name="TeamId" value="-2" />
                     <input type="text" name="StatusId" value="2" />
                     <input type="text" name="IsFilterByEffectedDate" value="true" />
                     <input type="text" name="RequestType" value="1" />
                 </form>
-                {{if isLeader}}
-                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalAnnualLeave)}</a>
+                {{if ~isLeader}}
+                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="member">{{:TotalAnnualLeave.toFixed(1)}}</a>
                 {{else}}
-                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalAnnualLeave)}</a>
+                    <a class="TotalAnnualLeave" href="javascript:;" data-controller="request" data-action="hrview">{{:TotalAnnualLeave.toFixed(1)}}</a>
                 {{/if}}
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalUnpaidLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalUnpaidLeave > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalUnpaidLeave > 0}}
                 <form class="request-model hide">
                     <input class="DateOption" type="text" name="DateOption" value="0" />
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmployeeId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.NickName}} ({{:Requester.FullName}})" />
                     <input type="text" name="TeamId" value="-2" />
                     <input type="text" name="StatusId" value="2" />
                     <input type="text" name="IsFilterByEffectedDate" value="true" />
                     <input type="text" name="RequestType" value="1" />
                 </form>
-                {{if isLeader}}
-                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="member">${formatTotalDays(TotalUnpaidLeave)}</a>
+                {{if ~isLeader}}
+                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="member">{{:TotalUnpaidLeave.toFixed(1)}}</a>
                 {{else}}
-                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="hrview">${formatTotalDays(TotalUnpaidLeave)}</a>
+                    <a class="TotalUnpaidLeave" href="javascript:;" data-controller="request" data-action="hrview">{{:TotalUnpaidLeave.toFixed(1)}}</a>
                 {{/if}}
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalOtherLeave > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalOtherLeave > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalOtherLeave > 0}}
                 <form class="request-model hide">
                     <input class="DateOption" type="text" name="DateOption" value="0" />
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmployeeId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.NickName}} ({{:Requester.FullName}})" />
                     <input type="text" name="TeamId" value="-2" />
                     <input type="text" name="StatusId" value="2" />
                     <input type="text" name="IsFilterByEffectedDate" value="true" />
                     <input type="text" name="RequestType" value="1" />
                 </form>
-                {{if isLeader}}
-                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="member">${TotalOtherLeave.toFixed(1)}</a>
+                {{if ~isLeader}}
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="member">{{:TotalOtherLeave.toFixed(1)}}</a>
                 {{else}}
-                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="hrview">${TotalOtherLeave.toFixed(1)}</a>
+                    <a class="TotalOtherLeave" href="javascript:;" data-controller="request" data-action="hrview">{{:TotalOtherLeave.toFixed(1)}}</a>
                 {{/if}}
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalCheckInOutTimes > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalCheckInOutTimes > 0}}
                 <form class="request-model hide">
                     <input class="DateOption" type="text" name="DateOption" value="0" />
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmployeeId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.NickName} (${Requester.FullName})" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmployeeId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.NickName}} ({{:Requester.FullName}})" />
                     <input type="text" name="TeamId" value="-2" />
                     <input type="text" name="StatusId" value="2" />
                     <input type="text" name="IsFilterByEffectedDate" value="true" />
                     <input type="text" name="RequestType" value="4" />
                 </form>
-                {{if isLeader}}
-                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="member">${TotalCheckInOutTimes}</a>
+                {{if ~isLeader}}
+                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="member">{{:TotalCheckInOutTimes}}</a>
                 {{else}}
-                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="hrview">${TotalCheckInOutTimes}</a>
+                    <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="request" data-action="hrview">{{:TotalCheckInOutTimes}}</a>
                 {{/if}}
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalMissingCheckInOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalMissingCheckInOutTimes > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalMissingCheckInOutTimes > 0}}
                 <form class="request-model hide">
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmpId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmpId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.DisplayName}}" />
                 </form>
-                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${TotalMissingCheckInOutTimes}</a>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">{{:TotalMissingCheckInOutTimes}}</a>
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if LateInEarlyOutTimes > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if LateInEarlyOutTimes > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if LateInEarlyOutTimes > 0}}
                 <form class="request-model hide">
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmpId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmpId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.DisplayName}}" />
                 </form>
-                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${LateInEarlyOutTimes}</a>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">{{:LateInEarlyOutTimes}}</a>
             {{else}}
                 -
             {{/if}}
         </td>
-        <td {{if TotalAbsent > maxRequest}}class="overloadRequest"{{else}} class=""{{/if}}>
+        <td {{if TotalAbsent > maxRequest}} class="overloadRequest" {{else}} class="" {{/if}}>
             {{if TotalAbsent > 0}}
                 <form class="request-model hide">
-                    <input class="FromDate" type="text" name="FromDate" value="${fromDate}" />
-                    <input class="ToDate" type="text" name="ToDate" value="${toDate}" />
-                    <input type="text" name="EmpId" value="${Requester.Id}" />
-                    <input type="text" name="Employee" value="${Requester.DisplayName}" />
+                    <input class="FromDate" type="text" name="FromDate" value="{{:~fromDate}}" />
+                    <input class="ToDate" type="text" name="ToDate" value="{{:~toDate}}" />
+                    <input type="text" name="EmpId" value="{{:Requester.Id}}" />
+                    <input type="text" name="Employee" value="{{:Requester.DisplayName}}" />
                 </form>
-                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">${TotalAbsent}</a>
+                <a class="TotalCheckInOutTimes" href="javascript:;" data-controller="report" data-action="attendance">{{:TotalAbsent}}</a>
             {{else}}
                 -
             {{/if}}

@@ -1,10 +1,6 @@
 ﻿'use strict';
 /*global _global, _messages, floatThead, noInformation, formatDate*/
-/*exported formatBalanceLastYear, displayFormatTotalLateInEarlyOut, displayNumberHours*/
-
-function formatBalanceLastYear(balanceLastYear) {
-    return (balanceLastYear / 60).toFixed(1);
-}
+/*exported displayFormatTotalLateInEarlyOut, displayNumberHours*/
 
 function displayFormatTotalLateInEarlyOut(minutes, times, employeeId, fromMonth, toMonth, isHightlight) {
     var year = parseInt($('#Year').val()),
@@ -111,8 +107,17 @@ function query(isFirstLoad) {
         success: function (response) {
             $('table#data tbody').children().remove();
 
-            if (response.data.length > 0) {
-                $('#template').tmpl(response.data).appendTo('table#data');
+            if (response.data && response.data.length > 0) {
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        displayFormatTotalLateInEarlyOut: displayFormatTotalLateInEarlyOut,
+                        displayNumberHours: displayNumberHours,
+                        displayBalance: displayBalance,
+                        isHRRole: isHRRole
+                    },
+                    html = tmpl.render(response.data, helpers);
+
+                $(html).appendTo('table#data');
 
                 initAddLeaveDeduction();
             } else {

@@ -321,12 +321,9 @@
     <Content Include="Scripts\Libs\jquery.cookie.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.min.js" />
-    <Content Include="Scripts\Libs\jquery.highlight-5.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.min.js" />
     <Content Include="Scripts\Libs\jquery.tipsy.js" />
-    <Content Include="Scripts\Libs\jquery.tmpl.js" />
-    <Content Include="Scripts\Libs\jquery.tmpl.min.js" />
     <Content Include="Scripts\Libs\jquery.twbsPagination.js" />
     <Content Include="Scripts\Libs\jquery.twbsPagination.min.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.js" />
@@ -335,6 +332,8 @@
     <Content Include="Scripts\Libs\jquery.validate.min.js" />
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Libs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Libs\jsrender.js" />
+    <Content Include="Scripts\Libs\jsrender.min.js" />
     <Content Include="Scripts\Libs\materialize.js" />
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />

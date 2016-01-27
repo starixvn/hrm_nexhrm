@@ -45,11 +45,17 @@ function query(jobTitleId, isFirstLoad) {
         success: function (data) {
             $('#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 rowIndex = 1;
 
-                $.template('template', $('#template'));
-                $.tmpl('template', data).appendTo('table#data');
+                var tmpl = $.templates('#template'),
+                    helpers = {
+                        index: index,
+                        formatDate: formatDate
+                    },
+                    html = tmpl.render(data, helpers);
+
+                $(html).appendTo('table#data');
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',

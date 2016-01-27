@@ -58,13 +58,13 @@
                         </div>
                     }
                     </div>
-                    <div id="datatable_length" class="row m-b--m hide">
+                    <div id="datatable_length" class="row form-input m-b--m hide">
                         <div class="col">
                             <div class="inline label--s">
                                 <span>Show</span>
                             </div>
                             <div class="inline select--xs m-r--s">
-                                @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray, new { @class = "browser-default" })
+                                @Html.DropDownListFor(model => model.ItemsPerPage, Model.ItemsPerPageArray)
                             </div>
                             <div class="inline label--m">
                                 <span>entries</span>
@@ -108,20 +108,20 @@
     </table>
 </div>
 
-<script id="template" type="text/x-jquery-tmpl">
+<script id="template" type="text/x-jsrender">
     <tr>
-        <td>${index()}</td>
+        <td>{{:~index()}}</td>
         <td>
-            ${Employee.Code}
+            {{:Employee.Code}}
         </td>
-        <td class="tooltip" title="${Employee.FullName}">
+        <td class="tooltip" title="{{:Employee.FullName}}">
             ${Employee.NickName}
         </td>
-        <td class="tooltip" title="${Employee.Team.Name}">
-            ${Employee.Team.Code}
+        <td class="tooltip" title="{{:Employee.Team.Name}}">
+            {{:Employee.Team.Code}}
         </td>
-        <td>${formatJsonDateToDetailFormatedDate(RecordTime)}</td>
-        <td>${GetInOutName}</td>
+        <td>{{:~formatJsonDateToDetailFormatedDate(RecordTime)}}</td>
+        <td>{{:GetInOutName}}</td>
     </tr>
 </script>
 
