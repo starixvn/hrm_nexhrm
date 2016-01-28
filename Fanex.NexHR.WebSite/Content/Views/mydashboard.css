@@ -175,4 +175,16 @@
     .lnk-days .drop-menu.list-unstyled {
       list-style: none; }
 
+.select-team {
+  opacity: 0.8; }
+
+.dashboardCalendar {
+  width: auto !important; }
+  .dashboardCalendar .fc-scroller {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: auto !important; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
+    display: block !important; }
+
 /*# sourceMappingURL=mydashboard.css.map */

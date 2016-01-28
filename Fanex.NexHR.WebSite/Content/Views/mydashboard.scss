@@ -245,3 +245,33 @@
         }
     }
 }
+
+.select-team {
+	opacity: 0.8;	
+}
+
+.dashboardCalendar {
+	width: auto !important;
+	.fc-scroller {
+		overflow-x: hidden;
+		overflow-y: hidden;
+		height: auto !important;
+	}
+	.fc-view-container {
+		.fc-body {
+			.fc-row.fc-week {
+				.fc-event-container {
+					.fc-event {
+						.fc-content {
+							.fc-time {
+								display: block !important;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+ 
