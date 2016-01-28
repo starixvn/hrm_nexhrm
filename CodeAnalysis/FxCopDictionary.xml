@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Dictionary>
+  <Words>
+    <Recognized />
+    <Unrecognized />
+    <Deprecated />
+    <Compound />
+    <DiscreteExceptions />
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>NPOI</Acronym>
+      <Acronym>HSSF</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

@@ -375,9 +375,16 @@ namespace Fanex.NexHR.Core
             string name,
             bool isChecked)
         {
+            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            if (string.IsNullOrEmpty(fullHtmlFieldName))
+            {
+                throw new ArgumentException("name cannot be null or empty.", "name");
+            }
+
             TagBuilder checkbox = new TagBuilder("input");
-            checkbox.MergeAttribute("id", name);
-            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("id", fullHtmlFieldName);
+            checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
             if (isChecked)
@@ -386,10 +393,10 @@ namespace Fanex.NexHR.Core
             }
 
             TagBuilder label = new TagBuilder("label");
-            label.MergeAttribute("for", name);
+            label.MergeAttribute("for", fullHtmlFieldName);
 
             TagBuilder hidden = new TagBuilder("input");
-            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("name", fullHtmlFieldName);
             hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
             hidden.MergeAttribute("value", "false");
 
@@ -409,18 +416,25 @@ namespace Fanex.NexHR.Core
             string name,
             IDictionary<string, object> htmlAttributes)
         {
+            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            if (string.IsNullOrEmpty(fullHtmlFieldName))
+            {
+                throw new ArgumentException("name cannot be null or empty.", "name");
+            }
+
             TagBuilder checkbox = new TagBuilder("input");
-            checkbox.MergeAttribute("id", name);
-            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("id", fullHtmlFieldName);
+            checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
             checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             TagBuilder label = new TagBuilder("label");
-            label.MergeAttribute("for", name);
+            label.MergeAttribute("for", fullHtmlFieldName);
 
             TagBuilder hidden = new TagBuilder("input");
-            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("name", fullHtmlFieldName);
             hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
             hidden.MergeAttribute("value", "false");
 
@@ -442,9 +456,16 @@ namespace Fanex.NexHR.Core
             bool isChecked,
             IDictionary<string, object> htmlAttributes)
         {
+            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            if (string.IsNullOrEmpty(fullHtmlFieldName))
+            {
+                throw new ArgumentException("name cannot be null or empty.", "name");
+            }
+
             TagBuilder checkbox = new TagBuilder("input");
-            checkbox.MergeAttribute("id", name);
-            checkbox.MergeAttribute("name", name);
+            checkbox.MergeAttribute("id", fullHtmlFieldName);
+            checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
             if (isChecked)
@@ -455,10 +476,10 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
 
             TagBuilder label = new TagBuilder("label");
-            label.MergeAttribute("for", name);
+            label.MergeAttribute("for", fullHtmlFieldName);
 
             TagBuilder hidden = new TagBuilder("input");
-            hidden.MergeAttribute("name", name);
+            hidden.MergeAttribute("name", fullHtmlFieldName);
             hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
             hidden.MergeAttribute("value", "false");
 

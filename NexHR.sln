@@ -39,6 +39,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{06DF0F58-4553-4B75-A315-51A4AC5F7633}"
 	ProjectSection(SolutionItems) = preProject
 		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
+		CodeAnalysis\FxCopDictionary.xml = CodeAnalysis\FxCopDictionary.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Criteria", "Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj", "{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7}"

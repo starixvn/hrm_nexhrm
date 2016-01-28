@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Model;
@@ -24,10 +23,13 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Newtonsoft.Json;
-    using NPOI.HSSF.UserModel;
 
     public class ExportController : BaseController
     {
+        private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
+        private const string EmployeeAttendaceTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeAttendace.xls";
+        private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
+
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly ExportService _exportService;
@@ -51,6 +53,7 @@ namespace Fanex.NexHR.Controllers
         {
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
+
             if (model == null)
             {
                 model = new TotalWorkingHoursViewModel
@@ -61,10 +64,6 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-
-            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xls";
-
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
                 FromDate = model.FromDate,
@@ -73,15 +72,12 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId
             };
 
+            string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
             IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            _exportService.ExportTotalWorkingHours(hssfworkbook, listTotalWorkingHours, model.FromDate, model.ToDate);
+            _exportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
 
-            var output = new MemoryStream();
-            hssfworkbook.Write(output);
-
-            // Return the result to the end user
-            return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+            return new EmptyResult();
         }
 
         [HttpGet]
@@ -110,10 +106,6 @@ namespace Fanex.NexHR.Controllers
                 TotalRow = 2000
             };
 
-            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-
-            string fileName = "EmployeeProfile.xls";
-
             IList<Employee> listEmployees = _employeeService.Query(getAllEmployeeCriteria);
 
             if (sort != null)
@@ -123,14 +115,10 @@ namespace Fanex.NexHR.Controllers
                 listEmployees = Utilities.MultipleSort(listEmployees, sorts);
             }
 
-            _exportService.ExportEmployeeProfile(hssfworkbook, listEmployees);
+            string templatePath = Server.MapPath(EmployeeProfileTemplatePath);
+            _exportService.ExportEmployeeProfile(listEmployees, templatePath);
 
-            MemoryStream output = new MemoryStream();
-
-            hssfworkbook.Write(output);
-
-            // Return the result to the end user
-            return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+            return new EmptyResult();
         }
 
         [HttpGet]
@@ -142,10 +130,6 @@ namespace Fanex.NexHR.Controllers
             short attendanceType,
             bool excludeUserDelete)
         {
-            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-
-            string fileName = "EmployeeAttendance.xls";
-
             if (groupId == -1)
             {
                 groupId = null;
@@ -163,16 +147,11 @@ namespace Fanex.NexHR.Controllers
             };
 
             DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
-            IList<EmployeeAttendanceModel> listEmployeeAttendances = detailAttendance.EmployeeAttendances;
+            IList<EmployeeAttendanceModel> employeeAttendances = detailAttendance.EmployeeAttendances;
 
-            _exportService.ExportEmployeeAttendances(hssfworkbook, listEmployeeAttendances);
+            _exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
-            MemoryStream output = new MemoryStream();
-
-            hssfworkbook.Write(output);
-
-            // Return the result to the end user
-            return File(output.ToArray(), "application/vnd.ms-excel", fileName);
+            return new EmptyResult();
         }
 
         private int? CheckUserEnableCondition(bool? enable)
