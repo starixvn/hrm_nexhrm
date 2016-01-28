@@ -55,6 +55,7 @@ namespace Fanex.NexHR.Services
 
             FillContentRowEmployeeAttendances(employeeAttendances, ref writer);
             writer.AutosizeColumns(13);
+            writer.CreateFreezePane(0, 3);
 
             writer.Render();
         }
@@ -183,7 +184,7 @@ namespace Fanex.NexHR.Services
                 ShiftCode = employeeAttendance.ShiftCode,
                 CheckIn = GetTime(employeeAttendance.InFixed),
                 CheckOut = GetTime(employeeAttendance.OutFixed),
-                TotalHours = employeeAttendance.TotalWorkHours,
+                TotalHours = TotalHoursToTime(employeeAttendance.TotalWorkHours),
                 LateIn = DisplayMinute(employeeAttendance.LateIn),
                 EarlyOut = DisplayMinute(employeeAttendance.EarlyOut),
                 Notes = employeeAttendance.Notes
@@ -296,6 +297,24 @@ namespace Fanex.NexHR.Services
                 }
 
                 return (hour > 9 ? hour.ToString() : "0" + hour) + ':' + (minute > 9 ? minute.ToString() : "0" + minute);
+            }
+
+            return string.Empty;
+        }
+
+        private string TotalHoursToTime(decimal value)
+        {
+            if (value > 0)
+            {
+                var display = string.Empty;
+                var hour = Math.Floor(value);
+                if (hour > 0)
+                {
+                    display = hour < 10 ? "0" + hour + "h" : hour + "h";
+                }
+
+                var minute = Math.Round((value - hour) * 60);
+                return minute < 10 ? display + "0" + minute + "'" : display + minute + "'";
             }
 
             return string.Empty;

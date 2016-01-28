@@ -264,12 +264,6 @@ namespace Fanex.NexHR.Controllers
 
         #endregion Total Working Hours
 
-        public ActionResult ExportExcel(TotalWorkingHoursViewModel model)
-        {
-            var export = new ExportController();
-            return export.TotalWorkingHours(model);
-        }
-
         #region Leave Summary
 
         public ActionResult LeaveSummary()

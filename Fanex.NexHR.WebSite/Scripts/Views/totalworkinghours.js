@@ -98,7 +98,7 @@ $(document).ready(function () {
     });
 
     $('#btnExport').click(function () {
-        document.location = _global.root + "report/ExportExcel?" + $("#form").serialize();
+        document.location = _global.root + "export/TotalWorkingHours?" + $("#form").serialize();
     });
 
     $('#FromDate, #ToDate').on('change', function () {
