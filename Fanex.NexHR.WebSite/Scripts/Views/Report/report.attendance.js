@@ -9,7 +9,10 @@ var pagingOption = {
 };
 
 function index() {
-    return rowIndex++;
+    var currentPage = parseInt($('#CurrentPage').val()),
+        itemsPerPage = parseInt($('#ItemsPerPage').val());
+
+    return (itemsPerPage * (currentPage - 1) + rowIndex++);
 }
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
@@ -120,8 +123,16 @@ function initSearchAutoComplete() {
 function fillData(response) {
     rowIndex = 1;
 
-    $.template('template', $('#template'));
-    $.tmpl('template', response.EmployeeAttendances).appendTo('table#data');
+    var tmpl = $.templates('#template'),
+        helpers = {
+            index: index,
+            formatDate: formatDate,
+            totalHoursToTime: totalHoursToTime,
+            displayMinute: displayMinute
+        },
+        html = tmpl.render(response.EmployeeAttendances, helpers);
+
+    $(html).appendTo('table#data');
 
     var pager = $('#pager').html();
     $('table#data tfoot').html(pager);
@@ -137,10 +148,10 @@ function fillData(response) {
         visiblePages: 5,
         initiateStartPageClick: false,
         href: 'javascript:;',
-        first: '',
-        prev: '<i class="mdi-image-navigate-before"></i>',
-        next: '<i class="mdi-image-navigate-next"></i>',
-        last: '',
+        first: '<i class="mdi mdi-chevron-double-left"></i>',
+        prev: '<i class="mdi mdi-chevron-left"></i>',
+        next: '<i class="mdi mdi-chevron-right"></i>',
+        last: '<i class="mdi mdi-chevron-double-right"></i>',
         activeClass: 'active',
         onPageClick: function (event, page) {
             $('#CurrentPage').val(page);
@@ -223,16 +234,16 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         if (validateFromDateAndToDate()) {
-        $('#CurrentPage').val(pagingOption.currentPage);
-        query(false);
+            $('#CurrentPage').val(pagingOption.currentPage);
+            query(false);
+        }
     });
 
     $('#EntryId').on('change', function (evt) {
         evt.preventDefault();
         $('#ItemsPerPage').val($('#EntryId').val());
         $('#CurrentPage').val(pagingOption.currentPage);
-            query(false);
-        }
+        query(false);
     });
 
     query(true);
