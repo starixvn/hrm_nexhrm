@@ -88,40 +88,31 @@
                                     <div class="left label--l">
                                         @Html.Label("Member List")
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row form-input">
-                                <div class="p-x--s">
-                                    <table class="table bordered striped highlight centered responsive-table table-custom"
+                                    <div class="left">
+                                        <table class="table bordered striped highlight centered responsive-table table-custom"
                                            style="width: 800px;">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    @Labels.Employee
-                                                </th>
-                                                <th>
-                                                    Hour
-                                                </th>
-                                                <th>
-                                                    @Labels.Delete
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="memberList"></tbody>
-                                    </table>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        @Labels.Employee
+                                                    </th>
+                                                    <th>
+                                                        Hour
+                                                    </th>
+                                                    <th>
+                                                        @Labels.Delete
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="memberList"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="row form-input">
-                                <div class="left label--xl">&nbsp;</div>
-                                <div class="left label--xl">&nbsp;</div>
-                            </div>
-
-                            <div class="row form-input">
+                            <div class="row form-input m-t--m">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">                                    
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
