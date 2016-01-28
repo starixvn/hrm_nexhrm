@@ -339,7 +339,9 @@
                 "~/Scripts/Libs/moment.js",
                 "~/Scripts/Libs/fullcalendar.js",
                 "~/Scripts/Libs/gcal.js",
-                "~/Scripts/Views/Dashboard/calendar.js"));
+                "~/Scripts/Views/Dashboard/calendar.js",
+                "~/Scripts/Views/Dashboard/googleAPI.js",
+                "~/Scripts/Views/Dashboard/client.js"));
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",

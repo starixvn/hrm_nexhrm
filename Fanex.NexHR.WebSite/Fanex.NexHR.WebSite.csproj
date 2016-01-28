@@ -347,6 +347,8 @@
     <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
     <Content Include="Scripts\Views\Dashboard\calendar.js" />
+    <Content Include="Scripts\Views\Dashboard\client.js" />
+    <Content Include="Scripts\Views\Dashboard\googleAPI.js" />
     <Content Include="Scripts\Views\Dashboard\teamrequest.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />
