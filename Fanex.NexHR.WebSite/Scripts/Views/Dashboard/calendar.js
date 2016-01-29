@@ -28,8 +28,8 @@
             }
         },
         eventRender: function (event, element) {
-            var from = event.start.hours() + ":" + event.start.minutes();
-            var to = event.end.hours() + ":" + event.end.minutes();
+            var from = event.start.hours() + ":" + (event.start.minutes()>=10?event.start.minutes():'0'+event.start.minutes());
+            var to = event.end.hours() + ":" + (event.end.minutes()>=10?event.end.minutes():'0'+event.end.minutes());
             element.tipsy({
                 className: 'detail-calendar',
                 gravity: $.fn.tipsy.autoNS,
