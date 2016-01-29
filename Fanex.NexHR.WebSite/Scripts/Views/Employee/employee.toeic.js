@@ -93,18 +93,11 @@ function editTOEIC(id, name) {
             type: 'GET',
             url: _global.root + 'toeic/updatefulltoeic?id=' + id + '&name=' + name,
             dataType: 'html',
-            beforeSend: function () {
-                $('.loading-process').fadeIn(300);
-            },
             success: function (data) {
-                if (data) {
-                    $('#dialog-toeic').html(data);
-                    initEditToeicDialog();
-                }
-                $('.loading-process').fadeOut(300);
+                $('#dialog-toeic').html(data);
+                initEditToeicDialog();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                $('.loading-process').fadeOut(300);
                 alert(textStatus + ': ' + errorThrown);
             }
         });
@@ -132,19 +125,11 @@ function initialize() {
             type: 'GET',
             url: _global.root + 'toeic/updatetoeic',
             dataType: 'html',
-            beforeSend: function () {
-                $('.loading-process').fadeIn(300);
-            },
             success: function (data) {
-                if (data) {
-                    $('#dialog-toeic').html(data);
-                    initAddToeicDialog();
-                }
-
-                $('.loading-process').fadeOut(300);
+                $('#dialog-toeic').html(data);
+                initAddToeicDialog();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                $('.loading-process').fadeOut(300);
                 alert(textStatus + ': ' + errorThrown);
             }
         });
@@ -207,12 +192,12 @@ function initAddToeicDialog() {
             }
         ],
         show: {
-            effect: "blind",
-            duration: 200
+            effect: 'fade',
+            duration: 300
         },
         hide: {
-            effect: "blind",
-            duration: 100
+            effect: 'fade',
+            duration: 200
         }
     });
 }
@@ -272,46 +257,28 @@ function initEditToeicDialog() {
             }
         ],
         show: {
-            effect: "blind",
-            duration: 200
+            effect: 'fade',
+            duration: 300
         },
         hide: {
-            effect: "blind",
-            duration: 100
+            effect: 'fade',
+            duration: 200
         }
     });
 }
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'toeic/ToeicManagement',
-        type: 'POST',
-        dataType: 'json',
+        url: _global.root + 'toeic/ToeicManagementDetail',
+        dataType: 'html',
         data: $('form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
-        success: function (response) {
-            $('table#data tbody').children().remove();
-
-            if (response.data && response.data.length > 0) {
-                rowIndex = 1;
-
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        isHRRole: isHRRole,
-                        currentDate: new Date(),
-                        index: index,
-                        formatJsonDate: formatJsonDate
-                    },
-                    html = tmpl.render(response.data, helpers);
-
-                $(html).appendTo('table#data');
-            } else {
-                $(noInformation(13)).appendTo('table#data');
-            }
+        success: function (data) {
+            $('#toeic-detail').html(data);
 
             floatThead('table#data');
         },

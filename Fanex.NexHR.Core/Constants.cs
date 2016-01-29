@@ -34,5 +34,8 @@ namespace Fanex.NexHR.Core
 
         public const string EmailTemplatePathForLeaveApproved = "~/app_data/emails/LeaveApprovalNotification.cshtml";
         public const string EmailTemplatePathForCheckInOutApproved = "~/app_data/emails/CheckInOutApprovalNotification.cshtml";
+
+        public const int CurrentPage = 1;
+        public const int ItemsPerPage = 50;
     }
 }

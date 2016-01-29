@@ -18,9 +18,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginGetForm())
-                        {
-                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <form action="" class="form-filter">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -101,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                     <div id="datatable_length" class="row m-b--m">
                         <div class="col">

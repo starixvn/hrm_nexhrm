@@ -700,6 +700,8 @@
     <Content Include="Views\Report\_TimeRecordDetail.cshtml" />
     <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
+    <Content Include="Views\JobTitle\_JobTitleManagementDetail.cshtml" />
+    <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

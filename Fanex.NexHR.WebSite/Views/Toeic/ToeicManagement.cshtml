@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = Labels.TOEICScoreMgmt;
-    bool isHRRole = Roles.IsUserInRole("HR");
 }
 @section css {
 }
@@ -20,71 +19,43 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginForm("toeicmanagement", "toeic", FormMethod.Post, new { @class = "form-filter" }))
-                        {
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--s">
-                                    <label>@Labels.Nick</label>
+                        <form action="#" class="form-filter">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        <label>@Labels.Nick</label>
+                                    </div>
+                                    <div class="left input--s">
+                                        @Html.TextBoxFor(model => model.Query)
+                                    </div>
                                 </div>
-                                <div class="left input--s">
-                                    @Html.TextBoxFor(model => model.Query)
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col m-r--m">
-                                <div class="left label--s">
-                                    <label>@Labels.Team</label>
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Title</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
+                                    </div>
                                 </div>
-                                <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="left label--s">
-                                    <label>@Labels.Title</label>
-                                </div>
-                                <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
-                                </div>
-                            </div>
-                            <div class="col">
-                                <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
-                                @if (isHRRole)
-                                {
-                                    <a class="btn-request waves-effect waves-light" id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
-                                }
-                            </div>
-                        </div>
-                        }
-                    </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">@Labels.SymbolCount</th>
-                                    <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@Labels.Team</th>
-                                    <th rowspan="2">@Labels.JobTitle</th>
-                                    <th colspan="4">@Labels.Listening/@Labels.Reading</th>
-                                    <th colspan="3">@Labels.Speaking/@Labels.Writing</th>
-                                    <th rowspan="2">@Labels.ExpiredDate</th>
-                                    @if (isHRRole)
+                                <div class="col">
+                                    <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                    @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th rowspan="2">@Labels.Edit</th>
+                                        <a class="btn-request waves-effect waves-light" id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
                                     }
-                                </tr>
-                                <tr>
-                                    <th>@Labels.L</th>
-                                    <th>@Labels.R</th>
-                                    <th>@Labels.LRTotal</th>
-                                    <th>@Labels.ExamDate</th>
-                                    <th>@Labels.S</th>
-                                    <th>@Labels.W</th>
-                                    <th>@Labels.ExamDate</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="toeic-detail" class="p-x--s">
                     </div>
                     <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
                 </div>
@@ -92,87 +63,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
-</script>
-<script id="template" type="text/x-jsrender">
-    <tr id="row_{{:Id}}">
-        <td>{{:~index()}}</td>
-        <td class="tooltip" title="{{:FullName}}">
-            <a href="/employee/detail/{{:Id}}">{{:NickName}}</a>
-        </td>
-        <td class="tooltip" title="{{:Team.Name}}">
-            {{:Team.Code}}
-        </td>
-        <td class="align-left">{{:JobTitle}}</td>
-        <td>
-            {{if ToeicScore.Listening == 0}}
-                -
-            {{else}}
-                {{:ToeicScore.Listening}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.Reading == 0}}
-                -
-            {{else}}
-                {{:ToeicScore.Reading}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.LRTotal == 0}}
-                -
-            {{else}}
-                {{:ToeicScore.LRTotal}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.LRExamDate == null}}
-                -
-            {{else}}
-                {{:~formatJsonDate(ToeicScore.LRExamDate, 'dd MMM, yyyy')}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.Speaking == 0}}
-                -
-            {{else}}
-                {{:ToeicScore.Speaking}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.Writing == 0}}
-                -
-            {{else}}
-                {{:ToeicScore.Writing}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ToeicScore.SWExamDate == null}}
-                -
-            {{else}}
-                {{:~formatJsonDate(ToeicScore.SWExamDate, 'dd MMM, yyyy')}}
-            {{/if}}
-        </td>
-        {{if ToeicScore.InputDate != null}}
-            {{if ToeicScore.InputDate < ~currentDate}}
-                <td class="expired-date">{{:~formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}}</td>
-            {{else}}
-                <td>{{:~formatJsonDate(ToeicScore.InputDate, 'dd MMM, yyyy')}}</td>
-            {{/if}}
-        {{else}}
-            <td>-</td>
-        {{/if}}
-        {{if ~isHRRole}}
-            <td>
-                {{if !IsDeleted}}
-                    <a href="javascript:;" onclick="editTOEIC({{:Id}},'{{:NickName}}');">
-                        <i class="mdi mdi-border-color mdi-dark"></i>
-                    </a>
-                {{else}}
-                    -
-                {{/if}}
-            </td>
-        {{/if}}
-    </tr>
-</script>

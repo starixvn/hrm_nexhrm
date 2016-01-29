@@ -1,0 +1,150 @@
+﻿@model IList<Employee>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th rowspan="2">@Labels.SymbolCount</th>
+            <th rowspan="2">@Labels.Nick</th>
+            <th rowspan="2">@Labels.Team</th>
+            <th rowspan="2">@Labels.JobTitle</th>
+            <th colspan="4">@Labels.Listening/@Labels.Reading</th>
+            <th colspan="3">@Labels.Speaking/@Labels.Writing</th>
+            <th rowspan="2">@Labels.ExpiredDate</th>
+            @if (Roles.IsUserInRole("HR"))
+            {
+                <th rowspan="2">@Labels.Edit</th>
+            }
+        </tr>
+        <tr>
+            <th>@Labels.L</th>
+            <th>@Labels.R</th>
+            <th>@Labels.LRTotal</th>
+            <th>@Labels.ExamDate</th>
+            <th>@Labels.S</th>
+            <th>@Labels.W</th>
+            <th>@Labels.ExamDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            var index = 0;
+            foreach(Employee employee in Model) {
+                index++;
+                <tr id="row@employee.Id">
+                    <td>@index</td>
+                    <td class="tooltip" title="@employee.FullName">
+                        @employee.NickName
+                    </td>
+                    <td class="tooltip" title="@employee.Team.Name">
+                        @employee.Team.Code
+                    </td>
+                    <td class="align-left">@employee.JobTitle</td>
+                    <td>
+                        @if(employee.ToeicScore.Listening != null && employee.ToeicScore.Listening.Equals(0))
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            <p>@employee.ToeicScore.Listening</p>
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.Reading != null && employee.ToeicScore.Reading.Equals(0))
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            <p>@employee.ToeicScore.Reading</p>
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.LRTotal != null && employee.ToeicScore.LRTotal.Equals(0))
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            <p>@employee.ToeicScore.LRTotal</p>
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.LRExamDate != null)
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            @employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.Speaking != null && employee.ToeicScore.Speaking.Equals(0))
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            <p>@employee.ToeicScore.Speaking</p>
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.Writing != null && employee.ToeicScore.Writing.Equals(0))
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            <p>@employee.ToeicScore.Writing</p>
+                        }
+                    </td>
+                    <td>
+                        @if (employee.ToeicScore.SWExamDate != null)
+                        {
+                            <p>-</p>
+                        }
+                        else
+                        {
+                            @employee.ToeicScore.SWExamDate.ToDateMonthYearFormatedDate()
+                        }
+                    </td>
+                    @if (employee.ToeicScore.InputDate != null)
+                    {
+                        if (employee.ToeicScore.InputDate < DateTime.Now)
+                        {
+                            <td class="expired-date">@employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()</td>
+                        }
+                        else
+                        {
+                            <td>@employee.ToeicScore.InputDate.ToDateMonthYearFormatedDate()</td>
+                        }
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    @if (Roles.IsUserInRole("HR"))
+                    {
+                        <td>
+                            @if (employee.IsDeleted)
+                            {
+                                <p>-</p>
+                            }
+                            else
+                            {
+                                <a href="javascript:;" onclick="editTOEIC(@employee.Id,'@employee.NickName');">
+                                    <i class="mdi mdi-border-color mdi-dark"></i>
+                                </a>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(13)
+        }
+    </tbody>
+</table>

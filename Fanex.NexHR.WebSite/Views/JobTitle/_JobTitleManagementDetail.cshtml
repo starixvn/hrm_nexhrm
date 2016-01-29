@@ -1,0 +1,63 @@
+﻿@model IList<LookupData>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.JobTitle</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Edit</th>
+            <th>@Labels.Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            var index = 0;
+            foreach (LookupData jobtitle in Model)
+            {
+                index++;
+                <tr id="row_@jobtitle.Id">
+                    <td>@index</td>
+                    <td class="align-left">
+                        <span id="spanJobTitle_@jobtitle.Id">@jobtitle.Name</span>
+                        <input class="jobTitle" type="text" value="@jobtitle.Name" id="txtJobTile_@jobtitle.Id" style="display:none;" />
+                    </td>
+                    <td>
+                        @if(jobtitle.Value.Equals("0")) {
+                            <span>@jobtitle.Value</span>
+                        } else {
+                            <a href="/employee/usermanagement/?jobtitleid=@jobtitle.Id">@jobtitle.Value</a>
+                        }
+                    </td>
+                    <td class="col-edit">
+                        <a href="javascript:;" onclick="editJobTile('@jobtitle.Id')" id='btnEditJobTitle_@jobtitle.Id'>
+                            <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                        </a>
+                        <a href="javascript:;" id="btnUpdateJT_@jobtitle.Id" class="action-update" onclick="updateJobTitle('@jobtitle.Id')" title="Apply">
+                            <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                        </a>
+                        <a href="javascript:;" id="btnCancelUpdateJT_@jobtitle.Id" class="action-cancel" onclick="cancelUpdate('@jobtitle.Id')" title="Cancel">
+                            <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
+                    <td class="col-delete">
+                        @if(jobtitle.Value.Equals("0")) {
+                            <a href="javascript:;" onclick="deleteJobTitle('@jobtitle.Id')" id="@jobtitle.Id">
+                                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                            </a>
+                        }
+                        else {
+                            <a href="javascript:;">
+                                <i class="mdi mdi-delete mdi-disabled mdi-dark mdi-18px"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(colspan: 5);
+        }
+    </tbody>
+</table>

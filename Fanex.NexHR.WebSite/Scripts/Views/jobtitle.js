@@ -1,12 +1,6 @@
-﻿/*global _global, _messages, getParam, noInformation, floatThead*/
-/*exported index, deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
+﻿/*global _global, _messages, getParam, floatThead*/
+/*exported deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
 'use strict';
-
-var rowIndex = 1;
-
-function index() {
-    return rowIndex++;
-}
 
 var canNotUpdate = function (id) {
     $('#txtJobTile_' + id).val($('#spanJobTitle_' + id).text());
@@ -18,7 +12,7 @@ function deleteJobTitle(id) {
         { id: id },
         function (response) {
             if (response) {
-                document.location = _global.root + 'jobtitle/jobtitlemanagement';
+                query(false);
             }
             else {
                 alert(_messages.errorTryAgain);
@@ -65,7 +59,7 @@ function updateJobTitle(id) {
         if (jobTitle !== oldTitle) {
             $.post(_global.root + 'jobtitle/UpdatetJobTitle', { id: id, name: jobTitle }, function (response) {
                 if (response) {
-                    document.location = _global.root + 'jobtitle/jobtitlemanagement';
+                    query(false);
                 } else {
                     alert(_messages.errorTryAgain);
                     canNotUpdate(id);
@@ -128,7 +122,8 @@ $(function () {
                         { name: name.val() },
                         function (response) {
                             if (response) {
-                                document.location = _global.root + 'jobtitle/jobtitlemanagement';
+                                $('#dialog-form').dialog('close');
+                                query(false);
                             } else {
                                 alert(_messages.errorTryAgain);
                             }
@@ -143,6 +138,14 @@ $(function () {
             updateTips('');
             allFields.val('').removeClass('ui-state-error');
         },
+        show: {
+            effect: 'fade',
+            duration: 300
+        },
+        hide: {
+            effect: 'fade',
+            duration: 200
+        },
         dialogClass: 'create-job-title'
     });
 
@@ -153,31 +156,16 @@ $(function () {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'jobtitle/JobTitleManagement',
-        type: 'POST',
-        dataType: 'json',
+        url: _global.root + 'jobtitle/JobTitleManagementDetail',
+        dataType: 'html',
         data: { jobTitle: $('#keyword').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
-        success: function (response) {
-            $('table#data tbody').children().remove();
-
-            if (response.data.length > 0) {
-                rowIndex = 1;
-
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        index: index
-                    },
-                    html = tmpl.render(response.data, helpers);
-
-                $(html).appendTo('table#data');
-            } else {
-                $(noInformation(10)).appendTo('table#data');
-            }
+        success: function (data) {
+            $('#job-title-detail').html(data);
 
             floatThead('table#data');
         },

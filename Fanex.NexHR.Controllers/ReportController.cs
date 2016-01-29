@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -29,9 +30,6 @@ namespace Fanex.NexHR.Controllers
     [Authorize]
     public class ReportController : BaseController
     {
-        private const int CurrentPage = 1;
-        private const int ItemsPerPage = 50;
-
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly ITeamService _teamService;
@@ -521,8 +519,8 @@ namespace Fanex.NexHR.Controllers
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
                 EmployeeId = this.CurrentUser.Id,
-                CurrentPage = CurrentPage,
-                ItemsPerPage = ItemsPerPage
+                CurrentPage = Constants.CurrentPage,
+                ItemsPerPage = Constants.ItemsPerPage
             };
 
             return View(model);
@@ -577,8 +575,8 @@ namespace Fanex.NexHR.Controllers
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
                 Teams = teams,
-                CurrentPage = CurrentPage,
-                ItemsPerPage = ItemsPerPage
+                CurrentPage = Constants.CurrentPage,
+                ItemsPerPage = Constants.ItemsPerPage
             };
 
             return View(model);

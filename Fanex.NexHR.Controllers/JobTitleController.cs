@@ -9,8 +9,10 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
@@ -29,21 +31,17 @@ namespace Fanex.NexHR.Controllers
             _lookupDataService = lookupDataService ?? new LookupDataService();
         }
 
-        [HttpGet]
         public ActionResult JobTitleManagement()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult JobTitleManagement(string jobTitle = "")
+        public ActionResult JobTitleManagementDetail(string jobTitle = "")
         {
-            ViewBag.JobTitle = jobTitle;
-
             var lookupDataJobTitleCriteria = new GetLookupDataJobTitleCriteria() { JobTitle = jobTitle };
-            var data = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
+            IList<LookupData> jobTitles = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+            return PartialView("_JobTitleManagementDetail", jobTitles);
         }
 
         [Authorize(Roles = "HR")]

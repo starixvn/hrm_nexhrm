@@ -53,7 +53,6 @@ namespace Fanex.NexHR.Controllers
             _toeicService = toeicService ?? new ToeicService();
         }
 
-        [HttpGet]
         public ActionResult ToeicManagement(int? jobTitleId = null)
         {
             var model = new ToeicManagementViewModel()
@@ -72,8 +71,7 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public JsonResult ToeicManagement(ToeicManagementViewModel model)
+        public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
         {
             if (model.GroupId == -1)
             {
@@ -89,7 +87,7 @@ namespace Fanex.NexHR.Controllers
 
             IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
 
-            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+            return PartialView("_ToeicManagementDetail", employees);
         }
 
         [HttpGet]
