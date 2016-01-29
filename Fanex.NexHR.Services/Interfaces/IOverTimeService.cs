@@ -12,6 +12,8 @@ namespace Fanex.NexHR.Services.Interfaces
     {
         bool Insert(OverTimeViewModel model);
 
+        bool InsertAndApprove(OverTimeViewModel model);
+
         IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model);
 
         bool ApproveRequest(int id, int updatedUserId);

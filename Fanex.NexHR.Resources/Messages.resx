@@ -273,4 +273,7 @@
   <data name="DeductionTakenDescription" xml:space="preserve">
     <value>The grand total hour(s) of  Late In/Early Out, resulted in a deduction taken from Leave Balance</value>
   </data>
+  <data name="RequiredEmployee" xml:space="preserve">
+    <value>Select Employee</value>
+  </data>
 </root>

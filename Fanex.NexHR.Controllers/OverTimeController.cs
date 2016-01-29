@@ -1,22 +1,25 @@
-﻿using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Services;
-using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.ViewModels;
-using System.Web.Mvc;
-using System.Web.Security;
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels;
+    using System.Web.Mvc;
+
     [Authorize]
     public class OverTimeController : BaseController
     {
         private readonly IOverTimeService _service;
+        private readonly IEmployeeService _employeeService;
 
-        public OverTimeController() : this(null) { }
+        public OverTimeController() : this(null, null) { }
 
-        public OverTimeController(IOverTimeService service)
+        public OverTimeController(IOverTimeService service,
+            IEmployeeService employeeService = null)
         {
             _service = service ?? new OverTimeService();
+            _employeeService = employeeService ?? new EmployeeService();
         }
 
         [Authorize(Roles = "AssistantLeader,Leader")]
@@ -34,8 +37,16 @@ namespace Fanex.NexHR.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedId = this.CurrentUser.Id;
-                model.Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending;
-                _service.Insert(model);
+                if (model.IsApprove)
+                {
+                    model.Status = (int)RequestStatuse.Approve;
+                    _service.InsertAndApprove(model);
+                }
+                else
+                {
+                    model.Status = (int)RequestStatuse.Pending;
+                    _service.Insert(model);
+                }
 
                 return RedirectToAction("Summary");
             }
@@ -43,19 +54,23 @@ namespace Fanex.NexHR.Controllers
             return View();
         }
 
-        public ActionResult Summary()
-        {
-            var model = new OverTimeSummaryFilterViewModel();
-
-            return View("Summary", model);
-        }
-
         [HttpPost]
-        public ActionResult Summary(OverTimeSummaryFilterViewModel model)
+        public ActionResult SummaryResult(OverTimeSummaryFilterViewModel model)
         {
             var result = _service.GetSummaryReport(model);
 
             return View("SummaryResult", result);
+        }
+
+        public ActionResult Summary(OverTimeSummaryFilterViewModel model)
+        {
+            if (model.EmployeeId != 0)
+            {
+                var criteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
+                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
+            return View("Summary", model);
         }
 
         [HttpPost]

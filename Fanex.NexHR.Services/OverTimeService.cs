@@ -1,18 +1,15 @@
-﻿using Fanex.NexHR.Repositories.Interfaces;
-using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Fanex.NexHR.Repositories;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Criteria.OverTime;
-using Newtonsoft.Json;
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.OverTime;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+
     public class OverTimeService : IOverTimeService
     {
         private readonly IOverTimeRepository _repository;
@@ -29,7 +26,7 @@ namespace Fanex.NexHR.Services
 
         public bool Insert(OverTimeViewModel model)
         {
-            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);
+            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);            
             var createCriteria = new InsertOverTimeCriteria()
             {
                 CreatedBy = model.CreatedId,
@@ -44,6 +41,24 @@ namespace Fanex.NexHR.Services
             return result;
         }
 
+        public bool InsertAndApprove(OverTimeViewModel model)
+        {
+            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);
+            var createCriteria = new InsertAndApproveOverTimeCriteria()
+            {
+                CreatedBy = model.CreatedId,
+                Description = model.Description,
+                Date = model.Date,
+                Status = model.Status,
+                OverTimeRecord = record
+            };
+
+            var result = _repository.Insert(createCriteria);
+
+            return result;
+        }
+
+
         public IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model)
         {
             var result = _repository.GetSummaryReport(model);
@@ -55,14 +70,14 @@ namespace Fanex.NexHR.Services
         {
             var result = IsValidStatusForApprove(id);
 
-            return result ? _repository.UpdateStatus(id, RequestStatuse.Approve, userId) : result;
+            return result ? _repository.ApproveRequest(id, userId) : result;
         }
 
         public bool DisapproveRequest(int id, int userId)
         {
             var result = IsValidStatusForDisapprove(id);
 
-            return result ? _repository.UpdateStatus(id, RequestStatuse.Pending, userId) : result;
+            return result ? _repository.DisapproveRequest(id, userId) : result;
         }
 
         public bool RejectRequest(int id, int userId)

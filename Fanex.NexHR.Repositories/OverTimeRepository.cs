@@ -1,26 +1,21 @@
-﻿using Fanex.Data;
-using Fanex.Data.Repository;
-using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Criteria.OverTime;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.Repositories.Interfaces;
-using Fanex.NexHR.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
+    using Fanex.Data;
+    using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.OverTime;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.ViewModels;
+    using System.Collections.Generic;
+
     public class OverTimeRepository : IOverTimeRepository
     {
         public bool Insert(ICriteria createCriteria)
         {
             using (var db = new ObjectDb(createCriteria.GetSettingKey()))
             {
-                db.ExecuteScalar(createCriteria.GetSpParams());
-
-                return true;
+                return db.ExecuteNonQuery(createCriteria.GetSpParams()) != 0;
             }
         }
 
@@ -62,9 +57,7 @@ namespace Fanex.NexHR.Repositories
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.ExecuteScalar(criteria.GetSpParams());
-
-                return true;
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
@@ -91,7 +84,7 @@ namespace Fanex.NexHR.Repositories
 
         public bool Update(OverTimeViewModel model)
         {
-            var createCriteria = new UpdateOverTimeCriteria()
+            var criteria = new UpdateOverTimeCriteria()
             {
                 Id = model.Id,
                 Description = model.Description,
@@ -100,11 +93,38 @@ namespace Fanex.NexHR.Repositories
                 EmployeeId = model.EmployeeId
             };
 
-            using (var db = new ObjectDb(createCriteria.GetSettingKey()))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.ExecuteScalar(createCriteria.GetSpParams());
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
+            }
+        }
+        public bool ApproveRequest(int id, int userId)
+        {
+            var criteria = new ApproveOverTimeRequestCriteria()
+            {
+                Id = id,
+                Status = (int)RequestStatuse.Approve,
+                UserId = userId
+            };
 
-                return true;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
+            }
+        }
+
+        public bool DisapproveRequest(int id, int userId)
+        {
+            var criteria = new DisapproveOverTimeRequestCriteria()
+            {
+                Id = id,
+                Status = (int)RequestStatuse.Pending,
+                UserId = userId
+            };
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
     }

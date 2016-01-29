@@ -26,6 +26,7 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Employee service.
@@ -295,7 +296,7 @@ namespace Fanex.NexHR.Services
             return this._employeeRepository.InsertAnnualLeaveTransaction(criteria);
         }
 
-        public CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria)
+        public CommandResult AddLeaveDeduction(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())

@@ -1,13 +1,7 @@
-﻿using Fanex.Data.Repository;
-using Fanex.NexHR.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.OverTime
 {
+    using Fanex.Data.Repository;
+
     public class GetByIdCriteria : CriteriaBase
     {        
         public int Id { get; set; }     

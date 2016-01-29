@@ -1,14 +1,11 @@
-﻿using Fanex.NexHR.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
-using Fanex.NexHR.Resources;
-using Fanex.NexHR.Core.Enums;
-
-namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels
 {
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class OverTimeViewModel
     {
         public int Id { get; set; }
@@ -25,7 +22,7 @@ namespace Fanex.NexHR.ViewModels
 
         [Display(Name = "CreatedBy", ResourceType = typeof(Labels))]
         public string CreatedNickName { get; set; }
-     
+
         public int ModifiedId { get; set; }
         [Display(Name = "ModifiedBy", ResourceType = typeof(Labels))]
         public string ModifiedNickName { get; set; }
@@ -37,6 +34,8 @@ namespace Fanex.NexHR.ViewModels
         [Required]
         public string Description { get; set; }
         public int Status { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredEmployee", ErrorMessageResourceType = typeof(Messages))]
         public string RecordOTSheet { get; set; }
 
         public OverTimeViewModel()
@@ -57,7 +56,7 @@ namespace Fanex.NexHR.ViewModels
                 EmployeeId = overtime.Employee.Id,
                 EmployeeDisplayName = string.Format("{0} ({1})", overtime.Employee.NickName, overtime.Employee.FullName),
                 CreatedId = overtime.CreatedBy.Id,
-                CreatedNickName = overtime.CreatedBy.NickName,                
+                CreatedNickName = overtime.CreatedBy.NickName,
                 ModifiedId = overtime.ModifiedBy != null ? overtime.ModifiedBy.Id : 0,
                 ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
                 Description = overtime.Description,

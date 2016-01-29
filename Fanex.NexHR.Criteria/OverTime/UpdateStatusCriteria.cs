@@ -1,11 +1,7 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.OverTime
 {
+    using Fanex.Data.Repository;
+
     public class UpdateStatusCriteria : CriteriaBase
     {
         public int Status { get; set; }

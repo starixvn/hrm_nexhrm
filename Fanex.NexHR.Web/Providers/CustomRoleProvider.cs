@@ -144,11 +144,6 @@ namespace Fanex.NexHR.Web.Providers
             var user = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             return user;
-        }
-
-        public bool jdjd()
-        {
-            return true;
-        }
+        }      
     }
 }

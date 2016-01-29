@@ -189,7 +189,7 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>    
     <Setting Key="LeaveDeduction_Get" SpName="LeaveDeduction_Get" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
@@ -200,6 +200,7 @@
   </Function>
   <Function Name="OverTime">
     <Setting Key="OverTime_Insert" SpName="OverTime_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_InsertAndApprove" SpName="OverTime_InsertAndApprove" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="OverTime_GetSummary" SpName="OverTime_GetSummary" DbName="nexhr" Plain="0">      
       <Mapping DataField="CreatedBy" ObjectProperty="Id" />
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
@@ -220,6 +221,8 @@
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />      
     </Setting>
-    <Setting Key="OverTime_Update" SpName="OverTime_Update" DbName="nexhr" Plain="0"></Setting>    
+    <Setting Key="OverTime_Update" SpName="OverTime_Update" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_ApproveRequest" SpName="OverTime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="OverTime_DisapproveRequest" SpName="OverTime_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

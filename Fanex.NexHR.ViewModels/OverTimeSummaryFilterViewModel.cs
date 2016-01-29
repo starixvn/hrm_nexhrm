@@ -1,4 +1,5 @@
-﻿using Fanex.NexHR.Resources;
+﻿using Fanex.NexHR.Core.Enums;
+using Fanex.NexHR.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,6 +24,7 @@ namespace Fanex.NexHR.ViewModels
 
         [Display(Name = "Employee", ResourceType = typeof(Labels))]
         public int EmployeeId { get; set; }
+        public string Employee { get; set; }
 
         [Display(Name = "Status", ResourceType = typeof(Labels))]
         public int Status { get; set; }
@@ -31,6 +33,7 @@ namespace Fanex.NexHR.ViewModels
         {
             FromDate = DateTime.Now;
             ToDate = DateTime.Now;
+            Status = (int)RequestStatuse.Pending;
         }
     }
 }

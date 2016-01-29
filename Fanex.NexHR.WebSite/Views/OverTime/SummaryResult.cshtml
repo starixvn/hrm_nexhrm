@@ -10,9 +10,9 @@
         <tr>
             <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
-            <td>@item.CreatedBy.NickName</td>
+            <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
             <td>@item.Employee.NickName (@item.Employee.FullName)</td>
-            <td>@item.Description</td>
+            <td class="tooltip" title="@item.Description">@item.Description</td>
 
             @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
             {
