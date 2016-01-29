@@ -5,7 +5,10 @@
             eventList.push({
                 title: googleEvents[i].summary,
                 start: new Date(googleEvents[i].start.dateTime),
-                end: new Date(googleEvents[i].end.dateTime)
+                end: new Date(googleEvents[i].end.dateTime),
+                url: googleEvents[i].htmlLink,
+                creator: googleEvents[i].creator.email,
+                location: googleEvents[i].organizer.displayName !== undefined ? googleEvents[i].organizer.displayName:"none"
             });
         };
     }
@@ -31,20 +34,22 @@
                 className: 'detail-calendar',
                 gravity: $.fn.tipsy.autoNS,
                 html: true,
-                title: function () {
-                    var object = $(this);
+                title: function () {                    
                     return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Title</td>" +
-                            "<td>" + event.title + "</td>" +
+                        "<tr>" +                            
+                            "<td colspan='2'>" + event.title + "</td>" +
                         "</tr>" +
-                        "<tr>" +
-                            "<td>Time</td>" +
-                            "<td>" + from + " - " + to + "</td>" +
+                        "<tr>" +                            
+                            "<td colspan='2'>" + from + " - " + to + "</td>" +
                         "</tr>" +
-                        "<tr>" +
-                            "<td colspan='2'><a href='#'>More details >></a></td>" +
+                        "<tr>" +         
+                            "<td>" + 'Creator:' + "</td>" +                   
+                            "<td>" + event.creator + "</td>" +
                         "</tr>" +
+                        "<tr>" +                            
+                            "<td>" + 'Location:' + "</td>" +
+                            "<td>" + event.location + "</td>" +
+                        "</tr>"
                     "</table>";
                 }
             });
