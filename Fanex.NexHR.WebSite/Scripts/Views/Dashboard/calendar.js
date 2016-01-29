@@ -44,7 +44,7 @@ function initCalendar(googleEvents) {
             });
         };
     }
-    $('#calendar').fullCalendar({        
+    $('#calendar').fullCalendar({
         theme: true,
         header:
         {
@@ -52,7 +52,13 @@ function initCalendar(googleEvents) {
             center: 'title',
             right: 'next'
         },
-        events: eventList        
+        events: eventList,
+        eventLimit: true,
+        view: {
+            agenda: {
+                eventLimit: 2
+            }
+        }
     });
     initEventTooltip();
 }
