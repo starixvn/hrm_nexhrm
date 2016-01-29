@@ -1,39 +1,4 @@
-﻿var mail = "harvey.nguyen@nexcel.vn";
-var googleEvents = [];
-
-$(document).ready(function () {    
-   
-});
-var a = 0;
-function initEventTooltip(item) {    
-    //var from = item.start.hours() + ":" + item.start.minutes();
-    //var to = item.end.hours() + ":" + item.end.minutes();
-    $('.fc-content').tipsy({
-        className: 'tipsy-request',
-        gravity: 'ne',
-        html: true,
-        title: function () {
-            var object = $(this);
-            return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Title</td>" +
-                            "<td>" + 'item.title' + a + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Time</td>" +
-                            "<td>" + 'from' + " - " + 'to' + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>" + "Meeting room A2" + "</td>" +
-                        "</tr>" +
-                    "</table>";
-        }
-    });
-    a = a + 1;
-}
-
-function initCalendar(googleEvents) {
+﻿function initCalendar(googleEvents) {
     var eventList = [];
     if (googleEvents.length > 0) {
         for (var i = 0; i < googleEvents.length; i++) {
@@ -58,7 +23,38 @@ function initCalendar(googleEvents) {
             agenda: {
                 eventLimit: 2
             }
-        }
+        },
+        eventRender: function (event, element) {
+            var from = event.start.hours() + ":" + event.start.minutes();
+            var to = event.end.hours() + ":" + event.end.minutes();
+            element.tipsy({
+                className: 'detail-calendar',
+                gravity: $.fn.tipsy.autoNS,
+                html: true,
+                title: function () {
+                    var object = $(this);
+                    return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td>Title</td>" +
+                            "<td>" + event.title + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Time</td>" +
+                            "<td>" + from + " - " + to + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td colspan='2'><a href='#'>More details >></a></td>" +
+                        "</tr>" +
+                    "</table>";
+                }
+            });
+        },
+        eventClick: function (event) {
+            if (event.url) {
+                window.open(event.url);
+                return false;
+            }
+        },
+
     });
-    initEventTooltip();
 }
