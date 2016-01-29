@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
+    using Core.Enums;
+    using Models;
+    using Resources;
     using System;
     using System.ComponentModel.DataAnnotations;
 

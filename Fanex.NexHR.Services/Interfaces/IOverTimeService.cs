@@ -1,13 +1,9 @@
-﻿using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Services.Interfaces
+﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using Models;
+    using ViewModels;
+    using System.Collections.Generic;
+
     public interface IOverTimeService
     {
         bool Insert(OverTimeViewModel model);

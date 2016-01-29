@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Core.Enums;
+    using Criteria.Employee;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels;
     using System.Web.Mvc;
 
     [Authorize]
@@ -34,24 +34,24 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Create(OverTimeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                model.CreatedId = this.CurrentUser.Id;
-                if (model.IsApprove)
-                {
-                    model.Status = (int)RequestStatuse.Approve;
-                    _service.InsertAndApprove(model);
-                }
-                else
-                {
-                    model.Status = (int)RequestStatuse.Pending;
-                    _service.Insert(model);
-                }
-
-                return RedirectToAction("Summary");
+                return View();
             }
 
-            return View();
+            model.CreatedId = CurrentUser.Id;
+            if (model.IsApprove)
+            {
+                model.Status = (int)RequestStatuse.Approve;
+                _service.InsertAndApprove(model);
+            }
+            else
+            {
+                model.Status = (int)RequestStatuse.Pending;
+                _service.Insert(model);
+            }
+
+            return RedirectToAction("Summary");
         }
 
         [HttpPost]
@@ -66,7 +66,7 @@
         {
             if (model.EmployeeId != 0)
             {
-                var criteria = new GetEmployeeCriteria() { Id = model.EmployeeId };
+                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
                 model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
@@ -77,7 +77,7 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult ApproveRequest(int id)
         {
-            var result = _service.ApproveRequest(id, this.CurrentUser.Id);
+            var result = _service.ApproveRequest(id, CurrentUser.Id);
 
             return Json(result);
         }
@@ -86,7 +86,7 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult RejectRequest(int id)
         {
-            var result = _service.RejectRequest(id, this.CurrentUser.Id);
+            var result = _service.RejectRequest(id, CurrentUser.Id);
 
             return Json(result);
         }
@@ -95,7 +95,7 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult DisapproveRequest(int id)
         {
-            var result = _service.DisapproveRequest(id, this.CurrentUser.Id);
+            var result = _service.DisapproveRequest(id, CurrentUser.Id);
 
             return Json(result);
         }
@@ -114,8 +114,8 @@
         {
             if (ModelState.IsValid)
             {
-                model.ModifiedId = this.CurrentUser.Id;
-                var result = _service.Update(model);
+                model.ModifiedId = CurrentUser.Id;
+                _service.Update(model);
 
                 return RedirectToAction("Summary");
             }

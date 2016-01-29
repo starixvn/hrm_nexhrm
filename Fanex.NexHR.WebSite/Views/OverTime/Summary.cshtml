@@ -116,6 +116,5 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isHRRole = '@Roles.IsUserInRole(Role.HR.ToString ())' == 'True';
-    var isApproveRole = '@(Roles.IsUserInRole(Role.AssistantLeader.ToString ()) || Roles.IsUserInRole(Role.Leader.ToString ()))' == 'True';
+    var isHRRole = '@Roles.IsUserInRole(Role.HR.ToString ())' === 'True';
 </script>

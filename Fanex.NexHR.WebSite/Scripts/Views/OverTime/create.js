@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var memberList = [];
 function createRow(nick, id) {
@@ -95,7 +95,7 @@ $().ready(function () {
             $('#Employee').val(nickName);
             $('#EmployeeId').val(ui.item.value);
         },
-        close: function (event, ui) {
+        close: function () {
             var nickName = $('#Employee').val();
             var id = $("#EmployeeId").val();
             createRow(nickName, id);

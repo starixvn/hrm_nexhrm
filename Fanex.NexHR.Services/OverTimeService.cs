@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.OverTime;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Core.Enums;
+    using Criteria.OverTime;
+    using Models;
+    using Repositories;
+    using Repositories.Interfaces;
+    using Interfaces;
+    using ViewModels;
     using Newtonsoft.Json;
     using System.Collections.Generic;
 
@@ -27,7 +27,7 @@
         public bool Insert(OverTimeViewModel model)
         {
             var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);            
-            var createCriteria = new InsertOverTimeCriteria()
+            var createCriteria = new InsertOverTimeCriteria
             {
                 CreatedBy = model.CreatedId,
                 Description = model.Description,
@@ -44,7 +44,7 @@
         public bool InsertAndApprove(OverTimeViewModel model)
         {
             var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);
-            var createCriteria = new InsertAndApproveOverTimeCriteria()
+            var createCriteria = new InsertAndApproveOverTimeCriteria
             {
                 CreatedBy = model.CreatedId,
                 Description = model.Description,

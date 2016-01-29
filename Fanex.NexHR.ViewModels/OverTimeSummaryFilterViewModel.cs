@@ -1,13 +1,10 @@
-﻿using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels
 {
+    using Core.Enums;
+    using Resources;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class OverTimeSummaryFilterViewModel
     {
         [DataType(DataType.Date)]

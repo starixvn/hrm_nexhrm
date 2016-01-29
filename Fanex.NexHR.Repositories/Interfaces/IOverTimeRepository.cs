@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels;
+    using Data.Repository;
+    using Core.Enums;
+    using Models;
+    using ViewModels;
     using System.Collections.Generic;
 
     public interface IOverTimeRepository

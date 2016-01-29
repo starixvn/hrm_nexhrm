@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.OverTime;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Data;
+    using Data.Repository;
+    using Core.Enums;
+    using Criteria.OverTime;
+    using Models;
+    using Interfaces;
+    using ViewModels;
     using System.Collections.Generic;
 
     public class OverTimeRepository : IOverTimeRepository
@@ -21,7 +21,7 @@
 
         public IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model)
         {
-            var criteria = new GetSummaryCriteria()
+            var criteria = new GetSummaryCriteria
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
@@ -48,7 +48,7 @@
 
         public bool UpdateStatus(int id, RequestStatuse status, int userId)
         {
-            var criteria = new UpdateStatusCriteria()
+            var criteria = new UpdateStatusCriteria
             {
                 Id = id,
                 Status = (int)status,
@@ -63,7 +63,7 @@
 
         public OverTime Get(int id)
         {
-            var criteria = new GetByIdCriteria() { Id = id };
+            var criteria = new GetByIdCriteria { Id = id };
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -84,7 +84,7 @@
 
         public bool Update(OverTimeViewModel model)
         {
-            var criteria = new UpdateOverTimeCriteria()
+            var criteria = new UpdateOverTimeCriteria
             {
                 Id = model.Id,
                 Description = model.Description,
@@ -100,7 +100,7 @@
         }
         public bool ApproveRequest(int id, int userId)
         {
-            var criteria = new ApproveOverTimeRequestCriteria()
+            var criteria = new ApproveOverTimeRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Approve,
@@ -115,7 +115,7 @@
 
         public bool DisapproveRequest(int id, int userId)
         {
-            var criteria = new DisapproveOverTimeRequestCriteria()
+            var criteria = new DisapproveOverTimeRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Pending,

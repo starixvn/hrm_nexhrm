@@ -1,9 +1,8 @@
-"use strict"
-
+"use strict";
 $().ready(function () {
 
     initDatePicker(".datepicker");
 
-    initAutocomplete("#Employee", "#EmployeeId")    
+    initAutocomplete("#Employee", "#EmployeeId");
 });
 
