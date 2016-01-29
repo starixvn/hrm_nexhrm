@@ -56,6 +56,30 @@ function bindMenuApproved(element) {
     });
 }
 
+function initPagination() {
+    var totalPages = $('table#data #pagination #TotalPages').val(),
+        startPage = $('table#data #pagination #CurrentPage').val();
+
+    totalPages = totalPages ? parseInt(totalPages) : 0;
+    startPage = startPage ? parseInt(startPage) : 1;
+
+    $('table#data #pagination #numberlist').twbsPagination({
+        totalPages: totalPages,
+        startPage: startPage,
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        href: 'javascript:;',
+        first: '<i class="mdi mdi-chevron-double-left"></i>',
+        prev: '<i class="mdi mdi-chevron-left"></i>',
+        next: '<i class="mdi mdi-chevron-right"></i>',
+        last: '<i class="mdi mdi-chevron-double-right"></i>',
+        onPageClick: function (event, page) {
+            $('form.form-filter #CurrentPage').val(page);
+            query(false);
+        }
+    });
+}
+
 function query(isFirstLoad) {
     var action = $('.card-container-base .form').find('#ActionName').val();
 
@@ -70,12 +94,24 @@ function query(isFirstLoad) {
             }
         },
         success: function (data) {
-            if (data) {
-                $('#all-request').html(data);
+            $('#all-request').html(data);
 
+            if ($('table#data #pagination').length > 0) {
                 // menu
                 bindMenuPending('.Pending');
                 bindMenuApproved('.Approved');
+
+                initPagination();
+
+                $('#datatable_length').removeClass('hide');
+                $('#datatable_length #ItemsPerPage').on('change', function () {
+                    $('form.form-filter #CurrentPage').val(1);
+                    $('form.form-filter #ItemsPerPage').val($(this).val());
+
+                    if (validateFromDateAndToDate()) {
+                        query(false);
+                    }
+                });
 
                 $('.viewhistory').click(function () {
                     var url = $(this).attr('id');
@@ -101,7 +137,10 @@ function query(isFirstLoad) {
                 });
 
                 floatThead('table#data');
+            } else {
+                $('#datatable_length').addClass('hide');
             }
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);

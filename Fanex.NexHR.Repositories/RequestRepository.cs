@@ -9,19 +9,20 @@
 
 namespace Fanex.NexHR.Repositories
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using System.Reflection;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    /// <summary>
-    /// Request Repository.
-    /// </summary>
     public class RequestRepository : BaseRepository, IRequestRepository
     {
         public IList<RequestEntity> GetRequest(ICriteria criteria)
@@ -38,6 +39,15 @@ namespace Fanex.NexHR.Repositories
                             entityList.Add(GetRequestInfo(reader));
                         }
                     }
+                }
+
+                PropertyInfo totalitem = criteria.GetType().GetProperties().Where(
+                    prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) && prop.Name.ToLower().Equals("totalitem")).FirstOrDefault();
+
+                if (totalitem != null)
+                {
+                    var hashParam = db.GetOuputParams();
+                    totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
                 }
             }
 

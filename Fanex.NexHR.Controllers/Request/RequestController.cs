@@ -22,10 +22,14 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Common;
 
     [Authorize]
     public class RequestController : BaseController
     {
+        private const int CurrentPage = 1;
+        private const int ItemsPerPage = 50;
+
         #region private services
 
         private readonly IRequestService _requestService;
@@ -72,7 +76,9 @@ namespace Fanex.NexHR.Controllers.Request
                     FromDate = request.ToDate.AddMonths(-2),
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = false
+                    IsFilterByEffectedDate = false,
+                    CurrentPage = CurrentPage,
+                    ItemsPerPage = ItemsPerPage
                 };
             }
 
@@ -140,7 +146,9 @@ namespace Fanex.NexHR.Controllers.Request
                     StatusId = 0,
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = true
+                    IsFilterByEffectedDate = true,
+                    CurrentPage = CurrentPage,
+                    ItemsPerPage = ItemsPerPage
                 };
             }
 
@@ -207,7 +215,9 @@ namespace Fanex.NexHR.Controllers.Request
                     StatusId = 0,
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = false
+                    IsFilterByEffectedDate = false,
+                    CurrentPage = CurrentPage,
+                    ItemsPerPage = ItemsPerPage
                 };
             }
 
@@ -304,10 +314,30 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestType = request.RequestType == 1
                     ? Convert.ToString((int)RequestType.Leave)
                     : (request.RequestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty),
-                IsFilterByEffectedDate = request.IsFilterByEffectedDate
+                IsFilterByEffectedDate = request.IsFilterByEffectedDate,
+                PageIndex = request.CurrentPage - 1,
+                ItemsPerPage = request.ItemsPerPage
             };
 
             IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+
+            int totalPage = 0;
+
+            if (criteria.TotalItem != null)
+            {
+                totalPage = (int)criteria.TotalItem / request.ItemsPerPage;
+                totalPage = decimal.Divide((int)criteria.TotalItem, request.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            }
+
+            var pagerOption = new PagerOptionModel()
+            {
+                CurrentPage = request.CurrentPage,
+                ItemsPerPage = request.ItemsPerPage,
+                TotalItem = (int)criteria.TotalItem,
+                TotalPage = totalPage
+            };
+
+            ViewBag.PagerOption = pagerOption;
 
             return entityList;
         }

@@ -1,4 +1,7 @@
 ﻿@model IList<RequestEntity>
+@{
+    var pagerOption = ViewBag.PagerOption;
+}
 <div class="p-x--s">
     <table id="data" class="table bordered striped highlight centered table-custom">
         <thead>
@@ -18,7 +21,7 @@
         {
             <tbody>
                 @{
-                    int index = 1;
+                    int index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
                     RequestViewModel options = (RequestViewModel)ViewBag.Options;
                 }
                 @foreach (RequestEntity request in Model)
@@ -198,13 +201,13 @@
                                         <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
-                                                                                                                                                  break;
+                                    break;
                                 case 3: //Reject
                                     <td>
                                         <span class="tooltip status-nochange c-approve" 
                                             title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
                                     </td>
-                                                                                                                                                  break;
+                                    break;
                             }
                         }
                         <td>
@@ -213,6 +216,24 @@
                     </tr>
                 }
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9" id="pagination" class="row form-input">
+                        <div id="detailtext" class="col m-t--s">
+                            @{
+                                var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
+                                var to = from + (Model.Count - 1);
+                            }
+                            Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@pagerOption.TotalItem</strong> entries
+                        </div>
+                        <div class="col right">
+                            @Html.Hidden("CurrentPage", (int)pagerOption.CurrentPage)
+                            @Html.Hidden("TotalPages", (int)pagerOption.TotalPage)
+                            <ul id="numberlist" class="pagination"></ul>
+                        </div>
+                    </td>
+                </tr>
+        </tfoot>
         }
         else
         {

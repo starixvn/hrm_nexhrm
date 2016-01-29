@@ -77,8 +77,8 @@
                 <td colspan="6" id="pagination" class="row form-input">
                     <div id="detailtext" class="col m-t--s">
                         @{
-            var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
-            var to = from + (Model.Count - 1);
+                            var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
+                            var to = from + (Model.Count - 1);
                         }
                         Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@pagerOption.TotalItem</strong> entries
                     </div>

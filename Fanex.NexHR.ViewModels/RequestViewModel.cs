@@ -16,8 +16,9 @@ namespace Fanex.NexHR.ViewModels
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.ViewModels.Common;
 
-    public class RequestViewModel
+    public class RequestViewModel : PagerOptionModel
     {
         public RequestViewModel()
         {

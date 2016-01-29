@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Criteria.Request
 {
     using System;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
 
     /// <summary>
     /// Get Request Criteria.
@@ -38,6 +39,13 @@ namespace Fanex.NexHR.Criteria.Request
         public string RequestType { get; set; }
 
         public bool IsFilterByEffectedDate { get; set; }
+
+        public int? PageIndex { get; set; }
+
+        public int? ItemsPerPage { get; set; }
+
+        [Output]
+        public int? TotalItem { get; set; }
 
         public override string GetSettingKey()
         {
