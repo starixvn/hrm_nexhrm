@@ -300,14 +300,17 @@
 		.fc-body {
 			.fc-row.fc-week {
 				.fc-event-container {
+					background: #f5d1c1;
 					.fc-event {
-						.fc-content {
-							background: #f5d1c1;
+						.fc-content {							
 							.fc-time {								
 								display: inline-block !important;
 							}
 						}
 					}
+				}
+				.fc-more-cell {
+					background: #f5d1c1;
 				}
 			}
 			.fc-row:first-child table {

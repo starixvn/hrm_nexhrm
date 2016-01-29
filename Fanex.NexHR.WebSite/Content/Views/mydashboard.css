@@ -206,10 +206,12 @@
     .dashboardCalendar .fc-view-container .fc-head table thead tr th {
       border: none !important;
       text-align: left; }
-  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content {
+  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
     background: #f5d1c1; }
     .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
       display: inline-block !important; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-more-cell {
+    background: #f5d1c1; }
   .dashboardCalendar .fc-view-container .fc-body .fc-row:first-child table {
     border-top: 1px; }
   .dashboardCalendar .fc-view-container .fc-body .fc-day {
