@@ -215,6 +215,9 @@
   .dashboardCalendar .fc-view-container .fc-body .fc-day {
     border-left: 1px solid #e4e4e4 !important;
     border-top: 1px solid #e4e4e4 !important; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-day-grid-event {
+    margin-right: 0;
+    margin-left: 0; }
   .dashboardCalendar .fc-view-container .fc-body .fc-day-number {
     text-align: left;
     padding-left: 8px; }
