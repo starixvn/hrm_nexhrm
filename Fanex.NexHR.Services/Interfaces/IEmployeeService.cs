@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Services.Interfaces
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
+    using Fanex.Data.Repository;
 
     public interface IEmployeeService
     {
@@ -66,7 +67,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
 
-        CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria);
+        CommandResult AddLeaveDeduction(ICriteria criteria);        
 
         CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria);
 

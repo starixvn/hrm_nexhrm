@@ -307,7 +307,7 @@
     <value>Update</value>
   </data>
   <data name="NoData" xml:space="preserve">
-    <value>No Data</value>
+    <value>No information available</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
@@ -1146,6 +1146,18 @@
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="IsAnnual" xml:space="preserve">
+    <value>Is Annual</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>Verified</value>
+  </data>
   <data name="AL" xml:space="preserve">
     <value>AL</value>
   </data>
@@ -1197,8 +1209,23 @@
   <data name="Override" xml:space="preserve">
     <value>Override</value>
   </data>
-  <data name="IsAnnual" xml:space="preserve">
-    <value>Is Annual</value>
+  <data name="CreateOTRequest" xml:space="preserve">
+    <value>New OT Request</value>
+  </data>
+  <data name="EditOTRequest" xml:space="preserve">
+    <value>Edit OT Request</value>
+  </data>
+  <data name="OTRequestSummary" xml:space="preserve">
+    <value>OT Request Summary</value>
+  </data>
+  <data name="VerifiedBy" xml:space="preserve">
+    <value>Verified By</value>
+  </data>
+  <data name="OT" xml:space="preserve">
+    <value>OT</value>
+  </data>
+  <data name="ModifiedBy" xml:space="preserve">
+    <value>Modified By</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>

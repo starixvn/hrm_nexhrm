@@ -82,6 +82,8 @@
     <Compile Include="CommandResult.cs" />
     <Compile Include="DashboardPersonalSpaceModel.cs" />
     <Compile Include="Report\DetailEmployeeAttendanceModel.cs" />
+    <Compile Include="OverTime.cs" />
+    <Compile Include="OverTimeRecord.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
     <Compile Include="Report\LeaveDeductionDetail.cs" />
     <Compile Include="Report\LateInEarlyOutDetail.cs" />

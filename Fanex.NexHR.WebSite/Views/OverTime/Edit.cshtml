@@ -1,0 +1,117 @@
+﻿@model OverTimeViewModel
+
+@{
+    ViewBag.Title = Labels.EditOTRequest;
+}
+@section css{
+}
+@section js{
+    @Scripts.Render("~/bundles/editovertimejs");
+}
+@section Breadcrumb {
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@Labels.EditOTRequest</span> <a id="legendInfo" href="javascript:;">
+                    </a>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary()
+
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.Date)
+                                </div>
+                                <div class="datepicker-button left select--s">
+                                    @Html.DatePickerFor(model => model.Date)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(m => m.Hour)
+                                </div>
+                                <div class="left select--xs">
+                                    @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.Label(Labels.Remark)
+                                </div>
+                                <div class="left input--l">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.Label(Labels.Employee)
+                                </div>
+                                <div class="left input--m">
+                                    @Html.TextBox("Employee", Model.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(m => m.EmployeeId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(m => m.Status)
+                                </div>
+                                <div class="left input--m">
+                                    @((OTRequestStatus)Model.Status)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(model => model.CreatedNickName)
+                                </div>
+                                <div class="left txtArea">
+                                    @(Model.CreatedNickName)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--l">
+                                    @Html.LabelFor(m => m.ModifiedNickName)
+                                </div>
+                                <div class="left txtArea">
+                                    @Model.ModifiedNickName
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-input">
+                            <div class="left label--xl">&nbsp;</div>
+                            <div class="left">
+                                @Html.HiddenFor(m => m.Id)
+                                <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                <input id="submitEdit" type="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

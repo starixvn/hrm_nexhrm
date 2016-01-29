@@ -66,9 +66,23 @@
 
             BuildBundleForLeaveDeductionDetail(bundles);
 
+            BuildBundlerForOverTime(bundles);
+
             BuildBundleForLateInEarlyOutDetail(bundles);
 
             BuildBundleForMyProfile(bundles);
+        }
+
+        private static void BuildBundlerForOverTime(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/createovertimejs").Include(
+                         "~/Scripts/Views/OverTime/create.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/summaryovertimejs").Include(                         
+                         "~/Scripts/Views/OverTime/summary.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/editovertimejs").Include(                         
+                         "~/Scripts/Views/OverTime/edit.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

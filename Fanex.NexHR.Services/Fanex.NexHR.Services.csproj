@@ -103,6 +103,10 @@
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI.OOXML, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
       <Private>True</Private>
@@ -137,6 +141,7 @@
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
+    <Compile Include="Interfaces\IOverTimeService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
     <Compile Include="LookupCodeName.cs" />
@@ -149,6 +154,7 @@
     <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="MemoService.cs" />
     <Compile Include="ExportService.cs" />
+    <Compile Include="OverTimeService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="TeamService.cs" />
     <Compile Include="HolidayService.cs" />

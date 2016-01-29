@@ -691,6 +691,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created By.
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created Date.
         /// </summary>
         public static string CreatedDate {
@@ -714,6 +723,15 @@ namespace Fanex.NexHR.Resources {
         public static string CreateMemo {
             get {
                 return ResourceManager.GetString("CreateMemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New OT Request.
+        /// </summary>
+        public static string CreateOTRequest {
+            get {
+                return ResourceManager.GetString("CreateOTRequest", resourceCulture);
             }
         }
         
@@ -1029,6 +1047,15 @@ namespace Fanex.NexHR.Resources {
         public static string EditMemo {
             get {
                 return ResourceManager.GetString("EditMemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit OT Request.
+        /// </summary>
+        public static string EditOTRequest {
+            get {
+                return ResourceManager.GetString("EditOTRequest", resourceCulture);
             }
         }
         
@@ -2041,6 +2068,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified By.
+        /// </summary>
+        public static string ModifiedBy {
+            get {
+                return ResourceManager.GetString("ModifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mon.
         /// </summary>
         public static string Mon {
@@ -2365,7 +2401,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Data.
+        ///   Looks up a localized string similar to No information available.
         /// </summary>
         public static string NoData {
             get {
@@ -2464,6 +2500,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OT.
+        /// </summary>
+        public static string OT {
+            get {
+                return ResourceManager.GetString("OT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other Leaves.
         /// </summary>
         public static string OtherLeaves {
@@ -2478,6 +2523,15 @@ namespace Fanex.NexHR.Resources {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OT Request Summary.
+        /// </summary>
+        public static string OTRequestSummary {
+            get {
+                return ResourceManager.GetString("OTRequestSummary", resourceCulture);
             }
         }
         
@@ -3288,6 +3342,33 @@ namespace Fanex.NexHR.Resources {
         public static string UPL {
             get {
                 return ResourceManager.GetString("UPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified.
+        /// </summary>
+        public static string Verified {
+            get {
+                return ResourceManager.GetString("Verified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified By.
+        /// </summary>
+        public static string VerifiedBy {
+            get {
+                return ResourceManager.GetString("VerifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string Verify {
+            get {
+                return ResourceManager.GetString("Verify", resourceCulture);
             }
         }
         

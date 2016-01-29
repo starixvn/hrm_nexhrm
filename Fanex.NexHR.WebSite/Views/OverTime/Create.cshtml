@@ -1,0 +1,131 @@
+﻿@model OverTimeViewModel
+
+@{
+    ViewBag.Title = Labels.CreateOTRequest;
+}
+@section css{
+}
+@section js{
+    @Scripts.Render("~/bundles/createovertimejs");
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@ViewBag.Title</span> <a id="legendInfo" href="javascript:;">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm("create", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
+                        {
+                            @Html.ValidationSummary()
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Date)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.Date)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Hour)
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.IsApprove)
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.MaterializeCheckBoxFor(m => m.IsApprove, new { @class = "filled-in" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input m-t--s">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.Label(Labels.Remark)
+                                    </div>
+                                    <div class="left input--l">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.Label(Labels.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" id="EmployeeId" />
+                                        @Html.HiddenFor(model => model.RecordOTSheet)
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.Label("Employee List")
+                                    </div>
+                                    <div class="left">
+                                        <table class="table bordered striped highlight centered responsive-table table-custom"
+                                           style="width: 800px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        @Labels.Employee
+                                                    </th>
+                                                    <th>
+                                                        Hour
+                                                    </th>
+                                                    <th>
+                                                        @Labels.Delete
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="memberList"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                                                        
+                            <div class="row form-input m-t--m">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">                                    
+                                    <input type="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Save" />
+                                    <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>                                    
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

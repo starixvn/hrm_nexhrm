@@ -19,6 +19,10 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,8 +79,8 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -617,6 +621,8 @@
     <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
+    <Content Include="Scripts\Views\OverTime\edit.js" />
+    <Content Include="Scripts\Views\OverTime\summary.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
@@ -642,7 +648,9 @@
     <Content Include="Scripts\Views\Employee\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\_employee.search.in.team.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -695,6 +703,11 @@
     <Content Include="Views\AnnualLeaveBalance\_Index.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
+    <Content Include="Views\OverTime\Create.cshtml" />
+    <Content Include="Views\OverTime\Summary.cshtml" />
+    <Content Include="Scripts\Views\OverTime\create.js" />
+    <Content Include="Views\OverTime\SummaryResult.cshtml" />
+    <Content Include="Views\OverTime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\_LeaveSummaryDetail.cshtml" />
     <Content Include="Views\Report\_TimeRecordDetail.cshtml" />
@@ -703,10 +716,7 @@
     <Content Include="Views\JobTitle\_JobTitleManagementDetail.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
