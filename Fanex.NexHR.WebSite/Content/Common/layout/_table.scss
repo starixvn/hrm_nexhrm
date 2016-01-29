@@ -251,6 +251,7 @@ table {
           &.active {
             background: #78828b;
             @extend %boxshadow;
+			cursor: pointer;
           }
       }
       
@@ -266,6 +267,10 @@ table {
 
         &.disabled {
             background: rgba(120, 130, 139, 0.6);
+			cursor: not-allowed;
+			> a {
+				cursor: not-allowed;
+			}
         }
       }
     }

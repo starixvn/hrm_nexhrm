@@ -175,9 +175,6 @@
     .lnk-days .drop-menu.list-unstyled {
       list-style: none; }
 
-.select-team {
-  opacity: 0.8; }
-
 .dashboardCalendar {
   width: auto !important; }
   .dashboardCalendar .fc-scroller {

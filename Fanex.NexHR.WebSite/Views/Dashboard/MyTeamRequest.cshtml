@@ -52,7 +52,7 @@
                                 <div class="left label--m">
                                     <label>
                                         Team</label></div>
-                                <div class="left select-team" style="cursor:not-allowed";>
+                                <div class="left select-team">
                                     @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
