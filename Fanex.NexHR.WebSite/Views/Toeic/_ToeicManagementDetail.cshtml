@@ -30,7 +30,7 @@
             var index = 0;
             foreach(Employee employee in Model) {
                 index++;
-                <tr id="row@employee.Id">
+                <tr id="row_@employee.Id">
                     <td>@index</td>
                     <td class="tooltip" title="@employee.FullName">
                         @employee.NickName
@@ -42,37 +42,37 @@
                     <td>
                         @if(employee.ToeicScore.Listening != null && employee.ToeicScore.Listening.Equals(0))
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
-                            <p>@employee.ToeicScore.Listening</p>
+                            <span>@employee.ToeicScore.Listening</span>
                         }
                     </td>
                     <td>
                         @if (employee.ToeicScore.Reading != null && employee.ToeicScore.Reading.Equals(0))
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
-                            <p>@employee.ToeicScore.Reading</p>
+                            <span>@employee.ToeicScore.Reading</span>
                         }
                     </td>
                     <td>
                         @if (employee.ToeicScore.LRTotal != null && employee.ToeicScore.LRTotal.Equals(0))
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
-                            <p>@employee.ToeicScore.LRTotal</p>
+                            <span>@employee.ToeicScore.LRTotal</span>
                         }
                     </td>
                     <td>
                         @if (employee.ToeicScore.LRExamDate != null)
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
@@ -82,27 +82,27 @@
                     <td>
                         @if (employee.ToeicScore.Speaking != null && employee.ToeicScore.Speaking.Equals(0))
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
-                            <p>@employee.ToeicScore.Speaking</p>
+                            <span>@employee.ToeicScore.Speaking</span>
                         }
                     </td>
                     <td>
                         @if (employee.ToeicScore.Writing != null && employee.ToeicScore.Writing.Equals(0))
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
-                            <p>@employee.ToeicScore.Writing</p>
+                            <span>@employee.ToeicScore.Writing</span>
                         }
                     </td>
                     <td>
                         @if (employee.ToeicScore.SWExamDate != null)
                         {
-                            <p>-</p>
+                            <span>-</span>
                         }
                         else
                         {
@@ -129,7 +129,7 @@
                         <td>
                             @if (employee.IsDeleted)
                             {
-                                <p>-</p>
+                                <span>-</span>
                             }
                             else
                             {
