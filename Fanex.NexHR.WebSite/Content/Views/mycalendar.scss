@@ -54,11 +54,7 @@
             @include css3(box-shadow, none);
         }
         
-        .fc-head {
-            .ui-widget-header {
-                border: 1px solid #3c4355 !important;
-                font-weight: normal;
-            }
+        .fc-head {            
             table {
                 thead {
                     background: #3b4354;
@@ -66,8 +62,7 @@
 
                     tr {
                         th {
-                            padding: .8rem .7rem;
-                            border: 1px solid #3c4355 !important;
+                            padding: .8rem .7rem;                            
                             font-weight: normal;
                         }
                     }
@@ -75,9 +70,7 @@
             }
         }
 
-        .fc-body {
-            border: 1px solid $c-border-table;
-
+        .fc-body {  
             .fc-row.fc-week {
                 .fc-content-skeleton {
                     table thead {
@@ -115,21 +108,47 @@
                         }
                     }
                 }
-
-                .fc-day {
-                    border: 1px solid $c-border-table;
-
-                    &.fc-sat, &.fc-sun {
-                        background: #e0e0e0;
-                    }
-
-                    &.fc-today {
-                        background: #f4773d;
-                    }
-                }
             }
         }
     }
+
+	&.schedule {
+		.fc-view-container {
+			.fc-head {
+				.ui-widget-header {
+					border: 1px solid #3c4355 !important;
+					font-weight: normal;
+				}
+				table {
+					thead {
+						
+
+						tr {
+							th {
+								
+								border: 1px solid #3c4355 !important;
+								font-weight: normal;
+							}
+						}
+					}
+				}
+			}
+			.fc-day {
+                border: 1px solid $c-border-table;
+
+                &.fc-sat, &.fc-sun {
+                    background: #e0e0e0;
+                }
+
+                &.fc-today {
+                    background: #f4773d;
+                }
+            }
+			.fc-body {
+				border: 1px solid $c-border-table;
+			}
+		}
+	}
 }
 
 .ui-dialog {
