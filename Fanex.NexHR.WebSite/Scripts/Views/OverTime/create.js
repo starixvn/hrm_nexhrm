@@ -2,6 +2,9 @@
 
 var memberList = [];
 function createRow(nick, id) {
+    if (memberList.length == 0) {
+        $('#memberList').html('');
+    }
     var hour = $('#Hour').val();
     memberList.push({ EmployeeId: id, Hour: parseInt(hour) });
     var row = '<tr class="sortedIndex" id="row' + id + '">' +
@@ -16,8 +19,7 @@ function createRow(nick, id) {
     })
 };
 
-function changeHour(employeeId, value)
-{
+function changeHour(employeeId, value) {
     $(memberList).each(function (index, element) {
         if (element.EmployeeId == employeeId) {
             element.Hour = parseInt(value);
@@ -32,7 +34,12 @@ function deleteRow(id) {
         }
     });
 
-    generatedIndex();
+    if (memberList.length == 0) {
+        var row = '<tr><td colspan="6"></td></tr><tr><td colspan="6">No Employee</td></tr>';
+        $('#memberList').append(row);
+    } else {
+        generatedIndex();
+    }
 }
 
 function generatedIndex() {
@@ -47,12 +54,12 @@ $().ready(function () {
 
     initDatePicker(".datepicker");
 
-    $("#form").submit(function () {       
+    $("#form").submit(function () {
         if (memberList.length > 0) {
             $("#RecordOTSheet").val(JSON.stringify(memberList));
-        }        
+        }
     })
-    
+
     $("#Employee").autocomplete({
         source: function (request, response) {
             var term = request.term;

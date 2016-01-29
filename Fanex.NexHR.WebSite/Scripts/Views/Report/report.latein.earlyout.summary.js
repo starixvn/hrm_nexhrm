@@ -33,10 +33,10 @@ function displayNumberHours(number, employeeId, fromMonth, toMonth) {
 
 function displayOTHours(number, employeeId, fromMonth, toMonth) {
     var year = parseInt($('#Year').val()),
-        fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
-        toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-        url = "/overtime/summary?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate,
-        result = '-';
+    fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
+    toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
+    url = "/overtime/summary?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate + "&Status=2",
+    result = '-';
 
     if (number !== 0) {
         result = '<a href="' + url + '">' + (number).toFixed(1) + '</a>';
@@ -126,6 +126,7 @@ function query(isFirstLoad) {
                     helpers = {
                         displayFormatTotalLateInEarlyOut: displayFormatTotalLateInEarlyOut,
                         displayNumberHours: displayNumberHours,
+                        displayOTHours: displayOTHours,
                         displayBalance: displayBalance,
                         isHRRole: isHRRole
                     },
@@ -152,7 +153,7 @@ function query(isFirstLoad) {
 $(document).ready(function () {
     query(true);
 
-    
+
     $('#submit').on('click', function () {
         var year = parseInt($('#Year').val()),
             lastYear = $('table thead #last-year').text(year - 1),
