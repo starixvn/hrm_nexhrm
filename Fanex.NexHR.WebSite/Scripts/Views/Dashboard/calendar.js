@@ -4,11 +4,10 @@ var googleEvents = [];
 $(document).ready(function () {    
    
 });
-
-function initEventTooltip(item) {
-    //var date = event.start.format("DD-MM-YYYY");
-    var from = item.start.hours() + ":" + item.start.minutes();
-    var to = item.end.hours() + ":" + item.end.minutes();
+var a = 0;
+function initEventTooltip(item) {    
+    //var from = item.start.hours() + ":" + item.start.minutes();
+    //var to = item.end.hours() + ":" + item.end.minutes();
     $('.fc-content').tipsy({
         className: 'tipsy-request',
         gravity: 'ne',
@@ -18,11 +17,11 @@ function initEventTooltip(item) {
             return "<table class='table-tooltip'>" +
                         "<tr>" +
                             "<td>Title</td>" +
-                            "<td>" + item.title + "</td>" +
+                            "<td>" + 'item.title' + a + "</td>" +
                         "</tr>" +
                         "<tr>" +
                             "<td>Time</td>" +
-                            "<td>" + from + " - " + to + "</td>" +
+                            "<td>" + 'from' + " - " + 'to' + "</td>" +
                         "</tr>" +
                         "<tr>" +
                             "<td>Location</td>" +
@@ -31,6 +30,7 @@ function initEventTooltip(item) {
                     "</table>";
         }
     });
+    a = a + 1;
 }
 
 function initCalendar(googleEvents) {
@@ -52,9 +52,7 @@ function initCalendar(googleEvents) {
             center: 'title',
             right: 'next'
         },
-        events: eventList,
-        eventMouseover: function (calEvent, jsEvent, view) {
-            initEventTooltip(calEvent);
-        }
+        events: eventList        
     });
+    initEventTooltip();
 }

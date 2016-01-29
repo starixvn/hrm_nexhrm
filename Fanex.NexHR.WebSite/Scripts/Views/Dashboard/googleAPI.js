@@ -1,18 +1,6 @@
-﻿/////////////////////////////////////////////////
-/////////////////////////Google Calendar API/////
-/////////////////////////////////////////////////
-var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
+﻿var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
-//function getEventsFromGoogle() {
-
-//    // Your Client ID can be retrieved from your project in the Google
-//    var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
-
-//    var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
-//    var googleEvents = [];
-//    return googleEvents;
-//}
 
 /**
 * Check if current user has authorized this application.
@@ -36,7 +24,7 @@ function handleAuthResult(authResult) {
         loadCalendarApi();
     }
     else {
-        alert('failed');
+        handleAuthClick();
     }
 }
 
@@ -45,7 +33,7 @@ function handleAuthResult(authResult) {
 *
 * @param {Event} event Button click event.
 */
-function handleAuthClick(event) {
+function handleAuthClick() {
     gapi.auth.authorize(
           { client_id: CLIENT_ID, scope: SCOPES, immediate: false },
           handleAuthResult);
@@ -68,11 +56,11 @@ function loadCalendarApi() {
 function getListEvents() {
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
-        'timeMin': (new Date('01/01/2016')).toISOString(),
+        //'timeMin': (new Date('01/01/2016')).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
+        //'maxResults': 10,
+        //'orderBy': 'startTime'
     });
 
     request.execute(function (resp) {
