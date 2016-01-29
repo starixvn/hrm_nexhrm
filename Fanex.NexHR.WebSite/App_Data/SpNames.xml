@@ -93,7 +93,7 @@
         <Setting Key="WorkingTimeRequest_Delete" SpName="WorkingTimeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_Update" SpName="WorkingTimeRequest_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetById" SpName="WorkingTimeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkingTimeRequest_GetRequestByDate" SpName="WorkingTimeRequest_GetRequestByDate_xtest" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetRequestByDate" SpName="WorkingTimeRequest_GetRequestByDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
     </Function>
