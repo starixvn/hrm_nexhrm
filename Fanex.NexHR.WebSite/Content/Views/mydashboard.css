@@ -203,17 +203,25 @@
     .dashboardCalendar .fc-view-container .fc-head table thead tr th {
       border: none !important;
       text-align: left; }
-  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
-    background: #f5d1c1; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event {
+    background: #b7caf1 !important;
+    border-radius: 0;
+    margin-top: 0;
+    padding-top: 3px;
+    line-height: 1.8; }
     .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
       display: inline-block !important; }
-  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-more-cell {
-    background: #f5d1c1; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-row.fc-week .fc-more-cell > div {
+    background: #b7caf1;
+    line-height: 1.7;
+    text-align: center; }
   .dashboardCalendar .fc-view-container .fc-body .fc-row:first-child table {
     border-top: 1px; }
   .dashboardCalendar .fc-view-container .fc-body .fc-day {
     border-left: 1px solid #e4e4e4 !important;
     border-top: 1px solid #e4e4e4 !important; }
+    .dashboardCalendar .fc-view-container .fc-body .fc-day.fc-today {
+      background: #f5d1c1; }
   .dashboardCalendar .fc-view-container .fc-body .fc-day-grid-event {
     margin-right: 0;
     margin-left: 0; }
@@ -221,7 +229,29 @@
     text-align: left;
     padding-left: 8px; }
     .dashboardCalendar .fc-view-container .fc-body .fc-day-number.fc-today {
-      color: #f4783d !important;
+      color: inherit !important;
       font-weight: 600; }
+  .dashboardCalendar .fc-view-container .fc-body .fc-more-popover {
+    background: #fff;
+    -webkit-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    -ms-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35); }
+
+.detail-calendar {
+  opacity: 1 !important; }
+  .detail-calendar .tipsy-inner {
+    max-width: none;
+    background: #fff;
+    color: #000;
+    -webkit-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    -ms-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35); }
+  .detail-calendar .tipsy-arrow-s {
+    border-top-color: #fff; }
+  .detail-calendar .table-tooltip td {
+    padding: 7px 15px;
+    font-size: 1.3rem; }
 
 /*# sourceMappingURL=mydashboard.css.map */
