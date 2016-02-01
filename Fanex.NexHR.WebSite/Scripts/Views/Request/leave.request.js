@@ -71,6 +71,8 @@ function query(isFirstLoad) {
         },
         success: function (response) {
             $('#list-leave-request').html(response);
+
+            bindMenuPending();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -138,7 +140,6 @@ function initCreateUpdatePage() {
 
     $('#TotalDays').prop('readonly', true);
 
-    initDatePicker();
     enableControlforHalfday();
 
     $('#HalfDayOff').on('change', function () {

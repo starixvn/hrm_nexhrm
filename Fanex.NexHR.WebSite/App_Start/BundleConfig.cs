@@ -120,7 +120,7 @@
 
             // context menu
             bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
-                "~/Scripts/Libs/jquery.contextMenu.js"));
+                "~/Scripts/Libs/jquery.contextMenu.min.js"));
 
             bundles.AddAndInclude(
                 "~/Content/contextmenucss",

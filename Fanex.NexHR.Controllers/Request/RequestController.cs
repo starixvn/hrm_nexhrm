@@ -124,8 +124,8 @@ namespace Fanex.NexHR.Controllers.Request
 
             IList<RequestEntity> entityList = GetRequest(request, (short)Role.AssistantLeader);
 
-            ViewBag.IsAllowChangeStatus = true;
             ViewBag.Status = request.StatusId;
+            ViewBag.IsAllowChangeStatus = true;
             ViewBag.Leader = true;
             ViewBag.Options = request;
 
@@ -190,12 +190,12 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
+            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
+
             ViewBag.Status = request.StatusId;
             ViewBag.IsAllowChangeStatus = false;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-
-            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
 
             return PartialView("AllRequest", entityList);
         }
@@ -260,12 +260,12 @@ namespace Fanex.NexHR.Controllers.Request
                 request.TeamId = null;
             }
 
-            ViewBag.IsAllowChangeStatus = true;
+            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
+
             ViewBag.Status = request.StatusId;
+            ViewBag.IsAllowChangeStatus = true;
             ViewBag.Leader = false;
             ViewBag.Options = request;
-
-            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
 
             return PartialView("AllRequest", entityList);
         }

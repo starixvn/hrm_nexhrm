@@ -24,21 +24,24 @@ function processRequest(command, eventElement) {
     }
 }
 
-function bindMenu(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            processRequest(key, element);
-        },
-        items: {
-            "edit": { name: "Edit", icon: "edit" },
-            "delete": { name: "Delete", icon: "delete" }
-        }
+function bindMenuPending() {
+    $('table#data tbody td a.Pending').on('mouseup', function (e) {
+        var $this = $(this);
+
+        $.contextMenu({
+            selector: '.Pending',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        processRequest(key, $this);
+                    },
+                    items: {
+                        'edit': { name: 'Edit', icon: 'edit' },
+                        'delete': { name: 'Delete', icon: 'delete' }
+                    }
+                };
+            }
+        });
     });
 }
-
-$(document).ready(function () {
-    // menu
-    bindMenu('.Pending');
-});

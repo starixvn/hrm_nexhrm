@@ -52,6 +52,8 @@ function query(isFirstLoad) {
         },
         success: function (response) {
             $('#list-check-in-out-request').html(response);
+
+            bindMenuPending();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -116,7 +118,6 @@ function initCreateUpdatePage() {
         }
     });
 
-    initDatePicker();
     initEventPickerDate();
 
     $('form').submit(function (e) {

@@ -8,51 +8,66 @@ function processRequest(command, eventElement) {
             if (response !== true) {
                 alert(response);
                 return;
-            }
-            else {
-                window.location.reload();
+            } else {
+                query(false);
             }
         }
     );
 }
 
-function bindMenuPending(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            switch (key) {
-                case 'Approve':
-                    confirm('Are you sure you want to Approve?', function () {
-                        processRequest(key, element);
-                    });
-                    break;
-                case 'Reject':
-                    confirm('Are you sure you want to Reject?', function () {
-                        processRequest(key, element);
-                    });
-                    break;
+function bindMenuPending() {
+    $('table#data tbody td a.Pending').on('mouseup', function (e) {
+        var $this = $(this);
+
+        $.contextMenu({
+            selector: '.Pending',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        switch (key) {
+                            case 'Approve':
+                                confirm('Are you sure you want to Approve?', function () {
+                                    processRequest(key, $this);
+                                });
+                                break;
+                            case 'Reject':
+                                confirm('Are you sure you want to Reject?', function () {
+                                    processRequest(key, $this);
+                                });
+                                break;
+                        }
+                    },
+                    items: {
+                        'Approve': { name: 'Approve', icon: 'approve' },
+                        'Reject': { name: 'Reject', icon: 'reject' }
+                    }
+                };
             }
-        },
-        items: {
-            'Approve': { name: 'Approve', icon: 'approve' },
-            'Reject': { name: 'Reject', icon: 'reject' }
-        }
+        });
     });
 }
 
-function bindMenuApproved(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            confirm('Are you sure you want to Disapprove?', function () {
-                processRequest(key, element);
-            });
-        },
-        items: {
-            'Disapprove': { name: 'Disapprove', icon: 'reject' }
-        }
+function bindMenuApproved() {
+    $('table#data tbody td a.Approved').on('mouseup', function (e) {
+        var $this = $(this);
+
+        $.contextMenu({
+            selector: '.Approved',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        confirm('Are you sure you want to Disapprove?', function () {
+                            processRequest(key, $this);
+                        });
+                    },
+                    items: {
+                        'Disapprove': { name: 'Disapprove', icon: 'reject' }
+                    }
+                };
+            }
+        });
     });
 }
 
@@ -98,8 +113,8 @@ function query(isFirstLoad) {
 
             if ($('table#data #pagination').length > 0) {
                 // menu
-                bindMenuPending('.Pending');
-                bindMenuApproved('.Approved');
+                bindMenuPending();
+                bindMenuApproved();
 
                 initPagination();
 

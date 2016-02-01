@@ -326,6 +326,7 @@
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\Libs\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\Libs\jquery.contextMenu.js" />
+    <Content Include="Scripts\Libs\jquery.contextMenu.min.js" />
     <Content Include="Scripts\Libs\jquery.cookie.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.min.js" />
