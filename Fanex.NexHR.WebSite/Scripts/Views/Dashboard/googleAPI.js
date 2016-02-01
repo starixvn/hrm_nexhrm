@@ -31,7 +31,6 @@ function handleAuthResult(authResult) {
 /**
 * Initiate auth flow in response to user clicking authorize button.
 *
-* @param {Event} event Button click event.
 */
 function handleAuthClick() {
     gapi.auth.authorize(
