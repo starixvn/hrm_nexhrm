@@ -76,50 +76,6 @@ function initExportExcel() {
     });
 }
 
-function initSearchAutoComplete() {
-    $("#Employee").autocomplete({
-        source: function (request, response) {
-            var term = request.term,
-                index = term.indexOf(' (');
-
-            if (index > 0) {
-                term = term.substr(0, index);
-            }
-
-            $.ajax({
-                dataType: 'json',
-                url: _global.root + 'api/employee/getemployees',
-                data: {
-                    query: term,
-                    $top: 10
-                },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            label: item.NickName + ' (' + item.FullName + ')',
-                            value: item.Id
-                        };
-                    }));
-                }
-            });
-        },
-        minLength: 1,
-        select: function (event, ui) {
-            event.preventDefault();
-            $('#Employee').val(ui.item.label);
-            $('#EmpId').val(ui.item.value);
-        },
-        change: function (event, ui) {
-            if (ui && ui.item) {
-                $('#Employee').val(ui.item.label);
-                $('#EmpId').val(ui.item.value);
-            } else {
-                $('#EmpId').val('0');
-            }
-        }
-    });
-}
-
 function fillData(response) {
     rowIndex = 1;
 
@@ -216,7 +172,7 @@ $(document).ready(function () {
     $('#EntryId').val(pagingOption.itemsPerPage);
     $('#GetAll').val(false);
 
-    initSearchAutoComplete();
+    initAutocomplete('#Employee', '#EmployeeId');
     initExportExcel();
 
     $('#Date').on('change', function () {

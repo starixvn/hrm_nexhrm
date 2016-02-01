@@ -134,7 +134,6 @@
     <Compile Include="OverTime\ApproveOverTimeRequestCriteria.cs" />
     <Compile Include="OverTime\GetByIdCriteria.cs" />
     <Compile Include="OverTime\GetSummaryCriteria.cs" />
-    <Compile Include="OverTime\InsertAndApproveOverTimeCriteria.cs" />
     <Compile Include="OverTime\InsertOverTimeCriteria.cs" />
     <Compile Include="OverTime\UpdateOverTimeCriteria.cs" />
     <Compile Include="OverTime\UpdateStatusCriteria.cs" />

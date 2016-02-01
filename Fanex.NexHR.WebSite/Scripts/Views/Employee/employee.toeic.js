@@ -38,55 +38,6 @@ function initNumberTextbox() {
     });
 }
 
-function initAutocomplete() {
-    $('#Employee').autocomplete({
-        source: function (request, response) {
-            var term = request.term;
-
-            var index = term.indexOf(' (');
-
-            if (index > 0) {
-                term = term.substr(0, index);
-            }
-
-            $.ajax({
-                url: _global.root + 'api/employee/getemployees',
-                data: {
-                    query: term
-                },
-                success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
-                            return { label: item.NickName + ' (' + item.FullName + ')',
-                                value: item.Id
-                            };
-                        }));
-                    } else {
-                        $('#EmpId').val('0');
-                    }
-                }
-            });
-        },
-        select: function (event, ui) {
-            event.preventDefault();
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
-            $('#EmpId').val(ui.item.value);
-        },
-        change: function (event, ui) {
-            if (ui && ui.item) {
-                var nickName = ui.item.label;
-                $('#Employee').val(nickName);
-                $('#EmpId').val(ui.item.value);
-            }
-            else {
-                $('#EmpId').val('0');
-            }
-        },
-        minLength: 1
-    });
-}
-
 function editTOEIC(id, name) {
     if (id > 0) {
         $.ajax({
@@ -138,7 +89,7 @@ function initialize() {
 
 function initAddToeicDialog() {
     initDatePicker();
-    initAutocomplete();
+    initAutocomplete('#Employee', '#EmployeeId');
     initNumberTextbox();
 
     $('#dialog-toeic').dialog({

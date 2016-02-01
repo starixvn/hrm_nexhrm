@@ -3,23 +3,22 @@
     using Models;
     using ViewModels;
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.OverTime;
 
     public interface IOverTimeService
     {
-        bool Insert(OverTimeViewModel model);
+        CommandResult Insert(InsertOverTimeCriteria criteria);
 
-        bool InsertAndApprove(OverTimeViewModel model);
+        IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria);
 
-        IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model);
+        CommandResult ApproveRequest(ApproveOverTimeRequestCriteria criteria);
 
-        bool ApproveRequest(int id, int updatedUserId);
+        CommandResult DisapproveRequest(DisapproveOverTimeRequestCriteria criteria);
 
-        bool DisapproveRequest(int id, int verifiedUserId);
+        CommandResult RejectRequest(UpdateStatusCriteria criteria);
 
-        bool RejectRequest(int id, int rejectedUserId);
+        OverTime Get(GetByIdCriteria criteria);
 
-        OverTime Get(int id);
-
-        bool Update(OverTimeViewModel model);
+        CommandResult Update(UpdateOverTimeCriteria criteria);
     }
 }

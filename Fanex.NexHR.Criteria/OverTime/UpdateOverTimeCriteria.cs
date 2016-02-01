@@ -15,6 +15,8 @@
 
         public int EmployeeId { get; set; }
 
+        public int ModifyBy { get; set; }
+
         public override string GetSettingKey()
         {
             return "OverTime_Update";

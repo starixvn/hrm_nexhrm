@@ -7,57 +7,6 @@ function index() {
     return rowIndex++;
 }
 
-function initSearchAutoComplete() {
-    $("#Employee").autocomplete({
-        source: function (request, response) {
-            var term = request.term;
-            var index = term.indexOf(' (');
-
-            if (index > 0) {
-                term = term.substr(0, index);
-            }
-
-            $.ajax({
-                url: _global.root + 'ajax/getmembersbymanager',
-                data: {
-                    keyword: term,
-                    groupId: $('#GroupId').val()
-                },
-                success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.NickName + ' (' + item.FullName + ')',
-                                value: item.Id
-                            };
-                        }));
-                    }
-                    else {
-                        $('#EmployeeId').val('0');
-                    }
-                }
-            });
-        },
-        minLength: 1,
-        select: function (event, ui) {
-            event.preventDefault();
-            var nickName = ui.item.label;
-            $('#Employee').val(nickName);
-            $('#EmployeeId').val(ui.item.value);
-        },
-        change: function (event, ui) {
-            if (ui && ui.item) {
-                var nickName = ui.item.label;
-                $('#Employee').val(nickName);
-                $('#EmployeeId').val(ui.item.value);
-            }
-            else {
-                $('#EmployeeId').val('0');
-            }
-        }
-    });
-}
-
 function query(isFirstLoad) {
     var $form = $('form');
     if (!$form.valid()) {
@@ -162,7 +111,7 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
 
 $(document).ready(function () {
     setDateTimeRange(1);
-    initSearchAutoComplete();
+    initAutocomplete('#Employee', '#EmployeeId');
 
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());

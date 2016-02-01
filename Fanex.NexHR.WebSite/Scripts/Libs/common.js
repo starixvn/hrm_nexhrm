@@ -660,6 +660,12 @@ function initAutocomplete(selectorName, selectorId) {
             $(selectorName).val(nickName);
             $(selectorId).val(ui.item.value);
         },
+        focus: function (event, ui) {
+            event.preventDefault();
+            var nickName = ui.item.label;
+            $(selectorName).val(nickName);
+            $(selectorId).val(ui.item.value);
+        },
         change: function (event, ui) {
             if (ui && ui.item) {
                 var nickName = ui.item.label;

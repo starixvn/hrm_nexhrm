@@ -1221,8 +1221,8 @@
   <data name="VerifiedBy" xml:space="preserve">
     <value>Verified By</value>
   </data>
-  <data name="OT" xml:space="preserve">
-    <value>OT</value>
+  <data name="OTRequest" xml:space="preserve">
+    <value>OT Request</value>
   </data>
   <data name="ModifiedBy" xml:space="preserve">
     <value>Modified By</value>

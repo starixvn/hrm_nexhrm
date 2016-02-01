@@ -6,9 +6,10 @@ function createRow(nick, id) {
         $('#memberList').html('');
     }
     var hour = $('#Hour').val();
-    memberList.push({ EmployeeId: id, Hour: parseInt(hour) });
-    var row = '<tr class="sortedIndex" id="row' + id + '">' +
+    memberList.push({ EmployeeId: id, DisplayName: nick, Hour: parseInt(hour) });
+    var row = '<tr class="sortedIndex" id="row_' + id + '">' +
                 '<td>' + memberList.length + '</td>' +
+                '<td>' + id + '</td>' +
                 '<td>' + nick + '</td>' +
                 '<td><input id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
                 '<td><a href="javascript:;" onclick="deleteRow(' + id + ');"><i class="mdi mdi-delete mdi-dark"></i></a></td>' +
@@ -27,7 +28,7 @@ function changeHour(employeeId, value) {
     })
 }
 function deleteRow(id) {
-    $('#row' + id).remove();
+    $('#row_' + id).remove();
     $(memberList).each(function (index, element) {
         if (element.EmployeeId == id) {
             memberList.splice(index, 1);
@@ -35,7 +36,7 @@ function deleteRow(id) {
     });
 
     if (memberList.length == 0) {
-        var row = '<tr><td colspan="6"></td></tr><tr><td colspan="6">No Employee</td></tr>';
+        var row = '<tr><td colspan="5"></td></tr><tr><td colspan="5">No Employee</td></tr>';
         $('#memberList').append(row);
     } else {
         generatedIndex();
@@ -56,7 +57,7 @@ $().ready(function () {
 
     $("#form").submit(function () {
         if (memberList.length > 0) {
-            $("#RecordOTSheet").val(JSON.stringify(memberList));
+            $("#RecordData").val(JSON.stringify(memberList));
         }
     })
 
@@ -90,6 +91,12 @@ $().ready(function () {
         },
         minLength: 1,
         select: function (event, ui) {
+            event.preventDefault();
+            var nickName = ui.item.label;
+            $('#Employee').val(nickName);
+            $('#EmployeeId').val(ui.item.value);
+        },
+        focus: function (event, ui) {
             event.preventDefault();
             var nickName = ui.item.label;
             $('#Employee').val(nickName);

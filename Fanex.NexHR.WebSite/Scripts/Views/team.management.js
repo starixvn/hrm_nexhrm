@@ -17,91 +17,6 @@ function deleteTeam(id) {
     });
 }
 
-function initSearchLeaderAutoComplete() {
-    var nickNameLeader;
-
-    $('#Leader').autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: _global.root + 'api/employee/GetEmployees',
-                dataType: 'json',
-                data: {
-                    query: request.term,
-                    $top: 10
-                },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            label: item.NickName + ' (' + item.FullName + ')',
-                            value: item.Id
-                        };
-                    }));
-                }
-            });
-        },
-        minLength: 1,
-        select: function (event, ui) {
-            nickNameLeader = ui.item.label;
-            $('#Leader').val(nickNameLeader);
-            $('#LeaderId').val(ui.item.value);
-        },
-        focus: function (event, ui) {
-            ;
-            $('#Leader').val(ui.item.label);
-            event.preventDefault();
-        },
-        close: function () {
-            if (nickNameLeader) {
-                $('#Leader').val(nickNameLeader);
-            } else {
-                $('#Leader').val('');
-            }
-        }
-    });
-}
-
-function initSearchAssistantLeaderAutoComplete() {
-    var nickNameAssistantLeader;
-
-    $('#AssistantLeader').autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: _global.root + 'api/employee/GetEmployees',
-                dataType: 'json',
-                data: {
-                    query: request.term,
-                    $top: 10
-                },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            label: item.NickName + ' (' + item.FullName + ')',
-                            value: item.Id
-                        };
-                    }));
-                }
-            });
-        },
-        minLength: 1,
-        select: function (event, ui) {
-            nickNameAssistantLeader = ui.item.label;
-            $('#AssistantLeader').val(nickNameAssistantLeader);
-            $('#AssistantLeaderId').val(ui.item.value);
-        },
-        focus: function (event, ui) {
-            $('#AssistantLeader').val(ui.item.label);
-            event.preventDefault();
-        },
-        close: function () {
-            if (nickNameAssistantLeader) {
-                $('#AssistantLeader').val(nickNameAssistantLeader);
-            } else {
-                $('#AssistantLeader').val('');
-            }
-        }
-    });
-}
-
 function initCreateEditPage() {
     //Validation Leader field
     $('#Leader').rules('add', {
@@ -111,8 +26,8 @@ function initCreateEditPage() {
         }
     });
 
-    initSearchLeaderAutoComplete();
-    initSearchAssistantLeaderAutoComplete();
+    initAutocomplete('#Leader', '#LeaderId');
+    initAutocomplete('#AssistantLeader', '#AssistantLeaderId');    
 }
 
 $(document).ready(function () {

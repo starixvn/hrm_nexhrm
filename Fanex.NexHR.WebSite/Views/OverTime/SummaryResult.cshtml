@@ -8,11 +8,13 @@
     foreach (var item in Model)
     {
         <tr>
+            <td>@item.Employee.NickName (@item.Employee.FullName)</td>                        
             <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
+            <td class="tooltip" title="@item.Description">
+                <span class="mdi mdi-message-text" alt="remark" />
+            </td>            
             <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
-            <td>@item.Employee.NickName (@item.Employee.FullName)</td>
-            <td class="tooltip" title="@item.Description">@item.Description</td>
 
             @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
             {

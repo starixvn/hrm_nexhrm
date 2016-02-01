@@ -4,6 +4,8 @@
     using Models;
     using Resources;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class OverTimeViewModel
@@ -31,19 +33,21 @@
         public string EmployeeDisplayName { get; set; }
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
-        [Required]
+        [Required]        
         public string Description { get; set; }
         public int Status { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredEmployee", ErrorMessageResourceType = typeof(Messages))]
-        public string RecordOTSheet { get; set; }
+        public string RecordData { get; set; }
 
+        public IList<OverTimeRecord> RecordList { get; set; }
         public OverTimeViewModel()
         {
             Date = DateTime.Now;
             Hour = 2;
             Status = (int)OTRequestStatus.Pending;
             IsApprove = true;
+            RecordList = new List<OverTimeRecord>();
         }
 
         public static OverTimeViewModel Parse(OverTime overtime)
@@ -60,7 +64,8 @@
                 ModifiedId = overtime.ModifiedBy != null ? overtime.ModifiedBy.Id : 0,
                 ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
                 Description = overtime.Description,
-                Status = overtime.Status
+                Status = overtime.Status,
+                RecordData = overtime.Employee.DisplayName,
             };
         }
     }

@@ -8,7 +8,7 @@ namespace Fanex.NexHR.Models
     public class OverTimeRecord
     {
         public int EmployeeId { get; set; }
-
+        public string DisplayName { get; set; }
         public int Hour { get; set; }
     }
 }

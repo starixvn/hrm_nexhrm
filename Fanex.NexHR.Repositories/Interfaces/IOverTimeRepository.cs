@@ -5,21 +5,12 @@
     using Models;
     using ViewModels;
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.OverTime;
 
     public interface IOverTimeRepository
     {
-        bool Insert(ICriteria createCriteria);
+        IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria);
 
-        IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model);
-
-        OverTime Get(int id);
-
-        bool Update(OverTimeViewModel model);
-
-        bool UpdateStatus(int id, RequestStatuse status, int rejectedUserId);
-
-        bool ApproveRequest(int id, int userId);
-
-        bool DisapproveRequest(int id, int userId);
+        OverTime Get(GetByIdCriteria criteria);                
     }
 }

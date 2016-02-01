@@ -3,6 +3,6 @@ $().ready(function () {
 
     initDatePicker(".datepicker");
 
-    initAutocomplete("#Employee", "#EmployeeId");
+    initAutocomplete("#EmployeeDisplayName", "#EmployeeId");
 });
 

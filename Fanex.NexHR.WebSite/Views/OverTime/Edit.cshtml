@@ -63,8 +63,9 @@
                                     @Html.Label(Labels.Employee)
                                 </div>
                                 <div class="left input--m">
-                                    @Html.TextBox("Employee", Model.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.TextBoxFor(m=>m.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
                                     @Html.HiddenFor(m => m.EmployeeId)
+                                    @Html.HiddenFor(m => m.RecordData)
                                 </div>
                             </div>
                         </div>
@@ -85,6 +86,7 @@
                                 </div>
                                 <div class="left txtArea">
                                     @(Model.CreatedNickName)
+                                    @Html.HiddenFor(m=>m.CreatedNickName)
                                 </div>
                             </div>
                         </div>
@@ -96,6 +98,7 @@
                                 </div>
                                 <div class="left txtArea">
                                     @Model.ModifiedNickName
+                                    @Html.HiddenFor(m=>m.ModifiedNickName)
                                 </div>
                             </div>
                         </div>

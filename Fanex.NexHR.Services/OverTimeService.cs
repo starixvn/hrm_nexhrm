@@ -1,16 +1,13 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Core.Enums;
     using Criteria.OverTime;
+    using Interfaces;
     using Models;
     using Repositories;
     using Repositories.Interfaces;
-    using Interfaces;
-    using ViewModels;
-    using Newtonsoft.Json;
     using System.Collections.Generic;
 
-    public class OverTimeService : IOverTimeService
+    public class OverTimeService : BaseService, IOverTimeService
     {
         private readonly IOverTimeRepository _repository;
 
@@ -24,109 +21,45 @@
             _repository = repository ?? new OverTimeRepository();
         }
 
-        public bool Insert(OverTimeViewModel model)
+        public CommandResult Insert(InsertOverTimeCriteria criteria)
         {
-            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);            
-            var createCriteria = new InsertOverTimeCriteria
-            {
-                CreatedBy = model.CreatedId,
-                Description = model.Description,
-                Date = model.Date,
-                Status = model.Status,
-                OverTimeRecord = record
-            };
-
-            var result = _repository.Insert(createCriteria);
+            var result = Repository.Insert(criteria);
 
             return result;
         }
 
-        public bool InsertAndApprove(OverTimeViewModel model)
+        public IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria)
         {
-            var record = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordOTSheet);
-            var createCriteria = new InsertAndApproveOverTimeCriteria
-            {
-                CreatedBy = model.CreatedId,
-                Description = model.Description,
-                Date = model.Date,
-                Status = model.Status,
-                OverTimeRecord = record
-            };
-
-            var result = _repository.Insert(createCriteria);
+            var result = _repository.GetSummaryReport(criteria);
 
             return result;
         }
 
-
-        public IEnumerable<OverTime> GetSummaryReport(OverTimeSummaryFilterViewModel model)
+        public CommandResult ApproveRequest(ApproveOverTimeRequestCriteria criteria)
         {
-            var result = _repository.GetSummaryReport(model);
-
-            return result;
+            return Repository.Update(criteria);
         }
 
-        public bool ApproveRequest(int id, int userId)
+        public CommandResult DisapproveRequest(DisapproveOverTimeRequestCriteria criteria)
         {
-            var result = IsValidStatusForApprove(id);
-
-            return result ? _repository.ApproveRequest(id, userId) : result;
+            return Repository.Update(criteria);
         }
 
-        public bool DisapproveRequest(int id, int userId)
+        public CommandResult RejectRequest(UpdateStatusCriteria criteria)
         {
-            var result = IsValidStatusForDisapprove(id);
-
-            return result ? _repository.DisapproveRequest(id, userId) : result;
+            return Repository.Update(criteria);
         }
 
-        public bool RejectRequest(int id, int userId)
+        public OverTime Get(GetByIdCriteria criteria)
         {
-            var result = IsValidStatusForReject(id);
-
-            return result ? _repository.UpdateStatus(id, RequestStatuse.Reject, userId) : result;
-        }
-
-        public OverTime Get(int id)
-        {
-            var model = _repository.Get(id);
+            var model = _repository.Get(criteria);
 
             return model;
         }
 
-        public bool Update(OverTimeViewModel viewModel)
+        public CommandResult Update(UpdateOverTimeCriteria criteria)
         {
-            var result = IsValidStatusForUpdate(viewModel.Id);
-
-            return result ? _repository.Update(viewModel) : result;
-        }
-
-        private bool IsValidStatusForUpdate(int id)
-        {
-            var model = Get(id);
-
-            return (model != null && model.Status == (int)RequestStatuse.Pending);
-        }
-
-        private bool IsValidStatusForDisapprove(int id)
-        {
-            var model = Get(id);
-
-            return (model != null && model.Status == (int)OTRequestStatus.Approved);
-        }
-
-        private bool IsValidStatusForReject(int id)
-        {
-            var model = Get(id);
-
-            return (model != null && model.Status == (int)OTRequestStatus.Pending);
-        }
-
-        private bool IsValidStatusForApprove(int id)
-        {
-            var model = Get(id);
-
-            return (model != null && model.Status == (int)OTRequestStatus.Pending);
+            return Repository.Update(criteria);
         }
     }
 }
