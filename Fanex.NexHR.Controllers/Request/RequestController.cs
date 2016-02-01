@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Team;
@@ -27,9 +28,6 @@ namespace Fanex.NexHR.Controllers.Request
     [Authorize]
     public class RequestController : BaseController
     {
-        private const int CurrentPage = 1;
-        private const int ItemsPerPage = 50;
-
         #region private services
 
         private readonly IRequestService _requestService;
@@ -76,9 +74,7 @@ namespace Fanex.NexHR.Controllers.Request
                     FromDate = request.ToDate.AddMonths(-2),
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = false,
-                    CurrentPage = CurrentPage,
-                    ItemsPerPage = ItemsPerPage
+                    IsFilterByEffectedDate = false
                 };
             }
 
@@ -86,6 +82,9 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 request.TeamId = null;
             }
+
+            request.CurrentPage = Constants.CurrentPage;
+            request.ItemsPerPage = Constants.ItemsPerPage;
 
             var criteria = new GetTeamByManagerIdCriteria()
             {
@@ -146,9 +145,7 @@ namespace Fanex.NexHR.Controllers.Request
                     StatusId = 0,
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = true,
-                    CurrentPage = CurrentPage,
-                    ItemsPerPage = ItemsPerPage
+                    IsFilterByEffectedDate = true
                 };
             }
 
@@ -158,6 +155,9 @@ namespace Fanex.NexHR.Controllers.Request
                 request.StatusId = 0;
                 request.TeamId = null;
             }
+
+            request.CurrentPage = Constants.CurrentPage;
+            request.ItemsPerPage = Constants.ItemsPerPage;
 
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
@@ -215,9 +215,7 @@ namespace Fanex.NexHR.Controllers.Request
                     StatusId = 0,
                     RequestType = 5,
                     TeamId = null,
-                    IsFilterByEffectedDate = false,
-                    CurrentPage = CurrentPage,
-                    ItemsPerPage = ItemsPerPage
+                    IsFilterByEffectedDate = false
                 };
             }
 
@@ -227,6 +225,9 @@ namespace Fanex.NexHR.Controllers.Request
                 request.StatusId = 0;
                 request.TeamId = null;
             }
+
+            request.CurrentPage = Constants.CurrentPage;
+            request.ItemsPerPage = Constants.ItemsPerPage;
 
             request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 

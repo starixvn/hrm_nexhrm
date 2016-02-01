@@ -41,22 +41,10 @@ function query(isFirstLoad) {
             $('#time-record-detail').html(data);
 
             if ($('table#data #pagination').length > 0) {
-                bindMenuIn('.in-action');
-                bindMenuOut('.out-action');
-                bindMenuInOut('.inout-action');
+                bindMenuIn();
+                bindMenuOut();
+                bindMenuInOut();
                 initPagination();
-
-                $('#datatable_length').removeClass('hide');
-                $('#datatable_length #ItemsPerPage').on('change', function () {
-                    $('form.form-filter #CurrentPage').val(1);
-                    $('form.form-filter #ItemsPerPage').val($(this).val());
-
-                    if (validateFromDateAndToDate()) {
-                        query(false);
-                    }
-                });
-            } else {
-                $('#datatable_length').addClass('hide');
             }
 
             floatThead('table#data');
@@ -77,7 +65,7 @@ function processInOut(inoutType, eventElement) {
     { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
     function (response) {
         if (response.Code === 0) {
-            query();
+            query(false);
         } else {
             alert(response.Message);
             return;
@@ -85,60 +73,84 @@ function processInOut(inoutType, eventElement) {
     });
 }
 
-function bindMenuIn(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            confirm('Are you sure you change to in?', function () {
-                processInOut(0, element);
-            });
-        },
-        items: {
-            'in': { name: 'In' }
-        }
-    });
-}
+function bindMenuIn() {
+    $('table#data tbody td a.in-action').on('mouseup', function (e) {
+        var $this = $(this);
 
-function bindMenuOut(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            confirm('Are you sure you change to out?', function () {
-                processInOut(1, element);
-            });
-        },
-        items: {
-            'out': { name: 'Out' }
-        }
-    });
-}
-
-function bindMenuInOut(element) {
-    $.contextMenu({
-        selector: element,
-        trigger: 'left',
-        callback: function (key, options) {
-            switch (command) {
-                case 'in':
-                    confirm('Are you sure you change to in?', function () {
-                        processInOut(0, element);
-                    });
-
-                    break;
-                case 'out':
-                    confirm('Are you sure you change to out?', function () {
-                        processInOut(1, element);
-                    });
-
-                    break;
+        $.contextMenu({
+            selector: '.in-action',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        confirm('Are you sure you change to in?', function () {
+                            processInOut(0, $this);
+                        });
+                    },
+                    items: {
+                        'in': { name: 'In' }
+                    }
+                };
             }
-        },
-        items: {
-            'in': { name: 'In' },
-            'out': { name: 'Out' }
-        }
+        });
+    });
+}
+
+function bindMenuOut() {
+    $('table#data tbody td a.out-action').on('mouseup', function (e) {
+        var $this = $(this);
+
+        $.contextMenu({
+            selector: '.out-action',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        confirm('Are you sure you change to out?', function () {
+                            processInOut(1, $this);
+                        });
+                    },
+                    items: {
+                        'out': { name: 'Out' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function bindMenuInOut() {
+    $('table#data tbody td a.inout-action').on('mouseup', function (e) {
+        var $this = $(this);
+
+        $.contextMenu({
+            selector: '.inout-action',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        switch (key) {
+                            case 'in':
+                                confirm('Are you sure you change to in?', function () {
+                                    processInOut(0, $this);
+                                });
+
+                                break;
+                            case 'out':
+                                confirm('Are you sure you change to out?', function () {
+                                    processInOut(1, $this);
+                                });
+
+                                break;
+                        }
+                    },
+                    items: {
+                        'in': { name: 'In' },
+                        'out': { name: 'Out' }
+                    }
+                };
+            }
+        });
     });
 }
 

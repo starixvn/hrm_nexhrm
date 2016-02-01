@@ -42,18 +42,6 @@ function query(isFirstLoad) {
 
             if ($('table#data #pagination').length > 0) {
                 initPagination();
-
-                $('#datatable_length').removeClass('hide');
-                $('#datatable_length #ItemsPerPage').on('change', function () {
-                    $('form.form-filter #CurrentPage').val(1);
-                    $('form.form-filter #ItemsPerPage').val($(this).val());
-
-                    if (validateFromDateAndToDate()) {
-                        query(false);
-                    }
-                });
-            } else {
-                $('#datatable_length').addClass('hide');
             }
 
             floatThead('table#data');

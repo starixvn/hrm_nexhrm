@@ -118,16 +118,6 @@ function query(isFirstLoad) {
 
                 initPagination();
 
-                $('#datatable_length').removeClass('hide');
-                $('#datatable_length #ItemsPerPage').on('change', function () {
-                    $('form.form-filter #CurrentPage').val(1);
-                    $('form.form-filter #ItemsPerPage').val($(this).val());
-
-                    if (validateFromDateAndToDate()) {
-                        query(false);
-                    }
-                });
-
                 $('.viewhistory').click(function () {
                     var url = $(this).attr('id');
 
@@ -138,7 +128,15 @@ function query(isFirstLoad) {
                             modal: true,
                             height: 'auto',
                             width: 'auto',
-                            title: 'Request History'
+                            title: 'Request History',
+                            show: {
+                                effect: 'fade',
+                                duration: 300
+                            },
+                            hide: {
+                                effect: 'fade',
+                                duration: 200
+                            }
                         });
                     });
                 });
@@ -152,8 +150,6 @@ function query(isFirstLoad) {
                 });
 
                 floatThead('table#data');
-            } else {
-                $('#datatable_length').addClass('hide');
             }
 
         },
