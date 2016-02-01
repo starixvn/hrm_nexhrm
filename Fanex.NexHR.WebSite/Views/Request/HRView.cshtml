@@ -3,11 +3,14 @@
     ViewBag.Title = Labels.EmployeeRequest;
 }
 @section css{
-    @Styles.Render("~/Content/contextmenucss")
+    @Styles.Render(
+        "~/Content/contextmenucss",
+        "~/Content/simplepaginationcss")
 }
 @section js{
     @Scripts.Render(
         "~/bundles/contextmenujs",
+        "~/bundles/simplepaginationjs",
         "~/bundles/managerequestsjs")
 }
 @section Breadcrumb {

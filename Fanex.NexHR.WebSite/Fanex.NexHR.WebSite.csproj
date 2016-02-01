@@ -313,6 +313,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
+    <Content Include="Libs\SimplePagination\jquery.simplePagination.js" />
+    <Content Include="Libs\SimplePagination\simplePagination.css" />
     <Content Include="Scripts\Libs\birthdaypicker.js" />
     <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />

@@ -71,6 +71,8 @@
             BuildBundleForLateInEarlyOutDetail(bundles);
 
             BuildBundleForMyProfile(bundles);
+
+            BuildBundleForSimplePagination(bundles);
         }
 
         private static void BuildBundlerForOverTime(BundleCollection bundles)
@@ -78,10 +80,10 @@
             bundles.Add(new ScriptBundle("~/bundles/createovertimejs").Include(
                          "~/Scripts/Views/OverTime/create.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/summaryovertimejs").Include(                         
+            bundles.Add(new ScriptBundle("~/bundles/summaryovertimejs").Include(
                          "~/Scripts/Views/OverTime/summary.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/editovertimejs").Include(                         
+            bundles.Add(new ScriptBundle("~/bundles/editovertimejs").Include(
                          "~/Scripts/Views/OverTime/edit.js"));
         }
 
@@ -326,14 +328,12 @@
         private static void BuildBundleForReportMyTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/mytimerecordjs").Include(
-                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/Report/report.mytimerecord.js"));
         }
 
         private static void BuildBundleForReportTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
-                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.timerecord.js"));
         }
@@ -407,6 +407,16 @@
             bundles.AddAndInclude(
                 "~/Content/myprofilecss",
                 "~/Content/Views/my.profile.css");
+        }
+
+        private static void BuildBundleForSimplePagination(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/simplepaginationjs").Include(
+                "~/Libs/SimplePagination/jquery.simplePagination.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/simplepaginationcss",
+                "~/Libs/SimplePagination/simplePagination.css");
         }
     }
 }

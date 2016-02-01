@@ -6,7 +6,7 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li, table .pagination li.page.active {
+.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li {
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
@@ -1017,30 +1017,6 @@ table .run {
 table .pagination {
   margin: 7px 0.5rem 0 10px;
   overflow: hidden; }
-  table .pagination li {
-    float: left;
-    height: 30px;
-    line-height: 24px;
-    margin: 0 3px;
-    padding: 4px 2px;
-    width: 30px; }
-    table .pagination li.page {
-      box-shadow: none; }
-      table .pagination li.page.active {
-        background: #78828b;
-        cursor: pointer; }
-    table .pagination li.first, table .pagination li.prev, table .pagination li.next, table .pagination li.last {
-      background: #78828b; }
-      table .pagination li.first .mdi-chevron-double-left, table .pagination li.first .mdi-chevron-left, table .pagination li.first .mdi-chevron-right, table .pagination li.first .mdi-chevron-double-right, table .pagination li.prev .mdi-chevron-double-left, table .pagination li.prev .mdi-chevron-left, table .pagination li.prev .mdi-chevron-right, table .pagination li.prev .mdi-chevron-double-right, table .pagination li.next .mdi-chevron-double-left, table .pagination li.next .mdi-chevron-left, table .pagination li.next .mdi-chevron-right, table .pagination li.next .mdi-chevron-double-right, table .pagination li.last .mdi-chevron-double-left, table .pagination li.last .mdi-chevron-left, table .pagination li.last .mdi-chevron-right, table .pagination li.last .mdi-chevron-double-right {
-        color: #fff;
-        font-size: 18px;
-        position: relative;
-        top: 2px; }
-      table .pagination li.first.disabled, table .pagination li.prev.disabled, table .pagination li.next.disabled, table .pagination li.last.disabled {
-        background: rgba(120, 130, 139, 0.6);
-        cursor: not-allowed; }
-        table .pagination li.first.disabled > a, table .pagination li.prev.disabled > a, table .pagination li.next.disabled > a, table .pagination li.last.disabled > a {
-          cursor: not-allowed; }
   table .pagination.right p {
     margin-bottom: 0;
     margin-top: 5px; }

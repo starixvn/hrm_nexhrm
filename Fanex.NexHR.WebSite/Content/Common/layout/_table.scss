@@ -239,40 +239,7 @@ table {
     overflow: hidden;
 
     li {
-      float: left;
-      height: 30px;
-      line-height: 24px;
-      margin: 0 3px;
-      padding: 4px 2px;
-      width: 30px;
       @extend %boxshadow;
-      &.page {
-            box-shadow: none;
-          &.active {
-            background: #78828b;
-            @extend %boxshadow;
-			cursor: pointer;
-          }
-      }
-      
-      &.first, &.prev, &.next, &.last {
-        background: rgba(120, 130, 139, 1);
-
-        .mdi-chevron-double-left, .mdi-chevron-left, .mdi-chevron-right, .mdi-chevron-double-right {
-            color: #fff;
-            font-size: 18px;
-			position: relative;
-			top: 2px;
-        }
-
-        &.disabled {
-            background: rgba(120, 130, 139, 0.6);
-			cursor: not-allowed;
-			> a {
-				cursor: not-allowed;
-			}
-        }
-      }
     }
 
     &.right p {

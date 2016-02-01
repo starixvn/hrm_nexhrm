@@ -4,29 +4,32 @@
 
 function initPagination() {
     var totalPages = $('table#data #pagination #TotalPages').val(),
-        startPage = $('table#data #pagination #CurrentPage').val();
+        currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
 
     totalPages = totalPages ? parseInt(totalPages) : 0;
-    startPage = startPage ? parseInt(startPage) : 1;
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
 
-    $('table#data #pagination #numberlist').twbsPagination({
-        totalPages: totalPages,
-        startPage: startPage,
-        visiblePages: 5,
-        initiateStartPageClick: false,
-        href: 'javascript:;',
-        first: '<i class="mdi mdi-chevron-double-left"></i>',
-        prev: '<i class="mdi mdi-chevron-left"></i>',
-        next: '<i class="mdi mdi-chevron-right"></i>',
-        last: '<i class="mdi mdi-chevron-double-right"></i>',
-        onPageClick: function (event, page) {
-            $('form.form-filter #CurrentPage').val(page);
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber, event) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
         }
     });
 }
 
 function query(isFirstLoad) {
+    var model = $('.card-container-base form.form-filter').serialize();
+
     $.ajax({
         url: _global.root + 'Report/TimeRecordDetail',
         type: 'GET',
@@ -170,9 +173,6 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         $('form.form-filter #CurrentPage').val(1);
-        $('#datatable_length #ItemsPerPage').prop('selectedIndex', 0);
-        $('#datatable_length #ItemsPerPage').material_select();
-        $('form.form-filter #ItemsPerPage').val($('#datatable_length #ItemsPerPage').val());
 
         if (validateFromDateAndToDate()) {
             query(false);

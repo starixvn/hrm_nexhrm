@@ -73,23 +73,24 @@ function bindMenuApproved() {
 
 function initPagination() {
     var totalPages = $('table#data #pagination #TotalPages').val(),
-        startPage = $('table#data #pagination #CurrentPage').val();
+        currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
 
     totalPages = totalPages ? parseInt(totalPages) : 0;
-    startPage = startPage ? parseInt(startPage) : 1;
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
 
-    $('table#data #pagination #numberlist').twbsPagination({
-        totalPages: totalPages,
-        startPage: startPage,
-        visiblePages: 5,
-        initiateStartPageClick: false,
-        href: 'javascript:;',
-        first: '<i class="mdi mdi-chevron-double-left"></i>',
-        prev: '<i class="mdi mdi-chevron-left"></i>',
-        next: '<i class="mdi mdi-chevron-right"></i>',
-        last: '<i class="mdi mdi-chevron-double-right"></i>',
-        onPageClick: function (event, page) {
-            $('form.form-filter #CurrentPage').val(page);
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber, event) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
         }
     });
@@ -151,7 +152,6 @@ function query(isFirstLoad) {
 
                 floatThead('table#data');
             }
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);
