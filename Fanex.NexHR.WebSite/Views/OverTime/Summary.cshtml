@@ -75,7 +75,7 @@
                                         <label>@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.EmployeeId)
                                     </div>
                                 </div>

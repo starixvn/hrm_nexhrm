@@ -1,4 +1,4 @@
-﻿$().ready(function () {
+﻿$(document).ready(function () {
     initDatePicker(".datepicker");
     initSubmitButton();
     initAutocomplete("#CreatedName", "#CreatedBy");
@@ -31,7 +31,7 @@ function processRequest(command, eventElement) {
             rejectRequest(requestId);
             break;
     }
-}
+};
 
 function bindPendingMenu() {
     var element = ".Pending";
@@ -48,7 +48,7 @@ function bindPendingMenu() {
             "edit": { name: "Edit", icon: "edit" },
         }
     });
-}
+};
 
 function bindApproveMenu() {
     var element = ".Approve";
@@ -62,7 +62,7 @@ function bindApproveMenu() {
             "disapprove": { name: "Disapprove", icon: "reject" }
         }
     });
-}
+};
 
 function loadSummary() {
     $('.loading-process').fadeIn(200);
@@ -70,28 +70,28 @@ function loadSummary() {
         $("#data tbody").html(response);
         $('.loading-process').fadeOut(500);
     });
-}
+};
 
 function initSubmitButton() {
     $("#btn-submit").click(function () {
         loadSummary();
     });
-}
+};
 
 function approveRequest(id) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {
         $('.loading-process').fadeIn(200);
         $.post(_global.root + "OverTime/ApproveRequest", { id: id }, function (response) {
-            if (response.Code == 0) {                
+            if (response.Code == 0) {
                 loadSummary();
             } else {
                 $('.loading-process').fadeOut(500);
                 alert(response.Message);
-            }            
+            }
         });
     });
 
-}
+};
 
 function disapproveRequest(id) {
     confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
@@ -106,7 +106,7 @@ function disapproveRequest(id) {
         });
 
     });
-}
+};
 
 function rejectRequest(id) {
     confirm('<p>Are you sure you want to reject this request?</p>', function () {
@@ -121,4 +121,4 @@ function rejectRequest(id) {
         });
 
     });
-}
+};

@@ -1,5 +1,5 @@
 "use strict";
-$().ready(function () {
+$(document).ready(function () {
 
     initDatePicker(".datepicker");
 

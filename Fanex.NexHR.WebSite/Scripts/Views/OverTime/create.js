@@ -2,9 +2,7 @@
 
 var memberList = [];
 function createRow(nick, id) {
-    if (memberList.length == 0) {
-        $('#memberList').html('');
-    }
+    checkFooter();
     var hour = $('#Hour').val();
     memberList.push({ EmployeeId: id, DisplayName: nick, Hour: parseInt(hour) });
     var row = '<tr class="sortedIndex" id="row_' + id + '">' +
@@ -19,6 +17,11 @@ function createRow(nick, id) {
         changeHour(id, $(this).val());
     })
 };
+function checkFooter() {
+    if (memberList.length === 0) {
+        $('#memberList').html('');
+    }
+};
 
 function changeHour(employeeId, value) {
     $(memberList).each(function (index, element) {
@@ -26,7 +29,8 @@ function changeHour(employeeId, value) {
             element.Hour = parseInt(value);
         }
     })
-}
+};
+
 function deleteRow(id) {
     $('#row_' + id).remove();
     $(memberList).each(function (index, element) {
@@ -41,7 +45,7 @@ function deleteRow(id) {
     } else {
         generatedIndex();
     }
-}
+};
 
 function generatedIndex() {
     var rowIndex = 1;
@@ -49,18 +53,19 @@ function generatedIndex() {
         $(this).children('td').eq(0).html(rowIndex);
         rowIndex++;
     });
-}
+};
 
-$().ready(function () {
-
-    initDatePicker(".datepicker");
-
-    $("#form").submit(function () {
-        if (memberList.length > 0) {
-            $("#RecordData").val(JSON.stringify(memberList));
+function checkExist(id) {
+    for (var i = 0; i < memberList.length; i++) {
+        if (memberList[i].EmployeeId === id) {
+            return true;
         }
-    })
+    }
 
+    return false;
+};
+
+function initEmployeeAutocomplete() {
     $("#Employee").autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -105,10 +110,28 @@ $().ready(function () {
         close: function () {
             var nickName = $('#Employee').val();
             var id = $("#EmployeeId").val();
-            createRow(nickName, id);
+            if (id !== "" && !checkExist(id)) {
+                createRow(nickName, id);
+            }
+
             $('#Employee').val('');
             $('#EmployeeId').val('');
         }
     });
+};
+
+$(document).ready(function () {
+
+    initDatePicker(".datepicker");
+
+    initEmployeeAutocomplete();
+
+    $("#form").submit(function () {
+        if (memberList.length > 0) {
+            $("#RecordData").val(JSON.stringify(memberList));
+        }
+    })
+
+
 });
 
