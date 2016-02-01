@@ -77,8 +77,6 @@
                                     @Labels.JoinedDate
                                     <div class="sorter" data-property="JoinedDate"></div>
                                 </th>
-                                <th>@Labels.Edit</th>
-                                <th>@Labels.Schedule</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,20 +104,6 @@
         <td>
             {{if JoinedDate != null}}
                 {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
-            {{/if}}
-        </td>
-        <td>
-            {{if !IsDeleted}}
-                <a href="/employee/edit/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
-            {{else}}
-                -
-            {{/if}}
-        </td>
-        <td>
-            {{if !IsDeleted}}
-                <a href="/employee/defaultschedule/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
-            {{else}}
-                -
             {{/if}}
         </td>
     </tr>
