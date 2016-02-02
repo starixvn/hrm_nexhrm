@@ -25,7 +25,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    [Authorize]
     public class ToeicController : BaseController
     {
         private readonly IEmployeeService _employeeService;

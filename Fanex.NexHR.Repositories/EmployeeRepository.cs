@@ -194,11 +194,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Get me space.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>MY space view model.</returns>
         public MySpaceViewModel GetMySpace(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

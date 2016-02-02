@@ -1,15 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.7.3">Created</change>
-//   <change who="Anders.Le" date="2012.7.3">Modify avatar function</change>
-//   <change who="Aaron.Cao" date="2015.3.16">Added birthday function and TOEIC send mail function</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -34,7 +23,6 @@ namespace Fanex.NexHR.Controllers
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
 
-    [Authorize]
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeController : BaseController
     {
@@ -386,13 +374,8 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult MySpace()
         {
-            var getMySpaceCriteria = new GetMySpaceCriteria()
-            {
-                EmpId = this.CurrentUser.Id
-            };
-            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
-
-            return View(model);
+            MySpaceViewModel myspace = GetMySpace();
+            return View(myspace);
         }
 
         public ActionResult MySpace2()
@@ -463,65 +446,17 @@ namespace Fanex.NexHR.Controllers
         [ChildActionOnly]
         public ActionResult ManagementDashboard()
         {
-            if (this.CurrentUser.IsInRoles(Role.AssistantLeader))
+            if (CurrentUser.IsInRoles(Role.AssistantLeader))
             {
-                var getHRLeaderDashboardCriteria = new GetHRLeaderDashboardCriteria()
+                var criteria = new GetHRLeaderDashboardCriteria()
                 {
-                    EmployeeId = this.CurrentUser.Id,
+                    EmployeeId = CurrentUser.Id,
                 };
-                var model = _employeeService.GetHRLeaderDashboard(getHRLeaderDashboardCriteria);
+                var model = _employeeService.GetHRLeaderDashboard(criteria);
                 return PartialView(model);
             }
 
             return Content(string.Empty);
-        }
-
-        [Authorize(Roles = "HR")]
-        public ActionResult TeamManagement()
-        {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-
-            return View(teams);
-        }
-
-        [Authorize(Roles = "HR")]
-        public ActionResult AddTeam(int teamId = -1)
-        {
-            TeamViewModel model = null;
-
-            // create new
-            if (teamId == -1)
-            {
-                model = new TeamViewModel
-                {
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = this.CurrentUser.Id
-                };
-            }
-            else
-            {
-                var criteria = new GetTeamByIdCriteria
-                {
-                    Id = teamId
-                };
-                Team team = _teamService.GetById(criteria);
-
-                if (team != null)
-                {
-                    model = new TeamViewModel
-                    {
-                        Id = teamId,
-                        TeamCode = team.Code,
-                        TeamName = team.Name,
-                        AssistantLeaderId = team.AssistantLeader.Id,
-                        AssistantLeader = team.AssistantLeader.DisplayName,
-                        LeaderId = team.Leader.Id,
-                        Leader = team.Leader.DisplayName
-                    };
-                }
-            }
-
-            return PartialView(model);
         }
 
         [HttpPost]
@@ -541,6 +476,27 @@ namespace Fanex.NexHR.Controllers
             var sortedEmployees = SortEmployeeBirthdayByMonth(allEmployees);
 
             return View(sortedEmployees);
+        }
+
+        public ActionResult MyProfile()
+        {
+            var model = this.CurrentUser;
+            var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = CurrentUser.Id };
+
+            ViewBag.JobTitle = model.JobTitleId == null
+                ? Resources.Labels.Unknown : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
+
+            var getMySpaceCriteria = new GetMySpaceCriteria()
+            {
+                EmpId = CurrentUser.Id
+            };
+            ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
+
+            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = CurrentUser.Id };
+            model.WorkingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
+
+            ViewBag.TOEIC = _toeicService.GetById(criteria);
+            return View(model);
         }
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(Employee model)
@@ -586,13 +542,24 @@ namespace Fanex.NexHR.Controllers
             return criteria;
         }
 
+        private MySpaceViewModel GetMySpace()
+        {
+            var criteria = new GetMySpaceCriteria()
+            {
+                EmpId = CurrentUser.Id
+            };
+            MySpaceViewModel myspace = _employeeService.GetMySpace(criteria);
+
+            return myspace;
+        }
+
         #region BIRTHDAY
 
         private IEnumerable<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
         {
             var sortedEmployees = new List<EmployeeBirthdayViewModel>();
 
-            if (employees.Count() > 0)
+            if (employees.Any())
             {
                 employees = employees.OrderBy(e => e.DateOfBirth.Month).ThenBy(e => e.DateOfBirth.Day);
 

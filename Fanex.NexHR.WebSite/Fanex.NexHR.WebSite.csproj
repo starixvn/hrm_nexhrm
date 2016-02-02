@@ -718,6 +718,7 @@
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
     <Content Include="Views\JobTitle\_JobTitleManagementDetail.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
+    <Content Include="Views\Employee\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -843,7 +844,6 @@
     <None Include="Content\Common\layout\_sideNav.scss" />
     <None Include="Content\Common\utils\_variables.scss" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Leave\Create.cshtml" />
     <Content Include="Views\Leave\EmployeeView.cshtml" />
     <Content Include="Views\Leave\Update.cshtml" />
