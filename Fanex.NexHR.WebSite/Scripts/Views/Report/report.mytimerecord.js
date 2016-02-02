@@ -3,12 +3,10 @@
 /*exported*/
 
 function initPagination() {
-    var totalPages = $('table#data #pagination #TotalPages').val(),
-        currentPage = $('table#data #pagination #CurrentPage').val(),
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
         itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
         totalItem = $('table#data #pagination #TotalItem').val();
 
-    totalPages = totalPages ? parseInt(totalPages) : 0;
     currentPage = currentPage ? parseInt(currentPage) : 1;
     itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
     totalItem = totalItem ? parseInt(totalItem) : 1;

@@ -322,20 +322,11 @@ namespace Fanex.NexHR.Controllers.Request
 
             IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
-            int totalPage = 0;
-
-            if (criteria.TotalItem != null)
-            {
-                totalPage = (int)criteria.TotalItem / request.ItemsPerPage;
-                totalPage = decimal.Divide((int)criteria.TotalItem, request.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
-            }
-
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = request.CurrentPage,
                 ItemsPerPage = request.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem,
-                TotalPage = totalPage
+                TotalItem = (int)criteria.TotalItem
             };
 
             ViewBag.PagerOption = pagerOption;

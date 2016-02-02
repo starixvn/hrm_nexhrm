@@ -16,7 +16,5 @@ namespace Fanex.NexHR.ViewModels.Common
         public int CurrentPage { get; set; }
 
         public int TotalItem { get; set; }
-
-        public int TotalPage { get; set; }
     }
 }

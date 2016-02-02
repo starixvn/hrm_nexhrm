@@ -94,20 +94,12 @@ namespace Fanex.NexHR.Controllers
             };
 
             IList<EmployeeAttendanceModel> attendances = _reportService.GetEmployeeAttendanceReport(criteria);
-            int totalPage = 0;
-
-            if (criteria.TotalItem != null)
-            {
-                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
-                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
-            }
 
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = model.CurrentPage,
                 ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem,
-                TotalPage = totalPage
+                TotalItem = (int)criteria.TotalItem
             };
 
             ViewBag.PagerOption = pagerOption;
@@ -582,20 +574,12 @@ namespace Fanex.NexHR.Controllers
             };
 
             IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
-            int totalPage = 0;
-
-            if (criteria.TotalItem != null)
-            {
-                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
-                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
-            }
 
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = model.CurrentPage,
                 ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem,
-                TotalPage = totalPage
+                TotalItem = (int)criteria.TotalItem
             };
 
             ViewBag.PagerOption = pagerOption;
@@ -642,20 +626,12 @@ namespace Fanex.NexHR.Controllers
             };
 
             IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
-            int totalPage = 0;
-
-            if (criteria.TotalItem != null)
-            {
-                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
-                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
-            }
 
             var pagerOption = new PagerOptionModel()
             {
                 CurrentPage = model.CurrentPage,
                 ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem,
-                TotalPage = totalPage
+                TotalItem = (int)criteria.TotalItem
             };
 
             ViewBag.PagerOption = pagerOption;
