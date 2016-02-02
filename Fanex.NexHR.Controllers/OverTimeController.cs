@@ -1,5 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Core.Enums;
     using Criteria.Employee;
     using Fanex.NexHR.Criteria.Overtime;
@@ -7,8 +9,6 @@
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using ViewModels;
 
     public class OvertimeController : BaseController

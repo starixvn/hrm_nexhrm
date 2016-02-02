@@ -49,6 +49,8 @@ namespace Fanex.NexHR.Controllers
         {
         }
 
+        #region Attendance
+
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
             Employee employee = this.CurrentUser;
@@ -112,6 +114,8 @@ namespace Fanex.NexHR.Controllers
 
             return PartialView("_AttendanceDetail", attendances);
         }
+
+        #endregion Attendance
 
         #region Timesheet
 
