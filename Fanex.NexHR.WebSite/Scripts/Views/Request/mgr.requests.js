@@ -180,6 +180,7 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         if (validateFromDateAndToDate()) {
+            $('form.form-filter #CurrentPage').val(1);
             query(false);
         }
     });

@@ -142,12 +142,10 @@ namespace Fanex.NexHR.Controllers
                 ReportType = attendanceType,
                 EmployeeId = empId,
                 GroupId = groupId,
-                ExcludeUserDelete = excludeUserDelete ? 1 : 0,
-                GetAll = true
+                ExcludeUserDelete = excludeUserDelete ? 1 : 0
             };
 
-            DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
-            IList<EmployeeAttendanceModel> employeeAttendances = detailAttendance.EmployeeAttendances;
+            IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
             _exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);

@@ -718,6 +718,7 @@
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
     <Content Include="Views\JobTitle\_JobTitleManagementDetail.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
+    <Content Include="Views\Report\_AttendanceDetail.cshtml" />
     <Content Include="Views\Employee\MyProfile.cshtml" />
     <Content Include="Views\Dashboard\ToDoList.cshtml" />
   </ItemGroup>

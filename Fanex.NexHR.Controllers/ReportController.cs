@@ -61,14 +61,56 @@ namespace Fanex.NexHR.Controllers
                     ToDate = DateTime.Now,
                     GroupId = employee.Team.Id,
                     DateOption = 0,
-                    ExcludeUserDelete = true,
-                    ItemsPerPageArray = new PagerOptionModel().ItemsPerPageArray
+                    ExcludeUserDelete = true
                 };
             }
 
+            model.CurrentPage = Constants.CurrentPage;
+            model.ItemsPerPage = Constants.ItemsPerPage;
             model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
             return View(model);
+        }
+
+        public ActionResult AttendanceDetail(EmployeeAttendanceViewModel model)
+        {
+            if (model.GroupId == -1)
+            {
+                model.GroupId = null;
+            }
+
+            var criteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                ReportType = model.AttendanceType,
+                EmployeeId = model.EmpId,
+                GroupId = model.GroupId,
+                ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0,
+                ItemsPerPage = model.ItemsPerPage,
+                PageIndex = model.CurrentPage - 1
+            };
+
+            IList<EmployeeAttendanceModel> attendances = _reportService.GetEmployeeAttendanceReport(criteria);
+            int totalPage = 0;
+
+            if (criteria.TotalItem != null)
+            {
+                totalPage = (int)criteria.TotalItem / model.ItemsPerPage;
+                totalPage = decimal.Divide((int)criteria.TotalItem, model.ItemsPerPage) == 0 ? totalPage : (totalPage + 1);
+            }
+
+            var pagerOption = new PagerOptionModel()
+            {
+                CurrentPage = model.CurrentPage,
+                ItemsPerPage = model.ItemsPerPage,
+                TotalItem = (int)criteria.TotalItem,
+                TotalPage = totalPage
+            };
+
+            ViewBag.PagerOption = pagerOption;
+
+            return PartialView("_AttendanceDetail", attendances);
         }
 
         #region Timesheet
@@ -92,14 +134,12 @@ namespace Fanex.NexHR.Controllers
                 FromDate = new DateTime(model.Year, model.Month, 1),
                 ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
                 ReportType = model.RequestType,
-                EmployeeId = model.EmpId,
-                GetAll = true
+                EmployeeId = model.EmpId
             };
 
-            DetailEmployeeAttendanceModel detailAttendance = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
-            var data = detailAttendance.EmployeeAttendances;
+            IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = employeeAttendances }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Timesheet

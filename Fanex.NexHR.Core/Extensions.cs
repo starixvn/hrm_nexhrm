@@ -697,11 +697,6 @@ namespace Fanex.NexHR.Core
 
         #region Business
 
-        /// <summary>
-        /// Convert status to display string.
-        /// </summary>
-        /// <param name="status">The status.</param>
-        /// <returns>The return string.</returns>
         public static string ToText(this byte status)
         {
             switch (status)
@@ -717,11 +712,6 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        /// <summary>
-        /// Convert request type to display string.
-        /// </summary>
-        /// <param name="type">The request type.</param>
-        /// <returns>The return string.</returns>
         public static string ToText(this short type)
         {
             switch (type)
@@ -743,11 +733,6 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        /// <summary>
-        /// Format a date value to string.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -758,11 +743,6 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        /// <summary>
-        /// Format a date value to string.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToFormatedDate(this DateTime date)
         {
             return date.ToString("dd MMM, yyyy hh:mm tt");
@@ -778,11 +758,6 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        /// <summary>
-        /// Convert to short format date.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToShortFormatedDate(this DateTime date)
         {
             string dateStr = date.ToString(@"dd MMM, yyyy - HH") + "h" + date.ToString(@"mm\'");
@@ -795,11 +770,6 @@ namespace Fanex.NexHR.Core
             return dateStr;
         }
 
-        /// <summary>
-        /// Format a date value to string.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToMonthAndDayFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -810,21 +780,11 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        /// <summary>
-        /// Format a date value to string.
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToMonthAndDayFormatedDate(this DateTime date)
         {
             return date.ToString("dd-MMM");
         }
 
-        /// <summary>
-        /// Format a date value to string (MMM-yyyy).
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToMonthAndYearFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -835,11 +795,6 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        /// <summary>
-        /// Format a date value to string (MMM-yyyy).
-        /// </summary>
-        /// <param name="date">The date value.</param>
-        /// <returns>The return string.</returns>
         public static string ToMonthAndYearFormatedDate(this DateTime date)
         {
             return date.ToString("MMM-yyyy");
@@ -860,17 +815,6 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        /// <summary>
-        /// Drop down list.
-        /// </summary>
-        /// <typeparam name="TModel">The model type.</typeparam>
-        /// <typeparam name="TProperty">The property type.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">The expression.</param>
-        /// <param name="selectList">Select item list.</param>
-        /// <param name="firstItem">The first item.</param>
-        /// <param name="htmlAttributes">HTML attributes.</param>
-        /// <returns>MVC HTML string.</returns>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,

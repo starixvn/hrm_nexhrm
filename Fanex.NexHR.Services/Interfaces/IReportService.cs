@@ -34,6 +34,6 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<LeaveSummary> GetAnnualLeaveBalanceReport(GetAnnualLeaveSummaryReportCriteria criteria);
 
-        DetailEmployeeAttendanceModel GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
+        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
     }
 }

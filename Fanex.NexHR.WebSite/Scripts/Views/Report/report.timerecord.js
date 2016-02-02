@@ -48,9 +48,8 @@ function query(isFirstLoad) {
                 bindMenuOut();
                 bindMenuInOut();
                 initPagination();
+                floatThead('table#data');
             }
-
-            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -172,9 +171,8 @@ $(document).ready(function () {
     $('#Date').val($('#DateOption').val()).change();
 
     $('#submit').on('click', function () {
-        $('form.form-filter #CurrentPage').val(1);
-
         if (validateFromDateAndToDate()) {
+            $('form.form-filter #CurrentPage').val(1);
             query(false);
         }
     });

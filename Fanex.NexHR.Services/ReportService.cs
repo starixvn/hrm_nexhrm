@@ -18,7 +18,6 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.ViewModels;
 
     public class ReportService : BaseService, IReportService
     {
@@ -157,17 +156,17 @@ using Fanex.NexHR.ViewModels;
             return leaveBalances;
         }
 
-        public DetailEmployeeAttendanceModel GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
+        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var detailAttendance = new DetailEmployeeAttendanceModel();
+            IList<EmployeeAttendanceModel> attendances = null;
 
             if (criteria.IsValid())
             {
-                detailAttendance = _reportRepository.GetEmployeeAttendanceReport(criteria);
+                attendances = _reportRepository.GetEmployeeAttendanceReport(criteria);
             }
 
-            return detailAttendance;
+            return attendances;
         }
     }
 }

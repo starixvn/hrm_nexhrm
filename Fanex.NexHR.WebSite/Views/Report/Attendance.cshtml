@@ -3,9 +3,12 @@
     ViewBag.Title = Labels.AttendanceReport;
 }
 @section css{
+    @Styles.Render("~/Content/simplepaginationcss")
 }
 @section js{
-    @Scripts.Render("~/bundles/attendancejs");
+    @Scripts.Render(
+        "~/bundles/simplepaginationjs",
+        "~/bundles/attendancejs");
 }
 @section Breadcrumb {
 }
@@ -94,7 +97,6 @@
                                     <div class="left">
                                         @Html.HiddenFor(model => model.CurrentPage)
                                         @Html.HiddenFor(model => model.ItemsPerPage)
-                                        @Html.HiddenFor(model => model.GetAll)
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
                                         <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
                                     </div>
@@ -102,43 +104,7 @@
                             </div>
                         </form>
                     </div>
-                    <div id="datatable_length" class="row m-b--m">
-                        <div class="col">
-                            <div class="inline label--s">
-                                <label>Show</label>
-                            </div>
-                            <div class="inline select--xs m-r--s">
-                                @Html.DropDownList("EntryId", Model.ItemsPerPageArray, new { @class = "browser-default" })
-                            </div>
-                            <div class="inline label--m">
-                                <label>entries</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight table-custom centered">
-                            <thead>
-                                <tr>
-                                    <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Date</th>
-                                    <th>@Labels.Code</th>
-                                    <th>@Labels.Nick</th>
-                                    <th>@Labels.FullName</th>
-                                    <th>@Labels.Team</th>
-                                    <th>@Labels.Shift</th>
-                                    <th>@Labels.CheckIn</th>
-                                    <th>@Labels.CheckOut</th>
-                                    <th>@Labels.TotalHours</th>
-                                    <th>@Labels.LateIn</th>
-                                    <th>@Labels.EarlyOut</th>
-                                    <th>@Labels.Request</th>
-                                    <th>@Labels.Note</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot></tfoot>
-                        </table>
+                    <div id="attendance-detail" class="p-x--s">
                     </div>
                 </div>
             </div>
@@ -146,91 +112,3 @@
     </div>
 </div>
 
-<div id="pager" class="hide">
-    <table>
-        <tfoot>
-            <tr>
-                <td colspan="14" id="pagination" class="row form-input">
-                    <div id="detailtext" class="col m-t--s"></div>
-                    <div class="col right">
-                        <ul id="numberlist" class="pagination"></ul>
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
-<script id="template" type="text/x-jsrender">
-    <tr {{if IsNotWork != 0}}class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
-        <td>{{:~index()}}</td>
-        <td>
-            {{:~formatDate(AttendanceDate, 'dd MMM, yyyy')}}
-        </td>
-        <td>
-            {{:Code}}
-        </td>
-        <td>
-            {{:NickName}}
-        </td>
-        <td class="align-left">
-            {{:FullName}}
-        </td>
-        <td class="tooltip" title="{{:Team}}">
-            {{:TeamCode}}
-        </td>
-        <td>
-            {{:ShiftCode}}
-        </td>
-        <td>
-            {{if InFixed}} {{:~formatDate(InFixed, 'HH:mm')}} {{/if}}
-        </td>
-        <td>
-            {{if OutFixed}} {{:~formatDate(OutFixed, 'HH:mm')}} {{/if}}
-        </td>
-        <td>
-            {{if TotalWorkHours > 0}}
-                {{:~totalHoursToTime(TotalWorkHours)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if LateIn > 0}}
-                {{:~displayMinute(LateIn)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if EarlyOut > 0}}
-                {{:~displayMinute(EarlyOut)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if Requests != null}}
-                {{for Requests}}
-                    <a href='javascript:;' class="tooltip-request req"
-                            data-requesttype="{{:RequestType.Id}}"
-                            data-fromdate="{{:FromDate}}"
-                            data-todate="{{:ToDate}}"
-                            data-createddate="{{:CreatedDate}}"
-                            data-fromshift="{{:FromShift.Name}}"
-                            {{if ToShift != null}}
-                                data-toshift="{{:ToShift.Name}}"
-                            {{else}}
-                                data-toshift=""
-                            {{/if}}
-                            data-totaldays="{{:TotalDays}}"
-                            data-totalmins="{{:TotalMins}}"
-                            data-remark='{{:Remark}}'>
-                        {{if RequestType.Id == 6}}
-                            {{:RequestType.Name}}
-                        {{else}}
-                            {{:RequestType.Name}}
-                        {{/if}}
-                    </a>
-                {{/for}}
-            {{/if}}
-        </td>
-        <td class="align-left">
-            {{:Notes}}
-        </td>
-    </tr>
-</script>

@@ -43,9 +43,8 @@ function query(isFirstLoad) {
 
             if ($('table#data #pagination').length > 0) {
                 initPagination();
+                floatThead('table#data');
             }
-
-            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -77,12 +76,8 @@ $(document).ready(function () {
     initEventForFromDateAndToDate();
 
     $('#submit').on('click', function () {
-        $('form.form-filter #CurrentPage').val(1);
-        $('#datatable_length #ItemsPerPage').prop('selectedIndex', 0);
-        $('#datatable_length #ItemsPerPage').material_select();
-        $('form.form-filter #ItemsPerPage').val($('#datatable_length #ItemsPerPage').val());
-
         if (validateFromDateAndToDate()) {
+            $('form.form-filter #CurrentPage').val(1);
             query(false);
         }
     });

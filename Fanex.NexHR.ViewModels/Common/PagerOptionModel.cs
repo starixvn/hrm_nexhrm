@@ -9,9 +9,6 @@
 
 namespace Fanex.NexHR.ViewModels.Common
 {
-    using System.Collections.Generic;
-    using System.Web.Mvc;
-
     public class PagerOptionModel
     {
         public int ItemsPerPage { get; set; }
@@ -21,18 +18,5 @@ namespace Fanex.NexHR.ViewModels.Common
         public int TotalItem { get; set; }
 
         public int TotalPage { get; set; }
-
-        public List<SelectListItem> ItemsPerPageArray
-        {
-            get
-            {
-                return new List<SelectListItem>()
-                {
-                    new SelectListItem() { Text = "50", Value = "50" },
-                    new SelectListItem() { Text = "100", Value = "100" },
-                    new SelectListItem() { Text = "200", Value = "200" }
-                };
-            }
-        }
     }
 }

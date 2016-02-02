@@ -1,19 +1,6 @@
-﻿/*global _global, _messages, noInformation, floatThead*/
-/*exported index*/
+﻿/*global _global, _messages, floatThead*/
+/*exported*/
 "use strict";
-
-var rowIndex = 1;
-var pagingOption = {
-    currentPage: 1,
-    itemsPerPage: 50
-};
-
-function index() {
-    var currentPage = parseInt($('#CurrentPage').val()),
-        itemsPerPage = parseInt($('#ItemsPerPage').val());
-
-    return (itemsPerPage * (currentPage - 1) + rowIndex++);
-}
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
@@ -76,55 +63,33 @@ function initExportExcel() {
     });
 }
 
-function fillData(response) {
-    rowIndex = 1;
+function initPagination() {
+    var totalPages = $('table#data #pagination #TotalPages').val(),
+        currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
 
-    var tmpl = $.templates('#template'),
-        helpers = {
-            index: index,
-            formatDate: formatDate,
-            totalHoursToTime: totalHoursToTime,
-            displayMinute: displayMinute
-        },
-        html = tmpl.render(response.EmployeeAttendances, helpers);
+    totalPages = totalPages ? parseInt(totalPages) : 0;
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
 
-    $(html).appendTo('table#data');
-
-    var pager = $('#pager').html();
-    $('table#data tfoot').html(pager);
-
-    var currentPage = parseInt($('#CurrentPage').val()),
-        itemsPerPage = parseInt($('#ItemsPerPage').val()),
-        preNumberPages = parseInt(response.TotalItems / itemsPerPage),
-        totalPages = response.TotalItems % itemsPerPage == 0 ? preNumberPages : preNumberPages + 1;
-
-    $('table#data #pagination #numberlist').twbsPagination({
-        totalPages: totalPages,
-        startPage: currentPage,
-        visiblePages: 5,
-        initiateStartPageClick: false,
-        href: 'javascript:;',
-        first: '<i class="mdi mdi-chevron-double-left"></i>',
-        prev: '<i class="mdi mdi-chevron-left"></i>',
-        next: '<i class="mdi mdi-chevron-right"></i>',
-        last: '<i class="mdi mdi-chevron-double-right"></i>',
-        activeClass: 'active',
-        onPageClick: function (event, page) {
-            $('#CurrentPage').val(page);
-            query();
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber, event) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
+            query(false);
         }
     });
-
-    initTooltip();
-
-    var from = (parseInt(currentPage) - 1) * parseInt(itemsPerPage) + 1,
-        to = from + response.EmployeeAttendances.length - 1;
-    var detailtext = 'Showing <strong>' + from + '</strong> to <strong> ' + to + '</strong> of <strong>' + response.TotalItems + '</strong> entries';
-    $('table#data #pagination #detailtext').html(detailtext);
-};
+}
 
 function query(isFirstLoad) {
-    var $form = $('form');
+    var $form = $('form.form-filter');
     if (!$form.valid()) {
         return;
     }
@@ -135,24 +100,21 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'api/report/getemployeeattendances',
-        data: $('form').serialize(),
+        url: _global.root + 'report/AttendanceDetail',
+        data: $('form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
         success: function (data) {
-            $('table#data tbody').children().remove();
+            $('#attendance-detail').html(data);
 
-            if (data != null && data.EmployeeAttendances != null && data.EmployeeAttendances.length > 0) {
-                fillData(data);
-
-            } else {
-                $(noInformation(14)).appendTo('table#data');
+            if ($('table#data #pagination').length > 0) {
+                initTooltip();
+                initPagination();
+                floatThead('table#data');
             }
-
-            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -166,12 +128,6 @@ function query(isFirstLoad) {
 }
 
 $(document).ready(function () {
-
-    $('#CurrentPage').val(pagingOption.currentPage);
-    $('#ItemsPerPage').val(pagingOption.itemsPerPage);
-    $('#EntryId').val(pagingOption.itemsPerPage);
-    $('#GetAll').val(false);
-
     initAutocomplete('#Employee', '#EmployeeId');
     initExportExcel();
 
@@ -190,16 +146,9 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         if (validateFromDateAndToDate()) {
-            $('#CurrentPage').val(pagingOption.currentPage);
+            $('form.form-filter #CurrentPage').val(1);
             query(false);
         }
-    });
-
-    $('#EntryId').on('change', function (evt) {
-        evt.preventDefault();
-        $('#ItemsPerPage').val($('#EntryId').val());
-        $('#CurrentPage').val(pagingOption.currentPage);
-        query(false);
     });
 
     query(true);

@@ -11,10 +11,8 @@ namespace Fanex.NexHR.Criteria.Report
 {
     using System;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
 
-    /// <summary>
-    /// Get employee attendance report by type criteria.
-    /// </summary>
     public class GetEmployeeAttendanceReportByTypeCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "fromtime")]
@@ -33,11 +31,12 @@ namespace Fanex.NexHR.Criteria.Report
         [SpParam(SqlParamName = "Type")]
         public short ReportType { get; set; }
 
-        public int ItemsPerPage { get; set; }
+        [Output]
+        public int? TotalItem { get; set; }
 
-        public int CurrentPage { get; set; }
+        public int? ItemsPerPage { get; set; }
 
-        public bool GetAll { get; set; }
+        public int? PageIndex { get; set; }
 
         public override string GetSettingKey()
         {
