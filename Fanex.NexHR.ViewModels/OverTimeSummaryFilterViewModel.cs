@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Core.Enums;
-    using Resources;
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Core.Enums;
+    using Resources;
 
     public class OvertimeSummaryFilterViewModel
     {

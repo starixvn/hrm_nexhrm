@@ -47,7 +47,10 @@ namespace Fanex.NexHR.ViewModels
             get 
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent)).OrderByDescending(t => t.LeaveDay).ThenBy(t => t.Employee.NickName).ToList();
+                IList<DashboardPersonalSpaceModel> todayLeaves = DashboardCompanySpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent))
+                    .OrderByDescending(t => t.LeaveDay)
+                    .ThenBy(t => t.Employee.NickName).ToList();
                 foreach (DashboardPersonalSpaceModel leave in todayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
