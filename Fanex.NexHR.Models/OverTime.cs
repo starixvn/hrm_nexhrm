@@ -23,9 +23,11 @@ namespace Fanex.NexHR.Models
         public float Hour { get; set; }
 
         public int Status { get; set; }
-        public Employee CreatedBy { get; set; }
-        public Employee ModifiedBy { get; set; }        
-        public Employee Employee { get; set; }
 
+        public Employee CreatedBy { get; set; }
+
+        public Employee ModifiedBy { get; set; }   
+     
+        public Employee Employee { get; set; }
     }
 }

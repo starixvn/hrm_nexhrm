@@ -10,6 +10,15 @@
 
     public class OvertimeViewModel
     {
+        public OvertimeViewModel()
+        {
+            Date = DateTime.Now;
+            Hour = 2;
+            Status = (int)OTRequestStatus.Pending;
+            IsApprove = true;
+            RecordList = new List<OvertimeRecord>();
+        }
+
         public int Id { get; set; }
         [Display(Name = "Date", ResourceType = typeof(Labels))]
         [Required]
@@ -20,35 +29,31 @@
 
         [Display(Name = "Hours", ResourceType = typeof(Labels))]
         public float Hour { get; set; }
+
         public int CreatedId { get; set; }
 
         [Display(Name = "CreatedBy", ResourceType = typeof(Labels))]
         public string CreatedNickName { get; set; }
 
         public int ModifiedId { get; set; }
+
         [Display(Name = "ModifiedBy", ResourceType = typeof(Labels))]
         public string ModifiedNickName { get; set; }
 
         public int EmployeeId { get; set; }
+
         public string EmployeeDisplayName { get; set; }
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
         [Required]        
         public string Description { get; set; }
+
         public int Status { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredEmployee", ErrorMessageResourceType = typeof(Messages))]
         public string RecordData { get; set; }
 
-        public IList<OvertimeRecord> RecordList { get; set; }
-        public OvertimeViewModel()
-        {
-            Date = DateTime.Now;
-            Hour = 2;
-            Status = (int)OTRequestStatus.Pending;
-            IsApprove = true;
-            RecordList = new List<OvertimeRecord>();
-        }
+        public IList<OvertimeRecord> RecordList { get; set; }        
 
         public static OvertimeViewModel Parse(Overtime overtime)
         {

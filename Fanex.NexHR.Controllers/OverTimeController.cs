@@ -16,7 +16,10 @@
         private readonly IOvertimeService _service;
         private readonly IEmployeeService _employeeService;
 
-        public OvertimeController() : this(null, null) { }
+        public OvertimeController()
+            : this(null, null)
+        {
+        }
 
         public OvertimeController(IOvertimeService service,
             IEmployeeService employeeService = null)

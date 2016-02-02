@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class ApproveOvertimeRequestCriteria: CriteriaBase
+    public class ApproveOvertimeRequestCriteria : CriteriaBase
     {
         public int Id { get; set; }
 

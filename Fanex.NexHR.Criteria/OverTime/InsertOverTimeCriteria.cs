@@ -10,8 +10,11 @@
     public class InsertOvertimeCriteria : CriteriaBase
     {
         public DateTime Date { get; set; }
+
         public int CreatedBy { get; set; }
+
         public string Description { get; set; }
+
         public int Status { get; set; }
         
         [SpParam(Ignored = true)]
