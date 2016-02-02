@@ -21,7 +21,8 @@
         {
         }
 
-        public OvertimeController(IOvertimeService service,
+        public OvertimeController(
+            IOvertimeService service,
             IEmployeeService employeeService = null)
         {
             _service = service ?? new OvertimeService();

@@ -12,12 +12,12 @@ namespace Fanex.NexHR.Services.Interfaces
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
-    using Fanex.Data.Repository;
 
     public interface IEmployeeService
     {

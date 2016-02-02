@@ -216,7 +216,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult TotalWorkingHours()
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria()); ;
+            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
 
             var model = new TotalWorkingHoursViewModel
             {

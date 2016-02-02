@@ -17,6 +17,7 @@ namespace Fanex.NexHR.Services
     using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.Data;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -26,7 +27,6 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Employee service.
