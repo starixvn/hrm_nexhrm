@@ -19,7 +19,7 @@ function processRequest(command, eventElement) {
 
     switch (command) {
         case 'edit':
-            location.href = _global.root + "OverTime/Edit/" + requestId;
+            location.href = _global.root + "Overtime/Edit/" + requestId;
             break;
         case 'approve':
             approveRequest(requestId);
@@ -66,7 +66,7 @@ function bindApproveMenu() {
 
 function loadSummary() {
     $('.loading-process').fadeIn(200);
-    $.post(_global.root + "OverTime/SummaryResult", $("#form").serialize(), function (response) {
+    $.post(_global.root + "Overtime/SummaryResult", $("#form").serialize(), function (response) {
         $("#data tbody").html(response);
         $('.loading-process').fadeOut(500);
     });
@@ -81,7 +81,7 @@ function initSubmitButton() {
 function approveRequest(id) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {
         $('.loading-process').fadeIn(200);
-        $.post(_global.root + "OverTime/ApproveRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/ApproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
                 loadSummary();
             } else {
@@ -96,7 +96,7 @@ function approveRequest(id) {
 function disapproveRequest(id) {
     confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
         $('.loading-process').fadeIn(200);
-        $.post(_global.root + "OverTime/DisapproveRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/DisapproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
                 loadSummary();
             } else {
@@ -111,7 +111,7 @@ function disapproveRequest(id) {
 function rejectRequest(id) {
     confirm('<p>Are you sure you want to reject this request?</p>', function () {
         $('.loading-process').fadeIn(200);
-        $.post(_global.root + "OverTime/RejectRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/RejectRequest", { id: id }, function (response) {
             if (response.Code == 0) {
                 loadSummary();
             } else {

@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class OverTimeViewModel
+    public class OvertimeViewModel
     {
         public int Id { get; set; }
         [Display(Name = "Date", ResourceType = typeof(Labels))]
@@ -40,19 +40,19 @@
         [Required(ErrorMessageResourceName = "RequiredEmployee", ErrorMessageResourceType = typeof(Messages))]
         public string RecordData { get; set; }
 
-        public IList<OverTimeRecord> RecordList { get; set; }
-        public OverTimeViewModel()
+        public IList<OvertimeRecord> RecordList { get; set; }
+        public OvertimeViewModel()
         {
             Date = DateTime.Now;
             Hour = 2;
             Status = (int)OTRequestStatus.Pending;
             IsApprove = true;
-            RecordList = new List<OverTimeRecord>();
+            RecordList = new List<OvertimeRecord>();
         }
 
-        public static OverTimeViewModel Parse(OverTime overtime)
+        public static OvertimeViewModel Parse(Overtime overtime)
         {
-            return new OverTimeViewModel()
+            return new OvertimeViewModel()
             {
                 Id = overtime.Id,
                 Date = overtime.Date,

@@ -1,46 +1,46 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Criteria.OverTime;
+    using Criteria.Overtime;
     using Interfaces;
     using Models;
     using Repositories;
     using Repositories.Interfaces;
     using System.Collections.Generic;
 
-    public class OverTimeService : BaseService, IOverTimeService
+    public class OvertimeService : BaseService, IOvertimeService
     {
-        private readonly IOverTimeRepository _repository;
+        private readonly IOvertimeRepository _repository;
 
-        public OverTimeService()
+        public OvertimeService()
             : this(null)
         {
         }
 
-        public OverTimeService(IOverTimeRepository repository)
+        public OvertimeService(IOvertimeRepository repository)
         {
-            _repository = repository ?? new OverTimeRepository();
+            _repository = repository ?? new OvertimeRepository();
         }
 
-        public CommandResult Insert(InsertOverTimeCriteria criteria)
+        public CommandResult Insert(InsertOvertimeCriteria criteria)
         {
             var result = Repository.Insert(criteria);
 
             return result;
         }
 
-        public IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria)
+        public IEnumerable<Overtime> GetSummaryReport(GetSummaryCriteria criteria)
         {
             var result = _repository.GetSummaryReport(criteria);
 
             return result;
         }
 
-        public CommandResult ApproveRequest(ApproveOverTimeRequestCriteria criteria)
+        public CommandResult ApproveRequest(ApproveOvertimeRequestCriteria criteria)
         {
             return Repository.Update(criteria);
         }
 
-        public CommandResult DisapproveRequest(DisapproveOverTimeRequestCriteria criteria)
+        public CommandResult DisapproveRequest(DisapproveOvertimeRequestCriteria criteria)
         {
             return Repository.Update(criteria);
         }
@@ -50,14 +50,14 @@
             return Repository.Update(criteria);
         }
 
-        public OverTime Get(GetByIdCriteria criteria)
+        public Overtime Get(GetByIdCriteria criteria)
         {
             var model = _repository.Get(criteria);
 
             return model;
         }
 
-        public CommandResult Update(UpdateOverTimeCriteria criteria)
+        public CommandResult Update(UpdateOvertimeCriteria criteria)
         {
             return Repository.Update(criteria);
         }

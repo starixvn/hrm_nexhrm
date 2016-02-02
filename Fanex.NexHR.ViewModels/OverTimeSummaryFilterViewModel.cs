@@ -5,7 +5,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class OverTimeSummaryFilterViewModel
+    public class OvertimeSummaryFilterViewModel
     {
         [DataType(DataType.Date)]
         [Display(Name = "FromDate", ResourceType = typeof(Labels))]
@@ -26,7 +26,7 @@
         [Display(Name = "Status", ResourceType = typeof(Labels))]
         public int Status { get; set; }
 
-        public OverTimeSummaryFilterViewModel()
+        public OvertimeSummaryFilterViewModel()
         {
             FromDate = DateTime.Now;
             ToDate = DateTime.Now;

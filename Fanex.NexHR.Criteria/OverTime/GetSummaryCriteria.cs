@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.Overtime
 {
     using Fanex.Data.Repository;
     using System;
@@ -13,7 +13,7 @@
 
         public override string GetSettingKey()
         {
-            return "OverTime_GetSummary";
+            return "Overtime_GetSummary";
         }
     }
 }

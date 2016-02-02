@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.Overtime
 {
     using Fanex.Data.Repository;
 
@@ -9,7 +9,7 @@
         public int UserId { get; set; }
         public override string GetSettingKey()
         {
-            return "OverTime_UpdateStatus";
+            return "Overtime_UpdateStatus";
         }        
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.Overtime
 {
     using Fanex.Data.Repository;
 
-    public class DisapproveOverTimeRequestCriteria : CriteriaBase
+    public class DisapproveOvertimeRequestCriteria : CriteriaBase
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@
 
         public override string GetSettingKey()
         {
-            return "OverTime_DisapproveRequest";
+            return "Overtime_DisapproveRequest";
         }
     }
 }

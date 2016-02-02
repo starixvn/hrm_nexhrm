@@ -77,8 +77,8 @@
     <Compile Include="ModelBinder\CustomModelBinder.cs" />
     <Compile Include="ModelBinder\ReflectionModelBinder.cs" />
     <Compile Include="NavigationViewModel.cs" />
-    <Compile Include="OverTimeSummaryFilterViewModel.cs" />
-    <Compile Include="OverTimeViewModel.cs" />
+    <Compile Include="OvertimeSummaryFilterViewModel.cs" />
+    <Compile Include="OvertimeViewModel.cs" />
     <Compile Include="Report\LeaveDeductionDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />

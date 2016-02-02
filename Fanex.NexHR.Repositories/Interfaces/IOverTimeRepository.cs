@@ -5,12 +5,12 @@
     using Models;
     using ViewModels;
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.OverTime;
+    using Fanex.NexHR.Criteria.Overtime;
 
-    public interface IOverTimeRepository
+    public interface IOvertimeRepository
     {
-        IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria);
+        IEnumerable<Overtime> GetSummaryReport(GetSummaryCriteria criteria);
 
-        OverTime Get(GetByIdCriteria criteria);                
+        Overtime Get(GetByIdCriteria criteria);                
     }
 }

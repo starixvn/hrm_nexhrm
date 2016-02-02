@@ -1,18 +1,18 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Criteria.OverTime;
+    using Criteria.Overtime;
     using Data;
     using Interfaces;
     using Models;
     using System.Collections.Generic;
 
-    public class OverTimeRepository : IOverTimeRepository
+    public class OvertimeRepository : IOvertimeRepository
     {
-        public IEnumerable<OverTime> GetSummaryReport(GetSummaryCriteria criteria)
+        public IEnumerable<Overtime> GetSummaryReport(GetSummaryCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var result = db.Query<OverTime, Employee, Employee, OverTime>(
+                var result = db.Query<Overtime, Employee, Employee, Overtime>(
                     (o, e1, e2) =>
                     {
                         o.CreatedBy = e1;
@@ -26,11 +26,11 @@
             }
         }
        
-        public OverTime Get(GetByIdCriteria criteria)
+        public Overtime Get(GetByIdCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var model = db.QueryEntity<OverTime, Employee, Employee, Employee, OverTime>(
+                var model = db.QueryEntity<Overtime, Employee, Employee, Employee, Overtime>(
                     (o, e1, e2, e3) =>
                     {
                         o.CreatedBy = e1;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Fanex.NexHR.Models
 {
-    public class OverTime
+    public class Overtime
     {
         public int Id { get; set; }
 

@@ -1,9 +1,9 @@
-﻿namespace Fanex.NexHR.Criteria.OverTime
+﻿namespace Fanex.NexHR.Criteria.Overtime
 {
     using Fanex.Data.Repository;
     using System;
 
-    public class UpdateOverTimeCriteria : CriteriaBase
+    public class UpdateOvertimeCriteria : CriteriaBase
     {
         public int Id { get; set; }
 
@@ -19,7 +19,7 @@
 
         public override string GetSettingKey()
         {
-            return "OverTime_Update";
+            return "Overtime_Update";
         }
     }
 }

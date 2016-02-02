@@ -66,7 +66,7 @@
 
             BuildBundleForLeaveDeductionDetail(bundles);
 
-            BuildBundlerForOverTime(bundles);
+            BuildBundlerForOvertime(bundles);
 
             BuildBundleForLateInEarlyOutDetail(bundles);
 
@@ -75,16 +75,16 @@
             BuildBundleForSimplePagination(bundles);
         }
 
-        private static void BuildBundlerForOverTime(BundleCollection bundles)
+        private static void BuildBundlerForOvertime(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/createovertimejs").Include(
-                         "~/Scripts/Views/OverTime/create.js"));
+                         "~/Scripts/Views/Overtime/create.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/summaryovertimejs").Include(
-                         "~/Scripts/Views/OverTime/summary.js"));
+                         "~/Scripts/Views/Overtime/summary.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/editovertimejs").Include(
-                         "~/Scripts/Views/OverTime/edit.js"));
+                         "~/Scripts/Views/Overtime/edit.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

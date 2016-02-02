@@ -2,7 +2,7 @@
 {
     using Core.Enums;
     using Criteria.Employee;
-    using Fanex.NexHR.Criteria.OverTime;
+    using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Models;
     using Newtonsoft.Json;
     using Services;
@@ -11,45 +11,45 @@
     using System.Web.Mvc;
     using ViewModels;
 
-    public class OverTimeController : BaseController
+    public class OvertimeController : BaseController
     {
-        private readonly IOverTimeService _service;
+        private readonly IOvertimeService _service;
         private readonly IEmployeeService _employeeService;
 
-        public OverTimeController() : this(null, null) { }
+        public OvertimeController() : this(null, null) { }
 
-        public OverTimeController(IOverTimeService service,
+        public OvertimeController(IOvertimeService service,
             IEmployeeService employeeService = null)
         {
-            _service = service ?? new OverTimeService();
+            _service = service ?? new OvertimeService();
             _employeeService = employeeService ?? new EmployeeService();
         }
 
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Create()
         {
-            var model = new OverTimeViewModel();
+            var model = new OvertimeViewModel();
 
             return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = "AssistantLeader,Leader")]
-        public ActionResult Create(OverTimeViewModel model)
+        public ActionResult Create(OvertimeViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            model.RecordList = JsonConvert.DeserializeObject<IList<OverTimeRecord>>(model.RecordData);
-            var criteria = new InsertOverTimeCriteria
+            model.RecordList = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.RecordData);
+            var criteria = new InsertOvertimeCriteria
             {
                 CreatedBy = CurrentUser.Id,
                 Description = model.Description,
                 Date = model.Date,
                 Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
-                OverTimeRecord = model.RecordList
+                OvertimeRecord = model.RecordList
             };
 
             var result = _service.Insert(criteria);
@@ -63,7 +63,7 @@
         }
 
         [HttpPost]
-        public ActionResult SummaryResult(OverTimeSummaryFilterViewModel model)
+        public ActionResult SummaryResult(OvertimeSummaryFilterViewModel model)
         {
             var criteria = new GetSummaryCriteria
             {
@@ -79,7 +79,7 @@
             return View("SummaryResult", result);
         }
 
-        public ActionResult Summary(OverTimeSummaryFilterViewModel model)
+        public ActionResult Summary(OvertimeSummaryFilterViewModel model)
         {
             if (model.EmployeeId != 0)
             {
@@ -94,7 +94,7 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult ApproveRequest(int id)
         {
-            var criteria = new ApproveOverTimeRequestCriteria
+            var criteria = new ApproveOvertimeRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Approve,
@@ -126,7 +126,7 @@
         [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult DisapproveRequest(int id)
         {
-            var criteria = new DisapproveOverTimeRequestCriteria
+            var criteria = new DisapproveOvertimeRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Pending,
@@ -144,16 +144,16 @@
             var criteria = new GetByIdCriteria { Id = id };
             var model = _service.Get(criteria);
 
-            return View(OverTimeViewModel.Parse(model));
+            return View(OvertimeViewModel.Parse(model));
         }
 
         [HttpPost]
         [Authorize(Roles = "AssistantLeader,Leader")]
-        public ActionResult Edit(OverTimeViewModel model)
+        public ActionResult Edit(OvertimeViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var criteria = new UpdateOverTimeCriteria
+                var criteria = new UpdateOvertimeCriteria
                 {
                     Id = model.Id,
                     Description = model.Description,
