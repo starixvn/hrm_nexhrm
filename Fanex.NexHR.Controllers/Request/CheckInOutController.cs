@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Controllers.Request
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
@@ -76,6 +77,7 @@ namespace Fanex.NexHR.Controllers.Request
             return PartialView(checkInOutRequests);
         }
 
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create(short? type = 1, DateTime? date = null)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria

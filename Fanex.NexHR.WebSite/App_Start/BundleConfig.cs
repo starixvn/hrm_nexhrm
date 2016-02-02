@@ -1,9 +1,11 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
 
     public static class BundleConfig
     {
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
             BuildBundleForCommon(bundles);
@@ -111,30 +113,11 @@
                 "~/Content/site.css",
                 "~/Content/themes/base/jquery-ui.css");
 
-            // full calendar
-            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
-                "~/Scripts/Libs/moment.js",
-                "~/Scripts/Libs/fullcalendar.js"));
+            BuildBundleForFullCalendar(bundles);
 
-            bundles.AddAndInclude(
-                "~/Content/fullcalendarcss",
-                "~/Content/Common/fullcalendar.css");
+            BuildBundleForContextMenu(bundles);
 
-            // context menu
-            bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
-                "~/Scripts/Libs/jquery.contextMenu.min.js"));
-
-            bundles.AddAndInclude(
-                "~/Content/contextmenucss",
-                "~/Content/ContextMenu/contextMenu.css");
-
-            // month picker
-            bundles.AddAndInclude(
-                "~/Content/monthpickercss",
-                "~/Content/Common/monPickr-0.0.3.css");
-
-            bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
-                "~/Scripts/Libs/monPickr-0.0.3.js"));
+            BuildBundleForMonthPicker(bundles);
 
             bundles.AddAndInclude(
                 "~/Content/myrequestcss",
@@ -415,6 +398,37 @@
             bundles.AddAndInclude(
                 "~/Content/simplepaginationcss",
                 "~/Libs/SimplePagination/simplePagination.css");
+        }
+
+        private static void BuildBundleForFullCalendar(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
+                "~/Scripts/Libs/moment.js",
+                "~/Scripts/Libs/fullcalendar.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/fullcalendarcss",
+                "~/Content/Common/fullcalendar.css");
+        }
+
+        private static void BuildBundleForContextMenu(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.min.js"));
+
+            bundles.AddAndInclude(
+                "~/Content/contextmenucss",
+                "~/Content/ContextMenu/contextMenu.css");
+        }
+
+        private static void BuildBundleForMonthPicker(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/Content/monthpickercss",
+                "~/Content/Common/monPickr-0.0.3.css");
+
+            bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
+                "~/Scripts/Libs/monPickr-0.0.3.js"));
         }
     }
 }

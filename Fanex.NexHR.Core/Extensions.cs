@@ -564,6 +564,7 @@ namespace Fanex.NexHR.Core
             return MaterializeCheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString MaterializeCheckBoxList(
             this HtmlHelper htmlHelper,
             string name,
