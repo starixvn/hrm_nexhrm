@@ -335,8 +335,6 @@
     <Content Include="Scripts\Libs\jquery.mousewheel.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.min.js" />
     <Content Include="Scripts\Libs\jquery.tipsy.js" />
-    <Content Include="Scripts\Libs\jquery.twbsPagination.js" />
-    <Content Include="Scripts\Libs\jquery.twbsPagination.min.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Libs\jquery.validate.js" />

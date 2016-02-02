@@ -218,7 +218,6 @@
         private static void BuildBundleForMemberRequests(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
-                "~/Scripts/Libs/jquery.twbsPagination.min.js",
                 "~/Scripts/Views/Request/mgr.requests.js",
                 "~/Scripts/Views/_employee.search.in.team.js"));
         }
