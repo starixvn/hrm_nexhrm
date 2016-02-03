@@ -414,7 +414,7 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<MissingCheckInOutModel>().ToList();
+                return db.Query<MissingCheckInOutModel>(criteria.GetSpParams()).ToList();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿@model MySpaceViewModel
+﻿@model ToDoViewModel
 <div class="col s12 m8 card-container-base to-do-list">
     <div class="card">
         <div class="card-content">
@@ -6,36 +6,62 @@
                 <span class="card-title txt-uppercase left">To do list</span>
             </div>
             <div class="card-body p-x--s">
-            @if ((Model.CheckInTime - new DateTime(2000, 1, 1)).Days == 0)
-            {
+                @foreach (var item in Model.MissingCheckInOutList)
+                {
+                    switch (item.MissingType)
+                    {
+                        case 1:
+                            <p class="green-border">
+                                <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToShortDateString()</span></span>
+                                <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
+                                   class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+                                    Request
+                                </a>
+                            </p>
+                            break;
+                        case 2:
+                        <p class="green-border">
+                            <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToShortDateString()</span></span>
+                            <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
+                               class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+                                Request
+                            </a>
+                        </p>
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 <p class="green-border">
-                    <span class="left-align">You forgot to Check In today</span>
-                    @Html.ActionLink("Request", "../checkinout/Create", null, new { @class = "right icon button-hrm waves-effect waves-light btn white-text teal txt-bold" })
-                </p>
-            }                
-            @if ((Model.CheckOutTime - new DateTime(2000, 1, 1)).Days == 0)
-            {
-                <p class="green-border">
-                    <span class="left-align">You forgot to Check Out yesterday</span>
-                    @Html.ActionLink("Request", "../checkinout/Create", null, new { @class = "right icon button-hrm waves-effect waves-light btn white-text teal txt-bold" })
-                </p>
-            }   
-                <p class="green-border">
-                    <span class="left-align">Faisall forgot to Check In on <span class="teal link">03 Aug,
-                        2015</span></span>
+                    <span class="left-align">
+                        Faisall forgot to Check In on <span class="teal link">
+                            03 Aug,
+                            2015
+                        </span>
+                    </span>
                 </p>
                 <p class="grey-border">
-                    <span class="left-align delete"><s><em>Please approve 3 Maternity days (17 Jun 2015
-                        - 19 Jun 2015) of Alice</em></s></span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
-                            Delete</a>
+                    <span class="left-align delete">
+                        <s>
+                            <em>
+                                Please approve 3 Maternity days (17 Jun 2015
+                                - 19 Jun 2015) of Alice
+                            </em>
+                        </s>
+                    </span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
+                        Delete
+                    </a>
                 </p>
                 <p class="darkblue-border">
                     <span class="left-align">Please approve Check Out request of Theresa</span> <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
-                        Submit</a>
+                        Submit
+                    </a>
                 </p>
                 <p class="orange-border">
-                    <span class="text-left">Please approve 3 Annual Leave days (17 Jun 2015 - 19 Jun 2015)
-                        of Natalie</span>
+                    <span class="text-left">
+                        Please approve 3 Annual Leave days (17 Jun 2015 - 19 Jun 2015)
+                        of Natalie
+                    </span>
                 </p>
             </div>
         </div>

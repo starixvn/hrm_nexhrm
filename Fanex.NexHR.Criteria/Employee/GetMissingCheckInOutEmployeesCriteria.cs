@@ -16,6 +16,7 @@ namespace Fanex.NexHR.Criteria.Employee
     /// </summary>
     public class GetMissingCheckInOutEmployeesCriteria : CriteriaBase
     {
+        public int? EmpId { get; set; }
         public override string GetSettingKey()
         {
             return "GetMissingCheckInOutList";

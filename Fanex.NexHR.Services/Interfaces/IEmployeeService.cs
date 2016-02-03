@@ -94,5 +94,7 @@ namespace Fanex.NexHR.Services.Interfaces
         bool OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria);
 
         bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
+
+        IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria);
     }
 }

@@ -187,7 +187,6 @@
     <Compile Include="Request\RequestController.cs" />
     <Compile Include="ShiftController.cs" />
     <Compile Include="TeamController.cs" />
-    <Compile Include="TodoController.cs" />
     <Compile Include="ToeicController.cs" />
     <Compile Include="UIController.cs">
       <SubType>Code</SubType>

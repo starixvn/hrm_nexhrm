@@ -234,6 +234,8 @@
   </Function>
 
   <Function Name="Attendance">
-    <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1">
+      <Mapping DataField="Type" ObjectProperty="MissingType" />
+    </Setting>
   </Function>
 </Functions>

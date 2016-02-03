@@ -9,6 +9,7 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+using System.Collections.Generic;
 
     [Authorize]
     public class DashboardController : BaseController
@@ -16,7 +17,8 @@
         private readonly IEmployeeService _employeeService;
         private readonly ITeamService _teamService;
 
-        public DashboardController() : this(null)
+        public DashboardController()
+            : this(null)
         {
         }
 
@@ -37,7 +39,7 @@
             MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = GetRemind();
 
-            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel() 
+            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel()
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
@@ -61,5 +63,27 @@
             lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             return lstEmployee;
         }
+
+        #region TodoList
+
+        public ActionResult GetTodoList(int? employeeId)
+        {
+            ToDoViewModel model = new ToDoViewModel() 
+            {
+                MissingCheckInOutList = GetMissingCheckInOut(employeeId)
+            };
+            
+            return PartialView("ToDoList", model);
+        }
+
+        public IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
+        {
+            GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria()
+            {
+                EmpId = employeeId
+            };
+            return _employeeService.GetMissingCheckInOutByEmpID(criteria);            
+        }
+        #endregion
     }
 }

@@ -492,5 +492,14 @@ namespace Fanex.NexHR.Services
 
             return false;
         }
+
+        public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria)
+        {
+            if (criteria.IsValid())
+            {
+                return _employeeRepository.GetMissingCheckInOutEmployees(criteria);
+            }
+            return new List<MissingCheckInOutModel>();
+        }
     }
 }

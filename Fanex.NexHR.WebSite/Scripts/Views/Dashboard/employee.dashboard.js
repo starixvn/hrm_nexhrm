@@ -16,7 +16,35 @@ var MyDashboard = (function ($) {
             });
         }
     };
-} (jQuery));
+}(jQuery));
+
+function initTodoList() {
+    var empId = _global.employeeId;
+    $.ajax({
+        url: _global.root + 'dashboard/GetTodoList?employeeId=' + empId,
+        type: 'GET',
+        dataType: 'html',           
+        beforeSend: function () {
+            //if (!isFirstLoad) {
+            //    $('.loading-process').fadeIn(300);
+            //}
+        },
+        success: function (data) {
+            if (data) {
+                $('#todoList').html(data);                
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        },
+        complete: function () {
+            //if (!isFirstLoad) {
+            //    $('.loading-process').fadeOut(300);
+            //}
+        }
+    });
+}
+
 
 $(document).ready(function () {
     MyDashboard.init();
@@ -35,4 +63,5 @@ $(document).ready(function () {
         var a = now - firstloadTime;
         a
     }, 60000);
+    initTodoList();
 });
