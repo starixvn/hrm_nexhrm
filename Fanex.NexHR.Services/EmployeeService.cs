@@ -499,6 +499,7 @@ namespace Fanex.NexHR.Services
             {
                 return _employeeRepository.GetMissingCheckInOutEmployees(criteria);
             }
+
             return new List<MissingCheckInOutModel>();
         }
     }

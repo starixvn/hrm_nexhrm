@@ -1,7 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Web.Mvc;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Team;
@@ -9,7 +7,9 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
     [Authorize]
     public class DashboardController : BaseController
