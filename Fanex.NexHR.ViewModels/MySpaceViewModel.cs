@@ -70,7 +70,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent)).OrderByDescending(t => t.LeaveDay).ThenBy(t => t.Employee.NickName).ToList();
+                IList<DashboardPersonalSpaceModel> yesterdayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
+                    .OrderByDescending(t => t.LeaveDay).ThenBy(t => t.Employee.NickName).ToList();
                 foreach (DashboardPersonalSpaceModel leave in yesterdayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
@@ -110,7 +111,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> yesterdayCheckInOuts = 
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
                 foreach (DashboardPersonalSpaceModel checkInOut in yesterdayCheckInOuts)
                 {
                     employees += checkInOut.Employee.NickName + ", ";
@@ -130,7 +132,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayMissingCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> todayMissingCheckInOuts = 
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 foreach (DashboardPersonalSpaceModel missingCheckInOut in todayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
@@ -150,7 +153,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayMissingCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> yesterdayMissingCheckInOuts = 
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
                 foreach (DashboardPersonalSpaceModel missingCheckInOut in yesterdayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
@@ -170,7 +174,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayLateInEarlyOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> todayLateInEarlyOuts = 
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
                 foreach (DashboardPersonalSpaceModel lateInEarlyOut in todayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
@@ -190,7 +195,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayLateInEarlyOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> yesterdayLateInEarlyOuts = 
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
                 foreach (DashboardPersonalSpaceModel lateInEarlyOut in yesterdayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
@@ -291,7 +297,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthCheckInOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> currentMonthCheckInOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthCheckInOuts.Count > 0)
@@ -312,7 +319,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthCheckInOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> lastMonthCheckInOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthCheckInOuts.Count > 0)
@@ -333,7 +341,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthMissingCheckInOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> currentMonthMissingCheckInOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthMissingCheckInOuts.Count > 0)
@@ -354,7 +363,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthMissingCheckInOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> lastMonthMissingCheckInOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthMissingCheckInOuts.Count > 0)
@@ -375,7 +385,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthLateInEarlyOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> currentMonthLateInEarlyOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthLateInEarlyOuts.Count > 0)
@@ -396,7 +407,8 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthLateInEarlyOuts = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
+                IList<DashboardPersonalSpaceModel> lastMonthLateInEarlyOuts = 
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthLateInEarlyOuts.Count > 0)
