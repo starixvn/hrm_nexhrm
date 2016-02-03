@@ -174,8 +174,6 @@ namespace Fanex.NexHR.Controllers
             int effectedRow = -1;
             if (ModelState.IsValid)
             {
-                // convert to TOEIC
-                var currentDate = DateTime.Now;
                 var toeic = new Toeic
                 {
                     EmpId = model.EmpId,
@@ -187,9 +185,7 @@ namespace Fanex.NexHR.Controllers
                     Speaking = model.Speaking,
                     Writing = model.Writing,
                     CreatedBy = CurrentUser.Id,
-                    CreatedDate = currentDate,
-                    ModifiedBy = CurrentUser.Id,
-                    ModifiedDate = currentDate
+                    ModifiedBy = CurrentUser.Id
                 };
 
                 ValidateTOEIC(toeic);
@@ -197,8 +193,6 @@ namespace Fanex.NexHR.Controllers
                 if (ModelState.IsValid)
                 {
                     var oldScore = GetToeicScore(model.EmpId);
-                    var newScore = toeic;
-
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria()
                     {
                         EmpId = model.EmpId,
@@ -210,15 +204,15 @@ namespace Fanex.NexHR.Controllers
                         Speaking = model.Speaking,
                         Writing = model.Writing,
                         CreatedBy = CurrentUser.Id,
-                        CreatedDate = currentDate,
+                        CreatedDate = DateTime.Now,
                         ModifiedBy = CurrentUser.Id,
-                        ModifiedDate = currentDate
+                        ModifiedDate = DateTime.Now
                     };
                     effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
 
                     if (effectedRow > 0)
                     {
-                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
+                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }
                 }
             }
