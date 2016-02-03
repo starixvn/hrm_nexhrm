@@ -15,7 +15,7 @@
 
         public int EmployeeId { get; set; }
 
-        public int ModifyBy { get; set; }
+        public int ModifiedBy { get; set; }
 
         public override string GetSettingKey()
         {

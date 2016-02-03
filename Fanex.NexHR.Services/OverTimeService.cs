@@ -23,7 +23,11 @@
 
         public CommandResult Insert(InsertOvertimeCriteria criteria)
         {
-            var result = Repository.Insert(criteria);
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Insert(criteria);
+            }
 
             return result;
         }
@@ -45,7 +49,7 @@
             return Repository.Update(criteria);
         }
 
-        public CommandResult RejectRequest(UpdateStatusCriteria criteria)
+        public CommandResult RejectRequest(RejectRequestCriteria criteria)
         {
             return Repository.Update(criteria);
         }

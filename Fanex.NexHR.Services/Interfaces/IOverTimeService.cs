@@ -15,7 +15,7 @@
 
         CommandResult DisapproveRequest(DisapproveOvertimeRequestCriteria criteria);
 
-        CommandResult RejectRequest(UpdateStatusCriteria criteria);
+        CommandResult RejectRequest(RejectRequestCriteria criteria);
 
         Overtime Get(GetByIdCriteria criteria);
 

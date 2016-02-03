@@ -216,7 +216,7 @@
       <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
       <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
     </Setting>
-    <Setting Key="Overtime_UpdateStatus" SpName="Overtime_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_RejectRequest" SpName="Overtime_RejectRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetById" SpName="Overtime_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="CreatedId" ObjectProperty="Id" />
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />

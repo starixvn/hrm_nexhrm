@@ -1,19 +1,19 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using Core.Enums;
-    using Criteria.Employee;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Models;
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using ViewModels;
 
     public class OvertimeController : BaseController
     {
-        private readonly IOvertimeService _service;
+        private readonly IOvertimeService _overtimeService;
         private readonly IEmployeeService _employeeService;
 
         public OvertimeController()
@@ -23,51 +23,59 @@
 
         public OvertimeController(
             IOvertimeService service,
-            IEmployeeService employeeService = null)
+            IEmployeeService employeeService)
         {
-            _service = service ?? new OvertimeService();
+            _overtimeService = service ?? new OvertimeService();
             _employeeService = employeeService ?? new EmployeeService();
         }
 
-        [Authorize(Roles = "AssistantLeader,Leader")]
+        public ActionResult Index(OvertimeSummaryFilterViewModel model)
+        {
+            if (model.EmployeeId != 0)
+            {
+                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
+                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
+            return View(model);
+        }
+
         public ActionResult Create()
         {
-            var model = new OvertimeViewModel();
+            var model = new OvertimeCreateViewModel();
 
             return View(model);
         }
 
         [HttpPost]
-        [Authorize(Roles = "AssistantLeader,Leader")]
-        public ActionResult Create(OvertimeViewModel model)
+        public ActionResult Create(OvertimeCreateViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
+                model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+                var criteria = new InsertOvertimeCriteria
+                {
+                    CreatedBy = CurrentUser.Id,
+                    Description = model.Description,
+                    Date = model.Date,
+                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
+                    TimeSheets = model.TimeSheets
+                };
 
-            model.RecordList = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.RecordData);
-            var criteria = new InsertOvertimeCriteria
-            {
-                CreatedBy = CurrentUser.Id,
-                Description = model.Description,
-                Date = model.Date,
-                Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
-                OvertimeRecord = model.RecordList
-            };
+                var result = _overtimeService.Insert(criteria);
+                if (result.Code == 0)
+                {
+                    return RedirectToAction("Index");
+                }
 
-            var result = _service.Insert(criteria);
-            if (result.Code != 0)
-            {
                 ModelState.AddModelError(result.Code.ToString(), result.Message);
-                return View(model);
             }
 
-            return RedirectToAction("Summary");
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult SummaryResult(OvertimeSummaryFilterViewModel model)
+        public ActionResult Summary(OvertimeSummaryFilterViewModel model)
         {
             var criteria = new GetSummaryCriteria
             {
@@ -78,24 +86,12 @@
                 EmployeeId = model.EmployeeId
             };
 
-            var result = _service.GetSummaryReport(criteria);
+            var result = _overtimeService.GetSummaryReport(criteria);
 
-            return View("SummaryResult", result);
-        }
-
-        public ActionResult Summary(OvertimeSummaryFilterViewModel model)
-        {
-            if (model.EmployeeId != 0)
-            {
-                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
-                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
-
-            return View("Summary", model);
+            return View(result);
         }
 
         [HttpPost]
-        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult ApproveRequest(int id)
         {
             var criteria = new ApproveOvertimeRequestCriteria
@@ -105,29 +101,27 @@
                 UserId = CurrentUser.Id
             };
 
-            var result = _service.ApproveRequest(criteria);
+            var result = _overtimeService.ApproveRequest(criteria);
 
             return Json(result);
         }
 
         [HttpPost]
-        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult RejectRequest(int id)
         {
-            var criteria = new UpdateStatusCriteria
+            var criteria = new RejectRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Reject,
                 UserId = CurrentUser.Id
             };
 
-            var result = _service.RejectRequest(criteria);
+            var result = _overtimeService.RejectRequest(criteria);
 
             return Json(result);
         }
 
         [HttpPost]
-        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult DisapproveRequest(int id)
         {
             var criteria = new DisapproveOvertimeRequestCriteria
@@ -137,23 +131,21 @@
                 UserId = CurrentUser.Id
             };
 
-            var result = _service.DisapproveRequest(criteria);
+            var result = _overtimeService.DisapproveRequest(criteria);
 
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,Leader")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetByIdCriteria { Id = id };
-            var model = _service.Get(criteria);
+            var model = _overtimeService.Get(criteria);
 
-            return View(OvertimeViewModel.Parse(model));
+            return View(OvertimeEditViewModel.Parse(model));
         }
 
         [HttpPost]
-        [Authorize(Roles = "AssistantLeader,Leader")]
-        public ActionResult Edit(OvertimeViewModel model)
+        public ActionResult Edit(OvertimeEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -164,12 +156,12 @@
                     Date = model.Date,
                     Hour = model.Hour,
                     EmployeeId = model.EmployeeId,
-                    ModifyBy = CurrentUser.Id
+                    ModifiedBy = CurrentUser.Id
                 };
-                var result = _service.Update(criteria);
+                var result = _overtimeService.Update(criteria);
                 if (result.Code == 0)
                 {
-                    return RedirectToAction("Summary");
+                    return RedirectToAction("Index");
                 }
 
                 ModelState.AddModelError(result.Code.ToString(), result.Message);

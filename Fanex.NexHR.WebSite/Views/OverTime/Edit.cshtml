@@ -1,4 +1,4 @@
-﻿@model OvertimeViewModel
+﻿@model OvertimeEditViewModel
 
 @{
     ViewBag.Title = Labels.EditOTRequest;
@@ -63,9 +63,8 @@
                                     @Html.Label(Labels.Employee)
                                 </div>
                                 <div class="left input--m">
-                                    @Html.TextBoxFor(m=>m.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.TextBoxFor(m => m.EmployeeDisplayName, new { @placeholder = Messages.SearchEmployeeWatermark })
                                     @Html.HiddenFor(m => m.EmployeeId)
-                                    @Html.HiddenFor(m => m.RecordData)
                                 </div>
                             </div>
                         </div>
@@ -76,6 +75,7 @@
                                 </div>
                                 <div class="left input--m">
                                     @((OTRequestStatus)Model.Status)
+                                    @Html.HiddenFor(m => m.Status)
                                 </div>
                             </div>
                         </div>
@@ -86,11 +86,11 @@
                                 </div>
                                 <div class="left txtArea">
                                     @(Model.CreatedNickName)
-                                    @Html.HiddenFor(m=>m.CreatedNickName)
+                                    @Html.HiddenFor(m => m.CreatedNickName)
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--l">
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="left txtArea">
                                     @Model.ModifiedNickName
-                                    @Html.HiddenFor(m=>m.ModifiedNickName)
+                                    @Html.HiddenFor(m => m.ModifiedNickName)
                                 </div>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                         <div class="row form-input">
                             <div class="left label--xl">&nbsp;</div>
                             <div class="left">
-                                @Html.HiddenFor(m => m.Id)                                
-                                <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                @Html.HiddenFor(m => m.Id)
+                                <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                 <input id="submitEdit" type="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light right" />
                             </div>
                         </div>

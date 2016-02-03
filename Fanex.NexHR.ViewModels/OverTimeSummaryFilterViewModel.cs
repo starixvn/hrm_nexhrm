@@ -31,6 +31,6 @@
         public string Employee { get; set; }
 
         [Display(Name = "Status", ResourceType = typeof(Labels))]
-        public int Status { get; set; }       
+        public int Status { get; set; }
     }
 }

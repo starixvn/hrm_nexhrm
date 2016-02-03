@@ -1266,4 +1266,7 @@
   <data name="OT" xml:space="preserve">
     <value>OT</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

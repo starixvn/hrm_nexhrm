@@ -1,31 +1,49 @@
 "use strict";
 
-var memberList = [];
+var timeSheets = [];
+function initValidationForHour() {
+    $("input[type=number]").change(function () {
+        if ($(this).val() <= 0) {
+            $(this).val(0.5);
+        } else if ($(this).val() > 8) {
+            $(this).val(8);
+        }
+    });
+
+    $("input[type=number]").keyup(function () {
+        if ($(this).val() <= 0) {
+            $(this).val(0.5);
+        } else if ($(this).val() > 8) {
+            $(this).val(8);
+        }
+    });
+}
+
 function createRow(nick, id) {
     checkFooter();
     var hour = $('#Hour').val();
-    memberList.push({ EmployeeId: id, DisplayName: nick, Hour: parseInt(hour) });
+    timeSheets.push({ EmployeeId: parseInt(id), DisplayName: nick, Hour: parseInt(hour) });
     var row = '<tr class="sortedIndex" id="row_' + id + '">' +
-                '<td>' + memberList.length + '</td>' +
-                '<td>' + id + '</td>' +
+                '<td>' + timeSheets.length + '</td>' +
                 '<td>' + nick + '</td>' +
                 '<td><input id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
                 '<td><a href="javascript:;" onclick="deleteRow(' + id + ');"><i class="mdi mdi-delete mdi-dark"></i></a></td>' +
                 '</tr>';
-    $('#memberList').append(row);
+    $('#timeSheets').append(row);
+    initValidationForHour();
     $("#row_hour_" + id).change(function () {
         changeHour(id, $(this).val());
     })
 };
 function checkFooter() {
-    if (memberList.length === 0) {
-        $('#memberList').html('');
+    if (timeSheets.length === 0) {
+        $('#timeSheets').html('');
     }
 };
 
 function changeHour(employeeId, value) {
-    $(memberList).each(function (index, element) {
-        if (element.EmployeeId == employeeId) {
+    $(timeSheets).each(function (index, element) {
+        if (element.EmployeeId === employeeId) {
             element.Hour = parseInt(value);
         }
     })
@@ -33,15 +51,15 @@ function changeHour(employeeId, value) {
 
 function deleteRow(id) {
     $('#row_' + id).remove();
-    $(memberList).each(function (index, element) {
-        if (element.EmployeeId == id) {
-            memberList.splice(index, 1);
+    $(timeSheets).each(function (index, element) {
+        if (element.EmployeeId === id) {
+            timeSheets.splice(index, 1);
         }
     });
 
-    if (memberList.length == 0) {
-        var row = '<tr><td colspan="5"></td></tr><tr><td colspan="5">No Employee</td></tr>';
-        $('#memberList').append(row);
+    if (timeSheets.length == 0) {
+        var row = '<tr><td colspan="4"></td></tr><tr><td colspan="4">No Employee</td></tr>';
+        $('#timeSheets').append(row);
     } else {
         generatedIndex();
     }
@@ -56,8 +74,8 @@ function generatedIndex() {
 };
 
 function checkExist(id) {
-    for (var i = 0; i < memberList.length; i++) {
-        if (memberList[i].EmployeeId === id) {
+    for (var i = 0; i < timeSheets.length; i++) {
+        if (timeSheets[i].EmployeeId === id) {
             return true;
         }
     }
@@ -120,6 +138,14 @@ function initEmployeeAutocomplete() {
     });
 };
 
+function bindingTimeSheetGrid() {
+    var timeSheetData = $("#TimeSheetData").val();
+    if (timeSheetData != "") {
+        timeSheets = JSON.parse(timeSheetData);
+        $("#TimeSheetData").val("");
+    }
+}
+
 $(document).ready(function () {
 
     initDatePicker(".datepicker");
@@ -127,11 +153,13 @@ $(document).ready(function () {
     initEmployeeAutocomplete();
 
     $("#form").submit(function () {
-        if (memberList.length > 0) {
-            $("#RecordData").val(JSON.stringify(memberList));
+        if (timeSheets.length > 0) {
+            $("#TimeSheetData").val(JSON.stringify(timeSheets));
         }
-    })
+    });
 
+    initValidationForHour();
 
+    bindingTimeSheetGrid();
 });
 

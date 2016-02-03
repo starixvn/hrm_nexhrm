@@ -136,7 +136,7 @@
     <Compile Include="Overtime\GetSummaryCriteria.cs" />
     <Compile Include="Overtime\InsertOverTimeCriteria.cs" />
     <Compile Include="Overtime\UpdateOverTimeCriteria.cs" />
-    <Compile Include="Overtime\UpdateStatusCriteria.cs" />
+    <Compile Include="Overtime\RejectRequestCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\DeleteLeaveDeductionCriteria.cs" />
     <Compile Include="Report\GetLeaveDeductionDetailCriteria.cs" />

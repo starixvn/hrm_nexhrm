@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class UpdateStatusCriteria : CriteriaBase
+    public class RejectRequestCriteria : CriteriaBase
     {
         public int Status { get; set; }
 
@@ -12,7 +12,7 @@
 
         public override string GetSettingKey()
         {
-            return "Overtime_UpdateStatus";
+            return "Overtime_RejectRequest";
         }        
     }
 }

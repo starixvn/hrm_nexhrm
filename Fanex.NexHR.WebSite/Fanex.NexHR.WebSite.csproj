@@ -705,9 +705,9 @@
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\OverTime\Create.cshtml" />
-    <Content Include="Views\OverTime\Summary.cshtml" />
+    <Content Include="Views\OverTime\Index.cshtml" />
     <Content Include="Scripts\Views\OverTime\create.js" />
-    <Content Include="Views\OverTime\SummaryResult.cshtml" />
+    <Content Include="Views\OverTime\Summary.cshtml" />
     <Content Include="Views\OverTime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\_LeaveSummaryDetail.cshtml" />

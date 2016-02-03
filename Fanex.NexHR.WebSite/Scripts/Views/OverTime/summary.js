@@ -66,7 +66,7 @@ function bindApproveMenu() {
 
 function loadSummary() {
     $('.loading-process').fadeIn(200);
-    $.post(_global.root + "Overtime/SummaryResult", $("#form").serialize(), function (response) {
+    $.post(_global.root + "Overtime/Summary", $("#form").serialize(), function (response) {
         $("#data tbody").html(response);
         $('.loading-process').fadeOut(500);
     });

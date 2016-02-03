@@ -63,6 +63,7 @@
     <Compile Include="ChangeShiftViewModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
+    <Compile Include="OvertimeEditViewModel.cs" />
     <Compile Include="UserManagementViewModel.cs" />
     <Compile Include="LeaveDeductionViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="ModelBinder\ReflectionModelBinder.cs" />
     <Compile Include="NavigationViewModel.cs" />
     <Compile Include="OvertimeSummaryFilterViewModel.cs" />
-    <Compile Include="OvertimeViewModel.cs" />
+    <Compile Include="OvertimeCreateViewModel.cs" />
     <Compile Include="Report\LeaveDeductionDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />

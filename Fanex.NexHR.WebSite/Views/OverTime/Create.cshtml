@@ -1,4 +1,4 @@
-﻿@model OvertimeViewModel
+﻿@model OvertimeCreateViewModel
 
 @{
     ViewBag.Title = Labels.CreateOTRequest;
@@ -77,7 +77,7 @@
                                     <div class="left input--m">
                                         <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
                                         <input type="hidden" id="EmployeeId" />
-                                        @Html.HiddenFor(model => model.RecordData)
+                                        @Html.HiddenFor(model => model.TimeSheetData)
                                     </div>
                                 </div>
                             </div>
@@ -97,29 +97,25 @@
                                                         #
                                                     </th>
                                                     <th>
-                                                        @Labels.IdNo
-                                                    </th>
-                                                    <th>
                                                         @Labels.Employee
                                                     </th>
                                                     <th>
                                                         Hour
                                                     </th>
                                                     <th>
-                                                        @Labels.Delete
+                                                        @Labels.Remove
                                                     </th>
                                                 </tr>
                                             </thead>
 
-                                            <tbody id="memberList">
-                                                @if (Model.RecordList.Any())
+                                            <tbody id="timeSheets">
+                                                @if (Model.TimeSheets.Any())
                                                 {
                                                     var i = 1;
-                                                    foreach (var item in Model.RecordList)
+                                                    foreach (var item in Model.TimeSheets)
                                                     {
                                                         <tr class="sortedIndex" id="row_@item.EmployeeId">
                                                             <td>@i</td>
-                                                            <td>@item.EmployeeId</td>
                                                             <td>@item.DisplayName</td>
                                                             <td><input id="" type="number" value="@item.Hour" step="0.5" /></td>
                                                             <td>
@@ -133,10 +129,10 @@
                                                 else
                                                 {
                                                     <tr>
-                                                        <td colspan="5"></td>
+                                                        <td colspan="4"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="5">No Employee</td>
+                                                        <td colspan="4">No Employee</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -145,12 +141,10 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row form-input m-t--m">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">
-                                    <a href="@Url.Action("Summary")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                    <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
                                 </div>
                             </div>

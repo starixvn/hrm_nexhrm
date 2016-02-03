@@ -4,7 +4,7 @@
 
     public class GetByIdCriteria : CriteriaBase
     {        
-        public int Id { get; set; }     
+        public int Id { get; set; }
 
         public override string GetSettingKey()
         {
