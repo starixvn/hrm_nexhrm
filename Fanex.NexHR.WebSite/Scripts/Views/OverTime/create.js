@@ -20,12 +20,12 @@ function initValidationForHour() {
 }
 
 function createRow(nick, id) {
-    checkFooter();
+    generateFooter();
     var hour = $('#Hour').val();
-    timeSheets.push({ EmployeeId: parseInt(id), DisplayName: nick, Hour: parseInt(hour) });
+    timeSheets.push({ EmployeeId: id, DisplayName: nick, Hour: parseFloat(hour) });
     var row = '<tr class="sortedIndex" id="row_' + id + '">' +
                 '<td>' + timeSheets.length + '</td>' +
-                '<td>' + nick + '</td>' +
+                '<td  class="align-left">' + nick + '</td>' +
                 '<td><input id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
                 '<td><a href="javascript:;" onclick="deleteRow(' + id + ');"><i class="mdi mdi-delete mdi-dark"></i></a></td>' +
                 '</tr>';
@@ -35,7 +35,7 @@ function createRow(nick, id) {
         changeHour(id, $(this).val());
     })
 };
-function checkFooter() {
+function generateFooter() {
     if (timeSheets.length === 0) {
         $('#timeSheets').html('');
     }
@@ -44,7 +44,7 @@ function checkFooter() {
 function changeHour(employeeId, value) {
     $(timeSheets).each(function (index, element) {
         if (element.EmployeeId === employeeId) {
-            element.Hour = parseInt(value);
+            element.Hour = parseFloat(value);
         }
     })
 };
@@ -129,7 +129,7 @@ function initEmployeeAutocomplete() {
             var nickName = $('#Employee').val();
             var id = $("#EmployeeId").val();
             if (id !== "" && !checkExist(id)) {
-                createRow(nickName, id);
+                createRow(nickName, parseInt(id));
             }
 
             $('#Employee').val('');

@@ -2,18 +2,21 @@
 
 @{
     Layout = null;
+    var index = 1;
 }
 @if (Model.Any())
 {
     foreach (var item in Model)
     {
         <tr>
-            <td>@item.Employee.NickName (@item.Employee.FullName)</td>
+            <td>@(index++)</td>
+            <td>@item.Employee.NickName</td>
+            <td class="align-left">@item.Employee.FullName</td>
             <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td class="tooltip" title="@item.Description">
                 <span class="mdi mdi-message-text" alt="remark" />
-            </td>            
+            </td>
             <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
 
             @if (Roles.GetRolesForUser().Length == 1) // Has only a Member role
@@ -52,9 +55,9 @@
 else
 {
     <tr>
-        <td colspan="6"></td>
+        <td colspan="7"></td>
     </tr>
     <tr>
-        <td colspan="6">@Labels.NoData</td>
+        <td colspan="7">@Labels.NoData</td>
     </tr>
 }
