@@ -41,8 +41,19 @@ function initTodoList() {
             //if (!isFirstLoad) {
             //    $('.loading-process').fadeOut(300);
             //}
+
+            $('.slideTodo').slick({
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                autoplay: true,
+                autoplaySpeed: 3500,
+                dots: false,
+                nextArrow: false,
+                prevArrow: false,
+                vertical: true,
+            });
         }
-    });
+    });    
 }
 
 
@@ -56,12 +67,7 @@ $(document).ready(function () {
             dots: true,
             nextArrow: false,
             prevArrow: false,
-    });        
-    var now;
-    setInterval(function () {                
-        now = new Date($.now());
-        var a = now - firstloadTime;
-        a
-    }, 60000);
+    });   
+
     initTodoList();
 });
