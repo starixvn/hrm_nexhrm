@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoJobs", "AutoJobs\AutoJo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.WebSite", "Fanex.NexHR.WebSite\Fanex.NexHR.WebSite.csproj", "{A06A4E0F-8FA4-4A74-819D-47BCB0099082}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.Site", "Fanex.NexHR.Site\Fanex.NexHR.Site.csproj", "{405929F6-B1DC-49E5-B936-E342B36C87ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +166,16 @@ Global
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|x86.ActiveCfg = Release|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{405929F6-B1DC-49E5-B936-E342B36C87ED}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,6 +193,7 @@ Global
 		{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
 		{E0F23F85-57F1-408B-8DE7-2C47516BC84B} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{405929F6-B1DC-49E5-B936-E342B36C87ED} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
