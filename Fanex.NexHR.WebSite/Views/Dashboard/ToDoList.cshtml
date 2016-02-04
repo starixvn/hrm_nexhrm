@@ -32,37 +32,46 @@
                             break;
                     }
                 }
-                <p class="green-border">
-                    <span class="left-align">
-                        Faisall forgot to Check In on <span class="teal link">
-                            03 Aug,
-                            2015
-                        </span>
-                    </span>
-                </p>
-                <p class="grey-border">
-                    <span class="left-align delete">
-                        <s>
-                            <em>
-                                Please approve 3 Maternity days (17 Jun 2015
-                                - 19 Jun 2015) of Alice
-                            </em>
-                        </s>
-                    </span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
-                        Delete
-                    </a>
-                </p>
-                <p class="darkblue-border">
-                    <span class="left-align">Please approve Check Out request of Theresa</span> <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
-                        Submit
-                    </a>
-                </p>
-                <p class="orange-border">
-                    <span class="text-left">
-                        Please approve 3 Annual Leave days (17 Jun 2015 - 19 Jun 2015)
-                        of Natalie
-                    </span>
-                </p>
+                @foreach (var item in Model.PendingRequestsList)
+                {
+                    switch (item.RequestType.Id)
+                    {
+                        case 1:
+                            <p class="darkblue-border">
+                                <span class="left-align">Please approve Check In request of @item.Requester.NickName</span> <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
+                                    Submit
+                                </a>
+                            </p>
+                            break;
+                        case 2:
+                            <p class="darkblue-border">
+                                <span class="left-align">Please approve Check Out request of @item.Requester.NickName</span> <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
+                                    Submit
+                                </a>
+                            </p>
+                            break;
+                        default:
+                        <p class="orange-border">
+                            <span class="text-left">
+                                Please approve @item.TotalDays @item.LeaveType.Name days (@item.FromDate.ToString("dd MMM yyyy") - @item.ToDate.ToString("dd MMM yyyy"))
+                                of @item.Requester.NickName
+                            </span>
+                        </p>
+                            break;
+                    }
+                }
+                @*<p class="grey-border">
+                        <span class="left-align delete">
+                            <s>
+                                <em>
+                                    Please approve 3 Maternity days (17 Jun 2015
+                                    - 19 Jun 2015) of Alice
+                                </em>
+                            </s>
+                        </span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
+                            Delete
+                        </a>
+                    </p>*@
             </div>
         </div>
     </div>

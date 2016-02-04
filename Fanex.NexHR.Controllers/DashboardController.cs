@@ -1,12 +1,16 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Common;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -16,6 +20,7 @@
     {
         private readonly IEmployeeService _employeeService;
         private readonly ITeamService _teamService;
+        private readonly IRequestService _requestService;
 
         public DashboardController()
             : this(null)
@@ -24,10 +29,12 @@
 
         public DashboardController(
             IEmployeeService employeeService = null,
-            ITeamService teamService = null)
+            ITeamService teamService = null,
+            IRequestService requestService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
+            _requestService = requestService ?? new RequestService();
         }
 
         public ActionResult Index()
@@ -70,7 +77,8 @@
         {
             ToDoViewModel model = new ToDoViewModel() 
             {
-                MissingCheckInOutList = GetMissingCheckInOut(employeeId)
+                MissingCheckInOutList = GetMissingCheckInOut(employeeId),
+                PendingRequestsList = GetPendingRequest()
             };
             
             return PartialView("ToDoList", model);
@@ -83,6 +91,26 @@
                 EmpId = employeeId
             };
             return _employeeService.GetMissingCheckInOutByEmpID(criteria);            
+        }
+   
+        public IList<RequestEntity> GetPendingRequest()
+        {
+            var criteria = new GetRequestCriteria()
+            {
+                Role = (short)Role.AssistantLeader,
+                FromDate = DateTime.Now.AddDays(-30),
+                ToDate = DateTime.Now,                
+                GroupId = null,               
+                Status = 1,
+                ExcludeEmployeeId = new int?(CurrentUser.Id),
+                RequestType = string.Empty,
+                IsFilterByEffectedDate = false,                
+                ItemsPerPage = 100
+            };
+
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+
+            return entityList;
         }
         #endregion
     }
