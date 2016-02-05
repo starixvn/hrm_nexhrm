@@ -1,5 +1,6 @@
 ﻿var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+var eventList = [];
 
 
 /**
@@ -23,8 +24,9 @@ function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
         loadCalendarApi();
     }
-    else {
-        handleAuthClick();
+    else {        
+        initCalendar(eventList);
+        //handleAuthClick();
     }
 }
 
@@ -55,14 +57,13 @@ function loadCalendarApi() {
 function getListEvents() {
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
-        //'timeMin': (new Date('01/01/2016')).toISOString(),
+        'timeMin': moment().subtract(1, 'months').toISOString(),
+        'timeMax': moment().add(1, 'months').toISOString(),
         'showDeleted': false,
         'singleEvents': true,
-        //'maxResults': 10,
-        //'orderBy': 'startTime'
     });
 
     request.execute(function (resp) {
-        initCalendar(resp.items);     
+        initCalendar(resp.items);
     });
 }

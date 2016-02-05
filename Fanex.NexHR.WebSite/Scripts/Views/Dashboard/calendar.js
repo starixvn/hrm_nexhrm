@@ -1,17 +1,6 @@
 ﻿function initCalendar(googleEvents) {
-    var eventList = [];
-    if (googleEvents.length > 0) {
-        for (var i = 0; i < googleEvents.length; i++) {
-            eventList.push({
-                title: googleEvents[i].summary,
-                start: new Date(googleEvents[i].start.dateTime),
-                end: new Date(googleEvents[i].end.dateTime),
-                url: googleEvents[i].htmlLink,
-                creator: googleEvents[i].creator.email,
-                location: googleEvents[i].organizer.displayName !== undefined ? googleEvents[i].organizer.displayName:"none"
-            });
-        };
-    }
+    CreateEvents(googleEvents);
+
     $('#calendar').fullCalendar({
         theme: true,
         header:
@@ -81,4 +70,52 @@
         },
 
     });
+    $('.fc-prev-button span').click(function () {
+        var moment = $('#calendar').fullCalendar('getDate');
+        var from = moment.subtract(2, 'months').toISOString();
+        var to = moment.add(2, 'months').toISOString();
+        RefreshEventCalendar(from, to);
+    });
+
+    $('.fc-next-button span').click(function () {
+        var moment = $('#calendar').fullCalendar('getDate').add(1, 'months');
+        var from = moment.subtract(1, 'months').toISOString();
+        var to = moment.add(2, 'months').toISOString();
+        RefreshEventCalendar(from, to);
+    });
+}
+
+function CreateEvents(googleEvents) {
+    eventList = [];
+    if (googleEvents.length > 0) {
+        for (var i = 0; i < googleEvents.length; i++) {
+            eventList.push({
+                title: googleEvents[i].summary,
+                start: new Date(googleEvents[i].start.dateTime),
+                end: new Date(googleEvents[i].end.dateTime),
+                url: googleEvents[i].htmlLink,
+                creator: googleEvents[i].creator.email,
+                location: googleEvents[i].organizer.displayName !== undefined ? googleEvents[i].organizer.displayName : "none"
+            });
+        };
+    }
+}
+
+function RefreshEventCalendar(from, to) {   
+
+    var request = gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': from,
+        'timeMax': to,
+        'showDeleted': false,
+        'singleEvents': true,
+    });
+
+    request.execute(function (resp) {        
+        CreateEvents(resp.items);
+        $('#calendar').fullCalendar('removeEvents')        
+        $('#calendar').fullCalendar('addEventSource', eventList);
+        //$('#calendar').fullCalendar('rerenderEvents');
+        //$('#calendar').fullCalendar('refetchEvents');
+    });    
 }
