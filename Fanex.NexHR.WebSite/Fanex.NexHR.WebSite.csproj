@@ -364,7 +364,7 @@
     <Content Include="Scripts\Views\Dashboard\calendar.js" />
     <Content Include="Scripts\Views\Dashboard\client.js" />
     <Content Include="Scripts\Views\Dashboard\googleAPI.js" />
-    <Content Include="Scripts\Views\Dashboard\teamrequest.js" />
+    <Content Include="Scripts\Views\Dashboard\teamattendance.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.index.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
@@ -709,7 +709,7 @@
     <Content Include="Views\Toeic\ToeicManagement.cshtml" />
     <Content Include="Views\Toeic\UpdateFullToeic.cshtml" />
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
-    <Content Include="Views\Dashboard\MyTeamRequest.cshtml" />
+    <Content Include="Views\Dashboard\MyTeamAttendance.cshtml" />
     <Content Include="Views\Request\AllRequest.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\_Index.cshtml" />
     <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />

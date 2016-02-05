@@ -331,6 +331,7 @@
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Libs/slick.min.js",
                 "~/Scripts/Views/Dashboard/employee.dashboard.js",
+                "~/Scripts/Views/Dashboard/teamattendance.js",
                 "~/Scripts/Libs/moment.js",
                 "~/Scripts/Libs/fullcalendar.js",
                 "~/Scripts/Libs/gcal.js",
