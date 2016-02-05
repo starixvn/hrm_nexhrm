@@ -82,8 +82,8 @@
             bundles.Add(new ScriptBundle("~/bundles/createovertimejs").Include(
                          "~/Scripts/Views/Overtime/create.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/overtimedetailjs").Include(
-                         "~/Scripts/Views/Overtime/reportDetail.js"));
+            bundles.Add(new ScriptBundle("~/bundles/overtimerequestjs").Include(
+                         "~/Scripts/Views/Report/overtimeRequest.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
              "~/Scripts/Views/Overtime/reportSummary.js"));

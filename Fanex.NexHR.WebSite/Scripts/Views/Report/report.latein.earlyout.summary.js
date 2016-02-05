@@ -35,7 +35,7 @@ function displayOTHours(number, employeeId, fromMonth, toMonth) {
     var year = parseInt($('#Year').val()),
     fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
     toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-    url = "/overtime/index?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate + "&Status=2",
+    url = "/report/OvertimeRequest?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate + "&Status=2",
     result = '-';
 
     if (number !== 0) {

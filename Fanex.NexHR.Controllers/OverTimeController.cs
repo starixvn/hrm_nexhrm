@@ -29,41 +29,7 @@
             _employeeService = employeeService ?? new EmployeeService();
         }
 
-        public ActionResult Index(OvertimeFilterViewModel model)
-        {
-            if (model.EmployeeId != 0)
-            {
-                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
-                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
-
-            if (model.CreatedBy != 0)
-            {
-                var criteria = new GetEmployeeCriteria { Id = model.CreatedBy };
-                model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult ReportDetail(OvertimeFilterViewModel model)
-        {
-            var criteria = new ReportDetailCriteria
-            {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                CreatedBy = model.CreatedBy,
-                Status = model.Status,
-                EmployeeId = model.EmployeeId
-            };
-
-            IEnumerable<Overtime> result = _overtimeService.ReportDetail(criteria);
-
-            return View(result);
-        }
-
-        public ActionResult Manage()
+        public ActionResult Index()
         {
             var model = new OvertimeFilterViewModel();
 
@@ -111,7 +77,7 @@
                 CommandResult result = _overtimeService.Insert(criteria);
                 if (result.Code == 0)
                 {
-                    return RedirectToAction("Manage");
+                    return RedirectToAction("Index");
                 }
 
                 ModelState.AddModelError(result.Code.ToString(), result.Message);
@@ -177,7 +143,7 @@
         [HttpPost]
         public ActionResult Edit(OvertimeCreateViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && HasPermission())
             {
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
                 var criteria = new UpdateOvertimeCriteria
@@ -193,13 +159,29 @@
                 CommandResult result = _overtimeService.Update(criteria);
                 if (result.Code == 0)
                 {
-                    return RedirectToAction("Manage");
+                    return RedirectToAction("Index");
                 }
 
                 ModelState.AddModelError(result.Code.ToString(), result.Message);
             }
 
             return View(model);
+        }
+
+        protected override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (!HasPermission())
+            {
+                filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+            }
+        }
+
+        private bool HasPermission()
+        {
+            var belongPMTeam = CurrentUser.Team.Name == "Project Management";
+            var isInRoles = CurrentUser.IsInRoles(Role.AssistantLeader, Role.Leader, Role.HR, Role.SA);
+
+            return belongPMTeam || isInRoles;
         }
     }
 }

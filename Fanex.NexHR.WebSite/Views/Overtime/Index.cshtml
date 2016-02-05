@@ -6,7 +6,7 @@
     @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
-    @Scripts.Render("~/bundles/overtimedetailjs");
+    @Scripts.Render("~/bundles/overtimesummaryjs", "~/bundles/contextmenujs");
 }
 @section Breadcrumb {
 }
@@ -35,7 +35,7 @@
                                         @Html.LabelFor(model => model.FromDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.FromDate)
+                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
@@ -65,24 +65,15 @@
                                         <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(m=>m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.CreatedBy)
-                                    </div>
-                                </div>
-
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.Employee</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(m => m.EmployeeId)
+                                        @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
                                     </div>
                                 </div>
 
                                 <div class="col m-r--l">
                                     <div class="left input--m">
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
+                                        <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.OTRequest</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,9 +87,9 @@
                                     <th>@Labels.Nick</th>
                                     <th>@Labels.FullName</th>
                                     <th>@Labels.Date</th>
-                                    <th>@Labels.Hours</th>
+                                    <th>@Labels.TotalHours</th>
+                                    <th>@Labels.TotalMembers</th>
                                     <th>@Labels.Remark</th>
-                                    <th>@Labels.CreatedBy</th>
                                     <th>@Labels.Status</th>
                                 </tr>
                             </thead>
@@ -110,6 +101,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var isHRRole = '@Roles.IsUserInRole(Role.HR.ToString ())' === 'True';
-</script>

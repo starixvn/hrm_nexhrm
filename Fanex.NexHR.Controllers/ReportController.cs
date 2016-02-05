@@ -9,13 +9,10 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -26,6 +23,10 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [Authorize]
     public class ReportController : BaseController
@@ -33,19 +34,22 @@ namespace Fanex.NexHR.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly ITeamService _teamService;
+        private readonly IOvertimeService _overtimeService;
 
         public ReportController(
             IEmployeeService employeeService = null,
             IReportService reportService = null,
-            ITeamService teamService = null)
+            ITeamService teamService = null,
+            IOvertimeService overtimeService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _reportService = reportService ?? new ReportService();
             _teamService = teamService ?? new TeamService();
+            _overtimeService = overtimeService ?? new OvertimeService();
         }
 
         public ReportController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -358,6 +362,42 @@ namespace Fanex.NexHR.Controllers
         }
 
         #endregion Leave Summary
+
+        #region Overtime Request
+        public ActionResult OvertimeRequest(OvertimeFilterViewModel model)
+        {
+            if (model.EmployeeId != 0)
+            {
+                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
+                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
+            if (model.CreatedBy != 0)
+            {
+                var criteria = new GetEmployeeCriteria { Id = model.CreatedBy };
+                model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult OvertimeRequestDetail(OvertimeFilterViewModel model)
+        {
+            var criteria = new ReportDetailCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                CreatedBy = model.CreatedBy,
+                Status = model.Status,
+                EmployeeId = model.EmployeeId
+            };
+
+            IEnumerable<Overtime> result = _overtimeService.ReportDetail(criteria);
+
+            return View(result);
+        }
+        #endregion Overtime Request
 
         [ChildActionOnly]
         public PartialViewResult CreateLeaveDeduction()
