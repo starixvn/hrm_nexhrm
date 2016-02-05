@@ -80,7 +80,7 @@
     $('.fc-next-button span').click(function () {
         var moment = $('#calendar').fullCalendar('getDate').add(1, 'months');
         var from = moment.subtract(1, 'months').toISOString();
-        var to = moment.add(2, 'months').toISOString();
+        var to = moment.add(3, 'months').toISOString();
         RefreshEventCalendar(from, to);
     });
 }
