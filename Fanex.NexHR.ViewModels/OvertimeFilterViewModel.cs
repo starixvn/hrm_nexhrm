@@ -5,9 +5,9 @@
     using Core.Enums;
     using Resources;
 
-    public class OvertimeSummaryFilterViewModel
+    public class OvertimeFilterViewModel
     {
-        public OvertimeSummaryFilterViewModel()
+        public OvertimeFilterViewModel()
         {
             FromDate = DateTime.Now;
             ToDate = DateTime.Now;
@@ -24,6 +24,8 @@
 
         [Display(Name = "CreateAccount", ResourceType = typeof(Labels))]
         public int CreatedBy { get; set; }
+
+        public string CreatedName { get; set; }
 
         [Display(Name = "Employee", ResourceType = typeof(Labels))]
         public int EmployeeId { get; set; }

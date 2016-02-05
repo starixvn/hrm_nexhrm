@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using Criteria.Overtime;
+    using Fanex.NexHR.ViewModels;
     using Interfaces;
     using Models;
     using Repositories;
@@ -32,9 +33,16 @@
             return result;
         }
 
-        public IEnumerable<Overtime> GetSummaryReport(GetSummaryCriteria criteria)
+        public IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria)
         {
-            var result = _repository.GetSummaryReport(criteria);
+            IEnumerable<Overtime> result = _repository.ReportSummary(criteria);
+
+            return result;
+        }
+
+        public IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria)
+        {
+            IEnumerable<Overtime> result = _repository.ReportDetail(criteria);
 
             return result;
         }
@@ -54,7 +62,7 @@
             return Repository.Update(criteria);
         }
 
-        public Overtime Get(GetByIdCriteria criteria)
+        public OvertimeCreateViewModel Get(GetByIdCriteria criteria)
         {
             var model = _repository.Get(criteria);
 
@@ -63,7 +71,13 @@
 
         public CommandResult Update(UpdateOvertimeCriteria criteria)
         {
-            return Repository.Update(criteria);
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
         }
     }
 }

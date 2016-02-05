@@ -9,7 +9,9 @@
     {
         CommandResult Insert(InsertOvertimeCriteria criteria);
 
-        IEnumerable<Overtime> GetSummaryReport(GetSummaryCriteria criteria);
+        IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria);
+
+        IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria);
 
         CommandResult ApproveRequest(ApproveOvertimeRequestCriteria criteria);
 
@@ -17,7 +19,7 @@
 
         CommandResult RejectRequest(RejectRequestCriteria criteria);
 
-        Overtime Get(GetByIdCriteria criteria);
+        OvertimeCreateViewModel Get(GetByIdCriteria criteria);
 
         CommandResult Update(UpdateOvertimeCriteria criteria);
     }

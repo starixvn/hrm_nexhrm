@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Overtime>
+
+@{
+    Layout = null;
+    var index = 1;
+}
+@if (Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(index++)</td>
+            <td>@item.Employee.NickName</td>
+            <td class="align-left">@item.Employee.FullName</td>
+            <td>@item.Date.ToDateMonthYearFormatedDate()</td>
+            <td>@item.Hour</td>
+            <td class="tooltip" title="@item.Description">
+                <span class="mdi mdi-message-text" alt="remark" />
+            </td>
+            <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
+            @if(item.Status == (int)RequestStatuse.Approve)
+            {
+                <td class="c-approve">@Labels.Approved</td>
+            }
+            else if (item.Status == (int)RequestStatuse.Pending)
+            {
+                <td class="c-pending">@Labels.Pending</td>
+            }
+            else
+            {
+                <td>@Labels.Rejected</td>
+            }
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="8"></td>
+    </tr>
+    <tr>
+        <td colspan="8">@Labels.NoData</td>
+    </tr>
+}

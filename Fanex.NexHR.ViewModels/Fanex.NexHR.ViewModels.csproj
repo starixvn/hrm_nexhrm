@@ -79,7 +79,7 @@
     <Compile Include="ModelBinder\CustomModelBinder.cs" />
     <Compile Include="ModelBinder\ReflectionModelBinder.cs" />
     <Compile Include="NavigationViewModel.cs" />
-    <Compile Include="OvertimeSummaryFilterViewModel.cs" />
+    <Compile Include="OvertimeFilterViewModel.cs" />
     <Compile Include="OvertimeCreateViewModel.cs" />
     <Compile Include="Report\LeaveDeductionDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutDetailViewModel.cs" />

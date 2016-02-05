@@ -3,7 +3,7 @@
     using Fanex.Data.Repository;
     using System;
 
-    public class GetSummaryCriteria : CriteriaBase
+    public class ReportDetailCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }
 
@@ -17,7 +17,7 @@
 
         public override string GetSettingKey()
         {
-            return "Overtime_GetSummary";
+            return "Overtime_ReportDetail";
         }
     }
 }

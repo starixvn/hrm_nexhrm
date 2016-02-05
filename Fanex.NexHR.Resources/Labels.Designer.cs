@@ -2536,11 +2536,11 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OT Request Summary.
+        ///   Looks up a localized string similar to Overtime Requests.
         /// </summary>
-        public static string OTRequestSummary {
+        public static string OTRequests {
             get {
-                return ResourceManager.GetString("OTRequestSummary", resourceCulture);
+                return ResourceManager.GetString("OTRequests", resourceCulture);
             }
         }
         
@@ -3261,6 +3261,15 @@ namespace Fanex.NexHR.Resources {
         public static string TotalHours {
             get {
                 return ResourceManager.GetString("TotalHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Members.
+        /// </summary>
+        public static string TotalMembers {
+            get {
+                return ResourceManager.GetString("TotalMembers", resourceCulture);
             }
         }
         

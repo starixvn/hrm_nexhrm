@@ -26,8 +26,12 @@ namespace Fanex.NexHR.Models
 
         public Employee CreatedBy { get; set; }
 
-        public Employee ModifiedBy { get; set; }   
-     
+        public Employee ModifiedBy { get; set; }
+
         public Employee Employee { get; set; }
+
+        public int TotalMember { get; set; }
+
+        public IEnumerable<OvertimeRecord> TimeSheet { get; set; }
     }
 }

@@ -5,6 +5,7 @@
       <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />
       <siteMapNode title="My Dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
+      <siteMapNode title="Manage Overtime" controller="overtime" action="manage" icon="timetable" />
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
       <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
       <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
@@ -28,7 +29,7 @@
       <siteMapNode title="Staff TOEIC Score" controller="toeic" action="toeicmanagement" icon="trophy-award" />
       <siteMapNode title="Working Calendar" controller="employee" action="workingcalendars" icon="calendar" />
       <siteMapNode title="Employee Requests" controller="request" action="employeeview"  icon="account-box" />
-      <siteMapNode title="Overtime" controller="overtime" action="index"  icon="timetable" />
+      <siteMapNode title="Overtime Requests" controller="overtime" action="index" icon="timetable" />
       <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
       <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyoutsummary" icon="alarm" />
       <siteMapNode title="Leave Summary" controller="report" action="leavesummary" icon="clipboard-text" />

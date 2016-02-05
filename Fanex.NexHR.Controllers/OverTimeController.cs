@@ -29,7 +29,7 @@
             _employeeService = employeeService ?? new EmployeeService();
         }
 
-        public ActionResult Index(OvertimeSummaryFilterViewModel model)
+        public ActionResult Index(OvertimeFilterViewModel model)
         {
             if (model.EmployeeId != 0)
             {
@@ -37,7 +37,53 @@
                 model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
+            if (model.CreatedBy != 0)
+            {
+                var criteria = new GetEmployeeCriteria { Id = model.CreatedBy };
+                model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ReportDetail(OvertimeFilterViewModel model)
+        {
+            var criteria = new ReportDetailCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                CreatedBy = model.CreatedBy,
+                Status = model.Status,
+                EmployeeId = model.EmployeeId
+            };
+
+            IEnumerable<Overtime> result = _overtimeService.ReportDetail(criteria);
+
+            return View(result);
+        }
+
+        public ActionResult Manage()
+        {
+            var model = new OvertimeFilterViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ReportSummary(OvertimeFilterViewModel model)
+        {
+            var criteria = new ReportSummaryCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                CreatedBy = model.CreatedBy,
+                Status = model.Status
+            };
+
+            IEnumerable<Overtime> result = _overtimeService.ReportSummary(criteria);
+
+            return View(result);
         }
 
         public ActionResult Create()
@@ -62,10 +108,10 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                var result = _overtimeService.Insert(criteria);
+                CommandResult result = _overtimeService.Insert(criteria);
                 if (result.Code == 0)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 ModelState.AddModelError(result.Code.ToString(), result.Message);
@@ -75,33 +121,16 @@
         }
 
         [HttpPost]
-        public ActionResult Summary(OvertimeSummaryFilterViewModel model)
-        {
-            var criteria = new GetSummaryCriteria
-            {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                CreatedBy = model.CreatedBy,
-                Status = model.Status,
-                EmployeeId = model.EmployeeId
-            };
-
-            var result = _overtimeService.GetSummaryReport(criteria);
-
-            return View(result);
-        }
-
-        [HttpPost]
         public ActionResult ApproveRequest(int id)
         {
             var criteria = new ApproveOvertimeRequestCriteria
             {
                 Id = id,
                 Status = (int)RequestStatuse.Approve,
-                UserId = CurrentUser.Id
+                ModifiedBy = CurrentUser.Id
             };
 
-            var result = _overtimeService.ApproveRequest(criteria);
+            CommandResult result = _overtimeService.ApproveRequest(criteria);
 
             return Json(result);
         }
@@ -113,10 +142,10 @@
             {
                 Id = id,
                 Status = (int)RequestStatuse.Reject,
-                UserId = CurrentUser.Id
+                ModifiedBy = CurrentUser.Id
             };
 
-            var result = _overtimeService.RejectRequest(criteria);
+            CommandResult result = _overtimeService.RejectRequest(criteria);
 
             return Json(result);
         }
@@ -128,10 +157,10 @@
             {
                 Id = id,
                 Status = (int)RequestStatuse.Pending,
-                UserId = CurrentUser.Id
+                ModifiedBy = CurrentUser.Id
             };
 
-            var result = _overtimeService.DisapproveRequest(criteria);
+            CommandResult result = _overtimeService.DisapproveRequest(criteria);
 
             return Json(result);
         }
@@ -139,29 +168,32 @@
         public ActionResult Edit(int id)
         {
             var criteria = new GetByIdCriteria { Id = id };
-            var model = _overtimeService.Get(criteria);
+            OvertimeCreateViewModel model = _overtimeService.Get(criteria);
+            model.TimeSheetData = JsonConvert.SerializeObject(model.TimeSheets);
 
-            return View(OvertimeEditViewModel.Parse(model));
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(OvertimeEditViewModel model)
+        public ActionResult Edit(OvertimeCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
                 var criteria = new UpdateOvertimeCriteria
                 {
                     Id = model.Id,
+                    ModifiedBy = CurrentUser.Id,
                     Description = model.Description,
                     Date = model.Date,
-                    Hour = model.Hour,
-                    EmployeeId = model.EmployeeId,
-                    ModifiedBy = CurrentUser.Id
+                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
+                    TimeSheets = model.TimeSheets
                 };
-                var result = _overtimeService.Update(criteria);
+
+                CommandResult result = _overtimeService.Update(criteria);
                 if (result.Code == 0)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Manage");
                 }
 
                 ModelState.AddModelError(result.Code.ToString(), result.Message);

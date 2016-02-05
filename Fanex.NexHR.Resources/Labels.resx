@@ -1215,8 +1215,8 @@
   <data name="EditOTRequest" xml:space="preserve">
     <value>Edit OT Request</value>
   </data>
-  <data name="OTRequestSummary" xml:space="preserve">
-    <value>OT Request Summary</value>
+  <data name="OTRequests" xml:space="preserve">
+    <value>Overtime Requests</value>
   </data>
   <data name="VerifiedBy" xml:space="preserve">
     <value>Verified By</value>
@@ -1268,5 +1268,8 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>Total Members</value>
   </data>
 </root>

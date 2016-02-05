@@ -66,7 +66,7 @@ function bindApproveMenu() {
 
 function loadSummary() {
     $('.loading-process').fadeIn(200);
-    $.post(_global.root + "Overtime/Summary", $("#form").serialize(), function (response) {
+    $.post(_global.root + "Overtime/ReportSummary", $("#form").serialize(), function (response) {
         $("#data tbody").html(response);
         $('.loading-process').fadeOut(500);
     });
@@ -104,7 +104,6 @@ function disapproveRequest(id) {
                 alert(response.Message);
             }
         });
-
     });
 };
 
@@ -119,6 +118,5 @@ function rejectRequest(id) {
                 alert(response.Message);
             }
         });
-
     });
 };

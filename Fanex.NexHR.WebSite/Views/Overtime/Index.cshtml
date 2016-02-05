@@ -1,12 +1,12 @@
-﻿@model OvertimeSummaryFilterViewModel
+﻿@model OvertimeFilterViewModel
 @{
-    ViewBag.Title = Labels.OTRequestSummary;
+    ViewBag.Title = Labels.OTRequests;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
-    @Scripts.Render("~/bundles/summaryovertimejs", "~/bundles/contextmenujs");
+    @Scripts.Render("~/bundles/overtimedetailjs");
 }
 @section Breadcrumb {
 }
@@ -35,7 +35,7 @@
                                         @Html.LabelFor(model => model.FromDate)
                                     </div>
                                     <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                                        @Html.DatePickerFor(model => model.FromDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
@@ -65,8 +65,8 @@
                                         <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
+                                        @Html.TextBoxFor(m=>m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.CreatedBy)
-                                        @Html.TextBox("CreatedName", "", new { placeholder = Messages.SearchEmployeeWatermark })
                                     </div>
                                 </div>
 
@@ -83,18 +83,11 @@
                                 <div class="col m-r--l">
                                     <div class="left input--m">
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
-                                        @if (Roles.IsUserInRole(Role.AssistantLeader.ToString()) || Roles.IsUserInRole(Role.Leader.ToString()))
-                                        {
-                                            <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.OTRequest</a>
-                                        }
                                     </div>
-
                                 </div>
                             </div>
                         </form>
                     </div>
-
-
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>

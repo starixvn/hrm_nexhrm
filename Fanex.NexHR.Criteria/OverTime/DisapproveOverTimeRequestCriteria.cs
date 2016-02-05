@@ -8,7 +8,7 @@
 
         public int Status { get; set; }
 
-        public int UserId { get; set; }
+        public int ModifiedBy { get; set; }
 
         public override string GetSettingKey()
         {
