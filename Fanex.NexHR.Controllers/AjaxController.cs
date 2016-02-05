@@ -10,10 +10,6 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Employee;
@@ -26,8 +22,11 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
-    [Authorize]
     public class AjaxController : BaseController
     {
         private readonly IEmployeeService _employeeService;
@@ -38,11 +37,6 @@ namespace Fanex.NexHR.Controllers
         private readonly IReportService _reportService;
         private readonly IExtensionNoService _extensionNoService;
         private readonly IDepartmentService _departmentService;
-
-        public AjaxController()
-            : this(null, null, null, null, null, null, null, null)
-        {
-        }
 
         public AjaxController(
             IEmployeeService employeeService = null,

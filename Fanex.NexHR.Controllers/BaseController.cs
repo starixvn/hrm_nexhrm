@@ -8,17 +8,14 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
 
-    /// <summary>
-    /// Base controller.
-    /// </summary>
     [Authorize]
     public class BaseController : Controller
     {
@@ -56,10 +53,6 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
-        /// <summary>
-        /// Authorization event handler.
-        /// </summary>
-        /// <param name="filterContext">The filter context.</param>
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);
@@ -75,7 +68,7 @@ namespace Fanex.NexHR.Controllers
             
             foreach (AuthorizeAttribute item in attributes)
             {
-                if (!string.IsNullOrEmpty(item.Roles) && !this.CurrentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                if (!string.IsNullOrEmpty(item.Roles) && !CurrentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
                 {
                     filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
                 }
