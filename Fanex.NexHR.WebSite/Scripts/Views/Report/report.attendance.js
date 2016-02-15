@@ -77,6 +77,8 @@ function initPagination() {
         itemsOnPage: itemsOnPage,
         currentPage: currentPage,
         displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
         ellipsePageSet: false,
         cssStyle: 'compact-theme',
         onPageClick: function (pageNumber, event) {
