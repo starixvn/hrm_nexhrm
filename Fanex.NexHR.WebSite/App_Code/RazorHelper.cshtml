@@ -264,23 +264,6 @@
     </select>
 }
 
-@helper OTRequestStatusDropDownList(string name, int selectedValue, bool isShowAll = true)
-{
-    <select name="@name" id="@name">
-        @if (isShowAll)
-        {
-            <option selected="@(selectedValue == 0)" value="0">All</option>
-        }
-        @{
-            foreach (var item in (OTRequestStatus[])Enum.GetValues(typeof(OTRequestStatus)))
-            {
-                var value = (int)item;
-                <option value="@value" selected="@(value == selectedValue)">@Utilities.GetDescription(item)</option>
-            }
-        }
-    </select>
-}
-
 @helper DisplayMinute(double minutes) {
     var hour = Math.Floor(minutes / 60);
     var minute = minutes % 60;
@@ -308,4 +291,13 @@
     var minute = Math.Round((value - hour) * 60);
     
     <span>@(minute < 10 ? display + "0" + minute + "\'" : display + minute + "\'")</span>
+}
+
+@helper DisplayLimitedString(string value) {
+    if (value.Length > 50)
+    {
+        value = value.Substring(0, 50) + "...";
+    }
+
+    <span>@value</span>
 }

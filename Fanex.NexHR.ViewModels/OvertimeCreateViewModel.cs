@@ -13,7 +13,7 @@
         {
             Date = DateTime.Now;
             Hour = 2;
-            Status = (int)OTRequestStatus.Pending;
+            Status = (int)RequestStatuse.Pending;
             IsApprove = true;
             TimeSheets = new List<OvertimeRecord>();
         }

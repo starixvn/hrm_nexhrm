@@ -15,7 +15,7 @@
             <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td class="tooltip" title="@item.Description">
-                <span class="mdi mdi-message-text" alt="remark" />
+                @RazorHelper.DisplayLimitedString(item.Description)
             </td>
             <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
             @if(item.Status == (int)RequestStatuse.Approve)
