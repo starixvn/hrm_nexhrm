@@ -20,6 +20,24 @@
    color: rgba(0, 0, 0, 0.75);
 }
 
+//-------------------COLOR CLASSESS----------------------//
+
+.c-pending {
+	color: $orange;
+}
+
+.c-approve {
+	color: $green;
+}
+
+.c-verify {
+	color: #1D79AC;
+}
+
+.c-reject {
+	color: #ff0909;
+}
+
 //-------------------Color working calendar-------------------
 %txt-White {
 	color: #fff;

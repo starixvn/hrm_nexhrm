@@ -178,15 +178,6 @@ main {
     .m-l--70 {
       margin-left: 70px; } }
 
-.c-pending {
-  color: #f4783d; }
-
-.c-approve {
-  color: #69B829; }
-
-.c-verify {
-  color: #1D79AC; }
-
 .card-container-base .txt-tittle {
   font-size: 2rem; }
 .card-container-base .txt-12px {
@@ -400,6 +391,18 @@ a:active, a:focus {
 
 .black-text-75 {
   color: rgba(0, 0, 0, 0.75); }
+
+.c-pending {
+  color: #f4783d; }
+
+.c-approve {
+  color: #69B829; }
+
+.c-verify {
+  color: #1D79AC; }
+
+.c-reject {
+  color: #ff0909; }
 
 .AL {
   background: #00b8d4; }
