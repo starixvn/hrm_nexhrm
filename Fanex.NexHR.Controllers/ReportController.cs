@@ -368,13 +368,13 @@ namespace Fanex.NexHR.Controllers
         {
             if (model.EmployeeId != 0)
             {
-                var criteria = new GetEmployeeCriteria { Id = model.EmployeeId };
+                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId };
                 model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
             if (model.CreatedBy != 0)
             {
-                var criteria = new GetEmployeeCriteria { Id = model.CreatedBy };
+                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy };
                 model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
