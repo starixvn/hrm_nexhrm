@@ -79,17 +79,14 @@
 
         private static void BuildBundlerForOvertime(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/createovertimejs").Include(
-                         "~/Scripts/Views/Overtime/create.js"));
+            bundles.Add(new ScriptBundle("~/bundles/manageovertimejs").Include(
+                         "~/Scripts/Views/Overtime/manage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimerequestjs").Include(
                          "~/Scripts/Views/Report/overtimeRequest.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
              "~/Scripts/Views/Overtime/reportSummary.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/editovertimejs").Include(
-                         "~/Scripts/Views/Overtime/edit.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

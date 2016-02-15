@@ -632,7 +632,6 @@
     <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
-    <Content Include="Scripts\Views\OverTime\edit.js" />
     <Content Include="Scripts\Views\OverTime\reportSummary.js" />
     <Content Include="Scripts\Views\Report\overtimeRequest.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
@@ -717,7 +716,7 @@
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\OverTime\Create.cshtml" />
     <Content Include="Views\Report\OvertimeRequest.cshtml" />
-    <Content Include="Scripts\Views\OverTime\create.js" />
+    <Content Include="Scripts\Views\OverTime\manage.js" />
     <Content Include="Views\Report\OvertimeRequestDetail.cshtml" />
     <Content Include="Views\OverTime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
