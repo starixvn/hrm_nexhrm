@@ -45,7 +45,7 @@
                 title: function () {                    
                     return "<table class='table-tooltip'>" +
                         "<tr>" +                            
-                            "<td colspan='2'>" + event.title + "</td>" +
+                            "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
                         "</tr>" +
                         "<tr>" +                            
                             "<td colspan='2'>" + from + " - " + to + "</td>" +
