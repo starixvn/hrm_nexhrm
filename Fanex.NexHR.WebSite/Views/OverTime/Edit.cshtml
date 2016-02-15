@@ -47,7 +47,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -66,6 +65,16 @@
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.CreatedByName)
+                                    </div>
+                                    <div class="left">
+                                        <span class="label">@Html.DisplayFor(model => model.CreatedByName)</span>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Models.Report
     {
         public Employee Employee { get; set; }
 
-        public int OTBalance { get; set; }
+        public float OTBalance { get; set; }
 
         public int BalanceLastYear { get; set; }
 

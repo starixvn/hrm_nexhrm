@@ -23,6 +23,9 @@
         [Required]
         public DateTime Date { get; set; }
 
+        [Display(Name = "CreatedBy", ResourceType = typeof(Labels))]
+        public string CreatedByName { get; set; }
+
         [Display(Name = "Approved", ResourceType = typeof(Labels))]
         public bool IsApprove { get; set; }
 

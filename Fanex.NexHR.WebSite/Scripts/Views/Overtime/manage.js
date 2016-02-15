@@ -108,6 +108,8 @@ function initEmployeeAutocomplete() {
                                 value: item.Id
                             };
                         }));
+                    } else {
+                        $('#EmployeeId').val('');
                     }
                 }
             });

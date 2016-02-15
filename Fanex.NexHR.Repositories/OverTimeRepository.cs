@@ -72,6 +72,7 @@
                     viewModel.Date = (DateTime)row["Date"];
                     viewModel.Description = row["Description"].ToString();
                     viewModel.Id = (int)row["Id"];
+                    viewModel.CreatedByName = row["CreatedByNick"].ToString();
                     viewModel.IsApprove = ((RequestStatuse)row["Status"]) == RequestStatuse.Approve;
                 }
 
