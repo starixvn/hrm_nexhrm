@@ -307,7 +307,7 @@ namespace Fanex.NexHR.Controllers
                 IdCardNo = model.CardNo,
                 IssuedDate = model.IssuedDate,
                 IssuedPlace = model.IssuedPlace,
-                JobTitleId = model.JobTitleId,
+                JobTitleId = model.JobTitle != null ? model.JobTitle.Id : 0,
                 JoinedDate = model.JoinedDate,
                 MainGroupId = model.Team.Id,
                 Mariage = model.Mariage,

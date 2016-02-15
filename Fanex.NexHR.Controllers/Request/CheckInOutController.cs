@@ -87,25 +87,22 @@ namespace Fanex.NexHR.Controllers.Request
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
             var viewModel = new CheckInOutRequestViewModel
             {
-                Employee = employee.NickName,
-                DisplayName = employee.DisplayName,
-                EmployeeId = employee.Id,
+                Employee = CurrentUser.NickName,
+                DisplayName = CurrentUser.DisplayName,
+                EmployeeId = CurrentUser.Id,
                 ForDate = date.HasValue ? date.Value : DateTime.Today,
                 Hour = DateTime.Now.Hour,
                 Minute = DateTime.Now.Minute,
                 CheckInOutType = type.HasValue ? type.Value : (short)RequestType.CheckIn,
-                By = this.CurrentUser.Id,
+                By = CurrentUser.Id,
                 ShiftInfos = _shiftService.GetAll(new GetAllShiftCriteria()).ToList(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
-                EmployeeId = employee.Id,
+                EmployeeId = CurrentUser.Id,
                 Date = DateTime.Now
             };
 
@@ -160,7 +157,7 @@ namespace Fanex.NexHR.Controllers.Request
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
-                EmployeeId = this.CurrentUser.Id,
+                EmployeeId = CurrentUser.Id,
                 FromDate = Utilities.RequestAvailableFromDate,
                 ToDate = Utilities.RequestAvailableToDate
             };
@@ -173,12 +170,9 @@ namespace Fanex.NexHR.Controllers.Request
                 return RedirectToAction("EmployeeView", "CheckInOut");
             }
 
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
             {
-                EmployeeId = employee.Id,
+                EmployeeId = CurrentUser.Id,
                 Date = DateTime.Now
             };
             var shift = _shiftService.GetByDate(getShiftByDateCriteria);
@@ -186,9 +180,9 @@ namespace Fanex.NexHR.Controllers.Request
             var model = new CheckInOutRequestViewModel
             {
                 Id = request.Id,
-                Employee = employee.NickName,
-                DisplayName = employee.DisplayName,
-                EmployeeId = employee.Id,
+                Employee = CurrentUser.NickName,
+                DisplayName = CurrentUser.DisplayName,
+                EmployeeId = CurrentUser.Id,
                 ForDate = request.FromDate.Date,
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,

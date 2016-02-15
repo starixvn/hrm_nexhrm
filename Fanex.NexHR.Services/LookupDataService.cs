@@ -73,7 +73,7 @@ namespace Fanex.NexHR.Services
             return lookupData;
         }
 
-        public IList<LookupData> GetJobTitle(GetLookupDataJobTitleCriteria criteria)
+        public IList<LookupData> GetJobTitle(GetJobTitleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<LookupData> lookUpDataList = new List<LookupData>();

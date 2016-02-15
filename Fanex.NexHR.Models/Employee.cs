@@ -19,12 +19,6 @@ namespace Fanex.NexHR.Models
 
     public class Employee : EntityBase<int>
     {
-        public Employee()
-        {
-            JobTitles = new List<LookupData>();
-            Groups = new List<Team>();
-        }
-
         public string DomainUsername { get; set; }
 
         [Required]
@@ -39,8 +33,6 @@ namespace Fanex.NexHR.Models
 
         [Email]
         public string Email { get; set; }
-
-        public int? JobTitleId { get; set; }
 
         public bool Enabled { get; set; }
 
@@ -61,8 +53,6 @@ namespace Fanex.NexHR.Models
         public Team Team { get; set; }
 
         public string Roles { get; set; }
-
-        public Employee Manager { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? JoinedDate { get; set; }
@@ -97,7 +87,7 @@ namespace Fanex.NexHR.Models
         [Display(Name = "Teams' leaders receive requests")]
         public string LeaderGroups { get; set; }
 
-        public string JobTitle { get; set; }
+        public JobTitle JobTitle { get; set; }
 
         public string Address { get; set; }
 
@@ -120,6 +110,10 @@ namespace Fanex.NexHR.Models
         public string GeoMapLongtitude { get; set; }
 
         public string DistanceToCompany { get; set; }
+
+        public Toeic ToeicScore { get; set; }
+
+        public EmployeeShift WorkingCalendar { get; set; }
 
         public IList<short> RoleList
         {
@@ -205,19 +199,6 @@ namespace Fanex.NexHR.Models
                 : NickName + " (" + FullName + ")";
             }
         }
-
-        // TOEIC score
-        public Toeic ToeicScore { get; set; }
-
-        public EmployeeShift WorkingCalendar { get; set; }
-
-        #region Filtering
-
-        public IList<LookupData> JobTitles { get; set; }
-
-        public IList<Team> Groups { get; set; }
-
-        #endregion Filtering
 
         public bool IsInRoles(params Role[] roles)
         {

@@ -164,9 +164,11 @@
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
+    <Compile Include="Interfaces\IJobTitleService.cs" />
     <Compile Include="Interfaces\IOvertimeService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
+    <Compile Include="JobTitleService.cs" />
     <Compile Include="LookupCodeName.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="EmployeeService.cs" />

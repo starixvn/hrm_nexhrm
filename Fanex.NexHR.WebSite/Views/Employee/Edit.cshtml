@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model EditEmployeeViewModel
 @{
     ViewBag.Title = Labels.Edit;
 }
@@ -45,7 +45,7 @@
                                         <img id="avatar" src="~/employee/avatar/@(Model.Code)?f=@(Utilities.RandomString(4))" alt="@Model.FullName" /><br />
                                         <span class="fileUpload">
                                             <input class="chooseFile" type="file" id="file" />
-                                        </span>                                             
+                                        </span>
                                         <input class="btn-request waves-effect waves-light m-r--s right" type="button" id="upload" value="Upload" />
                                     </div>
                                 </div>
@@ -269,7 +269,7 @@
                                         <div class="left input--s">
                                             @Html.TextBoxFor(model => model.DistanceToCompany, new { @class = "distance" })
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <div id="map-canvas" style="width: 100%; height: 50rem">
                                 </div>
@@ -277,11 +277,11 @@
                             <div class="row form-input m-t--m">
                                 <div class="col m-r--m">
                                     <div class="left label--xl">
-                                        @Html.LabelFor(model => model.Team, Labels.Team)
+                                        @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
                                     <div class="left select--l">
-                                        @Html.DropDownListFor(model => model.Team.Id, new SelectList(Model.Groups, "Id", "Name"))
-                                        @Html.ValidationMessageFor(model => model.Team.Id)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"))
+                                        @Html.ValidationMessageFor(model => model.TeamId)
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                         @Html.LabelFor(model => model.SubGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.MaterializeCheckBoxListFor(p => p.SubGroupArray, new SelectList(Model.Groups, "Id", "Name"), new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxListFor(p => p.SubGroupArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +301,7 @@
                                         @Html.LabelFor(model => model.LeaderGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.MaterializeCheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(Model.Groups, "Id", "Name"), new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>

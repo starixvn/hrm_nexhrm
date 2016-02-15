@@ -239,7 +239,7 @@ namespace Fanex.NexHR.Services
                 Nick = employee.NickName,
                 DoB = employee.DateOfBirth.ToString("dd-MMM-yyyy"),
                 Email = employee.Email,
-                JobTitle = FormatString(employee.JobTitle),
+                JobTitle = employee.JobTitle == null ? string.Empty : employee.JobTitle.Name,
                 Team = FormatString(employee.Team.Name),
                 JoinedDate = FormatDate(employee.JoinedDate),
                 ConfirmedDate = FormatDate(employee.ConfirmedDate),

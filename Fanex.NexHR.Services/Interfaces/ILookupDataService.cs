@@ -20,7 +20,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<LookupData> GetAll(GetAllLookupDataCriteria criteria);
 
-        IList<LookupData> GetJobTitle(GetLookupDataJobTitleCriteria criteria);
+        IList<LookupData> GetJobTitle(GetJobTitleCriteria criteria);
 
         bool Delete(DeleteLookupDataCriteria criteria);
 

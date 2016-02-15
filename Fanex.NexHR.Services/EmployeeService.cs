@@ -28,10 +28,6 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Employee service.
-    /// </summary>
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeService : BaseService, IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -78,21 +74,25 @@ namespace Fanex.NexHR.Services
             return employees;
         }
 
-        /// <summary>
-        /// Get Employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Employee Entity.</returns>
-        public Employee GetEmployeeById(GetEmployeeCriteria criteria)
+        public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            Employee employee = new Employee();
+            var employee = new Employee();
             if (criteria.IsValid())
             {
-                if ((criteria.Id != null && criteria.Id != -1) || criteria.DomainUserName != null)
-                {
-                    employee = this._employeeRepository.GetById(criteria);
-                }
+                employee = _employeeRepository.GetById(criteria);
+            }
+
+            return employee;
+        }
+
+        public Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var employee = new Employee();
+            if (criteria.IsValid())
+            {
+                employee = _employeeRepository.GetByDomainName(criteria);
             }
 
             return employee;

@@ -18,6 +18,6 @@ namespace Fanex.NexHR.ViewModels
 
         public IList<Team> TeamCollection { get; set; }
 
-        public IList<LookupData> JobTitleCollection { get; set; }
+        public IList<JobTitle> JobTitleCollection { get; set; }
     }
 }

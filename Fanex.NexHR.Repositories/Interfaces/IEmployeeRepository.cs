@@ -18,7 +18,9 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
     public interface IEmployeeRepository
     {
-        Employee GetById(GetEmployeeCriteria criteria);
+        Employee GetById(ICriteria criteria);
+
+        Employee GetByDomainName(ICriteria criteria);
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 

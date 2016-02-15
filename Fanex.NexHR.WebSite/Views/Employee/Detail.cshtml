@@ -124,7 +124,7 @@ else
                             </div>
                             <div class="pinfo">
                                 <p class="accinfo">
-                                    <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">@ViewBag.JobTitle</span>
+                                    <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">@Model.JobTitle.Name</span>
                                 </p>
                                 <p class="accinfo">
                                     <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
@@ -164,7 +164,7 @@ else
                                 </div>
                                 <div class="pinfo">
                                     <p class="accinfo">
-                                        <span class="m-r--m">@Labels.AnnualLeaveBalance:</span> <span class="txt-bold">@ViewBag.Working.AnnualLeaveBalance
+                                        <span class="m-r--m">@Labels.AnnualLeaveBalance:</span> <span class="txt-bold">@Model.AnnualLeaveBalance
                                             day(s)</span>
                                     </p>
                                     <table class="table bordered striped highlight centered table-custom" style="width: 500px;">
@@ -221,7 +221,7 @@ else
                                     </table>
                                 </div>
                             </div>
-                            @{ Toeic toeic = (Toeic)ViewBag.TOEIC; }
+                            @{ Toeic toeic = Model.ToeicScore; }
                             <div class="toeicscore m-t--m p-x--s">
                                 <div class="boxtitle txt-uppercase">
                                     @Labels.ToeicScore

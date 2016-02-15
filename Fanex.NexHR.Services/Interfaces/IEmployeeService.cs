@@ -21,7 +21,9 @@ namespace Fanex.NexHR.Services.Interfaces
 
     public interface IEmployeeService
     {
-        Employee GetEmployeeById(GetEmployeeCriteria criteria);
+        Employee GetEmployeeById(GetEmployeeByIdCriteria criteria);
+
+        Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 

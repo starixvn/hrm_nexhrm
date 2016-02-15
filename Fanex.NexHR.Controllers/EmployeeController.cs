@@ -1,33 +1,33 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Web;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Employee;
     using FPS.Client;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Web;
+    using System.Web.Mvc;
 
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
     public class EmployeeController : BaseController
     {
         private readonly ITeamService _teamService;
-        private readonly ILookupDataService _lookupDataService;
+        private readonly IJobTitleService _jobTitleService;
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
         private readonly IToeicService _toeicService;
@@ -40,13 +40,13 @@
         public EmployeeController(
             IEmployeeService employeeService = null,
             ITeamService teamService = null,
-            ILookupDataService lookupDataService = null,
+            IJobTitleService jobTitleService = null,
             IShiftService shiftService = null,
             IToeicService toeicService = null)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
-            _lookupDataService = lookupDataService ?? new LookupDataService();
+            _jobTitleService = jobTitleService ?? new JobTitleService();
             _shiftService = shiftService ?? new ShiftService();
             _toeicService = toeicService ?? new ToeicService();
         }
@@ -62,19 +62,11 @@
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(string jobTitleId = "")
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
-            {
-                LookupCode = LookupCodeName.JobTitle
-            };
-            IList<LookupData> jobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                TeamCollection = teams,
-                JobTitleCollection = jobTitles
+                TeamCollection = GetTeam(),
+                JobTitleCollection = GetJobTitle()
             };
 
             return View(model);
@@ -82,27 +74,11 @@
 
         public ActionResult Detail(int id = -1)
         {
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var model = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            var toeicScoreCriteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = id };
-
-            if (model != null)
-            {
-                ViewBag.JobTitle = (model.JobTitleId == null)
-                    ? Resources.Labels.Unknown : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
-
-                var getMySpaceCriteria = new GetMySpaceCriteria()
-                {
-                    EmpId = id
-                };
-                ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
-
-                var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
-                model.WorkingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
-            }
-
-            ViewBag.TOEIC = _toeicService.GetById(toeicScoreCriteria);
-
+            var criteria = new GetEmployeeByIdCriteria() 
+            { 
+                EmployeeId = id 
+            };
+            Employee model = _employeeService.GetEmployeeById(criteria);
             return View(model);
         }
 
@@ -130,7 +106,6 @@
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
-            model.ProcessBy = this.CurrentUser.Id;
             model.ShiftCollection = _shiftService.GetSelectList();
             model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
 
@@ -141,7 +116,7 @@
                 var insertEmployeeCriteria = new InsertEmployeeCriteria()
                 {
                     Code = model.Code,
-                    CreateBy = model.ProcessBy,
+                    CreateBy = CurrentUser.Id,
                     Createddate = DateTime.Now.Date,
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
@@ -159,7 +134,7 @@
                 int id = _employeeService.Insert(insertEmployeeCriteria);
                 if (id == -1)
                 {
-                    ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateEmployeeCode);
+                    ModelState.AddModelError(string.Empty, Messages.DuplicateEmployeeCode);
                 }
                 else
                 {
@@ -168,66 +143,23 @@
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id = -1)
         {
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
-            var employeeToeicCriteria = new GetToeicScoreByEmployeeIdCriteria()
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
+            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
+            EditEmployeeViewModel model = new EditEmployeeViewModel(employee) 
             {
-                EmpId = id
+                Teams = GetTeam(),
+                JobTitles = GetJobTitle()
             };
-
-            Employee model = _employeeService.GetEmployeeById(getEmployeeCriteria);
-
-            if (model != null)
-            {
-                var subTeamCriteria = new GetSubTeamOfEmployeeCriteria() { EmpId = id };
-                IList<Team> subTeams = _teamService.GetSubTeamsOfEmployee(subTeamCriteria);
-                var subGroups = string.Empty;
-
-                if (subTeams != null && subTeams.Count > 0)
-                {
-                    foreach (var team in subTeams)
-                    {
-                        subGroups += team.Id + ",";
-                    }
-
-                    subGroups = subGroups.Substring(0, subGroups.Length - 1);
-                }
-
-                model.SubGroups = subGroups;
-
-                var teamHandleRequestCriteria = new GetTeamHandleRequestOfEmployee()
-                {
-                    Id = id
-                };
-                IList<Team> teamsHandleRequests = _teamService.GetTeamsHandleRequestsOfEmployee(teamHandleRequestCriteria);
-                var leaderGroups = string.Empty;
-                if (teamsHandleRequests != null && teamsHandleRequests.Count > 0)
-                {
-                    foreach (var team in teamsHandleRequests)
-                    {
-                        leaderGroups += team.Id + ",";
-                    }
-
-                    leaderGroups = leaderGroups.Substring(0, leaderGroups.Length - 1);
-                }
-
-                model.LeaderGroups = leaderGroups;
-                model.ToeicScore = _toeicService.GetById(employeeToeicCriteria);
-                model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
-                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-                model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            }
 
             return View(model);
         }
@@ -235,37 +167,28 @@
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult Edit(Employee model)
+        public ActionResult Edit(EditEmployeeViewModel model)
         {
-            model.Modifier = this.CurrentUser;
-            model.Groups = _teamService.GetAll(new GetAllTeamCriteria());
-
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.JobTitle };
-            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.Teams = GetTeam();
+            model.JobTitles = GetJobTitle();
 
             if (ModelState.IsValid)
             {
-                if (model.SubGroupArray != null && model.SubGroupArray.Contains(model.Team.Id.ToString()))
-                {
-                    model.SubGroupArray = model.SubGroupArray.Where(i => i != model.Team.Id.ToString()).ToArray();
-                }
-
                 var criteria = FillDataUpdateEmployeeCriteria(model);
                 bool result = _employeeService.Update(criteria);
                 ViewBag.Updated = result;
 
                 // update current user?
-                if (result && this.CurrentUser.Id == model.Id)
+                if (result && CurrentUser.Id == model.Id)
                 {
-                    var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.Id };
+                    var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
                     Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
                     HttpContext.Session["CurrentUser"] = currentUser;
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -279,7 +202,7 @@
 
             if (model != null)
             {
-                var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
                 ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Shifts = _shiftService.GetSelectList();
             }
@@ -311,7 +234,7 @@
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = model.EmpId };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.EmpId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             model.Shifts = _shiftService.GetSelectList();
 
@@ -322,7 +245,7 @@
         public ActionResult MonthSchedule(int id = -1)
         {
             ViewBag.Id = id;
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = id };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
@@ -481,26 +404,10 @@
 
         public ActionResult MyProfile()
         {
-            var model = this.CurrentUser;
-            var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = CurrentUser.Id };
-
-            ViewBag.JobTitle = model.JobTitleId == null
-                ? Resources.Labels.Unknown : _lookupDataService.GetById(LookupCodeName.JobTitle, model.JobTitleId.Value).Name;
-
-            var getMySpaceCriteria = new GetMySpaceCriteria()
-            {
-                EmpId = CurrentUser.Id
-            };
-            ViewBag.Working = _employeeService.GetMySpace(getMySpaceCriteria);
-
-            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = CurrentUser.Id };
-            model.WorkingCalendar = _employeeService.GetEmployeeShift(employeeShiftCriteria);
-
-            ViewBag.TOEIC = _toeicService.GetById(criteria);
-            return View(model);
+            return View(CurrentUser);
         }
 
-        private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(Employee model)
+        private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {
             var criteria = new UpdateEmployeeCriteria()
             {
@@ -524,9 +431,9 @@
                 IssuedPlace = model.IssuedPlace,
                 JobTitleId = model.JobTitleId,
                 JoinedDate = model.JoinedDate,
-                MainGroupId = model.Team.Id,
+                MainGroupId = model.TeamId,
                 Mariage = model.Mariage,
-                ModifiedBy = model.Modifier.Id,
+                ModifiedBy = CurrentUser.Id,
                 ModifiedDate = DateTime.Now.Date,
                 NickName = model.NickName,
                 PassportExp = model.PassportExp,
@@ -553,8 +460,6 @@
 
             return myspace;
         }
-
-        #region BIRTHDAY
 
         private IEnumerable<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
         {
@@ -596,6 +501,20 @@
             return _employeeService.Query(getAllEmployeeCriteria);
         }
 
-        #endregion BIRTHDAY
+        private IList<JobTitle> GetJobTitle()
+        {
+            var criteria = new GetJobTitleCriteria();
+
+            IList<JobTitle> jobTitles = _jobTitleService.GetJobTitle(criteria);
+            return jobTitles;
+        }
+
+        private IList<Team> GetTeam()
+        {
+            var criteria = new GetAllTeamCriteria();
+
+            IList<Team> teams = _teamService.GetAll(criteria);
+            return teams;
+        }
     }
 }

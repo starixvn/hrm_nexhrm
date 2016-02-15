@@ -9,38 +9,26 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Criteria.Department;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Department;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// The Department controller.
-    /// </summary>
-    [Authorize]
     public class DepartmentController : BaseController
     {
-        private IDepartmentService _departmentService;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentController()
-            : this(null)
-        {
-        }
-
-        public DepartmentController(IDepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService = null)
         {
             _departmentService = departmentService ?? new DepartmentService();
         }
 
-        /// <summary>
-        /// Get all departments.
-        /// </summary>
-        /// <returns>The Action Result.</returns>
         public ActionResult Index()
         {
             var criteria = new GetAllDepartmentCriteria();
@@ -60,11 +48,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Create new department.
-        /// </summary>
-        /// <param name="model">The department view model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         public ActionResult Create(DepartmentViewModel model)
         {
@@ -76,7 +59,7 @@ namespace Fanex.NexHR.Controllers
                     Name = model.Name,
                     ManagerId = model.ManagerId,
                     ParentId = model.ParentId,
-                    CreatedBy = this.CurrentUser.Id,
+                    CreatedBy = CurrentUser.Id,
                     CreatedDate = DateTime.Now
                 };
 
@@ -85,7 +68,7 @@ namespace Fanex.NexHR.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
@@ -95,11 +78,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit department.
-        /// </summary>
-        /// <param name="id">The department Id.</param>
-        /// <returns>The view to edit department.</returns>
         public ActionResult Edit(int id)
         {
             var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
@@ -114,7 +92,7 @@ namespace Fanex.NexHR.Controllers
             if (department.Manager != null) 
             {
                 Employee manager = department.Manager;
-                managerName = manager.NickName + " (" + manager.FullName + ")";
+                managerName = manager.DisplayName;
                 managerId = manager.Id;
             }
 
@@ -131,11 +109,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Edit department.
-        /// </summary>
-        /// <param name="model">The department view model.</param>
-        /// <returns>The view after edited department.</returns>
         [HttpPost]
         public ActionResult Edit(DepartmentViewModel model)
         {

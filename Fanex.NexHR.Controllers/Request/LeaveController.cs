@@ -78,7 +78,7 @@ namespace Fanex.NexHR.Controllers.Request
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Create()
         {
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = this.CurrentUser.Id };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = this.CurrentUser.Id };
             var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
@@ -157,7 +157,7 @@ namespace Fanex.NexHR.Controllers.Request
             };
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
             var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
-            var getEmployeeCriteria = new GetEmployeeCriteria() { Id = request.Requester.Id };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = request.Requester.Id };
             var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {

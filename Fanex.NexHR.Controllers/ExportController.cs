@@ -80,6 +80,7 @@ namespace Fanex.NexHR.Controllers
             return new EmptyResult();
         }
 
+        [Authorize(Roles = "HR")]
         [HttpGet]
         public ActionResult EmployeeProfile(
             string query = null,

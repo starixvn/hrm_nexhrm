@@ -38,7 +38,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult JobTitleManagementDetail(string jobTitle = "")
         {
-            var lookupDataJobTitleCriteria = new GetLookupDataJobTitleCriteria() { JobTitle = jobTitle };
+            var lookupDataJobTitleCriteria = new GetJobTitleCriteria() { JobTitle = jobTitle };
             IList<LookupData> jobTitles = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return PartialView("_JobTitleManagementDetail", jobTitles);

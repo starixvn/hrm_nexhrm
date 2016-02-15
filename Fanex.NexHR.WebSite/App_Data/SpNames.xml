@@ -1,11 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="Employee">
-    <Setting Key="GetEmployee" SpName="Employee_GetEmployee" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_GetEmployee" SpName="Employee_GetEmployee" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
       <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
     </Setting>
+    <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
+      <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+      <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+      <Mapping DataField="JobTitleId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Employee_GetByDomainName" SpName="Employee_GetByDomainName" DbName="nexhr" Plain="0">
+      <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+      <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+      <Mapping DataField="JobTitleId" ObjectProperty="Id" />
+    </Setting>
+    
     <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>

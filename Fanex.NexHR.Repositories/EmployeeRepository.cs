@@ -28,33 +28,46 @@ namespace Fanex.NexHR.Repositories
     /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
-        /// <summary>
-        /// Get employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Employee object.</returns>
-        public Employee GetById(GetEmployeeCriteria criteria)
+        public Employee GetById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entity = db.QueryEntity<Employee, dynamic, Employee>(
-                    (e, t) =>
+                var employee = db.QueryEntity<Employee, EmployeeShift, Toeic, Team, JobTitle, Employee>(
+                    (e, es, to, te, job) =>
                     {
-                        e.Team = new Team { Id = t.TeamID, Name = t.Team, Code = t.TeamCode };
+                        e.WorkingCalendar = es;
+                        e.ToeicScore = to;
+                        e.Team = te;
+                        e.JobTitle = job;
                         return e;
                     },
-                    "TeamID",
+                    "MonShiftId, LRExamDate, GroupId, JobtitleId",
                     criteria.GetSpParams());
 
-                return entity;
+                return employee;
             }
         }
 
-        /// <summary>
-        /// Query employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of Employee.</returns>
+        public Employee GetByDomainName(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var employee = db.QueryEntity<Employee, EmployeeShift, Toeic, Team, JobTitle, Employee>(
+                     (e, es, to, te, job) =>
+                     {
+                         e.WorkingCalendar = es;
+                         e.ToeicScore = to;
+                         e.Team = te;
+                         e.JobTitle = job;
+                         return e;
+                     },
+                     "MonShiftId, LRExamDate, GroupId, JobtitleId",
+                     criteria.GetSpParams());
+
+                return employee;
+            }
+        }
+
         public IList<Employee> Query(GetAllEmployeeCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
