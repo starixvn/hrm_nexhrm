@@ -1058,7 +1058,7 @@ table.data thead tr:nth-child(even) {
 #timeSheets > tr:hover {
   background: none; }
 
-[id*="row_hour"] {
+.row_hour {
   width: 70px !important;
   margin-bottom: 0 !important; }
 

@@ -26,7 +26,7 @@ function createRow(nick, id) {
     var row = '<tr class="sortedIndex" id="row_' + id + '">' +
                 '<td>' + timeSheets.length + '</td>' +
                 '<td  class="align-left">' + nick + '</td>' +
-                '<td><input id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
+                '<td><input class="row_hour" id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
                 '<td><a href="javascript:;" onclick="deleteRow(' + id + ');"><i class="mdi mdi-delete mdi-dark"></i></a></td>' +
                 '</tr>';
     $('#timeSheets').append(row);

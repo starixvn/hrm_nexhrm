@@ -118,7 +118,7 @@
                                                         <tr class="sortedIndex" id="row_@item.EmployeeId">
                                                             <td>@(i++)</td>
                                                             <td class="align-left">@item.DisplayName</td>
-                                                            <td><input id="row_hour_@item.EmployeeId" type="number" value="@item.Hour" step="0.5" /></td>
+                                                            <td><input class="row_hour" id="row_hour_@item.EmployeeId" type="number" value="@item.Hour" step="0.5" /></td>
                                                             <td>
                                                                 <a href="javascript:;" onclick="deleteRow(@item.EmployeeId);">
                                                                     <i class="mdi mdi-delete mdi-dark"></i>
