@@ -178,7 +178,7 @@
 
         private bool HasPermission()
         {
-            var belongPMTeam = CurrentUser.Team.Name == "Project Management";
+            var belongPMTeam = CurrentUser.Team.Code == "PM";
             var isInRoles = CurrentUser.IsInRoles(Role.AssistantLeader, Role.Leader, Role.HR, Role.SA);
 
             return belongPMTeam || isInRoles;

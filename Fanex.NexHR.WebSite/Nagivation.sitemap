@@ -5,7 +5,7 @@
       <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />
       <siteMapNode title="My Dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
-      <siteMapNode title="Manage Overtime" controller="overtime" action="index" icon="timetable" team="Project Management" roles="HR,AssistantLeader,Leader,SA" />
+      <siteMapNode title="Manage Overtime" controller="overtime" action="index" icon="timetable" team="PM" roles="HR,AssistantLeader,Leader,SA" />
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
       <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
       <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />

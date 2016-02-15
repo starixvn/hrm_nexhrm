@@ -128,7 +128,7 @@ function initEmployeeAutocomplete() {
         close: function () {
             var nickName = $('#Employee').val();
             var id = $("#EmployeeId").val();
-            if (id !== "" && !checkExist(id)) {
+            if (id !== "" && !checkExist(parseInt(id))) {
                 createRow(nickName, parseInt(id));
             }
 

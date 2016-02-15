@@ -1933,6 +1933,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Overtime Requests.
+        /// </summary>
+        public static string ManageOT {
+            get {
+                return ResourceManager.GetString("ManageOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manager.
         /// </summary>
         public static string Manager {

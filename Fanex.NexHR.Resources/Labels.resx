@@ -1272,4 +1272,7 @@
   <data name="TotalMembers" xml:space="preserve">
     <value>Total Members</value>
   </data>
+  <data name="ManageOT" xml:space="preserve">
+    <value>Manage Overtime Requests</value>
+  </data>
 </root>

@@ -96,7 +96,7 @@ namespace Fanex.NexHR.Controllers
             var navigationItemList = new List<NavigationViewModel>();
 
             var roles = Roles.GetRolesForUser();
-            var team = this.CurrentUser.Team.Name;
+            var team = this.CurrentUser.Team.Code;
             navigationItemList = new List<NavigationViewModel>();
 
             // populate sitemap data

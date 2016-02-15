@@ -40,7 +40,7 @@ namespace Fanex.NexHR.Repositories
                 var entity = db.QueryEntity<Employee, dynamic, Employee>(
                     (e, t) =>
                     {
-                        e.Team = new Team { Id = t.TeamID, Name = t.Team };
+                        e.Team = new Team { Id = t.TeamID, Name = t.Team, Code = t.TeamCode };
                         return e;
                     },
                     "TeamID",
