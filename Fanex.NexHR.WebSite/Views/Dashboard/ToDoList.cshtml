@@ -6,6 +6,14 @@
                 <span class="card-title txt-uppercase left">To do list</span>
             </div>
             <div class="card-body p-x--s slideTodo">
+                @if (Model.MissingCheckInOutList.Count == 0 && Model.PendingRequestsList.Count == 0)
+                {
+                    <p class="green-border">
+                        <span class="left-align">
+                            Nothing to do
+                        </span>
+                    </p>
+                }                                
                 @foreach (var item in Model.MissingCheckInOutList)
                 {
                     switch (item.MissingType)
@@ -62,17 +70,17 @@
                 }
 
                 @*<p class="grey-border">
-                <span class="left-align delete">
-                    <s>
-                        <em>
-                            Please approve 3 Maternity days (17 Jun 2015
-                            - 19 Jun 2015) of Alice
-                        </em>
-                    </s>
-                </span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
-                    Delete
-                </a>
-            </p>*@
+                        <span class="left-align delete">
+                            <s>
+                                <em>
+                                    Please approve 3 Maternity days (17 Jun 2015
+                                    - 19 Jun 2015) of Alice
+                                </em>
+                            </s>
+                        </span><a class="right icon button-hrm waves-effect waves-light btn white-text materialize-red txt-bold">
+                            Delete
+                        </a>
+                    </p>*@
             </div>
         </div>
     </div>
