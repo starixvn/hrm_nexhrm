@@ -393,10 +393,14 @@
 
 .detail-calendar {
 	opacity: 1 !important;	
+	//position: relative;
+	//top: 2rem;
 	.tipsy-inner {
 		max-width: none;
         background: #fff;
-        color: #000;		
+        color: #000;	
+		position: relative;
+		top: 2rem;
        @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
     }
 	.tipsy-arrow-s {
