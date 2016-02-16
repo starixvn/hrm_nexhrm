@@ -32,11 +32,6 @@
         public ActionResult Index()
         {
             var model = new OvertimeFilterViewModel();
-            if (model.EmployeeId.HasValue)
-            {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
 
             return View(model);
         }
