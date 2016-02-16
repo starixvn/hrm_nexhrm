@@ -27,42 +27,12 @@ namespace Fanex.NexHR.Repositories
     {
         public Employee GetById(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var employee = db.QueryEntity<Employee, DefaultSchedule, Toeic, Team, JobTitle, Employee>(
-                    (e, es, to, te, job) =>
-                    {
-                        e.DefaultSchedule = es;
-                        e.ToeicScore = to;
-                        e.Team = te;
-                        e.JobTitle = job;
-                        return e;
-                    },
-                    "MonShiftId, LRExamDate, GroupId, JobtitleId",
-                    criteria.GetSpParams());
-
-                return employee;
-            }
+            return GetEmployeeEntity(criteria);
         }
 
         public Employee GetByDomainName(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var employee = db.QueryEntity<Employee, DefaultSchedule, Toeic, Team, JobTitle, Employee>(
-                     (e, es, to, te, job) =>
-                     {
-                         e.DefaultSchedule = es;
-                         e.ToeicScore = to;
-                         e.Team = te;
-                         e.JobTitle = job;
-                         return e;
-                     },
-                     "MonShiftId, LRExamDate, GroupId, JobtitleId",
-                     criteria.GetSpParams());
-
-                return employee;
-            }
+            return GetEmployeeEntity(criteria);
         }
 
         public IList<Employee> Query(ICriteria criteria)
@@ -180,11 +150,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Update shift.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
         public bool UpdateShift(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -193,11 +158,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Reset annual leaves.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
         public bool ResetAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -206,11 +166,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Get annual leave transactions.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of annual leave balance model.</returns>
         public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -366,7 +321,7 @@ namespace Fanex.NexHR.Repositories
                      (e, t) =>
                      {
                          e.JobTitle = new JobTitle { Id = t.JobId, Name = t.JobTitle };
-                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };                         
+                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
                          e.ToeicScore = new Toeic
                          {
                              InputDate = t.InputDate,
@@ -375,7 +330,7 @@ namespace Fanex.NexHR.Repositories
                              LRExamDate = t.LRExamDate,
                              Speaking = t.Speaking,
                              Writing = t.Writing,
-                             SWExamDate = t.SWExamDate,                             
+                             SWExamDate = t.SWExamDate,
                          };
                          return e;
                      },
@@ -417,6 +372,70 @@ namespace Fanex.NexHR.Repositories
             {
                 return db.Query<Employee>(criteria.GetSpParams()).ToList();
             }
+        }
+
+        private Employee GetEmployeeEntity(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var employee = db.QueryEntity<Employee, dynamic, Toeic, Team, JobTitle, Employee>(
+                    (e, def, to, te, job) =>
+                    {
+                        e.DefaultSchedule = GetDefaultSchedule(def);
+                        e.ToeicScore = to;
+                        e.Team = te;
+                        e.JobTitle = job;
+                        return e;
+                    },
+                    "MonShiftId, LRExamDate, GroupId, JobtitleId",
+                    criteria.GetSpParams());
+
+                return employee;
+            }
+        }
+
+        private DefaultSchedule GetDefaultSchedule(dynamic defaultSchedule)
+        {
+            var def = new DefaultSchedule()
+            {
+                Monday = new Shift()
+                {
+                    Id = defaultSchedule.MonShiftId == null ? 0 : defaultSchedule.MonShiftId,
+                    Name = defaultSchedule.MonShiftName
+                },
+                Tuesday = new Shift()
+                {
+                    Id = defaultSchedule.TueShiftId == null ? 0 : defaultSchedule.TueShiftId,
+                    Name = defaultSchedule.TueShiftName
+                },
+                Wednesday = new Shift()
+                {
+                    Id = defaultSchedule.WedShiftId == null ? 0 : defaultSchedule.WedShiftId,
+                    Name = defaultSchedule.WedShiftName
+                },
+                Thursday = new Shift()
+                {
+                    Id = defaultSchedule.ThuShiftId == null ? 0 : defaultSchedule.ThuShiftId,
+                    Name = defaultSchedule.ThuShiftName
+                },
+                Friday = new Shift()
+                {
+                    Id = defaultSchedule.FriShiftId == null ? 0 : defaultSchedule.FriShiftId,
+                    Name = defaultSchedule.FriShiftName
+                },
+                Saturday = new Shift()
+                {
+                    Id = defaultSchedule.SatShiftId == null ? 0 : defaultSchedule.SatShiftId,
+                    Name = defaultSchedule.SatShiftName
+                },
+                Sunday = new Shift()
+                {
+                    Id = defaultSchedule.SunShiftId == null ? 0 : defaultSchedule.SunShiftId,
+                    Name = defaultSchedule.SunShiftName
+                },
+            };
+
+            return def;
         }
     }
 }

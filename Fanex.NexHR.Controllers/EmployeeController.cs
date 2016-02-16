@@ -3,6 +3,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
@@ -132,13 +133,13 @@
                 };
 
                 CommandResult result = _employeeService.Insert(criteria);
-                if (result.Code != 0)
+                if (result.Code == 0)
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    return RedirectToAction("Edit", new { id = criteria.Id });
                 }
                 else
                 {
-                    return RedirectToAction("Edit", new { id = criteria.Id });
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
             else
@@ -176,14 +177,20 @@
             {
                 var criteria = FillDataUpdateEmployeeCriteria(model);
                 CommandResult result = _employeeService.Update(criteria);
-                ViewBag.Updated = result;
 
-                // update current user?
-                if (result.Code == 0 && CurrentUser.Id == model.Id)
+                if (result.Code == 0)
                 {
-                    var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
-                    Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
-                    HttpContext.Session["CurrentUser"] = currentUser;
+                    ViewBag.Updated = true;
+                    if (CurrentUser.Id == model.Id)
+                    {
+                        var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
+                        Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                        HttpContext.Session["CurrentUser"] = currentUser;
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
             else
@@ -212,48 +219,47 @@
         public ActionResult DefaultSchedule(int employeeId = -1)
         {
             Employee employee = GetEmployeeById(employeeId);
-            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { EmployeeId = employeeId };
-            DefaultSchedule model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
-
-            if (model != null)
-            {
-                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
-                ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-                model.Shifts = _shiftService.GetSelectList();
-            }
+            DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
+            model.Shifts = _shiftService.GetSelectList();
 
             return View(model);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult DefaultSchedule(DefaultSchedule model)
+        public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var criteria = new UpdateEmployeeShiftCriteria()
                 {
-                    EmployeeId = model.EmpId,
-                    FriShift = model.FriShiftId,
+                    EmployeeId = model.EmployeeId,
+                    
                     MonShift = model.MonShiftId,
-                    SatShift = model.SatShiftId,
-                    SunShift = model.SunShiftId,
-                    ThuShift = model.ThuShiftId,
                     TueShift = model.TueShiftId,
-                    WedShift = model.WedShiftId
+                    WedShift = model.WedShiftId,
+                    ThuShift = model.ThuShiftId,
+                    FriShift = model.FriShiftId,
+                    SatShift = model.SatShiftId,
+                    SunShift = model.SunShiftId
                 };
                 CommandResult result = _employeeService.UpdateEmployeeShift(criteria);
-                ViewBag.Updated = result.Code == 0;
+
+                if (result.Code == 0)
+                {
+                    ViewBag.Updated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
             else
             {
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.EmpId };
-            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             model.Shifts = _shiftService.GetSelectList();
-
             return View(model);
         }
 
@@ -548,6 +554,12 @@
             return teams;
         }
 
+        private IList<Shift> GetShift()
+        {
+            IList<Shift> shifts = _shiftService.GetAll(new GetAllShiftCriteria());
+            return shifts;
+        }
+
         private Employee GetEmployeeById(int employeeId)
         {
             var criteria = new GetEmployeeByIdCriteria()
@@ -556,6 +568,24 @@
             };
 
             return _employeeService.GetEmployeeById(criteria);
+        }
+
+        private DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)
+        {
+            var defaultSchedule = new DefaultScheduleViewModel()
+            {
+                EmployeeId = employee.Id,
+                EmployeeNickName = employee.NickName,
+                MonShiftId = employee.DefaultSchedule.Monday.Id,
+                TueShiftId = employee.DefaultSchedule.Tuesday.Id,
+                WedShiftId = employee.DefaultSchedule.Wednesday.Id,
+                ThuShiftId = employee.DefaultSchedule.Thursday.Id,
+                FriShiftId = employee.DefaultSchedule.Friday.Id,
+                SatShiftId = employee.DefaultSchedule.Saturday.Id,
+                SunShiftId = employee.DefaultSchedule.Sunday.Id
+            };
+
+            return defaultSchedule;
         }
     }
 }

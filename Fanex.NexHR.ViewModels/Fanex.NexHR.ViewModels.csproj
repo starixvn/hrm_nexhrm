@@ -61,6 +61,7 @@
     <Compile Include="BaseRequestModel.cs" />
     <Compile Include="ChangeShiftViewModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
+    <Compile Include="Employee\DefaultScheduleViewModel.cs" />
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />

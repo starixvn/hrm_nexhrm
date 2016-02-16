@@ -1,7 +1,7 @@
-﻿@model DefaultSchedule
+﻿@model DefaultScheduleViewModel
 @if (Model != null)
 {
-    ViewBag.Title = "Working schedule of " + ViewBag.Employee.NickName;
+    ViewBag.Title = "Working schedule of " + @Model.EmployeeNickName;
 }
 @section css{
 }
@@ -17,10 +17,10 @@
                 @if (Model != null)
                 {
                     <script type="text/javascript">
-                        var id = @ViewBag.Employee.Id;
+                        var id = @Model.EmployeeId;
                     </script>
                     <div class="card-title-block">
-                        <span class="card-title left">Working schedule of @ViewBag.Employee.NickName</span>
+                        <span class="card-title left">@ViewBag.Title</span>
                     </div>
                     <div class="card-body">
                         <div class="form">
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="row form-input">
                                     @Html.AntiForgeryToken()
-                                    @Html.HiddenFor(model => model.EmpId)
+                                    @Html.HiddenFor(model => model.EmployeeId)
                                     <div class="col">
                                         <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Save" />
                                     </div>

@@ -93,7 +93,7 @@
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentModel.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="EmployeeShift.cs" />
+    <Compile Include="DefaultSchedule.cs" />
     <Compile Include="ExtensionNoModel.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="LeaveSummary.cs" />
