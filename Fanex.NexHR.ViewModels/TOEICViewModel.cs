@@ -78,5 +78,7 @@ namespace Fanex.NexHR.ViewModels
 
         [Range(0, 200)]
         public int? Writing { get; set; }
+
+        public bool SendMail { get; set; }
     }
 }

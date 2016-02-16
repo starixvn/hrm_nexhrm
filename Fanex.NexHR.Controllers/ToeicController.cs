@@ -149,7 +149,7 @@ namespace Fanex.NexHR.Controllers
                     };
                     effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
 
-                    if (effectedRow > 0)
+                    if (effectedRow > 0 && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
                     }
@@ -210,7 +210,7 @@ namespace Fanex.NexHR.Controllers
                     };
                     effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
 
-                    if (effectedRow > 0)
+                    if (effectedRow > 0 && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }
