@@ -22,13 +22,14 @@
             _memoService = memoService ?? new MemoService();
         }
 
-        public IQueryable<Memo> GetMemos(int category, int year)
+        public IQueryable<Memo> GetMemos(int category, int year, int status)
         {
-            var getAllMemoCriteria = new GetAllMemoCriteria()
-            {
-                Category = category,
-                Year = year
-            };
+            GetAllMemoCriteria getAllMemoCriteria = new GetAllMemoCriteria()
+                {
+                    Category = category,
+                    Year = year,
+                    Status = status
+                };
 
             IList<Memo> entityList = _memoService.GetAll(getAllMemoCriteria);
 

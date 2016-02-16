@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Criteria.Memo
 {
     using Fanex.Data.Repository;
+    using System;
 
     /// <summary>
     /// Get All Memo Criteria.
@@ -19,6 +20,8 @@ namespace Fanex.NexHR.Criteria.Memo
         public int Year { get; set; }
 
         public int Category { get; set; }
+
+        public int Status { get; set; }
 
         public string Content { get; set; }
 

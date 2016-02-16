@@ -1275,4 +1275,10 @@
   <data name="ManageOT" xml:space="preserve">
     <value>Manage Overtime Requests</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Deactive" xml:space="preserve">
+    <value>Deactive</value>
+  </data>
 </root>

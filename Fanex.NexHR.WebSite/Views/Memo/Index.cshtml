@@ -44,7 +44,15 @@
                                         @Html.LabelFor(model => model.Category)
                                     </div>
                                     <div class="left select--s">
-                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" }, new { @class = "aaaa" })
+                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" })
+                                    </div>
+                                </div>
+                                <div class='col'>
+                                    <div class='left label--m'>
+                                        @Html.LabelFor(model => model.Status)
+                                    </div>
+                                    <div class="left select--s">                                        
+                                        @Html.DropDownListFor(model => model.Status, Model.StatusTypes)
                                     </div>
                                 </div>
                                 <div class='col'>
@@ -65,6 +73,7 @@
                                         <th>@Labels.Subject</th>
                                         <th>@Labels.Category</th>
                                         <th>@Labels.Date</th>
+                                        <th>@Labels.Status</th>
                                         @if (Roles.IsUserInRole("HR"))
                                         {
                                             <th>@Labels.Edit</th>
@@ -94,6 +103,7 @@
         <td>
             {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
         </td>
+        <td>{{:Status==0?"Active":"Deactive"}}</td>
         {{if ~isHRRole}}
             <td title="Edit">
                 <a href="/memo/edit/{{:Id}}">

@@ -40,6 +40,7 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             IList<LookupData> memoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });
 
             var model = new MemoViewModel
             {

@@ -22,7 +22,7 @@ function deleteMemo(id, fileName, type) {
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'api/memo/getmemos',
-        data: { category: $('#Category').val(), year: $('#Year').val() },
+        data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);

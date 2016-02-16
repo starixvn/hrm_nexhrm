@@ -53,6 +53,8 @@ namespace Fanex.NexHR.Models
 
         public bool SendMail { get; set; }
 
+        public int Status { get; set; }
+
         public IList<LookupData> MemoCategories { get; set; }
     }
 }
