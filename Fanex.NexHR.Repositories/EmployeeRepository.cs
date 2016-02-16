@@ -512,7 +512,8 @@ namespace Fanex.NexHR.Repositories
                 var entityList = db.Query<Employee, dynamic, Employee>(
                      (e, t) =>
                      {
-                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
+                         e.JobTitle = new JobTitle { Id = t.JobId, Name = t.JobTitle };
+                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };                         
                          e.ToeicScore = new Toeic
                          {
                              InputDate = t.InputDate,
@@ -521,11 +522,11 @@ namespace Fanex.NexHR.Repositories
                              LRExamDate = t.LRExamDate,
                              Speaking = t.Speaking,
                              Writing = t.Writing,
-                             SWExamDate = t.SWExamDate
+                             SWExamDate = t.SWExamDate,                             
                          };
                          return e;
                      },
-                     splitOn: "TeamID",
+                     splitOn: "JobId",
                      parameterValues: criteria.GetSpParams());
 
                 return entityList.ToList();
