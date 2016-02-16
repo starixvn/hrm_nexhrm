@@ -366,15 +366,15 @@ namespace Fanex.NexHR.Controllers
         #region Overtime Request
         public ActionResult OvertimeRequest(OvertimeFilterViewModel model)
         {
-            if (model.EmployeeId != 0)
+            if (model.EmployeeId.HasValue)
             {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId };
+                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
                 model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
-            if (model.CreatedBy != 0)
+            if (model.CreatedBy.HasValue)
             {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy };
+                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
                 model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
