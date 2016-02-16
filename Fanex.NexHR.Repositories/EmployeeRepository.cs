@@ -1,15 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.23">Created</change>
-//   <change who="Anders.Le" date="2012.5.23">Modify Get function</change>
-//   <change who="Bradley.Mac" date="2014.3.7">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
     using System;
     using System.Collections;
