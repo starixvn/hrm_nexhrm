@@ -11,21 +11,13 @@ namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Employee Shift.
-    /// </summary>
     public class GetEmployeeShiftCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
         public override bool IsValid()
         {
-            if (Id > 0)
-            {
-                return true;
-            }
-
-            return false;
+            return EmployeeId > 0;
         }
 
         public override string GetSettingKey()

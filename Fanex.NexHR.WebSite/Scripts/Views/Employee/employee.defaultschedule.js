@@ -13,10 +13,10 @@ $(document).ready(function () {
     }
 
     $('#monthschedule').on('click', function () {
-        document.location = _global.root + 'employee/monthschedule/' + id;
+        document.location = _global.root + 'employee/monthschedule?employeeId=' + id;
     });
 
     $('#defaultschedule').on('click', function () {
-        document.location = _global.root + 'employee/defaultschedule/' + id;
+        document.location = _global.root + 'employee/defaultschedule?employeeId=' + id;
     });
 });

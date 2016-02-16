@@ -113,7 +113,7 @@ namespace Fanex.NexHR.Models
 
         public Toeic ToeicScore { get; set; }
 
-        public EmployeeShift WorkingCalendar { get; set; }
+        public DefaultSchedule DefaultSchedule { get; set; }
 
         public IList<short> RoleList
         {

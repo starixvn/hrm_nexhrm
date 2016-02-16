@@ -494,7 +494,7 @@ namespace Fanex.NexHR.Services
                 && (model.ForDate.DayOfWeek == DayOfWeek.Saturday || model.ForDate.DayOfWeek == DayOfWeek.Sunday))
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
-                leaders = this._employeeRepository.GetLeaders(getLeaderCriteria);
+                leaders = GetData<Employee>(getLeaderCriteria).ToList();
             }
             else
             {
@@ -502,7 +502,7 @@ namespace Fanex.NexHR.Services
                 {
                     Id = model.EmployeeId
                 };
-                leaders = this._employeeRepository.GetLeaders(criteria);
+                leaders = GetData<Employee>(criteria).ToList();
             }
             
             return leaders;
@@ -515,7 +515,7 @@ namespace Fanex.NexHR.Services
             IList<Employee> managers = null;
             IList<Employee> leaders = null;
             var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
-            leaders = this._employeeRepository.GetLeaders(criteria);
+            leaders = GetData<Employee>(criteria).ToList();
 
             subject = model.TotalDays > 1 
                 ? subject + " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate()
@@ -527,7 +527,7 @@ namespace Fanex.NexHR.Services
             if (model.LeaveTypeId == 26 || model.TotalDays >= 5)
             {
                 var getManagementsCriteria = new GetManagementsCriteria();
-                managers = this._employeeRepository.GetManagements(getManagementsCriteria);
+                managers = GetData<Employee>(getManagementsCriteria).ToList();
                 
                 if (managers != null && managers.Any())
                 {
@@ -590,7 +590,7 @@ namespace Fanex.NexHR.Services
                 TeamCodes = AppSetting.ProjectManagerTeams,
                 IgnoreTeams = AppSetting.IgnoreTeams
             };
-            var projectManagers = this._employeeRepository.GetEmployeeByTeams(getEmployeeByTeamsCriteria);
+            var projectManagers = GetData<Employee>(getEmployeeByTeamsCriteria);
 
             if (employees != null && projectManagers != null)
             {
@@ -660,8 +660,7 @@ namespace Fanex.NexHR.Services
         private void SendMailToRelatedPeople(RequestEntity request, string templateLeaveEmailToRelatedPath, string templateInOutEmailToRelatedPath)
         {
             var criteria = new GetEmployeeForRelatedTeamCriteria() { EmpId = request.Requester.Id };
-            var employees = this._employeeRepository.GetEmployeeForRelatedTeam(criteria)
-                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id);
+            var employees = GetData<Employee>(criteria).Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id);
 
             if (request.RequestType.Id == (int)RequestType.Leave)
             {
@@ -699,7 +698,7 @@ namespace Fanex.NexHR.Services
             body = string.Format(
                 body,
                 request.ModifiedBy.NickName,
-                string.Format("{0} ({1})", request.Requester.NickName, request.Requester.FullName),
+                request.Requester.DisplayName,
                 request.RequestType.Name,
                 request.FromDate.ToDateMonthYearFormatedDate(),
                 request.FromShift.Name, 

@@ -1,20 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -27,51 +12,18 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository employeeRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository = null)
         {
-            this._employeeRepository = employeeRepository ?? new EmployeeRepository();
-        }
-
-        public IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> leaders = new List<Employee>();
-            if (criteria.IsValid())
-            {
-                leaders = this._employeeRepository.GetLeaders(criteria);
-            }
-
-            return leaders;
-        }
-
-        public IList<Employee> GetManagements(GetManagementsCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> managements = new List<Employee>();
-            if (criteria.IsValid())
-            {
-                managements = this._employeeRepository.GetManagements(criteria);
-            }
-
-            return managements;
-        }
-
-        public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> employees = new List<Employee>();
-
-            if (criteria.IsValid())
-            {
-                employees = GetData<Employee>(criteria).ToList();
-            }
-
-            return employees;
+            this.employeeRepository = employeeRepository ?? new EmployeeRepository();
         }
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -80,7 +32,7 @@ namespace Fanex.NexHR.Services
             var employee = new Employee();
             if (criteria.IsValid())
             {
-                employee = _employeeRepository.GetById(criteria);
+                employee = employeeRepository.GetById(criteria);
             }
 
             return employee;
@@ -92,7 +44,7 @@ namespace Fanex.NexHR.Services
             var employee = new Employee();
             if (criteria.IsValid())
             {
-                employee = _employeeRepository.GetByDomainName(criteria);
+                employee = employeeRepository.GetByDomainName(criteria);
             }
 
             return employee;
@@ -104,82 +56,83 @@ namespace Fanex.NexHR.Services
             IList<Employee> lstEmployee = new List<Employee>();
             if (criteria.IsValid())
             {
-                lstEmployee = this._employeeRepository.Query(criteria);
+                lstEmployee = employeeRepository.Query(criteria);
             }
 
             return lstEmployee;
         }
 
-        public IList<Employee> GetEmployeeForRelatedTeam(GetEmployeeForRelatedTeamCriteria criteria)
+        public CommandResult Insert(InsertEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> lstEmployee = new List<Employee>();
+            CommandResult commandResult = new CommandResult();
             if (criteria.IsValid())
             {
-                lstEmployee = this._employeeRepository.GetEmployeeForRelatedTeam(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
-            return lstEmployee;
+            return commandResult;
         }
 
-        public int Insert(InsertEmployeeCriteria criteria)
+        public CommandResult Delete(DeleteEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            int inserted = -1;
+            CommandResult commandResult = new CommandResult();
             if (criteria.IsValid())
             {
-                inserted = this._employeeRepository.Insert(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
-            return inserted;
+            return commandResult;
         }
 
-        public bool Delete(DeleteEmployeeCriteria criteria)
+        public CommandResult Update(UpdateEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            bool deleted = false;
+            CommandResult commandResult = new CommandResult();
             if (criteria.IsValid())
             {
-                deleted = this._employeeRepository.Delete(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
-            return deleted;
+            return commandResult;
         }
 
-        public bool Update(UpdateEmployeeCriteria criteria)
+        public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            bool updated = false;
+            IList<Employee> employees = null;
+
             if (criteria.IsValid())
             {
-                updated = this._employeeRepository.Update(criteria);
+                employees = GetData<Employee>(criteria).ToList();
             }
 
-            return updated;
+            return employees ?? new List<Employee>();
         }
 
-        public EmployeeShift GetEmployeeShift(GetEmployeeShiftCriteria criteria)
+        public DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            EmployeeShift model = null;
+            DefaultSchedule employeeShift = null;
             if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetEmployeeShift(criteria);
+                employeeShift = GetDataEntity<DefaultSchedule>(criteria);
             }
 
-            return model;
+            return employeeShift;
         }
 
-        public bool UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria)
+        public CommandResult UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            bool updated = false;
+            CommandResult commandResult = new CommandResult();
             if (criteria.IsValid())
             {
-                updated = this._employeeRepository.UpdateEmployeeShift(criteria);
+                commandResult = Repository.Insert(criteria);
             }
 
-            return updated;
+            return commandResult;
         }
 
         public MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria)
@@ -188,7 +141,7 @@ namespace Fanex.NexHR.Services
             MySpaceViewModel space = new MySpaceViewModel();
             if (criteria.IsValid())
             {
-                space = this._employeeRepository.GetMySpace(criteria);
+                space = employeeRepository.GetMySpace(criteria);
             }
 
             return space;
@@ -200,7 +153,7 @@ namespace Fanex.NexHR.Services
             HRLeaderDashboardModel dashboard = new HRLeaderDashboardModel();
             if (criteria.IsValid())
             {
-                dashboard = this._employeeRepository.GetHRLeaderDashboard(criteria);
+                dashboard = GetDataEntity<HRLeaderDashboardModel>(criteria);
             }
 
             return dashboard;
@@ -212,7 +165,7 @@ namespace Fanex.NexHR.Services
             IList<WorkingScheduleModel> workingSchedule = new List<WorkingScheduleModel>();
             if (criteria.IsValid())
             {
-                workingSchedule = this._employeeRepository.GetWorkingSchedule(criteria);
+                workingSchedule = employeeRepository.GetWorkingSchedule(criteria);
             }
 
             return workingSchedule;
@@ -224,7 +177,7 @@ namespace Fanex.NexHR.Services
             IList<WorkingCalendarsViewModel> workingCalendar = new List<WorkingCalendarsViewModel>();
             if (criteria.IsValid())
             {
-                workingCalendar = this._employeeRepository.GetWorkingCalendars(criteria);
+                workingCalendar = employeeRepository.GetWorkingCalendars(criteria);
             }
 
             return workingCalendar;
@@ -236,7 +189,7 @@ namespace Fanex.NexHR.Services
             bool updated = false;
             if (criteria.IsValid())
             {
-                updated = this._employeeRepository.UpdateShift(criteria);
+                updated = employeeRepository.UpdateShift(criteria);
             }
 
             return updated;
@@ -266,7 +219,7 @@ namespace Fanex.NexHR.Services
 
         public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.GetAnnualLeaveTransactions(criteria);
+            return employeeRepository.GetAnnualLeaveTransactions(criteria);
         }
 
         public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
@@ -275,7 +228,7 @@ namespace Fanex.NexHR.Services
 
             if (criteria.IsValid())
             {
-                model = this._employeeRepository.GetAnnualLeaveTransactionById(criteria);
+                model = employeeRepository.GetAnnualLeaveTransactionById(criteria);
             }
 
             return model;
@@ -283,17 +236,17 @@ namespace Fanex.NexHR.Services
 
         public bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.DeleteAnnualLeaveTransaction(criteria);
+            return employeeRepository.DeleteAnnualLeaveTransaction(criteria);
         }
 
         public bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.UpdateAnnualLeaveTransaction(criteria);
+            return employeeRepository.UpdateAnnualLeaveTransaction(criteria);
         }
 
         public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
         {
-            return this._employeeRepository.InsertAnnualLeaveTransaction(criteria);
+            return employeeRepository.InsertAnnualLeaveTransaction(criteria);
         }
 
         public CommandResult AddLeaveDeduction(ICriteria criteria)
@@ -346,12 +299,12 @@ namespace Fanex.NexHR.Services
 
         public IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria)
         {
-            return this._employeeRepository.GetUserChangedShift(criteria);
+            return employeeRepository.GetUserChangedShift(criteria);
         }
 
         public IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria)
         {
-            return this._employeeRepository.GetHalfDayOffs(criteria);
+            return employeeRepository.GetHalfDayOffs(criteria);
         }
 
         /// <summary>
@@ -361,7 +314,7 @@ namespace Fanex.NexHR.Services
         /// <returns>The range date.</returns>
         public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)
         {
-            return this._employeeRepository.GetRangeDate(criteria);
+            return employeeRepository.GetRangeDate(criteria);
         }
 
         /// <summary>
@@ -371,7 +324,7 @@ namespace Fanex.NexHR.Services
         /// <returns>List of date.</returns>
         public IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
         {
-            return this._employeeRepository.GetDisableRequestDate(criteria);
+            return employeeRepository.GetDisableRequestDate(criteria);
         }
 
         #region Get leave summary by team
@@ -419,7 +372,7 @@ namespace Fanex.NexHR.Services
                 criteria.Enable = criteria.Enable == true ? false : true;
             }
 
-            return this._employeeRepository.GetEmployeeToeicScore(criteria);
+            return employeeRepository.GetEmployeeToeicScore(criteria);
         }
 
         /// <summary>
@@ -434,7 +387,7 @@ namespace Fanex.NexHR.Services
 
             if (criteria.IsValid())
             {
-                lstEmployee = this._employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                lstEmployee = employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
 
             return lstEmployee;
@@ -451,7 +404,7 @@ namespace Fanex.NexHR.Services
             IList<Employee> lstEmployee = new List<Employee>();
             if (criteria.IsValid())
             {
-                lstEmployee = this._employeeRepository.GetUpdatingScoreRelatedPeople(criteria);
+                lstEmployee = employeeRepository.GetUpdatingScoreRelatedPeople(criteria);
             }
 
             return lstEmployee;
@@ -497,7 +450,7 @@ namespace Fanex.NexHR.Services
         {
             if (criteria.IsValid())
             {
-                return _employeeRepository.GetMissingCheckInOutEmployees(criteria);
+                return employeeRepository.GetMissingCheckInOutEmployees(criteria);
             }
 
             return new List<MissingCheckInOutModel>();

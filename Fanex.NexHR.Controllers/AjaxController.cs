@@ -58,20 +58,6 @@ namespace Fanex.NexHR.Controllers
             _departmentService = departmentService ?? new DepartmentService();
         }
 
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public bool DeleteEmployee(int id, DateTime resignedDate)
-        {
-            var criteria = new DeleteEmployeeCriteria()
-            {
-                Id = id,
-                ResignedDate = resignedDate
-            };
-            bool deleted = _employeeService.Delete(criteria);
-
-            return deleted;
-        }
-
         [Authorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
@@ -95,22 +81,6 @@ namespace Fanex.NexHR.Controllers
 
             string requestDetail = RequestService.ToRequestMessage(request);
             return requestDetail;
-        }
-
-        [Authorize(Roles = "AssistantLeader,HR")]
-        public JsonResult GetMembersByManager(string keyword, int? groupId = null)
-        {
-            var role = this.CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
-            var getMemberByManager = new GetMemberByManagerCriteria
-            {
-                ManagerId = this.CurrentUser.Id,
-                Role = (short)role,
-                Keyword = keyword,
-                GroupId = groupId,
-                ExcludedManager = false
-            };
-
-            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "HR")]

@@ -12,9 +12,9 @@ namespace Fanex.NexHR.Models
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    public class EmployeeShift
+    public class DefaultSchedule
     {
-        public EmployeeShift()
+        public DefaultSchedule()
         {
             Shifts = new List<SelectListItem>();
         }

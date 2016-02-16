@@ -13,7 +13,7 @@ $(document).ready(function () {
 			}
 
 			$.ajax({
-				url: _global.root + 'ajax/getmembersbymanager',
+				url: _global.root + 'employee/getmembersbymanager',
 				data: {
 					keyword: term,
 					groupId: $('#TeamId').val()

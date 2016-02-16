@@ -23,19 +23,16 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Employee repository.
-    /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
         public Employee GetById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var employee = db.QueryEntity<Employee, EmployeeShift, Toeic, Team, JobTitle, Employee>(
+                var employee = db.QueryEntity<Employee, DefaultSchedule, Toeic, Team, JobTitle, Employee>(
                     (e, es, to, te, job) =>
                     {
-                        e.WorkingCalendar = es;
+                        e.DefaultSchedule = es;
                         e.ToeicScore = to;
                         e.Team = te;
                         e.JobTitle = job;
@@ -52,10 +49,10 @@ namespace Fanex.NexHR.Repositories
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var employee = db.QueryEntity<Employee, EmployeeShift, Toeic, Team, JobTitle, Employee>(
+                var employee = db.QueryEntity<Employee, DefaultSchedule, Toeic, Team, JobTitle, Employee>(
                      (e, es, to, te, job) =>
                      {
-                         e.WorkingCalendar = es;
+                         e.DefaultSchedule = es;
                          e.ToeicScore = to;
                          e.Team = te;
                          e.JobTitle = job;
@@ -68,7 +65,7 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        public IList<Employee> Query(GetAllEmployeeCriteria criteria)
+        public IList<Employee> Query(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -83,127 +80,6 @@ namespace Fanex.NexHR.Repositories
                      criteria.GetSpParams());
 
                 return entityList.ToList();
-            }
-        }
-
-        /// <summary>
-        /// Get employee for related team.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entityList = db.Query<Employee>(criteria.GetSpParams()).ToList();
-
-                return entityList;
-            }
-        }
-
-        /// <summary>
-        /// Get employee by teams.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetEmployeeByTeams(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entityList = db.Query<Employee>(criteria.GetSpParams()).ToList();
-
-                return entityList;
-            }
-        }
-
-        /// <summary>
-        /// Get leaders.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetLeaders(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Employee>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Get managements.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of employee.</returns>
-        public IList<Employee> GetManagements(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Employee>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Insert employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public int Insert(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return (int)db.ExecuteScalar(criteria.GetSpParams());
-            }
-        }
-
-        /// <summary>
-        /// Delete employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public bool Delete(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Update employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public bool Update(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Get employee shift.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The employee shift.</returns>
-        public EmployeeShift GetEmployeeShift(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.QueryEntity<EmployeeShift>(criteria.GetSpParams());
-            }
-        }
-
-        /// <summary>
-        /// Update employee shift.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public bool UpdateEmployeeShift(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
             }
         }
 
@@ -239,24 +115,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Get HR leader dashboard.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>HR leader dashboard model.</returns>
-        public HRLeaderDashboardModel GetHRLeaderDashboard(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.QueryEntity<HRLeaderDashboardModel>(criteria.GetSpParams());
-            }
-        }
-
-        /// <summary>
-        /// Get working schedule.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of working schedule model.</returns>
         public IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -285,11 +143,6 @@ namespace Fanex.NexHR.Repositories
             }
         }
 
-        /// <summary>
-        /// Get working calendar.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of working calendar view model.</returns>
         public IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

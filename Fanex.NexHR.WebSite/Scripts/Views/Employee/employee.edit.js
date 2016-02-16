@@ -358,13 +358,13 @@ $(document).ready(function () {
                 return;
             }
 
-            $.post(_global.root + 'ajax/DeleteEmployee',
-            { id: $('#Id').val(), resignedDate: resignedDate },
+            $.post(_global.root + 'employee/Delete',
+            { employeeId: $('#Id').val(), resignedDate: resignedDate },
             function (response) {
-                if (response) {
+                if (response.Code === 0) {
                     document.location = '/employee/usermanagement';
                 } else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             }).error(function () { alert(_messages.errorTryAgain); });
         });

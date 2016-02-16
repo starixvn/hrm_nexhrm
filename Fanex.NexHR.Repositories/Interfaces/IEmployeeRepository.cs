@@ -22,29 +22,9 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         Employee GetByDomainName(ICriteria criteria);
 
-        IList<Employee> Query(GetAllEmployeeCriteria criteria);
-
-        IList<Employee> GetEmployeeForRelatedTeam(ICriteria criteria);
-
-        IList<Employee> GetEmployeeByTeams(ICriteria criteria);
-
-        IList<Employee> GetLeaders(ICriteria criteria);
-
-        IList<Employee> GetManagements(ICriteria criteria);
-
-        int Insert(ICriteria criteria);
-
-        bool Delete(ICriteria criteria);
-
-        bool Update(ICriteria criteria);
-
-        EmployeeShift GetEmployeeShift(ICriteria criteria);
-
-        bool UpdateEmployeeShift(ICriteria criteria);
+        IList<Employee> Query(ICriteria criteria);
 
         MySpaceViewModel GetMySpace(ICriteria criteria);
-
-        HRLeaderDashboardModel GetHRLeaderDashboard(ICriteria criteria);
 
         IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 

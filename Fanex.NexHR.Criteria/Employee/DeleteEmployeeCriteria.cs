@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Criteria.Employee
     /// </summary>
     public class DeleteEmployeeCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
         public DateTime ResignedDate { get; set; }
 

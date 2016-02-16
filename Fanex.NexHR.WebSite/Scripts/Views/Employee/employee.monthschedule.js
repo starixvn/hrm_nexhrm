@@ -18,7 +18,7 @@ function updateShiftDialog() {
 
 $(document).ready(function () {
     $('#defaultschedule').on('click', function () {
-        document.location = _global.root + 'employee/defaultschedule/' + id;
+        document.location = _global.root + 'employee/defaultschedule?employeeId=' + id;
     });
 
     $('#update').on('click', function () {

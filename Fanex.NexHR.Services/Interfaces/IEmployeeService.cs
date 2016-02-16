@@ -27,23 +27,17 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<Employee> Query(GetAllEmployeeCriteria criteria);
 
-        IList<Employee> GetEmployeeForRelatedTeam(GetEmployeeForRelatedTeamCriteria criteria);
+        CommandResult Insert(InsertEmployeeCriteria criteria);
 
-        IList<Employee> GetLeaders(GetLeadersOfEmployeeCriteria criteria);
+        CommandResult Delete(DeleteEmployeeCriteria criteria);
 
-        IList<Employee> GetManagements(GetManagementsCriteria criteria);
+        CommandResult Update(UpdateEmployeeCriteria criteria);
 
         IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);
 
-        int Insert(InsertEmployeeCriteria criteria);
+        DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria);
 
-        bool Delete(DeleteEmployeeCriteria criteria);
-
-        bool Update(UpdateEmployeeCriteria criteria);
-
-        EmployeeShift GetEmployeeShift(GetEmployeeShiftCriteria criteria);
-
-        bool UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria);
+        CommandResult UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria);
 
         MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
 

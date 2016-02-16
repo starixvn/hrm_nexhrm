@@ -148,14 +148,14 @@
         </td>
         <td>
             {{if !IsDeleted}}
-                <a href="/employee/edit/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            <a href="/employee/edit?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
                 -
             {{/if}}
         </td>
         <td>
             {{if !IsDeleted}}
-                <a href="/employee/defaultschedule/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            <a href="/employee/defaultschedule?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
                 -
             {{/if}}

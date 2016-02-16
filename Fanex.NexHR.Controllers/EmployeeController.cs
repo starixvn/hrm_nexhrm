@@ -72,11 +72,11 @@
             return View(model);
         }
 
-        public ActionResult Detail(int id = -1)
+        public ActionResult Detail(int employeeId = -1)
         {
             var criteria = new GetEmployeeByIdCriteria() 
-            { 
-                EmployeeId = id 
+            {
+                EmployeeId = employeeId 
             };
             Employee model = _employeeService.GetEmployeeById(criteria);
             return View(model);
@@ -113,7 +113,7 @@
             {
                 model.DomainUsername = ConfigurationManager.AppSettings["domain"] + model.DomainUsername;
 
-                var insertEmployeeCriteria = new InsertEmployeeCriteria()
+                var criteria = new InsertEmployeeCriteria()
                 {
                     Code = model.Code,
                     CreateBy = CurrentUser.Id,
@@ -131,14 +131,14 @@
                     WedShift = model.WedShift
                 };
 
-                int id = _employeeService.Insert(insertEmployeeCriteria);
-                if (id == -1)
+                CommandResult result = _employeeService.Insert(criteria);
+                if (result.Code != 0)
                 {
-                    ModelState.AddModelError(string.Empty, Messages.DuplicateEmployeeCode);
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
                 else
                 {
-                    return RedirectToAction("Edit", new { id = id });
+                    return RedirectToAction("Edit", new { id = criteria.Id });
                 }
             }
             else
@@ -150,9 +150,9 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult Edit(int id = -1)
+        public ActionResult Edit(int employeeId = -1)
         {
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
             Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee) 
@@ -175,11 +175,11 @@
             if (ModelState.IsValid)
             {
                 var criteria = FillDataUpdateEmployeeCriteria(model);
-                bool result = _employeeService.Update(criteria);
+                CommandResult result = _employeeService.Update(criteria);
                 ViewBag.Updated = result;
 
                 // update current user?
-                if (result && CurrentUser.Id == model.Id)
+                if (result.Code == 0 && CurrentUser.Id == model.Id)
                 {
                     var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
                     Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
@@ -195,14 +195,29 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult DefaultSchedule(int id = -1)
+        [HttpPost]
+        public CommandResult Delete(int employeeId, DateTime resignedDate)
         {
-            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { Id = id };
-            EmployeeShift model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
+            var criteria = new DeleteEmployeeCriteria()
+            {
+                EmployeeId = employeeId,
+                ResignedDate = resignedDate
+            };
+            CommandResult result = _employeeService.Delete(criteria);
+
+            return result;
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult DefaultSchedule(int employeeId = -1)
+        {
+            Employee employee = GetEmployeeById(employeeId);
+            var employeeShiftCriteria = new GetEmployeeShiftCriteria() { EmployeeId = employeeId };
+            DefaultSchedule model = _employeeService.GetEmployeeShift(employeeShiftCriteria);
 
             if (model != null)
             {
-                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
                 ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Shifts = _shiftService.GetSelectList();
             }
@@ -212,13 +227,13 @@
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult DefaultSchedule(EmployeeShift model)
+        public ActionResult DefaultSchedule(DefaultSchedule model)
         {
             if (ModelState.IsValid)
             {
                 var criteria = new UpdateEmployeeShiftCriteria()
                 {
-                    Id = model.EmpId,
+                    EmployeeId = model.EmpId,
                     FriShift = model.FriShiftId,
                     MonShift = model.MonShiftId,
                     SatShift = model.SatShiftId,
@@ -227,11 +242,12 @@
                     TueShift = model.TueShiftId,
                     WedShift = model.WedShiftId
                 };
-                ViewBag.Updated = _employeeService.UpdateEmployeeShift(criteria);
+                CommandResult result = _employeeService.UpdateEmployeeShift(criteria);
+                ViewBag.Updated = result.Code == 0;
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.EmpId };
@@ -242,10 +258,9 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult MonthSchedule(int id = -1)
+        public ActionResult MonthSchedule(int employeeId = -1)
         {
-            ViewBag.Id = id;
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = id };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
             ViewBag.Shifts = _shiftService.GetSelectList();
 
@@ -407,6 +422,22 @@
             return View(CurrentUser);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR")]
+        public JsonResult GetMembersByManager(string keyword, int? groupId = null)
+        {
+            var role = CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
+            var getMemberByManager = new GetMemberByManagerCriteria
+            {
+                ManagerId = this.CurrentUser.Id,
+                Role = (short)role,
+                Keyword = keyword,
+                GroupId = groupId,
+                ExcludedManager = false
+            };
+
+            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
+        }
+
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {
             var criteria = new UpdateEmployeeCriteria()
@@ -515,6 +546,16 @@
 
             IList<Team> teams = _teamService.GetAll(criteria);
             return teams;
+        }
+
+        private Employee GetEmployeeById(int employeeId)
+        {
+            var criteria = new GetEmployeeByIdCriteria()
+            {
+                EmployeeId = employeeId
+            };
+
+            return _employeeService.GetEmployeeById(criteria);
         }
     }
 }
