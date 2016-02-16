@@ -23,12 +23,12 @@
         public DateTime ToDate { get; set; }
 
         [Display(Name = "CreateAccount", ResourceType = typeof(Labels))]
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
 
         public string CreatedName { get; set; }
 
         [Display(Name = "Employee", ResourceType = typeof(Labels))]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public string Employee { get; set; }
 

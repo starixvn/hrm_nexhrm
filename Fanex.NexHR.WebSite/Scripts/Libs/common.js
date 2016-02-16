@@ -656,23 +656,29 @@ function initAutocomplete(selectorName, selectorId) {
         minLength: 1,
         select: function (event, ui) {
             event.preventDefault();
-            var nickName = ui.item.label;
+            nickName = ui.item.label;
             $(selectorName).val(nickName);
             $(selectorId).val(ui.item.value);
         },
         focus: function (event, ui) {
             event.preventDefault();
-            var nickName = ui.item.label;
+            nickName = ui.item.label;
             $(selectorName).val(nickName);
             $(selectorId).val(ui.item.value);
         },
         change: function (event, ui) {
+            event.preventDefault();
             if (ui && ui.item) {
-                var nickName = ui.item.label;
+                nickName = ui.item.label;
                 $(selectorName).val(nickName);
                 $(selectorId).val(ui.item.value);
-            } else {
-                $(selectorId).val('0');
+            }
+            else {
+                if ($(selectorName).val() === "") {
+                    $(selectorId).val('');
+                } else {
+                    $(selectorId).val('0');
+                }
             }
         }
     });

@@ -9,7 +9,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
 
         public int Status { get; set; }
 
