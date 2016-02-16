@@ -45,7 +45,7 @@ function bindPendingMenu() {
         items: {
             "approve": { name: "Approve", icon: "approve" },
             "reject": { name: "Reject", icon: "reject" },
-            "edit": { name: "Edit", icon: "edit", visible: !isHRRole },
+            "edit": { name: "Edit", icon: "edit", visible: !isOnlyHRRole },
         }
     });
 };
