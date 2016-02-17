@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-input">
-                                    <div class="col">
+                                    <div class="col m-r--m">
                                         <div class="left label--m">
                                             @Html.LabelFor(model => model.SendMail, Labels.SendMail)
                                         </div>
@@ -107,6 +107,21 @@
                                         </div>
                                         <div class="left label--xl">
                                             <label for="SendMail">@Labels.SendToAllEmployee</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.Status)
+                                        </div>
+                                        <div class="left input--m">
+                                            @{
+                                                var status = new List<SelectListItem>
+                                                {
+                                                    new SelectListItem() {Text = "Active", Value = "1", Selected = true},
+                                                    new SelectListItem() {Text = "Deactive", Value = "0"},
+                                                };
+                                            }
+                                            @Html.RadioButtonList(model => model.Status, status)
                                         </div>
                                     </div>
                                 </div>

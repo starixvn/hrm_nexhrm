@@ -35,6 +35,8 @@ namespace Fanex.NexHR.Criteria.Memo
 
         public int Category { get; set; }
 
+        public bool Status { get; set; }
+
         [SpParam(SqlParamName = "Type")]
         public int MemoType { get; set; }
 

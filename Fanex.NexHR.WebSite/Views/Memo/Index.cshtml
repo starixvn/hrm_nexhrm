@@ -103,7 +103,7 @@
         <td>
             {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
         </td>
-        <td>{{:Status==0?"Active":"Deactive"}}</td>
+        <td>{{:Status==1?"Active":"Deactive"}}</td>
         {{if ~isHRRole}}
             <td title="Edit">
                 <a href="/memo/edit/{{:Id}}">

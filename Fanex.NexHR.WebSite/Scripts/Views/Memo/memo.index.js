@@ -9,7 +9,7 @@ function index() {
 
 function deleteMemo(id, fileName, type) {
     confirm('Are you sure you want to delete this memo?', function () {
-        $.post(_global.root + 'ajax/deletememo', { id: id }, function () {
+        $.post(_global.root + 'memo/deletememo', { id: id }, function () {
             $('#row_' + id).remove();
             autoIndex();
             if (type === 1) {

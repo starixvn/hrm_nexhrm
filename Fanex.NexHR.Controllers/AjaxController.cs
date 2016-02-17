@@ -233,14 +233,6 @@ namespace Fanex.NexHR.Controllers
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool DeleteMemo(int id)
-        {
-            var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
-            return _memoService.Delete(deleteMemoCriteria);
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
         public int AddNewTeam(TeamViewModel model)
         {
             var criteria = new AddNewTeamCriteria()

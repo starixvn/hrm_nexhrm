@@ -100,7 +100,8 @@ namespace Fanex.NexHR.Controllers
                     SentTo = model.SentTo,
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
-                    MemoType = model.MemoType
+                    MemoType = model.MemoType,         
+                    Status = model.Status==1?true:false
                 };
 
                 ViewBag.Updated = _memoService.Update(updateMemoCriteria);
@@ -160,7 +161,8 @@ namespace Fanex.NexHR.Controllers
                     SentTo = model.SentTo,
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
-                    MemoType = model.MemoType
+                    MemoType = model.MemoType,
+                    Status = model.Status == 1 ? true : false
                 };
 
                 int id = _memoService.Insert(insertMemoCriteria);
@@ -185,6 +187,14 @@ namespace Fanex.NexHR.Controllers
             Memo memo = _memoService.GetById(getMemoByIdCriteria);
 
             return View(memo);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool DeleteMemo(int id)
+        {
+            var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
+            return _memoService.Delete(deleteMemoCriteria);
         }
     }
 }
