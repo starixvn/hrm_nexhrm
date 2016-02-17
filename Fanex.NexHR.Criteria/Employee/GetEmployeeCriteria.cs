@@ -12,7 +12,7 @@
 
         public int TotalRow { get; set; }
 
-        [SpParam(SqlParamName="GroupId")]
+        [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
         public int? Enable { get; set; }

@@ -9,13 +9,13 @@
 
 namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
-using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The base service.

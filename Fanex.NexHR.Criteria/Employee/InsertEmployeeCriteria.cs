@@ -31,7 +31,7 @@
 
         public int? SunShift { get; set; }
 
-        [SpParam(SqlParamName="GroupId")]
+        [SpParam(SqlParamName = "GroupId")]
         public int TeamId { get; set; }
 
         public DateTime Createddate { get; set; }
