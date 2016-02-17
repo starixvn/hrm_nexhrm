@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/Common/vendors/tipsy - Copy.css",
+    "inputFile": "Content/Common/vendors/tipsy - Copy.scss"
+  },
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.scss"
+  }
+]

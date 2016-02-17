@@ -20,9 +20,10 @@
     <RestorePackages>true</RestorePackages>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -209,6 +210,10 @@
     <None Include="App_Data\ExcelTemplates\EmployeeAttendace.xls" />
     <None Include="App_Data\ExcelTemplates\EmployeeProfile.xls" />
     <None Include="App_Data\ExcelTemplates\TotalWorkingHours.xls" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Content\Common\base\_base.scss" />
     <None Include="Content\Common\base\_typhography.scss" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.eot" />
@@ -256,6 +261,9 @@
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
