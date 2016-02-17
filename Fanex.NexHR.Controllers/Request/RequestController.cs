@@ -159,7 +159,7 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            request.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
 
             request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
             request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
@@ -229,7 +229,7 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            request.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
 
             request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
             request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });

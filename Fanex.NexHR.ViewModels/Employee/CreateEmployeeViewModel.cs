@@ -1,19 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CreateEmployeeViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Tim.Trinh" date="2015.01.04">Add Teams, Shifts</change>
-// </history>
-
-namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels
 {
+    using Fanex.NexHR.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-    using Fanex.NexHR.Models;
 
     public class CreateEmployeeViewModel
     {
@@ -48,8 +37,8 @@ namespace Fanex.NexHR.ViewModels
 
         public int ProcessBy { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
 
-        public IList<SelectListItem> ShiftCollection { get; set; }
+        public IList<Shift> Shifts { get; set; }
     }
 }

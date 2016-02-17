@@ -76,7 +76,7 @@
     <Compile Include="Employee\GetOpenAndCloseAnnualBalanceCriteria.cs" />
     <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\DeleteEmployeeCriteria.cs" />
-    <Compile Include="Employee\GetAllEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetAnnualLeaveByIdCriteria.cs" />
     <Compile Include="Employee\GetAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
@@ -90,7 +90,6 @@
     <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
     <Compile Include="Employee\GetMySpaceCriteria.cs" />
     <Compile Include="Employee\GetMissingCheckInOutEmployeesCriteria.cs" />
-    <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeForRelatedTeamCriteria.cs" />
     <Compile Include="Employee\GetEmployeeShiftCriteria.cs" />
     <Compile Include="Employee\GetUpdatingScoreRelatedPeopleCriteria.cs" />
@@ -169,7 +168,7 @@
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />
     <Compile Include="Team\DeleteTeamCriteria.cs" />
-    <Compile Include="Team\GetAllTeamCriteria.cs" />
+    <Compile Include="Team\GetTeamCriteria.cs" />
     <Compile Include="Team\GetSubTeamOfEmployeeCriteria.cs" />
     <Compile Include="Team\GetTeamByIdCriteria.cs" />
     <Compile Include="Team\GetTeamByManagerIdCriteria.cs" />

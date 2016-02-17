@@ -2527,7 +2527,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old Scores (L/R/S/W).
+        ///   Looks up a localized string similar to Old Scores (L/R).
         /// </summary>
         public static string OldScores {
             get {

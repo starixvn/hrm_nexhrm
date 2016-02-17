@@ -72,7 +72,7 @@
                                     @Html.LabelFor(model => model.TeamId, Labels.Team)
                                 </div>
                                 <div class="col left select--l">
-                                    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"))
+                                    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"))
                                 </div>
                             </div>
                         </div>
@@ -84,31 +84,31 @@
                                 <div class="left">
                                     <div class="col">
                                         <label>@Labels.Sun</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.SunShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.SunShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Mon</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.MonShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.MonShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Tue</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.TueShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.TueShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Wed</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.WedShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.WedShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Thu</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.ThuShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.ThuShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Fri</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.FriShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.FriShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                     <div class="col">
                                         <label>@Labels.Sat</label>
-                                        <div class="select--xs">@Html.DropDownListFor(model => model.SatShift, Model.ShiftCollection, Labels.Off)</div>
+                                        <div class="select--xs">@Html.DropDownListFor(model => model.SatShift, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)</div>
                                     </div>
                                 </div>
                             </div>

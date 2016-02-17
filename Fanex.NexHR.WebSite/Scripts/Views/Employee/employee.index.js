@@ -10,7 +10,7 @@ function index() {
 }
 
 function query(isFirstLoad) {
-    var keyword = $('#keyword').val();
+    var keyword = $('#Keyword').val();
 
     var enable = null,
         isDelete = null,
@@ -18,7 +18,7 @@ function query(isFirstLoad) {
 
     $.ajax({
         url: _global.root + 'api/employee/getemployees',
-        data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
+        data: { query: keyword, teamId: $('#TeamId').val(), enable: enable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -65,7 +65,7 @@ function query(isFirstLoad) {
         }
     });
 
-    $('#keyword').focus().select();
+    $('#Keyword').focus().select();
 }
 
 function eventSorting() {
@@ -114,13 +114,13 @@ function eventExportExcel() {
             jobTitleId = null;
 
 
-        window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#keyword').val() + '&groupId=' + $('#group').val() +
-            '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
+        window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#Keyword').val() + '&teamId=' + $('#TeamId').val() +
+            '&enable=' + enable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
 }
 
 $(document).ready(function () {
-    $('#keyword').keyup(function (event) {
+    $('#Keyword').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);
         }
@@ -129,7 +129,7 @@ $(document).ready(function () {
     var q = getParam('query');
     if (q !== null) {
         var decode = decodeURIComponent(q);
-        $('#keyword').val(decode);
+        $('#Keyword').val(decode);
     }
 
     eventSorting();

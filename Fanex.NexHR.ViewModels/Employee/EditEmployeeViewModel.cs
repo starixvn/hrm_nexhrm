@@ -9,6 +9,9 @@
 
     public class EditEmployeeViewModel
     {
+        public EditEmployeeViewModel()
+            : this(null)
+        { }
         public EditEmployeeViewModel(Employee employee = null)
         {
             InitData(employee);

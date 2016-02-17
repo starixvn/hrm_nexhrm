@@ -65,7 +65,7 @@
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />
-    <Compile Include="UserManagementViewModel.cs" />
+    <Compile Include="Employee\UserManagementViewModel.cs" />
     <Compile Include="LeaveDeductionViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />
     <Compile Include="EmployeeBirthdayViewModel.cs" />
@@ -88,14 +88,14 @@
     <Compile Include="RequestsMonitoringViewModel.cs" />
     <Compile Include="RequestViewModel.cs" />
     <Compile Include="SearchEmployeeModel.cs" />
-    <Compile Include="StaffInfoViewModel.cs" />
+    <Compile Include="Employee\StaffInfoViewModel.cs" />
     <Compile Include="TeamViewModel.cs" />
     <Compile Include="TimeRecordViewModel.cs" />
     <Compile Include="TimesheetViewModel.cs" />
     <Compile Include="LeaveRequestViewModel.cs" />
     <Compile Include="CheckInOutRequestViewModel.cs" />
     <Compile Include="LateInEarlyOutRequestViewModel.cs" />
-    <Compile Include="CreateEmployeeViewModel.cs" />
+    <Compile Include="Employee\CreateEmployeeViewModel.cs" />
     <Compile Include="EmployeeAttendanceViewModel.cs" />
     <Compile Include="MySpaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

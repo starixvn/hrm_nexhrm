@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
@@ -17,7 +17,6 @@
     using Simplicode.Imaging.Filters;
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -39,11 +38,11 @@
         }
 
         public EmployeeController(
-            IEmployeeService employeeService = null,
-            ITeamService teamService = null,
-            IJobTitleService jobTitleService = null,
-            IShiftService shiftService = null,
-            IToeicService toeicService = null)
+            IEmployeeService employeeService,
+            ITeamService teamService,
+            IJobTitleService jobTitleService,
+            IShiftService shiftService,
+            IToeicService toeicService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
@@ -55,19 +54,19 @@
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
+            model.Teams = GetTeam();
 
             return View(model);
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult UserManagement(string jobTitleId = "")
+        public ActionResult UserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                TeamCollection = GetTeam(),
-                JobTitleCollection = GetJobTitle()
+                Teams = GetTeam(),
+                JobTitles = GetJobTitle()
             };
 
             return View(model);
@@ -86,9 +85,6 @@
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
-            IList<SelectListItem> shifts = _shiftService.GetSelectList();
-
             var model = new CreateEmployeeViewModel()
             {
                 MonShift = 1,
@@ -96,8 +92,8 @@
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                TeamCollection = teams,
-                ShiftCollection = shifts
+                Teams = GetTeam(),
+                Shifts = GetShift()
             };
 
             return View(model);
@@ -107,12 +103,9 @@
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
-            model.ShiftCollection = _shiftService.GetSelectList();
-            model.TeamCollection = _teamService.GetAll(new GetAllTeamCriteria());
-
             if (ModelState.IsValid)
             {
-                model.DomainUsername = ConfigurationManager.AppSettings["domain"] + model.DomainUsername;
+                model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
 
                 var criteria = new InsertEmployeeCriteria()
                 {
@@ -122,7 +115,7 @@
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
                     FullName = model.FullName,
-                    MainGroupId = model.TeamId,
+                    TeamId = model.TeamId,
                     MonShift = model.MonShift,
                     NickName = model.NickName,
                     TueShift = model.TueShift,
@@ -147,6 +140,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
+            model.Teams = GetTeam();
+            model.Shifts = GetShift();
             return View(model);
         }
 
@@ -170,9 +165,6 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
         {
-            model.Teams = GetTeam();
-            model.JobTitles = GetJobTitle();
-
             if (ModelState.IsValid)
             {
                 var criteria = FillDataUpdateEmployeeCriteria(model);
@@ -198,6 +190,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
+            model.Teams = GetTeam();
+            model.JobTitles = GetJobTitle();
             return View(model);
         }
 
@@ -220,7 +214,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
-            model.Shifts = _shiftService.GetSelectList();
+            model.Shifts = GetShift();
 
             return View(model);
         }
@@ -259,7 +253,7 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Shifts = _shiftService.GetSelectList();
+            model.Shifts = GetShift();
             return View(model);
         }
 
@@ -523,11 +517,11 @@
 
         private IEnumerable<Employee> GetAllEmployees()
         {
-            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            var getAllEmployeeCriteria = new GetEmployeeCriteria()
             {
                 Query = null,
-                GroupId = null,
-                TitleId = null,
+                TeamId = null,
+                JobTitleId = null,
                 Enable = null,
                 IsDelete = null,
                 PageNumber = 1,
@@ -548,7 +542,7 @@
 
         private IList<Team> GetTeam()
         {
-            var criteria = new GetAllTeamCriteria();
+            var criteria = new GetTeamCriteria();
 
             IList<Team> teams = _teamService.GetAll(criteria);
             return teams;

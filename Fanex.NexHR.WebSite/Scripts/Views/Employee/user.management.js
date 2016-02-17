@@ -11,10 +11,10 @@ function index() {
 
 function query(jobTitleId, isFirstLoad) {
     if (jobTitleId === undefined || jobTitleId === '') {
-        jobTitleId = $('#title').val();
+        jobTitleId = $('#JobTitleId').val();
     }
 
-    var keyword = $('#keyword').val(),
+    var keyword = $('#Keyword').val(),
         enable = null;
 
     if ($("#enable").prop("checked")) {
@@ -36,7 +36,7 @@ function query(jobTitleId, isFirstLoad) {
 
     $.ajax({
         url: _global.root + 'api/employee/getemployees',
-        data: { query: keyword, groupId: $('#group').val(), enable: enable, isDelete: isDelete, titleId: jobTitleId, sort: JSON.stringify(sorts) },
+        data: { query: keyword, teamId: $('#TeamId').val(), enable: enable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -81,12 +81,12 @@ function query(jobTitleId, isFirstLoad) {
         }
     });
 
-    $('#keyword').focus().select();
+    $('#Keyword').focus().select();
 }
 
 function eventSorting(jobTitleId) {
     if (jobTitleId === undefined || jobTitleId === '') {
-        jobTitleId = $('#title').val();
+        jobTitleId = $('#JobTitleId').val();
     }
 
     $('th.col-sorter').on('click', function () {
@@ -127,7 +127,7 @@ function refreshSorting() {
 
 function eventExportExcel(jobTitleId) {
     if (jobTitleId === undefined || jobTitleId === '') {
-        jobTitleId = $('#title').val();
+        jobTitleId = $('#JobTitleId').val();
     }
 
     $('#exportExcel').on('click', function (evt) {
@@ -151,22 +151,22 @@ function eventExportExcel(jobTitleId) {
             isDelete = null;
         }
 
-        window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#keyword').val() + '&groupId=' + $('#group').val() +
-            '&enable=' + enable + '&isDelete=' + isDelete + '&titleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
+        window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#Keyword').val() + '&teamId=' + $('#TeamId').val() +
+            '&enable=' + enable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
 }
 
 $(document).ready(function () {
     var enable = null,
-        jobTitleId = $('#jobtitleid').val();
+        jobTitleId = $('#JobTitleId').val();
 
-    $("#title").val(jobTitleId);
-    $('#title').material_select();
+    $("#JobTitleId").val(jobTitleId);
+    $('#JobTitleId').material_select();
 
     eventSorting(jobTitleId);
     eventExportExcel(jobTitleId);
 
-    $('#keyword').keyup(function (event) {
+    $('#Keyword').keyup(function (event) {
         if (event.keyCode === 13) {
             query(jobTitleId, false);
         }
@@ -174,7 +174,7 @@ $(document).ready(function () {
 
     var q = getParam('query');
     if (q !== null) {
-        $('#keyword').val(q);
+        $('#Keyword').val(q);
     }
 
     //search onload

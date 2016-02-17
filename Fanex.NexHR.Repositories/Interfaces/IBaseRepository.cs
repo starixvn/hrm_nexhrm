@@ -22,5 +22,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
         CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false);
 
         CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false);
+
+        CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false);
     }
 }

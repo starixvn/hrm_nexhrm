@@ -50,7 +50,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            IList<Team> teams = _teamService.GetAll(new GetAllTeamCriteria());
+            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
 
             var model = new LeaveSummaryViewModel
             {
@@ -67,7 +67,7 @@ namespace Fanex.NexHR.Controllers
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Index(LeaveSummaryViewModel model)
         {
-            IList<Team> allTeam = _teamService.GetAll(new GetAllTeamCriteria());
+            IList<Team> allTeam = _teamService.GetAll(new GetTeamCriteria());
             if (model == null)
             {
                 model = new LeaveSummaryViewModel

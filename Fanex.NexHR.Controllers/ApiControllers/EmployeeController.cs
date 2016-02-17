@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers.ApiControllers
+﻿namespace Fanex.NexHR.Controllers.ApiControllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Criteria.Employee;
@@ -21,39 +8,42 @@ namespace Fanex.NexHR.Controllers.ApiControllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
 
     public class EmployeeController : ApiController
     {
-        private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeService employeeService;
 
-        public EmployeeController()
-            : this(null)
-        {
+        public EmployeeController() : this(null) 
+        { 
         }
 
-        public EmployeeController(IEmployeeService employeeService = null)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
+            this.employeeService = employeeService ?? new EmployeeService();
         }
 
         public IQueryable<Employee> GetEmployees(
             string query,
-            int? groupId = null,
+            int? teamId = null,
             bool? enable = null,
             bool? isDelete = null,
-            int? titleId = null,
+            int? jobTitleId = null,
             string sort = null)
         {
-            if (groupId == -1)
+            if (teamId == -1)
             {
-                groupId = null;
+                teamId = null;
             }
 
-            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            var criteria = new GetEmployeeCriteria()
             {
                 Query = query,
-                GroupId = groupId,
-                TitleId = titleId,
+                TeamId = teamId,
+                JobTitleId = jobTitleId,
                 Enable = CheckUserEnableCondition(enable),
                 IsDelete = CheckDeletedUserCondition(isDelete),
                 PageNumber = 1,
@@ -61,16 +51,11 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 TotalRow = 2000
             };
 
-            var entityList = _employeeService.Query(getAllEmployeeCriteria);
+            var employees = employeeService.Query(criteria);
 
-            if (sort != null)
-            {
-                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+            employees = SortEmployee(sort, employees);
 
-                entityList = Utilities.MultipleSort(entityList, sorts);
-            }
-
-            return entityList.AsQueryable();
+            return employees.AsQueryable();
         }
 
         public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
@@ -81,7 +66,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 EmployeeId = id
             };
 
-            return _employeeService.GetWorkingSchedule(workingScheduleCriteria);
+            return employeeService.GetWorkingSchedule(workingScheduleCriteria);
         }
 
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
@@ -93,7 +78,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 ToDate = toDate
             };
 
-            int totalDays = _employeeService.GetRangeDate(getDateRangeCriteria);
+            int totalDays = employeeService.GetRangeDate(getDateRangeCriteria);
 
             return totalDays;
         }
@@ -107,7 +92,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            return _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
+            return employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
         }
 
         public IList<Employee> GetToeic(
@@ -132,7 +117,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
                 Enable = enable,
                 IsDelete = isDelete
             };
-            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+            IList<Employee> employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
             return employees;
         }
 
@@ -172,6 +157,18 @@ namespace Fanex.NexHR.Controllers.ApiControllers
             }
 
             return deleteUsers;
+        }
+
+        private IList<Employee> SortEmployee(string sort, IList<Employee> employees)
+        {
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+
+                employees = Utilities.MultipleSort(employees, sorts);
+            }
+
+            return employees;
         }
     }
 }

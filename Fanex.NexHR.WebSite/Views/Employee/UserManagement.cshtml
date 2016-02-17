@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserManagementViewModel
+@{
     ViewBag.Title = Labels.EmployeeManagement;
 }
 @section css {
@@ -20,10 +21,10 @@
                         <div class="row form-input">
                             <div class="col m-r--l">
                                 <div class="left label--m">
-                                    <label>@Labels.Keyword</label>
+                                    @Html.LabelFor(model => model.Keyword, Labels.Keyword)
                                 </div>
                                 <div class="left filter-keyword">
-                                    <input id="keyword" type="text" placeholder="@Messages.SearchEmployeeWatermark" />
+                                    @Html.TextBoxFor(model => model.Keyword, new { placeholder = Messages.SearchEmployeeWatermark })
                                 </div>
                             </div>
                             <div class="col m-r--l">
@@ -31,14 +32,14 @@
                                     <label>@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownList("group", new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
+                                    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
                             <div class="col m-r--l">
                                 <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label></div>
                                 <div class="left filter-title">
-                                    @Html.DropDownList("title", new SelectList(Model.JobTitleCollection, "Id", "Name", Model.JobTitleId), Labels.AllTitles)
+                                    @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
                                 </div>
                             </div>
                         </div>
@@ -127,9 +128,9 @@
     <tr id="row{{:Id}}" {{if Enabled == false }} class="disabled" {{/if}}>
         <td>{{:~index()}}</td>
         <td>{{:Code}}</td>
-        <td class="nick" data-code="{{:Code}}">
-            <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
-        </td>
+    <td class="nick align-left" data-code="{{:Code}}">
+        <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
+    </td>
         <td class="align-left">{{:FullName}}</td>
         <td title="{{:Team.Name}}" class="tooltip">{{:Team.Code}}</td>
         <td>
@@ -139,7 +140,7 @@
                 M
             {{/if}}
         </td>
-        <td class="align-left">{{:JobTitle}}</td>
+        <td class="align-left">{{:JobTitle.Name}}</td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
         <td>
             {{if JoinedDate != null}}

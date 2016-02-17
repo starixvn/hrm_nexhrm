@@ -84,22 +84,22 @@ namespace Fanex.NexHR.Controllers
         [HttpGet]
         public ActionResult EmployeeProfile(
             string query = null,
-            int? groupId = null,
+            int? teamId = null,
             bool? enable = null,
             bool? isDelete = null,
-            int? titleId = null,
+            int? jobTitleId = null,
             string sort = null)
         {
-            if (groupId == -1)
+            if (teamId == -1)
             {
-                groupId = null;
+                teamId = null;
             }
 
-            var getAllEmployeeCriteria = new GetAllEmployeeCriteria()
+            var getAllEmployeeCriteria = new GetEmployeeCriteria()
             {
                 Query = query,
-                GroupId = groupId,
-                TitleId = titleId,
+                TeamId = teamId,
+                JobTitleId = jobTitleId,
                 Enable = CheckUserEnableCondition(enable),
                 IsDelete = CheckDeletedUserCondition(isDelete),
                 PageNumber = 1,

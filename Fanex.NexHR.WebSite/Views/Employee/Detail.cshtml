@@ -42,7 +42,7 @@ else
                                                     <span class="label--l">@Labels.StaffCode:</span> <span>@Model.Code</span>
                                                 </p>
                                                 <p class="accinfo">
-                                                    <span class="label--l">CPU:</span> <span>@Model.DomainUsername</span>
+                                                    <span class="label--l">Domain:</span> <span>@Model.DomainUsername</span>
                                                 </p>
                                                 <p class="accinfo">
                                                     <span class="label--l">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
@@ -141,7 +141,7 @@ else
                                     </span>
                                 </p>
                                 <p class="accinfo">
-                                    <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
+                                    <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
                                         @if (Model.ConfirmedDate != null)
                                         {
                                             @Model.ConfirmedDate.ToDateMonthYearFormatedDate()
@@ -227,18 +227,14 @@ else
                                     @Labels.ToeicScore
                                 </div>
                                 <div class="boxcontent">
-                                    <table class="table bordered striped highlight centered table-custom" style="width: 650px;">
+                                    <table class="table bordered striped highlight centered table-custom" style="width: 500px;">
                                         <thead>
                                             <tr>
                                                 <th>@Labels.Listening
                                                 </th>
                                                 <th>@Labels.Reading
                                                 </th>
-                                                <th>@Labels.Speaking
-                                                </th>
-                                                <th>@Labels.Writing
-                                                </th>
-                                                <th>@Labels.ExamDate (@Labels.L/@Labels.R & @Labels.S/@Labels.W)
+                                                <th>@Labels.ExamDate (@Labels.L/@Labels.R)
                                                 </th>
                                                 <th>@Labels.OldScores
                                                 </th>
@@ -252,13 +248,7 @@ else
                                                 <td>
                                                     @(toeic != null ? (toeic.Reading.HasValue ? toeic.Reading.Value.ToString() : "-") : "-")
                                                 </td>
-                                                <td>
-                                                    @(toeic != null ? (toeic.Speaking.HasValue ? toeic.Speaking.Value.ToString() : "-") : "-")
-                                                </td>
-                                                <td>
-                                                    @(toeic != null ? (toeic.Writing.HasValue ? toeic.Writing.Value.ToString() : "-") : "-")
-                                                </td>
-                                                @if (toeic == null || (toeic.LRTotal + toeic.Speaking + toeic.Writing) == 0)
+                                                @if (toeic == null || toeic.LRTotal == 0)
                                                 {
                                                     <td>
                                                         -
@@ -268,11 +258,9 @@ else
                                                 {
                                                     <td>
                                                         @(toeic.LRExamDate.HasValue ? toeic.LRExamDate.Value.ToString("dd MMM, yyyy") : "-")
-                                                        /
-                                                        @(toeic.SWExamDate.HasValue ? toeic.SWExamDate.Value.ToString("dd MMM, yyyy") : "-")
                                                     </td>
                                                 }
-                                                @if (toeic == null || (toeic.OldListening + toeic.OldReading + toeic.OldSpeaking + toeic.OldWriting) == 0)
+                                                @if (toeic == null || (toeic.OldListening + toeic.OldReading) == 0)
                                                 {
                                                     <td>
                                                         -
@@ -284,10 +272,6 @@ else
                                                         @(toeic.OldListening.HasValue ? toeic.OldListening.Value.ToString() : "-")
                                                         /
                                                         @(toeic.OldReading.HasValue ? toeic.OldReading.Value.ToString() : "-")
-                                                        /
-                                                        @(toeic.OldSpeaking.HasValue ? toeic.OldSpeaking.Value.ToString() : "-")
-                                                        /
-                                                        @(toeic.OldWriting.HasValue ? toeic.OldWriting.Value.ToString() : "-")
                                                     </td>
                                                 }
                                             </tr>

@@ -306,15 +306,15 @@ $(document).ready(function () {
         $('#DateOfBirth').val(formatDate(date, 'dd MMM, yyyy'));
     });
 
-    $('#SubGroupArray' + $('#Team_Id').val()).prop('checked', false);
-    $('#Team_Id').on('change', function () {
+    $('#SubGroupArray' + $('#TeamId').val()).prop('checked', false);
+    $('#TeamId').on('change', function () {
         var id = $(this).val();
         $('#SubGroupArray' + id).prop('checked', false);
     });
 
     $('input[name=SubGroupArray]').on('change', function () {
         var id = $(this).val(),
-            teamId = $('#Team_Id').val();
+            teamId = $('#TeamId').val();
 
         if (id === teamId) {
             $(this).prop('checked', false);
@@ -327,7 +327,7 @@ $(document).ready(function () {
 
     $('input[name=LeaderGroupsArray]').on('change', function () {
         var id = $(this).val(),
-            teamId = $('#Team_Id').val();
+            teamId = $('#TeamId').val();
 
         if (id !== teamId && $('#SubGroupArray' + id).prop('checked') === false) {
             $(this).prop('checked', false);

@@ -133,7 +133,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current hour(s) of Late in/Early out after the last deduction..
+        ///   Looks up a localized string similar to The current hour(s) of Late in/Early out after the last deduction.
         /// </summary>
         public static string BalanceDescription {
             get {

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
+    using Fanex.NexHR.Models;
     using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public class DefaultScheduleViewModel
     {
@@ -23,6 +23,6 @@
 
         public int? SunShiftId { get; set; }
 
-        public IList<SelectListItem> Shifts { get; set; }
+        public IList<Shift> Shifts { get; set; }
     }
 }

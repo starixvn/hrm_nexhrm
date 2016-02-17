@@ -25,7 +25,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
-        IList<Employee> Query(GetAllEmployeeCriteria criteria);
+        IList<Employee> Query(GetEmployeeCriteria criteria);
 
         CommandResult Insert(InsertEmployeeCriteria criteria);
 
@@ -63,7 +63,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
 
-        CommandResult AddLeaveDeduction(ICriteria criteria);
+        CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria);
 
         CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria);
 

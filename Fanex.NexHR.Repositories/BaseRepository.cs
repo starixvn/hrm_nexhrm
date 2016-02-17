@@ -47,7 +47,7 @@ namespace Fanex.NexHR.Repositories
         /// <param name="criteria">Criteria contains parameter throw stored procedure.</param>
         /// <param name="hasGetOutputParams">Has get output parameters or no.</param>
         /// <returns>Command Result.</returns>
-        private CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
+        public CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

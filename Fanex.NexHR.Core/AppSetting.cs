@@ -12,9 +12,6 @@ namespace Fanex.NexHR.Core
     using System.Configuration;
     using Fanex.Common;
 
-    /// <summary>
-    /// Application setting.
-    /// </summary>
     public static class AppSetting
     {
         public static bool IsShowCloseBalance
@@ -38,6 +35,14 @@ namespace Fanex.NexHR.Core
             get
             {
                 return ConfigurationManager.AppSettings["IgnoreTeams"].ToString();
+            }
+        }
+
+        public static string DomainName
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["domain"].ToString();
             }
         }
     }

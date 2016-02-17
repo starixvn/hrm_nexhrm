@@ -2,9 +2,11 @@
 <Functions>
   <Function Name="Employee">
     <Setting Key="Employee_GetEmployee" SpName="Employee_GetEmployee" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
+    <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees_xtest" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
       <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+      <Mapping DataField="JobTitleId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
@@ -75,7 +77,7 @@
       <Mapping DataField="AssistantLeaderNickName" ObjectProperty="NickName" />
       <Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName" />
     </Setting>
-    <Setting Key="GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0">
+    <Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0">
       <Mapping DataField="LeaderId" ObjectProperty="Id" />
       <Mapping DataField="LeaderNickName" ObjectProperty="NickName" />
       <Mapping DataField="LeaderFullName" ObjectProperty="FullName" />

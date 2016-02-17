@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertEmployeeCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.7">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core.Attributes;
@@ -40,7 +31,8 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public int? SunShift { get; set; }
 
-        public int MainGroupId { get; set; }
+        [SpParam(SqlParamName="GroupId")]
+        public int TeamId { get; set; }
 
         public DateTime Createddate { get; set; }
 
@@ -48,7 +40,10 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            return TeamId > 0
+                && !string.IsNullOrWhiteSpace(Code)
+                && !string.IsNullOrWhiteSpace(NickName)
+                && !string.IsNullOrWhiteSpace(FullName);
         }
 
         public override string GetSettingKey()

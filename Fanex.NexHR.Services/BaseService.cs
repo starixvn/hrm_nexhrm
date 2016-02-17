@@ -14,6 +14,8 @@ namespace Fanex.NexHR.Services
     using Fanex.Data.Repository;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
 
     /// <summary>
     /// The base service.
@@ -42,12 +44,6 @@ namespace Fanex.NexHR.Services
             }
         }
 
-        /// <summary>
-        /// Function to get list object from database.
-        /// </summary>
-        /// <typeparam name="T">Object type.</typeparam>
-        /// <param name="criteria">Criteria to query database.</param>
-        /// <returns>List Object.</returns>
         public virtual IEnumerable<T> GetData<T>(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -59,12 +55,6 @@ namespace Fanex.NexHR.Services
             return new List<T>();
         }
 
-        /// <summary>
-        /// Function to get object from database.
-        /// </summary>
-        /// <typeparam name="T">Object type.</typeparam>
-        /// <param name="criteria">Criteria to query database.</param>
-        /// <returns>The object.</returns>
         public virtual T GetDataEntity<T>(ICriteria criteria)
         {
             if (criteria.IsValid())
@@ -73,6 +63,31 @@ namespace Fanex.NexHR.Services
             }
 
             return default(T);
+        }
+
+        protected virtual CommandResult Execute(ICriteria criteria, bool hasGetOutputParams = false)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = Repository.ExecuteNonQuery(criteria, hasGetOutputParams);
+            }
+            else
+            {
+                result = GetInvalidInput();
+            }
+
+            return result;
+        }
+
+        private CommandResult GetInvalidInput()
+        {
+            return new CommandResult()
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
         }
     }
 }

@@ -28,14 +28,15 @@
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee, dynamic, Toeic, Employee>(
-                     (e, t, toeic) =>
+                var entityList = db.Query<Employee, Toeic, Team, JobTitle, Employee>(
+                     (employee, toeic, team, jobTitle) =>
                      {
-                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-                         e.ToeicScore = toeic;
-                         return e;
+                         employee.Team = team;
+                         employee.JobTitle = jobTitle;
+                         employee.ToeicScore = toeic;
+                         return employee;
                      },
-                     "TeamID, EmpID",
+                     "LRExamDate, GroupId, JobTitleId",
                      criteria.GetSpParams());
 
                 return entityList.ToList();

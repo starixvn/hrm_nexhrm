@@ -1,24 +1,25 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetEmployeeCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.6">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Employee Criteria.
-    /// </summary>
     public class GetEmployeeCriteria : CriteriaBase
     {
-        public int? Id { get; set; }
+        public string Query { get; set; }
 
-        public string DomainUserName { get; set; }
+        public int PageNumber { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalRow { get; set; }
+
+        [SpParam(SqlParamName="GroupId")]
+        public int? TeamId { get; set; }
+
+        public int? Enable { get; set; }
+
+        public int? IsDelete { get; set; }
+
+        public int? JobTitleId { get; set; }
 
         public override bool IsValid()
         {
@@ -27,7 +28,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override string GetSettingKey()
         {
-            return "GetEmployee";
+            return "Employee_GetEmployees";
         }
     }
 }

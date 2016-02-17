@@ -46,37 +46,37 @@
                                         <div class="col">
                                             <label>@Labels.Sun</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[0].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.SunShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.SunShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Mon</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[1].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.MonShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.MonShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Tue</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[2].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.TueShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.TueShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Wed</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[3].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.WedShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.WedShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Thu</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[4].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.ThuShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.ThuShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Fri</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[5].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.FriShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.FriShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Sat</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[6].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.SatShiftId, Model.Shifts, Labels.Off)
+                                            @Html.DropDownListFor(model => model.SatShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                                         </div>
                                     </div>
                                 </div>

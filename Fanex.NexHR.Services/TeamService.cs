@@ -52,7 +52,7 @@ namespace Fanex.NexHR.Services
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>List of Team Entity.</returns>
-        public IList<Team> GetAll(GetAllTeamCriteria criteria)
+        public IList<Team> GetAll(GetTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> allTeam = new List<Team>();
