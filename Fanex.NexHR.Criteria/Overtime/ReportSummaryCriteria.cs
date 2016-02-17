@@ -17,5 +17,10 @@
         {
             return "Overtime_ReportSummary";
         }
+
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate;
+        }
     }
 }

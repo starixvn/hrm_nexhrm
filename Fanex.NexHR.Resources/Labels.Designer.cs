@@ -1951,15 +1951,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Overtime Requests.
-        /// </summary>
-        public static string ManageOT {
-            get {
-                return ResourceManager.GetString("ManageOT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Manager.
         /// </summary>
         public static string Manager {
@@ -2028,6 +2019,15 @@ namespace Fanex.NexHR.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Overtime.
+        /// </summary>
+        public static string MemberOvertime {
+            get {
+                return ResourceManager.GetString("MemberOvertime", resourceCulture);
             }
         }
         
@@ -2208,6 +2208,15 @@ namespace Fanex.NexHR.Resources {
         public static string MyMemberRequest {
             get {
                 return ResourceManager.GetString("MyMemberRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Overtime.
+        /// </summary>
+        public static string MyOvertime {
+            get {
+                return ResourceManager.GetString("MyOvertime", resourceCulture);
             }
         }
         

@@ -60,6 +60,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(OvertimeCreateViewModel model)
         {
             if (ModelState.IsValid)

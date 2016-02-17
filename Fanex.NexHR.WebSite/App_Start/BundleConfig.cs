@@ -87,6 +87,9 @@
 
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
              "~/Scripts/Views/Overtime/reportSummary.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/myovertimejs").Include(
+             "~/Scripts/Views/Report/myOvertime.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

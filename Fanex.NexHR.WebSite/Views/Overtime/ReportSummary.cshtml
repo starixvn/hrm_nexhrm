@@ -10,7 +10,7 @@
     {
         <tr>
             <td>@(index++)</td>
-            <td>@item.CreatedBy.DisplayName</td>
+            <td class="align-left">@item.CreatedBy.DisplayName</td>
             <td>@item.Date.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td>@Html.ActionLink(item.TotalMember.ToString(), "overtimerequest", "report", new { @CreatedBy = item.CreatedBy.Id, @FromDate = item.Date.ToString("dd MMMM, yyyy"), @ToDate = item.Date.ToString("dd MMMM, yyyy"), @Status = item.Status }, null)</td>

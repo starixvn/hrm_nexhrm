@@ -22,6 +22,7 @@
                     <div class="form">
                         @using (Html.BeginForm("create", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
                         {
+                            @Html.AntiForgeryToken()
                             @Html.ValidationSummary()
 
                             <div class="row form-input">

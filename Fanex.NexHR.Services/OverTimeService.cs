@@ -7,6 +7,7 @@
     using Repositories;
     using Repositories.Interfaces;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class OvertimeService : BaseService, IOvertimeService
     {
@@ -35,14 +36,33 @@
 
         public IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria)
         {
-            IEnumerable<Overtime> result = _repository.ReportSummary(criteria);
+            var result = Enumerable.Empty<Overtime>();
+            if (criteria.IsValid())
+            {
+                result = _repository.ReportSummary(criteria);
+            }
 
             return result;
         }
 
         public IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria)
         {
-            IEnumerable<Overtime> result = _repository.ReportDetail(criteria);
+            var result = Enumerable.Empty<Overtime>();
+            if (criteria.IsValid())
+            {
+                result = _repository.ReportDetail(criteria);
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria)
+        {
+            var result = Enumerable.Empty<Overtime>();
+            if (criteria.IsValid())
+            {
+                result = _repository.GetMyReport(criteria);
+            }
 
             return result;
         }

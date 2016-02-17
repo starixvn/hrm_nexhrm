@@ -225,6 +225,11 @@
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
       <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
     </Setting>
+    <Setting Key="Overtime_MyReport" SpName="Overtime_MyReport" DbName="nexhr" Plain="0">
+      <Mapping DataField="CreatedId" ObjectProperty="Id" />
+      <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+      <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
+    </Setting>
     <Setting Key="Overtime_ReportDetail" SpName="Overtime_ReportDetail" DbName="nexhr" Plain="0">
       <Mapping DataField="CreatedBy" ObjectProperty="Id" />
       <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />

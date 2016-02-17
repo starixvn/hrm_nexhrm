@@ -1272,8 +1272,11 @@
   <data name="TotalMembers" xml:space="preserve">
     <value>Total Members</value>
   </data>
-  <data name="ManageOT" xml:space="preserve">
-    <value>Manage Overtime Requests</value>
+  <data name="MyOvertime" xml:space="preserve">
+    <value>My Overtime</value>
+  </data>
+  <data name="MemberOvertime" xml:space="preserve">
+    <value>Member Overtime</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Active</value>

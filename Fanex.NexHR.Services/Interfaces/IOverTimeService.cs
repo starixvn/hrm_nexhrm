@@ -22,5 +22,7 @@
         OvertimeCreateViewModel Get(GetByIdCriteria criteria);
 
         CommandResult Update(UpdateOvertimeCriteria criteria);
+
+        IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria);
     }
 }

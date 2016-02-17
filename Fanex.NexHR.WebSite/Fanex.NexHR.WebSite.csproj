@@ -647,6 +647,7 @@
     <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.summary.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
+    <Content Include="Scripts\Views\Report\myOvertime.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
@@ -739,6 +740,8 @@
     <Content Include="Views\Dashboard\ToDoList.cshtml" />
     <Content Include="Views\OverTime\ReportSummary.cshtml" />
     <Content Include="Views\OverTime\Index.cshtml" />
+    <Content Include="Views\Report\MyTimeRecord.cshtml" />
+    <Content Include="Views\Report\MyOvertimeResult.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -875,7 +878,7 @@
     <Content Include="Views\Report\LateInEarlyOutSummary.cshtml" />
     <Content Include="Views\Report\LeaveDeductionDetail.cshtml" />
     <Content Include="Views\Report\LeaveSummary.cshtml" />
-    <Content Include="Views\Report\MyTimeRecord.cshtml" />
+    <Content Include="Views\Report\MyOvertime.cshtml" />
     <Content Include="Views\Report\RequestMonitoring.cshtml" />
     <Content Include="Views\Report\TimeRecord.cshtml" />
     <Content Include="Views\Report\Timesheet.cshtml" />

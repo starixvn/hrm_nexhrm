@@ -49,6 +49,23 @@
             }
         }
 
+        public IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var result = db.Query<Overtime, Employee, Overtime>(
+                    (o, e1) =>
+                    {
+                        o.CreatedBy = e1;
+                        return o;
+                    },
+                    "CreatedId",
+                    criteria.GetSpParams());
+
+                return result;
+            }
+        }
+
         public OvertimeCreateViewModel Get(GetByIdCriteria criteria)
         {
             var model = new OvertimeCreateViewModel();

@@ -1,0 +1,79 @@
+﻿@model TimeRecordViewModel
+@{
+    ViewBag.Title = @Labels.MyOvertime;
+}
+@section css{
+}
+@section js{
+    @Scripts.Render(
+        "~/bundles/myovertimejs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <form class="form-filter" id="form">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, @Labels.FromDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate, @Labels.ToDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon to-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input id="btn-submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Labels.CreatedBy</th>
+                                    <th>@Labels.Date</th>
+                                    <th>@Labels.Hours</th>
+                                    <th>@Labels.Remark</th>
+                                    <th>@Labels.Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+

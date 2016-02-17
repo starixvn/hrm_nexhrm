@@ -364,6 +364,31 @@ namespace Fanex.NexHR.Controllers
         #endregion Leave Summary
 
         #region Overtime Request
+        public ActionResult MyOvertime()
+        {
+            var filter = new TimeRecordViewModel
+            {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now
+            };
+
+            return View(filter);
+        }
+
+        [HttpPost]
+        public ActionResult MyOvertimeResult(TimeRecordViewModel filter)
+        {
+            var criteria = new GetMyReportCriteria
+            {
+                EmployeeId = CurrentUser.Id,
+                FromDate = filter.FromDate,
+                ToDate = filter.ToDate
+            };
+            IEnumerable<Overtime> viewModel = _overtimeService.GetMyReport(criteria);
+
+            return View(viewModel);
+        }
+
         public ActionResult OvertimeRequest(OvertimeFilterViewModel model)
         {
             if (model.EmployeeId.HasValue)
