@@ -140,21 +140,5 @@ namespace Fanex.NexHR.Repositories
 
             return status;
         }
-
-        /// <summary>
-        /// Get teams handle requests of employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria)
-        {
-            var entityList = new List<Team>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-            }
-
-            return entityList;
-        }
     }
 }

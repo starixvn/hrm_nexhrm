@@ -27,7 +27,5 @@ namespace Fanex.NexHR.Repositories.Interfaces
         int AddNewTeam(ICriteria criteria);
 
         bool UpdateTeam(ICriteria criteria);
-
-        IList<Team> GetTeamsHandleRequestsOfEmployee(ICriteria criteria);
     }
 }

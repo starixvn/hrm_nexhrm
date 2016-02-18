@@ -2,18 +2,10 @@
 // <copyright file="GetEmployeeByTeamsCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.11">Created</change>
-// </history>
-
 namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Employee By Teams Criteria.
-    /// </summary>
     public class GetEmployeeByTeamsCriteria : CriteriaBase
     {
         public int EmployeeId { get; set; }
@@ -24,7 +16,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            return EmployeeId > 0;
         }
 
         public override string GetSettingKey()

@@ -82,23 +82,6 @@ namespace Fanex.NexHR.Services
         }
 
         /// <summary>
-        /// Get Sub Team Of Employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of Team.</returns>
-        public IList<Team> GetSubTeamsOfEmployee(GetSubTeamOfEmployeeCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> listSubTeam = new List<Team>();
-            if (criteria.IsValid())
-            {
-                listSubTeam = this._teamRepository.GetSubTeamsOfEmployee(criteria);
-            }
-
-            return listSubTeam;
-        }
-
-        /// <summary>
         /// Add New Team.
         /// </summary>
         /// <param name="criteria">Criteria to Insert.</param>
@@ -147,23 +130,6 @@ namespace Fanex.NexHR.Services
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Get teams handle requests of employee.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of team.</returns>
-        public IList<Team> GetTeamsHandleRequestsOfEmployee(GetTeamHandleRequestOfEmployee criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> teamHandleRequest = new List<Team>();
-            if (criteria.IsValid())
-            {
-                teamHandleRequest = this._teamRepository.GetTeamsHandleRequestsOfEmployee(criteria);
-            }
-
-            return teamHandleRequest;
         }
     }
 }

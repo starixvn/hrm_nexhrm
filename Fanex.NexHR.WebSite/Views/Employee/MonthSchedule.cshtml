@@ -1,7 +1,7 @@
-﻿@model IList<WorkingScheduleModel>
+﻿@model MonthlyScheduleViewModel
 @if (ViewBag.Employee != null)
 {
-    ViewBag.Title = "Month schedule of " + ViewBag.Employee.NickName;
+    ViewBag.Title = "Month schedule of " + Model.EmployeeNickName;
 }
 @section css {
     @Styles.Render(
@@ -20,10 +20,10 @@
                 @if (ViewBag.Employee != null)
                 {
                     <script type="text/javascript">
-                    var id = @ViewBag.Employee.Id;
+                    var employeeId = @Model.EmployeeId;
                     </script>
                     <div class="card-title-block">
-                        <span class="card-title left">Working schedule of @ViewBag.Employee.NickName</span>
+                        <span class="card-title left">@ViewBag.Title</span>
                     </div>
                     <div class="card-body">
                         <div class="form">
@@ -64,10 +64,10 @@
                 </div>
                 <div class="row form-input">
                     <div class="left label--l">
-                        @Html.Label("Change To")
+                        @Html.LabelFor(model => model.ShiftId, "Change To")
                     </div>
                     <div class="left input--s">
-                        @Html.DropDownList("shifts", (List<SelectListItem>)ViewBag.Shifts, Labels.Off)
+                        @Html.DropDownListFor(model=>model.ShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                     </div>
                 </div>
                 <div class="row">

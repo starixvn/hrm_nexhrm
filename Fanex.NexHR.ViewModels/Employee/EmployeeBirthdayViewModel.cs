@@ -7,7 +7,7 @@
 //   <change who="Aaron.Cao" date="2015.3.13">Apply StyleCop</change>
 // </history>
 
-namespace Fanex.NexHR.ViewModels
+namespace Fanex.NexHR.ViewModels.Employee
 {
     using System.ComponentModel.DataAnnotations;
 

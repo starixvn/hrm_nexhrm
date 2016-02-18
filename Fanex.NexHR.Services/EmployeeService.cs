@@ -131,54 +131,6 @@
             return dashboard;
         }
 
-        public IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<WorkingScheduleModel> workingSchedule = new List<WorkingScheduleModel>();
-            if (criteria.IsValid())
-            {
-                workingSchedule = employeeRepository.GetWorkingSchedule(criteria);
-            }
-
-            return workingSchedule;
-        }
-
-        public IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<WorkingCalendarsViewModel> workingCalendar = new List<WorkingCalendarsViewModel>();
-            if (criteria.IsValid())
-            {
-                workingCalendar = employeeRepository.GetWorkingCalendars(criteria);
-            }
-
-            return workingCalendar;
-        }
-
-        public bool UpdateShift(UpdateShiftCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            bool updated = false;
-            if (criteria.IsValid())
-            {
-                updated = employeeRepository.UpdateShift(criteria);
-            }
-
-            return updated;
-        }
-
-        public bool InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                var result = Repository.Insert(criteria);
-                return result.Code == 0;
-            }
-
-            return false;
-        }
-
         public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -234,16 +186,6 @@
         public CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria)
         {
             return Execute(criteria);
-        }
-
-        public IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria)
-        {
-            return employeeRepository.GetUserChangedShift(criteria);
-        }
-
-        public IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria)
-        {
-            return employeeRepository.GetHalfDayOffs(criteria);
         }
 
         public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)

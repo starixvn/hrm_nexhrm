@@ -10,7 +10,7 @@
 }
 
 @section Breadcrumb {
-    <span class="step">Company Space</span><a href="@Url.Action("workingcalendars", "employee")" class="step">Company Space</a>
+    <span class="step">Company Space</span><a href="@Url.Action("workingcalendars", "calendar")" class="step">Company Space</a>
     <span class="step">@ViewBag.Title</span>
 }
 
@@ -22,7 +22,7 @@
         @Html.ValidationSummary()
         if (ViewBag.Requested == true)
         {
-        <div class="success">@Fanex.NexHR.Resources.Messages.Saved</div>
+        <div class="success">@Messages.Saved</div>
         <input type="hidden" id="successed" value="true" />
         }
 
@@ -60,7 +60,7 @@
             </div>
             <div class="input">
                 <input type="submit" value="@Labels.Save" class="button-primary submit"/>
-                <a href="@Url.Action("WorkingCalendars", "employee")" class="button">@Labels.Back</a>
+                <a href="@Url.Action("WorkingCalendars", "calendar")" class="button">@Labels.Back</a>
             </div>
             <div class="clear">
             </div>

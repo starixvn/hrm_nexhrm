@@ -1,19 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetMemberByManagerCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get member by manager criteria.
-    /// </summary>
     public class GetMemberByManagerCriteria : CriteriaBase
     {
         public int ManagerId { get; set; }
@@ -33,7 +21,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            return ManagerId > 0;
         }
     }
 }

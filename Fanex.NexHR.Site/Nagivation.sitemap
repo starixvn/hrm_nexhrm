@@ -27,7 +27,7 @@
         <siteMapNode title="Company space">
             <siteMapNode title="Staff info" controller="employee" action="index" icon="users" />
             <siteMapNode title="Staff TOEIC score" controller="employee" action="toeicmanagement" icon="news" />
-            <siteMapNode title="Working calendars" controller="employee" action="workingcalendars" icon="calendar" />
+            <siteMapNode title="Working calendars" controller="calendar" action="workingcalendars" icon="calendar" />
             <siteMapNode title="Employees' requests" controller="request" action="employeeview"  icon="user1" />
             <siteMapNode title="Attendance report" controller="report" action="attendance" icon="calendar1" />
             

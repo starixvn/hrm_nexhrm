@@ -58,17 +58,6 @@
             return employees.AsQueryable();
         }
 
-        public IList<WorkingScheduleModel> GetWorkingSchedule(DateTime date, int id)
-        {
-            var workingScheduleCriteria = new GetWorkingScheduleCriteria
-            {
-                ReportDate = date,
-                EmployeeId = id
-            };
-
-            return employeeService.GetWorkingSchedule(workingScheduleCriteria);
-        }
-
         public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
         {
             var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria

@@ -10,11 +10,9 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.ExtensionNo;
-    using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -211,26 +209,6 @@ namespace Fanex.NexHR.Controllers
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult InsertWorkingCalendar(InsertEmployeeCalendarViewModel model)
-        {
-            var result = false;
-            if (model != null)
-            {
-                var criteria = new InsertEmployeeCalendarCriteria()
-                {
-                    EmployeeId = model.EmployeeId,
-                    FromDate = model.FromDate,
-                    ToDate = model.ToDate
-                };
-
-                result = _employeeService.InsertWorkingCalendar(criteria);
-            }
-
-            return Json(result);
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
         public bool DeleteHoliday(int id)
         {
             return _holidayService.Delete(id, this.CurrentUser.Id);
@@ -272,22 +250,6 @@ namespace Fanex.NexHR.Controllers
             }
 
             return string.Empty;
-        }
-
-        [Authorize(Roles = "HR")]
-        public bool UpdateShift(int id, DateTime date, int? shift)
-        {
-            var updateShiftCriteria = new UpdateShiftCriteria
-            {
-                EmpId = id,
-                Date = date,
-                ShiftId = shift,
-                ModifiedBy = this.CurrentUser.Id,
-                ModifiedDate = DateTime.Now.Date
-            };
-            bool updated = _employeeService.UpdateShift(updateShiftCriteria);
-
-            return updated;
         }
 
         [Authorize(Roles = "HR")]

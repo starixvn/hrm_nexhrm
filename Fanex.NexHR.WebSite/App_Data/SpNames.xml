@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="Employee">
-    <Setting Key="Employee_GetEmployee" SpName="Employee_GetEmployee" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees_xtest" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
       <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
@@ -87,7 +86,6 @@
     </Setting>
     <Setting Key="GetTeamManagedById" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetSubTeam" SpName="Employee_GetSubTeam" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Employee_GetGroupHandleRequest" SpName="Employee_GetGroupHandleRequest" DbName="nexhr" Plain="0"></Setting>
   </Function>
 
   <Function Name="Lookup">

@@ -71,7 +71,6 @@
       <Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName"/>
     </Setting>
     <Setting Key="GetTeamManagedById" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Employee_GetSubTeam" SpName="Employee_GetSubTeam" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetGroupHandleRequest" SpName="Employee_GetGroupHandleRequest" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Lookup">

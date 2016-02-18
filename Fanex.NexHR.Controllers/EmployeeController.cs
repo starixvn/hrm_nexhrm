@@ -1,5 +1,12 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -15,14 +22,6 @@
     using FPS.Client;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Web;
-    using System.Web.Mvc;
 
     public class EmployeeController : BaseController
     {
@@ -111,7 +110,6 @@
                 {
                     Code = model.Code,
                     CreateBy = CurrentUser.Id,
-                    Createddate = DateTime.Now.Date,
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
                     FullName = model.FullName,
@@ -167,7 +165,7 @@
         {
             if (ModelState.IsValid)
             {
-                var criteria = FillDataUpdateEmployeeCriteria(model);
+                UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
                 CommandResult result = _employeeService.Update(criteria);
 
                 if (result.Code == 0)
@@ -260,11 +258,15 @@
         [Authorize(Roles = "HR")]
         public ActionResult MonthSchedule(int employeeId = -1)
         {
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
-            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            ViewBag.Shifts = _shiftService.GetSelectList();
+            Employee employee = GetEmployeeById(employeeId);
+            MonthlyScheduleViewModel model = new MonthlyScheduleViewModel()
+            { 
+                EmployeeId = employee.Id,
+                EmployeeNickName = employee.NickName,
+                Shifts = GetShift()
+            };
 
-            return View();
+            return View(model);
         }
 
         [AllowAnonymous]
@@ -328,60 +330,6 @@
             return View(model);
         }
 
-        public ActionResult MyWorkingSchedule()
-        {
-            var workingScheduleCriteria = new GetWorkingScheduleCriteria
-            {
-                ReportDate = DateTime.Now,
-                EmployeeId = this.CurrentUser.Id
-            };
-            var model = _employeeService.GetWorkingSchedule(workingScheduleCriteria);
-
-            return View(model);
-        }
-
-        public ActionResult WorkingCalendars(int month = 0, int year = 0)
-        {
-            var currentDate = new StringBuilder();
-
-            ViewBag.Year = year != 0 ? year : DateTime.Now.Year;
-            ViewBag.Month = month != 0 ? month : DateTime.Now.Month;
-
-            currentDate.AppendFormat("{0}/{1}/1", ViewBag.Year, ViewBag.Month);
-            ViewBag.CurrentDate = currentDate;
-
-            var getUserChangedShiftCriteria = new GetUserChangedShiftCriteria
-            {
-                ReportDate = new DateTime(ViewBag.Year, ViewBag.Month, 1),
-                EmployeeId = null,
-                GroupId = null
-            };
-            var userChangedShift = _employeeService.GetUserChangedShift(getUserChangedShiftCriteria);
-
-            ViewBag.UserChangeShift = userChangedShift;
-            var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
-            var model = _employeeService.GetWorkingCalendars(workingCalendarCriteria);
-
-            var getHalfDayOffCriteria = new GetHalfDayOffCriteria
-            {
-                ReportDate = DateTime.Parse(currentDate.ToString()),
-                EmployeeId = null,
-                GroupId = null
-            };
-            ViewBag.HalfDayOffs = _employeeService.GetHalfDayOffs(getHalfDayOffCriteria);
-            return View(model);
-        }
-
-        [ChildActionOnly]
-        public PartialViewResult WorkingCalendarInsert()
-        {
-            return PartialView(new InsertEmployeeCalendarViewModel
-            {
-                FromDate = DateTime.Now.Date,
-                ToDate = DateTime.Now.Date,
-            });
-        }
-
         [ChildActionOnly]
         public ActionResult ManagementDashboard()
         {
@@ -411,8 +359,8 @@
 
         public ActionResult Birthday()
         {
-            var allEmployees = GetAllEmployees();
-            var sortedEmployees = SortEmployeeBirthdayByMonth(allEmployees);
+            var employees = GetAllEmployees();
+            var sortedEmployees = SortEmployeeBirthdayByMonth(employees);
 
             return View(sortedEmployees);
         }
@@ -456,16 +404,15 @@
                 Geomaplatitude = model.GeoMapLatitude,
                 Geomaplongtitude = model.GeoMapLongtitude,
                 HandleRequestGroupIds = model.LeaderGroups,
-                Id = model.Id,
+                EmployeeId = model.Id,
                 IdCardNo = model.CardNo,
                 IssuedDate = model.IssuedDate,
                 IssuedPlace = model.IssuedPlace,
                 JobTitleId = model.JobTitleId,
                 JoinedDate = model.JoinedDate,
-                MainGroupId = model.TeamId,
+                TeamId = model.TeamId,
                 Mariage = model.Mariage,
                 ModifiedBy = CurrentUser.Id,
-                ModifiedDate = DateTime.Now.Date,
                 NickName = model.NickName,
                 PassportExp = model.PassportExp,
                 PassportNo = model.PassportNo,

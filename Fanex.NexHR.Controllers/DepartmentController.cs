@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Department;
     using System;
     using System.Collections.Generic;
     using System.Linq;

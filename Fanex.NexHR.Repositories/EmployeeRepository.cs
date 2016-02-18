@@ -75,79 +75,6 @@
             }
         }
 
-        public IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var ds = new DataSet();
-                var date = criteria.ReportDate;
-
-                ds = db.ExecuteDataSet(criteria.GetSpParams());
-                var dttWorkingSchedule = ds != null ? ds.Tables[0] : null;
-
-                var lstWorkingSchedule = new List<WorkingScheduleModel>();
-                if (dttWorkingSchedule.Rows.Count != 0)
-                {
-                    for (int i = 1; i <= dttWorkingSchedule.Columns.Count - 4; i++)
-                    {
-                        var workingDay = new WorkingScheduleModel
-                        {
-                            Title = dttWorkingSchedule.Rows[0][i + 3].ToString(),
-                            Start = new DateTime(date.Year, date.Month, i).ToShortDateString()
-                        };
-                        lstWorkingSchedule.Add(workingDay);
-                    }
-                }
-
-                return lstWorkingSchedule;
-            }
-        }
-
-        public IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var lstWorkingCalendar = new List<WorkingCalendarsViewModel>();
-                var ds = new DataSet();
-
-                ds = db.ExecuteDataSet(criteria.GetSpParams());
-                var dttWorkingCalendars = ds != null ? ds.Tables[0] : null;
-                var totalColumns = dttWorkingCalendars.Columns.Count;
-
-                foreach (DataRow row in dttWorkingCalendars.Rows)
-                {
-                    var empWorkingCalendar = new WorkingCalendarsViewModel();
-
-                    empWorkingCalendar.EmpId = int.Parse(row["Empid"].ToString());
-                    empWorkingCalendar.FullName = row["fullname"].ToString();
-                    empWorkingCalendar.NickName = row["nickname"].ToString();
-                    empWorkingCalendar.Team = row["Team"].ToString();
-                    empWorkingCalendar.Days = totalColumns - 4;
-
-                    var days = new List<string>();
-
-                    for (int i = 4; i < totalColumns; i++)
-                    {
-                        days.Add(row[i].ToString());
-                    }
-
-                    empWorkingCalendar.WorkingDays = days;
-
-                    lstWorkingCalendar.Add(empWorkingCalendar);
-                }
-
-                return lstWorkingCalendar;
-            }
-        }
-
-        public bool UpdateShift(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
         public bool ResetAnnualLeaves(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -164,11 +91,6 @@
             }
         }
 
-        /// <summary>
-        /// Delete annual leave transaction.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
         public bool DeleteAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -177,11 +99,6 @@
             }
         }
 
-        /// <summary>
-        /// Get annual leave transaction.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Annual leave balance model.</returns>
         public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -190,11 +107,6 @@
             }
         }
 
-        /// <summary>
-        /// Update annual leave transaction.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
         public bool UpdateAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -203,11 +115,6 @@
             }
         }
 
-        /// <summary>
-        /// Insert annual leave transaction.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result.</returns>
         public bool InsertAnnualLeaveTransaction(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -216,11 +123,6 @@
             }
         }
 
-        /// <summary>
-        /// Get missing check in/out employee list.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of missing check in out model.</returns>
         public IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -229,37 +131,6 @@
             }
         }
 
-        /// <summary>
-        /// Get user changed shift.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of user changed shift.</returns>
-        public IList<UserChangedShift> GetUserChangedShift(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<UserChangedShift>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Get half day offs.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of half day off.</returns>
-        public IList<HalfDayOff> GetHalfDayOffs(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<HalfDayOff>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        /// <summary>
-        /// Get range date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The range date.</returns>
         public int GetRangeDate(ICriteria criteria)
         {
             int numberDay = 0;
@@ -285,11 +156,6 @@
             return numberDay;
         }
 
-        /// <summary>
-        /// Get disable request date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of date time.</returns>
         public IEnumerable<DateTime> GetDisableRequestDate(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -298,11 +164,6 @@
             }
         }
 
-        /// <summary>
-        /// Get employee TOEIC score.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>List of employee.</returns>
         public IList<Employee> GetEmployeeToeicScore(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -331,11 +192,6 @@
             }
         }
 
-        /// <summary>
-        /// Function to get employees has birthday and first working.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Tuple List Employee has birthday and employee has first working day.</returns>
         public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria)
         {
             var model = new SystemReminderModel();
@@ -351,11 +207,6 @@
             return model;
         }
 
-        /// <summary>
-        /// Function to get all related people in updating TOEIC score.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of related people.</returns>
         public IList<Employee> GetUpdatingScoreRelatedPeople(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

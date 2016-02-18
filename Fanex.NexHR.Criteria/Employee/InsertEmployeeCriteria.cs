@@ -34,8 +34,6 @@
         [SpParam(SqlParamName = "GroupId")]
         public int TeamId { get; set; }
 
-        public DateTime Createddate { get; set; }
-
         public int CreateBy { get; set; }
 
         public override bool IsValid()

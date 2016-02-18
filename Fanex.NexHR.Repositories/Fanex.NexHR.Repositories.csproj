@@ -91,9 +91,11 @@
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />
+    <Compile Include="CalendarRepository.cs" />
     <Compile Include="ExtensionNoRepository.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IDepartmentRepository.cs" />
+    <Compile Include="Interfaces\ICalendarRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Interfaces\IExtensionNoRepository.cs" />
     <Compile Include="Interfaces\IOvertimeRepository.cs" />

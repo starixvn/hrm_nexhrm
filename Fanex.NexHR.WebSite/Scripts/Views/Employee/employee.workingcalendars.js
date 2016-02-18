@@ -50,13 +50,13 @@ $(document).ready(function () {
 
     $('#btnAdd').click(function () {
         confirm('Are you sure you add calendars?', function () {
-            $.post(_global.root + 'ajax/InsertWorkingCalendar',
+            $.post(_global.root + 'calendar/InsertWorkingCalendar',
                 { EmployeeId: $.trim($("#Employee").val()).length > 0 ? $("#EmployeeId").val() : null,
                     FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
                 },
                 function (response) {
                     if (response) {
-                        document.location = _global.root + 'employee/workingcalendars';
+                        document.location = _global.root + 'calendar/workingcalendars';
                     }
                     else {
                         alert(_messages.errorTryAgain);

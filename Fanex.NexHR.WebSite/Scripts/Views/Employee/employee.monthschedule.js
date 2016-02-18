@@ -22,13 +22,13 @@ $(document).ready(function () {
     });
 
     $('#update').on('click', function () {
-        $.post(_global.root + 'ajax/updateshift',
-        { id: id, date: _event.start.format('MM/DD/YYYY'), shift: $('#shifts').val() },
+        $.post(_global.root + 'Calendar/UpdateEmployeeShiftDate',
+        { employeeId: employeeId, date: _event.start.format('MM/DD/YYYY'), shiftId: $('#ShiftId').val() },
         function () {
             $('#row' + id).remove();
         });
 
-        _event.title = $('#shifts option:selected').text();
+        _event.title = $('#ShiftId option:selected').text();
         $('#calendar').fullCalendar('updateEvent', _event);
         $('#dialog').dialog('close');
     });
@@ -43,7 +43,7 @@ $(document).ready(function () {
         editable: false,
         events: function (start, end, timezone, callback) {
             $.ajax({
-                url: _global.root + 'api/employee/GetWorkingSchedule',
+                url: _global.root + 'Calendar/GetWorkingSchedule',
                 dataType: 'json',
                 data: {
                     date: $('#calendar').fullCalendar('getDate').format("MM/DD/YYYY"),

@@ -500,7 +500,7 @@ namespace Fanex.NexHR.Services
             {
                 var criteria = new GetLeadersOfEmployeeCriteria()
                 {
-                    Id = model.EmployeeId
+                    EmployeeId = model.EmployeeId
                 };
                 leaders = GetData<Employee>(criteria).ToList();
             }
@@ -514,7 +514,7 @@ namespace Fanex.NexHR.Services
             var bodyTemplate = string.Empty;
             IList<Employee> managers = null;
             IList<Employee> leaders = null;
-            var criteria = new GetLeadersOfEmployeeCriteria() { Id = model.EmployeeId };
+            var criteria = new GetLeadersOfEmployeeCriteria() { EmployeeId = model.EmployeeId };
             leaders = GetData<Employee>(criteria).ToList();
 
             subject = model.TotalDays > 1 

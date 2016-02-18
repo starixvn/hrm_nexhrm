@@ -12,12 +12,9 @@ namespace Fanex.NexHR.Criteria.Employee
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update Employee Criteria.
-    /// </summary>
     public class UpdateEmployeeCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
         public string Code { get; set; }
 
@@ -42,7 +39,8 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public byte? Gender { get; set; }
 
-        public int MainGroupId { get; set; }
+        [SpParam(SqlParamName = "GroupId")]
+        public int TeamId { get; set; }
 
         public string SubGroups { get; set; }
 
@@ -76,8 +74,6 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public DateTime? PassportExp { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
-
         public int ModifiedBy { get; set; }
 
         public string Geomaplatitude { get; set; }
@@ -88,7 +84,11 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return true;
+            return EmployeeId > 0
+                && TeamId > 0
+                && !string.IsNullOrWhiteSpace(Code)
+                && !string.IsNullOrWhiteSpace(NickName)
+                && !string.IsNullOrWhiteSpace(FullName);
         }
 
         public override string GetSettingKey()

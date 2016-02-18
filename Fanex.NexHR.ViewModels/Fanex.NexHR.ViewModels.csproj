@@ -61,20 +61,20 @@
     <Compile Include="BaseRequestModel.cs" />
     <Compile Include="ChangeShiftViewModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
+    <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
     <Compile Include="Employee\DefaultScheduleViewModel.cs" />
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />
     <Compile Include="Employee\UserManagementViewModel.cs" />
     <Compile Include="LeaveDeductionViewModel.cs" />
-    <Compile Include="DepartmentViewModel.cs" />
-    <Compile Include="EmployeeBirthdayViewModel.cs" />
+    <Compile Include="Department\DepartmentViewModel.cs" />
+    <Compile Include="Employee\EmployeeBirthdayViewModel.cs" />
     <Compile Include="ExtensionNoViewModel.cs" />
     <Compile Include="HalfDayOff.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />
-    <Compile Include="InsertEmployeeCalendarViewModel.cs" />
+    <Compile Include="Calendar\AddEmployeeCalendarViewModel.cs" />
     <Compile Include="LeaveSummaryViewModel.cs" />
-    <Compile Include="LoginModel.cs" />
     <Compile Include="MemoViewModel.cs" />
     <Compile Include="MissingCheckInOutModel.cs" />
     <Compile Include="ModelBinder\CustomModelBinder.cs" />
@@ -122,6 +122,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

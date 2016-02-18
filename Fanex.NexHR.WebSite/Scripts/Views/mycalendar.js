@@ -13,7 +13,7 @@ $(document).ready(function () {
         editable: false,
         events: function (start, end, timezone, callback) {
             $.ajax({
-                url: '/api/employee/GetWorkingSchedule',
+                url: _global.root + 'Calendar/GetWorkingSchedule',
                 dataType: 'json',
                 data:
                 {
