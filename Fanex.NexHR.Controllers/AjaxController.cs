@@ -38,6 +38,11 @@ namespace Fanex.NexHR.Controllers
         private readonly IExtensionNoService _extensionNoService;
         private readonly IDepartmentService _departmentService;
 
+        public AjaxController()
+            : this(null, null, null, null, null, null, null, null)
+        {
+        }
+
         public AjaxController(
             IEmployeeService employeeService = null,
             IRequestService requestService = null,

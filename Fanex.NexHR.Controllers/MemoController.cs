@@ -101,7 +101,7 @@ namespace Fanex.NexHR.Controllers
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
                     MemoType = model.MemoType,         
-                    Status = model.Status == 1 ? true : false
+                    Status = model.Status == 1
                 };
 
                 ViewBag.Updated = _memoService.Update(updateMemoCriteria);
@@ -162,7 +162,7 @@ namespace Fanex.NexHR.Controllers
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
                     MemoType = model.MemoType,
-                    Status = model.Status == 1 ? true : false
+                    Status = model.Status == 1
                 };
 
                 int id = _memoService.Insert(insertMemoCriteria);
