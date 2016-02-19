@@ -56,7 +56,7 @@ namespace Fanex.NexHR.Controllers
             {
                 Year = DateTime.Now.Year,
                 EmployeeId = -1,
-                TeamCollection = teams,
+                Teams = teams,
                 ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance()
             };
 

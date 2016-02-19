@@ -36,6 +36,6 @@ namespace Fanex.NexHR.ViewModels
 
         public bool ExcludeUserDelete { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
     }
 }

@@ -54,8 +54,9 @@
                 DateOption = 0,
                 ExcludeUserDelete = true,
             };
-            empAttendance.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            empAttendance.Teams = _teamService.GetAll(new GetTeamCriteria());
             model.EmployeeAttendanceModel = empAttendance;
+
             return View(model);
         }
 

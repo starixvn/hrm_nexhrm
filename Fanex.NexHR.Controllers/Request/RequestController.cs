@@ -90,10 +90,10 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 ManagerId = this.CurrentUser.Id
             };
-            request.TeamCollection = _teamService.GetTeamManagedByEmp(criteria);
+            request.Teams = _teamService.GetTeamManagedByEmp(criteria);
 
-            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
-            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByAssistantLeader";
 
@@ -159,10 +159,10 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            request.Teams = _teamService.GetAll(new GetTeamCriteria());
 
-            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
-            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByEmployee";
 
@@ -229,10 +229,10 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            request.Teams = _teamService.GetAll(new GetTeamCriteria());
 
-            request.LeaveTypeCollection = _leaveTypeService.GetAll().ToList();
-            request.LeaveTypeCollection.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByHR";
 

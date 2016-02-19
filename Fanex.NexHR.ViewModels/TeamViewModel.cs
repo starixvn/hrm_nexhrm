@@ -54,8 +54,8 @@ namespace Fanex.NexHR.ViewModels
 
         public int ModifiedBy { get; set; }
 
-        public IList<DepartmentModel> DepartmentCollection { get; set; }
+        public IList<DepartmentModel> Departments { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
     }
 }

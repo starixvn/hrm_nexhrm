@@ -59,9 +59,9 @@ namespace Fanex.NexHR.ViewModels
         public bool IsFilterByEffectedDate { get; set; }
 
         [Display(Name = "Team")]
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
 
-        public IList<LeaveType> LeaveTypeCollection { get; set; }
+        public IList<LeaveType> LeaveTypes { get; set; }
 
         public List<SelectListItem> DateTypes
         {
@@ -101,12 +101,12 @@ namespace Fanex.NexHR.ViewModels
 
             selecListItemTeam.Add(firstItem);
 
-            if (this.TeamCollection == null)
+            if (this.Teams == null)
             {
-                this.TeamCollection = new List<Team>();
+                this.Teams = new List<Team>();
             }
 
-            foreach (Team team in this.TeamCollection)
+            foreach (Team team in this.Teams)
             {
                 var item = new SelectListItem
                 {

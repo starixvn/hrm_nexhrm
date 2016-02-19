@@ -56,7 +56,7 @@
                                         @Html.LabelFor(model => model.Team)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.TeamCollection, "Id", "Name"), Labels.AllTeams)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col m-r--m">

@@ -34,6 +34,6 @@ namespace Fanex.NexHR.ViewModels
 
         public bool IsExportExcel { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
     }
 }

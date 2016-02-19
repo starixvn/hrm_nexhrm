@@ -54,8 +54,8 @@ namespace Fanex.NexHR.Controllers
                 CreatedBy = this.CurrentUser.Id
             };
 
-            model.DepartmentCollection = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.Teams = _teamService.GetAll(new GetTeamCriteria());
 
             return View(model);
         }
@@ -93,8 +93,8 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            model.DepartmentCollection = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.Teams = _teamService.GetAll(new GetTeamCriteria());
 
             return View(model);
         }
@@ -126,8 +126,8 @@ namespace Fanex.NexHR.Controllers
                 };
             }
 
-            model.DepartmentCollection = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.TeamCollection = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != id).ToList();
+            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.Teams = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != id).ToList();
 
             return View(model);
         }
@@ -164,8 +164,8 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            model.DepartmentCollection = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.TeamCollection = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != model.Id).ToList();
+            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
+            model.Teams = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

@@ -27,15 +27,15 @@ namespace Fanex.NexHR.ViewModels
 
         public int MinAnnualBalance { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
 
         public ShowOpenAndCloseAnnualBalance ShowOpenAndCloseAnnualBalance { get; set; }
 
-        public IList<SelectListItem> FilteringMinAnnualBalances
+        public IList<SelectListItem> MinAnnualBalances
         {
             get
             {
-                IList<SelectListItem> filteringMinAnnualBalances = new List<SelectListItem>();
+                IList<SelectListItem> minAnnualBalances = new List<SelectListItem>();
 
                 for (int i = 1; i <= 10; i++)
                 {
@@ -45,10 +45,10 @@ namespace Fanex.NexHR.ViewModels
                         Value = i.ToString()
                     };
 
-                    filteringMinAnnualBalances.Add(item);
+                    minAnnualBalances.Add(item);
                 }
 
-                return filteringMinAnnualBalances;
+                return minAnnualBalances;
             }
         }
     }

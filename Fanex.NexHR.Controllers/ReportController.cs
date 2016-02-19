@@ -73,7 +73,7 @@ namespace Fanex.NexHR.Controllers
 
             model.CurrentPage = Constants.CurrentPage;
             model.ItemsPerPage = Constants.ItemsPerPage;
-            model.TeamCollection = _teamService.GetAll(new GetTeamCriteria());
+            model.Teams = _teamService.GetAll(new GetTeamCriteria());
 
             return View(model);
         }
@@ -264,7 +264,7 @@ namespace Fanex.NexHR.Controllers
                 ToDate = DateTime.Now,
                 DateOption = 5,
                 IsExportExcel = false,
-                TeamCollection = teams
+                Teams = teams
             };
 
             return View(model);
@@ -312,7 +312,7 @@ namespace Fanex.NexHR.Controllers
             {
                 Year = DateTime.Now.Year,
                 EmployeeId = -1,
-                TeamCollection = teams
+                Teams = teams
             };
 
             return View(model);
@@ -457,7 +457,7 @@ namespace Fanex.NexHR.Controllers
             var model = new LateInEarlyOutSummaryViewModel()
             {
                 Year = DateTime.Now.Year,
-                TeamCollection = teams
+                Teams = teams
             };
 
             return View(model);
@@ -502,7 +502,7 @@ namespace Fanex.NexHR.Controllers
                 ToDate = toDate,
                 IncludeLeaveDeduction = false,
                 TeamId = teamId,
-                TeamCollection = teams
+                Teams = teams
             };
 
             if (employeeId.HasValue)
@@ -550,7 +550,7 @@ namespace Fanex.NexHR.Controllers
                 FromDate = fromDate,
                 ToDate = toDate,
                 TeamId = teamId,
-                TeamCollection = teams
+                Teams = teams
             };
 
             if (employeeId.HasValue)

@@ -23,7 +23,7 @@
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ToDate { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
 
         public int TeamId { get; set; }
 
@@ -44,12 +44,12 @@
 
             selecListItemTeam.Add(firstItem);
 
-            if (this.TeamCollection == null)
+            if (this.Teams == null)
             {
-                this.TeamCollection = new List<Team>();
+                this.Teams = new List<Team>();
             }
 
-            foreach (Team team in this.TeamCollection)
+            foreach (Team team in this.Teams)
             {
                 var item = new SelectListItem
                 {

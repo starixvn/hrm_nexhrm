@@ -27,6 +27,6 @@ namespace Fanex.NexHR.ViewModels.Report
 
         public DateTime ToDate { get; set; }
 
-        public IList<Team> TeamCollection { get; set; }
+        public IList<Team> Teams { get; set; }
     }
 }
