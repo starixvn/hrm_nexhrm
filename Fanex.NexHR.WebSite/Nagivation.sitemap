@@ -9,8 +9,8 @@
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
       <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
       <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
-      <siteMapNode title="My Calendar" controller="calendar" action="myworkingschedule" icon="calendar-check" />
-      <siteMapNode title="My Overtime" controller="report" action="myovertime" icon="timetable" />
+      <siteMapNode title="My Calendar" controller="employee" action="myworkingschedule" icon="calendar-check" />
+      <siteMapNode title="My Overtime" controller="report" action="myovertime" icon="calendar-clock" />
       <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
       <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
       <siteMapNode title="My Profile" controller="employee" action="myprofile" icon="account-box-outline" />
