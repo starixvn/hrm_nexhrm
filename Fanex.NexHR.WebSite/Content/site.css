@@ -186,7 +186,8 @@ main {
 .card-container-base .card-content {
   padding-bottom: 16px; }
   .card-container-base .card-content.white-text {
-    padding: 2rem; }
+    padding: 2rem;
+    height: 100px; }
 
 .card-container-base .card-title-block {
   overflow: hidden;

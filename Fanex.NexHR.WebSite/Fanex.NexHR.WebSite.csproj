@@ -262,9 +262,6 @@
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
-    <Content Include="Content\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
