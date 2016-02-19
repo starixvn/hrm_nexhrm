@@ -9,7 +9,9 @@
     [Authorize]
     public class LateEarlyController : BaseController
     {
-        public LateEarlyController() { }
+        public LateEarlyController() 
+        {
+        }
 
         public ActionResult Index()
         {

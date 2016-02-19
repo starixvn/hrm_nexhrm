@@ -83,6 +83,7 @@
     <Compile Include="DashboardPersonalSpaceModel.cs" />
     <Compile Include="JobTitle.cs" />
     <Compile Include="Calendar\LeaveHalfDay.cs" />
+    <Compile Include="LateInEarlyOut.cs" />
     <Compile Include="Overtime.cs" />
     <Compile Include="OvertimeRecord.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
