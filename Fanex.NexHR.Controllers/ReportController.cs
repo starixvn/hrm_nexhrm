@@ -534,6 +534,23 @@ namespace Fanex.NexHR.Controllers
             return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult LateInEarlyOutSummary()
+        {
+            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            var today = DateTime.Today;
+
+            var model = new LateInEarlyOutSummaryViewModel()
+            {
+                FromYear = today.AddYears(-1).Year,
+                FromMonth = today.AddMonths(1).Month,
+                ToYear = today.Year,
+                ToMonth = today.Month,
+                Teams = teams
+            };
+
+            return View(model);
+        }
+
         #endregion Late In/Early Out
 
         #region Leave Deduction

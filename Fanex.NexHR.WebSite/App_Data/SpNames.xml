@@ -19,7 +19,6 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
       <Mapping DataField="JobTitleId" ObjectProperty="Id" />
     </Setting>
-    
     <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>
@@ -67,7 +66,6 @@
     <Setting Key="ExtensionNO_Update_GroupExternal" SpName="ExtensionNO_Update_GroupExternal" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ExtensionNO_DELETE_GroupExternal" SpName="ExtensionNO_DELETE_GroupExternal" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Group">
     <Setting Key="GetGroup" SpName="EmployeeGroup_GetGroup" DbName="nexhr" Plain="0">
       <Mapping DataField="DepartmentId" ObjectProperty="Id" />
@@ -91,7 +89,6 @@
     <Setting Key="GetTeamManagedById" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetSubTeam" SpName="Employee_GetSubTeam" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Lookup">
     <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Lookup_GetJobTitle" SpName="Lookup_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
@@ -99,7 +96,6 @@
     <Setting Key="LookupData_Insert" SpName="LookupData_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LookupData_Update" SpName="LookupData_Update" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Shift">
     <Setting Key="Shift_GetShifts" SpName="Shift_GetShifts" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetShiftByDate" SpName="EmployeeCalendar_GetShiftByDate" DbName="nexhr" Plain="0"></Setting>
@@ -118,7 +114,6 @@
     <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Holiday">
     <Setting Key="Holiday_Insert" SpName="Holiday_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Holiday_Update" SpName="Holiday_Update" DbName="nexhr" Plain="0"></Setting>
@@ -126,7 +121,6 @@
     <Setting Key="Holiday_GetByYear" SpName="Holiday_GetByYear" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Holiday_GetById" SpName="Holiday_GetById" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Memo">
     <Setting Key="Memo_Insert" SpName="Memo_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Memo_Update" SpName="Memo_Update" DbName="nexhr" Plain="0"></Setting>
@@ -159,7 +153,6 @@
     <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
     </Setting>
   </Function>
-
   <Function Name="TOEIC">
     <Setting Key="TOEIC_GetScore" SpName="TOEIC_GetScore" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="TOEIC_GetAllScores" SpName="TOEIC_GetAllScores" DbName="nexhr" Plain="0"></Setting>
@@ -178,7 +171,6 @@
     <Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="TimeRecord">
     <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
       <Mapping DataField="GroupId" ObjectProperty="Id" />
@@ -187,7 +179,6 @@
     </Setting>
     <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Report">
     <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
@@ -205,7 +196,7 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Report_EmployeeCalendarByMonth" SpName="Report_EmployeeCalendarByMonth" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Report_GetLateInEarlyOutSummary" SpName="Report_GetLateInEarlyOutSummary" DbName="nexhr" Plain="0">
+    <Setting Key="Report_GetLateInEarlyOut" SpName="Report_GetLateInEarlyOut" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
@@ -221,6 +212,8 @@
     </Setting>
     <Setting Key="LeaveDeduction_Update" SpName="LeaveDeduction_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveDeduction_Delete" SpName="LeaveDeduction_Delete" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Report_GetLateInEarlyOutSummary" SpName="Report_GetLateInEarlyOutSummary" DbName="nexhr" Plain="0">
+    </Setting>
   </Function>
   <Function Name="Overtime">
     <Setting Key="Overtime_Insert" SpName="Overtime_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -258,7 +251,6 @@
     <Setting Key="Overtime_ApproveRequest" SpName="Overtime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_DisapproveRequest" SpName="Overtime_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
   </Function>
-
   <Function Name="Attendance">
     <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1">
       <Mapping DataField="Type" ObjectProperty="MissingType" />

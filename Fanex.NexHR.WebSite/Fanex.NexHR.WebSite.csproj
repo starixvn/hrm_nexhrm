@@ -230,6 +230,23 @@
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
+    <Content Include="Content\Views\report.latein.earlyout.summary.css">
+      <DependentUpon>report.latein.earlyout.summary.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\report.latein.earlyout.summary.min.css">
+      <DependentUpon>report.latein.earlyout.summary.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\report.timesheet.min.css">
+      <DependentUpon>report.timesheet.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\_monthPicker.scss" />
+    <Content Include="Content\Views\report.timesheet.css.map">
+      <DependentUpon>report.timesheet.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\report.latein.earlyout.summary.css.map">
+      <DependentUpon>report.latein.earlyout.summary.css</DependentUpon>
+    </Content>
+    <None Include="Content\Views\report.latein.earlyout.summary.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
@@ -740,6 +757,8 @@
     <Content Include="Views\OverTime\ReportSummary.cshtml" />
     <Content Include="Views\OverTime\Index.cshtml" />
     <Content Include="Views\LateEarly\Index.cshtml" />
+    <Content Include="Views\Report\LateInEarlyOutSummary.cshtml" />
+    <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

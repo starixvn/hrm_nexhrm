@@ -1,0 +1,93 @@
+﻿@import '../Common/utils/mixins';
+@import '../Common/utils/variables';
+
+.monpickr-wrap-parent {
+    width: 200px !important;
+    #monthPickr {
+        width: 200px !important;
+    }
+    .monpickr-wrap {
+        z-index: 999 !important;
+
+        .monpickr.monpickr-arrows {
+            color: #4f4f4f;
+            font-weight: bold;
+
+            .monpickr-prev, .monpickr-next {
+                padding: 0;
+                background: #78828c;
+                .ui-icon {
+                    width: 30px;
+                    height: 30px;
+                    background: none;
+                    text-indent: initial;
+
+                    &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+                        width: 30px;
+                        height: 30px;
+                        font-family: "Material Design Icons";
+                        font-size: 18px;
+                        line-height: 30px;
+                        color: #fff;
+                        padding-left: 6px;
+                    }
+
+                    &.ui-icon-circle-triangle-e:after {
+                        content: "\f417";
+                    }
+
+                    &.ui-icon-circle-triangle-w:after {
+                        content: "\f416";
+                    }
+                }
+            }
+
+            .monpickr-prev {
+                left: inherit;
+            }
+
+            .monpickr-next {
+                right: inherit;
+                margin-left: 9px;
+            }
+
+            .monpickr-input {
+                padding-left: 0 !important;
+                font-weight: normal;
+                padding: 7px;
+                margin-left: 40px;
+                box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+
+        .monpickr-dropdown {
+            .ui-widget-content {
+                a {
+                    color: #0789d1 !important;
+                }
+
+                .year {
+                    &:hover {
+                        border: .1rem solid #7096ab;
+                        @include css3(border-radius, .3rem);
+                    }
+                }
+
+                .month-wrap.selected {
+                    li.ui-corner-all {
+                        &.ui-state-active {
+                            background: #e3f2fd;
+                            border: .1rem solid #7096ab;
+                            @include css3(border-radius, .3rem);
+                        }
+
+                        &:hover {
+                            border: .1rem solid #7096ab;
+                            @include css3(border-radius, .3rem);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

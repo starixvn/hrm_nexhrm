@@ -52,6 +52,8 @@
 
             BuildBundleForLateInEarlyOut(bundles);
 
+            BuildBundleForLateInEarlyOutSummary(bundles);
+
             BuildBundleForDefaultSchedule(bundles);
 
             BuildBundleForMonthSchedule(bundles);
@@ -278,6 +280,18 @@
                 "~/bundles/lateinearlyoutdetailjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.latein.earlyout.detail.js");
+        }
+
+        private static void BuildBundleForLateInEarlyOutSummary(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/Content/lateinearlyoutsummarycss",
+                "~/Content/Views/report.latein.earlyout.summary.css");
+
+            bundles.AddAndInclude(
+                "~/bundles/lateinearlyoutsummaryjs",
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Report/report.latein.earlyout.summary.js");
         }
 
         private static void BuildBundleForEditEmployee(BundleCollection bundles)

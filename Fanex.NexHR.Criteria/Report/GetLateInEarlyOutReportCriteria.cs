@@ -13,7 +13,7 @@
 
         public override string GetSettingKey()
         {
-            return "Report_GetLateInEarlyOutSummary";
+            return "Report_GetLateInEarlyOut";
         }
 
         public override bool IsValid()

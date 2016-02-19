@@ -63,6 +63,7 @@
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
     <Compile Include="Employee\DefaultScheduleViewModel.cs" />
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
+    <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
     <Compile Include="TeamRequestViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />
