@@ -1,4 +1,5 @@
-﻿@model IList<WorkingCalendarsViewModel>
+﻿@using Fanex.NexHR.Models.Calendar
+@model IList<WorkingSchedule>
 @section css {
     @Styles.Render(
         "~/Content/monthpickercss",
@@ -20,6 +21,9 @@
 
     var maxDate = new System.Text.StringBuilder();
     maxDate.AppendFormat("{0}/{1}/1", Year, Month);
+    DateTime currentDate = (DateTime)ViewBag.CurrentDate;
+
+    IList<WorkingSchedule> employeeSchedules = Model.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
 }
 @section Breadcrumb {
 }
@@ -42,13 +46,13 @@
                                     <div class="left select--m">
                                         <div id="monthPickr"></div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
-                                        <input type="hidden" id="hdmonth" value="@ViewBag.CurrentDate" />
+                                        <input type="hidden" id="hdmonth" value="@currentDate" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="left">
-                                        <input type="hidden" id="Year" name="Year" value="@ViewBag.Year" />
-                                        <input type="hidden" id="Month" name="Month" value="@ViewBag.Month" />
+                                        <input type="hidden" id="Year" name="Year" value="@currentDate.Year" />
+                                        <input type="hidden" id="Month" name="Month" value="@currentDate.Month" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
                                         <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     </div>
@@ -72,7 +76,7 @@
                                                 <tr>
                                                     <td colspan="3" align="right">
                                                         <div class="datagrid-cell p-l--s">
-                                                            <b style="text-transform: uppercase">@(new DateTime(ViewBag.Year, ViewBag.Month, 1).ToString("MMM yyyy"))</b>
+                                                            <b style="text-transform: uppercase">@(new DateTime(currentDate.Year, currentDate.Month, 1).ToString("MMM yyyy"))</b>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -96,17 +100,17 @@
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 @{int rowId = 1;}
-                                                @foreach (WorkingCalendarsViewModel employee in Model)
+                                                @foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                 {
                                                     <tr>
                                                         <td class="datagrid-header-rownumber center">
                                                             <div class="datagrid-cell-rownumber">@rowId</div>
                                                         </td>
                                                         <td class="datagrid-fullname p-l--s">
-                                                            <div class="datagrid-cell">@employee.FullName</div>
+                                                            <div class="datagrid-cell">@employeeSchedule.Employee.FullName</div>
                                                         </td>
                                                         <td>
-                                                            <div class="datagrid-cell p-l--s">@employee.NickName</div>
+                                                            <div class="datagrid-cell p-l--s">@employeeSchedule.Employee.NickName</div>
                                                         </td>
                                                     </tr>
                                                     rowId++;
@@ -122,9 +126,7 @@
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 @{
-                                                    int daysInMonth = Model.Count != 0
-                                                        ? Model[0].Days
-                                                        : DateTime.DaysInMonth(ViewBag.Year, ViewBag.Month);
+                                                    int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                                                     <tr>
                                                         @for (int i = 1; i <= daysInMonth; i++)
                                                         {
@@ -139,7 +141,7 @@
                                                     <tr>
                                                         @for (int i = 1; i <= daysInMonth; i++)
                                                         {
-                                                            DateTime dt = new DateTime(ViewBag.Year, ViewBag.Month, i);
+                                                            DateTime dt = new DateTime(currentDate.Year, currentDate.Month, i);
                                                             <td class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
                                                                 <div class="datagrid-cell">
                                                                     @dt.ToString("ddd")
@@ -155,116 +157,90 @@
                                 <div class="datagrid-body">
                                     <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
                                         <tbody>
-                                            @{
-                                                foreach (LeaveHalfDay item in ViewBag.LeaveHalfDays)
-                                                {
-                                                    foreach (WorkingCalendarsViewModel employee in Model)
-                                                    {
-                                                        if (employee.EmpId == item.Id)
-                                                        {
-                                                            for (int i = 0; i < employee.WorkingDays.Count; i++)
-                                                            {
-                                                                if (item.Day == i + 1)
-                                                                {
-                                                                    employee.WorkingDays[i] = "-" + employee.WorkingDays[i];
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
-                                                }
-                                            }
-                                            @foreach (WorkingCalendarsViewModel employee in Model)
+                                            @foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                             {
+                                                var workingSchedules = Model.Where(t => t.Employee.Id == employeeSchedule.Employee.Id);
                                                 var day = 1;
                                                 <tr class="row">
-                                                    @foreach (string shift in employee.WorkingDays)
+                                                    @foreach (WorkingSchedule workingSchedule in workingSchedules)
                                                     {
-                                                        if (!string.IsNullOrEmpty(shift) && shift[0].Equals('_'))
-                                                        {
-                                                        <td class="ChangeShift">
-                                                            <div class="datagrid-cell">
-                                                                @shift.Substring(1)
-                                                            </div>
-                                                        </td>
+                                                        if (workingSchedule.IsLeaveHalfDay)
+                                                        { 
+                                                            <td class="HAL">
+                                                                <div class="datagrid-cell">
+                                                                    @workingSchedule.Title
+                                                                </div>
+                                                            </td>
                                                         }
-                                                        else if (!string.IsNullOrEmpty(shift) && shift[0].Equals('-'))
-                                                        {
-                                                        <td class="HAL">
-                                                            <div class="datagrid-cell">
-                                                                @shift.Substring(1)
-                                                            </div>
-                                                        </td>
-                                                        }
-                                                        else if (shift.Equals("AL"))
+                                                        else if (workingSchedule.Title.Equals("AL"))
                                                         {
                                                         <td class="AL">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("UPL"))
+                                                        else if (workingSchedule.Title.Equals("UPL"))
                                                         {
                                                         <td class="UPL">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("HAL"))
+                                                        else if (workingSchedule.Title.Equals("HAL"))
                                                         {
                                                         <td class="HAL">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("OFF") || shift.Equals("PH"))
+                                                        else if (workingSchedule.Title.Equals("OFF") || workingSchedule.Title.Equals("PH"))
                                                         {
                                                         <td class="OFF">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("BL"))
+                                                        else if (workingSchedule.Title.Equals("BL"))
                                                         {
                                                         <td class="BL">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("BT"))
+                                                        else if (workingSchedule.Title.Equals("BT"))
                                                         {
                                                         <td class="BT">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Equals("WL"))
+                                                        else if (workingSchedule.Title.Equals("WL"))
                                                         {
                                                         <td class="WL">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Contains("ML"))
+                                                        else if (workingSchedule.Title.Contains("ML"))
                                                         {
                                                         <td class="ML">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
-                                                        else if (shift.Contains('/'))
+                                                        else if (workingSchedule.Title.Contains('/'))
                                                         {
                                                         <td class="HH">
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
@@ -272,7 +248,7 @@
                                                         {
                                                         <td>
                                                             <div class="datagrid-cell">
-                                                                @shift
+                                                                @workingSchedule.Title
                                                             </div>
                                                         </td>
                                                         }
@@ -310,12 +286,12 @@
                             </div>
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 ML tooltip" title="@Labels.MaternityLeave">
-                                        @Labels.ML
+                                    <div class="grid_2 HH tooltip" title="2 @Labels.LeaveHalfDay">
+                                        H/H
                                     </div>
                                 </div>
                                 <div class="left label">
-                                    <label>@Labels.MaternityLeave</label>
+                                    <label>2 @Labels.LeaveHalfDay</label>
                                 </div>
                             </div>
                         </div>
@@ -338,16 +314,6 @@
                                 </div>
                                 <div class="left label">
                                     <label>@Labels.PublicHoliday/@Labels.OffDay</label>
-                                </div>
-                            </div>
-                            <div class="row m-b--m">
-                                <div class="left m-r--s">
-                                    <div class="grid_2 HH tooltip" title="2 @Labels.LeaveHalfDay">
-                                        H/H
-                                    </div>
-                                </div>
-                                <div class="left label">
-                                    <label>2 @Labels.LeaveHalfDay</label>
                                 </div>
                             </div>
                         </div>
@@ -376,12 +342,12 @@
                         <div class="col s3">
                             <div class="row m-b--m">
                                 <div class="left m-r--s">
-                                    <div class="grid_2 ChangeShift tooltip" title="@Labels.ChangeShift">
-                                        @Labels.CS
+                                    <div class="grid_2 ML tooltip" title="@Labels.MaternityLeave">
+                                        @Labels.ML
                                     </div>
                                 </div>
                                 <div class="left label">
-                                    <label>@Labels.ChangeShift</label>
+                                    <label>@Labels.MaternityLeave</label>
                                 </div>
                             </div>
                             <div class="row m-b--m">

@@ -223,7 +223,7 @@
         {
             if (ModelState.IsValid)
             {
-                var criteria = new UpdateEmployeeShiftCriteria()
+                var criteria = new UpdateScheduleDefaultCriteria()
                 {
                     EmployeeId = model.EmployeeId,
                     

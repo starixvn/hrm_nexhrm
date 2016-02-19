@@ -59,7 +59,6 @@
     <Compile Include="AnnualLeaveBalanceViewModel.cs" />
     <Compile Include="BaseAnnualLeaveBalanceViewModel.cs" />
     <Compile Include="BaseRequestModel.cs" />
-    <Compile Include="ChangeShiftViewModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
     <Compile Include="Employee\DefaultScheduleViewModel.cs" />

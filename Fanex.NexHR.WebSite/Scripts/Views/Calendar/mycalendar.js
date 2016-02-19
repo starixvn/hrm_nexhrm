@@ -13,7 +13,7 @@ $(document).ready(function () {
         editable: false,
         events: function (start, end, timezone, callback) {
             $.ajax({
-                url: _global.root + 'Calendar/GetCalendarByEmployee',
+                url: _global.root + 'Calendar/GetWorkingSchedule',
                 dataType: 'json',
                 method: "GET",
                 data:
@@ -25,7 +25,7 @@ $(document).ready(function () {
                     var events = [];
                     $(data).each(function (index, item) {
                         var today = formatDate(new Date(), 'dd/MM/yyyy'),
-                            currentDay = formatDate(new Date(item.Start), 'dd/MM/yyyy');
+                            currentDay = formatJsonDate(item.WorkDate);
 
                         var cssClass = item.Title;
                         if (today === currentDay) {
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
                         events.push({
                             title: item.Title,
-                            start: item.Start,
+                            start: formatJsonDate(item.WorkDate),
                             className: cssClass
                         });
                     });

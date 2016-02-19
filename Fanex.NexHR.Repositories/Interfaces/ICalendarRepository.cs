@@ -1,14 +1,11 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.ViewModels;
     using System.Collections.Generic;
+    using Fanex.Data.Repository;
+    using Fanex.NexHR.Models.Calendar;
 
     public interface ICalendarRepository
     {
-        IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
-
-        IList<WorkingCalendarsViewModel> GetWorkingCalendars(ICriteria criteria);
+        IList<WorkingSchedule> GetWorkingSchedule(ICriteria criteria);
     }
 }

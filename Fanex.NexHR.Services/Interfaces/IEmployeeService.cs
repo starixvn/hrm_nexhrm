@@ -27,7 +27,7 @@
 
         DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria);
 
-        CommandResult UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria);
+        CommandResult UpdateEmployeeShift(UpdateScheduleDefaultCriteria criteria);
 
         MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
 

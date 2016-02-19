@@ -11,11 +11,7 @@
     {
         CommandResult UpdateEmployeeShiftDate(UpdateEmployeeShiftDateCriteria criteria);
 
-        IList<WorkingScheduleModel> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
-
-        IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria);
-
-        IList<LeaveHalfDay> GetLeaveHalfDay(GetLeaveHalfDayCriteria criteria);
+        IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
         CommandResult InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria);
     }

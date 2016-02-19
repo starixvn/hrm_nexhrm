@@ -102,7 +102,7 @@
             return employeeShift;
         }
 
-        public CommandResult UpdateEmployeeShift(UpdateEmployeeShiftCriteria criteria)
+        public CommandResult UpdateEmployeeShift(UpdateScheduleDefaultCriteria criteria)
         {
             return Execute(criteria);
         }

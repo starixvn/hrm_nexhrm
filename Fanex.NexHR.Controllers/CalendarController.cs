@@ -1,15 +1,15 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using Fanex.NexHR.Criteria.Calendar;
-using Fanex.NexHR.Criteria.Employee;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.Models.Calendar;
-using Fanex.NexHR.Services;
-using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.ViewModels;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.Calendar;
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Calendar;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels;
 
     public class CalendarController : BaseController
     {
@@ -61,15 +61,17 @@ using Fanex.NexHR.ViewModels;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCalendarByEmployee(int employeeId, DateTime date)
+        public JsonResult GetWorkingSchedule(int employeeId, DateTime date)
         {
+            var fromdate = new DateTime(date.Year, date.Month, 1);
             var criteria = new GetWorkingScheduleCriteria
             {
-                ReportDate = date,
+                FromDate = fromdate,
+                ToDate = fromdate.AddMonths(1).AddDays(-1),
                 EmployeeId = employeeId
             };
 
-            IList<WorkingScheduleModel> schedules = calendarService.GetWorkingSchedule(criteria);
+            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
             return Json(schedules, JsonRequestBehavior.AllowGet);
         }
 
@@ -80,17 +82,16 @@ using Fanex.NexHR.ViewModels;
 
         public ActionResult WorkingCalendars(int month = 0, int year = 0)
         {
-            ViewBag.Year = year != 0 ? year : DateTime.Now.Year;
-            ViewBag.Month = month != 0 ? month : DateTime.Now.Month;
+            var date = Convert.ToDateTime(string.Format("{0}/{1}/1", year != 0 ? year : DateTime.Now.Year, month != 0 ? month : DateTime.Now.Month));
+            ViewBag.CurrentDate = date;
+            var criteria = new GetWorkingScheduleCriteria
+            {
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1)
+            };
 
-            var currentDate = string.Format("{0}/{1}/1", ViewBag.Year, ViewBag.Month);
-            ViewBag.CurrentDate = currentDate;
-
-            var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
-            IList<WorkingCalendarsViewModel> model = calendarService.GetWorkingCalendars(workingCalendarCriteria);
-
-            ViewBag.LeaveHalfDays = GetLeaveHalfDay(DateTime.Parse(currentDate));
-            return View(model);
+            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+            return View(schedules);
         }
 
         [ChildActionOnly]
@@ -101,16 +102,6 @@ using Fanex.NexHR.ViewModels;
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
             });
-        }
-
-        private IList<LeaveHalfDay> GetLeaveHalfDay(DateTime month)
-        {
-            var getLeaveHalfDayCriteria = new GetLeaveHalfDayCriteria
-            {
-                ReportDate = month
-            };
-
-            return calendarService.GetLeaveHalfDay(getLeaveHalfDayCriteria);
         }
     }
 }

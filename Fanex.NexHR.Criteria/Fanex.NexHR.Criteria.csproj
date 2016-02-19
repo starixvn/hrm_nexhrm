@@ -85,9 +85,6 @@
     <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetUnavailableRequestDateCriteria.cs" />
-    <Compile Include="Calendar\GetLeaveHalfDayCriteria.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
     <Compile Include="Employee\GetMySpaceCriteria.cs" />
     <Compile Include="Employee\GetMissingCheckInOutEmployeesCriteria.cs" />

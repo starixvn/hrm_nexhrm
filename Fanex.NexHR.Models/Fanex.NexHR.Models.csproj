@@ -78,11 +78,11 @@
   <ItemGroup>
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
+    <Compile Include="Calendar\WorkingSchedule.cs" />
     <Compile Include="CheckInOutRequest.cs" />
     <Compile Include="CommandResult.cs" />
     <Compile Include="DashboardPersonalSpaceModel.cs" />
     <Compile Include="JobTitle.cs" />
-    <Compile Include="Calendar\LeaveHalfDay.cs" />
     <Compile Include="LateInEarlyOut.cs" />
     <Compile Include="Overtime.cs" />
     <Compile Include="OvertimeRecord.cs" />
