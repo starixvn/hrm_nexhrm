@@ -39,7 +39,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public byte? Gender { get; set; }
 
-        [SpParam(SqlParamName = "GroupId")]
+        [SpParam(SqlParamName = "MainGroupId")]
         public int TeamId { get; set; }
 
         public string SubGroups { get; set; }
