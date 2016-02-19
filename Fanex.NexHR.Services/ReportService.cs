@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ReportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.14">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -57,32 +48,32 @@ namespace Fanex.NexHR.Services
             return commandResult;
         }
 
-        public IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryReportCriteria criteria)
+        public IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<LateInEarlyOutSummary> lateInEarlyOuts = null;
+            IList<LateInEarlyOutModel> lateInEarlyOuts = null;
             if (criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutSummary(criteria);
+                lateInEarlyOuts = _reportRepository.GetLateInEarlyOut(criteria);
             }
 
             return lateInEarlyOuts;
         }
 
-        public IList<LateInEarlyOutSummaryByTeam> GetLateInEarlyOutSummaryByTeam(IList<LateInEarlyOutSummary> lateInEarlyOuts, IList<Team> teams)
+        public IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams)
         {
-            IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = new List<LateInEarlyOutSummaryByTeam>();
+            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutByTeamModel>();
             teams = teams.OrderBy(t => t.Rank).ToList();
 
             foreach (Team team in teams)
             {
-                LateInEarlyOutSummaryByTeam entity = new LateInEarlyOutSummaryByTeam
+                LateInEarlyOutByTeamModel entity = new LateInEarlyOutByTeamModel
                 {
                     Team = team,
-                    LateInEarlyOutSummaryInTeam = new List<LateInEarlyOutSummary>()
+                    LateInEarlyOutSummaryInTeam = new List<LateInEarlyOutModel>()
                 };
 
-                foreach (LateInEarlyOutSummary lateInEarlyOut in lateInEarlyOuts)
+                foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
                 {
                     if (lateInEarlyOut.Employee.Team.Name == team.Name)
                     {
@@ -90,10 +81,10 @@ namespace Fanex.NexHR.Services
                     }
                 }
 
-                lateInEarlyOutSummaryByTeam.Add(entity);
+                lateInEarlyOutByTeam.Add(entity);
             }
 
-            return lateInEarlyOutSummaryByTeam;
+            return lateInEarlyOutByTeam;
         }
 
         public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria)

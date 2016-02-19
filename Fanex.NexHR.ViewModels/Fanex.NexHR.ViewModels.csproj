@@ -83,7 +83,7 @@
     <Compile Include="OvertimeCreateViewModel.cs" />
     <Compile Include="Report\LeaveDeductionDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutDetailViewModel.cs" />
-    <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
+    <Compile Include="Report\LateInEarlyOutViewModel.cs" />
     <Compile Include="RequestsMonitoringViewModel.cs" />
     <Compile Include="RequestViewModel.cs" />
     <Compile Include="SearchEmployeeModel.cs" />

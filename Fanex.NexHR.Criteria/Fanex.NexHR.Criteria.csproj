@@ -141,7 +141,7 @@
     <Compile Include="Report\GetAnnualLeaveSummaryReportCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutDetailReportCriteria.cs" />
-    <Compile Include="Report\GetLateInEarlyOutSummaryReportCriteria.cs" />
+    <Compile Include="Report\GetLateInEarlyOutReportCriteria.cs" />
     <Compile Include="Report\GetRequestMonitorReportCriteria.cs" />
     <Compile Include="Report\GetTimeRecordCriteria.cs" />
     <Compile Include="Report\GetTotalWorkingHoursSummaryCriteria.cs" />

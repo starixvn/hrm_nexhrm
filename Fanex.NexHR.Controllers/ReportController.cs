@@ -9,6 +9,10 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -23,10 +27,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
 
     [Authorize]
     public class ReportController : BaseController
@@ -364,6 +364,7 @@ namespace Fanex.NexHR.Controllers
         #endregion Leave Summary
 
         #region Overtime Request
+
         public ActionResult MyOvertime()
         {
             var filter = new TimeRecordViewModel
@@ -422,6 +423,7 @@ namespace Fanex.NexHR.Controllers
 
             return View(result);
         }
+
         #endregion Overtime Request
 
         [ChildActionOnly]
@@ -450,11 +452,11 @@ namespace Fanex.NexHR.Controllers
 
         #region Late In/Early Out
 
-        public ActionResult LateInEarlyOutSummary()
+        public ActionResult LateInEarlyOut()
         {
             IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
 
-            var model = new LateInEarlyOutSummaryViewModel()
+            var model = new LateInEarlyOutViewModel()
             {
                 Year = DateTime.Now.Year,
                 Teams = teams
@@ -464,26 +466,26 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        public JsonResult LateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        public JsonResult LateInEarlyOut(LateInEarlyOutViewModel model)
         {
             IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
 
-            var criteria = new GetLateInEarlyOutSummaryReportCriteria
+            var criteria = new GetLateInEarlyOutReportCriteria
             {
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId,
                 Year = model.Year
             };
-            IList<LateInEarlyOutSummary> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+            IList<LateInEarlyOutModel> lateInEarlyOuts = _reportService.GetLateInEarlyOut(criteria);
 
             if (model.TeamId.HasValue)
             {
                 teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
             }
 
-            IList<LateInEarlyOutSummaryByTeam> lateInEarlyOutSummaryByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
+            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = _reportService.GetLateInEarlyOutByTeam(lateInEarlyOuts, teams);
 
-            return Json(new { data = lateInEarlyOutSummaryByTeam }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = lateInEarlyOutByTeam }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

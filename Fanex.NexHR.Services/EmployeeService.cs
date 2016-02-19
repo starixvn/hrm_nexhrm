@@ -1,21 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.Data;
-    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class EmployeeService : BaseService, IEmployeeService
     {

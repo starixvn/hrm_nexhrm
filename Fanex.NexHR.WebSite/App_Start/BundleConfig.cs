@@ -267,9 +267,9 @@
         private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
         {
             bundles.AddAndInclude(
-                "~/bundles/lateinearlyoutsummaryjs",
+                "~/bundles/lateinearlyoutjs",
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/report.latein.earlyout.summary.js");
+                "~/Scripts/Views/Report/report.latein.earlyout.js");
         }
 
         private static void BuildBundleForLateInEarlyOutDetail(BundleCollection bundles)

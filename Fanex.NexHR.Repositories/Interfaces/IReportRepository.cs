@@ -28,7 +28,7 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
         IList<TimeRecordModel> GetTimeRecords(ICriteria criteria);
 
-        IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(ICriteria criteria);
+        IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria);
 

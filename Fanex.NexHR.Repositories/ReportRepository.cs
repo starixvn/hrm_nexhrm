@@ -186,12 +186,12 @@ namespace Fanex.NexHR.Repositories
             return timeRecords;
         }
 
-        public IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(ICriteria criteria)
+        public IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria)
         {
-            IList<LateInEarlyOutSummary> lateinEarlyOuts = null;
+            IList<LateInEarlyOutModel> lateinEarlyOuts = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                lateinEarlyOuts = db.Query<LateInEarlyOutSummary, Employee, Team, LateInEarlyOutSummary>(
+                lateinEarlyOuts = db.Query<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
                     (la, e, g) =>
                     {
                         la.Employee = e;

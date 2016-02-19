@@ -95,7 +95,7 @@ function initAddLeaveDeduction() {
             }, function (response) {
                 if (response.Code === 0) {
                     $('#insertform').dialog('close');
-                    document.location = _global.root + 'report/LateInEarlyOutSummary';
+                    document.location = _global.root + 'report/LateInEarlyOut';
                 } else {
                     alert(response.Message);
                 }
@@ -109,7 +109,7 @@ function initAddLeaveDeduction() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/LateInEarlyOutSummary',
+        url: _global.root + 'Report/LateInEarlyOut',
         type: 'POST',
         dataType: 'json',
         data: $('.card-container-base .form form').serialize(),

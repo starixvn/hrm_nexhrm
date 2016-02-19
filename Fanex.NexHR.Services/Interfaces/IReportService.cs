@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IReportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.14">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Services.Interfaces
+﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria.Report;
@@ -20,9 +11,9 @@ namespace Fanex.NexHR.Services.Interfaces
 
         CommandResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria);
 
-        IList<LateInEarlyOutSummary> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryReportCriteria criteria);
+        IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
-        IList<LateInEarlyOutSummaryByTeam> GetLateInEarlyOutSummaryByTeam(IList<LateInEarlyOutSummary> lateInEarlyOuts, IList<Team> teams);
+        IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
