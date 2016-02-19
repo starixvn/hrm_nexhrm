@@ -288,8 +288,7 @@ function initNumberTextbox() {
     });
 }
 
-$(document).ready(function () {
-    //Birthday picker.
+function initBirthdayPicker() {
     $('#DOBPicker').birthdaypicker({
         futureDates: true,
         maxYear: new Date().getFullYear(),
@@ -305,14 +304,10 @@ $(document).ready(function () {
 
         $('#DateOfBirth').val(formatDate(date, 'dd MMM, yyyy'));
     });
+}
 
-    $('#SubGroupArray' + $('#TeamId').val()).prop('checked', false);
-    $('#TeamId').on('change', function () {
-        var id = $(this).val();
-        $('#SubGroupArray' + id).prop('checked', false);
-    });
-
-    $('input[name=SubGroupArray]').on('change', function () {
+function initEventForSubGroupAndLeaderGroup() {
+    $('input.SubGroupArray').on('change', function () {
         var id = $(this).val(),
             teamId = $('#TeamId').val();
 
@@ -325,7 +320,7 @@ $(document).ready(function () {
         }
     });
 
-    $('input[name=LeaderGroupsArray]').on('change', function () {
+    $('input.LeaderGroupsArray').on('change', function () {
         var id = $(this).val(),
             teamId = $('#TeamId').val();
 
@@ -334,43 +329,9 @@ $(document).ready(function () {
             alert('Teams\' leaders receive request must be the main team or other team(s)');
         }
     });
+}
 
-    bindSARole(true);
-    bindLeaderRole(true);
-    $('#RoleArray4').on('click', function () {
-        bindSARole(false);
-    });
-
-    $('#RoleArray2').on('click', function () {
-        bindLeaderRole(false);
-    });
-
-    $('#upload').on('click', function () {
-        upload();
-    });
-
-    $('#delete').on('click', function () {
-        confirm(_messages.confirmDelete, function () {
-            var resignedDate = $('#ResignedDate').val();
-            if (resignedDate.length === 0) {
-                alert(_messages.requireResignedDate);
-                $('#ResignedDate').focus();
-                return;
-            }
-
-            $.post(_global.root + 'employee/Delete',
-            { employeeId: $('#Id').val(), resignedDate: resignedDate },
-            function (response) {
-                if (response.Code === 0) {
-                    document.location = '/employee/usermanagement';
-                } else {
-                    alert(response.Message);
-                }
-            }).error(function () { alert(_messages.errorTryAgain); });
-        });
-    });
-
-    // TOEIC
+function initEventForUpdateToeic() {
     $('#toeic').on('click', function () {
         var id = parseInt($('#Id').val());
         if (id > 0) {
@@ -395,8 +356,63 @@ $(document).ready(function () {
             });
         }
     });
+}
 
-    //Geo map
+function initEventForDelete() {
+    $('#delete').on('click', function () {
+        confirm(_messages.confirmDelete, function () {
+            var resignedDate = $('#ResignedDate').val();
+            if (resignedDate.length === 0) {
+                alert(_messages.requireResignedDate);
+                $('#ResignedDate').focus();
+                return;
+            }
+
+            $.post(_global.root + 'employee/Delete',
+            { employeeId: $('#Id').val(), resignedDate: resignedDate },
+            function (response) {
+                if (response.Code === 0) {
+                    document.location = _global.root + 'employee/usermanagement';
+                } else {
+                    alert(response.Message);
+                }
+            }).error(function () { alert(_messages.errorTryAgain); });
+        });
+    });
+}
+
+$(document).ready(function () {
+    // Birthday picker.
+    initBirthdayPicker();
+
+    $('#SubGroupArray' + $('#TeamId').val()).prop('checked', false);
+    $('#TeamId').on('change', function () {
+        var id = $(this).val();
+        $('#SubGroupArray' + id).prop('checked', false);
+    });
+
+    initEventForSubGroupAndLeaderGroup();
+
+    bindSARole(true);
+    bindLeaderRole(true);
+    $('#RoleArray4').on('click', function () {
+        bindSARole(false);
+    });
+
+    $('#RoleArray2').on('click', function () {
+        bindLeaderRole(false);
+    });
+
+    $('#upload').on('click', function () {
+        upload();
+    });
+
+    initEventForDelete();
+
+    /// TOEIC
+    initEventForUpdateToeic();
+
+    /// Geo map
     $('#geolocationMap').hide();
     $('#showHideMap').on('click', function () {
         if ($('#geolocationMap').is(':visible')) {

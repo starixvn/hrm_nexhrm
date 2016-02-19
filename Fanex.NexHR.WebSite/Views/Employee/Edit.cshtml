@@ -291,7 +291,7 @@
                                         @Html.LabelFor(model => model.SubGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.MaterializeCheckBoxListFor(p => p.SubGroupArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxListFor(model => model.SubGroupArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in SubGroupArray" })
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +301,7 @@
                                         @Html.LabelFor(model => model.LeaderGroups)
                                     </div>
                                     <div class="left input--l subteam">
-                                        @Html.MaterializeCheckBoxListFor(p => p.LeaderGroupsArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxListFor(model => model.LeaderGroupsArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in LeaderGroupsArray" })
                                     </div>
                                 </div>
                             </div>

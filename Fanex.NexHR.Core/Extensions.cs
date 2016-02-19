@@ -261,8 +261,7 @@ namespace Fanex.NexHR.Core
             object values = null;
             ModelState state;
 
-            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state)
-               && (state.Value != null))
+            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state) && (state.Value != null))
             {
                 values = state.Value.ConvertTo(typeof(string[]), null);
             }
@@ -274,9 +273,7 @@ namespace Fanex.NexHR.Core
 
             if (values != null)
             {
-                var valueList = values.GetType() == typeof(string[])
-                ? values as string[]
-                : values.ToString().Split(new[] { ',' });
+                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(new[] { ',' });
 
                 var list = new List<SelectListItem>();
 
@@ -594,8 +591,7 @@ namespace Fanex.NexHR.Core
             object values = null;
             ModelState state;
 
-            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state)
-               && (state.Value != null))
+            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state) && (state.Value != null))
             {
                 values = state.Value.ConvertTo(typeof(string[]), null);
             }
@@ -607,9 +603,7 @@ namespace Fanex.NexHR.Core
 
             if (values != null)
             {
-                var valueList = values.GetType() == typeof(string[])
-                ? values as string[]
-                : values.ToString().Split(new[] { ',' });
+                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(new[] { ',' });
 
                 var list = new List<SelectListItem>();
 
@@ -629,12 +623,12 @@ namespace Fanex.NexHR.Core
 
             foreach (var item in selectList)
             {
-                TagBuilder input = new TagBuilder("input");
+                var input = new TagBuilder("input");
 
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
                 input.MergeAttribute("id", name + item.Value);
-                input.MergeAttribute("name", name + item.Value, replaceExisting: true);
+                input.MergeAttribute("name", fullHtmlFieldName, replaceExisting: true);
                 input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, replaceExisting: true);
 
                 if (item.Selected)
@@ -642,11 +636,14 @@ namespace Fanex.NexHR.Core
                     input.MergeAttribute("checked", "checked");
                 }
 
-                TagBuilder label = new TagBuilder("label");
-                label.MergeAttribute("for", name + item.Value, replaceExisting: true);
-                label.InnerHtml = item.Text;
+                var labelFor = new TagBuilder("label");
+                labelFor.MergeAttribute("for", name + item.Value, replaceExisting: true);
+                labelFor.InnerHtml = item.Text;
 
-                sb.Append(input.ToString(TagRenderMode.SelfClosing) + label);
+                var label = new TagBuilder("label");
+                label.InnerHtml = input.ToString(TagRenderMode.SelfClosing) + labelFor;
+
+                sb.Append(label.ToString());
             }
 
             return MvcHtmlString.Create(sb.ToString());
@@ -704,10 +701,13 @@ namespace Fanex.NexHR.Core
             {
                 case 1:
                     return Labels.Pending;
+
                 case 2:
                     return Labels.Approved;
+
                 case 3:
                     return Labels.Rejected;
+
                 default:
                     return string.Empty;
             }
@@ -719,16 +719,22 @@ namespace Fanex.NexHR.Core
             {
                 case 1:
                     return Labels.CheckIn;
+
                 case 2:
                     return Labels.CheckOut;
+
                 case 3:
                     return Labels.LateIn;
+
                 case 4:
                     return Labels.EarlyOut;
+
                 case 5:
                     return Labels.ChangeShift;
+
                 case 6:
                     return Labels.Leave;
+
                 default:
                     return string.Empty;
             }
