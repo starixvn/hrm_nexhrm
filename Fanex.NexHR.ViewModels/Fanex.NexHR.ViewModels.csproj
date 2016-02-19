@@ -64,6 +64,7 @@
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
     <Compile Include="Employee\DefaultScheduleViewModel.cs" />
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
+    <Compile Include="TeamRequestViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />
     <Compile Include="Employee\UserManagementViewModel.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Department\DepartmentViewModel.cs" />
     <Compile Include="Employee\EmployeeBirthdayViewModel.cs" />
     <Compile Include="ExtensionNoViewModel.cs" />
-    <Compile Include="HalfDayOff.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />
     <Compile Include="Calendar\AddEmployeeCalendarViewModel.cs" />
     <Compile Include="LeaveSummaryViewModel.cs" />

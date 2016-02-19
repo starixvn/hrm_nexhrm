@@ -85,7 +85,7 @@
     <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetUnavailableRequestDateCriteria.cs" />
-    <Compile Include="Employee\GetHalfDayOffCriteria.cs">
+    <Compile Include="Calendar\GetLeaveHalfDayCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
@@ -96,7 +96,6 @@
     <Compile Include="Employee\GetUpdatingScoreRelatedPeopleCriteria.cs" />
     <Compile Include="Employee\GetWorkingCalendarCriteria.cs" />
     <Compile Include="Employee\GetWorkingScheduleCriteria.cs" />
-    <Compile Include="Employee\GetUserChangedShiftCriteria.cs" />
     <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\OpenAnnualBalanceForNewYearCriteria.cs" />
     <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />

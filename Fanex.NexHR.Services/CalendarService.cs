@@ -4,8 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
+    using Fanex.NexHR.Criteria.Calendar;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
@@ -49,28 +51,16 @@
             return workingCalendars;
         }
 
-        public IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria)
+        public IList<LeaveHalfDay> GetLeaveHalfDay(GetLeaveHalfDayCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<UserChangedShift> changeShifts = new List<UserChangedShift>();
+            IList<LeaveHalfDay> leaveHalfdays = new List<LeaveHalfDay>();
             if (criteria.IsValid())
             {
-                changeShifts = GetData<UserChangedShift>(criteria).ToList();
+                leaveHalfdays = GetData<LeaveHalfDay>(criteria).ToList();
             }
 
-            return changeShifts;
-        }
-
-        public IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<HalfDayOff> halfDayOffs = new List<HalfDayOff>();
-            if (criteria.IsValid())
-            {
-                halfDayOffs = GetData<HalfDayOff>(criteria).ToList();
-            }
-
-            return halfDayOffs;
+            return leaveHalfdays;
         }
 
         public CommandResult InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria)

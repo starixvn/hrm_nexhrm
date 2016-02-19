@@ -156,25 +156,7 @@
                                     <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
                                         <tbody>
                                             @{
-                                                foreach (UserChangedShift user in ViewBag.UserChangeShift)
-                                                {
-                                                    foreach (WorkingCalendarsViewModel employee in Model)
-                                                    {
-                                                        if (employee.EmpId == user.Id)
-                                                        {
-                                                            for (int i = 0; i < employee.WorkingDays.Count; i++)
-                                                            {
-                                                                if (user.Day == i + 1)
-                                                                {
-                                                                    var prefix = "_";
-                                                                    employee.WorkingDays[i] = prefix + employee.WorkingDays[i];
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                foreach (HalfDayOff item in ViewBag.HalfDayOffs)
+                                                foreach (LeaveHalfDay item in ViewBag.LeaveHalfDays)
                                                 {
                                                     foreach (WorkingCalendarsViewModel employee in Model)
                                                     {
@@ -416,7 +398,7 @@
                     </div>
                     <div class="hide">
                         <div id="addform" title="Add Calendars">
-                            @Html.Action("WorkingCalendarInsert")
+                            @Html.Action("AddEmployeeCalendar", "Calendar")
                         </div>
                     </div>
                 </div>

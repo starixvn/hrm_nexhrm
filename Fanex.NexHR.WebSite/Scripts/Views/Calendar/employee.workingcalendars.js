@@ -50,16 +50,16 @@ $(document).ready(function () {
 
     $('#btnAdd').click(function () {
         confirm('Are you sure you add calendars?', function () {
-            $.post(_global.root + 'calendar/InsertWorkingCalendar',
+            $.post(_global.root + 'calendar/InsertEmployeeCalendar',
                 { EmployeeId: $.trim($("#Employee").val()).length > 0 ? $("#EmployeeId").val() : null,
                     FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
                 },
                 function (response) {
-                    if (response) {
+                    if (response.Code === 0) {
                         document.location = _global.root + 'calendar/workingcalendars';
                     }
                     else {
-                        alert(_messages.errorTryAgain);
+                        alert(response.Message);
                     }
                 });
         });

@@ -13,12 +13,13 @@ $(document).ready(function () {
         editable: false,
         events: function (start, end, timezone, callback) {
             $.ajax({
-                url: _global.root + 'Calendar/GetWorkingSchedule',
+                url: _global.root + 'Calendar/GetCalendarByEmployee',
                 dataType: 'json',
+                method: "GET",
                 data:
                 {
                     date: $('#calendar').fullCalendar('getDate').format('MM/DD/YYYY'),
-                    id: _global.employeeId
+                    employeeId: _global.employeeId
                 },
                 success: function (data) {
                     var events = [];

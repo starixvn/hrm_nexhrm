@@ -1,13 +1,15 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Text;
-    using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using Fanex.NexHR.Criteria.Calendar;
+using Fanex.NexHR.Criteria.Employee;
+using Fanex.NexHR.Models;
+using Fanex.NexHR.Models.Calendar;
+using Fanex.NexHR.Services;
+using Fanex.NexHR.Services.Interfaces;
+using Fanex.NexHR.ViewModels;
 
     public class CalendarController : BaseController
     {
@@ -36,68 +38,12 @@
             };
             CommandResult result = calendarService.UpdateEmployeeShiftDate(criteria);
 
-            return Json(result);
-        }
-
-        public JsonResult GetWorkingSchedule(DateTime date, int id)
-        {
-            var workingScheduleCriteria = new GetWorkingScheduleCriteria
-            {
-                ReportDate = date,
-                EmployeeId = id
-            };
-
-            var schedules = calendarService.GetWorkingSchedule(workingScheduleCriteria);
-            return Json(schedules);
-        }
-
-        public ActionResult WorkingCalendars(int month = 0, int year = 0)
-        {
-            var currentDate = new StringBuilder();
-
-            ViewBag.Year = year != 0 ? year : DateTime.Now.Year;
-            ViewBag.Month = month != 0 ? month : DateTime.Now.Month;
-
-            currentDate.AppendFormat("{0}/{1}/1", ViewBag.Year, ViewBag.Month);
-            ViewBag.CurrentDate = currentDate;
-
-            var getUserChangedShiftCriteria = new GetUserChangedShiftCriteria
-            {
-                ReportDate = new DateTime(ViewBag.Year, ViewBag.Month, 1),
-                EmployeeId = null,
-                GroupId = null
-            };
-            var userChangedShift = calendarService.GetUserChangedShift(getUserChangedShiftCriteria);
-
-            ViewBag.UserChangeShift = userChangedShift;
-            var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
-            var model = calendarService.GetWorkingCalendars(workingCalendarCriteria);
-
-            var getHalfDayOffCriteria = new GetHalfDayOffCriteria
-            {
-                ReportDate = DateTime.Parse(currentDate.ToString()),
-                EmployeeId = null,
-                GroupId = null
-            };
-            ViewBag.HalfDayOffs = calendarService.GetHalfDayOffs(getHalfDayOffCriteria);
-            return View(model);
-        }
-
-        public ActionResult MyWorkingSchedule()
-        {
-            var workingScheduleCriteria = new GetWorkingScheduleCriteria
-            {
-                ReportDate = DateTime.Now,
-                EmployeeId = CurrentUser.Id
-            };
-            var model = calendarService.GetWorkingSchedule(workingScheduleCriteria);
-
-            return View(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult InsertWorkingCalendar(AddEmployeeCalendarViewModel model)
+        public JsonResult InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
         {
             CommandResult result = new CommandResult();
             if (model != null)
@@ -112,17 +58,59 @@
                 result = calendarService.InsertWorkingCalendar(criteria);
             }
 
-            return Json(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCalendarByEmployee(int employeeId, DateTime date)
+        {
+            var criteria = new GetWorkingScheduleCriteria
+            {
+                ReportDate = date,
+                EmployeeId = employeeId
+            };
+
+            IList<WorkingScheduleModel> schedules = calendarService.GetWorkingSchedule(criteria);
+            return Json(schedules, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult MyWorkingSchedule()
+        {
+            return View();
+        }
+
+        public ActionResult WorkingCalendars(int month = 0, int year = 0)
+        {
+            ViewBag.Year = year != 0 ? year : DateTime.Now.Year;
+            ViewBag.Month = month != 0 ? month : DateTime.Now.Month;
+
+            var currentDate = string.Format("{0}/{1}/1", ViewBag.Year, ViewBag.Month);
+            ViewBag.CurrentDate = currentDate;
+
+            var workingCalendarCriteria = new GetWorkingCalendarCriteria() { ReportDate = Convert.ToDateTime(currentDate.ToString()) };
+            IList<WorkingCalendarsViewModel> model = calendarService.GetWorkingCalendars(workingCalendarCriteria);
+
+            ViewBag.LeaveHalfDays = GetLeaveHalfDay(DateTime.Parse(currentDate));
+            return View(model);
         }
 
         [ChildActionOnly]
-        public PartialViewResult WorkingCalendarInsert()
+        public PartialViewResult AddEmployeeCalendar()
         {
             return PartialView(new AddEmployeeCalendarViewModel
             {
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
             });
+        }
+
+        private IList<LeaveHalfDay> GetLeaveHalfDay(DateTime month)
+        {
+            var getLeaveHalfDayCriteria = new GetLeaveHalfDayCriteria
+            {
+                ReportDate = month
+            };
+
+            return calendarService.GetLeaveHalfDay(getLeaveHalfDayCriteria);
         }
     }
 }

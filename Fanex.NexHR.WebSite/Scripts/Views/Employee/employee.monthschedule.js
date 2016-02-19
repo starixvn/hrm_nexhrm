@@ -43,11 +43,11 @@ $(document).ready(function () {
         editable: false,
         events: function (start, end, timezone, callback) {
             $.ajax({
-                url: _global.root + 'Calendar/GetWorkingSchedule',
+                url: _global.root + 'Calendar/GetCalendarByEmployee',
                 dataType: 'json',
                 data: {
                     date: $('#calendar').fullCalendar('getDate').format("MM/DD/YYYY"),
-                    id: id
+                    employeeId: id
                 },
                 success: function (data) {
                     var events = [];

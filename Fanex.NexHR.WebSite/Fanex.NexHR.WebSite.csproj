@@ -632,7 +632,7 @@
     <Content Include="Scripts\Tiny_mce\utils\form_utils.js" />
     <Content Include="Scripts\Tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
-    <Content Include="Scripts\Views\Employee\employee.workingcalendars.js" />
+    <Content Include="Scripts\Views\Calendar\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\extensionno.js" />
     <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
@@ -654,7 +654,7 @@
     <Content Include="Scripts\Views\Memo\memo.edit.js" />
     <Content Include="Scripts\Views\Memo\memo.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
-    <Content Include="Scripts\Views\mycalendar.js" />
+    <Content Include="Scripts\Views\Calendar\mycalendar.js" />
     <Content Include="Scripts\Views\Dashboard\employee.dashboard.js" />
     <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
@@ -694,8 +694,8 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\MonthSchedule.cshtml" />
     <Content Include="Views\Employee\UserManagement.cshtml" />
-    <Content Include="Views\Employee\WorkingCalendarInsert.cshtml" />
-    <Content Include="Views\Employee\WorkingCalendars.cshtml" />
+    <Content Include="Views\Calendar\AddEmployeeCalendar.cshtml" />
+    <Content Include="Views\Calendar\WorkingCalendars.cshtml" />
     <Content Include="Views\Employee\DefaultSchedule.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
@@ -892,7 +892,7 @@
     <Content Include="Views\Request\HRViewHistory.cshtml" />
     <Content Include="Views\Request\Member.cshtml" />
     <Content Include="Views\Request\ViewHistory.cshtml" />
-    <Content Include="Views\Employee\MyWorkingSchedule.cshtml" />
+    <Content Include="Views\Calendar\MyWorkingSchedule.cshtml" />
     <Content Include="Views\CheckInOut\Create.cshtml" />
     <Content Include="Views\CheckInOut\EmployeeView.cshtml" />
     <Content Include="Views\CheckInOut\Update.cshtml" />

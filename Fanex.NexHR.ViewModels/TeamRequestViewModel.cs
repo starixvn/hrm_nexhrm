@@ -1,9 +1,10 @@
-﻿namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
     public class TeamRequestViewModel

@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Calendar
 {
     using System;
     using Fanex.Data.Repository;

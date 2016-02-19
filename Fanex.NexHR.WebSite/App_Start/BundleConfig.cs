@@ -211,7 +211,7 @@
         private static void BuildBundleForMyCalendar(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/mycalendarjs").Include(
-                "~/Scripts/Views/mycalendar.js"));
+                "~/Scripts/Views/Calendar/mycalendar.js"));
 
             bundles.AddAndInclude(
                 "~/Content/mycalendarcss",
@@ -353,7 +353,7 @@
         private static void BuildBundleForWorkingCanlendar(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/workingcalendarsjs").Include(
-                "~/Scripts/Views/Employee/employee.workingcalendars.js",
+                "~/Scripts/Views/Calendar/employee.workingcalendars.js",
                 "~/Scripts/Views/_employee.search.in.company.js",
                 "~/Scripts/Views/fixtable.js"));
 

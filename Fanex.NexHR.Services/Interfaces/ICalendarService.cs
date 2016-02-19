@@ -1,9 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.Calendar;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.ViewModels;
-    using System.Collections.Generic;
 
     public interface ICalendarService
     {
@@ -13,9 +15,7 @@
 
         IList<WorkingCalendarsViewModel> GetWorkingCalendars(GetWorkingCalendarCriteria criteria);
 
-        IList<UserChangedShift> GetUserChangedShift(GetUserChangedShiftCriteria criteria);
-
-        IList<HalfDayOff> GetHalfDayOffs(GetHalfDayOffCriteria criteria);
+        IList<LeaveHalfDay> GetLeaveHalfDay(GetLeaveHalfDayCriteria criteria);
 
         CommandResult InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria);
     }
