@@ -739,6 +739,7 @@
     <Content Include="Views\Dashboard\ToDoList.cshtml" />
     <Content Include="Views\OverTime\ReportSummary.cshtml" />
     <Content Include="Views\OverTime\Index.cshtml" />
+    <Content Include="Views\LateEarly\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
