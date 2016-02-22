@@ -85,7 +85,7 @@ function initAddLeaveDeduction() {
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
 
-        $.post(_global.root + 'ajax/AddLeaveDeduction',
+        $.post(_global.root + 'AnnualLeave/AddLeaveDeduction',
             {
                 empId: $('#EmpId').val(),
                 totalDays: $('#TotalDays').val(),
