@@ -2,44 +2,23 @@
 
 .tipsy {
     &.tipsy-latein-earlyout-summary-detail {
-		opacity: 1 !important;
+        opacity: 1 !important;
+
         .tipsy-inner {
-            max-width: none;
+            background: #fff;
+            color: #000;
             font-size: 1.3rem;
             line-height: 2.2rem;
             @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+            padding: 0;
         }
 
         .tipsy-arrow {
             border: none;
         }
-    }
-
-    &.tipsy-latein-earlyout-summary-detail {
-        .tipsy-inner {
-            background: #fff;
-            color: #000;
-        }
 
         table {
             @include css3(box-shadow, none);
-
-            tr {
-                border-bottom: .1rem solid $c-border-table;
-
-                th, td {
-                    padding: .5rem;
-                    border-left: .1rem solid $c-border-table;
-
-                    &:first-child {
-                        border-left: none;
-                    }
-                }
-
-                &:last-child {
-                    border-bottom: none;
-                }
-            }
         }
     }
 }

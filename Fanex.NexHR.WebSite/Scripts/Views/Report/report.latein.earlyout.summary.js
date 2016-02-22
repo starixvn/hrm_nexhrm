@@ -90,6 +90,16 @@ $(document).ready(function () {
     query(true);
 
     $('#submit').on('click', function () {
-        query(false);
+        var fromDate = new Date($('#FromYear').val(), $('#FromMonth').val() - 1, 1),
+            toDate = new Date($('#ToYear').val(), $('#ToMonth').val(), 0),
+            maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), 1);
+
+        if (toDate > maxDate) {
+            $('#toast-container').children().remove();
+            Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date and To Date must not exceed 365 days<span>', 2000);
+        }
+        else {
+            query(false);
+        }
     });
 });
