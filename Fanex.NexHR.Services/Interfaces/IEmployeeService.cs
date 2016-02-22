@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Data.Repository;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Report;
@@ -39,11 +38,11 @@
 
         AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria);
 
-        bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
+        CommandResult DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
 
-        bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
+        CommandResult UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
 
-        bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
+        CommandResult InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
 
         CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria);
 
@@ -53,7 +52,7 @@
 
         int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
+        IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
 
         IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> listTeam);
 
@@ -63,11 +62,11 @@
 
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 
-        bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria);
+        CommandResult AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria);
 
-        bool OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria);
+        CommandResult OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria);
 
-        bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
+        CommandResult ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria);
     }

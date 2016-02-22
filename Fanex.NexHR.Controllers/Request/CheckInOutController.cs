@@ -97,7 +97,7 @@ namespace Fanex.NexHR.Controllers.Request
                 Minute = DateTime.Now.Minute,
                 CheckInOutType = type.HasValue ? type.Value : (short)RequestType.CheckIn,
                 By = CurrentUser.Id,
-                ShiftInfos = _shiftService.GetAll(new GetAllShiftCriteria()).ToList(),
+                ShiftInfos = _shiftService.GetAll(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
             var getShiftByDateCriteria = new GetShiftByDateCriteria()
@@ -145,7 +145,7 @@ namespace Fanex.NexHR.Controllers.Request
                     model.DisplayName = model.Employee;
                 }
 
-                model.ShiftInfos = _shiftService.GetAll(new GetAllShiftCriteria()).ToList();
+                model.ShiftInfos = _shiftService.GetAll();
                 ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
                 ViewBag.Year = model.ForDate.Year;
             }
@@ -189,7 +189,7 @@ namespace Fanex.NexHR.Controllers.Request
                 CheckInOutType = request.RequestType.Id,
                 By = this.CurrentUser.Id,
                 Shift = (shift == null) ? string.Empty : shift.Name,
-                ShiftInfos = _shiftService.GetAll(new GetAllShiftCriteria()).ToList(),
+                ShiftInfos = _shiftService.GetAll(),
                 UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
             };
 
@@ -200,7 +200,7 @@ namespace Fanex.NexHR.Controllers.Request
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
             model.By = this.CurrentUser.Id;
-            model.ShiftInfos = _shiftService.GetAll(new GetAllShiftCriteria()).ToList();
+            model.ShiftInfos = _shiftService.GetAll();
             ViewBag.Updated = _requestService.UpdateCheckInOut(ModelState, model);
             ViewBag.Year = model.ForDate.Year;
 

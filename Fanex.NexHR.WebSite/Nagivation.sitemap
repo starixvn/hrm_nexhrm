@@ -19,7 +19,7 @@
     <siteMapNode title="HR Space" roles="HR">
       <siteMapNode title="Employee Requests" controller="request" action="hrview" icon="account-box" roles="HR" />
       <siteMapNode title="Requests Monitoring" controller="report" action="HRRequestMonitoring" icon="eye" roles="HR" />
-      <siteMapNode title="Annual Leave Balance" controller="annualleavebalance" action="index" icon="clipboard-text" />
+      <siteMapNode title="Annual Leave Balance" controller="annualleave" action="index" icon="clipboard-text" />
       <siteMapNode title="User Management" controller="employee" action="UserManagement" icon="settings-box" />
       <siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" />
       <siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" />

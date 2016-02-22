@@ -1,22 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ShiftController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Shift;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Shift controller.
-    /// </summary>
     [Authorize]
     public class ShiftController : Controller
     {
@@ -34,10 +23,9 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            var getAllShiftCriteria = new GetAllShiftCriteria();
-            var allShifts = _shiftService.GetAll(getAllShiftCriteria);
+            IList<Shift> shifts = _shiftService.GetAll();
 
-            return View(allShifts);
+            return View(shifts);
         }
     }
 }

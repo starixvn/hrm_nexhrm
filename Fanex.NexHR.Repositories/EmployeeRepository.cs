@@ -75,62 +75,6 @@
             }
         }
 
-        public bool ResetAnnualLeaves(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<AnnualLeaveBalanceModel>(criteria.GetSpParams()).ToList();
-            }
-        }
-
-        public bool DeleteAnnualLeaveTransaction(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<AnnualLeaveBalanceModel>(criteria.GetSpParams()).SingleOrDefault();
-            }
-        }
-
-        public bool UpdateAnnualLeaveTransaction(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria) != 0;
-            }
-        }
-
-        public bool InsertAnnualLeaveTransaction(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        public IList<MissingCheckInOutModel> GetMissingCheckInOutEmployees(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<MissingCheckInOutModel>(criteria.GetSpParams()).ToList();
-            }
-        }
-
         public int GetRangeDate(ICriteria criteria)
         {
             int numberDay = 0;
@@ -154,14 +98,6 @@
             }
 
             return numberDay;
-        }
-
-        public IEnumerable<DateTime> GetDisableRequestDate(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<DateTime>(criteria.GetSpParams());
-            }
         }
 
         public IList<Employee> GetEmployeeToeicScore(ICriteria criteria)
@@ -205,14 +141,6 @@
             }
 
             return model;
-        }
-
-        public IList<Employee> GetUpdatingScoreRelatedPeople(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Employee>(criteria.GetSpParams()).ToList();
-            }
         }
 
         private Employee GetEmployeeEntity(ICriteria criteria)

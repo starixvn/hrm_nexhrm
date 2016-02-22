@@ -84,7 +84,7 @@ namespace Fanex.NexHR.Controllers.ApiControllers
         {
             if (isInternal)
             {
-                var data = _teamService.GetAll(new GetTeamCriteria());
+                var data = _teamService.GetAll();
                 var selectList = data.Select(x => new System.Web.Mvc.SelectListItem
                 {
                     Text = x.Name,

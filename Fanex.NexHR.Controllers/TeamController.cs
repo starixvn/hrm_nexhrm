@@ -39,8 +39,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Index()
         {
-            var criteria = new GetTeamCriteria();
-            IList<Team> teams = _teamService.GetAll(criteria);
+            IList<Team> teams = _teamService.GetAll();
 
             return View(teams);
         }
@@ -55,7 +54,7 @@ namespace Fanex.NexHR.Controllers
             };
 
             model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll(new GetTeamCriteria());
+            model.Teams = _teamService.GetAll();
 
             return View(model);
         }
@@ -94,7 +93,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll(new GetTeamCriteria());
+            model.Teams = _teamService.GetAll();
 
             return View(model);
         }
@@ -127,7 +126,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != id).ToList();
+            model.Teams = _teamService.GetAll().Where(p => p.Id != id).ToList();
 
             return View(model);
         }
@@ -165,7 +164,7 @@ namespace Fanex.NexHR.Controllers
             }
 
             model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll(new GetTeamCriteria()).Where(p => p.Id != model.Id).ToList();
+            model.Teams = _teamService.GetAll().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

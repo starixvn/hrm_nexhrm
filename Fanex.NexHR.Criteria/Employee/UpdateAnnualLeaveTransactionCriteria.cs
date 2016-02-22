@@ -1,20 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateAnnualLeaveTransactionCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update annual leave transaction criteria.
-    /// </summary>
     public class UpdateAnnualLeaveTransactionCriteria : CriteriaBase
     {
         public int Id { get; set; }
@@ -26,8 +14,6 @@ namespace Fanex.NexHR.Criteria.Employee
         public decimal DeductDays { get; set; }
 
         public decimal CreditDays { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }
 

@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="TeamService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.6">Apply Nap Framwork</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
@@ -18,9 +8,6 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Team service.
-    /// </summary>
     public class TeamService : BaseService, ITeamService
     {
         private readonly ITeamRepository _teamRepository;
@@ -30,11 +17,6 @@ namespace Fanex.NexHR.Services
             this._teamRepository = teamRepository ?? new TeamRepository();
         }
 
-        /// <summary>
-        /// Get Team By Id.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Team entity.</returns>
         public Team GetById(GetTeamByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -47,79 +29,54 @@ namespace Fanex.NexHR.Services
             return team;
         }
 
-        /// <summary>
-        /// Get All Team.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of Team Entity.</returns>
-        public IList<Team> GetAll(GetTeamCriteria criteria)
+        public IList<Team> GetAll()
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> allTeam = new List<Team>();
+            var criteria = new GetTeamCriteria();
+            IList<Team> teams = new List<Team>();
             if (criteria.IsValid())
             {
-                allTeam = this._teamRepository.GetAll(criteria);
+                teams = _teamRepository.GetAll(criteria);
             }
 
-            return allTeam;
+            return teams;
         }
 
-        /// <summary>
-        /// Get Team By Manager Id.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of Team.</returns>
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<Team> listTeam = new List<Team>();
             if (criteria.IsValid())
             {
-                listTeam = this._teamRepository.GetTeamManagedByEmp(criteria);
+                listTeam = _teamRepository.GetTeamManagedByEmp(criteria);
             }
 
             return listTeam;
         }
 
-        /// <summary>
-        /// Add New Team.
-        /// </summary>
-        /// <param name="criteria">Criteria to Insert.</param>
-        /// <returns>Value to check.</returns>
         public int AddNewTeam(AddNewTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             int status = -1;
             if (criteria.IsValid())
             {
-                status = this._teamRepository.AddNewTeam(criteria);
+                status = _teamRepository.AddNewTeam(criteria);
             }
 
             return status;
         }
 
-        /// <summary>
-        /// Update Team Information.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Boolean to check.</returns>
         public bool UpdateTeam(UpdateTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             bool updated = false;
             if (criteria.IsValid())
             {
-                updated = this._teamRepository.UpdateTeam(criteria);
+                updated = _teamRepository.UpdateTeam(criteria);
             }
 
             return updated;
         }
 
-        /// <summary>
-        /// Delete team.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
         public CommandResult DeleteTeam(DeleteTeamCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

@@ -46,7 +46,7 @@ namespace Fanex.NexHR.ViewModels
             }
         }
 
-        public List<Shift> ShiftInfos { get; set; }
+        public IList<Shift> ShiftInfos { get; set; }
 
         public List<DateTime> UnavailDates { get; set; }
 

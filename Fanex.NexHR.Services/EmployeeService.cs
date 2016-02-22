@@ -91,13 +91,13 @@
         public DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            DefaultSchedule employeeShift = null;
+            DefaultSchedule defaultSchedule = null;
             if (criteria.IsValid())
             {
-                employeeShift = GetDataEntity<DefaultSchedule>(criteria);
+                defaultSchedule = GetDataEntity<DefaultSchedule>(criteria);
             }
 
-            return employeeShift;
+            return defaultSchedule;
         }
 
         public CommandResult UpdateEmployeeShift(UpdateScheduleDefaultCriteria criteria)
@@ -141,34 +141,42 @@
 
         public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            return employeeRepository.GetAnnualLeaveTransactions(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<AnnualLeaveBalanceModel> annualLeaves = null;
+
+            if (criteria.IsValid())
+            {
+                annualLeaves = GetData<AnnualLeaveBalanceModel>(criteria).ToList();
+            }
+
+            return annualLeaves ?? new List<AnnualLeaveBalanceModel>();
         }
 
         public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
-            AnnualLeaveBalanceModel model = null;
-
+            Check.Argument.IsNotNull(criteria, "criteria");
+            AnnualLeaveBalanceModel annualLeave = null;
             if (criteria.IsValid())
             {
-                model = employeeRepository.GetAnnualLeaveTransactionById(criteria);
+                annualLeave = GetDataEntity<AnnualLeaveBalanceModel>(criteria);
             }
 
-            return model;
+            return annualLeave;
         }
 
-        public bool DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
+        public CommandResult DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
         {
-            return employeeRepository.DeleteAnnualLeaveTransaction(criteria);
+            return Execute(criteria);
         }
 
-        public bool UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
+        public CommandResult UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
         {
-            return employeeRepository.UpdateAnnualLeaveTransaction(criteria);
+            return Execute(criteria);
         }
 
-        public bool InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
+        public CommandResult InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
         {
-            return employeeRepository.InsertAnnualLeaveTransaction(criteria);
+            return Execute(criteria);
         }
 
         public CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria)
@@ -191,18 +199,25 @@
             return employeeRepository.GetRangeDate(criteria);
         }
 
-        public IEnumerable<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
+        public IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
         {
-            return employeeRepository.GetDisableRequestDate(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<DateTime> dates = null;
+            if (criteria.IsValid())
+            {
+                dates = GetData<DateTime>(criteria).ToList();
+            }
+
+            return dates ?? new List<DateTime>();
         }
 
-        public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> listTeam)
+        public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaves, IList<Team> teams)
         {
-            IList<LeaveSummaryByTeam> leaveSummaryByTeamList = new List<LeaveSummaryByTeam>();
+            IList<LeaveSummaryByTeam> leaveSummaryByTeams = new List<LeaveSummaryByTeam>();
 
-            listTeam = listTeam.OrderBy(t => t.Rank).ToList();
+            teams = teams.OrderBy(t => t.Rank).ToList();
 
-            foreach (Team team in listTeam)
+            foreach (Team team in teams)
             {
                 LeaveSummaryByTeam entity = new LeaveSummaryByTeam
                 {
@@ -210,7 +225,7 @@
                     LeaveSummaryInTeam = new List<LeaveSummary>()
                 };
 
-                foreach (LeaveSummary leavesumary in leaveSummaryList)
+                foreach (LeaveSummary leavesumary in leaves)
                 {
                     if (leavesumary.Employee.Team.Name == team.Name)
                     {
@@ -218,10 +233,10 @@
                     }
                 }
 
-                leaveSummaryByTeamList.Add(entity);
+                leaveSummaryByTeams.Add(entity);
             }
 
-            return leaveSummaryByTeamList;
+            return leaveSummaryByTeams;
         }
 
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
@@ -250,59 +265,40 @@
         public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> lstEmployee = new List<Employee>();
+            IList<Employee> employees = null;
             if (criteria.IsValid())
             {
-                lstEmployee = employeeRepository.GetUpdatingScoreRelatedPeople(criteria);
+                employees = GetData<Employee>(criteria).ToList();
             }
 
-            return lstEmployee;
+            return employees ?? new List<Employee>();
         }
 
-        public bool AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
+        public CommandResult AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                var result = Repository.Update(criteria);
-                return result.Code == 0;
-            }
-
-            return false;
+            return Execute(criteria);
         }
 
-        public bool OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria)
+        public CommandResult OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                var result = Repository.Insert(criteria);
-                return result.Code == 0;
-            }
-
-            return false;
+            return Execute(criteria);
         }
 
-        public bool ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
+        public CommandResult ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                var result = Repository.Update(criteria);
-                return result.Code == 0;
-            }
-
-            return false;
+            return Execute(criteria);
         }
 
         public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria)
         {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<MissingCheckInOutModel> missingCheckInOuts = null;
             if (criteria.IsValid())
             {
-                return employeeRepository.GetMissingCheckInOutEmployees(criteria);
+                missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria).ToList();
             }
 
-            return new List<MissingCheckInOutModel>();
+            return missingCheckInOuts ?? new List<MissingCheckInOutModel>();
         }
     }
 }

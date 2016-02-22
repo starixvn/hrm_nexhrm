@@ -39,12 +39,13 @@ namespace AutoJobs
         private static readonly ILog _LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static readonly EmailService _EmailService = new EmailService();
-        private static readonly EmployeeRepository _EmployeeRepository = new EmployeeRepository();
+        private static readonly EmployeeService _EmployeeService = new EmployeeService();
         
         private static readonly string _SenderEmail = ConfigurationManager.AppSettings["Email.Sender"].ToString();
         private static readonly string _SenderName = ConfigurationManager.AppSettings["Email.SenderName"].ToString();
         private static readonly string _EmailSD = ConfigurationManager.AppSettings["EmailSD"].ToString();
         private static readonly string _EmailGO = ConfigurationManager.AppSettings["EmailGo"].ToString();
+        private static readonly string _EmailIT = ConfigurationManager.AppSettings["EmailIT"].ToString();
 
         private static readonly string _AllowSendForgotCheckInOut = ConfigurationManager.AppSettings["AllowSendForgotCheckInOut"].ToString();
         private static readonly string _AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"].ToString();
@@ -191,7 +192,7 @@ namespace AutoJobs
             {
                 // Get employee who forgot check in or check out
                 var getMissingCheckInOutCriteria = new GetMissingCheckInOutEmployeesCriteria();
-                var employeeList = _EmployeeRepository.GetMissingCheckInOutEmployees(getMissingCheckInOutCriteria);
+                var employeeList = _EmployeeService.GetMissingCheckInOutByEmpID(getMissingCheckInOutCriteria);
                 employeeList = employeeList.Where(s => !_IgnoreList.Contains(s.NickName.ToLower())).ToList();
 
                 if (employeeList.Count > 0)
@@ -249,7 +250,7 @@ namespace AutoJobs
                     OnDate = forDate
                 };
 
-                lstEmployee = _EmployeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                lstEmployee = _EmployeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
                 if (lstEmployee != null)
                 {
                     employeesBirthday = lstEmployee.EmployeeHasBirthday;
@@ -344,7 +345,7 @@ namespace AutoJobs
 
             _EmailService.SendEmail(
                         _SenderEmail,
-                        receiverEmail: _EmailSD + ";" + _EmailGO,
+                        receiverEmail: _EmailSD + ";" + _EmailGO + ";" + _EmailIT,
                         mailCC: null,
                         subject: emailSubject,
                         body: emailContent);
@@ -368,7 +369,7 @@ namespace AutoJobs
 
             _EmailService.SendEmail(
                         _SenderEmail,
-                        receiverEmail: _EmailSD + ";" + _EmailGO,
+                        receiverEmail: _EmailSD + ";" + _EmailGO + ";" + _EmailIT,
                         mailCC: null,
                         subject: emailSubject,
                         body: emailContent);

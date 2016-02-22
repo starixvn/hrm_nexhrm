@@ -25,6 +25,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.AnnualLeave;
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
 
@@ -73,7 +74,7 @@ namespace Fanex.NexHR.Controllers
 
             model.CurrentPage = Constants.CurrentPage;
             model.ItemsPerPage = Constants.ItemsPerPage;
-            model.Teams = _teamService.GetAll(new GetTeamCriteria());
+            model.Teams = _teamService.GetAll();
 
             return View(model);
         }
@@ -256,7 +257,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult TotalWorkingHours()
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new TotalWorkingHoursViewModel
             {
@@ -306,7 +307,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult LeaveSummary()
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new LeaveSummaryViewModel
             {
@@ -351,7 +352,7 @@ namespace Fanex.NexHR.Controllers
             }
             else
             {
-                teams = _teamService.GetAll(new GetTeamCriteria());
+                teams = _teamService.GetAll();
             }
 
             ViewBag.CurrentYear = model.Year;
@@ -454,7 +455,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult LateInEarlyOut()
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new LateInEarlyOutViewModel()
             {
@@ -468,7 +469,7 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public JsonResult LateInEarlyOut(LateInEarlyOutViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var criteria = new GetLateInEarlyOutReportCriteria
             {
@@ -495,7 +496,7 @@ namespace Fanex.NexHR.Controllers
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new LateInEarlyOutDetailViewModel
             {
@@ -561,7 +562,7 @@ namespace Fanex.NexHR.Controllers
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new LeaveDeductionDetailViewModel
             {
@@ -680,7 +681,7 @@ namespace Fanex.NexHR.Controllers
                 toDate = DateTime.Now.Date;
             }
 
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
 
             var model = new TimeRecordViewModel
             {

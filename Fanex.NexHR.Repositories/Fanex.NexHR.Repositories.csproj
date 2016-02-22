@@ -106,7 +106,6 @@
     <Compile Include="Interfaces\ILookupDataRepository.cs" />
     <Compile Include="Interfaces\IMemoRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
-    <Compile Include="Interfaces\IShiftRepository.cs" />
     <Compile Include="Interfaces\IToeicRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="MemoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportRepository.cs" />
-    <Compile Include="ShiftRepository.cs" />
     <Compile Include="ToeicRepository.cs" />
   </ItemGroup>
   <ItemGroup>

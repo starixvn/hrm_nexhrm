@@ -159,7 +159,7 @@
     <Compile Include="Request\UpdateRequestCriteria.cs" />
     <Compile Include="Request\InsertRequestCriteria.cs" />
     <Compile Include="ResultCriteria.cs" />
-    <Compile Include="Shift\GetAllShiftCriteria.cs" />
+    <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\AddNewTeamCriteria.cs" />
     <Compile Include="Team\DeleteTeamCriteria.cs" />

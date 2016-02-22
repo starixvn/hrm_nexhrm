@@ -41,7 +41,7 @@ function initEditLeaveDeduction() {
     $('#updateform form').submit(function (evt) {
         evt.preventDefault();
         var url = window.location.href;
-        $.post(_global.root + 'ajax/EditLeaveDeduction',
+        $.post(_global.root + 'AnnualLeave/EditLeaveDeduction',
             {
                 leaveDeductionId: $('#LeaveDeductionId').val(),
                 totalDays: $('#TotalDays').val(),
@@ -68,7 +68,7 @@ function initDeleteLeaveDeduction() {
         var leaveDeductionId = $(this).attr('data-id');
         confirm('Are you sure you want to delete this leave deduction?', function () {
             var url = window.location.href;
-            $.post(_global.root + 'ajax/DeleteLeaveDeduction', { leaveDeductionId: leaveDeductionId }, function (response) {
+            $.post(_global.root + 'AnnualLeave/DeleteLeaveDeduction', { leaveDeductionId: leaveDeductionId }, function (response) {
                 if (response.Code === 0) {
                     document.location = url;
                 } else {

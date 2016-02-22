@@ -66,7 +66,7 @@ namespace Fanex.NexHR.Controllers
             };
 
             model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            model.Groups = _teamService.GetAll(new GetTeamCriteria());
+            model.Groups = _teamService.GetAll();
 
             return View(model);
         }

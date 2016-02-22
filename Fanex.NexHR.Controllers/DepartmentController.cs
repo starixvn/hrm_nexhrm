@@ -139,5 +139,19 @@ namespace Fanex.NexHR.Controllers
 
             return View(model);
         }
+
+        public JsonResult DeleteDepartment(int id)
+        {
+            var criteria = new DeleteDepartmentCriteria
+            {
+                DepartmentId = id,
+                ModifiedBy = this.CurrentUser.Id,
+                ModifiedDate = DateTime.Now
+            };
+
+            CommandResult commandResult = _departmentService.DeleteDepartment(criteria);
+            JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
+            return result;
+        }
     }
 }

@@ -74,7 +74,7 @@
     <Compile Include="ExtensionNoViewModel.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />
     <Compile Include="Calendar\AddEmployeeCalendarViewModel.cs" />
-    <Compile Include="LeaveSummaryViewModel.cs" />
+    <Compile Include="AnnualLeave\LeaveSummaryViewModel.cs" />
     <Compile Include="MemoViewModel.cs" />
     <Compile Include="MissingCheckInOutModel.cs" />
     <Compile Include="ModelBinder\CustomModelBinder.cs" />

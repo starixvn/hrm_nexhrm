@@ -29,10 +29,9 @@
         private readonly IJobTitleService _jobTitleService;
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
-        private readonly IToeicService _toeicService;
 
         public EmployeeController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -40,20 +39,18 @@
             IEmployeeService employeeService,
             ITeamService teamService,
             IJobTitleService jobTitleService,
-            IShiftService shiftService,
-            IToeicService toeicService)
+            IShiftService shiftService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _jobTitleService = jobTitleService ?? new JobTitleService();
             _shiftService = shiftService ?? new ShiftService();
-            _toeicService = toeicService ?? new ToeicService();
         }
 
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.Teams = GetTeam();
+            model.Teams = _teamService.GetAll();
 
             return View(model);
         }
@@ -64,8 +61,8 @@
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                Teams = GetTeam(),
-                JobTitles = GetJobTitle()
+                Teams = _teamService.GetAll(),
+                JobTitles = _jobTitleService.GetAll()
             };
 
             return View(model);
@@ -73,12 +70,8 @@
 
         public ActionResult Detail(int employeeId = -1)
         {
-            var criteria = new GetEmployeeByIdCriteria() 
-            {
-                EmployeeId = employeeId 
-            };
-            Employee model = _employeeService.GetEmployeeById(criteria);
-            return View(model);
+            Employee employee = GetEmployeeById(employeeId);
+            return View(employee);
         }
 
         [Authorize(Roles = "HR")]
@@ -91,8 +84,8 @@
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                Teams = GetTeam(),
-                Shifts = GetShift()
+                Teams = _teamService.GetAll(),
+                Shifts = _shiftService.GetAll()
             };
 
             return View(model);
@@ -138,21 +131,20 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Teams = GetTeam();
-            model.Shifts = GetShift();
+            model.Teams = _teamService.GetAll();
+            model.Shifts = _shiftService.GetAll();
             return View(model);
         }
 
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int employeeId = -1)
         {
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = GetEmployeeById(employeeId);
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee) 
             {
-                Teams = GetTeam(),
-                JobTitles = GetJobTitle()
+                Teams = _teamService.GetAll(),
+                JobTitles = _jobTitleService.GetAll()
             };
 
             return View(model);
@@ -188,8 +180,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Teams = GetTeam();
-            model.JobTitles = GetJobTitle();
+            model.Teams = _teamService.GetAll();
+            model.JobTitles = _jobTitleService.GetAll();
             return View(model);
         }
 
@@ -212,7 +204,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
-            model.Shifts = GetShift();
+            model.Shifts = _shiftService.GetAll();
 
             return View(model);
         }
@@ -251,7 +243,7 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Shifts = GetShift();
+            model.Shifts = _shiftService.GetAll();
             return View(model);
         }
 
@@ -263,7 +255,7 @@
             { 
                 EmployeeId = employee.Id,
                 EmployeeNickName = employee.NickName,
-                Shifts = GetShift()
+                Shifts = _shiftService.GetAll()
             };
 
             return View(model);
@@ -272,9 +264,10 @@
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
+            string fileName = "/avatars/avatar.jpg";
             if (string.IsNullOrWhiteSpace(id))
             {
-                id = this.CurrentUser.Code + ".jpg";
+                id = CurrentUser.Code + ".jpg";
             }
             else
             {
@@ -283,10 +276,10 @@
 
             if (System.IO.File.Exists(Server.MapPath("/avatars/" + id)))
             {
-                return File("/avatars/" + id, "image/jpeg");
+                fileName = "/avatars/" + id;
             }
 
-            return File("/avatars/avatar.jpg", "image/jpeg");
+            return File(fileName, "image/jpeg");
         }
 
         [Authorize(Roles = "HR")]
@@ -323,7 +316,7 @@
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
-                EmpId = this.CurrentUser.Id
+                EmpId = CurrentUser.Id
             };
             var model = _employeeService.GetMySpace(getMySpaceCriteria);
 
@@ -352,15 +345,15 @@
             Service serviceFPS = new Service();
             var resultMessage = string.Empty;
             var deviceCode = string.Empty;
-            serviceFPS.CheckTransaction(this.CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
+            serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
 
             return Content(string.Empty);
         }
 
         public ActionResult Birthday()
         {
-            var employees = GetAllEmployees();
-            var sortedEmployees = SortEmployeeBirthdayByMonth(employees);
+            IEnumerable<Employee> employees = GetEmployees();
+            IList<EmployeeBirthdayViewModel> sortedEmployees = SortEmployeeBirthdayByMonth(employees);
 
             return View(sortedEmployees);
         }
@@ -376,7 +369,7 @@
             var role = CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
             var getMemberByManager = new GetMemberByManagerCriteria
             {
-                ManagerId = this.CurrentUser.Id,
+                ManagerId = CurrentUser.Id,
                 Role = (short)role,
                 Keyword = keyword,
                 GroupId = groupId,
@@ -439,7 +432,7 @@
             return myspace;
         }
 
-        private IEnumerable<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
+        private IList<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
         {
             var sortedEmployees = new List<EmployeeBirthdayViewModel>();
 
@@ -462,7 +455,7 @@
             return sortedEmployees;
         }
 
-        private IEnumerable<Employee> GetAllEmployees()
+        private IEnumerable<Employee> GetEmployees()
         {
             var getAllEmployeeCriteria = new GetEmployeeCriteria()
             {
@@ -477,28 +470,6 @@
             };
 
             return _employeeService.Query(getAllEmployeeCriteria);
-        }
-
-        private IList<JobTitle> GetJobTitle()
-        {
-            var criteria = new GetJobTitleCriteria();
-
-            IList<JobTitle> jobTitles = _jobTitleService.GetJobTitle(criteria);
-            return jobTitles;
-        }
-
-        private IList<Team> GetTeam()
-        {
-            var criteria = new GetTeamCriteria();
-
-            IList<Team> teams = _teamService.GetAll(criteria);
-            return teams;
-        }
-
-        private IList<Shift> GetShift()
-        {
-            IList<Shift> shifts = _shiftService.GetAll(new GetAllShiftCriteria());
-            return shifts;
         }
 
         private Employee GetEmployeeById(int employeeId)

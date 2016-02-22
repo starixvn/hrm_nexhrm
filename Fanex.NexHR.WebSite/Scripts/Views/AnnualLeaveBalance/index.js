@@ -41,18 +41,16 @@ function eventAdjustment() {
         _totalDays = parseFloat($('#TotalDays').val());
 
         if ($form.valid()) {
-            $.post(_global.root + 'ajax/AdjustAnnualLeaves', $('form').serialize(), function (response) {
-                if (response === -1) {
-                    alert(_messages.invalidInputData);
-                } else if (response) {
+            $.post(_global.root + 'AnnualLeave/AdjustAnnualLeaves', $('form').serialize(), function (response) {
+                if (response.Code === 0) {
                     $.each(_ids, function (index, value) {
                         var currentAnnualLeaveBalance = parseFloat($('#alb' + value).text());
                         $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
                     });
 
-                    document.location = _global.root + 'annualleavebalance/index';
+                    document.location = _global.root + 'annualleave/index';
                 } else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             });
         }
@@ -66,11 +64,11 @@ function eventAdjustment() {
 function eventAddBalance() {
     $('#addbalance').on('click', function () {
         confirm('Are you sure you add annual leave balance for new year?', function () {
-            $.post(_global.root + 'ajax/OpenAnnualLeaves', function (response) {
-                if (response) {
-                    document.location = _global.root + 'annualleavebalance/index';
+            $.post(_global.root + 'AnnualLeave/OpenAnnualLeaves', function (response) {
+                if (response.Code === 0) {
+                    document.location = _global.root + 'annualleave/index';
                 } else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             });
         });
@@ -99,13 +97,11 @@ function eventCloseBalance() {
         _totalDays = parseFloat($('#TotalDays').val());
 
         if ($form.valid()) {
-            $.post(_global.root + 'ajax/ResetAnnualLeaves', $('form').serialize(), function (response) {
-                if (response === -1) {
-                    alert(_messages.invalidInputData);
-                } else if (response) {
+            $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', $('form').serialize(), function (response) {
+                if (response.Code === 0) {
                     $('#resetform').dialog('close');
                 } else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             });
         }
@@ -118,7 +114,7 @@ function eventCloseBalance() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'annualleavebalance/index',
+        url: _global.root + 'annualleave/index',
         type: 'POST',
         dataType: 'html',
         data: $('.card-container-base form').serialize(),

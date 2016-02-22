@@ -3,7 +3,7 @@
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'annualleavebalance/employee',
+        url: _global.root + 'annualleave/employee',
         type: 'POST',
         dataType: 'html',
         data: $('.card-container-base form').serialize(),

@@ -195,7 +195,6 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="Report_EmployeeCalendarByMonth" SpName="Report_EmployeeCalendarByMonth" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_GetLateInEarlyOut" SpName="Report_GetLateInEarlyOut" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
