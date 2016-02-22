@@ -15,7 +15,7 @@ function initFromMonthPicker() {
             var month = $('#fromMonthPickr').monPickr('getMonth', 'MM'),
                 year = $('#fromMonthPickr').monPickr('getMonth', 'yyyy');
             $('#FromMonth').val(month);
-            $('#FromYear').val(mear);
+            $('#FromYear').val(year);
         }
     });
 
@@ -46,10 +46,21 @@ function initToMonthPicker() {
     $('#toMonthPickr .monpickr-next span.ui-icon-circle-triangle-e').empty();
 }
 
+function initTooltip() {
+    $('.tooltip-detail').tipsy({
+        className: 'tipsy-latein-earlyout-summary-detail',
+        gravity: $.fn.tipsy.autoNS,
+        html: true,
+        title: function () {
+            return $(this).closest('td').find('.latein-earlyout-summary-detail').html();
+        }
+    });
+}
+
 function query(isFirstLoad) {
-$.ajax({
-    url: _global.root + 'Report/LateInEarlyOutSummary',
-    type: 'POST',
+    $.ajax({
+        url: _global.root + 'Report/ListLateInEarlyOutSummary',
+        type: 'POST',
         dataType: 'html',
         data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
@@ -58,12 +69,8 @@ $.ajax({
             }
         },
         success: function (response) {
-            $('table#data tbody').children().remove();
-
-            if (response.data && response.data.length > 0) {
-            } else {
-                $(noInformation(18)).appendTo('table#data');
-            }
+            $('#list-detail').html(response);
+            initTooltip();
 
             floatThead('table#data');
         },
@@ -79,4 +86,10 @@ $.ajax({
 $(document).ready(function () {
     initFromMonthPicker();
     initToMonthPicker();
+
+    query(true);
+
+    $('#submit').on('click', function () {
+        query(false);
+    });
 });

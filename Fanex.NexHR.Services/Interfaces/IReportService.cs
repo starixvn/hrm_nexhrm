@@ -28,5 +28,7 @@
         IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
 
         IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryCriteria criteria);
+
+        IList<LateInEarlyOutSummaryByTeamModel> GetLateInEarlyOutSummaryByTeam(IList<LateInEarlyOutSummaryModel> lateInEarlyOuts, IList<Team> teams);
     }
 }

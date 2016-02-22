@@ -172,5 +172,34 @@
 
             return lateInEarlyOuts;
         }
+
+        public IList<LateInEarlyOutSummaryByTeamModel> GetLateInEarlyOutSummaryByTeam(
+            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts,
+            IList<Team> teams)
+        {
+            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutSummaryByTeamModel>();
+            teams = teams.OrderBy(t => t.Rank).ToList();
+
+            foreach (Team team in teams)
+            {
+                LateInEarlyOutSummaryByTeamModel entity = new LateInEarlyOutSummaryByTeamModel
+                {
+                    Team = team,
+                    LateInEarlyOutSummaryInTeams = new List<LateInEarlyOutSummaryModel>()
+                };
+
+                foreach (LateInEarlyOutSummaryModel lateInEarlyOut in lateInEarlyOuts)
+                {
+                    if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                    {
+                        entity.LateInEarlyOutSummaryInTeams.Add(lateInEarlyOut);
+                    }
+                }
+
+                lateInEarlyOutByTeam.Add(entity);
+            }
+
+            return lateInEarlyOutByTeam;
+        }
     }
 }

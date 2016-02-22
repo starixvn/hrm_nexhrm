@@ -240,9 +240,9 @@
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    lateinEarlyOuts = db.Query<LateInEarlyOutSummaryModel, Employee, Team, LateInEarlyOutSummaryModel>(
+                    lateinEarlyOuts = multi.Read<LateInEarlyOutSummaryModel, Employee, Team, LateInEarlyOutSummaryModel>(
                        (la, e, g) =>
                        {
                            la.Employee = e;
@@ -250,9 +250,9 @@
 
                            return la;
                        },
-                       "EmpId, GroupId").ToList();
+                       "Id, GroupId").ToList();
 
-                    IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails = db.Query<LateInEarlyOutSummaryDetailModel>().ToList();
+                    IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails = multi.Read<LateInEarlyOutSummaryDetailModel>().ToList();
 
                     GroupLateInEarlyOutSummaryDetailByEmployeeId(lateinEarlyOuts, lateInEarlyOutDetails);
                 }

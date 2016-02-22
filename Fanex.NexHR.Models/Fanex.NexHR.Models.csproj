@@ -87,6 +87,7 @@
     <Compile Include="Overtime.cs" />
     <Compile Include="OvertimeRecord.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
+    <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryDetailModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryModel.cs" />
     <Compile Include="Report\LeaveDeductionDetail.cs" />

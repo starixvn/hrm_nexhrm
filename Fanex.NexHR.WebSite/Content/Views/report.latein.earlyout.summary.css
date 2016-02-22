@@ -91,4 +91,51 @@
   border-radius: 0.3rem;
 }
 
+.tipsy.tipsy-latein-earlyout-summary-detail {
+  opacity: 1 !important;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail .tipsy-inner {
+  max-width: none;
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+  -webkit-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+  -ms-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail .tipsy-arrow {
+  border: none;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail .tipsy-inner {
+  background: #fff;
+  color: #000;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail table {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail table tr {
+  border-bottom: 0.1rem solid #d2d2d2;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail table tr th, .tipsy.tipsy-latein-earlyout-summary-detail table tr td {
+  padding: .5rem;
+  border-left: 0.1rem solid #d2d2d2;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail table tr th:first-child, .tipsy.tipsy-latein-earlyout-summary-detail table tr td:first-child {
+  border-left: none;
+}
+
+.tipsy.tipsy-latein-earlyout-summary-detail table tr:last-child {
+  border-bottom: none;
+}
+
 /*# sourceMappingURL=report.latein.earlyout.summary.css.map */

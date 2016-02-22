@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Report
 {
+    using System;
     using Fanex.Data.Repository;
 
     public class GetLateInEarlyOutSummaryCriteria : CriteriaBase
@@ -9,13 +10,9 @@
 
         public int? GroupId { get; set; }
 
-        public int FromMonth { get; set; }
+        public DateTime FromDate { get; set; }
 
-        public int FromYear { get; set; }
-
-        public int ToMonth { get; set; }
-
-        public int ToYear { get; set; }
+        public DateTime ToDate { get; set; }
 
         public override string GetSettingKey()
         {

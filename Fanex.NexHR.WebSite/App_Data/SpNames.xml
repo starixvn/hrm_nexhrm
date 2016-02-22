@@ -204,7 +204,6 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Report_LateInEarlyOutSummary" SpName="Report_LateInEarlyOutSummary" DbName="nexhr" Plain="0">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>

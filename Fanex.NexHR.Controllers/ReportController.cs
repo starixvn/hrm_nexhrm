@@ -552,6 +552,31 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult ListLateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        {
+            IList<Team> teams = _teamService.GetAll();
+
+            var criteria = new GetLateInEarlyOutSummaryCriteria
+            {
+                EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId,
+                FromDate = new DateTime(model.FromYear, model.FromMonth, 1),
+                ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth))
+            };
+
+            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+
+            if (model.TeamId.HasValue)
+            {
+                teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
+            }
+
+            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
+
+            return PartialView(lateInEarlyOutByTeam);
+        }
+
         #endregion Late In/Early Out
 
         #region Leave Deduction
