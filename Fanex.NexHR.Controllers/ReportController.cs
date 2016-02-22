@@ -537,7 +537,7 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult LateInEarlyOutSummary()
         {
-            IList<Team> teams = _teamService.GetAll(new GetTeamCriteria());
+            IList<Team> teams = _teamService.GetAll();
             var today = DateTime.Today;
 
             var model = new LateInEarlyOutSummaryViewModel()
