@@ -29,7 +29,7 @@ function initPagination() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/MyTimeRecordDetail',
+        url: _global.root + 'Report/ListTimeRecord',
         type: 'GET',
         dataType: 'html',
         data: $('.card-container-base form.form-filter').serialize(),

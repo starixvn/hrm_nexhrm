@@ -20,128 +20,38 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @using (Html.BeginGetForm())
-                        {
-                        @Html.ValidationSummary(true)
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--s">
-                                    <label>@Labels.Month</label>
+                        <form class="form-filter" action="" novalidate="novalidate">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Month</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <div id="monthPickr"></div>
+                                        <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
+                                        <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
+                                        <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
+                                        @Html.HiddenFor(model => model.EmpId)
+                                    </div>
                                 </div>
-                                <div class="left select--m">
-                                    <div id="monthPickr"></div>
-                                    <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
-                                    <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
-                                    <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
-                                    @Html.HiddenFor(model => model.EmpId)
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.RequestType)
+                                    </div>
+                                    <div class="left select--s">
+                                        @RazorHelper.RequestTypeFilter("RequestType", Model.RequestType)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <a id="submit" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.RequestType)
-                                </div>
-                                <div class="left select--s">
-                                    @RazorHelper.RequestTypeFilter("RequestType", Model.RequestType)
-                                </div>
-                            </div>
-                            <div class="col">
-                                <a id="submit" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>
-                            </div>
-                        </div>
-                    }
+                        </form>
                     </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
-                            <thead>
-                                <tr>
-                                    <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Date</th>
-                                    <th>@Labels.Nick</th>
-                                    <th>@Labels.Team</th>
-                                    <th>@Labels.Shift</th>
-                                    <th>@Labels.CheckIn</th>
-                                    <th>@Labels.CheckOut</th>
-                                    <th>@Labels.TotalHours</th>
-                                    <th>@Labels.LateIn</th>
-                                    <th>@Labels.EarlyOut</th>
-                                    <th>@Labels.Request</th>
-                                    <th>@Labels.Note</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div id="list-timesheet" class="p-x--s">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script id="template" type="text/x-jsrender">
-    <tr {{if IsNotWork != 0}} class="offdate" {{else ShiftId}} {{else}} class="noshift"{{/if}}>
-        <td>{{:~index()}}</td>
-        <td>
-            {{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}
-        </td>
-        <td title="{{:FullName}}" class="tooltip">
-            {{:NickName}}
-        </td>
-        <td class="tooltip" title="{{:Team}}">
-            {{:TeamCode}}
-        </td>
-        <td>
-            {{:ShiftCode}}
-        </td>
-        <td>
-            {{if InFixed}}
-                {{:~formatJsonDate(InFixed, 'HH:mm')}}
-            {{else IsMissingCheckin == 1 }}
-                <a href="../checkinout/create?type=1&date={{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}">Request</a>
-            {{/if}}
-        </td>
-        <td>
-            {{if OutFixed}}
-                {{:~formatJsonDate(OutFixed, 'HH:mm')}}
-            {{else IsMissingCheckOut == 1}}
-                <a href="../checkinout/create?type=2&date={{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}">Request</a>
-            {{/if}}
-        </td>
-        <td>
-            {{if TotalWorkHours > 0}}
-                {{:~totalHoursToTime(TotalWorkHours)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if LateIn > 0}}
-                {{:~displayMinute(LateIn)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if EarlyOut > 0}}
-                {{:~displayMinute(EarlyOut)}}
-            {{/if}}
-        </td>
-        <td class="align-left">
-            {{if Requests != null}}
-                {{for Requests}}
-                    <a href='javascript:;' class="tooltip-request req"
-                        data-requesttype="{{:RequestType.Id}}"
-                        data-fromdate="{{:~formatJsonDate(FromDate, 'dd MMM, yyyy HH:mm:ss')}}"
-                        data-todate="{{:~formatJsonDate(ToDate, 'dd MMM, yyyy HH:mm:ss')}}"
-                        data-createddate="{{:~formatJsonDate(CreatedDate, 'dd MMM, yyyy HH:mm:ss')}}"
-                        data-fromshift="{{:FromShift.Name}}"
-                        {{if ToShift != null}} data-toshift="{{:ToShift.Name}}" {{else}} data-toshift="" {{/if}}
-                        data-totaldays="{{:TotalDays}}"
-                        data-totalmins="{{:TotalMins}}"
-                        data-remark='{{:Remark}}'>
-                        {{if RequestType.Id == 6}}  {{:RequestType.Name}} {{else}} {{:RequestType.Name}} {{/if}}
-                    </a>
-                {{/for}}
-            {{/if}}
-        </td>
-        <td class="align-left">
-            {{:Notes}}
-        </td>
-    </tr>
-</script>

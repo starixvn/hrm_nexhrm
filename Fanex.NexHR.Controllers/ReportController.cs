@@ -128,7 +128,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        public JsonResult Timesheet([System.Web.Http.FromUri]TimesheetViewModel model)
+        public ActionResult ListTimesheet([System.Web.Http.FromUri]TimesheetViewModel model)
         {
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
@@ -140,7 +140,7 @@ namespace Fanex.NexHR.Controllers
 
             IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            return Json(new { data = employeeAttendances }, JsonRequestBehavior.AllowGet);
+            return PartialView(employeeAttendances);
         }
 
         #endregion Timesheet
@@ -675,7 +675,7 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        public ActionResult MyTimeRecordDetail(TimeRecordViewModel model)
+        public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {
             var criteria = new GetTimeRecordCriteria()
             {
@@ -697,7 +697,7 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.PagerOption = pagerOption;
 
-            return PartialView("_TimeRecordDetail", timeRecords);
+            return PartialView(timeRecords);
         }
 
         [Authorize(Roles = "HR")]

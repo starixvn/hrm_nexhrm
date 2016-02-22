@@ -83,36 +83,19 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'report/timesheet',
+        url: _global.root + 'report/listtimesheet',
         type: 'POST',
-        dataType: 'json',
-        data: $('form').serialize(),
+        dataType: 'html',
+        data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
         success: function (response) {
-            $('table#data tbody').children().remove();
+            $('#list-timesheet').html(response);
 
-            if (response.data && response.data.length > 0) {
-                rowIndex = 1;
-
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        index: index,
-                        formatJsonDate: formatJsonDate,
-                        totalHoursToTime: totalHoursToTime,
-                        displayMinute: displayMinute
-                    },
-                    html = tmpl.render(response.data, helpers);
-
-                $(html).appendTo('table#data');
-
-                initTooltip();
-            } else {
-                $(noInformation(12)).appendTo('table#data');
-            }
+            initTooltip();
 
             floatThead('table#data');
         },
