@@ -452,8 +452,6 @@
 
         private static void BuildBundleForLateEarly(BundleCollection bundles)
         {
-            //bundles.AddAndInclude("");
-
             bundles.Add(new ScriptBundle("~/bundles/lateearlyjs").Include(
                 "~/Scripts/Views/lateinearlyout.js"));
         }

@@ -177,7 +177,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportController.cs" />
     <Compile Include="Request\CheckInOutController.cs" />
-    <Compile Include="Request\LateEarlyController.cs" />
+    <Compile Include="Request\LateEarlyController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Request\LeaveController.cs" />
     <Compile Include="Request\RequestController.cs" />
     <Compile Include="ShiftController.cs" />
