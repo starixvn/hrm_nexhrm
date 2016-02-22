@@ -1,0 +1,51 @@
+﻿@model IList<Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Type</th>
+            <th>@Labels.Date</th>
+            <th>@Labels.Minutes</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Edit</th>
+            <th>@Labels.Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @if (Model.Any())
+        {
+            foreach (Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel item in Model)
+            {
+                <tr id="row_@(item.Id)">
+                    <td>@(index++)</td>
+                    <td>
+                        @item.Nickname
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>@item.WorkDate.Date.ToShortDateString()</td>
+                    <td>@item.Minutes</td>
+                    <td>@item.ModifiedDate.Date.ToShortDateString()</td>
+                    <td title="Edit">
+                        <a href="/memo/edit/@item.Id">
+                            <i class='mdi mdi-border-color mdi-dark'></i>
+                        </a>
+                    </td>
+                    <td title="Delete">
+                        <a href="javascript:;" onclick="deleteMemo(@item.Id);">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(colspan: 5);
+        }
+    </tbody>
+</table>

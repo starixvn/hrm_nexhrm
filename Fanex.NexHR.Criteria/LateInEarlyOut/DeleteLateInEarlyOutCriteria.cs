@@ -21,7 +21,7 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
 
         public override string GetSettingKey()
         {
-            return "LateInEarlyOut_Delete";
+            return "DeleteLateInEarlyOut";
         }
     }
 }

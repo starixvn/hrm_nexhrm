@@ -29,7 +29,7 @@
 
         public override string GetSettingKey()
         {
-            return "LateInEarlyOut_Update";
+            return "UpdateLateInEarlyOut";
         }
     }
 }

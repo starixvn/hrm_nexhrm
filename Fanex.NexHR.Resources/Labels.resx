@@ -1284,4 +1284,7 @@
   <data name="Deactive" xml:space="preserve">
     <value>Deactive</value>
   </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
 </root>

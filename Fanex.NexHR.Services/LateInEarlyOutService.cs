@@ -5,6 +5,7 @@
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.LateInEarlyOut;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -50,9 +51,9 @@
             return result;
         }
 
-        public IList<LateInEarlyOut> GetByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
+        public IList<LateInEarlyOutViewModel> GetByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
-            List<LateInEarlyOut> list = new List<LateInEarlyOut>();
+            List<LateInEarlyOutViewModel> list = new List<LateInEarlyOutViewModel>();
             if (criteria != null)
             {
                 list = repository.GetByEmpId(criteria).ToList();

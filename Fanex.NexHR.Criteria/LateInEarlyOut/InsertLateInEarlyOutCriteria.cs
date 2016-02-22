@@ -31,7 +31,7 @@
 
         public override string GetSettingKey()
         {
-            return "LateInEarlyOut_Insert";
+            return "InsertLateInEarlyOut";
         }
     }
 }

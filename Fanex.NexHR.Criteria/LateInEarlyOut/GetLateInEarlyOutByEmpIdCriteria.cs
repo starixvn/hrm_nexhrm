@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
 
         public override string GetSettingKey()
         {
-            return "LateInEarlyOut_GetByEmpId";
+            return "GetLateInEarlyOutByEmpId";
         }
     }
 }

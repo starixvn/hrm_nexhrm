@@ -1,11 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels.LateInEarlyOut;
+    using System.Collections.Generic;
 
     public interface ILateInEarlyOutService
     {
@@ -15,6 +12,6 @@
         
         int Delete(DeleteLateInEarlyOutCriteria criteria);
 
-        IList<LateInEarlyOut> GetByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria);
+        IList<LateInEarlyOutViewModel> GetByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria);
     }
 }

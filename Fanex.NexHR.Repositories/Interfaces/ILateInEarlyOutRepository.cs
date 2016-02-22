@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
     using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels.LateInEarlyOut;
     using System.Collections.Generic;
 
     public interface ILateInEarlyOutRepository
@@ -12,6 +12,6 @@
 
         int Delete(ICriteria criteria);
 
-        IList<LateInEarlyOut> GetByEmpId(ICriteria criteria);
+        IList<LateInEarlyOutViewModel> GetByEmpId(ICriteria criteria);
     }
 }
