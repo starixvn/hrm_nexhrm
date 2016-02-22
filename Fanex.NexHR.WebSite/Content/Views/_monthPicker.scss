@@ -3,11 +3,11 @@
 
 .monpickr-wrap-parent {
     width: 200px !important;
-    #monthPickr {
+    #monthPickr, #fromMonthPickr, #toMonthPickr {
         width: 200px !important;
     }
     .monpickr-wrap {
-        z-index: 999 !important;
+        z-index: 997 !important;
 
         .monpickr.monpickr-arrows {
             color: #4f4f4f;

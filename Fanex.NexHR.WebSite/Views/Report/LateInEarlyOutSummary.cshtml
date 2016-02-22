@@ -45,10 +45,8 @@
                                         @Html.HiddenFor(model => model.ToMonth)
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--s">
                                         @Html.Label(@Labels.Team)
                                     </div>
                                     <div class="left select-team">
@@ -67,7 +65,7 @@
                                 <div class="col">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
-                            </div>
+                            </div>                            
                             @Html.Hidden("minDate", (new DateTime(2010, 1, 1)).ToString("yyyy/MM/dd"))
                             @Html.Hidden("maxDate", DateTime.Now.ToString("yyyy/MM/dd"))
                         </form>
