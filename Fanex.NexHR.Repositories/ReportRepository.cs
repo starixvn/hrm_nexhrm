@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ReportRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -242,6 +232,49 @@ namespace Fanex.NexHR.Repositories
             }
 
             return leaveDeductions;
+        }
+
+        public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(ICriteria criteria)
+        {
+            IList<LateInEarlyOutSummaryModel> lateinEarlyOuts = null;
+
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    lateinEarlyOuts = db.Query<LateInEarlyOutSummaryModel, Employee, Team, LateInEarlyOutSummaryModel>(
+                       (la, e, g) =>
+                       {
+                           la.Employee = e;
+                           e.Team = g;
+
+                           return la;
+                       },
+                       "EmpId, GroupId").ToList();
+
+                    IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails = db.Query<LateInEarlyOutSummaryDetailModel>().ToList();
+
+                    GroupLateInEarlyOutSummaryDetailByEmployeeId(lateinEarlyOuts, lateInEarlyOutDetails);
+                }
+            }
+
+            return lateinEarlyOuts;
+        }
+
+        private void GroupLateInEarlyOutSummaryDetailByEmployeeId(
+            IList<LateInEarlyOutSummaryModel> lateinEarlyOuts,
+            IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails)
+        {
+            foreach (LateInEarlyOutSummaryModel lateinEarlyOut in lateinEarlyOuts)
+            {
+                foreach (LateInEarlyOutSummaryDetailModel lateInEarlyOutDetail in lateInEarlyOutDetails)
+                {
+                    if (lateInEarlyOutDetail.EmpId.Equals(lateinEarlyOut.Employee.Id))
+                    {
+                        lateinEarlyOut.LateInEarlyOutSummaryDetails.Add(lateInEarlyOutDetail);
+                    }
+                }
+            }
         }
     }
 }

@@ -159,5 +159,18 @@
 
             return attendances;
         }
+
+        public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = null;
+
+            if (criteria.IsValid())
+            {
+                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutSummary(criteria);
+            }
+
+            return lateInEarlyOuts;
+        }
     }
 }
