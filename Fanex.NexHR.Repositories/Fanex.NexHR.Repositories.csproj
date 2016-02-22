@@ -98,6 +98,7 @@
     <Compile Include="Interfaces\ICalendarRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Interfaces\IExtensionNoRepository.cs" />
+    <Compile Include="Interfaces\ILateInEarlyOutRepository.cs" />
     <Compile Include="Interfaces\IOvertimeRepository.cs" />
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Interfaces\IMemoRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
     <Compile Include="Interfaces\IToeicRepository.cs" />
+    <Compile Include="LateInEarlyOutRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="OvertimeRepository.cs" />
