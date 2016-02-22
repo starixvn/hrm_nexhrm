@@ -760,6 +760,7 @@
     <Content Include="Views\Report\LateInEarlyOutSummary.cshtml" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
     <Content Include="Views\Report\ListLateInEarlyOutSummary.cshtml" />
+    <Content Include="Views\Report\ListLateInEarlyOut.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

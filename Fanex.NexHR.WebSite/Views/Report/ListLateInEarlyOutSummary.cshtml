@@ -11,13 +11,8 @@
     @if (Model != null && Model.Count > 0)
     {
         <tbody>
-            @{
-                int index = 0;
-            }
             @foreach (LateInEarlyOutSummaryByTeamModel item in Model)
             {
-                index++;
-
                 if (item.LateInEarlyOutSummaryInTeams != null && item.LateInEarlyOutSummaryInTeams.Count > 0) {
                     <tr class="row-divider">
                         <td class="align-left txt-uppercase" colspan="3">

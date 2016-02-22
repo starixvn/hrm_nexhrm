@@ -467,7 +467,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        public JsonResult LateInEarlyOut(LateInEarlyOutViewModel model)
+        public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
             IList<Team> teams = _teamService.GetAll();
 
@@ -477,6 +477,7 @@ namespace Fanex.NexHR.Controllers
                 GroupId = model.TeamId,
                 Year = model.Year
             };
+
             IList<LateInEarlyOutModel> lateInEarlyOuts = _reportService.GetLateInEarlyOut(criteria);
 
             if (model.TeamId.HasValue)
@@ -486,7 +487,9 @@ namespace Fanex.NexHR.Controllers
 
             IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = _reportService.GetLateInEarlyOutByTeam(lateInEarlyOuts, teams);
 
-            return Json(new { data = lateInEarlyOutByTeam }, JsonRequestBehavior.AllowGet);
+            ViewBag.Year = model.Year;
+
+            return PartialView(lateInEarlyOutByTeam);
         }
 
         [HttpGet]

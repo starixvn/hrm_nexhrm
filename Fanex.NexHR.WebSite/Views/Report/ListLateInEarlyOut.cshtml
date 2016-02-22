@@ -1,0 +1,183 @@
+﻿@model IList<LateInEarlyOutByTeamModel>
+
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th rowspan="2">@Labels.Nick</th>
+            <th rowspan="2">
+                <span id="last-year">@(ViewBag.Year - 1)</span> (@Labels.Hours)
+            </th>
+            <th colspan="13">
+                <span id="current-year">@ViewBag.Year</span> (@Labels.Hours / @Labels.Times)
+            </th>
+            <th rowspan="2">@Labels.DeductionTaken (@Labels.Hours)</th>
+            <th rowspan="2">@Labels.OT (@Labels.Hours)</th>
+            <th rowspan="2">@Labels.Balance (Hours)</th>
+            @if (Roles.IsUserInRole("HR"))
+            {
+                <th rowspan="2">@Labels.Deduct</th>
+            }
+        </tr>
+        <tr>
+            <th>@Labels.Jan</th>
+            <th>@Labels.Feb</th>
+            <th>@Labels.Mar</th>
+            <th>@Labels.Apr</th>
+            <th>@Labels.May</th>
+            <th>@Labels.Jun</th>
+            <th>@Labels.Jul</th>
+            <th>@Labels.Aug</th>
+            <th>@Labels.Sep</th>
+            <th>@Labels.Oct</th>
+            <th>@Labels.Nov</th>
+            <th>@Labels.Dec</th>
+            <th>@Labels.Total</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        <tbody>
+            @foreach (LateInEarlyOutByTeamModel item in Model)
+            {
+                if (item.LateInEarlyOutInTeams != null && item.LateInEarlyOutInTeams.Count > 0)
+                {
+                    <tr class="row-divider">
+                        <td class="align-left txt-uppercase" colspan="19">
+                            <b>@item.Team.Name.ToUpper()</b>
+                        </td>
+                    </tr>
+                }
+                foreach (LateInEarlyOutModel lateInEarlyOut in item.LateInEarlyOutInTeams)
+                {
+                    <tr>
+                        <td class="tooltip" title="@lateInEarlyOut.Employee.FullName"> @lateInEarlyOut.Employee.NickName</td>
+                        <td>@(lateInEarlyOut.BalanceLastYear != 0 ? (lateInEarlyOut.BalanceLastYear / 60.0).ToString("0.0") : "-")</td>
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Jan,
+                            lateInEarlyOut.TimesInJan,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 1, 1),
+                            new DateTime(ViewBag.Year, 1, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Feb,
+                            lateInEarlyOut.TimesInFeb,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 2, 1),
+                            new DateTime(ViewBag.Year, 3, 1).AddDays(-1))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Mar,
+                            lateInEarlyOut.TimesInMar,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 3, 1),
+                            new DateTime(ViewBag.Year, 3, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Apr,
+                            lateInEarlyOut.TimesInApr,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 4, 1),
+                            new DateTime(ViewBag.Year, 4, 30))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.May,
+                            lateInEarlyOut.TimesInMay,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 5, 1),
+                            new DateTime(ViewBag.Year, 5, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Jun,
+                            lateInEarlyOut.TimesInJun,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 6, 1),
+                            new DateTime(ViewBag.Year, 6, 30))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Jul,
+                            lateInEarlyOut.TimesInJul,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 7, 1),
+                            new DateTime(ViewBag.Year, 7, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Aug,
+                            lateInEarlyOut.TimesInAug,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 8, 1),
+                            new DateTime(ViewBag.Year, 8, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Sep,
+                            lateInEarlyOut.TimesInSep,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 9, 1),
+                            new DateTime(ViewBag.Year, 9, 30))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Oct,
+                            lateInEarlyOut.TimesInOct,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 10, 1),
+                            new DateTime(ViewBag.Year, 10, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Nov,
+                            lateInEarlyOut.TimesInNov,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 11, 1),
+                            new DateTime(ViewBag.Year, 11, 30))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.Dec,
+                            lateInEarlyOut.TimesInDec,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 12, 1),
+                            new DateTime(ViewBag.Year, 12, 31))
+                        @RazorHelper.DisplayFormatTotalLateInEarlyOut(
+                            lateInEarlyOut.TotalCurrentYear,
+                            lateInEarlyOut.TotalTimesCurrentYear,
+                            lateInEarlyOut.Employee.Id,
+                            new DateTime(ViewBag.Year, 1, 1),
+                            new DateTime(ViewBag.Year, 12, 31),
+                            false)
+                        @if (lateInEarlyOut.LeaveDeduction != 0)
+                        {
+                            var url = "LateInEarlyOutDetail?employeeId=" + lateInEarlyOut.Employee.Id
+                                + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
+                                + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
+
+                            <td>
+                                <a href="@url">@((lateInEarlyOut.LeaveDeduction / 60.0).ToString("0.0"))</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                        @if (lateInEarlyOut.OTBalance != 0)
+                        {
+                            var url = "OvertimeRequest?employeeId=" + lateInEarlyOut.Employee.Id
+                                + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
+                                + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate() + "&Status=2";
+
+                            <td>
+                                <a href="@url">@(lateInEarlyOut.OTBalance.ToString("0.0"))</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                        <td style="color: @(lateInEarlyOut.BalanceCurrentYear >= 240 ? "red" : "")">
+                            @(lateInEarlyOut.BalanceCurrentYear != 0 ? (lateInEarlyOut.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
+                        </td>
+                        @if (Roles.IsUserInRole("HR"))
+                        {
+                            <td>
+                                <a href="javascript:;" class="addLeavededuction" data-id="@lateInEarlyOut.Employee.Id" 
+                                   data-annualbalance="@lateInEarlyOut.Employee.AnnualLeaveBalance">
+                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    }
+    else
+    {
+        @RazorHelper.DisplayNoInformation(colspan: 19);
+    }
+</table>

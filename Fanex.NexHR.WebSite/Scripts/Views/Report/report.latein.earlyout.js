@@ -1,59 +1,5 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead, noInformation, formatDate*/
-/*exported displayFormatTotalLateInEarlyOut, displayNumberHours*/
-
-function displayFormatTotalLateInEarlyOut(minutes, times, employeeId, fromMonth, toMonth, isHightlight) {
-    var year = parseInt($('#Year').val()),
-        fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
-        toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-        url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate,
-        result = '-';
-
-    if (minutes !== 0) {
-        var color = (times > 3 && isHightlight) ? 'red' : '';
-        result = '<a style="color:' + color + '" href="' + url + '">' + (minutes / 60).toFixed(1) + ' / ' + times + '</a>';
-    }
-
-    return result;
-}
-
-function displayNumberHours(number, employeeId, fromMonth, toMonth) {
-    var year = parseInt($('#Year').val()),
-        fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
-        toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-        url = "LeaveDeductionDetail?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate,
-        result = '-';
-
-    if (number !== 0) {
-        result = '<a href="' + url + '">' + (number / 60).toFixed(1) + '</a>';
-    }
-
-    return result;
-}
-
-function displayOTHours(number, employeeId, fromMonth, toMonth) {
-    var year = parseInt($('#Year').val()),
-    fromDate = formatDate(new Date(year, fromMonth - 1, 1), 'dd MMM, yyyy'),
-    toDate = formatDate(new Date(year, toMonth, 0), 'dd MMM, yyyy'),
-    url = "/report/OvertimeRequest?employeeId=" + employeeId + "&fromDate=" + fromDate + "&toDate=" + toDate + "&Status=2",
-    result = '-';
-
-    if (number !== 0) {
-        result = '<a href="' + url + '">' + (number).toFixed(1) + '</a>';
-    }
-
-    return result;
-}
-
-function displayBalance(balanceCurrentYear) {
-    var result = '-';
-
-    if (balanceCurrentYear != 0) {
-        result = (balanceCurrentYear / 60).toFixed(1);
-    }
-
-    return result;
-}
+/*global _global, _messages, floatThead*/
 
 function initAddLeaveDeduction() {
     $('.addLeavededuction').click(function () {
@@ -109,35 +55,19 @@ function initAddLeaveDeduction() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/LateInEarlyOut',
+        url: _global.root + 'Report/ListLateInEarlyOut',
         type: 'POST',
-        dataType: 'json',
-        data: $('.card-container-base .form form').serialize(),
+        dataType: 'html',
+        data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
         success: function (response) {
-            $('table#data tbody').children().remove();
+            $('#list-detail').html(response);
 
-            if (response.data && response.data.length > 0) {
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        displayFormatTotalLateInEarlyOut: displayFormatTotalLateInEarlyOut,
-                        displayNumberHours: displayNumberHours,
-                        displayOTHours: displayOTHours,
-                        displayBalance: displayBalance,
-                        isHRRole: isHRRole
-                    },
-                    html = tmpl.render(response.data, helpers);
-
-                $(html).appendTo('table#data');
-
-                initAddLeaveDeduction();
-            } else {
-                $(noInformation(18)).appendTo('table#data');
-            }
+            initAddLeaveDeduction();
 
             floatThead('table#data');
         },

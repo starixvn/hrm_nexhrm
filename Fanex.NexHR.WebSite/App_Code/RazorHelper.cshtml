@@ -301,3 +301,20 @@
 
     <span>@value</span>
 }
+
+@helper DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHightlight = true)
+{
+    var url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
+        + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
+
+    if (minutes != 0)
+    {
+        <td>
+            <a class="@((times > 3 && isHightlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
+        </td>
+    }
+    else
+    {
+        <td>-</td>
+    }
+}

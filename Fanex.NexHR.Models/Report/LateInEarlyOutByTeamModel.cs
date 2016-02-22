@@ -6,6 +6,6 @@
     {
         public Team Team { get; set; }
 
-        public List<LateInEarlyOutModel> LateInEarlyOutSummaryInTeam { get; set; }
+        public List<LateInEarlyOutModel> LateInEarlyOutInTeams { get; set; }
     }
 }

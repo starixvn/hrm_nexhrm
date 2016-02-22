@@ -70,14 +70,14 @@
                 LateInEarlyOutByTeamModel entity = new LateInEarlyOutByTeamModel
                 {
                     Team = team,
-                    LateInEarlyOutSummaryInTeam = new List<LateInEarlyOutModel>()
+                    LateInEarlyOutInTeams = new List<LateInEarlyOutModel>()
                 };
 
                 foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
                 {
                     if (lateInEarlyOut.Employee.Team.Name == team.Name)
                     {
-                        entity.LateInEarlyOutSummaryInTeam.Add(lateInEarlyOut);
+                        entity.LateInEarlyOutInTeams.Add(lateInEarlyOut);
                     }
                 }
 
