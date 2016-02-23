@@ -47,8 +47,8 @@
                                         @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" })
                                     </div>
                                 </div>
-                                <div class='col'>
-                                    <div class='left label--m'>
+                                <div class='col m-l--m'>
+                                    <div class='left label--s'>
                                         @Html.LabelFor(model => model.Status)
                                     </div>
                                     <div class="left select--s">                                        
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class='col'>
-                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--s">@Labels.Submit</a>
+                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--b">@Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
                                         @Html.ActionLink("Create New Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })

@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="left select--m">
                                         @{
-                            var minutesList = new List<SelectListItem>
+                                            var minutesList = new List<SelectListItem>
                                                 {
                                                     new SelectListItem() {Text = "30m", Value = "30", Selected = true},
                                                     new SelectListItem() {Text = "60m", Value = "60"},
@@ -73,26 +73,26 @@
                                     </div>
                                 </div>
                             </div>
-    <div class="row form-input">
-        <div class="col m-r--m">
-            <div class="left label--l">
-                @Html.LabelFor(model => model.WorkDate, Labels.Date)
-            </div>
-            <div class="datepicker-button left select--s">
-                @Html.DatePickerFor(model => model.WorkDate,
+                            <div class="row form-input m-t--s">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.WorkDate, Labels.Date)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.WorkDate,
                                     DateTime.Now,
                                     Utilities.RequestAvailableToDate)
-                <i class="mdi-action-event calendar-icon from-date left"></i>
-            </div>
-        </div>
-        <div class="col">
-            <div class="left select-time">
-                <span class="time hide">
-                    @Html.DropDownList("WorkDate", Utilities.TimeSteps(30))
-                </span>
-            </div>
-        </div>
-    </div>
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select-time">
+                                        <span class="time hide">
+                                            @Html.DropDownList("WorkDate", Utilities.TimeSteps(30))
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row form-input">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">
@@ -100,7 +100,7 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
                                 </div>
                             </div>
-                        }
+                                            }
                     </div>
                     @*<div class="hide">
                             @RazorHelper.RequestLeaveLegend()
