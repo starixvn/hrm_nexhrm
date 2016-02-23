@@ -86,7 +86,7 @@
             {
                 UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
                 {
-                    Id = model.Id,
+                    Id = (int)model.Id,
                     EmpId = model.EmpId,
                     Type = int.Parse(model.Type),
                     Minutes = model.Minutes,

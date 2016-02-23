@@ -5,9 +5,7 @@
     using System.Collections.Generic;
 
     public class LateInEarlyOutViewModel : BaseRequestModel
-    {
-        public int Id { get; set; }
-
+    {        
         public int EmpId { get; set; }
 
         public string Nickname { get; set; }
