@@ -4,8 +4,8 @@
         <tr>
             <th>@Labels.SymbolCount</th>
             <th>@Labels.Employee</th>
-            <th>@Labels.Type</th>
             <th>@Labels.Date</th>
+            <th>@Labels.Type</th>            
             <th>@Labels.Minutes</th>
             <th>@Labels.CreatedDate</th>
             <th>@Labels.Edit</th>
@@ -22,11 +22,11 @@
                     <td>@(index++)</td>
                     <td>
                         @item.Nickname
-                    </td>
+                    </td>                    
+                    <td>@item.WorkDate.Date.ToShortDateString()</td>
                     <td>
                         @item.Type
                     </td>
-                    <td>@item.WorkDate.Date.ToShortDateString()</td>
                     <td>@item.Minutes</td>
                     <td>@item.ModifiedDate.Date.ToShortDateString()</td>
                     <td title="Edit">

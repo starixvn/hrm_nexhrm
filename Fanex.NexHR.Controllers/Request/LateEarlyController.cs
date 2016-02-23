@@ -109,17 +109,16 @@
             }
         }
 
-        public ActionResult ListLateEarly(int empId, int month, int year)
+        public ActionResult ListLateEarly(int empId, int year)
         {
-            return PartialView(GetLateEarlyByEmpId(empId, month, year));
+            return PartialView(GetLateEarlyByEmpId(empId, year));
         }
 
-        private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int month, int year)
+        private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int year)
         {
             var criteria = new GetLateInEarlyOutByEmpIdCriteria() 
             { 
                 EmpId = empId,
-                Month = month,
                 Year = year
             };
             IList<LateInEarlyOutViewModel> list = service.GetAllByEmpId(criteria).ToList();

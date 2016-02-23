@@ -8,9 +8,7 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
     public class GetLateInEarlyOutByEmpIdCriteria : CriteriaBase
     {
-        public int EmpId { get; set; }
-
-        public int Month { get; set; }
+        public int EmpId { get; set; }        
 
         public int Year { get; set; }
 
