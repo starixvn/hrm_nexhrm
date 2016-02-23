@@ -16,15 +16,22 @@
                     <span class="card-title txt-uppercase left">My Late in/Early out list</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
-                        <div class="row form-input">
-                            <input type="hidden" value="Leave" id="RequestType" />
+                    <div class="form">                        
+                        <div class="row form-input">                                                        
                             <div class="col">
                                 <div class="left label--s">
                                     <label>@Labels.Year</label>
                                 </div>
                                 <div class="left select--xs">
                                     @Html.YearPicker("Year", 2010, DateTime.Now.Year)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Month</label>
+                                </div>
+                                <div class="left select--xs">
+                                    @Html.MonthPicker("Month")
                                 </div>
                             </div>
                             <div class="col">

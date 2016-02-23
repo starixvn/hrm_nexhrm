@@ -182,6 +182,27 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(dropDownList.ToString());
         }
 
+        public static MvcHtmlString MonthPicker(
+            this HtmlHelper htmlHelper,
+            string name)
+        {
+            var list = new List<SelectListItem>();
+            var toYear = DateTime.Now.GetMaxDate().Year + 1;
+
+            for (var i = 1; i <= 12; i++)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString(),
+                    Selected = i == DateTime.Now.Month
+                });
+            }
+
+            var dropDownList = htmlHelper.DropDownList(name, list, new { @class = "monthpicker" });
+            return MvcHtmlString.Create(dropDownList.ToString());
+        }
+
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString YearPickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,

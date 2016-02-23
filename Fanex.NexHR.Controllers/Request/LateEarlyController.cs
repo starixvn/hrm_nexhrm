@@ -25,8 +25,8 @@
             this.service = service ?? new LateInEarlyOutService();
         }
 
-        public ActionResult Index()
-        {
+        public ActionResult Index(int month = 0, int year = 0)
+        {            
             return View();
         }
 
@@ -69,7 +69,7 @@
 
             if (id > 0)
             {
-                model = service.GetById(criteria);
+                model = service.GetById(criteria);              
             }
 
             return View(model);
@@ -88,7 +88,7 @@
                 {
                     Id = model.Id,
                     EmpId = model.EmpId,
-                    Type = model.TypeCode,
+                    Type = int.Parse(model.Type),
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
@@ -109,14 +109,19 @@
             }
         }
 
-        public ActionResult ListLateEarly(int empId)
+        public ActionResult ListLateEarly(int empId, int month, int year)
         {
-            return PartialView(GetLateEarlyByEmpId(empId));
+            return PartialView(GetLateEarlyByEmpId(empId, month, year));
         }
 
-        private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId)
+        private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int month, int year)
         {
-            var criteria = new GetLateInEarlyOutByEmpIdCriteria() { EmpId = empId };
+            var criteria = new GetLateInEarlyOutByEmpIdCriteria() 
+            { 
+                EmpId = empId,
+                Month = month,
+                Year = year
+            };
             IList<LateInEarlyOutViewModel> list = service.GetAllByEmpId(criteria).ToList();
 
             return list;

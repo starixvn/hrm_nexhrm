@@ -51,7 +51,7 @@
                                         @Html.LabelFor(model => model.Type, Labels.Type)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TypeCode, new SelectList(Model.TypesList, "Id", "Name"))
+                                        @Html.DropDownListFor(model => model.Type, new SelectList(Model.TypesList, "Id", "Name"))
                                         @*@Html.HiddenFor(model => model.Type)*@
                                     </div>
                                 </div>

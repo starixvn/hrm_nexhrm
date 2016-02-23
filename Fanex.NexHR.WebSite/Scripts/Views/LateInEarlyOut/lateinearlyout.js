@@ -6,14 +6,18 @@ function query(isFirstLoad) {
         url: _global.root + 'LateEarly/ListLateEarly',
         type: 'GET',
         dataType: 'html',
-        data: { empId: _global.employeeId },
+        data: {
+            empId: _global.employeeId,
+            month: $('#Month').val(),
+            year: $('#Year').val()
+        },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
         success: function (response) {
-            $('#listLateEarly').html(response);            
+            $('#listLateEarly').html(response);
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -35,11 +39,10 @@ function deleteRequest(id, fileName, type) {
     });
 }
 
-$(document).ready(function () {
-
+$(document).ready(function () {    
     query(true);
 
-        $('#submit').on('click', function () {
-            query(false);
-        });
+    $('#submit').on('click', function () {
+        query(false);
+    });
 });

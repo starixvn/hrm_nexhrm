@@ -10,6 +10,10 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
     {
         public int EmpId { get; set; }
 
+        public int Month { get; set; }
+
+        public int Year { get; set; }
+
         public override bool IsValid()
         {
             return true;
@@ -21,3 +25,5 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
         }
     }
 }
+
+
