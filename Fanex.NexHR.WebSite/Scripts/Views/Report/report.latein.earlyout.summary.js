@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead, noInformation*/
+/*global _global, _messages, floatThead*/
 
 function initFromMonthPicker() {
     var month = $('#FromMonth').val(),
@@ -22,7 +22,6 @@ function initFromMonthPicker() {
     $('#fromMonthPickr .monpickr-prev span.ui-icon-circle-triangle-w').empty();
     $('#fromMonthPickr .monpickr-next span.ui-icon-circle-triangle-e').empty();
 }
-
 
 function initToMonthPicker() {
     var month = $('#ToMonth').val(),
@@ -94,7 +93,10 @@ $(document).ready(function () {
             toDate = new Date($('#ToYear').val(), $('#ToMonth').val(), 0),
             maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), 1);
 
-        if (toDate > maxDate) {
+        if (toDate.getTime() < fromDate.getTime()) {
+            $('#toast-container').children().remove();
+            Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date must be less than or equal To Date<span>', 2000);
+        } else if (toDate > maxDate) {
             $('#toast-container').children().remove();
             Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date and To Date must not exceed 365 days<span>', 2000);
         }

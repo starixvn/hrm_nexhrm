@@ -180,11 +180,17 @@ function setDateTimeRange(selectedIndex) {
 function validateFromDateAndToDate() {
     var fromDate = new Date($("#FromDate").val()),
         toDate = new Date($("#ToDate").val()),
+        maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), 1),
         isValid = true;
 
     if (toDate.getTime() < fromDate.getTime()) {
         $('#toast-container').children().remove();
         Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date must be less than or equal To Date<span>', 2000);
+
+        isValid = false;
+    } else if (toDate > maxDate) {
+        $('#toast-container').children().remove();
+        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date and To Date must not exceed 365 days<span>', 2000);
 
         isValid = false;
     }
