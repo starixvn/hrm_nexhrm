@@ -26,9 +26,18 @@ function query(isFirstLoad) {
     });
 }
 
+function deleteRequest(id, fileName, type) {
+    confirm('Are you sure you want to delete this request?', function () {
+        $.post(_global.root + 'lateearly/delete', { id: id }, function () {
+            $('#row_' + id).remove();
+            autoIndex();
+        });
+    });
+}
+
 $(document).ready(function () {
 
-        query(true);
+    query(true);
 
         $('#submit').on('click', function () {
             query(false);

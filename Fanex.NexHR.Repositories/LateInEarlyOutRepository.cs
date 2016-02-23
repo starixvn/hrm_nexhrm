@@ -36,12 +36,20 @@
             }
         }
 
-        public IList<LateInEarlyOutViewModel> GetByEmpId(ICriteria criteria)
+        public IList<LateInEarlyOutViewModel> GetAllByEmpId(ICriteria criteria)
         {
             string settingKey = criteria.GetSettingKey();
             using (ObjectDb db = new ObjectDb(settingKey))
             {
                 return db.Query<LateInEarlyOutViewModel>(criteria.GetSpParams()).ToList();
+            }
+        }
+
+        public LateInEarlyOutViewModel GetById(ICriteria criteria)
+        {            
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.QueryEntity<LateInEarlyOutViewModel>(criteria.GetSpParams());
             }
         }
     }

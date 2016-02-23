@@ -112,6 +112,7 @@
     <Compile Include="GetBirthdayAndFirstWorkingdayCriteria.cs" />
     <Compile Include="Holiday\DeleteHolidayCriteria.cs" />
     <Compile Include="LateInEarlyOut\DeleteLateInEarlyOutCriteria.cs" />
+    <Compile Include="LateInEarlyOut\GetLateInEarlyOutByIdCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetLateInEarlyOutByEmpIdCriteria.cs" />
     <Compile Include="LateInEarlyOut\InsertLateInEarlyOutCriteria.cs" />
     <Compile Include="LateInEarlyOut\UpdateLateInEarlyOutCriteria.cs" />

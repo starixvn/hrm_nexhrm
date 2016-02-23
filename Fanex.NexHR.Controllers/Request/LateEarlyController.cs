@@ -51,20 +51,62 @@
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
-                    ModifiedBy = model.EmpId
+                    ModifiedBy = this.CurrentUser.Id
                 };
                 service.Insert(criteria);
-            }            
+            }
+
+            return View("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
+            GetLateInEarlyOutByIdCriteria criteria = new GetLateInEarlyOutByIdCriteria()
+            {
+                Id = id
+            };
+
+            if (id > 0)
+            {
+                model = service.GetById(criteria);
+            }
 
             return View(model);
         }
 
-        public void Update()
+        [HttpPost]
+        public ActionResult Edit(LateInEarlyOutViewModel model)
         {
+            if (model.EmpId <= 0)
+            {
+                ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
+            }
+            else
+            {
+                UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                {
+                    Id = model.Id,
+                    EmpId = model.EmpId,
+                    Type = model.TypeCode,
+                    Minutes = model.Minutes,
+                    WorkDate = model.WorkDate,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = this.CurrentUser.Id,
+                };
+                service.Update(criteria);
+            }
+
+            return View("Index");
         }
 
-        public void Delete()
+        public void Delete(int id)
         {
+            DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
+            if (criteria.IsValid())
+            {
+                service.Delete(criteria);
+            }
         }
 
         public ActionResult ListLateEarly(int empId)
@@ -75,7 +117,7 @@
         private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId)
         {
             var criteria = new GetLateInEarlyOutByEmpIdCriteria() { EmpId = empId };
-            IList<LateInEarlyOutViewModel> list = service.GetByEmpId(criteria).ToList();
+            IList<LateInEarlyOutViewModel> list = service.GetAllByEmpId(criteria).ToList();
 
             return list;
         }

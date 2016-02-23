@@ -30,12 +30,12 @@
                     <td>@item.Minutes</td>
                     <td>@item.ModifiedDate.Date.ToShortDateString()</td>
                     <td title="Edit">
-                        <a href="/lateearly/edit/@item.Id">
+                        <a href="/lateearly/Edit/@item.Id">
                             <i class='mdi mdi-border-color mdi-dark'></i>
                         </a>
                     </td>
                     <td title="Delete">
-                        <a href="javascript:;" onclick="deleteMemo(@item.Id);">
+                        <a href="javascript:;" onclick="deleteRequest(@item.Id);">
                             <i class='mdi mdi-delete mdi-dark'></i>
                         </a>
                     </td>

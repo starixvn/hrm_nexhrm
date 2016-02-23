@@ -51,15 +51,26 @@
             return result;
         }
 
-        public IList<LateInEarlyOutViewModel> GetByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
+        public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
             List<LateInEarlyOutViewModel> list = new List<LateInEarlyOutViewModel>();
-            if (criteria != null)
+            if (criteria != null && criteria.IsValid())
             {
-                list = repository.GetByEmpId(criteria).ToList();
+                list = repository.GetAllByEmpId(criteria).ToList();
             }
 
             return list;
+        }
+
+        public LateInEarlyOutViewModel GetById(GetLateInEarlyOutByIdCriteria criteria)
+        {
+            LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
+            if (criteria != null & criteria.IsValid())
+            {
+                model = repository.GetById(criteria);
+            }
+
+            return model;
         }
     }
 }

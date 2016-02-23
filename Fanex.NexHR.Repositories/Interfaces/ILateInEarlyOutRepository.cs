@@ -12,6 +12,8 @@
 
         int Delete(ICriteria criteria);
 
-        IList<LateInEarlyOutViewModel> GetByEmpId(ICriteria criteria);
+        IList<LateInEarlyOutViewModel> GetAllByEmpId(ICriteria criteria);
+
+        LateInEarlyOutViewModel GetById(ICriteria criteria);
     }
 }

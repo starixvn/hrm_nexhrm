@@ -766,6 +766,7 @@
     <Content Include="Views\Report\ListTimesheet.cshtml" />
     <Content Include="Views\LateEarly\ListLateEarly.cshtml" />
     <Content Include="Views\LateEarly\Create.cshtml" />
+    <Content Include="Views\LateEarly\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

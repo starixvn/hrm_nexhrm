@@ -1,0 +1,109 @@
+﻿@model Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel
+@{
+    ViewBag.Title = Labels.NewLateInEarlyOutNotification;
+}
+@section css{
+
+}
+@section js{
+    @Scripts.Render("~/bundles/createlateearlyjs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@ViewBag.Title</span>
+                    <a id="legendInfo" href="javascript:;">
+                        <span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm("Edit", "lateearly", FormMethod.Post, new { @class = "form-create-update" }))
+                        {
+                            @Html.ValidationSummary()
+                            if (ViewBag.Requested == true)
+                            {
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                    <input type="hidden" id="successed" value="true" />
+                                    <input type="hidden" id="year" value="@ViewBag.Year" />
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.EmpId, Labels.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { @id = "EmployeeId" })
+                                        @Html.EditorFor(model => model.Employee)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Type, Labels.Type)
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TypeCode, new SelectList(Model.TypesList, "Id", "Name"))
+                                        @*@Html.HiddenFor(model => model.Type)*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Minutes, Labels.Minutes)
+                                    </div>
+                                    <div class="left select--m">
+                                        @{
+                            var minutesList = new List<SelectListItem>
+                                                {
+                                                    new SelectListItem() {Text = "30m", Value = "30", Selected = true},
+                                                    new SelectListItem() {Text = "60m", Value = "60"},
+                                                };
+                                        }
+                                        @Html.RadioButtonList(model => model.Minutes, minutesList)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.WorkDate, Labels.Date)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.WorkDate,
+                                    DateTime.Now,
+                                    Utilities.RequestAvailableToDate)
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left select-time">
+                                        <span class="time hide">
+                                            @Html.DropDownList("WorkDate", Utilities.TimeSteps(30))
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">
+                                    <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
