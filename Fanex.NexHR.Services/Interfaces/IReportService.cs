@@ -1,8 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
 
     public interface IReportService
@@ -22,8 +24,6 @@
         IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
 
         IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria);
-
-        IList<LeaveSummary> GetAnnualLeaveBalanceReport(GetAnnualLeaveSummaryReportCriteria criteria);
 
         IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
 

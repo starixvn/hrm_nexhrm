@@ -6,11 +6,13 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
@@ -294,67 +296,6 @@
 
         #endregion Total Working Hours
 
-        #region Leave Summary
-
-        public ActionResult LeaveSummary()
-        {
-            IList<Team> teams = _teamService.GetAll();
-
-            var model = new LeaveSummaryViewModel
-            {
-                Year = DateTime.Now.Year,
-                EmployeeId = -1,
-                Teams = teams
-            };
-
-            return View(model);
-        }
-
-        public ActionResult LeaveSummaryDetail(LeaveSummaryViewModel model)
-        {
-            if (model == null)
-            {
-                model = new LeaveSummaryViewModel
-                {
-                    Year = DateTime.Now.Year,
-                    EmployeeId = -1
-                };
-            }
-
-            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryReportCriteria
-            {
-                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId,
-                Year = model.Year
-            };
-            IList<LeaveSummary> entityList = _reportService.GetAnnualLeaveBalanceReport(getAnnualLeaveCriteria);
-
-            IList<Team> teams = new List<Team>();
-
-            if (model.TeamId != null)
-            {
-                var criteria = new GetTeamByIdCriteria
-                {
-                    Id = (int)model.TeamId
-                };
-
-                Team team = _teamService.GetById(criteria);
-                teams.Add(team);
-            }
-            else
-            {
-                teams = _teamService.GetAll();
-            }
-
-            ViewBag.CurrentYear = model.Year;
-            ViewBag.LastYear = model.Year - 1;
-            IList<LeaveSummaryByTeam> leaveSummaryByTeamList = _employeeService.GetAnnualLeaveByTeam(entityList, teams);
-
-            return PartialView("_LeaveSummaryDetail", leaveSummaryByTeamList);
-        }
-
-        #endregion Leave Summary
-
         #region Overtime Request
 
         public ActionResult MyOvertime()
@@ -417,30 +358,6 @@
         }
 
         #endregion Overtime Request
-
-        [ChildActionOnly]
-        public PartialViewResult CreateLeaveDeduction()
-        {
-            return PartialView(new LeaveDeductionViewModel
-            {
-                DeductDate = DateTime.Now,
-                TotalDays = decimal.Parse("0.5"),
-                Description = Labels.LeaveDeductionDescription,
-                IsAnnual = true
-            });
-        }
-
-        [ChildActionOnly]
-        public PartialViewResult EditLeaveDeduction()
-        {
-            return PartialView(new LeaveDeductionViewModel
-            {
-                DeductDate = DateTime.Now,
-                TotalDays = decimal.Parse("0.5"),
-                Description = Labels.LeaveDeductionDescription,
-                IsAnnual = true
-            });
-        }
 
         #region Late In/Early Out
 
@@ -621,24 +538,6 @@
         }
 
         #endregion Leave Deduction
-
-        [HttpPost]
-        public ActionResult Employee(AnnualLeaveBalanceViewModel model)
-        {
-            model.ExcludedRequestTrans = model.ExcludedRequestTrans ? false : true;
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.EmployeeId };
-            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
-            var getAnnualLeaveTransactionCriteria = new GetAnnualLeaveTransactionCriteria
-            {
-                EmployeeId = model.EmployeeId,
-                Year = model.Year,
-                ExcludedRequestTransactions = model.ExcludedRequestTrans
-            };
-
-            ViewBag.Data = _employeeService.GetAnnualLeaveTransactions(getAnnualLeaveTransactionCriteria);
-
-            return View(model);
-        }
 
         public ActionResult ExtensionNo()
         {

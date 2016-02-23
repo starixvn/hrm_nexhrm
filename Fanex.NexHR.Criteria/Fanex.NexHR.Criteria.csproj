@@ -68,18 +68,18 @@
     <Compile Include="Department\GetDepartmentByIdCriteria.cs" />
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
-    <Compile Include="Employee\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
     <Compile Include="Employee\GetLeaderForStanbyTeamCriteria.cs" />
     <Compile Include="Employee\GetManagementsCriteria.cs" />
     <Compile Include="Calendar\InsertEmployeeCalendarCriteria.cs" />
-    <Compile Include="Employee\GetOpenAndCloseAnnualBalanceCriteria.cs" />
-    <Compile Include="Employee\DeleteAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="AnnualLeave\GetOpenAndCloseAnnualBalanceCriteria.cs" />
+    <Compile Include="AnnualLeave\DeleteAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\DeleteEmployeeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
-    <Compile Include="Employee\GetAnnualLeaveByIdCriteria.cs" />
-    <Compile Include="Employee\GetAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="AnnualLeave\GetAnnualLeaveByIdCriteria.cs" />
+    <Compile Include="AnnualLeave\GetAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
     <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
@@ -92,14 +92,14 @@
     <Compile Include="Employee\GetEmployeeShiftCriteria.cs" />
     <Compile Include="Employee\GetUpdatingScoreRelatedPeopleCriteria.cs" />
     <Compile Include="Calendar\GetWorkingScheduleCriteria.cs" />
-    <Compile Include="Employee\InsertAnnualLeaveTransactionCriteria.cs" />
-    <Compile Include="Employee\OpenAnnualBalanceForNewYearCriteria.cs" />
-    <Compile Include="Employee\ResetAnnualLeavesCriteria.cs" />
+    <Compile Include="AnnualLeave\InsertAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="AnnualLeave\OpenAnnualBalanceForNewYearCriteria.cs" />
+    <Compile Include="AnnualLeave\ResetAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetLeadersOfEmployeeCriteria.cs" />
     <Compile Include="Employee\InsertEmployeeCriteria.cs" />
     <Compile Include="Employee\UpdateEmployeeCriteria.cs" />
     <Compile Include="Employee\UpdateScheduleDefaultCriteria.cs" />
-    <Compile Include="Employee\UpdateAnnualLeaveTransactionCriteria.cs" />
+    <Compile Include="AnnualLeave\UpdateAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="ExtensionNo\AddNewExtensionNoMemberCriteria.cs" />
     <Compile Include="ExtensionNo\AddNewExternalGroupCriteria.cs" />
     <Compile Include="ExtensionNo\DeleteExtensionNumberCriteria.cs" />
@@ -141,19 +141,19 @@
     <Compile Include="Overtime\UpdateOverTimeCriteria.cs" />
     <Compile Include="Overtime\RejectRequestCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\DeleteLeaveDeductionCriteria.cs" />
+    <Compile Include="AnnualLeave\DeleteLeaveDeductionCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutSummaryCriteria.cs" />
     <Compile Include="Report\GetLeaveDeductionDetailCriteria.cs" />
-    <Compile Include="Report\GetAnnualLeaveSummaryReportCriteria.cs" />
+    <Compile Include="AnnualLeave\GetAnnualLeaveSummaryCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutDetailReportCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutReportCriteria.cs" />
     <Compile Include="Report\GetRequestMonitorReportCriteria.cs" />
     <Compile Include="Report\GetTimeRecordCriteria.cs" />
     <Compile Include="Report\GetTotalWorkingHoursSummaryCriteria.cs" />
-    <Compile Include="Report\InsertLeaveDeductionCriteria.cs" />
+    <Compile Include="AnnualLeave\InsertLeaveDeductionCriteria.cs" />
     <Compile Include="Report\TimeRecordUpdateTypeCriteria.cs" />
-    <Compile Include="Report\UpdateLeaveDeductionCriteria.cs" />
+    <Compile Include="AnnualLeave\UpdateLeaveDeductionCriteria.cs" />
     <Compile Include="Request\ApproveRequestCriteria.cs" />
     <Compile Include="Request\DeleteRequestCriteria.cs" />
     <Compile Include="Request\DisapproveRequestCriteria.cs" />
@@ -179,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

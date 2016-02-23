@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels;
 
@@ -32,41 +31,15 @@
 
         HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
-        ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
-
-        IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
-
-        AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria);
-
-        CommandResult DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria);
-
-        CommandResult UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria);
-
-        CommandResult InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria);
-
-        CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria);
-
-        CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria);
-
-        CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria);
-
         int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
 
         IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
-
-        IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaveSummaryList, IList<Team> listTeam);
 
         IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
 
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
-
-        CommandResult AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria);
-
-        CommandResult OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria);
-
-        CommandResult ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria);
     }

@@ -1,0 +1,116 @@
+﻿@using Fanex.NexHR.Models.AnnualLeave
+@model IList<LeaveSummary>
+@{
+    int year = ViewBag.Year;
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            @if (Roles.IsUserInRole("HR"))
+            {
+                <th rowspan="2" class="col-checkbox">
+                    @Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })
+                </th>
+            }
+            else
+            {
+                <th rowspan="2">#</th>
+            }
+            <th rowspan="2">@Labels.Nick</th>
+            <th colspan="2">@Labels.AnnualLeave</th>
+            <th colspan="12">
+                Take Annual Leave @year
+            </th>
+            <th rowspan="2">
+                Balance of AL @year
+            </th>
+            @if (Roles.IsUserInRole("HR"))
+            {
+                <th rowspan="2">@Labels.Edit</th>
+            }
+        </tr>
+        <tr>
+            <th>@(year - 1)</th>
+            <th>@year</th>
+            <th>@Labels.Jan</th>
+            <th>@Labels.Feb</th>
+            <th>@Labels.Mar</th>
+            <th>@Labels.Apr</th>
+            <th>@Labels.May</th>
+            <th>@Labels.Jun</th>
+            <th>@Labels.Jul</th>
+            <th>@Labels.Aug</th>
+            <th>@Labels.Sep</th>
+            <th>@Labels.Oct</th>
+            <th>@Labels.Nov</th>
+            <th>@Labels.Dec</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Any())
+    {
+        int index = 1;
+        IList<LeaveSummary> leaveSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+        <tbody>
+            @foreach (LeaveSummary leaveSummaryByTeam in leaveSummaryByTeams)
+            {
+                <tr class="row-divider">
+                    <td colspan="19">
+                        <b>@leaveSummaryByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+
+                IList<LeaveSummary> leaveSummaries = Model.Where(t => t.Employee.Team.Id == leaveSummaryByTeam.Employee.Team.Id).ToList();
+                foreach (LeaveSummary leaveSummary in leaveSummaries)
+                {
+                    var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
+                        new
+                        {
+                            @class = "aba filled-in",
+                            data_id = leaveSummary.Employee.Id
+                        });
+                    <tr>
+                        @if (Roles.IsUserInRole("HR"))
+                        {
+                            <td class="col-checkbox">
+                                @Html.MaterializeCheckBox("checkbox_" + @leaveSummary.Employee.Id, htmlAttributes)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@(index++)</td>
+                        }
+                        <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
+                        <td style="@(leaveSummary.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">@leaveSummary.AnnualLeaveLastYear.ToString("0.0")</td>
+                        <td style="@(leaveSummary.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">@leaveSummary.AnnualLeaveCurrentYear.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Jan < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jan.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Feb < 0 ? "color:red;" : string.Empty)">@leaveSummary.Feb.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Mar < 0 ? "color:red;" : string.Empty)">@leaveSummary.Mar.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Apr < 0 ? "color:red;" : string.Empty)">@leaveSummary.Apr.ToString("0.0")</td>
+                        <td style="@(leaveSummary.May < 0 ? "color:red;" : string.Empty)">@leaveSummary.May.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Jun < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jun.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Jul < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jul.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Aug < 0 ? "color:red;" : string.Empty)">@leaveSummary.Aug.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Sep < 0 ? "color:red;" : string.Empty)">@leaveSummary.Sep.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Oct < 0 ? "color:red;" : string.Empty)">@leaveSummary.Oct.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Nov < 0 ? "color:red;" : string.Empty)">@leaveSummary.Nov.ToString("0.0")</td>
+                        <td style="@(leaveSummary.Dec < 0 ? "color:red;" : string.Empty)">@leaveSummary.Dec.ToString("0.0")</td>
+                        <td style="@(leaveSummary.LeaveBalance < 0 ? "color:red;" : string.Empty)">@leaveSummary.LeaveBalance.ToString("0.0")</td>
+                        @if (Roles.IsUserInRole("HR"))
+                        {
+                            <td class="center">
+                                <a href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id + &year=@year">
+                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                                </a>
+                            </td>
+
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    }
+    else
+    {
+        @RazorHelper.DisplayNoInformation(18)
+    }
+</table>

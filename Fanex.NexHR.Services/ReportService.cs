@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
+    using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -133,18 +135,6 @@
             }
 
             return totalWorkingHours;
-        }
-
-        public IList<LeaveSummary> GetAnnualLeaveBalanceReport(GetAnnualLeaveSummaryReportCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<LeaveSummary> leaveBalances = null;
-            if (criteria.IsValid())
-            {
-                leaveBalances = _reportRepository.GetAnnualLeaveBalanceReport(criteria);
-            }
-
-            return leaveBalances;
         }
 
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)

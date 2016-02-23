@@ -3,12 +3,11 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
 
     public class LeaveSummaryViewModel
     {
         public int Year { get; set; }
-
-        public string Team { get; set; }
 
         public int? TeamId { get; set; }
 

@@ -28,6 +28,8 @@
 
             BuildBundleForAnnualLeaveBalance(bundles);
 
+            BuildBundleForEditLeaveTransaction(bundles);
+
             BuildBundleForTotalWorkingHours(bundles);
 
             BuildBundleForHolidays(bundles);
@@ -243,6 +245,12 @@
 
             bundles.Add(new ScriptBundle("~/bundles/employeeannualleavebalancejs").Include(
                 "~/Scripts/Views/AnnualLeaveBalance/employee.js"));
+        }
+
+        private static void BuildBundleForEditLeaveTransaction(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/editleavetransactionjs").Include(
+                "~/Scripts/Views/AnnualLeaveBalance/annualleave.edit.js"));
         }
 
         private static void BuildBundleForJobTitle(BundleCollection bundles)

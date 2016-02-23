@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnualLeave\AnnualLeaveTransaction.cs" />
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
     <Compile Include="Calendar\WorkingSchedule.cs" />
@@ -94,15 +95,14 @@
     <Compile Include="Report\LateInEarlyOutDetail.cs" />
     <Compile Include="Report\LateInEarlyOutModel.cs" />
     <Compile Include="Report\LateInEarlyOutByTeamModel.cs" />
-    <Compile Include="ShowOpenAndCloseAnnualBalance.cs" />
+    <Compile Include="AnnualLeave\ShowOpenAndCloseAnnualBalance.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentModel.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="DefaultSchedule.cs" />
     <Compile Include="ExtensionNoModel.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="LeaveSummary.cs" />
-    <Compile Include="LeaveSummaryByTeam.cs" />
+    <Compile Include="AnnualLeave\LeaveSummary.cs" />
     <Compile Include="RequestsMonitoring.cs" />
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />

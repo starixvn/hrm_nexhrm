@@ -384,6 +384,7 @@
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\Views\addextensionno.js" />
+    <Content Include="Scripts\Views\AnnualLeaveBalance\annualleave.edit.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
     <Content Include="Scripts\Views\Dashboard\calendar.js" />
@@ -700,12 +701,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Content\Views\myrequest.scss" />
-    <Content Include="Views\AnnualLeaveBalance\Create.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\Edit.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\Employee.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\Index.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\MultipleInsert.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\MultipleReset.cshtml" />
+    <Content Include="Views\AnnualLeave\Create.cshtml" />
+    <Content Include="Views\AnnualLeave\Edit.cshtml" />
+    <Content Include="Views\AnnualLeave\Employee.cshtml" />
+    <Content Include="Views\AnnualLeave\Index.cshtml" />
+    <Content Include="Views\AnnualLeave\MultipleInsert.cshtml" />
+    <Content Include="Views\AnnualLeave\MultipleReset.cshtml" />
     <Content Include="Views\Employee\Birthday.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Employee\Detail.cshtml" />
@@ -738,8 +739,8 @@
     <Content Include="Views\Toeic\UpdateToeic.cshtml" />
     <Content Include="Views\Dashboard\MyTeamAttendance.cshtml" />
     <Content Include="Views\Request\AllRequest.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\_Index.cshtml" />
-    <Content Include="Views\AnnualLeaveBalance\_Employee.cshtml" />
+    <Content Include="Views\AnnualLeave\_Index.cshtml" />
+    <Content Include="Views\AnnualLeave\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\OverTime\Create.cshtml" />
     <Content Include="Views\Report\OvertimeRequest.cshtml" />
@@ -747,7 +748,6 @@
     <Content Include="Views\Report\OvertimeRequestDetail.cshtml" />
     <Content Include="Views\OverTime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
-    <Content Include="Views\Report\_LeaveSummaryDetail.cshtml" />
     <Content Include="Views\Report\ListTimeRecord.cshtml" />
     <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
@@ -761,6 +761,7 @@
     <Content Include="Views\LateEarly\Index.cshtml" />
     <Content Include="Views\Report\LateInEarlyOutSummary.cshtml" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.summary.js" />
+    <Content Include="Views\Home\NoData.cshtml" />
     <Content Include="Views\Report\ListLateInEarlyOutSummary.cshtml" />
     <Content Include="Views\Report\ListLateInEarlyOut.cshtml" />
     <Content Include="Views\Report\ListTimesheet.cshtml" />
@@ -902,7 +903,6 @@
     <Content Include="Views\Report\LateInEarlyOutDetail.cshtml" />
     <Content Include="Views\Report\LateInEarlyOut.cshtml" />
     <Content Include="Views\Report\LeaveDeductionDetail.cshtml" />
-    <Content Include="Views\Report\LeaveSummary.cshtml" />
     <Content Include="Views\Report\MyTimeRecord.cshtml" />
     <Content Include="Views\Report\RequestMonitoring.cshtml" />
     <Content Include="Views\Report\TimeRecord.cshtml" />

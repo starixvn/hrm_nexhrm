@@ -5,10 +5,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
-    using Fanex.Data;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -27,7 +25,7 @@
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employee = new Employee();
+            Employee employee = null;
             if (criteria.IsValid())
             {
                 employee = employeeRepository.GetById(criteria);
@@ -39,7 +37,7 @@
         public Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var employee = new Employee();
+            Employee employee = null;
             if (criteria.IsValid())
             {
                 employee = employeeRepository.GetByDomainName(criteria);
@@ -51,13 +49,13 @@
         public IList<Employee> Query(GetEmployeeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> employees = new List<Employee>();
+            IList<Employee> employees = null;
             if (criteria.IsValid())
             {
                 employees = employeeRepository.Query(criteria);
             }
 
-            return employees;
+            return employees ?? new List<Employee>();
         }
 
         public CommandResult Insert(InsertEmployeeCriteria criteria)
@@ -129,71 +127,6 @@
             return dashboard;
         }
 
-        public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entity = db.QueryEntity<ShowOpenAndCloseAnnualBalance>(criteria.GetSpParams());
-
-                return entity;
-            }
-        }
-
-        public IList<AnnualLeaveBalanceModel> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<AnnualLeaveBalanceModel> annualLeaves = null;
-
-            if (criteria.IsValid())
-            {
-                annualLeaves = GetData<AnnualLeaveBalanceModel>(criteria).ToList();
-            }
-
-            return annualLeaves ?? new List<AnnualLeaveBalanceModel>();
-        }
-
-        public AnnualLeaveBalanceModel GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            AnnualLeaveBalanceModel annualLeave = null;
-            if (criteria.IsValid())
-            {
-                annualLeave = GetDataEntity<AnnualLeaveBalanceModel>(criteria);
-            }
-
-            return annualLeave;
-        }
-
-        public CommandResult DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
         public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)
         {
             return employeeRepository.GetRangeDate(criteria);
@@ -211,39 +144,11 @@
             return dates ?? new List<DateTime>();
         }
 
-        public IList<LeaveSummaryByTeam> GetAnnualLeaveByTeam(IList<LeaveSummary> leaves, IList<Team> teams)
-        {
-            IList<LeaveSummaryByTeam> leaveSummaryByTeams = new List<LeaveSummaryByTeam>();
-
-            teams = teams.OrderBy(t => t.Rank).ToList();
-
-            foreach (Team team in teams)
-            {
-                LeaveSummaryByTeam entity = new LeaveSummaryByTeam
-                {
-                    Team = team,
-                    LeaveSummaryInTeam = new List<LeaveSummary>()
-                };
-
-                foreach (LeaveSummary leavesumary in leaves)
-                {
-                    if (leavesumary.Employee.Team.Name == team.Name)
-                    {
-                        entity.LeaveSummaryInTeam.Add(leavesumary);
-                    }
-                }
-
-                leaveSummaryByTeams.Add(entity);
-            }
-
-            return leaveSummaryByTeams;
-        }
-
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
             if (criteria.Enable != null)
             {
-                criteria.Enable = criteria.Enable == true ? false : true;
+                criteria.Enable = criteria.Enable != true;
             }
 
             return employeeRepository.GetEmployeeToeicScore(criteria);
@@ -251,15 +156,15 @@
 
         public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
-            SystemReminderModel lstEmployee = null;
+            SystemReminderModel employees = null;
             Check.Argument.IsNotNull(criteria, "criteria");
 
             if (criteria.IsValid())
             {
-                lstEmployee = employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                employees = employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
 
-            return lstEmployee;
+            return employees;
         }
 
         public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
@@ -272,21 +177,6 @@
             }
 
             return employees ?? new List<Employee>();
-        }
-
-        public CommandResult AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
-        {
-            return Execute(criteria);
         }
 
         public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria)

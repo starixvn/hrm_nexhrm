@@ -36,24 +36,25 @@ function eventAdjustment() {
 
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
+        confirm('Are you sure you want to add leave transaction?', function () {
+            var $form = $(this);
+            _totalDays = parseFloat($('#TotalDays').val());
 
-        var $form = $(this);
-        _totalDays = parseFloat($('#TotalDays').val());
+            if ($form.valid()) {
+                $.post(_global.root + 'AnnualLeave/AdjustAnnualLeaves', $('form').serialize(), function (response) {
+                    if (response.Code === 0) {
+                        $.each(_ids, function (index, value) {
+                            var currentAnnualLeaveBalance = parseFloat($('#alb' + value).text());
+                            $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
+                        });
 
-        if ($form.valid()) {
-            $.post(_global.root + 'AnnualLeave/AdjustAnnualLeaves', $('form').serialize(), function (response) {
-                if (response.Code === 0) {
-                    $.each(_ids, function (index, value) {
-                        var currentAnnualLeaveBalance = parseFloat($('#alb' + value).text());
-                        $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
-                    });
-
-                    document.location = _global.root + 'annualleave/index';
-                } else {
-                    alert(response.Message);
-                }
-            });
-        }
+                        document.location = _global.root + 'annualleave/index';
+                    } else {
+                        alert(response.Message);
+                    }
+                });
+            }
+        });
     });
 
     $('#cancel').click(function () {
@@ -93,18 +94,20 @@ function eventCloseBalance() {
     $('#resetform form').submit(function (evt) {
         evt.preventDefault();
 
-        var $form = $(this);
-        _totalDays = parseFloat($('#TotalDays').val());
+        confirm('Are you sure you want to reset leave transaction?', function () {
+            var $form = $(this);
+            _totalDays = parseFloat($('#TotalDays').val());
 
-        if ($form.valid()) {
-            $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', $('form').serialize(), function (response) {
-                if (response.Code === 0) {
-                    $('#resetform').dialog('close');
-                } else {
-                    alert(response.Message);
-                }
-            });
-        }
+            if ($form.valid()) {
+                $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', $('form').serialize(), function (response) {
+                    if (response.Code === 0) {
+                        $('#resetform').dialog('close');
+                    } else {
+                        alert(response.Message);
+                    }
+                });
+            }
+        });
     });
 
     $('#cancelReset').click(function () {

@@ -28,6 +28,20 @@ function query(isFirstLoad) {
     });
 }
 
+
+function deleteLeaveTrans(leaveTransactionId) {
+    confirm('Are you sure you want to delete this leave transaction?', function () {
+        $.post(_global.root + 'annualleave/Delete', { leaveTransactionId: leaveTransactionId }, function (respone) {
+            if (respone.Code === 0) {
+                query(false);
+            }
+            else {
+                alert(respone.Message);
+            }
+        });
+    });
+}
+
 $(document).ready(function () {
     $('#submit').on('click', function () {
         query(false);

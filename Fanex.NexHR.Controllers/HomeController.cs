@@ -37,5 +37,11 @@ namespace Fanex.NexHR.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult NoData()
+        {
+            return View();
+        }
     }
 }

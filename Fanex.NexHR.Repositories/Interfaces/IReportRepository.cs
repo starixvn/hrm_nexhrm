@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
 
     public interface IReportRepository
@@ -12,8 +13,6 @@
         IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria);
 
         IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria);
-
-        IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria);
 
         IList<TimeRecordModel> GetTimeRecords(ICriteria criteria);
 

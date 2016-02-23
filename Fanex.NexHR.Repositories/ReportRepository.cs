@@ -10,6 +10,7 @@
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -92,56 +93,6 @@
                     },
                     splitOn: "EmpId, GroupId",
                     parameterValues: criteria.GetSpParams()).ToList();
-
-                return entityList;
-            }
-        }
-
-        public IList<LeaveSummary> GetAnnualLeaveBalanceReport(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entityList = new List<LeaveSummary>();
-
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new LeaveSummary
-                            {
-                                Employee = new Employee
-                                {
-                                    FullName = reader.ToString("FullName"),
-                                    NickName = reader.ToString("NickName"),
-                                    Team = new Team { Name = reader.To<string>("Team") },
-                                    Id = reader.ToInt("empid"),
-                                    JoinedDate = reader.ToDateTime("JoinedDate"),
-                                    ConfirmedDate = reader.ToDateTime("ConfirmedDate")
-                                },
-                                AnnualLeaveLastYear = reader.ToFloat("AnnualLeavelastYear"),
-                                AnnualLeaveCurrentYear = reader.ToFloat("AnnualLeaveCurrentYear"),
-                                Jan = reader.ToFloat("Jan"),
-                                Feb = reader.ToFloat("Feb"),
-                                Mar = reader.ToFloat("Mar"),
-                                Apr = reader.ToFloat("Apr"),
-                                May = reader.ToFloat("May"),
-                                Jun = reader.ToFloat("Jun"),
-                                Jul = reader.ToFloat("Jul"),
-                                Aug = reader.ToFloat("Aug"),
-                                Sep = reader.ToFloat("Sep"),
-                                Oct = reader.ToFloat("Oct"),
-                                Nov = reader.ToFloat("Nov"),
-                                Dec = reader.ToFloat("Dec"),
-                                LeaveBalance = reader.ToFloat("LeaveBalance"),
-                                Remark = reader.ToString("Remark")
-                            };
-
-                            entityList.Add(entity);
-                        }
-                    }
-                }
 
                 return entityList;
             }

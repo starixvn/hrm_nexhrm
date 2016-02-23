@@ -40,7 +40,6 @@
     <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmployeeCalendar_GetLeaveHalfDay" SpName="EmployeeCalendar_GetLeaveHalfDay" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
@@ -53,6 +52,28 @@
     <Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
+  </Function>
+  <Function Name="AnnualLeave">
+    <Setting Key="AnnualLeave_GetSummary" SpName="AnnualLeave_GetSummary" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="AnnualLeave_InsertTransaction" SpName="AnnualLeave_InsertTransaction" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="AnnualLeave_InsertMultipleTransactions" SpName="AnnualLeave_InsertMultipleTransactions" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="AnnualLeave_UpdateTransaction" SpName="AnnualLeave_UpdateTransaction" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="AnnualLeave_DeleteTransaction" SpName="AnnualLeave_DeleteTransaction" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0">
+    </Setting>
+    <Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0">
+    </Setting>
+    <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
     </Setting>
   </Function>
   <Function Name="ExtensionNumber">
@@ -137,22 +158,6 @@
     <Setting Key="LeaveType_GetAll" SpName="LeaveType_GetAll" DbName="nexhr" Plain="0"></Setting>
   </Function>
 
-  <Function Name="AnnualLeaveBalance">
-    <Setting Key="AnnualLeave_InsertTransaction" SpName="AnnualLeave_InsertTransaction" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="AnnualLeave_InsertMultipleTransactions" SpName="AnnualLeave_InsertMultipleTransactions" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="AnnualLeave_UpdateTransaction" SpName="AnnualLeave_UpdateTransaction" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="AnnualLeave_DeleteTransaction" SpName="AnnualLeave_DeleteTransaction" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0">
-    </Setting>
-    <Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0">
-    </Setting>
-    <Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0">
-    </Setting>
-    <Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0">
-    </Setting>
-    <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
-    </Setting>
-  </Function>
   <Function Name="TOEIC">
     <Setting Key="TOEIC_GetScore" SpName="TOEIC_GetScore" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="TOEIC_GetAllScores" SpName="TOEIC_GetAllScores" DbName="nexhr" Plain="0"></Setting>

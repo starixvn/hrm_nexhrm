@@ -1,0 +1,60 @@
+﻿@using Fanex.NexHR.ViewModels.AnnualLeave
+@model AnnualLeaveBalanceViewModel
+@{
+    ViewBag.Title = @Model.EmployeeNickName + "'s annual leave balance";
+}
+@section css {
+}
+@section js {
+    @Scripts.Render("~/bundles/employeeannualleavebalancejs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">
+                        @ViewBag.Title
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        @Html.LabelFor(model => model.Year)
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.YearPickerFor(model => model.Year, 2010)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left">
+                                        @Html.MaterializeCheckBoxFor(model => model.ExcludedRequestTrans, new { @class = "filled-in" })
+                                    </div>
+                                    <div class="left">
+                                        @Html.LabelFor(model => model.ExcludedRequestTrans)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.View" />
+                                </div>
+                                <div class="col">
+                                    @Html.ActionLink("Adjustment", "Create", new { employeeId = Model.EmployeeId }, new { @class = "btn-request waves-effect waves-light" })
+                                </div>
+                                @Html.HiddenFor(model => model.EmployeeId)
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s">
+                        <div id="div-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

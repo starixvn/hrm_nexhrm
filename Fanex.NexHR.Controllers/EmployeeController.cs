@@ -68,7 +68,7 @@
             return View(model);
         }
 
-        public ActionResult Detail(int employeeId = -1)
+        public ActionResult Detail(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
             return View(employee);
@@ -137,7 +137,7 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult Edit(int employeeId = -1)
+        public ActionResult Edit(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
 
@@ -200,7 +200,7 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult DefaultSchedule(int employeeId = -1)
+        public ActionResult DefaultSchedule(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
@@ -248,7 +248,7 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult MonthSchedule(int employeeId = -1)
+        public ActionResult MonthSchedule(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
             MonthlyScheduleViewModel model = new MonthlyScheduleViewModel()

@@ -54,10 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnnualLeaveBalanceModel.cs" />
-    <Compile Include="AnnualLeaveBalanceMultiViewModel.cs" />
-    <Compile Include="AnnualLeaveBalanceViewModel.cs" />
-    <Compile Include="BaseAnnualLeaveBalanceViewModel.cs" />
+    <Compile Include="AnnualLeave\AddMultiAnnualLeaveTransactionViewModel.cs" />
+    <Compile Include="AnnualLeave\AnnualLeaveBalanceViewModel.cs" />
+    <Compile Include="AnnualLeave\AddAnnualLeaveTransactionViewModel.cs" />
+    <Compile Include="AnnualLeave\EditAnnualLeaveTransactionViewModel.cs" />
     <Compile Include="BaseRequestModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
