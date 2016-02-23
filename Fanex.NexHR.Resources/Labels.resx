@@ -1287,4 +1287,7 @@
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>
   </data>
+  <data name="NewLateInEarlyOutNotification" xml:space="preserve">
+    <value>New Late in/ Early out nofication</value>
+  </data>
 </root>

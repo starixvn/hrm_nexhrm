@@ -2347,6 +2347,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Late in/ Early out nofication.
+        /// </summary>
+        public static string NewLateInEarlyOutNotification {
+            get {
+                return ResourceManager.GetString("NewLateInEarlyOutNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Late In Early Out Request.
         /// </summary>
         public static string NewLateInEarlyOutRequest {

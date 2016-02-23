@@ -656,7 +656,8 @@
     <Content Include="Scripts\Views\holiday.edit.js" />
     <Content Include="Scripts\Views\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
-    <Content Include="Scripts\Views\lateinearlyout.js" />
+    <Content Include="Scripts\Views\LateInEarlyOut\create.js" />
+    <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
     <Content Include="Scripts\Views\OverTime\reportSummary.js" />
     <Content Include="Scripts\Views\Report\overtimeRequest.js" />
@@ -764,6 +765,7 @@
     <Content Include="Views\Report\ListLateInEarlyOut.cshtml" />
     <Content Include="Views\Report\ListTimesheet.cshtml" />
     <Content Include="Views\LateEarly\ListLateEarly.cshtml" />
+    <Content Include="Views\LateEarly\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

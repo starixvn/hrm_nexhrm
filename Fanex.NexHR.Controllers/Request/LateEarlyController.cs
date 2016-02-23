@@ -1,9 +1,11 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
     using Fanex.NexHR.Criteria.LateInEarlyOut;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.LateInEarlyOut;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -28,8 +30,33 @@
             return View();
         }
 
-        public void Insert()
+        public ActionResult Create()
         {
+            return View(new LateInEarlyOutViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Create(LateInEarlyOutViewModel model)
+        {
+            if (model.EmpId <= 0)
+            {
+                ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
+            }
+            else
+            {
+                InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
+                {
+                    EmpId = model.EmpId,
+                    Type = model.TypeCode,
+                    Minutes = model.Minutes,
+                    WorkDate = model.WorkDate,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = model.EmpId
+                };
+                service.Insert(criteria);
+            }            
+
+            return View(model);
         }
 
         public void Update()
