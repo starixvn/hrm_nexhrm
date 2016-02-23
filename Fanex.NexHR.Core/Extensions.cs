@@ -446,7 +446,9 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
-            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(htmlAttributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", fullHtmlFieldName);
@@ -491,7 +493,8 @@ namespace Fanex.NexHR.Core
                 checkbox.MergeAttribute("checked", "checked");
             }
 
-            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(htmlAttributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", fullHtmlFieldName);
@@ -541,7 +544,8 @@ namespace Fanex.NexHR.Core
                 checkbox.MergeAttribute("checked", "checked");
             }
 
-            checkbox.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(htmlAttributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", propertyName);

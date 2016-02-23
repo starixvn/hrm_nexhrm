@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Created</change>
-//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
-// </history>
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -565,7 +556,8 @@ namespace Fanex.NexHR.Controllers
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId,
                 FromDate = new DateTime(model.FromYear, model.FromMonth, 1),
-                ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth))
+                ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
+                IsUserWarning = model.IsUserWarning
             };
 
             IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
@@ -749,7 +741,7 @@ namespace Fanex.NexHR.Controllers
 
             ViewBag.PagerOption = pagerOption;
 
-            return PartialView("_TimeRecordDetail", timeRecords);
+            return PartialView("ListTimeRecord", timeRecords);
         }
 
         #endregion Time Record

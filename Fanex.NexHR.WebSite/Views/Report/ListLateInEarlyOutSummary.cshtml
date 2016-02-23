@@ -1,10 +1,11 @@
 ﻿@model IList<LateInEarlyOutSummaryByTeamModel>
 
-<table id="data" class="table bordered striped highlight table-custom centered">
+<table id="data" class="table bordered striped highlight table-custom centered" style="max-width: 960px">
     <thead>
         <tr>
-            <th>@Labels.FullName</th>
+            <th>@Labels.SymbolCount</th>
             <th>@Labels.Nick</th>
+            <th>@Labels.FullName</th>
             <th>@Labels.Total</th>
         </tr>
     </thead>
@@ -15,16 +16,19 @@
             {
                 if (item.LateInEarlyOutSummaryInTeams != null && item.LateInEarlyOutSummaryInTeams.Count > 0) {
                     <tr class="row-divider">
-                        <td class="align-left txt-uppercase" colspan="3">
+                        <td class="align-left txt-uppercase" colspan="4">
                             <b>@item.Team.Name.ToUpper()</b>
                         </td>
                     </tr>
                 }
+                int index = 0;
                 foreach (LateInEarlyOutSummaryModel lateInEarlyOut in item.LateInEarlyOutSummaryInTeams)
                 {
+                    index++;
                     <tr>
-                        <td class="align-left">@lateInEarlyOut.Employee.FullName</td>
+                        <td>@index</td>
                         <td>@lateInEarlyOut.Employee.NickName</td>
+                        <td class="align-left">@lateInEarlyOut.Employee.FullName</td>
                         @if (lateInEarlyOut.TotalTimes != 0)
                         {
                             <td>
@@ -61,6 +65,6 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(colspan: 3);
+        @RazorHelper.DisplayNoInformation(colspan: 4);
     }
 </table>

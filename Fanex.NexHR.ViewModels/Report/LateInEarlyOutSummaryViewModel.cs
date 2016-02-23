@@ -20,6 +20,8 @@
 
         public int EmployeeId { get; set; }
 
+        public bool IsUserWarning { get; set; }
+
         public IList<Team> Teams { get; set; }
     }
 }

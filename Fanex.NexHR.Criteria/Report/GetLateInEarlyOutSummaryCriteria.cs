@@ -14,6 +14,8 @@
 
         public DateTime ToDate { get; set; }
 
+        public bool IsUserWarning { get; set; }
+
         public override string GetSettingKey()
         {
             return "Report_LateInEarlyOutSummary";

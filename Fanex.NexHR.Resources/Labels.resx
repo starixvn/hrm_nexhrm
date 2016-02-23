@@ -1290,4 +1290,7 @@
   <data name="NewLateInEarlyOutNotification" xml:space="preserve">
     <value>New Late in/ Early out nofication</value>
   </data>
+  <data name="UserWarning" xml:space="preserve">
+    <value>User Warning</value>
+  </data>
 </root>

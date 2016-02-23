@@ -3427,6 +3427,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Warning.
+        /// </summary>
+        public static string UserWarning {
+            get {
+                return ResourceManager.GetString("UserWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verified.
         /// </summary>
         public static string Verified {
