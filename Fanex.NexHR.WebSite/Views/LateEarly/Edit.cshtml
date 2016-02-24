@@ -25,13 +25,22 @@
                         @using (Html.BeginForm("Edit", "lateearly", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
-                            if (ViewBag.Requested == true)
+                            if (ViewBag.Requested != null)
                             {
-                                <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
-                                    <input type="hidden" id="successed" value="true" />
-                                    <input type="hidden" id="year" value="@ViewBag.Year" />
-                                </div>
+                                if (ViewBag.Requested.Code == 0)
+                                {
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                        <input type="hidden" id="successed" value="true" />
+                                        <input type="hidden" id="year" value="@ViewBag.Year" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row validation-summary-errors">
+                                        <i class="mdi mdi-backup-restore m-r--s"></i>@ViewBag.Requested.Message
+                                    </div>
+                                }
                             }
                             @Html.HiddenFor(model => model.Id)
                             <div class="row form-input">
@@ -51,8 +60,7 @@
                                         @Html.LabelFor(model => model.Type, Labels.Type)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.Type, new SelectList(Model.TypesList, "Id", "Name"))
-                                        @*@Html.HiddenFor(model => model.Type)*@
+                                        @Html.DropDownListFor(model => model.Type, new SelectList(Model.TypesList, "Id", "Name"))                                        
                                     </div>
                                 </div>
                             </div>

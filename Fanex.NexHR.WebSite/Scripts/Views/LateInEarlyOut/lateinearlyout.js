@@ -39,7 +39,8 @@ function deleteRequest(id, fileName, type) {
     });
 }
 
-$(document).ready(function () {    
+$(document).ready(function () {        
+
     query(true);
 
     $('#submit').on('click', function () {

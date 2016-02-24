@@ -10,10 +10,6 @@ namespace Fanex.NexHR.Criteria.LateInEarlyOut
     {
         public int Id { get; set; }
 
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
-
         public override bool IsValid()
         {
             return true;

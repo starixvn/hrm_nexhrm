@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class LateInEarlyOutService : ILateInEarlyOutService
+    public class LateInEarlyOutService : BaseService, ILateInEarlyOutService
     {
         private readonly ILateInEarlyOutRepository repository;
 
@@ -18,37 +18,19 @@
             this.repository = repository ?? new LateInEarlyOutRepository();
         }
 
-        public int Insert(InsertLateInEarlyOutCriteria criteria)
+        public CommandResult Insert(InsertLateInEarlyOutCriteria criteria)
         {
-            int result = 0;
-            if (criteria != null)
-            {
-                result = repository.Insert(criteria);
-            }
-
-            return result;
+            return Execute(criteria, true);
         }
 
-        public int Update(UpdateLateInEarlyOutCriteria criteria)
+        public CommandResult Update(UpdateLateInEarlyOutCriteria criteria)
         {
-            int result = 0;
-            if (criteria != null)
-            {
-                result = repository.Update(criteria);
-            }
-
-            return result;
+            return Execute(criteria);
         }
 
-        public int Delete(DeleteLateInEarlyOutCriteria criteria)
+        public CommandResult Delete(DeleteLateInEarlyOutCriteria criteria)
         {
-            int result = 0;
-            if (criteria != null)
-            {
-                result = repository.Delete(criteria);
-            }
-
-            return result;
+            return Execute(criteria);
         }
 
         public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
@@ -69,7 +51,7 @@
             {
                 model = repository.GetById(criteria);
             }
-
+            
             return model;
         }
     }
