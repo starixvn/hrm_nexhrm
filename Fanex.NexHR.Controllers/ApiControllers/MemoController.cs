@@ -24,12 +24,26 @@
 
         public IQueryable<Memo> GetMemos(int category, int year, int status)
         {
-            GetAllMemoCriteria getAllMemoCriteria = new GetAllMemoCriteria()
+            GetAllMemoCriteria getAllMemoCriteria = null;
+
+            if (this.User.IsInRole("HR"))
+            {
+                getAllMemoCriteria = new GetAllMemoCriteria()
                 {
                     Category = category,
                     Year = year,
                     Status = status
                 };
+            }
+            else
+            {
+                getAllMemoCriteria = new GetAllMemoCriteria()
+                {
+                    Category = category,
+                    Year = year,
+                    Status = 1
+                };
+            }
 
             IList<Memo> entityList = _memoService.GetAll(getAllMemoCriteria);
 

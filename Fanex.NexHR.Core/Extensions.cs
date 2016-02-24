@@ -163,9 +163,19 @@ namespace Fanex.NexHR.Core
             this HtmlHelper htmlHelper,
             string name,
             int fromYear = 2000,
-            int currentYear = 2000)
+            int currentYear = 2000,
+            bool hasFirstItem = false)
         {
             var list = new List<SelectListItem>();
+            if (hasFirstItem)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "-1",
+                    Selected = true
+                });
+            }
             var toYear = DateTime.Now.GetMaxDate().Year + 1;
 
             for (var i = toYear; i >= fromYear; i--)
@@ -174,7 +184,7 @@ namespace Fanex.NexHR.Core
                 {
                     Text = i.ToString(),
                     Value = i.ToString(),
-                    Selected = i == currentYear
+                    Selected = !hasFirstItem?(i == currentYear):false
                 });
             }
 
@@ -206,13 +216,14 @@ namespace Fanex.NexHR.Core
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString YearPickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
-            Expression<Func<TModel, TValue>> expression,
-            int fromYear = 2000)
+            Expression<Func<TModel, TValue>> expression,            
+            int fromYear = 2000,
+            bool hasFirstItem = false)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
             var currentYear = (int)metaData.Model;
 
-            return html.YearPicker(metaData.PropertyName, fromYear, currentYear);
+            return html.YearPicker(metaData.PropertyName, fromYear, currentYear, hasFirstItem);
         }
 
         public static HelperResult RenderSection(

@@ -22,7 +22,7 @@ function deleteMemo(id, fileName, type) {
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'api/memo/getmemos',
-        data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() },
+        data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() == undefined ? -1 : $('#Status').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -42,7 +42,7 @@ function query(isFirstLoad) {
                     },
                     html = tmpl.render(data, helpers);
 
-                $(html).appendTo('table#memo');
+                $(html).appendTo('table#memo tbody');
             } else {
                 $(noInformation(11)).appendTo('table#memo');
             }

@@ -170,6 +170,7 @@
         private static void BuildBundleForMemo(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/memoindexjs").Include(
+                "~/Scripts/Views/Memo/memo.js",
                 "~/Scripts/Views/Memo/memo.index.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(

@@ -36,7 +36,7 @@
                                         @Html.LabelFor(model => model.Year)
                                     </div>
                                     <div class="left select--xs">
-                                        @Html.YearPickerFor(model => model.Year, 2010)
+                                        @Html.YearPickerFor(model => model.Year, 2010, true)
                                     </div>
                                 </div>
                                 <div class='col'>
@@ -47,14 +47,17 @@
                                         @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" })
                                     </div>
                                 </div>
-                                <div class='col m-l--m'>
-                                    <div class='left label--s'>
-                                        @Html.LabelFor(model => model.Status)
+                                @if (Roles.IsUserInRole("HR"))
+                                {
+                                    <div class='col m-l--m'>
+                                        <div class='left label--s'>
+                                            @Html.LabelFor(model => model.Status)
+                                        </div>
+                                        <div class="left select--s">
+                                            @Html.DropDownListFor(model => model.Status, Model.StatusTypes)
+                                        </div>
                                     </div>
-                                    <div class="left select--s">                                        
-                                        @Html.DropDownListFor(model => model.Status, Model.StatusTypes)
-                                    </div>
-                                </div>
+                                }
                                 <div class='col'>
                                     <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--b">@Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
@@ -72,17 +75,16 @@
                                         <th>@Labels.RefNo</th>
                                         <th>@Labels.Subject</th>
                                         <th>@Labels.Category</th>
-                                        <th>@Labels.Date</th>
-                                        <th>@Labels.Status</th>
+                                        <th>@Labels.Date</th>                                        
                                         @if (Roles.IsUserInRole("HR"))
                                         {
+                                            <th>@Labels.Status</th>
                                             <th>@Labels.Edit</th>
                                             <th>@Labels.Delete</th>
                                         }
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     }
@@ -92,7 +94,7 @@
     </div>
 </div>
 
-<script id="template" type="text/x-jsrender"> 
+<script id="template" type="text/x-jsrender">
     <tr id="row_{{:Id}}">
         <td>{{:~index()}}</td>
         <td>{{:RefNo}}</td>
@@ -102,19 +104,25 @@
         <td>{{:CategoryName}}</td>
         <td>
             {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
-        </td>
-        <td>{{:Status==1?"Active":"Deactive"}}</td>
+        </td>        
         {{if ~isHRRole}}
-            <td title="Edit">
-                <a href="/memo/edit/{{:Id}}">
-                    <i class='mdi mdi-border-color mdi-dark'></i>
-                </a>
-            </td>
-            <td title="Delete">
-                <a href="javascript:;" onclick="deleteMemo({{:Id}}, '{{:Contents}}', {{:MemoType}});">
-                    <i class='mdi mdi-delete mdi-dark'></i>
-                </a>
-            </td>
+        <td>{{:Status==1?"Active":"Deactive"}}</td>
+        <td title="Edit">
+            <a href="/memo/edit/{{:Id}}">
+                <i class='mdi mdi-border-color mdi-dark'></i>
+            </a>
+        </td>
+        <td title="Delete">
+            {{if MemoType == 1}}
+            <a href="javascript:;" onclick="deleteMemo({{:Id}}, '{{:Contents}}', {{:MemoType}});">
+                <i class='mdi mdi-delete mdi-dark'></i>
+            </a>
+            {{else}}
+            <a href="javascript:;" onclick="deleteMemo({{:Id}}, '', {{:MemoType}});">
+                <i class='mdi mdi-delete mdi-dark'></i>
+            </a>
+            {{/if}}
+        </td>
         {{/if}}
-    </tr> 
+    </tr>
 </script>
