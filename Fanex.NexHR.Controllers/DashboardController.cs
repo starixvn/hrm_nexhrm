@@ -72,8 +72,6 @@
             return lstEmployee;
         }
 
-        #region TodoList
-
         public ActionResult GetTodoList(int? employeeId)
         {
             ToDoViewModel model = new ToDoViewModel() 
@@ -113,6 +111,5 @@
 
             return entityList;
         }
-        #endregion
     }
 }

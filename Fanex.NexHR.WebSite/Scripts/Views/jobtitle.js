@@ -8,14 +8,14 @@ var canNotUpdate = function (id) {
 
 function deleteJobTitle(id) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'jobtitle/DeleteJobTitle',
+        $.post(_global.root + 'jobtitle/Delete',
         { id: id },
         function (response) {
-            if (response) {
+            if (response.IsSuccessful) {
                 query(false);
             }
             else {
-                alert(_messages.errorTryAgain);
+                alert(response.Message);
             }
         }).error(function () {
             alert(_messages.errorTryAgain);
@@ -57,11 +57,11 @@ function updateJobTitle(id) {
 
         var oldTitle = $('#spanJobTitle_' + id).val();
         if (jobTitle !== oldTitle) {
-            $.post(_global.root + 'jobtitle/UpdatetJobTitle', { id: id, name: jobTitle }, function (response) {
-                if (response) {
+            $.post(_global.root + 'jobtitle/Update', { id: id, name: jobTitle }, function (response) {
+                if (response.IsSuccessful) {
                     query(false);
                 } else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message)
                     canNotUpdate(id);
                 }
             }).error(function () {
@@ -118,14 +118,14 @@ $(function () {
                     bValid = bValid && checkLength(name, 'job title', 3, 100);
 
                     if (bValid) {
-                        $.post(_global.root + 'jobtitle/InsertJobTitle',
+                        $.post(_global.root + 'jobtitle/Insert',
                         { name: name.val() },
                         function (response) {
-                            if (response) {
+                            if (response.IsSuccessful) {
                                 $('#dialog-form').dialog('close');
                                 query(false);
                             } else {
-                                alert(_messages.errorTryAgain);
+                                alert(response.Message);
                             }
                         }).error(function () {
                             alert(_messages.errorTryAgain);
@@ -156,8 +156,9 @@ $(function () {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'jobtitle/JobTitleManagementDetail',
+        url: _global.root + 'jobtitle/index',
         dataType: 'html',
+        method: "POST",
         data: { jobTitle: $('#keyword').val() },
         beforeSend: function () {
             if (!isFirstLoad) {

@@ -9,16 +9,20 @@ function index() {
 
 function deleteHoliday(id) {
     confirm('Are you sure you want to delete this holiday?', function () {
-        $.post(_global.root + 'ajax/DeleteHoliday', { id: id }, function () {
-            $('#row' + id).remove();
-            autoIndex();
+        $.post(_global.root + 'holiday/Delete', { id: id }, function (response) {
+            if (response.IsSuccessful) {
+                document.location = _global.root + 'holiday/Index';
+            }
+            else {
+                alert(response.Message);
+            }
         });
     });
 }
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'api/holiday/getholidays',
+        url: _global.root + 'holiday/getholiday',
         data: { year: $('#year').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -33,7 +37,7 @@ function query(isFirstLoad) {
                 var tmpl = $.templates('#template'),
                     helpers = {
                         index: index,
-                        formatDate: formatDate,
+                        formatDate: formatJsonDate,
                         isHRRole: isHRRole
                     },
                     html = tmpl.render(data, helpers);

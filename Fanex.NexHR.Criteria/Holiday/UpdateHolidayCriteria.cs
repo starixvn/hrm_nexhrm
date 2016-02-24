@@ -1,20 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateHolidayCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Holiday
+﻿namespace Fanex.NexHR.Criteria.Holiday
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update holiday criteria.
-    /// </summary>
     public class UpdateHolidayCriteria : CriteriaBase
     {
         public int Id { get; set; }
@@ -27,8 +15,6 @@ namespace Fanex.NexHR.Criteria.Holiday
 
         public int ModifiedBy { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
-
         public override string GetSettingKey()
         {
             return "Holiday_Update";
@@ -36,7 +22,7 @@ namespace Fanex.NexHR.Criteria.Holiday
 
         public override bool IsValid()
         {
-            return FromDate <= ToDate;
+            return FromDate <= ToDate && Id > 0 && !string.IsNullOrWhiteSpace(HolidayName);
         }
     }
 }

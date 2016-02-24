@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -10,11 +11,11 @@
 
     public class TeamService : BaseService, ITeamService
     {
-        private readonly ITeamRepository _teamRepository;
+        private readonly ITeamRepository teamRepository;
 
         public TeamService(ITeamRepository teamRepository = null)
         {
-            this._teamRepository = teamRepository ?? new TeamRepository();
+            this.teamRepository = teamRepository ?? new TeamRepository();
         }
 
         public Team GetById(GetTeamByIdCriteria criteria)
@@ -23,7 +24,7 @@
             Team team = null;
             if (criteria.IsValid())
             {
-                team = _teamRepository.GetById(criteria);
+                team = teamRepository.GetById(criteria);
             }
 
             return team;
@@ -35,7 +36,7 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = _teamRepository.GetAll(criteria);
+                teams = teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();
@@ -44,13 +45,13 @@
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> listTeam = new List<Team>();
+            IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                listTeam = _teamRepository.GetTeamManagedByEmp(criteria);
+                teams = GetData<Team>(criteria).ToList();
             }
 
-            return listTeam;
+            return teams ?? new List<Team>();
         }
     }
 }

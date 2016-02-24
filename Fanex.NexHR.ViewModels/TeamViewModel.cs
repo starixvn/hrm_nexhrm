@@ -43,10 +43,6 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Parent Team")]
         public int? ParentId { get; set; }
 
-        public int CreatedBy { get; set; }
-
-        public int ModifiedBy { get; set; }
-
         public IList<Department> Departments { get; set; }
 
         public IList<Team> Teams { get; set; }

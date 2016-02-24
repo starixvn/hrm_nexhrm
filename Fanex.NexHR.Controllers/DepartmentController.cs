@@ -80,8 +80,8 @@
         {
             IEnumerable<Department> departments = departmentService.GetAll();
 
-            Department department = departments.Where(dep => dep.DepartmentId == id).SingleOrDefault();
-            ViewBag.Departments = departments.Where(dep => dep.DepartmentId != id);
+            Department department = departments.Where(dep => dep.Id == id).SingleOrDefault();
+            ViewBag.Departments = departments.Where(dep => dep.Id != id);
 
             string managerName = string.Empty;
             int managerId = 0;
@@ -97,10 +97,10 @@
             {
                 Code = department.Code,
                 Name = department.Name,
-                DepartmentId = department.DepartmentId,
+                DepartmentId = department.Id,
                 ManagerId = managerId,
                 ManagerName = managerName,
-                ParentId = department.ParentId
+                ParentId = department.Parent == null ? 0 : department.Parent.Id
             };
 
             return View(model);
@@ -127,11 +127,11 @@
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             IEnumerable<Department> departments = departmentService.GetAll();
-            ViewBag.Departments = departments.Where(dep => dep.DepartmentId != model.DepartmentId);
+            ViewBag.Departments = departments.Where(dep => dep.Id != model.DepartmentId);
 
             return View(model);
         }

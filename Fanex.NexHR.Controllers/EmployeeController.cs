@@ -119,7 +119,7 @@
                     WedShift = model.WedShift
                 };
 
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 if (result.Code == 0)
                 {
                     return RedirectToAction("Edit", new { id = criteria.Id });

@@ -23,14 +23,13 @@
                         @Html.ValidationSummary(true)
                         if (ViewBag.Inserted == true)
                         {
+                            <input type="hidden" id="successed" value="true" />
                             <div class="row validation-summary-success">
                                 <div class="col success green-text">
                                     <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamCreated
                                 </div>
                             </div>
                         }
-                        @Html.HiddenFor(model => model.CreatedDate)
-                        @Html.HiddenFor(model => model.CreatedBy)
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--l">
@@ -84,7 +83,7 @@
                                     @Html.LabelFor(model => model.DepartmentId)
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "DepartmentId", "Name"), "-- " + @Messages.SelectDepartment + " --")
+                                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "-- " + @Messages.SelectDepartment + " --")
                                 </div>
                             </div>
                         </div>

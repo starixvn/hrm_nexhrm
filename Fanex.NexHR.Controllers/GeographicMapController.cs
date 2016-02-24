@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
 
-    [Authorize]
     public class GeographicMapController : BaseController
     {
         public GeographicMapController()

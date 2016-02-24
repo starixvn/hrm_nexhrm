@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="JobTitleController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Edward.Nguyen" date="2012.11.8">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -18,71 +9,72 @@ namespace Fanex.NexHR.Controllers
 
     public class JobTitleController : BaseController
     {
-        private readonly ILookupDataService _lookupDataService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly ICommandService commandService;
 
         public JobTitleController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public JobTitleController(ILookupDataService lookupDataService)
+        public JobTitleController(IJobTitleService jobTitleService, ICommandService commandService)
         {
-            _lookupDataService = lookupDataService ?? new LookupDataService();
+            this.jobTitleService = jobTitleService ?? new JobTitleService();
+            this.commandService = commandService ?? new CommandService();
         }
 
-        public ActionResult JobTitleManagement()
+        [Authorize(Roles = "HR")]
+        public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult JobTitleManagementDetail(string jobTitle = "")
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult Index(string jobTitle = "")
         {
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria() { JobTitle = jobTitle };
-            IList<LookupData> jobTitles = _lookupDataService.GetJobTitle(lookupDataJobTitleCriteria);
+            IList<JobTitle> jobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
-            return PartialView("_JobTitleManagementDetail", jobTitles);
+            return PartialView("_Index", jobTitles);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool DeleteJobTitle(int id)
+        public JsonResult Insert(string name)
         {
-            var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
-            bool deleted = _lookupDataService.Delete(deleteLookupDataCriteria);
-
-            return deleted;
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public bool InsertJobTitle(string name)
-        {
-            bool inserted = false;
             var insertLookupDataCriteria = new InsertLookupDataCriteria()
             {
                 LookupCode = LookupCodeName.JobTitle,
                 Name = name
             };
+            CommandResult result = commandService.Insert(insertLookupDataCriteria);
 
-            inserted = _lookupDataService.Insert(insertLookupDataCriteria);
-
-            return inserted;
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool UpdatetJobTitle(int id, string name)
+        public JsonResult Update(int id, string name)
         {
-            bool updated = false;
             var updateLookupDataCriteria = new UpdateLookupDataCriteria()
             {
                 Id = id,
                 Name = name
             };
+            CommandResult result = commandService.Update(updateLookupDataCriteria);
 
-            updated = _lookupDataService.Update(updateLookupDataCriteria);
+            return Json(result);
+        }
 
-            return updated;
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
+            CommandResult result = commandService.Delete(deleteLookupDataCriteria);
+
+            return Json(result);
         }
     }
 }

@@ -50,49 +50,5 @@
                 return entity.ToList();
             }
         }
-
-        public bool UpdateTeam(ICriteria criteria)
-        {
-            bool updated = false;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-
-            return updated;
-        }
-
-        public IList<Team> GetTeamManagedByEmp(ICriteria criteria)
-        {
-            var entityList = new List<Team>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-            }
-
-            return entityList;
-        }
-
-        public IList<Team> GetSubTeamsOfEmployee(ICriteria criteria)
-        {
-            var entityList = new List<Team>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                entityList = db.Query<Team>(criteria.GetSpParams()).ToList();
-            }
-
-            return entityList;
-        }
-
-        public int AddNewTeam(ICriteria criteria)
-        {
-            int status = -1;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                status = (int)db.ExecuteScalar(criteria.GetSpParams());
-            }
-
-            return status;
-        }
     }
 }

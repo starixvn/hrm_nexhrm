@@ -154,7 +154,6 @@
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
     <Compile Include="ApiControllers\EmployeeController.cs" />
-    <Compile Include="ApiControllers\HolidayController.cs" />
     <Compile Include="ApiControllers\MemoController.cs" />
     <Compile Include="ApiControllers\ReportController.cs" />
     <Compile Include="ApiControllers\ShiftController.cs" />

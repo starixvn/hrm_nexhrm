@@ -23,7 +23,7 @@
       <siteMapNode title="User Management" controller="employee" action="UserManagement" icon="settings-box" />
       <siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" />
       <siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" />
-      <siteMapNode title="Job Title Management" controller="jobtitle" action="jobtitlemanagement" icon="book" />
+      <siteMapNode title="Job Title Management" controller="jobtitle" action="index" icon="book" />
       <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar-clock" />
       <siteMapNode title="Late In/Early Out Summary" controller="report" action="lateinearlyoutsummary" icon="alarm" />
     </siteMapNode>

@@ -719,7 +719,7 @@
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
-    <Content Include="Views\JobTitle\JobTitleManagement.cshtml" />
+    <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\Holiday\Create.cshtml" />
     <Content Include="Views\Holiday\Edit.cshtml" />
     <Content Include="Views\Holiday\Index.cshtml" />
@@ -751,7 +751,7 @@
     <Content Include="Views\Report\ListTimeRecord.cshtml" />
     <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
-    <Content Include="Views\JobTitle\_JobTitleManagementDetail.cshtml" />
+    <Content Include="Views\JobTitle\_Index.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
     <Content Include="Views\Report\_AttendanceDetail.cshtml" />
     <Content Include="Views\Employee\MyProfile.cshtml" />

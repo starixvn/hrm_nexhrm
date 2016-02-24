@@ -43,7 +43,6 @@
         {
             var model = new TeamViewModel
             {
-                CreatedBy = CurrentUser.Id,
                 Departments = departmentService.GetAll(),
                 Teams = teamService.GetAll()
             };
@@ -65,12 +64,12 @@
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
                     DepartmentId = model.DepartmentId,
                     ParentId = model.ParentId,
-                    CreatedBy = model.CreatedBy
+                    CreatedBy = CurrentUser.Id
                 };
 
                 CommandResult result = commandService.Insert(criteria);
 
-                if (result.Code == 0)
+                if (result.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
                 }
@@ -91,13 +90,13 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult Edit(int id = -1)
+        public ActionResult Edit(int id)
         {
             var criteria = new GetTeamByIdCriteria
             {
                 Id = id
             };
-            var team = teamService.GetById(criteria);
+            Team team = teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)
@@ -106,13 +105,12 @@
                 {
                     TeamCode = team.Code,
                     TeamName = team.Name,
-                    DepartmentId = team.Department != null ? team.Department.DepartmentId : 0,
+                    DepartmentId = team.Department != null ? team.Department.Id : 0,
                     ParentId = team.Parent != null ? team.Parent.Id : 0,
                     Leader = team.Leader.DisplayName,
                     LeaderId = team.Leader.Id,
                     AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
                     AssistantLeaderId = team.AssistantLeader != null ? team.AssistantLeader.Id : 0,
-                    ModifiedBy = this.CurrentUser.Id
                 };
             }
 
@@ -142,12 +140,12 @@
                     ParentId = model.ParentId,
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
-                    ModifiedBy = model.ModifiedBy,
+                    ModifiedBy = CurrentUser.Id
                 };
 
                 CommandResult result = commandService.Update(criteria);
 
-                if (result.Code == 0)
+                if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
                 }
@@ -165,6 +163,20 @@
             model.Teams = teamService.GetAll().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var criteria = new DeleteTeamCriteria()
+            {
+                Id = id,
+                ModifiedBy = CurrentUser.Id,
+            };
+
+            CommandResult result = commandService.Delete(criteria);
+            return Json(result);
         }
     }
 }

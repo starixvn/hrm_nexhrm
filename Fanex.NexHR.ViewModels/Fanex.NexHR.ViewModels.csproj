@@ -63,6 +63,7 @@
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
     <Compile Include="Employee\DefaultScheduleViewModel.cs" />
     <Compile Include="Employee\EditEmployeeViewModel.cs" />
+    <Compile Include="Holiday\HolidayViewModel.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutViewModel.cs" />
     <Compile Include="LateInEarlyOut\Types.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />

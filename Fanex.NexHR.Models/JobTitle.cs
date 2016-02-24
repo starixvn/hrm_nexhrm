@@ -2,5 +2,6 @@
 {
     public class JobTitle : EntityBase<int>
     {
+        public int NumberOfEmployee { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿// --------------------------------------------------------------------------
-namespace Fanex.NexHR.Criteria.Team
+﻿namespace Fanex.NexHR.Criteria.Team
 {
     using System;
     using Fanex.Data.Repository;
@@ -18,13 +17,11 @@ namespace Fanex.NexHR.Criteria.Team
 
         public int? ParentId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
         public int CreatedBy { get; set; }
 
         public override bool IsValid()
         {
-            return true;
+            return !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(Name);
         }
 
         public override string GetSettingKey()

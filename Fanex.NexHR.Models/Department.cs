@@ -3,22 +3,14 @@
     using System;
     using System.Collections.Generic;
 
-    public class Department
+    public class Department : EntityBase<int>
     {
         public Department()
         {
             Children = new List<Department>();
         }
 
-        public int DepartmentId { get; set; }
-
-        public string Code { get; set; }
-
-        public string Name { get; set; }
-
-        public int? ParentId { get; set; }
-
-        public string ParentName { get; set; }
+        public Department Parent { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
 

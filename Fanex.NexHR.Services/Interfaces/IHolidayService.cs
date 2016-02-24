@@ -6,14 +6,8 @@
 
     public interface IHolidayService
     {
-        bool Delete(int holidayId, int modifiedBy);
+        Holiday GetById(GetHolidayByIdCriteria criteria);
 
-        Holiday GetById(int id);
-
-        IList<Holiday> GetByYear(int year);
-
-        int Insert(InsertNewHolidayCriteria criteria);
-
-        bool Update(UpdateHolidayCriteria criteria);
+        IList<Holiday> GetByYear(GetHolidayByYearCriteria criteria);
     }
 }

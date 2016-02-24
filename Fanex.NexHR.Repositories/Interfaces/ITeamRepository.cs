@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ITeamRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories.Interfaces
+﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;
@@ -19,13 +9,5 @@ namespace Fanex.NexHR.Repositories.Interfaces
         Team GetById(ICriteria criteria);
 
         IList<Team> GetAll(ICriteria criteria);
-
-        IList<Team> GetTeamManagedByEmp(ICriteria criteria);
-
-        IList<Team> GetSubTeamsOfEmployee(ICriteria criteria);
-
-        int AddNewTeam(ICriteria criteria);
-
-        bool UpdateTeam(ICriteria criteria);
     }
 }

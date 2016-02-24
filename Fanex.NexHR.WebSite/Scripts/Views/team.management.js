@@ -4,15 +4,16 @@
 
 function deleteTeam(id) {
     confirm('Are you sure you want to delete this team?', function () {
-        $.post(_global.root + 'ajax/DeleteTeam', { id: id },
-        function (error) {
-            if (error.length > 0) {
-                alert(error);
-                return;
+        $.post(_global.root + 'team/Delete', { id: id },
+        function (response) {
+            if (response.IsSuccessful) {
+                $('#row' + id).remove();
+                autoIndex();
             }
-            $('#row' + id).remove();
-
-            autoIndex();
+            else {
+                alert(response.Message);
+            }
+            
         });
     });
 }
@@ -27,7 +28,16 @@ function initCreateEditPage() {
     });
 
     initAutocomplete('#Leader', '#LeaderId');
-    initAutocomplete('#AssistantLeader', '#AssistantLeaderId');    
+    initAutocomplete('#AssistantLeader', '#AssistantLeaderId');
+
+    var successed = $('#successed').val();
+    if (successed === 'true') {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + 'Team/Index';
+                }
+            );
+    }
 }
 
 $(document).ready(function () {

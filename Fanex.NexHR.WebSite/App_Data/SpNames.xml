@@ -88,16 +88,11 @@
     <Setting Key="ExtensionNO_DELETE_GroupExternal" SpName="ExtensionNO_DELETE_GroupExternal" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Group">
-    <Setting Key="GetGroup" SpName="EmployeeGroup_GetGroup" DbName="nexhr" Plain="0">
+    <Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="DepartmentId" ObjectProperty="Id" />
       <Mapping DataField="ParentId" ObjectProperty="Id" />
-      <Mapping DataField="ParentName" ObjectProperty="Name" />
       <Mapping DataField="LeaderId" ObjectProperty="Id" />
-      <Mapping DataField="LeaderNickName" ObjectProperty="NickName" />
-      <Mapping DataField="LeaderFullName" ObjectProperty="FullName" />
       <Mapping DataField="AssistantLeaderId" ObjectProperty="Id" />
-      <Mapping DataField="AssistantLeaderNickName" ObjectProperty="NickName" />
-      <Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName" />
     </Setting>
     <Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0">
       <Mapping DataField="LeaderId" ObjectProperty="Id" />
@@ -107,8 +102,7 @@
       <Mapping DataField="AssistantLeaderNickName" ObjectProperty="NickName" />
       <Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName" />
     </Setting>
-    <Setting Key="GetTeamManagedById" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Employee_GetSubTeam" SpName="Employee_GetSubTeam" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeGroup_GetGroupsByManagerID" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Lookup">
     <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="nexhr" Plain="0"></Setting>

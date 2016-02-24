@@ -1,113 +1,36 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="HolidayService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
-    /// <summary>
-    /// Holiday service.
-    /// </summary>
-    public class HolidayService : IHolidayService
+    public class HolidayService : BaseService, IHolidayService
     {
-        private readonly IHolidayRepository _holidayRepository;
-
-        public HolidayService(IHolidayRepository holidayRepository = null)
+        public IList<Holiday> GetByYear(GetHolidayByYearCriteria criteria)
         {
-            this._holidayRepository = holidayRepository ?? new HolidayRepository();
-        }
-
-        public int Insert(InsertNewHolidayCriteria criteria)
-        {
-            int result = 0;
-
-            if (criteria != null)
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Holiday> holidays  = null;
+            if (criteria.IsValid())
             {
-                result = this._holidayRepository.Insert(criteria);
+                holidays = GetData<Holiday>(criteria).ToList();
             }
 
-            return result;
+            return holidays ?? new List<Holiday>();
         }
 
-        /// <summary>
-        /// Delete holiday.
-        /// </summary>
-        /// <param name="holidayId">The holiday ID.</param>
-        /// <param name="modifiedBy">The ID of user that deleted holiday.</param>
-        /// <returns>The boolean result.</returns>
-        public bool Delete(int holidayId, int modifiedBy)
+        public Holiday GetById(GetHolidayByIdCriteria criteria)
         {
-            bool result = false;
-
-            if (holidayId > 0)
+            Check.Argument.IsNotNull(criteria, "criteria");
+            Holiday holiday = null;
+            if (criteria.IsValid())
             {
-                var criteria = new DeleteHolidayCriteria
-                {
-                    Id = holidayId,
-                    ModifiedBy = modifiedBy,
-                    ModifiedDate = DateTime.Now
-                };
-
-                result = this._holidayRepository.Delete(criteria);
+                holiday = GetDataEntity<Holiday>(criteria);
             }
 
-            return result;
-        }
-
-        public bool Update(UpdateHolidayCriteria criteria)
-        {
-            bool result = false;
-
-            if (criteria != null)
-            {
-                result = this._holidayRepository.Update(criteria);
-            }
-
-            return result;
-        }
-
-        public IList<Holiday> GetByYear(int year)
-        {
-            var criteria = new GetHolidayByYearCriteria
-            {
-                Year = year
-            };
-
-            return this._holidayRepository.GetByYear(criteria);
-        }
-
-        /// <summary>
-        /// Get holiday by ID.
-        /// </summary>
-        /// <param name="id">The holiday ID.</param>
-        /// <returns>The Holiday.</returns>
-        public Holiday GetById(int id)
-        {
-            Holiday model = null;
-            var criteria = new GetHolidayByIdCriteria
-            {
-                Id = id
-            };
-
-            if (criteria != null)
-            {
-                model = this._holidayRepository.GetById(criteria);
-            }
-
-            return model;
+            return holiday;
         }
     }
 }

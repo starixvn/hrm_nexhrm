@@ -33,7 +33,7 @@
                                     <input type="button" id="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        @Html.ActionLink(Labels.NewHoliday, "Create", "", new { @class = "btn-request waves-effect waves-light" })
+                                        @Html.ActionLink(Labels.NewHoliday, "Create", null, new { @class = "btn-request waves-effect waves-light" })
                                     }
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
     <tr id="row_{{:Id}}">
         <td>{{:~index()}}</td>
         <td class="align-left">
-            {{:HolidayName}}
+            {{:Name}}
         </td>
         <td>
             {{:~formatDate(FromDate, 'dd MMM, yyyy')}}

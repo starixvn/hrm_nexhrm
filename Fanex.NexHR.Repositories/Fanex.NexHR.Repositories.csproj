@@ -104,7 +104,6 @@
     <Compile Include="Interfaces\IOvertimeRepository.cs" />
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
-    <Compile Include="Interfaces\IHolidayRepository.cs" />
     <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
     <Compile Include="Interfaces\ILookupDataRepository.cs" />
     <Compile Include="Interfaces\IMemoRepository.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="OvertimeRepository.cs" />
     <Compile Include="RequestRepository.cs" />
     <Compile Include="TeamRepository.cs" />
-    <Compile Include="HolidayRepository.cs" />
     <Compile Include="LookupDataRepository.cs" />
     <Compile Include="MemoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
