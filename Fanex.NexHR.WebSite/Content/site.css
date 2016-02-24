@@ -1139,8 +1139,8 @@ table.data thead tr:nth-child(even) {
     text-align: center;
     background: #24272f; }
   .side-nav.fixed li a {
-    line-height: 48px;
-    height: 48px; }
+    line-height: 44px;
+    height: 44px; }
 
 .side-nav.fixed ul.collapsible-accordion {
   background-color: #FFF; }
