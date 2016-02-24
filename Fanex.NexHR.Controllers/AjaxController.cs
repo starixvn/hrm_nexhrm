@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AjaxController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Employee;
@@ -30,11 +20,11 @@ namespace Fanex.NexHR.Controllers
         private readonly IEmployeeService employeeService;
         private readonly IRequestService requestService;
         private readonly IHolidayService holidayService;
-        private readonly IMemoService _memoService;
-        private readonly ITeamService _teamService;
-        private readonly IReportService _reportService;
-        private readonly IExtensionNoService _extensionNoService;
-        private readonly IDepartmentService _departmentService;
+        private readonly IMemoService memoService;
+        private readonly ITeamService teamService;
+        private readonly IReportService reportService;
+        private readonly IExtensionNoService extensionNoService;
+        private readonly IDepartmentService departmentService;
         private readonly ICommandService commandService;
 
         public AjaxController()
@@ -53,14 +43,14 @@ namespace Fanex.NexHR.Controllers
             IDepartmentService departmentService,
             ICommandService commandService)
         {
-            employeeService = employeeService ?? new EmployeeService();
-            requestService = requestService ?? new RequestService();
-            holidayService = holidayService ?? new HolidayService();
-            _memoService = memoService ?? new MemoService();
-            _teamService = teamService ?? new TeamService();
-            _reportService = reportService ?? new ReportService();
-            _extensionNoService = extensionNoService ?? new ExtensionNoService();
-            _departmentService = departmentService ?? new DepartmentService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.requestService = requestService ?? new RequestService();
+            this.holidayService = holidayService ?? new HolidayService();
+            this.memoService = memoService ?? new MemoService();
+            this.teamService = teamService ?? new TeamService();
+            this.reportService = reportService ?? new ReportService();
+            this.extensionNoService = extensionNoService ?? new ExtensionNoService();
+            this.departmentService = departmentService ?? new DepartmentService();
             this.commandService = commandService ?? new CommandService();
         }
 

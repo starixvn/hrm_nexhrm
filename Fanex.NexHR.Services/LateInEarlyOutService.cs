@@ -18,21 +18,6 @@
             this.repository = repository ?? new LateInEarlyOutRepository();
         }
 
-        public CommandResult Insert(InsertLateInEarlyOutCriteria criteria)
-        {
-            return Execute(criteria, true);
-        }
-
-        public CommandResult Update(UpdateLateInEarlyOutCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult Delete(DeleteLateInEarlyOutCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
         public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
             List<LateInEarlyOutViewModel> list = new List<LateInEarlyOutViewModel>();

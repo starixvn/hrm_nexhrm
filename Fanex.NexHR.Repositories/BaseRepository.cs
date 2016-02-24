@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BaseRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.12">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
     using System;
     using System.Collections;
@@ -21,9 +12,6 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    /// <summary>
-    /// The Base Repository.
-    /// </summary>
     public class BaseRepository : IBaseRepository
     {
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
@@ -41,13 +29,7 @@ namespace Fanex.NexHR.Repositories
             return ExecuteNonQuery(criteria, hasGetOutputParams);
         }
 
-        /// <summary>
-        /// Function to insert, update or delete.
-        /// </summary>
-        /// <param name="criteria">Criteria contains parameter throw stored procedure.</param>
-        /// <param name="hasGetOutputParams">Has get output parameters or no.</param>
-        /// <returns>Command Result.</returns>
-        public CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
+        private CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

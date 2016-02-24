@@ -15,15 +15,17 @@
     public class LateEarlyController : BaseController
     {
         private readonly ILateInEarlyOutService lateinEarlyoutService;
+        private readonly ICommandService commandService;
 
         public LateEarlyController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public LateEarlyController(ILateInEarlyOutService service)
+        public LateEarlyController(ILateInEarlyOutService service, ICommandService commandService)
         {
             this.lateinEarlyoutService = service ?? new LateInEarlyOutService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index(int month = 0, int year = 0)
@@ -50,10 +52,10 @@
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id
                 };
-                CommandResult result = lateinEarlyoutService.Insert(criteria);              
+                CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
-                    ViewBag.Requested = true;                    
+                    ViewBag.Requested = true;
                 }
                 else
                 {
@@ -103,7 +105,7 @@
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id,
                 };
-                CommandResult result = lateinEarlyoutService.Update(criteria);                
+                CommandResult result = commandService.Update(criteria);
                 if (result.Code == 0)
                 {
                     ViewBag.Requested = true;
@@ -122,7 +124,7 @@
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
             if (criteria.IsValid())
             {
-                lateinEarlyoutService.Delete(criteria);
+                commandService.Delete(criteria);
             }
         }
 

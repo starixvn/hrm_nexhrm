@@ -26,8 +26,8 @@
             IEmployeeService employeeService,
             ICommandService commandService)
         {
-            overtimeService = service ?? new OvertimeService();
-            employeeService = employeeService ?? new EmployeeService();
+            this.overtimeService = service ?? new OvertimeService();
+            this.employeeService = employeeService ?? new EmployeeService();
             this.commandService = commandService ?? new CommandService();
         }
 
