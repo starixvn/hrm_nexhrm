@@ -11,8 +11,6 @@
     {
         IList<TimeRecordModel> GetTimeRecords(GetTimeRecordCriteria criteria);
 
-        CommandResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria);
-
         IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
         IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams);

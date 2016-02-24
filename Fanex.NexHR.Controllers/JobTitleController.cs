@@ -16,7 +16,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
-    [Authorize]
     public class JobTitleController : BaseController
     {
         private readonly ILookupDataService _lookupDataService;

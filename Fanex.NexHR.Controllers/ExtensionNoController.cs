@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ExtensionNoController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.3.10">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -17,31 +8,28 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// ExtensionNo Controller.
-    /// </summary>
     public class ExtensionNoController : BaseController
     {
-        private readonly IExtensionNoService _extensionNoService;
-
-        public ExtensionNoController(IExtensionNoService extensionNoService = null)
-        {
-            this._extensionNoService = extensionNoService ?? new ExtensionNoService();
-        }
+        private readonly IExtensionNoService extensionNoService;
+        private readonly ICommandService commandService;
 
         public ExtensionNoController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        /// <summary>
-        /// Extension Number Index.
-        /// </summary>
-        /// <returns>View ExtensionNo.</returns>
+        public ExtensionNoController(
+            IExtensionNoService extensionNoService,
+            ICommandService commandService)
+        {
+            this.extensionNoService = extensionNoService ?? new ExtensionNoService();
+            this.commandService = commandService ?? new CommandService();
+        }
+
         public ActionResult Index()
         {
             var criteria = new GetAllExtensionNoCriteria();
-            var lstEntity = _extensionNoService.GetAllExtensionNo(criteria);
+            var lstEntity = extensionNoService.GetAllExtensionNo(criteria);
             var model = (from item in lstEntity
                          group item by item.TeamName into g
                          select new ExtensionNoViewModel() { Name = g.Key, ListExt = g.ToList() }).ToList();
@@ -55,11 +43,6 @@ namespace Fanex.NexHR.Controllers
             return View(new ExtensionNoModel());
         }
 
-        /// <summary>
-        /// Function to add new employee extension.
-        /// </summary>
-        /// <param name="model">ExtensionNo Model.</param>
-        /// <returns>Action Result.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
@@ -77,19 +60,13 @@ namespace Fanex.NexHR.Controllers
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = _extensionNoService.AddNewExtensionNoMember(criteria);
+                CommandResult result = commandService.Insert(criteria);
                 ViewBag.Requested = result.Code == 0;
             }
 
             return View(model);
         }
 
-        /// <summary>
-        /// ActionResult EditExtensionNumber.
-        /// </summary>
-        /// <param name="isInternal">Is internal.</param>
-        /// <param name="empExtId">Employee extension ID.</param>
-        /// <returns>Action Result.</returns>
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(bool isInternal, int empExtId)
         {
@@ -98,13 +75,13 @@ namespace Fanex.NexHR.Controllers
                 IsInternal = isInternal,
                 EmpExtId = empExtId
             };
-            var model = _extensionNoService.GetEmployeeExtensionNoById(criteria);
+            var model = extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria 
             { 
                 IsInternal = isInternal,
                 GroupId = null
             };
-            var group = _extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
+            var group = extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
             ViewBag.Group = group.Select(x => new SelectListItem
             {
                 Text = x.TeamName,
@@ -113,11 +90,6 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// ActionResult EditExtensionNumber.
-        /// </summary>
-        /// <param name="model">ExtensionNoModel model.</param>
-        /// <returns>View Index when edit successful.</returns>
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
@@ -128,7 +100,7 @@ namespace Fanex.NexHR.Controllers
                 IsInternal = model.IsInternal,
                 GroupId = null
             };
-            var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
+            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
             ViewBag.Group = group.Select(x => new SelectListItem
             {
                 Text = x.TeamName,
@@ -147,7 +119,7 @@ namespace Fanex.NexHR.Controllers
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = _extensionNoService.UpdateExtensionNoMember(updateCriteria);
+                CommandResult result = commandService.Update(updateCriteria);
                 ViewBag.Updated = result.Code == 0;
             }
 
@@ -161,15 +133,11 @@ namespace Fanex.NexHR.Controllers
                 IsInternal = false,
                 GroupId = null
             };
-            var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
+            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
 
             return View(group);
         }
 
-        /// <summary>
-        /// Method Check External Employee.
-        /// </summary>
-        /// <param name="model">ExtensionNoModel model.</param>
         private void CheckExternalEmployee(ExtensionNoModel model)
         {
             if (model.IsInternal == false)

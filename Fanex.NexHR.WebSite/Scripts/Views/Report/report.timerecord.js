@@ -63,7 +63,7 @@ function query(isFirstLoad) {
 }
 
 function processInOut(inoutType, eventElement) {
-    $.post(_global.root + 'Report/ProcessInOut',
+    $.post(_global.root + 'ajax/ProcessInOut',
     { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
     function (response) {
         if (response.Code === 0) {

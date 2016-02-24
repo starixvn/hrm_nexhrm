@@ -1,38 +1,37 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DepartmentController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.08.18">Created.</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Department;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
+    using Fanex.NexHR.ViewModels;
 
     public class DepartmentController : BaseController
     {
-        private readonly IDepartmentService _departmentService;
+        private readonly IDepartmentService departmentService;
+        private readonly ICommandService commandService;
 
-        public DepartmentController(IDepartmentService departmentService = null)
+        public DepartmentController()
+            : this(null, null)
         {
-            _departmentService = departmentService ?? new DepartmentService();
+        }
+
+        public DepartmentController(
+            IDepartmentService departmentService,
+            ICommandService commandService)
+        {
+            this.departmentService = departmentService ?? new DepartmentService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
-            var criteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(criteria);
+            IList<Department> departments = departmentService.GetAll();
 
             ViewBag.Departments = departments;
             return View();
@@ -41,7 +40,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult Create()
         {
             var criteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(criteria);
+            IList<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments;
 
             var model = new DepartmentViewModel();
@@ -63,7 +62,7 @@ namespace Fanex.NexHR.Controllers
                     CreatedDate = DateTime.Now
                 };
 
-                CommandResult commandResult = _departmentService.InsertDepartment(criteria);
+                CommandResult commandResult = commandService.Insert(criteria);
                 ViewBag.Inserted = commandResult.Code == 0;
             }
             else
@@ -71,8 +70,7 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            IEnumerable<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments;
 
             return View(model);
@@ -80,10 +78,9 @@ namespace Fanex.NexHR.Controllers
 
         public ActionResult Edit(int id)
         {
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            IEnumerable<Department> departments = departmentService.GetAll();
 
-            DepartmentModel department = departments.Where(dep => dep.DepartmentId == id).SingleOrDefault();
+            Department department = departments.Where(dep => dep.DepartmentId == id).SingleOrDefault();
             ViewBag.Departments = departments.Where(dep => dep.DepartmentId != id);
 
             string managerName = string.Empty;
@@ -125,7 +122,7 @@ namespace Fanex.NexHR.Controllers
                     ModifiedDate = DateTime.Now
                 };
 
-                CommandResult commandResult = _departmentService.UpdateDepartment(criteria);
+                CommandResult commandResult = commandService.Update(criteria);
                 ViewBag.Updated = commandResult.Code == 0;
             }
             else
@@ -133,8 +130,7 @@ namespace Fanex.NexHR.Controllers
                 ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
             }
 
-            var getAllDepartmentCriteria = new GetAllDepartmentCriteria();
-            IEnumerable<DepartmentModel> departments = _departmentService.GetAllDepartment(getAllDepartmentCriteria);
+            IEnumerable<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments.Where(dep => dep.DepartmentId != model.DepartmentId);
 
             return View(model);
@@ -149,7 +145,7 @@ namespace Fanex.NexHR.Controllers
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult commandResult = _departmentService.DeleteDepartment(criteria);
+            CommandResult commandResult = commandService.Delete(criteria);
             JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
             return result;
         }

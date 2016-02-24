@@ -19,20 +19,23 @@
         private readonly IEmployeeService employeeService;
         private readonly ITeamService teamService;
         private readonly IAnnualLeaveService annualLeaveService;
+        private readonly ICommandService commandService;
 
         public AnnualLeaveController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public AnnualLeaveController(
             IEmployeeService employeeService,
             ITeamService teamService,
-            IAnnualLeaveService annualLeaveService)
+            IAnnualLeaveService annualLeaveService,
+            ICommandService commandService)
         {
             this.employeeService = employeeService ?? new EmployeeService();
             this.teamService = teamService ?? new TeamService();
             this.annualLeaveService = annualLeaveService ?? new AnnualLeaveService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -126,72 +129,6 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult Edit(int leaveTransactionId)
-        {
-            var criteria = new GetAnnualLeaveByIdCriteria
-            {
-                LeaveTransactionId = leaveTransactionId
-            };
-
-            AnnualLeaveTransaction leaveTransaction = annualLeaveService.GetAnnualLeaveTransactionById(criteria);
-            var model = new EditAnnualLeaveTransactionViewModel()
-            {
-                LeaveTransactionId = leaveTransaction.LeaveTransactionId,
-                TotalDays = leaveTransaction.TotalDays,
-                AffectedFrom = leaveTransaction.AffectedFrom,
-                Description = leaveTransaction.Description,
-                EmployeeId = leaveTransaction.Employee.Id
-            };
-            return View(model);
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public ActionResult Edit(EditAnnualLeaveTransactionViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var updateAnnualLeaveTransaction = new UpdateAnnualLeaveTransactionCriteria
-                {
-                    LeaveTransactionId = model.LeaveTransactionId,
-                    Description = model.Description,
-                    FromDate = model.AffectedFrom,
-                    DeductDays = model.TotalDays > 0 ? 0 : model.TotalDays,
-                    CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
-                    ModifiedBy = CurrentUser.Id
-                };
-                CommandResult result = annualLeaveService.UpdateAnnualLeaveTransaction(updateAnnualLeaveTransaction);
-                if (result.Code == 0)
-                {
-                    ViewBag.Updated = true;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
-
-            return View(model);
-        }
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public JsonResult Delete(int leaveTransactionId)
-        {
-            var criteria = new DeleteAnnualLeaveTransactionCriteria
-            {
-                LeaveTransactionId = leaveTransactionId,
-                ModifiedBy = CurrentUser.Id
-            };
-            CommandResult result = annualLeaveService.DeleteAnnualLeaveTransaction(criteria);
-            return Json(result);
-        }
-
-        [Authorize(Roles = "HR")]
         public ActionResult Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
@@ -221,7 +158,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = annualLeaveService.InsertAnnualLeaveTransaction(criteria);
+                CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
                     ViewBag.Inserted = true;
@@ -237,6 +174,72 @@
             }
 
             return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult Edit(int leaveTransactionId)
+        {
+            var criteria = new GetAnnualLeaveByIdCriteria
+            {
+                LeaveTransactionId = leaveTransactionId
+            };
+
+            AnnualLeaveTransaction leaveTransaction = annualLeaveService.GetAnnualLeaveTransactionById(criteria);
+            var model = new EditAnnualLeaveTransactionViewModel()
+            {
+                LeaveTransactionId = leaveTransaction.LeaveTransactionId,
+                TotalDays = leaveTransaction.TotalDays,
+                AffectedFrom = leaveTransaction.AffectedFrom,
+                Description = leaveTransaction.Description,
+                EmployeeId = leaveTransaction.Employee.Id
+            };
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult Edit(EditAnnualLeaveTransactionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var criteria = new UpdateAnnualLeaveTransactionCriteria
+                {
+                    LeaveTransactionId = model.LeaveTransactionId,
+                    Description = model.Description,
+                    FromDate = model.AffectedFrom,
+                    DeductDays = model.TotalDays > 0 ? 0 : model.TotalDays,
+                    CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
+                    ModifiedBy = CurrentUser.Id
+                };
+                CommandResult result = commandService.Update(criteria);
+                if (result.Code == 0)
+                {
+                    ViewBag.Updated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult Delete(int leaveTransactionId)
+        {
+            var criteria = new DeleteAnnualLeaveTransactionCriteria
+            {
+                LeaveTransactionId = leaveTransactionId,
+                ModifiedBy = CurrentUser.Id
+            };
+            CommandResult result = commandService.Delete(criteria);
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
@@ -261,7 +264,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                result = annualLeaveService.AdjustAnnualLeaves(criteria);
+                result = commandService.Insert(criteria);
             }
             
             return Json(result);
@@ -277,7 +280,7 @@
                 Year = model.ToDate.Year
             };
 
-            return Json(annualLeaveService.OpenAnnualLeaves(criteria));
+            return Json(commandService.Insert(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -312,7 +315,7 @@
                     LeaveSummaries = leaveSummaries
                 };
 
-               result = annualLeaveService.ResetAnnualLeaves(resetAnnualLeaves);
+                result = commandService.Update(resetAnnualLeaves);
             }
 
             return Json(result);
@@ -356,7 +359,7 @@
                 CreatedBy = CurrentUser.Id
             };
 
-            return Json(annualLeaveService.AddLeaveDeduction(criteria));
+            return Json(commandService.Insert(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -373,7 +376,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(annualLeaveService.EditLeaveDeduction(criteria));
+            return Json(commandService.Update(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -386,7 +389,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(annualLeaveService.DeleteLeaveDeduction(criteria));
+            return Json(commandService.Delete(criteria));
         }
 
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()

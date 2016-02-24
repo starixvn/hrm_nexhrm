@@ -11,11 +11,5 @@
         IList<Team> GetAll();
 
         IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria);
-
-        int AddNewTeam(AddNewTeamCriteria criteria);
-
-        bool UpdateTeam(UpdateTeamCriteria criteria);
-
-        CommandResult DeleteTeam(DeleteTeamCriteria criteria);
     }
 }

@@ -25,13 +25,14 @@
 
     public class EmployeeController : BaseController
     {
-        private readonly ITeamService _teamService;
-        private readonly IJobTitleService _jobTitleService;
-        private readonly IShiftService _shiftService;
-        private readonly IEmployeeService _employeeService;
+        private readonly ITeamService teamService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly IShiftService shiftService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICommandService commandService;
 
         public EmployeeController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -39,18 +40,20 @@
             IEmployeeService employeeService,
             ITeamService teamService,
             IJobTitleService jobTitleService,
-            IShiftService shiftService)
+            IShiftService shiftService,
+            ICommandService commandService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _teamService = teamService ?? new TeamService();
-            _jobTitleService = jobTitleService ?? new JobTitleService();
-            _shiftService = shiftService ?? new ShiftService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.teamService = teamService ?? new TeamService();
+            this.jobTitleService = jobTitleService ?? new JobTitleService();
+            this.shiftService = shiftService ?? new ShiftService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.Teams = _teamService.GetAll();
+            model.Teams = teamService.GetAll();
 
             return View(model);
         }
@@ -61,8 +64,8 @@
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                Teams = _teamService.GetAll(),
-                JobTitles = _jobTitleService.GetAll()
+                Teams = teamService.GetAll(),
+                JobTitles = jobTitleService.GetAll()
             };
 
             return View(model);
@@ -84,8 +87,8 @@
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                Teams = _teamService.GetAll(),
-                Shifts = _shiftService.GetAll()
+                Teams = teamService.GetAll(),
+                Shifts = shiftService.GetAll()
             };
 
             return View(model);
@@ -116,7 +119,7 @@
                     WedShift = model.WedShift
                 };
 
-                CommandResult result = _employeeService.Insert(criteria);
+                CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
                     return RedirectToAction("Edit", new { id = criteria.Id });
@@ -131,8 +134,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Teams = _teamService.GetAll();
-            model.Shifts = _shiftService.GetAll();
+            model.Teams = teamService.GetAll();
+            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 
@@ -143,8 +146,8 @@
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee) 
             {
-                Teams = _teamService.GetAll(),
-                JobTitles = _jobTitleService.GetAll()
+                Teams = teamService.GetAll(),
+                JobTitles = jobTitleService.GetAll()
             };
 
             return View(model);
@@ -158,7 +161,7 @@
             if (ModelState.IsValid)
             {
                 UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-                CommandResult result = _employeeService.Update(criteria);
+                CommandResult result = commandService.Update(criteria);
 
                 if (result.Code == 0)
                 {
@@ -166,7 +169,7 @@
                     if (CurrentUser.Id == model.Id)
                     {
                         var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
-                        Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                        Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
                         HttpContext.Session["CurrentUser"] = currentUser;
                     }
                 }
@@ -180,8 +183,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Teams = _teamService.GetAll();
-            model.JobTitles = _jobTitleService.GetAll();
+            model.Teams = teamService.GetAll();
+            model.JobTitles = jobTitleService.GetAll();
             return View(model);
         }
 
@@ -194,7 +197,7 @@
                 EmployeeId = employeeId,
                 ResignedDate = resignedDate
             };
-            CommandResult result = _employeeService.Delete(criteria);
+            CommandResult result = commandService.Delete(criteria);
 
             return result;
         }
@@ -204,7 +207,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
-            model.Shifts = _shiftService.GetAll();
+            model.Shifts = shiftService.GetAll();
 
             return View(model);
         }
@@ -227,7 +230,7 @@
                     SatShift = model.SatShiftId,
                     SunShift = model.SunShiftId
                 };
-                CommandResult result = _employeeService.UpdateEmployeeShift(criteria);
+                CommandResult result = commandService.Update(criteria);
 
                 if (result.Code == 0)
                 {
@@ -243,7 +246,7 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Shifts = _shiftService.GetAll();
+            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 
@@ -255,7 +258,7 @@
             { 
                 EmployeeId = employee.Id,
                 EmployeeNickName = employee.NickName,
-                Shifts = _shiftService.GetAll()
+                Shifts = shiftService.GetAll()
             };
 
             return View(model);
@@ -318,7 +321,7 @@
             {
                 EmpId = CurrentUser.Id
             };
-            var model = _employeeService.GetMySpace(getMySpaceCriteria);
+            var model = employeeService.GetMySpace(getMySpaceCriteria);
 
             return View(model);
         }
@@ -332,7 +335,7 @@
                 {
                     EmployeeId = CurrentUser.Id,
                 };
-                var model = _employeeService.GetHRLeaderDashboard(criteria);
+                var model = employeeService.GetHRLeaderDashboard(criteria);
                 return PartialView(model);
             }
 
@@ -376,7 +379,7 @@
                 ExcludedManager = false
             };
 
-            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
+            return Json(employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
         }
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
@@ -427,7 +430,7 @@
             {
                 EmpId = CurrentUser.Id
             };
-            MySpaceViewModel myspace = _employeeService.GetMySpace(criteria);
+            MySpaceViewModel myspace = employeeService.GetMySpace(criteria);
 
             return myspace;
         }
@@ -469,7 +472,7 @@
                 TotalRow = 2000
             };
 
-            return _employeeService.Query(getAllEmployeeCriteria);
+            return employeeService.Query(getAllEmployeeCriteria);
         }
 
         private Employee GetEmployeeById(int employeeId)
@@ -479,7 +482,7 @@
                 EmployeeId = employeeId
             };
 
-            return _employeeService.GetEmployeeById(criteria);
+            return employeeService.GetEmployeeById(criteria);
         }
 
         private DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)

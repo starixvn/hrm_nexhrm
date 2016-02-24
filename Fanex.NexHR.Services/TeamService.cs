@@ -20,7 +20,7 @@
         public Team GetById(GetTeamByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            Team team = new Team();
+            Team team = null;
             if (criteria.IsValid())
             {
                 team = _teamRepository.GetById(criteria);
@@ -32,13 +32,13 @@
         public IList<Team> GetAll()
         {
             var criteria = new GetTeamCriteria();
-            IList<Team> teams = new List<Team>();
+            IList<Team> teams = null;
             if (criteria.IsValid())
             {
                 teams = _teamRepository.GetAll(criteria);
             }
 
-            return teams;
+            return teams ?? new List<Team>();
         }
 
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
@@ -51,42 +51,6 @@
             }
 
             return listTeam;
-        }
-
-        public int AddNewTeam(AddNewTeamCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            int status = -1;
-            if (criteria.IsValid())
-            {
-                status = _teamRepository.AddNewTeam(criteria);
-            }
-
-            return status;
-        }
-
-        public bool UpdateTeam(UpdateTeamCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            bool updated = false;
-            if (criteria.IsValid())
-            {
-                updated = _teamRepository.UpdateTeam(criteria);
-            }
-
-            return updated;
-        }
-
-        public CommandResult DeleteTeam(DeleteTeamCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
-            if (criteria.IsValid())
-            {
-                result = Repository.Delete(criteria);
-            }
-
-            return result;
         }
     }
 }

@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Calendar;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -20,11 +18,6 @@
             this.calendarRepository = calendarRepository ?? new CalendarRepository();
         }
 
-        public CommandResult UpdateEmployeeShiftDate(UpdateEmployeeShiftDateCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
         public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -35,11 +28,6 @@
             }
 
             return workingSchedules;
-        }
-
-        public CommandResult InsertWorkingCalendar(InsertEmployeeCalendarCriteria criteria)
-        {
-            return Execute(criteria);
         }
     }
 }

@@ -1,35 +1,19 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DepartmentRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.08.18">Created.</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
+    using System.Linq;
 
-    /// <summary>
-    /// The department repository.
-    /// </summary>
     public class DepartmentRepository : IDepartmentRepository
     {
-        /// <summary>
-        /// Get all department.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator department model.</returns>
-        public IEnumerable<DepartmentModel> GetAllDepartment(ICriteria criteria)
+        public IList<Department> GetAll(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<DepartmentModel, Employee, Employee, Employee, DepartmentModel>(
+                return db.Query<Department, Employee, Employee, Employee, Department>(
                     (de, cre, man, modi) =>
                     {
                         de.Creator = cre;
@@ -38,20 +22,15 @@ namespace Fanex.NexHR.Repositories
                         return de;
                     },
                     "CreatedBy, ManagerId, ModifiedBy",
-                    criteria.GetSpParams());
+                    criteria.GetSpParams()).ToList();
             }
         }
 
-        /// <summary>
-        /// Get department by Id.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The department.</returns>
-        public DepartmentModel GetDepartmentById(ICriteria criteria)
+        public Department GetDepartmentById(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<DepartmentModel, Employee, Employee, Employee, DepartmentModel>(
+                return db.QueryEntity<Department, Employee, Employee, Employee, Department>(
                     (dep, cre, mag, modi) =>
                     {
                         dep.Creator = cre;

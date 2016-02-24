@@ -58,21 +58,6 @@
             return employees ?? new List<Employee>();
         }
 
-        public CommandResult Insert(InsertEmployeeCriteria criteria)
-        {
-            return Execute(criteria, hasGetOutputParams: true);
-        }
-
-        public CommandResult Delete(DeleteEmployeeCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult Update(UpdateEmployeeCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
         public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -96,11 +81,6 @@
             }
 
             return defaultSchedule;
-        }
-
-        public CommandResult UpdateEmployeeShift(UpdateScheduleDefaultCriteria criteria)
-        {
-            return Execute(criteria);
         }
 
         public MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria)

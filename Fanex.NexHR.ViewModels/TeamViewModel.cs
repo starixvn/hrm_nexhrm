@@ -9,7 +9,6 @@
 
 namespace Fanex.NexHR.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Models;
@@ -44,17 +43,11 @@ namespace Fanex.NexHR.ViewModels
         [Display(Name = "Parent Team")]
         public int? ParentId { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime CreatedDate { get; set; }
-
         public int CreatedBy { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }
 
-        public IList<DepartmentModel> Departments { get; set; }
+        public IList<Department> Departments { get; set; }
 
         public IList<Team> Teams { get; set; }
     }

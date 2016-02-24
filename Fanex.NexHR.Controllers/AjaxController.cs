@@ -27,45 +27,48 @@ namespace Fanex.NexHR.Controllers
 
     public class AjaxController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IRequestService _requestService;
-        private readonly IHolidayService _holidayService;
+        private readonly IEmployeeService employeeService;
+        private readonly IRequestService requestService;
+        private readonly IHolidayService holidayService;
         private readonly IMemoService _memoService;
         private readonly ITeamService _teamService;
         private readonly IReportService _reportService;
         private readonly IExtensionNoService _extensionNoService;
         private readonly IDepartmentService _departmentService;
+        private readonly ICommandService commandService;
 
         public AjaxController()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
         public AjaxController(
-            IEmployeeService employeeService = null,
-            IRequestService requestService = null,
-            IHolidayService holidayService = null,
-            IMemoService memoService = null,
-            ITeamService teamService = null,
-            IReportService reportService = null,
-            IExtensionNoService extensionNoService = null,
-            IDepartmentService departmentService = null)
+            IEmployeeService employeeService,
+            IRequestService requestService,
+            IHolidayService holidayService,
+            IMemoService memoService,
+            ITeamService teamService,
+            IReportService reportService,
+            IExtensionNoService extensionNoService,
+            IDepartmentService departmentService,
+            ICommandService commandService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _requestService = requestService ?? new RequestService();
-            _holidayService = holidayService ?? new HolidayService();
+            employeeService = employeeService ?? new EmployeeService();
+            requestService = requestService ?? new RequestService();
+            holidayService = holidayService ?? new HolidayService();
             _memoService = memoService ?? new MemoService();
             _teamService = teamService ?? new TeamService();
             _reportService = reportService ?? new ReportService();
             _extensionNoService = extensionNoService ?? new ExtensionNoService();
             _departmentService = departmentService ?? new DepartmentService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
-            CommandResult result = _requestService.Process(command, id, this.CurrentUser.Id);
+            CommandResult result = requestService.Process(command, id, this.CurrentUser.Id);
 
             if (result.Code == 0)
             {
@@ -90,24 +93,23 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public bool DeleteHoliday(int id)
         {
-            return _holidayService.Delete(id, this.CurrentUser.Id);
+            return holidayService.Delete(id, this.CurrentUser.Id);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public int AddNewTeam(TeamViewModel model)
+        public CommandResult AddNewTeam(TeamViewModel model)
         {
-            var criteria = new AddNewTeamCriteria()
+            var criteria = new InsertTeamCriteria()
             {
                 Code = model.TeamCode,
                 Name = model.TeamName,
                 LeaderId = model.LeaderId,
                 AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
-                CreatedDate = model.CreatedDate,
                 CreatedBy = model.CreatedBy
             };
 
-            return _teamService.AddNewTeam(criteria);
+            return commandService.Insert(criteria);
         }
 
         [Authorize(Roles = "HR")]
@@ -121,7 +123,7 @@ namespace Fanex.NexHR.Controllers
                 ModifiedDate = DateTime.Now
             };
 
-            CommandResult result = _teamService.DeleteTeam(criteria);
+            CommandResult result = commandService.Delete(criteria);
 
             if (result.Code != 0)
             {
@@ -139,7 +141,7 @@ namespace Fanex.NexHR.Controllers
             {
                 ExtId = extId
             };
-            CommandResult result = _extensionNoService.DeleteExtensionNumber(criteria);
+            CommandResult result = commandService.Delete(criteria);
 
             return result.Code == 0;
         }
@@ -152,7 +154,7 @@ namespace Fanex.NexHR.Controllers
             {
                 FullName = groupName
             };
-            CommandResult result = _extensionNoService.AddNewExternalGroup(criteria);
+            CommandResult result = commandService.Insert(criteria);
 
             return result.Code == 0;
         }
@@ -165,7 +167,7 @@ namespace Fanex.NexHR.Controllers
             {
                 ExtId = extId
             };
-            CommandResult result = _extensionNoService.DeleteExternalGroup(criteria);
+            CommandResult result = commandService.Delete(criteria);
 
             return result.Code == 0;
         }
@@ -179,9 +181,24 @@ namespace Fanex.NexHR.Controllers
                 ExtId = extId,
                 FullName = groupName
             };
-            CommandResult result = _extensionNoService.UpdateExternalGroup(criteria);
+            CommandResult result = commandService.Update(criteria);
 
             return result.Code == 0;
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.Id;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            CommandResult commandResult = commandService.Update(criteria);
+
+            return Json(commandResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

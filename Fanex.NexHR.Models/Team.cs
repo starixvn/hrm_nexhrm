@@ -11,9 +11,6 @@ namespace Fanex.NexHR.Models
 {
     using System;
 
-    /// <summary>
-    /// Team model.
-    /// </summary>
     public class Team : EntityBase<int>
     {
         public Department Department { get; set; }

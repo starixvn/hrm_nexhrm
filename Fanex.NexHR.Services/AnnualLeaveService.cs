@@ -1,10 +1,8 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.AnnualLeave;
-    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -66,51 +64,6 @@
             }
 
             return annualLeave;
-        }
-
-        public CommandResult DeleteAnnualLeaveTransaction(DeleteAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult UpdateAnnualLeaveTransaction(UpdateAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult InsertAnnualLeaveTransaction(InsertAnnualLeaveTransactionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult AdjustAnnualLeaves(AdjustAnnualLeavesCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult OpenAnnualLeaves(OpenAnnualBalanceForNewYearCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult ResetAnnualLeaves(ResetAnnualLeavesCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult AddLeaveDeduction(InsertLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult EditLeaveDeduction(UpdateLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
-        }
-
-        public CommandResult DeleteLeaveDeduction(DeleteLeaveDeductionCriteria criteria)
-        {
-            return Execute(criteria);
         }
     }
 }

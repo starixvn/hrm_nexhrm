@@ -6,10 +6,9 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
-    [Authorize]
-    public class ShiftController : Controller
+    public class ShiftController : BaseController
     {
-        private readonly IShiftService _shiftService;
+        private readonly IShiftService shiftService;
 
         public ShiftController()
             : this(null)
@@ -18,12 +17,12 @@
 
         public ShiftController(IShiftService shiftService = null)
         {
-            _shiftService = shiftService ?? new ShiftService();
+            this.shiftService = shiftService ?? new ShiftService();
         }
 
         public ActionResult Index()
         {
-            IList<Shift> shifts = _shiftService.GetAll();
+            IList<Shift> shifts = shiftService.GetAll();
 
             return View(shifts);
         }

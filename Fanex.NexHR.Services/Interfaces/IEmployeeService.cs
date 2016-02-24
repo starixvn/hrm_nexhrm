@@ -15,17 +15,9 @@
 
         IList<Employee> Query(GetEmployeeCriteria criteria);
 
-        CommandResult Insert(InsertEmployeeCriteria criteria);
-
-        CommandResult Delete(DeleteEmployeeCriteria criteria);
-
-        CommandResult Update(UpdateEmployeeCriteria criteria);
-
         IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);
 
         DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria);
-
-        CommandResult UpdateEmployeeShift(UpdateScheduleDefaultCriteria criteria);
 
         MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
 

@@ -1,32 +1,34 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Models;
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using ViewModels;
 
     public class OvertimeController : BaseController
     {
-        private readonly IOvertimeService _overtimeService;
-        private readonly IEmployeeService _employeeService;
+        private readonly IOvertimeService overtimeService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICommandService commandService;
 
         public OvertimeController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public OvertimeController(
             IOvertimeService service,
-            IEmployeeService employeeService)
+            IEmployeeService employeeService,
+            ICommandService commandService)
         {
-            _overtimeService = service ?? new OvertimeService();
-            _employeeService = employeeService ?? new EmployeeService();
+            overtimeService = service ?? new OvertimeService();
+            employeeService = employeeService ?? new EmployeeService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -47,7 +49,7 @@
                 Status = model.Status
             };
 
-            IEnumerable<Overtime> result = _overtimeService.ReportSummary(criteria);
+            IEnumerable<Overtime> result = overtimeService.ReportSummary(criteria);
 
             return View(result);
         }
@@ -75,7 +77,7 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = _overtimeService.Insert(criteria);
+                CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
                     return RedirectToAction("Index");
@@ -97,7 +99,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _overtimeService.ApproveRequest(criteria);
+            CommandResult result = commandService.Update(criteria);
 
             return Json(result);
         }
@@ -112,7 +114,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _overtimeService.RejectRequest(criteria);
+            CommandResult result = commandService.Update(criteria);
 
             return Json(result);
         }
@@ -127,7 +129,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _overtimeService.DisapproveRequest(criteria);
+            CommandResult result = commandService.Update(criteria);
 
             return Json(result);
         }
@@ -135,7 +137,7 @@
         public ActionResult Edit(int id)
         {
             var criteria = new GetByIdCriteria { Id = id };
-            OvertimeCreateViewModel model = _overtimeService.Get(criteria);
+            OvertimeCreateViewModel model = overtimeService.Get(criteria);
             model.TimeSheetData = JsonConvert.SerializeObject(model.TimeSheets);
 
             return View(model);
@@ -157,7 +159,7 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = _overtimeService.Update(criteria);
+                CommandResult result = commandService.Update(criteria);
                 if (result.Code == 0)
                 {
                     return RedirectToAction("Index");

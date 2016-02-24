@@ -14,16 +14,19 @@
     public class CalendarController : BaseController
     {
         private readonly ICalendarService calendarService;
+        private readonly ICommandService commandService;
 
         public CalendarController()
-            : this(null)
+            : this(null, null)
         {
         }
 
         public CalendarController(
-            ICalendarService calendarService)
+            ICalendarService calendarService,
+            ICommandService commandService)
         {
             this.calendarService = calendarService ?? new CalendarService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "HR")]
@@ -36,7 +39,7 @@
                 ShiftId = shiftId,
                 ModifiedBy = CurrentUser.Id,
             };
-            CommandResult result = calendarService.UpdateEmployeeShiftDate(criteria);
+            CommandResult result = commandService.Update(criteria);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -55,7 +58,7 @@
                     ToDate = model.ToDate
                 };
 
-                result = calendarService.InsertWorkingCalendar(criteria);
+                result = commandService.Insert(criteria);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

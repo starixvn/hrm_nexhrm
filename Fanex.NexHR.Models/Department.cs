@@ -1,19 +1,43 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Department.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
-    /// <summary>
-    /// Department model.
-    /// </summary>
-    public class Department : EntityBase<int>
+    using System;
+    using System.Collections.Generic;
+
+    public class Department
     {
+        public Department()
+        {
+            Children = new List<Department>();
+        }
+
+        public int DepartmentId { get; set; }
+
+        public string Code { get; set; }
+
+        public string Name { get; set; }
+
+        public int? ParentId { get; set; }
+
+        public string ParentName { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
+
+        public bool IsDisabled { get; set; }
+
+        public int DepartmentLevel { get; set; }
+
+        public int DisplayOrder { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public DateTime? DisabledDate { get; set; }
+
+        public Employee Creator { get; set; }
+
         public Employee Manager { get; set; }
+
+        public Employee Modifier { get; set; }
+
+        public IList<Department> Children { get; set; }
     }
 }

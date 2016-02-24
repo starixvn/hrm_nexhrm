@@ -66,12 +66,11 @@
     <Compile Include="LateInEarlyOut\LateInEarlyOutViewModel.cs" />
     <Compile Include="LateInEarlyOut\Types.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
-    <Compile Include="TeamRequestViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />
     <Compile Include="Employee\UserManagementViewModel.cs" />
     <Compile Include="LeaveDeductionViewModel.cs" />
-    <Compile Include="Department\DepartmentViewModel.cs" />
+    <Compile Include="DepartmentViewModel.cs" />
     <Compile Include="Employee\EmployeeBirthdayViewModel.cs" />
     <Compile Include="ExtensionNoViewModel.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />

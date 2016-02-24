@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RequestService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.10">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
     using System;
     using System.Collections.Generic;
@@ -33,23 +23,23 @@ namespace Fanex.NexHR.Services
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    /// <summary>
-    /// Request service.
-    /// </summary>
     public class RequestService : BaseService, IRequestService
     {
         private readonly IRequestRepository _requestRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IEmailService _emailService;
+        private readonly ICommandService commandService;
 
         public RequestService(
             IRequestRepository requestRepository = null,
             IEmployeeRepository employeeRepository = null, 
-            IEmailService emailService = null)
+            IEmailService emailService = null,
+            ICommandService commandService = null)
         {
             this._requestRepository = requestRepository ?? new RequestRepository();
             this._employeeRepository = employeeRepository ?? new EmployeeRepository();
             this._emailService = emailService ?? new EmailService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public static string ToRequestMessage(RequestEntity request)
@@ -123,7 +113,7 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                CommandResult result = Repository.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 model.Id = criteria.Id;
                 
                 if (result.Code == 0)
@@ -189,7 +179,7 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                CommandResult result = Repository.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 model.Id = criteria.Id;
 
                 if (result.Code == 0)
@@ -240,7 +230,7 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                CommandResult result = Repository.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
 
                 if (result.Code == 0)
                 {
@@ -303,7 +293,7 @@ namespace Fanex.NexHR.Services
                     EarlyOutMins = null
                 };
 
-                CommandResult result = Repository.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
 
                 if (result.Code == 0)
                 {
@@ -359,7 +349,7 @@ namespace Fanex.NexHR.Services
                     break;
             }
 
-            CommandResult result = Repository.Update(processRequestCriteria);
+            CommandResult result = commandService.Update(processRequestCriteria);
 
             if (result.Code == 0)
             {
@@ -402,7 +392,7 @@ namespace Fanex.NexHR.Services
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                Repository.Delete(criteria);
+                commandService.Delete(criteria);
                 return true;
             }
 

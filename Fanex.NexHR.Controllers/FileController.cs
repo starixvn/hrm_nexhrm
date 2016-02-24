@@ -1,31 +1,12 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FileController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// File controller.
-    /// </summary>
     public class FileController : BaseController
     {
-        /// <summary>
-        /// Upload file.
-        /// </summary>
-        /// <param name="files">The upload files.</param>
-        /// <param name="categoryId">The category ID.</param>
-        /// <param name="overRide">Override or not.</param>
-        /// <returns>The return string.</returns>
         [HttpPost]
         public string UploadFile(IEnumerable<HttpPostedFileBase> files, int categoryId, int overRide)
         {

@@ -161,10 +161,12 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
+    <Compile Include="CommandService.cs" />
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
+    <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\ICalendarService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />

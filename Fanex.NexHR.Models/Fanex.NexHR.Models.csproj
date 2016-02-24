@@ -97,7 +97,6 @@
     <Compile Include="Report\LateInEarlyOutByTeamModel.cs" />
     <Compile Include="AnnualLeave\ShowOpenAndCloseAnnualBalance.cs" />
     <Compile Include="Department.cs" />
-    <Compile Include="DepartmentModel.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="DefaultSchedule.cs" />
     <Compile Include="ExtensionNoModel.cs" />

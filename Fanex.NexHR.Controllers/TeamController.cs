@@ -1,45 +1,39 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="TeamController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    [Authorize]
     public class TeamController : BaseController
     {
-        private readonly ITeamService _teamService;
-        private readonly IDepartmentService _departmentService;
+        private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
+        private readonly ICommandService commandService;
 
         public TeamController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public TeamController(ITeamService teamService = null, IDepartmentService departmentService = null)
+        public TeamController(
+            ITeamService teamService, 
+            IDepartmentService departmentService,
+            ICommandService commandService)
         {
-            _teamService = teamService ?? new TeamService();
-            _departmentService = departmentService ?? new DepartmentService();
+            this.teamService = teamService ?? new TeamService();
+            this.departmentService = departmentService ?? new DepartmentService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             return View(teams);
         }
@@ -49,12 +43,10 @@ namespace Fanex.NexHR.Controllers
         {
             var model = new TeamViewModel
             {
-                CreatedDate = DateTime.Now,
-                CreatedBy = this.CurrentUser.Id
+                CreatedBy = CurrentUser.Id,
+                Departments = departmentService.GetAll(),
+                Teams = teamService.GetAll()
             };
-
-            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll();
 
             return View(model);
         }
@@ -65,7 +57,7 @@ namespace Fanex.NexHR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var criteria = new AddNewTeamCriteria()
+                var criteria = new InsertTeamCriteria()
                 {
                     Code = model.TeamCode,
                     Name = model.TeamName,
@@ -73,27 +65,27 @@ namespace Fanex.NexHR.Controllers
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
                     DepartmentId = model.DepartmentId,
                     ParentId = model.ParentId,
-                    CreatedDate = model.CreatedDate,
                     CreatedBy = model.CreatedBy
                 };
 
-                var id = _teamService.AddNewTeam(criteria);
-                if (id.Equals(-1))
+                CommandResult result = commandService.Insert(criteria);
+
+                if (result.Code == 0)
                 {
-                    ModelState.AddModelError(string.Empty, Resources.Messages.DuplicateTeamCode);
+                    ViewBag.Inserted = true;
                 }
                 else
                 {
-                    ViewBag.Inserted = true;
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll();
+            model.Departments = departmentService.GetAll();
+            model.Teams = teamService.GetAll();
 
             return View(model);
         }
@@ -105,7 +97,7 @@ namespace Fanex.NexHR.Controllers
             {
                 Id = id
             };
-            var team = _teamService.GetById(criteria);
+            var team = teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)
@@ -114,19 +106,18 @@ namespace Fanex.NexHR.Controllers
                 {
                     TeamCode = team.Code,
                     TeamName = team.Name,
-                    DepartmentId = team.Department != null ? team.Department.Id : 0,
+                    DepartmentId = team.Department != null ? team.Department.DepartmentId : 0,
                     ParentId = team.Parent != null ? team.Parent.Id : 0,
                     Leader = team.Leader.DisplayName,
                     LeaderId = team.Leader.Id,
                     AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
                     AssistantLeaderId = team.AssistantLeader != null ? team.AssistantLeader.Id : 0,
-                    ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id
                 };
             }
 
-            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll().Where(p => p.Id != id).ToList();
+            model.Departments = departmentService.GetAll();
+            model.Teams = teamService.GetAll().Where(p => p.Id != id).ToList();
 
             return View(model);
         }
@@ -151,20 +142,27 @@ namespace Fanex.NexHR.Controllers
                     ParentId = model.ParentId,
                     LeaderId = model.LeaderId,
                     AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
-                    ModifiedDate = model.ModifiedDate,
                     ModifiedBy = model.ModifiedBy,
                 };
 
-                var result = _teamService.UpdateTeam(criteria);
-                ViewBag.Updated = result;
+                CommandResult result = commandService.Update(criteria);
+
+                if (result.Code == 0)
+                {
+                    ViewBag.Updated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Departments = _departmentService.GetAllDepartment(new GetAllDepartmentCriteria()).ToList();
-            model.Teams = _teamService.GetAll().Where(p => p.Id != model.Id).ToList();
+            model.Departments = departmentService.GetAll();
+            model.Teams = teamService.GetAll().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

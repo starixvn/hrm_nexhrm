@@ -644,20 +644,5 @@
         }
 
         #endregion Time Record
-
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public JsonResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
-        {
-            if (criteria != null)
-            {
-                criteria.ModifiedBy = this.CurrentUser.Id;
-                criteria.ModifiedDate = DateTime.Now;
-            }
-
-            CommandResult commandResult = _reportService.ProcessInOut(criteria);
-
-            return Json(commandResult, JsonRequestBehavior.AllowGet);
-        }
     }
 }

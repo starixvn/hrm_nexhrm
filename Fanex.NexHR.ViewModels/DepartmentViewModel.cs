@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="2014.08.19">Created.</change>
 // </history>
 
-namespace Fanex.NexHR.ViewModels.Department
+namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Resources;
