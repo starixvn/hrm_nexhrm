@@ -27,18 +27,12 @@
                             @Html.ValidationSummary()
                             if (ViewBag.Requested != null)
                             {
-                                if (ViewBag.Requested.Code == 0)
+                                if (ViewBag.Requested == 0)
                                 {
                                     <div class="row validation-summary-success">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
                                         <input type="hidden" id="successed" value="true" />
                                         <input type="hidden" id="year" value="@ViewBag.Year" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="row validation-summary-errors">
-                                        <i class="mdi mdi-backup-restore m-r--s"></i>@ViewBag.Requested.Message
                                     </div>
                                 }
                             }

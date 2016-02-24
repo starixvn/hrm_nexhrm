@@ -50,8 +50,15 @@
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id
                 };
-                CommandResult result = lateinEarlyoutService.Insert(criteria);
-                ViewBag.Requested = result;
+                CommandResult result = lateinEarlyoutService.Insert(criteria);              
+                if (result.Code == 0)
+                {
+                    ViewBag.Requested = true;                    
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
             else
             {
@@ -96,8 +103,15 @@
                     ModifiedDate = DateTime.Now,
                     ModifiedBy = this.CurrentUser.Id,
                 };
-                CommandResult result = lateinEarlyoutService.Update(criteria);
-                ViewBag.Requested = result.Code == 0;
+                CommandResult result = lateinEarlyoutService.Update(criteria);                
+                if (result.Code == 0)
+                {
+                    ViewBag.Requested = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
 
             return View(model);
