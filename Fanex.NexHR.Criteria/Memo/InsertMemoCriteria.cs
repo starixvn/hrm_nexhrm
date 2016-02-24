@@ -9,14 +9,18 @@
 
 namespace Fanex.NexHR.Criteria.Memo
 {
-    using System;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Attributes;
+    using System;
 
     /// <summary>
     /// Insert Memo Criteria.
     /// </summary>
     public class InsertMemoCriteria : CriteriaBase
     {
+        [Output]
+        public int MemoId { get; set; }
+
         public string RefNo { get; set; }
 
         public string Contents { get; set; }

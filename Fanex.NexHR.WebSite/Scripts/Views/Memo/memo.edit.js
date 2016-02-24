@@ -241,7 +241,16 @@ $(document).ready(function () {
                         type: "Post",
                         data: form.serialize(),
                         success: function () {
-                            document.location = _global.root + "Memo/Index";
+                            var successed = $('#successed').val();
+
+                            if (successed === 'true') {
+                                confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                                        function () {
+                                            document.location = _global.root + 'lateearly/';
+                                        }
+                                    );
+                            }
+                            //document.location = _global.root + "Memo/Index";
                         }
                     });
                 }
@@ -258,7 +267,16 @@ $(document).ready(function () {
                     type: "Post",
                     data: form.serialize(),
                     success: function () {
-                        document.location = _global.root + "Memo/Index";
+                        var successed = $('#successed').val();
+
+                        if (successed === 'true') {
+                            confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                                    function () {
+                                        document.location = _global.root + 'lateearly/';
+                                    }
+                                );
+                        }
+                        //document.location = _global.root + "Memo/Index";
                     }
                 });
             }

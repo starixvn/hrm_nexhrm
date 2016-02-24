@@ -122,10 +122,7 @@
         public void Delete(int id)
         {
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
-            if (criteria.IsValid())
-            {
-                commandService.Delete(criteria);
-            }
+            commandService.Delete(criteria);
         }
 
         public ActionResult ListLateEarly(int empId, int year)

@@ -10,20 +10,16 @@
 
 namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
+    using System.Collections.Generic;
 
     public interface IMemoService
     {
-        bool Delete(DeleteMemoCriteria criteria);
-
         IList<Memo> GetAll(GetAllMemoCriteria criteria);
 
         Memo GetById(GetMemoByIdCriteria criteria);
 
-        int Insert(InsertMemoCriteria criteria);
-
-        bool Update(UpdateMemoCriteria criteria);
+        void SendMail(string subject, string memoId);
     }
 }

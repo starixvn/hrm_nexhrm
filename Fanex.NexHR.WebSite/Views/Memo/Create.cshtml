@@ -22,10 +22,12 @@
                         {
                             <div class="container_24 bunhat">
                                 @Html.ValidationSummary()
-                                @if ((bool)ViewBag.Updated)
+                                @if (ViewBag.Updated)
                                 {
-                                    <div class="success flash">
-                                        Created Successful!</div>
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                        <input type="hidden" id="successed" value="true" />                                        
+                                    </div>
                                 }
                                 @Html.HiddenFor(model => model.Id)
                                 @Html.HiddenFor(model => model.TotalPages)

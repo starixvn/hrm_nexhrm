@@ -24,28 +24,30 @@ namespace Fanex.NexHR.Controllers
     {
         private readonly IMemoService _memoService;
         private readonly ILookupDataService _lookupDataService;
+        private readonly ICommandService commandService;
 
-        public MemoController(IMemoService memoService = null, ILookupDataService lookupDataService = null)
+        public MemoController()
+            : this(null, null, null)
+        {
+        }
+
+        public MemoController(IMemoService memoService, ILookupDataService lookupDataService, ICommandService commandService)
         {
             _memoService = memoService ?? new MemoService();
             _lookupDataService = lookupDataService ?? new LookupDataService();
-        }
-
-        public MemoController()
-            : this(null)
-        {
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             IList<LookupData> memoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });            
+            memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });
             var model = new MemoViewModel
             {
                 Content = string.Empty,
                 Year = -1,
-                Category = -1,                    
+                Category = -1,
                 MemoCategories = memoCategories
             };
 
@@ -99,11 +101,23 @@ namespace Fanex.NexHR.Controllers
                     SentTo = model.SentTo,
                     Subject = model.Subject,
                     TotalPages = model.TotalPages,
-                    MemoType = model.MemoType,         
+                    MemoType = model.MemoType,
                     Status = model.Status == 1
                 };
 
-                ViewBag.Updated = _memoService.Update(updateMemoCriteria);
+                CommandResult result = commandService.Update(updateMemoCriteria);
+                if (result.Code == 0)
+                {
+                    ViewBag.Updated = true;
+                    if (updateMemoCriteria.SendMail)
+                    {
+                        _memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
             else
             {
@@ -164,12 +178,19 @@ namespace Fanex.NexHR.Controllers
                     Status = model.Status == 1
                 };
 
-                int id = _memoService.Insert(insertMemoCriteria);
+                CommandResult result = commandService.Insert(insertMemoCriteria, hasGetOutputParams: true);
 
-                ViewBag.Updated = id != -1 ? true : false;
-                if (id == -1)
+                if (result.Code == 0)
                 {
-                    ModelState.AddModelError(string.Empty, "Duplicate memo");
+                    ViewBag.Updated = true;
+                    if (insertMemoCriteria.SendMail)
+                    {
+                        _memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
             else
@@ -193,7 +214,7 @@ namespace Fanex.NexHR.Controllers
         public bool DeleteMemo(int id)
         {
             var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
-            return _memoService.Delete(deleteMemoCriteria);
+            return commandService.Delete(deleteMemoCriteria).Code == 0;
         }
     }
 }

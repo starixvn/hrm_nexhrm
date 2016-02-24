@@ -24,9 +24,8 @@
                             @if ((bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
-                                    <div class="col success green-text">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!
-                                    </div>
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edit Successful !
+                                    <input type="hidden" id="successed" value="true" />
                                 </div>
                             }
                             @Html.HiddenFor(model => model.Id)

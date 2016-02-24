@@ -176,6 +176,7 @@ namespace Fanex.NexHR.Core
                     Selected = true
                 });
             }
+
             var toYear = DateTime.Now.GetMaxDate().Year + 1;
 
             for (var i = toYear; i >= fromYear; i--)
@@ -184,7 +185,7 @@ namespace Fanex.NexHR.Core
                 {
                     Text = i.ToString(),
                     Value = i.ToString(),
-                    Selected = !hasFirstItem?(i == currentYear):false
+                    Selected = !hasFirstItem ? (i == currentYear) : false
                 });
             }
 
