@@ -27,7 +27,7 @@
                             @Html.ValidationSummary()
                             if (ViewBag.Requested != null)
                             {
-                                if (ViewBag.Requested == 0)
+                                if (ViewBag.Requested == true)
                                 {
                                     <div class="row validation-summary-success">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
@@ -54,7 +54,7 @@
                                         @Html.LabelFor(model => model.Type, Labels.Type)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.Type, new SelectList(Model.TypesList, "Id", "Name"))                                        
+                                        @Html.DropDownListFor(model => model.Type, new SelectList(Model.TypesList, "Id", "Name"))
                                     </div>
                                 </div>
                             </div>

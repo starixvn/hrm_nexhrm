@@ -27,7 +27,7 @@
                             @Html.ValidationSummary()
                             if (ViewBag.Requested != null)
                             {
-                                if (ViewBag.Requested == 0)
+                                if (ViewBag.Requested == true)
                                 {
                                     <div class="row validation-summary-success">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
@@ -55,7 +55,6 @@
                                     </div>
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.TypeCode, new SelectList(Model.TypesList, "Id", "Name"))
-                                        @*@Html.HiddenFor(model => model.Type)*@
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +65,7 @@
                                     </div>
                                     <div class="left select--m">
                                         @{
-                                            var minutesList = new List<SelectListItem>
+                            var minutesList = new List<SelectListItem>
                                                 {
                                                     new SelectListItem() {Text = "30m", Value = "30", Selected = true},
                                                     new SelectListItem() {Text = "60m", Value = "60"},
@@ -103,11 +102,8 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
                                 </div>
                             </div>
-                                            }
+                        }
                     </div>
-                    @*<div class="hide">
-                            @RazorHelper.RequestLeaveLegend()
-                        </div>*@
                 </div>
             </div>
         </div>
