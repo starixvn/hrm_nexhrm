@@ -19,11 +19,5 @@ namespace Fanex.NexHR.Repositories.Interfaces
         IList<Memo> GetAll(ICriteria criteria);
 
         Memo GetById(ICriteria criteria);
-
-        int Insert(ICriteria criteria);
-
-        bool Delete(ICriteria criteria);
-
-        bool Update(ICriteria criteria);
     }
 }

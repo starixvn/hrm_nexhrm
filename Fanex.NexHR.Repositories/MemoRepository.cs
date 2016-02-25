@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MemoRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
     using System.Data;
@@ -19,9 +9,6 @@ namespace Fanex.NexHR.Repositories
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
-    /// <summary>
-    /// Memo repository.
-    /// </summary>
     public class MemoRepository : IMemoRepository
     {
         /// <summary>
@@ -51,48 +38,6 @@ namespace Fanex.NexHR.Repositories
             {
                 return db.QueryEntity<Memo>(criteria.GetSpParams());
             }
-        }
-
-        /// <summary>
-        /// Delete memo.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public bool Delete(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-        }
-
-        /// <summary>
-        /// Insert memo.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public int Insert(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return (int)db.ExecuteScalar(criteria.GetSpParams());
-            }
-        }
-
-        /// <summary>
-        /// Update memo.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The result.</returns>
-        public bool Update(ICriteria criteria)
-        {
-            bool updated = false;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                updated = db.ExecuteNonQuery(criteria.GetSpParams()) != 0;
-            }
-
-            return updated;
         }
     }
 }

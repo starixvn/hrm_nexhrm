@@ -1,11 +1,11 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Criteria.LateInEarlyOut
+﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
+    using Fanex.Data.Repository;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     public class DeleteLateInEarlyOutCriteria : CriteriaBase
     {
         public int Id { get; set; }
