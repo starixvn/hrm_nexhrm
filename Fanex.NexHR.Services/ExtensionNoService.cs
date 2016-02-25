@@ -11,45 +11,27 @@
     using System.Linq;
 
     public class ExtensionNoService : BaseService, IExtensionNoService
-    {        
+    {
         public ExtensionNoService()
-        {            
+        {
         }
 
         public IList<ExtensionNoModel> GetAllExtensionNo(GetAllExtensionNoCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
-                return result;
-            }
-
-            return null;
+            List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
+            return result;
         }
 
         public IList<ExtensionNoModel> GetAllExtensionGroupInfo(GetAllExtensionGroupInfoCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
-                return result;
-            }
-
-            return null;
+            List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
+            return result;
         }
 
         public ExtensionNoModel GetEmployeeExtensionNoById(GetEmployeeExtensionNoByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                ExtensionNoModel result = GetDataEntity<ExtensionNoModel>(criteria);
-                return result;
-            }
-
-            return null;
+            ExtensionNoModel result = GetDataEntity<ExtensionNoModel>(criteria);
+            return result;
         }
     }
 }

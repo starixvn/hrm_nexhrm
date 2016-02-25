@@ -1,9 +1,10 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
     using Fanex.NexHR.Criteria.LeaveType;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class LeaveTypeService : BaseService, ILeaveTypeService
     {

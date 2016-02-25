@@ -30,11 +30,16 @@
         private readonly IEmailService _emailService;
         private readonly ICommandService commandService;
 
+        public RequestService()
+            : this(null, null, null, null)
+        {
+        }
+
         public RequestService(
-            IRequestRepository requestRepository = null,
-            IEmployeeRepository employeeRepository = null, 
-            IEmailService emailService = null,
-            ICommandService commandService = null)
+            IRequestRepository requestRepository,
+            IEmployeeRepository employeeRepository,
+            IEmailService emailService,
+            ICommandService commandService)
         {
             this._requestRepository = requestRepository ?? new RequestRepository();
             this._employeeRepository = employeeRepository ?? new EmployeeRepository();
@@ -60,9 +65,9 @@
                     {
                         // 0.5 day
                         msg.AppendFormat(
-                            Constants.MsgLeaveHalfDay, 
-                            GetMessageDateforLeaveRequest(request.FromDate, request.ToDate), 
-                            request.FromDate.ToString("HH:mm"), 
+                            Constants.MsgLeaveHalfDay,
+                            GetMessageDateforLeaveRequest(request.FromDate, request.ToDate),
+                            request.FromDate.ToString("HH:mm"),
                             request.ToDate.ToString("HH:mm"));
                     }
 
@@ -115,7 +120,7 @@
 
                 CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 model.Id = criteria.Id;
-                
+
                 if (result.Code == 0)
                 {
                     string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
@@ -184,7 +189,7 @@
 
                 if (result.Code == 0)
                 {
-                    string templateEmailPath = model.LeaveTypeId == 26 || model.TotalDays >= 5 
+                    string templateEmailPath = model.LeaveTypeId == 26 || model.TotalDays >= 5
                         ? HttpContext.Current.Server.MapPath("~/app_data/emails/UnpaidLeave.Request.cshtml")
                         : HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml");
                     var taskSendMail = new Task(() => SendMailForLeave(model, Messages.LeaveEmailSubject + " " + model.Employee, templateEmailPath));
@@ -480,7 +485,7 @@
         private IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
         {
             IList<Employee> leaders = null;
-            if (string.Equals(model.Shift, "A2") 
+            if (string.Equals(model.Shift, "A2")
                 && (model.ForDate.DayOfWeek == DayOfWeek.Saturday || model.ForDate.DayOfWeek == DayOfWeek.Sunday))
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
@@ -494,7 +499,7 @@
                 };
                 leaders = GetData<Employee>(criteria).ToList();
             }
-            
+
             return leaders;
         }
 
@@ -507,7 +512,7 @@
             var criteria = new GetLeadersOfEmployeeCriteria() { EmployeeId = model.EmployeeId };
             leaders = GetData<Employee>(criteria).ToList();
 
-            subject = model.TotalDays > 1 
+            subject = model.TotalDays > 1
                 ? subject + " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate()
                 : subject + " on " + model.FromDate.ToDateMonthYearFormatedDate();
 
@@ -518,7 +523,7 @@
             {
                 var getManagementsCriteria = new GetManagementsCriteria();
                 managers = GetData<Employee>(getManagementsCriteria).ToList();
-                
+
                 if (managers != null && managers.Any())
                 {
                     body = string.Format(bodyTemplate, model.DisplayName, forDate, model.LeaveTypeName, model.Remark);
@@ -590,15 +595,15 @@
             {
                 employees = projectManagers;
             }
-            
+
             return employees;
         }
 
         private void SendMailForProcessRequest(
-            long id, 
-            string command, 
-            string templateEmailToRequesterPath, 
-            string templateLeaveEmailToRelatedPath, 
+            long id,
+            string command,
+            string templateEmailToRequesterPath,
+            string templateLeaveEmailToRelatedPath,
             string templateInOutEmailToRelatedPath)
         {
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
@@ -673,11 +678,11 @@
 
         private void CheckInOutRelatedMail(RequestEntity request, string sendCc, string templateInOutEmailToRelatedPath)
         {
-            var subject = request.RequestType.Id == (int)RequestType.CheckIn 
+            var subject = request.RequestType.Id == (int)RequestType.CheckIn
                 ? string.Format(
                     Messages.ApprovalNotificationCheckInSubject,
                     request.Requester.NickName,
-                    request.ModifiedBy.NickName) 
+                    request.ModifiedBy.NickName)
                 : string.Format(
                     Messages.ApprovalNotificationCheckOutSubject,
                     request.Requester.NickName,
@@ -691,7 +696,7 @@
                 request.Requester.DisplayName,
                 request.RequestType.Name,
                 request.FromDate.ToDateMonthYearFormatedDate(),
-                request.FromShift.Name, 
+                request.FromShift.Name,
                 request.FromDate.ToString("HH:mm"));
 
             this._emailService.SendEmail(
@@ -716,8 +721,8 @@
                 request.ModifiedBy.NickName,
                 string.Format("{0} ({1})", request.Requester.NickName, request.Requester.FullName),
                 Labels.Leave,
-                forDate, 
-                request.LeaveType.Name, 
+                forDate,
+                request.LeaveType.Name,
                 request.Remark);
 
             this._emailService.SendEmail(

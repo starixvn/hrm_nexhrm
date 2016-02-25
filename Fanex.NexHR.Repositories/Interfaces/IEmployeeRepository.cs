@@ -6,8 +6,6 @@
 
     public interface IEmployeeRepository
     {
-        Employee GetById(ICriteria criteria);
-
         Employee GetByDomainName(ICriteria criteria);
 
         IList<Employee> Query(ICriteria criteria);

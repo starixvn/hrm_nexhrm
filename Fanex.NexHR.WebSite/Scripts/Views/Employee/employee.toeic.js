@@ -118,7 +118,7 @@ function initAddToeicDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
 
-                                if (data.code === 1) {
+                                if (data.code === 0) {
                                     errorCont.addClass('success validation-summary-success');
                                     errorCont.append('Update TOEIC score for Employee successfully');
                                     setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
@@ -183,7 +183,7 @@ function initEditToeicDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
 
-                                if (data.code === 1) {
+                                if (data.code === 0) {
                                     errorCont.addClass('success validation-summary-success');
                                     errorCont.append('Update TOEIC score for Employee successfully');
                                     setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);

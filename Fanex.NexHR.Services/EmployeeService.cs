@@ -24,12 +24,7 @@
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            Employee employee = null;
-            if (criteria.IsValid())
-            {
-                employee = employeeRepository.GetById(criteria);
-            }
-
+            Employee employee = GetDataEntity<Employee>(criteria);
             return employee;
         }
 

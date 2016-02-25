@@ -11,11 +11,11 @@
     using System.Web;
 
     public class MemoService : BaseService, IMemoService
-    {        
+    {
         private readonly IEmailService _emailService;
 
         public MemoService(IEmailService emailService = null)
-        {            
+        {
             this._emailService = emailService ?? new EmailService();
         }
 
@@ -26,12 +26,7 @@
         /// <returns>List of memo.</returns>
         public IList<Memo> GetAll(GetAllMemoCriteria criteria)
         {
-            IList<Memo> entityList = null;
-            if (criteria.IsValid())
-            {
-                entityList = GetData<Memo>(criteria).ToList();
-            }
-
+            IList<Memo> entityList = GetData<Memo>(criteria).ToList();
             return entityList;
         }
 
@@ -43,23 +38,20 @@
         public Memo GetById(GetMemoByIdCriteria criteria)
         {
             Memo memo = null;
-            if (criteria.IsValid())
+            memo = GetDataEntity<Memo>(criteria);
+            if (memo != null && memo.MemoType == 1)
             {
-                memo = GetDataEntity<Memo>(criteria);
-                if (memo != null && memo.MemoType == 1)
-                {
-                    memo.AttachFile = memo.Contents;
-                    memo.Contents = 
-                        "<a href='" 
-                        + HttpUtility.HtmlEncode(memo.AttachFile) 
-                        + "'> " 
-                        + HttpUtility.HtmlEncode(memo.AttachFile.Split('/')[memo.AttachFile.Split('/').Length - 1]) 
-                        + "</a>";
-                }
+                memo.AttachFile = memo.Contents;
+                memo.Contents =
+                    "<a href='"
+                    + HttpUtility.HtmlEncode(memo.AttachFile)
+                    + "'> "
+                    + HttpUtility.HtmlEncode(memo.AttachFile.Split('/')[memo.AttachFile.Split('/').Length - 1])
+                    + "</a>";
             }
 
             return memo;
-        }           
+        }
 
         public void SendMail(string subject, string memoID)
         {

@@ -103,7 +103,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullToeic(Toeic model)
         {
-            int effectedRow = -1;
+            CommandResult result = new CommandResult();
             var currentUserId = CurrentUser.Id;
             if (ModelState.IsValid)
             {
@@ -144,7 +144,7 @@
                 }
             }
 
-            return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+            return Json(new { code = result.Code, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
         [HttpGet]
@@ -158,7 +158,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(ToeicViewModel model)
         {
-            int effectedRow = -1;
+            CommandResult result = new CommandResult();
             if (ModelState.IsValid)
             {
                 var toeic = new Toeic
@@ -204,7 +204,7 @@
                 }
             }
 
-            return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+            return Json(new { code = result.Code, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
         private void ValidateTOEIC(Toeic model)

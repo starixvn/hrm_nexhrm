@@ -101,9 +101,7 @@
     <Compile Include="Interfaces\IOvertimeRepository.cs" />
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
-    <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
-    <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="OvertimeRepository.cs" />
     <Compile Include="RequestRepository.cs" />
