@@ -7,7 +7,6 @@
 
     public class ToeicService : BaseService, IToeicService
     {
-
         public Toeic GetById(GetToeicScoreByEmployeeIdCriteria criteria)
         {            
             Toeic toeic = GetDataEntity<Toeic>(criteria);
