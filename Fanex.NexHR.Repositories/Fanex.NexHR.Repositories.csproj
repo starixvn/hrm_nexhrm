@@ -98,13 +98,11 @@
     <Compile Include="Interfaces\IDepartmentRepository.cs" />
     <Compile Include="Interfaces\ICalendarRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
-    <Compile Include="Interfaces\IExtensionNoRepository.cs" />
     <Compile Include="Interfaces\IOvertimeRepository.cs" />
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
     <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
     <Compile Include="Interfaces\ILookupDataRepository.cs" />
-    <Compile Include="Interfaces\IMemoRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
     <Compile Include="Interfaces\IToeicRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />

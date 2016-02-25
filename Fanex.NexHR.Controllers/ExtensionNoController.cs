@@ -1,14 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using System.Collections.Generic;
-    using Fanex.NexHR.Resources;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class ExtensionNoController : BaseController
     {

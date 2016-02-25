@@ -3,14 +3,12 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Web;
     using System.Linq;
+    using System.Web;
 
     public class MemoService : BaseService, IMemoService
     {        
