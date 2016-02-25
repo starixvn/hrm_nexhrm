@@ -217,7 +217,7 @@ $(document).ready(function () {
         $("#MemoType_0").prop("checked", "checked");
     }
 
-    changeType();
+    changeType();    
 
     $("form").submit(function (e) {
         var validate = validateForm();
@@ -234,25 +234,6 @@ $(document).ready(function () {
                 if (attachFile === 0 || (attachFile !== 0 && fileName !== "")) {
                     e.preventDefault();
                     upload();
-                } else {
-                    e.preventDefault();
-                    $.ajax({
-                        url: form.action,
-                        type: "Post",
-                        data: form.serialize(),
-                        success: function () {
-                            var successed = $('#successed').val();
-
-                            if (successed === 'true') {
-                                confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                                        function () {
-                                            document.location = _global.root + 'lateearly/';
-                                        }
-                                    );
-                            }
-                            //document.location = _global.root + "Memo/Index";
-                        }
-                    });
                 }
             }
         } else {
@@ -260,26 +241,18 @@ $(document).ready(function () {
                 $("#error").show();
                 return false;
             } else {
-                e.preventDefault();
                 $("#Contents").val(tinyMCE.activeEditor.getContent());
-                $.ajax({
-                    url: form.action,
-                    type: "Post",
-                    data: form.serialize(),
-                    success: function () {
-                        var successed = $('#successed').val();
-
-                        if (successed === 'true') {
-                            confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                                    function () {
-                                        document.location = _global.root + 'lateearly/';
-                                    }
-                                );
-                        }
-                        //document.location = _global.root + "Memo/Index";
-                    }
-                });
             }
         }
     });
+
+    var successed = $('#successed').val();
+
+    if (successed === 'true') {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + 'memo/';
+                }
+            );
+    }
 });

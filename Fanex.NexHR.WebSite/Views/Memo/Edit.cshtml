@@ -21,10 +21,10 @@
                     {
                         <div class="form">
                             @Html.ValidationSummary()
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edit Successful !
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Your memo has edited successfully !
                                     <input type="hidden" id="successed" value="true" />
                                 </div>
                             }
