@@ -143,9 +143,9 @@
         private static void BuildBundleForHolidays(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/holidays").Include(
-                "~/Scripts/Views/holiday.js"));
+                "~/Scripts/Views/Holiday/holiday.js"));
             bundles.Add(new ScriptBundle("~/bundles/holidayedit").Include(
-                "~/Scripts/Views/holiday.edit.js"));
+                "~/Scripts/Views/Holiday/holiday.edit.js"));
         }
 
         private static void BuildBundleForGeolocation(BundleCollection bundles)
@@ -161,10 +161,10 @@
         private static void BuildBundleForExtension(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/addextensionnojs").Include(
-                "~/Scripts/Views/addextensionno.js"));
+                "~/Scripts/Views/ExtensionNo/addextensionno.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensionnojs").Include(
-                "~/Scripts/Views/extensionno.js"));
+                "~/Scripts/Views/ExtensionNo/extensionno.js"));
         }
 
         private static void BuildBundleForMemo(BundleCollection bundles)

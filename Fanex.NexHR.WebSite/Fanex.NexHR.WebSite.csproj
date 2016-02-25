@@ -383,7 +383,7 @@
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
-    <Content Include="Scripts\Views\addextensionno.js" />
+    <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\annualleave.edit.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
     <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
@@ -651,11 +651,11 @@
     <Content Include="Scripts\Tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\Tiny_mce\utils\validate.js" />
     <Content Include="Scripts\Views\Calendar\employee.workingcalendars.js" />
-    <Content Include="Scripts\Views\extensionno.js" />
+    <Content Include="Scripts\Views\ExtensionNo\extensionno.js" />
     <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\geolocationmap.js" />
-    <Content Include="Scripts\Views\holiday.edit.js" />
-    <Content Include="Scripts\Views\holiday.js" />
+    <Content Include="Scripts\Views\Holiday\holiday.edit.js" />
+    <Content Include="Scripts\Views\Holiday\holiday.js" />
     <Content Include="Scripts\Views\jobtitle.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\create.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />

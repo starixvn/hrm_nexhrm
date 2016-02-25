@@ -9,12 +9,24 @@ function index() {
 
 function deleteHoliday(id) {
     confirm('Are you sure you want to delete this holiday?', function () {
-        $.post(_global.root + 'holiday/Delete', { id: id }, function (response) {
-            if (response.IsSuccessful) {
-                document.location = _global.root + 'holiday/Index';
-            }
-            else {
-                alert(response.Message);
+        $.ajax({
+            url: _global.root + 'holiday/Delete/' + id,
+            data: { id: id },
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading-process').fadeIn(300);
+            },
+            success: function (data) {
+                if (data.IsSuccessful) {
+                    document.location = _global.root + 'holiday/Index';
+                }
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                $('.loading-process').fadeOut(300);
             }
         });
     });

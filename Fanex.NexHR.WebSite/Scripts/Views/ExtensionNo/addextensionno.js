@@ -2,6 +2,15 @@
 /*global _global:false */
 
 $(document).ready(function () {
+    var successed = $("#successed").val();
+    if (successed === "true") {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + "extensionno";
+                }
+            );        
+    }
+
     var bindingDataToDropdown = function () {
         if ($("#IsInternal").is(":checked")) {
             $.getJSON(_global.root + 'api/report/GetGroupExtension', { isInternal: true, groupId: null },
@@ -110,11 +119,5 @@ $(document).ready(function () {
             var nickName = ui.item != null ? ui.item.label : "";
             $('#Employee').val(nickName);
         }
-    });
-
-    var successed = $("#successed").val();
-    if (successed === "true") {
-        document.location = _global.root + "extensionno/index";
-    }
-
+    });    
 });

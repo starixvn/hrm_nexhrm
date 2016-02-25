@@ -58,8 +58,7 @@
                     Name = model.Name,
                     ManagerId = model.ManagerId,
                     ParentId = model.ParentId,
-                    CreatedBy = CurrentUser.Id,
-                    CreatedDate = DateTime.Now
+                    CreatedBy = CurrentUser.Id,                    
                 };
 
                 CommandResult commandResult = commandService.Insert(criteria);
@@ -141,8 +140,7 @@
             var criteria = new DeleteDepartmentCriteria
             {
                 DepartmentId = id,
-                ModifiedBy = this.CurrentUser.Id,
-                ModifiedDate = DateTime.Now
+                ModifiedBy = this.CurrentUser.Id                
             };
 
             CommandResult commandResult = commandService.Delete(criteria);
