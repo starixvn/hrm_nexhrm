@@ -182,6 +182,12 @@
     <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="Report_CompanySpaceDashBoard" SpName="Report_CompanySpaceDashBoard" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Report_EmployeeSpaceDashBoard" SpName="Report_EmployeeSpaceDashBoard" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+    </Setting>
     <Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />

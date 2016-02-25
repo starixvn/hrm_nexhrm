@@ -21,13 +21,13 @@
         public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<WorkingSchedule> workingSchedules = new List<WorkingSchedule>();
+            IList<WorkingSchedule> workingSchedules = null;
             if (criteria.IsValid())
             {
                 workingSchedules = calendarRepository.GetWorkingSchedule(criteria);
             }
 
-            return workingSchedules;
+            return workingSchedules ?? new List<WorkingSchedule>();
         }
     }
 }

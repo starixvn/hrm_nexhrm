@@ -102,18 +102,14 @@
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
     <Compile Include="Interfaces\ILeaveTypeRepository.cs" />
-    <Compile Include="Interfaces\ILookupDataRepository.cs" />
     <Compile Include="Interfaces\IReportRepository.cs" />
-    <Compile Include="Interfaces\IToeicRepository.cs" />
     <Compile Include="LeaveTypeRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="OvertimeRepository.cs" />
     <Compile Include="RequestRepository.cs" />
     <Compile Include="TeamRepository.cs" />
-    <Compile Include="LookupDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportRepository.cs" />
-    <Compile Include="ToeicRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">
@@ -127,10 +123,6 @@
     <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj">
       <Project>{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F}</Project>
       <Name>Fanex.NexHR.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj">
-      <Project>{41C13575-C69E-442C-BB46-665FFDF81164}</Project>
-      <Name>Fanex.NexHR.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

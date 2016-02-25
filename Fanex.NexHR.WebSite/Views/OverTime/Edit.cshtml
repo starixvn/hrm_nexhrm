@@ -124,12 +124,12 @@
                                                     var i = 1;
                                                     foreach (var item in Model.TimeSheets)
                                                     {
-                                                        <tr class="sortedIndex" id="row_@item.EmployeeId">
+                                                        <tr class="sortedIndex" id="row_@item.Employee.Id">
                                                             <td>@(i++)</td>
-                                                            <td class="align-left">@item.DisplayName</td>
-                                                            <td><input class="row_hour" id="row_hour_@item.EmployeeId" type="number" value="@item.Hour" step="0.5" /></td>
+                                                            <td class="align-left">@item.Employee.DisplayName</td>
+                                                            <td><input class="row_hour" id="row_hour_@item.Employee.Id" type="number" value="@item.Hour" step="0.5" /></td>
                                                             <td>
-                                                                <a href="javascript:;" onclick="deleteRow(@item.EmployeeId);">
+                                                                <a href="javascript:;" onclick="deleteRow(@item.Employee.Id);">
                                                                     <i class="mdi mdi-delete mdi-dark"></i>
                                                                 </a>
                                                             </td>

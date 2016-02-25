@@ -137,7 +137,16 @@
         public ActionResult Edit(int id)
         {
             var criteria = new GetByIdCriteria { Id = id };
-            OvertimeCreateViewModel model = overtimeService.Get(criteria);
+            Overtime overtime = overtimeService.Get(criteria);
+            var model = new OvertimeCreateViewModel()
+            {
+                Id = overtime.Id,
+                Date = overtime.OnDate,
+                Description = overtime.Description,
+                TimeSheets = overtime.OvertimeRecords,
+                CreatedByName = overtime.CreatedBy.DisplayName
+            };
+
             model.TimeSheetData = JsonConvert.SerializeObject(model.TimeSheets);
 
             return View(model);

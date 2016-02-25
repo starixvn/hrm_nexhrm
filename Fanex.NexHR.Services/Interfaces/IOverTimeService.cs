@@ -11,7 +11,7 @@
 
         IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria);
 
-        OvertimeCreateViewModel Get(GetByIdCriteria criteria);
+        Overtime Get(GetByIdCriteria criteria);
 
         IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria);
     }

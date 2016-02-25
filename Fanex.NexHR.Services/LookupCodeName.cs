@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="LookupCodeName.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
-    /// <summary>
-    /// Lookup code name.
-    /// </summary>
     public sealed class LookupCodeName
     {
         public const string JobTitle = "JT";

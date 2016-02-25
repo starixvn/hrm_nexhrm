@@ -43,10 +43,8 @@
             return new OvertimeEditViewModel()
             {
                 Id = overtime.Id,
-                Date = overtime.Date,
+                Date = overtime.OnDate,
                 Hour = overtime.Hour,
-                EmployeeId = overtime.Employee.Id,
-                EmployeeDisplayName = overtime.Employee.DisplayName,
                 CreatedNickName = overtime.CreatedBy.NickName,
                 ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
                 Description = overtime.Description,

@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -12,25 +10,14 @@
         public IList<JobTitle> GetAll()
         {
             var criteria = new GetJobTitleCriteria();
-            IList<JobTitle> jobTitles = null;
-            if (criteria.IsValid())
-            {
-                jobTitles = GetData<JobTitle>(criteria).ToList();
-            }
-
-            return jobTitles ?? new List<JobTitle>();
+            IList<JobTitle> jobTitles = GetData<JobTitle>(criteria);
+            return jobTitles;
         }
 
         public IList<JobTitle> GetJobTitle(GetJobTitleCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<JobTitle> jobTitles = null;
-            if (criteria.IsValid())
-            {
-                jobTitles = GetData<JobTitle>(criteria).ToList();
-            }
-
-            return jobTitles ?? new List<JobTitle>();
+            IList<JobTitle> jobTitles = GetData<JobTitle>(criteria);
+            return jobTitles;
         }
     }
 }

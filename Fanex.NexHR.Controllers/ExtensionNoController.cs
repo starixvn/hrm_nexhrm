@@ -164,7 +164,7 @@
 
         private void CheckExternalEmployee(ExtensionNoModel model)
         {
-            if (model.IsInternal == false)
+            if (!model.IsInternal)
             {
                 foreach (var modelError in ModelState)
                 {

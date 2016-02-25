@@ -23,7 +23,7 @@
         {
             get
             {
-                var time = TimeSheets.Select(i => string.Format("{0}:{1}", i.EmployeeId, i.Hour));
+                var time = TimeSheets.Select(i => string.Format("{0}:{1}", i.Employee.Id, i.Hour));
                 var times = string.Join(",", time);
 
                 return times;

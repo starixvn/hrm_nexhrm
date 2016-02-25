@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeRepository
     {
@@ -13,7 +12,9 @@
 
         IList<Employee> Query(ICriteria criteria);
 
-        MySpaceViewModel GetMySpace(ICriteria criteria);
+        IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria);
+
+        IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria);
 
         int GetRangeDate(ICriteria criteria);
 

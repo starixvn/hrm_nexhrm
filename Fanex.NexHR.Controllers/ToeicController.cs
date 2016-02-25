@@ -1,24 +1,12 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ToeicController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015.01.05">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Criteria.Toeic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
@@ -28,64 +16,64 @@ namespace Fanex.NexHR.Controllers
 
     public class ToeicController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IEmailService _emailService;
-        private readonly ILookupDataService _lookupDataService;
-        private readonly ITeamService _teamService;
-        private readonly IToeicService _toeicService;
+        private readonly IEmployeeService employeeService;
+        private readonly IEmailService emailService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly ITeamService teamService;
+        private readonly IToeicService toeicService;
+        private readonly ICommandService commandService;
 
         public ToeicController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
         public ToeicController(
-            IEmployeeService employeeService = null,
-            IEmailService emailService = null,
-            ILookupDataService lookupDataService = null,
-            ITeamService teamService = null,
-            IToeicService toeicService = null)
+            IEmployeeService employeeService,
+            IEmailService emailService,
+            IJobTitleService jobTitleService,
+            ITeamService teamService,
+            IToeicService toeicService,
+            ICommandService commandService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _emailService = emailService ?? new EmailService();
-            _lookupDataService = lookupDataService ?? new LookupDataService();
-            _teamService = teamService ?? new TeamService();
-            _toeicService = toeicService ?? new ToeicService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.emailService = emailService ?? new EmailService();
+            this.jobTitleService = jobTitleService ?? new JobTitleService();
+            this.teamService = teamService ?? new TeamService();
+            this.toeicService = toeicService ?? new ToeicService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult ToeicManagement(int? jobTitleId = null)
         {
             var model = new ToeicManagementViewModel()
             {
-                JobTitleId = jobTitleId
+                JobTitleId = jobTitleId,
+                JobTitles = jobTitleService.GetAll(),
+                Teams = teamService.GetAll()
             };
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
-            {
-                LookupCode = LookupCodeName.JobTitle
-            };
-
-            model.JobTitles = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            model.Groups = _teamService.GetAll();
+            model.JobTitles = jobTitleService.GetAll();
+            model.Teams = teamService.GetAll();
 
             return View(model);
         }
 
         public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
         {
-            if (model.GroupId == -1)
+            if (model.TeamId == -1)
             {
-                model.GroupId = null;
+                model.TeamId = null;
             }
 
             var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
             {
                 Query = model.Query,
-                GroupId = model.GroupId,
+                GroupId = model.TeamId,
                 TitleId = model.JobTitleId
             };
 
-            IList<Employee> employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+            IList<Employee> employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
 
             return PartialView("_ToeicManagementDetail", employees);
         }
@@ -102,7 +90,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     EmpId = id.Value
                 };
-                toeic = _toeicService.GetById(criteria);
+                toeic = toeicService.GetById(criteria);
                 toeic = toeic ?? new Toeic { EmpId = id.Value };
             }
 
@@ -116,7 +104,7 @@ namespace Fanex.NexHR.Controllers
         public ActionResult UpdateFullToeic(Toeic model)
         {
             int effectedRow = -1;
-            var currentUserId = this.CurrentUser.Id;
+            var currentUserId = CurrentUser.Id;
             if (ModelState.IsValid)
             {
                 ValidateTOEIC(model);
@@ -147,9 +135,9 @@ namespace Fanex.NexHR.Controllers
                         SWExamDate = model.SWExamDate,
                         Writing = model.Writing
                     };
-                    effectedRow = _toeicService.UpdateFullToeicScore(toeicCriteria);
+                    CommandResult rerult = commandService.Update(toeicCriteria);
 
-                    if (effectedRow > 0 && model.SendMail)
+                    if (rerult.IsSuccessful && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
                     }
@@ -159,7 +147,6 @@ namespace Fanex.NexHR.Controllers
             return Json(new { code = effectedRow, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [HttpGet]
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic()
@@ -208,9 +195,9 @@ namespace Fanex.NexHR.Controllers
                         ModifiedBy = CurrentUser.Id,
                         ModifiedDate = DateTime.Now
                     };
-                    effectedRow = _toeicService.UpdateToeicScore(toeicScoreCriteria);
+                    CommandResult rerult = commandService.Update(toeicScoreCriteria);
 
-                    if (effectedRow > 0 && model.SendMail)
+                    if (rerult.IsSuccessful && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }
@@ -336,7 +323,7 @@ namespace Fanex.NexHR.Controllers
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
             {
                 var criteria = new GetUpdatingScoreRelatedPeopleCriteria() { Id = empId };
-                var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
+                var employees = employeeService.GetUpdatingScoreRelatedPeople(criteria);
 
                 if (employees.Count() > 0)
                 {
@@ -367,7 +354,7 @@ namespace Fanex.NexHR.Controllers
 
                     body = string.Format(body, bodyContent.User, bodyContent.NewListening, bodyContent.OldListening, bodyContent.NewReading, bodyContent.OldReading);
 
-                    this._emailService.SendEmail(
+                    this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         receiverEmail,
                         mailCC,
@@ -380,7 +367,7 @@ namespace Fanex.NexHR.Controllers
         private Toeic GetToeicScore(int empid)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empid };
-            var score = _toeicService.GetById(criteria);
+            var score = toeicService.GetById(criteria);
             if (score == null)
             {
                 score = new Toeic();

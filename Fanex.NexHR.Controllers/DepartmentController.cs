@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -58,7 +57,7 @@
                     Name = model.Name,
                     ManagerId = model.ManagerId,
                     ParentId = model.ParentId,
-                    CreatedBy = CurrentUser.Id,                    
+                    CreatedBy = CurrentUser.Id
                 };
 
                 CommandResult commandResult = commandService.Insert(criteria);
@@ -117,8 +116,7 @@
                     Name = model.Name,
                     ParentId = model.ParentId,
                     ManagerId = model.ManagerId,
-                    ModifiedBy = this.CurrentUser.Id,
-                    ModifiedDate = DateTime.Now
+                    ModifiedBy = CurrentUser.Id
                 };
 
                 CommandResult commandResult = commandService.Update(criteria);
@@ -140,7 +138,7 @@
             var criteria = new DeleteDepartmentCriteria
             {
                 DepartmentId = id,
-                ModifiedBy = this.CurrentUser.Id                
+                ModifiedBy = CurrentUser.Id
             };
 
             CommandResult commandResult = commandService.Delete(criteria);

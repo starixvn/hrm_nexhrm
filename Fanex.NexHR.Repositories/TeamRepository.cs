@@ -1,16 +1,11 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    using Fanex.Common.Extensions;
-    using Fanex.Common.Helper;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.ViewModels;
 
     public class TeamRepository : ITeamRepository
     {

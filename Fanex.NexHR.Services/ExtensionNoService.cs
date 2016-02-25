@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Models;

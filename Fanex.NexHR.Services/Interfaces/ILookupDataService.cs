@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ILookupDataService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-//   <change who="Bradley.Mac" date="2014.3.11">Apply Nap Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Services.Interfaces
+﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria.LookupData;
@@ -16,16 +6,6 @@ namespace Fanex.NexHR.Services.Interfaces
 
     public interface ILookupDataService
     {
-        LookupData GetById(string lookupCode, int lookupId);
-
         IList<LookupData> GetAll(GetAllLookupDataCriteria criteria);
-
-        IList<LookupData> GetJobTitle(GetJobTitleCriteria criteria);
-
-        bool Delete(DeleteLookupDataCriteria criteria);
-
-        bool Insert(InsertLookupDataCriteria criteria);
-
-        bool Update(UpdateLookupDataCriteria criteria);
     }
 }

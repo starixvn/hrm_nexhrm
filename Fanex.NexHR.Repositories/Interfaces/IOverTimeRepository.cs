@@ -1,18 +1,17 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Fanex.NexHR.Criteria.Overtime;
-    using Fanex.NexHR.ViewModels;
-    using Models;
     using System.Collections.Generic;
+    using Fanex.Data.Repository;
+    using Models;
 
     public interface IOvertimeRepository
     {
-        IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria);
+        IEnumerable<Overtime> ReportSummary(ICriteria criteria);
 
-        IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria);
+        IEnumerable<Overtime> ReportDetail(ICriteria criteria);
 
-        OvertimeCreateViewModel Get(GetByIdCriteria criteria);
+        Overtime Get(ICriteria criteria);
 
-        IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria);
+        IEnumerable<Overtime> GetMyReport(ICriteria criteria);
     }
 }

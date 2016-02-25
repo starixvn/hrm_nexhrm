@@ -56,7 +56,7 @@
             return result;
         }
 
-        public OvertimeCreateViewModel Get(GetByIdCriteria criteria)
+        public Overtime Get(GetByIdCriteria criteria)
         {
             var model = _repository.Get(criteria);
 

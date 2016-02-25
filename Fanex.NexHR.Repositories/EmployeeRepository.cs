@@ -10,7 +10,6 @@
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.ViewModels;
 
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -43,35 +42,37 @@
             }
         }
 
-        public MySpaceViewModel GetMySpace(ICriteria criteria)
+        public IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
-                {
-                    MySpaceViewModel dashboard = multi.Read<MySpaceViewModel>().FirstOrDefault();
+                var entityList = db.Query<DashBoardPersonalSpace, Employee, DashBoardPersonalSpace>(
+                    (pe, e) =>
+                    {
+                        pe.Employee = e;
+                        return pe;
+                    },
+                    "EmpId",
+                    criteria.GetSpParams());
 
-                    IEnumerable<DashboardPersonalSpaceModel> dashboardCompanySpace = multi.Read<DashboardPersonalSpaceModel, Employee, DashboardPersonalSpaceModel>(
-                        (co, e) =>
-                        {
-                            co.Employee = e;
-                            return co;
-                        },
-                        "EmpId");
+                return entityList.ToList();
+            }
+        }
 
-                    IEnumerable<DashboardPersonalSpaceModel> dashboardEmployeeSpace = multi.Read<DashboardPersonalSpaceModel, Employee, DashboardPersonalSpaceModel>(
-                        (pe, e) =>
-                        {
-                            pe.Employee = e;
-                            return pe;
-                        },
-                        "EmpId");
+        public IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var entityList = db.Query<DashBoardCompanySpace, Employee, DashBoardCompanySpace>(
+                    (pe, e) =>
+                    {
+                        pe.Employee = e;
+                        return pe;
+                    },
+                    "EmpId",
+                    criteria.GetSpParams());
 
-                    dashboard.DashboardCompanySpace = dashboardCompanySpace.ToList();
-                    dashboard.DashboardEmployeeSpace = dashboardEmployeeSpace.ToList();
-
-                    return dashboard;
-                }
+                return entityList.ToList();
             }
         }
 

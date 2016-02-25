@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
@@ -60,26 +59,13 @@
 
         public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> employees = null;
-
-            if (criteria.IsValid())
-            {
-                employees = GetData<Employee>(criteria).ToList();
-            }
-
-            return employees ?? new List<Employee>();
+            IList<Employee> employees = GetData<Employee>(criteria);
+            return employees;
         }
 
         public DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            DefaultSchedule defaultSchedule = null;
-            if (criteria.IsValid())
-            {
-                defaultSchedule = GetDataEntity<DefaultSchedule>(criteria);
-            }
-
+            DefaultSchedule defaultSchedule = GetDataEntity<DefaultSchedule>(criteria);
             return defaultSchedule;
         }
 
@@ -89,7 +75,9 @@
             MySpaceViewModel space = new MySpaceViewModel();
             if (criteria.IsValid())
             {
-                space = employeeRepository.GetMySpace(criteria);
+                space = GetDataEntity<MySpaceViewModel>(criteria);
+                space.DashboardCompanySpace = GetDashBoardCompanySpace(criteria.EmpId);
+                space.DashboardEmployeeSpace = GetDashBoardPersonalSpace(criteria.EmpId);
             }
 
             return space;
@@ -97,13 +85,7 @@
 
         public HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            HRLeaderDashboardModel dashboard = new HRLeaderDashboardModel();
-            if (criteria.IsValid())
-            {
-                dashboard = GetDataEntity<HRLeaderDashboardModel>(criteria);
-            }
-
+            HRLeaderDashboardModel dashboard = GetDataEntity<HRLeaderDashboardModel>(criteria);
             return dashboard;
         }
 
@@ -114,14 +96,8 @@
 
         public IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<DateTime> dates = null;
-            if (criteria.IsValid())
-            {
-                dates = GetData<DateTime>(criteria).ToList();
-            }
-
-            return dates ?? new List<DateTime>();
+            IList<DateTime> dates = GetData<DateTime>(criteria);
+            return dates;
         }
 
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
@@ -149,26 +125,34 @@
 
         public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> employees = null;
-            if (criteria.IsValid())
-            {
-                employees = GetData<Employee>(criteria).ToList();
-            }
-
-            return employees ?? new List<Employee>();
+            IList<Employee> employees = GetData<Employee>(criteria);
+            return employees;
         }
 
         public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<MissingCheckInOutModel> missingCheckInOuts = null;
-            if (criteria.IsValid())
-            {
-                missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria).ToList();
-            }
+            IList<MissingCheckInOutModel> missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria);
+            return missingCheckInOuts;
+        }
 
-            return missingCheckInOuts ?? new List<MissingCheckInOutModel>();
+        private IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(int employeeId)
+        {
+            var criteria = new GetDashBoardPersonalSpaceCriteria()
+            {
+                EmpId = employeeId
+            };
+
+            return employeeRepository.GetDashBoardPersonalSpace(criteria);
+        }
+
+        private IList<DashBoardCompanySpace> GetDashBoardCompanySpace(int employeeId)
+        {
+            var criteria = new GetDashBoardPersonalSpaceCriteria()
+            {
+                EmpId = employeeId
+            };
+
+            return employeeRepository.GetDashBoardCompanySpace(criteria);
         }
     }
 }

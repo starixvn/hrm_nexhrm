@@ -1,20 +1,15 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Criteria.Overtime;
+    using System.Collections.Generic;
+    using System.Linq;
     using Data;
-    using Fanex.Common;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.Data.Repository;
     using Interfaces;
     using Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
 
     public class OvertimeRepository : IOvertimeRepository
     {
-        public IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria)
+        public IEnumerable<Overtime> ReportDetail(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -22,7 +17,7 @@
                     (o, e1, e2) =>
                     {
                         o.CreatedBy = e1;
-                        o.Employee = e2;
+                        ////o.Employee = e2;
                         return o;
                     },
                     "CreatedId, EmployeeId",
@@ -32,7 +27,7 @@
             }
         }
 
-        public IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria)
+        public IEnumerable<Overtime> ReportSummary(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -49,7 +44,7 @@
             }
         }
 
-        public IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria)
+        public IEnumerable<Overtime> GetMyReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -66,44 +61,34 @@
             }
         }
 
-        public OvertimeCreateViewModel Get(GetByIdCriteria criteria)
+        public Overtime Get(ICriteria criteria)
         {
-            var model = new OvertimeCreateViewModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var dataset = db.ExecuteDataSet(criteria.GetSpParams());
-                model = Convert(dataset);
-            }
-
-            return model;
-        }
-
-        private OvertimeCreateViewModel Convert(DataSet data)
-        {
-            var viewModel = new OvertimeCreateViewModel();
-            if (data.Tables.Count == 2)
-            {
-                var overtime = data.Tables[0];
-                foreach (DataRow row in overtime.Rows)
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    viewModel.Date = (DateTime)row["Date"];
-                    viewModel.Description = row["Description"].ToString();
-                    viewModel.Id = (int)row["Id"];
-                    viewModel.CreatedByName = row["CreatedByNick"].ToString();
-                    viewModel.IsApprove = ((RequestStatuse)row["Status"]) == RequestStatuse.Approve;
+                    Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
+                        (ot, cre) =>
+                        {
+                            ot.CreatedBy = cre;
+                            return ot;
+                        },
+                        "EmployeeId").FirstOrDefault();
+
+                    IEnumerable<OvertimeRecord> overtimeRecords =
+                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
+                       (ot, emp) =>
+                       {
+                           ot.Employee = emp;
+                           return ot;
+                       },
+                        "EmployeeId");
+
+                    overtimeRequest.OvertimeRecords = overtimeRecords.ToList();
+
+                    return overtimeRequest;
                 }
-
-                var overtimeDetail = data.Tables[1];
-                viewModel.TimeSheets = (from DataRow row in overtimeDetail.Rows
-                                        select new OvertimeRecord
-                                        {
-                                            EmployeeId = (int)row["EmployeeId"],
-                                            Hour = Converter.To<float>(row["Hour"]),
-                                            DisplayName = row["DisplayName"].ToString()
-                                        }).ToList();
             }
-
-            return viewModel;
         }
     }
 }

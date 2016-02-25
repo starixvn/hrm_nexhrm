@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
@@ -44,14 +43,8 @@
 
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Team> teams = null;
-            if (criteria.IsValid())
-            {
-                teams = GetData<Team>(criteria).ToList();
-            }
-
-            return teams ?? new List<Team>();
+            IList<Team> teams = GetData<Team>(criteria);
+            return teams;
         }
     }
 }

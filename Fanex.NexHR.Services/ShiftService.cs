@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Caching;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Shift;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -25,10 +24,7 @@
             if (shifts == null || !shifts.Any())
             {
                 var criteria = new GetShiftCriteria();
-                if (criteria.IsValid())
-                {
-                    shifts = GetData<Shift>(criteria).ToList();
-                }
+                shifts = GetData<Shift>(criteria);
 
                 if (shifts != null && shifts.Any())
                 {
@@ -41,13 +37,7 @@
 
         public Shift GetByDate(GetShiftByDateCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            Shift shift = new Shift();
-            if (criteria.IsValid())
-            {
-                shift = GetDataEntity<Shift>(criteria);
-            }
-
+            Shift shift = GetDataEntity<Shift>(criteria);
             return shift;
         }
     }

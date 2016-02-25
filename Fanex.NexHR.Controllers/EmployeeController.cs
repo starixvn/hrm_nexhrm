@@ -309,11 +309,11 @@
             return Json(null);
         }
 
-        public ActionResult MySpace()
-        {
-            MySpaceViewModel myspace = GetMySpace();
-            return View(myspace);
-        }
+        ////public ActionResult MySpace()
+        ////{
+        ////    MySpaceViewModel myspace = GetMySpace();
+        ////    return View(myspace);
+        ////}
 
         public ActionResult MySpace2()
         {

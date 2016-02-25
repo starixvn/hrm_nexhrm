@@ -1,19 +1,17 @@
-﻿using Fanex.NexHR.Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Resources;
+
     public class Overtime
     {
         public int Id { get; set; }
 
         [Display(Name = "Date", ResourceType = typeof(Labels))]
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime OnDate { get; set; }
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
         [Required]
@@ -26,12 +24,12 @@ namespace Fanex.NexHR.Models
 
         public Employee CreatedBy { get; set; }
 
-        public Employee ModifiedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public Employee Employee { get; set; }
+        public Employee ModifiedBy { get; set; }
 
         public int TotalMember { get; set; }
 
-        public IEnumerable<OvertimeRecord> TimeSheet { get; set; }
+        public IList<OvertimeRecord> OvertimeRecords { get; set; }
     }
 }

@@ -6,14 +6,15 @@
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
     public class MemoController : Controller
     {
-        private readonly IMemoService _memoService;
-        private readonly ILookupDataService _lookupDataService;
+        private readonly IMemoService memoService;
+        private readonly ILookupDataService lookupDataService;
         private readonly ICommandService commandService;
 
         public MemoController()
@@ -23,15 +24,18 @@
 
         public MemoController(IMemoService memoService, ILookupDataService lookupDataService, ICommandService commandService)
         {
-            _memoService = memoService ?? new MemoService();
-            _lookupDataService = lookupDataService ?? new LookupDataService();
+            this.memoService = memoService ?? new MemoService();
+            this.lookupDataService = lookupDataService ?? new LookupDataService();
             this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            IList<LookupData> memoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() 
+            { 
+                LookupCode = LookupCodeName.MemoCategory 
+            };
+            IList<LookupData> memoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
             memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });
             var model = new MemoViewModel
             {
@@ -46,12 +50,19 @@
 
         public ActionResult Edit(int id = -1)
         {
-            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
+            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria 
+            { 
+                Id = id 
+            };
 
-            Memo memo = _memoService.GetById(getMemoByIdCriteria);
+            Memo memo = memoService.GetById(getMemoByIdCriteria);
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            memo.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() 
+            { 
+                LookupCode = LookupCodeName.MemoCategory 
+            };
+
+            memo.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
 
             ViewBag.Updated = false;
 
@@ -64,7 +75,7 @@
         public ActionResult Edit(Memo model)
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
             if (model.MemoType == 1)
             {
                 model.Contents = model.AttachFile;
@@ -97,7 +108,7 @@
                     ViewBag.Updated = true;
                     if (model.SendMail)
                     {
-                        _memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
+                        memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
                     }
                 }
                 else
@@ -107,7 +118,7 @@
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -127,7 +138,7 @@
             };
 
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
 
             ViewBag.Updated = false;
 
@@ -140,7 +151,7 @@
         public ActionResult Create(Memo model)
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
             if (model.MemoType == 1)
             {
                 model.Contents = model.AttachFile;
@@ -171,7 +182,7 @@
                     ViewBag.Updated = true;
                     if (insertMemoCriteria.SendMail)
                     {
-                        _memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
+                        memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
                     }
                 }
                 else
@@ -181,7 +192,7 @@
             }
             else
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -190,7 +201,7 @@
         public ActionResult Detail(int id = -1)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
-            Memo memo = _memoService.GetById(getMemoByIdCriteria);
+            Memo memo = memoService.GetById(getMemoByIdCriteria);
 
             return View(memo);
         }

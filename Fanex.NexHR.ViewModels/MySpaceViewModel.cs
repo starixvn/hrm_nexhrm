@@ -15,7 +15,7 @@ namespace Fanex.NexHR.ViewModels
     using System.Text;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;    
+    using Fanex.NexHR.Models;
 
     public class MySpaceViewModel
     {
@@ -38,20 +38,20 @@ namespace Fanex.NexHR.ViewModels
 
         public DateTime CheckOutTime { get; set; }
 
-        public IList<DashboardPersonalSpaceModel> DashboardCompanySpace { get; set; }
+        public IList<DashBoardCompanySpace> DashboardCompanySpace { get; set; }
 
-        public IList<DashboardPersonalSpaceModel> DashboardEmployeeSpace { get; set; }
+        public IList<DashBoardPersonalSpace> DashboardEmployeeSpace { get; set; }
 
         public string CompanyLeaveToDay
         {
             get 
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayLeaves = DashboardCompanySpace
+                IList<DashBoardCompanySpace> todayLeaves = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent))
                     .OrderByDescending(t => t.LeaveDay)
                     .ThenBy(t => t.Employee.NickName).ToList();
-                foreach (DashboardPersonalSpaceModel leave in todayLeaves)
+                foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
                 }
@@ -70,9 +70,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
+                IList<DashBoardCompanySpace> yesterdayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
                     .OrderByDescending(t => t.LeaveDay).ThenBy(t => t.Employee.NickName).ToList();
-                foreach (DashboardPersonalSpaceModel leave in yesterdayLeaves)
+                foreach (DashBoardCompanySpace leave in yesterdayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
                 }
@@ -91,8 +91,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel checkInOut in todayCheckInOuts)
+                IList<DashBoardCompanySpace> todayCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
+                foreach (DashBoardCompanySpace checkInOut in todayCheckInOuts)
                 {
                     employees += checkInOut.Employee.NickName + ", ";
                 }
@@ -111,9 +111,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayCheckInOuts = 
+                IList<DashBoardCompanySpace> yesterdayCheckInOuts = 
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel checkInOut in yesterdayCheckInOuts)
+                foreach (DashBoardCompanySpace checkInOut in yesterdayCheckInOuts)
                 {
                     employees += checkInOut.Employee.NickName + ", ";
                 }
@@ -132,9 +132,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayMissingCheckInOuts = 
+                IList<DashBoardCompanySpace> todayMissingCheckInOuts = 
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel missingCheckInOut in todayMissingCheckInOuts)
+                foreach (DashBoardCompanySpace missingCheckInOut in todayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
                 }
@@ -153,9 +153,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayMissingCheckInOuts = 
+                IList<DashBoardCompanySpace> yesterdayMissingCheckInOuts = 
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel missingCheckInOut in yesterdayMissingCheckInOuts)
+                foreach (DashBoardCompanySpace missingCheckInOut in yesterdayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
                 }
@@ -174,9 +174,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayLateInEarlyOuts = 
+                IList<DashBoardCompanySpace> todayLateInEarlyOuts = 
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel lateInEarlyOut in todayLateInEarlyOuts)
+                foreach (DashBoardCompanySpace lateInEarlyOut in todayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
                 }
@@ -195,9 +195,9 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayLateInEarlyOuts = 
+                IList<DashBoardCompanySpace> yesterdayLateInEarlyOuts = 
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel lateInEarlyOut in yesterdayLateInEarlyOuts)
+                foreach (DashBoardCompanySpace lateInEarlyOut in yesterdayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
                 }
@@ -216,8 +216,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> todayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel absent in todayAbsents)
+                IList<DashBoardCompanySpace> todayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
+                foreach (DashBoardCompanySpace absent in todayAbsents)
                 {
                     employees += absent.Employee.NickName + ", ";
                 }
@@ -236,8 +236,8 @@ namespace Fanex.NexHR.ViewModels
             get
             {
                 var employees = string.Empty;
-                IList<DashboardPersonalSpaceModel> yesterdayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
-                foreach (DashboardPersonalSpaceModel absent in yesterdayAbsents)
+                IList<DashBoardCompanySpace> yesterdayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
+                foreach (DashBoardCompanySpace absent in yesterdayAbsents)
                 {
                     employees += absent.Employee.NickName + ", ";
                 }
@@ -255,12 +255,12 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> currentMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthLeaves.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel leave in currentMonthLeaves)
+                    foreach (DashBoardPersonalSpace leave in currentMonthLeaves)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -276,12 +276,12 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> lastMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthLeaves.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel leave in lastMonthLeaves)
+                    foreach (DashBoardPersonalSpace leave in lastMonthLeaves)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -297,13 +297,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthCheckInOuts = 
+                IList<DashBoardPersonalSpace> currentMonthCheckInOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthCheckInOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel checkInOut in currentMonthCheckInOuts)
+                    foreach (DashBoardPersonalSpace checkInOut in currentMonthCheckInOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -319,13 +319,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthCheckInOuts = 
+                IList<DashBoardPersonalSpace> lastMonthCheckInOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthCheckInOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel checkInOut in lastMonthCheckInOuts)
+                    foreach (DashBoardPersonalSpace checkInOut in lastMonthCheckInOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -341,13 +341,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthMissingCheckInOuts = 
+                IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthMissingCheckInOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel missingCheckInOut in currentMonthMissingCheckInOuts)
+                    foreach (DashBoardPersonalSpace missingCheckInOut in currentMonthMissingCheckInOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -363,13 +363,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthMissingCheckInOuts = 
+                IList<DashBoardPersonalSpace> lastMonthMissingCheckInOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthMissingCheckInOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel missingCheckInOut in lastMonthMissingCheckInOuts)
+                    foreach (DashBoardPersonalSpace missingCheckInOut in lastMonthMissingCheckInOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -385,13 +385,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthLateInEarlyOuts = 
+                IList<DashBoardPersonalSpace> currentMonthLateInEarlyOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthLateInEarlyOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel lateInEarlyOut in currentMonthLateInEarlyOuts)
+                    foreach (DashBoardPersonalSpace lateInEarlyOut in currentMonthLateInEarlyOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -407,13 +407,13 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthLateInEarlyOuts = 
+                IList<DashBoardPersonalSpace> lastMonthLateInEarlyOuts = 
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthLateInEarlyOuts.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel lateInEarlyOut in lastMonthLateInEarlyOuts)
+                    foreach (DashBoardPersonalSpace lateInEarlyOut in lastMonthLateInEarlyOuts)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -429,12 +429,12 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> currentMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> currentMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthAbsents.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel absent in currentMonthAbsents)
+                    foreach (DashBoardPersonalSpace absent in currentMonthAbsents)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
@@ -450,12 +450,12 @@ namespace Fanex.NexHR.ViewModels
         {
             get
             {
-                IList<DashboardPersonalSpaceModel> lastMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> lastMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthAbsents.Count > 0)
                 {
-                    foreach (DashboardPersonalSpaceModel absent in lastMonthAbsents)
+                    foreach (DashBoardPersonalSpace absent in lastMonthAbsents)
                     {
                         dates.Append(string.Format(_DisplayCellDetailTpl, absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
