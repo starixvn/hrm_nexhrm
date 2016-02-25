@@ -1,19 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetLeaveTypeCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.10">Changed</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.LeaveType
+﻿namespace Fanex.NexHR.Criteria.LeaveType
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get leave type criteria.
-    /// </summary>
     public class GetLeaveTypeCriteria : CriteriaBase
     {
         [SpParam(Ignored = true)]

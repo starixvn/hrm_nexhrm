@@ -1,20 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="InsertDepartmentCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.08.19">Created.</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Department
+﻿namespace Fanex.NexHR.Criteria.Department
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Insert new department criteria.
-    /// </summary>
     public class InsertDepartmentCriteria : CriteriaBase
     {
         public string Code { get; set; }
@@ -27,8 +15,6 @@ namespace Fanex.NexHR.Criteria.Department
 
         public int CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
         public override string GetSettingKey()
         {
             return "Department_Insert";
@@ -36,7 +22,7 @@ namespace Fanex.NexHR.Criteria.Department
 
         public override bool IsValid()
         {
-            return true;
+            return !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(Code);
         }
     }
 }

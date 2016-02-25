@@ -1,20 +1,8 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetUnavailableRequestDateCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.10">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get unavailable request date criteria.
-    /// </summary>
     public class GetUnavailableRequestDateCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "EmpId")]
@@ -31,7 +19,7 @@ namespace Fanex.NexHR.Criteria.Employee
 
         public override bool IsValid()
         {
-            return FromDate <= ToDate;
+            return EmployeeId > 0 && FromDate <= ToDate;
         }
     }
 }

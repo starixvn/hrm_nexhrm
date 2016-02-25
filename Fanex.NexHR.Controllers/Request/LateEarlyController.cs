@@ -1,17 +1,16 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.LateInEarlyOut;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
 
-    [Authorize]
     public class LateEarlyController : BaseController
     {
         private readonly ILateInEarlyOutService lateinEarlyoutService;
@@ -50,7 +49,7 @@
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
-                    ModifiedBy = this.CurrentUser.Id
+                    ModifiedBy = CurrentUser.Id
                 };
                 CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
@@ -103,7 +102,7 @@
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
-                    ModifiedBy = this.CurrentUser.Id,
+                    ModifiedBy = CurrentUser.Id,
                 };
                 CommandResult result = commandService.Update(criteria);
                 if (result.Code == 0)

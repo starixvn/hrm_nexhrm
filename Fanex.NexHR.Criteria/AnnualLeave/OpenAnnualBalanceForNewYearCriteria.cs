@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OpenAnnualBalanceForNewYearCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.12.30">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.AnnualLeave
+﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
     using System;
     using Fanex.Data.Repository;

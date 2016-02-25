@@ -15,7 +15,6 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    [Authorize]
     public class DashboardController : BaseController
     {
         private readonly IEmployeeService _employeeService;
@@ -23,14 +22,14 @@
         private readonly IRequestService _requestService;
 
         public DashboardController()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
         public DashboardController(
-            IEmployeeService employeeService = null,
-            ITeamService teamService = null,
-            IRequestService requestService = null)
+            IEmployeeService employeeService,
+            ITeamService teamService,
+            IRequestService requestService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
@@ -41,7 +40,7 @@
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
-                EmpId = this.CurrentUser.Id
+                EmpId = CurrentUser.Id
             };
             MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = GetRemind();
@@ -50,7 +49,7 @@
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                GroupId = this.CurrentUser.Team.Id,
+                GroupId = CurrentUser.Team.Id,
                 DateOption = 0,
                 ExcludeUserDelete = true,
             };

@@ -19,7 +19,6 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    [Authorize]
     public class MemoController : Controller
     {
         private readonly IMemoService _memoService;
@@ -75,15 +74,13 @@ namespace Fanex.NexHR.Controllers
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
             model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-
-            if (model.MemoType == 1 && string.IsNullOrEmpty(model.AttachFile))
-            {
-                return View(model);
-            }
-
             if (model.MemoType == 1)
             {
                 model.Contents = model.AttachFile;
+                if (string.IsNullOrEmpty(model.AttachFile))
+                {
+                    return View(model);
+                }
             }
 
             if (ModelState.IsValid)
@@ -95,7 +92,6 @@ namespace Fanex.NexHR.Controllers
                     Contents = model.Contents,
                     ForInfo = model.ForInfo,
                     RefNo = model.RefNo,
-                    SendMail = model.SendMail,
                     SentDate = model.SentDate,
                     SentFrom = model.SentFrom,
                     SentTo = model.SentTo,
@@ -104,12 +100,11 @@ namespace Fanex.NexHR.Controllers
                     MemoType = model.MemoType,
                     Status = model.Status == 1
                 };
-
                 CommandResult result = commandService.Update(updateMemoCriteria);
                 if (result.Code == 0)
                 {
                     ViewBag.Updated = true;
-                    if (updateMemoCriteria.SendMail)
+                    if (model.SendMail)
                     {
                         _memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
                     }

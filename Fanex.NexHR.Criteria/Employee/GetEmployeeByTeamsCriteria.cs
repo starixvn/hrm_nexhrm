@@ -1,8 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetEmployeeByTeamsCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-namespace Fanex.NexHR.Criteria.Employee
+﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using Fanex.Data.Repository;
 

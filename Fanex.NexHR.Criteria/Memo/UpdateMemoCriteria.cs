@@ -42,9 +42,6 @@ namespace Fanex.NexHR.Criteria.Memo
         [SpParam(SqlParamName = "Type")]
         public int MemoType { get; set; }
 
-        [SpParam(Ignored = true)]
-        public bool SendMail { get; set; }
-
         public override bool IsValid()
         {
             return true;

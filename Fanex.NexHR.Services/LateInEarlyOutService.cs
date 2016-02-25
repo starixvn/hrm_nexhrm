@@ -1,43 +1,33 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.LateInEarlyOut;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.NexHR.Criteria.LateInEarlyOut;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.LateInEarlyOut;
 
     public class LateInEarlyOutService : BaseService, ILateInEarlyOutService
     {
-        private readonly ILateInEarlyOutRepository repository;
-
-        public LateInEarlyOutService(ILateInEarlyOutRepository repository = null)
-        {
-            this.repository = repository ?? new LateInEarlyOutRepository();
-        }
-
         public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
-            List<LateInEarlyOutViewModel> list = new List<LateInEarlyOutViewModel>();
+            IList<LateInEarlyOutViewModel> lateInEarlyOuts = new List<LateInEarlyOutViewModel>();
             if (criteria != null && criteria.IsValid())
             {
-                list = repository.GetAllByEmpId(criteria).ToList();
+                lateInEarlyOuts = GetData<LateInEarlyOutViewModel>(criteria).ToList();
             }
 
-            return list;
+            return lateInEarlyOuts;
         }
 
         public LateInEarlyOutViewModel GetById(GetLateInEarlyOutByIdCriteria criteria)
         {
-            LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
+            LateInEarlyOutViewModel lateInEarlyOut = new LateInEarlyOutViewModel();
             if (criteria != null & criteria.IsValid())
             {
-                model = repository.GetById(criteria);
+                lateInEarlyOut = GetDataEntity<LateInEarlyOutViewModel>(criteria);
             }
-            
-            return model;
+
+            return lateInEarlyOut;
         }
     }
 }
