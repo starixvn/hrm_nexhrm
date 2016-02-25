@@ -7,6 +7,8 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using System.Collections.Generic;
+    using Fanex.NexHR.Resources;
 
     public class ExtensionNoController : BaseController
     {
@@ -28,8 +30,8 @@
 
         public ActionResult Index()
         {
-            var criteria = new GetAllExtensionNoCriteria();
-            var lstEntity = extensionNoService.GetAllExtensionNo(criteria);
+            GetAllExtensionNoCriteria criteria = new GetAllExtensionNoCriteria();
+            List<ExtensionNoModel> lstEntity = extensionNoService.GetAllExtensionNo(criteria).ToList();
             var model = (from item in lstEntity
                          group item by item.TeamName into g
                          select new ExtensionNoViewModel() { Name = g.Key, ListExt = g.ToList() }).ToList();
@@ -60,8 +62,19 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.Insert(criteria);
-                ViewBag.Requested = result.Code == 0;
+                CommandResult result = commandService.Insert(criteria);                
+                if (result.Code == 0)
+                {
+                    ViewBag.Requested = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -119,8 +132,19 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.Update(updateCriteria);
-                ViewBag.Updated = result.Code == 0;
+                CommandResult result = commandService.Update(updateCriteria);                
+                if (result.Code == 0)
+                {
+                    ViewBag.Requested = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);

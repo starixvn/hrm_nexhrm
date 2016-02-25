@@ -93,7 +93,6 @@
     <Compile Include="AnnualLeaveRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="CalendarRepository.cs" />
-    <Compile Include="ExtensionNoRepository.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IAnnualLeaveRepository.cs" />
     <Compile Include="Interfaces\IDepartmentRepository.cs" />
@@ -114,7 +113,6 @@
     <Compile Include="RequestRepository.cs" />
     <Compile Include="TeamRepository.cs" />
     <Compile Include="LookupDataRepository.cs" />
-    <Compile Include="MemoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportRepository.cs" />
     <Compile Include="ToeicRepository.cs" />

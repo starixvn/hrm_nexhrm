@@ -1,20 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class ExtensionNoService : BaseService, IExtensionNoService
-    {
-        private readonly IExtensionNoRepository _repository;
+    {        
 
         public ExtensionNoService()
-        {
-            this._repository = new ExtensionNoRepository();
+        {            
         }
 
         public IList<ExtensionNoModel> GetAllExtensionNo(GetAllExtensionNoCriteria criteria)
@@ -22,7 +21,7 @@
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._repository.GetAllExtensionNo(criteria);
+                List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
                 return result;
             }
 
@@ -34,7 +33,7 @@
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._repository.GetAllExtensionGroupInfo(criteria);
+                List<ExtensionNoModel> result = GetData<ExtensionNoModel>(criteria).ToList();
                 return result;
             }
 
@@ -46,7 +45,7 @@
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                var result = this._repository.GetEmployeeExtensionNoById(criteria);
+                ExtensionNoModel result = GetDataEntity<ExtensionNoModel>(criteria);
                 return result;
             }
 

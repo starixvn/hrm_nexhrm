@@ -10,15 +10,14 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
+    using System.Linq;
 
-    public class MemoService : IMemoService
-    {
-        private readonly IMemoRepository _memoRepository;
+    public class MemoService : BaseService, IMemoService
+    {        
         private readonly IEmailService _emailService;
 
-        public MemoService(IMemoRepository memoRepository = null, IEmailService emailService = null)
-        {
-            this._memoRepository = memoRepository ?? new MemoRepository();
+        public MemoService(IEmailService emailService = null)
+        {            
             this._emailService = emailService ?? new EmailService();
         }
 
@@ -32,7 +31,7 @@
             IList<Memo> entityList = null;
             if (criteria.IsValid())
             {
-                entityList = this._memoRepository.GetAll(criteria);
+                entityList = GetData<Memo>(criteria).ToList();
             }
 
             return entityList;
@@ -48,7 +47,7 @@
             Memo memo = null;
             if (criteria.IsValid())
             {
-                memo = this._memoRepository.GetById(criteria);
+                memo = GetDataEntity<Memo>(criteria);
                 if (memo != null && memo.MemoType == 1)
                 {
                     memo.AttachFile = memo.Contents;
