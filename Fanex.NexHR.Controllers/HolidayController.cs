@@ -47,18 +47,21 @@
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            return View(new HolidayViewModel
+            HolidayViewModel newHoliday = new HolidayViewModel
             {
                 Name = string.Empty,
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-            });
+            };
+
+            return View(newHoliday);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(HolidayViewModel holiday)
         {
+            CommandResult result = new CommandResult();
             if (ModelState.IsValid)
             {
                 var criteria = new InsertNewHolidayCriteria
@@ -69,7 +72,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.Insert(criteria);
+                result = commandService.Insert(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -85,7 +88,7 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            return View(holiday);
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]

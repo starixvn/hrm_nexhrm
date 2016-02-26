@@ -10,7 +10,7 @@ function index() {
 function deleteHoliday(id) {
     confirm('Are you sure you want to delete this holiday?', function () {
         $.ajax({
-            url: _global.root + 'holiday/Delete/' + id,
+            url: _global.root + 'holiday/Delete/',
             data: { id: id },
             type: 'POST',
             dataType: 'json',

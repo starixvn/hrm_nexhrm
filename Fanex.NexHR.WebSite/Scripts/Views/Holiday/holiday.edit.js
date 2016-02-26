@@ -44,6 +44,29 @@ $(document).ready(function () {
         $("#numDay").val(dayDiff);
     });
 
+    $('#btnAdd').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: _global.root + 'holiday/Create',
+            data: $('.card-body form').serialize(),
+            type: 'POST',            
+            beforeSend: function () {
+                $('.loading-process').fadeIn(300);
+            },
+            success: function (data) {
+                if (data.IsSuccessful) {
+                    document.location = _global.root + 'holiday/Index';
+                }
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                $('.loading-process').fadeOut(300);
+            }
+        });
+    });
+
     var successed = $('#successed').val();
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
