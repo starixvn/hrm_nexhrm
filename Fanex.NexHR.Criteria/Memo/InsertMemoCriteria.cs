@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertMemoCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.5">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Memo
+﻿namespace Fanex.NexHR.Criteria.Memo
 {
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core.Attributes;

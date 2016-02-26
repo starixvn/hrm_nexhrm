@@ -173,6 +173,7 @@
     <Compile Include="JobTitleController.cs" />
     <Compile Include="MemoController.cs" />
     <Compile Include="OvertimeController.cs" />
+    <Compile Include="PostnatalController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportController.cs" />
     <Compile Include="Request\CheckInOutController.cs" />

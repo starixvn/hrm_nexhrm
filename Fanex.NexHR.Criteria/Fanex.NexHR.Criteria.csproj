@@ -142,6 +142,11 @@
     <Compile Include="Overtime\InsertOverTimeCriteria.cs" />
     <Compile Include="Overtime\UpdateOverTimeCriteria.cs" />
     <Compile Include="Overtime\RejectRequestCriteria.cs" />
+    <Compile Include="Postnatal\DeletePostnatalCriteria.cs" />
+    <Compile Include="Postnatal\GetAllPostnatalCriteria.cs" />
+    <Compile Include="Postnatal\GetByIdPostnatalCriteria.cs" />
+    <Compile Include="Postnatal\InsertPostnatalCriteria.cs" />
+    <Compile Include="Postnatal\UpdatePostnatalCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnnualLeave\DeleteLeaveDeductionCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutSummaryCriteria.cs" />

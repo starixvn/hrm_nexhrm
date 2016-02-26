@@ -66,6 +66,7 @@
     <Compile Include="Holiday\HolidayViewModel.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutViewModel.cs" />
     <Compile Include="LateInEarlyOut\Types.cs" />
+    <Compile Include="PostnatalViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="OvertimeEditViewModel.cs" />

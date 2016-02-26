@@ -175,6 +175,7 @@
     <Compile Include="Interfaces\IOvertimeService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
+    <Compile Include="Interfaces\IPostnatalService.cs" />
     <Compile Include="JobTitleService.cs" />
     <Compile Include="LateInEarlyOutService.cs" />
     <Compile Include="LookupCodeName.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="MemoService.cs" />
     <Compile Include="ExportService.cs" />
     <Compile Include="OvertimeService.cs" />
+    <Compile Include="PostnatalService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="TeamService.cs" />
     <Compile Include="HolidayService.cs" />

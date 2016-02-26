@@ -88,6 +88,7 @@
     <Compile Include="LateInEarlyOut.cs" />
     <Compile Include="Overtime.cs" />
     <Compile Include="OvertimeRecord.cs" />
+    <Compile Include="Postnatal.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryDetailModel.cs" />
