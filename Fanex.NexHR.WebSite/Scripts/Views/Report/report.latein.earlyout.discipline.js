@@ -58,7 +58,7 @@ function initTooltip() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/ListLateInEarlyOutSummary',
+        url: _global.root + 'Report/ListLateInEarlyOutDiscipline',
         type: 'POST',
         dataType: 'html',
         data: $('.card-container-base .form-filter').serialize(),

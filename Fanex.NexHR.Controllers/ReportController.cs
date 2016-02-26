@@ -446,7 +446,7 @@
             return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LateInEarlyOutSummary()
+        public ActionResult LateInEarlyOutDiscipline()
         {
             IList<Team> teams = _teamService.GetAll();
             var today = DateTime.Today;
@@ -464,7 +464,7 @@
         }
 
         [HttpPost]
-        public ActionResult ListLateInEarlyOutSummary(LateInEarlyOutSummaryViewModel model)
+        public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
             IList<Team> teams = _teamService.GetAll();
 

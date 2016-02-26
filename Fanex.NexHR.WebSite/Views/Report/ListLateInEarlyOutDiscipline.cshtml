@@ -11,6 +11,7 @@
     </thead>
     @if (Model != null && Model.Count > 0)
     {
+        int index = 0;
         <tbody>
             @foreach (LateInEarlyOutSummaryByTeamModel item in Model)
             {
@@ -21,7 +22,7 @@
                         </td>
                     </tr>
                 }
-                int index = 0;
+                
                 foreach (LateInEarlyOutSummaryModel lateInEarlyOut in item.LateInEarlyOutSummaryInTeams)
                 {
                     index++;

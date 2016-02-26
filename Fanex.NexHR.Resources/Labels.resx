@@ -792,8 +792,8 @@
   <data name="LateInEarlyOutDetail" xml:space="preserve">
     <value>Late In/Early Out Detail</value>
   </data>
-  <data name="LateInEarlyOutSummary" xml:space="preserve">
-    <value>Late In/Early Out Summary</value>
+  <data name="LateInEarlyOutDiscipline" xml:space="preserve">
+    <value>Late In/Early Out Discipline</value>
   </data>
   <data name="LeaveDeduction" xml:space="preserve">
     <value>Leave Deduction</value>

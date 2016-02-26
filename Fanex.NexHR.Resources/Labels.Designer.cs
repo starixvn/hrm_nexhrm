@@ -1735,20 +1735,20 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Late In/Early Out Discipline.
+        /// </summary>
+        public static string LateInEarlyOutDiscipline {
+            get {
+                return ResourceManager.GetString("LateInEarlyOutDiscipline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Late In Early Out Request.
         /// </summary>
         public static string LateInEarlyOutRequest {
             get {
                 return ResourceManager.GetString("LateInEarlyOutRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Late In/Early Out Summary.
-        /// </summary>
-        public static string LateInEarlyOutSummary {
-            get {
-                return ResourceManager.GetString("LateInEarlyOutSummary", resourceCulture);
             }
         }
         
