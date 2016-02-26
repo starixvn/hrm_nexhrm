@@ -34,7 +34,7 @@
                                         <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Groups, "Id", "Name"), Labels.AllTeams)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col">
