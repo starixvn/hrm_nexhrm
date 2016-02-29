@@ -19,7 +19,7 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'api/report/GetEmployeeAttendances',
+        url: _global.root + 'report/GetEmployeeAttendances',
         data: $('form').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -95,7 +95,7 @@ function initTooltip() {
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
     $.ajax({
-        url: _global.root + "ajax/GetRequestDetail",
+        url: _global.root + "request/GetRequestDetail",
         async: false,
         type: 'post',
         data: { "requesttype": requestType, "fromdate": fromDate, "todate": toDate, "createddate": createddate,

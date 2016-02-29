@@ -72,24 +72,6 @@
             }
         }
 
-        public IEnumerable<Overtime> ReportDetail(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var result = db.Query<Overtime, Employee, Employee, Overtime>(
-                    (o, e1, e2) =>
-                    {
-                        o.CreatedBy = e1;
-                        ////o.Employee = e2;
-                        return o;
-                    },
-                    "CreatedId, EmployeeId",
-                    criteria.GetSpParams());
-
-                return result;
-            }
-        }
-
         public IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

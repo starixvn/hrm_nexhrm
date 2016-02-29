@@ -21,8 +21,7 @@
 
         public virtual IList<T> GetData<T>(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 return dynamicRepository.Fetch<T>(criteria).ToList();
             }
@@ -32,8 +31,7 @@
 
         public virtual T GetDataEntity<T>(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 return dynamicRepository.Get<T>(criteria);
             }

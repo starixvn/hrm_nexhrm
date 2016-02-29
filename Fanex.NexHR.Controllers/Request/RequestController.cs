@@ -28,15 +28,9 @@ namespace Fanex.NexHR.Controllers.Request
     [Authorize]
     public class RequestController : BaseController
     {
-        #region private services
-
-        private readonly IRequestService _requestService;
-        private readonly ITeamService _teamService;
-        private readonly ILeaveTypeService _leaveTypeService;
-
-        #endregion private services
-
-        #region Ctor
+        private readonly IRequestService requestService;
+        private readonly ITeamService teamService;
+        private readonly ILeaveTypeService leaveTypeService;
 
         public RequestController()
             : this(null, null, null)
@@ -44,16 +38,28 @@ namespace Fanex.NexHR.Controllers.Request
         }
 
         public RequestController(
-            IRequestService requestService = null,
-            ITeamService teamService = null,
-            ILeaveTypeService leaveTypeService = null)
+            IRequestService requestService,
+            ITeamService teamService,
+            ILeaveTypeService leaveTypeService)
         {
-            _requestService = requestService ?? new RequestService();
-            _teamService = teamService ?? new TeamService();
-            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            this.requestService = requestService ?? new RequestService();
+            this.teamService = teamService ?? new TeamService();
+            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
         }
 
-        #endregion Ctor
+        [Authorize(Roles = "AssistantLeader,HR")]
+        [HttpPost]
+        public JsonResult ProcessRequest(string command, long id)
+        {
+            CommandResult result = requestService.Process(command, id, this.CurrentUser.Id);
+
+            if (result.Code == 0)
+            {
+                return Json(true);
+            }
+
+            return Json(result.Message);
+        }
 
         public PartialViewResult CriteriaPanel(RequestViewModel request)
         {
@@ -90,9 +96,9 @@ namespace Fanex.NexHR.Controllers.Request
             {
                 ManagerId = this.CurrentUser.Id
             };
-            request.Teams = _teamService.GetTeamManagedByEmp(criteria);
+            request.Teams = teamService.GetTeamManagedByEmp(criteria);
 
-            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes = leaveTypeService.GetAll().ToList();
             request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByAssistantLeader";
@@ -159,9 +165,9 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.Teams = _teamService.GetAll();
+            request.Teams = teamService.GetAll();
 
-            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes = leaveTypeService.GetAll().ToList();
             request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByEmployee";
@@ -229,9 +235,9 @@ namespace Fanex.NexHR.Controllers.Request
             request.CurrentPage = Constants.CurrentPage;
             request.ItemsPerPage = Constants.ItemsPerPage;
 
-            request.Teams = _teamService.GetAll();
+            request.Teams = teamService.GetAll();
 
-            request.LeaveTypes = _leaveTypeService.GetAll().ToList();
+            request.LeaveTypes = leaveTypeService.GetAll().ToList();
             request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
             ViewBag.ActionName = "GetAllRequestByHR";
@@ -280,7 +286,7 @@ namespace Fanex.NexHR.Controllers.Request
                 RequestId = requestId
             };
 
-            IList<RequestEntity> requests = _requestService.GetRequestHistory(criteria);
+            IList<RequestEntity> requests = requestService.GetRequestHistory(criteria);
 
             ViewBag.requestType = requestType;
 
@@ -295,9 +301,20 @@ namespace Fanex.NexHR.Controllers.Request
                 Id = id
             };
 
-            bool deleted = _requestService.DeleteRequest(criteria);
+            bool deleted = requestService.DeleteRequest(criteria);
 
             return deleted;
+        }
+
+        [HttpPost]
+        public string GetRequestDetail(RequestEntity request, short requestType, string fromShiftCode, string toShiftCode)
+        {
+            request.RequestType = new RequestTypeModel { Id = requestType };
+            request.FromShift = new Shift { Name = fromShiftCode };
+            request.ToShift = new Shift { Name = toShiftCode };
+
+            string requestDetail = RequestService.ToRequestMessage(request);
+            return requestDetail;
         }
 
         private IList<RequestEntity> GetRequest(RequestViewModel request, short role)
@@ -320,7 +337,7 @@ namespace Fanex.NexHR.Controllers.Request
                 ItemsPerPage = request.ItemsPerPage
             };
 
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
 
             var pagerOption = new PagerOptionModel()
             {

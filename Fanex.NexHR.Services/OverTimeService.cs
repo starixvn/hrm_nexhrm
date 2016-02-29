@@ -26,9 +26,8 @@
 
         public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Overtime> overtimes = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 overtimes = repository.GetOvertime(criteria);
             }
@@ -38,9 +37,8 @@
 
         public Overtime GetOvertimeById(GetOvertimeByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             Overtime overtime = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 overtime = repository.GetOvertimeById(criteria);
             }
@@ -50,9 +48,8 @@
 
         public IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<EmployeeOvertime> overtimes = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 overtimes = repository.GetEmployeeOvertime(criteria);
             }
@@ -62,9 +59,8 @@
 
         public IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<EmployeeOvertime> overtimes = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 overtimes = repository.GetEmployeeOvertime(criteria);
             }

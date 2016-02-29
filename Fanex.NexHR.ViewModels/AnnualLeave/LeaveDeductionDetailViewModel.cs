@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="LeaveDeductionDetailViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.8.10">Created</change>
-// </history>
-
-namespace Fanex.NexHR.ViewModels.Report
+﻿namespace Fanex.NexHR.ViewModels.AnnualLeave
 {
     using System;
     using System.Collections.Generic;

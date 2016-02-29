@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
@@ -23,16 +22,14 @@
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             Employee employee = GetDataEntity<Employee>(criteria);
             return employee;
         }
 
         public Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             Employee employee = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 employee = employeeRepository.GetByDomainName(criteria);
             }
@@ -42,9 +39,8 @@
 
         public IList<Employee> Query(GetEmployeeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<Employee> employees = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 employees = employeeRepository.Query(criteria);
             }
@@ -66,9 +62,8 @@
 
         public MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             MySpaceViewModel space = new MySpaceViewModel();
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 space = GetDataEntity<MySpaceViewModel>(criteria);
                 space.DashboardCompanySpace = GetDashBoardCompanySpace(criteria.EmpId);
@@ -97,20 +92,24 @@
 
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
-            if (criteria.Enable != null)
+            IList<Employee> employees = null;
+            if (criteria != null && criteria.IsValid())
             {
-                criteria.Enable = criteria.Enable != true;
+                if (criteria.Enable != null)
+                {
+                    criteria.Enable = criteria.Enable != true;
+                }
+
+                employees = employeeRepository.GetEmployeeToeicScore(criteria);
             }
 
-            return employeeRepository.GetEmployeeToeicScore(criteria);
+            return employees ?? new List<Employee>();
         }
 
         public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
             SystemReminderModel employees = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
-
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 employees = employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
@@ -124,7 +123,7 @@
             return employees;
         }
 
-        public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpID(GetMissingCheckInOutEmployeesCriteria criteria)
+        public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
         {
             IList<MissingCheckInOutModel> missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;

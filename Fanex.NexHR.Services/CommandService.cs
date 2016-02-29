@@ -24,9 +24,8 @@
 
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             CommandResult result = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 result = repository.Insert(criteria, hasGetOutputParams);
             }
@@ -40,9 +39,8 @@
 
         public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             CommandResult result = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 result = repository.Update(criteria, hasGetOutputParams);
             }
@@ -56,9 +54,8 @@
 
         public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             CommandResult result = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 result = repository.Delete(criteria, hasGetOutputParams);
             }

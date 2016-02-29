@@ -25,25 +25,22 @@
 
     public class RequestService : BaseService, IRequestService
     {
-        private readonly IRequestRepository _requestRepository;
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly IEmailService _emailService;
+        private readonly IRequestRepository requestRepository;
+        private readonly IEmailService emailService;
         private readonly ICommandService commandService;
 
         public RequestService()
-            : this(null, null, null, null)
+            : this(null, null, null)
         {
         }
 
         public RequestService(
             IRequestRepository requestRepository,
-            IEmployeeRepository employeeRepository,
             IEmailService emailService,
             ICommandService commandService)
         {
-            this._requestRepository = requestRepository ?? new RequestRepository();
-            this._employeeRepository = employeeRepository ?? new EmployeeRepository();
-            this._emailService = emailService ?? new EmailService();
+            this.requestRepository = requestRepository ?? new RequestRepository();
+            this.emailService = emailService ?? new EmailService();
             this.commandService = commandService ?? new CommandService();
         }
 
@@ -374,7 +371,7 @@
 
             if (criteria.IsValid())
             {
-                entityList = this._requestRepository.GetRequest(criteria);
+                entityList = this.requestRepository.GetRequest(criteria);
             }
 
             return entityList;
@@ -386,7 +383,7 @@
             RequestEntity request = new RequestEntity();
             if (criteria.IsValid())
             {
-                request = this._requestRepository.GetRequestEntity(criteria);
+                request = this.requestRepository.GetRequestEntity(criteria);
             }
 
             return request;
@@ -409,7 +406,7 @@
             IList<RequestEntity> requests = new List<RequestEntity>();
             if (criteria.IsValid())
             {
-                requests = this._requestRepository.GetRequest(criteria);
+                requests = this.requestRepository.GetRequest(criteria);
             }
 
             return requests;
@@ -417,7 +414,7 @@
 
         public decimal GetNumberRequestInMonth(GetNumberRequestInMonthCriteria criteria)
         {
-            return _requestRepository.GetNumberRequestInMonth(criteria);
+            return requestRepository.GetNumberRequestInMonth(criteria);
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -472,7 +469,7 @@
                     };
 
                     var body = string.Format(bodyTemplate, content.Leader, content.Member, content.Type, content.ForDate, content.Shift, content.Time);
-                    this._emailService.SendEmail(
+                    this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         item.Email,
                         string.Empty,
@@ -527,7 +524,7 @@
                 if (managers != null && managers.Any())
                 {
                     body = string.Format(bodyTemplate, model.DisplayName, forDate, model.LeaveTypeName, model.Remark);
-                    this._emailService.SendEmail(
+                    this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         string.Join(";", managers.Select(t => t.Email)),
                         string.Join(";", leaders.Select(t => t.Email)),
@@ -540,7 +537,7 @@
                 if (leaders != null && leaders.Any())
                 {
                     body = string.Format(bodyTemplate, leaders.First().NickName, model.DisplayName, forDate, model.LeaveTypeName, model.Remark);
-                    this._emailService.SendEmail(
+                    this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         string.Join(";", leaders.Select(t => t.Email)),
                         string.Empty,
@@ -607,7 +604,7 @@
             string templateInOutEmailToRelatedPath)
         {
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            var request = this._requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            var request = this.requestRepository.GetRequestEntity(getRequestByIdCriteria);
 
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 
@@ -644,7 +641,7 @@
 
             var subject = string.Format(Messages.ProcessSubject, request.RequestType.Name, forDate, action, request.ModifiedBy.NickName);
 
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.Requester.Email,
                 string.Empty,
@@ -699,7 +696,7 @@
                 request.FromShift.Name,
                 request.FromDate.ToString("HH:mm"));
 
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.ModifiedBy.Email,
                 sendCc,
@@ -725,7 +722,7 @@
                 request.LeaveType.Name,
                 request.Remark);
 
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.ModifiedBy.Email,
                 sendCc,

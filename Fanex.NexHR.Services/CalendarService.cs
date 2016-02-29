@@ -20,9 +20,8 @@
 
         public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<WorkingSchedule> workingSchedules = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 workingSchedules = calendarRepository.GetWorkingSchedule(criteria);
             }

@@ -30,7 +30,7 @@ function initMonthPicker() {
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
     $.ajax({
-        url: _global.root + 'ajax/GetRequestDetail',
+        url: _global.root + 'request/GetRequestDetail',
         async: false,
         type: 'post',
         data: { 'requesttype': requestType, 'fromdate': fromDate, 'todate': toDate, 'createddate': createddate,
@@ -83,7 +83,7 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'report/listtimesheet',
+        url: _global.root + 'report/gettimesheets',
         type: 'POST',
         dataType: 'html',
         data: $('.card-container-base .form-filter').serialize(),

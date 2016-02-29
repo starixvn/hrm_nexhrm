@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
@@ -14,7 +13,7 @@
 
     public class ReportService : BaseService, IReportService
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IReportRepository reportRepository;
 
         public ReportService()
             : this(null)
@@ -23,31 +22,29 @@
 
         public ReportService(IReportRepository reportRepository)
         {
-            _reportRepository = reportRepository ?? new ReportRepository();
+            this.reportRepository = reportRepository ?? new ReportRepository();
         }
 
         public IList<TimeRecordModel> GetTimeRecords(GetTimeRecordCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<TimeRecordModel> timeRecords = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                timeRecords = _reportRepository.GetTimeRecords(criteria);
+                timeRecords = reportRepository.GetTimeRecords(criteria);
             }
 
-            return timeRecords;
+            return timeRecords ?? new List<TimeRecordModel>();
         }
 
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<LateInEarlyOutModel> lateInEarlyOuts = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOut(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOut(criteria);
             }
 
-            return lateInEarlyOuts;
+            return lateInEarlyOuts ?? new List<LateInEarlyOutModel>();
         }
 
         public IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams)
@@ -55,23 +52,26 @@
             IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutByTeamModel>();
             teams = teams.OrderBy(t => t.Rank).ToList();
 
-            foreach (Team team in teams)
+            if (lateInEarlyOuts != null)
             {
-                LateInEarlyOutByTeamModel entity = new LateInEarlyOutByTeamModel
+                foreach (Team team in teams)
                 {
-                    Team = team,
-                    LateInEarlyOutInTeams = new List<LateInEarlyOutModel>()
-                };
-
-                foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
-                {
-                    if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                    LateInEarlyOutByTeamModel entity = new LateInEarlyOutByTeamModel
                     {
-                        entity.LateInEarlyOutInTeams.Add(lateInEarlyOut);
-                    }
-                }
+                        Team = team,
+                        LateInEarlyOutInTeams = new List<LateInEarlyOutModel>()
+                    };
 
-                lateInEarlyOutByTeam.Add(entity);
+                    foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
+                    {
+                        if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                        {
+                            entity.LateInEarlyOutInTeams.Add(lateInEarlyOut);
+                        }
+                    }
+
+                    lateInEarlyOutByTeam.Add(entity);
+                }
             }
 
             return lateInEarlyOutByTeam;
@@ -79,76 +79,59 @@
 
         public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<LateInEarlyOutDetail> lateInEarlyOuts = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutDetail(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOutDetail(criteria);
             }
 
-            return lateInEarlyOuts;
+            return lateInEarlyOuts ?? new List<LateInEarlyOutDetail>();
         }
 
-        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<LeaveDeductionDetail> leaveDeductions = null;
-            if (criteria.IsValid())
-            {
-                leaveDeductions = _reportRepository.GetLeaveDeductionDetail(criteria);
-            }
-
-            return leaveDeductions;
-        }
+        
 
         public IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IList<RequestsMonitoring> monitorings = null;
-            if (criteria.IsValid())
+            IList<RequestsMonitoring> requestsMonitorings = null;
+            if (criteria != null && criteria.IsValid())
             {
-                monitorings = _reportRepository.GetRequestMonitoring(criteria);
+                requestsMonitorings = reportRepository.GetRequestMonitoring(criteria);
             }
 
-            return monitorings;
+            return requestsMonitorings ?? new List<RequestsMonitoring>();
         }
 
         public IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<TotalWorkingHours> totalWorkingHours = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                totalWorkingHours = _reportRepository.GetTotalWorkingHours(criteria);
+                totalWorkingHours = reportRepository.GetTotalWorkingHours(criteria);
             }
 
-            return totalWorkingHours;
+            return totalWorkingHours ?? new List<TotalWorkingHours>();
         }
 
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<EmployeeAttendanceModel> attendances = null;
-
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                attendances = _reportRepository.GetEmployeeAttendanceReport(criteria);
+                attendances = reportRepository.GetEmployeeAttendanceReport(criteria);
             }
 
-            return attendances;
+            return attendances ?? new List<EmployeeAttendanceModel>();
         }
 
         public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = null;
-
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutSummary(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOutSummary(criteria);
             }
 
-            return lateInEarlyOuts;
+            return lateInEarlyOuts ?? new List<LateInEarlyOutSummaryModel>();
         }
 
         public IList<LateInEarlyOutSummaryByTeamModel> GetLateInEarlyOutSummaryByTeam(
@@ -158,23 +141,26 @@
             IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutSummaryByTeamModel>();
             teams = teams.OrderBy(t => t.Rank).ToList();
 
-            foreach (Team team in teams)
+            if (lateInEarlyOuts != null)
             {
-                LateInEarlyOutSummaryByTeamModel entity = new LateInEarlyOutSummaryByTeamModel
+                foreach (Team team in teams)
                 {
-                    Team = team,
-                    LateInEarlyOutSummaryInTeams = new List<LateInEarlyOutSummaryModel>()
-                };
-
-                foreach (LateInEarlyOutSummaryModel lateInEarlyOut in lateInEarlyOuts)
-                {
-                    if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                    LateInEarlyOutSummaryByTeamModel entity = new LateInEarlyOutSummaryByTeamModel
                     {
-                        entity.LateInEarlyOutSummaryInTeams.Add(lateInEarlyOut);
-                    }
-                }
+                        Team = team,
+                        LateInEarlyOutSummaryInTeams = new List<LateInEarlyOutSummaryModel>()
+                    };
 
-                lateInEarlyOutByTeam.Add(entity);
+                    foreach (LateInEarlyOutSummaryModel lateInEarlyOut in lateInEarlyOuts)
+                    {
+                        if (lateInEarlyOut.Employee.Team.Name == team.Name)
+                        {
+                            entity.LateInEarlyOutSummaryInTeams.Add(lateInEarlyOut);
+                        }
+                    }
+
+                    lateInEarlyOutByTeam.Add(entity);
+                }
             }
 
             return lateInEarlyOutByTeam;

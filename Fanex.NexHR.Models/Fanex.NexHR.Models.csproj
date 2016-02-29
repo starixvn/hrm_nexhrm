@@ -95,7 +95,7 @@
     <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryDetailModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryModel.cs" />
-    <Compile Include="Report\LeaveDeductionDetail.cs" />
+    <Compile Include="AnnualLeave\LeaveDeductionDetail.cs" />
     <Compile Include="Report\LateInEarlyOutDetail.cs" />
     <Compile Include="Report\LateInEarlyOutModel.cs" />
     <Compile Include="Report\LateInEarlyOutByTeamModel.cs" />

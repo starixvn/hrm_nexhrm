@@ -22,7 +22,7 @@ function getShiftByDate() {
     var empId = parseInt($('#EmployeeId').val());
 
     if (empId > 0) {
-        $.getJSON(_global.root + 'api/shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
+        $.post(_global.root + 'shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
         function (data) {
             if (data != null) {
                 $('#shiftname').text(data.Name);
@@ -30,6 +30,7 @@ function getShiftByDate() {
                 $('#InTime').val(data.BeginCheckInTime);
                 $('#OutTime').val(data.BeginCheckOutTime);
                 $('input[type=submit]').show();
+                bindingHourAndMinute();
             } else {
                 $('#shiftname').text(_messages.notAvailable);
                 $('#Shift').val(_messages.notAvailable);
@@ -69,9 +70,8 @@ function query(isFirstLoad) {
 function initEventPickerDate() {
     $('#ForDate').on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
-
         if (empId > 0) {
-            $.getJSON(_global.root + 'api/shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
+            $.post(_global.root + 'shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
                 function (data) {
                     if (data != null) {
                         $('#shiftname').text(data.Name);

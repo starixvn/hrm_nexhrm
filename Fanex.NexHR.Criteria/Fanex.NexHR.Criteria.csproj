@@ -151,7 +151,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnnualLeave\DeleteLeaveDeductionCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutSummaryCriteria.cs" />
-    <Compile Include="Report\GetLeaveDeductionDetailCriteria.cs" />
+    <Compile Include="AnnualLeave\GetLeaveDeductionDetailCriteria.cs" />
     <Compile Include="AnnualLeave\GetAnnualLeaveSummaryCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceReportByTypeCriteria.cs" />
     <Compile Include="Report\GetLateInEarlyOutDetailReportCriteria.cs" />

@@ -61,5 +61,24 @@
                 return leaveTransaction;
             }
         }
+
+        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var leaveDeductions = db.Query<LeaveDeductionDetail, Employee, Team, Employee, LeaveDeductionDetail>(
+                    (le, e, g, modi) =>
+                    {
+                        le.Employee = e;
+                        e.Team = g;
+                        le.ModifiedBy = modi;
+                        return le;
+                    },
+                    splitOn: "EmpId, GroupId, ModifiedById",
+                    parameterValues: criteria.GetSpParams()).ToList();
+
+                return leaveDeductions;
+            }
+        }
     }
 }

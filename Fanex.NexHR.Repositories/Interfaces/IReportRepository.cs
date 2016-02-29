@@ -19,8 +19,6 @@
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria);
 
-        IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria);
-
         IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(ICriteria criteria);
     }
 }

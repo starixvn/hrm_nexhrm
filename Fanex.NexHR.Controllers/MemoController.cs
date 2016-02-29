@@ -3,15 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using System.Web.Security;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.Memo;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
 
-    public class MemoController : Controller
+    public class MemoController : BaseController
     {
         private readonly IMemoService memoService;
         private readonly ILookupDataService lookupDataService;
@@ -116,10 +116,6 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
 
             return View(model);
         }
@@ -190,10 +186,6 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
 
             return View(model);
         }
@@ -212,6 +204,20 @@
         {
             var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
             return commandService.Delete(deleteMemoCriteria).Code == 0;
+        }
+
+        public JsonResult GetMemos(int category, int year, int status)
+        {
+            GetAllMemoCriteria criteria = new GetAllMemoCriteria()
+            {
+                Category = category,
+                Year = year,
+                Status = Roles.IsUserInRole("HR") ? status : 1
+            };
+
+            IList<Memo> memos = memoService.GetAll(criteria);
+
+            return Json(memos);
         }
     }
 }

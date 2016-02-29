@@ -17,8 +17,6 @@
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
-        IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria);
-
         IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
 
         IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria);

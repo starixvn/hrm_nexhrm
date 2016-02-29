@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels.Overtime
 {
     using Core.Enums;
     using Models;

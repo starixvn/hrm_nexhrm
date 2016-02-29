@@ -41,7 +41,7 @@ function bindHalfDay() {
         if ($('#HalfDayOff').prop('checked')) {
             $('#TotalDays').val(0.5);
             //get shift information
-            $.getJSON(_global.root + 'api/shift/GetShiftByDate',
+            $.post(_global.root + 'shift/GetShiftByDate',
                 { employeeId: empId, date: $('#FromDate').val() },
                 function (response) {
                     if (response != null) {
@@ -88,12 +88,11 @@ function query(isFirstLoad) {
 function initEventForFromDateAndToDate() {
     $('#FromDate, #ToDate').on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
-
         if (empId > 0) {
             if ($('#HalfDayOff').prop('checked')) {
                 $('#ToDate').val($('#FromDate').val());
 
-                $.getJSON(_global.root + 'api/shift/GetShiftByDate',
+                $.post(_global.root + 'shift/GetShiftByDate',
                     { employeeId: empId, date: $('#FromDate').val() },
                     function (response) {
                         if (response != null) {

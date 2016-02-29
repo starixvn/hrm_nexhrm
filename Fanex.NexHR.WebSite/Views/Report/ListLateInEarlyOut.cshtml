@@ -133,7 +133,7 @@
                             false)
                         @if (lateInEarlyOut.LeaveDeduction != 0)
                         {
-                            var url = "LateInEarlyOutDetail?employeeId=" + lateInEarlyOut.Employee.Id
+                            var url = "/AnnualLeave/LeaveDeductionDetail?employeeId=" + lateInEarlyOut.Employee.Id
                                 + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
                                 + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
 
@@ -147,7 +147,7 @@
                         }
                         @if (lateInEarlyOut.OTBalance != 0)
                         {
-                            var url = "OvertimeRequest?employeeId=" + lateInEarlyOut.Employee.Id
+                            var url = "/Overtime/OvertimeRequest?employeeId=" + lateInEarlyOut.Employee.Id
                                 + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
                                 + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate() + "&Status=2";
 

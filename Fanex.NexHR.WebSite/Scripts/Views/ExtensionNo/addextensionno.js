@@ -12,39 +12,21 @@ $(document).ready(function () {
     }
 
     var bindingDataToDropdown = function () {
-        if ($("#IsInternal").is(":checked")) {
-            $.getJSON(_global.root + 'api/report/GetGroupExtension', { isInternal: true, groupId: null },
-                    function (data) {
-                        if (data[0] != null) {
-                            $("#TeamId").empty();
-                            var options = "";
-                            for (var i = 0; i < data.length; i++) {
-                                options += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
-                            }                            
-                            $("#TeamId").append(options);
-                            $("#TeamId").material_select('update');
-                        }
-                    });
-        }
-        else {
-            $.getJSON(_global.root + 'api/report/GetGroupExtension', { isInternal: false, groupId: null },
-                    function (data) {
-                        if (data[0] != null) {
-                            $("#TeamId").empty();
-                            var options = "";
-                            for (var i = 0; i < data.length; i++) {
-                                options += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";                                
-                            }
-                            
-                            $("#TeamId").append(options);
-                            $("#TeamId").material_select('update');
-                        }
-                    });
-        }
+        $.post(_global.root + 'extensionNo/GetGroupExtension', { isInternal: $("#IsInternal").is(":checked"), groupId: null },
+        function (respone) {
+            if (respone[0] != null) {
+                $("#TeamId").empty();
+                var options = "";
+                for (var i = 0; i < respone.length; i++) {
+                    options += "<option value='" + respone[i].Value + "'>" + respone[i].Text + "</option>";
+                }
+                $("#TeamId").append(options);
+                $("#TeamId").material_select('update');
+            }
+        });
     };
 
     var checkForChecked = function () {
-
         if ($("#IsInternal").is(":checked")) {
 
             if ($("#EmpId").val() > 0) {

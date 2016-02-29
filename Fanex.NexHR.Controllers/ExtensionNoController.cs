@@ -13,18 +13,21 @@
     public class ExtensionNoController : BaseController
     {
         private readonly IExtensionNoService extensionNoService;
+        private readonly ITeamService teamService;
         private readonly ICommandService commandService;
 
         public ExtensionNoController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public ExtensionNoController(
             IExtensionNoService extensionNoService,
+            ITeamService teamService,
             ICommandService commandService)
         {
             this.extensionNoService = extensionNoService ?? new ExtensionNoService();
+            this.teamService = teamService ?? new TeamService();
             this.commandService = commandService ?? new CommandService();
         }
 
@@ -62,7 +65,7 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.Insert(criteria);                
+                CommandResult result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
                     ViewBag.Requested = true;
@@ -71,10 +74,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -142,12 +141,61 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
 
             return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool DeleteExtensionNumber(int extId)
+        {
+            var criteria = new DeleteExtensionNumberCriteria
+            {
+                ExtId = extId
+            };
+            CommandResult result = commandService.Delete(criteria);
+
+            return result.Code == 0;
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool AddNewExternalGroup(string groupName)
+        {
+            var criteria = new AddNewExternalGroupCriteria
+            {
+                FullName = groupName
+            };
+            CommandResult result = commandService.Insert(criteria);
+
+            return result.Code == 0;
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool DeleteExternalGroup(int extId)
+        {
+            var criteria = new DeleteExternalGroupCriteria
+            {
+                ExtId = extId
+            };
+            CommandResult result = commandService.Delete(criteria);
+
+            return result.Code == 0;
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public bool EditExternalGroup(int extId, string groupName)
+        {
+            var criteria = new UpdateExternalGroupCriteria
+            {
+                ExtId = extId,
+                FullName = groupName
+            };
+            CommandResult result = commandService.Update(criteria);
+
+            return result.Code == 0;
         }
 
         public ActionResult ManageExternalGroup()
@@ -160,6 +208,36 @@
             var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
 
             return View(group);
+        }
+
+        public JsonResult GetGroupExtension(bool isInternal, int? groupId)
+        {
+            var groupExtensions = new List<SelectListItem>();
+            if (isInternal)
+            {
+                IList<Team> teams = teamService.GetAll();
+                groupExtensions = teams.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+            }
+            else
+            {
+                var criteria = new GetAllExtensionGroupInfoCriteria
+                {
+                    IsInternal = isInternal,
+                    GroupId = groupId
+                };
+                IList<ExtensionNoModel> extensions = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                groupExtensions = extensions.Select(x => new SelectListItem
+                {
+                    Text = x.TeamName,
+                    Value = x.TeamId.ToString()
+                }).ToList();
+            }
+
+            return Json(groupExtensions);
         }
 
         private void CheckExternalEmployee(ExtensionNoModel model)

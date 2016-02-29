@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Repositories;
@@ -19,9 +18,8 @@
 
         public IList<LeaveSummary> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<LeaveSummary> leaveSummary = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 leaveSummary = annualLeaveRepository.GetAnnualLeaveBalance(criteria);
             }
@@ -31,9 +29,8 @@
 
         public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             ShowOpenAndCloseAnnualBalance showOpenAndCloseAnnualBalance = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 showOpenAndCloseAnnualBalance = GetDataEntity<ShowOpenAndCloseAnnualBalance>(criteria);
             }
@@ -43,10 +40,8 @@
 
         public IList<AnnualLeaveTransaction> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IList<AnnualLeaveTransaction> annualLeaves = null;
-
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 annualLeaves = annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
             }
@@ -56,14 +51,24 @@
 
         public AnnualLeaveTransaction GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             AnnualLeaveTransaction annualLeave = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 annualLeave = annualLeaveRepository.GetAnnualLeaveTransactionById(criteria);
             }
 
             return annualLeave;
+        }
+
+        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria)
+        {
+            IList<LeaveDeductionDetail> leaveDeductions = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                leaveDeductions = annualLeaveRepository.GetLeaveDeductionDetail(criteria);
+            }
+
+            return leaveDeductions ?? new List<LeaveDeductionDetail>();
         }
     }
 }

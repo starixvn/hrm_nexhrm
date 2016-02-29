@@ -21,8 +21,9 @@ function deleteMemo(id, fileName, type) {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'api/memo/getmemos',
+        url: _global.root + 'memo/getmemos',
         data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() == undefined ? -1 : $('#Status').val() },
+        method: "POST",
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -37,7 +38,7 @@ function query(isFirstLoad) {
                 var tmpl = $.templates('#template'),
                     helpers = {
                         index: index,
-                        formatDate: formatDate,
+                        formatDate: formatJsonDate,
                         isHRRole: isHRRole
                     },
                     html = tmpl.render(data, helpers);

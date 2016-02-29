@@ -37,15 +37,13 @@
 
         public Department GetDepartmentById(GetDepartmentByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-
-            if (criteria.IsValid())
+            Department department = null;
+            if (criteria != null && criteria.IsValid())
             {
-                Department department = departmentRepository.GetDepartmentById(criteria);
-                return department;
+                department = departmentRepository.GetDepartmentById(criteria);
             }
 
-            return null;
+            return department;
         }
     }
 }

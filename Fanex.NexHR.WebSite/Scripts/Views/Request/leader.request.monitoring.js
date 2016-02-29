@@ -4,9 +4,9 @@
 
 function query(isFirstLoad) {
     var action = $('.card-container-base').find('#ActionName').val();
-
+    var isLeader = $('#IsLeader').val();
     $.ajax({
-        url: _global.root + 'report/' + action,
+        url: _global.root + 'report/' + isLeader ? 'LeaderRequestMonitoringDetail' : 'HRRequestMonitoringDetail',
         type: 'GET',
         dataType: 'html',
         data: $('.card-container-base form.form-filter').serialize(),
@@ -17,15 +17,6 @@ function query(isFirstLoad) {
         },
         success: function (data) {
             $('#request-monitoring-detail').html(data);
-
-            $('table#data tbody tr td a').click(function () {
-                var model = $(this).closest('td').find('.request-model').serialize(),
-                        controller = $(this).attr('data-controller'),
-                        action = $(this).attr('data-action');
-
-                document.location = _global.root + controller + '/' + action + '?' + model;
-            });
-
             floatThead('table#data');
         },
         error: function () {

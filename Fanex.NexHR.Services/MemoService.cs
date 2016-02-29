@@ -53,7 +53,7 @@
             return memo;
         }
 
-        public void SendMail(string subject, string memoID)
+        public void SendMail(string subject, string memoId)
         {
             var link = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
             var groupSd = ConfigurationManager.AppSettings["EmailSD"].ToString();
@@ -65,7 +65,7 @@
             var content = new
             {
                 Subject = subject,
-                Link = link + "memo/detail/" + memoID
+                Link = link + "memo/detail/" + memoId
             };
             var body = RazorEngine.Razor.Parse(bodyTemplate, content);
             this._emailService.SendEmail(

@@ -192,7 +192,7 @@ namespace AutoJobs
             {
                 // Get employee who forgot check in or check out
                 var getMissingCheckInOutCriteria = new GetMissingCheckInOutEmployeesCriteria();
-                var employeeList = _EmployeeService.GetMissingCheckInOutByEmpID(getMissingCheckInOutCriteria);
+                var employeeList = _EmployeeService.GetMissingCheckInOutByEmpId(getMissingCheckInOutCriteria);
                 employeeList = employeeList.Where(s => !_IgnoreList.Contains(s.NickName.ToLower())).ToList();
 
                 if (employeeList.Count > 0)

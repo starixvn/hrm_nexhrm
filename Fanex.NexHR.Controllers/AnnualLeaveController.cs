@@ -392,6 +392,50 @@
             return Json(commandService.Delete(criteria));
         }
 
+        public ActionResult LeaveDeductionDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
+        {
+            IList<Team> teams = teamService.GetAll();
+
+            var model = new LeaveDeductionDetailViewModel
+            {
+                EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
+                FromDate = fromDate,
+                ToDate = toDate,
+                TeamId = teamId,
+                Teams = teams
+            };
+
+            if (employeeId.HasValue)
+            {
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+
+                model.Employee = employee.DisplayName;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
+        {
+            var criteria = new GetLeaveDeductionDetailCriteria()
+            {
+                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
+                GroupId = model.TeamId,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate
+            };
+
+            IList<LeaveDeductionDetail> leaveDeductions = annualLeaveService.GetLeaveDeductionDetail(criteria);
+
+            return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
+        }
+
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
         {
             var model = new ShowOpenAndCloseAnnualBalance();

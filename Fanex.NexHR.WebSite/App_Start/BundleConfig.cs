@@ -139,7 +139,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
                 "~/Scripts/Views/_employee.search.in.company.js",
-                "~/Scripts/Views/totalworkinghours.js"));
+                "~/Scripts/Views/Report/report.totalworkinghours.js"));
         }
 
         private static void BuildBundleForHolidays(BundleCollection bundles)

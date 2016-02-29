@@ -81,7 +81,7 @@ function initDeleteLeaveDeduction() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/LeaveDeductionDetail',
+        url: _global.root + 'AnnualLeave/LeaveDeductionDetail',
         type: 'POST',
         dataType: 'json',
         data: $('.card-container-base .form form').serialize(),

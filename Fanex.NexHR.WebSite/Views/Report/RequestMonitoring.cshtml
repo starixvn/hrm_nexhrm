@@ -19,8 +19,8 @@
                 <div class="card-body">
                     <div class="form">
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        @Html.Hidden("ActionName", (string)ViewBag.ActionName)
                         <form action="" class="form-filter">
+                            @Html.HiddenFor(model => model.IsLeader)
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">

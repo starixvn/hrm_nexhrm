@@ -2,7 +2,7 @@
 'use strict';
 
 function processRequest(command, eventElement) {
-    $.post(_global.root + 'ajax/processrequest',
+    $.post(_global.root + 'request/processrequest',
     { command: command, id: $(eventElement).attr('requestId') },
         function (response) {
             if (response !== true) {

@@ -171,7 +171,7 @@ namespace Fanex.NexHR.Core
             {
                 list.Add(new SelectListItem
                 {
-                    Text = "All",
+                    Text = Labels.All,
                     Value = "-1",
                     Selected = true
                 });
@@ -198,7 +198,6 @@ namespace Fanex.NexHR.Core
             string name)
         {
             var list = new List<SelectListItem>();
-            var toYear = DateTime.Now.GetMaxDate().Year + 1;
 
             for (var i = 1; i <= 12; i++)
             {

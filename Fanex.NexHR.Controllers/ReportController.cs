@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Security;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -37,19 +38,14 @@
         {
         }
 
-        #region Attendance
-
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
-            Employee employee = this.CurrentUser;
-
             if (model.FromDate == DateTime.MinValue)
             {
                 model = new EmployeeAttendanceViewModel
                 {
                     FromDate = DateTime.Now,
                     ToDate = DateTime.Now,
-                    GroupId = employee.Team.Id,
                     DateOption = 0,
                     ExcludeUserDelete = true
                 };
@@ -76,7 +72,7 @@
                 ReportType = model.AttendanceType,
                 EmployeeId = model.EmpId,
                 GroupId = model.GroupId,
-                ExcludeUserDelete = model.ExcludeUserDelete ? 1 : 0,
+                ExcludeUserDelete = model.ExcludeUserDelete,
                 ItemsPerPage = model.ItemsPerPage,
                 PageIndex = model.CurrentPage - 1
             };
@@ -95,9 +91,26 @@
             return PartialView("_AttendanceDetail", attendances);
         }
 
-        #endregion Attendance
+        public JsonResult GetEmployeeAttendances(EmployeeAttendanceViewModel model)
+        {
+            
+            if (model.GroupId == -1)
+            {
+                model.GroupId = null;
+            }
 
-        #region Timesheet
+            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                ReportType = model.AttendanceType,
+                EmployeeId = model.EmpId,
+                GroupId = model.GroupId,
+                ExcludeUserDelete = model.ExcludeUserDelete
+            };
+            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            return Json(employeeAttendances);
+        }
 
         public ActionResult Timesheet()
         {
@@ -111,7 +124,7 @@
         }
 
         [HttpPost]
-        public ActionResult ListTimesheet([System.Web.Http.FromUri]TimesheetViewModel model)
+        public ActionResult GetTimesheets(TimesheetViewModel model)
         {
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
@@ -123,12 +136,8 @@
 
             IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            return PartialView(employeeAttendances);
+            return PartialView("ListTimesheet", employeeAttendances);
         }
-
-        #endregion Timesheet
-
-        #region HRRequestMonitoring
 
         [Authorize(Roles = "HR")]
         public ActionResult HRRequestMonitoring()
@@ -140,11 +149,10 @@
             {
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                MaxRequest = 1,
-                DateOption = 0
+                MaxRequest = 2,
+                DateOption = 0,
+                IsLeader = false
             };
-
-            ViewBag.ActionName = "HRRequestMonitoringDetail";
 
             return View("RequestMonitoring", model);
         }
@@ -152,37 +160,9 @@
         [Authorize(Roles = "HR")]
         public ActionResult HRRequestMonitoringDetail(RequestsMonitoringViewModel model)
         {
-            IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
-
-            IList<short> roleList = this.CurrentUser.RoleList;
-            if (roleList != null)
-            {
-                if (roleList.Any(x => x == (int)Role.HR || x == (int)Role.SA))
-                {
-                    var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
-                    {
-                        FromDate = model.FromDate,
-                        ToDate = model.ToDate,
-                        MaxRequest = model.MaxRequest,
-                        Role = (int)Role.HR,
-                        EmployeeId = this.CurrentUser.Id
-                    };
-
-                    requestMonitorings = reportService.GetRequestMonitoring(getRequestMonitorCriteria);
-                }
-            }
-
-            ViewBag.FromDate = model.FromDate;
-            ViewBag.ToDate = model.ToDate;
-            ViewBag.isLeader = false;
-            ViewBag.MaxRequest = model.MaxRequest;
-
+            IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
             return PartialView("_RequestMonitoringDetail", requestMonitorings);
         }
-
-        #endregion HRRequestMonitoring
-
-        #region LeaderRequestMonitoring
 
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring()
@@ -195,10 +175,9 @@
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 MaxRequest = 1,
-                DateOption = 0
+                DateOption = 0,
+                IsLeader = true
             };
-
-            ViewBag.ActionName = "LeaderRequestMonitoringDetail";
 
             return View("RequestMonitoring", model);
         }
@@ -206,37 +185,30 @@
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoringDetail(RequestsMonitoringViewModel model)
         {
-            IList<RequestsMonitoring> requestMonitorings = new List<RequestsMonitoring>();
-
-            IList<short> roleList = this.CurrentUser.RoleList;
-            if (roleList != null)
-            {
-                if (roleList.Any(x => x == (int)Role.AssistantLeader || x == (int)Role.Leader || x == (int)Role.SA))
-                {
-                    var getRequestMonitorCriteria = new GetRequestMonitorReportCriteria
-                    {
-                        FromDate = model.FromDate,
-                        ToDate = model.ToDate,
-                        MaxRequest = model.MaxRequest,
-                        Role = (int)Role.AssistantLeader,
-                        EmployeeId = this.CurrentUser.Id
-                    };
-
-                    requestMonitorings = reportService.GetRequestMonitoring(getRequestMonitorCriteria);
-                }
-            }
-
-            ViewBag.FromDate = model.FromDate;
-            ViewBag.ToDate = model.ToDate;
-            ViewBag.isLeader = true;
-            ViewBag.MaxRequest = model.MaxRequest;
-
+            IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
             return PartialView("_RequestMonitoringDetail", requestMonitorings);
         }
 
-        #endregion LeaderRequestMonitoring
+        private IList<RequestsMonitoring> GetRequestMonitoringDetail(RequestsMonitoringViewModel model)
+        {
+            var criteria = new GetRequestMonitorReportCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                MaxRequest = model.MaxRequest,
+                Role = model.IsLeader ? (int)Role.AssistantLeader : (int)Role.HR,
+                EmployeeId = CurrentUser.Id
+            };
 
-        #region Total Working Hours
+            IList<RequestsMonitoring> requestMonitorings = reportService.GetRequestMonitoring(criteria);
+
+            ViewBag.FromDate = model.FromDate;
+            ViewBag.ToDate = model.ToDate;
+            ViewBag.isLeader = model.IsLeader;
+            ViewBag.MaxRequest = model.MaxRequest;
+
+            return requestMonitorings;
+        }
 
         public ActionResult TotalWorkingHours()
         {
@@ -283,10 +255,6 @@
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
-
-        #endregion Total Working Hours
-
-        #region Late In/Early Out
 
         public ActionResult LateInEarlyOut()
         {
@@ -416,62 +384,7 @@
             return PartialView(lateInEarlyOutByTeam);
         }
 
-        #endregion Late In/Early Out
-
-        #region Leave Deduction
-
-        public ActionResult LeaveDeductionDetail(
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? teamId = null)
-        {
-            IList<Team> teams = teamService.GetAll();
-
-            var model = new LeaveDeductionDetailViewModel
-            {
-                EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
-                FromDate = fromDate,
-                ToDate = toDate,
-                TeamId = teamId,
-                Teams = teams
-            };
-
-            if (employeeId.HasValue)
-            {
-                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
-                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
-
-                model.Employee = employee.DisplayName;
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
-        {
-            var criteria = new GetLeaveDeductionDetailCriteria()
-            {
-                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
-                GroupId = model.TeamId,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate
-            };
-
-            IList<LeaveDeductionDetail> leaveDeductions = reportService.GetLeaveDeductionDetail(criteria);
-
-            return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion Leave Deduction
-
-        public ActionResult ExtensionNo()
-        {
-            return View();
-        }
-
-        #region Time Record
+        
 
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
@@ -569,7 +482,5 @@
 
             return PartialView("ListTimeRecord", timeRecords);
         }
-
-        #endregion Time Record
     }
 }

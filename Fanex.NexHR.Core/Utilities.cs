@@ -100,33 +100,35 @@ namespace Fanex.NexHR.Core
             var random = new byte[length];
 
             // RNGCryptoServiceProvider is an implementation of a random number generator.
-            var rng = new RNGCryptoServiceProvider();
-            rng.GetBytes(random); // The array is now filled with cryptographically strong random bytes.
-
-            for (var i = 0; i < length; i++)
+            using (var rng = new RNGCryptoServiceProvider())
             {
-                var found = false;
-                var rand = (int)random[i];
-                while (!found)
+                rng.GetBytes(random); // The array is now filled with cryptographically strong random bytes.
+
+                for (var i = 0; i < length; i++)
                 {
-                    if (((rand >= 48) && (rand <= 57)) || ((rand >= 65) && (rand <= 90)) || ((rand >= 97) && (rand <= 122)))
+                    var found = false;
+                    var rand = (int)random[i];
+                    while (!found)
                     {
-                        found = true;
+                        if (((rand >= 48) && (rand <= 57)) || ((rand >= 65) && (rand <= 90)) || ((rand >= 97) && (rand <= 122)))
+                        {
+                            found = true;
+                        }
+                        else
+                        {
+                            // get a new random int.
+                            var single = new byte[1];
+                            rng.GetBytes(single);
+                            rand = single[0];
+                        }
                     }
-                    else
-                    {
-                        // get a new random int.
-                        var single = new byte[1];
-                        rng.GetBytes(single);
-                        rand = single[0];
-                    }
+
+                    var ci = (char)rand;
+                    ca[i] = ci;
                 }
 
-                var ci = (char)rand;
-                ca[i] = ci;
+                return new string(ca).ToLower();
             }
-
-            return new string(ca).ToLower();
         }
 
         public static IList<SelectListItem> MinuteSteps(int step)

@@ -20,7 +20,7 @@
                         </i></span></a>
                 </div>
                 <div class="card-body">
-                    <div class="form">                        
+                    <div class="form">
                         @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)

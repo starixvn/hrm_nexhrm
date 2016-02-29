@@ -1,19 +1,18 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.Common;
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
+    using Fanex.NexHR.ViewModels.Report;
 
     public class DashboardController : BaseController
     {
@@ -88,7 +87,7 @@
             {
                 EmpId = employeeId
             };
-            return _employeeService.GetMissingCheckInOutByEmpID(criteria);            
+            return _employeeService.GetMissingCheckInOutByEmpId(criteria);            
         }
    
         public IList<RequestEntity> GetPendingRequest()

@@ -10,9 +10,6 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Criteria.Shift;
-    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
@@ -19,9 +18,8 @@
 
         public Team GetById(GetTeamByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             Team team = null;
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
                 team = teamRepository.GetById(criteria);
             }

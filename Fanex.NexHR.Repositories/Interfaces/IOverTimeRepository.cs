@@ -10,8 +10,6 @@
 
         Overtime GetOvertimeById(ICriteria criteria);
 
-        IEnumerable<Overtime> ReportDetail(ICriteria criteria);
-
         IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria);
     }
 }

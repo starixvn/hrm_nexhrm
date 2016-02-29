@@ -681,7 +681,7 @@
     <Content Include="Scripts\Views\Request\search.request.js" />
     <Content Include="Scripts\Views\Report\report.timerecord.js" />
     <Content Include="Scripts\Views\team.management.js" />
-    <Content Include="Scripts\Views\totalworkinghours.js" />
+    <Content Include="Scripts\Views\Report\report.totalworkinghours.js" />
     <Content Include="Scripts\Views\Employee\user.management.js" />
     <Content Include="Scripts\Views\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\_employee.search.in.team.js" />
@@ -901,12 +901,12 @@
     <Content Include="Views\Leave\EmployeeView.cshtml" />
     <Content Include="Views\Leave\Update.cshtml" />
     <Content Include="Views\Report\Attendance.cshtml" />
-    <Content Include="Views\Report\CreateLeaveDeduction.cshtml" />
-    <Content Include="Views\Report\EditLeaveDeduction.cshtml" />
+    <Content Include="Views\AnnualLeave\CreateLeaveDeduction.cshtml" />
+    <Content Include="Views\AnnualLeave\EditLeaveDeduction.cshtml" />
     <Content Include="Views\Report\ExtensionNo.cshtml" />
     <Content Include="Views\Report\LateInEarlyOutDetail.cshtml" />
     <Content Include="Views\Report\LateInEarlyOut.cshtml" />
-    <Content Include="Views\Report\LeaveDeductionDetail.cshtml" />
+    <Content Include="Views\AnnualLeave\LeaveDeductionDetail.cshtml" />
     <Content Include="Views\Report\MyTimeRecord.cshtml" />
     <Content Include="Views\Report\RequestMonitoring.cshtml" />
     <Content Include="Views\Report\TimeRecord.cshtml" />

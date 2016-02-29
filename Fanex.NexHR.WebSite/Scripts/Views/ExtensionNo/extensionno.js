@@ -5,7 +5,7 @@ $(document).ready(function () {
     $(".deleteExt").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
-            $.post(_global.root + 'ajax/DeleteExtensionNumber',
+            $.post(_global.root + 'extensionno/DeleteExtensionNumber',
             { extId: id },
             function (response) {
                 if (response) {
@@ -23,7 +23,7 @@ $(document).ready(function () {
     $(".deleteExternal").on("click", function () {
         var id = $(this).closest('tr').attr('id');
         confirm('Are you sure you want to delete?', function () {
-            $.post(_global.root + 'ajax/DeleteExternalGroup',
+            $.post(_global.root + 'extensionno/DeleteExternalGroup',
             { extId: id },
             function (response) {
                 if (response) {
@@ -80,7 +80,7 @@ $(function () {
                 bValid = bValid && checkLength(name, "job title", 3, 100);
 
                 if (bValid) {
-                    $.post(_global.root + 'ajax/AddNewExternalGroup',
+                    $.post(_global.root + 'extensionno/AddNewExternalGroup',
                         { groupName: name.val() },
                         function (response) {
                             if (response) {
@@ -153,7 +153,7 @@ $(function () {
                     bValid = bValid && checkLength(name, "job title", 3, 100);
 
                     if (bValid) {
-                        $.post(_global.root + 'ajax/EditExternalGroup',
+                        $.post(_global.root + 'extensionno/EditExternalGroup',
                         { groupName: name.val(), extId: id },
                         function (response) {
                             if (response) {

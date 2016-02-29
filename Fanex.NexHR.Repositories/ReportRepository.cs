@@ -62,11 +62,9 @@
 
         public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
         {
-            IList<RequestsMonitoring> entityList = null;
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                entityList = db.Query<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
+                var entityList = db.Query<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
                     (rq, e, g) =>
                     {
                         rq.Requester = e;
@@ -75,9 +73,9 @@
                     },
                     splitOn: "EmpId, GroupId",
                     parameterValues: criteria.GetSpParams()).ToList();
-            }
 
-            return entityList;
+                return entityList;
+            }
         }
 
         public IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria)
@@ -100,11 +98,9 @@
 
         public IList<TimeRecordModel> GetTimeRecords(ICriteria criteria)
         {
-            IList<TimeRecordModel> timeRecords = null;
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                timeRecords = db.Query<TimeRecordModel, Employee, Team, TimeRecordModel>(
+                var timeRecords = db.Query<TimeRecordModel, Employee, Team, TimeRecordModel>(
                     (t, e, g) =>
                     {
                         t.Employee = e;
@@ -122,17 +118,16 @@
                     var hashParam = db.GetOuputParams();
                     totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
                 }
-            }
 
-            return timeRecords;
+                return timeRecords;
+            }
         }
 
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria)
         {
-            IList<LateInEarlyOutModel> lateinEarlyOuts = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                lateinEarlyOuts = db.Query<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
+                var lateinEarlyOuts = db.Query<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
                     (la, e, g) =>
                     {
                         la.Employee = e;
@@ -141,17 +136,16 @@
                     },
                     splitOn: "EmpId, GroupId",
                     parameterValues: criteria.GetSpParams()).ToList();
-            }
 
-            return lateinEarlyOuts;
+                return lateinEarlyOuts;
+            }
         }
 
         public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria)
         {
-            IList<LateInEarlyOutDetail> lateInEarlyOuts = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                lateInEarlyOuts = db.Query<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
+                var lateInEarlyOuts = db.Query<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
                     (la, e, g) =>
                     {
                         la.Employee = e;
@@ -160,29 +154,9 @@
                     },
                     splitOn: "EmpId, GroupId",
                     parameterValues: criteria.GetSpParams()).ToList();
+
+                return lateInEarlyOuts;
             }
-
-            return lateInEarlyOuts;
-        }
-
-        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria)
-        {
-            IList<LeaveDeductionDetail> leaveDeductions = null;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                leaveDeductions = db.Query<LeaveDeductionDetail, Employee, Team, Employee, LeaveDeductionDetail>(
-                    (le, e, g, modi) =>
-                    {
-                        le.Employee = e;
-                        e.Team = g;
-                        le.ModifiedBy = modi;
-                        return le;
-                    },
-                    splitOn: "EmpId, GroupId, ModifiedById",
-                    parameterValues: criteria.GetSpParams()).ToList();
-            }
-
-            return leaveDeductions;
         }
 
         public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(ICriteria criteria)
