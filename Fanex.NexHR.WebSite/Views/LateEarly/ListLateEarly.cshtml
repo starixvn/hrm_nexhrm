@@ -23,12 +23,12 @@
                     <td>
                         @item.Nickname
                     </td>                    
-                    <td>@item.WorkDate.Date.ToShortDateString()</td>
+                    <td>@item.WorkDate.Date.ToString("dd MMM, yyyy")</td>
                     <td>
                         @item.Type
                     </td>
                     <td>@item.Minutes</td>
-                    <td>@item.ModifiedDate.Date.ToShortDateString()</td>
+                    <td>@item.ModifiedDate.Date.ToString("dd MMM, yyyy")</td>
                     <td title="Edit">
                         <a href="/lateearly/Edit/@item.Id">
                             <i class='mdi mdi-border-color mdi-dark'></i>
