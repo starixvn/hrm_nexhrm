@@ -75,21 +75,24 @@
             return View(model);
         }
 
-        public ActionResult Edit(int empId, string fromDate, string toDate)
+        public ActionResult Edit(int empId, string from, string to)
         {
             GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria()
             {
                 EmployeeId = empId,
-                FromDate = DateTime.Parse(fromDate),
-                ToDate = DateTime.Parse(toDate)
+                FromDate = DateTime.Parse(from),
+                ToDate = DateTime.Parse(to)
             };
             PostnatalViewModel employee = postnatalService.GetById(criteria);
-
-            employee.OldEmpId = employee.EmpId;
-            employee.OldFromDate = employee.FromDate;
-            employee.OldToDate = employee.ToDate;
+            if (employee != null)
+            {
+                employee.OldEmpId = employee.EmpId;
+                employee.OldFromDate = employee.FromDate;
+                employee.OldToDate = employee.ToDate;
+            }
+            
             return View(employee);
-        }
+        }        
 
         [HttpPost]
         public ActionResult Edit(PostnatalViewModel model)
@@ -106,7 +109,7 @@
                     NewFromDate = model.FromDate,
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.Minutes,       
+                    Minutes = model.Minutes,
                     Type = model.Type
                 };
                 result = commandService.Update(criteria);

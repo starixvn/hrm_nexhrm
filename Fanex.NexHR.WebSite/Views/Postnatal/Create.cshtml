@@ -47,7 +47,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        <label>From date</label>
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="datepicker-button input--m left">
                                         @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col m-l--xl m-r--l">
                                     <div class="left label--m">
-                                        <label>To date</label>
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="datepicker-button input--m left">
                                         @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 1, 1))
