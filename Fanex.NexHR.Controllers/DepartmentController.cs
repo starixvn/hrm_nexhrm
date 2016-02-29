@@ -38,7 +38,6 @@
 
         public ActionResult Create()
         {
-            var criteria = new GetAllDepartmentCriteria();
             IList<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments;
 

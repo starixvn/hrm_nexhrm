@@ -12,21 +12,18 @@
     public class AjaxController : BaseController
     {
         private readonly IRequestService requestService;
-        private readonly IExtensionNoService extensionNoService;
         private readonly ICommandService commandService;
 
         public AjaxController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public AjaxController(
             IRequestService requestService,
-            IExtensionNoService extensionNoService,
             ICommandService commandService)
         {
             this.requestService = requestService ?? new RequestService();
-            this.extensionNoService = extensionNoService ?? new ExtensionNoService();
             this.commandService = commandService ?? new CommandService();
         }
 

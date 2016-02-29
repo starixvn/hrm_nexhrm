@@ -291,19 +291,23 @@
         {
             if (file != null && file.ContentLength > 0)
             {
-                var stream = new MemoryStream();
-                var processor = new ImageProcessor();
-                var resizer = new ResizeFilter(64, 64, ResizeMethod.Crop, AnchorLocation.Middle);
+                using (var stream = new MemoryStream())
+                {
+                    using (var processor = new ImageProcessor())
+                    {
+                        var resizer = new ResizeFilter(64, 64, ResizeMethod.Crop, AnchorLocation.Middle);
 
-                processor.AddFilter(resizer);
-                processor.OutputFormat = OutputFormat.Jpeg;
-                processor.JpegCompression = 100;
-                processor.ProcessImage(file.InputStream, stream);
+                        processor.AddFilter(resizer);
+                        processor.OutputFormat = OutputFormat.Jpeg;
+                        processor.JpegCompression = 100;
+                        processor.ProcessImage(file.InputStream, stream);
 
-                var image = Image.FromStream(stream);
-                image.Save(Server.MapPath("/avatars/") + code + ".jpg");
+                        var image = Image.FromStream(stream);
+                        image.Save(Server.MapPath("/avatars/") + code + ".jpg");
 
-                return Json(true);
+                        return Json(true);
+                    }
+                }
             }
 
             return Json(null);
@@ -339,12 +343,14 @@
         [HttpPost]
         public ActionResult PostFpsTransaction()
         {
-            Service serviceFPS = new Service();
-            var resultMessage = string.Empty;
-            var deviceCode = string.Empty;
-            serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
+            using (var serviceFPS = new Service())
+            {
+                var resultMessage = string.Empty;
+                var deviceCode = string.Empty;
+                serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
 
-            return Content(string.Empty);
+                return Content(string.Empty);
+            }
         }
 
         public ActionResult Birthday()
