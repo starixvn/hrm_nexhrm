@@ -81,6 +81,8 @@
             BuildBundleForSimplePagination(bundles);
 
             BuildBundleForLateEarly(bundles);
+
+            BuildBundleForPostnatal(bundles);
         }
 
         private static void BuildBundlerForOvertime(BundleCollection bundles)
@@ -467,6 +469,17 @@
             bundles.Add(new ScriptBundle("~/bundles/createlateearlyjs").Include(
                 "~/Scripts/Views/Request/search.request.js",
                 "~/Scripts/Views/LateInEarlyOut/create.js"));
+        }
+
+        private static void BuildBundleForPostnatal(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/postnatalemployeejs").Include(
+                "~/Scripts/Views/Postanal/postnatalemployee.js",
+                "~/Scripts/Views/_employee.search.in.company.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(                
+                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Postanal/create.js"));       
         }
     }
 }

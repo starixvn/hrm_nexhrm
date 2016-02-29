@@ -17,6 +17,8 @@
 
         public int Minutes { get; set; }
 
+        public int Type { get; set; }
+
         public override bool IsValid()
         {
             return EmployeeId > 0;

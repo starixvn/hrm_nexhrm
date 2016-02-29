@@ -34,11 +34,16 @@
 
         public ActionResult Create()
         {
-            return View(new PostnatalViewModel());
+            PostnatalViewModel model = new PostnatalViewModel()
+            {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public CommandResult Create(PostnatalViewModel model)
+        public ActionResult Create(PostnatalViewModel model)
         {
             CommandResult result = new CommandResult();
             if (ModelState.IsValid)
@@ -49,7 +54,8 @@
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.Minutes
+                    Minutes = model.Minutes,
+                    Type = model.Type
                 };
                 result = commandService.Insert(criteria);
                 if (result.Code == 0)
@@ -66,34 +72,42 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            return result;
+            return View(model);
         }
 
-        public ActionResult Edit(int empId, DateTime fromDate, DateTime toDate)
+        public ActionResult Edit(int empId, string fromDate, string toDate)
         {
             GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria()
             {
                 EmployeeId = empId,
-                FromDate = fromDate,
-                ToDate = toDate
+                FromDate = DateTime.Parse(fromDate),
+                ToDate = DateTime.Parse(toDate)
             };
             PostnatalViewModel employee = postnatalService.GetById(criteria);
+
+            employee.OldEmpId = employee.EmpId;
+            employee.OldFromDate = employee.FromDate;
+            employee.OldToDate = employee.ToDate;
             return View(employee);
         }
 
         [HttpPost]
-        public CommandResult Edit(Postnatal model)
+        public ActionResult Edit(PostnatalViewModel model)
         {
             CommandResult result = new CommandResult();
             if (ModelState.IsValid)
             {
-                InsertPostnatalCriteria criteria = new InsertPostnatalCriteria()
+                UpdatePostnatalCriteria criteria = new UpdatePostnatalCriteria()
                 {
-                    EmployeeId = model.EmpId,
-                    FromDate = model.FromDate,
-                    ToDate = model.ToDate,
+                    OldEmployeeId = model.OldEmpId,
+                    OldFromDate = model.OldFromDate,
+                    OldToDate = model.OldToDate,
+                    NewEmployeeId = model.EmpId,
+                    NewFromDate = model.FromDate,
+                    NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.Minutes
+                    Minutes = model.Minutes,       
+                    Type = model.Type
                 };
                 result = commandService.Update(criteria);
                 if (result.Code == 0)
@@ -110,10 +124,10 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            return result;
+            return View(model);
         }
 
-        public void Delete(int empId, DateTime toDate, DateTime fromDate)
+        public void Delete(int empId, DateTime fromDate, DateTime toDate)
         {
             DeletePostnatalCriteria criteria = new DeletePostnatalCriteria()
             {
@@ -124,12 +138,16 @@
             commandService.Delete(criteria);
         }
 
-        public IList<PostnatalViewModel> ListPostnatalEmployee()
+        public ActionResult ListPostnatalEmployee(int empId, int year)
         {
-            GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria();
+            GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria()
+            {
+                EmpId = empId,
+                Year = year
+            };
             List<PostnatalViewModel> listPostnatal = postnatalService.GetAll(criteria).ToList();
 
-            return listPostnatal;
+            return PartialView(listPostnatal);
         }
     }
 }

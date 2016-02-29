@@ -179,7 +179,7 @@ $(document).ready(function () {
     initEditor('Contents', 'basic');
     $("#error").hide();
 
-    initDatePicker();
+    //initDatePicker();
 
     var refNo = $("#RefNo").val(),
         subJect = $("#Subject").val(),

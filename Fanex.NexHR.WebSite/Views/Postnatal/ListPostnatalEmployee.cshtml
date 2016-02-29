@@ -20,7 +20,7 @@
         {
             foreach (PostnatalViewModel item in Model)
             {
-                <tr id="row_@(item.EmpId + item.FromDate.ToString() + item.ToDate.ToString())">
+                <tr id="row_@(item.EmpId + item.FromDate.ToOADate() + item.ToDate.ToOADate())">
                     <td>@(index++)</td>
                     <td>
                         @item.Nickname
@@ -28,17 +28,18 @@
                     <td>@item.FromDate.Date.ToShortDateString()</td>
                     <td>@item.ToDate.Date.ToShortDateString()</td>
                     <td>
-                        @item.Type
+                        @(item.Type==1?"Late in/Early out":"Break time")
                     </td>
                     <td>@item.Minutes</td>
+                    <td>@item.ModifiedBy</td>
                     <td>@item.ModifiedDate.ToShortDateString()</td>
                     <td title="Edit">
-                        <a href="/lateearly/Edit?empid=@item.EmpId + fromdate=@item.FromDate + &todate=@item.ToDate">
+                        <a href="/postnatal/Edit?empid=@item.EmpId&fromdate=@item.FromDate&todate=@item.ToDate">
                             <i class='mdi mdi-border-color mdi-dark'></i>
                         </a>
                     </td>
                     <td title="Delete">
-                        <a href="javascript:;" onclick="deleteRequest(@item.EmpId, @item.FromDate, @item.ToDate);">
+                        <a href="javascript:;" onclick="deleteRequest('@item.EmpId', '@item.FromDate', '@item.ToDate');">
                             <i class='mdi mdi-delete mdi-dark'></i>
                         </a>
                     </td>
@@ -47,7 +48,7 @@
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 8);
+            @RazorHelper.DisplayNoInformation(colspan: 10);
         }
     </tbody>
 </table>

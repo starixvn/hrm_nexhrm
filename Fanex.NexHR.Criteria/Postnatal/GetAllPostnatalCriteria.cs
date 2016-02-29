@@ -5,6 +5,10 @@
 
     public class GetAllPostnatalCriteria : CriteriaBase
     {
+        public int EmpId { get; set; }
+
+        public int Year { get; set; }
+
         public override bool IsValid()
         {
             return true;

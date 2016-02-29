@@ -7,6 +7,7 @@
 @section css {
 }
 @section js {    
+    @Scripts.Render("~/bundles/postnatalemployeejs")
 }
 @section Breadcrumb {
 }
@@ -21,11 +22,21 @@
                     <div class="form">
                         <div class="row form-input">
                             <div class="col">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        @Html.Label("Employee")
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("Employee", null, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.Hidden("EmployeeId")
+                                    </div>
+                                </div>
+
                                 <div class="left label--s">
                                     <label>@Labels.Year</label>
                                 </div>
                                 <div class="left select--xs">
-                                    @Html.YearPicker("Year", 2010, DateTime.Now.Year)
+                                    @Html.YearPicker("Year", 2010, DateTime.Now.Year, true)
                                 </div>
                             </div>
                             <div class="col m-l--m">

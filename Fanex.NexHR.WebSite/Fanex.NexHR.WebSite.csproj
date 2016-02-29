@@ -656,6 +656,7 @@
     <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
     <Content Include="Scripts\Views\OverTime\myOvertime.js" />
+    <Content Include="Scripts\Views\Postanal\create.js" />
     <Content Include="Scripts\Views\Postanal\postnatalemployee.js" />
     <Content Include="Scripts\Views\OverTime\overtime.member.js" />
     <Content Include="Scripts\Views\OverTime\overtimeRequest.js" />
@@ -769,6 +770,8 @@
     <Content Include="Views\Postnatal\ListPostnatalEmployee.cshtml" />
     <Content Include="Views\Overtime\MyOvertime.cshtml" />
     <Content Include="Views\Overtime\MyOvertimeResult.cshtml" />
+    <Content Include="Views\Postnatal\Create.cshtml" />
+    <Content Include="Views\Postnatal\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

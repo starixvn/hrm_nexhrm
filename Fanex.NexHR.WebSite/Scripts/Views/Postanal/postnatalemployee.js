@@ -7,8 +7,7 @@ function query(isFirstLoad) {
         type: 'GET',
         dataType: 'html',
         data: {
-            empId: _global.employeeId,
-            month: $('#Month').val(),
+            empId: $('#EmployeeId').val() == "" ? -1 : $('#EmployeeId').val(),
             year: $('#Year').val()
         },
         beforeSend: function () {
@@ -17,7 +16,7 @@ function query(isFirstLoad) {
             }
         },
         success: function (response) {
-            $('#listLateEarly').html(response);
+            $('#listPostnatalEmployee').html(response);
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -30,11 +29,10 @@ function query(isFirstLoad) {
     });
 }
 
-function deleteRequest(id, fileName, type) {
-    confirm('Are you sure you want to delete this request?', function () {
-        $.post(_global.root + 'lateearly/delete', { id: id }, function () {
-            $('#row_' + id).remove();
-            autoIndex();
+function deleteRequest(id, fromDate, toDate) {
+    confirm('Are you sure you want to delete this item?', function () {
+        $.post(_global.root + 'postnatal/delete', { empId: id, fromDate: fromDate, toDate: toDate }, function () {
+            query(false);
         });
     });
 }
