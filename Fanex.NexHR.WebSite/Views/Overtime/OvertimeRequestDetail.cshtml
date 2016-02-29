@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Overtime>
+﻿@model IList<EmployeeOvertime>
 
 @{
     Layout = null;
@@ -12,9 +12,9 @@
             <td>@(index++)</td>
             <td>@item.Employee.NickName</td>
             <td class="align-left">@item.Employee.FullName</td>
-            <td>@item.Date.ToDateMonthYearFormatedDate()</td>
+            <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
-            <td class="tooltip" title="@item.Description">
+            <td class="tooltip align-left" title="@item.Description">
                 @RazorHelper.DisplayLimitedString(item.Description)
             </td>
             <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>

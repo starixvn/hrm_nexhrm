@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria.Overtime;
+    using Fanex.Common.Helper;
     using Fanex.NexHR.ViewModels;
     using Interfaces;
     using Models;
@@ -11,7 +12,7 @@
 
     public class OvertimeService : BaseService, IOvertimeService
     {
-        private readonly IOvertimeRepository _repository;
+        private readonly IOvertimeRepository repository;
 
         public OvertimeService()
             : this(null)
@@ -20,47 +21,55 @@
 
         public OvertimeService(IOvertimeRepository repository)
         {
-            _repository = repository ?? new OvertimeRepository();
+            this.repository = repository ?? new OvertimeRepository();
         }
 
-        public IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria)
+        public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)
         {
-            var result = Enumerable.Empty<Overtime>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Overtime> overtimes = null;
             if (criteria.IsValid())
             {
-                result = _repository.ReportSummary(criteria);
+                overtimes = repository.GetOvertime(criteria);
             }
 
-            return result;
+            return overtimes ?? new List<Overtime>();
         }
 
-        public IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria)
+        public Overtime GetOvertimeById(GetOvertimeByIdCriteria criteria)
         {
-            var result = Enumerable.Empty<Overtime>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            Overtime overtime = null;
             if (criteria.IsValid())
             {
-                result = _repository.ReportDetail(criteria);
+                overtime = repository.GetOvertimeById(criteria);
             }
 
-            return result;
+            return overtime;
         }
 
-        public IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria)
+        public IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
         {
-            var result = Enumerable.Empty<Overtime>();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<EmployeeOvertime> overtimes = null;
             if (criteria.IsValid())
             {
-                result = _repository.GetMyReport(criteria);
+                overtimes = repository.GetEmployeeOvertime(criteria);
             }
 
-            return result;
+            return overtimes ?? new List<EmployeeOvertime>();
         }
 
-        public Overtime Get(GetByIdCriteria criteria)
+        public IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria)
         {
-            var model = _repository.Get(criteria);
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<EmployeeOvertime> overtimes = null;
+            if (criteria.IsValid())
+            {
+                overtimes = repository.GetEmployeeOvertime(criteria);
+            }
 
-            return model;
+            return overtimes ?? new List<EmployeeOvertime>();
         }
     }
 }

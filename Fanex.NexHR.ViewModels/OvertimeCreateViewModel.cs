@@ -1,24 +1,25 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Core.Enums;
-    using Models;
-    using Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Core.Enums;
+    using Models;
+    using Resources;
 
-    public class OvertimeCreateViewModel
+    public class CreateOvertimeViewModel
     {
-        public OvertimeCreateViewModel()
+        public CreateOvertimeViewModel()
         {
             Date = DateTime.Now;
-            Hour = 2;
+            Hour = 0;
             Status = (int)RequestStatuse.Pending;
             IsApprove = true;
             TimeSheets = new List<OvertimeRecord>();
         }
 
         public int Id { get; set; }
+
         [Display(Name = "Date", ResourceType = typeof(Labels))]
         [Required]
         public DateTime Date { get; set; }
@@ -30,7 +31,6 @@
         public bool IsApprove { get; set; }
 
         [Display(Name = "Hours", ResourceType = typeof(Labels))]
-        [Range(minimum: 0.5, maximum: 8)]
         public float Hour { get; set; }
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]

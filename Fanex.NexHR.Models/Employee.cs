@@ -194,9 +194,7 @@ namespace Fanex.NexHR.Models
         {
             get
             {
-                return (string.IsNullOrEmpty(NickName) || string.IsNullOrEmpty(FullName))
-                ? string.Empty
-                : NickName + " (" + FullName + ")";
+                return NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
             }
         }
 

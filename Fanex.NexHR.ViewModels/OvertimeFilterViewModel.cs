@@ -5,13 +5,13 @@
     using Core.Enums;
     using Resources;
 
-    public class OvertimeFilterViewModel
+    public class MemberOvertimeViewModel
     {
-        public OvertimeFilterViewModel()
+        public MemberOvertimeViewModel()
         {
-            FromDate = DateTime.Now;
+            FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             ToDate = DateTime.Now;
-            Status = (int)RequestStatuse.Pending;
+            Status = 0;
         }
 
         [DataType(DataType.Date)]

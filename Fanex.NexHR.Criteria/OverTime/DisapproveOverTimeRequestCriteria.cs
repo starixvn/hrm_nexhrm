@@ -14,5 +14,10 @@
         {
             return "Overtime_DisapproveRequest";
         }
+
+        public override bool IsValid()
+        {
+            return Id > 0 && Status > 0;
+        }
     }
 }

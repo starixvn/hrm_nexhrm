@@ -3,13 +3,13 @@
     using Fanex.Data.Repository;
     using System;
 
-    public class GetMyReportCriteria : CriteriaBase
+    public class GetMyOvertimeCriteria : CriteriaBase
     {
+        public int EmployeeId { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
-
-        public int EmployeeId { get; set; }
 
         public override string GetSettingKey()
         {

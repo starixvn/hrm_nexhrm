@@ -7,12 +7,12 @@
 
     public interface IOvertimeService
     {
-        IEnumerable<Overtime> ReportSummary(ReportSummaryCriteria criteria);
+        IList<Overtime> GetOvertime(GetOvertimeCriteria criteria);
 
-        IEnumerable<Overtime> ReportDetail(ReportDetailCriteria criteria);
+        Overtime GetOvertimeById(GetOvertimeByIdCriteria criteria);
 
-        Overtime Get(GetByIdCriteria criteria);
+        IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria);
 
-        IEnumerable<Overtime> GetMyReport(GetMyReportCriteria criteria);
+        IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria);
     }
 }

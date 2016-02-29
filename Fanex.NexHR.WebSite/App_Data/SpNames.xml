@@ -245,14 +245,7 @@
     <Setting Key="Overtime_RejectRequest" SpName="Overtime_RejectRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetById" SpName="Overtime_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="CreatedId" ObjectProperty="Id" />
-      <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
-      <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
-      <Mapping DataField="ModifiedId" ObjectProperty="Id" />
-      <Mapping DataField="ModifiedNickName" ObjectProperty="NickName" />
-      <Mapping DataField="ModifiedFullName" ObjectProperty="FullName" />
       <Mapping DataField="EmployeeId" ObjectProperty="Id" />
-      <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
-      <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
     </Setting>
     <Setting Key="Overtime_Update" SpName="Overtime_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_ApproveRequest" SpName="Overtime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>

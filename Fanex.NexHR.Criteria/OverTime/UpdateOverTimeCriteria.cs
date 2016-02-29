@@ -39,7 +39,27 @@
 
         public override bool IsValid()
         {
-            return TimeSheets.Count > 0;
+            return Id > 0 && TimeSheets.Count > 0 && IsValidOvertimeDetail();
+        }
+
+        private bool IsValidOvertimeDetail()
+        {
+            bool isValid = true;
+            int i = 0;
+            while (isValid && i < TimeSheets.Count)
+            {
+                if (TimeSheets[i].Employee == null 
+                    || TimeSheets[i].Employee.Id <= 0 
+                    || TimeSheets[i].Hour <= 0
+                    || TimeSheets[i].Hour > 8)
+                {
+                    isValid = false;
+                }
+
+                i++;
+            }
+
+            return isValid;
         }
     }
 }

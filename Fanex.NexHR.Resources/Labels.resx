@@ -1293,4 +1293,7 @@
   <data name="UserWarning" xml:space="preserve">
     <value>User Warning</value>
   </data>
+  <data name="CreateNewOT" xml:space="preserve">
+    <value>Create Overtime</value>
+  </data>
 </root>

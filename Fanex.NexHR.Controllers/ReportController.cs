@@ -6,44 +6,34 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Criteria.Report;
-    using Fanex.NexHR.Criteria.Team;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.AnnualLeave;
     using Fanex.NexHR.Models.Report;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.AnnualLeave;
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
 
-    [Authorize]
     public class ReportController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IReportService _reportService;
-        private readonly ITeamService _teamService;
-        private readonly IOvertimeService _overtimeService;
+        private readonly IEmployeeService employeeService;
+        private readonly IReportService reportService;
+        private readonly ITeamService teamService;
 
         public ReportController(
-            IEmployeeService employeeService = null,
-            IReportService reportService = null,
-            ITeamService teamService = null,
-            IOvertimeService overtimeService = null)
+            IEmployeeService employeeService,
+            IReportService reportService,
+            ITeamService teamService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _reportService = reportService ?? new ReportService();
-            _teamService = teamService ?? new TeamService();
-            _overtimeService = overtimeService ?? new OvertimeService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.reportService = reportService ?? new ReportService();
+            this.teamService = teamService ?? new TeamService();
         }
 
         public ReportController()
-            : this(null, null, null, null)
+            : this(null, null, null)
         {
         }
 
@@ -67,7 +57,7 @@
 
             model.CurrentPage = Constants.CurrentPage;
             model.ItemsPerPage = Constants.ItemsPerPage;
-            model.Teams = _teamService.GetAll();
+            model.Teams = teamService.GetAll();
 
             return View(model);
         }
@@ -91,7 +81,7 @@
                 PageIndex = model.CurrentPage - 1
             };
 
-            IList<EmployeeAttendanceModel> attendances = _reportService.GetEmployeeAttendanceReport(criteria);
+            IList<EmployeeAttendanceModel> attendances = reportService.GetEmployeeAttendanceReport(criteria);
 
             var pagerOption = new PagerOptionModel()
             {
@@ -131,7 +121,7 @@
                 EmployeeId = model.EmpId
             };
 
-            IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             return PartialView(employeeAttendances);
         }
@@ -178,7 +168,7 @@
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    requestMonitorings = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
+                    requestMonitorings = reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
@@ -232,7 +222,7 @@
                         EmployeeId = this.CurrentUser.Id
                     };
 
-                    requestMonitorings = _reportService.GetRequestMonitoring(getRequestMonitorCriteria);
+                    requestMonitorings = reportService.GetRequestMonitoring(getRequestMonitorCriteria);
                 }
             }
 
@@ -250,7 +240,7 @@
 
         public ActionResult TotalWorkingHours()
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var model = new TotalWorkingHoursViewModel
             {
@@ -289,81 +279,18 @@
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> totalWorkingHours = reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Total Working Hours
 
-        #region Overtime Request
-
-        public ActionResult MyOvertime()
-        {
-            var filter = new TimeRecordViewModel
-            {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now
-            };
-
-            return View(filter);
-        }
-
-        [HttpPost]
-        public ActionResult MyOvertimeResult(TimeRecordViewModel filter)
-        {
-            var criteria = new GetMyReportCriteria
-            {
-                EmployeeId = CurrentUser.Id,
-                FromDate = filter.FromDate,
-                ToDate = filter.ToDate
-            };
-            IEnumerable<Overtime> viewModel = _overtimeService.GetMyReport(criteria);
-
-            return View(viewModel);
-        }
-
-        public ActionResult OvertimeRequest(OvertimeFilterViewModel model)
-        {
-            if (model.EmployeeId.HasValue)
-            {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
-
-            if (model.CreatedBy.HasValue)
-            {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
-                model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult OvertimeRequestDetail(OvertimeFilterViewModel model)
-        {
-            var criteria = new ReportDetailCriteria
-            {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                CreatedBy = model.CreatedBy,
-                Status = model.Status,
-                EmployeeId = model.EmployeeId
-            };
-
-            IEnumerable<Overtime> result = _overtimeService.ReportDetail(criteria);
-
-            return View(result);
-        }
-
-        #endregion Overtime Request
-
         #region Late In/Early Out
 
         public ActionResult LateInEarlyOut()
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var model = new LateInEarlyOutViewModel()
             {
@@ -377,7 +304,7 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var criteria = new GetLateInEarlyOutReportCriteria
             {
@@ -386,14 +313,14 @@
                 Year = model.Year
             };
 
-            IList<LateInEarlyOutModel> lateInEarlyOuts = _reportService.GetLateInEarlyOut(criteria);
+            IList<LateInEarlyOutModel> lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
 
             if (model.TeamId.HasValue)
             {
                 teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
             }
 
-            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = _reportService.GetLateInEarlyOutByTeam(lateInEarlyOuts, teams);
+            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = reportService.GetLateInEarlyOutByTeam(lateInEarlyOuts, teams);
 
             ViewBag.Year = model.Year;
 
@@ -407,7 +334,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var model = new LateInEarlyOutDetailViewModel
             {
@@ -422,7 +349,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
-                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Employee = employee.DisplayName;
             }
 
@@ -441,14 +368,14 @@
                 ToDate = model.ToDate
             };
 
-            IList<LateInEarlyOutDetail> lateInEarlyOuts = _reportService.GetLateInEarlyOutDetail(criteria);
+            IList<LateInEarlyOutDetail> lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
 
             return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LateInEarlyOutDiscipline()
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
             var today = DateTime.Today;
 
             var model = new LateInEarlyOutSummaryViewModel()
@@ -466,7 +393,7 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var criteria = new GetLateInEarlyOutSummaryCriteria
             {
@@ -477,14 +404,14 @@
                 IsUserWarning = model.IsUserWarning
             };
 
-            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = _reportService.GetLateInEarlyOutSummary(criteria);
+            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = reportService.GetLateInEarlyOutSummary(criteria);
 
             if (model.TeamId.HasValue)
             {
                 teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
             }
 
-            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = _reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
+            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
 
             return PartialView(lateInEarlyOutByTeam);
         }
@@ -499,7 +426,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var model = new LeaveDeductionDetailViewModel
             {
@@ -513,7 +440,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
-                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
             }
@@ -532,7 +459,7 @@
                 ToDate = model.ToDate
             };
 
-            IList<LeaveDeductionDetail> leaveDeductions = _reportService.GetLeaveDeductionDetail(criteria);
+            IList<LeaveDeductionDetail> leaveDeductions = reportService.GetLeaveDeductionDetail(criteria);
 
             return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
         }
@@ -577,7 +504,7 @@
                 ItemsPerPage = model.ItemsPerPage
             };
 
-            IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
+            IList<TimeRecordModel> timeRecords = reportService.GetTimeRecords(criteria);
 
             var pagerOption = new PagerOptionModel()
             {
@@ -600,7 +527,7 @@
                 toDate = DateTime.Now.Date;
             }
 
-            IList<Team> teams = _teamService.GetAll();
+            IList<Team> teams = teamService.GetAll();
 
             var model = new TimeRecordViewModel
             {
@@ -629,7 +556,7 @@
                 ItemsPerPage = model.ItemsPerPage
             };
 
-            IList<TimeRecordModel> timeRecords = _reportService.GetTimeRecords(criteria);
+            IList<TimeRecordModel> timeRecords = reportService.GetTimeRecords(criteria);
 
             var pagerOption = new PagerOptionModel()
             {

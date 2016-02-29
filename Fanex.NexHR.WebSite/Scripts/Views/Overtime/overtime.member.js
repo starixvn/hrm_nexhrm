@@ -66,8 +66,9 @@ function bindApproveMenu() {
 
 function loadSummary() {
     $('.loading-process').fadeIn(200);
-    $.post(_global.root + "Overtime/ReportSummary", $("#form").serialize(), function (response) {
+    $.post(_global.root + "Overtime/MemberOvertimeData", $("#form").serialize(), function (response) {
         $("#data tbody").html(response);
+        initTooltip();
         $('.loading-process').fadeOut(500);
     });
 };
@@ -77,6 +78,18 @@ function initSubmitButton() {
         loadSummary();
     });
 };
+
+function initTooltip() {
+    var linkDays = $(".contextmenu");
+
+    linkDays.mouseover(function () {
+        $(this).find(".drop-menu").show();
+    });
+
+    linkDays.mouseout(function () {
+        $(this).find(".drop-menu").hide();
+    });
+}
 
 function approveRequest(id) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {

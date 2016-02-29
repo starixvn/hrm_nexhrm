@@ -19,7 +19,7 @@ namespace Fanex.NexHR.ViewModels
 
     public class MySpaceViewModel
     {
-        private const string _DisplayCellTpl = "<span class='lnk-days'><a href='javascript:;'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
+        private const string _DisplayCellTpl = "<span class='contextmenu'><a href='javascript:;'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
         private const string _DisplayCellDetailTpl = "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
         public decimal AnnualLeaveBalance { get; set; }

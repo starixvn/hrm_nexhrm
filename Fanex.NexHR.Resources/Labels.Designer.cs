@@ -736,6 +736,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Overtime.
+        /// </summary>
+        public static string CreateNewOT {
+            get {
+                return ResourceManager.GetString("CreateNewOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New OT Request.
         /// </summary>
         public static string CreateOTRequest {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Overtime>
+﻿@model IList<EmployeeOvertime>
 
 @{
     Layout = null;
@@ -10,13 +10,13 @@
     {
         <tr>
             <td>@(index++)</td>
-            <td class="align-left">@item.CreatedBy.DisplayName</td>
-            <td>@item.Date.ToDateMonthYearFormatedDate()</td>
+            <td>@item.Employee.NickName</td>
+            <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td class="tooltip" title="@item.Description">
                 @RazorHelper.DisplayLimitedString(item.Description)
             </td>
-
+            <td>@item.CreatedBy.NickName</td>
             @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td class="c-approve">@Labels.Approved</td>

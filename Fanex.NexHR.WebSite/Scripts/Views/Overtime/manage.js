@@ -22,42 +22,25 @@ function initValidationForHour() {
 function createRow(nick, id) {
     generateFooter();
     var hour = $('#Hour').val();
-    timeSheets.push({ EmployeeId: id, DisplayName: nick, Hour: parseFloat(hour) });
     var row = '<tr class="sortedIndex" id="row_' + id + '">' +
-                '<td>' + timeSheets.length + '</td>' +
-                '<td  class="align-left">' + nick + '</td>' +
-                '<td><input class="row_hour" id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
+                '<td>' + ($("#timeSheets").find("tr.sortedIndex").length + 1) + '</td>' +
+                '<td  class="align-left row_name">' + nick + '</td>' +
+                '<td><input class="row_hour" data-id="'+ id +'" id="row_hour_' + id + '" type="number" value="' + hour + '" step = "0.5" /> </td>' +
                 '<td><a href="javascript:;" onclick="deleteRow(' + id + ');"><i class="mdi mdi-delete mdi-dark"></i></a></td>' +
                 '</tr>';
     $('#timeSheets').append(row);
     initValidationForHour();
-    $("#row_hour_" + id).change(function () {
-        changeHour(id, $(this).val());
-    })
 };
 function generateFooter() {
-    if (timeSheets.length === 0) {
+    if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
         $('#timeSheets').html('');
     }
 };
 
-function changeHour(employeeId, value) {
-    $(timeSheets).each(function (index, element) {
-        if (element.EmployeeId === employeeId) {
-            element.Hour = parseFloat(value);
-        }
-    })
-};
-
 function deleteRow(id) {
     $('#row_' + id).remove();
-    $(timeSheets).each(function (index, element) {
-        if (element.EmployeeId === id) {
-            timeSheets.splice(index, 1);
-        }
-    });
 
-    if (timeSheets.length == 0) {
+    if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
         var row = '<tr><td colspan="4"></td></tr><tr><td colspan="4">No Employee</td></tr>';
         $('#timeSheets').append(row);
     } else {
@@ -140,10 +123,26 @@ function initEmployeeAutocomplete() {
     });
 };
 
-function bindingTimeSheetGrid() {
-    var timeSheetData = $("#TimeSheetData").val();
-    if (timeSheetData != "") {
-        timeSheets = JSON.parse(timeSheetData);
+function getTimeRecord()
+{
+    var overtimes = $("#timeSheets").find("tr.sortedIndex");
+    if (overtimes.length > 0) {
+        var timeRecords = [];
+        for (var i = 0; i < overtimes.length; i++) {
+            var employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
+            var hour = $($(overtimes[i]).find("input.row_hour").first()).val();
+            var nickName = $($(overtimes[i]).find(".row_name").first()).html();
+            timeRecords.push({
+                Employee: {
+                    Id: employeeId,
+                    NickName: nickName
+                }, Hour: parseFloat(hour)
+            });
+        }
+
+        $("#TimeSheetData").val(JSON.stringify(timeRecords));
+    }
+    else {
         $("#TimeSheetData").val("");
     }
 }
@@ -155,13 +154,18 @@ $(document).ready(function () {
     initEmployeeAutocomplete();
 
     $("#form").submit(function () {
-        if (timeSheets.length > 0) {
-            $("#TimeSheetData").val(JSON.stringify(timeSheets));
-        }
+        getTimeRecord();
     });
 
     initValidationForHour();
 
-    bindingTimeSheetGrid();
+    var successed = $('#successed').val();
+    if (successed === 'true') {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + 'Overtime/MemberOvertime';
+                }
+            );
+    }
 });
 

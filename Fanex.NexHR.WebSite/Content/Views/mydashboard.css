@@ -151,30 +151,6 @@
   position: relative;
   width: 100%; }
 
-.lnk-days {
-  position: relative; }
-  .lnk-days .drop-menu {
-    z-index: 999;
-    position: absolute;
-    left: 0;
-    top: 1.7rem;
-    padding: 0;
-    background: #f7f5f5;
-    min-width: 12rem;
-    display: none;
-    border-bottom: 0.1rem solid #d2d2d2; }
-    .lnk-days .drop-menu li {
-      border: 0.1rem solid #d2d2d2;
-      padding: .3rem 0;
-      text-align: left;
-      border-bottom: none; }
-      .lnk-days .drop-menu li .mdi-navigation-chevron-right {
-        margin: 0 .2rem;
-        color: #f4783d;
-        font-size: 1.6rem; }
-    .lnk-days .drop-menu.list-unstyled {
-      list-style: none; }
-
 .dashboardCalendar {
   width: auto !important; }
   .dashboardCalendar .fc-scroller {

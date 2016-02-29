@@ -385,7 +385,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Employee.
+        ///   Looks up a localized string similar to Employee list mus be not empty..
         /// </summary>
         public static string RequiredEmployee {
             get {

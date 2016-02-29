@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Overtime>
+
+@{
+    Layout = null;
+    var index = 1;
+}
+@if (Model.Any())
+{
+    foreach (Overtime item in Model)
+    {
+        <tr>
+            <td>@(index++)</td>
+            <td class="align-left">@item.CreatedBy.DisplayName</td>
+            <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
+            <td>
+                <span class='contextmenu'>
+                    <a href='javascript:;'>@item.Totalhours</a>
+                    <ul class='list-unstyled drop-menu'>
+                        @foreach (OvertimeRecord detail in item.OvertimeRecords)
+                        {
+                            <li><span class='mdi-navigation-chevron-right'></span><span>@detail.Employee.NickName: @detail.Hour</span></li>
+                        }
+
+                    </ul>
+                </span>
+            </td>
+            <td>@Html.ActionLink(item.TotalMember.ToString(), "overtimerequest", "overtime", new { @CreatedBy = item.CreatedBy.Id, @FromDate = item.OnDate.ToString("dd MMMM, yyyy"), @ToDate = item.OnDate.ToString("dd MMMM, yyyy"), @Status = item.Status }, null)</td>
+            <td class="align-left">
+                @if (item.Description.Length > 50)
+                {
+                    <span class="tooltip" title="@item.Description">
+                        @RazorHelper.DisplayLimitedString(item.Description)
+                    </span>
+                }
+                else
+                {
+                    <span>@item.Description</span>
+                }
+            </td>
+
+            @if (item.Status == (int)RequestStatuse.Pending)
+            {
+                <td>
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
+                        @Labels.Pending<i class="mdi-navigation-arrow-drop-down"></i>
+                    </a>
+                </td>
+            }
+            @if (item.Status == (int)RequestStatuse.Approve)
+            {
+                <td>
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
+                        @Labels.Approved<i class="mdi-navigation-arrow-drop-down"></i>
+                    </a>
+                </td>
+            }
+
+            @if (item.Status == (int)RequestStatuse.Reject)
+            {
+                <td class="c-reject">
+                    @Labels.Rejected
+                </td>
+            }
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="7"></td>
+    </tr>
+    <tr>
+        <td colspan="7">@Labels.NoData</td>
+    </tr>
+}

@@ -382,3 +382,38 @@ main {
         }
     }
 }
+
+.contextmenu
+{
+    position: relative;
+
+    .drop-menu 
+    {
+        z-index: 999;
+        position: absolute;
+        left: 0;
+        top: 1.7rem;
+        padding: 0;
+        background: #f7f5f5;
+        min-width: 12rem;
+        display: none;
+        border-bottom: .1rem solid $c-border-table;
+
+        li {
+            border: .1rem solid $c-border-table;
+            padding: .3rem 0;
+            text-align: left;
+            border-bottom: none;
+
+            .mdi-navigation-chevron-right {
+                margin: 0 .2rem;
+                color: #f4783d;
+                font-size: 1.6rem;
+            }
+        }
+
+        &.list-unstyled {
+            list-style: none;
+        }
+    }
+}

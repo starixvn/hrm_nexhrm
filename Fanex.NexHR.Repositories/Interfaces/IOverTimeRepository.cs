@@ -6,12 +6,12 @@
 
     public interface IOvertimeRepository
     {
-        IEnumerable<Overtime> ReportSummary(ICriteria criteria);
+        IList<Overtime> GetOvertime(ICriteria criteria);
+
+        Overtime GetOvertimeById(ICriteria criteria);
 
         IEnumerable<Overtime> ReportDetail(ICriteria criteria);
 
-        Overtime Get(ICriteria criteria);
-
-        IEnumerable<Overtime> GetMyReport(ICriteria criteria);
+        IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria);
     }
 }

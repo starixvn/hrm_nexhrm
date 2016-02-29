@@ -654,9 +654,10 @@
     <Content Include="Scripts\Views\LateInEarlyOut\create.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
-    <Content Include="Scripts\Views\OverTime\reportSummary.js" />
+    <Content Include="Scripts\Views\OverTime\myOvertime.js" />
     <Content Include="Scripts\Views\Postanal\postnatalemployee.js" />
-    <Content Include="Scripts\Views\Report\overtimeRequest.js" />
+    <Content Include="Scripts\Views\OverTime\overtime.member.js" />
+    <Content Include="Scripts\Views\OverTime\overtimeRequest.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
@@ -737,11 +738,11 @@
     <Content Include="Views\AnnualLeave\_Index.cshtml" />
     <Content Include="Views\AnnualLeave\_Employee.cshtml" />
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
-    <Content Include="Views\OverTime\Create.cshtml" />
-    <Content Include="Views\Report\OvertimeRequest.cshtml" />
+    <Content Include="Views\Overtime\Create.cshtml" />
+    <Content Include="Views\Overtime\OvertimeRequest.cshtml" />
     <Content Include="Scripts\Views\OverTime\manage.js" />
-    <Content Include="Views\Report\OvertimeRequestDetail.cshtml" />
-    <Content Include="Views\OverTime\Edit.cshtml" />
+    <Content Include="Views\Overtime\OvertimeRequestDetail.cshtml" />
+    <Content Include="Views\Overtime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\ListTimeRecord.cshtml" />
     <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
@@ -751,8 +752,8 @@
     <Content Include="Views\Report\_AttendanceDetail.cshtml" />
     <Content Include="Views\Employee\MyProfile.cshtml" />
     <Content Include="Views\Dashboard\ToDoList.cshtml" />
-    <Content Include="Views\OverTime\ReportSummary.cshtml" />
-    <Content Include="Views\OverTime\Index.cshtml" />
+    <Content Include="Views\Overtime\MemberOvertimeData.cshtml" />
+    <Content Include="Views\Overtime\MemberOvertime.cshtml" />
     <Content Include="Views\LateEarly\Index.cshtml" />
     <Content Include="Views\Report\LateInEarlyOutDiscipline.cshtml" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.discipline.js" />
@@ -765,6 +766,8 @@
     <Content Include="Views\LateEarly\Edit.cshtml" />
     <Content Include="Views\Postnatal\Index.cshtml" />
     <Content Include="Views\Postnatal\ListPostnatalEmployee.cshtml" />
+    <Content Include="Views\Overtime\MyOvertime.cshtml" />
+    <Content Include="Views\Overtime\MyOvertimeResult.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

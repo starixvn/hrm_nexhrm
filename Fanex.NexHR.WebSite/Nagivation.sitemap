@@ -6,12 +6,13 @@
       <siteMapNode title="My Dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
       <siteMapNode title="Late in/Early out" controller="LateEarly" action="index" icon="alarm" />
-      <siteMapNode title="Member Overtime" controller="overtime" action="index" icon="timetable" team="PM" roles="HR,AssistantLeader,Leader,SA" />
+      
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
       <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
       <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
       <siteMapNode title="My Calendar" controller="employee" action="myworkingschedule" icon="calendar-check" />
-      <siteMapNode title="My Overtime" controller="report" action="myovertime" icon="calendar-clock" />
+      <siteMapNode title="My Overtime" controller="overtime" action="myovertime" icon="calendar-clock" />
+      <siteMapNode title="Member Overtime" controller="overtime" action="MemberOvertime" icon="timetable" team="PM" roles="HR,AssistantLeader,Leader,SA" />
       <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
       <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
       <siteMapNode title="My Profile" controller="employee" action="myprofile" icon="account-box-outline" />
@@ -33,7 +34,7 @@
       <siteMapNode title="Staff TOEIC Score" controller="toeic" action="toeicmanagement" icon="trophy-award" />
       <siteMapNode title="Working Calendar" controller="calendar" action="workingcalendars" icon="calendar" />
       <siteMapNode title="Employee Requests" controller="request" action="employeeview"  icon="account-box" />
-      <siteMapNode title="Overtime Requests" controller="report" action="overtimerequest" icon="timetable" />
+      <siteMapNode title="Overtime Requests" controller="overtime" action="overtimerequest" icon="timetable" />
       <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
       <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyout" icon="alarm" />
       <siteMapNode title="Leave Summary" controller="annualleave" action="index" icon="clipboard-text" />

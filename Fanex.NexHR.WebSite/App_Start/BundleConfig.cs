@@ -89,13 +89,13 @@
                          "~/Scripts/Views/Overtime/manage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimerequestjs").Include(
-                         "~/Scripts/Views/Report/overtimeRequest.js"));
+                         "~/Scripts/Views/Overtime/overtimeRequest.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
-             "~/Scripts/Views/Overtime/reportSummary.js"));
+            bundles.Add(new ScriptBundle("~/bundles/overtimememberjs").Include(
+             "~/Scripts/Views/Overtime/overtime.member.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/myovertimejs").Include(
-             "~/Scripts/Views/Report/myOvertime.js"));
+             "~/Scripts/Views/Overtime/myOvertime.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

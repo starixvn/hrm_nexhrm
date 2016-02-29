@@ -9,6 +9,69 @@
 
     public class OvertimeRepository : IOvertimeRepository
     {
+        public IList<Overtime> GetOvertime(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
+                        (ot, cre) =>
+                        {
+                            ot.CreatedBy = cre;
+                            return ot;
+                        },
+                        "CreatedId").ToList();
+
+                    IEnumerable<OvertimeRecord> overtimeRecords =
+                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
+                       (ot, emp) =>
+                       {
+                           ot.Employee = emp;
+                           return ot;
+                       },
+                        "EmployeeId");
+
+                    foreach (Overtime overtime in overtimes)
+                    {
+                        overtime.OvertimeRecords = overtimeRecords.Where(t => t.Id == overtime.Id).ToList();
+                    }
+
+                    return overtimes;
+                }
+            }
+        }
+
+        public Overtime GetOvertimeById(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
+                        (ot, cre) =>
+                        {
+                            ot.CreatedBy = cre;
+                            return ot;
+                        },
+                        "CreatedId").FirstOrDefault();
+
+                    IEnumerable<OvertimeRecord> overtimeRecords =
+                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
+                       (ot, emp) =>
+                       {
+                           ot.Employee = emp;
+                           return ot;
+                       },
+                        "EmployeeId");
+
+                    overtimeRequest.OvertimeRecords = overtimeRecords.ToList();
+
+                    return overtimeRequest;
+                }
+            }
+        }
+
         public IEnumerable<Overtime> ReportDetail(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -27,67 +90,21 @@
             }
         }
 
-        public IEnumerable<Overtime> ReportSummary(ICriteria criteria)
+        public IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var result = db.Query<Overtime, Employee, Overtime>(
-                    (o, e1) =>
+                var employeeOvertimes = db.Query<EmployeeOvertime, Employee, Employee, EmployeeOvertime>(
+                    (o, e, cr) =>
                     {
-                        o.CreatedBy = e1;
+                        o.Employee = e;
+                        o.CreatedBy = cr;
                         return o;
                     },
-                    "CreatedId",
-                    criteria.GetSpParams());
+                    "EmployeeId, CreatedId",
+                    criteria.GetSpParams()).ToList();
 
-                return result;
-            }
-        }
-
-        public IEnumerable<Overtime> GetMyReport(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var result = db.Query<Overtime, Employee, Overtime>(
-                    (o, e1) =>
-                    {
-                        o.CreatedBy = e1;
-                        return o;
-                    },
-                    "CreatedId",
-                    criteria.GetSpParams());
-
-                return result;
-            }
-        }
-
-        public Overtime Get(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
-                {
-                    Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
-                        (ot, cre) =>
-                        {
-                            ot.CreatedBy = cre;
-                            return ot;
-                        },
-                        "EmployeeId").FirstOrDefault();
-
-                    IEnumerable<OvertimeRecord> overtimeRecords =
-                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
-                       (ot, emp) =>
-                       {
-                           ot.Employee = emp;
-                           return ot;
-                       },
-                        "EmployeeId");
-
-                    overtimeRequest.OvertimeRecords = overtimeRecords.ToList();
-
-                    return overtimeRequest;
-                }
+                return employeeOvertimes;
             }
         }
     }
