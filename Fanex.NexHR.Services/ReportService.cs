@@ -88,8 +88,6 @@
             return lateInEarlyOuts ?? new List<LateInEarlyOutDetail>();
         }
 
-        
-
         public IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria)
         {
             IList<RequestsMonitoring> requestsMonitorings = null;

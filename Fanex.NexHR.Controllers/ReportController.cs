@@ -93,7 +93,6 @@
 
         public JsonResult GetEmployeeAttendances(EmployeeAttendanceViewModel model)
         {
-            
             if (model.GroupId == -1)
             {
                 model.GroupId = null;
@@ -383,8 +382,6 @@
 
             return PartialView(lateInEarlyOutByTeam);
         }
-
-        
 
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
