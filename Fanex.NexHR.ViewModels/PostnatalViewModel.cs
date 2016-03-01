@@ -40,8 +40,16 @@ namespace Fanex.NexHR.ViewModels
             {
                 List<SelectListItem> listTypes = new List<SelectListItem>()
                 {
-                    new SelectListItem() {Text = "Late in/Early out", Value = "1"},
-                    new SelectListItem() {Text = "Break time", Value = "2"}
+                    new SelectListItem() 
+                    {
+                        Text = "Late in/Early out", 
+                        Value = "1"
+                    },
+                    new SelectListItem() 
+                    {
+                        Text = "Break time", 
+                        Value = "2"
+                    }
                 };
                 if (Type != 0)
                 {
@@ -65,6 +73,7 @@ namespace Fanex.NexHR.ViewModels
 
                 return listTypes;
             }
+
             set 
             {
             }
