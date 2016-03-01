@@ -21,6 +21,7 @@ function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'report/GetEmployeeAttendances',
         data: $('form').serialize(),
+        method: 'POST',
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
