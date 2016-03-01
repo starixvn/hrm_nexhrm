@@ -36,8 +36,11 @@
         {
             PostnatalViewModel model = new PostnatalViewModel()
             {
+                EmpId = CurrentUser.Id,
                 FromDate = DateTime.Now,
-                ToDate = DateTime.Now
+                ToDate = DateTime.Now,
+                Type = 0,
+                Minutes = 30
             };
             return View(model);
         }
@@ -55,8 +58,8 @@
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.Type
-                };
+                    Type = model.Types.Count == 2 ? 3 : model.Types[0]
+                };                
                 result = commandService.Insert(criteria);
                 if (result.Code == 0)
                 {
@@ -66,10 +69,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -110,7 +109,7 @@
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.Type
+                    Type = model.Types.Count == 2 ? 3 : model.Types[0]
                 };
                 result = commandService.Update(criteria);
                 if (result.Code == 0)

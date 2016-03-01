@@ -28,7 +28,7 @@
                     <td>@item.FromDate.Date.ToString("dd MMM, yyyy")</td>
                     <td>@item.ToDate.Date.Date.ToString("dd MMM, yyyy")</td>
                     <td>
-                        @(item.Type==1?"Late in/Early out":"Break time")
+                        @(item.Type == 1 ? "Late in/Early out" : (item.Type == 2 ? "Break time" : "Late in/Early out/Break time"))
                     </td>
                     <td>@item.Minutes</td>
                     <td>@item.ModifiedBy</td>

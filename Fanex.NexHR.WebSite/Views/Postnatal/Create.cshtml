@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            @*<div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.Type, Labels.Type)
@@ -78,6 +78,16 @@
                                                 };
                                         }
                                         @Html.DropDownListFor(model => model.Type, new SelectList(typeList, "Value", "Text"))
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Types, Labels.Type)
+                                    </div>
+                                    <div class="left select--m">                                       
+                                        @Html.MaterializeCheckBoxListFor(model => model.Types, Model.TypeList, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>
