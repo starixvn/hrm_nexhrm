@@ -40,16 +40,22 @@
 
         public static OvertimeEditViewModel Parse(Overtime overtime)
         {
-            return new OvertimeEditViewModel()
+            OvertimeEditViewModel editModel = null;
+            if (overtime != null)
             {
-                Id = overtime.Id,
-                Date = overtime.OnDate,
-                Hour = overtime.Hour,
-                CreatedNickName = overtime.CreatedBy.NickName,
-                ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
-                Description = overtime.Description,
-                Status = overtime.Status,
-            };
+                editModel = new OvertimeEditViewModel()
+                {
+                    Id = overtime.Id,
+                    Date = overtime.OnDate,
+                    Hour = overtime.Hour,
+                    CreatedNickName = overtime.CreatedBy.NickName,
+                    ModifiedNickName = overtime.ModifiedBy != null ? overtime.ModifiedBy.NickName : string.Empty,
+                    Description = overtime.Description,
+                    Status = overtime.Status,
+                };
+            }
+
+            return editModel;
         }
     }
 }

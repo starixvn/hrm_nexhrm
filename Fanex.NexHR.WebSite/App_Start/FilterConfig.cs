@@ -15,7 +15,10 @@ namespace Fanex.NexHR.WebSite
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            if (filters != null)
+            {
+                filters.Add(new HandleErrorAttribute());
+            }
         }
     }
 }

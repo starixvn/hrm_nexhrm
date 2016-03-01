@@ -51,7 +51,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Type, Labels.Type)
+                                        @Html.LabelFor(model => model.Types, Labels.Type)
                                     </div>
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.TypeCode, new SelectList(Model.TypesList, "Id", "Name"))

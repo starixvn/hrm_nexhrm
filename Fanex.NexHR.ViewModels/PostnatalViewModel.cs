@@ -31,10 +31,10 @@ namespace Fanex.NexHR.ViewModels
 
         public int Minutes { get; set; }
 
-        public int Type { get; set; }
+        public int Types { get; set; }
 
         [Required]
-        public List<int> Types { get; set; }
+        public List<int> ChosenTypes { get; set; }
         
         public List<SelectListItem> TypeList
         {
@@ -53,9 +53,9 @@ namespace Fanex.NexHR.ViewModels
                         Value = "2"
                     }
                 };
-                if (Type != 0)
+                if (Types != 0)
                 {
-                    switch (Type)
+                    switch (Types)
                     {
                         case 1:
                             listTypes[0].Selected = true;
@@ -74,11 +74,7 @@ namespace Fanex.NexHR.ViewModels
                 }
 
                 return listTypes;
-            }
-
-            set 
-            {
-            }
+            }            
         }
     }
 }

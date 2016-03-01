@@ -17,11 +17,14 @@ namespace Fanex.NexHR.WebSite
     {
         public static void AddAndInclude(this BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
-            bundles.Add(new Bundle(bundleVirtualPath)
+            if (bundles != null)
             {
-                Transforms = { new CssMinify() },
-                Orderer = new NullOrderer()
-            }.Include(virtualPaths));
+                bundles.Add(new Bundle(bundleVirtualPath)
+                {
+                    Transforms = { new CssMinify() },
+                    Orderer = new NullOrderer()
+                }.Include(virtualPaths));
+            }            
         }
     }
 }

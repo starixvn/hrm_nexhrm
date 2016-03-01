@@ -98,7 +98,7 @@
                 {
                     Id = (int)model.Id,
                     EmpId = model.EmpId,
-                    Type = int.Parse(model.Type),
+                    Type = int.Parse(model.Types),
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,

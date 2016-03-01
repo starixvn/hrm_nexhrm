@@ -39,7 +39,7 @@
                 EmpId = CurrentUser.Id,
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                Type = 0,
+                Types = 0,
                 Minutes = 30
             };
             return View(model);
@@ -58,7 +58,7 @@
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.Types.Count == 2 ? 3 : model.Types[0]
+                    Type = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };                
                 result = commandService.Insert(criteria);
                 if (result.Code == 0)
@@ -109,7 +109,7 @@
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.Types.Count == 2 ? 3 : model.Types[0]
+                    Type = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 result = commandService.Update(criteria);
                 if (result.Code == 0)
@@ -120,10 +120,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);

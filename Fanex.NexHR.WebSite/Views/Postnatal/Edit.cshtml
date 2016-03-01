@@ -70,10 +70,10 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Types, Labels.Type)
+                                        @Html.LabelFor(model => model.ChosenTypes, Labels.Type)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.MaterializeCheckBoxListFor(model => model.Types, Model.TypeList, new { @class = "filled-in" })
+                                        @Html.MaterializeCheckBoxListFor(model => model.ChosenTypes, Model.TypeList, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>

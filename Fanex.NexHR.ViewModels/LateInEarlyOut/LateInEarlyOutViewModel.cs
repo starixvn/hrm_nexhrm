@@ -10,7 +10,7 @@
 
         public string Nickname { get; set; }
 
-        public string Type { get; set; }
+        public string Types { get; set; }
 
         public int TypeCode { get; set; }
 
