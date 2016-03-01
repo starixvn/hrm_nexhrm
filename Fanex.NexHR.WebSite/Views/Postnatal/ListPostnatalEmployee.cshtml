@@ -22,7 +22,7 @@
             {
                 <tr id="row_@(item.EmpId + item.FromDate.ToOADate() + item.ToDate.ToOADate())">
                     <td>@(index++)</td>
-                    <td>
+                    <td class="tooltip" title="@item.Fullname">
                         @item.Nickname
                     </td>
                     <td>@item.FromDate.Date.ToString("dd MMM, yyyy")</td>

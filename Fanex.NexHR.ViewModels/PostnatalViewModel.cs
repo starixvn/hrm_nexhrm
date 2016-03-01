@@ -13,6 +13,8 @@ namespace Fanex.NexHR.ViewModels
 
         public string Nickname { get; set; }
 
+        public string Fullname { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
