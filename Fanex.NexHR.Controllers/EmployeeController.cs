@@ -95,7 +95,7 @@
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
 
@@ -141,7 +141,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
 
-            EditEmployeeViewModel model = new EditEmployeeViewModel(employee) 
+            EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
                 Teams = teamService.GetAll(),
                 JobTitles = jobTitleService.GetAll()
@@ -155,7 +155,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
                 CommandResult result = commandService.Update(criteria);
@@ -213,12 +213,12 @@
         [HttpPost]
         public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new UpdateScheduleDefaultCriteria()
                 {
                     EmployeeId = model.EmployeeId,
-                    
+
                     MonShift = model.MonShiftId,
                     TueShift = model.TueShiftId,
                     WedShift = model.WedShiftId,
@@ -252,7 +252,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
             MonthlyScheduleViewModel model = new MonthlyScheduleViewModel()
-            { 
+            {
                 EmployeeId = employee.Id,
                 EmployeeNickName = employee.NickName,
                 Shifts = shiftService.GetAll()

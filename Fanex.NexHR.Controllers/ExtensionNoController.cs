@@ -52,27 +52,30 @@
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
         {
-            CheckExternalEmployee(model);
-            if (ModelState.IsValid)
+            if (model != null)
             {
-                var criteria = new AddNewExtensionNoMemberCriteria
+                CheckExternalEmployee(model);
+                if (ModelState.IsValid)
                 {
-                    EmpId = model.EmpId,
-                    NickName = model.NickName,
-                    FullName = model.FullName,
-                    GroupId = model.TeamId,
-                    IsInternal = model.IsInternal,
-                    ExtensionNo = model.ExtensionNo
-                };
+                    var criteria = new AddNewExtensionNoMemberCriteria
+                    {
+                        EmpId = model.EmpId,
+                        NickName = model.NickName,
+                        FullName = model.FullName,
+                        GroupId = model.TeamId,
+                        IsInternal = model.IsInternal,
+                        ExtensionNo = model.ExtensionNo
+                    };
 
-                CommandResult result = commandService.Insert(criteria);
-                if (result.Code == 0)
-                {
-                    ViewBag.Requested = true;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    CommandResult result = commandService.Insert(criteria);
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Requested = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 
@@ -88,8 +91,8 @@
                 EmpExtId = empExtId
             };
             var model = extensionNoService.GetEmployeeExtensionNoById(criteria);
-            var groupCriteria = new GetAllExtensionGroupInfoCriteria 
-            { 
+            var groupCriteria = new GetAllExtensionGroupInfoCriteria
+            {
                 IsInternal = isInternal,
                 GroupId = null
             };
@@ -106,39 +109,42 @@
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
         {
-            CheckExternalEmployee(model);
-            var criteria = new GetAllExtensionGroupInfoCriteria
+            if (model != null)
             {
-                IsInternal = model.IsInternal,
-                GroupId = null
-            };
-            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
-            ViewBag.Group = group.Select(x => new SelectListItem
-            {
-                Text = x.TeamName,
-                Value = x.TeamId.ToString()
-            }).ToList();
-            if (ModelState.IsValid)
-            {
-                var updateCriteria = new UpdateExtensionNoMemberCriteria
+                CheckExternalEmployee(model);
+                var criteria = new GetAllExtensionGroupInfoCriteria
                 {
-                    ExtId = model.EmpExtId,
-                    EmpId = model.EmpId,
-                    NickName = model.NickName,
-                    FullName = model.FullName,
-                    GroupId = model.TeamId,
                     IsInternal = model.IsInternal,
-                    ExtensionNo = model.ExtensionNo
+                    GroupId = null
                 };
+                var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                ViewBag.Group = group.Select(x => new SelectListItem
+                {
+                    Text = x.TeamName,
+                    Value = x.TeamId.ToString()
+                }).ToList();
+                if (ModelState.IsValid)
+                {
+                    var updateCriteria = new UpdateExtensionNoMemberCriteria
+                    {
+                        ExtId = model.EmpExtId,
+                        EmpId = model.EmpId,
+                        NickName = model.NickName,
+                        FullName = model.FullName,
+                        GroupId = model.TeamId,
+                        IsInternal = model.IsInternal,
+                        ExtensionNo = model.ExtensionNo
+                    };
 
-                CommandResult result = commandService.Update(updateCriteria);                
-                if (result.Code == 0)
-                {
-                    ViewBag.Requested = true;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    CommandResult result = commandService.Update(updateCriteria);
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Requested = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 

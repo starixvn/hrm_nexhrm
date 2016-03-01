@@ -48,7 +48,7 @@
         [HttpPost]
         public ActionResult Create(DepartmentViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertDepartmentCriteria
                 {

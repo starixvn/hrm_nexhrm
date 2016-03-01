@@ -55,22 +55,25 @@ namespace Fanex.NexHR.Controllers
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);
-            if (attributes.Length == 0)
+            if (filterContext != null)
             {
-                attributes = GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
-            }
-
-            if (attributes.Length == 0)
-            {
-                return;
-            }
-            
-            foreach (AuthorizeAttribute item in attributes)
-            {
-                if (!string.IsNullOrEmpty(item.Roles) && !CurrentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);
+                if (attributes.Length == 0)
                 {
-                    filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+                    attributes = GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
+                }
+
+                if (attributes.Length == 0)
+                {
+                    return;
+                }
+
+                foreach (AuthorizeAttribute item in attributes)
+                {
+                    if (!string.IsNullOrEmpty(item.Roles) && !CurrentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                    {
+                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+                    }
                 }
             }
         }

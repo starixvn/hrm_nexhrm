@@ -54,15 +54,19 @@
         [HttpPost]
         public ActionResult Index(LeaveSummaryViewModel model)
         {
-            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
+            IList<LeaveSummary> leaveSummary = new List<LeaveSummary>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId,
-                Year = model.Year,
-                MinAnnualBalance = model.MinAnnualBalance
-            };
-            IList<LeaveSummary> leaveSummary = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
-            ViewBag.Year = model.Year;
+                var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
+                {
+                    EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                    GroupId = model.TeamId,
+                    Year = model.Year,
+                    MinAnnualBalance = model.MinAnnualBalance
+                };
+                leaveSummary = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+                ViewBag.Year = model.Year;
+            }
 
             return PartialView("_Index", leaveSummary);
         }
@@ -116,14 +120,18 @@
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)
         {
-            var criteria = new GetAnnualLeaveTransactionCriteria
+            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId,
-                Year = model.Year,
-                ExcludedRequestTransactions = model.ExcludedRequestTrans
-            };
+                var criteria = new GetAnnualLeaveTransactionCriteria
+                {
+                    EmployeeId = model.EmployeeId,
+                    Year = model.Year,
+                    ExcludedRequestTransactions = model.ExcludedRequestTrans
+                };
 
-            IList<AnnualLeaveTransaction> annualLeaveTransactions = annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                annualLeaveTransactions = annualLeaveService.GetAnnualLeaveTransactions(criteria);
+            }
 
             return PartialView("_Employee", annualLeaveTransactions);
         }
@@ -145,7 +153,7 @@
         [HttpPost]
         public ActionResult Create(AddAnnualLeaveTransactionViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertAnnualLeaveTransactionCriteria
                 {
@@ -200,7 +208,7 @@
         [HttpPost]
         public ActionResult Edit(EditAnnualLeaveTransactionViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new UpdateAnnualLeaveTransactionCriteria
                 {
@@ -246,13 +254,13 @@
         [HttpPost]
         public JsonResult AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
         {
-            CommandResult result = new CommandResult() 
+            CommandResult result = new CommandResult()
             {
                 Code = -1,
                 Message = Messages.InvalidInputData
             };
 
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new AdjustAnnualLeavesCriteria
                 {
@@ -266,7 +274,7 @@
 
                 result = commandService.Insert(criteria);
             }
-            
+
             return Json(result);
         }
 
@@ -349,34 +357,44 @@
         [HttpPost]
         public JsonResult AddLeaveDeduction(LeaveDeductionViewModel model)
         {
-            var criteria = new InsertLeaveDeductionCriteria
+            CommandResult result = new CommandResult();
+            if (model != null)
             {
-                EmployeeId = model.EmpId,
-                Description = model.Description,
-                DeductDate = model.DeductDate,
-                IsAnnual = model.IsAnnual,
-                TotalDays = model.TotalDays,
-                CreatedBy = CurrentUser.Id
-            };
+                var criteria = new InsertLeaveDeductionCriteria
+                {
+                    EmployeeId = model.EmpId,
+                    Description = model.Description,
+                    DeductDate = model.DeductDate,
+                    IsAnnual = model.IsAnnual,
+                    TotalDays = model.TotalDays,
+                    CreatedBy = CurrentUser.Id
+                };
+                result = commandService.Insert(criteria);
+            }
 
-            return Json(commandService.Insert(criteria));
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult EditLeaveDeduction(LeaveDeductionViewModel model)
         {
-            var criteria = new UpdateLeaveDeductionCriteria
+            CommandResult result = new CommandResult();
+            if (model != null)
             {
-                LeaveDeductionId = model.LeaveDeductionId,
-                Description = model.Description,
-                DeductDate = model.DeductDate,
-                IsAnnual = model.IsAnnual,
-                TotalDays = model.TotalDays,
-                ModifiedBy = CurrentUser.Id
-            };
+                var criteria = new UpdateLeaveDeductionCriteria
+                {
+                    LeaveDeductionId = model.LeaveDeductionId,
+                    Description = model.Description,
+                    DeductDate = model.DeductDate,
+                    IsAnnual = model.IsAnnual,
+                    TotalDays = model.TotalDays,
+                    ModifiedBy = CurrentUser.Id
+                };
+                result = commandService.Update(criteria);
+            }
 
-            return Json(commandService.Update(criteria));
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
@@ -423,15 +441,19 @@
         [HttpPost]
         public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
         {
-            var criteria = new GetLeaveDeductionDetailCriteria()
+            IList<LeaveDeductionDetail> leaveDeductions = new List<LeaveDeductionDetail>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
-                GroupId = model.TeamId,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate
-            };
+                var criteria = new GetLeaveDeductionDetailCriteria()
+                {
+                    EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
+                    GroupId = model.TeamId,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate
+                };
 
-            IList<LeaveDeductionDetail> leaveDeductions = annualLeaveService.GetLeaveDeductionDetail(criteria);
+                leaveDeductions = annualLeaveService.GetLeaveDeductionDetail(criteria);
+            }
 
             return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
         }
