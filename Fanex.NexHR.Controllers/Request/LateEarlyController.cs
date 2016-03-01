@@ -45,7 +45,7 @@
                 InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
                 {
                     EmpId = model.EmpId,
-                    Type = model.TypeCode,
+                    Types = model.TypeCode,
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
@@ -100,7 +100,7 @@
                     {
                         Id = (int)model.Id,
                         EmpId = model.EmpId,
-                        Type = int.Parse(model.Types),
+                        Types = int.Parse(model.Types),
                         Minutes = model.Minutes,
                         WorkDate = model.WorkDate,
                         ModifiedDate = DateTime.Now,

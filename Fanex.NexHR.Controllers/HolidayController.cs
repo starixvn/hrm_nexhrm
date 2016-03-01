@@ -115,6 +115,7 @@
         [HttpPost]
         public ActionResult Edit(HolidayViewModel holiday)
         {
+            CommandResult result = new CommandResult();
             if (holiday != null)
             {
                 if (ModelState.IsValid)
@@ -128,7 +129,7 @@
                         ModifiedBy = CurrentUser.Id,
                     };
 
-                    CommandResult result = commandService.Update(criteria);
+                    result = commandService.Update(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Updated = true;
@@ -144,7 +145,7 @@
                 }
             }
 
-            return View(holiday);
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]

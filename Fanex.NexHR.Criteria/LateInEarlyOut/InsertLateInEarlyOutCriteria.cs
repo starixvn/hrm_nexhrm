@@ -7,10 +7,11 @@
     {
         public DateTime WorkDate { get; set; }
 
+        [SpParam(SqlParamName = "Type")]
         /// <summary>
         /// 1: Late In or 2: Early Out
         /// </summary>
-        public int Type { get; set; }
+        public int Types { get; set; }
 
         public int Minutes { get; set; }
 
@@ -22,7 +23,17 @@
 
         public override bool IsValid()
         {
-            return true;
+            bool result = false;
+            if (Types == 1 || Types == 2)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         public override string GetSettingKey()

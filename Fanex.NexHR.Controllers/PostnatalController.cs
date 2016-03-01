@@ -58,7 +58,7 @@
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
+                    Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };                
                 result = commandService.Insert(criteria);
                 if (result.Code == 0)
@@ -109,7 +109,7 @@
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
-                    Type = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
+                    Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 result = commandService.Update(criteria);
                 if (result.Code == 0)

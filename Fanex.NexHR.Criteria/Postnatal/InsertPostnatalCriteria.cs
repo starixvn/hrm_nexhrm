@@ -17,7 +17,8 @@
 
         public int Minutes { get; set; }
 
-        public int Type { get; set; }
+        [SpParam(SqlParamName = "Type")]
+        public int Types { get; set; }
 
         public override bool IsValid()
         {
