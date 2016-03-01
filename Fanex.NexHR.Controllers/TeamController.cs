@@ -22,7 +22,7 @@
         }
 
         public TeamController(
-            ITeamService teamService, 
+            ITeamService teamService,
             IDepartmentService departmentService,
             ICommandService commandService)
         {
@@ -54,37 +54,36 @@
         [Authorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null)
             {
-                var criteria = new InsertTeamCriteria()
+                if (ModelState.IsValid)
                 {
-                    Code = model.TeamCode,
-                    Name = model.TeamName,
-                    LeaderId = model.LeaderId,
-                    AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
-                    DepartmentId = model.DepartmentId,
-                    ParentId = model.ParentId,
-                    CreatedBy = CurrentUser.Id
-                };
+                    var criteria = new InsertTeamCriteria()
+                    {
+                        Code = model.TeamCode,
+                        Name = model.TeamName,
+                        LeaderId = model.LeaderId,
+                        AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                        DepartmentId = model.DepartmentId,
+                        ParentId = model.ParentId,
+                        CreatedBy = CurrentUser.Id
+                    };
 
-                CommandResult result = commandService.Insert(criteria);
+                    CommandResult result = commandService.Insert(criteria);
 
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Inserted = true;
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Inserted = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
 
-            model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetAll();
+                model.Departments = departmentService.GetAll();
+                model.Teams = teamService.GetAll();
+            }
 
             return View(model);
         }

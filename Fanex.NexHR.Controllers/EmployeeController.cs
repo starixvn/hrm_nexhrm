@@ -95,44 +95,48 @@
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model != null)
             {
-                model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
-
-                var criteria = new InsertEmployeeCriteria()
+                if (ModelState.IsValid)
                 {
-                    Code = model.Code,
-                    CreateBy = CurrentUser.Id,
-                    DomainUsername = model.DomainUsername,
-                    FriShift = model.FriShift,
-                    FullName = model.FullName,
-                    TeamId = model.TeamId,
-                    MonShift = model.MonShift,
-                    NickName = model.NickName,
-                    TueShift = model.TueShift,
-                    SatShift = model.SatShift,
-                    SunShift = model.SunShift,
-                    ThuShift = model.ThuShift,
-                    WedShift = model.WedShift
-                };
+                    model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
 
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                if (result.Code == 0)
-                {
-                    return RedirectToAction("Edit", new { id = criteria.Id });
+                    var criteria = new InsertEmployeeCriteria()
+                    {
+                        Code = model.Code,
+                        CreateBy = CurrentUser.Id,
+                        DomainUsername = model.DomainUsername,
+                        FriShift = model.FriShift,
+                        FullName = model.FullName,
+                        TeamId = model.TeamId,
+                        MonShift = model.MonShift,
+                        NickName = model.NickName,
+                        TueShift = model.TueShift,
+                        SatShift = model.SatShift,
+                        SunShift = model.SunShift,
+                        ThuShift = model.ThuShift,
+                        WedShift = model.WedShift
+                    };
+
+                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                    if (result.Code == 0)
+                    {
+                        return RedirectToAction("Edit", new { id = criteria.Id });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+
+                model.Teams = teamService.GetAll();
+                model.Shifts = shiftService.GetAll();
             }
 
-            model.Teams = teamService.GetAll();
-            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 
@@ -155,33 +159,37 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model != null)
             {
-                UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-                CommandResult result = commandService.Update(criteria);
-
-                if (result.Code == 0)
+                if (ModelState.IsValid)
                 {
-                    ViewBag.Updated = true;
-                    if (CurrentUser.Id == model.Id)
+                    UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
+                    CommandResult result = commandService.Update(criteria);
+
+                    if (result.Code == 0)
                     {
-                        var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
-                        Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
-                        HttpContext.Session["CurrentUser"] = currentUser;
+                        ViewBag.Updated = true;
+                        if (CurrentUser.Id == model.Id)
+                        {
+                            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
+                            Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
+                            HttpContext.Session["CurrentUser"] = currentUser;
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+
+                model.Teams = teamService.GetAll();
+                model.JobTitles = jobTitleService.GetAll();
             }
 
-            model.Teams = teamService.GetAll();
-            model.JobTitles = jobTitleService.GetAll();
             return View(model);
         }
 
@@ -213,37 +221,41 @@
         [HttpPost]
         public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model != null)
             {
-                var criteria = new UpdateScheduleDefaultCriteria()
+                if (ModelState.IsValid)
                 {
-                    EmployeeId = model.EmployeeId,
+                    var criteria = new UpdateScheduleDefaultCriteria()
+                    {
+                        EmployeeId = model.EmployeeId,
 
-                    MonShift = model.MonShiftId,
-                    TueShift = model.TueShiftId,
-                    WedShift = model.WedShiftId,
-                    ThuShift = model.ThuShiftId,
-                    FriShift = model.FriShiftId,
-                    SatShift = model.SatShiftId,
-                    SunShift = model.SunShiftId
-                };
-                CommandResult result = commandService.Update(criteria);
+                        MonShift = model.MonShiftId,
+                        TueShift = model.TueShiftId,
+                        WedShift = model.WedShiftId,
+                        ThuShift = model.ThuShiftId,
+                        FriShift = model.FriShiftId,
+                        SatShift = model.SatShiftId,
+                        SunShift = model.SunShiftId
+                    };
+                    CommandResult result = commandService.Update(criteria);
 
-                if (result.Code == 0)
-                {
-                    ViewBag.Updated = true;
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Updated = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+
+                model.Shifts = shiftService.GetAll();
             }
 
-            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 

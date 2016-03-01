@@ -40,74 +40,84 @@
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
-            if (model.FromDate == DateTime.MinValue)
+            if (model != null)
             {
-                model = new EmployeeAttendanceViewModel
+                if (model.FromDate == DateTime.MinValue)
                 {
-                    FromDate = DateTime.Now,
-                    ToDate = DateTime.Now,
-                    DateOption = 0,
-                    ExcludeUserDelete = true
-                };
-            }
+                    model = new EmployeeAttendanceViewModel
+                    {
+                        FromDate = DateTime.Now,
+                        ToDate = DateTime.Now,
+                        DateOption = 0,
+                        ExcludeUserDelete = true
+                    };
+                }
 
-            model.CurrentPage = Constants.CurrentPage;
-            model.ItemsPerPage = Constants.ItemsPerPage;
-            model.Teams = teamService.GetAll();
+                model.CurrentPage = Constants.CurrentPage;
+                model.ItemsPerPage = Constants.ItemsPerPage;
+                model.Teams = teamService.GetAll();
+            }
 
             return View(model);
         }
 
         public ActionResult AttendanceDetail(EmployeeAttendanceViewModel model)
         {
-            if (model.GroupId == -1)
+            IList<EmployeeAttendanceModel> attendances = new List<EmployeeAttendanceModel>();
+            if (model != null)
             {
-                model.GroupId = null;
+                if (model.GroupId == -1)
+                {
+                    model.GroupId = null;
+                }
+
+                var criteria = new GetEmployeeAttendanceReportByTypeCriteria
+                {
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    ReportType = model.AttendanceType,
+                    EmployeeId = model.EmpId,
+                    GroupId = model.GroupId,
+                    ExcludeUserDelete = model.ExcludeUserDelete,
+                    ItemsPerPage = model.ItemsPerPage,
+                    PageIndex = model.CurrentPage - 1
+                };
+
+                attendances = reportService.GetEmployeeAttendanceReport(criteria);
+                var pagerOption = new PagerOptionModel()
+                {
+                    CurrentPage = model.CurrentPage,
+                    ItemsPerPage = model.ItemsPerPage,
+                    TotalItem = (int)criteria.TotalItem
+                };
+                ViewBag.PagerOption = pagerOption;
             }
-
-            var criteria = new GetEmployeeAttendanceReportByTypeCriteria
-            {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                ReportType = model.AttendanceType,
-                EmployeeId = model.EmpId,
-                GroupId = model.GroupId,
-                ExcludeUserDelete = model.ExcludeUserDelete,
-                ItemsPerPage = model.ItemsPerPage,
-                PageIndex = model.CurrentPage - 1
-            };
-
-            IList<EmployeeAttendanceModel> attendances = reportService.GetEmployeeAttendanceReport(criteria);
-
-            var pagerOption = new PagerOptionModel()
-            {
-                CurrentPage = model.CurrentPage,
-                ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem
-            };
-
-            ViewBag.PagerOption = pagerOption;
 
             return PartialView("_AttendanceDetail", attendances);
         }
 
         public JsonResult GetEmployeeAttendances(EmployeeAttendanceViewModel model)
         {
-            if (model.GroupId == -1)
+            IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
+            if (model != null)
             {
-                model.GroupId = null;
+                if (model.GroupId == -1)
+                {
+                    model.GroupId = null;
+                }
+
+                var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+                {
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    ReportType = model.AttendanceType,
+                    EmployeeId = model.EmpId,
+                    GroupId = model.GroupId,
+                    ExcludeUserDelete = model.ExcludeUserDelete
+                };
+                employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
             }
 
-            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
-            {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                ReportType = model.AttendanceType,
-                EmployeeId = model.EmpId,
-                GroupId = model.GroupId,
-                ExcludeUserDelete = model.ExcludeUserDelete
-            };
-            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
             return Json(employeeAttendances);
         }
 
@@ -125,15 +135,19 @@
         [HttpPost]
         public ActionResult GetTimesheets(TimesheetViewModel model)
         {
-            var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+            IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
+            if (model != null)
             {
-                FromDate = new DateTime(model.Year, model.Month, 1),
-                ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
-                ReportType = model.RequestType,
-                EmployeeId = model.EmpId
-            };
+                var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
+                {
+                    FromDate = new DateTime(model.Year, model.Month, 1),
+                    ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
+                    ReportType = model.RequestType,
+                    EmployeeId = model.EmpId
+                };
 
-            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+                employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            }
 
             return PartialView("ListTimesheet", employeeAttendances);
         }
@@ -326,16 +340,20 @@
         [HttpPost]
         public JsonResult LateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
         {
-            var criteria = new GetLateInEarlyOutDetailReportCriteria()
+            IList<LateInEarlyOutDetail> lateInEarlyOuts = new List<LateInEarlyOutDetail>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
-                GroupId = model.TeamId,
-                IncludeLeaveDeduction = model.IncludeLeaveDeduction,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate
-            };
+                var criteria = new GetLateInEarlyOutDetailReportCriteria()
+                {
+                    EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
+                    GroupId = model.TeamId,
+                    IncludeLeaveDeduction = model.IncludeLeaveDeduction,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate
+                };
 
-            IList<LateInEarlyOutDetail> lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
+                lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
+            }
 
             return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
         }
@@ -405,25 +423,28 @@
 
         public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {
-            var criteria = new GetTimeRecordCriteria()
+            IList<TimeRecordModel> timeRecords = new List<TimeRecordModel>();
+            if (model != null)
             {
-                EmpId = this.CurrentUser.Id,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                PageIndex = model.CurrentPage - 1,
-                ItemsPerPage = model.ItemsPerPage
-            };
+                var criteria = new GetTimeRecordCriteria()
+                {
+                    EmpId = this.CurrentUser.Id,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    PageIndex = model.CurrentPage - 1,
+                    ItemsPerPage = model.ItemsPerPage
+                };
+                timeRecords = reportService.GetTimeRecords(criteria);
 
-            IList<TimeRecordModel> timeRecords = reportService.GetTimeRecords(criteria);
+                var pagerOption = new PagerOptionModel()
+                {
+                    CurrentPage = model.CurrentPage,
+                    ItemsPerPage = model.ItemsPerPage,
+                    TotalItem = (int)criteria.TotalItem
+                };
 
-            var pagerOption = new PagerOptionModel()
-            {
-                CurrentPage = model.CurrentPage,
-                ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem
-            };
-
-            ViewBag.PagerOption = pagerOption;
+                ViewBag.PagerOption = pagerOption;
+            }
 
             return PartialView(timeRecords);
         }
@@ -454,28 +475,32 @@
         [Authorize(Roles = "HR")]
         public ActionResult TimeRecordDetail(TimeRecordViewModel model)
         {
-            int? employeeId = null;
-
-            var criteria = new GetTimeRecordCriteria()
+            IList<TimeRecordModel> timeRecords = new List<TimeRecordModel>();
+            if (model != null)
             {
-                EmpId = model.EmployeeId == 0 ? employeeId : model.EmployeeId,
-                GroupIds = model.TeamIds,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                PageIndex = model.CurrentPage - 1,
-                ItemsPerPage = model.ItemsPerPage
-            };
+                int? employeeId = null;
 
-            IList<TimeRecordModel> timeRecords = reportService.GetTimeRecords(criteria);
+                var criteria = new GetTimeRecordCriteria()
+                {
+                    EmpId = model.EmployeeId == 0 ? employeeId : model.EmployeeId,
+                    GroupIds = model.TeamIds,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    PageIndex = model.CurrentPage - 1,
+                    ItemsPerPage = model.ItemsPerPage
+                };
 
-            var pagerOption = new PagerOptionModel()
-            {
-                CurrentPage = model.CurrentPage,
-                ItemsPerPage = model.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem
-            };
+                timeRecords = reportService.GetTimeRecords(criteria);
 
-            ViewBag.PagerOption = pagerOption;
+                var pagerOption = new PagerOptionModel()
+                {
+                    CurrentPage = model.CurrentPage,
+                    ItemsPerPage = model.ItemsPerPage,
+                    TotalItem = (int)criteria.TotalItem
+                };
+
+                ViewBag.PagerOption = pagerOption;
+            }
 
             return PartialView("ListTimeRecord", timeRecords);
         }

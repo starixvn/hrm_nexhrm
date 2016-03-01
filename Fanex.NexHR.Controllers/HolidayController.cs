@@ -60,9 +60,9 @@
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(HolidayViewModel holiday)
-        {
+        {            
             CommandResult result = new CommandResult();
-            if (ModelState.IsValid)
+            if (holiday != null && ModelState.IsValid)
             {
                 var criteria = new InsertNewHolidayCriteria
                 {
@@ -115,30 +115,33 @@
         [HttpPost]
         public ActionResult Edit(HolidayViewModel holiday)
         {
-            if (ModelState.IsValid)
+            if (holiday != null)
             {
-                var criteria = new UpdateHolidayCriteria
+                if (ModelState.IsValid)
                 {
-                    Id = holiday.Id,
-                    HolidayName = holiday.Name,
-                    FromDate = holiday.FromDate,
-                    ToDate = holiday.ToDate,
-                    ModifiedBy = CurrentUser.Id,
-                };
+                    var criteria = new UpdateHolidayCriteria
+                    {
+                        Id = holiday.Id,
+                        HolidayName = holiday.Name,
+                        FromDate = holiday.FromDate,
+                        ToDate = holiday.ToDate,
+                        ModifiedBy = CurrentUser.Id,
+                    };
 
-                CommandResult result = commandService.Update(criteria);
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Updated = true;
+                    CommandResult result = commandService.Update(criteria);
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Updated = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(holiday);

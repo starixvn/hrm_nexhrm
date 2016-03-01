@@ -31,9 +31,9 @@
 
         public ActionResult Index()
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() 
-            { 
-                LookupCode = LookupCodeName.MemoCategory 
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            {
+                LookupCode = LookupCodeName.MemoCategory
             };
             IList<LookupData> memoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
             memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });
@@ -50,16 +50,16 @@
 
         public ActionResult Edit(int id = -1)
         {
-            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria 
-            { 
-                Id = id 
+            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria
+            {
+                Id = id
             };
 
             Memo memo = memoService.GetById(getMemoByIdCriteria);
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() 
-            { 
-                LookupCode = LookupCodeName.MemoCategory 
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            {
+                LookupCode = LookupCodeName.MemoCategory
             };
 
             memo.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
@@ -74,46 +74,49 @@
         [ValidateInput(false)]
         public ActionResult Edit(Memo model)
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
-            if (model.MemoType == 1)
+            if (model != null)
             {
-                model.Contents = model.AttachFile;
-                if (string.IsNullOrEmpty(model.AttachFile))
+                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+                model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+                if (model.MemoType == 1)
                 {
-                    return View(model);
-                }
-            }
-
-            if (ModelState.IsValid)
-            {
-                var updateMemoCriteria = new UpdateMemoCriteria()
-                {
-                    Id = model.Id,
-                    Category = model.Category,
-                    Contents = model.Contents,
-                    ForInfo = model.ForInfo,
-                    RefNo = model.RefNo,
-                    SentDate = model.SentDate,
-                    SentFrom = model.SentFrom,
-                    SentTo = model.SentTo,
-                    Subject = model.Subject,
-                    TotalPages = model.TotalPages,
-                    MemoType = model.MemoType,
-                    Status = model.Status == 1
-                };
-                CommandResult result = commandService.Update(updateMemoCriteria);
-                if (result.Code == 0)
-                {
-                    ViewBag.Updated = true;
-                    if (model.SendMail)
+                    model.Contents = model.AttachFile;
+                    if (string.IsNullOrEmpty(model.AttachFile))
                     {
-                        memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
+                        return View(model);
                     }
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    var updateMemoCriteria = new UpdateMemoCriteria()
+                    {
+                        Id = model.Id,
+                        Category = model.Category,
+                        Contents = model.Contents,
+                        ForInfo = model.ForInfo,
+                        RefNo = model.RefNo,
+                        SentDate = model.SentDate,
+                        SentFrom = model.SentFrom,
+                        SentTo = model.SentTo,
+                        Subject = model.Subject,
+                        TotalPages = model.TotalPages,
+                        MemoType = model.MemoType,
+                        Status = model.Status == 1
+                    };
+                    CommandResult result = commandService.Update(updateMemoCriteria);
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Updated = true;
+                        if (model.SendMail)
+                        {
+                            memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 
@@ -146,44 +149,47 @@
         [ValidateInput(false)]
         public ActionResult Create(Memo model)
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
-            if (model.MemoType == 1)
+            if (model != null)
             {
-                model.Contents = model.AttachFile;
-            }
-
-            if (ModelState.IsValid)
-            {
-                var insertMemoCriteria = new InsertMemoCriteria()
+                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+                model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+                if (model.MemoType == 1)
                 {
-                    Category = model.Category,
-                    Contents = model.Contents,
-                    ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
-                    RefNo = model.RefNo,
-                    SendMail = model.SendMail,
-                    SentDate = model.SentDate,
-                    SentFrom = model.SentFrom,
-                    SentTo = model.SentTo,
-                    Subject = model.Subject,
-                    TotalPages = model.TotalPages,
-                    MemoType = model.MemoType,
-                    Status = model.Status == 1
-                };
-
-                CommandResult result = commandService.Insert(insertMemoCriteria, hasGetOutputParams: true);
-
-                if (result.Code == 0)
-                {
-                    ViewBag.Updated = true;
-                    if (insertMemoCriteria.SendMail)
-                    {
-                        memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
-                    }
+                    model.Contents = model.AttachFile;
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    var insertMemoCriteria = new InsertMemoCriteria()
+                    {
+                        Category = model.Category,
+                        Contents = model.Contents,
+                        ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
+                        RefNo = model.RefNo,
+                        SendMail = model.SendMail,
+                        SentDate = model.SentDate,
+                        SentFrom = model.SentFrom,
+                        SentTo = model.SentTo,
+                        Subject = model.Subject,
+                        TotalPages = model.TotalPages,
+                        MemoType = model.MemoType,
+                        Status = model.Status == 1
+                    };
+
+                    CommandResult result = commandService.Insert(insertMemoCriteria, hasGetOutputParams: true);
+
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Updated = true;
+                        if (insertMemoCriteria.SendMail)
+                        {
+                            memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 

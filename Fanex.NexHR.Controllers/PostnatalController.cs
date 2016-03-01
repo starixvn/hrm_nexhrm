@@ -49,7 +49,7 @@
         public ActionResult Create(PostnatalViewModel model)
         {
             CommandResult result = new CommandResult();
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 InsertPostnatalCriteria criteria = new InsertPostnatalCriteria()
                 {
@@ -97,7 +97,7 @@
         public ActionResult Edit(PostnatalViewModel model)
         {
             CommandResult result = new CommandResult();
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 UpdatePostnatalCriteria criteria = new UpdatePostnatalCriteria()
                 {

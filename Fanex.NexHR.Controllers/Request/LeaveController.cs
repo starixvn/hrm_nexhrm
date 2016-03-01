@@ -118,30 +118,33 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            if (model.EmployeeId <= 0)
+            if (model != null)
             {
-                ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
-            }
-            else
-            {
-                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
-                model.By = this.CurrentUser.Id;
-                ViewBag.Year = model.FromDate.Year;
-
-                if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
+                if (model.EmployeeId <= 0)
                 {
-                    model.DisplayName = model.Employee;
+                    ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
                 }
-
-                var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+                else
                 {
-                    EmployeeId = model.EmployeeId,
-                    FromDate = Utilities.RequestAvailableFromDate,
-                    ToDate = Utilities.RequestAvailableToDate
-                };
+                    model.LeaveTypes = _leaveTypeService.GetAll().ToList();
+                    model.By = this.CurrentUser.Id;
+                    ViewBag.Year = model.FromDate.Year;
 
-                model.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
-                ViewBag.Requested = _requestService.Leave(ModelState, model);
+                    if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
+                    {
+                        model.DisplayName = model.Employee;
+                    }
+
+                    var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+                    {
+                        EmployeeId = model.EmployeeId,
+                        FromDate = Utilities.RequestAvailableFromDate,
+                        ToDate = Utilities.RequestAvailableToDate
+                    };
+
+                    model.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
+                    ViewBag.Requested = _requestService.Leave(ModelState, model);
+                }
             }
 
             return View(model);
@@ -185,8 +188,11 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            model.LeaveTypes = _leaveTypeService.GetAll().ToList();
-            ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
+            if (model != null)
+            {
+                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
+                ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
+            }
 
             return View(model);
         }

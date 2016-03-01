@@ -27,7 +27,7 @@
             this.commandService = commandService ?? new CommandService();
         }
 
-        public ActionResult Index(int month = 0, int year = 0)
+        public ActionResult Index()
         {
             return View();
         }
@@ -40,7 +40,7 @@
         [HttpPost]
         public ActionResult Create(LateInEarlyOutViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null & ModelState.IsValid)
             {
                 InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
                 {
@@ -88,30 +88,33 @@
         [HttpPost]
         public ActionResult Edit(LateInEarlyOutViewModel model)
         {
-            if (model.EmpId <= 0)
+            if (model != null)
             {
-                ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
-            }
-            else
-            {
-                UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                if (model.EmpId <= 0)
                 {
-                    Id = (int)model.Id,
-                    EmpId = model.EmpId,
-                    Type = int.Parse(model.Types),
-                    Minutes = model.Minutes,
-                    WorkDate = model.WorkDate,
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy = CurrentUser.Id,
-                };
-                CommandResult result = commandService.Update(criteria);
-                if (result.Code == 0)
-                {
-                    ViewBag.Requested = true;
+                    ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                    {
+                        Id = (int)model.Id,
+                        EmpId = model.EmpId,
+                        Type = int.Parse(model.Types),
+                        Minutes = model.Minutes,
+                        WorkDate = model.WorkDate,
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = CurrentUser.Id,
+                    };
+                    CommandResult result = commandService.Update(criteria);
+                    if (result.Code == 0)
+                    {
+                        ViewBag.Requested = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 

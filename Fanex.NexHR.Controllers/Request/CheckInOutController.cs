@@ -133,21 +133,24 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
-            if (model != null && model.EmployeeId <= 0)
+            if (model != null)
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
-            }
-            else
-            {
-                model.By = this.CurrentUser.Id;
-                if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
+                if (model.EmployeeId <= 0)
                 {
-                    model.DisplayName = model.Employee;
+                    ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
                 }
+                else
+                {
+                    model.By = this.CurrentUser.Id;
+                    if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
+                    {
+                        model.DisplayName = model.Employee;
+                    }
 
-                model.ShiftInfos = _shiftService.GetAll();
-                ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
-                ViewBag.Year = model.ForDate.Year;
+                    model.ShiftInfos = _shiftService.GetAll();
+                    ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
+                    ViewBag.Year = model.ForDate.Year;
+                }
             }
 
             return View(model);

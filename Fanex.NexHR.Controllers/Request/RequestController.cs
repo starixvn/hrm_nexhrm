@@ -71,37 +71,40 @@ namespace Fanex.NexHR.Controllers.Request
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
-            if (request.TeamId == -1)
+            if (request != null)
             {
-                request = new RequestViewModel
+                if (request.TeamId == -1)
                 {
-                    DateOption = 0,
-                    ToDate = DateTime.Now,
-                    FromDate = request.ToDate.AddMonths(-2),
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = false
+                    request = new RequestViewModel
+                    {
+                        DateOption = 0,
+                        ToDate = DateTime.Now,
+                        FromDate = request.ToDate.AddMonths(-2),
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = false
+                    };
+                }
+
+                if (request.TeamId == -2)
+                {
+                    request.TeamId = null;
+                }
+
+                request.CurrentPage = Constants.CurrentPage;
+                request.ItemsPerPage = Constants.ItemsPerPage;
+
+                var criteria = new GetTeamByManagerIdCriteria()
+                {
+                    ManagerId = this.CurrentUser.Id
                 };
+                request.Teams = teamService.GetTeamManagedByEmp(criteria);
+
+                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+
+                ViewBag.ActionName = "GetAllRequestByAssistantLeader";
             }
-
-            if (request.TeamId == -2)
-            {
-                request.TeamId = null;
-            }
-
-            request.CurrentPage = Constants.CurrentPage;
-            request.ItemsPerPage = Constants.ItemsPerPage;
-
-            var criteria = new GetTeamByManagerIdCriteria()
-            {
-                ManagerId = this.CurrentUser.Id
-            };
-            request.Teams = teamService.GetTeamManagedByEmp(criteria);
-
-            request.LeaveTypes = leaveTypeService.GetAll().ToList();
-            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
-
-            ViewBag.ActionName = "GetAllRequestByAssistantLeader";
 
             return View(request);
         }
@@ -109,30 +112,34 @@ namespace Fanex.NexHR.Controllers.Request
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel request)
         {
-            if (request.TeamId == -1)
+            IList<RequestEntity> entityList = new List<RequestEntity>();
+            if (request != null)
             {
-                request = new RequestViewModel
+                if (request.TeamId == -1)
                 {
-                    DateOption = 0,
-                    ToDate = DateTime.Now,
-                    FromDate = request.ToDate.AddMonths(-2),
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = false
-                };
-            }
+                    request = new RequestViewModel
+                    {
+                        DateOption = 0,
+                        ToDate = DateTime.Now,
+                        FromDate = request.ToDate.AddMonths(-2),
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = false
+                    };
+                }
 
-            if (request.TeamId == -2)
-            {
-                request.TeamId = null;
-            }
+                if (request.TeamId == -2)
+                {
+                    request.TeamId = null;
+                }
 
-            IList<RequestEntity> entityList = GetRequest(request, (short)Role.AssistantLeader);
+                entityList = GetRequest(request, (short)Role.AssistantLeader);
 
-            ViewBag.Status = request.StatusId;
-            ViewBag.IsAllowChangeStatus = true;
-            ViewBag.Leader = true;
-            ViewBag.Options = request;
+                ViewBag.Status = request.StatusId;
+                ViewBag.IsAllowChangeStatus = true;
+                ViewBag.Leader = true;
+                ViewBag.Options = request;
+            }            
 
             return PartialView("AllRequest", entityList);
         }
@@ -143,65 +150,72 @@ namespace Fanex.NexHR.Controllers.Request
 
         public ActionResult EmployeeView(RequestViewModel request)
         {
-            // Default view all request type
-            if (request.TeamId == -1)
+            if (request != null)
             {
-                request = new RequestViewModel
+                // Default view all request type
+                if (request.TeamId == -1)
                 {
-                    StatusId = 0,
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = true
-                };
+                    request = new RequestViewModel
+                    {
+                        StatusId = 0,
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = true
+                    };
+                }
+
+                // Get request model from Request monitoring view.
+                if (request.TeamId == -2)
+                {
+                    request.StatusId = 0;
+                    request.TeamId = null;
+                }
+
+                request.CurrentPage = Constants.CurrentPage;
+                request.ItemsPerPage = Constants.ItemsPerPage;
+
+                request.Teams = teamService.GetAll();
+
+                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+
+                ViewBag.ActionName = "GetAllRequestByEmployee";
             }
-
-            // Get request model from Request monitoring view.
-            if (request.TeamId == -2)
-            {
-                request.StatusId = 0;
-                request.TeamId = null;
-            }
-
-            request.CurrentPage = Constants.CurrentPage;
-            request.ItemsPerPage = Constants.ItemsPerPage;
-
-            request.Teams = teamService.GetAll();
-
-            request.LeaveTypes = leaveTypeService.GetAll().ToList();
-            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
-
-            ViewBag.ActionName = "GetAllRequestByEmployee";
 
             return View("HRView", request);
         }
 
         public ActionResult GetAllRequestByEmployee(RequestViewModel request)
         {
-            // Default view all request type
-            if (request.TeamId == -1)
+            IList<RequestEntity> entityList = new List<RequestEntity>();
+            if (request != null)
             {
-                request = new RequestViewModel
+                // Default view all request type
+                if (request.TeamId == -1)
                 {
-                    StatusId = 0,
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = true
-                };
+                    request = new RequestViewModel
+                    {
+                        StatusId = 0,
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = true
+                    };
+                }
+
+                // Get request model from Request monitoring view.
+                if (request.TeamId == -2)
+                {
+                    request.StatusId = 0;
+                    request.TeamId = null;
+                }
+
+                entityList = GetRequest(request, (short)Role.HR);
+
+                ViewBag.Status = request.StatusId;
+                ViewBag.IsAllowChangeStatus = false;
+                ViewBag.Leader = false;
+                ViewBag.Options = request;
             }
-
-            // Get request model from Request monitoring view.
-            if (request.TeamId == -2)
-            {
-                request.StatusId = 0;
-                request.TeamId = null;
-            }
-
-            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
-
-            ViewBag.Status = request.StatusId;
-            ViewBag.IsAllowChangeStatus = false;
-            ViewBag.Leader = false;
-            ViewBag.Options = request;
 
             return PartialView("AllRequest", entityList);
         }
@@ -213,34 +227,37 @@ namespace Fanex.NexHR.Controllers.Request
         [Authorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel request)
         {
-            // Default view all request type
-            if (request.TeamId == -1)
+            if (request != null)
             {
-                request = new RequestViewModel
+                // Default view all request type
+                if (request.TeamId == -1)
                 {
-                    StatusId = 0,
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = false
-                };
+                    request = new RequestViewModel
+                    {
+                        StatusId = 0,
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = false
+                    };
+                }
+
+                // Get request model from Request monitoring view.
+                if (request.TeamId == -2)
+                {
+                    request.StatusId = 0;
+                    request.TeamId = null;
+                }
+
+                request.CurrentPage = Constants.CurrentPage;
+                request.ItemsPerPage = Constants.ItemsPerPage;
+
+                request.Teams = teamService.GetAll();
+
+                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+
+                ViewBag.ActionName = "GetAllRequestByHR";
             }
-
-            // Get request model from Request monitoring view.
-            if (request.TeamId == -2)
-            {
-                request.StatusId = 0;
-                request.TeamId = null;
-            }
-
-            request.CurrentPage = Constants.CurrentPage;
-            request.ItemsPerPage = Constants.ItemsPerPage;
-
-            request.Teams = teamService.GetAll();
-
-            request.LeaveTypes = leaveTypeService.GetAll().ToList();
-            request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
-
-            ViewBag.ActionName = "GetAllRequestByHR";
 
             return View(request);
         }
@@ -248,31 +265,35 @@ namespace Fanex.NexHR.Controllers.Request
         [Authorize(Roles = "HR")]
         public ActionResult GetAllRequestByHR(RequestViewModel request)
         {
-            // Default view all request type
-            if (request.TeamId == -1)
+            IList<RequestEntity> entityList = new List<RequestEntity>();
+            if (request != null)
             {
-                request = new RequestViewModel
+                // Default view all request type
+                if (request.TeamId == -1)
                 {
-                    StatusId = 0,
-                    RequestType = 5,
-                    TeamId = null,
-                    IsFilterByEffectedDate = false
-                };
+                    request = new RequestViewModel
+                    {
+                        StatusId = 0,
+                        RequestType = 5,
+                        TeamId = null,
+                        IsFilterByEffectedDate = false
+                    };
+                }
+
+                // Get request model from Request monitoring view.
+                if (request.TeamId == -2)
+                {
+                    request.StatusId = 0;
+                    request.TeamId = null;
+                }
+
+                entityList = GetRequest(request, (short)Role.HR);
+
+                ViewBag.Status = request.StatusId;
+                ViewBag.IsAllowChangeStatus = true;
+                ViewBag.Leader = false;
+                ViewBag.Options = request;
             }
-
-            // Get request model from Request monitoring view.
-            if (request.TeamId == -2)
-            {
-                request.StatusId = 0;
-                request.TeamId = null;
-            }
-
-            IList<RequestEntity> entityList = GetRequest(request, (short)Role.HR);
-
-            ViewBag.Status = request.StatusId;
-            ViewBag.IsAllowChangeStatus = true;
-            ViewBag.Leader = false;
-            ViewBag.Options = request;
 
             return PartialView("AllRequest", entityList);
         }
@@ -309,9 +330,12 @@ namespace Fanex.NexHR.Controllers.Request
         [HttpPost]
         public string GetRequestDetail(RequestEntity request, short requestType, string fromShiftCode, string toShiftCode)
         {
-            request.RequestType = new RequestTypeModel { Id = requestType };
-            request.FromShift = new Shift { Name = fromShiftCode };
-            request.ToShift = new Shift { Name = toShiftCode };
+            if (request != null)
+            {
+                request.RequestType = new RequestTypeModel { Id = requestType };
+                request.FromShift = new Shift { Name = fromShiftCode };
+                request.ToShift = new Shift { Name = toShiftCode };
+            }
 
             string requestDetail = RequestService.ToRequestMessage(request);
             return requestDetail;

@@ -61,19 +61,22 @@
 
         public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
         {
-            if (model.TeamId == -1)
+            IList<Employee> employees = new List<Employee>();
+            if (model != null)
             {
-                model.TeamId = null;
+                if (model.TeamId == -1)
+                {
+                    model.TeamId = null;
+                }
+
+                var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
+                {
+                    Query = model.Query,
+                    GroupId = model.TeamId,
+                    TitleId = model.JobTitleId
+                };
+                employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
             }
-
-            var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
-            {
-                Query = model.Query,
-                GroupId = model.TeamId,
-                TitleId = model.JobTitleId
-            };
-
-            IList<Employee> employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
 
             return PartialView("_ToeicManagementDetail", employees);
         }
@@ -109,7 +112,7 @@
             {
                 ValidateTOEIC(model);
 
-                if (ModelState.IsValid)
+                if (model != null && ModelState.IsValid)
                 {
                     var oldScore = GetToeicScore(model.EmpId);
                     var newScore = model;
@@ -159,7 +162,7 @@
         public ActionResult UpdateToeic(ToeicViewModel model)
         {
             CommandResult result = new CommandResult();
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var toeic = new Toeic
                 {

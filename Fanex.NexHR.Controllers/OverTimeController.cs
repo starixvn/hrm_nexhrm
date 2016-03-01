@@ -44,15 +44,18 @@
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
         {
-            var criteria = new GetOvertimeCriteria
+            IList<Overtime> result = new List<Overtime>();
+            if (model != null)
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                CreatedBy = model.CreatedBy,
-                Status = model.Status
-            };
-
-            IList<Overtime> result = overtimeService.GetOvertime(criteria);
+                var criteria = new GetOvertimeCriteria
+                {
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    CreatedBy = model.CreatedBy,
+                    Status = model.Status
+                };
+                result = overtimeService.GetOvertime(criteria);
+            }
 
             return View(result);
         }
@@ -68,26 +71,29 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOvertimeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null)
             {
-                model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
-                var criteria = new InsertOvertimeCriteria
+                if (ModelState.IsValid)
                 {
-                    CreatedBy = CurrentUser.Id,
-                    Description = model.Description,
-                    Date = model.Date,
-                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
-                    TimeSheets = model.TimeSheets
-                };
+                    model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+                    var criteria = new InsertOvertimeCriteria
+                    {
+                        CreatedBy = CurrentUser.Id,
+                        Description = model.Description,
+                        Date = model.Date,
+                        Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
+                        TimeSheets = model.TimeSheets
+                    };
 
-                CommandResult result = commandService.Insert(criteria);
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Inserted = true;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    CommandResult result = commandService.Insert(criteria);
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Inserted = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
             }
 
@@ -108,9 +114,9 @@
             };
 
             model.TimeSheetData = JsonConvert.SerializeObject(
-                model.TimeSheets.Select(e => new 
-                { 
-                    e.Hour, 
+                model.TimeSheets.Select(e => new
+                {
+                    e.Hour,
                     Employee = new { Id = e.Employee.Id }
                 }));
 
@@ -120,7 +126,7 @@
         [HttpPost]
         public ActionResult Edit(CreateOvertimeViewModel model)
         {
-            if (ModelState.IsValid && HasPermission())
+            if (model != null && ModelState.IsValid && HasPermission())
             {
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
                 var criteria = new UpdateOvertimeCriteria
@@ -213,16 +219,19 @@
 
         public ActionResult OvertimeRequest(MemberOvertimeViewModel model)
         {
-            if (model.EmployeeId.HasValue)
+            if (model != null)
             {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
-            }
+                if (model.EmployeeId.HasValue)
+                {
+                    var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
+                    model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
+                }
 
-            if (model.CreatedBy.HasValue)
-            {
-                var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
-                model.CreatedName = employeeService.GetEmployeeById(criteria).DisplayName;
+                if (model.CreatedBy.HasValue)
+                {
+                    var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
+                    model.CreatedName = employeeService.GetEmployeeById(criteria).DisplayName;
+                }
             }
 
             return View(model);
@@ -231,23 +240,26 @@
         [HttpPost]
         public ActionResult OvertimeRequestDetail(MemberOvertimeViewModel model)
         {
-            var criteria = new GetEmployeeOvertimeCriteria
+            IList<EmployeeOvertime> result = new List<EmployeeOvertime>();
+            if (model != null)
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                CreatedBy = model.CreatedBy,
-                Status = model.Status,
-                EmployeeId = model.EmployeeId
-            };
-
-            IList<EmployeeOvertime> result = overtimeService.GetEmployeeOvertime(criteria);
+                var criteria = new GetEmployeeOvertimeCriteria
+                {
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    CreatedBy = model.CreatedBy,
+                    Status = model.Status,
+                    EmployeeId = model.EmployeeId
+                };
+                result = overtimeService.GetEmployeeOvertime(criteria);
+            }
 
             return View(result);
         }
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!HasPermission())
+            if (filterContext != null && !HasPermission())
             {
                 filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
             }
