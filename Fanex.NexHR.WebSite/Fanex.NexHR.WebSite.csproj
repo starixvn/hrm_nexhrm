@@ -769,7 +769,7 @@
     <Content Include="Views\Postnatal\Index.cshtml" />
     <Content Include="Views\Postnatal\ListPostnatalEmployee.cshtml" />
     <Content Include="Views\Overtime\MyOvertime.cshtml" />
-    <Content Include="Views\Overtime\MyOvertimeResult.cshtml" />
+    <Content Include="Views\Overtime\MyOvertimeData.cshtml" />
     <Content Include="Views\Postnatal\Create.cshtml" />
     <Content Include="Views\Postnatal\Edit.cshtml" />
   </ItemGroup>
