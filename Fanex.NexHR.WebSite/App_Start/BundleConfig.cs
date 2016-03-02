@@ -138,7 +138,7 @@
         private static void BuildBundleForTotalWorkingHours(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.totalworkinghours.js"));
         }
 
@@ -153,7 +153,7 @@
         private static void BuildBundleForGeolocation(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
-                "~/Scripts/Views/geolocationmap.js"));
+                "~/Scripts/Views/Geolocationmap/geolocationmap.js"));
 
             bundles.AddAndInclude(
                 "~/Content/geolocationcss",
@@ -231,7 +231,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/managerequestsjs").Include(
                 "~/Scripts/Views/Request/mgr.requests.js",
-                "~/Scripts/Views/_employee.search.in.team.js"));
+                "~/Scripts/Views/Employee/_employee.search.in.team.js"));
         }
 
         private static void BuildBundleForRequestsStatistic(BundleCollection bundles)
@@ -244,7 +244,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
                 "~/Scripts/Views/AnnualLeaveBalance/index.js",
-                "~/Scripts/Views/_employee.search.in.company.js"));
+                "~/Scripts/Views/Employee/_employee.search.in.company.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/employeeannualleavebalancejs").Include(
                 "~/Scripts/Views/AnnualLeaveBalance/employee.js"));
@@ -259,7 +259,7 @@
         private static void BuildBundleForJobTitle(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jobtitlejs").Include(
-                "~/Scripts/Views/jobtitle.js"));
+                "~/Scripts/Views/Jobtitle/jobtitle.js"));
 
             bundles.AddAndInclude(
                 "~/Content/jobtitlecss",
@@ -283,7 +283,7 @@
         {
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutjs",
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.latein.earlyout.js");
         }
 
@@ -291,7 +291,7 @@
         {
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutdetailjs",
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.latein.earlyout.detail.js");
         }
 
@@ -303,7 +303,7 @@
 
             bundles.AddAndInclude(
                 "~/bundles/lateinearlyoutdisciplinejs",
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.latein.earlyout.discipline.js");
         }
 
@@ -321,7 +321,7 @@
         private static void BuildBundleForTeamManagement(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
-                "~/Scripts/Views/team.management.js"));
+                "~/Scripts/Views/TeamManagement/team.management.js"));
         }
 
         private static void BuildBundleForDefaultSchedule(BundleCollection bundles)
@@ -345,14 +345,14 @@
         private static void BuildBundleForReportTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.timerecord.js"));
         }
 
         private static void BuildBundleForLeaveSummary(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leavesummaryjs").Include(
-             "~/Scripts/Views/_employee.search.in.company.js",
+             "~/Scripts/Views/Employee/_employee.search.in.company.js",
              "~/Scripts/Views/Report/report.leave.summary.js"));
         }
 
@@ -381,7 +381,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/workingcalendarsjs").Include(
                 "~/Scripts/Views/Calendar/employee.workingcalendars.js",
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/fixtable.js"));
 
             bundles.AddAndInclude(
@@ -409,7 +409,7 @@
         {
             bundles.AddAndInclude(
                 "~/bundles/leavedeductiondetailjs",
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.leave.deduction.detail.js");
         }
 
@@ -475,10 +475,10 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/postnatalemployeejs").Include(
                 "~/Scripts/Views/Postanal/postnatalemployee.js",
-                "~/Scripts/Views/_employee.search.in.company.js"));
+                "~/Scripts/Views/Employee/_employee.search.in.company.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(                
-                "~/Scripts/Views/_employee.search.in.company.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Postanal/create.js"));       
         }
     }

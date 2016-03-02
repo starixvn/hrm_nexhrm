@@ -37,7 +37,8 @@
                             </div>
                             <div class="col m-r--l">
                                 <div class="left filter-title-lbl">
-                                    <label>@Labels.Title</label></div>
+                                    <label>@Labels.Title</label>
+                                </div>
                                 <div class="left filter-title">
                                     @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
                                 </div>
@@ -56,8 +57,9 @@
                                 </div>
                             </div>
                             <div class="col">
-                            <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
-                            <a id="exportExcel" class="waves-effect waves-light btn-export-excel" href="javascript:;">@Labels.Excel</a>
+                                <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
+                                <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b" href="javascript:;">@Labels.Excel</a>
+                                @Html.ActionLink("Postnatal Employee", "index", "postnatal", null, new { @class = "waves-effect waves-light btn-request" })
                             </div>
                         </div>
                     </div>
@@ -67,7 +69,8 @@
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                         <thead>
                             <tr>
-                                <th>@Labels.SymbolCount
+                                <th>
+                                    @Labels.SymbolCount
                                 </th>
                                 <th class="col-sorter">
                                     @Labels.Code
@@ -109,14 +112,15 @@
                                     <div class="sorter" data-property="JoinedDate">
                                     </div>
                                 </th>
-                                <th>@Labels.Edit
+                                <th>
+                                    @Labels.Edit
                                 </th>
-                                <th>@Labels.Schedule
+                                <th>
+                                    @Labels.Schedule
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -128,37 +132,37 @@
     <tr id="row{{:Id}}" {{if Enabled == false }} class="disabled" {{/if}}>
         <td>{{:~index()}}</td>
         <td>{{:Code}}</td>
-    <td class="nick align-left" data-code="{{:Code}}">
-        <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
-    </td>
+        <td class="nick align-left" data-code="{{:Code}}">
+            <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
+        </td>
         <td class="align-left">{{:FullName}}</td>
         <td title="{{:Team.Name}}" class="tooltip">{{:Team.Code}}</td>
         <td>
             {{if Gender == 0 }}
-                F
+            F
             {{else}}
-                M
+            M
             {{/if}}
         </td>
         <td class="align-left">{{:JobTitle.Name}}</td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
         <td>
             {{if JoinedDate != null}}
-                {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
+            {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
             {{/if}}
         </td>
         <td>
             {{if !IsDeleted}}
             <a href="/employee/edit?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
-                -
+            -
             {{/if}}
         </td>
         <td>
             {{if !IsDeleted}}
             <a href="/employee/defaultschedule?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
-                -
+            -
             {{/if}}
         </td>
     </tr>

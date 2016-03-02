@@ -30,25 +30,24 @@ namespace Fanex.NexHR.Controllers.Request
         private readonly IEmployeeService _employeeService;
         private readonly IShiftService _shiftService;
         private readonly IRequestService _requestService;
-
-        #region Ctor
+        private readonly ICommandService commandService;
 
         public CheckInOutController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public CheckInOutController(
-            IEmployeeService employeeService = null,
-            IShiftService shiftService = null,
-            IRequestService requestService = null)
+            IEmployeeService employeeService,
+            IShiftService shiftService,
+            IRequestService requestService,
+            ICommandService commandService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _shiftService = shiftService ?? new ShiftService();
             _requestService = requestService ?? new RequestService();
+            this.commandService = commandService ?? new CommandService();
         }
-
-        #endregion Ctor
 
         public ActionResult EmployeeView()
         {

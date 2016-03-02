@@ -648,10 +648,10 @@
     <Content Include="Scripts\Views\Calendar\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\ExtensionNo\extensionno.js" />
     <Content Include="Scripts\Views\fixtable.js" />
-    <Content Include="Scripts\Views\geolocationmap.js" />
+    <Content Include="Scripts\Views\Geolocationmap\geolocationmap.js" />
     <Content Include="Scripts\Views\Holiday\holiday.edit.js" />
     <Content Include="Scripts\Views\Holiday\holiday.js" />
-    <Content Include="Scripts\Views\jobtitle.js" />
+    <Content Include="Scripts\Views\Jobtitle\jobtitle.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\create.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
@@ -673,18 +673,17 @@
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\Calendar\mycalendar.js" />
     <Content Include="Scripts\Views\Dashboard\employee.dashboard.js" />
-    <Content Include="Scripts\Views\home.js" />
     <Content Include="Scripts\Views\language.js" />
     <Content Include="Scripts\Views\Request\leave.request.js" />
     <Content Include="Scripts\Views\Report\report.attendance.js" />
     <Content Include="Scripts\Views\Report\report.mytimerecord.js" />
     <Content Include="Scripts\Views\Request\search.request.js" />
     <Content Include="Scripts\Views\Report\report.timerecord.js" />
-    <Content Include="Scripts\Views\team.management.js" />
+    <Content Include="Scripts\Views\TeamManagement\team.management.js" />
     <Content Include="Scripts\Views\Report\report.totalworkinghours.js" />
     <Content Include="Scripts\Views\Employee\user.management.js" />
-    <Content Include="Scripts\Views\_employee.search.in.company.js" />
-    <Content Include="Scripts\Views\_employee.search.in.team.js" />
+    <Content Include="Scripts\Views\Employee\_employee.search.in.company.js" />
+    <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

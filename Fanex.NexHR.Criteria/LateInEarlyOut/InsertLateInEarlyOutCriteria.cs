@@ -6,11 +6,11 @@
     public class InsertLateInEarlyOutCriteria : CriteriaBase
     {
         public DateTime WorkDate { get; set; }
-
-        [SpParam(SqlParamName = "Type")]
+        
         /// <summary>
         /// 1: Late In or 2: Early Out
         /// </summary>
+        [SpParam(SqlParamName = "Type")]
         public int Types { get; set; }
 
         public int Minutes { get; set; }
