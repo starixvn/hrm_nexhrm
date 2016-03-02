@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-
-namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels.Postnatal
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public class PostnatalViewModel
     {        
         public int EmpId { get; set; }

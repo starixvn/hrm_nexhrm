@@ -9,11 +9,6 @@
 
 namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -22,7 +17,12 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.CheckInOutRequest;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [Authorize]
     public class CheckInOutController : BaseController

@@ -9,6 +9,11 @@
 
 namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.Navigation;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -16,11 +21,6 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
 
     /// <summary>
     /// UI controller.

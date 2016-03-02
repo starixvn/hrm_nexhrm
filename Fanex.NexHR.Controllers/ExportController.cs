@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ExportController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-//   <change who="Josh.Phan" date="2014.03.11">Apply NAP Framework</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Criteria.Employee;
@@ -21,8 +8,11 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.TotalWorkingHours;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
     public class ExportController : BaseController
     {

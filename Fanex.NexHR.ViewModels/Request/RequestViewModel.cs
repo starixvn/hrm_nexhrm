@@ -7,7 +7,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels.Common;
+    using Fanex.NexHR.ViewModels.Common;    
 
     public class RequestViewModel : PagerOptionModel
     {

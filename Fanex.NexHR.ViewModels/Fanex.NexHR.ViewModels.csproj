@@ -67,7 +67,7 @@
     <Compile Include="Holiday\HolidayViewModel.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutViewModel.cs" />
     <Compile Include="LateInEarlyOut\Types.cs" />
-    <Compile Include="PostnatalViewModel.cs" />
+    <Compile Include="Postnatal\PostnatalViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="Overtime\OvertimeEditViewModel.cs" />
@@ -75,15 +75,15 @@
     <Compile Include="AnnualLeave\LeaveDeductionViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />
     <Compile Include="Employee\EmployeeBirthdayViewModel.cs" />
-    <Compile Include="ExtensionNoViewModel.cs" />
+    <Compile Include="ExtensionNo\ExtensionNoViewModel.cs" />
     <Compile Include="HRLeaderDashboardModel.cs" />
     <Compile Include="Calendar\AddEmployeeCalendarViewModel.cs" />
     <Compile Include="AnnualLeave\LeaveSummaryViewModel.cs" />
-    <Compile Include="MemoViewModel.cs" />
+    <Compile Include="Memo\MemoViewModel.cs" />
     <Compile Include="MissingCheckInOutModel.cs" />
     <Compile Include="ModelBinder\CustomModelBinder.cs" />
     <Compile Include="ModelBinder\ReflectionModelBinder.cs" />
-    <Compile Include="NavigationViewModel.cs" />
+    <Compile Include="Navigation\NavigationViewModel.cs" />
     <Compile Include="Overtime\MemberOvertimeViewModel.cs" />
     <Compile Include="Overtime\OvertimeCreateViewModel.cs" />
     <Compile Include="AnnualLeave\LeaveDeductionDetailViewModel.cs" />
@@ -97,14 +97,14 @@
     <Compile Include="TimeRecordViewModel.cs" />
     <Compile Include="Report\TimesheetViewModel.cs" />
     <Compile Include="Leave\LeaveRequestViewModel.cs" />
-    <Compile Include="CheckInOutRequestViewModel.cs" />
+    <Compile Include="CheckInOutRequest\CheckInOutRequestViewModel.cs" />
     <Compile Include="Employee\CreateEmployeeViewModel.cs" />
     <Compile Include="Report\EmployeeAttendanceViewModel.cs" />
     <Compile Include="MySpaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToeicManagementViewModel.cs" />
-    <Compile Include="ToeicViewModel.cs" />
-    <Compile Include="TotalWorkingHoursViewModel.cs" />
+    <Compile Include="Toeic\ToeicManagementViewModel.cs" />
+    <Compile Include="Toeic\ToeicViewModel.cs" />
+    <Compile Include="TotalWorkingHours\TotalWorkingHoursViewModel.cs" />
     <Compile Include="WorkingCalendarsViewModel.cs" />
     <Compile Include="WorkingScheduleModel.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels.CheckInOutRequest
 {
     using System;
     using System.Collections.Generic;

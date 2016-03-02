@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.ViewModels
+﻿namespace Fanex.NexHR.ViewModels.Toeic
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Models;

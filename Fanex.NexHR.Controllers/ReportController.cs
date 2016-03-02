@@ -1,10 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
-    using System.Web.Security;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -16,6 +11,11 @@
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
+    using Fanex.NexHR.ViewModels.TotalWorkingHours;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class ReportController : BaseController
     {

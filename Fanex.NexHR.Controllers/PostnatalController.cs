@@ -2,10 +2,9 @@
 {
     using Fanex.NexHR.Criteria.Postnatal;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Postnatal;
     using System;
     using System.Collections.Generic;
     using System.Linq;

@@ -12,7 +12,7 @@
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Toeic;
 
     public class ToeicController : BaseController
     {
