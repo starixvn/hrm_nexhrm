@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RequestController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers.Request
+﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
@@ -24,6 +11,10 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [Authorize]
     public class RequestController : BaseController
@@ -337,7 +328,7 @@ namespace Fanex.NexHR.Controllers.Request
                 request.ToShift = new Shift { Name = toShiftCode };
             }
 
-            string requestDetail = RequestService.ToRequestMessage(request);
+            string requestDetail = RequestService.ConvertToRequestMessage(request);
             return requestDetail;
         }
 

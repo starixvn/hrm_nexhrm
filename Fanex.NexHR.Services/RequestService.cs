@@ -45,7 +45,7 @@
             this.commandService = commandService ?? new CommandService();
         }
 
-        public static string ToRequestMessage(RequestEntity request)
+        public static string ConvertToRequestMessage(RequestEntity request)
         {
             StringBuilder msg = new StringBuilder();
             switch (request.RequestType.Id)
@@ -92,7 +92,7 @@
             return msg.ToString();
         }
 
-        public bool CheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
+        public bool CreateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
         {
             if (modelState.IsValid)
             {

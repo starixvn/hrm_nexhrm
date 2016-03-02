@@ -147,7 +147,7 @@ namespace Fanex.NexHR.Controllers.Request
                     }
 
                     model.ShiftInfos = _shiftService.GetAll();
-                    ViewBag.Requested = _requestService.CheckInOut(ModelState, model);
+                    ViewBag.Requested = _requestService.CreateCheckInOut(ModelState, model);
                     ViewBag.Year = model.ForDate.Year;
                 }
             }

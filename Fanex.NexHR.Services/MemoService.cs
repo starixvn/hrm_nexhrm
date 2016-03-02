@@ -12,11 +12,11 @@
 
     public class MemoService : BaseService, IMemoService
     {
-        private readonly IEmailService _emailService;
+        private readonly IEmailService emailService;
 
         public MemoService(IEmailService emailService = null)
         {
-            this._emailService = emailService ?? new EmailService();
+            this.emailService = emailService ?? new EmailService();
         }
 
         /// <summary>
@@ -68,19 +68,19 @@
                 Link = link + "memo/detail/" + memoId
             };
             var body = RazorEngine.Razor.Parse(bodyTemplate, content);
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 groupGo,
                 string.Empty,
                 Messages.MemoSubject + " " + subject,
                 body);
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                ConfigurationManager.AppSettings["Email"],
                groupSd,
                string.Empty,
                Messages.MemoSubject + " " + subject,
                body);
-            this._emailService.SendEmail(
+            this.emailService.SendEmail(
                ConfigurationManager.AppSettings["Email"],
                groupNetwork,
                string.Empty,

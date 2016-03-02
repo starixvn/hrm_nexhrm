@@ -9,11 +9,11 @@
 
 namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
+    using System;
+    using System.Collections.Generic;
 
     public class ExportService
     {

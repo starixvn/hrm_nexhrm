@@ -65,7 +65,7 @@ namespace Fanex.NexHR.Repositories
                     {
                         while (reader.Read())
                         {
-                            request = GetRequestInfo(reader);
+                            request = GetRequestInfo(reader);                            
                             return request;
                         }
                     }

@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
     public interface IRequestService
     {
-        bool CheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
+        bool CreateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
 
         bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model);
 
