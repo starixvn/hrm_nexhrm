@@ -185,7 +185,9 @@
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="LookupDataService.cs" />
     <Compile Include="Interfaces\ILookupDataService.cs" />
-    <Compile Include="Interfaces\IMemoService.cs" />
+    <Compile Include="Interfaces\IMemoService.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="MemoService.cs" />
     <Compile Include="ExportService.cs" />

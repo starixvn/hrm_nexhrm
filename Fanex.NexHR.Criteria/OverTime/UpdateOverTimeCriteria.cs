@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
     using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Overtime;
     using System;
     using System.Collections.Generic;
     using System.Linq;

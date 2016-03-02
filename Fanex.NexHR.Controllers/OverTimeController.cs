@@ -8,6 +8,7 @@
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Overtime;
     using Fanex.NexHR.ViewModels.Overtime;
     using Newtonsoft.Json;
     using Services;

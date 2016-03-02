@@ -1,14 +1,15 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Holiday;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Holiday;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
     public class HolidayController : BaseController
     {

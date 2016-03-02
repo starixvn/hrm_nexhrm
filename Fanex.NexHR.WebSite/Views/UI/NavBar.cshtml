@@ -1,4 +1,4 @@
-﻿@helper NagivationItem(List<Fanex.NexHR.ViewModels.NavigationViewModel> navItemList)
+﻿@helper NagivationItem(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> navItemList)
     {
         foreach (var navItem in navItemList)
         {
@@ -8,7 +8,7 @@
             </li>
         }
 }
-@helper NavigationSection(List<Fanex.NexHR.ViewModels.NavigationViewModel> sectionItemList)
+@helper NavigationSection(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> sectionItemList)
     {
         for (int i = 0; i < sectionItemList.Count; i++)
         {

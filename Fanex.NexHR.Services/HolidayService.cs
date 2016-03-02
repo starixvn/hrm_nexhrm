@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria.Holiday;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Holiday;
     using Fanex.NexHR.Services.Interfaces;
 
     public class HolidayService : BaseService, IHolidayService

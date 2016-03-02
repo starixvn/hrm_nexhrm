@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
-namespace Fanex.NexHR.Models
+namespace Fanex.NexHR.Models.LateInEarlyOut
 {
     public class LateInEarlyOut
     {

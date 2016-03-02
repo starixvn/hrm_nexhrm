@@ -1,14 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Criteria.Overtime;
-    using Fanex.Common.Helper;
-    using Fanex.NexHR.ViewModels;
     using Interfaces;
     using Models;
+    using Models.Overtime;
     using Repositories;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
 
     public class OvertimeService : BaseService, IOvertimeService
     {

@@ -87,9 +87,9 @@
     <Compile Include="DashboardPersonalSpace.cs" />
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="JobTitle.cs" />
-    <Compile Include="LateInEarlyOut.cs" />
-    <Compile Include="Overtime.cs" />
-    <Compile Include="OvertimeRecord.cs" />
+    <Compile Include="LateInEarlyOut\LateInEarlyOut.cs" />
+    <Compile Include="Overtime\Overtime.cs" />
+    <Compile Include="Overtime\OvertimeRecord.cs" />
     <Compile Include="Postnatal.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />
@@ -112,11 +112,11 @@
     <Compile Include="Request\RequestTypeModel.cs" />
     <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
-    <Compile Include="Holiday.cs" />
-    <Compile Include="LateInEarlyOutRequest.cs" />
+    <Compile Include="Holiday\Holiday.cs" />
+    <Compile Include="LateInEarlyOut\LateInEarlyOutRequest.cs" />
     <Compile Include="LeaveType.cs" />
     <Compile Include="LookupData.cs" />
-    <Compile Include="Memo.cs" />
+    <Compile Include="Memo\Memo.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shift.cs" />

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using Fanex.NexHR.Criteria.Memo;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Memo;
     using System.Collections.Generic;
 
     public interface IMemoService

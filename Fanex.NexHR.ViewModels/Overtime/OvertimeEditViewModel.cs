@@ -1,11 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels.Overtime
 {
-    using Core.Enums;
-    using Models;
+    using Models.Overtime;
     using Resources;
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class OvertimeEditViewModel

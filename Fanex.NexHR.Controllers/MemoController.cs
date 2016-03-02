@@ -1,15 +1,16 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Criteria.Memo;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Memo;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.Memo;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Criteria.Memo;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Memo;
 
     public class MemoController : BaseController
     {

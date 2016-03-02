@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Core.Enums;
-    using Models;
+    using Models.Overtime;
     using Resources;
 
     public class CreateOvertimeViewModel

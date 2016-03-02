@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.NexHR.Criteria.Overtime;
     using Models;
-    using ViewModels;
+    using Models.Overtime;
+    using System.Collections.Generic;
 
     public interface IOvertimeService
     {

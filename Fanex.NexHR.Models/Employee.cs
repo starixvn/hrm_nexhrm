@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Employee.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +6,7 @@ namespace Fanex.NexHR.Models
     using System.Linq;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Models.Attributes;    
 
     public class Employee : EntityBase<int>
     {

@@ -2,7 +2,7 @@
 {
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Memo;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Memo;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using System.Collections.Generic;

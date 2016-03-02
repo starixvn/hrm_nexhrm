@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models.Overtime
 {
     using System;
     using System.Collections.Generic;

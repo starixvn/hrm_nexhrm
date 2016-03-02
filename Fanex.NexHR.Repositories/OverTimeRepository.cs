@@ -1,11 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data;
     using Fanex.Data.Repository;
     using Interfaces;
     using Models;
+    using Models.Overtime;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class OvertimeRepository : IOvertimeRepository
     {
