@@ -22,20 +22,23 @@
         private readonly IRequestService requestService;
         private readonly ITeamService teamService;
         private readonly ILeaveTypeService leaveTypeService;
+        private readonly ICommandService commandService;
 
         public RequestController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public RequestController(
             IRequestService requestService,
             ITeamService teamService,
-            ILeaveTypeService leaveTypeService)
+            ILeaveTypeService leaveTypeService,
+            ICommandService commamndService)
         {
             this.requestService = requestService ?? new RequestService();
             this.teamService = teamService ?? new TeamService();
             this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "AssistantLeader,HR")]
@@ -306,16 +309,15 @@
         }
 
         [HttpPost]
-        public bool DeleteWorkingTimeRequest(int id)
+        public ActionResult DeleteWorkingTimeRequest(int id)
         {
             var criteria = new DeleteRequestCriteria()
             {
                 Id = id
             };
+            CommandResult result = commandService.Delete(criteria);            
 
-            bool deleted = requestService.DeleteRequest(criteria);
-
-            return deleted;
+            return Json(result);
         }
 
         [HttpPost]

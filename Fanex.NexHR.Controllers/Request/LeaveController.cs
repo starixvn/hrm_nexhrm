@@ -143,7 +143,7 @@ namespace Fanex.NexHR.Controllers.Request
                     };
 
                     model.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
-                    ViewBag.Requested = _requestService.Leave(ModelState, model);
+                    ViewBag.Requested = _requestService.CreateLeave(ModelState, model);
                 }
             }
 

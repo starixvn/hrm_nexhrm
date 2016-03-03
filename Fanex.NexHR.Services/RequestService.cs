@@ -122,7 +122,7 @@
                 if (result.Code == 0)
                 {
                     string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
-                    var taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.CheckInOutEmailSubject, templateEmailPath));
+                    Task taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.CheckInOutEmailSubject, templateEmailPath));
                     taskSendMail.Start();
                     return true;
                 }
@@ -143,7 +143,7 @@
         }
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model)
+        public bool CreateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model)
         {
             if (modelState.IsValid)
             {
@@ -356,9 +356,12 @@
 
             if (result.Code == 0)
             {
-                string templateEmailToRequester = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForRequester);
-                string templateLeaveEmailToRelated = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForLeaveApproved);
-                string templateInOutEmailToRelated = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
+                string templateEmailToRequester = HttpContext.Current.Server
+                    .MapPath(Constants.EmailTemplatePathForRequester);
+                string templateLeaveEmailToRelated = HttpContext.Current.Server
+                    .MapPath(Constants.EmailTemplatePathForLeaveApproved);
+                string templateInOutEmailToRelated = HttpContext.Current.Server
+                    .MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
                 var taskSendMail = new Task(() => SendMailForProcessRequest(id, command, templateEmailToRequester, templateLeaveEmailToRelated, templateInOutEmailToRelated));
                 taskSendMail.Start();
             }
@@ -388,19 +391,7 @@
             }
 
             return request;
-        }
-
-        public bool DeleteRequest(DeleteRequestCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            if (criteria.IsValid())
-            {
-                commandService.Delete(criteria);
-                return true;
-            }
-
-            return false;
-        }
+        }        
 
         public IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria)
         {

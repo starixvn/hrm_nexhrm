@@ -3,9 +3,14 @@
 
 function cancelRequest(id) {
     confirm('<p>Are you sure you want to cancel this request?</p>', function () {
-        $.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function () {
-            $('#row_' + id).remove();
-            autoIndex();
+        $.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function (data) {
+            if (data.IsSuccessful) {
+                $('#row_' + id).remove();
+                autoIndex();
+            }
+            else {
+                alert('An error has occurs !');
+            }
         });
     });
 }

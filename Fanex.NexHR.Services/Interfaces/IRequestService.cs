@@ -1,12 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IRequestService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Created</change>
-// </history>
-namespace Fanex.NexHR.Services.Interfaces
+﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models;
@@ -20,7 +12,7 @@ namespace Fanex.NexHR.Services.Interfaces
     {
         bool CreateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
 
-        bool Leave(ModelStateDictionary modelState, LeaveRequestViewModel model);
+        bool CreateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model);
 
         bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
 
@@ -30,9 +22,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
         IList<RequestEntity> GetRequest(GetRequestCriteria criteria);
 
-        RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria);
-
-        bool DeleteRequest(DeleteRequestCriteria criteria);
+        RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria);        
 
         IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria);
 
