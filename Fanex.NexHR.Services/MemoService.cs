@@ -62,12 +62,7 @@
             //// send email(s)
             var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/MemoNotification.cshtml"));
 
-            var content = new
-            {
-                Subject = subject,
-                Link = link + "memo/detail/" + memoId
-            };
-            var body = RazorEngine.Razor.Parse(bodyTemplate, content);
+            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId);
             this.emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 groupGo,
