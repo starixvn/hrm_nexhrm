@@ -1296,4 +1296,7 @@
   <data name="CreateNewOT" xml:space="preserve">
     <value>Create Overtime</value>
   </data>
+  <data name="OvertimeSummary" xml:space="preserve">
+    <value>Overtime Summary</value>
+  </data>
 </root>

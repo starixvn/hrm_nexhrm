@@ -1,0 +1,49 @@
+﻿@using Fanex.NexHR.Models.Overtime
+@model IList<OvertimeSummary>
+@if (Model != null && Model.Any())
+{
+    int index = 1;
+    IList<OvertimeSummary> overtimeSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+    foreach (OvertimeSummary overtimeSummaryByTeam in overtimeSummaryByTeams)
+    {
+        <tr class="row-divider">
+            <td colspan="16">
+                <b>@overtimeSummaryByTeam.Employee.Team.Name.ToUpper()</b>
+            </td>
+        </tr>
+
+        IList<OvertimeSummary> overtimeSummaries = Model.Where(t => t.Employee.Team.Id == overtimeSummaryByTeam.Employee.Team.Id).ToList();
+        foreach (OvertimeSummary overtimeSummary in overtimeSummaries)
+        {
+            var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
+                new
+                {
+                    @class = "aba filled-in",
+                    data_id = overtimeSummary.Employee.Id
+                });
+            <tr>
+
+                <td>@(index++)</td>
+                <td class="tooltip" title="@overtimeSummary.Employee.FullName">@overtimeSummary.Employee.NickName</td>
+                <td class="tooltip" title="@overtimeSummary.Employee.Team.Name">@overtimeSummary.Employee.Team.Code</td>
+                <td>@overtimeSummary.Jan.ToString("0.0")</td>
+                <td>@overtimeSummary.Feb.ToString("0.0")</td>
+                <td>@overtimeSummary.Mar.ToString("0.0")</td>
+                <td>@overtimeSummary.Apr.ToString("0.0")</td>
+                <td>@overtimeSummary.May.ToString("0.0")</td>
+                <td>@overtimeSummary.Jun.ToString("0.0")</td>
+                <td>@overtimeSummary.Jul.ToString("0.0")</td>
+                <td>@overtimeSummary.Aug.ToString("0.0")</td>
+                <td>@overtimeSummary.Sep.ToString("0.0")</td>
+                <td>@overtimeSummary.Oct.ToString("0.0")</td>
+                <td>@overtimeSummary.Nov.ToString("0.0")</td>
+                <td>@overtimeSummary.Dec.ToString("0.0")</td>
+                <td>@overtimeSummary.TotalHour.ToString("0.0")</td>
+            </tr>
+        }
+    }
+}
+else
+{
+    @RazorHelper.DisplayNoInformation(16)
+}

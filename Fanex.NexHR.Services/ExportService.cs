@@ -1,19 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ExportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/7/2">Created.</change>
-// </history>
-
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
-    using System;
-    using System.Collections.Generic;
 
     public class ExportService
     {

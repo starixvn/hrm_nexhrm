@@ -14,5 +14,7 @@
         IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria);
 
         IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria);
+
+        List<OvertimeSummary> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
     }
 }

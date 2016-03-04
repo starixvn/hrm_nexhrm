@@ -1,19 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="LeaveController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.15">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers.Request
+﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -23,15 +9,17 @@ namespace Fanex.NexHR.Controllers.Request
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Web.Mvc;
 
-    [Authorize]
     public class LeaveController : BaseController
     {
         private readonly IEmployeeService _employeeService;
         private readonly ILeaveTypeService _leaveTypeService;
         private readonly IRequestService _requestService;
-
-        #region Ctor
 
         public LeaveController()
             : this(null, null, null)
@@ -47,8 +35,6 @@ namespace Fanex.NexHR.Controllers.Request
             _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
             _requestService = requestService ?? new RequestService();
         }
-
-        #endregion Ctor
 
         public ActionResult EmployeeView()
         {

@@ -250,6 +250,10 @@
     <Setting Key="Overtime_Update" SpName="Overtime_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_ApproveRequest" SpName="Overtime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_DisapproveRequest" SpName="Overtime_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_GetSummary" SpName="Overtime_GetSummary" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
   </Function>
   <Function Name="Attendance">
     <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1">

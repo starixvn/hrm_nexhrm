@@ -90,6 +90,7 @@
     <Compile Include="LateInEarlyOut\LateInEarlyOut.cs" />
     <Compile Include="Overtime\Overtime.cs" />
     <Compile Include="Overtime\OvertimeRecord.cs" />
+    <Compile Include="Overtime\OvertimeSummary.cs" />
     <Compile Include="Postnatal.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />

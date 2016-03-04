@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CheckInOutController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Controllers.Request
+﻿namespace Fanex.NexHR.Controllers.Request
 {
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -24,7 +15,6 @@ namespace Fanex.NexHR.Controllers.Request
     using System.Linq;
     using System.Web.Mvc;
 
-    [Authorize]
     public class CheckInOutController : BaseController
     {
         private readonly IEmployeeService _employeeService;

@@ -19,20 +19,23 @@
         private readonly IOvertimeService overtimeService;
         private readonly IEmployeeService employeeService;
         private readonly ICommandService commandService;
+        private readonly ITeamService teamService;
 
         public OvertimeController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public OvertimeController(
             IOvertimeService service,
             IEmployeeService employeeService,
-            ICommandService commandService)
+            ICommandService commandService,
+            ITeamService teamService)
         {
             this.overtimeService = service ?? new OvertimeService();
             this.employeeService = employeeService ?? new EmployeeService();
             this.commandService = commandService ?? new CommandService();
+            this.teamService = teamService ?? new TeamService();
         }
 
         public ActionResult MemberOvertime()
@@ -272,6 +275,31 @@
             var isInRoles = CurrentUser.IsInRoles(Role.AssistantLeader, Role.Leader, Role.HR, Role.SA);
 
             return belongPMTeam || isInRoles;
+        }
+
+        public ActionResult OvertimeSummary()
+        {
+            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel() 
+            {
+                Teams = teamService.GetAll()
+            };
+            
+            return View(summary);
+        }
+
+        [HttpPost]
+        public ActionResult OvertimeSummary(int? empId, int? teamId, int year)
+        {
+            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria() 
+            {
+                EmployeeId = empId,
+                TeamId = teamId,
+                Year = year
+            };
+
+            List<OvertimeSummary> listSummary = overtimeService.GetOvertimeSummary(criteria);
+
+            return PartialView("_ListOvertimeSummary", listSummary);
         }
     }
 }

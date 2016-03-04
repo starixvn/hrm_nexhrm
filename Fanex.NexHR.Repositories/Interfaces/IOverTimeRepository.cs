@@ -12,5 +12,7 @@
         Overtime GetOvertimeById(ICriteria criteria);
 
         IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria);
+
+        IList<OvertimeSummary> GetOvertimeSummary(ICriteria criteria);
     }
 }

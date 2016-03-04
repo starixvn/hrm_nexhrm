@@ -2626,6 +2626,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overtime Summary.
+        /// </summary>
+        public static string OvertimeSummary {
+            get {
+                return ResourceManager.GetString("OvertimeSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paid Leave.
         /// </summary>
         public static string PaidLeave {

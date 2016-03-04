@@ -90,5 +90,23 @@
                 return employeeOvertimes;
             }
         }
+
+        public IList<OvertimeSummary> GetOvertimeSummary(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var overtimeSummmary = db.Query<OvertimeSummary, Employee, Team, OvertimeSummary>(
+                     (overtime, employee, team) =>
+                     {
+                         employee.Team = team;
+                         overtime.Employee = employee;
+                         return overtime;
+                     },
+                     "EmpId, GroupId",
+                     criteria.GetSpParams()).ToList();
+
+                return overtimeSummmary;
+            }
+        }
     }
 }

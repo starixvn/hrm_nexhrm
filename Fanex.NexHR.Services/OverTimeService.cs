@@ -7,6 +7,7 @@
     using Repositories;
     using Repositories.Interfaces;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class OvertimeService : BaseService, IOvertimeService
     {
@@ -64,6 +65,17 @@
             }
 
             return overtimes ?? new List<EmployeeOvertime>();
+        }
+
+        public List<OvertimeSummary> GetOvertimeSummary(OvertimeSummaryCriteria criteria)
+        {
+            List<OvertimeSummary> listSummary = new List<OvertimeSummary>();
+            if (criteria != null && criteria.IsValid())
+            {
+                listSummary = repository.GetOvertimeSummary(criteria).ToList();
+            }
+
+            return listSummary;
         }
     }
 }
