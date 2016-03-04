@@ -32,6 +32,7 @@
 
         public int Types { get; set; }
 
+        [Display(Name = "Type")]
         [Required]
         public List<int> ChosenTypes { get; set; }
         
