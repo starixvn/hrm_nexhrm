@@ -47,6 +47,8 @@ function query(isFirstLoad) {
             } else {
                 $(noInformation(11)).appendTo('table#memo');
             }
+
+            floatThead('table#memo');
         },
         error: function () {
             alert(_messages.errorTryAgain);

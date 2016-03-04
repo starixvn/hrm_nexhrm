@@ -15,6 +15,7 @@
         },
         success: function (response) {
             $('#listOvertimeSummary').html(response);
+            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);
