@@ -1299,4 +1299,7 @@
   <data name="OvertimeSummary" xml:space="preserve">
     <value>Overtime Summary</value>
   </data>
+  <data name="BreakTime" xml:space="preserve">
+    <value>Break time</value>
+  </data>
 </root>

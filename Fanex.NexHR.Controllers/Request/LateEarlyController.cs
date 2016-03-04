@@ -129,7 +129,8 @@
 
         public ActionResult ListLateEarly(int empId, int year)
         {
-            return PartialView(GetLateEarlyByEmpId(empId, year));
+            List<LateInEarlyOutViewModel> model = GetLateEarlyByEmpId(empId, year).ToList();
+            return PartialView("_ListLateEarly", model);
         }
 
         private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int year)

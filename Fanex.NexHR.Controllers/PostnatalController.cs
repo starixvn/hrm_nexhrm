@@ -144,7 +144,7 @@
             };
             List<PostnatalViewModel> listPostnatal = postnatalService.GetAll(criteria).ToList();
 
-            return PartialView(listPostnatal);
+            return PartialView("_ListPostnatalEmployee", listPostnatal);
         }
     }
 }

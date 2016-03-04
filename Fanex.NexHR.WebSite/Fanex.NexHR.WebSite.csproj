@@ -763,11 +763,11 @@
     <Content Include="Views\Report\_ListLateInEarlyOutDiscipline.cshtml" />
     <Content Include="Views\Report\_ListLateInEarlyOut.cshtml" />
     <Content Include="Views\Report\_ListTimesheet.cshtml" />
-    <Content Include="Views\LateEarly\ListLateEarly.cshtml" />
+    <Content Include="Views\LateEarly\_ListLateEarly.cshtml" />
     <Content Include="Views\LateEarly\Create.cshtml" />
     <Content Include="Views\LateEarly\Edit.cshtml" />
     <Content Include="Views\Postnatal\Index.cshtml" />
-    <Content Include="Views\Postnatal\ListPostnatalEmployee.cshtml" />
+    <Content Include="Views\Postnatal\_ListPostnatalEmployee.cshtml" />
     <Content Include="Views\Overtime\MyOvertime.cshtml" />
     <Content Include="Views\Overtime\MyOvertimeData.cshtml" />
     <Content Include="Views\Postnatal\Create.cshtml" />

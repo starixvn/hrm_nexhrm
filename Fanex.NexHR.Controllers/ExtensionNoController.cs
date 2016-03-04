@@ -138,7 +138,7 @@
                     CommandResult result = commandService.Update(updateCriteria);
                     if (result.Code == 0)
                     {
-                        ViewBag.Requested = true;
+                        ViewBag.Updated = true;
                     }
                     else
                     {

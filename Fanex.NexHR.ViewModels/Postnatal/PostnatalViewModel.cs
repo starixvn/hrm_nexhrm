@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
+    using Fanex.NexHR.Resources;
 
     public class PostnatalViewModel
     {        
@@ -42,12 +43,12 @@
                 {
                     new SelectListItem() 
                     {
-                        Text = "Late in/Early out", 
+                        Text = Labels.LateInEarlyOut, 
                         Value = "1"
                     },
                     new SelectListItem() 
                     {
-                        Text = "Break time", 
+                        Text = Labels.BreakTime, 
                         Value = "2"
                     }
                 };

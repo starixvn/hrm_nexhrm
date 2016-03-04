@@ -1,4 +1,5 @@
-﻿@model Memo
+﻿@using Fanex.NexHR.Models.Memo
+@model Memo
 @{
     var memoSubject = Model != null ? Model.Subject : Labels.NoData;
     ViewBag.Title = memoSubject + " - " + Labels.Memo;

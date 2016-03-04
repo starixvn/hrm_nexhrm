@@ -439,6 +439,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break time.
+        /// </summary>
+        public static string BreakTime {
+            get {
+                return ResourceManager.GetString("BreakTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Break.
         /// </summary>
         public static string BreakTimeMins {
