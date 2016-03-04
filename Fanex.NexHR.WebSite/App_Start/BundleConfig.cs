@@ -240,8 +240,8 @@
 
         private static void BuildBundleForRequestsStatistic(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/requeststatisticjs").Include(
-                "~/Scripts/Views/Request/leader.request.monitoring.js"));
+            bundles.Add(new ScriptBundle("~/bundles/reportmonitoringjs").Include(
+                "~/Scripts/Views/Report/report.monitoring.js"));
         }
 
         private static void BuildBundleForAnnualLeaveBalance(BundleCollection bundles)

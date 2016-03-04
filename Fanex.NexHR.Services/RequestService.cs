@@ -1,5 +1,14 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
     using Fanex.Common.Helper;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
@@ -14,15 +23,6 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.CheckInOutRequest;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web;
-    using System.Web.Mvc;
 
     public class RequestService : BaseService, IRequestService
     {
@@ -409,6 +409,12 @@
             return requestRepository.GetNumberRequestInMonth(criteria);
         }
 
+        public IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
+        {
+            IList<DateTime> dates = GetData<DateTime>(criteria);
+            return dates;
+        }
+
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
         {
             string result = string.Empty;
@@ -450,7 +456,7 @@
                     var content = new
                     {
                         Leader = item.NickName,
-                        Member = model.DisplayName,
+                        Member = model.Employee,
                         Type = model.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower()
                             : RequestType.CheckOut.EnumToString().ToLower(),
@@ -515,7 +521,7 @@
 
                 if (managers != null && managers.Any())
                 {
-                    body = string.Format(bodyTemplate, model.DisplayName, forDate, model.LeaveTypeName, model.Remark);
+                    body = string.Format(bodyTemplate, model.Employee, forDate, model.LeaveTypeName, model.Remark);
                     this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         string.Join(";", managers.Select(t => t.Email)),
@@ -528,7 +534,7 @@
             {
                 if (leaders != null && leaders.Any())
                 {
-                    body = string.Format(bodyTemplate, leaders.First().NickName, model.DisplayName, forDate, model.LeaveTypeName, model.Remark);
+                    body = string.Format(bodyTemplate, leaders.First().NickName, model.Employee, forDate, model.LeaveTypeName, model.Remark);
                     this.emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         string.Join(";", leaders.Select(t => t.Email)),

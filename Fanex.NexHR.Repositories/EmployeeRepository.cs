@@ -13,6 +13,11 @@
 
     public class EmployeeRepository : IEmployeeRepository
     {
+        public Employee GetById(ICriteria criteria)
+        {
+            return GetEmployeeEntity(criteria);
+        }
+
         public Employee GetByDomainName(ICriteria criteria)
         {
             return GetEmployeeEntity(criteria);

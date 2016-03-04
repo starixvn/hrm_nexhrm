@@ -96,11 +96,11 @@
             }
         }
 
-        public IList<TimeRecordModel> GetTimeRecords(ICriteria criteria)
+        public IList<TimeRecord> GetTimeRecords(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var timeRecords = db.Query<TimeRecordModel, Employee, Team, TimeRecordModel>(
+                var timeRecords = db.Query<TimeRecord, Employee, Team, TimeRecord>(
                     (t, e, g) =>
                     {
                         t.Employee = e;
@@ -159,15 +159,15 @@
             }
         }
 
-        public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(ICriteria criteria)
+        public IList<LateInEarlyOutDiscipline> GetLateInEarlyOutSummary(ICriteria criteria)
         {
-            IList<LateInEarlyOutSummaryModel> lateinEarlyOuts = null;
+            IList<LateInEarlyOutDiscipline> lateinEarlyOuts = null;
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    lateinEarlyOuts = multi.Read<LateInEarlyOutSummaryModel, Employee, Team, LateInEarlyOutSummaryModel>(
+                    lateinEarlyOuts = multi.Read<LateInEarlyOutDiscipline, Employee, Team, LateInEarlyOutDiscipline>(
                        (la, e, g) =>
                        {
                            la.Employee = e;
@@ -177,7 +177,7 @@
                        },
                        "Id, GroupId").ToList();
 
-                    IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails = multi.Read<LateInEarlyOutSummaryDetailModel>().ToList();
+                    IList<LateInEarlyOutDisciplineDetail> lateInEarlyOutDetails = multi.Read<LateInEarlyOutDisciplineDetail>().ToList();
 
                     GroupLateInEarlyOutSummaryDetailByEmployeeId(lateinEarlyOuts, lateInEarlyOutDetails);
                 }
@@ -187,16 +187,16 @@
         }
 
         private void GroupLateInEarlyOutSummaryDetailByEmployeeId(
-            IList<LateInEarlyOutSummaryModel> lateinEarlyOuts,
-            IList<LateInEarlyOutSummaryDetailModel> lateInEarlyOutDetails)
+            IList<LateInEarlyOutDiscipline> lateinEarlyOuts,
+            IList<LateInEarlyOutDisciplineDetail> lateInEarlyOutDetails)
         {
-            foreach (LateInEarlyOutSummaryModel lateinEarlyOut in lateinEarlyOuts)
+            foreach (LateInEarlyOutDiscipline lateinEarlyOut in lateinEarlyOuts)
             {
-                foreach (LateInEarlyOutSummaryDetailModel lateInEarlyOutDetail in lateInEarlyOutDetails)
+                foreach (LateInEarlyOutDisciplineDetail lateInEarlyOutDetail in lateInEarlyOutDetails)
                 {
                     if (lateInEarlyOutDetail.EmpId.Equals(lateinEarlyOut.Employee.Id))
                     {
-                        lateinEarlyOut.LateInEarlyOutSummaryDetails.Add(lateInEarlyOutDetail);
+                        lateinEarlyOut.LateInEarlyOutDisciplineDetails.Add(lateInEarlyOutDetail);
                     }
                 }
             }

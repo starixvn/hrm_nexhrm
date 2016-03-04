@@ -117,7 +117,7 @@
                             }
                         </td>
                         <td class="align-left">
-                            @Html.Raw(RequestService.ToRequestMessage(request))
+                            @Html.Raw(RequestService.ConvertToRequestMessage(request))
                         </td>
                         @if (!string.IsNullOrWhiteSpace(request.Remark))
                         {

@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
@@ -12,10 +16,6 @@
     using Fanex.NexHR.ViewModels.Common;
     using Fanex.NexHR.ViewModels.Report;
     using Fanex.NexHR.ViewModels.TotalWorkingHours;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
 
     public class ReportController : BaseController
     {
@@ -61,7 +61,7 @@
             return View(model);
         }
 
-        public ActionResult AttendanceDetail(EmployeeAttendanceViewModel model)
+        public ActionResult ListAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> attendances = new List<EmployeeAttendanceModel>();
             if (model != null)
@@ -93,10 +93,10 @@
                 ViewBag.PagerOption = pagerOption;
             }
 
-            return PartialView("_AttendanceDetail", attendances);
+            return PartialView("_ListAttendance", attendances);
         }
 
-        public JsonResult GetEmployeeAttendances(EmployeeAttendanceViewModel model)
+        public JsonResult GetEmployeeAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
             if (model != null)
@@ -133,7 +133,7 @@
         }
 
         [HttpPost]
-        public ActionResult GetTimesheets(TimesheetViewModel model)
+        public ActionResult ListTimesheet(TimesheetViewModel model)
         {
             IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
             if (model != null)
@@ -149,7 +149,7 @@
                 employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
             }
 
-            return PartialView("ListTimesheet", employeeAttendances);
+            return PartialView("_ListTimesheet", employeeAttendances);
         }
 
         [Authorize(Roles = "HR")]
@@ -171,10 +171,10 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult HRRequestMonitoringDetail(RequestsMonitoringViewModel model)
+        public ActionResult ListHRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
-            return PartialView("_RequestMonitoringDetail", requestMonitorings);
+            return PartialView("_ListRequestMonitoring", requestMonitorings);
         }
 
         [Authorize(Roles = "AssistantLeader")]
@@ -196,10 +196,10 @@
         }
 
         [Authorize(Roles = "AssistantLeader")]
-        public ActionResult LeaderRequestMonitoringDetail(RequestsMonitoringViewModel model)
+        public ActionResult ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
-            return PartialView("_RequestMonitoringDetail", requestMonitorings);
+            return PartialView("_ListRequestMonitoring", requestMonitorings);
         }
 
         private IList<RequestsMonitoring> GetRequestMonitoringDetail(RequestsMonitoringViewModel model)
@@ -223,7 +223,7 @@
             return requestMonitorings;
         }
 
-        public ActionResult TotalWorkingHours()
+        public ActionResult TotalWorkingHour()
         {
             IList<Team> teams = teamService.GetAll();
 
@@ -240,7 +240,7 @@
         }
 
         [HttpPost]
-        public JsonResult TotalWorkingHours(TotalWorkingHoursViewModel model)
+        public JsonResult GetTotalWorkingHour(TotalWorkingHoursViewModel model)
         {
             if (model == null)
             {
@@ -285,8 +285,6 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
-            IList<Team> teams = teamService.GetAll();
-
             var criteria = new GetLateInEarlyOutReportCriteria
             {
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
@@ -295,17 +293,9 @@
             };
 
             IList<LateInEarlyOutModel> lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
-
-            if (model.TeamId.HasValue)
-            {
-                teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
-            }
-
-            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = reportService.GetLateInEarlyOutByTeam(lateInEarlyOuts, teams);
-
             ViewBag.Year = model.Year;
 
-            return PartialView(lateInEarlyOutByTeam);
+            return PartialView("_ListLateInEarlyOut", lateInEarlyOuts);
         }
 
         [HttpGet]
@@ -338,7 +328,7 @@
         }
 
         [HttpPost]
-        public JsonResult LateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
+        public JsonResult GetLateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
         {
             IList<LateInEarlyOutDetail> lateInEarlyOuts = new List<LateInEarlyOutDetail>();
             if (model != null)
@@ -355,7 +345,7 @@
                 lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
             }
 
-            return Json(new { data = lateInEarlyOuts }, JsonRequestBehavior.AllowGet);
+            return Json(lateInEarlyOuts);
         }
 
         public ActionResult LateInEarlyOutDiscipline()
@@ -378,8 +368,6 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
-            IList<Team> teams = teamService.GetAll();
-
             var criteria = new GetLateInEarlyOutSummaryCriteria
             {
                 EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
@@ -389,16 +377,9 @@
                 IsUserWarning = model.IsUserWarning
             };
 
-            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = reportService.GetLateInEarlyOutSummary(criteria);
+            IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = reportService.GetLateInEarlyOutDiscipline(criteria);
 
-            if (model.TeamId.HasValue)
-            {
-                teams = teams.Where(t => t.Id == model.TeamId.Value).ToList();
-            }
-
-            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = reportService.GetLateInEarlyOutSummaryByTeam(lateInEarlyOuts, teams);
-
-            return PartialView(lateInEarlyOutByTeam);
+            return PartialView("_ListLateInEarlyOutDiscipline", lateInEarlyOutDisciplines);
         }
 
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
@@ -413,7 +394,7 @@
             {
                 FromDate = fromDate.Value,
                 ToDate = toDate.Value,
-                EmployeeId = this.CurrentUser.Id,
+                EmployeeId = CurrentUser.Id,
                 CurrentPage = Constants.CurrentPage,
                 ItemsPerPage = Constants.ItemsPerPage
             };
@@ -421,14 +402,14 @@
             return View(model);
         }
 
-        public ActionResult ListTimeRecord(TimeRecordViewModel model)
+        public ActionResult ListMyTimeRecord(TimeRecordViewModel model)
         {
-            IList<TimeRecordModel> timeRecords = new List<TimeRecordModel>();
+            IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
             {
                 var criteria = new GetTimeRecordCriteria()
                 {
-                    EmpId = this.CurrentUser.Id,
+                    EmpId = CurrentUser.Id,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     PageIndex = model.CurrentPage - 1,
@@ -446,7 +427,7 @@
                 ViewBag.PagerOption = pagerOption;
             }
 
-            return PartialView(timeRecords);
+            return PartialView("_ListTimeRecord", timeRecords);
         }
 
         [Authorize(Roles = "HR")]
@@ -473,9 +454,9 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult TimeRecordDetail(TimeRecordViewModel model)
+        public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {
-            IList<TimeRecordModel> timeRecords = new List<TimeRecordModel>();
+            IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
             {
                 int? employeeId = null;
@@ -502,7 +483,7 @@
                 ViewBag.PagerOption = pagerOption;
             }
 
-            return PartialView("ListTimeRecord", timeRecords);
+            return PartialView("_ListTimeRecord", timeRecords);
         }
     }
 }

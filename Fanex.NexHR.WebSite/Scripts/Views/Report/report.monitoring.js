@@ -6,7 +6,7 @@ function query(isFirstLoad) {
     var action = $('.card-container-base').find('#ActionName').val();
     var isLeader = $('#IsLeader').val();
     $.ajax({
-        url: _global.root + 'report/' + isLeader ? 'LeaderRequestMonitoringDetail' : 'HRRequestMonitoringDetail',
+        url: _global.root + 'report/' + isLeader ? 'ListLeaderRequestMonitoring' : 'ListHRRequestMonitoring',
         type: 'GET',
         dataType: 'html',
         data: $('.card-container-base form.form-filter').serialize(),

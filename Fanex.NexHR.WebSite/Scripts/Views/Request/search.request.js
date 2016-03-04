@@ -41,7 +41,7 @@ $(document).ready(function () {
             var empId = parseInt($('#EmployeeId').val());
 
             if (empId > 0) {
-                $.getJSON(_global.root + 'api/employee/GetUnavailDate', { employeeId: empId },
+                $.getJSON(_global.root + 'request/GetUnavailDate', { employeeId: empId },
                     function (response) {
                         if (response != null) {
                             var forRequest = parseInt($("#ForRequest").val());

@@ -667,7 +667,7 @@
     <Content Include="Scripts\Views\Report\report.leave.summary.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
-    <Content Include="Scripts\Views\Request\leader.request.monitoring.js" />
+    <Content Include="Scripts\Views\Report\report.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
     <Content Include="Scripts\Views\Memo\memo.edit.js" />
     <Content Include="Scripts\Views\Memo\memo.js" />
@@ -746,12 +746,12 @@
     <Content Include="Views\Overtime\OvertimeRequestDetail.cshtml" />
     <Content Include="Views\Overtime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
-    <Content Include="Views\Report\ListTimeRecord.cshtml" />
-    <Content Include="Views\Report\_RequestMonitoringDetail.cshtml" />
+    <Content Include="Views\Report\_ListTimeRecord.cshtml" />
+    <Content Include="Views\Report\_ListRequestMonitoring.cshtml" />
     <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
     <Content Include="Views\JobTitle\_Index.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
-    <Content Include="Views\Report\_AttendanceDetail.cshtml" />
+    <Content Include="Views\Report\_ListAttendance.cshtml" />
     <Content Include="Views\Employee\MyProfile.cshtml" />
     <Content Include="Views\Dashboard\ToDoList.cshtml" />
     <Content Include="Views\Overtime\MemberOvertimeData.cshtml" />
@@ -760,9 +760,9 @@
     <Content Include="Views\Report\LateInEarlyOutDiscipline.cshtml" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.discipline.js" />
     <Content Include="Views\Home\NoData.cshtml" />
-    <Content Include="Views\Report\ListLateInEarlyOutDiscipline.cshtml" />
-    <Content Include="Views\Report\ListLateInEarlyOut.cshtml" />
-    <Content Include="Views\Report\ListTimesheet.cshtml" />
+    <Content Include="Views\Report\_ListLateInEarlyOutDiscipline.cshtml" />
+    <Content Include="Views\Report\_ListLateInEarlyOut.cshtml" />
+    <Content Include="Views\Report\_ListTimesheet.cshtml" />
     <Content Include="Views\LateEarly\ListLateEarly.cshtml" />
     <Content Include="Views\LateEarly\Create.cshtml" />
     <Content Include="Views\LateEarly\Edit.cshtml" />
@@ -905,7 +905,6 @@
     <Content Include="Views\Report\Attendance.cshtml" />
     <Content Include="Views\AnnualLeave\CreateLeaveDeduction.cshtml" />
     <Content Include="Views\AnnualLeave\EditLeaveDeduction.cshtml" />
-    <Content Include="Views\Report\ExtensionNo.cshtml" />
     <Content Include="Views\Report\LateInEarlyOutDetail.cshtml" />
     <Content Include="Views\Report\LateInEarlyOut.cshtml" />
     <Content Include="Views\AnnualLeave\LeaveDeductionDetail.cshtml" />

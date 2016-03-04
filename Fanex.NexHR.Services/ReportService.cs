@@ -25,15 +25,15 @@
             this.reportRepository = reportRepository ?? new ReportRepository();
         }
 
-        public IList<TimeRecordModel> GetTimeRecords(GetTimeRecordCriteria criteria)
+        public IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria)
         {
-            IList<TimeRecordModel> timeRecords = null;
+            IList<TimeRecord> timeRecords = null;
             if (criteria != null && criteria.IsValid())
             {
                 timeRecords = reportRepository.GetTimeRecords(criteria);
             }
 
-            return timeRecords ?? new List<TimeRecordModel>();
+            return timeRecords ?? new List<TimeRecord>();
         }
 
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
@@ -45,36 +45,6 @@
             }
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutModel>();
-        }
-
-        public IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams)
-        {
-            IList<LateInEarlyOutByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutByTeamModel>();
-            teams = teams.OrderBy(t => t.Rank).ToList();
-
-            if (lateInEarlyOuts != null)
-            {
-                foreach (Team team in teams)
-                {
-                    LateInEarlyOutByTeamModel entity = new LateInEarlyOutByTeamModel
-                    {
-                        Team = team,
-                        LateInEarlyOutInTeams = new List<LateInEarlyOutModel>()
-                    };
-
-                    foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
-                    {
-                        if (lateInEarlyOut.Employee.Team.Name == team.Name)
-                        {
-                            entity.LateInEarlyOutInTeams.Add(lateInEarlyOut);
-                        }
-                    }
-
-                    lateInEarlyOutByTeam.Add(entity);
-                }
-            }
-
-            return lateInEarlyOutByTeam;
         }
 
         public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria)
@@ -121,47 +91,15 @@
             return attendances ?? new List<EmployeeAttendanceModel>();
         }
 
-        public IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryCriteria criteria)
+        public IList<LateInEarlyOutDiscipline> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria)
         {
-            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts = null;
+            IList<LateInEarlyOutDiscipline> lateInEarlyOuts = null;
             if (criteria != null && criteria.IsValid())
             {
                 lateInEarlyOuts = reportRepository.GetLateInEarlyOutSummary(criteria);
             }
 
-            return lateInEarlyOuts ?? new List<LateInEarlyOutSummaryModel>();
-        }
-
-        public IList<LateInEarlyOutSummaryByTeamModel> GetLateInEarlyOutSummaryByTeam(
-            IList<LateInEarlyOutSummaryModel> lateInEarlyOuts,
-            IList<Team> teams)
-        {
-            IList<LateInEarlyOutSummaryByTeamModel> lateInEarlyOutByTeam = new List<LateInEarlyOutSummaryByTeamModel>();
-            teams = teams.OrderBy(t => t.Rank).ToList();
-
-            if (lateInEarlyOuts != null)
-            {
-                foreach (Team team in teams)
-                {
-                    LateInEarlyOutSummaryByTeamModel entity = new LateInEarlyOutSummaryByTeamModel
-                    {
-                        Team = team,
-                        LateInEarlyOutSummaryInTeams = new List<LateInEarlyOutSummaryModel>()
-                    };
-
-                    foreach (LateInEarlyOutSummaryModel lateInEarlyOut in lateInEarlyOuts)
-                    {
-                        if (lateInEarlyOut.Employee.Team.Name == team.Name)
-                        {
-                            entity.LateInEarlyOutSummaryInTeams.Add(lateInEarlyOut);
-                        }
-                    }
-
-                    lateInEarlyOutByTeam.Add(entity);
-                }
-            }
-
-            return lateInEarlyOutByTeam;
+            return lateInEarlyOuts ?? new List<LateInEarlyOutDiscipline>();
         }
     }
 }

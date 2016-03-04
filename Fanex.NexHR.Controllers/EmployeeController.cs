@@ -263,13 +263,14 @@
         public ActionResult MonthSchedule(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
-            MonthlyScheduleViewModel model = new MonthlyScheduleViewModel()
+            MonthlyScheduleViewModel model = new MonthlyScheduleViewModel();
+            if (employee != null)
             {
-                EmployeeId = employee.Id,
-                EmployeeNickName = employee.NickName,
-                Shifts = shiftService.GetAll()
-            };
+                model.EmployeeId = employee.Id;
+                model.EmployeeNickName = employee.NickName;
+            }
 
+            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 

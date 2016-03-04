@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false, id:false */
+/*global _global:false */
 
 var _event = null;
 
@@ -17,15 +17,16 @@ function updateShiftDialog() {
 }
 
 $(document).ready(function () {
+    var employeeId = $('#EmployeeId').val();
     $('#defaultschedule').on('click', function () {
-        document.location = _global.root + 'employee/defaultschedule?employeeId=' + id;
+        document.location = _global.root + 'employee/defaultschedule?employeeId=' + employeeId;
     });
 
     $('#update').on('click', function () {
         $.post(_global.root + 'Calendar/UpdateEmployeeShiftDate',
         { employeeId: employeeId, date: _event.start.format('MM/DD/YYYY'), shiftId: $('#ShiftId').val() },
         function () {
-            $('#row' + id).remove();
+            $('#row' + employeeId).remove();
         });
 
         _event.title = $('#ShiftId option:selected').text();
@@ -47,13 +48,13 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: {
                     date: $('#calendar').fullCalendar('getDate').format("MM/DD/YYYY"),
-                    employeeId: id
+                    employeeId: employeeId
                 },
                 success: function (data) {
                     var events = [];
                     $(data).each(function (index, item) {
                         var today = formatDate(new Date(), 'dd/MM/yyyy'),
-                            currentDay = formatDate(new Date(item.WorkDate), 'dd/MM/yyyy');
+                            currentDay = formatJsonDate(item.WorkDate);
 
                         var cssClass = item.Title;
                         if (today === currentDay) {
@@ -62,7 +63,7 @@ $(document).ready(function () {
 
                         events.push({
                             title: item.Title,
-                            start: item.WorkDate,
+                            start: formatJsonDate(item.WorkDate),
                             className: cssClass
                         });
                     });

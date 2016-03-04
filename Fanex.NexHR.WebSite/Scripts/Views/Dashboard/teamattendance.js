@@ -19,7 +19,7 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'report/GetEmployeeAttendances',
+        url: _global.root + 'report/GetEmployeeAttendance',
         data: $('form').serialize(),
         method: 'POST',
         beforeSend: function () {

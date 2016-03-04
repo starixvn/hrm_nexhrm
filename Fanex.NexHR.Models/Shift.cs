@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Shift.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
-    /// <summary>
-    /// Shift model.
-    /// </summary>
     public class Shift : EntityBase<int>
     {        
         public string BeginCheckInTime { get; set; }
@@ -23,5 +11,15 @@ namespace Fanex.NexHR.Models
         public string EndCheckOutTime { get; set; }
 
         public int BreakTimeMins { get; set; }
+
+        public string DisplayName
+        {
+            get
+            {
+                return BeginCheckInTime.Equals(EndCheckInTime)
+                    ? string.Format("{0} ({1}>{2})", Name, BeginCheckInTime, BeginCheckOutTime)
+                    : string.Format("{0} ({1}-{2}>{3}-{4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@
         public string Employee { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue)]
         public int EmployeeId { get; set; }
 
         public byte Status { get; set; }
@@ -17,7 +18,5 @@
         public int By { get; set; }
 
         public string Remark { get; set; }
-
-        public string DisplayName { get; set; }
     }
 }

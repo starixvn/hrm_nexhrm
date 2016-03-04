@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="TimeRecordModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.14">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
     using System;
     using Fanex.NexHR.Resources;
 
-    /// <summary>
-    /// TimeRecord Model.
-    /// </summary>
-    public class TimeRecordModel
+    public class TimeRecord
     {
         public int RecordTimeId { get; set; }
 

@@ -13,12 +13,12 @@
 
         IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria);
 
-        IList<TimeRecordModel> GetTimeRecords(ICriteria criteria);
+        IList<TimeRecord> GetTimeRecords(ICriteria criteria);
 
         IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria);
 
-        IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(ICriteria criteria);
+        IList<LateInEarlyOutDiscipline> GetLateInEarlyOutSummary(ICriteria criteria);
     }
 }

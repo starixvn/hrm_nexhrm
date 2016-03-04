@@ -1,9 +1,10 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using Fanex.NexHR.Criteria.Calendar;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;

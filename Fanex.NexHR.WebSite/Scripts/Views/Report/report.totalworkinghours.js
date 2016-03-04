@@ -10,7 +10,7 @@ function index() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'report/totalworkinghours',
+        url: _global.root + 'report/gettotalworkinghour',
         type: 'POST',
         data: $("#form").serialize(),
         beforeSend: function () {

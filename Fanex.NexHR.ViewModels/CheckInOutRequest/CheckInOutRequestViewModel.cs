@@ -36,9 +36,13 @@
             }
         }
 
-        public IList<Shift> ShiftInfos { get; set; }
+        public IList<DateTime> UnavailDates { get; set; }
 
-        public List<DateTime> UnavailDates { get; set; }
+        public string InTime { get; set; }
+
+        public string OutTime { get; set; }
+
+        public decimal TotalRequest { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

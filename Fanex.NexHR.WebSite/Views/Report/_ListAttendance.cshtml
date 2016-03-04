@@ -90,7 +90,7 @@
                                     (employeeAttendance.Notes.Contains("Public Holiday") || employeeAttendance.Notes.Contains("Off day"))))
                                 {
                                     var dataToShift = request.ToShift != null ? request.ToShift.Name : string.Empty;
-                                    <a href='javascript:;' class="tooltip-request req"
+                                    <a href="javascript:;" class="tooltip-request req"
                                        data-requesttype="@request.RequestType.Id"
                                        data-fromdate="@request.FromDate" data-todate="@request.ToDate"
                                        data-createddate="@request.CreatedDate"
@@ -98,7 +98,7 @@
                                        data-toshift="@dataToShift"
                                        data-totaldays="@request.TotalDays"
                                        data-totalmins="@request.TotalMins"
-                                       data-remark='@request.Remark'>
+                                       data-remark="@request.Remark">
                                         @if (request.RequestType.Id.Equals(6))
                                         {
                                             <span>@request.RequestType.Name</span>

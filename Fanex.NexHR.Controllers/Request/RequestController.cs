@@ -16,7 +16,6 @@
     using System.Linq;
     using System.Web.Mvc;
 
-    [Authorize]
     public class RequestController : BaseController
     {
         private readonly IRequestService requestService;
@@ -315,7 +314,7 @@
             {
                 Id = id
             };
-            CommandResult result = commandService.Delete(criteria);            
+            CommandResult result = commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -332,6 +331,18 @@
 
             string requestDetail = RequestService.ConvertToRequestMessage(request);
             return requestDetail;
+        }
+
+        public IEnumerable<DateTime> GetUnavailDate(int employeeId)
+        {
+            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = Utilities.RequestAvailableFromDate,
+                ToDate = Utilities.RequestAvailableToDate
+            };
+
+            return requestService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
         }
 
         private IList<RequestEntity> GetRequest(RequestViewModel request, short role)

@@ -44,9 +44,9 @@
             }
         }
 
-        public List<LeaveType> LeaveTypes { get; set; }
+        public IList<LeaveType> LeaveTypes { get; set; }
 
-        public List<DateTime> UnavailDates { get; set; }
+        public IList<DateTime> UnavailDates { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -83,7 +83,7 @@ function query(isFirstLoad) {
     }
 
     $.ajax({
-        url: _global.root + 'report/gettimesheets',
+        url: _global.root + 'report/listtimesheet',
         type: 'POST',
         dataType: 'html',
         data: $('.card-container-base .form-filter').serialize(),

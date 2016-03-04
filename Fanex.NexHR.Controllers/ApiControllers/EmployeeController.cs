@@ -72,18 +72,6 @@
             return totalDays;
         }
 
-        public IEnumerable<DateTime> GetUnavailDate(int employeeId)
-        {
-            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
-            {
-                EmployeeId = employeeId,
-                FromDate = Utilities.RequestAvailableFromDate,
-                ToDate = Utilities.RequestAvailableToDate
-            };
-
-            return employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
-        }
-
         public IList<Employee> GetToeic(
             string query,
             int? groupId = null,

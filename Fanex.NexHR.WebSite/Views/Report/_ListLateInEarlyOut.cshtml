@@ -1,4 +1,4 @@
-﻿@model IList<LateInEarlyOutByTeamModel>
+﻿@model IList<LateInEarlyOutModel>
 
 <table id="data" class="table bordered striped highlight table-custom centered">
     <thead>
@@ -34,20 +34,20 @@
             <th>@Labels.Total</th>
         </tr>
     </thead>
-    @if (Model != null && Model.Count > 0)
+    @if (Model != null && Model.Any())
     {
+        IList<LateInEarlyOutModel> lateInEarlyOutByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
         <tbody>
-            @foreach (LateInEarlyOutByTeamModel item in Model)
+            @foreach (LateInEarlyOutModel lateInEarlyOutByTeam in lateInEarlyOutByTeams)
             {
-                if (item.LateInEarlyOutInTeams != null && item.LateInEarlyOutInTeams.Count > 0)
-                {
-                    <tr class="row-divider">
-                        <td class="align-left txt-uppercase" colspan="19">
-                            <b>@item.Team.Name.ToUpper()</b>
-                        </td>
-                    </tr>
-                }
-                foreach (LateInEarlyOutModel lateInEarlyOut in item.LateInEarlyOutInTeams)
+                <tr class="row-divider">
+                    <td class="align-left txt-uppercase" colspan="19">
+                        <b>@lateInEarlyOutByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+                
+                IList<LateInEarlyOutModel> lateInEarlyOuts = Model.Where(t => t.Employee.Team.Id == lateInEarlyOutByTeam.Employee.Team.Id).ToList();
+                foreach (LateInEarlyOutModel lateInEarlyOut in lateInEarlyOuts)
                 {
                     <tr>
                         <td class="tooltip" title="@lateInEarlyOut.Employee.FullName"> @lateInEarlyOut.Employee.NickName</td>

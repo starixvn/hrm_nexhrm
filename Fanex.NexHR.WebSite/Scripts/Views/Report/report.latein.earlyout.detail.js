@@ -10,7 +10,7 @@ function index() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/LateInEarlyOutDetail',
+        url: _global.root + 'Report/GetLateInEarlyOutDetail',
         type: 'POST',
         dataType: 'json',
         data: $('.card-container-base .form form').serialize(),
@@ -22,14 +22,14 @@ function query(isFirstLoad) {
         success: function (response) {
             $('table#data tbody').children().remove();
 
-            if (response.data.length > 0) {
+            if (response.length > 0) {
                 rowIndex = 1;
                 var tmpl = $.templates('#template'),
                     helpers = {
                         index: index,
                         formatJsonDate: formatJsonDate
                     },
-                    html = tmpl.render(response.data, helpers);
+                    html = tmpl.render(response, helpers);
 
                 $(html).appendTo('table#data');
             } else {

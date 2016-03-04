@@ -31,8 +31,8 @@ function query(isFirstLoad) {
     var model = $('.card-container-base form.form-filter').serialize();
 
     $.ajax({
-        url: _global.root + 'Report/TimeRecordDetail',
-        type: 'GET',
+        url: _global.root + 'Report/ListTimeRecord',
+        type: 'POST',
         dataType: 'html',
         data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {

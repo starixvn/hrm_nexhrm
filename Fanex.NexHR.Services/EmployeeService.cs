@@ -22,7 +22,12 @@
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
-            Employee employee = GetDataEntity<Employee>(criteria);
+            Employee employee = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                employee = employeeRepository.GetById(criteria);
+            }
+
             return employee;
         }
 
@@ -82,12 +87,6 @@
         public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)
         {
             return employeeRepository.GetRangeDate(criteria);
-        }
-
-        public IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
-        {
-            IList<DateTime> dates = GetData<DateTime>(criteria);
-            return dates;
         }
 
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)

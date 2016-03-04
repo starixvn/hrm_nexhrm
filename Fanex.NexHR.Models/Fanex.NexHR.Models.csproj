@@ -93,9 +93,8 @@
     <Compile Include="Overtime\OvertimeSummary.cs" />
     <Compile Include="Postnatal.cs" />
     <Compile Include="Report\EmployeeAttendanceModel.cs" />
-    <Compile Include="Report\LateInEarlyOutSummaryByTeamModel.cs" />
-    <Compile Include="Report\LateInEarlyOutSummaryDetailModel.cs" />
-    <Compile Include="Report\LateInEarlyOutSummaryModel.cs" />
+    <Compile Include="Report\LateInEarlyOutDisciplineDetail.cs" />
+    <Compile Include="Report\LateInEarlyOutDiscipline.cs" />
     <Compile Include="AnnualLeave\LeaveDeductionDetail.cs" />
     <Compile Include="Report\LateInEarlyOutDetail.cs" />
     <Compile Include="Report\LateInEarlyOutModel.cs" />
@@ -121,7 +120,7 @@
     <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shift.cs" />
-    <Compile Include="TimeRecordModel.cs" />
+    <Compile Include="TimeRecord.cs" />
     <Compile Include="Toeic.cs" />
     <Compile Include="TotalWorkingHours.cs" />
     <Compile Include="UserChangedShift.cs" />

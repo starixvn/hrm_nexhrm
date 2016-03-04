@@ -8,7 +8,7 @@ function updateZeroPrefix() {
 }
 
 function bindingHourAndMinute() {
-    if ($('#CheckInOutType_1').prop('checked')) {
+    if ($('#CheckInOutType').val() === "1") {
         $('#Hour').val($('#InTime').val().substring(0, 2));
         $('#Minute').val($('#InTime').val().trim().substring(3, 5));
     } else {
@@ -25,8 +25,8 @@ function getShiftByDate() {
         $.post(_global.root + 'shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
         function (data) {
             if (data != null) {
-                $('#shiftname').text(data.Name);
-                $('#Shift').val(data.Name);
+                $('#shiftname').text(data.DisplayName);
+                $('#Shift').val(data.DisplayName);
                 $('#InTime').val(data.BeginCheckInTime);
                 $('#OutTime').val(data.BeginCheckOutTime);
                 $('input[type=submit]').show();
@@ -71,21 +71,7 @@ function initEventPickerDate() {
     $('#ForDate').on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
         if (empId > 0) {
-            $.post(_global.root + 'shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
-                function (data) {
-                    if (data != null) {
-                        $('#shiftname').text(data.Name);
-                        $('#Shift').val(data.Name);
-                        $('#InTime').val(data.BeginCheckInTime);
-                        $('#OutTime').val(data.BeginCheckOutTime);
-                        bindingHourAndMinute();
-                        $('input[type=submit]').show();
-                    } else {
-                        $('#shiftname').text(_messages.notAvailable);
-                        $('#Shift').val(_messages.notAvailable);
-                        $('input[type=submit]').hide();
-                    }
-                });
+            getShiftByDate();
         }
     });
 }
@@ -103,9 +89,15 @@ function initCreateUpdatePage() {
     }
 
     updateZeroPrefix();
-    getShiftByDate();
+    //getShiftByDate();
 
     $('#CheckInOutType_1, #CheckInOutType_2').on('change', function () {
+        if ($('#CheckInOutType_1').prop('checked')) {
+            $('#CheckInOutType').val(1);
+        }
+        else {
+            $('#CheckInOutType').val(2);
+        }
         bindingHourAndMinute();
     });
 

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class LateInEarlyOutSummaryDetailModel
+    public class LateInEarlyOutDisciplineDetail
     {
         public int EmpId { get; set; }
 

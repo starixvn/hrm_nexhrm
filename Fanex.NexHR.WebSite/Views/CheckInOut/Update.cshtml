@@ -36,16 +36,6 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
-                                        <label>@Labels.RequestCode</label>
-                                    </div>
-                                    <div class="left label--m">
-                                        <label class="txt-bold">Rq.@Model.Id</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-b--m">
-                                    <div class="left label--xl">
                                         @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
                                     </div>
                                     <div class="left input--m">
@@ -81,41 +71,38 @@
                                         </div>
                                         <div class="col p-0">:</div>
                                         <div class="col">
-                                                @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
+                                            @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input m-b--m">
                                 <div class="col">
                                     <div class="left label--xl">
                                         @Html.LabelFor(model => model.Shift)
                                     </div>
                                     <div class="left">
                                         <span id="shiftname" class="label">@Model.Shift</span>
-                                        <a id="shiftinfo" href="javascript:;" title="@Labels.ShiftInfo"><span class="icon shiftinfo"></span></a>
-                                        <div class="hide">
-                                            @RazorHelper.ShiftInfoTable(Model.ShiftInfos)
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="left label--xl">&nbsp;</div>
-                                <div class="left">
-                                    @Html.HiddenFor(model => model.Employee)
-                                    @Html.HiddenFor(model => model.DisplayName)
-                                    @Html.HiddenFor(model => model.EmployeeId)
-                                    @Html.HiddenFor(model => model.Id)
-                                    @Html.HiddenFor(model => model.CheckInOutType)
-                                    @Html.HiddenFor(model => model.Shift)
-                                    @Html.HiddenFor(model => model.ForRequest)
-                                    @Html.Hidden("InTime")
-                                    @Html.Hidden("OutTime")
-                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
-                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />                                    
+                                <div class="col m-b--m">
+                                    <div class="left label--xl">&nbsp;</div>
+                                    <div class="left">
+                                        @Html.HiddenFor(model => model.Employee)
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.CheckInOutType)
+                                        @Html.HiddenFor(model => model.Shift)
+                                        @Html.HiddenFor(model => model.ForRequest)
+                                        @Html.Hidden("InTime")
+                                        @Html.Hidden("OutTime")
+                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />
+                                    </div>
                                 </div>
-                            </div>
+                             </div>
                         }
                     </div>
                 </div>

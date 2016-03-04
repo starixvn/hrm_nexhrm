@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.CheckInOutRequest;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public interface IRequestService
     {
@@ -27,5 +28,7 @@
         IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria);
 
         decimal GetNumberRequestInMonth(GetNumberRequestInMonthCriteria criteria);
+
+        IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
     }
 }

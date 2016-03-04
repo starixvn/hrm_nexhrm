@@ -25,8 +25,6 @@
 
         int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
-
         IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);

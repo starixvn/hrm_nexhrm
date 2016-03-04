@@ -17,9 +17,9 @@
 
     public class LeaveController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly ILeaveTypeService _leaveTypeService;
-        private readonly IRequestService _requestService;
+        private readonly IEmployeeService employeeService;
+        private readonly ILeaveTypeService leaveTypeService;
+        private readonly IRequestService requestService;
 
         public LeaveController()
             : this(null, null, null)
@@ -31,9 +31,9 @@
             ILeaveTypeService leaveTypeService = null,
             IRequestService requestService = null)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            _requestService = requestService ?? new RequestService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            this.requestService = requestService ?? new RequestService();
         }
 
         public ActionResult EmployeeView()
@@ -56,7 +56,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> leaveRequests = _requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = requestService.GetRequest(criteria);
 
             return PartialView(leaveRequests);
         }
@@ -65,7 +65,7 @@
         public ActionResult Create()
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = this.CurrentUser.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = employeeService.GetEmployeeById(getEmployeeCriteria);
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = this.CurrentUser.Id,
@@ -74,15 +74,14 @@
             };
             var model = new LeaveRequestViewModel
             {
-                Employee = employee.NickName,
-                DisplayName = employee.DisplayName,
+                Employee = employee.DisplayName,
                 EmployeeId = employee.Id,
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
                 TotalDays = 1,
                 By = this.CurrentUser.Id,
-                LeaveTypes = _leaveTypeService.GetAll().ToList(),
-                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
+                LeaveTypes = leaveTypeService.GetAll().ToList(),
+                UnavailDates = requestService.GetDisableRequestDate(getUnavailableRequestDateCriteria)
             };
 
             // Count number days of Leave request in current month.
@@ -96,7 +95,7 @@
                 RequestType = (int)RequestType.Leave
             };
 
-            ViewBag.TotalRequest = (decimal)_requestService.GetNumberRequestInMonth(criteria);
+            ViewBag.TotalRequest = (decimal)requestService.GetNumberRequestInMonth(criteria);
 
             return View(model);
         }
@@ -112,14 +111,9 @@
                 }
                 else
                 {
-                    model.LeaveTypes = _leaveTypeService.GetAll().ToList();
-                    model.By = this.CurrentUser.Id;
+                    model.LeaveTypes = leaveTypeService.GetAll().ToList();
+                    model.By = CurrentUser.Id;
                     ViewBag.Year = model.FromDate.Year;
-
-                    if (string.Compare(model.Employee, model.DisplayName, StringComparison.Ordinal) != 0)
-                    {
-                        model.DisplayName = model.Employee;
-                    }
 
                     var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
                     {
@@ -128,8 +122,8 @@
                         ToDate = Utilities.RequestAvailableToDate
                     };
 
-                    model.UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
-                    ViewBag.Requested = _requestService.CreateLeave(ModelState, model);
+                    model.UnavailDates = requestService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList();
+                    ViewBag.Requested = requestService.CreateLeave(ModelState, model);
                 }
             }
 
@@ -145,14 +139,13 @@
                 ToDate = Utilities.RequestAvailableToDate
             };
             var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            var request = _requestService.GetRequestEntity(getRequestByIdCriteria);
+            var request = requestService.GetRequestEntity(getRequestByIdCriteria);
             var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = request.Requester.Id };
-            var employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            var employee = employeeService.GetEmployeeById(getEmployeeCriteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
                 Employee = employee.NickName,
-                DisplayName = employee.DisplayName,
                 EmployeeId = employee.Id,
                 FromDate = request.FromDate.Date,
                 FromTime = Utilities.GetTime(request.FromDate),
@@ -164,8 +157,8 @@
                 Remark = request.Remark,
                 By = this.CurrentUser.Id,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                LeaveTypes = _leaveTypeService.GetAll().ToList(),
-                UnavailDates = _employeeService.GetDisableRequestDate(getUnavailableRequestDateCriteria).ToList()
+                LeaveTypes = leaveTypeService.GetAll().ToList(),
+                UnavailDates = requestService.GetDisableRequestDate(getUnavailableRequestDateCriteria)
             };
 
             return View(model);
@@ -176,8 +169,8 @@
         {
             if (model != null)
             {
-                model.LeaveTypes = _leaveTypeService.GetAll().ToList();
-                ViewBag.Updated = _requestService.UpdateLeave(ModelState, model);
+                model.LeaveTypes = leaveTypeService.GetAll().ToList();
+                ViewBag.Updated = requestService.UpdateLeave(ModelState, model);
             }
 
             return View(model);

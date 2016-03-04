@@ -29,8 +29,8 @@ function initPagination() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Report/ListTimeRecord',
-        type: 'GET',
+        url: _global.root + 'Report/ListMyTimeRecord',
+        type: 'POST',
         dataType: 'html',
         data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {

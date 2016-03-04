@@ -1,4 +1,4 @@
-﻿@model IList<TimeRecordModel>
+﻿@model IList<TimeRecord>
 @{
     var pagerOption = ViewBag.PagerOption;
 }
@@ -17,7 +17,7 @@
         @if (Model.Any())
         {
             var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
-            foreach (TimeRecordModel item in Model)
+            foreach (TimeRecord item in Model)
             {
                 index++; 
                 <tr>

@@ -1,5 +1,5 @@
 ﻿@model MonthlyScheduleViewModel
-@if (ViewBag.Employee != null)
+@if (Model.EmployeeId > 0)
 {
     ViewBag.Title = "Month schedule of " + Model.EmployeeNickName;
 }
@@ -17,11 +17,9 @@
     <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
-                @if (ViewBag.Employee != null)
+                @if (Model.EmployeeId > 0)
                 {
-                    <script type="text/javascript">
-                    var employeeId = @Model.EmployeeId;
-                    </script>
+                    @Html.HiddenFor(model => model.EmployeeId)
                     <div class="card-title-block">
                         <span class="card-title left">@ViewBag.Title</span>
                     </div>
@@ -67,7 +65,7 @@
                         @Html.LabelFor(model => model.ShiftId, "Change To")
                     </div>
                     <div class="left input--s">
-                        @Html.DropDownListFor(model=>model.ShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                        @Html.DropDownListFor(model => model.ShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
                     </div>
                 </div>
                 <div class="row">
@@ -76,3 +74,4 @@
             </div>
         </div>
     </div>
+</div>

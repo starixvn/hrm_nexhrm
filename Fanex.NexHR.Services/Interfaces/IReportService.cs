@@ -9,11 +9,9 @@
 
     public interface IReportService
     {
-        IList<TimeRecordModel> GetTimeRecords(GetTimeRecordCriteria criteria);
+        IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria);
 
         IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
-
-        IList<LateInEarlyOutByTeamModel> GetLateInEarlyOutByTeam(IList<LateInEarlyOutModel> lateInEarlyOuts, IList<Team> teams);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
@@ -23,8 +21,6 @@
 
         IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
 
-        IList<LateInEarlyOutSummaryModel> GetLateInEarlyOutSummary(GetLateInEarlyOutSummaryCriteria criteria);
-
-        IList<LateInEarlyOutSummaryByTeamModel> GetLateInEarlyOutSummaryByTeam(IList<LateInEarlyOutSummaryModel> lateInEarlyOuts, IList<Team> teams);
+        IList<LateInEarlyOutDiscipline> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria);
     }
 }

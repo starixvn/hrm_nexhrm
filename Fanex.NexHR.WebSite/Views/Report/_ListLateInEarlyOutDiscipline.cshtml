@@ -1,4 +1,4 @@
-﻿@model IList<LateInEarlyOutSummaryByTeamModel>
+﻿@model IList<LateInEarlyOutDiscipline>
 
 <table id="data" class="table bordered striped highlight table-custom centered" style="max-width: 960px">
     <thead>
@@ -9,21 +9,20 @@
             <th>@Labels.Total</th>
         </tr>
     </thead>
-    @if (Model != null && Model.Count > 0)
+    @if (Model != null && Model.Any())
     {
+        IList<LateInEarlyOutDiscipline> lateInEarlyOutByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
         int index = 0;
         <tbody>
-            @foreach (LateInEarlyOutSummaryByTeamModel item in Model)
+            @foreach (LateInEarlyOutDiscipline lateInEarlyOutByTeam in lateInEarlyOutByTeams)
             {
-                if (item.LateInEarlyOutSummaryInTeams != null && item.LateInEarlyOutSummaryInTeams.Count > 0) {
-                    <tr class="row-divider">
-                        <td class="align-left txt-uppercase" colspan="4">
-                            <b>@item.Team.Name.ToUpper()</b>
-                        </td>
-                    </tr>
-                }
-                
-                foreach (LateInEarlyOutSummaryModel lateInEarlyOut in item.LateInEarlyOutSummaryInTeams)
+                <tr class="row-divider">
+                    <td class="align-left txt-uppercase" colspan="4">
+                        <b>@lateInEarlyOutByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+                IList<LateInEarlyOutDiscipline> lateInEarlyOuts = Model.Where(t => t.Employee.Team.Id == lateInEarlyOutByTeam.Employee.Team.Id).ToList();
+                foreach (LateInEarlyOutDiscipline lateInEarlyOut in lateInEarlyOuts)
                 {
                     index++;
                     <tr>
@@ -43,7 +42,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (LateInEarlyOutSummaryDetailModel detail in lateInEarlyOut.LateInEarlyOutSummaryDetails)
+                                            @foreach (LateInEarlyOutDisciplineDetail detail in lateInEarlyOut.LateInEarlyOutDisciplineDetails)
                                             {
                                                 <tr>
                                                     <td>@detail.Month.ToString("MMM, yyyy")</td>
