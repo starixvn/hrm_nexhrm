@@ -100,6 +100,7 @@
              "~/Scripts/Views/Overtime/myOvertime.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
+             "~/Scripts/Views/Employee/_employee.search.in.company.js",
              "~/Scripts/Views/Overtime/overtimeSummary.js"));
         }
 
@@ -480,9 +481,9 @@
                 "~/Scripts/Views/Postanal/postnatalemployee.js",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(                
+            bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/Postanal/create.js"));       
+                "~/Scripts/Views/Postanal/create.js"));
         }
     }
 }

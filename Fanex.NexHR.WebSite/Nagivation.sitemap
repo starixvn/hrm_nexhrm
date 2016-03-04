@@ -35,7 +35,8 @@
       <siteMapNode title="Overtime Requests" controller="overtime" action="overtimerequest" icon="timetable" />
       <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
       <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyout" icon="alarm" />
-      <siteMapNode title="Leave Summary" controller="annualleave" action="index" icon="clipboard-text" />      
+      <siteMapNode title="Leave Summary" controller="annualleave" action="index" icon="clipboard-text" />
+      <siteMapNode title="Overtime Summary" controller="overtime" action="overtimesummary" icon="clipboard-text" />
       <siteMapNode title="Total Working Hours" controller="report" action="totalworkinghours" icon="alarm-plus" />
       <siteMapNode title="Holidays" controller="holiday" action="index" icon="umbrella-outline" />
       <siteMapNode title="Shift Info" controller="shift" action="index" icon="information-outline" />
