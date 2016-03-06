@@ -105,7 +105,7 @@ function initEventForFromDateAndToDate() {
                         }
                     });
             } else {
-                $.getJSON(_global.root + 'api/employee/GetRangeDate',
+                $.getJSON(_global.root + 'request/GetDateRange',
                     { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
                     function (response) {
                         if (response != null) {

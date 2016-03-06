@@ -39,7 +39,7 @@ function initAddLeaveDeduction() {
                 description: $('#Description').val(),
                 isAnnual: $("#IsAnnual").prop("checked")
             }, function (response) {
-                if (response.Code === 0) {
+                if (response.IsSuccessful) {
                     $('#insertform').dialog('close');
                     document.location = _global.root + 'report/LateInEarlyOut';
                 } else {

@@ -65,7 +65,7 @@ namespace Fanex.NexHR.Repositories
                     {
                         while (reader.Read())
                         {
-                            request = GetRequestInfo(reader);                            
+                            request = GetRequestInfo(reader);
                             return request;
                         }
                     }
@@ -73,15 +73,6 @@ namespace Fanex.NexHR.Repositories
             }
 
             return request;
-        }
-
-        public decimal GetNumberRequestInMonth(ICriteria criteria)
-        {
-            decimal numberRequest = 0;
-
-            //// implement latter
-
-            return numberRequest;
         }
 
         private RequestEntity GetRequestInfo(IDataReader reader)

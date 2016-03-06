@@ -9,7 +9,7 @@ function cancelRequest(id) {
                 autoIndex();
             }
             else {
-                alert('An error has occurs !');
+                alert(data.Message);
             }
         });
     });

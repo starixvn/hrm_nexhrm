@@ -3,13 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
-    using System.Web.Mvc;
-    using Fanex.Common.Helper;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -92,235 +89,6 @@
             return msg.ToString();
         }
 
-        public bool CreateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
-        {
-            if (modelState.IsValid)
-            {
-                // update date & time
-                model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
-                var criteria = new InsertRequestCriteria()
-                {
-                    EmpId = model.EmployeeId,
-                    RequestType = model.CheckInOutType,
-                    IsPlanned = false,
-                    Remark = null,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = model.By,
-                    FromDate = model.ForDate,
-                    FromShift = null,
-                    ToDate = null,
-                    ToShift = null,
-                    LeaveTypeId = null,
-                    TotalDays = null,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
-
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                model.Id = criteria.Id;
-
-                if (result.Code == 0)
-                {
-                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
-                    Task taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.CheckInOutEmailSubject, templateEmailPath));
-                    taskSendMail.Start();
-                    return true;
-                }
-                else if (result.Code != -1)
-                {
-                    modelState.AddModelError(string.Empty, result.Message);
-                    return false;
-                }
-
-                return true;
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Resources.Messages.InvalidInputData);
-            }
-
-            return false;
-        }
-
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool CreateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model)
-        {
-            if (modelState.IsValid)
-            {
-                if (model.HalfDayOff)
-                {
-                    if (model.TotalDays != (decimal)0.5)
-                    {
-                        modelState.AddModelError("TotalDays", Messages.InvalidTotalDays);
-                        return false;
-                    }
-
-                    model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                    model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
-                }
-                else if (model.TotalDays % 1 != 0)
-                {
-                    modelState.AddModelError("TotalDays", Messages.InvalidTotalDays);
-                    return false;
-                }
-
-                var criteria = new InsertRequestCriteria()
-                {
-                    EmpId = model.EmployeeId,
-                    RequestType = (short)RequestType.Leave,
-                    IsPlanned = model.IsPlanned,
-                    Remark = model.Remark,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = model.By,
-                    FromDate = model.FromDate,
-                    FromShift = null,
-                    ToDate = model.ToDate,
-                    ToShift = null,
-                    LeaveTypeId = model.LeaveTypeId,
-                    TotalDays = model.TotalDays,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
-
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                model.Id = criteria.Id;
-
-                if (result.Code == 0)
-                {
-                    string templateEmailPath = model.LeaveTypeId == 26 || model.TotalDays >= 5
-                        ? HttpContext.Current.Server.MapPath("~/app_data/emails/UnpaidLeave.Request.cshtml")
-                        : HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml");
-                    var taskSendMail = new Task(() => SendMailForLeave(model, Messages.LeaveEmailSubject + " " + model.Employee, templateEmailPath));
-                    taskSendMail.Start();
-                    return true;
-                }
-                else if (result.Code != -1)
-                {
-                    modelState.AddModelError(string.Empty, result.Message);
-                    return false;
-                }
-
-                return true;
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
-
-            return false;
-        }
-
-        public bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model)
-        {
-            if (modelState.IsValid)
-            {
-                model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
-
-                var criteria = new UpdateRequestCriteria()
-                {
-                    Id = model.Id,
-                    IsPlanned = false,
-                    Remark = model.Remark,
-                    ModifiedBy = model.EmployeeId,
-                    FromDate = model.ForDate,
-                    ModifiedDate = DateTime.Now,
-                    FromShift = null,
-                    ToDate = null,
-                    ToShift = null,
-                    LeaveTypeId = null,
-                    TotalDays = null,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
-
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-
-                if (result.Code == 0)
-                {
-                    string templateEmailPath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
-                    var taskSendMail = new Task(() => SendMailForCheckInOut(model, Messages.UpdatedCheckInOutEmailSubject, templateEmailPath));
-                    taskSendMail.Start();
-                    return true;
-                }
-                else
-                {
-                    modelState.AddModelError(string.Empty, result.Message);
-                    return false;
-                }
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
-
-            return false;
-        }
-
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model)
-        {
-            if (modelState.IsValid)
-            {
-                // half day leave
-                if (model.HalfDayOff)
-                {
-                    if (model.TotalDays != (decimal)0.5)
-                    {
-                        modelState.AddModelError("TotalDays", Messages.InvalidTotalDays);
-                        return false;
-                    }
-
-                    model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                    model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
-                }
-                else if (model.TotalDays % 1 != 0)
-                {
-                    modelState.AddModelError("TotalDays", Messages.InvalidTotalDays);
-                    return false;
-                }
-
-                var criteria = new UpdateRequestCriteria()
-                {
-                    Id = model.Id,
-                    IsPlanned = model.IsPlanned,
-                    Remark = model.Remark,
-                    ModifiedBy = model.EmployeeId,
-                    FromDate = model.FromDate,
-                    ModifiedDate = DateTime.Now,
-                    FromShift = null,
-                    ToDate = model.ToDate,
-                    ToShift = null,
-                    LeaveTypeId = model.LeaveTypeId,
-                    TotalDays = model.TotalDays,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
-
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-
-                if (result.Code == 0)
-                {
-                    string templateEmailPath = model.LeaveTypeId == 26 || model.TotalDays >= 5
-                        ? HttpContext.Current.Server.MapPath("~/app_data/emails/UnpaidLeave.Request.cshtml")
-                        : HttpContext.Current.Server.MapPath("~/app_data/emails/Leave.Request.cshtml");
-                    var taskSendMail = new Task(() => SendMailForLeave(model, Messages.UpdatedLeaveEmailSubject + " " + model.Employee, templateEmailPath));
-                    taskSendMail.Start();
-                    return true;
-                }
-                else
-                {
-                    modelState.AddModelError(string.Empty, result.Message);
-                    return false;
-                }
-            }
-            else
-            {
-                modelState.AddModelError(string.Empty, Messages.InvalidInputData);
-            }
-
-            return false;
-        }
-
         public CommandResult Process(string command, long id, int processBy)
         {
             ICriteria processRequestCriteria;
@@ -354,7 +122,7 @@
 
             CommandResult result = commandService.Update(processRequestCriteria);
 
-            if (result.Code == 0)
+            if (result.IsSuccessful)
             {
                 string templateEmailToRequester = HttpContext.Current.Server
                     .MapPath(Constants.EmailTemplatePathForRequester);
@@ -375,7 +143,7 @@
 
             if (criteria.IsValid())
             {
-                entityList = this.requestRepository.GetRequest(criteria);
+                entityList = requestRepository.GetRequest(criteria);
             }
 
             return entityList;
@@ -383,36 +151,125 @@
 
         public RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             RequestEntity request = new RequestEntity();
-            if (criteria.IsValid())
+            if (criteria != null && criteria.IsValid())
             {
-                request = this.requestRepository.GetRequestEntity(criteria);
+                request = requestRepository.GetRequestEntity(criteria);
             }
 
             return request;
-        }        
+        }
 
         public IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria)
         {
-            IList<RequestEntity> requests = new List<RequestEntity>();
-            if (criteria.IsValid())
+            IList<RequestEntity> requests = null;
+            if (criteria != null && criteria.IsValid())
             {
-                requests = this.requestRepository.GetRequest(criteria);
+                requests = requestRepository.GetRequest(criteria);
             }
 
-            return requests;
+            return requests ?? new List<RequestEntity>();
         }
 
-        public decimal GetNumberRequestInMonth(GetNumberRequestInMonthCriteria criteria)
+        public decimal GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
-            return requestRepository.GetNumberRequestInMonth(criteria);
+            int year = DateTime.Now.Year,
+            month = DateTime.Now.Month;
+            var criteria = new GetNumberRequestInMonthCriteria()
+            {
+                EmpId = employeeId,
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                RequestType = (int)requestType
+            };
+            NumberRequestInMonth numberRequest = GetDataEntity<NumberRequestInMonth>(criteria);
+
+            return numberRequest == null ? 0 : numberRequest.NumberRequest;
         }
 
-        public IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria)
+        public IList<DateTime> GetDisableRequestDate(int employeeId)
         {
+            var criteria = new GetUnavailableRequestDateCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = Utilities.RequestAvailableFromDate,
+                ToDate = Utilities.RequestAvailableToDate
+            };
+
             IList<DateTime> dates = GetData<DateTime>(criteria);
             return dates;
+        }
+
+        public DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria)
+        {
+            DateRange dateRange = GetDataEntity<DateRange>(criteria);
+            return dateRange;
+        }
+
+        public void SendMailForLeave(LeaveRequestViewModel model)
+        {
+            var body = string.Empty;
+            var criteria = new GetLeadersOfEmployeeCriteria() { EmployeeId = model.EmployeeId };
+            IList<Employee> leaders = GetData<Employee>(criteria);
+
+            string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
+            if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5day)
+            {
+                var getManagementsCriteria = new GetManagementsCriteria();
+                IList<Employee> managers = GetData<Employee>(getManagementsCriteria).ToList();
+
+                if (managers != null && managers.Any())
+                {
+                    body = string.Format(model.EmailTemplate, model.Employee, forDate, model.LeaveTypeName, model.Remark);
+                    emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        string.Join(";", managers.Select(t => t.Email)),
+                        string.Join(";", leaders.Select(t => t.Email)),
+                        model.SubjectEmail,
+                        body);
+                }
+            }
+            else
+            {
+                if (leaders != null && leaders.Any())
+                {
+                    body = string.Format(model.EmailTemplate, leaders.First().NickName, model.Employee, forDate, model.LeaveTypeName, model.Remark);
+                    emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        string.Join(";", leaders.Select(t => t.Email)),
+                        string.Empty,
+                        model.SubjectEmail,
+                        body);
+                }
+            }
+        }
+
+        public void SendMailForCheckInOut(CheckInOutRequestViewModel model)
+        {
+            IList<Employee> leaders = GetLeaderForCheckInOut(model);
+            if (leaders != null && leaders.Any())
+            {
+                var content = new
+                {
+                    Leader = leaders.First().NickName,
+                    Member = model.Employee,
+                    Type = model.CheckInOutType == (short)RequestType.CheckIn
+                        ? RequestType.CheckIn.EnumToString().ToLower()
+                        : RequestType.CheckOut.EnumToString().ToLower(),
+                    RequestId = model.Id,
+                    ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
+                    Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
+                    Shift = model.Shift
+                };
+
+                var body = string.Format(model.EmailTemplate, content.Leader, content.Member, content.Type, content.ForDate, content.Shift, content.Time);
+                this.emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                    string.Join(";", leaders.Select(t => t.Email)),
+                    string.Empty,
+                    model.SubjectEmail,
+                    body);
+            }
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -444,47 +301,13 @@
             return result;
         }
 
-        private void SendMailForCheckInOut(CheckInOutRequestViewModel model, string subject, string templateEmailPath)
-        {
-            IList<Employee> leaders = GetLeaderForCheckInOut(model);
-            if (leaders != null && leaders.Any())
-            {
-                // send email(s)
-                var bodyTemplate = Utilities.ReadTextFile(templateEmailPath);
-                foreach (var item in leaders)
-                {
-                    var content = new
-                    {
-                        Leader = item.NickName,
-                        Member = model.Employee,
-                        Type = model.CheckInOutType == (short)RequestType.CheckIn
-                            ? RequestType.CheckIn.EnumToString().ToLower()
-                            : RequestType.CheckOut.EnumToString().ToLower(),
-                        RequestId = model.Id,
-                        ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
-                        Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
-                        Shift = model.Shift
-                    };
-
-                    var body = string.Format(bodyTemplate, content.Leader, content.Member, content.Type, content.ForDate, content.Shift, content.Time);
-                    this.emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        item.Email,
-                        string.Empty,
-                        subject + " " + model.Employee + " on " + model.ForDate.ToDateMonthYearFormatedDate(),
-                        body);
-                }
-            }
-        }
-
         private IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
         {
             IList<Employee> leaders = null;
-            if (string.Equals(model.Shift, "A2")
-                && (model.ForDate.DayOfWeek == DayOfWeek.Saturday || model.ForDate.DayOfWeek == DayOfWeek.Sunday))
+            if (model.IsStandbyAtWeeken)
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
-                leaders = GetData<Employee>(getLeaderCriteria).ToList();
+                leaders = GetData<Employee>(getLeaderCriteria);
             }
             else
             {
@@ -492,57 +315,10 @@
                 {
                     EmployeeId = model.EmployeeId
                 };
-                leaders = GetData<Employee>(criteria).ToList();
+                leaders = GetData<Employee>(criteria);
             }
 
             return leaders;
-        }
-
-        private void SendMailForLeave(LeaveRequestViewModel model, string subject, string templateEmailPath)
-        {
-            var body = string.Empty;
-            var bodyTemplate = string.Empty;
-            IList<Employee> managers = null;
-            IList<Employee> leaders = null;
-            var criteria = new GetLeadersOfEmployeeCriteria() { EmployeeId = model.EmployeeId };
-            leaders = GetData<Employee>(criteria).ToList();
-
-            subject = model.TotalDays > 1
-                ? subject + " from " + model.FromDate.ToDateMonthYearFormatedDate() + " to " + model.ToDate.ToDateMonthYearFormatedDate()
-                : subject + " on " + model.FromDate.ToDateMonthYearFormatedDate();
-
-            bodyTemplate = Utilities.ReadTextFile(templateEmailPath);
-
-            var forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
-            if (model.LeaveTypeId == 26 || model.TotalDays >= 5)
-            {
-                var getManagementsCriteria = new GetManagementsCriteria();
-                managers = GetData<Employee>(getManagementsCriteria).ToList();
-
-                if (managers != null && managers.Any())
-                {
-                    body = string.Format(bodyTemplate, model.Employee, forDate, model.LeaveTypeName, model.Remark);
-                    this.emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        string.Join(";", managers.Select(t => t.Email)),
-                        string.Join(";", leaders.Select(t => t.Email)),
-                        subject,
-                        body);
-                }
-            }
-            else
-            {
-                if (leaders != null && leaders.Any())
-                {
-                    body = string.Format(bodyTemplate, leaders.First().NickName, model.Employee, forDate, model.LeaveTypeName, model.Remark);
-                    this.emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        string.Join(";", leaders.Select(t => t.Email)),
-                        string.Empty,
-                        subject,
-                        body);
-                }
-            }
         }
 
         private string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)

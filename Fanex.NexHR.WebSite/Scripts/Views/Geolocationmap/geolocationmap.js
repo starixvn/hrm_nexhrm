@@ -110,7 +110,7 @@ function searchEmployeeInCompany() {
             }
 
             $.ajax({
-                url: _global.root + 'api/employee/getemployees',
+                url: _global.root + 'employee/getemployees',
                 data: {
                     query: term,
                     $top: 10
@@ -198,7 +198,7 @@ function initialize() {
     markers.push(marker);
 
     $.ajax({
-        url: _global.root + 'api/employee/getemployees',
+        url: _global.root + 'employee/getemployees',
         data: {
             query: '',
             $top: 10

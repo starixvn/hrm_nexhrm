@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Request;
@@ -11,24 +11,22 @@
 
     public interface IRequestService
     {
-        bool CreateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
-
-        bool CreateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model);
-
-        bool UpdateCheckInOut(ModelStateDictionary modelState, CheckInOutRequestViewModel model);
-
-        bool UpdateLeave(ModelStateDictionary modelState, LeaveRequestViewModel model);
-
         CommandResult Process(string command, long id, int processBy);
 
         IList<RequestEntity> GetRequest(GetRequestCriteria criteria);
 
-        RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria);        
+        RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria);
 
         IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria);
 
-        decimal GetNumberRequestInMonth(GetNumberRequestInMonthCriteria criteria);
+        decimal GetNumberRequestInMonth(int employeeId, RequestType requestType);
 
-        IList<DateTime> GetDisableRequestDate(GetUnavailableRequestDateCriteria criteria);
+        IList<DateTime> GetDisableRequestDate(int employeeId);
+
+        DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
+
+        void SendMailForCheckInOut(CheckInOutRequestViewModel model);
+
+        void SendMailForLeave(LeaveRequestViewModel model);
     }
 }

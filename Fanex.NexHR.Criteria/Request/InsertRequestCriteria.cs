@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertRequestCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.31">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Request
+﻿namespace Fanex.NexHR.Criteria.Request
 {
     using System;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core.Attributes;
 
-    /// <summary>
-    /// Insert Request Criteria.
-    /// </summary>
     public class InsertRequestCriteria : CriteriaBase
     {
         [Output]
@@ -56,7 +44,7 @@ namespace Fanex.NexHR.Criteria.Request
 
         public override bool IsValid()
         {
-            return true;
+            return EmpId > 0;
         }
     }
 }

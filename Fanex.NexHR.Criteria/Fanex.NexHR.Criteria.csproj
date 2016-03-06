@@ -83,7 +83,7 @@
     <Compile Include="AnnualLeave\GetAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
-    <Compile Include="Employee\GetDateRangeEmployeeCalendarCriteria.cs" />
+    <Compile Include="Request\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetDashBoardCompanySpaceCriteria.cs" />
     <Compile Include="Employee\GetDashBoardPersonalSpaceCriteria.cs" />

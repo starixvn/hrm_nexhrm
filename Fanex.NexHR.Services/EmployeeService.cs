@@ -84,11 +84,6 @@
             return dashboard;
         }
 
-        public int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria)
-        {
-            return employeeRepository.GetRangeDate(criteria);
-        }
-
         public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
             IList<Employee> employees = null;

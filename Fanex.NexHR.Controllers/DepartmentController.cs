@@ -5,7 +5,6 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Department;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -60,11 +59,14 @@
                 };
 
                 CommandResult commandResult = commandService.Insert(criteria);
-                ViewBag.Inserted = commandResult.Code == 0;
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+                if (commandResult.IsSuccessful)
+                {
+                    ViewBag.Inserted = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, commandResult.Message);
+                }
             }
 
             IEnumerable<Department> departments = departmentService.GetAll();
@@ -106,7 +108,7 @@
         [HttpPost]
         public ActionResult Edit(DepartmentViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new UpdateDepartmentCriteria
                 {
@@ -119,11 +121,15 @@
                 };
 
                 CommandResult commandResult = commandService.Update(criteria);
-                ViewBag.Updated = commandResult.Code == 0;
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+
+                if (commandResult.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, commandResult.Message);
+                }
             }
 
             IEnumerable<Department> departments = departmentService.GetAll();
@@ -141,8 +147,7 @@
             };
 
             CommandResult commandResult = commandService.Delete(criteria);
-            JsonResult result = Json(commandResult, JsonRequestBehavior.AllowGet);
-            return result;
+            return Json(commandResult);
         }
     }
 }

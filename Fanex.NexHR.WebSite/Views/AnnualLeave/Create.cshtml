@@ -26,7 +26,7 @@
                             {
                                 @Html.HiddenFor(model=>model.EmployeeId)
                                 @Html.Hidden("year", Model.AffectedFrom.Year)
-                                @Html.ValidationSummary(true)
+                                @Html.ValidationSummary()
                                 if (ViewBag.Inserted == true)
                                 {
                                 <input type="hidden" id="successed" value="true" />

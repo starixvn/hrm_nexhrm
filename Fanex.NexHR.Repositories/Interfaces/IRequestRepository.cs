@@ -9,7 +9,5 @@
         IList<RequestEntity> GetRequest(ICriteria criteria);
 
         RequestEntity GetRequestEntity(ICriteria criteria);
-
-        decimal GetNumberRequestInMonth(ICriteria criteria);
     }
 }

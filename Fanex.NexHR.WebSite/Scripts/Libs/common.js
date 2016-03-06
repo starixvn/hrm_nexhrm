@@ -638,7 +638,7 @@ function initAutocomplete(selectorName, selectorId) {
             }
 
             $.ajax({
-                url: _global.root + 'api/employee/getemployees',
+                url: _global.root + 'employee/getemployees',
                 dataType: 'json',
                 data: {
                     query: term,

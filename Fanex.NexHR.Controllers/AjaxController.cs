@@ -2,10 +2,8 @@
 {
     using System;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.ExtensionNo;
     using Fanex.NexHR.Criteria.Report;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 

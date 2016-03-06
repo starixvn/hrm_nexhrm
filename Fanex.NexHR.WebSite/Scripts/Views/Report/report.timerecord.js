@@ -66,7 +66,7 @@ function processInOut(inoutType, eventElement) {
     $.post(_global.root + 'ajax/ProcessInOut',
     { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
     function (response) {
-        if (response.Code === 0) {
+        if (response.IsSuccessful) {
             query(false);
         } else {
             alert(response.Message);

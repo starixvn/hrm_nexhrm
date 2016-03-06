@@ -167,7 +167,7 @@
                 };
 
                 CommandResult result = commandService.Insert(criteria);
-                if (result.Code == 0)
+                if (result.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
                 }
@@ -175,10 +175,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -220,7 +216,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
                 CommandResult result = commandService.Update(criteria);
-                if (result.Code == 0)
+                if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
                 }
@@ -228,10 +224,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -295,36 +287,26 @@
         [HttpPost]
         public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
-            CommandResult result = new CommandResult()
+            var model = new ShowOpenAndCloseAnnualBalance();
+            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
             {
-                Code = -1,
-                Message = Messages.InvalidInputData
+                EmployeeId = null,
+                GroupId = null,
+                Year = model.FromDate.Year
             };
 
-            if (ModelState.IsValid)
+            IList<LeaveSummary> leaveSummaries = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
+
+            var resetAnnualLeaves = new ResetAnnualLeavesCriteria
             {
-                var model = new ShowOpenAndCloseAnnualBalance();
+                Description = descriptionReset,
+                FromDate = new DateTime(model.FromDate.Year, 12, 31),
+                ResetDays = minbalance,
+                CreatedBy = CurrentUser.Id,
+                LeaveSummaries = leaveSummaries
+            };
 
-                var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
-                {
-                    EmployeeId = null,
-                    GroupId = null,
-                    Year = model.FromDate.Year
-                };
-
-                IList<LeaveSummary> leaveSummaries = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
-
-                var resetAnnualLeaves = new ResetAnnualLeavesCriteria
-                {
-                    Description = descriptionReset,
-                    FromDate = new DateTime(model.FromDate.Year, 12, 31),
-                    ResetDays = minbalance,
-                    CreatedBy = CurrentUser.Id,
-                    LeaveSummaries = leaveSummaries
-                };
-
-                result = commandService.Update(resetAnnualLeaves);
-            }
+            CommandResult result = commandService.Update(resetAnnualLeaves);
 
             return Json(result);
         }

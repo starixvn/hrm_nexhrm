@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Resources;
 
     public class BaseRequestModel
     {
@@ -9,8 +10,7 @@
         [Required]
         public string Employee { get; set; }
 
-        [Required]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessageResourceName = "InvalidEmployeeID", ErrorMessageResourceType = typeof(Messages))]
         public int EmployeeId { get; set; }
 
         public byte Status { get; set; }

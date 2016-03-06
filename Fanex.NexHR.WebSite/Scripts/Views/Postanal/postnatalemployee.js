@@ -31,8 +31,13 @@ function query(isFirstLoad) {
 
 function deleteRequest(id, fromDate, toDate) {
     confirm('Are you sure you want to delete this item?', function () {
-        $.post(_global.root + 'postnatal/delete', { empId: id, fromDate: fromDate, toDate: toDate }, function () {
-            query(false);
+        $.post(_global.root + 'postnatal/delete', { empId: id, fromDate: fromDate, toDate: toDate }, function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            }
+            else {
+                alert(response.Message);
+            }
         });
     });
 }

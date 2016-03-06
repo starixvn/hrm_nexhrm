@@ -36,7 +36,7 @@
                             @Html.HiddenFor(model => model.EmployeeId)
                             if (ViewBag.TotalRequest > 0)
                             {
-                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                            <div class="ui-state-error ui-corner-all" style="padding: 0.7em; margin: 0.7em;">
                                 <p>
                                     <a href="@Url.Action("EmployeeView")">
                                         You've already requested for Leave <strong>@ViewBag.TotalRequest day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")
@@ -144,7 +144,6 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
                                 </div>
                             </div>
-                            @Html.HiddenFor(model => model.DisplayName)
                             @Html.HiddenFor(model => model.ForRequest)
                         }
                     </div>

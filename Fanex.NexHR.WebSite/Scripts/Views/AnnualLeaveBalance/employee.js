@@ -32,7 +32,7 @@ function query(isFirstLoad) {
 function deleteLeaveTrans(leaveTransactionId) {
     confirm('Are you sure you want to delete this leave transaction?', function () {
         $.post(_global.root + 'annualleave/Delete', { leaveTransactionId: leaveTransactionId }, function (respone) {
-            if (respone.Code === 0) {
+            if (respone.IsSuccessful) {
                 query(false);
             }
             else {

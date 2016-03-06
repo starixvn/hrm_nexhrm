@@ -9,14 +9,15 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Employee;
     using FPS.Client;
+    using Newtonsoft.Json;
     using Simplicode.Imaging;
     using Simplicode.Imaging.Filters;
 
@@ -68,6 +69,38 @@
             return View(model);
         }
 
+        public JsonResult GetEmployees(
+            string query,
+            int? teamId = null,
+            bool? enable = null,
+            bool? isDelete = null,
+            int? jobTitleId = null,
+            string sort = null)
+        {
+            if (teamId == -1)
+            {
+                teamId = null;
+            }
+
+            var criteria = new GetEmployeeCriteria()
+            {
+                Query = query,
+                TeamId = teamId,
+                JobTitleId = jobTitleId,
+                Enable = CheckUserEnableCondition(enable),
+                IsDelete = CheckDeletedUserCondition(isDelete),
+                PageNumber = 1,
+                PageSize = int.MaxValue,
+                TotalRow = 2000
+            };
+
+            var employees = employeeService.Query(criteria);
+
+            employees = SortEmployee(sort, employees);
+
+            return Json(employees, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Detail(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
@@ -95,42 +128,34 @@
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
+                var criteria = new InsertEmployeeCriteria()
                 {
-                    model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
+                    Code = model.Code,
+                    CreateBy = CurrentUser.Id,
+                    DomainUsername = model.DomainUsername,
+                    FriShift = model.FriShift,
+                    FullName = model.FullName,
+                    TeamId = model.TeamId,
+                    MonShift = model.MonShift,
+                    NickName = model.NickName,
+                    TueShift = model.TueShift,
+                    SatShift = model.SatShift,
+                    SunShift = model.SunShift,
+                    ThuShift = model.ThuShift,
+                    WedShift = model.WedShift
+                };
 
-                    var criteria = new InsertEmployeeCriteria()
-                    {
-                        Code = model.Code,
-                        CreateBy = CurrentUser.Id,
-                        DomainUsername = model.DomainUsername,
-                        FriShift = model.FriShift,
-                        FullName = model.FullName,
-                        TeamId = model.TeamId,
-                        MonShift = model.MonShift,
-                        NickName = model.NickName,
-                        TueShift = model.TueShift,
-                        SatShift = model.SatShift,
-                        SunShift = model.SunShift,
-                        ThuShift = model.ThuShift,
-                        WedShift = model.WedShift
-                    };
-
-                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                    if (result.Code == 0)
-                    {
-                        return RedirectToAction("Edit", new { id = criteria.Id });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                if (result.IsSuccessful)
+                {
+                    return RedirectToAction("Edit", new { id = criteria.Id });
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
 
                 model.Teams = teamService.GetAll();
@@ -159,31 +184,24 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-                    CommandResult result = commandService.Update(criteria);
+                UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
+                CommandResult result = commandService.Update(criteria);
 
-                    if (result.Code == 0)
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
+                    if (CurrentUser.Id == model.Id)
                     {
-                        ViewBag.Updated = true;
-                        if (CurrentUser.Id == model.Id)
-                        {
-                            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
-                            Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
-                            HttpContext.Session["CurrentUser"] = currentUser;
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
+                        var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
+                        Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
+                        HttpContext.Session["CurrentUser"] = currentUser;
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
 
                 model.Teams = teamService.GetAll();
@@ -221,36 +239,27 @@
         [HttpPost]
         public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var criteria = new UpdateScheduleDefaultCriteria()
                 {
-                    var criteria = new UpdateScheduleDefaultCriteria()
-                    {
-                        EmployeeId = model.EmployeeId,
-
-                        MonShift = model.MonShiftId,
-                        TueShift = model.TueShiftId,
-                        WedShift = model.WedShiftId,
-                        ThuShift = model.ThuShiftId,
-                        FriShift = model.FriShiftId,
-                        SatShift = model.SatShiftId,
-                        SunShift = model.SunShiftId
-                    };
-                    CommandResult result = commandService.Update(criteria);
-
-                    if (result.Code == 0)
-                    {
-                        ViewBag.Updated = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                    EmployeeId = model.EmployeeId,
+                    MonShift = model.MonShiftId,
+                    TueShift = model.TueShiftId,
+                    WedShift = model.WedShiftId,
+                    ThuShift = model.ThuShiftId,
+                    FriShift = model.FriShiftId,
+                    SatShift = model.SatShiftId,
+                    SunShift = model.SunShiftId
+                };
+                CommandResult result = commandService.Update(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
 
                 model.Shifts = shiftService.GetAll();
@@ -511,6 +520,56 @@
             };
 
             return defaultSchedule;
+        }
+
+        private int? CheckUserEnableCondition(bool? enable)
+        {
+            int? disableUsers;
+            if (enable == true)
+            {
+                disableUsers = 0;
+            }
+            else if (enable == false)
+            {
+                disableUsers = 1;
+            }
+            else
+            {
+                disableUsers = null;
+            }
+
+            return disableUsers;
+        }
+
+        private int? CheckDeletedUserCondition(bool? isDelete)
+        {
+            int? deleteUsers;
+            if (isDelete == true)
+            {
+                deleteUsers = 1;
+            }
+            else if (isDelete == false)
+            {
+                deleteUsers = 0;
+            }
+            else
+            {
+                deleteUsers = null;
+            }
+
+            return deleteUsers;
+        }
+
+        private IList<Employee> SortEmployee(string sort, IList<Employee> employees)
+        {
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+
+                employees = Utilities.MultipleSort(employees, sorts);
+            }
+
+            return employees;
         }
     }
 }

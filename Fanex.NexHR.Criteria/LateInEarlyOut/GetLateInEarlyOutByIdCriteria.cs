@@ -17,7 +17,7 @@
 
         public override string GetSettingKey()
         {
-            return "GetLateInEarlyOutById";
+            return "LateInEarlyOut_GetById";
         }
     }
 }

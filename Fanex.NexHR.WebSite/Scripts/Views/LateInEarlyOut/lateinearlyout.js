@@ -32,14 +32,19 @@ function query(isFirstLoad) {
 
 function deleteRequest(id, fileName, type) {
     confirm('Are you sure you want to delete this request?', function () {
-        $.post(_global.root + 'lateearly/delete', { id: id }, function () {
-            $('#row_' + id).remove();
-            autoIndex();
+        $.post(_global.root + 'lateearly/delete', { id: id }, function (data) {
+            if (data.IsSuccessful) {
+                $('#row_' + id).remove();
+                autoIndex();
+            }
+            else {
+                alert(data.Message);
+            }
         });
     });
 }
 
-$(document).ready(function () {        
+$(document).ready(function () {
 
     query(true);
 

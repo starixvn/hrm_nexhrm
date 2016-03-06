@@ -48,11 +48,10 @@
                     Types = model.TypeCode,
                     Minutes = model.Minutes,
                     WorkDate = model.WorkDate,
-                    ModifiedDate = DateTime.Now,
                     ModifiedBy = CurrentUser.Id
                 };
                 CommandResult result = commandService.Insert(criteria);
-                if (result.Code == 0)
+                if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
                 }
@@ -60,10 +59,6 @@
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
             return View(model);
@@ -88,43 +83,37 @@
         [HttpPost]
         public ActionResult Edit(LateInEarlyOutViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (model.EmpId <= 0)
+                UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
                 {
-                    ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
+                    Id = (int)model.Id,
+                    EmpId = model.EmpId,
+                    Types = int.Parse(model.Types),
+                    Minutes = model.Minutes,
+                    WorkDate = model.WorkDate,
+                    ModifiedBy = CurrentUser.Id
+                };
+                CommandResult result = commandService.Update(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Requested = true;
                 }
                 else
                 {
-                    UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
-                    {
-                        Id = (int)model.Id,
-                        EmpId = model.EmpId,
-                        Types = int.Parse(model.Types),
-                        Minutes = model.Minutes,
-                        WorkDate = model.WorkDate,
-                        ModifiedDate = DateTime.Now,
-                        ModifiedBy = CurrentUser.Id,
-                    };
-                    CommandResult result = commandService.Update(criteria);
-                    if (result.Code == 0)
-                    {
-                        ViewBag.Requested = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
             return View(model);
         }
 
-        public void Delete(int id)
+        public JsonResult Delete(int id)
         {
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
-            commandService.Delete(criteria);
+            CommandResult result = commandService.Delete(criteria);
+
+            return Json(result);
         }
 
         public ActionResult ListLateEarly(int empId, int year)
@@ -140,7 +129,7 @@
                 EmpId = empId,
                 Year = year
             };
-            IList<LateInEarlyOutViewModel> list = lateinEarlyoutService.GetAllByEmpId(criteria).ToList();
+            IList<LateInEarlyOutViewModel> list = lateinEarlyoutService.GetAllByEmpId(criteria);
 
             return list;
         }

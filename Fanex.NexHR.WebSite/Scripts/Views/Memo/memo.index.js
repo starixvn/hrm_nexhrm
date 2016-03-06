@@ -9,11 +9,16 @@ function index() {
 
 function deleteMemo(id, fileName, type) {
     confirm('Are you sure you want to delete this memo?', function () {
-        $.post(_global.root + 'memo/deletememo', { id: id }, function () {
-            $('#row_' + id).remove();
-            autoIndex();
-            if (type === 1) {
-                deleteMemoFile(fileName);
+        $.post(_global.root + 'memo/deletememo', { id: id }, function (response) {
+            if (response.IsSuccessful) {
+                $('#row_' + id).remove();
+                autoIndex();
+                if (type === 1) {
+                    deleteMemoFile(fileName);
+                }
+            }
+            else {
+                alert(response.Message);
             }
         });
     });

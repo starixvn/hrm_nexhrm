@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
@@ -44,9 +46,61 @@
             }
         }
 
+        public decimal TotalRequest { get; set; }
+
         public IList<LeaveType> LeaveTypes { get; set; }
 
         public IList<DateTime> UnavailDates { get; set; }
+
+        public bool IsUnpaidLeave
+        {
+            get
+            {
+                return LeaveTypeId == Constants.UnpaidLeaveType;
+            }
+        }
+
+        public bool IsAnnualLeaveOver5day
+        {
+            get
+            {
+                return (LeaveTypeId == Constants.AnnualLeaveType || LeaveTypeId == Constants.UnplannedAnnualLeaveType)
+                    && TotalDays >= 5;
+            }
+        }
+
+        public bool IsEdit { get; set; }
+
+        public string EmailTemplate 
+        { 
+            get 
+            {
+                return Utilities.ReadTextFile(EmailTemplatePath);
+            } 
+        }
+
+        public string EmailTemplatePath { get; set; }
+
+        public string SubjectEmail
+        {
+            get
+            {
+                string subjectTemplate = TotalDays > 1 ? "{0} {1} from {2} to {3}" : "{0} {1} on {2}";
+                return string.Format(
+                    subjectTemplate, 
+                    IsEdit ? Messages.UpdatedLeaveEmailSubject : Messages.LeaveEmailSubject, 
+                    Employee, 
+                    FromDate.ToDateMonthYearFormatedDate(),
+                    ToDate.ToDateMonthYearFormatedDate());
+            }
+        }
+
+        public void GetEmailTemplatePath()
+        {
+            EmailTemplatePath = IsUnpaidLeave || IsAnnualLeaveOver5day
+                        ? HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForUnpaidLeave)
+                        : HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForLeave);
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

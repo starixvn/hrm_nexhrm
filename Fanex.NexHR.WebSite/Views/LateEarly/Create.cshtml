@@ -16,9 +16,6 @@
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase">@ViewBag.Title</span>
-                    <a id="legendInfo" href="javascript:;">
-                        <span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
-                    </a>
                 </div>
                 <div class="card-body">
                     <div class="form">
@@ -58,23 +55,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.Minutes, Labels.Minutes)
-                                    </div>
-                                    <div class="left select--m">
-                                        @{
-                            var minutesList = new List<SelectListItem>
-                                                {
-                                                    new SelectListItem() {Text = "30m", Value = "30", Selected = true},
-                                                    new SelectListItem() {Text = "60m", Value = "60"},
-                                                };
-                                        }
-                                        @Html.RadioButtonList(model => model.Minutes, minutesList)
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row form-input m-t--s">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -96,12 +76,31 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="left label--xl">&nbsp;</div>
-                                <div class="left">
-                                    <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Back</a>
-                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
+                                <div class="col m-b--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Minutes, Labels.Minutes)
+                                    </div>
+                                    <div class="left select--m">
+                                        @{
+                            var minutesList = new List<SelectListItem>
+                                                {
+                                                    new SelectListItem() {Text = "30m", Value = "30", Selected = true},
+                                                    new SelectListItem() {Text = "60m", Value = "60"},
+                                                };
+                                        }
+                                        @Html.RadioButtonList(model => model.Minutes, minutesList)
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row form-input">
+                                <div class="col m-b--m">
+                                    <div class="left label--l">&nbsp;</div>
+                                    <div class="left">
+                                        <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Back</a>
+                                        <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Save" />
+                                    </div>
+                                </div>
+                             </div>
                         }
                     </div>
                 </div>

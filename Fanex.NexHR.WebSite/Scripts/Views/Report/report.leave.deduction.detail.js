@@ -49,7 +49,7 @@ function initEditLeaveDeduction() {
                 description: $('#Description').val(),
                 isAnnual: $('#IsAnnual').prop('checked')
             }, function (response) {
-                if (response.Code === 0) {
+                if (response.IsSuccessful) {
                     $('#updateform').dialog('close');
                     document.location = url;
                 } else {
@@ -69,7 +69,7 @@ function initDeleteLeaveDeduction() {
         confirm('Are you sure you want to delete this leave deduction?', function () {
             var url = window.location.href;
             $.post(_global.root + 'AnnualLeave/DeleteLeaveDeduction', { leaveDeductionId: leaveDeductionId }, function (response) {
-                if (response.Code === 0) {
+                if (response.IsSuccessful) {
                     document.location = url;
                 } else {
                     alert(response.Message);

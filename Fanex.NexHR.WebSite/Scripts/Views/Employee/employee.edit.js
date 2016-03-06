@@ -149,7 +149,7 @@ function bindLeaderRole(onload) {
 
 function query() {
     var keyword = $('#keyword').val();
-    $.getJSON(_global.root + 'api/employee/getemployees', { query: keyword, groupId: null }, function (data) {
+    $.getJSON(_global.root + 'employee/getemployees', { query: keyword, groupId: null }, function (data) {
         $('#data tbody').children().remove();
         $('#itemTemplate').tmpl(data).appendTo('#data');
         if (keyword.length > 0) {
@@ -371,7 +371,7 @@ function initEventForDelete() {
             $.post(_global.root + 'employee/Delete',
             { employeeId: $('#Id').val(), resignedDate: resignedDate },
             function (response) {
-                if (response.Code === 0) {
+                if (response.IsSuccessful) {
                     document.location = _global.root + 'employee/usermanagement';
                 } else {
                     alert(response.Message);

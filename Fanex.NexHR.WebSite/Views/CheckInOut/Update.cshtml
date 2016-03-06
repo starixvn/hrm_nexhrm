@@ -96,13 +96,13 @@
                                         @Html.HiddenFor(model => model.CheckInOutType)
                                         @Html.HiddenFor(model => model.Shift)
                                         @Html.HiddenFor(model => model.ForRequest)
-                                        @Html.Hidden("InTime")
-                                        @Html.Hidden("OutTime")
+                                        @Html.HiddenFor(model => model.InTime)
+                                        @Html.HiddenFor(model => model.OutTime)
                                         <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                         <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />
                                     </div>
                                 </div>
-                             </div>
+                            </div>
                         }
                     </div>
                 </div>

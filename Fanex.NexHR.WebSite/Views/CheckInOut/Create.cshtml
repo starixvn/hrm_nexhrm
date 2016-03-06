@@ -17,31 +17,48 @@
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase">@ViewBag.Title</span>
-                    <a id="legendInfo" href="javascript:;"><span class="tooltip"><i class="mdi mdi-information-outline">
-                        </i></span></a>
+                    <a id="legendInfo" href="javascript:;">
+                        <span class="tooltip">
+                            <i class="mdi mdi-information-outline">
+                            </i>
+                        </span>
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="form">
+
                         @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
-                            @Html.ValidationSummary(true)
+                            if (Model.TotalRequest > 1)
+                            {
+                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em; margin: 0.7em;">
+                                    <p>
+                                        <a href="@Url.Action("EmployeeView")">
+                                            You've already requested for Check in/out
+                                            @Model.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
+                                        </a>
+                                    </p>
+                                </div>
+                            }
+
+                            @Html.ValidationSummary()
                             if (ViewBag.Requested == true)
                             {
-                            <div class="row validation-summary-success">
-                                <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
-                                <input type="hidden" id="successed" value="true" />
-                                <input type="hidden" id="year" value="@ViewBag.Year" />
-                            </div>
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                    <input type="hidden" id="successed" value="true" />
+                                    <input type="hidden" id="year" value="@ViewBag.Year" />
+                                </div>
                             }
                             if (ViewBag.TotalRequest >= 2)
                             {
-                            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                <p>
-                                    <a href="@Url.Action("EmployeeView")">
-                                        You've already requested for Check in/Check out @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
-                                    </a>
-                                </p>
-                            </div>
+                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                    <p>
+                                        <a href="@Url.Action("EmployeeView")">
+                                            You've already requested for Check in/Check out @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
+                                        </a>
+                                    </p>
+                                </div>
                             }
                             <div class="card-content">
                                 <div class="row form-input m-b--m">
@@ -76,7 +93,8 @@
                                             @Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })
                                         </div>
                                         <div class="col p-0">
-                                            :</div>
+                                            :
+                                        </div>
                                         <div class="col">
                                             @Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })
                                         </div>
@@ -103,7 +121,7 @@
 
                                         <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
                                         <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Save" />
-                                        
+
                                     </div>
                                 </div>
                             </div>

@@ -55,7 +55,7 @@ $(document).ready(function () {
                     FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
                 },
                 function (response) {
-                    if (response.Code === 0) {
+                    if (response.IsSuccessful) {
                         document.location = _global.root + 'calendar/workingcalendars';
                     }
                     else {

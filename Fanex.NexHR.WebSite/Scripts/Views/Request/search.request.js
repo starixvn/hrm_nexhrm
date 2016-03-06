@@ -14,7 +14,7 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: _global.root + 'api/employee/GetEmployees',
+                url: _global.root + 'employee/GetEmployees',
                 dataType: 'json',
                 data: { query: term },
                 success: function (data) {

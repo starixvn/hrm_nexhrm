@@ -8,11 +8,11 @@ $(document).ready(function () {
             $.post(_global.root + 'extensionno/DeleteExtensionNumber',
             { extId: id },
             function (response) {
-                if (response) {
+                if (response.IsSuccessful) {
                     document.location = _global.root + 'extensionno/index';
                 }
                 else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             }).error(function () {
                 alert(_messages.errorTryAgain);
@@ -26,11 +26,11 @@ $(document).ready(function () {
             $.post(_global.root + 'extensionno/DeleteExternalGroup',
             { extId: id },
             function (response) {
-                if (response) {
+                if (response.IsSuccessful) {
                     document.location = _global.root + 'extensionno/ManageExternalGroup';
                 }
                 else {
-                    alert(_messages.errorTryAgain);
+                    alert(response.Message);
                 }
             }).error(function () {
                 alert(_messages.errorTryAgain);
@@ -85,11 +85,11 @@ $(function () {
                     $.post(_global.root + 'extensionno/AddNewExternalGroup',
                         { groupName: name.val() },
                         function (response) {
-                            if (response) {
+                            if (response.IsSuccessful) {
                                 document.location = _global.root + 'extensionno/ManageExternalGroup';
                             }
                             else {
-                                alert(_messages.errorTryAgain);
+                                alert(response.Message);
                             }
                         }).error(function () {
                             alert(_messages.errorTryAgain);
@@ -158,11 +158,11 @@ $(function () {
                         $.post(_global.root + 'extensionno/EditExternalGroup',
                         { groupName: name.val(), extId: id },
                         function (response) {
-                            if (response) {
+                            if (response.IsSuccessful) {
                                 document.location = _global.root + 'extensionno/ManageExternalGroup';
                             }
                             else {
-                                alert(_messages.errorTryAgain);
+                                alert(response.Message);
                             }
                         }).error(function () {
                             alert(_messages.errorTryAgain);

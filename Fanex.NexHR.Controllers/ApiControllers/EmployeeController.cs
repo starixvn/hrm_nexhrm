@@ -26,77 +26,63 @@
             this.employeeService = employeeService ?? new EmployeeService();
         }
 
-        public IQueryable<Employee> GetEmployees(
-            string query,
-            int? teamId = null,
-            bool? enable = null,
-            bool? isDelete = null,
-            int? jobTitleId = null,
-            string sort = null)
-        {
-            if (teamId == -1)
-            {
-                teamId = null;
-            }
+        ////public IQueryable<Employee> GetEmployees(
+        ////    string query,
+        ////    int? teamId = null,
+        ////    bool? enable = null,
+        ////    bool? isDelete = null,
+        ////    int? jobTitleId = null,
+        ////    string sort = null)
+        ////{
+        ////    if (teamId == -1)
+        ////    {
+        ////        teamId = null;
+        ////    }
 
-            var criteria = new GetEmployeeCriteria()
-            {
-                Query = query,
-                TeamId = teamId,
-                JobTitleId = jobTitleId,
-                Enable = CheckUserEnableCondition(enable),
-                IsDelete = CheckDeletedUserCondition(isDelete),
-                PageNumber = 1,
-                PageSize = int.MaxValue,
-                TotalRow = 2000
-            };
+        ////    var criteria = new GetEmployeeCriteria()
+        ////    {
+        ////        Query = query,
+        ////        TeamId = teamId,
+        ////        JobTitleId = jobTitleId,
+        ////        Enable = CheckUserEnableCondition(enable),
+        ////        IsDelete = CheckDeletedUserCondition(isDelete),
+        ////        PageNumber = 1,
+        ////        PageSize = int.MaxValue,
+        ////        TotalRow = 2000
+        ////    };
 
-            var employees = employeeService.Query(criteria);
+        ////    var employees = employeeService.Query(criteria);
 
-            employees = SortEmployee(sort, employees);
+        ////    employees = SortEmployee(sort, employees);
 
-            return employees.AsQueryable();
-        }
+        ////    return employees.AsQueryable();
+        ////}
 
-        public int GetRangeDate(int employeeId, DateTime fromDate, DateTime toDate)
-        {
-            var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
-            {
-                EmployeeId = employeeId,
-                FromDate = fromDate,
-                ToDate = toDate
-            };
+        ////public IList<Employee> GetToeic(
+        ////    string query,
+        ////    int? groupId = null,
+        ////    int? titleId = null,
+        ////    int? score = null,
+        ////    bool? enable = null,
+        ////    bool? isDelete = null)
+        ////{
+        ////    if (groupId == -1)
+        ////    {
+        ////        groupId = null;
+        ////    }
 
-            int totalDays = employeeService.GetRangeDate(getDateRangeCriteria);
-
-            return totalDays;
-        }
-
-        public IList<Employee> GetToeic(
-            string query,
-            int? groupId = null,
-            int? titleId = null,
-            int? score = null,
-            bool? enable = null,
-            bool? isDelete = null)
-        {
-            if (groupId == -1)
-            {
-                groupId = null;
-            }
-
-            var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
-            {
-                Query = query,
-                GroupId = groupId,
-                TitleId = titleId,
-                Score = score,
-                Enable = enable,
-                IsDelete = isDelete
-            };
-            IList<Employee> employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
-            return employees;
-        }
+        ////    var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
+        ////    {
+        ////        Query = query,
+        ////        GroupId = groupId,
+        ////        TitleId = titleId,
+        ////        Score = score,
+        ////        Enable = enable,
+        ////        IsDelete = isDelete
+        ////    };
+        ////    IList<Employee> employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+        ////    return employees;
+        ////}
 
         private int? CheckUserEnableCondition(bool? enable)
         {

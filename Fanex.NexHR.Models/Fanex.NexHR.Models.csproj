@@ -107,6 +107,8 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="AnnualLeave\LeaveSummary.cs" />
     <Compile Include="RequestsMonitoring.cs" />
+    <Compile Include="Request\DateRange.cs" />
+    <Compile Include="Request\NumberRequestInMonth.cs" />
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestTypeModel.cs" />

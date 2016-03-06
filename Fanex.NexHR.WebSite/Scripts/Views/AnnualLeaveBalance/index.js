@@ -42,7 +42,7 @@ function eventAdjustment() {
 
             if ($form.valid()) {
                 $.post(_global.root + 'AnnualLeave/AdjustAnnualLeaves', $('form').serialize(), function (response) {
-                    if (response.Code === 0) {
+                    if (response.IsSuccessful) {
                         $.each(_ids, function (index, value) {
                             var currentAnnualLeaveBalance = parseFloat($('#alb' + value).text());
                             $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
@@ -66,7 +66,7 @@ function eventAddBalance() {
     $('#addbalance').on('click', function () {
         confirm('Are you sure you add annual leave balance for new year?', function () {
             $.post(_global.root + 'AnnualLeave/OpenAnnualLeaves', function (response) {
-                if (response.Code === 0) {
+                if (response.IsSuccessful) {
                     document.location = _global.root + 'annualleave/index';
                 } else {
                     alert(response.Message);
@@ -100,7 +100,7 @@ function eventCloseBalance() {
 
             if ($form.valid()) {
                 $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', $('form').serialize(), function (response) {
-                    if (response.Code === 0) {
+                    if (response.IsSuccessful) {
                         $('#resetform').dialog('close');
                     } else {
                         alert(response.Message);

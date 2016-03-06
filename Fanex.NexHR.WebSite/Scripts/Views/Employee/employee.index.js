@@ -17,7 +17,7 @@ function query(isFirstLoad) {
         jobTitleId = null;
 
     $.ajax({
-        url: _global.root + 'api/employee/getemployees',
+        url: _global.root + 'employee/getemployees',
         data: { query: keyword, teamId: $('#TeamId').val(), enable: enable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -33,7 +33,7 @@ function query(isFirstLoad) {
                 var tmpl = $.templates('#template'),
                     helpers = {
                         index: index,
-                        formatDate: formatDate
+                        formatDate: formatJsonDate
                     },
                     html = tmpl.render(data, helpers);
 

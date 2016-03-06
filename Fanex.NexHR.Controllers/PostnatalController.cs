@@ -47,7 +47,6 @@
         [HttpPost]
         public ActionResult Create(PostnatalViewModel model)
         {
-            CommandResult result = new CommandResult();
             if (model != null && ModelState.IsValid)
             {
                 InsertPostnatalCriteria criteria = new InsertPostnatalCriteria()
@@ -58,9 +57,9 @@
                     ModifiedBy = CurrentUser.Id,
                     Minutes = model.Minutes,
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
-                };                
-                result = commandService.Insert(criteria);
-                if (result.Code == 0)
+                };
+                CommandResult result = commandService.Insert(criteria);
+                if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
                 }
@@ -95,7 +94,6 @@
         [HttpPost]
         public ActionResult Edit(PostnatalViewModel model)
         {
-            CommandResult result = new CommandResult();
             if (model != null && ModelState.IsValid)
             {
                 UpdatePostnatalCriteria criteria = new UpdatePostnatalCriteria()
@@ -110,8 +108,8 @@
                     Minutes = model.Minutes,
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
-                result = commandService.Update(criteria);
-                if (result.Code == 0)
+                CommandResult result = commandService.Update(criteria);
+                if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
                 }
@@ -124,7 +122,7 @@
             return View(model);
         }
 
-        public void Delete(int empId, DateTime fromDate, DateTime toDate)
+        public JsonResult Delete(int empId, DateTime fromDate, DateTime toDate)
         {
             DeletePostnatalCriteria criteria = new DeletePostnatalCriteria()
             {
@@ -132,7 +130,8 @@
                 FromDate = fromDate,
                 ToDate = toDate
             };
-            commandService.Delete(criteria);
+            CommandResult result = commandService.Delete(criteria);
+            return Json(result);
         }
 
         public ActionResult ListPostnatalEmployee(int empId, int year)

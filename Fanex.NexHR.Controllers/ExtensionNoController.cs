@@ -51,30 +51,27 @@
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 CheckExternalEmployee(model);
-                if (ModelState.IsValid)
+                var criteria = new AddNewExtensionNoMemberCriteria
                 {
-                    var criteria = new AddNewExtensionNoMemberCriteria
-                    {
-                        EmpId = model.EmpId,
-                        NickName = model.NickName,
-                        FullName = model.FullName,
-                        GroupId = model.TeamId,
-                        IsInternal = model.IsInternal,
-                        ExtensionNo = model.ExtensionNo
-                    };
+                    EmpId = model.EmpId,
+                    NickName = model.NickName,
+                    FullName = model.FullName,
+                    GroupId = model.TeamId,
+                    IsInternal = model.IsInternal,
+                    ExtensionNo = model.ExtensionNo
+                };
 
-                    CommandResult result = commandService.Insert(criteria);
-                    if (result.Code == 0)
-                    {
-                        ViewBag.Requested = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                CommandResult result = commandService.Insert(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Requested = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
@@ -108,7 +105,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 CheckExternalEmployee(model);
                 var criteria = new GetAllExtensionGroupInfoCriteria
@@ -122,28 +119,26 @@
                     Text = x.TeamName,
                     Value = x.TeamId.ToString()
                 }).ToList();
-                if (ModelState.IsValid)
-                {
-                    var updateCriteria = new UpdateExtensionNoMemberCriteria
-                    {
-                        ExtId = model.EmpExtId,
-                        EmpId = model.EmpId,
-                        NickName = model.NickName,
-                        FullName = model.FullName,
-                        GroupId = model.TeamId,
-                        IsInternal = model.IsInternal,
-                        ExtensionNo = model.ExtensionNo
-                    };
 
-                    CommandResult result = commandService.Update(updateCriteria);
-                    if (result.Code == 0)
-                    {
+                var updateCriteria = new UpdateExtensionNoMemberCriteria
+                {
+                    ExtId = model.EmpExtId,
+                    EmpId = model.EmpId,
+                    NickName = model.NickName,
+                    FullName = model.FullName,
+                    GroupId = model.TeamId,
+                    IsInternal = model.IsInternal,
+                    ExtensionNo = model.ExtensionNo
+                };
+
+                CommandResult result = commandService.Update(updateCriteria);
+                if (result.IsSuccessful)
+                {
                         ViewBag.Updated = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
@@ -152,7 +147,7 @@
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool DeleteExtensionNumber(int extId)
+        public JsonResult DeleteExtensionNumber(int extId)
         {
             var criteria = new DeleteExtensionNumberCriteria
             {
@@ -160,12 +155,12 @@
             };
             CommandResult result = commandService.Delete(criteria);
 
-            return result.Code == 0;
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool AddNewExternalGroup(string groupName)
+        public JsonResult AddNewExternalGroup(string groupName)
         {
             var criteria = new AddNewExternalGroupCriteria
             {
@@ -173,12 +168,12 @@
             };
             CommandResult result = commandService.Insert(criteria);
 
-            return result.Code == 0;
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool DeleteExternalGroup(int extId)
+        public JsonResult DeleteExternalGroup(int extId)
         {
             var criteria = new DeleteExternalGroupCriteria
             {
@@ -186,12 +181,12 @@
             };
             CommandResult result = commandService.Delete(criteria);
 
-            return result.Code == 0;
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool EditExternalGroup(int extId, string groupName)
+        public JsonResult EditExternalGroup(int extId, string groupName)
         {
             var criteria = new UpdateExternalGroupCriteria
             {
@@ -200,7 +195,7 @@
             };
             CommandResult result = commandService.Update(criteria);
 
-            return result.Code == 0;
+            return Json(result);
         }
 
         public ActionResult ManageExternalGroup()

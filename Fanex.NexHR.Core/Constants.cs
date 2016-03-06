@@ -30,6 +30,7 @@ namespace Fanex.NexHR.Core
 
         public const string EmailTemplatePathForRequester = "~/app_data/emails/process.request.cshtml";
         public const string EmailTemplatePathForLeave = "~/app_data/emails/Leave.Request.cshtml";
+        public const string EmailTemplatePathForUnpaidLeave = "~/app_data/emails/UnpaidLeave.Request.cshtml";
         public const string EmailTemplatePathForCheckInOut = "~/app_data/emails/CheckInOut.Request.cshtml";
 
         public const string EmailTemplatePathForLeaveApproved = "~/app_data/emails/LeaveApprovalNotification.cshtml";
@@ -37,5 +38,9 @@ namespace Fanex.NexHR.Core
 
         public const int CurrentPage = 1;
         public const int ItemsPerPage = 100;
+
+        public const int AnnualLeaveType = 2;
+        public const int UnplannedAnnualLeaveType = 30;
+        public const int UnpaidLeaveType = 26;
     }
 }

@@ -23,8 +23,6 @@
 
         HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
-        int GetRangeDate(GetDateRangeEmployeeCalendarCriteria criteria);
-
         IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);

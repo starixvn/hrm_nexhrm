@@ -285,16 +285,21 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
-            var criteria = new GetLateInEarlyOutReportCriteria
+            IList<LateInEarlyOutModel> lateInEarlyOuts = new List<LateInEarlyOutModel>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId,
-                Year = model.Year
-            };
+                var criteria = new GetLateInEarlyOutReportCriteria
+                {
+                    EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
+                    GroupId = model.TeamId,
+                    Year = model.Year
+                };
 
-            IList<LateInEarlyOutModel> lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
-            ViewBag.Year = model.Year;
+                lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
 
+                ViewBag.Year = model.Year;
+            }
+            
             return PartialView("_ListLateInEarlyOut", lateInEarlyOuts);
         }
 
@@ -368,16 +373,20 @@
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
-            var criteria = new GetLateInEarlyOutSummaryCriteria
+            IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = new List<LateInEarlyOutDiscipline>();
+            if (model != null)
             {
-                EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId,
-                FromDate = new DateTime(model.FromYear, model.FromMonth, 1),
-                ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
-                IsUserWarning = model.IsUserWarning
-            };
+                var criteria = new GetLateInEarlyOutSummaryCriteria
+                {
+                    EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
+                    GroupId = model.TeamId,
+                    FromDate = new DateTime(model.FromYear, model.FromMonth, 1),
+                    ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
+                    IsUserWarning = model.IsUserWarning
+                };
 
-            IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = reportService.GetLateInEarlyOutDiscipline(criteria);
+                lateInEarlyOutDisciplines = reportService.GetLateInEarlyOutDiscipline(criteria);
+            }
 
             return PartialView("_ListLateInEarlyOutDiscipline", lateInEarlyOutDisciplines);
         }

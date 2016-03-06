@@ -16,8 +16,6 @@
 
         IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria);
 
-        int GetRangeDate(ICriteria criteria);
-
         IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);

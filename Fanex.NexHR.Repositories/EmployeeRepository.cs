@@ -1,13 +1,10 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
 
@@ -76,53 +73,19 @@
             }
         }
 
-        public int GetRangeDate(ICriteria criteria)
-        {
-            int numberDay = 0;
-            if (criteria.IsValid())
-            {
-                using (var db = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    var ds = new DataSet();
-                    ds = db.ExecuteDataSet(criteria.GetSpParams());
-
-                    var rangeDate = ds != null ? ds.Tables[0] : null;
-
-                    if (rangeDate != null)
-                    {
-                        if (rangeDate.Rows.Count > 0)
-                        {
-                            numberDay = int.Parse(rangeDate.Rows[0][0].ToString());
-                        }
-                    }
-                }
-            }
-
-            return numberDay;
-        }
-
         public IList<Employee> GetEmployeeToeicScore(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee, dynamic, Employee>(
-                     (e, t) =>
+                var entityList = db.Query<Employee, Team, JobTitle, Toeic, Employee>(
+                     (e, t, job, to) =>
                      {
-                         e.JobTitle = new JobTitle { Id = t.JobId, Name = t.JobTitle };
-                         e.Team = new Team { Id = t.TeamID, Code = t.Team, Name = t.TeamName };
-                         e.ToeicScore = new Toeic
-                         {
-                             InputDate = t.InputDate,
-                             Listening = t.Listening,
-                             Reading = t.Reading,
-                             LRExamDate = t.LRExamDate,
-                             Speaking = t.Speaking,
-                             Writing = t.Writing,
-                             SWExamDate = t.SWExamDate,
-                         };
+                         e.JobTitle = job;
+                         e.Team = t;
+                         e.ToeicScore = to;
                          return e;
                      },
-                     splitOn: "JobId",
+                     splitOn: "TeamID, JobTitleId, LRExamDate",
                      parameterValues: criteria.GetSpParams());
 
                 return entityList.ToList();
@@ -168,44 +131,79 @@
         {
             var def = new DefaultSchedule()
             {
-                Monday = new Shift()
-                {
-                    Id = defaultSchedule.MonShiftId == null ? 0 : defaultSchedule.MonShiftId,
-                    Name = defaultSchedule.MonShiftName
-                },
-                Tuesday = new Shift()
-                {
-                    Id = defaultSchedule.TueShiftId == null ? 0 : defaultSchedule.TueShiftId,
-                    Name = defaultSchedule.TueShiftName
-                },
-                Wednesday = new Shift()
-                {
-                    Id = defaultSchedule.WedShiftId == null ? 0 : defaultSchedule.WedShiftId,
-                    Name = defaultSchedule.WedShiftName
-                },
-                Thursday = new Shift()
-                {
-                    Id = defaultSchedule.ThuShiftId == null ? 0 : defaultSchedule.ThuShiftId,
-                    Name = defaultSchedule.ThuShiftName
-                },
-                Friday = new Shift()
-                {
-                    Id = defaultSchedule.FriShiftId == null ? 0 : defaultSchedule.FriShiftId,
-                    Name = defaultSchedule.FriShiftName
-                },
-                Saturday = new Shift()
-                {
-                    Id = defaultSchedule.SatShiftId == null ? 0 : defaultSchedule.SatShiftId,
-                    Name = defaultSchedule.SatShiftName
-                },
-                Sunday = new Shift()
-                {
-                    Id = defaultSchedule.SunShiftId == null ? 0 : defaultSchedule.SunShiftId,
-                    Name = defaultSchedule.SunShiftName
-                },
+                Monday = GetMonShift(defaultSchedule),
+                Tuesday = GetTueShift(defaultSchedule),
+                Wednesday = GetWedShift(defaultSchedule),
+                Thursday = GetThuShift(defaultSchedule),
+                Friday = GetFriShift(defaultSchedule),
+                Saturday = GetSatShift(defaultSchedule),
+                Sunday = GetSunShift(defaultSchedule)
             };
 
             return def;
+        }
+
+        private Shift GetMonShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+                {
+                    Id = defaultSchedule.MonShiftId == null ? 0 : defaultSchedule.MonShiftId,
+                    Name = defaultSchedule.MonShiftName
+                };
+        }
+
+        private Shift GetTueShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.TueShiftId == null ? 0 : defaultSchedule.TueShiftId,
+                Name = defaultSchedule.TueShiftName
+            };
+        }
+
+        private Shift GetWedShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.WedShiftId == null ? 0 : defaultSchedule.WedShiftId,
+                Name = defaultSchedule.WedShiftName
+            };
+        }
+
+        private Shift GetThuShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.ThuShiftId == null ? 0 : defaultSchedule.ThuShiftId,
+                Name = defaultSchedule.ThuShiftName
+            };
+        }
+
+        private Shift GetFriShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.FriShiftId == null ? 0 : defaultSchedule.FriShiftId,
+                Name = defaultSchedule.FriShiftName
+            };
+        }
+
+        private Shift GetSatShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.SatShiftId == null ? 0 : defaultSchedule.SatShiftId,
+                Name = defaultSchedule.SatShiftName
+            };
+        }
+
+        private Shift GetSunShift(dynamic defaultSchedule)
+        {
+            return new Shift()
+            {
+                Id = defaultSchedule.SunShiftId == null ? 0 : defaultSchedule.SunShiftId,
+                Name = defaultSchedule.SunShiftName
+            };
         }
     }
 }

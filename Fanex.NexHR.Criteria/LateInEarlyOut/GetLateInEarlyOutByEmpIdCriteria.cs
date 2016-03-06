@@ -19,7 +19,7 @@
 
         public override string GetSettingKey()
         {
-            return "GetLateInEarlyOutByEmpId";
+            return "LateInEarlyOut_GetAllByEmpId";
         }
     }
 }

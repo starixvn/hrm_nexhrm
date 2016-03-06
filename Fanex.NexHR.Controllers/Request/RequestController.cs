@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Request;
@@ -11,10 +15,6 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Common;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
 
     public class RequestController : BaseController
     {
@@ -44,22 +44,14 @@
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
-            CommandResult result = requestService.Process(command, id, this.CurrentUser.Id);
-
-            if (result.Code == 0)
-            {
-                return Json(true);
-            }
-
-            return Json(result.Message);
+            CommandResult result = requestService.Process(command, id, CurrentUser.Id);
+            return Json(result);
         }
 
         public PartialViewResult CriteriaPanel(RequestViewModel request)
         {
             return PartialView(request);
         }
-
-        #region Get Request By Assistant Leader
 
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
@@ -93,7 +85,7 @@
                 };
                 request.Teams = teamService.GetTeamManagedByEmp(criteria);
 
-                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes = leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByAssistantLeader";
@@ -108,38 +100,16 @@
             IList<RequestEntity> entityList = new List<RequestEntity>();
             if (request != null)
             {
-                if (request.TeamId == -1)
-                {
-                    request = new RequestViewModel
-                    {
-                        DateOption = 0,
-                        ToDate = DateTime.Now,
-                        FromDate = request.ToDate.AddMonths(-2),
-                        RequestType = 5,
-                        TeamId = null,
-                        IsFilterByEffectedDate = false
-                    };
-                }
-
-                if (request.TeamId == -2)
-                {
-                    request.TeamId = null;
-                }
-
                 entityList = GetRequest(request, (short)Role.AssistantLeader);
 
                 ViewBag.Status = request.StatusId;
                 ViewBag.IsAllowChangeStatus = true;
                 ViewBag.Leader = true;
                 ViewBag.Options = request;
-            }            
+            }
 
             return PartialView("AllRequest", entityList);
         }
-
-        #endregion Get Request By Assistant Leader
-
-        #region Get Request By Employee
 
         public ActionResult EmployeeView(RequestViewModel request)
         {
@@ -169,7 +139,7 @@
 
                 request.Teams = teamService.GetAll();
 
-                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes = leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByEmployee";
@@ -183,25 +153,6 @@
             IList<RequestEntity> entityList = new List<RequestEntity>();
             if (request != null)
             {
-                // Default view all request type
-                if (request.TeamId == -1)
-                {
-                    request = new RequestViewModel
-                    {
-                        StatusId = 0,
-                        RequestType = 5,
-                        TeamId = null,
-                        IsFilterByEffectedDate = true
-                    };
-                }
-
-                // Get request model from Request monitoring view.
-                if (request.TeamId == -2)
-                {
-                    request.StatusId = 0;
-                    request.TeamId = null;
-                }
-
                 entityList = GetRequest(request, (short)Role.HR);
 
                 ViewBag.Status = request.StatusId;
@@ -212,10 +163,6 @@
 
             return PartialView("AllRequest", entityList);
         }
-
-        #endregion Get Request By Employee
-
-        #region Get Request By HR
 
         [Authorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel request)
@@ -246,7 +193,7 @@
 
                 request.Teams = teamService.GetAll();
 
-                request.LeaveTypes = leaveTypeService.GetAll().ToList();
+                request.LeaveTypes = leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByHR";
@@ -261,25 +208,6 @@
             IList<RequestEntity> entityList = new List<RequestEntity>();
             if (request != null)
             {
-                // Default view all request type
-                if (request.TeamId == -1)
-                {
-                    request = new RequestViewModel
-                    {
-                        StatusId = 0,
-                        RequestType = 5,
-                        TeamId = null,
-                        IsFilterByEffectedDate = false
-                    };
-                }
-
-                // Get request model from Request monitoring view.
-                if (request.TeamId == -2)
-                {
-                    request.StatusId = 0;
-                    request.TeamId = null;
-                }
-
                 entityList = GetRequest(request, (short)Role.HR);
 
                 ViewBag.Status = request.StatusId;
@@ -290,8 +218,6 @@
 
             return PartialView("AllRequest", entityList);
         }
-
-        #endregion Get Request By HR
 
         public ActionResult ViewHistory(long requestId, int requestType)
         {
@@ -333,7 +259,7 @@
             return requestDetail;
         }
 
-        public IEnumerable<DateTime> GetUnavailDate(int employeeId)
+        public JsonResult GetUnavailDate(int employeeId)
         {
             var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
             {
@@ -342,7 +268,23 @@
                 ToDate = Utilities.RequestAvailableToDate
             };
 
-            return requestService.GetDisableRequestDate(getUnavailableRequestDateCriteria);
+            IList<DateTime> dates = requestService.GetDisableRequestDate(CurrentUser.Id);
+
+            return Json(dates, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate)
+        {
+            var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
+            {
+                EmployeeId = employeeId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            DateRange totalDays = requestService.GetDateRange(getDateRangeCriteria);
+
+            return Json(totalDays.TotalDay, JsonRequestBehavior.AllowGet);
         }
 
         private IList<RequestEntity> GetRequest(RequestViewModel request, short role)

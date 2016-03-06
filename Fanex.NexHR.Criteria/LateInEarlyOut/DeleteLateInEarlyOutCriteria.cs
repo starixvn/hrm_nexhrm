@@ -17,7 +17,7 @@
 
         public override string GetSettingKey()
         {
-            return "DeleteLateInEarlyOut";
+            return "LateInEarlyOut_Delete";
         }
     }
 }

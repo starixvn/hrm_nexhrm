@@ -19,8 +19,6 @@
 
         public int ModifiedBy { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
-
         public override bool IsValid()
         {
             bool result = false;
@@ -38,7 +36,7 @@
 
         public override string GetSettingKey()
         {
-            return "InsertLateInEarlyOut";
+            return "LateInEarlyOut_Insert";
         }
     }
 }

@@ -75,7 +75,7 @@
         [ValidateInput(false)]
         public ActionResult Edit(Memo model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
                 model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
@@ -88,36 +88,33 @@
                     }
                 }
 
-                if (ModelState.IsValid)
+                var updateMemoCriteria = new UpdateMemoCriteria()
                 {
-                    var updateMemoCriteria = new UpdateMemoCriteria()
+                    Id = model.Id,
+                    Category = model.Category,
+                    Contents = model.Contents,
+                    ForInfo = model.ForInfo,
+                    RefNo = model.RefNo,
+                    SentDate = model.SentDate,
+                    SentFrom = model.SentFrom,
+                    SentTo = model.SentTo,
+                    Subject = model.Subject,
+                    TotalPages = model.TotalPages,
+                    MemoType = model.MemoType,
+                    Status = model.Status == 1
+                };
+                CommandResult result = commandService.Update(updateMemoCriteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
+                    if (model.SendMail)
                     {
-                        Id = model.Id,
-                        Category = model.Category,
-                        Contents = model.Contents,
-                        ForInfo = model.ForInfo,
-                        RefNo = model.RefNo,
-                        SentDate = model.SentDate,
-                        SentFrom = model.SentFrom,
-                        SentTo = model.SentTo,
-                        Subject = model.Subject,
-                        TotalPages = model.TotalPages,
-                        MemoType = model.MemoType,
-                        Status = model.Status == 1
-                    };
-                    CommandResult result = commandService.Update(updateMemoCriteria);
-                    if (result.Code == 0)
-                    {
-                        ViewBag.Updated = true;
-                        if (model.SendMail)
-                        {
-                            memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
-                        }
+                        memoService.SendMail(updateMemoCriteria.Subject, updateMemoCriteria.Id.ToString());
                     }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
@@ -150,7 +147,7 @@
         [ValidateInput(false)]
         public ActionResult Create(Memo model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
                 model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
@@ -158,39 +155,35 @@
                 {
                     model.Contents = model.AttachFile;
                 }
-
-                if (ModelState.IsValid)
+                var insertMemoCriteria = new InsertMemoCriteria()
                 {
-                    var insertMemoCriteria = new InsertMemoCriteria()
-                    {
-                        Category = model.Category,
-                        Contents = model.Contents,
-                        ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
-                        RefNo = model.RefNo,
-                        SendMail = model.SendMail,
-                        SentDate = model.SentDate,
-                        SentFrom = model.SentFrom,
-                        SentTo = model.SentTo,
-                        Subject = model.Subject,
-                        TotalPages = model.TotalPages,
-                        MemoType = model.MemoType,
-                        Status = model.Status == 1
-                    };
+                    Category = model.Category,
+                    Contents = model.Contents,
+                    ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
+                    RefNo = model.RefNo,
+                    SendMail = model.SendMail,
+                    SentDate = model.SentDate,
+                    SentFrom = model.SentFrom,
+                    SentTo = model.SentTo,
+                    Subject = model.Subject,
+                    TotalPages = model.TotalPages,
+                    MemoType = model.MemoType,
+                    Status = model.Status == 1
+                };
 
-                    CommandResult result = commandService.Insert(insertMemoCriteria, hasGetOutputParams: true);
+                CommandResult result = commandService.Insert(insertMemoCriteria, hasGetOutputParams: true);
 
-                    if (result.Code == 0)
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
+                    if (insertMemoCriteria.SendMail)
                     {
-                        ViewBag.Updated = true;
-                        if (insertMemoCriteria.SendMail)
-                        {
-                            memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
-                        }
+                        memoService.SendMail(insertMemoCriteria.Subject, insertMemoCriteria.MemoId.ToString());
                     }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
@@ -207,10 +200,11 @@
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public bool DeleteMemo(int id)
+        public JsonResult DeleteMemo(int id)
         {
             var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
-            return commandService.Delete(deleteMemoCriteria).Code == 0;
+            CommandResult result = commandService.Delete(deleteMemoCriteria);
+            return Json(result);
         }
 
         public JsonResult GetMemos(int category, int year, int status)
