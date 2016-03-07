@@ -47,7 +47,7 @@
             @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5" })
         </div>
     </div>
-    <div class="row form-input">
+    @*<div class="row form-input">
         <div class="left label--l">
             @Html.LabelFor(model => model.SWExamDate)
         </div>
@@ -71,7 +71,7 @@
         <div class="left input--s">
             @Html.TextBoxFor(m => m.Writing, new { type = "number", step = "5" })
         </div>
-    </div>
+    </div>*@
     <div class="row form-input">
         <div class="left label--l">            
             @Html.LabelFor(m => m.SendMail, Labels.SendMail)

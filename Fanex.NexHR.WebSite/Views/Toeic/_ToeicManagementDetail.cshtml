@@ -7,7 +7,7 @@
             <th rowspan="2">@Labels.Team</th>
             <th rowspan="2">@Labels.JobTitle</th>
             <th colspan="4">@Labels.Listening/@Labels.Reading</th>
-            <th colspan="3">@Labels.Speaking/@Labels.Writing</th>
+            @*<th colspan="3">@Labels.Speaking/@Labels.Writing</th>*@
             <th rowspan="2">@Labels.ExpiredDate</th>
             @if (Roles.IsUserInRole("HR"))
             {
@@ -19,9 +19,9 @@
             <th>@Labels.R</th>
             <th>@Labels.LRTotal</th>
             <th>@Labels.ExamDate</th>
-            <th>@Labels.S</th>
+            @*<th>@Labels.S</th>
             <th>@Labels.W</th>
-            <th>@Labels.ExamDate</th>
+            <th>@Labels.ExamDate</th>*@
         </tr>
     </thead>
     <tbody>
@@ -79,7 +79,7 @@
                             @employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()
                         }
                     </td>
-                    <td>
+                    @*<td>
                         @if (employee.ToeicScore.Speaking != null && employee.ToeicScore.Speaking.Equals(0))
                         {
                             <span>-</span>
@@ -108,7 +108,7 @@
                         {
                             @employee.ToeicScore.SWExamDate.ToDateMonthYearFormatedDate()
                         }
-                    </td>
+                    </td>*@
                     @if (employee.ToeicScore.InputDate != null)
                     {
                         if (employee.ToeicScore.InputDate < DateTime.Now)
