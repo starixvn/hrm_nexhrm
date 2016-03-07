@@ -1159,6 +1159,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee&apos;s Leave Request.
+        /// </summary>
+        public static string EmployeeLeaveRequest {
+            get {
+                return ResourceManager.GetString("EmployeeLeaveRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee management.
         /// </summary>
         public static string EmployeeManagement {
@@ -1960,6 +1969,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make A New Request.
+        /// </summary>
+        public static string MakeANewRequest {
+            get {
+                return ResourceManager.GetString("MakeANewRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage External Group.
         /// </summary>
         public static string ManageExternalGroup {
@@ -2176,6 +2194,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Check In/Check Out.
+        /// </summary>
+        public static string MyCheckInOut {
+            get {
+                return ResourceManager.GetString("MyCheckInOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Check In/Out Request(s).
         /// </summary>
         public static string MyCheckInOutRequest {
@@ -2194,15 +2221,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Check In/Check Out Summary.
-        /// </summary>
-        public static string MyCheckInOutSummary {
-            get {
-                return ResourceManager.GetString("MyCheckInOutSummary", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to My Late In Early Out Request(s).
         /// </summary>
         public static string MyLateInEarlyOutRequest {
@@ -2212,20 +2230,11 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employee&apos;s Leave Request.
+        ///   Looks up a localized string similar to My Leave Request.
         /// </summary>
         public static string MyLeaveRequest {
             get {
                 return ResourceManager.GetString("MyLeaveRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Leave Request Summary.
-        /// </summary>
-        public static string MyLeaveRequestSummary {
-            get {
-                return ResourceManager.GetString("MyLeaveRequestSummary", resourceCulture);
             }
         }
         
@@ -2428,7 +2437,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make A New Request.
+        ///   Looks up a localized string similar to New Request.
         /// </summary>
         public static string NewRequest {
             get {

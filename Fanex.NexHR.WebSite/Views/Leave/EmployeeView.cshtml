@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = Labels.MyLeaveRequestSummary;
+    ViewBag.Title = Labels.MyLeaveRequest;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col">
                                 <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
-                                <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.LeaveRequests</a>
+                                <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.NewRequest</a>
                             </div>
                         </div>
                     </div>

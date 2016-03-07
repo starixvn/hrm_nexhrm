@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels.CheckInOutRequest
 @model CheckInOutRequestViewModel
 @{
-    ViewBag.Title = Labels.MyCheckInOutSummary;
+    ViewBag.Title = Labels.MyCheckInOut;
 }
 @section css{
     @Styles.Render("~/Content/myrequestcss")
@@ -98,8 +98,8 @@
                                         @Html.HiddenFor(model => model.ForRequest)
                                         @Html.HiddenFor(model => model.InTime)
                                         @Html.HiddenFor(model => model.OutTime)
-                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Back</a>
-                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />
+                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
                                     </div>
                                 </div>
                             </div>

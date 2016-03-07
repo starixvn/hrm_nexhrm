@@ -48,7 +48,8 @@
                         </div>
                         <div class="col s9 center">
                             <p class="txt-tittle">
-                                Leave</p>
+                                Leave
+                            </p>
                             <span class="txt-uppercase txt-12px">Leave request</span>
                         </div>
                     </div>
@@ -64,14 +65,14 @@
                         {
                             foreach (var item in birthdayList)
                             {
-                            <div class="slide-content">
-                                <div class="col s3">
-                                    <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                <div class="slide-content">
+                                    <div class="col s3">
+                                        <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                    </div>
+                                    <div class="col s9 center detail">
+                                        <span>Happy birthday to @item.NickName!</span>
+                                    </div>
                                 </div>
-                                <div class="col s9 center detail">
-                                    <span>Happy birthday to @item.NickName!</span>
-                                </div>
-                            </div>      
                             }
                         }
                         @{var firstWorkDay = @Model.SystemReminder.EmployeeHasFirstWorkingDay; }
@@ -79,14 +80,14 @@
                         {
                             foreach (var item in firstWorkDay)
                             {
-                            <div class="slide-content">
-                                <div class="col s3">
-                                    <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                <div class="slide-content">
+                                    <div class="col s3">
+                                        <img class="circle" alt="" src="../../Content/Images/user.png" />
+                                    </div>
+                                    <div class="col s9 center detail">
+                                        <span>First working day anniversary of @item.NickName!</span>
+                                    </div>
                                 </div>
-                                <div class="col s9 center detail">
-                                    <span>First working day anniversary of @item.NickName!</span>
-                                </div>
-                            </div>      
                             }
                         }
                         @if (birthdayList.Count == 0 && firstWorkDay.Count == 0)
@@ -114,24 +115,40 @@
                     </div>
                     <div class="card-body p-x--s">
                         <p>
-                            <span class="left-align">Check In (Today):</span> <span class="right"><a href="#"
-                                class="blue-grey-text text-darken-3">@Model.DisplayCheckInTime</a></span>
+                            <span class="left-align">Check In (Today):</span> <span class="right">
+                                <a href="#"
+                                   class="blue-grey-text text-darken-3">@Model.DisplayCheckInTime</a>
+                            </span>
                         </p>
                         <p>
-                            <span class="left-align">Check Out (Yesterday):</span> <spa;n class="right"><a href="#"
-                                class="blue-grey-text text-darken-3">@Model.DisplayCheckOutTime</a></spa;n>
+                            <span class="left-align">Check Out (Yesterday):</span> <span class="right">
+                                <a href="#"
+                                   class="blue-grey-text text-darken-3">@Model.DisplayCheckOutTime</a>
+                            </span>
                         </p>
                         <p>
-                            <span class="left-align">Leave Summary:</span> <span class="right"><a href="#" class="blue-grey-text text-darken-3">
-                                @Model.AnnualLeaveBalance</a></span>
+                            <span class="left-align">Leave Summary:</span> <span class="right">
+                                <a href="#" class="blue-grey-text text-darken-3">
+                                    @Model.AnnualLeaveBalance
+                                </a>
+                            </span>
                         </p>
                         <p>
-                            <span class="left-align">Early Out:</span> <span class="right"><a href="#" class="blue-grey-text text-darken-3">
-                                @Model.PersonalLateInEarlyOutCurrentMonth</a></span>
+                            <span class="left-align">Early Out in month:</span>
+                            <span class="right">
+                                <a href="#" class="blue-grey-text text-darken-3">
+                                    @*@Html.Raw(Model.PersonalLateInEarlyOutCurrentMonth)*@
+                                    1.5
+                                </a>
+                            </span>
                         </p>
                         <p>
-                            <span class="left-align">Late In:</span> <span class="right"><a href="#" class="blue-grey-text text-darken-3">
-                                0</a></span>
+                            <span class="left-align">Late In in month:</span>
+                            <span class="right">
+                                <a href="#" class="blue-grey-text text-darken-3">
+                                    0
+                                </a>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -145,8 +162,11 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-title-block">
-                        <span class="card-title left primary-color"><span class="txt-uppercase">MY TOTAL SPENT
-                            TIME</span>
+                        <span class="card-title left primary-color">
+                            <span class="txt-uppercase">
+                                MY TOTAL SPENT
+                                TIME
+                            </span>
                     </div>
                     <div class="card-body p-x--s">
                         <div class="total-hours">
@@ -154,13 +174,17 @@
                         </div>
                         <div class="detail">
                             <ul>
-                                <li><span class="color1"></span><span>Alpha</span> <span class="right">37:45h</span>
+                                <li>
+                                    <span class="color1"></span><span>Alpha</span> <span class="right">37:45h</span>
                                 </li>
-                                <li><span class="color2"></span><span>Nexcel Website</span> <span class="right">16:22h</span>
+                                <li>
+                                    <span class="color2"></span><span>Nexcel Website</span> <span class="right">16:22h</span>
                                 </li>
-                                <li><span class="color3"></span><span>HRM Website</span> <span class="right">3:14h</span>
+                                <li>
+                                    <span class="color3"></span><span>HRM Website</span> <span class="right">3:14h</span>
                                 </li>
-                                <li><span class="color4"></span><span>Company Profile</span> <span class="right">26:18h</span>
+                                <li>
+                                    <span class="color4"></span><span>Company Profile</span> <span class="right">26:18h</span>
                                 </li>
                             </ul>
                         </div>
@@ -183,7 +207,8 @@
                                     <div class="determinate  pink darken-1" style="width: 50%">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">80%</a> </li>
+                                <a href="#!" class="secondary-content">80%</a>
+                            </li>
                             <li class="collection-item avatar">
                                 <img src="../../Avatars/avatar.jpg" class="circle" />
                                 <span class="title">Dustin</span>
@@ -191,7 +216,8 @@
                                     <div class="determinate light-blue lighten-1" style="width: 100%">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">100%</a> </li>
+                                <a href="#!" class="secondary-content">100%</a>
+                            </li>
                             <li class="collection-item avatar">
                                 <img src="../../Avatars/avatar.jpg" class="circle" />
                                 <span class="title">Faisal</span>
@@ -199,7 +225,8 @@
                                     <div class="determinate light-blue lighten-1" style="width: 90%">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">90%</a> </li>
+                                <a href="#!" class="secondary-content">90%</a>
+                            </li>
                             <li class="collection-item avatar">
                                 <img src="../../Avatars/avatar.jpg" class="circle" />
                                 <span class="title">Alice</span>
@@ -207,7 +234,8 @@
                                     <div class="determinate" style="width: 0">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">0%</a> </li>
+                                <a href="#!" class="secondary-content">0%</a>
+                            </li>
                             <li class="collection-item avatar">
                                 <img src="../../Avatars/avatar.jpg" class="circle" />
                                 <span class="title">Natalie</span>
@@ -215,7 +243,8 @@
                                     <div class="determinate pink darken-1" style="width: 68%">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">68%</a> </li>
+                                <a href="#!" class="secondary-content">68%</a>
+                            </li>
                             <li class="collection-item avatar">
                                 <img alt="" src="../../Avatars/avatar.jpg" class="circle" />
                                 <span class="title">Theresa</span>
@@ -223,7 +252,8 @@
                                     <div class="determinate grey darken-1" style="width: 46%">
                                     </div>
                                 </div>
-                                <a href="#!" class="secondary-content">46%</a> </li>
+                                <a href="#!" class="secondary-content">46%</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
