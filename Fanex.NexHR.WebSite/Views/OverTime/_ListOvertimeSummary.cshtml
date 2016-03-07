@@ -25,20 +25,19 @@
 
                 <td>@(index++)</td>
                 <td class="tooltip" title="@overtimeSummary.Employee.FullName">@overtimeSummary.Employee.NickName</td>
-                <td class="tooltip" title="@overtimeSummary.Employee.Team.Name">@overtimeSummary.Employee.Team.Code</td>
-                <td>@overtimeSummary.Jan.ToString("0.0")</td>
-                <td>@overtimeSummary.Feb.ToString("0.0")</td>
-                <td>@overtimeSummary.Mar.ToString("0.0")</td>
-                <td>@overtimeSummary.Apr.ToString("0.0")</td>
-                <td>@overtimeSummary.May.ToString("0.0")</td>
-                <td>@overtimeSummary.Jun.ToString("0.0")</td>
-                <td>@overtimeSummary.Jul.ToString("0.0")</td>
-                <td>@overtimeSummary.Aug.ToString("0.0")</td>
-                <td>@overtimeSummary.Sep.ToString("0.0")</td>
-                <td>@overtimeSummary.Oct.ToString("0.0")</td>
-                <td>@overtimeSummary.Nov.ToString("0.0")</td>
-                <td>@overtimeSummary.Dec.ToString("0.0")</td>
-                <td>@overtimeSummary.TotalHour.ToString("0.0")</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jan)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Feb)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Mar)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Apr)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.May)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jun)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jul)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Aug)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Sep)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Oct)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Nov)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.Dec)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
             </tr>
         }
     }

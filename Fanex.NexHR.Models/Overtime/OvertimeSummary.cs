@@ -29,5 +29,10 @@
         public float TotalHour { get; set; }
 
         public Employee Employee { get; set; }
+
+        public string DisplayValue(float value)
+        {
+            return value == 0 ? "-" : value.ToString("0.0");
+        }
     }
 }
