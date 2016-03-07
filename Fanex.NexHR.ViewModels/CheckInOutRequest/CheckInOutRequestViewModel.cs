@@ -118,7 +118,7 @@
 
         public void SetShiftIntoModel(Shift shift)
         {
-            if(shift != null)
+            if (shift != null)
             {
                 Hour = CheckInOutType == (int)RequestType.CheckOut
                     ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[0])
