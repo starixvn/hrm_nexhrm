@@ -376,11 +376,12 @@
             IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = new List<LateInEarlyOutDiscipline>();
             if (model != null)
             {
+                var toDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth));
                 var criteria = new GetLateInEarlyOutSummaryCriteria
                 {
                     EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
                     GroupId = model.TeamId,
-                    FromDate = new DateTime(model.FromYear, model.FromMonth, 1),
+                    FromDate = toDate.AddYears(-1).AddDays(1),
                     ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
                     IsUserWarning = model.IsUserWarning
                 };

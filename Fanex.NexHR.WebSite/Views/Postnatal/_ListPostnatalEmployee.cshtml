@@ -8,7 +8,6 @@
             <th>@Labels.FromDate</th>
             <th>@Labels.ToDate</th>
             <th>@Labels.Type</th>
-            <th>@Labels.Minutes</th>
             <th>@Labels.ModifiedBy</th>
             <th>@Labels.CreatedDate</th>
             <th>@Labels.Edit</th>
@@ -31,7 +30,6 @@
                     <td>
                         @(item.Types == 1 ? "Late in/Early out" : (item.Types == 2 ? "Break time" : "Late in/Early out/Break time"))
                     </td>
-                    <td>@item.Minutes</td>
                     <td>@item.ModifiedBy</td>
                     <td>@item.ModifiedDate.Date.ToString("dd MMM, yyyy")</td>
                     <td title="Edit">

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create new postnatal employee";
 }
 @section css{
-
+    @Styles.Render("~/Content/postnatalcss")
 }
 @section js{
     @Scripts.Render("~/bundles/createpostnatalemployeejs")
@@ -36,9 +36,9 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.EmpId, Labels.Employee)
+                                        <label for="Employee">@Labels.Employee</label>
                                     </div>
-                                    <div class="left input--m">
+                                    <div class="left input--employee">
                                         @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { @id = "EmployeeId" })
                                         @Html.Editor("Employee")
                                     </div>
@@ -47,18 +47,13 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        <label>@Labels.FromDate</label>
+                                        @Html.LabelFor(model=>model.FromDate, Labels.Date)
                                     </div>
-                                    <div class="datepicker-button input--m left">
+                                    <div class="datepicker-button input--s left m-r--l">
                                         @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>
-                                <div class="col m-l--xl m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.ToDate</label>
-                                    </div>
-                                    <div class="datepicker-button input--m left">
+                                    <div class="datepicker-button input--s left">
                                         @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 1, 1))
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -70,24 +65,7 @@
                                         @Html.LabelFor(model => model.ChosenTypes, Labels.Type)
                                     </div>
                                     <div class="left select--l">
-                                        @Html.MaterializeCheckBoxListFor(model => model.ChosenTypes, Model.TypeList, new { @class = "filled-in left" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.Minutes, Labels.Minutes)
-                                    </div>
-                                    <div class="left select--m">
-                                        @{
-                            var minutesList = new List<SelectListItem>
-                                                {
-                                                    new SelectListItem() {Text = "30m", Value = "30", Selected = true},
-                                                    new SelectListItem() {Text = "60m", Value = "60"},
-                                                };
-                                        }
-                                        @Html.RadioButtonList(model => model.Minutes, minutesList)
+                                        @Html.MaterializeCheckBoxListFor(model => model.ChosenTypes, Model.TypeList, new { @class = "filled-in" })
                                     </div>
                                 </div>
                             </div>

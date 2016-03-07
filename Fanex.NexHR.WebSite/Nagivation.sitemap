@@ -2,13 +2,13 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
   <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
     <siteMapNode title="Personal">
-      <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />
-      <siteMapNode title="My Dashboard 2" controller="employee" action="MySpace2" icon="home-variant" />
+      <!--<siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />-->
+      <siteMapNode title="My Dashboard" controller="employee" action="MySpace2" icon="home-variant" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
-      <siteMapNode title="My Timesheet" controller="report" action="timesheet" icon="table" />
-      <siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />
-      <siteMapNode title="My Calendar" controller="calendar" action="myworkingschedule" icon="calendar-check" />
+      <siteMapNode title="My Attendance" controller="report" action="timesheet" icon="table" />
+      <!--<siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />-->
+      <!--<siteMapNode title="My Calendar" controller="calendar" action="myworkingschedule" icon="calendar-check" />-->
       <siteMapNode title="My Overtime" controller="overtime" action="myovertime" icon="calendar-clock" />
       <siteMapNode title="Member Overtime" controller="overtime" action="MemberOvertime" icon="timetable" roles="HR,AssistantLeader,Leader,SA,PM" />
       <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
@@ -24,7 +24,7 @@
       <siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" />
       <siteMapNode title="Job Title Management" controller="jobtitle" action="index" icon="book" />
       <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar-clock" />
-      <siteMapNode title="Late In/Early Out Discipline" controller="report" action="lateinearlyoutdiscipline" icon="alarm" />
+      <siteMapNode title="Late In/Early Out Violation" controller="report" action="lateinearlyoutdiscipline" icon="alarm" />
     </siteMapNode>
     <siteMapNode title="Company Space">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" />

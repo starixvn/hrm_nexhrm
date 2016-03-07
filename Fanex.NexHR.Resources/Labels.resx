@@ -793,7 +793,7 @@
     <value>Late In/Early Out Detail</value>
   </data>
   <data name="LateInEarlyOutDiscipline" xml:space="preserve">
-    <value>Late In/Early Out Discipline</value>
+    <value>Late In/Early Out Violation</value>
   </data>
   <data name="LeaveDeduction" xml:space="preserve">
     <value>Leave Deduction</value>
@@ -883,7 +883,7 @@
     <value>My Leave Request</value>
   </data>
   <data name="MyTimesheet" xml:space="preserve">
-    <value>My Timesheet</value>
+    <value>My Attendance</value>
   </data>
   <data name="NotWorking" xml:space="preserve">
     <value>Not Working</value>

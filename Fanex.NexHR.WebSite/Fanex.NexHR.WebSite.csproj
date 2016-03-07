@@ -221,6 +221,10 @@
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Views\employee.postnatal.css">
+      <DependentUpon>employee.postnatal.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\employee.postnatal.scss" />
     <None Include="Content\Views\annualleavebalance.scss" />
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />

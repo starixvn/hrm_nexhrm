@@ -25,17 +25,7 @@
                     <div class="form">
                         <form class="form-filter" action="" novalidate="novalidate">
                             <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.Label(@Labels.FromDate)
-                                    </div>
-                                    <div class="left select--s">
-                                        <div id="fromMonthPickr"></div>
-                                        @Html.HiddenFor(model => model.FromYear)
-                                        @Html.HiddenFor(model => model.FromMonth)
-                                    </div>
-                                </div>
-                                <div class="col m-l--xl m-r--l">
+                                <div class="col m-l--l m-r--l">
                                     <div class="left label--m">
                                         @Html.Label(@Labels.ToDate)
                                     </div>

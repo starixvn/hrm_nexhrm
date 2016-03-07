@@ -55,7 +55,7 @@
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.Minutes,
+                    Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 CommandResult result = commandService.Insert(criteria);
@@ -105,7 +105,7 @@
                     NewFromDate = model.FromDate,
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.Minutes,
+                    Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 CommandResult result = commandService.Update(criteria);

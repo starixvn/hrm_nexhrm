@@ -1762,7 +1762,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Late In/Early Out Discipline.
+        ///   Looks up a localized string similar to Late In/Early Out Violation.
         /// </summary>
         public static string LateInEarlyOutDiscipline {
             get {
@@ -2284,7 +2284,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Timesheet.
+        ///   Looks up a localized string similar to My Attendance.
         /// </summary>
         public static string MyTimesheet {
             get {

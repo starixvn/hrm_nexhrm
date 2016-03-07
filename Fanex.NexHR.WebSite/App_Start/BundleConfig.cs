@@ -477,6 +477,10 @@
 
         private static void BuildBundleForPostnatal(BundleCollection bundles)
         {
+            bundles.AddAndInclude(
+                "~/Content/postnatalcss",
+                "~/Content/Views/employee.postnatal.css");
+
             bundles.Add(new ScriptBundle("~/bundles/postnatalemployeejs").Include(
                 "~/Scripts/Views/Postanal/postnatalemployee.js",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js"));

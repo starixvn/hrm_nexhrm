@@ -81,11 +81,13 @@ else
                                                 <p class="accinfo">
                                                     <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
                                                 </p>
-                                                <p class="accinfo">
-                                                    <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
-                                                </p>
+                                                
                                                 @if (Roles.IsUserInRole("HR"))
                                                 {
+                                                    <p class="accinfo">
+                                                    <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
+                                                </p>
+                                                    
                                                     <p class="accinfo">
                                                         <span class="label--l">@Labels.IdNo.:</span> <span class="txt-bold">@Model.CardNo</span>
                                                     </p>
