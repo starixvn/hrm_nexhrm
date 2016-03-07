@@ -60,7 +60,7 @@
             }
         }
 
-        public bool IsAnnualLeaveOver5day
+        public bool IsAnnualLeaveOver5Day
         {
             get
             {
@@ -97,7 +97,7 @@
 
         public void GetEmailTemplatePath()
         {
-            EmailTemplatePath = IsUnpaidLeave || IsAnnualLeaveOver5day
+            EmailTemplatePath = IsUnpaidLeave || IsAnnualLeaveOver5Day
                         ? HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForUnpaidLeave)
                         : HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForLeave);
         }

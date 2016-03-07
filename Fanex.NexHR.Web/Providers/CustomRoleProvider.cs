@@ -86,6 +86,11 @@ namespace Fanex.NexHR.Web.Providers
 
             roles.Add(Role.Member.EnumToString());
 
+            if (user.HasRolePM)
+            {
+                roles.Add(Role.PM.EnumToString());
+            }
+
             if (user.RoleList != null)
             {
                 foreach (var item in user.RoleList)

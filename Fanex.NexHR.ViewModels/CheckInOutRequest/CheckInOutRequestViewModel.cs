@@ -118,15 +118,18 @@
 
         public void SetShiftIntoModel(Shift shift)
         {
-            Hour = CheckInOutType == (int)RequestType.CheckOut
+            if(shift != null)
+            {
+                Hour = CheckInOutType == (int)RequestType.CheckOut
                     ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[0])
                     : int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[0]);
-            Minute = CheckInOutType == (int)RequestType.CheckOut
-                        ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[1])
-                        : int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[1]);
-            Shift = shift.DisplayName;
-            InTime = shift.BeginCheckInTime;
-            OutTime = shift.BeginCheckOutTime;
+                Minute = CheckInOutType == (int)RequestType.CheckOut
+                            ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[1])
+                            : int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[1]);
+                Shift = shift.DisplayName;
+                InTime = shift.BeginCheckInTime;
+                OutTime = shift.BeginCheckOutTime;
+            }
         }
     }
 }

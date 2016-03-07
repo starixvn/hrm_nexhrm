@@ -11,7 +11,6 @@
         private string _controller;
         private string _action;
         private string _title;
-        private string _team;
 
         public NavigationViewModel()
         {
@@ -28,20 +27,6 @@
                 this.HoverController = sitemapNode["HoverController"];
                 this.HoverAction = sitemapNode["HoverAction"];
                 this.HoverIcon = sitemapNode["HoverIcon"];
-                this.Team = sitemapNode["Team"];
-            }
-        }
-
-        public string Team
-        {
-            get
-            {
-                return _team;
-            }
-
-            set
-            {
-                _team = value ?? string.Empty;
             }
         }
 

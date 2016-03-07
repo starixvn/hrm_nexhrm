@@ -96,7 +96,6 @@ namespace Fanex.NexHR.Controllers
             var navigationItemList = new List<NavigationViewModel>();
 
             var roles = Roles.GetRolesForUser();
-            var team = this.CurrentUser.Team.Code;
             navigationItemList = new List<NavigationViewModel>();
 
             // populate sitemap data
@@ -117,8 +116,7 @@ namespace Fanex.NexHR.Controllers
                     {
                         var navItem = new NavigationViewModel(navNode);
                         if (navNode.Roles == null || navNode.Roles.Count == 0 ||
-                            roles.Any(i => navNode.Roles.Contains(i)) ||
-                            team == navItem.Team)
+                            roles.Any(i => navNode.Roles.Contains(i)))
                         {
                             sectionItem.Childs.Add(navItem);
                         }

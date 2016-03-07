@@ -5,7 +5,7 @@ function processRequest(command, eventElement) {
     $.post(_global.root + 'request/processrequest',
     { command: command, id: $(eventElement).attr('requestId') },
         function (response) {
-            if (response.IsIsSuccessful) {
+            if (response.IsSuccessful) {
                 query(false);
             } else {
                 alert(response.Message);
@@ -28,12 +28,12 @@ function bindMenuPending() {
                         switch (key) {
                             case 'Approve':
                                 confirm('Are you sure you want to Approve?', function () {
-                                    processRequest(key, $this);
+                                    processRequest(key, e.currentTarget);
                                 });
                                 break;
                             case 'Reject':
                                 confirm('Are you sure you want to Reject?', function () {
-                                    processRequest(key, $this);
+                                    processRequest(key, e.currentTarget);
                                 });
                                 break;
                         }
@@ -59,7 +59,7 @@ function bindMenuApproved() {
                 return {
                     callback: function (key, options) {
                         confirm('Are you sure you want to Disapprove?', function () {
-                            processRequest(key, $this);
+                            processRequest(key, e.currentTarget);
                         });
                     },
                     items: {

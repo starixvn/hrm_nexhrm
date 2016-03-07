@@ -38,13 +38,14 @@
             this.teamService = teamService ?? new TeamService();
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
-
             return View(model);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
         {
@@ -64,6 +65,7 @@
             return View(result);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult Create()
         {
             var model = new CreateOvertimeViewModel();
@@ -71,39 +73,38 @@
             return View(model);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOvertimeViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+                var criteria = new InsertOvertimeCriteria
                 {
-                    model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
-                    var criteria = new InsertOvertimeCriteria
-                    {
-                        CreatedBy = CurrentUser.Id,
-                        Description = model.Description,
-                        Date = model.Date,
-                        Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
-                        TimeSheets = model.TimeSheets
-                    };
+                    CreatedBy = CurrentUser.Id,
+                    Description = model.Description,
+                    Date = model.Date,
+                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
+                    TimeSheets = model.TimeSheets
+                };
 
-                    CommandResult result = commandService.Insert(criteria);
-                    if (result.IsSuccessful)
-                    {
-                        ViewBag.Inserted = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                CommandResult result = commandService.Insert(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Inserted = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
             return View(model);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
@@ -127,10 +128,11 @@
             return View(model);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult Edit(CreateOvertimeViewModel model)
         {
-            if (model != null && ModelState.IsValid && HasPermission())
+            if (model != null && ModelState.IsValid)
             {
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
                 var criteria = new UpdateOvertimeCriteria
@@ -157,6 +159,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ApproveRequest(int id)
         {
@@ -172,6 +175,7 @@
             return Json(result);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult RejectRequest(int id)
         {
@@ -187,6 +191,7 @@
             return Json(result);
         }
 
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult DisapproveRequest(int id)
         {
@@ -259,22 +264,6 @@
             }
 
             return View(result);
-        }
-
-        protected override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            if (filterContext != null && !HasPermission())
-            {
-                filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
-            }
-        }
-
-        private bool HasPermission()
-        {
-            var belongPMTeam = CurrentUser.Team.Code == "PM";
-            var isInRoles = CurrentUser.IsInRoles(Role.AssistantLeader, Role.Leader, Role.HR, Role.SA);
-
-            return belongPMTeam || isInRoles;
         }
 
         public ActionResult OvertimeSummary()

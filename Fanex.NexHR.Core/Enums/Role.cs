@@ -41,6 +41,12 @@ namespace Fanex.NexHR.Core.Enums
         /// System admin role.
         /// </summary>
         [StringValue("SA")]
-        SA = 4
+        SA = 4,
+
+        /// <summary>
+        /// Project Manager role.
+        /// </summary>
+        [StringValue("PM")]
+        PM = 5
     }
 }

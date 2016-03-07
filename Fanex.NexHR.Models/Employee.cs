@@ -189,6 +189,14 @@
             }
         }
 
+        public bool HasRolePM
+        {
+            get
+            {
+                return Team != null && Team.Code == "PM";
+            }
+        }
+
         public bool IsInRoles(params Role[] roles)
         {
             if (RoleList == null)

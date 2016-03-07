@@ -116,8 +116,10 @@
 
                     model.IsEdit = false;
                     model.GetEmailTemplatePath();
-                    var taskSendMail = new Task(() => requestService.SendMailForCheckInOut(model));
-                    taskSendMail.Start();
+                    Task.Factory.StartNew(() => 
+                    { 
+                        requestService.SendMailForCheckInOut(model); 
+                    });
                 }
                 else
                 {
@@ -190,8 +192,10 @@
 
                     model.IsEdit = true;
                     model.GetEmailTemplatePath();
-                    var taskSendMail = new Task(() => requestService.SendMailForCheckInOut(model));
-                    taskSendMail.Start();
+                    Task.Factory.StartNew(() => 
+                    { 
+                        requestService.SendMailForCheckInOut(model); 
+                    });
                 }
                 else
                 {

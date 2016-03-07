@@ -18,7 +18,7 @@ function cancelRequest(id) {
 function processRequest(command, eventElement) {
     var requestId = $(eventElement).attr('requestId'),
         requestType = $("#RequestType").val();
-
+    
     switch (command) {
         case 'edit':
             location.href = _global.root + requestType + "/Update/" + requestId;
@@ -30,23 +30,19 @@ function processRequest(command, eventElement) {
 }
 
 function bindMenuPending() {
-    $('table#data tbody td a.Pending').on('mouseup', function (e) {
-        var $this = $(this);
-
-        $.contextMenu({
-            selector: '.Pending',
-            trigger: 'left',
-            build: function ($trigger, e) {
-                return {
-                    callback: function (key, options) {
-                        processRequest(key, $this);
-                    },
-                    items: {
-                        'edit': { name: 'Edit', icon: 'edit' },
-                        'delete': { name: 'Delete', icon: 'delete' }
-                    }
-                };
-            }
-        });
+    $.contextMenu({
+        selector: '.Pending',
+        trigger: 'left',
+        build: function ($trigger, e) {
+            return {
+                callback: function (key, options) {
+                    processRequest(key, e.currentTarget);
+                },
+                items: {
+                    'edit': { name: 'Edit', icon: 'edit' },
+                    'delete': { name: 'Delete', icon: 'delete' }
+                }
+            };
+        }
     });
 }

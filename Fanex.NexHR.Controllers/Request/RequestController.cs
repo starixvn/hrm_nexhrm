@@ -32,7 +32,7 @@
             IRequestService requestService,
             ITeamService teamService,
             ILeaveTypeService leaveTypeService,
-            ICommandService commamndService)
+            ICommandService commandService)
         {
             this.requestService = requestService ?? new RequestService();
             this.teamService = teamService ?? new TeamService();
@@ -261,15 +261,7 @@
 
         public JsonResult GetUnavailDate(int employeeId)
         {
-            var getUnavailableRequestDateCriteria = new GetUnavailableRequestDateCriteria
-            {
-                EmployeeId = employeeId,
-                FromDate = Utilities.RequestAvailableFromDate,
-                ToDate = Utilities.RequestAvailableToDate
-            };
-
-            IList<DateTime> dates = requestService.GetDisableRequestDate(CurrentUser.Id);
-
+            IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId);
             return Json(dates, JsonRequestBehavior.AllowGet);
         }
 

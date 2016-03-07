@@ -112,8 +112,11 @@
                     ViewBag.Requested = true;
                     model.IsEdit = false;
                     model.GetEmailTemplatePath();
-                    var taskSendMail = new Task(() => requestService.SendMailForLeave(model));
-                    taskSendMail.Start();
+
+                    Task.Factory.StartNew(() => 
+                    { 
+                        requestService.SendMailForLeave(model); 
+                    });
                 }
                 else
                 {
@@ -181,8 +184,11 @@
                     ViewBag.Updated = true;
                     model.IsEdit = true;
                     model.GetEmailTemplatePath();
-                    var taskSendMail = new Task(() => requestService.SendMailForLeave(model));
-                    taskSendMail.Start();
+
+                    Task.Factory.StartNew(() => 
+                    { 
+                        requestService.SendMailForLeave(model); 
+                    });
                 }
                 else
                 {

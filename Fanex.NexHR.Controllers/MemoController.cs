@@ -155,6 +155,7 @@
                 {
                     model.Contents = model.AttachFile;
                 }
+
                 var insertMemoCriteria = new InsertMemoCriteria()
                 {
                     Category = model.Category,

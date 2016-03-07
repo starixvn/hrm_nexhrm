@@ -912,7 +912,7 @@
     <Content Include="Views\Report\RequestMonitoring.cshtml" />
     <Content Include="Views\Report\TimeRecord.cshtml" />
     <Content Include="Views\Report\Timesheet.cshtml" />
-    <Content Include="Views\Report\TotalWorkingHours.cshtml" />
+    <Content Include="Views\Report\TotalWorkingHour.cshtml" />
     <Content Include="Views\Request\CriteriaPanel.cshtml" />
     <Content Include="Views\Request\History\ChangeShiftRequestHistory.cshtml" />
     <Content Include="Views\Request\History\CheckInOutRequestHistory.cshtml" />
