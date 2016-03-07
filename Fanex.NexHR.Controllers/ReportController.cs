@@ -223,7 +223,7 @@
             return requestMonitorings;
         }
 
-        public ActionResult TotalWorkingHours()
+        public ActionResult TotalWorkingHour()
         {
             IList<Team> teams = teamService.GetAll();
 
