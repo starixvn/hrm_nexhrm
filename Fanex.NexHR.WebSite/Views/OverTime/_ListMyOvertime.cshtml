@@ -1,7 +1,6 @@
 ﻿@model IList<EmployeeOvertime>
 
 @{
-    Layout = null;
     var index = 1;
 }
 @if (Model.Any())
@@ -11,14 +10,13 @@
         <tr>
             <td>@(index++)</td>
             <td>@item.Employee.NickName</td>
-            <td class="align-left">@item.Employee.FullName</td>
             <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
-            <td class="tooltip align-left" title="@item.Description">
+            <td class="tooltip" title="@item.Description">
                 @RazorHelper.DisplayLimitedString(item.Description)
             </td>
-            <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
-            @if(item.Status == (int)RequestStatuse.Approve)
+            <td>@item.CreatedBy.NickName</td>
+            @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td class="c-approve">@Labels.Approved</td>
             }
@@ -35,10 +33,5 @@
 }
 else
 {
-    <tr>
-        <td colspan="8"></td>
-    </tr>
-    <tr>
-        <td colspan="8">@Labels.NoData</td>
-    </tr>
+    @RazorHelper.DisplayNoInformation(colspan: 7);
 }

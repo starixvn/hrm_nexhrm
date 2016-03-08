@@ -102,6 +102,9 @@
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
              "~/Scripts/Views/Employee/_employee.search.in.company.js",
              "~/Scripts/Views/Overtime/overtimeSummary.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
+                         "~/Scripts/Views/Overtime/overtime.js"));
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)

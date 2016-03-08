@@ -38,6 +38,11 @@
             this.teamService = teamService ?? new TeamService();
         }
 
+        public ActionResult Index() 
+        {
+            return View();
+        }
+
         [Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult MemberOvertime()
         {
@@ -62,7 +67,7 @@
                 result = overtimeService.GetOvertime(criteria);
             }
 
-            return View(result);
+            return PartialView("_ListMemberOvertime", result);
         }
 
         [Authorize(Roles = "AssistantLeader,HR,PM")]
@@ -209,7 +214,7 @@
 
         public ActionResult MyOvertime()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -223,7 +228,7 @@
             };
             IList<EmployeeOvertime> employeeOvertimes = overtimeService.GetMyOvertime(criteria);
 
-            return View(employeeOvertimes);
+            return PartialView("_ListMyOvertime", employeeOvertimes);
         }
 
         public ActionResult OvertimeRequest(MemberOvertimeViewModel model)
@@ -263,7 +268,7 @@
                 result = overtimeService.GetEmployeeOvertime(criteria);
             }
 
-            return View(result);
+            return PartialView("_ListOvertimeRequest", result);
         }
 
         public ActionResult OvertimeSummary()

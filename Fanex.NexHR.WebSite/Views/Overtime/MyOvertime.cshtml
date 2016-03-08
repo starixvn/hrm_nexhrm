@@ -1,16 +1,49 @@
 ﻿@model TimeRecordViewModel
 @{
-    ViewBag.Title = @Labels.MyOvertime;
+    ViewBag.Title = Labels.MyOvertime;
 }
 @section css{
 }
 @section js{
-    @Scripts.Render(
-        "~/bundles/myovertimejs")
+    @Scripts.Render("~/bundles/myovertimejs")
 }
 @section Breadcrumb {
 }
-<div class="row content">
+<div class="form">
+    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <form class="form-filter" id="form">
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--s">
+                    <label>@Labels.Year</label>
+                </div>
+                <div class="left select--xs">
+                    @Html.YearPicker("Year", 2010, DateTime.Now.Year)
+                </div>
+            </div>
+            <div class="col">
+                <input id="btn-submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="p-x--s">
+    <table id="data" class="table bordered striped highlight table-custom centered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Labels.Employee</th>
+                <th>@Labels.Date</th>
+                <th>@Labels.Hours</th>
+                <th>@Labels.Remark</th>
+                <th>@Labels.CreatedBy</th>
+                <th>@Labels.Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@*<div class="row content">
     <div class="col s12 card-container-base">
         <div class="card">
             <div class="card-content">
@@ -30,16 +63,12 @@
                                         @Html.YearPicker("Year", 2010, DateTime.Now.Year)
                                     </div>
                                 </div>
-                                @*<div class="col">
-                                    <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
-                                </div>*@
                                 <div class="col">
                                     <input id="btn-submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                                 </div>
                             </div>
                         </form>
                     </div>
-
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
@@ -59,6 +88,6 @@
                 </div>
             </div>
         </div>
-    </div> 
-</div>
+    </div>
+</div>*@
 
