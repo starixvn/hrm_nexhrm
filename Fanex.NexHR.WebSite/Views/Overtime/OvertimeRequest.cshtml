@@ -40,7 +40,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-r--l m-l--70">
+                                <div class="col m-r--l">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate)
                                     </div>
@@ -49,24 +49,12 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-
-
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(m => m.Status)
-                                    </div>
-                                    <div class="left filter-status">
-                                        @RazorHelper.StatusDropDownList((byte)Model.Status, true, "Status")
-
-                                    </div>
-                                </div>
-
                                 <div class="col m-r--l">
                                     <div class="left label--m">
                                         <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(m=>m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.CreatedBy)
                                     </div>
                                 </div>
@@ -78,6 +66,15 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(m => m.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(m => m.Status)
+                                    </div>
+                                    <div class="left filter-status">
+                                        @RazorHelper.StatusDropDownList((byte)Model.Status, true, "Status")
+
                                     </div>
                                 </div>
 

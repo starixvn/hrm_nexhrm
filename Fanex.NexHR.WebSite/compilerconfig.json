@@ -14,5 +14,9 @@
   {
     "outputFile": "Content/Views/report.timesheet.css",
     "inputFile": "Content/Views/report.timesheet.scss"
+  },
+  {
+    "outputFile": "Content/Materialize/materialize.css",
+    "inputFile": "Content/Materialize/materialize.scss"
   }
 ]

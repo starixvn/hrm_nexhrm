@@ -104,13 +104,15 @@
                                         <div class="left label--m">
                                             @Html.LabelFor(model => model.SendMail, Labels.SendMail)
                                         </div>
-                                        <div class="left">
-                                            @Html.MaterializeCheckBoxFor(model => model.SendMail, new { @class = "filled-in" })
-                                            @Html.ValidationMessageFor(model => model.SendMail)
-                                        </div>
-                                        <div class="left label--xl">
-                                            <label for="SendMail">@Labels.SendToAllEmployee</label>
-                                        </div>
+                                        <div class="left input--m">
+                                            <div class="left">
+                                                @Html.MaterializeCheckBoxFor(model => model.SendMail, new { @class = "filled-in" })
+                                                @Html.ValidationMessageFor(model => model.SendMail)
+                                            </div>
+                                            <div class="left label--xl">
+                                                <label for="SendMail">@Labels.SendToAllEmployee</label>
+                                            </div>
+                                        </div>                                        
                                     </div>
                                     <div class="col">
                                         <div class="left label--m">

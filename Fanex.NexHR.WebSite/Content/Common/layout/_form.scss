@@ -46,6 +46,17 @@
     width: 22rem;
 }
 
+.select--datepicker {
+    width: 11rem;
+}
+
+.select--daterange {
+    width: 15rem;
+    @media (min-width: 1300px) {
+        width: 22rem;
+    }
+}
+
 .input-subject {
 	width: 51.8rem;
 }

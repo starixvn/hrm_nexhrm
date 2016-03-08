@@ -501,7 +501,7 @@ a:active, a:focus {
 .calendar-icon {
   position: absolute;
   top: -2px;
-  right: -13px;
+  right: -18px;
   color: #6f8396;
   z-index: 0;
   font-size: 24px; }
@@ -581,6 +581,15 @@ input#fileName::-webkit-file-upload-button {
 
 .select--m, .input--m {
   width: 22rem; }
+
+.select--datepicker {
+  width: 11rem; }
+
+.select--daterange {
+  width: 15rem; }
+  @media (min-width: 1300px) {
+    .select--daterange {
+      width: 22rem; } }
 
 .input-subject {
   width: 51.8rem; }
@@ -1173,8 +1182,8 @@ table.data thead tr:nth-child(even) {
     text-align: center;
     background: #24272f; }
   .side-nav.fixed li a {
-    line-height: 40px;
-    height: 40px; }
+    line-height: 44px;
+    height: 44px; }
     .side-nav.fixed li a.collapsible-header {
       line-height: 44px;
       height: 44px; }
