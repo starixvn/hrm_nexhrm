@@ -10,5 +10,9 @@
   {
     "outputFile": "Content/Views/report.latein.earlyout.summary.css",
     "inputFile": "Content/Views/report.latein.earlyout.summary.scss"
+  },
+  {
+    "outputFile": "Content/Views/report.timesheet.css",
+    "inputFile": "Content/Views/report.timesheet.scss"
   }
 ]

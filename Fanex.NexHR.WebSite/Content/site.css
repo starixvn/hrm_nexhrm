@@ -292,6 +292,16 @@ main {
     .contextmenu .drop-menu.list-unstyled {
       list-style: none; }
 
+.truncate-remark {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block; }
+  @media (min-width: 1300px) {
+    .truncate-remark {
+      width: 250px; } }
+
 a:active, a:focus {
   outline: none; }
 
@@ -496,9 +506,9 @@ a:active, a:focus {
   z-index: 0;
   font-size: 24px; }
 
-.colon-icon {
-  margin-right: 5px;
-  margin-top: 4px; }
+.colon {
+  position: relative;
+  top: 6px; }
 
 .icon-success {
   font-size: 30px;

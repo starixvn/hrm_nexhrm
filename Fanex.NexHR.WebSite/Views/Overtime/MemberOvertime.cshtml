@@ -48,7 +48,9 @@
                                         @Html.DatePickerFor(model => model.ToDate)
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
-                                </div>
+                                </div>                                
+                            </div>
+                            <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
                                         @Html.LabelFor(m => m.Status)
@@ -66,7 +68,7 @@
                                         @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
                                     </div>
                                 </div>
-                                <div class="col m-r--l">
+                                <div class="col m-r--l m-l--s">
                                     <div class="left input--m">
                                         <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
                                         @if (!Fanex.NexHR.Web.Utilities.UserHasOnlyHRRole())

@@ -417,3 +417,15 @@ main {
         }
     }
 }
+
+.truncate-remark {
+    width: 120px;    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+
+    @media (min-width: 1300px) {
+        width: 250px;
+    }
+}
