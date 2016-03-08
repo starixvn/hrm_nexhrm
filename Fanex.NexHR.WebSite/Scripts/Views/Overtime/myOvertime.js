@@ -14,8 +14,8 @@ function LoadDetailMyOT(isFirstLoad) {
             }
         },
         success: function (response) {
-            $("#myOT #data tbody").html(response);
-            floatThead('table#data');
+            $("#dataMyOT tbody").html(response);
+            //floatThead('table#dataMyOT');
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -28,8 +28,8 @@ function LoadDetailMyOT(isFirstLoad) {
     });
 };
 
-function initSubmitButton() {
-    $("#btn-submit").click(function () {
+function InitButtonForMyOT() {
+    $("#myOT #btn-submit").click(function () {
         LoadDetailMyOT(false);
     });
 };

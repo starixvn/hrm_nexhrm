@@ -47,7 +47,7 @@
         public ActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
-            return View(model);
+            return PartialView(model);
         }
 
         [Authorize(Roles = "AssistantLeader,HR,PM")]

@@ -1,17 +1,17 @@
 ﻿$(document).ready(function () {
-    initDatePicker(".datepicker");
-    initSubmitButton();
-    initAutocomplete("#CreatedName", "#CreatedBy");
-    initAutocomplete("#Employee", "#EmployeeId");
+    //initDatePicker(".datepicker");
+    //initSubmitButton();
+    //initAutocomplete("#CreatedName", "#CreatedBy");
+    //initAutocomplete("#Employee", "#EmployeeId");
 
-    $('#Date').on('change', function () {
-        setDateTimeRange($(this).val());
-    });
+    //$('#Date').on('change', function () {
+    //    setDateTimeRange($(this).val());
+    //});
 
-    loadSummary();
+    //loadSummary();
 
-    bindPendingMenu();
-    bindApproveMenu();
+    //bindPendingMenu();
+    //bindApproveMenu();
 });
 
 function processRequest(command, eventElement) {
@@ -34,7 +34,7 @@ function processRequest(command, eventElement) {
 };
 
 function bindPendingMenu() {
-    var element = ".Pending";
+    var element = "#memberOT .Pending";
 
     $.contextMenu({
         selector: element,
@@ -51,7 +51,7 @@ function bindPendingMenu() {
 };
 
 function bindApproveMenu() {
-    var element = ".Approve";
+    var element = "#memberOT .Approve";
     $.contextMenu({
         selector: element,
         trigger: 'left',
@@ -64,23 +64,23 @@ function bindApproveMenu() {
     });
 };
 
-function loadSummary() {
-    $('.loading-process').fadeIn(200);
-    $.post(_global.root + "Overtime/MemberOvertimeData", $("#form").serialize(), function (response) {
-        $("#data tbody").html(response);
+function LoadMemberOTDetail() {
+    $('#memberOT .loading-process').fadeIn(300);
+    $.post(_global.root + "Overtime/MemberOvertimeData", $("#memberOT #form").serialize(), function (response) {
+        $("#dataMemberOT tbody").html(response);
         initTooltip();
-        $('.loading-process').fadeOut(500);
+        $('#memberOT .loading-process').fadeOut(300);
     });
 };
 
-function initSubmitButton() {
-    $("#btn-submit").click(function () {
-        loadSummary();
+function InitButtonForMemberOT() {
+    $("#memberOT #btn-submit").click(function () {
+        LoadMemberOTDetail();
     });
 };
 
 function initTooltip() {
-    var linkDays = $(".contextmenu");
+    var linkDays = $("#memberOT .contextmenu");
 
     linkDays.mouseover(function () {
         $(this).find(".drop-menu").show();
@@ -93,12 +93,12 @@ function initTooltip() {
 
 function approveRequest(id) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {
-        $('.loading-process').fadeIn(200);
+        $('#memberOT .loading-process').fadeIn(200);
         $.post(_global.root + "Overtime/ApproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
                 loadSummary();
             } else {
-                $('.loading-process').fadeOut(500);
+                $('#memberOT .loading-process').fadeOut(500);
                 alert(response.Message);
             }
         });
@@ -108,12 +108,12 @@ function approveRequest(id) {
 
 function disapproveRequest(id) {
     confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
-        $('.loading-process').fadeIn(200);
+        $('#memberOT .loading-process').fadeIn(200);
         $.post(_global.root + "Overtime/DisapproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
                 loadSummary();
             } else {
-                $('.loading-process').fadeOut(500);
+                $('#memberOT .loading-process').fadeOut(500);
                 alert(response.Message);
             }
         });

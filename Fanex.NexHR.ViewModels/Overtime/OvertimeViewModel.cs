@@ -7,10 +7,5 @@
 
     public class OvertimeViewModel
     {
-        //public TimeRecordViewModel MyOvertime { get; set; }
-
-        //public TimeRecordViewModel MyOvertime { get; set; }
-
-        //public TimeRecordViewModel MyOvertime { get; set; }
     }
 }
