@@ -1,14 +1,4 @@
 ﻿@model TimeRecordViewModel
-@{
-    ViewBag.Title = Labels.MyOvertime;
-}
-@section css{
-}
-@section js{
-    @Scripts.Render("~/bundles/myovertimejs")
-}
-@section Breadcrumb {
-}
 <div class="form">
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <form class="form-filter" id="form">

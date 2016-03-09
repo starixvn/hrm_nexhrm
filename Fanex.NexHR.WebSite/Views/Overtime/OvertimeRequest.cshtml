@@ -7,104 +7,91 @@
     @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
-    @Scripts.Render("~/bundles/overtimerequestjs");
+    
 }
 @section Breadcrumb {
 }
-<div class="row content">
-    <div class="col s12 card-container-base my-request">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+<div class="form">
+    <form id="form">
+        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+        <div class="row form-input">
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    <label>@Labels.DateRange</label>
                 </div>
-                <div class="card-body">
-                    <div class="form">
-                        <form id="form">
-                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.DateRange</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate)
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.FromDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.ToDate)
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        @Html.DatePickerFor(model => model.ToDate)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.CreatedBy</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(m => m.CreatedBy)
-                                    </div>
-                                </div>
+                <div class="left select--m">
+                    @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                </div>
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.FromDate)
+                </div>
+                <div class="left datepicker-button select--s">
+                    @Html.DatePickerFor(model => model.FromDate)
+                    <i class="mdi-action-event calendar-icon left"></i>
+                </div>
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    @Html.LabelFor(model => model.ToDate)
+                </div>
+                <div class="left datepicker-button select--s">
+                    @Html.DatePickerFor(model => model.ToDate)
+                    <i class="mdi-action-event calendar-icon left"></i>
+                </div>
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    <label>@Labels.CreatedBy</label>
+                </div>
+                <div class="left input--m">
+                    @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
+                    @Html.HiddenFor(m => m.CreatedBy)
+                </div>
+            </div>
 
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.Employee</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(m => m.EmployeeId)
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(m => m.Status)
-                                    </div>
-                                    <div class="left filter-status">
-                                        @RazorHelper.StatusDropDownList((byte)Model.Status, true, "Status")
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    <label>@Labels.Employee</label>
+                </div>
+                <div class="left input--m">
+                    @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                    @Html.HiddenFor(m => m.EmployeeId)
+                </div>
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    @Html.LabelFor(m => m.Status)
+                </div>
+                <div class="left filter-status">
+                    @RazorHelper.StatusDropDownList((byte)Model.Status, true, "Status")
 
-                                    </div>
-                                </div>
+                </div>
+            </div>
 
-                                <div class="col m-r--l">
-                                    <div class="left input--m">
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight table-custom centered">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>@Labels.Nick</th>
-                                    <th>@Labels.FullName</th>
-                                    <th>@Labels.Date</th>
-                                    <th>@Labels.Hours</th>
-                                    <th>@Labels.Remark</th>
-                                    <th>@Labels.CreatedBy</th>
-                                    <th>@Labels.Status</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+            <div class="col m-r--l">
+                <div class="left input--m">
+                    <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+</div>
+<div class="p-x--s">
+    <table id="dataOTRequest" class="table bordered striped highlight table-custom centered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Labels.Nick</th>
+                <th>@Labels.FullName</th>
+                <th>@Labels.Date</th>
+                <th>@Labels.Hours</th>
+                <th>@Labels.Remark</th>
+                <th>@Labels.CreatedBy</th>
+                <th>@Labels.Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 </div>

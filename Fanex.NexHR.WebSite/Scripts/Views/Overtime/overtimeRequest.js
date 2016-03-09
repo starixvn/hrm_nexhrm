@@ -1,26 +1,13 @@
-﻿$(document).ready(function () {
-    initDatePicker(".datepicker");
-    initSubmitButton();
-    initAutocomplete("#CreatedName", "#CreatedBy");
-    initAutocomplete("#Employee", "#EmployeeId");
-
-    $('#Date').on('change', function () {
-        setDateTimeRange($(this).val());
-    });
-
-    loadSummary();
-});
-
-function loadSummary() {
-    $('.loading-process').fadeIn(200);
-    $.post(_global.root + "overtime/OvertimeRequestDetail", $("#form").serialize(), function (response) {
-        $("#data tbody").html(response);
-        $('.loading-process').fadeOut(500);
+﻿function LoadOTRequestDetail() {
+    $('#OTRequest .loading-process').fadeIn(300);
+    $.post(_global.root + "overtime/OvertimeRequestDetail", $("#OTRequest #form").serialize(), function (response) {
+        $("#dataOTRequest tbody").html(response);
+        $('#OTRequest .loading-process').fadeOut(300);
     });
 };
 
-function initSubmitButton() {
-    $("#btn-submit").click(function () {
-        loadSummary();
+function InitButtonForOTRequest() {
+    $("#OTRequest #btn-submit").click(function () {
+        LoadOTRequestDetail();
     });
 };

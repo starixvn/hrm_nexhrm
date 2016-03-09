@@ -248,7 +248,7 @@
                 }
             }
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]

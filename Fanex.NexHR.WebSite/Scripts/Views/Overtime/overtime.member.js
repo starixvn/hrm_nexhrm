@@ -1,20 +1,4 @@
-﻿$(document).ready(function () {
-    //initDatePicker(".datepicker");
-    //initSubmitButton();
-    //initAutocomplete("#CreatedName", "#CreatedBy");
-    //initAutocomplete("#Employee", "#EmployeeId");
-
-    //$('#Date').on('change', function () {
-    //    setDateTimeRange($(this).val());
-    //});
-
-    //loadSummary();
-
-    //bindPendingMenu();
-    //bindApproveMenu();
-});
-
-function processRequest(command, eventElement) {
+﻿function processRequest(command, eventElement) {
     var requestId = eventElement.$trigger.attr('requestId');
 
     switch (command) {
@@ -96,7 +80,7 @@ function approveRequest(id) {
         $('#memberOT .loading-process').fadeIn(200);
         $.post(_global.root + "Overtime/ApproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
-                loadSummary();
+                LoadMemberOTDetail();
             } else {
                 $('#memberOT .loading-process').fadeOut(500);
                 alert(response.Message);
@@ -111,7 +95,7 @@ function disapproveRequest(id) {
         $('#memberOT .loading-process').fadeIn(200);
         $.post(_global.root + "Overtime/DisapproveRequest", { id: id }, function (response) {
             if (response.Code == 0) {
-                loadSummary();
+                LoadMemberOTDetail();
             } else {
                 $('#memberOT .loading-process').fadeOut(500);
                 alert(response.Message);
@@ -125,7 +109,7 @@ function rejectRequest(id) {
         $('.loading-process').fadeIn(200);
         $.post(_global.root + "Overtime/RejectRequest", { id: id }, function (response) {
             if (response.Code == 0) {
-                loadSummary();
+                LoadMemberOTDetail();
             } else {
                 $('.loading-process').fadeOut(500);
                 alert(response.Message);
