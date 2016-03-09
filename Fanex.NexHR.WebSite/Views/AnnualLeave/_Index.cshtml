@@ -80,21 +80,21 @@
                             <td>@(index++)</td>
                         }
                         <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
-                        <td style="@(leaveSummary.AnnualLeaveLastYear < 0 ? "color:red;" : string.Empty)">@leaveSummary.AnnualLeaveLastYear.ToString("0.0")</td>
-                        <td style="@(leaveSummary.AnnualLeaveCurrentYear < 0 ? "color:red;" : string.Empty)">@leaveSummary.AnnualLeaveCurrentYear.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Jan < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jan.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Feb < 0 ? "color:red;" : string.Empty)">@leaveSummary.Feb.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Mar < 0 ? "color:red;" : string.Empty)">@leaveSummary.Mar.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Apr < 0 ? "color:red;" : string.Empty)">@leaveSummary.Apr.ToString("0.0")</td>
-                        <td style="@(leaveSummary.May < 0 ? "color:red;" : string.Empty)">@leaveSummary.May.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Jun < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jun.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Jul < 0 ? "color:red;" : string.Empty)">@leaveSummary.Jul.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Aug < 0 ? "color:red;" : string.Empty)">@leaveSummary.Aug.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Sep < 0 ? "color:red;" : string.Empty)">@leaveSummary.Sep.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Oct < 0 ? "color:red;" : string.Empty)">@leaveSummary.Oct.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Nov < 0 ? "color:red;" : string.Empty)">@leaveSummary.Nov.ToString("0.0")</td>
-                        <td style="@(leaveSummary.Dec < 0 ? "color:red;" : string.Empty)">@leaveSummary.Dec.ToString("0.0")</td>
-                        <td style="@(leaveSummary.LeaveBalance < 0 ? "color:red;" : string.Empty)">@leaveSummary.LeaveBalance.ToString("0.0")</td>
+                        @RazorHelper.DisplayNumber(leaveSummary.AnnualLeaveLastYear)
+                        @RazorHelper.DisplayNumber(leaveSummary.AnnualLeaveCurrentYear)
+                        @RazorHelper.DisplayNumber(leaveSummary.Jan)
+                        @RazorHelper.DisplayNumber(leaveSummary.Feb)
+                        @RazorHelper.DisplayNumber(leaveSummary.Mar)
+                        @RazorHelper.DisplayNumber(leaveSummary.Apr)
+                        @RazorHelper.DisplayNumber(leaveSummary.May)
+                        @RazorHelper.DisplayNumber(leaveSummary.Jun)
+                        @RazorHelper.DisplayNumber(leaveSummary.Jul)
+                        @RazorHelper.DisplayNumber(leaveSummary.Aug)
+                        @RazorHelper.DisplayNumber(leaveSummary.Sep)
+                        @RazorHelper.DisplayNumber(leaveSummary.Oct)
+                        @RazorHelper.DisplayNumber(leaveSummary.Nov)
+                        @RazorHelper.DisplayNumber(leaveSummary.Dec)
+                        @RazorHelper.DisplayNumber(leaveSummary.LeaveBalance)
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <td class="center">

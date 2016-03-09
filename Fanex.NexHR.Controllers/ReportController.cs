@@ -76,7 +76,7 @@
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     ReportType = model.AttendanceType,
-                    EmployeeId = model.EmpId,
+                    EmployeeId = model.EmployeeId,
                     GroupId = model.GroupId,
                     ExcludeUserDelete = model.ExcludeUserDelete,
                     ItemsPerPage = model.ItemsPerPage,
@@ -111,7 +111,7 @@
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     ReportType = model.AttendanceType,
-                    EmployeeId = model.EmpId,
+                    EmployeeId = model.EmployeeId,
                     GroupId = model.GroupId,
                     ExcludeUserDelete = model.ExcludeUserDelete
                 };
@@ -383,7 +383,7 @@
                     GroupId = model.TeamId,
                     FromDate = toDate.AddYears(-1).AddDays(1),
                     ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
-                    IsUserWarning = model.IsUserWarning
+                    IsUserWarning = true
                 };
 
                 lateInEarlyOutDisciplines = reportService.GetLateInEarlyOutDiscipline(criteria);
@@ -396,8 +396,8 @@
         {
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                fromDate = DateTime.Now.Date;
-                toDate = DateTime.Now.Date;
+                fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                toDate = DateTime.Today;
             }
 
             var model = new TimeRecordViewModel

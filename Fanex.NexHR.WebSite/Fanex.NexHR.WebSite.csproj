@@ -840,7 +840,7 @@
     <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Employee\MySpace2.cshtml" />
+    <Content Include="Views\Employee\MySpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Materialize\Components\date_picker\_default.date.scss" />

@@ -129,10 +129,10 @@
                         <span>-</span>
                     }
                 </td>
-                <td class="@(request.TotalAbsent > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
-                    @if (request.TotalAbsent > 0)
+                <td class="@(request.TotalAbsentTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAbsentTimes > 0)
                     {
-                        <a href="@attendanceLink">@request.TotalAbsent</a>
+                        <a href="@attendanceLink">@request.TotalAbsentTimes</a>
                     }
                     else
                     {

@@ -31,7 +31,7 @@ function initTodoList() {
         },
         success: function (data) {
             if (data) {
-                $('#todoList').html(data);                
+                $('#todoList').html(data);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -59,15 +59,16 @@ function initTodoList() {
 
 $(document).ready(function () {
     MyDashboard.init();
-    $('.slide').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            dots: true,
-            nextArrow: false,
-            prevArrow: false,
-    });   
+    
+    //$('.slide').slick({
+    //        slidesToShow: 1,
+    //        slidesToScroll: 1,
+    //        autoplay: true,
+    //        autoplaySpeed: 2000,
+    //        dots: true,
+    //        nextArrow: false,
+    //        prevArrow: false,
+    //});   
 
-    initTodoList();
+    //initTodoList();
 });

@@ -1,3 +1,12 @@
+.my-dashboard2 {
+  max-width: 750px; }
+  .my-dashboard2 .table-custom tbody tr td.first-column {
+    text-align: right;
+    width: 170px;
+    color: #000; }
+  .my-dashboard2 .table-custom tbody tr td {
+    text-align: center; }
+
 .to-do-list {
   padding-top: 16px; }
   .to-do-list p {

@@ -59,6 +59,7 @@
     <Compile Include="AnnualLeave\AnnualLeaveBalanceViewModel.cs" />
     <Compile Include="AnnualLeave\AddAnnualLeaveTransactionViewModel.cs" />
     <Compile Include="AnnualLeave\EditAnnualLeaveTransactionViewModel.cs" />
+    <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />
     <Compile Include="Overtime\OvertimeViewModel.cs" />
     <Compile Include="Request\BaseRequestModel.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Toeic\ToeicManagementViewModel.cs" />
     <Compile Include="Toeic\ToeicViewModel.cs" />
     <Compile Include="TotalWorkingHours\TotalWorkingHoursViewModel.cs" />
-    <Compile Include="WorkingCalendarsViewModel.cs" />
     <Compile Include="WorkingScheduleModel.cs" />
   </ItemGroup>
   <ItemGroup>

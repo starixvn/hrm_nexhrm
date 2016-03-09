@@ -376,6 +376,9 @@
                 "~/Scripts/Views/Dashboard/googleAPI.js",
                 "~/Scripts/Views/Dashboard/client.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/dashboard2js").Include(
+                "~/Scripts/Views/Dashboard/employee.dashboard.js"));
+
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
                 "~/Content/Common/slick.css",

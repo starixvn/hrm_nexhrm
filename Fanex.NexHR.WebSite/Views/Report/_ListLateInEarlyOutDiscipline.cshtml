@@ -1,6 +1,6 @@
 ﻿@model IList<LateInEarlyOutDiscipline>
 
-<table id="data" class="table bordered striped highlight table-custom centered" style="max-width: 960px">
+<table id="data" class="table bordered striped highlight table-custom centered" style="max-width: 990px">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
@@ -32,7 +32,7 @@
                         @if (lateInEarlyOut.TotalTimes != 0)
                         {
                             <td>
-                                <a href='javascript:;' class="tooltip-detail">@lateInEarlyOut.TotalTimes</a>
+                                <a href='javascript:;' class="@(lateInEarlyOut.TotalTimes >= 3 ? "red-color tooltip-detail" : "tooltip-detail")">@lateInEarlyOut.TotalTimes</a>
                                 <div class="latein-earlyout-summary-detail hide">
                                     <table class="table bordered striped highlight table-custom centered">
                                         <thead>

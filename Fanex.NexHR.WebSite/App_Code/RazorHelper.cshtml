@@ -318,3 +318,14 @@
         <td>-</td>
     }
 }
+
+@helper DisplayNumber(float value) {
+    if (value == 0)
+    {
+        <td>-</td> 
+    }
+    else
+    {
+        <td class="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
+    }
+}

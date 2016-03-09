@@ -25,9 +25,9 @@
                     <div class="form">
                         <form class="form-filter" action="" novalidate="novalidate">
                             <div class="row form-input">
-                                <div class="col m-l--l m-r--l">
-                                    <div class="left label--m">
-                                        @Html.Label(@Labels.ToDate)
+                                <div class="col m-l--l m-r--xl">
+                                    <div class="left label--s">
+                                        @Html.Label(@Labels.To)
                                     </div>
                                     <div class="left select--s">
                                         <div id="toMonthPickr"></div>
@@ -35,7 +35,16 @@
                                         @Html.HiddenFor(model => model.ToMonth)
                                     </div>
                                 </div>
-                                <div class="col m-l--xl m-r--l">
+                                @*<div class="col m-r--l">
+                                    <div class="left">
+                                        @Html.MaterializeCheckBoxFor(model => model.IsUserWarning, new { @class = "filled-in" })
+                                    </div>
+                                    <div class="left">
+                                        @Html.LabelFor(model => model.IsUserWarning, Labels.UserWarning)
+                                    </div>
+                                </div>*@
+                                
+                                <div class="col m-l--l m-r--l">
                                     <div class="left label--s">
                                         @Html.Label(@Labels.Team)
                                     </div>
@@ -50,14 +59,6 @@
                                     <div class="left input--m">
                                         @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                                         @Html.HiddenFor(model => model.EmployeeId)
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left">
-                                        @Html.MaterializeCheckBoxFor(model => model.IsUserWarning, new { @class = "filled-in" })
-                                    </div>
-                                    <div class="left">
-                                        @Html.LabelFor(model => model.IsUserWarning, Labels.UserWarning)
                                     </div>
                                 </div>
                                 <div class="col">

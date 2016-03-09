@@ -63,7 +63,7 @@
                                     <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--b">@Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        @Html.ActionLink("Create New Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })
+                                        @Html.ActionLink("New Memo", "Create", null, new { @class = "btn-request waves-effect waves-light" })
                                     }
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                         <th>@Labels.RefNo</th>
                                         <th>@Labels.Subject</th>
                                         <th>@Labels.Category</th>
-                                        <th>@Labels.Date</th>                                        
+                                        <th>@Labels.Date</th>
                                         @if (Roles.IsUserInRole("HR"))
                                         {
                                             <th>@Labels.Status</th>

@@ -17,7 +17,6 @@ function processRequest(command, eventElement) {
 
 function bindMenuPending() {
     $('table#data tbody td a.Pending').on('mouseup', function (e) {
-        var $this = $(this);
 
         $.contextMenu({
             selector: '.Pending',

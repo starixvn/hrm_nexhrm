@@ -17,8 +17,8 @@
             get
             {
                 return BeginCheckInTime.Equals(EndCheckInTime)
-                    ? string.Format("{0} ({1}>{2})", Name, BeginCheckInTime, BeginCheckOutTime)
-                    : string.Format("{0} ({1}-{2}>{3}-{4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
+                    ? string.Format("{0} (IN {1} -> OUT:{2})", Name, BeginCheckInTime, BeginCheckOutTime)
+                    : string.Format("{0} (IN {1} - {2} -> OUT {3} - {4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
             }
         }
     }

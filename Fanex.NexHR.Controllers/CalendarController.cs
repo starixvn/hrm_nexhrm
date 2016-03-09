@@ -4,28 +4,31 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Calendar;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using Fanex.NexHR.ViewModels.Calendar;
 
     public class CalendarController : BaseController
     {
         private readonly ICalendarService calendarService;
+        private readonly ITeamService teamService;
         private readonly ICommandService commandService;
 
         public CalendarController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public CalendarController(
             ICalendarService calendarService,
+            ITeamService teamService,
             ICommandService commandService)
         {
             this.calendarService = calendarService ?? new CalendarService();
+            this.teamService = teamService ?? new TeamService();
             this.commandService = commandService ?? new CommandService();
         }
 
@@ -83,18 +86,23 @@
             return View();
         }
 
-        public ActionResult WorkingCalendars(int month = 0, int year = 0)
+        public ActionResult WorkingCalendars(WorkingCalendarViewModel model)
         {
-            var date = Convert.ToDateTime(string.Format("{0}/{1}/1", year != 0 ? year : DateTime.Now.Year, month != 0 ? month : DateTime.Now.Month));
-            ViewBag.CurrentDate = date;
+            model.Teams = teamService.GetAll();
+            model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
+            model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
+            DateTime date = new DateTime(model.Year, model.Month, 1);
             var criteria = new GetWorkingScheduleCriteria
             {
                 FromDate = date,
-                ToDate = date.AddMonths(1).AddDays(-1)
+                ToDate = date.AddMonths(1).AddDays(-1),
+                EmployeeId = model.EmployeeId <= 0 ? (int?)null : model.EmployeeId,
+                TeamId = model.TeamId
             };
 
             IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
-            return View(schedules);
+            model.WorkingSchedules = schedules;
+            return View(model);
         }
 
         [ChildActionOnly]

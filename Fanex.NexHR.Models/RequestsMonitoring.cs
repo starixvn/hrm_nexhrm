@@ -18,6 +18,6 @@
 
         public int LateInEarlyOutTimes { get; set; }
 
-        public int TotalAbsent { get; set; }
+        public int TotalAbsentTimes { get; set; }
     }
 }

@@ -1,5 +1,22 @@
 @import "../Common/utils/variables";
 @import "../Common/utils/mixins";
+.my-dashboard2
+{
+	max-width: 750px;
+
+	.table-custom {
+
+	tbody tr td.first-column
+	{
+		text-align: right;
+    width: 170px;
+    color: #000;
+	}
+    tbody tr td{
+		text-align: center;
+	}
+}
+}
 
 .to-do-list {
    padding-top: 16px;

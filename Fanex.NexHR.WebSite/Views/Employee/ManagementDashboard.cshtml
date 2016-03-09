@@ -13,23 +13,21 @@
                                 <tr>
                                     <th rowspan="2">@Labels.Request</th>
                                     <th rowspan="2">@Labels.Pending</th>
-                                    <th colspan="2">@Labels.CurrentMonth</th>
-                                    <th colspan="2">@Labels.LastMonth</th>
+                                    <th colspan="2">@Labels.Approved</th>
                                 </tr>
                                 <tr>
-                                    <th>@Labels.Approved</th>
-                                    <th>@Labels.Rejected</th>
-                                    <th>@Labels.Approved</th>
-                                    <th>@Labels.Rejected</th>
+                                    <th>@Labels.CurrentMonth</th>
+                                    <th>@Labels.LastMonth</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
+                                    var requestLink = "/request/member?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&StatusId={0}&FromDate={1}&ToDate={2}&RequestType={3}";
                                     var requestModel = new RequestViewModel
                                     {
                                         DateOption = 0,
                                         FromDate = Model.FromDateLeave > Model.FromDateCheckInOut ? Model.FromDateCheckInOut : Model.FromDateLeave,
-                                        ToDate = Model.ToDateLeave > Model.ToDateCheckInOut ? Model.ToDateLeave : Model.ToDateCheckInOut,
+                                        ToDate = Model.ToDateLeave > Model.ToDateCheckInOut ? Model.ToDateLeave.Date : Model.ToDateCheckInOut.Date,
                                         StatusId = (byte)RequestStatuse.Pending,
                                         TeamId = -2,
                                         IsFilterByEffectedDate = true
@@ -41,7 +39,10 @@
                                         @if (Model.LeavePending > 0)
                                         {
                                             requestModel.RequestType = 1;
-                                            <a href="@Url.Action("member", "request", requestModel)">@Model.LeavePending.ToString()</a>
+                                            var url = string.Format(requestLink, (byte)RequestStatuse.Pending, requestModel.FromDate.ToDateMonthYearFormatedDate(),
+                                                requestModel.ToDate.ToDateMonthYearFormatedDate(), requestModel.RequestType);
+                                                
+                                            <a href="@url">@Model.LeavePending.ToString()</a>
                                         }
                                         else
                                         {
@@ -49,9 +50,7 @@
                                         }
                                     </td>
                                     <td>@Model.LeaveApprovedCurrentMonth</td>
-                                    <td>@Model.LeaveRejectedCurrentMonth</td>
                                     <td>@Model.LeaveApprovedLastMonth</td>
-                                    <td>@Model.LeaveRejectedLastMonth</td>
                                 </tr>
                                 <tr>
                                     <td class="first-column">@Labels.CheckInOut</td>
@@ -59,7 +58,9 @@
                                         @if (Model.CheckInOutPending > 0)
                                         {
                                             requestModel.RequestType = 4;
-                                            <a href="@Url.Action("member", "request", requestModel)">@Model.CheckInOutPending.ToString()</a>
+                                            var url = string.Format(requestLink, (byte)RequestStatuse.Pending, requestModel.FromDate.ToDateMonthYearFormatedDate(),
+                                               requestModel.ToDate.ToDateMonthYearFormatedDate(), requestModel.RequestType);
+                                            <a href = "@url">@Model.CheckInOutPending.ToString()</a>
                                         }
                                         else
                                         {
@@ -67,9 +68,7 @@
                                         }
                                     </td>
                                     <td>@Model.CheckInOutApprovedCurrentMonth</td>
-                                    <td>@Model.CheckInOutRejectedCurrentMonth</td>
                                     <td>@Model.CheckInOutApprovedLastMonth</td>
-                                    <td>@Model.CheckInOutRejectedLastMonth</td>
                                 </tr>
                             </tbody>
                         </table>

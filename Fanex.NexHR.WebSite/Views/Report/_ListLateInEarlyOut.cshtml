@@ -159,7 +159,7 @@
                         {
                             <td>-</td>
                         }
-                        <td style="color: @(lateInEarlyOut.BalanceCurrentYear >= 240 ? "red" : "")">
+                        <td class="@(lateInEarlyOut.BalanceCurrentYear >= 240 ? "red-color" : string.Empty)">
                             @(lateInEarlyOut.BalanceCurrentYear != 0 ? (lateInEarlyOut.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
                         </td>
                         @if (Roles.IsUserInRole("HR"))

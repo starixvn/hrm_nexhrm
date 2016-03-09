@@ -26,7 +26,7 @@
                                     <div class="left label--s">
                                         <label>@Labels.Nick</label>
                                     </div>
-                                    <div class="left input--s">
+                                    <div class="left input--m">
                                         @Html.TextBoxFor(model => model.Query)
                                     </div>
                                 </div>
@@ -38,14 +38,14 @@
                                         @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
-                                <div class="col">
+                                @*<div class="col">
                                     <div class="left label--s">
                                         <label>@Labels.Title</label>
                                     </div>
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="col">
                                     <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
                                     @if (Roles.IsUserInRole("HR"))

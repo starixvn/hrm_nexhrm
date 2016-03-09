@@ -135,7 +135,7 @@
 
         private IList<DashBoardCompanySpace> GetDashBoardCompanySpace(int employeeId)
         {
-            var criteria = new GetDashBoardPersonalSpaceCriteria()
+            var criteria = new GetDashBoardCompanySpaceCriteria()
             {
                 EmpId = employeeId
             };

@@ -332,7 +332,7 @@
             return Json(null);
         }
 
-        public ActionResult MySpace2()
+        public ActionResult MySpace()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
             {
