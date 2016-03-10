@@ -6,7 +6,9 @@
     using System.Web;
     using Criteria.Overtime;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.ViewModels.Overtime;
     using Interfaces;
     using Models;
     using Models.Overtime;
@@ -84,34 +86,33 @@
             return listSummary;
         }
 
-        public void SendMail(string subject, string memoId)
+        public void SendMail(string subject, CreateOvertimeViewModel model)
         {
-            var link = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
-            var groupSd = ConfigurationManager.AppSettings["EmailSD"].ToString();
-            var groupGo = ConfigurationManager.AppSettings["EmailGo"].ToString();
-            var groupNetwork = ConfigurationManager.AppSettings["EmailNetwork"].ToString();
-            //// send email(s)
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/MemoNotification.cshtml"));
+            GetLeadersOfEmployeeCriteria getLeaderCriteria = new GetLeadersOfEmployeeCriteria();
+            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
 
-            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId);
-            this.emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
-                groupGo,
-                string.Empty,
-                Messages.MemoSubject + " " + subject,
-                body);
-            this.emailService.SendEmail(
-               ConfigurationManager.AppSettings["Email"],
-               groupSd,
-               string.Empty,
-               Messages.MemoSubject + " " + subject,
-               body);
-            this.emailService.SendEmail(
-               ConfigurationManager.AppSettings["Email"],
-               groupNetwork,
-               string.Empty,
-               Messages.MemoSubject + " " + subject,
-               body);
+            IList<Employee> leaderReceive;
+            Employee receiver;
+
+            //// send email(s)
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/OvertimeNotification.cshtml"));
+
+            foreach (var item in model.TimeSheets)
+            {
+                getLeaderCriteria.EmployeeId = item.Employee.Id;
+                getEmployeeCriteria.EmployeeId = item.Employee.Id;
+                leaderReceive = GetData<Employee>(getLeaderCriteria);
+                receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+
+                var body = string.Format(bodyTemplate, item.Employee.NickName, model.Date.ToDateMonthYearFormatedDate(), item.Hour, model.Description);
+
+                this.emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                    receiver.Email,
+                    string.Join(";", leaderReceive.Select(r => r.Email)),
+                    subject,
+                    body);
+            }
         }
     }
 }

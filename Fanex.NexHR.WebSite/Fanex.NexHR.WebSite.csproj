@@ -208,6 +208,7 @@
     <Content Include="App_Data\Emails\Process.Request.cshtml" />
     <Content Include="App_Data\Emails\TOEICScoreUpdatedNotification.cshtml" />
     <Content Include="App_Data\Emails\UnpaidLeave.Request.cshtml" />
+    <Content Include="App_Data\Emails\OvertimeNotification.cshtml" />
     <None Include="App_Data\ExcelTemplates\EmployeeAttendace.xls" />
     <None Include="App_Data\ExcelTemplates\EmployeeProfile.xls" />
     <None Include="App_Data\ExcelTemplates\TotalWorkingHours.xls" />

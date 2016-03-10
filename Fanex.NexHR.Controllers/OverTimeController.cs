@@ -98,6 +98,7 @@
                 CommandResult result = commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
+                    overtimeService.SendMail("Overtime Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else

@@ -164,11 +164,9 @@ function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status
 
 $(document).ready(function () {
     LoadMyOvertime(true);
-
     if (_global.roles !== 0) {
         LoadMemberOvertime(true)
     }
-
     LoadOTRequest(true)
 
     //init material select
