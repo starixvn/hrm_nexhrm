@@ -4,8 +4,6 @@
     {
         public Employee Employee { get; set; }
 
-        public float OTBalance { get; set; }
-
         public int BalanceLastYear { get; set; }
 
         public int BalanceCurrentYear { get; set; }
