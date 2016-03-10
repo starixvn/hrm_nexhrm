@@ -79,7 +79,7 @@ function InitButtonForMemberOT() {
         confirm('<p>Are you sure you want to approve this request?</p>', function () {
             $('#memberOT .loading-process').fadeIn(200);
             $.post(_global.root + "Overtime/ApproveRequest", { id: id }, function (response) {
-                if (response.Code == 0) {
+            if (response.IsSuccessful) {
                     LoadMemberOTDetail();
                 } else {
                     $('#memberOT .loading-process').fadeOut(500);
@@ -94,7 +94,7 @@ function InitButtonForMemberOT() {
         confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
             $('#memberOT .loading-process').fadeIn(200);
             $.post(_global.root + "Overtime/DisapproveRequest", { id: id }, function (response) {
-                if (response.Code == 0) {
+            if (response.IsSuccessful) {
                     LoadMemberOTDetail();
                 } else {
                     $('#memberOT .loading-process').fadeOut(500);
@@ -106,12 +106,12 @@ function InitButtonForMemberOT() {
 
     function rejectRequest(id) {
         confirm('<p>Are you sure you want to reject this request?</p>', function () {
-            $('.loading-process').fadeIn(200);
+        $('#memberOT .loading-process').fadeIn(200);
             $.post(_global.root + "Overtime/RejectRequest", { id: id }, function (response) {
-                if (response.Code == 0) {
+            if (response.IsSuccessful) {
                     LoadMemberOTDetail();
                 } else {
-                    $('.loading-process').fadeOut(500);
+                $('#memberOT .loading-process').fadeOut(500);
                     alert(response.Message);
                 }
             });

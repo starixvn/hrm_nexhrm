@@ -2,6 +2,12 @@
 {
     public class OvertimeSummary
     {
+        public float BalanceLastYear { get; set; }
+
+        public float BalanceCurrentYear { get; set; }
+
+        public float LeaveConversion { get; set; }
+
         public float Jan { get; set; }
 
         public float Feb { get; set; }

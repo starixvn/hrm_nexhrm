@@ -7,7 +7,7 @@
     foreach (OvertimeSummary overtimeSummaryByTeam in overtimeSummaryByTeams)
     {
         <tr class="row-divider">
-            <td colspan="16">
+            <td colspan="19">
                 <b>@overtimeSummaryByTeam.Employee.Team.Name.ToUpper()</b>
             </td>
         </tr>
@@ -25,6 +25,7 @@
 
                 <td>@(index++)</td>
                 <td class="tooltip" title="@overtimeSummary.Employee.FullName">@overtimeSummary.Employee.NickName</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.BalanceLastYear)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.Jan)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.Feb)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.Mar)</td>
@@ -38,6 +39,16 @@
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.Nov)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.Dec)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.LeaveConversion)</td>
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
+                @if (Roles.IsUserInRole("HR"))
+                {
+                    <td>
+                        <a href="javascript:;" class="addLeaveConversion" data-id="@overtimeSummary.Employee.Id">
+                            <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                        </a>
+                    </td>
+                }
             </tr>
         }
     }

@@ -60,9 +60,7 @@ function query(isFirstLoad) {
         dataType: 'html',
         data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
+            $('.loading-process').fadeIn(300);
         },
         success: function (response) {
             $('#list-detail').html(response);
