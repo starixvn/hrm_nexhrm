@@ -1305,4 +1305,7 @@
   <data name="NewRequest" xml:space="preserve">
     <value>New Request</value>
   </data>
+  <data name="Overtime" xml:space="preserve">
+    <value>Overtime</value>
+  </data>
 </root>

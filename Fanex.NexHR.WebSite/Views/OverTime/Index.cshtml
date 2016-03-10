@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = Labels.MyOvertime;
+    ViewBag.Title = Labels.Overtime;
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
@@ -22,16 +22,26 @@
                 </div>
                 <div class="card-body">
                     <ul class="tabs">
-                        <li class="tab col s4"><a href="#myOT">@Labels.MyOvertime</a></li>
-                        <li class="tab col s4"><a href="#memberOT">@Labels.MemberOvertime</a></li>
-                        <li class="tab col s4"><a class="active" href="#OTRequest">@Labels.OTRequests</a></li>
+                        <li class="tab col s4"><a class="active" href="#myOT">@Labels.MyOvertime</a></li>
+                        @if (User.IsInRole("AssistantLeader")
+                        || User.IsInRole("HR")
+                        || User.IsInRole("PM"))
+                        {
+                            <li class="tab col s4"><a href="#memberOT">@Labels.MemberOvertime</a></li>
+                        }
+                        <li class="tab col s4"><a href="#OTRequest">@Labels.OTRequests</a></li>
                     </ul>
                     @*My Overtime*@
                     <div id="myOT">
                     </div>
-                    @*Member Overtime*@
-                    <div id="memberOT">
-                    </div>
+                    @if (User.IsInRole("AssistantLeader")
+                        || User.IsInRole("HR")
+                        || User.IsInRole("PM"))
+                    {
+                        @*Member Overtime*@
+                        <div id="memberOT">
+                        </div>
+                    }
                     @*Overtime Request*@
                     <div id="OTRequest">
                     </div>

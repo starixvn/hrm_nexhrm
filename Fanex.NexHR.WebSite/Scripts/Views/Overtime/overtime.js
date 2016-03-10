@@ -157,19 +157,20 @@ function setDateTimeRangeForOTRequest(selectedIndex) {
     $('#ToDateOT').val(toDate);
 }
 
+function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
+    LoadOTRequest(isFirstload, createdBy, fromDate, toDate, status)
+    $('ul.tabs').tabs('select_tab', 'OTRequest');
+}
+
 $(document).ready(function () {
     LoadMyOvertime(true);
 
-    LoadMemberOvertime(true)
+    if (_global.roles !== 0) {
+        LoadMemberOvertime(true)
+    }
 
     LoadOTRequest(true)
 
     //init material select
     $('select').material_select();
 });
-
-function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
-    LoadOTRequest(isFirstload, createdBy, fromDate, toDate, status)
-    $('ul.tabs').tabs('select_tab', 'OTRequest');
-}
-
