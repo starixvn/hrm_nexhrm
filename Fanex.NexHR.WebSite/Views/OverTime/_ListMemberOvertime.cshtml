@@ -25,7 +25,7 @@
             </td>
             <td>
                 <a href="javascript:;"
-                   onclick="LoadDetailTotalMembers(false, @item.CreatedBy.Id, '@item.OnDate', '@item.OnDate', @item.Status)">
+                   onclick="LoadDetailTotalMembers(false, @item.CreatedBy.Id, '@item.OnDate.ToDateMonthYearFormatedDate()', '@item.OnDate.ToDateMonthYearFormatedDate()', @item.Status)">
                     @item.TotalMember.ToString()
                 </a>
             </td>
