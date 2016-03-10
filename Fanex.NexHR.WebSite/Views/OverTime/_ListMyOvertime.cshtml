@@ -18,15 +18,15 @@
             <td>@item.CreatedBy.NickName</td>
             @if (item.Status == (int)RequestStatuse.Approve)
             {
-                <td class="c-approve">@Labels.Approved</td>
+                <td>@Labels.Approved</td>
             }
             else if (item.Status == (int)RequestStatuse.Pending)
             {
-                <td class="c-pending">@Labels.Pending</td>
+                <td>@Labels.Pending</td>
             }
             else
             {
-                <td class="c-reject"> @Labels.Rejected</td>
+                <td> @Labels.Rejected</td>
             }
         </tr>
     }
