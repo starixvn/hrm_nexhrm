@@ -1,16 +1,6 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model MemberOvertimeViewModel
-@{
-    ViewBag.Title = Labels.MemberOvertime;
-}
-@section css{
-    @Styles.Render("~/Content/contextmenucss")
-}
-@section js{
-    @Scripts.Render("~/bundles/overtimememberjs", "~/bundles/contextmenujs");
-}
-@section Breadcrumb {
-}
+<div class="loading-process" style="display: none;"></div>
 <div class="form">
     <form id="form">
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))

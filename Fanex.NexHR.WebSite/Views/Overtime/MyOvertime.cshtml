@@ -1,4 +1,5 @@
 ﻿@model TimeRecordViewModel
+<div class="loading-process" style="display: none;"></div>
 <div class="form">
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
     <form class="form-filter" id="form">

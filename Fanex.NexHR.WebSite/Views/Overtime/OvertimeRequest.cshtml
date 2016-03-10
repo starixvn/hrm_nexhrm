@@ -1,16 +1,6 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model MemberOvertimeViewModel
-@{
-    ViewBag.Title = Labels.OTRequests;
-}
-@section css{
-    @Styles.Render("~/Content/contextmenucss")
-}
-@section js{
-    
-}
-@section Breadcrumb {
-}
+<div class="loading-process" style="display: none;"></div>
 <div class="form">
     <form id="form">
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
@@ -25,19 +15,19 @@
             </div>
             <div class="col m-r--l">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.FromDate)
+                    @Html.LabelFor(model => model.FromDateOT)
                 </div>
                 <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.FromDate)
+                    @Html.DatePickerFor(model => model.FromDateOT)
                     <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>
             <div class="col m-r--l">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.ToDate)
+                    @Html.LabelFor(model => model.ToDateOT)
                 </div>
                 <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.ToDate)
+                    @Html.DatePickerFor(model => model.ToDateOT)
                     <i class="mdi-action-event calendar-icon left"></i>
                 </div>
             </div>

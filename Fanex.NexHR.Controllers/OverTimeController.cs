@@ -259,8 +259,8 @@
             {
                 var criteria = new GetEmployeeOvertimeCriteria
                 {
-                    FromDate = model.FromDate,
-                    ToDate = model.ToDate,
+                    FromDate = model.FromDateOT,
+                    ToDate = model.ToDateOT,
                     CreatedBy = model.CreatedBy,
                     Status = model.Status,
                     EmployeeId = model.EmployeeId

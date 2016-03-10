@@ -5,10 +5,11 @@
     @Styles.Render("~/Content/contextmenucss")
 }
 @section js{
-    @Scripts.Render("~/bundles/overtimejs")
-    @Scripts.Render("~/bundles/myovertimejs")
-    @Scripts.Render("~/bundles/overtimememberjs", "~/bundles/contextmenujs")
-    @Scripts.Render("~/bundles/overtimerequestjs");
+    @Scripts.Render("~/bundles/overtimejs",
+                "~/bundles/myovertimejs",
+                "~/bundles/overtimememberjs",
+                "~/bundles/contextmenujs",
+                "~/bundles/overtimerequestjs")
 }
 @section Breadcrumb {
 }
@@ -21,21 +22,18 @@
                 </div>
                 <div class="card-body">
                     <ul class="tabs">
-                        <li class="tab col s4"><a class="active" href="#myOT">@Labels.MyOvertime</a></li>
+                        <li class="tab col s4"><a href="#myOT">@Labels.MyOvertime</a></li>
                         <li class="tab col s4"><a href="#memberOT">@Labels.MemberOvertime</a></li>
-                        <li class="tab col s4"><a href="#OTRequest">@Labels.OTRequest</a></li>
+                        <li class="tab col s4"><a class="active" href="#OTRequest">@Labels.OTRequests</a></li>
                     </ul>
                     @*My Overtime*@
                     <div id="myOT">
-                        <div class="loading-process" style="display: none;"></div>
                     </div>
                     @*Member Overtime*@
                     <div id="memberOT">
-                        <div class="loading-process" style="display: none;"></div>
                     </div>
                     @*Overtime Request*@
                     <div id="OTRequest">
-                        <div class="loading-process" style="display: none;"></div>
                     </div>
                 </div>
             </div>
