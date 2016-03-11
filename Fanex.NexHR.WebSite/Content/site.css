@@ -297,7 +297,8 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block; }
+  display: block;
+  text-align: left; }
   @media (min-width: 1300px) {
     .truncate-remark {
       width: 250px; } }
@@ -307,7 +308,11 @@ main {
   -webkit-flex-grow: inherit;
   -ms-flex-positive: inherit;
   flex-grow: inherit;
-  width: 13%; }
+  letter-spacing: inherit;
+  width: 23%; }
+  @media (min-width: 1900px) {
+    .tabs .tab {
+      width: 13%; } }
   .tabs .tab a {
     color: #303f4d; }
   .tabs .tab:hover a {

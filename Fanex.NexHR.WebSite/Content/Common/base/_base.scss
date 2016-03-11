@@ -426,6 +426,7 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+    text-align: left;
 
     @media (min-width: 1300px) {
         width: 250px;
@@ -436,12 +437,18 @@ main {
     -webkit-box-flex: inherit;
     -webkit-flex-grow: inherit;
     -ms-flex-positive: inherit;
-    flex-grow: inherit;
-    width: 13%;
+    flex-grow: inherit;    
+    letter-spacing: inherit;
+    width: 23%;
+
+    @media (min-width: 1900px) {
+        width: 13%;
+    }
 
     a {
         color: $color-text-main;
     }
+
     &:hover {
         a {
             color: $c-primary;
