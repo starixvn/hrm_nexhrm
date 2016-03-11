@@ -81,12 +81,7 @@ function query(isFirstLoad) {
 $(document).ready(function () {
     query(true);
 
-
     $('#submit').on('click', function () {
-        var year = parseInt($('#Year').val()),
-            lastYear = $('table thead #last-year').text(year - 1),
-            currentYear = $('table thead #current-year').text(year);
-
         query(false);
     });
 });

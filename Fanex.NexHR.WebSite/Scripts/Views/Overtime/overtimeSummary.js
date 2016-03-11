@@ -15,9 +15,10 @@
         },
         success: function (response) {
             $('#listOvertimeSummary').html(response);
-            floatThead('table#data');
             initAddLeaveConversion();
+            floatThead('table#data');
         },
+
         error: function () {
             alert(_messages.errorTryAgain);
         },
@@ -32,26 +33,38 @@
 function initAddLeaveConversion() {
     $('.addLeaveConversion').click(function () {
         var employeeId = $(this).attr('data-id');
-
         $('#EmpId').val(employeeId);
+        $('#insertform').dialog('open');
+    });
 
-        $('#insertform').dialog({
-            modal: true,
-            width: 'auto',
-            height: 'auto',
-            open: function () {
-                $('#TotalDays').val('0.5');
-                initDatePicker();
-            },
-            show: {
-                effect: "blind",
-                duration: 200
-            },
-            hide: {
-                effect: "blind",
-                duration: 100
-            }
-        });
+    
+}
+
+$(document).ready(function () {
+
+    query(true);
+    
+    $('#submit').on('click', function () {
+        query(false);
+    });
+
+    $('#insertform').dialog({
+        modal: true,
+        autoOpen: false,
+        width: 'auto',
+        height: 'auto',
+        open: function () {
+            $('#TotalDays').val('0.5');
+            initDatePicker();
+        },
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
     });
 
     $('#insertform form').submit(function (evt) {
@@ -75,14 +88,5 @@ function initAddLeaveConversion() {
 
     $('#cancel').click(function () {
         $('#insertform').dialog('close');
-    });
-}
-
-$(document).ready(function () {
-
-    query(true);
-
-    $('#submit').on('click', function () {
-        query(false);
     });
 });
