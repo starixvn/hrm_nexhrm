@@ -302,6 +302,17 @@ main {
     .truncate-remark {
       width: 250px; } }
 
+.tabs .tab {
+  -webkit-box-flex: inherit;
+  -webkit-flex-grow: inherit;
+  -ms-flex-positive: inherit;
+  flex-grow: inherit;
+  width: 13%; }
+  .tabs .tab a {
+    color: #303f4d; }
+  .tabs .tab:hover a {
+    color: #f4783d; }
+
 a:active, a:focus {
   outline: none; }
 
