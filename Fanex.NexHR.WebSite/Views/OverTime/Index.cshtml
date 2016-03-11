@@ -18,9 +18,6 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
-                </div>
-                <div class="card-body">
                     <ul class="tabs">
                         <li class="tab col s4"><a class="active" href="#myOT">@Labels.MyOvertime</a></li>
                         @if (User.IsInRole("AssistantLeader")
@@ -31,6 +28,8 @@
                         }
                         <li class="tab col s4"><a href="#OTRequest">@Labels.OTRequests</a></li>
                     </ul>
+                </div>
+                <div class="card-body">
                     @*My Overtime*@
                     <div id="myOT">
                         <div class="loading-process" style="display: none;"></div>
