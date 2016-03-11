@@ -25,7 +25,7 @@
     {
         <tbody>
             @{
-                var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
+        var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
             }
             @foreach (EmployeeAttendanceModel employeeAttendance in Model)
             {
@@ -35,7 +35,8 @@
                 {
                     cssClass = "offdate";
                 }
-                else if(employeeAttendance.ShiftId != null){
+                else if (employeeAttendance.ShiftId != null)
+                {
                 }
                 else
                 {
@@ -54,13 +55,13 @@
                     <td>
                         @if (employeeAttendance.InFixed != null)
                         {
-                            String.Format("HH:mm", employeeAttendance.InFixed);
+                            @employeeAttendance.InFixed.Value.ToString("HH:mm");
                         }
                     </td>
                     <td>
                         @if (employeeAttendance.OutFixed != null)
                         {
-                            String.Format("HH:mm", employeeAttendance.OutFixed);
+                            @employeeAttendance.OutFixed.Value.ToString("HH:mm");
                         }
                     </td>
                     <td>
@@ -121,8 +122,8 @@
                 <td colspan="14" id="pagination" class="row form-input">
                     <div id="detailtext" class="col m-t--m">
                         @{
-                            var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
-                            var to = from + (Model.Count - 1);
+            var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
+            var to = from + (Model.Count - 1);
                         }
                         Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@pagerOption.TotalItem</strong> entries
                     </div>
