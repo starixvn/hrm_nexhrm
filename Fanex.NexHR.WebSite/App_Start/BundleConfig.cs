@@ -92,15 +92,6 @@
             bundles.Add(new ScriptBundle("~/bundles/manageovertimejs").Include(
                          "~/Scripts/Views/Overtime/manage.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/overtimerequestjs").Include(
-            //             "~/Scripts/Views/Overtime/overtimeRequest.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/overtimememberjs").Include(
-            // "~/Scripts/Views/Overtime/overtime.member.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/myovertimejs").Include(
-            // "~/Scripts/Views/Overtime/myOvertime.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
              "~/Scripts/Views/Employee/_employee.search.in.company.js",
              "~/Scripts/Views/Overtime/overtimeSummary.js"));

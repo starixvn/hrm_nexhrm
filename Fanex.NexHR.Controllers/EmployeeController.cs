@@ -151,7 +151,6 @@
                 CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 if (result.IsSuccessful)
                 {
-                    //return RedirectToAction("Edit", new { id = criteria.EmployeeId });
                     return Redirect("Edit?id=" + criteria.EmployeeId);
                 }
                 else
