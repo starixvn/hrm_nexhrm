@@ -103,21 +103,12 @@
                                                style="width: 800px;">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        #
-                                                    </th>
-                                                    <th>
-                                                        @Labels.Employee
-                                                    </th>
-                                                    <th>
-                                                        Hour
-                                                    </th>
-                                                    <th>
-                                                        @Labels.Remove
-                                                    </th>
+                                                    <th>#</th>
+                                                    <th>@Labels.Employee</th>
+                                                    <th>Hour</th>
+                                                    <th>@Labels.Remove</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody id="timeSheets">
                                                 @if (Model.TimeSheets.Any())
                                                 {
@@ -129,7 +120,9 @@
                                                             <td class="align-left row_name">
                                                                 @item.Employee.DisplayName
                                                             </td>
-                                                            <td><input id="row_hour_@item.Employee.Id" type="number" value="@item.Hour" step="0.5" /></td>
+                                                            <td>
+                                                                <input id="row_hour_@item.Employee.Id" class="row_hour" data-id="@item.Employee.Id" type="number" value="@item.Hour" step="0.5" />
+                                                            </td>
                                                             <td>
                                                                 <a href="javascript:;" onclick="deleteRow(@item.Employee.Id);">
                                                                     <i class="mdi mdi-delete mdi-dark"></i>

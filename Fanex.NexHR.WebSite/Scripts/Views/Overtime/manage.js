@@ -131,7 +131,7 @@ function getTimeRecord()
         for (var i = 0; i < overtimes.length; i++) {
             var employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
             var hour = $($(overtimes[i]).find("input.row_hour").first()).val();
-            var nickName = $($(overtimes[i]).find(".row_name").first()).html();
+            var nickName = $($(overtimes[i]).find(".row_name").first()).html().trim();
             timeRecords.push({
                 Employee: {
                     Id: employeeId,

@@ -25,16 +25,16 @@
                         @using (Html.BeginForm("edit", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
-                             if (ViewBag.Updated == true)
-                                {
-                                    <input type="hidden" id="successed" value="true" />
-                                    <div class="row validation-summary-success">
-                                        <div class="col success green-text">
-                                            <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!
-                                        </div>
+                            if (ViewBag.Updated == true)
+                            {
+                                <input type="hidden" id="successed" value="true" />
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!
                                     </div>
-                                }
-                                
+                                </div>
+                            }
+
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -137,7 +137,9 @@
                                                         <tr class="sortedIndex" id="row_@item.Employee.Id">
                                                             <td>@(i++)</td>
                                                             <td class="align-left row_name">@item.Employee.DisplayName</td>
-                                                            <td><input class="row_hour" data-id="@item.Employee.Id" id="row_hour_@item.Employee.Id" type="number" value="@item.Hour" step="0.5" /></td>
+                                                            <td>
+                                                                <input class="row_hour" data-id="@item.Employee.Id" id="row_hour_@item.Employee.Id" type="number" value="@item.Hour" step="0.5" />
+                                                            </td>
                                                             <td>
                                                                 <a href="javascript:;" onclick="deleteRow(@item.Employee.Id);">
                                                                     <i class="mdi mdi-delete mdi-dark"></i>

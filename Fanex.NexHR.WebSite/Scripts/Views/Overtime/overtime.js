@@ -14,6 +14,7 @@ function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
         },
         success: function (response) {
             $('#OTRequest').html(response);
+            $('select').material_select();
 
             InitFormOTRequest();
         },
