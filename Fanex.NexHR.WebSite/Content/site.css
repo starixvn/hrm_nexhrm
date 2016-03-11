@@ -216,8 +216,9 @@ main {
   /* background: #ccc !important;*/ }
 
 .table tbody tr td a.tooltip-request {
+  display: inline-flex;
   padding: .4rem .6rem;
-  margin-right: .5rem;
+  margin: 0.2rem 0;
   border: .1rem solid #1d79ac;
   color: #1d79ac;
   -webkit-border-radius: 0.2rem;
