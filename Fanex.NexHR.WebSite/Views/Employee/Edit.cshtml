@@ -430,7 +430,8 @@
                                         <label>@Labels.LeaveBalance</label>
                                     </div>
                                     <div class="left input--l">
-                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span> <a class="btn-ok waves-effect waves-light" href="~/annualleave/employee/@Model.Id">@Labels.Update</a>
+                                        <span class="m-r--s black-text">@Model.AnnualLeaveBalance day(s)</span>
+                                        <a class="btn-ok waves-effect waves-light" href="~/annualleave/employee?employeeid=@Model.Id&year=@DateTime.Now.Year">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -440,7 +441,7 @@
                                         <label>@Labels.WorkingCalendar</label>
                                     </div>
                                     <div class="left">
-                                        <a class="btn-ok waves-effect waves-light" href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
+                                        <a class="btn-ok waves-effect waves-light" href="~/employee/defaultschedule?employeeId=@Model.Id">@Labels.Update</a>
                                     </div>
                                 </div>
                             </div>

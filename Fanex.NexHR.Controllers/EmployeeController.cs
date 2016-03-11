@@ -151,7 +151,8 @@
                 CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                 if (result.IsSuccessful)
                 {
-                    return RedirectToAction("Edit", new { id = criteria.Id });
+                    //return RedirectToAction("Edit", new { id = criteria.EmployeeId });
+                    return Redirect("Edit?id=" + criteria.EmployeeId);
                 }
                 else
                 {
@@ -166,9 +167,9 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult Edit(int employeeId)
+        public ActionResult Edit(int id)
         {
-            Employee employee = GetEmployeeById(employeeId);
+            Employee employee = GetEmployeeById(id);
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
