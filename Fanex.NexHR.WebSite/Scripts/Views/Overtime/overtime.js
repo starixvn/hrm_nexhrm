@@ -6,6 +6,7 @@ function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
         type: 'GET',
         data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
         dataType: 'html',
+        async: false,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#OTRequest .loading-process').fadeIn(300);
@@ -13,7 +14,6 @@ function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
         },
         success: function (response) {
             $('#OTRequest').html(response);
-            $('select').material_select();
 
             InitFormOTRequest();
         },
@@ -46,6 +46,7 @@ function LoadMemberOvertime(isFirstLoad) {
         url: _global.root + 'overtime/memberovertime',
         type: 'GET',
         dataType: 'html',
+        async: false,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#memberOT .loading-process').fadeIn(300);
@@ -53,7 +54,6 @@ function LoadMemberOvertime(isFirstLoad) {
         },
         success: function (response) {
             $('#memberOT').append(response);
-            $('select').material_select();
 
             InitFormMemberOT();
         },
@@ -89,12 +89,12 @@ function LoadMyOvertime(isFirstLoad) {
         url: _global.root + 'overtime/myovertime',
         type: 'GET',
         dataType: 'html',
+        async: false,
         beforeSend: function () {
             $('#myOT .loading-process').fadeIn(300);
         },
         success: function (response) {
             $('#myOT').append(response);
-            $('select').material_select();
 
             InitButtonForMyOT();
             LoadDetailMyOT(true);
@@ -162,4 +162,6 @@ $(document).ready(function () {
         LoadMemberOvertime(true)
     }
     LoadOTRequest(true)
+
+    $('select').material_select();
 });
