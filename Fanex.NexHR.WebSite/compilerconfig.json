@@ -18,5 +18,9 @@
   {
     "outputFile": "Content/Materialize/materialize.css",
     "inputFile": "Content/Materialize/materialize.scss"
+  },
+  {
+    "outputFile": "Content/Views/employee.postnatal.css",
+    "inputFile": "Content/Views/employee.postnatal.scss"
   }
 ]

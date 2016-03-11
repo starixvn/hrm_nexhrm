@@ -226,48 +226,48 @@ main {
   -ms-border-radius: 0.2rem;
   border-radius: 0.2rem; }
 
-.tipsy.tipsy-request {
-  opacity: 1 !important; }
+.tipsy {
+  font-size: 1.2rem !important; }
+  .tipsy.tipsy-request {
+    opacity: 1 !important; }
+    .tipsy.tipsy-request .tipsy-inner {
+      max-width: none;
+      font-size: 1.3rem;
+      text-align: left;
+      line-height: 2.2rem;
+      -webkit-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+      -moz-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+      -ms-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
+      box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35); }
+    .tipsy.tipsy-request .tipsy-arrow {
+      border: none; }
   .tipsy.tipsy-request .tipsy-inner {
-    max-width: none;
-    font-size: 1.3rem;
-    text-align: left;
-    line-height: 2.2rem;
-    -webkit-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
-    -moz-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
-    -ms-box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35);
-    box-shadow: 0px 4px 19px 1px rgba(0, 0, 0, 0.35); }
-  .tipsy.tipsy-request .tipsy-arrow {
-    border: none; }
-
-.tipsy.tipsy-request .tipsy-inner {
-  background: #fff;
-  color: #000; }
-
-.tipsy.tipsy-request table.table-tooltip {
-  min-width: 32rem;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  -ms-box-shadow: none;
-  box-shadow: none; }
-  .tipsy.tipsy-request table.table-tooltip tr {
-    border-bottom: 0.1rem solid #d2d2d2; }
-    .tipsy.tipsy-request table.table-tooltip tr td {
-      padding: .5rem;
-      border-left: 0.1rem solid #d2d2d2; }
-      .tipsy.tipsy-request table.table-tooltip tr td span.req {
-        color: #fff;
-        padding: .3rem .5rem; }
-        .tipsy.tipsy-request table.table-tooltip tr td span.req.leave {
-          background: #da871c; }
-        .tipsy.tipsy-request table.table-tooltip tr td span.req.checkinout {
-          background: #15af93; }
-        .tipsy.tipsy-request table.table-tooltip tr td span.req.inout {
-          background: #999900; }
-      .tipsy.tipsy-request table.table-tooltip tr td:first-child {
-        border-left: none; }
-    .tipsy.tipsy-request table.table-tooltip tr:last-child {
-      border-bottom: none; }
+    background: #fff;
+    color: #000; }
+  .tipsy.tipsy-request table.table-tooltip {
+    min-width: 32rem;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none; }
+    .tipsy.tipsy-request table.table-tooltip tr {
+      border-bottom: 0.1rem solid #d2d2d2; }
+      .tipsy.tipsy-request table.table-tooltip tr td {
+        padding: .5rem;
+        border-left: 0.1rem solid #d2d2d2; }
+        .tipsy.tipsy-request table.table-tooltip tr td span.req {
+          color: #fff;
+          padding: .3rem .5rem; }
+          .tipsy.tipsy-request table.table-tooltip tr td span.req.leave {
+            background: #da871c; }
+          .tipsy.tipsy-request table.table-tooltip tr td span.req.checkinout {
+            background: #15af93; }
+          .tipsy.tipsy-request table.table-tooltip tr td span.req.inout {
+            background: #999900; }
+        .tipsy.tipsy-request table.table-tooltip tr td:first-child {
+          border-left: none; }
+      .tipsy.tipsy-request table.table-tooltip tr:last-child {
+        border-bottom: none; }
 
 .contextmenu {
   position: relative; }

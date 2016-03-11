@@ -1,3 +1,11 @@
-.input--employee {
-    width: 32.5rem;
-}
+﻿.ui-dialog.add-adjustment {
+  overflow: visible; }
+
+[type="checkbox"] + label {
+  font-size: 1.3rem; }
+
+[type="checkbox"].filled-in:not(:checked) + label:after,
+[type="checkbox"].filled-in:checked + label:after,
+[type="checkbox"].filled-in:checked + label:before {
+  top: 4px; }
+
