@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
 
-    public class LeaveDeductionDetailViewModel
+    public class LeaveConversionDetailViewModel
     {
         public int EmployeeId { get; set; }
 

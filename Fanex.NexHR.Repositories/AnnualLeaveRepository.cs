@@ -62,11 +62,11 @@
             }
         }
 
-        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria)
+        public IList<LeaveConversionDetail> GetLeaveConversionDetail(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var leaveDeductions = db.Query<LeaveDeductionDetail, Employee, Team, Employee, LeaveDeductionDetail>(
+                var leaveDeductions = db.Query<LeaveConversionDetail, Employee, Team, Employee, LeaveConversionDetail>(
                     (le, e, g, modi) =>
                     {
                         le.Employee = e;

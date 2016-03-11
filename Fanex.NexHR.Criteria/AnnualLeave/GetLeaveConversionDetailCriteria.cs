@@ -3,7 +3,7 @@
     using System;
     using Fanex.Data.Repository;
 
-    public class GetLeaveDeductionDetailCriteria : CriteriaBase
+    public class GetLeaveConversionDetailCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }
 
@@ -13,9 +13,12 @@
 
         public int? EmployeeId { get; set; }
 
+        [SpParam(SqlParamName = "Type")]
+        public int ConversionType { get; set; }
+
         public override string GetSettingKey()
         {
-            return "LeaveDeduction_Get";
+            return "LeaveConversion_Get";
         }
 
         public override bool IsValid()

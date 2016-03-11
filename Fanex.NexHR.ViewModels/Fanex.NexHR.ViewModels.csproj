@@ -59,6 +59,7 @@
     <Compile Include="AnnualLeave\AnnualLeaveBalanceViewModel.cs" />
     <Compile Include="AnnualLeave\AddAnnualLeaveTransactionViewModel.cs" />
     <Compile Include="AnnualLeave\EditAnnualLeaveTransactionViewModel.cs" />
+    <Compile Include="AnnualLeave\LeaveConversionViewModel.cs" />
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />
     <Compile Include="Overtime\OvertimeViewModel.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Navigation\NavigationViewModel.cs" />
     <Compile Include="Overtime\MemberOvertimeViewModel.cs" />
     <Compile Include="Overtime\OvertimeCreateViewModel.cs" />
-    <Compile Include="AnnualLeave\LeaveDeductionDetailViewModel.cs" />
+    <Compile Include="AnnualLeave\LeaveConversionDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutDetailViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutViewModel.cs" />
     <Compile Include="Report\RequestsMonitoringViewModel.cs" />

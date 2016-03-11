@@ -1308,4 +1308,10 @@
   <data name="Overtime" xml:space="preserve">
     <value>Overtime</value>
   </data>
+  <data name="LeaveConversionDescription" xml:space="preserve">
+    <value>Add 0.5 day annual leave for 4 hours overtime</value>
+  </data>
+  <data name="LeaveConversionDetail" xml:space="preserve">
+    <value>Leave Conversion Detail</value>
+  </data>
 </root>

@@ -16,6 +16,7 @@
         success: function (response) {
             $('#listOvertimeSummary').html(response);
             floatThead('table#data');
+            initAddLeaveConversion();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -25,6 +26,55 @@
                 $('.loading-process').fadeOut(300);
             }
         }
+    });
+}
+
+function initAddLeaveConversion() {
+    $('.addLeaveConversion').click(function () {
+        var employeeId = $(this).attr('data-id');
+
+        $('#EmpId').val(employeeId);
+
+        $('#insertform').dialog({
+            modal: true,
+            width: 'auto',
+            height: 'auto',
+            open: function () {
+                $('#TotalDays').val('0.5');
+                initDatePicker();
+            },
+            show: {
+                effect: "blind",
+                duration: 200
+            },
+            hide: {
+                effect: "blind",
+                duration: 100
+            }
+        });
+    });
+
+    $('#insertform form').submit(function (evt) {
+        evt.preventDefault();
+
+        $.post(_global.root + 'AnnualLeave/AddLeaveConversion',
+            {
+                empId: $('#EmpId').val(),
+                totalDays: $('#TotalDays').val(),
+                ondate: $('#OnDate').val(),
+                description: $('#Description').val()
+            }, function (response) {
+                if (response.IsSuccessful) {
+                    $('#insertform').dialog('close');
+                    document.location = _global.root + 'overtime/OvertimeSummary';
+                } else {
+                    alert(response.Message);
+                }
+            });
+    });
+
+    $('#cancel').click(function () {
+        $('#insertform').dialog('close');
     });
 }
 

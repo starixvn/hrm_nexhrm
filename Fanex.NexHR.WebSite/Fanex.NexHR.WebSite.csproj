@@ -383,10 +383,11 @@
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
+    <Content Include="Scripts\Views\AnnualLeave\leave.conversion.detail.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
-    <Content Include="Scripts\Views\AnnualLeaveBalance\annualleave.edit.js" />
-    <Content Include="Scripts\Views\AnnualLeaveBalance\employee.js" />
-    <Content Include="Scripts\Views\AnnualLeaveBalance\index.js" />
+    <Content Include="Scripts\Views\AnnualLeave\annualleave.edit.js" />
+    <Content Include="Scripts\Views\AnnualLeave\employee.js" />
+    <Content Include="Scripts\Views\AnnualLeave\index.js" />
     <Content Include="Scripts\Views\Dashboard\calendar.js" />
     <Content Include="Scripts\Views\Dashboard\client.js" />
     <Content Include="Scripts\Views\Dashboard\googleAPI.js" />
@@ -660,16 +661,16 @@
     <Content Include="Scripts\Views\LateInEarlyOut\create.js" />
     <Content Include="Scripts\Views\LateInEarlyOut\lateinearlyout.js" />
     <Content Include="Scripts\Views\Memo\memo.index.js" />
-    <Content Include="Scripts\Views\OverTime\myOvertime.js" />
-    <Content Include="Scripts\Views\OverTime\overtime.js" />
-    <Content Include="Scripts\Views\OverTime\overtimeSummary.js" />
+    <Content Include="Scripts\Views\Overtime\myOvertime.js" />
+    <Content Include="Scripts\Views\Overtime\overtime.js" />
+    <Content Include="Scripts\Views\Overtime\overtimeSummary.js" />
     <Content Include="Scripts\Views\Postanal\create.js" />
     <Content Include="Scripts\Views\Postanal\postnatalemployee.js" />
-    <Content Include="Scripts\Views\OverTime\overtime.member.js" />
-    <Content Include="Scripts\Views\OverTime\overtimeRequest.js" />
+    <Content Include="Scripts\Views\Overtime\overtime.member.js" />
+    <Content Include="Scripts\Views\Overtime\overtimeRequest.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
-    <Content Include="Scripts\Views\Report\report.leave.deduction.detail.js" />
+    <Content Include="Scripts\Views\AnnualLeave\leave.deduction.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.summary.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
@@ -748,7 +749,7 @@
     <Content Include="Views\Leave\ListLeaveRequest.cshtml" />
     <Content Include="Views\Overtime\Create.cshtml" />
     <Content Include="Views\Overtime\OvertimeRequest.cshtml" />
-    <Content Include="Scripts\Views\OverTime\manage.js" />
+    <Content Include="Scripts\Views\Overtime\manage.js" />
     <Content Include="Views\Overtime\_ListOvertimeRequest.cshtml" />
     <Content Include="Views\Overtime\Edit.cshtml" />
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
@@ -781,6 +782,9 @@
     <Content Include="Views\Overtime\OvertimeSummary.cshtml" />
     <Content Include="Views\Overtime\_ListOvertimeSummary.cshtml" />
     <Content Include="Views\Overtime\Index.cshtml" />
+    <Content Include="Views\AnnualLeave\CreateLeaveConversion.cshtml" />
+    <Content Include="Views\AnnualLeave\LeaveConversionDetail.cshtml" />
+    <Content Include="Views\AnnualLeave\EditLeaveConversion.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

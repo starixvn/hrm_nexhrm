@@ -296,7 +296,7 @@
             };
 
             List<OvertimeSummary> listSummary = overtimeService.GetOvertimeSummary(criteria);
-
+            ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
         }
     }

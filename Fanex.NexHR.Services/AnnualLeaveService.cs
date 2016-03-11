@@ -60,15 +60,15 @@
             return annualLeave;
         }
 
-        public IList<LeaveDeductionDetail> GetLeaveDeductionDetail(GetLeaveDeductionDetailCriteria criteria)
+        public IList<LeaveConversionDetail> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria)
         {
-            IList<LeaveDeductionDetail> leaveDeductions = null;
+            IList<LeaveConversionDetail> leaveDeductions = null;
             if (criteria != null && criteria.IsValid())
             {
-                leaveDeductions = annualLeaveRepository.GetLeaveDeductionDetail(criteria);
+                leaveDeductions = annualLeaveRepository.GetLeaveConversionDetail(criteria);
             }
 
-            return leaveDeductions ?? new List<LeaveDeductionDetail>();
+            return leaveDeductions ?? new List<LeaveConversionDetail>();
         }
     }
 }

@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class LeaveDeductionDetail
+    public class LeaveConversionDetail
     {
-        public int LeaveDeductionId { get; set; }
+        public int LeaveConversionId { get; set; }
 
         public Employee Employee { get; set; }
 
-        public DateTime DeductDate { get; set; }
+        public DateTime Date { get; set; }
 
         public bool IsAnnual { get; set; }
 

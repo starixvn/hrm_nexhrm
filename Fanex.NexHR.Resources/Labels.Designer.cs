@@ -1852,6 +1852,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add 0.5 day annual leave for 4 hours overtime.
+        /// </summary>
+        public static string LeaveConversionDescription {
+            get {
+                return ResourceManager.GetString("LeaveConversionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave Conversion Detail.
+        /// </summary>
+        public static string LeaveConversionDetail {
+            get {
+                return ResourceManager.GetString("LeaveConversionDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave Deduction.
         /// </summary>
         public static string LeaveDeduction {

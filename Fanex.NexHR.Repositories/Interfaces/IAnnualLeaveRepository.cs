@@ -12,6 +12,6 @@
 
         AnnualLeaveTransaction GetAnnualLeaveTransactionById(ICriteria criteria);
 
-        IList<LeaveDeductionDetail> GetLeaveDeductionDetail(ICriteria criteria);
+        IList<LeaveConversionDetail> GetLeaveConversionDetail(ICriteria criteria);
     }
 }

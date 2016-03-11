@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
@@ -11,7 +12,6 @@
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.AnnualLeave;
 
     public class AnnualLeaveController : BaseController
@@ -340,7 +340,7 @@
         public JsonResult AddLeaveDeduction(LeaveDeductionViewModel model)
         {
             CommandResult result = new CommandResult();
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertLeaveDeductionCriteria
                 {
@@ -353,6 +353,14 @@
                 };
                 result = commandService.Insert(criteria);
             }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
 
             return Json(result);
         }
@@ -362,7 +370,7 @@
         public JsonResult EditLeaveDeduction(LeaveDeductionViewModel model)
         {
             CommandResult result = new CommandResult();
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new UpdateLeaveDeductionCriteria
                 {
@@ -374,6 +382,14 @@
                     ModifiedBy = CurrentUser.Id
                 };
                 result = commandService.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
             }
 
             return Json(result);
@@ -400,7 +416,7 @@
         {
             IList<Team> teams = teamService.GetAll();
 
-            var model = new LeaveDeductionDetailViewModel
+            var model = new LeaveConversionDetailViewModel
             {
                 EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
                 FromDate = fromDate,
@@ -421,23 +437,166 @@
         }
 
         [HttpPost]
-        public JsonResult LeaveDeductionDetail(LeaveDeductionDetailViewModel model)
+        public JsonResult LeaveDeductionDetail(LeaveConversionDetailViewModel model)
         {
-            IList<LeaveDeductionDetail> leaveDeductions = new List<LeaveDeductionDetail>();
+            IList<LeaveConversionDetail> leaveDeductions = new List<LeaveConversionDetail>();
             if (model != null)
             {
-                var criteria = new GetLeaveDeductionDetailCriteria()
+                var criteria = new GetLeaveConversionDetailCriteria()
                 {
                     EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                     GroupId = model.TeamId,
                     FromDate = model.FromDate,
-                    ToDate = model.ToDate
+                    ToDate = model.ToDate,
+                    ConversionType = (int)LeaveConversionType.LateInEarlyOutDeduction
                 };
 
-                leaveDeductions = annualLeaveService.GetLeaveDeductionDetail(criteria);
+                leaveDeductions = annualLeaveService.GetLeaveConversionDetail(criteria);
             }
 
             return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult CreateLeaveConversion()
+        {
+            return PartialView(new LeaveConversionViewModel
+            {
+                OnDate = DateTime.Now,
+                TotalDays = decimal.Parse("0.5"),
+                Description = Labels.LeaveConversionDescription
+            });
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult EditLeaveConversion()
+        {
+            return PartialView(new LeaveConversionViewModel
+            {
+                OnDate = DateTime.Now,
+                TotalDays = decimal.Parse("0.5"),
+                Description = Labels.LeaveConversionDescription
+            });
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult AddLeaveConversion(LeaveConversionViewModel model)
+        {
+            CommandResult result = new CommandResult();
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new InsertLeaveConversionCriteria
+                {
+                    EmployeeId = model.EmpId,
+                    Description = model.Description,
+                    Date = model.OnDate,
+                    TotalDays = model.TotalDays,
+                    CreatedBy = CurrentUser.Id
+                };
+                result = commandService.Insert(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
+
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult EditLeaveConversion(LeaveConversionViewModel model)
+        {
+            CommandResult result = new CommandResult();
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new UpdateLeaveConversionCriteria
+                {
+                    LeaveConversionId = model.LeaveConversionId,
+                    Description = model.Description,
+                    Date = model.OnDate,
+                    TotalDays = model.TotalDays,
+                    ModifiedBy = CurrentUser.Id
+                };
+                result = commandService.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
+
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult DeleteLeaveConversion(int leaveConversionId)
+        {
+            var criteria = new DeleteLeaveConversionCriteria
+            {
+                LeaveConversionId = leaveConversionId,
+                ModifiedBy = CurrentUser.Id
+            };
+
+            return Json(commandService.Delete(criteria));
+        }
+
+        public ActionResult LeaveConversionDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
+        {
+            IList<Team> teams = teamService.GetAll();
+
+            var model = new LeaveConversionDetailViewModel
+            {
+                EmployeeId = employeeId.HasValue ? employeeId.Value : -1,
+                FromDate = fromDate,
+                ToDate = toDate,
+                TeamId = teamId,
+                Teams = teams
+            };
+
+            if (employeeId.HasValue)
+            {
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+
+                model.Employee = employee.DisplayName;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult LeaveConversionDetail(LeaveConversionDetailViewModel model)
+        {
+            IList<LeaveConversionDetail> leaveConversions = new List<LeaveConversionDetail>();
+            if (model != null)
+            {
+                var criteria = new GetLeaveConversionDetailCriteria()
+                {
+                    EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
+                    GroupId = model.TeamId,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    ConversionType = (int)LeaveConversionType.OvertimeConversion
+                };
+
+                leaveConversions = annualLeaveService.GetLeaveConversionDetail(criteria);
+            }
+
+            return Json(leaveConversions, JsonRequestBehavior.AllowGet);
         }
 
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()

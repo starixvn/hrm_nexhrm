@@ -1,5 +1,5 @@
 ﻿@using Fanex.NexHR.ViewModels.AnnualLeave
-@model LeaveDeductionDetailViewModel
+@model LeaveConversionDetailViewModel
 @{
     ViewBag.Title = Labels.LeaveDeductionDetail;
 }
@@ -116,7 +116,7 @@
         <td class="tooltip" title="{{:Employee.Team.Name}}">
             {{:Employee.Team.Code}}
         </td>
-        <td class="deductdate">{{:~formatJsonDate(DeductDate, 'dd MMM, yyyy')}}</td>
+        <td class="deductdate">{{:~formatJsonDate(Date, 'dd MMM, yyyy')}}</td>
         <td>
             {{if IsAnnual}}
                 Annual Leave
@@ -129,15 +129,15 @@
         {{if ~isHRRole}}
             <td>
                 <a href="javascript:;" class="editLeaveDeduction"
-                        data-id="{{:LeaveDeductionId}}"
+                        data-id="{{:LeaveConversionId}}"
                         data-leavedays="{{:LeaveDays}}"
                         data-isannual="{{:IsAnnual}}"
-                        data-deductdate="{{:~formatJsonDate(DeductDate, 'dd MMM, yyyy')}}">
+                        data-deductdate="{{:~formatJsonDate(Date, 'dd MMM, yyyy')}}">
                     <i class="mdi mdi-border-color mdi-dark"></i>
                 </a>
             </td>
             <td>
-                <a href="javascript:;" class="deleteLeaveDeduction" data-id="{{:LeaveDeductionId}}">
+                <a href="javascript:;" class="deleteLeaveDeduction" data-id="{{:LeaveConversionId}}">
                     <i class="mdi mdi-delete mdi-dark"></i>
                 </a>
             </td>

@@ -72,6 +72,8 @@
 
             BuildBundleForLeaveDeductionDetail(bundles);
 
+            BuildBundleForLeaveConversionDetail(bundles);
+
             BuildBundlerForOvertime(bundles);
 
             BuildBundleForLateInEarlyOutDetail(bundles);
@@ -253,17 +255,17 @@
         private static void BuildBundleForAnnualLeaveBalance(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
-                "~/Scripts/Views/AnnualLeaveBalance/index.js",
+                "~/Scripts/Views/AnnualLeave/index.js",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/employeeannualleavebalancejs").Include(
-                "~/Scripts/Views/AnnualLeaveBalance/employee.js"));
+                "~/Scripts/Views/AnnualLeave/employee.js"));
         }
 
         private static void BuildBundleForEditLeaveTransaction(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/editleavetransactionjs").Include(
-                "~/Scripts/Views/AnnualLeaveBalance/annualleave.edit.js"));
+                "~/Scripts/Views/AnnualLeave/annualleave.edit.js"));
         }
 
         private static void BuildBundleForJobTitle(BundleCollection bundles)
@@ -423,7 +425,15 @@
             bundles.AddAndInclude(
                 "~/bundles/leavedeductiondetailjs",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/report.leave.deduction.detail.js");
+                "~/Scripts/Views/AnnualLeave/leave.deduction.detail.js");
+        }
+
+        private static void BuildBundleForLeaveConversionDetail(BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/bundles/leaveconversiondetailjs",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                "~/Scripts/Views/AnnualLeave/leave.conversion.detail.js");
         }
 
         private static void BuildBundleForMyProfile(BundleCollection bundles)

@@ -1,0 +1,38 @@
+﻿@using Fanex.NexHR.ViewModels.AnnualLeave
+@model LeaveConversionViewModel
+@{
+    ViewBag.Title = Labels.MultipleInsert;
+}
+<form class="form">
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+        </div>
+        <div class="left input--xs">
+            @Html.EditorFor(model => model.TotalDays)
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="left input--m">
+            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.OnDate, Labels.Date)
+        </div>
+        <div class="left datepicker-button select--s">
+            @Html.DatePickerFor(model => model.OnDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input center">
+        @Html.HiddenFor(model => model.LeaveConversionId)
+        @Html.HiddenFor(model => model.EmpId)
+        <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+        <input class="btn-ok waves-effect waves-light" id="update" type="submit" value="@Labels.Update" />
+    </div>
+</form>
