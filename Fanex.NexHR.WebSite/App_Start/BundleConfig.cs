@@ -106,7 +106,7 @@
         private static void BuildBundleForCommon(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
-                         "~/Scripts/Libs/jquery-{version}.js",
+                         "~/Scripts/Libs/jquery-2.1.4.min.js",
                          "~/Scripts/Libs/jquery-ui-{version}.js",
                          "~/Scripts/Libs/jquery.validate*",
                          "~/Scripts/Libs/jquery-dateFormat.min.js",

@@ -21,7 +21,7 @@
             <div class="drop-down">
                 <div class="dropdown-button" href="#!" data-activates="dropdown1">
                     <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
-                    <img class="avatar" src="../../Avatars/avatar.jpg" />
+                    <img class="avatar" src="~/employee/avatar/@(Model.Code)" alt="@Model.NickName" />
                 </div>
                 <ul id="dropdown1" class="dropdown-content">
                     <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
