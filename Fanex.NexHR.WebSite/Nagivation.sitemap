@@ -2,7 +2,7 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
   <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
     <siteMapNode title="Personal">
-      <!--<siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />-->
+      <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" />
       <siteMapNode title="My Dashboard" controller="employee" action="MySpace" icon="home-variant" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" />
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" />
