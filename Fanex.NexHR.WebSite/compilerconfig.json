@@ -1,26 +1,37 @@
 ﻿[
   {
-    "outputFile": "Content/Common/vendors/tipsy - Copy.css",
-    "inputFile": "Content/Common/vendors/tipsy - Copy.scss"
-  },
-  {
     "outputFile": "Content/site.css",
-    "inputFile": "Content/site.scss"
-  },
-  {
-    "outputFile": "Content/Views/report.latein.earlyout.summary.css",
-    "inputFile": "Content/Views/report.latein.earlyout.summary.scss"
+    "inputFile": "Content/site.scss",
+    "minify": {
+      "enabled": false
+    }
   },
   {
     "outputFile": "Content/Views/report.timesheet.css",
-    "inputFile": "Content/Views/report.timesheet.scss"
+    "inputFile": "Content/Views/report.timesheet.scss",
+    "minify": {
+      "enabled": false
+    }
   },
   {
     "outputFile": "Content/Materialize/materialize.css",
-    "inputFile": "Content/Materialize/materialize.scss"
+    "inputFile": "Content/Materialize/materialize.scss",
+    "minify": {
+      "enabled": false
+    }
   },
   {
     "outputFile": "Content/Views/employee.postnatal.css",
-    "inputFile": "Content/Views/employee.postnatal.scss"
+    "inputFile": "Content/Views/employee.postnatal.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Content/Views/my.profile.css",
+    "inputFile": "Content/Views/my.profile.scss",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

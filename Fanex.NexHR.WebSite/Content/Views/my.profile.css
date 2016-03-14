@@ -1,8 +1,8 @@
-.boxtitle, .avatarbox .name {
+﻿.boxtitle, .avatarbox .name {
   font-size: 1.4rem;
   color: #f4783d;
   font-weight: 500;
-  margin-bottom: 1rem; }
+  margin-bottom: 0.5rem; }
 
 .boxtitle {
   text-transform: uppercase; }
@@ -17,6 +17,7 @@
     @media (min-width: 1900px) {
       .pinfo .accinfo .address {
         width: auto; } }
+
 .pinfo .scheduleoff {
   background: #bdbdbd; }
 
@@ -26,4 +27,3 @@
   .avatarbox .avatar img {
     width: 100%; }
 
-/*# sourceMappingURL=my.profile.css.map */

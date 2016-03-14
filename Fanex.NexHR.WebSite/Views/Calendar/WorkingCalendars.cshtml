@@ -73,8 +73,8 @@
                                     @*<input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />*@
                                     <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     <div class="left">
-                                        <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("index", "shift")">@Labels.Shift</a>
-                                        <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("index", "holiday")">@Labels.Holiday</a>
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="@Url.Action("index", "shift")">@Labels.Shift</a>
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="@Url.Action("index", "holiday")">@Labels.Holiday</a>
                                         @if (Roles.IsUserInRole("HR"))
                                         {
                                             <a class="btn-request waves-effect waves-light" href="javascript:;" id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
