@@ -87,7 +87,7 @@
 
         public void SendMail(string subject, CreateOvertimeViewModel model)
         {
-            if(model != null)
+            if (model != null)
             {
                 GetLeadersOfEmployeeCriteria getLeaderCriteria = new GetLeadersOfEmployeeCriteria();
                 GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
