@@ -249,8 +249,6 @@
                 }
             }
 
-            DateTime test = model.FromDateOT;
-            model.FromDateOT = test;
             return PartialView(model);
         }
 
@@ -288,9 +286,15 @@
         [HttpPost]
         public ActionResult OvertimeSummary(int? empId, int? teamId, int year)
         {
+            int? employeeId = null;
+            if (empId.HasValue && empId.Value > 0)
+            {
+                employeeId = empId;
+            }
+
             OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria() 
             {
-                EmployeeId = empId,
+                EmployeeId = employeeId,
                 TeamId = teamId,
                 Year = year
             };

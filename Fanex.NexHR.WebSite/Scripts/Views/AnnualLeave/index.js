@@ -35,9 +35,9 @@ function eventAdjustment() {
     });
 
     $('#insertform form').submit(function (evt) {
+        var $form = $(this);
         evt.preventDefault();
         confirm('Are you sure you want to add leave transaction?', function () {
-            var $form = $(this);
             _totalDays = parseFloat($('#TotalDays').val());
 
             if ($form.valid()) {

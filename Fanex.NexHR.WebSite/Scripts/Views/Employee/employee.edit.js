@@ -227,25 +227,19 @@ function initDialog(divContent) {
                         dataType: 'json',
                         data: $('#frmUpdFullTOEIC').serialize(),
                         success: function (data) {
-                            if (data) {
-                                var errorCont = $('#divErrorCont');
-                                errorCont.removeClass();
-                                errorCont.html('');
+                            var errorCont = $('#divErrorCont');
+                            errorCont.removeClass();
+                            errorCont.html('');
 
-                                if (data.code === 1) {
-                                    errorCont.addClass('validation-summary-success');
-                                    errorCont.append('Update TOEIC score for Employee successfully.');
-                                    setTimeout(function () { $('#dialog-toeic').dialog('close'); location.reload(); }, 3000);
-                                } else {
-                                    var errors = '<ul>';
-                                    $(data.error).each(function (i, value) {
-                                        errors += '<li>' + value.ErrorMessage + '</li>';
-                                    });
-                                    errors += '</ul>';
-
-                                    errorCont.addClass('validation-summary-errors');
-                                    errorCont.append(errors);
-                                }
+                            if (data.IsSuccessful) {
+                                errorCont.addClass('success validation-summary-success');
+                                errorCont.append('Update TOEIC score for Employee successfully');
+                                setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
+                            }
+                            else {
+                                var errors = '<ul><li>' + data.Message + '</li></ul>';
+                                errorCont.addClass('validation-summary-errors');
+                                errorCont.append(errors);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -364,7 +358,6 @@ function initEventForDelete() {
             var resignedDate = $('#ResignedDate').val();
             if (resignedDate.length === 0) {
                 alert(_messages.requireResignedDate);
-                $('#ResignedDate').focus();
                 return;
             }
 
@@ -427,4 +420,13 @@ $(document).ready(function () {
             });
         }
     });
+
+    var successed = $('#successed').val();
+    if (successed === 'true') {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + 'Employee/Usermanagement';
+                }
+            );
+    }
 });

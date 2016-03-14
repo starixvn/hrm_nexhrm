@@ -106,8 +106,12 @@
         [Authorize(Roles = "HR")]
         public ActionResult UpdateFullToeic(Toeic model)
         {
-            CommandResult result = new CommandResult();
             var currentUserId = CurrentUser.Id;
+            CommandResult result = new CommandResult()
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
             if (ModelState.IsValid)
             {
                 ValidateTOEIC(model);
@@ -138,16 +142,16 @@
                         SWExamDate = model.SWExamDate,
                         Writing = model.Writing
                     };
-                    CommandResult rerult = commandService.Update(toeicCriteria);
+                    result = commandService.Update(toeicCriteria);
 
-                    if (rerult.IsSuccessful && model.SendMail)
+                    if (result.IsSuccessful && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
                     }
                 }
             }
 
-            return Json(new { code = result.Code, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+            return Json(result);
         }
 
         [HttpGet]
@@ -214,7 +218,7 @@
         {
             if (model.EmpId <= 0)
             {
-                ModelState.AddModelError(string.Empty, Resources.Messages.InvalidEmployeeID);
+                ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
             }
 
             // check date
@@ -224,14 +228,14 @@
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Resources.Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
             }
 
             if (model.SWExamDate.HasValue && model.SWExamDate.Value > currentDate)
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Resources.Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
             }
 
             // check L/R/S/W
@@ -242,19 +246,19 @@
             {
                 if (model.LRExamDate.HasValue || model.SWExamDate.HasValue || !model.InputDate.HasValue)
                 {
-                    ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRAndSW);
+                    ModelState.AddModelError(string.Empty, Messages.EmptyLRAndSW);
                 }
             }
             else
             {
                 if (!ValidateNumberPair(model.Listening, model.Reading))
                 {
-                    ModelState.AddModelError(string.Empty, Resources.Messages.EmptyLRPair);
+                    ModelState.AddModelError(string.Empty, Messages.EmptyLRPair);
                 }
 
                 if (!ValidateNumberPair(model.Speaking, model.Writing))
                 {
-                    ModelState.AddModelError(string.Empty, Resources.Messages.EmptySWPair);
+                    ModelState.AddModelError(string.Empty, Messages.EmptySWPair);
                 }
             }
         }

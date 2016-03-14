@@ -34,6 +34,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>FanexRules.ruleset</CodeAnalysisRuleSet>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -239,13 +241,10 @@
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
     </Content>
-    <Content Include="Content\Views\report.timesheet.min.css">
-      <DependentUpon>report.timesheet.css</DependentUpon>
+    <Content Include="Content\Views\report.timesheet.css">
+      <DependentUpon>report.timesheet.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\_monthPicker.scss" />
-    <Content Include="Content\Views\report.timesheet.css.map">
-      <DependentUpon>report.timesheet.css</DependentUpon>
-    </Content>
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
@@ -278,9 +277,6 @@
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
@@ -341,9 +337,6 @@
     </Content>
     <Content Include="Content\Views\myrequest.css">
       <DependentUpon>myrequest.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Views\report.timesheet.css">
-      <DependentUpon>report.timesheet.scss</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -755,7 +748,6 @@
     <Content Include="Views\CheckInOut\ListCheckInOutRequest.cshtml" />
     <Content Include="Views\Report\_ListTimeRecord.cshtml" />
     <Content Include="Views\Report\_ListRequestMonitoring.cshtml" />
-    <Content Include="Views\Employee\_UserManagementDetail.cshtml" />
     <Content Include="Views\JobTitle\_Index.cshtml" />
     <Content Include="Views\Toeic\_ToeicManagementDetail.cshtml" />
     <Content Include="Views\Report\_ListAttendance.cshtml" />
@@ -785,6 +777,7 @@
     <Content Include="Views\AnnualLeave\CreateLeaveConversion.cshtml" />
     <Content Include="Views\AnnualLeave\LeaveConversionDetail.cshtml" />
     <Content Include="Views\AnnualLeave\EditLeaveConversion.cshtml" />
+    <None Include="Properties\PublishProfiles\NexHRM.pubxml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

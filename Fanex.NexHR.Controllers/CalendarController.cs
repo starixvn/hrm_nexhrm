@@ -88,20 +88,24 @@
 
         public ActionResult WorkingCalendars(WorkingCalendarViewModel model)
         {
-            model.Teams = teamService.GetAll();
-            model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
-            model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
-            DateTime date = new DateTime(model.Year, model.Month, 1);
-            var criteria = new GetWorkingScheduleCriteria
+            if (model != null)
             {
-                FromDate = date,
-                ToDate = date.AddMonths(1).AddDays(-1),
-                EmployeeId = model.EmployeeId <= 0 ? (int?)null : model.EmployeeId,
-                TeamId = model.TeamId
-            };
+                model.Teams = teamService.GetAll();
+                model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
+                model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
+                DateTime date = new DateTime(model.Year, model.Month, 1);
+                var criteria = new GetWorkingScheduleCriteria
+                {
+                    FromDate = date,
+                    ToDate = date.AddMonths(1).AddDays(-1),
+                    EmployeeId = model.EmployeeId <= 0 ? (int?)null : model.EmployeeId,
+                    TeamId = model.TeamId
+                };
 
-            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
-            model.WorkingSchedules = schedules;
+                IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+                model.WorkingSchedules = schedules;
+            }
+            
             return View(model);
         }
 

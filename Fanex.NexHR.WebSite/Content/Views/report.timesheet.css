@@ -1,4 +1,4 @@
-﻿.monpickr-wrap-parent {
+.monpickr-wrap-parent {
   width: 200px !important; }
   .monpickr-wrap-parent #monthPickr, .monpickr-wrap-parent #fromMonthPickr, .monpickr-wrap-parent #toMonthPickr {
     width: 200px !important; }
@@ -177,3 +177,4 @@
   .datagrid-body table tbody > tr:nth-child(odd) {
     background: #ededed; }
 
+/*# sourceMappingURL=report.timesheet.css.map */

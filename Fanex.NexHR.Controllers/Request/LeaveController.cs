@@ -111,7 +111,7 @@
                 {
                     ViewBag.Requested = true;
                     model.IsEdit = false;
-                    model.GetEmailTemplatePath();
+                    model.GetTemplatePath();
 
                     Task.Factory.StartNew(() => 
                     { 
@@ -183,7 +183,7 @@
                 {
                     ViewBag.Updated = true;
                     model.IsEdit = true;
-                    model.GetEmailTemplatePath();
+                    model.GetTemplatePath();
 
                     Task.Factory.StartNew(() => 
                     { 

@@ -115,7 +115,7 @@
                     ViewBag.Requested = true;
 
                     model.IsEdit = false;
-                    model.GetEmailTemplatePath();
+                    model.GetTemplatePath();
                     Task.Factory.StartNew(() => 
                     { 
                         requestService.SendMailForCheckInOut(model); 
@@ -191,7 +191,7 @@
                     ViewBag.Updated = true;
 
                     model.IsEdit = true;
-                    model.GetEmailTemplatePath();
+                    model.GetTemplatePath();
                     Task.Factory.StartNew(() => 
                     { 
                         requestService.SendMailForCheckInOut(model); 

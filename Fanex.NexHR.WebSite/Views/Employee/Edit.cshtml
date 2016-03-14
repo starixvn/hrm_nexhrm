@@ -25,16 +25,13 @@
                         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
                         <div class="form">
-                            @Html.ValidationSummary(true)
+                            @Html.ValidationSummary()
                             @if (ViewBag.Updated == true)
                             {
-                                <div class="success flash row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Labels.Saved
+                                <input type="hidden" id="successed" value="true" />
+                                <div class="success row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.UpdatedSuccessfully
                                 </div>
-                            }
-                            else if (ViewBag.Updated == false)
-                            {
-                                <div class="error flash">@Messages.ErrorTryAgain</div>
                             }
                             <div class="row form-input">
                                 <div class="col">
@@ -118,10 +115,10 @@
                                             </div>
                                             @Html.ValidationMessageFor(model => model.DateOfBirth)
                                         </div>
-                                        <div class="row">
+                                        @*<div class="row">
                                             <div id="DOBPicker">
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                     @Html.HiddenFor(model => model.DateOfBirth)
                                 </div>

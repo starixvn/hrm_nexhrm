@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ExtensionNoModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.3.10">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
     using System.ComponentModel.DataAnnotations;
 
-    /// <summary>
-    /// Extension Number Model.
-    /// </summary>
     public class ExtensionNoModel
     {
         public int EmpExtId { get; set; }
@@ -38,8 +26,6 @@ namespace Fanex.NexHR.Models
 
         public bool IsInternal { get; set; }
 
-        [Required(ErrorMessage = "The Employee field is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "The Employee field is required.")]
         public int EmpId { get; set; }
 
         public string Employee { get; set; }

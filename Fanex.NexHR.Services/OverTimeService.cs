@@ -7,7 +7,6 @@
     using Criteria.Overtime;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.ViewModels.Overtime;
     using Interfaces;
     using Models;
@@ -88,30 +87,33 @@
 
         public void SendMail(string subject, CreateOvertimeViewModel model)
         {
-            GetLeadersOfEmployeeCriteria getLeaderCriteria = new GetLeadersOfEmployeeCriteria();
-            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
-
-            IList<Employee> leaderReceive;
-            Employee receiver;
-
-            //// send email(s)
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/OvertimeNotification.cshtml"));
-
-            foreach (var item in model.TimeSheets)
+            if(model != null)
             {
-                getLeaderCriteria.EmployeeId = item.Employee.Id;
-                getEmployeeCriteria.EmployeeId = item.Employee.Id;
-                leaderReceive = GetData<Employee>(getLeaderCriteria);
-                receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+                GetLeadersOfEmployeeCriteria getLeaderCriteria = new GetLeadersOfEmployeeCriteria();
+                GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
 
-                var body = string.Format(bodyTemplate, item.Employee.NickName, model.Date.ToDateMonthYearFormatedDate(), item.Hour, model.Description);
+                IList<Employee> leaderReceive;
+                Employee receiver;
 
-                this.emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
-                    receiver.Email,
-                    string.Join(";", leaderReceive.Select(r => r.Email)),
-                    subject,
-                    body);
+                //// send email(s)
+                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/OvertimeNotification.cshtml"));
+
+                foreach (var item in model.TimeSheets)
+                {
+                    getLeaderCriteria.EmployeeId = item.Employee.Id;
+                    getEmployeeCriteria.EmployeeId = item.Employee.Id;
+                    leaderReceive = GetData<Employee>(getLeaderCriteria);
+                    receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+
+                    var body = string.Format(bodyTemplate, item.Employee.NickName, model.Date.ToDateMonthYearFormatedDate(), item.Hour, model.Description);
+
+                    this.emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        receiver.Email,
+                        string.Join(";", leaderReceive.Select(r => r.Email)),
+                        subject,
+                        body);
+                }
             }
         }
     }

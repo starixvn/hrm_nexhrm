@@ -36,14 +36,10 @@ function initAddLeaveConversion() {
         $('#EmpId').val(employeeId);
         $('#insertform').dialog('open');
     });
-
-    
 }
 
 $(document).ready(function () {
-
     query(true);
-    
     $('#submit').on('click', function () {
         query(false);
     });
@@ -69,7 +65,6 @@ $(document).ready(function () {
 
     $('#insertform form').submit(function (evt) {
         evt.preventDefault();
-
         $.post(_global.root + 'AnnualLeave/AddLeaveConversion',
             {
                 empId: $('#EmpId').val(),

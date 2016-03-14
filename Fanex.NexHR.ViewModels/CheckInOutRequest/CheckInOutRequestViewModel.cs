@@ -57,7 +57,7 @@
             }
         }
 
-        public string EmailTemplatePath { get; set; }
+        public string EmailTemplatePath { get; private set; }
 
         public string SubjectEmail
         {
@@ -80,7 +80,7 @@
             }
         }
 
-        public void GetEmailTemplatePath()
+        public void GetTemplatePath()
         {
             EmailTemplatePath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
         }

@@ -213,7 +213,7 @@
 
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public CommandResult Delete(int employeeId, DateTime resignedDate)
+        public JsonResult Delete(int employeeId, DateTime resignedDate)
         {
             var criteria = new DeleteEmployeeCriteria()
             {
@@ -222,7 +222,7 @@
             };
             CommandResult result = commandService.Delete(criteria);
 
-            return result;
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
@@ -382,7 +382,12 @@
 
         public ActionResult MyProfile()
         {
-            return View(CurrentUser);
+            var criteria = new GetEmployeeByIdCriteria()
+            {
+                EmployeeId = CurrentUser.Id
+            };
+            Employee employee = employeeService.GetEmployeeById(criteria);
+            return View(employee);
         }
 
         [Authorize(Roles = "AssistantLeader,HR")]

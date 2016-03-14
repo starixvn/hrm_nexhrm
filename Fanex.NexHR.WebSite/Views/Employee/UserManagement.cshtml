@@ -144,7 +144,10 @@
             M
             {{/if}}
         </td>
-        <td class="align-left">{{:JobTitle.Name}}</td>
+        <td class="align-left">
+            {{if JobTitle != null}}
+                {{:JobTitle.Name}}
+            {{/if}}</td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
         <td>
             {{if JoinedDate != null}}
@@ -153,7 +156,7 @@
         </td>
         <td>
             {{if !IsDeleted}}
-            <a href="/employee/edit?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            <a href="/employee/edit/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
             -
             {{/if}}

@@ -43,7 +43,8 @@
                 Content = string.Empty,
                 Year = -1,
                 Category = -1,
-                MemoCategories = memoCategories
+                MemoCategories = memoCategories,
+                Status = 1
             };
 
             return View(model);
@@ -93,7 +94,7 @@
                     Id = model.Id,
                     Category = model.Category,
                     Contents = model.Contents,
-                    ForInfo = model.ForInfo,
+                    ForInfo = model.ForInfo == null ? string.Empty : model.ForInfo,
                     RefNo = model.RefNo,
                     SentDate = model.SentDate,
                     SentFrom = model.SentFrom,

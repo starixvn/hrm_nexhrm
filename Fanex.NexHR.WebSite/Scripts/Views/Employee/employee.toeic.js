@@ -89,7 +89,7 @@ function initialize() {
 
 function initAddToeicDialog() {
     initDatePicker();
-    initAutocomplete('#Employee', '#EmployeeId');
+    initAutocomplete('#Employee', '#EmpId');
     initNumberTextbox();
 
     $('#dialog-toeic').dialog({
@@ -183,18 +183,13 @@ function initEditToeicDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
 
-                                if (data.code == 0) {
+                                if (data.IsSuccessful) {
                                     errorCont.addClass('success validation-summary-success');
                                     errorCont.append('Update TOEIC score for Employee successfully');
                                     setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
                                 }
                                 else {
-                                    var errors = '<ul>';
-                                    $(data.error).each(function (i, value) {
-                                        errors += '<li>' + value.ErrorMessage + '</li>';
-                                    });
-                                    errors += '</ul>';
-
+                                    var errors = '<ul><li>' + data.Message + '</li></ul>';
                                     errorCont.addClass('validation-summary-errors');
                                     errorCont.append(errors);
                                 }

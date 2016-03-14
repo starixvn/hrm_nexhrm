@@ -13,7 +13,7 @@
 
         public int Category { get; set; }
 
-        public bool Status { get; set; }
+        public int Status { get; set; }
 
         public IList<LookupData> MemoCategories { get; set; }
 
@@ -23,8 +23,8 @@
             {
                 return new List<SelectListItem>
                 {
-                    new SelectListItem() { Text = Labels.All, Value = "-1" },       
-                    new SelectListItem() { Text = Labels.Active, Value = "1" },                    
+                    new SelectListItem() { Text = Labels.All, Value = "-1" },
+                    new SelectListItem() { Text = Labels.Active, Value = "1" },
                     new SelectListItem() { Text = Labels.Deactive, Value = "0" }
                 };
             }
