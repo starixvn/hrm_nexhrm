@@ -224,6 +224,11 @@
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Common\vendors\fullcalendar.css" />
+    <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
+    <Content Include="Content\Common\vendors\slick.css" />
     <Content Include="Content\Views\employee.postnatal.css">
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
@@ -280,9 +285,6 @@
     <None Include="Content\ContextMenu\font\context-menu-icons.woff2" />
     <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.svg" />
     <Content Include="Content\Common\components\materialdesignicons.css" />
-    <Content Include="Content\Common\fullcalendar.css" />
-    <Content Include="Content\Common\monPickr-0.0.3.css" />
-    <Content Include="Content\Common\slick.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />

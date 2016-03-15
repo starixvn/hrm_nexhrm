@@ -6,10 +6,11 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.button-hrm, .form-input input[type="text"], .form-input textarea, .form-input input[type=number], .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li {
-  -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
+.btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .button-hrm, .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li, #numberlist li span, #numberlist li a, #numberlist li span.page-link.prev, #numberlist li span.page-link.next, #numberlist li a.page-link.prev, #numberlist li a.page-link.next {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
 
 .AL, .HAL, .UPL, .BL, .BT, .ChangeShift, .WL, .ML, .HH {
   color: #fff; }
@@ -358,7 +359,7 @@ a:active, a:focus {
   padding: 0 1.5rem;
   height: 3rem;
   line-height: 3rem;
-  border-radius: 0;
+  border-radius: 2px;
   color: #fff; }
 
 .btn-submit input, .btn-request input, .btn-back input, .btn-ok input, .btn-cancel input, .btn-close input, .btn-export-excel input, .btn-delete input {
@@ -374,43 +375,43 @@ a:active, a:focus {
   background-color: #1d79ac !important; }
   .btn-submit:hover {
     background: #196a96;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-request {
   background-color: #f4783d !important; }
   .btn-request:hover {
     background: #f36725;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-back {
   background-color: #757575 !important; }
   .btn-back:hover {
     background: #686868;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-ok {
   background-color: #2aaa55 !important; }
   .btn-ok:hover {
     background: #25964b;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-cancel, .btn-close {
   background-color: #9e9e9e !important; }
   .btn-cancel:hover, .btn-close:hover {
     background: #919191;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-export-excel {
   background-color: #388E3C !important; }
   .btn-export-excel:hover {
     background: #317c34;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-delete {
   background-color: #D32F2F !important; }
   .btn-delete:hover {
     background: #c02929;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .button-hrm {
   padding: 0 1.5rem;
@@ -678,6 +679,10 @@ input#fileName::-webkit-file-upload-button {
   padding-right: 1.6rem; }
 
 .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   padding-left: 7px !important;
   border: 1px solid #d0d0d0;
   position: none !important;
@@ -1162,6 +1167,9 @@ table.data thead tr:nth-child(even) {
 
 .browser-default {
   border: 1px solid #d0d0d0;
+  -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
 
 #timeSheets > tr:hover {
@@ -1181,12 +1189,9 @@ table.data thead tr:nth-child(even) {
     border: none;
     border-radius: 2px;
     background: none;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
     cursor: pointer; }
     #numberlist li span.page-link, #numberlist li a.page-link {
       box-shadow: none; }
-      #numberlist li span.page-link.prev, #numberlist li span.page-link.next, #numberlist li a.page-link.prev, #numberlist li a.page-link.next {
-        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4); }
     #numberlist li span.prev, #numberlist li span.next, #numberlist li a.prev, #numberlist li a.next {
       background: #78828c;
       color: #fff; }

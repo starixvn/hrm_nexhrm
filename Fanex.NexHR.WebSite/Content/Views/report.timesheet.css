@@ -1,3 +1,9 @@
+﻿.monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-prev .ui-icon, .monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-next .ui-icon {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+
 .monpickr-wrap-parent {
   width: 200px !important; }
   .monpickr-wrap-parent #monthPickr, .monpickr-wrap-parent #fromMonthPickr, .monpickr-wrap-parent #toMonthPickr {
@@ -37,7 +43,9 @@
         font-weight: normal;
         padding: 7px;
         margin-left: 40px;
-        box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1) !important; }
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
+        -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
+        -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important; }
     .monpickr-wrap-parent .monpickr-wrap .monpickr-dropdown .ui-widget-content a {
       color: #0789d1 !important; }
     .monpickr-wrap-parent .monpickr-wrap .monpickr-dropdown .ui-widget-content .year:hover {
@@ -177,4 +185,3 @@
   .datagrid-body table tbody > tr:nth-child(odd) {
     background: #ededed; }
 
-/*# sourceMappingURL=report.timesheet.css.map */

@@ -33,5 +33,26 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "Content/Views/employee.edit.css",
+    "inputFile": "Content/Views/employee.edit.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Content/Views/mydashboard.css",
+    "inputFile": "Content/Views/mydashboard.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Content/Views/report.latein.earlyout.discipline.css",
+    "inputFile": "Content/Views/report.latein.earlyout.discipline.scss",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

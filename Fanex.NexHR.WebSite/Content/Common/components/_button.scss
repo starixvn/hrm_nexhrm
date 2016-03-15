@@ -4,16 +4,17 @@
 	padding: 0 1.5rem;
 	height: 3rem;
 	line-height: 3rem;
-	border-radius: 0;
-	color: #fff;
+	border-radius: 2px;
+	color: #fff;    
 }
 
 @mixin button($bg) {
 	@extend %button;
+    @extend %boxshadow;
 	background-color: $bg !important;
 	&:hover {
 		background: darken($bg,5%);
-		box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15)
+		box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15);
 	}
 }
 
