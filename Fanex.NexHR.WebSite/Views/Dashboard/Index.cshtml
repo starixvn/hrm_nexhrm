@@ -97,7 +97,7 @@
                                     <img class="circle" alt="" src="../../Content/Images/user.png" />
                                 </div>
                                 <div class="col s9 center detail">
-                                    <span>Happy @DateTime.Now.ToString("MMMM")!</span>
+                                    <span>Hello @DateTime.Now.ToString("MMMM")!</span>
                                 </div>
                             </div>
                         }
@@ -107,46 +107,54 @@
         </div>
     </div>
     <div>
-        <div class="col s12 m4 card-container-base">
+        <div class="col s12 m6 card-container-base">
             <div class="card">
                 <div class="card-content">
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">Information</span>
                     </div>
-                    <div class="card-body p-x--s">
+                    <div class="card-body p-x--s information">
                         <p>
-                            <span class="left-align">Check In (Today):</span> <span class="right">
-                                <a href="#"
-                                   class="blue-grey-text text-darken-3">@Model.DisplayCheckInTime</a>
+                            <span class="left-align">Monthly Early Out/Late In (hour/time):</span>
+                            <span class="bold">
+                                <a href="#" class="blue-grey-text text-darken-3">2/3</a>
                             </span>
                         </p>
                         <p>
-                            <span class="left-align">Check Out (Yesterday):</span> <span class="right">
-                                <a href="#"
-                                   class="blue-grey-text text-darken-3">@Model.DisplayCheckOutTime</a>
+                            <span class="left-align">Missing Check In/Check Out:</span> 
+                            <span class="bold">
+                                <a href="#" class="blue-grey-text text-darken-3">1</a>
                             </span>
                         </p>
                         <p>
-                            <span class="left-align">Leave Summary:</span> <span class="right">
+                            <span class="left-align">Annual Leave Balance:</span> 
+                            <span class="bold">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    @Model.AnnualLeaveBalance
+                                    @Model.AnnualLeaveBalance&nbsp;day(s)
                                 </a>
                             </span>
                         </p>
                         <p>
-                            <span class="left-align">Early Out in month:</span>
-                            <span class="right">
+                            <span class="left-align">Leave Request All Employees:</span>
+                            <span class="bold request">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    @*@Html.Raw(Model.PersonalLateInEarlyOutCurrentMonth)*@
-                                    1.5
+                                    Alex, Amy, Ann, Harmony, Hoa, Lisa, Rossa, Victor, Bravo (½), Kos (½), Ricky (½), Daren, Julien, Albert
                                 </a>
                             </span>
                         </p>
                         <p>
-                            <span class="left-align">Late In in month:</span>
-                            <span class="right">
+                            <span class="left-align">Absent:</span>
+                            <span class="bold request">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    0
+                                    Sean, Michael, Joe, Tony
+                                </a>
+                            </span>
+                        </p>
+                        <p>
+                            <span class="left-align">Late In/Early Out Notification:</span>
+                            <span class="bold request">
+                                <a href="#" class="blue-grey-text text-darken-3">
+                                    Sean, Michael, Joe, Tony
                                 </a>
                             </span>
                         </p>
@@ -158,41 +166,41 @@
     </div>
     @Html.Partial("MyTeamAttendance", Model.EmployeeAttendanceModel)
     <div>
-        <div class="col s12 m4 card-container-base workload">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-title-block">
-                        <span class="card-title left primary-color">
-                            <span class="txt-uppercase">
-                                MY TOTAL SPENT
-                                TIME
-                            </span>
-                    </div>
-                    <div class="card-body p-x--s">
-                        <div class="total-hours">
-                            <img src="~/Content/Images/chart.jpg" />
+        @*<div class="col s12 m4 card-container-base workload">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title-block">
+                            <span class="card-title left primary-color">
+                                <span class="txt-uppercase">
+                                    MY TOTAL SPENT
+                                    TIME
+                                </span>
                         </div>
-                        <div class="detail">
-                            <ul>
-                                <li>
-                                    <span class="color1"></span><span>Alpha</span> <span class="right">37:45h</span>
-                                </li>
-                                <li>
-                                    <span class="color2"></span><span>Nexcel Website</span> <span class="right">16:22h</span>
-                                </li>
-                                <li>
-                                    <span class="color3"></span><span>HRM Website</span> <span class="right">3:14h</span>
-                                </li>
-                                <li>
-                                    <span class="color4"></span><span>Company Profile</span> <span class="right">26:18h</span>
-                                </li>
-                            </ul>
+                        <div class="card-body p-x--s">
+                            <div class="total-hours">
+                                <img src="~/Content/Images/chart.jpg" />
+                            </div>
+                            <div class="detail">
+                                <ul>
+                                    <li>
+                                        <span class="color1"></span><span>Alpha</span> <span class="right">37:45h</span>
+                                    </li>
+                                    <li>
+                                        <span class="color2"></span><span>Nexcel Website</span> <span class="right">16:22h</span>
+                                    </li>
+                                    <li>
+                                        <span class="color3"></span><span>HRM Website</span> <span class="right">3:14h</span>
+                                    </li>
+                                    <li>
+                                        <span class="color4"></span><span>Company Profile</span> <span class="right">26:18h</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col s12 m4 card-container-base my-members">
+            </div>*@
+        <div class="col s12 m8 card-container-base my-members">
             <div class="card">
                 <div class="card-content">
                     <div class="card-title-block">

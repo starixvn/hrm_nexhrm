@@ -2319,7 +2319,7 @@ td, th {
     margin: 0; }
     .collection .collection-item.avatar {
       min-height: 58px;
-      padding-left: 115px;
+      padding-left: 140px;
       position: relative;
       padding-right: 55px; }
       .collection .collection-item.avatar .circle {
@@ -2338,7 +2338,7 @@ td, th {
         text-align: center; }
       .collection .collection-item.avatar .title {
         position: absolute;
-        left: 58px;
+        left: 68px;
         top: 17px; }
       .collection .collection-item.avatar p {
         margin: 0; }
