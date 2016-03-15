@@ -224,9 +224,9 @@
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
     <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
-    <Content Include="Content\Common\vendors\fullcalendar.css" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\Images\CustomScrollbar\mCSB_buttons.png" />
     <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
     <Content Include="Content\Common\vendors\slick.css" />
     <Content Include="Content\Views\employee.postnatal.css">
@@ -285,6 +285,9 @@
     <None Include="Content\ContextMenu\font\context-menu-icons.woff2" />
     <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.svg" />
     <Content Include="Content\Common\components\materialdesignicons.css" />
+    <Content Include="Content\Common\vendors\fullcalendar.css" />
+    <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
+    <Content Include="Content\Common\vendors\slick.css" />
     <Content Include="Content\ContextMenu\contextMenu.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\calendar.jpg" />
@@ -371,7 +374,6 @@
     <Content Include="Libs\SimplePagination\jquery.simplePagination.js" />
     <Content Include="Libs\SimplePagination\simplePagination.css" />
     <Content Include="Scripts\Libs\birthdaypicker.js" />
-    <Content Include="Scripts\Libs\chart.js" />
     <Content Include="Scripts\Libs\common.js" />
     <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\fullcalendar.js" />
@@ -387,6 +389,8 @@
     <Content Include="Scripts\Libs\jquery.cookie.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.js" />
     <Content Include="Scripts\Libs\jquery.floatThead.min.js" />
+    <Content Include="Scripts\Libs\CustomScrollbar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\Libs\CustomScrollbar\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.min.js" />
     <Content Include="Scripts\Libs\jquery.tipsy.js" />
