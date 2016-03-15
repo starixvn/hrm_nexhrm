@@ -803,6 +803,7 @@
     <Content Include="Views\AnnualLeave\LeaveConversionDetail.cshtml" />
     <Content Include="Views\AnnualLeave\EditLeaveConversion.cshtml" />
     <None Include="Properties\PublishProfiles\NexHRM.pubxml" />
+    <Content Include="Views\Dashboard\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
