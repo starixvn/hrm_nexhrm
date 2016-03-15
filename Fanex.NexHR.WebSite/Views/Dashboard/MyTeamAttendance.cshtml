@@ -69,11 +69,11 @@
                                 <a id="submit" class="btn-submit waves-effect waves-light m-r--b" type="button">Submit</a>
                                 @if (Roles.IsUserInRole("AssistantLeader") || Roles.IsUserInRole("Leader"))
                                 {
-                                    @Html.ActionLink("My Team Request", "member", "request", null, new { @class = "button-hrm waves-effect waves-light btn orange darken-1" })
+                                    @Html.ActionLink("My Team Request", "member", "request", null, new { @class = "btn-submit waves-effect waves-light" })
                                 }
                                 else
                                 {
-                                    @Html.ActionLink("My Leave Request", "employeeview", "leave", null, new { @class = "button-hrm waves-effect waves-light btn orange darken-1" })                                    
+                                    @Html.ActionLink("My Leave Request", "employeeview", "leave", null, new { @class = "btn-request waves-effect waves-light" })                                    
                                 }
                             </div>
                         </div>
