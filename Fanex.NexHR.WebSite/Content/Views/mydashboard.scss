@@ -21,9 +21,13 @@
 .to-do-list {
    padding-top: 16px;
 
+   .card-body {
+       margin-top: 1.6rem;
+   }
+
     p {
         background: #eeeeef none repeat scroll 0 0;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.2rem !important;
         padding: 0 1rem;
         line-height: 40px;
 
@@ -51,6 +55,10 @@
             padding: 0.1rem 0.5rem;
             }
         }
+    }
+
+    .scrollTodo {
+        height: 23.5rem;
     }
 }
 

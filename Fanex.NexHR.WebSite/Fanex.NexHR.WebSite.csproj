@@ -375,6 +375,8 @@
     <Content Include="Libs\SimplePagination\simplePagination.css" />
     <Content Include="Scripts\Libs\birthdaypicker.js" />
     <Content Include="Scripts\Libs\common.js" />
+    <Content Include="Scripts\Libs\CustomScrollbar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\Libs\CustomScrollbar\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\Libs\date.js" />
     <Content Include="Scripts\Libs\fullcalendar.js" />
     <Content Include="Scripts\Libs\gcal.js" />

@@ -370,7 +370,8 @@
                 "~/Scripts/Libs/gcal.js",
                 "~/Scripts/Views/Dashboard/calendar.js",
                 "~/Scripts/Views/Dashboard/googleAPI.js",
-                "~/Scripts/Views/Dashboard/client.js"));
+                "~/Scripts/Views/Dashboard/client.js",
+                "~/Scripts/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard2js").Include(
                 "~/Scripts/Views/Dashboard/employee.dashboard.js"));
@@ -380,7 +381,8 @@
                 "~/Content/Common/vendors/slick.css",
                 "~/Content/Views/mydashboard.css",
                 "~/Content/Common/vendors/fullcalendar.css",
-                "~/Content/Views/mycalendar.css");
+                "~/Content/Views/mycalendar.css",
+                "~/Content/Common/vendors/jquery.mCustomScrollbar.css");
         }
 
         private static void BuildBundleForWorkingCanlendar(BundleCollection bundles)
