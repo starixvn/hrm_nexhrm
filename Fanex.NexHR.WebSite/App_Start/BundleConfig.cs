@@ -377,9 +377,9 @@
 
             bundles.AddAndInclude(
                 "~/Content/dashboardcss",
-                "~/Content/Common/slick.css",
+                "~/Content/Common/vendors/slick.css",
                 "~/Content/Views/mydashboard.css",
-                "~/Content/Common/fullcalendar.css",
+                "~/Content/Common/vendors/fullcalendar.css",
                 "~/Content/Views/mycalendar.css");
         }
 
@@ -452,7 +452,7 @@
 
             bundles.AddAndInclude(
                 "~/Content/fullcalendarcss",
-                "~/Content/Common/fullcalendar.css");
+                "~/Content/Common/vendors/fullcalendar.css");
         }
 
         private static void BuildBundleForContextMenu(BundleCollection bundles)
@@ -469,7 +469,7 @@
         {
             bundles.AddAndInclude(
                 "~/Content/monthpickercss",
-                "~/Content/Common/monPickr-0.0.3.css");
+                "~/Content/Common/vendors/monPickr-0.0.3.css");
 
             bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
                 "~/Scripts/Libs/monPickr-0.0.3.js"));
