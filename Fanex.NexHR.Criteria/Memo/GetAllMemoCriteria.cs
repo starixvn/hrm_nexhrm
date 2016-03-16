@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
     using Fanex.Data.Repository;
-    using System;
 
     /// <summary>
     /// Get All Memo Criteria.

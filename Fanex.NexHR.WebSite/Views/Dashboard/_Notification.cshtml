@@ -1,41 +1,55 @@
-﻿<div class="notification">
-    <a href="#!" class="dropdown-button" data-activates='dropdown-notification'><i class="mdi-social-notifications"></i><span class="badge">1</span></a>
+﻿@using Fanex.NexHR.Models.Notification
+@model Notification
+<div class="notification">
+    <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
+        <i class="mdi-social-notifications"></i>
+        <span class="badge">@Model.QuantityOfNewAlert</span>
+    </a>
 </div>
 <ul id='dropdown-notification' class='dropdown-content collection with-header'>
-
     <li class="collection-header">
         <h5 class="txt-uppercase">Notifications</h5>
-        <span class="new badge">4</span>
+        <span class="new badge">@Model.QuantityOfNewAlert</span>
     </li>
-    <li class="collection-item avatar">
-        <i class="circle materialize-red mdi-action-description"></i>
-        <p>
-            A new task has been placed <br>
-            <small>5 hours ago</small>
-        </p>
-    </li>
-    <li class="collection-item avatar">
-        <i class="circle green mdi-social-person"></i>
-        <p>
-            Completed the tash<br>
-            <small>2 days ago</small>
-        </p>
-    </li>
-    <li class="collection-item avatar">
-        <i class="circle materialize-red mdi-action-settings"></i>
-        <p>
-            Settings updated <br>
-            <small>2 days ago</small>
-        </p>
-    </li>
-    <li class="collection-item avatar">
-        <i class="circle blue mdi-action-event"></i>
-        <p>
-            Event started <br>
-            <small>3 days ago</small>
-        </p>
-    </li>
-    <li class="collection-footer grey lighten-2">
-        <p>All notifications</p>
-    </li>
+    @if (Model.LateInEarlyOutInYear >= 2)
+    {
+        <li class="collection-item avatar">
+            <i class="circle blue mdi-action-event"></i>
+            <p>
+                You have violated Late in/Early out @Model.LateInEarlyOutInYear times within 12 months<br>
+            </p>
+        </li>
+    }
+    @if (Model.LateInEarlyOutInMonth >= 3)
+    {
+        <li class="collection-item avatar">
+            <i class="circle materialize-red mdi-action-description"></i>
+            <p>
+                You have violated Late in/Early out @Model.LateInEarlyOutInMonth times in this month<br>
+            </p>
+        </li>
+    }
+    @if (Model.TimeMisssingCheckInOutThisMonth >= 2)
+    {
+        <li class="collection-item avatar">
+            <i class="circle green mdi-social-person"></i>
+            <p>
+                You have forgot Check in/Check out @Model.TimeMisssingCheckInOutThisMonth  times in this month<br>
+                @*<small>2 days ago</small>*@
+            </p>
+        </li>
+    }
+    @if (Model.ToeicExpired)
+    {
+        <li class="collection-item avatar">
+            <i class="circle materialize-red mdi-action-settings"></i>
+            <p>
+                You have to submit your Toeic score in this month <br>
+                @*<small>2 days ago</small>*@
+            </p>
+        </li>
+    }
+    @*<li class="collection-footer grey lighten-2">
+            <p>All notifications</p>
+        </li>*@
 </ul>

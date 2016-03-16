@@ -268,15 +268,29 @@
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LateInEarlyOut()
+        public ActionResult LateInEarlyOut(int empId = 0, string nickname = "")
         {
             IList<Team> teams = teamService.GetAll();
 
-            var model = new LateInEarlyOutViewModel()
+            LateInEarlyOutViewModel model;
+            if (empId != 0)
             {
-                Year = DateTime.Now.Year,
-                Teams = teams
-            };
+                model = new LateInEarlyOutViewModel()
+                {
+                    Year = DateTime.Now.Year,
+                    Teams = teams,
+                    EmployeeId = empId,
+                    Employee = nickname
+                };
+            }
+            else
+            {
+                model = new LateInEarlyOutViewModel()
+                {
+                    Year = DateTime.Now.Year,
+                    Teams = teams,
+                };
+            }
 
             return View(model);
         }
@@ -298,7 +312,7 @@
 
                 ViewBag.Year = model.Year;
             }
-            
+
             return PartialView("_ListLateInEarlyOut", lateInEarlyOuts);
         }
 

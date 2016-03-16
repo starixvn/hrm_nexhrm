@@ -88,6 +88,7 @@
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="JobTitle.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOut.cs" />
+    <Compile Include="Notification\Notification.cs" />
     <Compile Include="Overtime\Overtime.cs" />
     <Compile Include="Overtime\OvertimeRecord.cs" />
     <Compile Include="Overtime\OvertimeSummary.cs" />

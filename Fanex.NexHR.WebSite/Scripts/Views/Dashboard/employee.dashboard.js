@@ -23,7 +23,7 @@ function initTodoList() {
     $.ajax({
         url: _global.root + 'dashboard/GetTodoList?employeeId=' + empId,
         type: 'GET',
-        dataType: 'html',           
+        dataType: 'html',
         beforeSend: function () {
             //if (!isFirstLoad) {
             //    $('.loading-process').fadeIn(300);
@@ -42,34 +42,67 @@ function initTodoList() {
             //    $('.loading-process').fadeOut(300);
             //}
 
-            $('.slideTodo').slick({
-                slidesToShow: 5,
-                slidesToScroll: 5,
-                autoplay: true,
-                autoplaySpeed: 3500,
-                dots: false,
-                nextArrow: false,
-                prevArrow: false,
-                vertical: true,
-            });
+            //$('.slideTodo').slick({
+            //    slidesToShow: 5,
+            //    slidesToScroll: 5,
+            //    autoplay: true,
+            //    autoplaySpeed: 3500,
+            //    dots: false,
+            //    nextArrow: false,
+            //    prevArrow: false,
+            //    vertical: true,
+            //});
         }
-    });    
+    });
 }
 
+function LoadNotification() {
+    var empId = _global.employeeId;
+    $.ajax({
+        url: _global.root + 'dashboard/GetNotification?employeeId=' + empId,
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function () {
+            //if (!isFirstLoad) {
+            //    $('.loading-process').fadeIn(300);
+            //}
+        },
+        success: function (data) {
+            if (data) {
+                $('#notification').html(data);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        },
+        complete: function () {
+            $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrain_width: false, // Does not change width of dropdown to that of the activator
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+        }
+    });
+}
 
 $(document).ready(function () {
     MyDashboard.init();
-    
+
     $('.slide').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            dots: true,
-            nextArrow: false,
-            prevArrow: false,
-    });   
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: true,
+        nextArrow: false,
+        prevArrow: false,
+    });
 
     initTodoList();
+
+    LoadNotification();
 });
 

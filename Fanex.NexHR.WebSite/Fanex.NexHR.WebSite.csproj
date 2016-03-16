@@ -195,6 +195,9 @@
     <Content Include="App_Data\SpNames.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\SpNames_xtest.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Avatars\avatar.jpg" />
     <Content Include="App_Data\Emails\ApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\ChangeShift.Request.cshtml" />

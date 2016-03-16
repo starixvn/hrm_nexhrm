@@ -13,26 +13,31 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Report;
+    using Fanex.NexHR.Models.Notification;
+    using Fanex.NexHR.Criteria.Notification;
 
     public class DashboardController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly ITeamService _teamService;
-        private readonly IRequestService _requestService;
+        private readonly IEmployeeService employeeService;
+        private readonly ITeamService teamService;
+        private readonly IRequestService requestService;
+        private readonly INotificationService notificationService;
 
         public DashboardController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public DashboardController(
             IEmployeeService employeeService,
             ITeamService teamService,
-            IRequestService requestService)
+            IRequestService requestService,
+            INotificationService notificationService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _teamService = teamService ?? new TeamService();
-            _requestService = requestService ?? new RequestService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.teamService = teamService ?? new TeamService();
+            this.requestService = requestService ?? new RequestService();
+            this.notificationService = notificationService ?? new NotificationService();
         }
 
         public ActionResult Index()
@@ -41,7 +46,7 @@
             {
                 EmpId = CurrentUser.Id
             };
-            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
+            MySpaceViewModel model = employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = GetRemind();
 
             EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel()
@@ -52,7 +57,7 @@
                 DateOption = 0,
                 ExcludeUserDelete = true,
             };
-            empAttendance.Teams = _teamService.GetAll();
+            empAttendance.Teams = teamService.GetAll();
             model.EmployeeAttendanceModel = empAttendance;
 
             return View(model);
@@ -66,7 +71,7 @@
                 OnDate = DateTime.Now.Date
             };
 
-            lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            lstEmployee = employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             return lstEmployee;
         }
 
@@ -87,7 +92,7 @@
             {
                 EmpId = employeeId
             };
-            return _employeeService.GetMissingCheckInOutByEmpId(criteria);            
+            return employeeService.GetMissingCheckInOutByEmpId(criteria);            
         }
    
         public IList<RequestEntity> GetPendingRequest()
@@ -105,9 +110,17 @@
                 ItemsPerPage = 100
             };
 
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
 
             return entityList;
+        }
+
+        public ActionResult GetNotification(int employeeId)
+        {
+            GetAllNotificationCriteria criteria = new GetAllNotificationCriteria() { EmpId = employeeId };
+            Notification noti = notificationService.GetViolationByEmpId(criteria);
+
+            return PartialView("_Notification", noti);
         }
     }
 }
