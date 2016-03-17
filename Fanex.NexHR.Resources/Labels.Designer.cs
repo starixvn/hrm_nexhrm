@@ -745,7 +745,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Overtime.
+        ///   Looks up a localized string similar to Create NEX.
         /// </summary>
         public static string CreateNewOT {
             get {
@@ -754,7 +754,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New OT Request.
+        ///   Looks up a localized string similar to New NEX Request.
         /// </summary>
         public static string CreateOTRequest {
             get {
@@ -1087,7 +1087,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit OT Request.
+        ///   Looks up a localized string similar to Edit NEX Request.
         /// </summary>
         public static string EditOTRequest {
             get {
@@ -2266,7 +2266,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Overtime.
+        ///   Looks up a localized string similar to My NEX.
         /// </summary>
         public static string MyOvertime {
             get {
@@ -2599,7 +2599,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OT.
+        ///   Looks up a localized string similar to NEX.
         /// </summary>
         public static string OT {
             get {
@@ -2626,7 +2626,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OT Request.
+        ///   Looks up a localized string similar to NEX Request.
         /// </summary>
         public static string OTRequest {
             get {
@@ -2635,7 +2635,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overtime Requests.
+        ///   Looks up a localized string similar to NEX Request.
         /// </summary>
         public static string OTRequests {
             get {
@@ -2662,7 +2662,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overtime.
+        ///   Looks up a localized string similar to NEX.
         /// </summary>
         public static string Overtime {
             get {
@@ -2671,7 +2671,16 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overtime Summary.
+        ///   Looks up a localized string similar to NEX Detail.
+        /// </summary>
+        public static string OvertimeDetail {
+            get {
+                return ResourceManager.GetString("OvertimeDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NEX Summary.
         /// </summary>
         public static string OvertimeSummary {
             get {

@@ -41,9 +41,11 @@
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
                 @if (overtimeSummary.LeaveConversion != 0)
                 {
-                    var url = "/AnnualLeave/LeaveConversionDetail?employeeId=" + overtimeSummary.Employee.Id
-                        + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
-                        + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
+                    var url = "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
+                        + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
+                        + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate()
+                        + "&EmployeeId=" + overtimeSummary.Employee.Id
+                        + "&Employee=" + overtimeSummary.Employee.DisplayName;
 
                     <td>
                         <a href="@url">@(overtimeSummary.LeaveConversion.ToString("0.0"))</a>
@@ -53,23 +55,8 @@
                 {
                     <td>-</td>
                 }
+                <td>@overtimeSummary.DisplayValue(overtimeSummary.LateInEarlyOut)</td>
                 <td>@overtimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
-                @if (Roles.IsUserInRole("HR"))
-                {
-                    if (overtimeSummary.BalanceCurrentYear >= 4)
-                    {
-                        <td>
-                        <a href="javascript:;" class="addLeaveConversion" data-id="@overtimeSummary.Employee.Id">
-                            <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
-                        </a>
-                    </td>
-                    }
-                    else
-                    {
-                         <td></td>
-                    }
-                    
-                }
             </tr>
         }
     }

@@ -9,7 +9,7 @@
       <siteMapNode title="My Attendance" controller="report" action="timesheet" icon="table" />
       <!--<siteMapNode title="My Time Record" controller="report" action="mytimerecord" icon="calendar-text" />-->
       <!--<siteMapNode title="My Calendar" controller="calendar" action="myworkingschedule" icon="calendar-check" />-->
-      <siteMapNode title="Overtime" controller="overtime" action="index" icon="calendar-clock" />
+      <siteMapNode title="NEX Request" controller="overtime" action="index" icon="calendar-clock" />
       <!--<siteMapNode title="My Overtime" controller="overtime" action="myovertime" icon="calendar-clock" />
       <siteMapNode title="Member Overtime" controller="overtime" action="MemberOvertime" icon="timetable" roles="HR,AssistantLeader,Leader,SA,PM" />-->
       <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
@@ -36,7 +36,7 @@
       <siteMapNode title="Attendance Report" controller="report" action="attendance" icon="bulletin-board" />
       <siteMapNode title="Late In/Early Out" controller="report" action="lateinearlyout" icon="alarm" />
       <siteMapNode title="Leave Summary" controller="annualleave" action="index" icon="clipboard-text" />
-      <siteMapNode title="Overtime Summary" controller="overtime" action="overtimesummary" icon="timetable" />
+      <siteMapNode title="NEX Summary" controller="overtime" action="overtimesummary" icon="clipboard-text" />
       <siteMapNode title="Total Working Hours" controller="report" action="totalworkinghour" icon="alarm-plus" />
       <!--<siteMapNode title="Holidays" controller="holiday" action="index" icon="umbrella-outline" />-->
       <siteMapNode title="Geolocation Map" controller="geographicmap" action="index" icon="map-marker" />

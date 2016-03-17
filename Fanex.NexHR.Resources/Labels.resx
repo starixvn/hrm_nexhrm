@@ -1210,19 +1210,19 @@
     <value>Override</value>
   </data>
   <data name="CreateOTRequest" xml:space="preserve">
-    <value>New OT Request</value>
+    <value>New NEX Request</value>
   </data>
   <data name="EditOTRequest" xml:space="preserve">
-    <value>Edit OT Request</value>
+    <value>Edit NEX Request</value>
   </data>
   <data name="OTRequests" xml:space="preserve">
-    <value>Overtime Requests</value>
+    <value>NEX Request</value>
   </data>
   <data name="VerifiedBy" xml:space="preserve">
     <value>Verified By</value>
   </data>
   <data name="OTRequest" xml:space="preserve">
-    <value>OT Request</value>
+    <value>NEX Request</value>
   </data>
   <data name="ModifiedBy" xml:space="preserve">
     <value>Modified By</value>
@@ -1264,7 +1264,7 @@
     <value>Technical Skill</value>
   </data>
   <data name="OT" xml:space="preserve">
-    <value>OT</value>
+    <value>NEX</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
@@ -1273,7 +1273,7 @@
     <value>Total Members</value>
   </data>
   <data name="MyOvertime" xml:space="preserve">
-    <value>My Overtime</value>
+    <value>My NEX</value>
   </data>
   <data name="MemberOvertime" xml:space="preserve">
     <value>Member Overtime</value>
@@ -1294,10 +1294,10 @@
     <value>User Warning</value>
   </data>
   <data name="CreateNewOT" xml:space="preserve">
-    <value>Create Overtime</value>
+    <value>Create NEX</value>
   </data>
   <data name="OvertimeSummary" xml:space="preserve">
-    <value>Overtime Summary</value>
+    <value>NEX Summary</value>
   </data>
   <data name="BreakTime" xml:space="preserve">
     <value>Break time</value>
@@ -1306,12 +1306,15 @@
     <value>New Request</value>
   </data>
   <data name="Overtime" xml:space="preserve">
-    <value>Overtime</value>
+    <value>NEX</value>
   </data>
   <data name="LeaveConversionDescription" xml:space="preserve">
     <value>Add 0.5 day annual leave for 4 hours overtime</value>
   </data>
   <data name="LeaveConversionDetail" xml:space="preserve">
     <value>Leave Conversion Detail</value>
+  </data>
+  <data name="OvertimeDetail" xml:space="preserve">
+    <value>NEX Detail</value>
   </data>
 </root>

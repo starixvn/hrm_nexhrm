@@ -34,6 +34,8 @@
 
         public float TotalHour { get; set; }
 
+        public float LateInEarlyOut { get; set; }
+
         public Employee Employee { get; set; }
 
         public string DisplayValue(float value)

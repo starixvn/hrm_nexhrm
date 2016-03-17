@@ -61,14 +61,11 @@
                                     <th rowspan="2">@Labels.Nick</th>
                                     <th rowspan="2">@(Model.Year-1)</th>
                                     <th colspan="13">
-                                        Overtime @Model.Year
+                                        NEX @Model.Year
                                     </th>
-                                    <th rowspan="2">Leave Conversion</th>
+                                    <th rowspan="2">NEX Leave</th>
+                                    <th rowspan="2">@Labels.LateInEarlyOut</th>
                                     <th rowspan="2">@Labels.Balance</th>
-                                    @if (Roles.IsUserInRole("HR"))
-                                    {
-                                        <th rowspan="2">Convert</th>
-                                    }
                                 </tr>
                                 <tr>
                                     <th>@Labels.Jan</th>

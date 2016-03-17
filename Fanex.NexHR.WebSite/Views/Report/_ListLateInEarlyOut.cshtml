@@ -10,8 +10,9 @@
             <th colspan="13">
                 <span id="current-year">@ViewBag.Year</span> (@Labels.Hours / @Labels.Times)
             </th>
-            <th rowspan="2">@Labels.DeductionTaken (@Labels.Hours)</th>
-            <th rowspan="2">@Labels.Balance (Hours)</th>
+            <th rowspan="2">@Labels.DeductionTaken</th>
+            <th rowspan="2">@Labels.OT</th>
+            <th rowspan="2">@Labels.Balance</th>
             @if (Roles.IsUserInRole("HR"))
             {
                 <th rowspan="2">@Labels.Deduct</th>
@@ -144,17 +145,26 @@
                         {
                             <td>-</td>
                         }
+                        <td>@(lateInEarlyOut.OvertimeBalance != 0 ? (lateInEarlyOut.OvertimeBalance / 60.0).ToString("0.0") : "-")</td>
                         <td class="@(lateInEarlyOut.BalanceCurrentYear >= 240 ? "red-color" : string.Empty)">
                             @(lateInEarlyOut.BalanceCurrentYear != 0 ? (lateInEarlyOut.BalanceCurrentYear / 60.0).ToString("0.0") : "-")
                         </td>
                         @if (Roles.IsUserInRole("HR"))
                         {
-                            <td>
+                            if(lateInEarlyOut.BalanceCurrentYear >= 240)
+                            {
+                                <td>
                                 <a href="javascript:;" class="addLeavededuction" data-id="@lateInEarlyOut.Employee.Id" 
                                    data-annualbalance="@lateInEarlyOut.Employee.AnnualLeaveBalance">
                                     <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
                                 </a>
                             </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            
                         }
                     </tr>
                 }

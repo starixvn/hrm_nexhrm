@@ -61,5 +61,7 @@
         public int TotalTimesCurrentYear { get; set; }
 
         public int LeaveDeduction { get; set; }
+
+        public int OvertimeBalance { get; set; }
     }
 }
