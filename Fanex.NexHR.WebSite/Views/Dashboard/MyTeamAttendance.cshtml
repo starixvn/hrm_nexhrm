@@ -6,7 +6,7 @@
                 <span class="card-title txt-uppercase left">MY TEAM ATTENDANCE</span>
             </div>
             <div class="card-body">
-                @using (Html.BeginGetForm())
+                @using (Html.BeginForm("", "", FormMethod.Get, new { @style = "display: none;" }))
                 {
                     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                     <div class="form">
@@ -120,10 +120,10 @@
     </div>
 </div>
 <script id="template" type="text/x-jsrender">
-    <tr {{if IsNotWork != 0}}class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
+    <tr {{if IsNotWork != 0}} class="offdate" {{else ShiftId}} {{else}} class="noshift" {{/if}}>
         <td>{{:~index()}}</td>
         <td>
-            {{:~formatDate(AttendanceDate, 'dd MMM, yyyy')}}
+            {{:~formatJsonDate(AttendanceDate, 'dd MMM, yyyy')}}
         </td>
         <td>
             {{:Code}}
@@ -138,10 +138,10 @@
             {{:ShiftCode}}
         </td>
         <td>
-            {{if InFixed}} {{:~formatDate(InFixed, 'HH:mm')}} {{/if}}
+            {{if InFixed}} {{:~formatJsonDate(InFixed, 'HH:mm')}} {{/if}}
         </td>
         <td>
-            {{if OutFixed}} {{:~formatDate(OutFixed, 'HH:mm')}} {{/if}}
+            {{if OutFixed}} {{:~formatJsonDate(OutFixed, 'HH:mm')}} {{/if}}
         </td>
         <td>
             {{if TotalWorkHours > 0}}

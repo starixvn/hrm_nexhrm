@@ -7,7 +7,7 @@
 
     public class Notification
     {
-        public Employee employee { get; set; }
+        public Employee Employee { get; set; }
 
         public int LateInEarlyOutInYear { get; set; }
 
@@ -22,7 +22,7 @@
             get
             {
                 int quantity = 0;
-                if (LateInEarlyOutInYear >=2)
+                if (LateInEarlyOutInYear >= 2)
                 {
                     quantity += 1;
                 }
@@ -42,7 +42,7 @@
                     quantity += 1;
                 }
 
-                return quantity.ToString() == "0" ? "" : quantity.ToString();
+                return quantity.ToString() == "0" ? string.Empty : quantity.ToString();
             }
         }
     }

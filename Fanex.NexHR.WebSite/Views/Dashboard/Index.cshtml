@@ -123,7 +123,7 @@
                         <p>
                             <span class="left-align">Missing Check In/Check Out:</span> 
                             <span class="bold">
-                                <a href="#" class="blue-grey-text text-darken-3">1</a>
+                                <a href="#" class="blue-grey-text text-darken-3">@Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)</a>
                             </span>
                         </p>
                         <p>
@@ -138,7 +138,7 @@
                             <span class="left-align">Leave Request All Employees:</span>
                             <span class="bold request">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    Alex, Amy, Ann, Harmony, Hoa, Lisa, Rossa, Victor, Bravo (½), Kos (½), Ricky (½), Daren, Julien, Albert
+                                    @Model.CompanyLeaveToDay
                                 </a>
                             </span>
                         </p>
@@ -146,7 +146,7 @@
                             <span class="left-align">Absent:</span>
                             <span class="bold request">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    Sean, Michael, Joe, Tony
+                                    @Model.CompanyAbsentToDay
                                 </a>
                             </span>
                         </p>
@@ -154,7 +154,7 @@
                             <span class="left-align">Late In/Early Out Notification:</span>
                             <span class="bold request">
                                 <a href="#" class="blue-grey-text text-darken-3">
-                                    Sean, Michael, Joe, Tony
+                                    @Model.CompanyLateInEarlyOutToDay
                                 </a>
                             </span>
                         </p>

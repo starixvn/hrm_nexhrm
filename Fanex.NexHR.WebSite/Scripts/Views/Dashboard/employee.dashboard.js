@@ -88,8 +88,22 @@ function LoadNotification() {
     });
 }
 
+function initTooltipInformation() {
+    var linkDays = $(".contextmenu");
+
+    linkDays.mouseover(function () {
+        $(this).find(".drop-menu").show();
+    });
+
+    linkDays.mouseout(function () {
+        $(this).find(".drop-menu").hide();
+    });
+}
+
 $(document).ready(function () {
     MyDashboard.init();
+
+    initTooltipInformation();
 
     $('.slide').slick({
         slidesToShow: 1,

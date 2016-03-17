@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Fanex.Data.Repository;
 using Fanex.NexHR.Models.Notification;
 using Fanex.NexHR.Services.Interfaces;
-using Fanex.Data.Repository;
 
 namespace Fanex.NexHR.Services
 {

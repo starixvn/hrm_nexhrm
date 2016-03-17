@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Models
 {
     public class Shift : EntityBase<int>
-    {        
+    {
         public string BeginCheckInTime { get; set; }
 
         public string EndCheckInTime { get; set; }
@@ -16,9 +16,21 @@
         {
             get
             {
-                return BeginCheckInTime.Equals(EndCheckInTime)
-                    ? string.Format("{0} (IN {1} -> OUT:{2})", Name, BeginCheckInTime, BeginCheckOutTime)
-                    : string.Format("{0} (IN {1} - {2} -> OUT {3} - {4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
+                if (BeginCheckInTime != null && EndCheckInTime != null)
+                {
+                    if (BeginCheckInTime.Equals(EndCheckInTime))
+                    {
+                        return string.Format("{0} (IN {1} -> OUT:{2})", Name, BeginCheckInTime, BeginCheckOutTime);
+                    }
+                    else
+                    {
+                        return string.Format("{0} (IN {1} - {2} -> OUT {3} - {4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
     }
