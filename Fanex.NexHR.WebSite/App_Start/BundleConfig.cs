@@ -118,8 +118,8 @@
                          "~/Scripts/Libs/date.js",
                          "~/Scripts/Libs/jquery.floatThead.min.js",
                          "~/Scripts/Libs/common.js",
-                         "~/Scripts/Views/language.js"
-                         ));
+                         "~/Scripts/Views/language.js",
+                         "~/Scripts/Notification/notification.js"));
 
             bundles.AddAndInclude(
                 "~/Content/sitecss",

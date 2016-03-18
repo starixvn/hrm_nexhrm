@@ -411,6 +411,7 @@
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
+    <Content Include="Scripts\Notification\notification.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.conversion.detail.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\AnnualLeave\annualleave.edit.js" />

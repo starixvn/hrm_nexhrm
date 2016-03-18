@@ -56,38 +56,6 @@ function initTodoList() {
     });
 }
 
-function LoadNotification() {
-    var empId = _global.employeeId;
-    $.ajax({
-        url: _global.root + 'dashboard/GetNotification?employeeId=' + empId,
-        type: 'GET',
-        dataType: 'html',
-        beforeSend: function () {
-            //if (!isFirstLoad) {
-            //    $('.loading-process').fadeIn(300);
-            //}
-        },
-        success: function (data) {
-            if (data) {
-                $('#notification').html(data);
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
-        },
-        complete: function () {
-            $('.dropdown-button').dropdown({
-                inDuration: 300,
-                outDuration: 225,
-                constrain_width: false, // Does not change width of dropdown to that of the activator
-                gutter: 0, // Spacing from edge
-                belowOrigin: false, // Displays dropdown below the button
-                alignment: 'left' // Displays dropdown with edge aligned to the left of button
-            });
-        }
-    });
-}
-
 function initTooltipInformation() {
     var linkDays = $(".contextmenu");
 
@@ -103,7 +71,7 @@ function initTooltipInformation() {
 $(document).ready(function () {
     MyDashboard.init();
 
-    initTooltipInformation();
+    //initTooltipInformation();
 
     $('.slide').slick({
         slidesToShow: 1,
