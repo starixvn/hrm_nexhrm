@@ -13,7 +13,10 @@
 
 (function(factory) {
 	// global var is the this object, which is window when running in the usual browser environment
-	var global = (0, eval)('this'), // jshint ignore:line
+    var f = (0, eval);
+    f === eval;
+    
+    var global = f('this'), // jshint ignore:line
 		$ = global.jQuery;
 
 	if (typeof define === "function" && define.amd) { // AMD script loader, e.g. RequireJS
@@ -39,7 +42,10 @@ function($) {
 //========================== Top-level vars ==========================
 
 // global var is the this object, which is window when running in the usual browser environment
-var global = (0, eval)('this'), // jshint ignore:line
+var f = (0, eval);
+f === eval;
+
+    var global = f('this'), // jshint ignore:line
 	setGlobals = $ === false; // Only set globals if script block in browser (not AMD and not CommonJS)
 
 $ = $ && $.fn ? $ : global.jQuery; // $ is jQuery passed in by CommonJS loader (Browserify), or global jQuery.

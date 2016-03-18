@@ -11,7 +11,6 @@ namespace Fanex.NexHR.WebSite
 {
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class BundleEntensions
     {

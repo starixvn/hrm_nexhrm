@@ -112,13 +112,14 @@
                          "~/Scripts/Libs/jquery-dateFormat.min.js",
                          "~/Scripts/Libs/materialize.js",
                          "~/Scripts/Libs/jquery.tipsy.js",
-                         "~/Scripts/Libs/jsrender.min.js",
+                         "~/Scripts/Libs/jsrender.js",
                          "~/Scripts/Libs/jquery.cookie.js",
                          "~/Scripts/Libs/chart.js",
                          "~/Scripts/Libs/date.js",
                          "~/Scripts/Libs/jquery.floatThead.min.js",
                          "~/Scripts/Libs/common.js",
-                         "~/Scripts/Views/language.js"));
+                         "~/Scripts/Views/language.js"
+                         ));
 
             bundles.AddAndInclude(
                 "~/Content/sitecss",
