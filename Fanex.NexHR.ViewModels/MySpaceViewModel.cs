@@ -11,13 +11,15 @@
 
     public class MySpaceViewModel
     {
-        private const string _DisplayCellTpl = "<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
+        private const string _DisplayCellTpl = @"<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a>
+            <ul class='list-unstyled drop-menu'>{1}</ul></span>";
+
         private const string _DisplayCellDetailTpl = "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
         public decimal AnnualLeaveBalance { get; set; }
 
         public decimal TotalWorkingHoursToday { get; set; }
-        
+
         public decimal TotalWorkingHoursCurrentMonth { get; set; }
 
         public decimal TotalWorkingHoursLastMonth { get; set; }
@@ -36,7 +38,7 @@
 
         public string CompanyLeaveToDay
         {
-            get 
+            get
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> todayLeaves = DashboardCompanySpace
@@ -103,7 +105,7 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> yesterdayCheckInOuts = 
+                IList<DashBoardCompanySpace> yesterdayCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
                 foreach (DashBoardCompanySpace checkInOut in yesterdayCheckInOuts)
                 {
@@ -124,7 +126,7 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> todayMissingCheckInOuts = 
+                IList<DashBoardCompanySpace> todayMissingCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 foreach (DashBoardCompanySpace missingCheckInOut in todayMissingCheckInOuts)
                 {
@@ -145,7 +147,7 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> yesterdayMissingCheckInOuts = 
+                IList<DashBoardCompanySpace> yesterdayMissingCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
                 foreach (DashBoardCompanySpace missingCheckInOut in yesterdayMissingCheckInOuts)
                 {
@@ -166,7 +168,7 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> todayLateInEarlyOuts = 
+                IList<DashBoardCompanySpace> todayLateInEarlyOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
                 foreach (DashBoardCompanySpace lateInEarlyOut in todayLateInEarlyOuts)
                 {
@@ -187,7 +189,7 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> yesterdayLateInEarlyOuts = 
+                IList<DashBoardCompanySpace> yesterdayLateInEarlyOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
                 foreach (DashBoardCompanySpace lateInEarlyOut in yesterdayLateInEarlyOuts)
                 {
@@ -289,7 +291,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> currentMonthCheckInOuts = 
+                IList<DashBoardPersonalSpace> currentMonthCheckInOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
@@ -311,7 +313,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> lastMonthCheckInOuts = 
+                IList<DashBoardPersonalSpace> lastMonthCheckInOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
@@ -333,7 +335,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts = 
+                IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
@@ -355,7 +357,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> lastMonthMissingCheckInOuts = 
+                IList<DashBoardPersonalSpace> lastMonthMissingCheckInOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
@@ -377,7 +379,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> currentMonthLateInEarlyOuts = 
+                IList<DashBoardPersonalSpace> currentMonthLateInEarlyOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
@@ -399,7 +401,7 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> lastMonthLateInEarlyOuts = 
+                IList<DashBoardPersonalSpace> lastMonthLateInEarlyOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";

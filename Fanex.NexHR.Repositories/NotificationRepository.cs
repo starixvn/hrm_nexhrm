@@ -14,13 +14,12 @@
             {
                 var noti = db.QueryEntity<Notification, Employee, Notification>(
                     (notification, employee) =>
-                        {
-                            notification.Employee = employee;
-                            return notification;
-                        },
+                    {
+                        notification.Employee = employee;
+                        return notification;
+                    },
                         "EmpId",
-                        criteria.GetSpParams()
-                    );
+                        criteria.GetSpParams());
                 return noti;
             }
         }

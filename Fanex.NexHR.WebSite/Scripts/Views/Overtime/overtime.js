@@ -165,4 +165,6 @@ $(document).ready(function () {
     LoadOTRequest(true)
 
     $('select').material_select();
+
+    window.toOTRequest;
 });
