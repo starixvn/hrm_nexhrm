@@ -15,28 +15,34 @@
     {
         <li class="collection-item avatar">
             <i class="circle blue mdi-action-event"></i>
-            <p>
-                You have violated Late in/Early out @Model.LateInEarlyOutInYear times within 12 months<br>
-            </p>
+            <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                <p id="lateearlyYear">
+                    You have violated Late in/Early out @Model.LateInEarlyOutInYear times within 12 months<br>
+                </p>
+            </a>
         </li>
     }
     @if (Model.LateInEarlyOutInMonth >= 3)
     {
         <li class="collection-item avatar">
             <i class="circle materialize-red mdi-action-description"></i>
-            <p>
-                You have violated Late in/Early out @Model.LateInEarlyOutInMonth times in this month<br>
-            </p>
+            <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                <p>
+                    You have violated Late in/Early out @Model.LateInEarlyOutInMonth times in this month<br>
+                </p>
+            </a>
         </li>
     }
     @if (Model.TimeMisssingCheckInOutThisMonth >= 2)
     {
         <li class="collection-item avatar">
             <i class="circle green mdi-social-person"></i>
-            <p>
-                You have forgot Check in/Check out @Model.TimeMisssingCheckInOutThisMonth  times in this month<br>
-                @*<small>2 days ago</small>*@
-            </p>
+            <a href="~/checkinout/employeeview">
+                <p>
+                    You have forgot Check in/Check out @Model.TimeMisssingCheckInOutThisMonth  times in this month<br>
+                    @*<small>2 days ago</small>*@
+                </p>
+            </a>
         </li>
     }
     @if (Model.ToeicExpired)

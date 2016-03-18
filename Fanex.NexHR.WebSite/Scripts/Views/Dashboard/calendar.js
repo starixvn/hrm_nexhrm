@@ -2,6 +2,7 @@
     CreateEvents(googleEvents);
 
     $('#calendar').fullCalendar({
+        defaultView: 'basicDay',
         theme: true,
         header:
         {
@@ -11,56 +12,57 @@
         },
         events: eventList,
         eventLimit: true,
+        titleFormat: 'D',
         view: {
-            agenda: {
-                eventLimit: 2
+            day: {
+                eventLimit: 2,
             }
         },
         eventRender: function (event, element) {
-            var from = event.start.hours() + ":" + (event.start.minutes()>=10?event.start.minutes():'0'+event.start.minutes());
-            var to = event.end.hours() + ":" + (event.end.minutes()>=10?event.end.minutes():'0'+event.end.minutes());
-//            var a = "<table class='table-tooltip'>" +
-//                        "<tr>" +                            
-//                            "<td colspan='2'>" + event.title + "</td>" +
-//                        "</tr>" +
-//                        "<tr>" +                            
-//                            "<td colspan='2'>" + from + " - " + to + "</td>" +
-//                        "</tr>" +
-//                        "<tr>" +         
-//                            "<td>" + 'Creator:' + "</td>" +                   
-//                            "<td>" + event.creator + "</td>" +
-//                        "</tr>" +
-//                        "<tr>" +                            
-//                            "<td>" + 'Location:' + "</td>" +
-//                            "<td>" + event.location + "</td>" +
-//                        "</tr>"
-//                    "</table>";
-//            element.attr('data-tooltip', a);
-//            element.tooltip({delay:50})
+            var from = event.start.hours() + ":" + (event.start.minutes() >= 10 ? event.start.minutes() : '0' + event.start.minutes());
+            var to = event.end.hours() + ":" + (event.end.minutes() >= 10 ? event.end.minutes() : '0' + event.end.minutes());
+            //            var a = "<table class='table-tooltip'>" +
+            //                        "<tr>" +                            
+            //                            "<td colspan='2'>" + event.title + "</td>" +
+            //                        "</tr>" +
+            //                        "<tr>" +                            
+            //                            "<td colspan='2'>" + from + " - " + to + "</td>" +
+            //                        "</tr>" +
+            //                        "<tr>" +         
+            //                            "<td>" + 'Creator:' + "</td>" +                   
+            //                            "<td>" + event.creator + "</td>" +
+            //                        "</tr>" +
+            //                        "<tr>" +                            
+            //                            "<td>" + 'Location:' + "</td>" +
+            //                            "<td>" + event.location + "</td>" +
+            //                        "</tr>"
+            //                    "</table>";
+            //            element.attr('data-tooltip', a);
+            //            element.tooltip({delay:50})
             element.tipsy({
                 className: 'detail-calendar',
                 gravity: 'se',
                 offset: 0,
                 html: true,
-                title: function () {                    
+                title: function () {
                     return "<table class='table-tooltip'>" +
-                        "<tr>" +                            
+                        "<tr>" +
                             "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
                         "</tr>" +
-                        "<tr>" +                            
+                        "<tr>" +
                             "<td colspan='2'>" + from + " - " + to + "</td>" +
                         "</tr>" +
-                        "<tr>" +         
-                            "<td>" + 'Creator:' + "</td>" +                   
+                        "<tr>" +
+                            "<td>" + 'Creator:' + "</td>" +
                             "<td>" + event.creator + "</td>" +
                         "</tr>" +
-                        "<tr>" +                            
+                        "<tr>" +
                             "<td>" + 'Location:' + "</td>" +
                             "<td>" + event.location + "</td>" +
                         "</tr>"
                     "</table>";
                 }
-            });        
+            });
         },
         eventClick: function (event) {
             if (event.url) {
@@ -85,6 +87,10 @@
     });
 }
 
+function test() {
+    $('.fc-toolbar').append("<a>123</a>");
+}
+
 function CreateEvents(googleEvents) {
     eventList = [];
     if (googleEvents.length > 0) {
@@ -101,7 +107,7 @@ function CreateEvents(googleEvents) {
     }
 }
 
-function RefreshEventCalendar(from, to) {   
+function RefreshEventCalendar(from, to) {
 
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
@@ -111,11 +117,9 @@ function RefreshEventCalendar(from, to) {
         'singleEvents': true,
     });
 
-    request.execute(function (resp) {        
+    request.execute(function (resp) {
         CreateEvents(resp.items);
-        $('#calendar').fullCalendar('removeEvents')        
+        $('#calendar').fullCalendar('removeEvents')
         $('#calendar').fullCalendar('addEventSource', eventList);
-        //$('#calendar').fullCalendar('rerenderEvents');
-        //$('#calendar').fullCalendar('refetchEvents');
-    });    
+    });
 }
