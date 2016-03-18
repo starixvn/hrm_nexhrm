@@ -31,6 +31,19 @@
       padding: 0.1rem 0.5rem; }
   .to-do-list .scrollTodo {
     max-height: 23.5rem; }
+  .to-do-list .mCSB_inside > .mCSB_container {
+    margin-right: 15px; }
+  .to-do-list .mCSB_scrollTools {
+    width: 6px; }
+  .to-do-list .mCSB_scrollTools .mCSB_draggerRail, .to-do-list .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    width: 6px; }
+  .to-do-list .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: rgba(0, 0, 0, 0.07); }
+  .to-do-list .mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #b9c0c8; }
+  .to-do-list .mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+  .to-do-list .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.5); }
 
 .workload .card-title-block {
   border-bottom: none !important; }
