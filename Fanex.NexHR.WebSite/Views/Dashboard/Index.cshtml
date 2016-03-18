@@ -3,7 +3,7 @@
     @Styles.Render("~/Content/dashboardcss")
 }
 @section js{
-    @*@Scripts.Render("~/bundles/dashboardjs")*@
+    @Scripts.Render("~/bundles/dashboardjs")
 }
 @{
     ViewBag.Title = "Dashboard";
@@ -127,7 +127,7 @@
                                 <td>
                                     <span class="left-align">Missing Check In/Check Out:</span>
                                     <span class="bold">
-                                        <a href="#" class="blue-grey-text text-darken-3">@Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)</a>
+                                        @Html.Raw(Model.PersonalMissingCheckInOutCurrentMonth)
                                     </span>
                                 </td>
                             </tr>

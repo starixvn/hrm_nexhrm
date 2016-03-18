@@ -11,7 +11,7 @@
 
     public class MySpaceViewModel
     {
-        private const string _DisplayCellTpl = "<span class='contextmenu'><a href='javascript:;'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
+        private const string _DisplayCellTpl = "<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a><ul class='list-unstyled drop-menu'>{1}</ul></span>";
         private const string _DisplayCellDetailTpl = "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
         public decimal AnnualLeaveBalance { get; set; }
