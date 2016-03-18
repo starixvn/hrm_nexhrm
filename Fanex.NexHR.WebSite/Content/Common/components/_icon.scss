@@ -1,4 +1,4 @@
-@import "../utils/variables";
+@import "Common/utils/variables";
 
 .icon {
     background-repeat: no-repeat;
@@ -7,7 +7,7 @@
     padding: 0 0.5rem;
 
     &.icon-shiftinfo {
-        background: url("../../Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.8rem;
+        background: url("Content/Images/sprite_ico_2012-05-15.png") -2.9rem -2.8rem;
         width: 1.4rem;
         height: 1.5rem;
     }

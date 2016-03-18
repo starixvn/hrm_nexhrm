@@ -175,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\BundleEntensions.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -236,31 +235,31 @@
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\employee.postnatal.scss" />
-    <Content Include="Content\Fonts\Material\Material-Design-Icons.eot" />
-    <Content Include="Content\Fonts\Material\Material-Design-Icons.ttf" />
-    <Content Include="Content\Fonts\Material\Material-Design-Icons.woff" />
-    <Content Include="Content\Fonts\Material\Material-Design-Icons.woff2" />
-    <Content Include="Content\Fonts\Material\materialdesignicons-webfont.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Bold.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Bold.woff" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Bold.woff2" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Light.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Light.woff" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Light.woff2" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Medium.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Medium.woff" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Medium.woff2" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Regular.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Regular.woff" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Regular.woff2" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Thin.ttf" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Thin.woff" />
-    <Content Include="Content\Fonts\Roboto\Roboto-Thin.woff2" />
-    <Content Include="Content\iconfont\materialdesignicons-webfont.eot" />
-    <Content Include="Content\iconfont\materialdesignicons-webfont.svg" />
-    <Content Include="Content\iconfont\materialdesignicons-webfont.ttf" />
-    <Content Include="Content\iconfont\materialdesignicons-webfont.woff" />
-    <Content Include="Content\iconfont\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Fonts1\Material\Material-Design-Icons.eot" />
+    <Content Include="Content\Fonts1\Material\Material-Design-Icons.ttf" />
+    <Content Include="Content\Fonts1\Material\Material-Design-Icons.woff" />
+    <Content Include="Content\Fonts1\Material\Material-Design-Icons.woff2" />
+    <Content Include="Content\Fonts1\Material\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Bold.woff" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Light.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Light.woff" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Light.woff2" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Medium.woff" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Regular.woff" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Thin.woff" />
+    <Content Include="Content\Fonts1\Roboto\Roboto-Thin.woff2" />
+    <Content Include="Content\iconfont1\materialdesignicons-webfont.eot" />
+    <Content Include="Content\iconfont1\materialdesignicons-webfont.svg" />
+    <Content Include="Content\iconfont1\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\iconfont1\materialdesignicons-webfont.woff" />
+    <Content Include="Content\iconfont1\materialdesignicons-webfont.woff2" />
     <None Include="Content\Views\annualleavebalance.scss" />
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />

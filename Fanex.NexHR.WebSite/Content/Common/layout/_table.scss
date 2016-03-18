@@ -182,33 +182,6 @@ table {
     color: $color-text-main;
   }
 
-  .drop-down-icon {
-    background: url('../../images/dropdown-icon.png');
-    box-shadow: none;    
-    width: 108px !important;
-    height: 44px !important;
-    margin-right: -10px;
-    margin-top: 4px;
-
-    li {
-      display: inline-block;
-      width: 30%;
-
-      a {
-        padding: 1rem .5rem 0;
-        color: $color-text-main;
-        margin-top: 0.5rem;
-      }
-
-      &:hover {
-        background: none;
-        a {
-          color: $color-second;
-        }
-      }
-    }
-  }
-
   .run {
     cursor: pointer;
     .pause {

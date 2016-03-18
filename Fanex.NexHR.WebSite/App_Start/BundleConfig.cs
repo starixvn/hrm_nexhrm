@@ -6,8 +6,10 @@
     public static class BundleConfig
     {
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles()
         {
+            var bundles = BundleTable.Bundles;
+
             BuildBundleForCommon(bundles);
 
             BuildBundleForDashboard(bundles);
@@ -85,22 +87,14 @@
             BuildBundleForLateEarly(bundles);
 
             BuildBundleForPostnatal(bundles);
-        }
 
-        private static void BuildBundlerForOvertime(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/manageovertimejs").Include(
-                         "~/Scripts/Views/Overtime/manage.js"));
+            BuildBundleForMyRequest(bundles);
 
-            bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
-             "~/Scripts/Views/Employee/_employee.search.in.company.js",
-             "~/Scripts/Views/Overtime/overtimeSummary.js"));
+            BuildBundleForFullCalendar(bundles);
 
-            bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
-                "~/Scripts/Views/Overtime/myOvertime.js",
-                "~/Scripts/Views/Overtime/overtime.member.js",
-                "~/Scripts/Views/Overtime/overtimeRequest.js",
-                "~/Scripts/Views/Overtime/overtime.js"));
+            BuildBundleForContextMenu(bundles);
+
+            BuildBundleForMonthPicker(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -121,22 +115,48 @@
                          "~/Scripts/Views/language.js",
                          "~/Scripts/Notification/notification.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/sitecss",
-                "~/Content/Materialize/materialize.css",
-                "~/Content/Common/components/materialdesignicons.css",
-                "~/Content/site.css",
-                "~/Content/themes/base/jquery-ui.css");
+            bundles.Add(new StyleBundle("~/Content/sitecss")
+                  .Include("~/Content/Materialize/materialize.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/Common/components/materialdesignicons.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/accordion.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/autocomplete.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/button.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/datepicker.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/dialog.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/draggable.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/menu.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/progressbar.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/resizable.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/selectable.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/sortable.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/slider.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/spinner.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/tabs.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/tooltip.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/theme.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/site.css", new CssRewriteUrlTransform()));
+        }
 
-            BuildBundleForFullCalendar(bundles);
+        private static void BuildBundlerForOvertime(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/manageovertimejs").Include(
+                         "~/Scripts/Views/Overtime/manage.js"));
 
-            BuildBundleForContextMenu(bundles);
+            bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
+             "~/Scripts/Views/Employee/_employee.search.in.company.js",
+             "~/Scripts/Views/Overtime/overtimeSummary.js"));
 
-            BuildBundleForMonthPicker(bundles);
+            bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
+                "~/Scripts/Views/Overtime/myOvertime.js",
+                "~/Scripts/Views/Overtime/overtime.member.js",
+                "~/Scripts/Views/Overtime/overtimeRequest.js",
+                "~/Scripts/Views/Overtime/overtime.js"));
+        }
 
-            bundles.AddAndInclude(
-                "~/Content/myrequestcss",
-                "~/Content/Views/myrequest.css");
+        private static void BuildBundleForMyRequest(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/myrequestcss")
+                  .Include("~/Content/Views/myrequest.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForTotalWorkingHours(BundleCollection bundles)
@@ -159,9 +179,8 @@
             bundles.Add(new ScriptBundle("~/bundles/geolocationjs").Include(
                 "~/Scripts/Views/Geolocationmap/geolocationmap.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/geolocationcss",
-                "~/Content/Views/geolocation.css");
+            bundles.Add(new StyleBundle("~/Content/geolocationcss")
+                  .Include("~/Content/Views/geolocation.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForExtension(BundleCollection bundles)
@@ -184,9 +203,8 @@
                 "~/Scripts/tiny_mce/tiny_mce_src.js",
                 "~/Scripts/Views/Memo/memo.edit.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/annualleavebalancecss",
-                "~/Content/Views/annualleavebalance.css");
+            bundles.Add(new StyleBundle("~/Content/annualleavebalancecss")
+                  .Include("~/Content/Views/annualleavebalance.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForToeic(BundleCollection bundles)
@@ -216,9 +234,8 @@
             bundles.Add(new ScriptBundle("~/bundles/mytimesheetjs").Include(
                 "~/Scripts/Views/Report/report.timesheet.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/mytimesheetcss",
-                "~/Content/Views/report.timesheet.css");
+            bundles.Add(new StyleBundle("~/Content/mytimesheetcss")
+                  .Include("~/Content/Views/report.timesheet.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForMyCalendar(BundleCollection bundles)
@@ -226,9 +243,8 @@
             bundles.Add(new ScriptBundle("~/bundles/mycalendarjs").Include(
                 "~/Scripts/Views/Calendar/mycalendar.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/mycalendarcss",
-                "~/Content/Views/mycalendar.css");
+            bundles.Add(new StyleBundle("~/Content/mycalendarcss")
+                  .Include("~/Content/Views/mycalendar.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForMemberRequests(BundleCollection bundles)
@@ -265,16 +281,14 @@
             bundles.Add(new ScriptBundle("~/bundles/jobtitlejs").Include(
                 "~/Scripts/Views/Jobtitle/jobtitle.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/jobtitlecss",
-                "~/Content/Views/jobtitle.css");
+            bundles.Add(new StyleBundle("~/Content/jobtitlecss")
+                  .Include("~/Content/Views/jobtitle.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForAttendanceReport(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/bundles/attendancejs",
-                "~/Scripts/Views/Report/report.attendance.js");
+            bundles.Add(new ScriptBundle("~/bundles/attendancejs").Include(
+                "~/Scripts/Views/Calendar/report.attendance.js"));
         }
 
         private static void BuildBundleForUserManagement(BundleCollection bundles)
@@ -285,41 +299,36 @@
 
         private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/bundles/lateinearlyoutjs",
+            bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutjs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/report.latein.earlyout.js");
+                "~/Scripts/Views/Report/report.latein.earlyout.js"));
         }
 
         private static void BuildBundleForLateInEarlyOutDetail(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/bundles/lateinearlyoutdetailjs",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/report.latein.earlyout.detail.js");
+            bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutdetailjs")
+                .Include("~/Scripts/Views/Employee/_employee.search.in.company.js")
+                .Include("~/Scripts/Views/Report/report.latein.earlyout.detail.js"));
         }
 
         private static void BuildBundleForLateInEarlyOutDiscipline(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/lateinearlyoutdisciplinecss",
-                "~/Content/Views/report.latein.earlyout.discipline.css");
-
-            bundles.AddAndInclude(
-                "~/bundles/lateinearlyoutdisciplinejs",
+            bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutdisciplinejs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/Report/report.latein.earlyout.discipline.js");
+                "~/Scripts/Views/Report/report.latein.earlyout.discipline.js"));
+
+            bundles.Add(new StyleBundle("~/Content/lateinearlyoutdisciplinecss")
+                  .Include("~/Content/Views/report.latein.earlyout.discipline.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForEditEmployee(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/employeeeditcss",
-                "~/Content/Views/employee.edit.css");
-
             bundles.Add(new ScriptBundle("~/bundles/employeeeditjs").Include(
                 "~/Scripts/Libs/birthdaypicker.js",
                 "~/Scripts/Views/Employee/employee.edit.js"));
+
+            bundles.Add(new StyleBundle("~/Content/employeeeditcss")
+                  .Include("~/Content/Views/employee.edit.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForTeamManagement(BundleCollection bundles)
@@ -377,13 +386,12 @@
             bundles.Add(new ScriptBundle("~/bundles/dashboard2js").Include(
                 "~/Scripts/Views/Dashboard/employee.dashboard.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/dashboardcss",
-                "~/Content/Common/vendors/slick.css",
-                "~/Content/Views/mydashboard.css",
-                "~/Content/Common/vendors/fullcalendar.css",
-                "~/Content/Views/mycalendar.css",
-                "~/Content/Common/vendors/jquery.mCustomScrollbar.css");
+            bundles.Add(new StyleBundle("~/Content/dashboardcss")
+                  .Include("~/Content/Common/vendors/slick.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/Views/mydashboard.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/Common/vendors/fullcalendar.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/Views/mycalendar.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/Common/vendors/jquery.mCustomScrollbar.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForWorkingCanlendar(BundleCollection bundles)
@@ -393,9 +401,8 @@
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/fixtable.js"));
 
-            bundles.AddAndInclude(
-               "~/Content/workingcalendarscss",
-               "~/Content/Views/report.timesheet.css");
+            bundles.Add(new StyleBundle("~/Content/workingcalendarscss")
+                  .Include("~/Content/Views/report.timesheet.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForStaffInfo(BundleCollection bundles)
@@ -409,32 +416,28 @@
             bundles.Add(new ScriptBundle("~/bundles/staffbirthdayjs").Include(
                 "~/Scripts/Views/Employee/employee.birthday.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/staffbirthdaycss",
-                "~/Content/Views/employee.birthday.css");
+            bundles.Add(new StyleBundle("~/Content/staffbirthdaycss")
+                  .Include("~/Content/Views/employee.birthday.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForLeaveDeductionDetail(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/bundles/leavedeductiondetailjs",
+            bundles.Add(new ScriptBundle("~/bundles/leavedeductiondetailjs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/AnnualLeave/leave.deduction.detail.js");
+                "~/Scripts/Views/AnnualLeave/leave.deduction.detail.js"));
         }
 
         private static void BuildBundleForLeaveConversionDetail(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/bundles/leaveconversiondetailjs",
+            bundles.Add(new ScriptBundle("~/bundles/leaveconversiondetailjs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
-                "~/Scripts/Views/AnnualLeave/leave.conversion.detail.js");
+                "~/Scripts/Views/AnnualLeave/leave.conversion.detail.js"));
         }
 
         private static void BuildBundleForMyProfile(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/myprofilecss",
-                "~/Content/Views/my.profile.css");
+            bundles.Add(new StyleBundle("~/Content/myprofilecss")
+                  .Include("~/Content/Views/my.profile.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForSimplePagination(BundleCollection bundles)
@@ -442,9 +445,8 @@
             bundles.Add(new ScriptBundle("~/bundles/simplepaginationjs").Include(
                 "~/Libs/SimplePagination/jquery.simplePagination.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/simplepaginationcss",
-                "~/Libs/SimplePagination/simplePagination.css");
+            bundles.Add(new StyleBundle("~/Content/simplepaginationcss")
+                  .Include("~/Libs/SimplePagination/simplePagination.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForFullCalendar(BundleCollection bundles)
@@ -453,9 +455,8 @@
                 "~/Scripts/Libs/moment.js",
                 "~/Scripts/Libs/fullcalendar.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/fullcalendarcss",
-                "~/Content/Common/vendors/fullcalendar.css");
+            bundles.Add(new StyleBundle("~/Content/fullcalendarcss")
+                  .Include("~/Content/Common/vendors/fullcalendar.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForContextMenu(BundleCollection bundles)
@@ -463,19 +464,17 @@
             bundles.Add(new ScriptBundle("~/bundles/contextmenujs").Include(
                 "~/Scripts/Libs/jquery.contextMenu.min.js"));
 
-            bundles.AddAndInclude(
-                "~/Content/contextmenucss",
-                "~/Content/ContextMenu/contextMenu.css");
+            bundles.Add(new StyleBundle("~/Content/contextmenucss")
+                  .Include("~/Content/ContextMenu/contextMenu.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForMonthPicker(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/monthpickercss",
-                "~/Content/Common/vendors/monPickr-0.0.3.css");
-
             bundles.Add(new ScriptBundle("~/bundles/monthpickerjs").Include(
                 "~/Scripts/Libs/monPickr-0.0.3.js"));
+
+            bundles.Add(new StyleBundle("~/Content/monthpickercss")
+                  .Include("~/Content/Common/vendors/monPickr-0.0.3.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForLateEarly(BundleCollection bundles)
@@ -490,10 +489,6 @@
 
         private static void BuildBundleForPostnatal(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Content/postnatalcss",
-                "~/Content/Views/employee.postnatal.css");
-
             bundles.Add(new ScriptBundle("~/bundles/postnatalemployeejs").Include(
                 "~/Scripts/Views/Postanal/postnatalemployee.js",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js"));
@@ -501,6 +496,9 @@
             bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Postanal/create.js"));
+
+            bundles.Add(new StyleBundle("~/Content/postnatalcss")
+                  .Include("~/Content/Views/employee.postnatal.css", new CssRewriteUrlTransform()));
         }
     }
 }
