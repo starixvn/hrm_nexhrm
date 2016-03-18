@@ -208,17 +208,6 @@ main {
     line-height: 4.5rem;
     color: #4c5e70;
     overflow: hidden; }
-  .card-container-base .card-body.information p {
-    padding: 1rem 0;
-    line-height: inherit; }
-  .card-container-base .card-body.information .left-align {
-    width: 230px;
-    display: block;
-    float: left; }
-  .card-container-base .card-body.information .bold {
-    width: calc(100% - 230px);
-    display: block;
-    float: left; }
 
 .loading-process {
   background: rgba(255, 255, 255, 0.7) url("Images/infinity.gif") 40% 40% no-repeat;

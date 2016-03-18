@@ -7,6 +7,23 @@
   .my-dashboard2 .table-custom tbody tr td {
     text-align: center; }
 
+.information table td {
+  padding-left: 0; }
+
+.information p {
+  padding: 1rem 0;
+  line-height: inherit; }
+
+.information .left-align {
+  width: 230px;
+  display: block;
+  float: left; }
+
+.information .bold {
+  width: calc(100% - 230px);
+  display: block;
+  float: left; }
+
 .to-do-list {
   padding-top: 16px; }
   .to-do-list .card-body {

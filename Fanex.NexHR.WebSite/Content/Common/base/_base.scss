@@ -292,26 +292,7 @@ main {
             line-height: 4.5rem;
             color: #4c5e70;
             overflow: hidden;
-        }
-
-        &.information {
-            p {
-                padding: 1rem 0;
-                line-height: inherit;
-            }
-
-            .left-align {
-                width: 230px;
-                display: block;
-                float: left;
-            }
-
-            .bold {
-                width: calc(100% - 230px);
-                display: block;
-                float: left;
-            }
-        }
+        }        
     }
 }
 

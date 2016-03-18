@@ -18,6 +18,29 @@
     }
 }
 
+.information {
+    table td {
+        padding-left: 0;
+    }
+
+    p {
+        padding: 1rem 0;
+        line-height: inherit;
+    }
+
+    .left-align {
+        width: 230px;
+        display: block;
+        float: left;
+    }
+
+    .bold {
+        width: calc(100% - 230px);
+        display: block;
+        float: left;
+    }
+}
+
 .to-do-list {
     padding-top: 16px;
 

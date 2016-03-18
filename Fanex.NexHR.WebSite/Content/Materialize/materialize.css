@@ -2341,7 +2341,8 @@ td, th {
         left: 68px;
         top: 17px; }
       .collection .collection-item.avatar p {
-        margin: 0; }
+        margin: 0;
+        line-height: 3; }
       .collection .collection-item.avatar .secondary-content {
         position: absolute;
         top: 16px;
