@@ -272,7 +272,8 @@
     <Setting Key="LateInEarlyOut_Insert" SpName="LateInEarlyOut_Insert_xtest" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update_xtest" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete_xtest" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById_xtest" DbName="nexhr" Plain="1"></Setting>    
+    <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById_xtest" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee_xtest" DbName="nexhr" Plain="1"></Setting>
   </Function>
   <Function Name="EmployeePostnatal">
     <Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert_xtest" DbName="nexhr" Plain="1"></Setting>
