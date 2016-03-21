@@ -285,4 +285,9 @@
       <Mapping DataField="Type" ObjectProperty="Types" />
     </Setting>
   </Function>
+  <Function Name="Notification">
+    <Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="1">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+    </Setting>
+  </Function>
 </Functions>

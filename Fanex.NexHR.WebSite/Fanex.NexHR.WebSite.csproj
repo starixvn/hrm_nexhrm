@@ -222,10 +222,10 @@
     </None>
     <None Include="Content\Common\base\_base.scss" />
     <None Include="Content\Common\base\_typhography.scss" />
-    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.eot" />
-    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
-    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
-    <None Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.eot" />
+    <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff" />
+    <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.min.css" />
     <Content Include="Content\Images\CustomScrollbar\mCSB_buttons.png" />
