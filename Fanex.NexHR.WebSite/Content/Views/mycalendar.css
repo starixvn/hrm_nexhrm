@@ -1,9 +1,8 @@
-#calendar {
+﻿#calendar {
   width: 560px; }
   #calendar .ui-widget-content {
     border: none; }
   #calendar .fc-toolbar {
-    background: #353c4e;
     background: #353c4e;
     margin: 0;
     padding: 1.4rem; }
@@ -76,4 +75,3 @@
 .ui-dialog.dialog-update-shift {
   overflow: visible; }
 
-/*# sourceMappingURL=mycalendar.css.map */

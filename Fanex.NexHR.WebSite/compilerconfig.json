@@ -54,5 +54,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "Content/Views/mycalendar.css",
+    "inputFile": "Content/Views/mycalendar.scss",
+    "minify": {
+      "enabled": false
+    }
   }
 ]
