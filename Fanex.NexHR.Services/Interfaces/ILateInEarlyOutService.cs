@@ -9,5 +9,7 @@
         IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria);
 
         LateInEarlyOutViewModel GetById(GetLateInEarlyOutByIdCriteria criteria);
+
+        IList<LateInEarlyOutViewModel> GetAllEmployee(GetAllEmployeeCriteria criteria);
     }
 }

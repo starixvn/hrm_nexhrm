@@ -8,6 +8,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels.Report;
+    using Fanex.NexHR.ViewModels.LateInEarlyOut;
 
     public class MySpaceViewModel
     {
@@ -509,5 +510,29 @@
         public SystemReminderModel SystemReminder { get; set; }
 
         public EmployeeAttendanceViewModel EmployeeAttendanceModel { get; set; }
+
+        public IList<Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> NotificationLateInEarlyOutToDay { get; set; }
+
+        public string DisplayLateInEarlyOutNotification
+        {
+            get 
+            {
+                string results = "";
+                if (NotificationLateInEarlyOutToDay != null)
+                {
+                    foreach (var item in NotificationLateInEarlyOutToDay)
+                    {
+                        results += item.Nickname + ", ";
+                    }
+
+                    if (results.Length > 2)
+                    {
+                        results = results.Substring(0, results.Length - 2);
+                    }
+                }
+
+                return results;
+            }
+        }
     }
 }

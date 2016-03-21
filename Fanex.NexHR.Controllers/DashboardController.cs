@@ -7,6 +7,7 @@
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Notification;
+    using Fanex.NexHR.Criteria.LateInEarlyOut;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Notification;
@@ -14,6 +15,7 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
+    using System.Linq;
     using Fanex.NexHR.ViewModels.Report;
 
     public class DashboardController : BaseController
@@ -22,9 +24,10 @@
         private readonly ITeamService teamService;
         private readonly IRequestService requestService;
         private readonly INotificationService notificationService;
+        private readonly ILateInEarlyOutService lateinearlyoutService;
 
         public DashboardController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -32,12 +35,14 @@
             IEmployeeService employeeService,
             ITeamService teamService,
             IRequestService requestService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            ILateInEarlyOutService lateinearlyoutService)
         {
             this.employeeService = employeeService ?? new EmployeeService();
             this.teamService = teamService ?? new TeamService();
             this.requestService = requestService ?? new RequestService();
             this.notificationService = notificationService ?? new NotificationService();
+            this.lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
         }
 
         public ActionResult Index()
@@ -60,7 +65,18 @@
             empAttendance.Teams = teamService.GetAll();
             model.EmployeeAttendanceModel = empAttendance;
 
+            model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();
             return View(model);
+        }
+
+        private IList<Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> GetLateInEarlyOutNotification()
+        {
+            GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria()
+            {
+                Date = DateTime.Now.Date
+            };
+
+            return lateinearlyoutService.GetAllEmployee(criteria);
         }
 
         private SystemReminderModel GetRemind()
@@ -77,12 +93,12 @@
 
         public ActionResult GetTodoList(int? employeeId)
         {
-            ToDoViewModel model = new ToDoViewModel() 
+            ToDoViewModel model = new ToDoViewModel()
             {
                 MissingCheckInOutList = GetMissingCheckInOut(employeeId),
                 PendingRequestsList = GetPendingRequest()
             };
-            
+
             return PartialView("ToDoList", model);
         }
 
@@ -92,21 +108,21 @@
             {
                 EmpId = employeeId
             };
-            return employeeService.GetMissingCheckInOutByEmpId(criteria);            
+            return employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
-   
+
         public IList<RequestEntity> GetPendingRequest()
         {
             var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.AssistantLeader,
                 FromDate = DateTime.Now.AddDays(-30),
-                ToDate = DateTime.Now,                
-                GroupId = null,               
+                ToDate = DateTime.Now,
+                GroupId = null,
                 Status = 1,
                 ExcludeEmployeeId = new int?(CurrentUser.Id),
                 RequestType = string.Empty,
-                IsFilterByEffectedDate = false,                
+                IsFilterByEffectedDate = false,
                 ItemsPerPage = 100
             };
 

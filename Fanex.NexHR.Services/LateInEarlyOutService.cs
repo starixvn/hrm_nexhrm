@@ -18,5 +18,11 @@
             LateInEarlyOutViewModel lateInEarlyOut = GetDataEntity<LateInEarlyOutViewModel>(criteria);
             return lateInEarlyOut;
         }
+
+        public IList<LateInEarlyOutViewModel> GetAllEmployee(GetAllEmployeeCriteria criteria)
+        {
+            IList<LateInEarlyOutViewModel> employeeList = GetData<LateInEarlyOutViewModel>(criteria);
+            return employeeList;
+        }
     }
 }
