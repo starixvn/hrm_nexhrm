@@ -50,7 +50,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Hour)
+                                        @Html.LabelFor(model => model.Hour, Labels.Duration)
                                     </div>
                                     <div class="left select--xs">
                                         @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
@@ -71,7 +71,7 @@
                             <div class="row form-input m-t--s">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.Label(Labels.Remark)
+                                        @Html.LabelFor(model => model.Description, Labels.Project)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
@@ -81,7 +81,7 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.CreatedByName)
+                                        @Html.LabelFor(model => model.CreatedByName, Labels.RequestedBy)
                                     </div>
                                     <div class="left">
                                         <span class="label">@Html.DisplayFor(model => model.CreatedByName)</span>
@@ -120,7 +120,7 @@
                                                         @Labels.Employee
                                                     </th>
                                                     <th>
-                                                        @Labels.Hours
+                                                        @Labels.Duration
                                                     </th>
                                                     <th>
                                                         @Labels.Remove

@@ -907,6 +907,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deducted by LI/EO.
+        /// </summary>
+        public static string DeductedByLateInEarlyOut {
+            get {
+                return ResourceManager.GetString("DeductedByLateInEarlyOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deduction Taken.
         /// </summary>
         public static string DeductionTaken {
@@ -1020,6 +1029,15 @@ namespace Fanex.NexHR.Resources {
         public static string Dreamweaver {
             get {
                 return ResourceManager.GetString("Dreamweaver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
         
@@ -2473,6 +2491,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NEX Leave.
+        /// </summary>
+        public static string NexLeave {
+            get {
+                return ResourceManager.GetString("NexLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         public static string Next {
@@ -2797,6 +2824,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public Holiday.
         /// </summary>
         public static string PublicHoliday {
@@ -2901,6 +2937,15 @@ namespace Fanex.NexHR.Resources {
         public static string RequestDate {
             get {
                 return ResourceManager.GetString("RequestDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested By.
+        /// </summary>
+        public static string RequestedBy {
+            get {
+                return ResourceManager.GetString("RequestedBy", resourceCulture);
             }
         }
         
@@ -3495,6 +3540,15 @@ namespace Fanex.NexHR.Resources {
         public static string UPL {
             get {
                 return ResourceManager.GetString("UPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used NEX.
+        /// </summary>
+        public static string UsedNEX {
+            get {
+                return ResourceManager.GetString("UsedNEX", resourceCulture);
             }
         }
         

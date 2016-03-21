@@ -12,7 +12,7 @@
         public CreateOvertimeViewModel()
         {
             Date = DateTime.Now;
-            Hour = 0;
+            Hour = 1;
             Status = (int)RequestStatuse.Pending;
             IsApprove = true;
             TimeSheets = new List<OvertimeRecord>();

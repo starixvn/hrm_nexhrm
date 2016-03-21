@@ -13,10 +13,19 @@
             <td class="align-left">@item.Employee.FullName</td>
             <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
-            <td class="tooltip align-left" title="@item.Description">
-                @RazorHelper.DisplayLimitedString(item.Description)
-            </td>
-            <td class="tooltip" title="@item.CreatedBy.FullName">@item.CreatedBy.NickName</td>
+                <td class="align-left">
+                    @if (item.Description.Length > 50)
+                    {
+                        <span class="tooltip" title="@item.Description">
+                            @RazorHelper.DisplayLimitedString(item.Description)
+                        </span>
+                    }
+                    else
+                    {
+                        <span>@item.Description</span>
+                    }
+                </td>
+            <td>@item.CreatedBy.NickName</td>
             @if(item.Status == (int)RequestStatuse.Approve)
             {
                 <td>@Labels.Approved</td>

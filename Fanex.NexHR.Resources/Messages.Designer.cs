@@ -304,6 +304,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The LateIn/EarlyOut deducted from the Total NEX.
+        /// </summary>
+        public static string LateInEarlyOutDeductedDescription {
+            get {
+                return ResourceManager.GetString("LateInEarlyOutDeductedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Late in/early out request from.
         /// </summary>
         public static string LateInEarlyOutEmailSubject {
@@ -327,6 +336,24 @@ namespace Fanex.NexHR.Resources {
         public static string MemoSubject {
             get {
                 return ResourceManager.GetString("MemoSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LT/EO - NEX Leave).
+        /// </summary>
+        public static string NexBalanceDescription {
+            get {
+                return ResourceManager.GetString("NexBalanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total off-day taken from the NEX (hours).
+        /// </summary>
+        public static string NexLeaveDescription {
+            get {
+                return ResourceManager.GetString("NexLeaveDescription", resourceCulture);
             }
         }
         
@@ -534,6 +561,15 @@ namespace Fanex.NexHR.Resources {
         public static string UpdatedSuccessfully {
             get {
                 return ResourceManager.GetString("UpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total NEX hours deducted by LateIn/EarlyOut.
+        /// </summary>
+        public static string UsedNEXDescription {
+            get {
+                return ResourceManager.GetString("UsedNEXDescription", resourceCulture);
             }
         }
     }

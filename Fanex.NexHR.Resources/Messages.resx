@@ -276,4 +276,16 @@
   <data name="RequiredEmployee" xml:space="preserve">
     <value>Employee list mus be not empty.</value>
   </data>
+  <data name="LateInEarlyOutDeductedDescription" xml:space="preserve">
+    <value>The LateIn/EarlyOut deducted from the Total NEX</value>
+  </data>
+  <data name="NexBalanceDescription" xml:space="preserve">
+    <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LT/EO - NEX Leave)</value>
+  </data>
+  <data name="NexLeaveDescription" xml:space="preserve">
+    <value>Total off-day taken from the NEX (hours)</value>
+  </data>
+  <data name="UsedNEXDescription" xml:space="preserve">
+    <value>Total NEX hours deducted by LateIn/EarlyOut</value>
+  </data>
 </root>

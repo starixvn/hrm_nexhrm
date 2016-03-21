@@ -51,6 +51,23 @@
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                             </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <div class="formrow">
+                                        <span class="bold-color">※ @Labels.NexLeave: </span>
+                                        <span class="font-description">@Messages.NexLeaveDescription.</span>
+                                    </div>
+                                    <div class="formrow">
+                                        <span class="bold-color">※ @Labels.DeductedByLateInEarlyOut:</span>
+                                        <span class="font-description">@Messages.LateInEarlyOutDeductedDescription.</span>
+                                    </div>
+                                    <div class="formrow">
+                                        <span class="bold-color">※ @Labels.Balance:</span>
+                                        <span class="font-description">@Messages.NexBalanceDescription.</span>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
                     <div class="p-x--s">
@@ -59,12 +76,12 @@
                                 <tr>
                                     <th rowspan="2">#</th>
                                     <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@(Model.Year-1)</th>
+                                    <th rowspan="2">@(Model.Year - 1)</th>
                                     <th colspan="13">
-                                        NEX @Model.Year
+                                        @Labels.OT @Model.Year
                                     </th>
-                                    <th rowspan="2">NEX Leave</th>
-                                    <th rowspan="2">@Labels.LateInEarlyOut</th>
+                                    <th rowspan="2">@Labels.NexLeave</th>
+                                    <th rowspan="2">@Labels.DeductedByLateInEarlyOut</th>
                                     <th rowspan="2">@Labels.Balance</th>
                                 </tr>
                                 <tr>

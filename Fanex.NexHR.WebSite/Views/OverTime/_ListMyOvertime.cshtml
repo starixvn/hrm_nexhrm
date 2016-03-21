@@ -10,11 +10,22 @@
         <tr>
             <td>@(index++)</td>
             <td>@item.Employee.NickName</td>
+            <td>@item.Employee.FullName</td>
             <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
-            <td class="tooltip" title="@item.Description">
-                @RazorHelper.DisplayLimitedString(item.Description)
+            <td class="align-left">
+                @if (item.Description.Length > 50)
+                {
+                    <span class="tooltip" title="@item.Description">
+                        @RazorHelper.DisplayLimitedString(item.Description)
+                    </span>
+                }
+                else
+                {
+                    <span>@item.Description</span>
+                }
             </td>
+
             <td>@item.CreatedBy.NickName</td>
             @if (item.Status == (int)RequestStatuse.Approve)
             {

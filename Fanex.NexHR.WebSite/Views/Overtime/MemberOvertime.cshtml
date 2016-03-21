@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col m-r--l">
-                <div class="left label--m">
+                <div class="left label--l">
                     @Html.LabelFor(model => model.FromDate)
                 </div>
                 <div class="left datepicker-button select--s">
@@ -42,8 +42,8 @@
                 </div>
             </div>
             <div class="col m-r--l">
-                <div class="left label--m">
-                    @Html.LabelFor(model => model.CreatedName, Labels.CreatedBy)
+                <div class="left label--l">
+                    @Html.LabelFor(model => model.CreatedName, Labels.RequestedBy)
                 </div>
                 <div class="left input--m">
                     @Html.HiddenFor(m => m.CreatedBy)
@@ -67,11 +67,11 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>@Labels.CreatedBy</th>
+                <th>@Labels.RequestedBy</th>
                 <th>@Labels.Date</th>
                 <th>@Labels.TotalHours</th>
                 <th>@Labels.TotalMembers</th>
-                <th>@Labels.Remark</th>
+                <th>@Labels.Project</th>
                 <th>@Labels.Status</th>
             </tr>
         </thead>

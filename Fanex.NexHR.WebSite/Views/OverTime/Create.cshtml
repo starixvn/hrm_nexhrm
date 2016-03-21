@@ -49,10 +49,10 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Hour)
+                                        @Html.LabelFor(model => model.Hour, Labels.Duration)
                                     </div>
                                     <div class="left select--xs">
-                                        @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5" })
+                                        @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5", min = "1" })
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                             <div class="row form-input m-t--s">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.Label(Labels.Remark)
+                                        @Html.LabelFor(model => model.Description, Labels.Project)
                                     </div>
                                     <div class="left input--l">
                                         @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
@@ -105,7 +105,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>@Labels.Employee</th>
-                                                    <th>Hour</th>
+                                                    <th>@Labels.Duration</th>
                                                     <th>@Labels.Remove</th>
                                                 </tr>
                                             </thead>

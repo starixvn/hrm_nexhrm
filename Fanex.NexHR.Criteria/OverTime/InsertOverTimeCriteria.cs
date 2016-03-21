@@ -37,7 +37,7 @@
 
         public override bool IsValid()
         {
-            return TimeSheets.Count > 0 && IsValidOvertimeDetail();
+            return TimeSheets.Any() && IsValidOvertimeDetail();
         }
 
         private bool IsValidOvertimeDetail()
@@ -48,7 +48,7 @@
             {
                 if (TimeSheets[i].Employee == null
                     || TimeSheets[i].Employee.Id <= 0
-                    || TimeSheets[i].Hour <= 0
+                    || TimeSheets[i].Hour < 1
                     || TimeSheets[i].Hour > 8)
                 {
                     isValid = false;

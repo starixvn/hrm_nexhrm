@@ -1317,4 +1317,22 @@
   <data name="OvertimeDetail" xml:space="preserve">
     <value>NEX Detail</value>
   </data>
+  <data name="RequestedBy" xml:space="preserve">
+    <value>Requested By</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="NexLeave" xml:space="preserve">
+    <value>NEX Leave</value>
+  </data>
+  <data name="DeductedByLateInEarlyOut" xml:space="preserve">
+    <value>Deducted by LI/EO</value>
+  </data>
+  <data name="UsedNEX" xml:space="preserve">
+    <value>Used NEX</value>
+  </data>
 </root>
