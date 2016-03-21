@@ -118,6 +118,7 @@
             bundles.Add(new StyleBundle("~/Content/sitecss")
                   .Include("~/Content/Materialize/materialize.css", new CssRewriteUrlTransform())
                   .Include("~/Content/Common/components/materialdesignicons.css", new CssRewriteUrlTransform())
+                  .Include("~/Content/themes/base/core.css", new CssRewriteUrlTransform())
                   .Include("~/Content/themes/base/accordion.css", new CssRewriteUrlTransform())
                   .Include("~/Content/themes/base/autocomplete.css", new CssRewriteUrlTransform())
                   .Include("~/Content/themes/base/button.css", new CssRewriteUrlTransform())
