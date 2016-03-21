@@ -86,5 +86,11 @@ $(document).ready(function () {
     initTodoList();
 
     LoadNotification();
+
+    $(".scrollTodo").mCustomScrollbar({
+        scrollButtons: { enable: true },
+        theme: "dark",
+        scrollbarPosition: "outside"
+    });
 });
 
