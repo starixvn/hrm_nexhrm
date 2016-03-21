@@ -21,24 +21,6 @@
         eventRender: function (event, element) {
             var from = event.start.hours() + ":" + (event.start.minutes() >= 10 ? event.start.minutes() : '0' + event.start.minutes());
             var to = event.end.hours() + ":" + (event.end.minutes() >= 10 ? event.end.minutes() : '0' + event.end.minutes());
-            //            var a = "<table class='table-tooltip'>" +
-            //                        "<tr>" +                            
-            //                            "<td colspan='2'>" + event.title + "</td>" +
-            //                        "</tr>" +
-            //                        "<tr>" +                            
-            //                            "<td colspan='2'>" + from + " - " + to + "</td>" +
-            //                        "</tr>" +
-            //                        "<tr>" +         
-            //                            "<td>" + 'Creator:' + "</td>" +                   
-            //                            "<td>" + event.creator + "</td>" +
-            //                        "</tr>" +
-            //                        "<tr>" +                            
-            //                            "<td>" + 'Location:' + "</td>" +
-            //                            "<td>" + event.location + "</td>" +
-            //                        "</tr>"
-            //                    "</table>";
-            //            element.attr('data-tooltip', a);
-            //            element.tooltip({delay:50})
             element.tipsy({
                 className: 'detail-calendar',
                 gravity: 'se',
@@ -70,25 +52,60 @@
                 return false;
             }
         },
-
+        eventAfterAllRender: function () {
+            $('.fc-head .fc-day-header').hide();
+        }
     });
+
     $('.fc-prev-button span').click(function () {
-        var moment = $('#calendar').fullCalendar('getDate');
-        var from = moment.subtract(2, 'months').toISOString();
-        var to = moment.add(2, 'months').toISOString();
-        RefreshEventCalendar(from, to);
+        if (isAuthenGG) {
+            var selectedDate = $('#calendar').fullCalendar('getDate');
+            var previousDay = selectedDate.subtract(1, 'd');
+            RefreshDay(previousDay);
+
+            var from = selectedDate.subtract(2, 'months').toISOString();
+            var to = selectedDate.add(3, 'months').toISOString();
+
+            RefreshEventCalendar(from, to);
+        }
     });
 
     $('.fc-next-button span').click(function () {
-        var moment = $('#calendar').fullCalendar('getDate').add(1, 'months');
-        var from = moment.subtract(1, 'months').toISOString();
-        var to = moment.add(3, 'months').toISOString();
-        RefreshEventCalendar(from, to);
+        if (isAuthenGG) {
+            var selectedDate = $('#calendar').fullCalendar('getDate');
+
+            RefreshDay(selectedDate.add(1, 'd'));
+            var from = selectedDate.subtract(1, 'months').toISOString();
+            var to = selectedDate.add(3, 'months').toISOString();
+
+            RefreshEventCalendar(from, to);
+        }
     });
+
+    $('#authenGoogle').css("display", "none");
+    CustomizeHeader();
 }
 
-function test() {
-    $('.fc-toolbar').append("<a>123</a>");
+function CustomizeHeader() {
+    var currentDate = new Date();
+    var day = $.format.date(currentDate, "ddd");
+    var dayHTML = "<div class='day'>" + day + "</div>";
+
+    var monthYear = $.format.date(currentDate, "MMMM yyyy");
+    var monthYearHTML = "<div class='monthyear'>" + monthYear + "</div>";
+
+    $('.day').remove();
+    $('.monthyear').remove();
+    $('.fc-left').before(dayHTML);
+    $('.fc-center').after(monthYearHTML);
+}
+
+function RefreshDay(selectedDate) {
+    var day = moment(selectedDate).format("dddd")
+    $('.day').html(day);
+
+    var monthYear = moment(selectedDate).format("MMMM YYYY")
+    $('.monthyear').html(monthYear);
 }
 
 function CreateEvents(googleEvents) {

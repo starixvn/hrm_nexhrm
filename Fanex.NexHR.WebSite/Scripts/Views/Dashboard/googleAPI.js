@@ -1,6 +1,7 @@
 ﻿var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 var eventList = [];
+var isAuthenGG = false;
 
 
 /**
@@ -22,11 +23,14 @@ function checkAuth() {
 */
 function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
+        isAuthenGG = true;
         loadCalendarApi();
     }
-    else {        
+    else {
+        isAuthenGG = false;
         initCalendar(eventList);
-        //handleAuthClick();
+        $('.fc-body').html("");
+        $('#authenGoogle').css("display", "initial");
     }
 }
 
