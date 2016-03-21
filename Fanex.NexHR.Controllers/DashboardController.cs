@@ -6,8 +6,8 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Notification;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
+    using Fanex.NexHR.Criteria.Notification;
     using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Notification;
@@ -15,7 +15,6 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
-    using System.Linq;
     using Fanex.NexHR.ViewModels.Report;
 
     public class DashboardController : BaseController

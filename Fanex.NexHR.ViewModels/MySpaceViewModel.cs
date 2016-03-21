@@ -8,7 +8,6 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.ViewModels.Report;
-    using Fanex.NexHR.ViewModels.LateInEarlyOut;
 
     public class MySpaceViewModel
     {
@@ -517,7 +516,7 @@
         {
             get 
             {
-                string results = "";
+                string results = string.Empty;
                 if (NotificationLateInEarlyOutToDay != null)
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)

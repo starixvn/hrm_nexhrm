@@ -6,6 +6,7 @@
     public class GetAllEmployeeCriteria : CriteriaBase
     {
         public DateTime Date { get; set; }
+
         public override bool IsValid()
         {
             return Date != null;
