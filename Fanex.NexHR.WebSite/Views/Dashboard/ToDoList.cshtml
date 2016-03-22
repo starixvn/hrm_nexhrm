@@ -6,7 +6,7 @@
                 <span class="card-title txt-uppercase left">To do list</span>
             </div>
             <div class="card-body p-x--s scrollTodo mCustomScrollbar" data-mcs-theme="dark">
-                @if (Model.MissingCheckInOutList.Count == 0 && Model.PendingRequestsList.Count == 0)
+                @if ((Model.MissingCheckInOutList.Count == 0) && Model.PendingRequestsList.Count == 0)
                 {
                     <p class="green-border">
                         <span class="left-align">

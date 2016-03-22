@@ -61,7 +61,7 @@ function loadCalendarApi() {
 function getListEvents() {
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
-        'timeMin': moment().toISOString(),
+        'timeMin': moment().subtract(24, 'h').toISOString(),
         'timeMax': moment().add(24, 'h').toISOString(),
         'showDeleted': false,
         'singleEvents': true,

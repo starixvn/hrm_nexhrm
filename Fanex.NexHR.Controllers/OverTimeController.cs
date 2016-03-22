@@ -38,8 +38,20 @@
             this.teamService = teamService ?? new TeamService();
         }
 
-        public ActionResult Index() 
+        public ActionResult Index(int chosenTab = 0)
         {
+            switch (chosenTab)
+            {
+                case 1:
+                    ViewBag.Tab = "NexRequest";
+                    break;
+                case 2:
+                    ViewBag.Tab = "NexDetail";
+                    break;
+                default:
+                    ViewBag.Tab = "MyNex";
+                    break;
+            }
             return View();
         }
 
@@ -274,12 +286,12 @@
 
         public ActionResult OvertimeSummary()
         {
-            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel() 
+            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel()
             {
                 Teams = teamService.GetAll(),
                 Year = DateTime.Now.Year
             };
-            
+
             return View(summary);
         }
 
@@ -292,7 +304,7 @@
                 employeeId = empId;
             }
 
-            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria() 
+            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria()
             {
                 EmployeeId = employeeId,
                 TeamId = teamId,

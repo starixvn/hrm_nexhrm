@@ -38,20 +38,11 @@ function initTodoList() {
             alert(textStatus + ': ' + errorThrown);
         },
         complete: function () {
-            //if (!isFirstLoad) {
-            //    $('.loading-process').fadeOut(300);
-            //}
-
-            //$('.slideTodo').slick({
-            //    slidesToShow: 5,
-            //    slidesToScroll: 5,
-            //    autoplay: true,
-            //    autoplaySpeed: 3500,
-            //    dots: false,
-            //    nextArrow: false,
-            //    prevArrow: false,
-            //    vertical: true,
-            //});
+            $(".scrollTodo").mCustomScrollbar({
+                scrollButtons: { enable: true },
+                theme: "dark",
+                scrollbarPosition: "inside"
+            });
         }
     });
 }
@@ -87,10 +78,10 @@ $(document).ready(function () {
 
     LoadNotification();
 
-    $(".scrollTodo").mCustomScrollbar({
-        scrollButtons: { enable: true },
-        theme: "dark",
-        scrollbarPosition: "outside"
-    });
+    //$(".scrollTodo").mCustomScrollbar({
+    //    scrollButtons: { enable: true },
+    //    theme: "dark",
+    //    scrollbarPosition: "outside"
+    //});
 });
 
