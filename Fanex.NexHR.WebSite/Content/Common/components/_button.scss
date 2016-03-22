@@ -1,4 +1,4 @@
-@import "Common/utils/variables";
+@import "../utils/variables";
 
 %button {
 	padding: 0 1.5rem;
@@ -64,6 +64,11 @@
 
 .btn-delete {
 	@include button(#D32F2F);
+	@extend %input-button;
+}
+
+.btn-signin {
+	@include button(#3079ec);
 	@extend %input-button;
 }
 

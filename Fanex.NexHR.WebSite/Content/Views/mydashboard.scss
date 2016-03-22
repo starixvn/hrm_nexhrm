@@ -290,6 +290,10 @@
 
     .ui-widget-content {
         height: auto !important;
+        background: none;
+
+        &.ui-state-highligh {
+        }
     }
 
     .fc-scroller {
@@ -329,14 +333,15 @@
         }
 
         .fc-prev-button, .fc-next-button {
-            background: transparent !important;            
+            background: transparent !important;
             transition: background 0.2s ease-out;
 
             &:hover {
                 background: darken(#f47639, 2%) !important;
             }
+
             .ui-icon {
-                &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {  
+                &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
                     font-size: 20px !important;
                 }
 
@@ -373,15 +378,20 @@
         .fc-body {
             .fc-row.fc-week {
                 .fc-event-container {
-                    .fc-event {                        
+                    padding: 0 15px;
+                    text-align: left !important;
+
+                    .fc-event {
                         border-radius: 0;
                         margin-top: 0;
-                        padding-top: 3px;
-                        line-height: 1.8;
+                        height: 4rem;
+                        line-height: 4rem;
                         font-size: 1.3rem;
+                        border-bottom: 1px solid #dcdcdc !important;
 
                         .fc-content {
                             .fc-time {
+                                width: 9rem;
                                 display: inline-block !important;
                             }
                         }
@@ -395,14 +405,17 @@
                         text-align: center;
                     }
                 }
-            }
 
-            
+                .fc-content-skeleton > table > tbody > tr:last-child {
+                    .fc-event-container .fc-event {
+                        border-bottom: none !important;
+                    }
+                }
+            }
 
             .fc-day {
                 border-left: 1px solid #e4e4e4 !important;
                 border-top: 1px solid #e4e4e4 !important;
-
                 /*&.fc-today {
                     background: #f5d1c1;
                 }*/
@@ -475,7 +488,28 @@
             }
         }
     }
+
+    .authenGoogle {
+        height: 22.8rem;
+        position: absolute;     
+        background: #fff;  
+        top: auto;
+        left: 0;
+        right: 0;
+        
+        .img {
+            padding-top: 2rem;
+        }
+
+        .text {
+            padding: 1.5rem 0;
+        }
+    }
 }
+
+/*.fc-basicWeek-view .fc-content-skeleton, .fc-basicDay-view .fc-content-skeleton {
+    padding-bottom: 0 !important;
+}*/
 
 .detail-calendar {
     opacity: 1 !important;
@@ -486,7 +520,7 @@
         background: #fff;
         color: #000;
         position: relative;
-        top: 2rem;
+        top: 3rem;
         @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
     }
 

@@ -232,6 +232,7 @@
     <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
     <Content Include="Content\Common\vendors\slick.css" />
     <Content Include="Content\Images\google-logo.jpg" />
+    <Content Include="Content\Images\ic_google.png" />
     <Content Include="Content\Views\employee.postnatal.css">
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
