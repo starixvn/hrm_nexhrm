@@ -1,5 +1,5 @@
 ﻿function initCalendar(googleEvents) {
-    CreateEvents(googleEvents);
+    
 
     $('#calendar').fullCalendar({
         defaultView: 'basicDay',
@@ -11,11 +11,11 @@
             right: 'next'
         },
         events: eventList,
-        eventLimit: true,
+        eventLimit: false,
         titleFormat: 'D',
         view: {
             day: {
-                eventLimit: 2,
+                eventLimit: false,
             }
         },
         eventRender: function (event, element) {
@@ -57,14 +57,18 @@
         }
     });
 
+    CreateEvents(googleEvents);
+    $('#calendar').fullCalendar('removeEvents')
+    $('#calendar').fullCalendar('addEventSource', eventList);
+
     $('.fc-prev-button span').click(function () {
         if (isAuthenGG) {
             var selectedDate = $('#calendar').fullCalendar('getDate');
             var previousDay = selectedDate.subtract(1, 'd');
             RefreshDay(previousDay);
 
-            var from = selectedDate.subtract(2, 'months').toISOString();
-            var to = selectedDate.add(3, 'months').toISOString();
+            var from = $('#calendar').fullCalendar('getDate').subtract(1, 'd').toISOString();
+            var to = $('#calendar').fullCalendar('getDate').toISOString();
 
             RefreshEventCalendar(from, to);
         }
@@ -73,10 +77,10 @@
     $('.fc-next-button span').click(function () {
         if (isAuthenGG) {
             var selectedDate = $('#calendar').fullCalendar('getDate');
-
             RefreshDay(selectedDate.add(1, 'd'));
-            var from = selectedDate.subtract(1, 'months').toISOString();
-            var to = selectedDate.add(3, 'months').toISOString();
+
+            var from = $('#calendar').fullCalendar('getDate').add(1, 'd').toISOString();
+            var to = $('#calendar').fullCalendar('getDate').add(2, 'd').toISOString();
 
             RefreshEventCalendar(from, to);
         }
@@ -104,7 +108,7 @@ function RefreshDay(selectedDate) {
     var day = moment(selectedDate).format("dddd")
     $('.day').html(day);
 
-    var monthYear = moment(selectedDate).format("MMMM YYYY")
+    var monthYear = moment(selectedDate).format("MMMM YYYY");
     $('.monthyear').html(monthYear);
 }
 
@@ -122,6 +126,17 @@ function CreateEvents(googleEvents) {
             });
         };
     }
+    else {
+        var selectedDate = $('#calendar').fullCalendar('getDate');
+        var from = new Date(selectedDate.toISOString());
+        var to = new Date(selectedDate.add(1, 'd').toISOString());
+
+        eventList.push({
+            title: 'No meeting for today',
+            start: from,
+            end: to,
+        });
+    }
 }
 
 function RefreshEventCalendar(from, to) {
@@ -138,5 +153,9 @@ function RefreshEventCalendar(from, to) {
         CreateEvents(resp.items);
         $('#calendar').fullCalendar('removeEvents')
         $('#calendar').fullCalendar('addEventSource', eventList);
+
+        if (resp.items.length == 0) {
+            $(".fc-time").css("cssText", "display: none !important;");
+        }
     });
 }

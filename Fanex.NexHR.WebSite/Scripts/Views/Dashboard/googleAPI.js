@@ -61,13 +61,17 @@ function loadCalendarApi() {
 function getListEvents() {
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
-        'timeMin': moment().subtract(1, 'months').toISOString(),
-        'timeMax': moment().add(1, 'months').toISOString(),
+        'timeMin': moment().toISOString(),
+        'timeMax': moment().add(24, 'h').toISOString(),
         'showDeleted': false,
         'singleEvents': true,
     });
 
     request.execute(function (resp) {
         initCalendar(resp.items);
+
+        if (resp.items.length == 0) {
+            $(".fc-time").css("cssText", "display: none !important;");
+        }
     });
 }
