@@ -1335,4 +1335,10 @@
   <data name="UsedNEX" xml:space="preserve">
     <value>Used NEX</value>
   </data>
+  <data name="DashboardInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LateInEarlyOutDashboard" xml:space="preserve">
+    <value>Monthly Late in/Early out (hour/time):</value>
+  </data>
 </root>

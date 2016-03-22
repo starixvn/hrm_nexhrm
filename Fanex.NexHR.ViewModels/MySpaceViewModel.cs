@@ -32,6 +32,10 @@
 
         public DateTime CheckOutTime { get; set; }
 
+        public int MinutesLateInEarlyOutCurrentMonth { get; set; }
+
+        public int TimesLateInEarlyOutCurrentMonth { get; set; }
+
         public IList<DashBoardCompanySpace> DashboardCompanySpace { get; set; }
 
         public IList<DashBoardPersonalSpace> DashboardEmployeeSpace { get; set; }

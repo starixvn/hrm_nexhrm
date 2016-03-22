@@ -111,15 +111,21 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-title-block">
-                        <span class="card-title txt-uppercase left">Information</span>
+                        <span class="card-title txt-uppercase left">@Labels.DashboardInformation</span>
                     </div>
                     <div class="card-body p-x--s information">
                         <table>
                             <tr>
                                 <td>
-                                    <span class="left-align">Monthly Early Out/Late In (hour/time):</span>
+                                    <span class="left-align">@Labels.LateInEarlyOutDashboard</span>
                                     <span class="bold">
-                                        <a href="#" class="blue-grey-text text-darken-3">2/3</a>
+                                        <a href="#" class="blue-grey-text text-darken-3">
+                                            @{
+                                                double hour = Model.MinutesLateInEarlyOutCurrentMonth / 60.0;
+                                                int times = Model.TimesLateInEarlyOutCurrentMonth;
+                                            }
+                                            @hour/@times
+                                        </a>
                                     </span>
                                 </td>
                             </tr>

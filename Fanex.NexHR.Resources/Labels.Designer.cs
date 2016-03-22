@@ -826,6 +826,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string DashboardInformation {
+            get {
+                return ResourceManager.GetString("DashboardInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -1767,6 +1776,15 @@ namespace Fanex.NexHR.Resources {
         public static string LateInEarlyOut {
             get {
                 return ResourceManager.GetString("LateInEarlyOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Late in/Early out (hour/time):.
+        /// </summary>
+        public static string LateInEarlyOutDashboard {
+            get {
+                return ResourceManager.GetString("LateInEarlyOutDashboard", resourceCulture);
             }
         }
         
