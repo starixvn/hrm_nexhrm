@@ -1,79 +1,80 @@
 ﻿@model ToDoViewModel
-<div class="col s12 m6 card-container-base to-do-list">
-    <div class="card">
-        <div class="card-content">
-            <div class="card-title-block">
-                <span class="card-title txt-uppercase left">To do list</span>
-            </div>
-            <div class="card-body p-x--s scrollTodo mCustomScrollbar" data-mcs-theme="dark">
-                @if ((Model.MissingCheckInOutList.Count == 0) && Model.PendingRequestsList.Count == 0)
+@if ((Model.MissingCheckInOutList.Count == 0) && Model.PendingRequestsList.Count == 0)
+{
+    <p class="green-border">
+        <span class="left-align">
+            Nothing to do
+        </span>
+    </p>
+}
+@foreach (var item in Model.MissingCheckInOutList)
+{
+    switch (item.MissingType)
+    {
+        case 1:
+            <p class="green-border">
+                <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
+                <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
+                   class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+                    Request
+                </a>
+            </p>
+            break;
+        case 2:
+        <p class="green-border">
+            <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
+            <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
+               class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+                Request
+            </a>
+        </p>
+            break;
+        default:
+            break;
+    }
+}
+@foreach (var item in Model.PendingRequestsList)
+{
+    switch (item.RequestType.Id)
+    {
+        case 1:
+            <p class="darkblue-border">
+                <span class="left-align">Please submit Check In request of @item.Requester.NickName</span>
+                <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
+                    Submit
+                </a>
+            </p>
+            break;
+        case 2:
+        <p class="darkblue-border">
+            <span class="left-align">Please submit Check Out request of @item.Requester.NickName</span>
+            <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
+                Submit
+            </a>
+        </p>
+            break;
+        default:
+        <p class="orange-border">
+            <span class="text-left">
+                Please submit @item.Requester.NickName's @item.LeaveType.Name
+                @if (item.FromDate.Date == item.ToDate.Date)
                 {
-                    <p class="green-border">
-                        <span class="left-align">
-                            Nothing to do
-                        </span>
-                    </p>
-                }                                
-                @foreach (var item in Model.MissingCheckInOutList)
-                {
-                    switch (item.MissingType)
-                    {
-                        case 1:
-                            <p class="green-border">
-                                <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToShortDateString()</span></span>
-                                <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
-                                   class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
-                                    Request
-                                </a>
-                            </p>
-                            break;
-                        case 2:
-                        <p class="green-border">
-                            <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToShortDateString()</span></span>
-                            <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
-                               class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
-                                Request
-                            </a>
-                        </p>
-                            break;
-                        default:
-                            break;
-                    }
+                    <span class="yellow darken-4 link">
+                        @item.FromDate.ToDateMonthYearFormatedDate()
+                    </span>
                 }
-                @foreach (var item in Model.PendingRequestsList)
+                else
                 {
-                    switch (item.RequestType.Id)
-                    {
-                        case 1:
-                            <p class="darkblue-border">
-                                <span class="left-align">Please submit Check In request of @item.Requester.NickName</span>
-                                <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
-                                    Submit
-                                </a>
-                            </p>
-                            break;
-                        case 2:
-                        <p class="darkblue-border">
-                            <span class="left-align">Please submit Check Out request of @item.Requester.NickName</span>
-                            <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
-                                Submit
-                            </a>
-                        </p>
-                            break;
-                        default:
-                        <p class="orange-border">
-                            <span class="text-left">
-                                Please approve @item.TotalDays @item.LeaveType.Name days (@item.FromDate.ToString("dd MMM yyyy") - @item.ToDate.ToString("dd MMM yyyy"))
-                                of @item.Requester.NickName
-                            </span>
-                            <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
-                                Submit
-                            </a>
-                        </p>
-                            break;
-                    }
+                    <span class="yellow darken-4 link">
+                        @item.FromDate.ToDateMonthYearFormatedDate() - @item.ToDate.ToDateMonthYearFormatedDate()
+                    </span>
                 }
-            </div>
-        </div>
-    </div>
-</div>
+                @item.TotalDays day(s)
+            </span>
+            <a href="~/request/member" class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold">
+                Submit
+            </a>
+        </p>
+                break;
+    }
+}

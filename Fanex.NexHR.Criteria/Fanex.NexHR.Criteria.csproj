@@ -190,6 +190,7 @@
     <Compile Include="Toeic\GetTOEICScoreByEmployeeIdCriteria.cs" />
     <Compile Include="Toeic\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
+    <Compile Include="Workload\GetEmployeeWorkloadCriteria.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -184,7 +184,9 @@
     <Compile Include="LateInEarlyOutService.cs" />
     <Compile Include="LookupCodeName.cs" />
     <Compile Include="EmailService.cs" />
-    <Compile Include="EmployeeService.cs" />
+    <Compile Include="EmployeeService.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="LookupDataService.cs" />
     <Compile Include="Interfaces\ILookupDataService.cs" />

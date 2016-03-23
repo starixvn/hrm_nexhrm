@@ -39,10 +39,33 @@ function initTodoList() {
         },
         complete: function () {
             $(".scrollTodo").mCustomScrollbar({
-                scrollButtons: { enable: true },
+                scrollButtons: { enable: false },
                 theme: "dark",
                 scrollbarPosition: "inside"
             });
+        }
+    });
+}
+
+function initTeamWorkload() {
+    $.ajax({
+        url: _global.root + 'dashboard/GetTeamWorkload',
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function () {
+            //if (!isFirstLoad) {
+            //    $('.loading-process').fadeIn(300);
+            //}
+        },
+        success: function (data) {
+            if (data) {
+                $('#teamWorkload').html(data);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        },
+        complete: function () {
         }
     });
 }
@@ -75,13 +98,7 @@ $(document).ready(function () {
     });
 
     initTodoList();
-
     LoadNotification();
-
-    //$(".scrollTodo").mCustomScrollbar({
-    //    scrollButtons: { enable: true },
-    //    theme: "dark",
-    //    scrollbarPosition: "outside"
-    //});
+    initTeamWorkload();
 });
 

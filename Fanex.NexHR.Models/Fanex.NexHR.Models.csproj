@@ -129,6 +129,7 @@
     <Compile Include="UserChangedShift.cs" />
     <Compile Include="WeekWorking.cs" />
     <Compile Include="WorkingTimeRequest.cs" />
+    <Compile Include="Workload\Workload.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

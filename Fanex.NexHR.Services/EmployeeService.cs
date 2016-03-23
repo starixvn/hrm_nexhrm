@@ -1,11 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Workload;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Workload;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
@@ -141,6 +142,11 @@
             };
 
             return employeeRepository.GetDashBoardCompanySpace(criteria);
+        }
+
+        public IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
+        {
+            return employeeRepository.GetWorkloadByTeam(criteria);
         }
     }
 }

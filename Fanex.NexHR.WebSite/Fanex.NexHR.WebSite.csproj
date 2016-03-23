@@ -791,6 +791,7 @@
     <Content Include="Views\AnnualLeave\EditLeaveConversion.cshtml" />
     <None Include="Properties\PublishProfiles\NexHRM.pubxml" />
     <Content Include="Views\Dashboard\_Notification.cshtml" />
+    <Content Include="Views\Dashboard\_ListTeamWorkload.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

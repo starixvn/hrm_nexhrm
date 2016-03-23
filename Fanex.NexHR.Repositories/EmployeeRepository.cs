@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interfaces;
+using System.Data;
+using System.Linq;
+using Fanex.Data;
+using Fanex.Data.Repository;
+using Fanex.NexHR.Models;
+using Fanex.NexHR.Models.Workload;
+using Fanex.NexHR.Repositories.Interfaces;
 
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -105,6 +106,24 @@
             }
 
             return model;
+        }
+
+        public List<Workload> GetWorkloadByTeam(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var entityList = db.Query<Workload, Employee, Team, Workload>(
+                     (w, e, t) =>
+                     {
+                         w.Employee = e;
+                         e.Team = t;
+                         return w;
+                     },
+                     splitOn: "Id, GroupId",
+                     parameterValues: criteria.GetSpParams());
+
+                return entityList.ToList();
+            }
         }
 
         private Employee GetEmployeeEntity(ICriteria criteria)

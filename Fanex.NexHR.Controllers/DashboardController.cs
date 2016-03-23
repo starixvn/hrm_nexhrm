@@ -9,9 +9,11 @@
     using Fanex.NexHR.Criteria.LateInEarlyOut;
     using Fanex.NexHR.Criteria.Notification;
     using Fanex.NexHR.Criteria.Request;
+    using Fanex.NexHR.Criteria.Workload;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Notification;
     using Fanex.NexHR.Models.Request;
+    using Fanex.NexHR.Models.Workload;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
@@ -136,6 +138,19 @@
             Notification noti = notificationService.GetViolationByEmpId(criteria);
 
             return PartialView("_Notification", noti);
+        }
+
+        public ActionResult GetTeamWorkload()
+        {
+            GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria()
+            {
+                TeamId = CurrentUser.Team.Id,
+                FromDate = new DateTime(2014, 1, 1),
+                ToDate = new DateTime(2014, 1, 31)
+            };
+            IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
+
+            return PartialView("_ListTeamWorkload", listWorkload);
         }
     }
 }

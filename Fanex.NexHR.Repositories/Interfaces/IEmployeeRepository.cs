@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Workload;
 
     public interface IEmployeeRepository
     {
@@ -19,5 +20,7 @@
         IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 
         SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
+
+        List<Workload> GetWorkloadByTeam(ICriteria criteria);
     }
 }

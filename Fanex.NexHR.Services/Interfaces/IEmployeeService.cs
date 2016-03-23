@@ -1,10 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.Workload;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Workload;
     using Fanex.NexHR.ViewModels;
 
     public interface IEmployeeService
@@ -30,5 +31,7 @@
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria);
+
+        IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
     }
 }

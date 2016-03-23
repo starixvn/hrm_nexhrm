@@ -1,0 +1,17 @@
+﻿@using Fanex.NexHR.Models.Workload
+@model IList<Workload>
+
+<ul class="collection">
+    @foreach (var item in Model)
+    {
+        <li class="collection-item avatar">
+            <img src="~/employee/avatar/@item.Employee.Code" class="circle" />
+            <span class="title">@item.Employee.NickName</span>
+            <div class="progress">
+                <div class="determinate @item.CssClassForPercent" style="width: @item.DisplayPercentWorkload">
+                </div>
+            </div>
+            <a href="#!" class="secondary-content">@item.DisplayPercentWorkload</a>
+        </li>
+    }
+</ul>
