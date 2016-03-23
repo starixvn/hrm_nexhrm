@@ -40,7 +40,7 @@
         case 1:
             <p class="green-border">
                 <span class="left-align">Please submit Check In request of @item.Requester.NickName</span>
-                <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold" onclick="processRequest(@item.Id)">
+                <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                     Submit
                 </a>
             </p>
@@ -48,7 +48,7 @@
         case 2:
         <p class="green-border">
             <span class="left-align">Please submit Check Out request of @item.Requester.NickName</span>
-            <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold" onclick="processRequest(@item.Id)">
+            <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                 Submit
             </a>
         </p>
@@ -71,7 +71,7 @@
                 }
                 @item.TotalDays day(s)
             </span>
-            <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold" onclick="processRequest(@item.Id)">
+            <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                 Submit
             </a>
         </p>
