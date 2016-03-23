@@ -112,14 +112,13 @@ using Fanex.NexHR.Repositories.Interfaces;
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Workload, Employee, Team, Workload>(
-                     (w, e, t) =>
+                var entityList = db.Query<Workload, Employee, Workload>(
+                     (w, e) =>
                      {
                          w.Employee = e;
-                         e.Team = t;
                          return w;
                      },
-                     splitOn: "Id, GroupId",
+                     splitOn: "Id",
                      parameterValues: criteria.GetSpParams());
 
                 return entityList.ToList();

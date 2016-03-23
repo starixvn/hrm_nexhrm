@@ -1,6 +1,7 @@
-﻿using System;
-namespace Fanex.NexHR.Models.Workload
+﻿namespace Fanex.NexHR.Models.Workload
 {
+    using System;
+
     public class Workload
     {
         public Employee Employee { get; set; }
@@ -11,7 +12,7 @@ namespace Fanex.NexHR.Models.Workload
         {
             get
             {
-                string display = "";
+                string display = string.Empty;
                 display = (Math.Round(PercentWorkload, 2) * 100) + "%";
 
                 return display;
@@ -22,7 +23,7 @@ namespace Fanex.NexHR.Models.Workload
         {
             get
             {
-                string css = "";
+                string css = string.Empty;
                 double roundedPercent = Math.Round(PercentWorkload, 2);
                 if (roundedPercent >= 0.9)
                 {
