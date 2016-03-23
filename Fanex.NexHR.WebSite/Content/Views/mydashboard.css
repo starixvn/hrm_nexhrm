@@ -322,7 +322,8 @@
     background: #fff;
     top: auto;
     left: 0;
-    right: 0; }
+    right: 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.16); }
     .dashboardCalendar .authenGoogle .img {
       padding-top: 2rem; }
     .dashboardCalendar .authenGoogle .text {
