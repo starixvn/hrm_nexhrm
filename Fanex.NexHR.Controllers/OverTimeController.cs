@@ -52,6 +52,7 @@
                     ViewBag.Tab = "MyNex";
                     break;
             }
+
             return View();
         }
 
