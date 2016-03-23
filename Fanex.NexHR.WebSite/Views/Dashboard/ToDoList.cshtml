@@ -15,7 +15,7 @@
             <p class="green-border">
                 <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
                 <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
-                   class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+                   class="btn-toDoRequest waves-effect waves-light right">
                     Request
                 </a>
             </p>
@@ -24,7 +24,7 @@
         <p class="green-border">
             <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
             <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
-               class="right icon button-hrm waves-effect waves-light btn white-text teal txt-bold">
+               class="btn-toDoRequest waves-effect waves-light right">
                 Request
             </a>
         </p>
@@ -38,7 +38,7 @@
     switch (item.RequestType.Id)
     {
         case 1:
-            <p class="darkblue-border">
+            <p class="green-border">
                 <span class="left-align">Please submit Check In request of @item.Requester.NickName</span>
                 <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold" onclick="processRequest(@item.Id)">
                     Submit
@@ -46,7 +46,7 @@
             </p>
             break;
         case 2:
-        <p class="darkblue-border">
+        <p class="green-border">
             <span class="left-align">Please submit Check Out request of @item.Requester.NickName</span>
             <a class="right icon button-hrm waves-effect waves-light btn white-text blue darken-2 txt-bold" onclick="processRequest(@item.Id)">
                 Submit
@@ -61,13 +61,13 @@
                 {
                     <span class="yellow darken-4 link">
                         @item.FromDate.ToDateMonthYearFormatedDate()
-                    </span>
+                    </span><span>&nbsp;</span>
                 }
                 else
                 {
                     <span class="yellow darken-4 link">
                         @item.FromDate.ToDateMonthYearFormatedDate() - @item.ToDate.ToDateMonthYearFormatedDate()
-                    </span>
+                    </span><span>&nbsp;</span>
                 }
                 @item.TotalDays day(s)
             </span>

@@ -1,6 +1,16 @@
 @import "../Common/utils/variables";
 @import "../Common/utils/mixins";
 
+.flexWrap {
+    display: flex;
+
+    .infoBlock, .todoBlock {
+        flex: 1;
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
+    }
+}
+
 .my-dashboard2 {
     max-width: 750px;
 
@@ -41,9 +51,7 @@
     }
 }
 
-.to-do-list {
-    padding-top: 16px;
-
+.todoBlock {   
     .card-body {
         margin-top: 1.6rem;
     }
@@ -73,11 +81,15 @@
         span {
             .link {
                 color: #fff;
-                font-weight: normal;
-                opacity: 0.7;
+                font-weight: normal;                
                 padding: 0.1rem 0.5rem;
             }
+        } 
+
+        [class*="btn-"] {
+            margin: 0.8rem 0;
         }
+
     }
 
     .scrollTodo {
@@ -196,6 +208,7 @@
             text-align: center;
             margin: 0;
             margin-bottom: -12px;
+            margin-left: 3rem;
 
             li {
                 display: inline-block;
@@ -216,11 +229,12 @@
         img {
             width: 4.8rem;
             height: 4.8rem;
+            margin-top: 1rem;
         }
     }
 
     .detail {
-        margin-top: 0.5rem;
+        margin-top: 1.8rem;
     }
 
     .front {

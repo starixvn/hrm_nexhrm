@@ -6,7 +6,7 @@ body {
   color: #303f4d;
   font-size: 1.3rem; }
 
-.contextmenu .drop-menu, .btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .btn-signin, .button-hrm, .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li, #numberlist li span, #numberlist li a, #numberlist li span.page-link.prev, #numberlist li span.page-link.next, #numberlist li a.page-link.prev, #numberlist li a.page-link.next {
+.contextmenu .drop-menu, .btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .btn-signin, .btn-toDoRequest, .button-hrm, .form-input .btn-datepicker, #ui-datepicker-div, .datetime-picker, table .pagination li, #numberlist li span, #numberlist li a, #numberlist li span.page-link.prev, #numberlist li span.page-link.next, #numberlist li a.page-link.prev, #numberlist li a.page-link.next {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -189,18 +189,17 @@ main {
 
 .card-container-base .card-content {
   padding-bottom: 16px; }
+  .card-container-base .card-content .card-title-block {
+    overflow: hidden;
+    margin: 0 0.8rem;
+    padding: 0;
+    border-bottom: 1px solid #e5e5e5; }
+    .card-container-base .card-content .card-title-block .card-options {
+      height: 5rem;
+      line-height: 5rem; }
   .card-container-base .card-content.white-text {
     padding: 2.3rem 2rem 2rem;
     height: 11rem; }
-
-.card-container-base .card-title-block {
-  overflow: hidden;
-  margin: 0 0.8rem;
-  padding: 0;
-  border-bottom: 1px solid #e5e5e5; }
-  .card-container-base .card-title-block .card-options {
-    height: 5rem;
-    line-height: 5rem; }
 
 .card-container-base .card-body {
   width: 100%; }
@@ -343,19 +342,19 @@ a:active, a:focus {
 .align-left {
   text-align: left !important; }
 
-.btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .btn-signin {
+.btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .btn-signin, .btn-toDoRequest {
   padding: 0 1.5rem;
   height: 3rem;
   line-height: 3rem;
   border-radius: 2px;
   color: #fff; }
 
-.btn-submit input, .btn-request input, .btn-back input, .btn-ok input, .btn-cancel input, .btn-close input, .btn-export-excel input, .btn-delete input, .btn-signin input {
+.btn-submit input, .btn-request input, .btn-back input, .btn-ok input, .btn-cancel input, .btn-close input, .btn-export-excel input, .btn-delete input, .btn-signin input, .btn-toDoRequest input {
   background: transparent;
   box-shadow: none;
   border: none;
   font-style: normal; }
-  .btn-submit input:focus, .btn-request input:focus, .btn-back input:focus, .btn-ok input:focus, .btn-cancel input:focus, .btn-close input:focus, .btn-export-excel input:focus, .btn-delete input:focus, .btn-signin input:focus, .btn-submit input:active, .btn-request input:active, .btn-back input:active, .btn-ok input:active, .btn-cancel input:active, .btn-close input:active, .btn-export-excel input:active, .btn-delete input:active, .btn-signin input:active {
+  .btn-submit input:focus, .btn-request input:focus, .btn-back input:focus, .btn-ok input:focus, .btn-cancel input:focus, .btn-close input:focus, .btn-export-excel input:focus, .btn-delete input:focus, .btn-signin input:focus, .btn-toDoRequest input:focus, .btn-submit input:active, .btn-request input:active, .btn-back input:active, .btn-ok input:active, .btn-cancel input:active, .btn-close input:active, .btn-export-excel input:active, .btn-delete input:active, .btn-signin input:active, .btn-toDoRequest input:active {
     box-shadow: none;
     outline: none; }
 
@@ -405,6 +404,12 @@ a:active, a:focus {
   background-color: #3079ec !important; }
   .btn-signin:hover {
     background: #196aea;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-toDoRequest {
+  background-color: #15b092 !important; }
+  .btn-toDoRequest:hover {
+    background: #12997f;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 6px 0 rgba(0, 0, 0, 0.15); }
 
 .button-hrm {

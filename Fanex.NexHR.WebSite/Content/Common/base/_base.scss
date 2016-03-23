@@ -267,23 +267,25 @@ main {
     .card-content {
         padding-bottom: 16px;
 
+        .card-title-block {
+            overflow: hidden;
+            margin: 0 0.8rem;
+            padding: 0;
+            border-bottom: 1px solid #e5e5e5;
+
+            .card-options {
+                height: 5rem;
+                line-height: 5rem;
+            }
+        }
+
         &.white-text {
             padding: 2.3rem 2rem 2rem;
             height: 11rem;
         }
     }
 
-    .card-title-block {
-        overflow: hidden;
-        margin: 0 0.8rem;
-        padding: 0;
-        border-bottom: 1px solid #e5e5e5;
 
-        .card-options {
-            height: 5rem;
-            line-height: 5rem;
-        }
-    }
 
     .card-body {
         width: 100%;
@@ -292,7 +294,7 @@ main {
             line-height: 4.5rem;
             color: #4c5e70;
             overflow: hidden;
-        }        
+        }
     }
 }
 
@@ -461,5 +463,3 @@ main {
         }
     }
 }
-
-

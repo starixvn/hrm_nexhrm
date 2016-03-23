@@ -107,8 +107,8 @@
         </div>
     </div>
     <div>
-        <div class="col s12 m6 card-container-base">
-            <div class="card">
+        <div class="card-container-base flexWrap">
+            <div class="card infoBlock">
                 <div class="card-content">
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">@Labels.DashboardInformation</span>
@@ -190,9 +190,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col s12 m6 card-container-base to-do-list">
-            <div class="card">
+            <div class="card todoBlock">
                 <div class="card-content">
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">To do list</span>
@@ -202,6 +200,17 @@
                 </div>
             </div>
         </div>
+        @*<div class="col s12 m6 card-container-base to-do-list">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">To do list</span>
+                    </div>
+                    <div id="todoList" class="card-body p-x--s scrollTodo mCustomScrollbar" data-mcs-theme="dark">
+                    </div>
+                </div>
+            </div>
+        </div>*@
         @Html.Partial("MyTeamAttendance", Model.EmployeeAttendanceModel)
         <div>
             @*<div class="col s12 m4 card-container-base workload">

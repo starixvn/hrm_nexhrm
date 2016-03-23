@@ -72,6 +72,11 @@
 	@extend %input-button;
 }
 
+.btn-toDoRequest {
+    @include button(#15b092);
+	@extend %input-button;
+}
+
 .button-hrm {    
   @extend %boxshadow;  
   padding: 0 1.5rem;
