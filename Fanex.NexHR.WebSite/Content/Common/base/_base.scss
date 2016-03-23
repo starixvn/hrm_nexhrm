@@ -337,7 +337,7 @@ main {
             font-size: 1.3rem;
             text-align: left;
             line-height: 2.2rem;
-            @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+            @include css3(box-shadow, (0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)));
         }
 
         .tipsy-arrow {
@@ -399,16 +399,17 @@ main {
         z-index: 999;
         position: absolute;
         left: 0;
-        top: 1.7rem;
+        top: 0.7rem;
         padding: 0;
         background: #f7f5f5;
         min-width: 12rem;
         display: none;
-        border-bottom: .1rem solid $c-border-table;
+        //border-bottom: .1rem solid $c-border-table;
+        @extend %boxshadow;
 
         li {
             border: .1rem solid $c-border-table;
-            padding: .3rem 0;
+            padding: .5rem 0;
             text-align: left;
             border-bottom: none;
 
