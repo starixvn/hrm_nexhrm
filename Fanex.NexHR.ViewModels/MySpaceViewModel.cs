@@ -342,7 +342,7 @@
                 IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts =
                     DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
-                var displayValue = "0";
+                var displayValue = "-";
                 if (currentMonthMissingCheckInOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace missingCheckInOut in currentMonthMissingCheckInOuts)

@@ -5,16 +5,8 @@
 
     public class ToDoViewModel
     {
-        public IList<MissingCheckInOutModel> MissingCheckInOutList 
-        { 
-            get;
-            set;
-        }
+        public IList<MissingCheckInOutModel> MissingCheckInOutList { get; set; }
 
-        public IList<RequestEntity> PendingRequestsList
-        {
-            get;
-            set;
-        }
+        public IList<RequestEntity> PendingRequestsList { get; set; }
     }
 }

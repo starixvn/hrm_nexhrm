@@ -87,7 +87,10 @@
         }
     });
 
-    $('#authenGoogle').css("display", "none");
+    if (isAuthenGG) {
+        $('#authenGoogle').css("display", "none");
+        $('.fc-body').show();
+    }
     CustomizeHeader();
 }
 

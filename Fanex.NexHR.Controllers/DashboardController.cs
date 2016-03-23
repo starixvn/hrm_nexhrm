@@ -145,8 +145,8 @@
             GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria()
             {
                 TeamId = CurrentUser.Team.Id,
-                FromDate = new DateTime(2014, 1, 1),
-                ToDate = new DateTime(2014, 1, 31)
+                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
+                ToDate = DateTime.Today
             };
             IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
 

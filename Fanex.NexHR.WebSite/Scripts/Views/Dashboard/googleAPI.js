@@ -29,7 +29,7 @@ function handleAuthResult(authResult) {
     else {
         isAuthenGG = false;
         initCalendar(eventList);
-        $('.fc-body').html("");
+        $('.fc-body').hide();
         $('#authenGoogle').css("display", "initial");
     }
 }
@@ -61,8 +61,8 @@ function loadCalendarApi() {
 function getListEvents() {
     var request = gapi.client.calendar.events.list({
         'calendarId': 'primary',
-        'timeMin': moment().subtract(24, 'h').toISOString(),
-        'timeMax': moment().add(24, 'h').toISOString(),
+        'timeMin': moment().subtract(12, 'h').toISOString(),
+        'timeMax': moment().add(12, 'h').toISOString(),
         'showDeleted': false,
         'singleEvents': true,
     });

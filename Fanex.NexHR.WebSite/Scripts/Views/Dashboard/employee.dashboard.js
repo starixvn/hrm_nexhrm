@@ -82,6 +82,22 @@ function initTooltipInformation() {
     });
 }
 
+function processRequest(requestId) {
+    confirm('Are you sure you want to Approve?', function () {
+        $.post(_global.root + 'request/processrequest',
+        { command: "Approve", id: requestId },
+            function (response) {
+                if (response.IsSuccessful) {
+                    initTodoList();
+                } else {
+                    alert(response.Message);
+                    return;
+                }
+            }
+        );
+    });
+}
+
 $(document).ready(function () {
     MyDashboard.init();
 
