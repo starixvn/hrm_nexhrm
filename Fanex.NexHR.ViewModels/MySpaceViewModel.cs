@@ -537,5 +537,15 @@
                 return results;
             }
         }
+
+        public string RandomPictureName
+        {
+            get
+            {
+                Random randomPicture = new Random();
+                string picture = randomPicture.Next(1, 5) + ".png";
+                return picture;
+            }
+        }
     }
 }

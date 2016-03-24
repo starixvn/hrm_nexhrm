@@ -366,6 +366,7 @@
             return Json(lateInEarlyOuts);
         }
 
+        [Authorize(Roles = "HR")]
         public ActionResult LateInEarlyOutDiscipline()
         {
             IList<Team> teams = teamService.GetAll();
@@ -383,6 +384,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
