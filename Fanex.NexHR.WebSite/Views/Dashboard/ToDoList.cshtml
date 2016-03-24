@@ -16,7 +16,7 @@
                 <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
                 <a href="~/checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
                    class="btn-toDoRequest waves-effect waves-light right">
-                    View
+                    Request
                 </a>
             </p>
             break;
@@ -25,7 +25,7 @@
             <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
             <a href="~/checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
                class="btn-toDoRequest waves-effect waves-light right">
-                View
+                Request
             </a>
         </p>
             break;
