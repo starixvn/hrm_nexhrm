@@ -5,6 +5,11 @@
 .datagrid-wrap {
     width: 976px;
     height: 600px;
+
+    @media (min-width: 1360px) {
+        width: 1036px;
+    }
+
     @media (min-width: 1900px) {
         width: 1616px;
     }
@@ -75,6 +80,10 @@
             width: 633px;
             left: 30%;
 
+            @media (min-width: 1360px) {
+                width: 715px;
+            }
+
             @media (min-width: 1900px) {
                 width: 1084px;
             }
@@ -94,6 +103,11 @@
             .datagrid-header {
                 width: 616px;
                 overflow: hidden;
+
+                @media (min-width: 1360px) {
+                    width: 698px;
+                }
+
                 @media (min-width: 1900px) {
                     width: 1067px;
                 }

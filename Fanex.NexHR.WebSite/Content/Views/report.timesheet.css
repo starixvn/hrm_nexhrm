@@ -71,6 +71,9 @@
 .datagrid-wrap {
   width: 976px;
   height: 600px; }
+  @media (min-width: 1360px) {
+    .datagrid-wrap {
+      width: 1036px; } }
   @media (min-width: 1900px) {
     .datagrid-wrap {
       width: 1616px; } }
@@ -116,6 +119,9 @@
     .datagrid-wrap .datagrid-view .datagrid-view2 {
       width: 633px;
       left: 30%; }
+      @media (min-width: 1360px) {
+        .datagrid-wrap .datagrid-view .datagrid-view2 {
+          width: 715px; } }
       @media (min-width: 1900px) {
         .datagrid-wrap .datagrid-view .datagrid-view2 {
           width: 1084px; } }
@@ -129,6 +135,9 @@
       .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
         width: 616px;
         overflow: hidden; }
+        @media (min-width: 1360px) {
+          .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
+            width: 698px; } }
         @media (min-width: 1900px) {
           .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
             width: 1067px; } }
