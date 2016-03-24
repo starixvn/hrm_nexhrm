@@ -51,9 +51,10 @@
     }
 }
 
-.todoBlock {  
+.todoBlock {
     background: url(../Images/bg_todolist.jpg) no-repeat bottom center;
-    background-size: cover; 
+    background-size: cover;
+
     .card-body {
         margin-top: 1.6rem;
     }
@@ -83,15 +84,14 @@
         span {
             .link {
                 color: #fff;
-                font-weight: normal;                
+                font-weight: normal;
                 padding: 0.1rem 0.5rem;
             }
-        } 
+        }
 
         [class*="btn-"] {
             margin: 0.8rem 0;
         }
-
     }
 
     .scrollTodo {
@@ -206,11 +206,28 @@
 
 .card {
     .slide {
+        .slide-content {
+            .noEvent {
+                text-transform: uppercase;
+
+                .detail {
+                    @media (max-width: 1400px) {
+                        margin-top: 1.8rem;
+                    }
+                }
+            }
+        }
+
         .slick-dots {
             text-align: center;
             margin: 0;
-            margin-bottom: -12px;
-            margin-left: 3rem;
+            //margin-bottom: -12px;
+            margin-left: 5rem;
+
+            @media (max-width: 1400px) {
+                position: relative;
+                top: 5px;
+            }
 
             li {
                 display: inline-block;
@@ -229,75 +246,23 @@
         }
 
         img {
-            width: 4.8rem;
-            height: 4.8rem;
+            width: 3.8rem;
+            height: 3.8rem;
             margin-top: 1rem;
+
+            @media (min-width: 1400px) {
+                width: 4.8rem;
+                height: 4.8rem;
+            }
         }
     }
 
     .detail {
         margin-top: 1.8rem;
-    }
 
-    .front {
-        backface-visibility: hidden;
-        height: 9.4rem;
-        left: 0;
-        padding: 2.3rem 0;
-        position: relative;
-        top: 0;
-        @include css3(transform, rotateX(0) rotateY(0));
-        @include css3(transform-style, preserve-3d);
-        @include css3(transition, all 0.4s ease-in-out 0s);
-        width: 100%;
-        z-index: 11;
-        text-align: center;
-        overflow: hidden;
-    }
-
-    .back {
-        backface-visibility: hidden;
-        border: 0 none;
-        height: 10rem;
-        left: 0;
-        position: absolute;
-        top: 0;
-        padding: 2.3rem 0;
-        @include css3(transform, rotateY(-179deg));
-        @include css3(transform-style, preserve-3d);
-        @include css3(transition, all 0.4s ease-in-out 0s);
-        width: 100%;
-        z-index: 10;
-        text-align: center;
-
-        @media (min-width: 1200px) {
-            .detail {
-                margin-left: -3rem;
-            }
+        @media (max-width: 1400px) {
+            margin-top: 1rem;
         }
-    }
-
-    &:hover {
-        .front {
-            @include css3(transform, rotateY(180deg));
-            z-index: 11;
-        }
-
-        .back {
-            @include css3(transform, rotateX(0) rotateY(0));
-            z-index: 11;
-        }
-    }
-
-    &.double {
-        box-shadow: none;
-        background: transparent;
-        -webkit-perspective: 600px;
-        -moz-perspective: 600px;
-        -ms-perspective: 600px;
-        perspective: 600px;
-        position: relative;
-        width: 100%;
     }
 }
 
@@ -506,20 +471,19 @@
     }
 
     .authenGoogle {
-        height: 22.8rem;
-        position: absolute;     
-        background: #fff;  
-        top: auto;
-        left: 0;
-        right: 0;
+        background: #fff;
         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.16);
-        
+
         .img {
             padding-top: 2rem;
         }
 
         .text {
             padding: 1.5rem 0;
+        }
+
+        .button {
+            padding-bottom: 3rem;
         }
     }
 }

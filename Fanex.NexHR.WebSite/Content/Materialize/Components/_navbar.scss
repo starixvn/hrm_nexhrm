@@ -53,8 +53,8 @@ nav {
     }
 
     @media #{$medium-and-down} {
-      left: 50%;
-      @include transform(translateX(-50%));
+      left: 7%;
+      @include transform(translateX(-7%));
 
       &.left, &.right {
         padding: 0;
