@@ -1,4 +1,6 @@
-﻿function processRequest(command, eventElement) {
+﻿"use strict";
+
+function processRequest(command, eventElement) {
     var requestId = eventElement.$trigger.attr('requestId');
 
     switch (command) {

@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, noInformation, zeroPrefix*/
+﻿/*global _global, _messages, zeroPrefix, bindMenuPending*/
 'use strict';
 
 function updateZeroPrefix() {

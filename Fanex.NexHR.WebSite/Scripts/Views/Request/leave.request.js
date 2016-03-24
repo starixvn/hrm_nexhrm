@@ -1,4 +1,4 @@
-﻿/*global _global, _messages*/
+﻿/*global _global, _messages, bindMenuPending*/
 'use strict';
 
 function setValueforToTime() {
@@ -18,7 +18,7 @@ function setValueforToTime() {
     }
 
     $('#ToTime').val(hour + ':' + arr[1]);
-    $('#ToTime').material_select();
+    $('#ToTime').material_select(); // jshint ignore:line
 }
 
 function enableControlforHalfday() {
@@ -46,7 +46,7 @@ function bindHalfDay() {
                 function (response) {
                     if (response != null) {
                         $('#FromTime').val(response.BeginCheckInTime);
-                        $('#FromTime').material_select();
+                        $('#FromTime').material_select(); // jshint ignore:line
                         setValueforToTime();
                     }
                 }
@@ -97,7 +97,7 @@ function initEventForFromDateAndToDate() {
                     function (response) {
                         if (response != null) {
                             $('#FromTime').val(response.BeginCheckInTime);
-                            $('#FromTime').material_select();
+                            $('#FromTime').material_select(); // jshint ignore:line
                             setValueforToTime();
                             $('input[type=submit]').show();
                         } else {

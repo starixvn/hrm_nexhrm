@@ -1,5 +1,73 @@
-﻿/*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
+﻿/*global _global, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 'use strict';
+
+function query(isFirstLoad) {
+    var action = $('.card-container-base .form').find('#ActionName').val();
+
+    $.ajax({
+        url: _global.root + 'request/' + action,
+        type: 'GET',
+        dataType: 'html',
+        data: $('.card-container-base form.form-filter').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#all-request').html(data);
+
+            if ($('table#data #pagination').length > 0) {
+                // menu
+                bindMenuPending();
+                bindMenuApproved();
+
+                initPagination();
+
+                $('.viewhistory').click(function () {
+                    var url = $(this).attr('id');
+
+                    $.get(url, function (data) {
+                        $('#dialoghistorycontent').html(data);
+
+                        $('#dialoghistorycontent').dialog({
+                            modal: true,
+                            height: 'auto',
+                            width: 'auto',
+                            title: 'Request History',
+                            show: {
+                                effect: 'fade',
+                                duration: 300
+                            },
+                            hide: {
+                                effect: 'fade',
+                                duration: 200
+                            }
+                        });
+                    });
+                });
+
+                $('table#data tbody tr td.col-request a').click(function () {
+                    var model = $(this).closest('td').find('.request-model').serialize(),
+                        controller = $(this).attr('data-controller'),
+                        action = $(this).attr('data-action');
+
+                    document.location = _global.root + controller + '/' + action + '?' + model;
+                });
+
+                floatThead('table#data');
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
 
 function processRequest(command, eventElement) {
     $.post(_global.root + 'request/processrequest',
@@ -94,74 +162,6 @@ function initPagination() {
     });
 }
 
-function query(isFirstLoad) {
-    var action = $('.card-container-base .form').find('#ActionName').val();
-
-    $.ajax({
-        url: _global.root + 'request/' + action,
-        type: 'GET',
-        dataType: 'html',
-        data: $('.card-container-base form.form-filter').serialize(),
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
-        },
-        success: function (data) {
-            $('#all-request').html(data);
-
-            if ($('table#data #pagination').length > 0) {
-                // menu
-                bindMenuPending();
-                bindMenuApproved();
-
-                initPagination();
-
-                $('.viewhistory').click(function () {
-                    var url = $(this).attr('id');
-
-                    $.get(url, function (data) {
-                        $('#dialoghistorycontent').html(data);
-
-                        $('#dialoghistorycontent').dialog({
-                            modal: true,
-                            height: 'auto',
-                            width: 'auto',
-                            title: 'Request History',
-                            show: {
-                                effect: 'fade',
-                                duration: 300
-                            },
-                            hide: {
-                                effect: 'fade',
-                                duration: 200
-                            }
-                        });
-                    });
-                });
-
-                $('table#data tbody tr td.col-request a').click(function () {
-                    var model = $(this).closest('td').find('.request-model').serialize(),
-                        controller = $(this).attr('data-controller'),
-                        action = $(this).attr('data-action');
-
-                    document.location = _global.root + controller + '/' + action + '?' + model;
-                });
-
-                floatThead('table#data');
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
-        }
-    });
-}
-
 $(document).ready(function () {
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());
@@ -170,7 +170,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 

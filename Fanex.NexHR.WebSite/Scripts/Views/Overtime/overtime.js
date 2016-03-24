@@ -159,12 +159,10 @@ function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status
 
 $(document).ready(function () {
     LoadMyOvertime(true);
-    if (_global.roles !== 0) {
+    if (_global.roles !== "") {
         LoadMemberOvertime(true)
     }
     LoadOTRequest(true)
 
     $('select').material_select();
-
-    window.toOTRequest;
 });

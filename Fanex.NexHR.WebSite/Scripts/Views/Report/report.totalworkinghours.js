@@ -1,4 +1,6 @@
-﻿/*global _global, _messages, noInformation, setDateTimeRange*/
+﻿/*global _global, _messages, noInformation, setDateTimeRange, validateFromDateAndToDate,
+ * toDate, fromDate, dateOption, floatThead 
+ */
 /*exported index*/
 'use strict';
 
@@ -103,7 +105,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 });
