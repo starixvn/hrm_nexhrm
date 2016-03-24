@@ -1,4 +1,4 @@
-﻿/*global _global, autoIndex*/
+﻿/*global _global, autoIndex, floatThead, initAutocomplete*/
 /*exported deleteTeam*/
 'use strict';
 

@@ -1,5 +1,6 @@
 ﻿'use strict';
 /*global _global:false , autoIndex:false*/
+/* exported bindMenuPending */
 
 function cancelRequest(id) {
     confirm('<p>Are you sure you want to cancel this request?</p>', function () {
@@ -35,7 +36,7 @@ function bindMenuPending() {
         trigger: 'left',
         build: function ($trigger, e) {
             return {
-                callback: function (key, options) {
+                callback: function (key) {
                     processRequest(key, e.currentTarget);
                 },
                 items: {

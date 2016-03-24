@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, setDateTimeRange, floatThead*/
+﻿/*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 'use strict';
 
 function processRequest(command, eventElement) {
@@ -16,14 +16,14 @@ function processRequest(command, eventElement) {
 }
 
 function bindMenuPending() {
-    $('table#data tbody td a.Pending').on('mouseup', function (e) {
+    $('table#data tbody td a.Pending').on('mouseup', function () {
 
         $.contextMenu({
             selector: '.Pending',
             trigger: 'left',
             build: function ($trigger, e) {
                 return {
-                    callback: function (key, options) {
+                    callback: function (key) {
                         switch (key) {
                             case 'Approve':
                                 confirm('Are you sure you want to Approve?', function () {
@@ -48,15 +48,14 @@ function bindMenuPending() {
 }
 
 function bindMenuApproved() {
-    $('table#data tbody td a.Approved').on('mouseup', function (e) {
-        var $this = $(this);
+    $('table#data tbody td a.Approved').on('mouseup', function () {
 
         $.contextMenu({
             selector: '.Approved',
             trigger: 'left',
             build: function ($trigger, e) {
                 return {
-                    callback: function (key, options) {
+                    callback: function (key) {
                         confirm('Are you sure you want to Disapprove?', function () {
                             processRequest(key, e.currentTarget);
                         });
@@ -88,7 +87,7 @@ function initPagination() {
         nextText: '<i class="mdi mdi-chevron-right"></i>',
         ellipsePageSet: false,
         cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber, event) {
+        onPageClick: function (pageNumber) {
             $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
         }

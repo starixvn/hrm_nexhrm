@@ -289,7 +289,7 @@
         private static void BuildBundleForAttendanceReport(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/attendancejs").Include(
-                "~/Scripts/Views/Calendar/report.attendance.js"));
+                "~/Scripts/Views/Report/report.attendance.js"));
         }
 
         private static void BuildBundleForUserManagement(BundleCollection bundles)
