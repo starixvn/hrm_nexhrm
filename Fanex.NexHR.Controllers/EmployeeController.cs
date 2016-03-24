@@ -372,10 +372,18 @@
             }
         }
 
-        public ActionResult Birthday()
+        public ActionResult Birthday(int month = 0)
         {
             IEnumerable<Employee> employees = GetEmployees();
-            IList<EmployeeBirthdayViewModel> sortedEmployees = SortEmployeeBirthdayByMonth(employees);
+            IList<EmployeeBirthdayViewModel> sortedEmployees;
+            if (month != 0)
+            {
+                sortedEmployees = SortEmployeeBirthdayByMonth(employees.Where(e => e.DateOfBirth.Month == month));
+            }
+            else
+            {
+                sortedEmployees = SortEmployeeBirthdayByMonth(employees);
+            }
 
             return View(sortedEmployees);
         }

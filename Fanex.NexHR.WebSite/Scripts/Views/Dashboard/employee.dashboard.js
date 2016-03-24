@@ -101,7 +101,7 @@ function processRequest(requestId) {
 $(document).ready(function () {
     MyDashboard.init();
 
-    //initTooltipInformation();
+    initTooltipInformation();
 
     $('.slide').slick({
         slidesToShow: 1,
