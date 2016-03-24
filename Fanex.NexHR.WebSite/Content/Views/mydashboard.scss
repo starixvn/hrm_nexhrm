@@ -51,7 +51,9 @@
     }
 }
 
-.todoBlock {   
+.todoBlock {  
+    background: url(../Images/bg_todolist.jpg) no-repeat bottom center;
+    background-size: cover; 
     .card-body {
         margin-top: 1.6rem;
     }

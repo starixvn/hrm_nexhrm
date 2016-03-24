@@ -31,50 +31,45 @@
   display: block;
   float: left; }
 
-.todoBlock .card-body {
-  margin-top: 1.6rem; }
-
-.todoBlock p {
-  background: #eeeeef none repeat scroll 0 0;
-  margin-bottom: 0.2rem !important;
-  padding: 0 1rem;
-  line-height: 40px; }
-  .todoBlock p.grey-border {
-    border-left: 2px solid #9a9a9a; }
-  .todoBlock p.darkblue-border {
-    border-left: 2px solid #1f7db2; }
-  .todoBlock p.green-border {
-    border-left: 2px solid #15b092; }
-  .todoBlock p.orange-border {
-    border-left: 2px solid #ef9e36; }
-  .todoBlock p span .link {
-    color: #fff;
-    font-weight: normal;
-    padding: 0.1rem 0.5rem; }
-  .todoBlock p [class*="btn-"] {
-    margin: 0.8rem 0; }
-
-.todoBlock .scrollTodo {
-  max-height: 23.5rem; }
-
-.todoBlock .mCSB_inside > .mCSB_container {
-  margin-right: 15px; }
-
-.todoBlock .mCSB_scrollTools {
-  width: 6px; }
-
-.todoBlock .mCSB_scrollTools .mCSB_draggerRail, .todoBlock .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  width: 6px; }
-
-.todoBlock .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
-  background-color: rgba(0, 0, 0, 0.07); }
-
-.todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background-color: #b9c0c8; }
-
-.todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
-.todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
-  background-color: rgba(0, 0, 0, 0.5); }
+.todoBlock {
+  background: url(../Images/bg_todolist.jpg) no-repeat bottom center;
+  background-size: cover; }
+  .todoBlock .card-body {
+    margin-top: 1.6rem; }
+  .todoBlock p {
+    background: #eeeeef none repeat scroll 0 0;
+    margin-bottom: 0.2rem !important;
+    padding: 0 1rem;
+    line-height: 40px; }
+    .todoBlock p.grey-border {
+      border-left: 2px solid #9a9a9a; }
+    .todoBlock p.darkblue-border {
+      border-left: 2px solid #1f7db2; }
+    .todoBlock p.green-border {
+      border-left: 2px solid #15b092; }
+    .todoBlock p.orange-border {
+      border-left: 2px solid #ef9e36; }
+    .todoBlock p span .link {
+      color: #fff;
+      font-weight: normal;
+      padding: 0.1rem 0.5rem; }
+    .todoBlock p [class*="btn-"] {
+      margin: 0.8rem 0; }
+  .todoBlock .scrollTodo {
+    max-height: 23.5rem; }
+  .todoBlock .mCSB_inside > .mCSB_container {
+    margin-right: 15px; }
+  .todoBlock .mCSB_scrollTools {
+    width: 6px; }
+  .todoBlock .mCSB_scrollTools .mCSB_draggerRail, .todoBlock .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    width: 6px; }
+  .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: rgba(0, 0, 0, 0.07); }
+  .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #b9c0c8; }
+  .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+  .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.5); }
 
 .workload .card-title-block {
   border-bottom: none !important; }
