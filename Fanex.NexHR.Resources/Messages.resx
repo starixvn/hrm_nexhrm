@@ -268,7 +268,7 @@
     <value>Select a parent team</value>
   </data>
   <data name="BalanceDescription" xml:space="preserve">
-    <value>The current hour(s) of Late in/Early out after the last deduction</value>
+    <value>The current hour(s) of Late In/Early Out after the last deduction</value>
   </data>
   <data name="DeductionTakenDescription" xml:space="preserve">
     <value>The grand total hour(s) of  Late In/Early Out, resulted in a deduction taken from Leave Balance</value>
@@ -277,15 +277,15 @@
     <value>Employee list mus be not empty.</value>
   </data>
   <data name="LateInEarlyOutDeductedDescription" xml:space="preserve">
-    <value>The LateIn/EarlyOut deducted from the Total NEX</value>
+    <value>The Late In/Early Out deducted from the Total NEX</value>
   </data>
   <data name="NexBalanceDescription" xml:space="preserve">
-    <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LT/EO - NEX Leave)</value>
+    <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - NEX Leave)</value>
   </data>
   <data name="NexLeaveDescription" xml:space="preserve">
     <value>Total off-day taken from the NEX (hours)</value>
   </data>
   <data name="UsedNEXDescription" xml:space="preserve">
-    <value>Total NEX hours deducted by LateIn/EarlyOut</value>
+    <value>Total NEX hours deducted by Late In/Early Out</value>
   </data>
 </root>

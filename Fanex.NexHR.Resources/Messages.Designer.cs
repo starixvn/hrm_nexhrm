@@ -133,7 +133,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current hour(s) of Late in/Early out after the last deduction.
+        ///   Looks up a localized string similar to The current hour(s) of Late In/Early Out after the last deduction.
         /// </summary>
         public static string BalanceDescription {
             get {
@@ -304,7 +304,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The LateIn/EarlyOut deducted from the Total NEX.
+        ///   Looks up a localized string similar to The Late In/Early Out deducted from the Total NEX.
         /// </summary>
         public static string LateInEarlyOutDeductedDescription {
             get {
@@ -340,7 +340,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LT/EO - NEX Leave).
+        ///   Looks up a localized string similar to Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - NEX Leave).
         /// </summary>
         public static string NexBalanceDescription {
             get {
@@ -565,7 +565,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total NEX hours deducted by LateIn/EarlyOut.
+        ///   Looks up a localized string similar to Total NEX hours deducted by Late In/Early Out.
         /// </summary>
         public static string UsedNEXDescription {
             get {
