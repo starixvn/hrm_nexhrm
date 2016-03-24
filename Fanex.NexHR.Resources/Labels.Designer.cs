@@ -1780,7 +1780,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly Late in/Early out (hour/time):.
+        ///   Looks up a localized string similar to Monthly Late In/Early Out (hour/time):.
         /// </summary>
         public static string LateInEarlyOutDashboard {
             get {
