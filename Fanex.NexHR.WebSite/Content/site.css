@@ -517,6 +517,9 @@ a:active, a:focus {
   .dropdown-content li > a, .dropdown-content .dropdown-content li > span {
     padding: 0.7rem 1rem; }
 
+#dropdown-notification li > a, #dropdown-notification .dropdown-content li > span {
+  padding: 0 1rem; }
+
 .icon {
   background-repeat: no-repeat;
   display: inline-block;
@@ -903,6 +906,8 @@ input#fileName::-webkit-file-upload-button {
     .nav-wrapper .drop-down .dropdown-content li a {
       background: #24272f;
       color: #e8ecf0; }
+    .nav-wrapper .drop-down .dropdown-content .collection-item.avatar {
+      padding-left: 60px; }
   .nav-wrapper .notification {
     position: relative;
     margin-right: 2rem; }
@@ -991,15 +996,14 @@ input#fileName::-webkit-file-upload-button {
     padding-left: .3rem; }
 
 .table.table-custom thead {
-  color: #fff;
-  background: #3b4254; }
+  color: #fff; }
   .table.table-custom thead tr th {
     font-weight: normal;
     vertical-align: middle;
     padding: 8px 7px;
-    border-top: 1px solid #646d80;
-    border-right: 1px solid #646d80;
-    border-left: 1px solid #646d80;
+    border: 1px solid #646d80;
+    /*border-right: 1px solid #646d80;
+                border-left: 1px solid #646d80;*/
     text-align: center;
     line-height: 1.42857143; }
     .table.table-custom thead tr th.col-checkbox [type="checkbox"] + label:after {
@@ -1015,6 +1019,10 @@ input#fileName::-webkit-file-upload-button {
         background-position: 0 -5.3rem; }
       .table.table-custom thead tr th.col-sorter .sorter.asc {
         background-position: 0 -3.2rem; }
+  .table.table-custom thead tr:first-child {
+    background: #343c4e; }
+  .table.table-custom thead tr:nth-child(2) {
+    background: #3b4254; }
 
 .table.table-custom tbody tr td {
   font-weight: normal;

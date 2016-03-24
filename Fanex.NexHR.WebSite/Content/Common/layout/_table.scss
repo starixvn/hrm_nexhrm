@@ -15,16 +15,15 @@
 
     thead {
         color: #fff;
-        background: #3b4254;
 
         tr {
             th {
                 font-weight: normal;
                 vertical-align: middle;
                 padding: 8px 7px;
-                border-top: 1px solid #646d80;
-                border-right: 1px solid #646d80;
-                border-left: 1px solid #646d80;
+                border: 1px solid #646d80;
+                /*border-right: 1px solid #646d80;
+                border-left: 1px solid #646d80;*/
                 text-align: center;
                 line-height: 1.42857143;
 
@@ -55,6 +54,14 @@
                     }
                 }
             }
+
+            &:first-child {
+                background: #343c4e;
+            }
+
+            &:nth-child(2) {
+                background: #3b4254;
+            }
         }
     }
 
@@ -79,7 +86,7 @@
                     color: #fff;
                     padding: .3rem .6rem;
                     margin-right: .5rem;
-                    border-radius:2px;
+                    border-radius: 2px;
 
                     &.checkinout {
                         background: #15af93;
@@ -97,6 +104,7 @@
 
             &.row-divider {
                 background: #f2f2c2;
+
                 td {
                     text-align: left;
                 }
@@ -112,11 +120,11 @@
 
             a.c-pending, a.c-approve {
                 position: relative;
-                    
+
                 i.mdi-navigation-arrow-drop-down {
                     display: none;
                 }
-                
+
                 &:after {
                     font-family: "Material Design Icons";
                     font-size: 19px;
@@ -126,12 +134,12 @@
                     top: -4px;
                     opacity: 0;
                 }
-                
+
                 &:hover {
                     &:after {
                         opacity: 1;
                     }
-                }                
+                }
             }
         }
     }
@@ -146,139 +154,140 @@
 }
 
 table {
-  .striped {
-    thead {
-      background: #3b4354;
-      color: #fff;
+    .striped {
+        thead {
+            background: #3b4354;
+            color: #fff;
 
-      th {
-        font-weight: normal;
-      }
-    }
-  }
-
-  .mdi-border-color, .mdi-delete {
-    position: relative;
-    top: 2px;
-    &:focus, &:active {
-        outline: none;
-    }
-  }
-
-  .trigger {
-    color: #fff;
-    padding: 0 4px;
-    border-radius: 2px;
-    font-size: 12px;
-
-    &.schedule {
-      background: $color-trigger-bgschedule;
+            th {
+                font-weight: normal;
+            }
+        }
     }
 
-    &.function {
-      background: $color-trigger-bgfunction;
-    }
-  }
+    .mdi-border-color, .mdi-delete {
+        position: relative;
+        top: 2px;
 
-  .dropdown-button {
-    color: $color-text-main;
-  }
-
-  .run {
-    cursor: pointer;
-    .pause {
-      display: none;
+        &:focus, &:active {
+            outline: none;
+        }
     }
 
-    .play {
-      display: block;
+    .trigger {
+        color: #fff;
+        padding: 0 4px;
+        border-radius: 2px;
+        font-size: 12px;
+
+        &.schedule {
+            background: $color-trigger-bgschedule;
+        }
+
+        &.function {
+            background: $color-trigger-bgfunction;
+        }
     }
 
-    &.active {
-      .pause {
-        display: block;
-      }
-
-      .play {
-        display: none;
-      }
+    .dropdown-button {
+        color: $color-text-main;
     }
 
-    i {
-      color: $color-text-main;
-    }
-  }
+    .run {
+        cursor: pointer;
 
-  .pagination {
-    margin: 7px 0.5rem 0 10px;
-    overflow: hidden;
+        .pause {
+            display: none;
+        }
 
-    li {
-      @extend %boxshadow;
-    }
+        .play {
+            display: block;
+        }
 
-    &.right p {
-      margin-bottom: 0;
-      margin-top: 5px;
-    }
-  }
+        &.active {
+            .pause {
+                display: block;
+            }
 
-  .lbl {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
+            .play {
+                display: none;
+            }
+        }
 
-  .page-size {
-    width: 5.5rem;
-    margin-top: 7px;
-   
-  }
-
-  .edit i{
-    font-size: 1.85rem;
-    color: $color-text-main;
-  }
-
-  .mail-item {
-    position: relative;
-
-    i {
-      font-size: 22px; 
-      color: $color-text-main;
+        i {
+            color: $color-text-main;
+        }
     }
 
-    span.badge {
-      right: -10px !important;
-      top: -13px;
-      min-width: 2rem;
-      border-radius: 5px;
-      background: $color-danger;
-      color: #fff;
+    .pagination {
+        margin: 7px 0.5rem 0 10px;
+        overflow: hidden;
+
+        li {
+            @extend %boxshadow;
+        }
+
+        &.right p {
+            margin-bottom: 0;
+            margin-top: 5px;
+        }
     }
-  }
+
+    .lbl {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .page-size {
+        width: 5.5rem;
+        margin-top: 7px;
+    }
+
+    .edit i {
+        font-size: 1.85rem;
+        color: $color-text-main;
+    }
+
+    .mail-item {
+        position: relative;
+
+        i {
+            font-size: 22px;
+            color: $color-text-main;
+        }
+
+        span.badge {
+            right: -10px !important;
+            top: -13px;
+            min-width: 2rem;
+            border-radius: 5px;
+            background: $color-danger;
+            color: #fff;
+        }
+    }
 }
 
 table.data thead tr:nth-child(even) {
     background-color: #4a5267;
+
     th {
         border-left: none;
         border-right: none;
     }
-    
 }
 
 .browser-default {
-    border: 1px solid #d0d0d0;    
+    border: 1px solid #d0d0d0;
     @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
 }
 
 #timeSheets > tr:hover {
-	background: none;
-}  
+    background: none;
+}
 
 .row_hour {
     width: 70px !important;
-	margin-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 #numberlist {
@@ -286,53 +295,56 @@ table.data thead tr:nth-child(even) {
         padding: 3px;
         box-shadow: none;
 
-       span, a {
-           width: 3rem;
-           height: 3rem;
-           line-height: 3rem;
-           border: none;
-           border-radius: 2px;
-           background: none;
-           @extend %boxshadow;           
-           cursor: pointer;
+        span, a {
+            width: 3rem;
+            height: 3rem;
+            line-height: 3rem;
+            border: none;
+            border-radius: 2px;
+            background: none;
+            @extend %boxshadow;
+            cursor: pointer;
 
-           &.page-link {
-               box-shadow: none;
+            &.page-link {
+                box-shadow: none;
 
-               &.prev, &.next {
-                   @extend %boxshadow;
-               }
-           }
+                &.prev, &.next {
+                    @extend %boxshadow;
+                }
+            }
 
-           &.prev, &.next {
-               background: #78828c;
-               color: #fff;
-               i {
-                   position: relative;
-                   left: -2px;
-               }
-           }
+            &.prev, &.next {
+                background: #78828c;
+                color: #fff;
 
-           i {
-               line-height: 3rem;
-           }
-       }  
+                i {
+                    position: relative;
+                    left: -2px;
+                }
+            }
 
-       &.active {
-           background: none;
-           span {
-               background: #78828c;
-               color: #fff;
-           }
-       }
+            i {
+                line-height: 3rem;
+            }
+        }
 
-       &.disabled {
-           span, a {
-               cursor: not-allowed;
-               &.prev, &.next {
-                   opacity: 0.7;
-               }
-           }
-       }
+        &.active {
+            background: none;
+
+            span {
+                background: #78828c;
+                color: #fff;
+            }
+        }
+
+        &.disabled {
+            span, a {
+                cursor: not-allowed;
+
+                &.prev, &.next {
+                    opacity: 0.7;
+                }
+            }
+        }
     }
 }
