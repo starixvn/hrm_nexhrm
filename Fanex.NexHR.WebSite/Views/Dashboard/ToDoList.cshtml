@@ -16,7 +16,7 @@
                 <span class="left-align">You forgot to Check In on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
                 <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
                    class="btn-toDoRequest waves-effect waves-light right">
-                    Request
+                    View
                 </a>
             </p>
             break;
@@ -25,7 +25,7 @@
             <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
             <a href="../checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
                class="btn-toDoRequest waves-effect waves-light right">
-                Request
+                View
             </a>
         </p>
             break;
@@ -39,17 +39,17 @@
     {
         case 1:
             <p class="green-border">
-                <span class="left-align">Please submit Check In request of @item.Requester.NickName</span>
+                <span class="left-align">Please approve Check In request of @item.Requester.NickName</span>
                 <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
-                    Submit
+                    Approve
                 </a>
             </p>
             break;
         case 2:
         <p class="green-border">
-            <span class="left-align">Please submit Check Out request of @item.Requester.NickName</span>
+            <span class="left-align">Please approve Check Out request of @item.Requester.NickName</span>
             <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
-                Submit
+                Approve
             </a>
         </p>
             break;
@@ -72,7 +72,7 @@
                 @item.TotalDays day(s)
             </span>
             <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
-                Submit
+                Approve
             </a>
         </p>
                 break;
