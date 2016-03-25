@@ -150,7 +150,7 @@ function query(isFirstLoad) {
                 floatThead('table#data');
             }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);
         },
         complete: function () {

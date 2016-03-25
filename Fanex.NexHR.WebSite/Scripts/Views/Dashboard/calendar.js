@@ -41,7 +41,7 @@
                             "<tr>" +
                                 "<td>" + 'Location:' + "</td>" +
                                 "<td>" + event.location + "</td>" +
-                            "</tr>"
+                            "</tr>" +
                         "</table>";
                     }
                 });

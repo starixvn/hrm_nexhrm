@@ -34,7 +34,7 @@ function initTodoList() {
                 $('#todoList').html(data);
             }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);
         },
         complete: function () {

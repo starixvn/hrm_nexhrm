@@ -2,7 +2,7 @@
 /*global _global, LoadOTRequestDetail */
 /* exported InitButtonForOTRequest */
 
-function InitButtonForOTRequest() {
+function LoadOTRequestDetail() {
     $('#OTRequest .loading-process').fadeIn(300);
     $.post(_global.root + "overtime/OvertimeRequestDetail", $("#OTRequest #form").serialize(), function (response) {
         $("#dataOTRequest tbody").html(response);
