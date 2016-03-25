@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead*/
+/*global _global, _messages, floatThead, initDatePicker*/
 
 function initAddLeaveDeduction() {
     $('.addLeavededuction').click(function () {
@@ -13,7 +13,7 @@ function initAddLeaveDeduction() {
     });
 }
 
-function query(isFirstLoad) {
+function query() {
     $.ajax({
         url: _global.root + 'Report/ListLateInEarlyOut',
         type: 'POST',
@@ -39,9 +39,9 @@ function query(isFirstLoad) {
 }
 
 $(document).ready(function () {
-    query(true);
+    query();
     $('#submit').on('click', function () {
-        query(false);
+        query();
     });
 
     $('#insertform').dialog({

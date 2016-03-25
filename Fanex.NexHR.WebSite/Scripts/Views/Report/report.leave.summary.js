@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global floatThead*/
+/*global _global, floatThead*/
 
 function query(isFirstLoad) {
     $.ajax({

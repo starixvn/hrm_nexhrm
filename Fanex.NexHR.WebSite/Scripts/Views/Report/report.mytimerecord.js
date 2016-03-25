@@ -1,31 +1,6 @@
 ﻿'use strict';
-/*global _global, _messages, setDateTimeRange, floatThead*/
+/*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 /*exported*/
-
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber, event) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
-        }
-    });
-}
 
 function query(isFirstLoad) {
     $.ajax({
@@ -57,10 +32,35 @@ function query(isFirstLoad) {
     });
 }
 
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
+            query(false);
+        }
+    });
+}
+
 function initEventForFromDateAndToDate() {
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 }

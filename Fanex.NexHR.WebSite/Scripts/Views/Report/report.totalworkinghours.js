@@ -1,6 +1,4 @@
-﻿/*global _global, _messages, noInformation, setDateTimeRange, validateFromDateAndToDate,
- * toDate, fromDate, dateOption, floatThead 
- */
+﻿/*global _global, _messages, noInformation, setDateTimeRange, totalHoursToTime, validateFromDateAndToDate, floatThead */
 /*exported index*/
 'use strict';
 
@@ -32,9 +30,9 @@ function query(isFirstLoad) {
                         displayMinuteForTotalWorking: displayMinuteForTotalWorking,
                         totalHoursToTime: totalHoursToTime,
                         isHRRole: isHRRole,
-                        dateOption: dateOption,
-                        fromDate: fromDate,
-                        toDate: toDate
+                        dateOption: $('#DateOption').val(),
+                        fromDate: $('#FromDate').val(),
+                        toDate: $('#ToDate').val()
                     },
                     html = tmpl.render(data, helpers);
 
@@ -89,13 +87,7 @@ $(document).ready(function () {
         evt.preventDefault();
 
         if (validateFromDateAndToDate()) {
-            dateOption = $('#DateOption').val();
-            fromDate = $('#FromDate').val();
-            toDate = $('#ToDate').val();
-
-            if (validateFromDateAndToDate()) {
-                query(false);
-            }
+            query(false);
         }
     });
 

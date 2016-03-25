@@ -1,4 +1,4 @@
-﻿/*global noInformation, _messages, _global, floatThead*/
+﻿/*global _messages, _global, floatThead*/
 /*exported index*/
 'use strict';
 

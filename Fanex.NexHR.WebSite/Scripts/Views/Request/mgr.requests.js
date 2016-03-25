@@ -1,6 +1,85 @@
 ﻿/*global _global, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 'use strict';
 
+function bindMenuPending() {
+    $('table#data tbody td a.Pending').on('mouseup', function () {
+
+        $.contextMenu({
+            selector: '.Pending',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key) {
+                        switch (key) {
+                            case 'Approve':
+                                confirm('Are you sure you want to Approve?', function () {
+                                    processRequest(key, e.currentTarget);
+                                });
+                                break;
+                            case 'Reject':
+                                confirm('Are you sure you want to Reject?', function () {
+                                    processRequest(key, e.currentTarget);
+                                });
+                                break;
+                        }
+                    },
+                    items: {
+                        'Approve': { name: 'Approve', icon: 'approve' },
+                        'Reject': { name: 'Reject', icon: 'reject' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function bindMenuApproved() {
+    $('table#data tbody td a.Approved').on('mouseup', function () {
+
+        $.contextMenu({
+            selector: '.Approved',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key) {
+                        confirm('Are you sure you want to Disapprove?', function () {
+                            processRequest(key, e.currentTarget);
+                        });
+                    },
+                    items: {
+                        'Disapprove': { name: 'Disapprove', icon: 'reject' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
+            query(false);
+        }
+    });
+}
+
 function query(isFirstLoad) {
     var action = $('.card-container-base .form').find('#ActionName').val();
 
@@ -81,85 +160,6 @@ function processRequest(command, eventElement) {
             }
         }
     );
-}
-
-function bindMenuPending() {
-    $('table#data tbody td a.Pending').on('mouseup', function () {
-
-        $.contextMenu({
-            selector: '.Pending',
-            trigger: 'left',
-            build: function ($trigger, e) {
-                return {
-                    callback: function (key) {
-                        switch (key) {
-                            case 'Approve':
-                                confirm('Are you sure you want to Approve?', function () {
-                                    processRequest(key, e.currentTarget);
-                                });
-                                break;
-                            case 'Reject':
-                                confirm('Are you sure you want to Reject?', function () {
-                                    processRequest(key, e.currentTarget);
-                                });
-                                break;
-                        }
-                    },
-                    items: {
-                        'Approve': { name: 'Approve', icon: 'approve' },
-                        'Reject': { name: 'Reject', icon: 'reject' }
-                    }
-                };
-            }
-        });
-    });
-}
-
-function bindMenuApproved() {
-    $('table#data tbody td a.Approved').on('mouseup', function () {
-
-        $.contextMenu({
-            selector: '.Approved',
-            trigger: 'left',
-            build: function ($trigger, e) {
-                return {
-                    callback: function (key) {
-                        confirm('Are you sure you want to Disapprove?', function () {
-                            processRequest(key, e.currentTarget);
-                        });
-                    },
-                    items: {
-                        'Disapprove': { name: 'Disapprove', icon: 'reject' }
-                    }
-                };
-            }
-        });
-    });
-}
-
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
-        }
-    });
 }
 
 $(document).ready(function () {

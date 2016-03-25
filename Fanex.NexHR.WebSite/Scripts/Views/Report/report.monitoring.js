@@ -1,9 +1,8 @@
-﻿/*global _global, _messages, setDateTimeRange, floatThead*/
+﻿/*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 /*exported*/
 'use strict';
 
 function query(isFirstLoad) {
-    var action = $('.card-container-base').find('#ActionName').val();
     var isLeader = $('#IsLeader').val();
     $.ajax({
         url: _global.root + 'report/' + isLeader ? 'ListLeaderRequestMonitoring' : 'ListHRRequestMonitoring',
@@ -39,7 +38,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 

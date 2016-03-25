@@ -1,6 +1,45 @@
-﻿/*global _global, _messages, floatThead*/
+﻿/*global _global, _messages, floatThead, validateFromDateAndToDate, setDateTimeRange, initAutocomplete*/
 /*exported*/
 "use strict";
+
+function query(isFirstLoad) {
+    var $form = $('form.form-filter');
+    if (!$form.valid()) {
+        return;
+    }
+
+    //if no user is selected, clear the empId also
+    if ($('#Employee').val() === '') {
+        $('#EmpId').val('');
+    }
+
+    $.ajax({
+        url: _global.root + 'report/ListAttendance',
+        data: $('form.form-filter').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#attendance-detail').html(data);
+
+            if ($('table#data #pagination').length > 0) {
+                initTooltip();
+                initPagination();
+                floatThead('table#data');
+            }
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
@@ -81,48 +120,9 @@ function initPagination() {
         nextText: '<i class="mdi mdi-chevron-right"></i>',
         ellipsePageSet: false,
         cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber, event) {
+        onPageClick: function (pageNumber) {
             $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
-        }
-    });
-}
-
-function query(isFirstLoad) {
-    var $form = $('form.form-filter');
-    if (!$form.valid()) {
-        return;
-    }
-
-    //if no user is selected, clear the empId also
-    if ($('#Employee').val() === '') {
-        $('#EmpId').val('');
-    }
-
-    $.ajax({
-        url: _global.root + 'report/ListAttendance',
-        data: $('form.form-filter').serialize(),
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
-        },
-        success: function (data) {
-            $('#attendance-detail').html(data);
-
-            if ($('table#data #pagination').length > 0) {
-                initTooltip();
-                initPagination();
-                floatThead('table#data');
-            }
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
         }
     });
 }
@@ -138,7 +138,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 

@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead, noInformation, formatDate*/
+/*global _global, _messages, floatThead, noInformation, validateFromDateAndToDate, setDateTimeRange, formatJsonDate*/
 /*exported index*/
 
 var rowIndex = 1;
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 

@@ -1,31 +1,6 @@
 ﻿'use strict';
-/*global _global, _messages, floatThead*/
+/*global _global, _messages, floatThead, setDateTimeRange, validateFromDateAndToDate*/
 /*exported*/
-
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber, event) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
-        }
-    });
-}
 
 function query(isFirstLoad) {
     var model = $('.card-container-base form.form-filter').serialize();
@@ -62,27 +37,14 @@ function query(isFirstLoad) {
     });
 }
 
-function processInOut(inoutType, eventElement) {
-    $.post(_global.root + 'ajax/ProcessInOut',
-    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
-    function (response) {
-        if (response.IsSuccessful) {
-            query(false);
-        } else {
-            alert(response.Message);
-            return;
-        }
-    });
-}
-
 function bindMenuIn() {
-    $('table#data tbody td a.in-action').on('mouseup', function (e) {
+    $('table#data tbody td a.in-action').on('mouseup', function () {
         var $this = $(this);
 
         $.contextMenu({
             selector: '.in-action',
             trigger: 'left',
-            build: function ($trigger, e) {
+            build: function ($trigger) {
                 return {
                     callback: function (key, options) {
                         confirm('Are you sure you change to in?', function () {
@@ -99,15 +61,15 @@ function bindMenuIn() {
 }
 
 function bindMenuOut() {
-    $('table#data tbody td a.out-action').on('mouseup', function (e) {
+    $('table#data tbody td a.out-action').on('mouseup', function () {
         var $this = $(this);
 
         $.contextMenu({
             selector: '.out-action',
             trigger: 'left',
-            build: function ($trigger, e) {
+            build: function () {
                 return {
-                    callback: function (key, options) {
+                    callback: function () {
                         confirm('Are you sure you change to out?', function () {
                             processInOut(1, $this);
                         });
@@ -122,13 +84,13 @@ function bindMenuOut() {
 }
 
 function bindMenuInOut() {
-    $('table#data tbody td a.inout-action').on('mouseup', function (e) {
+    $('table#data tbody td a.inout-action').on('mouseup', function () {
         var $this = $(this);
 
         $.contextMenu({
             selector: '.inout-action',
             trigger: 'left',
-            build: function ($trigger, e) {
+            build: function ($trigger) {
                 return {
                     callback: function (key, options) {
                         switch (key) {
@@ -156,6 +118,44 @@ function bindMenuInOut() {
     });
 }
 
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
+            query(false);
+        }
+    });
+}
+
+function processInOut(inoutType, eventElement) {
+    $.post(_global.root + 'ajax/ProcessInOut',
+    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
+    function (response) {
+        if (response.IsSuccessful) {
+            query(false);
+        } else {
+            alert(response.Message);
+            return;
+        }
+    });
+}
+
 $(document).ready(function () {
     $('#Date').change(function () {
         setDateTimeRange($(this).val());
@@ -164,7 +164,7 @@ $(document).ready(function () {
 
     $('#FromDate, #ToDate').change(function () {
         $('#Date').val('0');
-        $('#Date').material_select();
+        $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
     });
 
