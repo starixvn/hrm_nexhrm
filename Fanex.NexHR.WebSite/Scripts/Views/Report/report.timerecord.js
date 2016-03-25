@@ -2,41 +2,6 @@
 /*global _global, _messages, floatThead, setDateTimeRange, validateFromDateAndToDate*/
 /*exported*/
 
-function query(isFirstLoad) {
-    var model = $('.card-container-base form.form-filter').serialize();
-
-    $.ajax({
-        url: _global.root + 'Report/ListTimeRecord',
-        type: 'POST',
-        dataType: 'html',
-        data: $('.card-container-base form.form-filter').serialize(),
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
-        },
-        success: function (data) {
-            $('#time-record-detail').html(data);
-
-            if ($('table#data #pagination').length > 0) {
-                bindMenuIn();
-                bindMenuOut();
-                bindMenuInOut();
-                initPagination();
-                floatThead('table#data');
-            }
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
-        }
-    });
-}
-
 function bindMenuIn() {
     $('table#data tbody td a.in-action').on('mouseup', function () {
         var $this = $(this);
@@ -44,9 +9,9 @@ function bindMenuIn() {
         $.contextMenu({
             selector: '.in-action',
             trigger: 'left',
-            build: function ($trigger) {
+            build: function () {
                 return {
-                    callback: function (key, options) {
+                    callback: function () {
                         confirm('Are you sure you change to in?', function () {
                             processInOut(0, $this);
                         });
@@ -90,9 +55,9 @@ function bindMenuInOut() {
         $.contextMenu({
             selector: '.inout-action',
             trigger: 'left',
-            build: function ($trigger) {
+            build: function () {
                 return {
-                    callback: function (key, options) {
+                    callback: function (key) {
                         switch (key) {
                             case 'in':
                                 confirm('Are you sure you change to in?', function () {
@@ -139,6 +104,39 @@ function initPagination() {
         onPageClick: function (pageNumber) {
             $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
+        }
+    });
+}
+
+function query(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'Report/ListTimeRecord',
+        type: 'POST',
+        dataType: 'html',
+        data: $('.card-container-base form.form-filter').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#time-record-detail').html(data);
+
+            if ($('table#data #pagination').length > 0) {
+                bindMenuIn();
+                bindMenuOut();
+                bindMenuInOut();
+                initPagination();
+                floatThead('table#data');
+            }
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }

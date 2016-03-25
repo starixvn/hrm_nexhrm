@@ -1,6 +1,20 @@
 ﻿/*global _global, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 'use strict';
 
+function processRequest(command, eventElement) {
+    $.post(_global.root + 'request/processrequest',
+    { command: command, id: $(eventElement).attr('requestId') },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            } else {
+                alert(response.Message);
+                return;
+            }
+        }
+    );
+}
+
 function bindMenuPending() {
     $('table#data tbody td a.Pending').on('mouseup', function () {
 
@@ -74,8 +88,7 @@ function initPagination() {
         ellipsePageSet: false,
         cssStyle: 'compact-theme',
         onPageClick: function (pageNumber) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
+            GoToNewPage(pageNumber);
         }
     });
 }
@@ -148,18 +161,9 @@ function query(isFirstLoad) {
     });
 }
 
-function processRequest(command, eventElement) {
-    $.post(_global.root + 'request/processrequest',
-    { command: command, id: $(eventElement).attr('requestId') },
-        function (response) {
-            if (response.IsSuccessful) {
-                query(false);
-            } else {
-                alert(response.Message);
-                return;
-            }
-        }
-    );
+function GoToNewPage(pageNumber) {
+    $('form.form-filter #CurrentPage').val(pageNumber);
+    query(false);
 }
 
 $(document).ready(function () {

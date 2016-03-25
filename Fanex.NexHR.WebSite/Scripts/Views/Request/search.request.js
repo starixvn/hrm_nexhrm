@@ -1,4 +1,4 @@
-﻿/*global _global, shiftChange*/
+﻿/*global _global, shiftChange, initDatePicker*/
 "use strict";
 
 var nickName;

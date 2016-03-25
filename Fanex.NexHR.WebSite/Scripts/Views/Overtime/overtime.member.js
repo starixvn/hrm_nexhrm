@@ -1,5 +1,15 @@
 ﻿"use strict";
-/*global _global, _messages, isOnlyHRRole*/
+/*global _global, isOnlyHRRole*/
+/* exported InitButtonForMemberOT, bindApproveMenu, bindPendingMenu */
+
+function LoadMemberOTDetail() {
+    $('#memberOT .loading-process').fadeIn(300);
+    $.post(_global.root + "Overtime/MemberOvertimeData", $("#memberOT #form").serialize(), function (response) {
+        $("#dataMemberOT tbody").html(response);
+        initTooltip();
+        $('#memberOT .loading-process').fadeOut(300);
+    });
+}
 
 function rejectRequest(id) {
     confirm('<p>Are you sure you want to reject this request?</p>', function () {
@@ -12,6 +22,37 @@ function rejectRequest(id) {
                 alert(response.Message);
             }
         });
+    });
+}
+
+function processRequest(command, eventElement) {
+    var requestId = eventElement.$trigger.attr('requestId');
+
+    switch (command) {
+        case 'edit':
+            location.href = _global.root + "Overtime/Edit/" + requestId;
+            break;
+        case 'approve':
+            approveRequest(requestId);
+            break;
+        case 'disapprove':
+            disapproveRequest(requestId);
+            break;
+        case 'reject':
+            rejectRequest(requestId);
+            break;
+    }
+}
+
+function initTooltip() {
+    var linkDays = $("#memberOT .contextmenu");
+
+    linkDays.mouseover(function () {
+        $(this).find(".drop-menu").show();
+    });
+
+    linkDays.mouseout(function () {
+        $(this).find(".drop-menu").hide();
     });
 }
 
@@ -46,30 +87,9 @@ function bindApproveMenu() {
     });
 }
 
-function LoadMemberOTDetail() {
-    $('#memberOT .loading-process').fadeIn(300);
-    $.post(_global.root + "Overtime/MemberOvertimeData", $("#memberOT #form").serialize(), function (response) {
-        $("#dataMemberOT tbody").html(response);
-        initTooltip();
-        $('#memberOT .loading-process').fadeOut(300);
-    });
-}
-
 function InitButtonForMemberOT() {
     $("#memberOT #btn-submit").click(function () {
         LoadMemberOTDetail();
-    });
-}
-
-function initTooltip() {
-    var linkDays = $("#memberOT .contextmenu");
-
-    linkDays.mouseover(function () {
-        $(this).find(".drop-menu").show();
-    });
-
-    linkDays.mouseout(function () {
-        $(this).find(".drop-menu").hide();
     });
 }
 
@@ -100,23 +120,4 @@ function disapproveRequest(id) {
             }
         });
     });
-}
-
-function processRequest(command, eventElement) {
-    var requestId = eventElement.$trigger.attr('requestId');
-
-    switch (command) {
-        case 'edit':
-            location.href = _global.root + "Overtime/Edit/" + requestId;
-            break;
-        case 'approve':
-            approveRequest(requestId);
-            break;
-        case 'disapprove':
-            disapproveRequest(requestId);
-            break;
-        case 'reject':
-            rejectRequest(requestId);
-            break;
-    }
 }

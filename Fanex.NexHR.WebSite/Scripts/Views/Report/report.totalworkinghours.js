@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, noInformation, setDateTimeRange, totalHoursToTime, validateFromDateAndToDate, floatThead */
+﻿/*global _global, _messages, noInformation, dateOption, setDateTimeRange, isHRRole, totalHoursToTime, validateFromDateAndToDate, floatThead, displayMinuteForTotalWorking */
 /*exported index*/
 'use strict';
 

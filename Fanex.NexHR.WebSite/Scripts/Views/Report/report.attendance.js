@@ -2,6 +2,61 @@
 /*exported*/
 "use strict";
 
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            GoToPage(pageNumber);
+        }
+    });
+}
+
+function initTooltip() {
+    $('.tooltip-request').tipsy({
+        className: 'tipsy-request',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            var object = $(this);
+            var result = getRequestDetail(
+                        object.attr('data-requesttype'),
+                        object.attr('data-fromdate'),
+                        object.attr('data-todate'),
+                        object.attr('data-createddate'),
+                        object.attr('data-fromshift'),
+                        object.attr('data-toshift'),
+                        object.attr('data-totaldays'),
+                        object.attr('data-totalmins'));
+
+            return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td>Details</td>" +
+                            "<td>" + result + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Remark</td>" +
+                            "<td>" + object.attr('data-remark') + "</td>" +
+                        "</tr>" +
+                    "</table>";
+        }
+    });
+}
+
 function query(isFirstLoad) {
     var $form = $('form.form-filter');
     if (!$form.valid()) {
@@ -41,6 +96,11 @@ function query(isFirstLoad) {
     });
 }
 
+function GoToPage(pageNumber) {
+    $('form.form-filter #CurrentPage').val(pageNumber);
+    query(false);
+}
+
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
     $.ajax({
@@ -58,37 +118,6 @@ function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift,
     return result;
 }
 
-function initTooltip() {
-    $('.tooltip-request').tipsy({
-        className: 'tipsy-request',
-        gravity: 'ne',
-        html: true,
-        title: function () {
-            var object = $(this);
-            var result = getRequestDetail(
-                        object.attr('data-requesttype'),
-                        object.attr('data-fromdate'),
-                        object.attr('data-todate'),
-                        object.attr('data-createddate'),
-                        object.attr('data-fromshift'),
-                        object.attr('data-toshift'),
-                        object.attr('data-totaldays'),
-                        object.attr('data-totalmins'));
-
-            return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Details</td>" +
-                            "<td>" + result + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Remark</td>" +
-                            "<td>" + object.attr('data-remark') + "</td>" +
-                        "</tr>" +
-                    "</table>";
-        }
-    });
-}
-
 function initExportExcel() {
     $('#exportExcel').on('click', function (evt) {
         evt.preventDefault();
@@ -99,31 +128,6 @@ function initExportExcel() {
         window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
             '&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
             '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete').prop('checked');
-    });
-}
-
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
-        }
     });
 }
 

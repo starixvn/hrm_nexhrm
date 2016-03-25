@@ -1,113 +1,6 @@
 ﻿'use strict';
-
-function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
-    $.ajax({
-        url: _global.root + 'overtime/overtimerequest',
-        type: 'GET',
-        data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
-        dataType: 'html',
-        async: false,
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('#OTRequest .loading-process').fadeIn(300);
-            }
-        },
-        success: function (response) {
-            $('#OTRequest').html(response);
-            $('select').material_select();
-
-            InitFormOTRequest();
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('#OTRequest .loading-process').fadeOut(300);
-            }
-        }
-    });
-}
-
-function InitFormOTRequest() {
-    initDatePicker("#OTRequest .datepicker");
-    InitButtonForOTRequest();
-    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy");
-    initAutocomplete("#OTRequest #Employee", "#OTRequest #EmployeeId");
-
-    $('#OTRequest #Date').on('change', function () {
-        setDateTimeRangeForOTRequest($(this).val());
-    });
-
-    LoadOTRequestDetail();
-}
-
-function LoadMemberOvertime(isFirstLoad) {
-    $.ajax({
-        url: _global.root + 'overtime/memberovertime',
-        type: 'GET',
-        dataType: 'html',
-        async: false,
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('#memberOT .loading-process').fadeIn(300);
-            }
-        },
-        success: function (response) {
-            $('#memberOT').append(response);
-
-            InitFormMemberOT();
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('#memberOT .loading-process').fadeOut(300);
-            }
-        }
-    });
-}
-
-function InitFormMemberOT() {
-    initDatePicker("#memberOT .datepicker");
-    InitButtonForMemberOT();
-    initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
-    initAutocomplete("#memberOT #Employee", "#memberOT #EmployeeId");
-
-    $('#memberOT #Date').on('change', function () {
-        setDateTimeRange($(this).val());
-    });
-
-    LoadMemberOTDetail();
-
-    bindPendingMenu();
-    bindApproveMenu();
-}
-
-function LoadMyOvertime(isFirstLoad) {
-    $.ajax({
-        url: _global.root + 'overtime/myovertime',
-        type: 'GET',
-        dataType: 'html',
-        async: false,
-        beforeSend: function () {
-            $('#myOT .loading-process').fadeIn(300);
-        },
-        success: function (response) {
-            $('#myOT').append(response);
-
-            InitButtonForMyOT();
-            LoadDetailMyOT(true);
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            $('#myOT .loading-process').fadeOut(300);
-        }
-    });
-}
+/*global _global */
+/* exported InitButtonForOTRequest */
 
 function setDateTimeRangeForOTRequest(selectedIndex) {
     var fromDate = new Date($('#FromDateOT').val()),
@@ -152,15 +45,124 @@ function setDateTimeRangeForOTRequest(selectedIndex) {
     $('#ToDateOT').val(toDate);
 }
 
+function InitFormOTRequest() {
+    initDatePicker("#OTRequest .datepicker");
+    InitButtonForOTRequest();
+    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy");
+    initAutocomplete("#OTRequest #Employee", "#OTRequest #EmployeeId");
+
+    $('#OTRequest #Date').on('change', function () {
+        setDateTimeRangeForOTRequest($(this).val());
+    });
+
+    LoadOTRequestDetail();
+}
+
+function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
+    $.ajax({
+        url: _global.root + 'overtime/overtimerequest',
+        type: 'GET',
+        data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
+        dataType: 'html',
+        async: false,
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('#OTRequest .loading-process').fadeIn(300);
+            }
+        },
+        success: function (response) {
+            $('#OTRequest').html(response);
+            $('select').material_select();
+
+            InitFormOTRequest();
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('#OTRequest .loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
+function InitFormMemberOT() {
+    initDatePicker("#memberOT .datepicker");
+    InitButtonForMemberOT();
+    initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
+    initAutocomplete("#memberOT #Employee", "#memberOT #EmployeeId");
+
+    $('#memberOT #Date').on('change', function () {
+        setDateTimeRange($(this).val());
+    });
+
+    LoadMemberOTDetail();
+
+    bindPendingMenu();
+    bindApproveMenu();
+}
+
+function LoadMemberOvertime(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'overtime/memberovertime',
+        type: 'GET',
+        dataType: 'html',
+        async: false,
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('#memberOT .loading-process').fadeIn(300);
+            }
+        },
+        success: function (response) {
+            $('#memberOT').append(response);
+
+            InitFormMemberOT();
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('#memberOT .loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
+function LoadMyOvertime(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'overtime/myovertime',
+        type: 'GET',
+        dataType: 'html',
+        async: false,
+        beforeSend: function () {
+            $('#myOT .loading-process').fadeIn(300);
+        },
+        success: function (response) {
+            $('#myOT').append(response);
+
+            InitButtonForMyOT();
+            LoadDetailMyOT(true);
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            $('#myOT .loading-process').fadeOut(300);
+        }
+    });
+}
+
 function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
-    LoadOTRequest(isFirstload, createdBy, fromDate, toDate, status)
+    LoadOTRequest(isFirstload, createdBy, fromDate, toDate, status);
     $('ul.tabs').tabs('select_tab', 'OTRequest');
 }
 
 $(document).ready(function () {
     LoadMyOvertime(true);
     if (_global.roles !== "") {
-        LoadMemberOvertime(true)
+        LoadMemberOvertime(true);
     }
     LoadOTRequest(true);
 
