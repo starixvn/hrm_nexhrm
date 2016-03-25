@@ -39,7 +39,7 @@
     {
         case 1:
             <p class="green-border">
-                <span class="left-align">Please approve Check In request of @item.Requester.NickName</span>
+                <span class="left-align">Please approve Check In request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
                 <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                     Approve
                 </a>
@@ -47,7 +47,7 @@
             break;
         case 2:
         <p class="green-border">
-            <span class="left-align">Please approve Check Out request of @item.Requester.NickName</span>
+            <span class="left-align">Please approve Check Out request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
             <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                 Approve
             </a>
@@ -56,20 +56,8 @@
         default:
         <p class="orange-border">
             <span class="text-left">
-                Please approve @item.Requester.NickName's @item.LeaveType.Name Request
-                @if (item.FromDate.Date == item.ToDate.Date)
-                {
-                    <span class="yellow darken-4 link">
-                        @item.FromDate.ToDateMonthYearFormatedDate()
-                    </span><span>&nbsp;</span>
-                }
-                else
-                {
-                    <span class="yellow darken-4 link">
-                        @item.FromDate.ToDateMonthYearFormatedDate() - @item.ToDate.ToDateMonthYearFormatedDate()
-                    </span><span>&nbsp;</span>
-                }
-                @item.TotalDays day(s)
+                Please approve @item.LeaveType.Name request of @item.Requester.NickName: 
+                 @Html.Raw(RequestService.ConvertToRequestMessage(item))
             </span>
             <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                 Approve

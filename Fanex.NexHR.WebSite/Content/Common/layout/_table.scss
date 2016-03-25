@@ -81,25 +81,6 @@
                         color: #f44336;
                     }
                 }
-
-                span.req {
-                    color: #fff;
-                    padding: .3rem .6rem;
-                    margin-right: .5rem;
-                    border-radius: 2px;
-
-                    &.checkinout {
-                        background: #15af93;
-                    }
-
-                    &.leave {
-                        background: #da871c;
-                    }
-
-                    &.inout {
-                        background: #999900;
-                    }
-                }
             }
 
             &.row-divider {

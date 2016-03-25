@@ -364,23 +364,6 @@ main {
                     padding: .5rem;
                     border-left: .1rem solid $c-border-table;
 
-                    span.req {
-                        color: #fff;
-                        padding: .3rem .5rem;
-
-                        &.leave {
-                            background: #da871c;
-                        }
-
-                        &.checkinout {
-                            background: #15af93;
-                        }
-
-                        &.inout {
-                            background: #999900;
-                        }
-                    }
-
                     &:first-child {
                         border-left: none;
                     }
@@ -471,6 +454,24 @@ main {
     }
 }
 
+span.req {
+                    color: #fff;
+                    padding: .3rem .6rem;
+                    margin-right: .5rem;
+                    border-radius: 2px;
+
+                    &.checkinout {
+                        background: #15af93;
+                    }
+
+                    &.leave {
+                        background: #da871c;
+                    }
+
+                    &.inout {
+                        background: #999900;
+                    }
+                }
 .ui-dialog .ui-dialog-titlebar-close {
     margin: 0;
     height: inherit;
