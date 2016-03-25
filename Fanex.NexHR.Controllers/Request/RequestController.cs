@@ -262,7 +262,7 @@
         public JsonResult GetUnavailDate(int employeeId)
         {
             IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId);
-            return Json(dates, JsonRequestBehavior.AllowGet);
+            return Json(dates.Select(t => t.ToString("dd MMM yyyy")), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate)

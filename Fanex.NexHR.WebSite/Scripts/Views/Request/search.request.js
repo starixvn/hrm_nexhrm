@@ -45,6 +45,7 @@ $(document).ready(function () {
                     function (response) {
                         if (response != null) {
                             var forRequest = parseInt($("#ForRequest").val());
+
                             switch (forRequest) {
                                 case 0: // leave
                                     $("#FromDate, #ToDate").attr("disableddate", response.join(","));
@@ -60,6 +61,8 @@ $(document).ready(function () {
                                     $("#ForDate").change();
                                     break;
                             }
+
+                            initDatePicker();
                         }
                     }
                 );
