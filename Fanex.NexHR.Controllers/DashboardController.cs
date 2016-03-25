@@ -117,7 +117,7 @@
             var criteria = new GetRequestCriteria()
             {
                 Role = (short)Role.AssistantLeader,
-                FromDate = DateTime.Now.AddDays(-30),
+                FromDate = DateTime.Now.AddMonths(-3),
                 ToDate = DateTime.Now,
                 GroupId = null,
                 Status = 1,
