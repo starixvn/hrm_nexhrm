@@ -30,6 +30,8 @@
   width: calc(100% - 230px);
   display: block;
   float: left; }
+  .information .bold a {
+    cursor: text; }
 
 .todoBlock {
   background: url(../Images/bg_todolist.jpg) no-repeat bottom center;
