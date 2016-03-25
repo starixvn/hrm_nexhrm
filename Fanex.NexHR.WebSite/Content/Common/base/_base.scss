@@ -455,23 +455,23 @@ main {
 }
 
 span.req {
-                    color: #fff;
-                    padding: .3rem .6rem;
-                    margin-right: .5rem;
-                    border-radius: 2px;
+        color: #fff;
+        padding: .3rem .6rem;
+        margin-right: .5rem;
+        border-radius: 2px;
 
-                    &.checkinout {
-                        background: #15af93;
-                    }
+        &.checkinout {
+            background: #15af93;
+        }
 
-                    &.leave {
-                        background: #da871c;
-                    }
+        &.leave {
+            background: #da871c;
+        }
 
-                    &.inout {
-                        background: #999900;
-                    }
-                }
+        &.inout {
+            background: #999900;
+        }
+    }
 .ui-dialog .ui-dialog-titlebar-close {
     margin: 0;
     height: inherit;

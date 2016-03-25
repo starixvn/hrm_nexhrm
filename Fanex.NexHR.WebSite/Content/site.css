@@ -312,6 +312,18 @@ main {
 .ui-autocomplete.ui-menu .ui-menu-item {
   list-style-image: none !important; }
 
+span.req {
+  color: #fff;
+  padding: .3rem .6rem;
+  margin-right: .5rem;
+  border-radius: 2px; }
+  span.req.checkinout {
+    background: #15af93; }
+  span.req.leave {
+    background: #da871c; }
+  span.req.inout {
+    background: #999900; }
+
 .ui-dialog .ui-dialog-titlebar-close {
   margin: 0;
   height: inherit; }
@@ -320,9 +332,6 @@ main {
     left: 0;
     margin-left: 0;
     margin-top: 0; }
-
-  span.req.inout {
-    background: #999900; }
 
 a:active, a:focus {
   outline: none; }
