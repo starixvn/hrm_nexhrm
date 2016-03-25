@@ -1,4 +1,5 @@
 ﻿/*global _global, _messages*/
+/* exported deleteRequest */
 'use strict';
 
 function query(isFirstLoad) {
@@ -7,7 +8,7 @@ function query(isFirstLoad) {
         type: 'GET',
         dataType: 'html',
         data: {
-            empId: $('#EmployeeId').val() == "" ? -1 : $('#EmployeeId').val(),
+            empId: $('#EmployeeId').val() === "" ? -1 : $('#EmployeeId').val(),
             year: $('#Year').val()
         },
         beforeSend: function () {

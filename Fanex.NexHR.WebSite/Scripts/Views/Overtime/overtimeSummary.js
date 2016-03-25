@@ -1,4 +1,15 @@
-﻿function query(isFirstLoad) {
+﻿'use strict';
+/*global _global, _messages, initDatePicker, floatThead*/
+
+function initAddLeaveConversion() {
+    $('.addLeaveConversion').click(function () {
+        var employeeId = $(this).attr('data-id');
+        $('#EmpId').val(employeeId);
+        $('#insertform').dialog('open');
+    });
+}
+
+function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'Overtime/OvertimeSummary',
         type: 'POST',
@@ -27,14 +38,6 @@
                 $('.loading-process').fadeOut(300);
             }
         }
-    });
-}
-
-function initAddLeaveConversion() {
-    $('.addLeaveConversion').click(function () {
-        var employeeId = $(this).attr('data-id');
-        $('#EmpId').val(employeeId);
-        $('#insertform').dialog('open');
     });
 }
 

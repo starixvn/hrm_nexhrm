@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿'use strict';
+/*global _global*/
+$(document).ready(function () {
     var successed = $('#successed').val();
 
     if (successed === 'true') {

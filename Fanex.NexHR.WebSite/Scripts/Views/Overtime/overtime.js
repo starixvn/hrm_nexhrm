@@ -162,7 +162,7 @@ $(document).ready(function () {
     if (_global.roles !== "") {
         LoadMemberOvertime(true)
     }
-    LoadOTRequest(true)
+    LoadOTRequest(true);
 
-    $('select').material_select();
+    $('select').material_select(); // jshint ignore:line
 });

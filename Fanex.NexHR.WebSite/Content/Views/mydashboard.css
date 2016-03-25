@@ -31,7 +31,7 @@
     cursor: text; }
 
 .todoBlock {
-  background: url(../Images/bg_todolist.jpg) no-repeat bottom center;
+  background: url(/Content/Images/bg_todolist.jpg) no-repeat bottom center;
   background-size: cover; }
   .todoBlock .card-body {
     margin-top: 1.6rem; }
