@@ -463,3 +463,10 @@ main {
         }
     }
 }
+
+
+.ui-autocomplete.ui-menu {
+    .ui-menu-item {
+        list-style-image: none !important;
+    }
+}
