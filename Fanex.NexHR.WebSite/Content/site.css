@@ -324,6 +324,15 @@ main {
 .ui-autocomplete.ui-menu .ui-menu-item {
   list-style-image: none !important; }
 
+.ui-dialog .ui-dialog-titlebar-close {
+  margin: 0;
+  height: inherit; }
+  .ui-dialog .ui-dialog-titlebar-close .ui-icon-closethick {
+    top: 10px;
+    left: 0;
+    margin-left: 0;
+    margin-top: 0; }
+
 a:active, a:focus {
   outline: none; }
 

@@ -470,3 +470,15 @@ main {
         list-style-image: none !important;
     }
 }
+
+.ui-dialog .ui-dialog-titlebar-close {
+    margin: 0;
+    height: inherit;
+
+    .ui-icon-closethick {
+        top: 10px;
+        left: 0;
+        margin-left: 0;
+        margin-top: 0;
+    }
+}

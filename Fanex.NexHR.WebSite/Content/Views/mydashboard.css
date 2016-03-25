@@ -1,4 +1,4 @@
-.flexWrap {
+﻿.flexWrap {
   display: flex; }
   .flexWrap .infoBlock, .flexWrap .todoBlock {
     flex: 1;
@@ -16,13 +16,16 @@
 
 .information table td {
   padding-left: 0; }
+
 .information p {
   padding: 1rem 0;
   line-height: inherit; }
+
 .information .left-align {
   width: 230px;
   display: block;
   float: left; }
+
 .information .bold {
   width: calc(100% - 230px);
   display: block;
@@ -31,7 +34,7 @@
     cursor: text; }
 
 .todoBlock {
-  background: url(/Content/Images/bg_todolist.jpg) no-repeat bottom center;
+  background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
   background-size: cover; }
   .todoBlock .card-body {
     margin-top: 1.6rem; }
@@ -72,10 +75,12 @@
 
 .workload .card-title-block {
   border-bottom: none !important; }
+
 .workload .pie-chart {
   height: 20rem;
   margin: 0 auto;
   width: 20rem; }
+
 .workload .total-hours {
   width: 20rem;
   text-align: center;
@@ -88,6 +93,7 @@
     font-size: 1.4rem;
     color: #7b8da0;
     line-height: inherit; }
+
 .workload .detail ul {
   padding: 0; }
   .workload .detail ul li {
@@ -116,6 +122,7 @@
   @media (max-width: 1400px) {
     .card .slide .slide-content .noEvent .detail {
       margin-top: 1.8rem; } }
+
 .card .slide .slick-dots {
   text-align: center;
   margin: 0;
@@ -135,6 +142,7 @@
     opacity: 0.3; }
     .card .slide .slick-dots li.slick-active {
       opacity: .8; }
+
 .card .slide img {
   width: 3.8rem;
   height: 3.8rem;
@@ -143,6 +151,7 @@
     .card .slide img {
       width: 4.8rem;
       height: 4.8rem; } }
+
 .card .detail {
   margin-top: 1.8rem; }
   @media (max-width: 1400px) {
@@ -219,8 +228,8 @@
     border-left: 1px solid #e4e4e4 !important;
     border-top: 1px solid #e4e4e4 !important;
     /*&.fc-today {
-        background: #f5d1c1;
-    }*/ }
+                    background: #f5d1c1;
+                }*/ }
   .dashboardCalendar .fc-view-container .fc-body .fc-day-grid-event {
     margin-right: 0;
     margin-left: 0; }
@@ -292,4 +301,3 @@
     padding: 7px 15px;
     font-size: 1.3rem; }
 
-/*# sourceMappingURL=mydashboard.css.map */
