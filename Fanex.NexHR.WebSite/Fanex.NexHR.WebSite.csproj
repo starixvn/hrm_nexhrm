@@ -213,9 +213,9 @@
     <Content Include="App_Data\Emails\TOEICScoreUpdatedNotification.cshtml" />
     <Content Include="App_Data\Emails\UnpaidLeave.Request.cshtml" />
     <Content Include="App_Data\Emails\OvertimeNotification.cshtml" />
-    <None Include="App_Data\ExcelTemplates\EmployeeAttendace.xls" />
-    <None Include="App_Data\ExcelTemplates\EmployeeProfile.xls" />
-    <None Include="App_Data\ExcelTemplates\TotalWorkingHours.xls" />
+    <Content Include="App_Data\ExcelTemplates\EmployeeAttendace.xls" />
+    <Content Include="App_Data\ExcelTemplates\EmployeeProfile.xls" />
+    <Content Include="App_Data\ExcelTemplates\TotalWorkingHours.xls" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -248,9 +248,6 @@
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
-    <Content Include="Content\Views\mydashboard.min.css">
-      <DependentUpon>mydashboard.css</DependentUpon>
-    </Content>
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
     </Content>
@@ -258,9 +255,6 @@
       <DependentUpon>report.timesheet.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\_monthPicker.scss" />
-    <Content Include="Content\Views\mydashboard.css.map">
-      <DependentUpon>mydashboard.css</DependentUpon>
-    </Content>
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
