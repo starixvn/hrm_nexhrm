@@ -1,5 +1,6 @@
-﻿/*global _global, _messages*/
-'use strict';
+﻿'use strict';
+/*global _global, _messages, autoIndex*/
+/* exported deleteRequest */
 
 function query(isFirstLoad) {
     $.ajax({
@@ -30,7 +31,7 @@ function query(isFirstLoad) {
     });
 }
 
-function deleteRequest(id, fileName, type) {
+function deleteRequest(id) {
     confirm('Are you sure you want to delete this request?', function () {
         $.post(_global.root + 'lateearly/delete', { id: id }, function (data) {
             if (data.IsSuccessful) {

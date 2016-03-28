@@ -1,7 +1,9 @@
-﻿/*global _global, autoIndex*/
-/*exported deleteMemoFile, deleteMemo*/
-"use strict";
+﻿"use strict";
+/*global _global*/
+/*exported deleteMemoFile, index*/
+
 var rowIndex = 1;
+
 function index() {
     return rowIndex++;
 }

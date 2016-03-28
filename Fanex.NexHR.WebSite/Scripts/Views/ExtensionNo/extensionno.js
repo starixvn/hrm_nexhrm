@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false, _messages:false*/
+/*global _global:false, _messages:false, floatThead*/
 
 $(document).ready(function () {
     $(".deleteExt").on("click", function () {

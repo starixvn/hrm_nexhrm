@@ -69,30 +69,6 @@ function bindMenuApproved() {
     });
 }
 
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber) {
-            GoToNewPage(pageNumber);
-        }
-    });
-}
-
 function query(isFirstLoad) {
     var action = $('.card-container-base .form').find('#ActionName').val();
 
@@ -161,9 +137,33 @@ function query(isFirstLoad) {
     });
 }
 
-function GoToNewPage(pageNumber) {
+function goToNewPage(pageNumber) {
     $('form.form-filter #CurrentPage').val(pageNumber);
     query(false);
+}
+
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            goToNewPage(pageNumber);
+        }
+    });
 }
 
 $(document).ready(function () {

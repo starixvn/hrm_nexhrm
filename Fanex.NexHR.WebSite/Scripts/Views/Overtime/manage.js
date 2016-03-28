@@ -1,4 +1,6 @@
 "use strict";
+/*global _global, _messages */
+/* exported deleteRow */
 
 var timeSheets = [];
 function initValidationForHour() {
@@ -19,6 +21,12 @@ function initValidationForHour() {
     });
 }
 
+function generateFooter() {
+    if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
+        $('#timeSheets').html('');
+    }
+};
+
 function createRow(nick, id) {
     generateFooter();
     var hour = $('#Hour').val();
@@ -30,12 +38,15 @@ function createRow(nick, id) {
                 '</tr>';
     $('#timeSheets').append(row);
     initValidationForHour();
-};
-function generateFooter() {
-    if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
-        $('#timeSheets').html('');
-    }
-};
+}
+
+function generatedIndex() {
+    var rowIndex = 1;
+    $('.sortedIndex').each(function () {
+        $(this).children('td').eq(0).html(rowIndex);
+        rowIndex++;
+    });
+}
 
 function deleteRow(id) {
     $('#row_' + id).remove();
@@ -46,15 +57,7 @@ function deleteRow(id) {
     } else {
         generatedIndex();
     }
-};
-
-function generatedIndex() {
-    var rowIndex = 1;
-    $('.sortedIndex').each(function () {
-        $(this).children('td').eq(0).html(rowIndex);
-        rowIndex++;
-    });
-};
+}
 
 function checkExist(id) {
     for (var i = 0; i < timeSheets.length; i++) {
@@ -64,7 +67,7 @@ function checkExist(id) {
     }
 
     return false;
-};
+}
 
 function initEmployeeAutocomplete() {
     $("#Employee").autocomplete({
@@ -121,7 +124,7 @@ function initEmployeeAutocomplete() {
             $('#EmployeeId').val('');
         }
     });
-};
+}
 
 function getTimeRecord()
 {

@@ -1,4 +1,6 @@
 ﻿'use strict';
+/*global _global, _messages, actualFromDate */
+/*exported index, deleteHoliday*/
 
 function setTheDate() {
     var numday = $("#numDay").val(),

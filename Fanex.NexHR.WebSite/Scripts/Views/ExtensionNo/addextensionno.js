@@ -21,7 +21,7 @@ $(document).ready(function () {
                     options += "<option value='" + respone[i].Value + "'>" + respone[i].Text + "</option>";
                 }
                 $("#TeamId").append(options);
-                $("#TeamId").material_select('update');
+                $("#TeamId").material_select('update');     // jshint ignore:line
             }
         });
     };

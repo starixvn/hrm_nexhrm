@@ -1,5 +1,5 @@
-﻿/*global _global, _messages, noInformation*/
-/* exported index*/
+﻿/*global _global, _messages, noInformation, autoIndex, deleteMemoFile, formatJsonDate, isHRRole, floatThead */
+/* exported index, deleteMemo*/
 'use strict';
 
 var rowIndex = 1;
@@ -27,7 +27,7 @@ function deleteMemo(id, fileName, type) {
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'memo/getmemos',
-        data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() == undefined ? -1 : $('#Status').val() },
+        data: { category: $('#Category').val(), year: $('#Year').val(), status: $('#Status').val() === undefined ? -1 : $('#Status').val() },
         method: "POST",
         beforeSend: function () {
             if (!isFirstLoad) {

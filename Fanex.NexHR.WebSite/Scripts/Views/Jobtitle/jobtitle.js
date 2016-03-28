@@ -6,6 +6,33 @@ var canNotUpdate = function (id) {
     $('#txtJobTile_' + id).val($('#spanJobTitle_' + id).text());
 };
 
+function query(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'jobtitle/index',
+        dataType: 'html',
+        method: "POST",
+        data: { jobTitle: $('#keyword').val() },
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#job-title-detail').html(data);
+
+            floatThead('table#data');
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
 function deleteJobTitle(id) {
     confirm('Are you sure you want to delete?', function () {
         $.post(_global.root + 'jobtitle/Delete',
@@ -61,7 +88,7 @@ function updateJobTitle(id) {
                 if (response.IsSuccessful) {
                     query(false);
                 } else {
-                    alert(response.Message)
+                    alert(response.Message);
                     canNotUpdate(id);
                 }
             }).error(function () {
@@ -153,33 +180,6 @@ $(function () {
         $('#dialog-form').dialog('open');
     });
 });
-
-function query(isFirstLoad) {
-    $.ajax({
-        url: _global.root + 'jobtitle/index',
-        dataType: 'html',
-        method: "POST",
-        data: { jobTitle: $('#keyword').val() },
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
-        },
-        success: function (data) {
-            $('#job-title-detail').html(data);
-
-            floatThead('table#data');
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
-        }
-    });
-}
 
 $(document).ready(function () {
     var enable = true;

@@ -1,6 +1,6 @@
 ﻿'use strict';
-/*global _global */
-/* exported InitButtonForOTRequest */
+/*global _global, initButtonForOTRequest, initDatePicker */
+/* exported */
 
 function setDateTimeRangeForOTRequest(selectedIndex) {
     var fromDate = new Date($('#FromDateOT').val()),
@@ -45,9 +45,9 @@ function setDateTimeRangeForOTRequest(selectedIndex) {
     $('#ToDateOT').val(toDate);
 }
 
-function InitFormOTRequest() {
+function initFormOTRequest() {
     initDatePicker("#OTRequest .datepicker");
-    InitButtonForOTRequest();
+    initButtonForOTRequest();
     initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy");
     initAutocomplete("#OTRequest #Employee", "#OTRequest #EmployeeId");
 
@@ -55,16 +55,16 @@ function InitFormOTRequest() {
         setDateTimeRangeForOTRequest($(this).val());
     });
 
-    LoadOTRequestDetail();
+    loadOTRequestDetail();
 }
 
-function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
+function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
     $.ajax({
         url: _global.root + 'overtime/overtimerequest',
         type: 'GET',
         data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
         dataType: 'html',
-        async: false,
+        async: true,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#OTRequest .loading-process').fadeIn(300);
@@ -72,9 +72,9 @@ function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
         },
         success: function (response) {
             $('#OTRequest').html(response);
-            $('select').material_select();
+            $('select').material_select();  // jshint ignore:line
 
-            InitFormOTRequest();
+            initFormOTRequest();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -89,7 +89,7 @@ function LoadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
 
 function InitFormMemberOT() {
     initDatePicker("#memberOT .datepicker");
-    InitButtonForMemberOT();
+    initButtonForMemberOT();
     initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
     initAutocomplete("#memberOT #Employee", "#memberOT #EmployeeId");
 
@@ -97,18 +97,18 @@ function InitFormMemberOT() {
         setDateTimeRange($(this).val());
     });
 
-    LoadMemberOTDetail();
+    loadMemberOTDetail();
 
     bindPendingMenu();
     bindApproveMenu();
 }
 
-function LoadMemberOvertime(isFirstLoad) {
+function loadMemberOvertime(isFirstLoad) {
     $.ajax({
         url: _global.root + 'overtime/memberovertime',
         type: 'GET',
         dataType: 'html',
-        async: false,
+        async: true,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#memberOT .loading-process').fadeIn(300);
@@ -130,20 +130,20 @@ function LoadMemberOvertime(isFirstLoad) {
     });
 }
 
-function LoadMyOvertime(isFirstLoad) {
+function loadMyOvertime(isFirstLoad) {
     $.ajax({
         url: _global.root + 'overtime/myovertime',
         type: 'GET',
         dataType: 'html',
-        async: false,
+        async: true,
         beforeSend: function () {
             $('#myOT .loading-process').fadeIn(300);
         },
         success: function (response) {
             $('#myOT').append(response);
 
-            InitButtonForMyOT();
-            LoadDetailMyOT(true);
+            initButtonForMyOT();
+            loadDetailMyOT(true);
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -155,16 +155,16 @@ function LoadMyOvertime(isFirstLoad) {
 }
 
 function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
-    LoadOTRequest(isFirstload, createdBy, fromDate, toDate, status);
+    loadOTRequest(isFirstload, createdBy, fromDate, toDate, status);
     $('ul.tabs').tabs('select_tab', 'OTRequest');
 }
 
 $(document).ready(function () {
-    LoadMyOvertime(true);
+    loadMyOvertime(true);
     if (_global.roles !== "") {
-        LoadMemberOvertime(true);
+        loadMemberOvertime(true);
     }
-    LoadOTRequest(true);
+    loadOTRequest(true);
 
     $('select').material_select(); // jshint ignore:line
 });

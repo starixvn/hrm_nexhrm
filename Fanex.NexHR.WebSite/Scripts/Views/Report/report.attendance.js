@@ -21,9 +21,27 @@ function initPagination() {
         ellipsePageSet: false,
         cssStyle: 'compact-theme',
         onPageClick: function (pageNumber) {
-            GoToPage(pageNumber);
+            goToPage(pageNumber);
         }
     });
+}
+
+function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
+    var result = '';
+    $.ajax({
+        url: _global.root + "request/GetRequestDetail",
+        async: false,
+        type: 'post',
+        data: {
+            "requesttype": requestType, "fromdate": fromDate, "todate": toDate, "createddate": createddate,
+            "fromshiftCode": fromShift, "toshiftcode": toShift, "totaldays": totalDays, "totalmins": totalMins
+        },
+        success: function (data) {
+            result = data;
+        }
+    });
+
+    return result;
 }
 
 function initTooltip() {
@@ -96,26 +114,9 @@ function query(isFirstLoad) {
     });
 }
 
-function GoToPage(pageNumber) {
+function goToPage(pageNumber) {
     $('form.form-filter #CurrentPage').val(pageNumber);
     query(false);
-}
-
-function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
-    var result = '';
-    $.ajax({
-        url: _global.root + "request/GetRequestDetail",
-        async: false,
-        type: 'post',
-        data: { "requesttype": requestType, "fromdate": fromDate, "todate": toDate, "createddate": createddate,
-            "fromshiftCode": fromShift, "toshiftcode": toShift, "totaldays": totalDays, "totalmins": totalMins
-        },
-        success: function (data) {
-            result = data;
-        }
-    });
-
-    return result;
 }
 
 function initExportExcel() {

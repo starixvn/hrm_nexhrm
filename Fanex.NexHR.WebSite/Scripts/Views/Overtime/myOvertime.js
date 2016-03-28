@@ -1,6 +1,7 @@
-﻿'use strict';
-
-function LoadDetailMyOT(isFirstLoad) {
+﻿"use strict";
+/*global _global, _messages */
+/* exported initButtonForMyOT */
+function loadDetailMyOT(isFirstLoad) {
     $.ajax({
         url: _global.root + 'overtime/MyOvertimeData',
         type: 'POST',
@@ -26,10 +27,10 @@ function LoadDetailMyOT(isFirstLoad) {
             }
         }
     });
-};
+}
 
-function InitButtonForMyOT() {
+function initButtonForMyOT() {
     $("#myOT #btn-submit").click(function () {
-        LoadDetailMyOT(false);
+        loadDetailMyOT(false);
     });
-};
+}

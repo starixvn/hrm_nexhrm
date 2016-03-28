@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false, autoIndex: false*/
+/*global _global:false, _messages, formatJsonDate, isHRRole, noInformation */
 /*exported index, deleteHoliday*/
 
 var rowIndex = 1;
