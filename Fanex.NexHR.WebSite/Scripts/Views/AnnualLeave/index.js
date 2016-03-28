@@ -19,7 +19,7 @@ function eventAdjustment() {
         $('#EmpIds').val(_ids);
 
         if (_ids.length > 0) {
-            var title = $('#insertform').attr('title'); // jshint ignore:line
+            var title = $('#insertform').attr('title');     // jshint ignore:line
 
             $('#insertform').dialog({
                 title: 'Adjust Annual Leave Balance',

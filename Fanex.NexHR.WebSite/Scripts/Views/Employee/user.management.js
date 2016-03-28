@@ -157,8 +157,8 @@ function eventExportExcel(jobTitleId) {
 }
 
 $(document).ready(function () {
-    var enable = null,  // jshint ignore:line
-        jobTitleId = $('#JobTitleId').val();
+    var enable = null,
+        jobTitleId = $('#JobTitleId').val();    // jshint ignore:line
 
     $("#JobTitleId").val(jobTitleId);
     $('#JobTitleId').material_select(); // jshint ignore:line

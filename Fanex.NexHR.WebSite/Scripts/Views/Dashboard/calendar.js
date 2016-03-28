@@ -17,7 +17,7 @@ function customizeHeader() {
 }
 
 function createEvents(googleEvents) {
-    eventList = [];
+    eventList = [];     // jshint ignore:line
     if (googleEvents.length > 0) {
         for (var i = 0; i < googleEvents.length; i++) {
             eventList.push({
