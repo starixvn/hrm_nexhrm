@@ -69,7 +69,7 @@ function bindMenuApproved() {
     });
 }
 
-function query(isFirstLoad) {
+function query(isFirstLoad) {   // jshint ignore:line
     var action = $('.card-container-base .form').find('#ActionName').val();
 
     $.ajax({
@@ -142,7 +142,7 @@ function goToNewPage(pageNumber) {
     query(false);
 }
 
-function initPagination() {
+function initPagination() { // jshint ignore:line
     var currentPage = $('table#data #pagination #CurrentPage').val(),
         itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
         totalItem = $('table#data #pagination #TotalItem').val();

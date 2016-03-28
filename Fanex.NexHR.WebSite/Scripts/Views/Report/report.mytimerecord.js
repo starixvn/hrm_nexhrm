@@ -37,7 +37,7 @@ function goToPage(pageNumber) {
     query(false);
 }
 
-function initPagination() {
+function initPagination() { // jshint ignore:line
     var currentPage = $('table#data #pagination #CurrentPage').val(),
         itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
         totalItem = $('table#data #pagination #TotalItem').val();

@@ -1,6 +1,6 @@
 ﻿'use strict';
-/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead/
-/*exported index, isShowEdit, editTOEIC, isExpiredDate*/
+/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead */
+/*exported index, isShowEdit, editTOEIC, isExpiredDate */
 
 var rowIndex = 1;
 
@@ -34,6 +34,93 @@ function initNumberTextbox() {
             if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
             }
+        }
+    });
+}
+
+function query(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'toeic/ToeicManagementDetail',
+        dataType: 'html',
+        data: $('form.form-filter').serialize(),
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#toeic-detail').html(data);
+
+            floatThead('table#data');
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
+
+function initEditToeicDialog() {
+    initDatePicker();
+    initNumberTextbox();
+
+    $('#dialog-toeic').dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'toeic/updatefulltoeic',
+                        dataType: 'json',
+                        data: $('#frmUpdFullTOEIC').serialize(),
+                        success: function (data) {
+                            if (data) {
+                                var errorCont = $('#divErrorCont');
+                                errorCont.removeClass();
+                                errorCont.html('');
+
+                                if (data.IsSuccessful) {
+                                    errorCont.addClass('success validation-summary-success');
+                                    errorCont.append('Update TOEIC score for Employee successfully');
+                                    setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
+                                }
+                                else {
+                                    var errors = '<ul><li>' + data.Message + '</li></ul>';
+                                    errorCont.addClass('validation-summary-errors');
+                                    errorCont.append(errors);
+                                }
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
+                        }
+                    });
+                }
+            }
+        ],
+        show: {
+            effect: 'fade',
+            duration: 300
+        },
+        hide: {
+            effect: 'fade',
+            duration: 200
         }
     });
 }
@@ -152,93 +239,6 @@ function initialize() {
         });
     });
 }
-
-function initEditToeicDialog() {
-    initDatePicker();
-    initNumberTextbox();
-
-    $('#dialog-toeic').dialog({
-        modal: true,
-        width: 'auto',
-        buttons: [
-            {
-                text: 'Close',
-                class: 'btn-cancel waves-effect waves-light m-r--m',
-                click: function () {
-                    $(this).dialog('close');
-                }
-            },
-            {
-                text: 'Submit',
-                class: 'btn-submit waves-effect waves-light',
-                click: function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: _global.root + 'toeic/updatefulltoeic',
-                        dataType: 'json',
-                        data: $('#frmUpdFullTOEIC').serialize(),
-                        success: function (data) {
-                            if (data) {
-                                var errorCont = $('#divErrorCont');
-                                errorCont.removeClass();
-                                errorCont.html('');
-
-                                if (data.IsSuccessful) {
-                                    errorCont.addClass('success validation-summary-success');
-                                    errorCont.append('Update TOEIC score for Employee successfully');
-                                    setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
-                                }
-                                else {
-                                    var errors = '<ul><li>' + data.Message + '</li></ul>';
-                                    errorCont.addClass('validation-summary-errors');
-                                    errorCont.append(errors);
-                                }
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(textStatus + ': ' + errorThrown);
-                        }
-                    });
-                }
-            }
-        ],
-        show: {
-            effect: 'fade',
-            duration: 300
-        },
-        hide: {
-            effect: 'fade',
-            duration: 200
-        }
-    });
-}
-
-function query(isFirstLoad) {
-    $.ajax({
-        url: _global.root + 'toeic/ToeicManagementDetail',
-        dataType: 'html',
-        data: $('form.form-filter').serialize(),
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
-            }
-        },
-        success: function (data) {
-            $('#toeic-detail').html(data);
-
-            floatThead('table#data');
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
-        }
-    });
-}
-
 $(document).ready(function () {
     initialize();
 

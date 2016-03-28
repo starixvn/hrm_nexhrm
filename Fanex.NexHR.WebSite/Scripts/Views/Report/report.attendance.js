@@ -114,7 +114,7 @@ function query(isFirstLoad) {
     });
 }
 
-function goToPage(pageNumber) {
+function goToPage(pageNumber) { // jshint ignore:line
     $('form.form-filter #CurrentPage').val(pageNumber);
     query(false);
 }

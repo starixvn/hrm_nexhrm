@@ -1,5 +1,6 @@
 ﻿'use strict';
-/*global _global, _messages, noInformation, initDatePicker, floatThead, formatJsonDate, setDateTimeRange, validateFromDateAndToDate*/
+/*global _global, _messages, noInformation, initDatePicker, floatThead, formatJsonDate, setDateTimeRange,
+ validateFromDateAndToDate, isHRRole*/
 /*exported index*/
 
 var rowIndex = 1;

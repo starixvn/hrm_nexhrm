@@ -96,7 +96,7 @@ function bindMenuInOut() {
     });
 }
 
-function query(isFirstLoad) {
+function query(isFirstLoad) {   // jshint ignore:line
     $.ajax({
         url: _global.root + 'Report/ListTimeRecord',
         type: 'POST',
@@ -129,7 +129,7 @@ function query(isFirstLoad) {
     });
 }
 
-function initPagination() {
+function initPagination() { // jshint ignore:line
     var currentPage = $('table#data #pagination #CurrentPage').val(),
         itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
         totalItem = $('table#data #pagination #TotalItem').val();

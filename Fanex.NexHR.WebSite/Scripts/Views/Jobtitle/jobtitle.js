@@ -182,7 +182,7 @@ $(function () {
 });
 
 $(document).ready(function () {
-    var enable = true;
+    var enable = true;  // jshint ignore:line
 
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {

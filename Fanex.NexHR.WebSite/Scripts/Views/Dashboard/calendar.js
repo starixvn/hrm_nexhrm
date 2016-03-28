@@ -1,6 +1,6 @@
 ﻿"use strict";
-/*global _global, _messages */
-/*exported */
+/*global eventList, gapi, isAuthenGG, moment */
+/*exported initCalendar */
 
 function customizeHeader() {
     var currentDate = new Date();
@@ -56,13 +56,21 @@ function refreshEventCalendar(from, to) {
 
     request.execute(function (resp) {
         createEvents(resp.items);
-        $('#calendar').fullCalendar('removeEvents')
+        $('#calendar').fullCalendar('removeEvents');
         $('#calendar').fullCalendar('addEventSource', eventList);
 
-        if (resp.items.length == 0) {
+        if (resp.items.length === 0) {
             $(".fc-time").css("cssText", "display: none !important;");
         }
     });
+}
+
+function refreshDay(selectedDate) {
+    var day = moment(selectedDate).format("dddd");
+    $('.day').html(day);
+
+    var monthYear = moment(selectedDate).format("MMMM YYYY");
+    $('.monthyear').html(monthYear);
 }
 
 function initCalendar(googleEvents) {
@@ -159,12 +167,4 @@ function initCalendar(googleEvents) {
         $('.fc-body').show();
     }
     customizeHeader();
-}
-
-function refreshDay(selectedDate) {
-    var day = moment(selectedDate).format("dddd");
-    $('.day').html(day);
-
-    var monthYear = moment(selectedDate).format("MMMM YYYY");
-    $('.monthyear').html(monthYear);
 }

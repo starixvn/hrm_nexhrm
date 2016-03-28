@@ -1,6 +1,6 @@
 ﻿'use strict';
 /*global _global, _messages, initButtonForOTRequest, initDatePicker, initAutocomplete, loadOTRequestDetail, bindPendingMenu,
- loadMemberOTDetail, bindApproveMenu
+ loadMemberOTDetail, bindApproveMenu, initButtonForMemberOT, setDateTimeRange, initButtonForMyOT, loadDetailMyOT
   */
 /* exported loadDetailTotalMembers*/
 
@@ -132,7 +132,7 @@ function loadMemberOvertime(isFirstLoad) {
     });
 }
 
-function loadMyOvertime(isFirstLoad) {
+function loadMyOvertime() {
     $.ajax({
         url: _global.root + 'overtime/myovertime',
         type: 'GET',
