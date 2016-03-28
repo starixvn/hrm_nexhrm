@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false */
+/*global initAutocomplete */
 
 $(document).ready(function () {
     initAutocomplete('#Employee', '#EmployeeId');

@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, getParam, floatThead, noInformation*/
+﻿/*global _global, _messages, getParam, floatThead, noInformation, formatJsonDate*/
 /* exported index*/
 'use strict';
 
@@ -101,7 +101,7 @@ function refreshSorting() {
     sorts = [];
 
     $('th.col-sorter').each(function () {
-        $(this).find('div.sorter').removeClass('asc').removeClass('desc')
+        $(this).find('div.sorter').removeClass('asc').removeClass('desc');
     });
 }
 

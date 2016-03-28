@@ -1,6 +1,6 @@
 ﻿"use strict";
 /*global _global, isOnlyHRRole*/
-/* exported InitButtonForMemberOT, bindApproveMenu, bindPendingMenu */
+/* exported initButtonForMemberOT, bindApproveMenu, bindPendingMenu */
 
 function initTooltip() {
     var linkDays = $("#memberOT .contextmenu");

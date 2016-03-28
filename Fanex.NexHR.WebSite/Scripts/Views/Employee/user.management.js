@@ -1,6 +1,6 @@
 ﻿'use strict';
-/*global _global, getParam, floatThead, _messages, noInformation*/
-/* exported index*/
+/*global _global, getParam, floatThead, _messages, noInformation, formatJsonDate*/
+/* exported index, enable*/
 
 var rowIndex = 1,
     sorts = [];
@@ -121,7 +121,7 @@ function refreshSorting() {
     sorts = [];
 
     $('th.col-sorter').each(function () {
-        $(this).find('div.sorter').removeClass('asc').removeClass('desc')
+        $(this).find('div.sorter').removeClass('asc').removeClass('desc');
     });
 }
 
@@ -161,7 +161,7 @@ $(document).ready(function () {
         jobTitleId = $('#JobTitleId').val();
 
     $("#JobTitleId").val(jobTitleId);
-    $('#JobTitleId').material_select();
+    $('#JobTitleId').material_select(); // jshint ignore:line
 
     eventSorting(jobTitleId);
     eventExportExcel(jobTitleId);

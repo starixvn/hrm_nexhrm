@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, _messages, actingButton, google, reloadButtonText, formatDate*/
+/*global _global, _messages, actingButton, google, reloadButtonText, formatDate, initDatePicker*/
 /* exported query*/
 
 var directionsDisplay;

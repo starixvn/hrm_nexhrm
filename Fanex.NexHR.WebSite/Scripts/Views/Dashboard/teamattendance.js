@@ -1,10 +1,64 @@
-﻿/*global _global, _messages, noInformation, floatThead*/
+﻿/*global _global, _messages, noInformation, floatThead, formatJsonDate, totalHoursToTime, setDateTimeRange, displayMinute,
+ initAutocomplete, setDateTimeRange, validateFromDateAndToDate
+ */
 /*exported index*/
 "use strict";
 var rowIndex = 1;
 
 function index() {
     return rowIndex++;
+}
+
+function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
+    var result = '';
+    fromDate = $.format.date(new Date(parseInt(fromDate.substr(6))), "dd MMM, yyyy hh:mm");
+    toDate = $.format.date(new Date(parseInt(toDate.substr(6))), "dd MMM, yyyy hh:mm");
+
+    $.ajax({
+        url: _global.root + "request/GetRequestDetail",
+        async: false,
+        type: 'post',
+        data: {
+            "requesttype": requestType, "fromdate": fromDate, "todate": toDate, "createddate": createddate,
+            "fromshiftCode": fromShift, "toshiftcode": toShift, "totaldays": totalDays, "totalmins": totalMins
+        },
+        success: function (data) {
+            result = data;
+        }
+    });
+
+    return result;
+}
+
+function initTooltip() {
+    $('.tooltip-request').tipsy({
+        className: 'tipsy-request',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            var object = $(this);
+            var result = getRequestDetail(
+                        object.attr('data-requesttype'),
+                        object.attr('data-fromdate'),
+                        object.attr('data-todate'),
+                        object.attr('data-createddate'),
+                        object.attr('data-fromshift'),
+                        object.attr('data-toshift'),
+                        object.attr('data-totaldays'),
+                        object.attr('data-totalmins'));
+
+            return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td>Details</td>" +
+                            "<td>" + result + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Remark</td>" +
+                            "<td>" + object.attr('data-remark') + "</td>" +
+                        "</tr>" +
+                    "</table>";
+        }
+    });
 }
 
 function query(isFirstLoad) {
@@ -60,57 +114,6 @@ function query(isFirstLoad) {
             }
         }
     });
-}
-
-function initTooltip() {
-    $('.tooltip-request').tipsy({
-        className: 'tipsy-request',
-        gravity: 'ne',
-        html: true,
-        title: function () {
-            var object = $(this);
-            var result = getRequestDetail(
-                        object.attr('data-requesttype'),
-                        object.attr('data-fromdate'),
-                        object.attr('data-todate'),
-                        object.attr('data-createddate'),
-                        object.attr('data-fromshift'),
-                        object.attr('data-toshift'),
-                        object.attr('data-totaldays'),
-                        object.attr('data-totalmins'));
-
-            return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Details</td>" +
-                            "<td>" + result + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Remark</td>" +
-                            "<td>" + object.attr('data-remark') + "</td>" +
-                        "</tr>" +
-                    "</table>";
-        }
-    });
-}
-
-function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
-    var result = '';
-    fromDate = $.format.date(new Date(parseInt(fromDate.substr(6))), "dd MMM, yyyy hh:mm");
-    toDate = $.format.date(new Date(parseInt(toDate.substr(6))), "dd MMM, yyyy hh:mm");
-
-    $.ajax({
-        url: _global.root + "request/GetRequestDetail",
-        async: false,
-        type: 'post',
-        data: { "requesttype": requestType, "fromdate": fromDate, "todate": toDate, "createddate": createddate,
-            "fromshiftCode": fromShift, "toshiftcode": toShift, "totaldays": totalDays, "totalmins": totalMins
-        },
-        success: function (data) {
-            result = data;
-        }
-    });
-
-    return result;
 }
 
 $(document).ready(function () {

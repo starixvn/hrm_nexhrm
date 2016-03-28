@@ -1,6 +1,6 @@
 ﻿'use strict';
 /*global _global */
-/* exported InitButtonForOTRequest */
+/* exported initButtonForOTRequest */
 
 function loadOTRequestDetail() {
     $('#OTRequest .loading-process').fadeIn(300);

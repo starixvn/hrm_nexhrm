@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false */
+/*global _global:false, formatDate, formatJsonDate */
 
 var _event = null;
 

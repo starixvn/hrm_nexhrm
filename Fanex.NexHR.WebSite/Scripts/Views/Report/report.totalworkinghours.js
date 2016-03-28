@@ -1,5 +1,5 @@
 ﻿/*global _global, _messages, noInformation, dateOption, setDateTimeRange, isHRRole, totalHoursToTime, validateFromDateAndToDate, 
- * floatThead, displayMinuteForTotalWorking */
+ floatThead, displayMinuteForTotalWorking */
 /*exported index*/
 'use strict';
 

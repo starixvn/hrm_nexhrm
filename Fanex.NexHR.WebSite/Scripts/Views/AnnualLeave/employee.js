@@ -1,5 +1,6 @@
 ﻿'use strict';
-/*global _global, _messages*/
+/*global _global, floatThead*/
+/*exported deleteLeaveTrans*/
 
 function query(isFirstLoad) {
     $.ajax({

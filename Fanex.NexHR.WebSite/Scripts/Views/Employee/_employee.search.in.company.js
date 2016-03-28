@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false*/
+/*global initAutocomplete*/
 /*exported submitForm*/
 
 $(document).ready(function () {

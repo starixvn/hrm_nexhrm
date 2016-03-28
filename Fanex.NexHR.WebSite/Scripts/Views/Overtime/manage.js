@@ -1,5 +1,5 @@
 "use strict";
-/*global _global, _messages */
+/*global _global, initDatePicker */
 /* exported deleteRow */
 
 var timeSheets = [];
@@ -25,7 +25,7 @@ function generateFooter() {
     if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
         $('#timeSheets').html('');
     }
-};
+}
 
 function createRow(nick, id) {
     generateFooter();

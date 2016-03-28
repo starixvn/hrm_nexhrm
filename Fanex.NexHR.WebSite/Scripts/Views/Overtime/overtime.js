@@ -1,6 +1,8 @@
 ﻿'use strict';
-/*global _global, initButtonForOTRequest, initDatePicker */
-/* exported */
+/*global _global, _messages, initButtonForOTRequest, initDatePicker, initAutocomplete, loadOTRequestDetail, bindPendingMenu,
+ loadMemberOTDetail, bindApproveMenu
+  */
+/* exported loadDetailTotalMembers*/
 
 function setDateTimeRangeForOTRequest(selectedIndex) {
     var fromDate = new Date($('#FromDateOT').val()),
@@ -87,7 +89,7 @@ function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
     });
 }
 
-function InitFormMemberOT() {
+function initFormMemberOT() {
     initDatePicker("#memberOT .datepicker");
     initButtonForMemberOT();
     initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
@@ -117,7 +119,7 @@ function loadMemberOvertime(isFirstLoad) {
         success: function (response) {
             $('#memberOT').append(response);
 
-            InitFormMemberOT();
+            initFormMemberOT();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -154,7 +156,7 @@ function loadMyOvertime(isFirstLoad) {
     });
 }
 
-function LoadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
+function loadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
     loadOTRequest(isFirstload, createdBy, fromDate, toDate, status);
     $('ul.tabs').tabs('select_tab', 'OTRequest');
 }

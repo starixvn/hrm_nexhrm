@@ -1,5 +1,6 @@
 ﻿'use strict';
-/*global _global, _messages*/
+/*global _global, floatThead*/
+/*exported title*/
 
 var _checked = false,
     _totalDays = 0,

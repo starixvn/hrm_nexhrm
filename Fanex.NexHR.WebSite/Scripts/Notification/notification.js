@@ -1,4 +1,7 @@
-﻿function LoadNotification() {
+﻿'use strict';
+/*global _global*/
+
+function loadNotification() {
     var empId = _global.employeeId;
     $.ajax({
         url: _global.root + 'dashboard/GetNotification?employeeId=' + empId,
@@ -21,7 +24,7 @@
             $('.dropdown-button').dropdown({
                 inDuration: 300,
                 outDuration: 225,
-                constrain_width: false,
+                constrain_width: false, // jshint ignore:line
                 gutter: 0,
                 belowOrigin: false,
                 alignment: 'left'
@@ -31,5 +34,5 @@
 }
 
 $(document).ready(function () {
-    LoadNotification();
+    loadNotification();
 });

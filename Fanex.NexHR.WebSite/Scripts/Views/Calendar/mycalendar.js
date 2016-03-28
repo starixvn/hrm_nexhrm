@@ -1,4 +1,4 @@
-﻿/*global _global*/
+﻿/*global _global, formatDate, formatJsonDate*/
 "use strict";
 
 $(document).ready(function () {

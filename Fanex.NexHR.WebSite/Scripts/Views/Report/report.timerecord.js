@@ -2,6 +2,19 @@
 /*global _global, _messages, floatThead, setDateTimeRange, validateFromDateAndToDate*/
 /*exported*/
 
+function processInOut(inoutType, eventElement) {
+    $.post(_global.root + 'ajax/ProcessInOut',
+    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
+    function (response) {
+        if (response.IsSuccessful) {
+            query(false);   // jshint ignore:line
+        } else {
+            alert(response.Message);
+            return;
+        }
+    });
+}
+
 function bindMenuIn() {
     $('table#data tbody td a.in-action').on('mouseup', function () {
         var $this = $(this);
@@ -83,31 +96,6 @@ function bindMenuInOut() {
     });
 }
 
-function initPagination() {
-    var currentPage = $('table#data #pagination #CurrentPage').val(),
-        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
-        totalItem = $('table#data #pagination #TotalItem').val();
-
-    currentPage = currentPage ? parseInt(currentPage) : 1;
-    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
-    totalItem = totalItem ? parseInt(totalItem) : 1;
-
-    $('table#data #pagination #numberlist').pagination({
-        items: totalItem,
-        itemsOnPage: itemsOnPage,
-        currentPage: currentPage,
-        displayedPages: 3,
-        prevText: '<i class="mdi mdi-chevron-left"></i>',
-        nextText: '<i class="mdi mdi-chevron-right"></i>',
-        ellipsePageSet: false,
-        cssStyle: 'compact-theme',
-        onPageClick: function (pageNumber) {
-            $('form.form-filter #CurrentPage').val(pageNumber);
-            query(false);
-        }
-    });
-}
-
 function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'Report/ListTimeRecord',
@@ -141,15 +129,27 @@ function query(isFirstLoad) {
     });
 }
 
-function processInOut(inoutType, eventElement) {
-    $.post(_global.root + 'ajax/ProcessInOut',
-    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
-    function (response) {
-        if (response.IsSuccessful) {
+function initPagination() {
+    var currentPage = $('table#data #pagination #CurrentPage').val(),
+        itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
+        totalItem = $('table#data #pagination #TotalItem').val();
+
+    currentPage = currentPage ? parseInt(currentPage) : 1;
+    itemsOnPage = itemsOnPage ? parseInt(itemsOnPage) : 1;
+    totalItem = totalItem ? parseInt(totalItem) : 1;
+
+    $('table#data #pagination #numberlist').pagination({
+        items: totalItem,
+        itemsOnPage: itemsOnPage,
+        currentPage: currentPage,
+        displayedPages: 3,
+        prevText: '<i class="mdi mdi-chevron-left"></i>',
+        nextText: '<i class="mdi mdi-chevron-right"></i>',
+        ellipsePageSet: false,
+        cssStyle: 'compact-theme',
+        onPageClick: function (pageNumber) {
+            $('form.form-filter #CurrentPage').val(pageNumber);
             query(false);
-        } else {
-            alert(response.Message);
-            return;
         }
     });
 }

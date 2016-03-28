@@ -1,5 +1,5 @@
 ﻿/*global _global, _messages, getParam, floatThead*/
-/*exported deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle*/
+/*exported deleteJobTitle, editJobTile, cancelUpdate, updateJobTitle, enable*/
 'use strict';
 
 var canNotUpdate = function (id) {

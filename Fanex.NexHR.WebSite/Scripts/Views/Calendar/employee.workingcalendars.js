@@ -1,9 +1,8 @@
 ﻿'use strict';
-/*global _global:false*/
-/*global _messages:false*/
+/*global _global:false, initDatePicker*/
 /*exported initMonthPick*/
 
-function initMonthPick(today, month) {
+function initMonthPick() {
     $('#monthPickr').monPickr({
         showDateRange: false,
         sortDesc: true,

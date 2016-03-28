@@ -1,6 +1,6 @@
 ﻿'use strict';
-/*global _global, noInformation, getParam, _messages*/
-/*exported index, isShowEdit, editTOEIC, iskExpiredDate*/
+/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead/
+/*exported index, isShowEdit, editTOEIC, isExpiredDate*/
 
 var rowIndex = 1;
 
@@ -55,38 +55,6 @@ function editTOEIC(id, name) {
     }
 }
 
-function initialize() {
-    var q = getParam('query');
-    if (q != null) {
-        $('form.form-filter #Query').val(q);
-    }
-
-    $('form.form-filter #Query').keyup(function (event) {
-        if (event.keyCode === 13) {
-            query(false);
-        }
-    });
-
-    $('form.form-filter #submit').on('click', function () {
-        query(false);
-    });
-
-    $('#btnNewTOEIC').click(function () {
-        $.ajax({
-            type: 'GET',
-            url: _global.root + 'toeic/updatetoeic',
-            dataType: 'html',
-            success: function (data) {
-                $('#dialog-toeic').html(data);
-                initAddToeicDialog();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus + ': ' + errorThrown);
-            }
-        });
-    });
-}
-
 function initAddToeicDialog() {
     initDatePicker();
     initAutocomplete('#Employee', '#EmpId');
@@ -118,7 +86,7 @@ function initAddToeicDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
 
-                                if (data.code == 0) {
+                                if (data.code === 0) {
                                     errorCont.addClass('success validation-summary-success');
                                     errorCont.append('Update TOEIC score for Employee successfully');
                                     setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
@@ -150,6 +118,38 @@ function initAddToeicDialog() {
             effect: 'fade',
             duration: 200
         }
+    });
+}
+
+function initialize() {
+    var q = getParam('query');
+    if (q != null) {
+        $('form.form-filter #Query').val(q);
+    }
+
+    $('form.form-filter #Query').keyup(function (event) {
+        if (event.keyCode === 13) {
+            query(false);
+        }
+    });
+
+    $('form.form-filter #submit').on('click', function () {
+        query(false);
+    });
+
+    $('#btnNewTOEIC').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: _global.root + 'toeic/updatetoeic',
+            dataType: 'html',
+            success: function (data) {
+                $('#dialog-toeic').html(data);
+                initAddToeicDialog();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }
+        });
     });
 }
 

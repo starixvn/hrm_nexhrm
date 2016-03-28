@@ -1,6 +1,7 @@
 ﻿'use strict';
+/*global _global, loadNotification */
+/*exported index, processRequest*/
 
-var firstloadTime = new Date($.now());
 var MyDashboard = (function ($) {
     return {
         linkDays: null,
@@ -114,7 +115,7 @@ $(document).ready(function () {
     });
 
     initTodoList();
-    LoadNotification();
+    loadNotification();
     initTeamWorkload();
 });
 
