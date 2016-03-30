@@ -1,21 +1,23 @@
 @import "../utils/variables";
 
-table {
+.table-custom {
     border-collapse: separate !important;
 }
 
-table tr, table th, table td {
+.table-custom tr,
+.table-custom th,
+.table-custom td {
     border-right-width: 0;
     border-bottom-width: 0;
     border-left: 1px solid $c-border-table;
     border-top: 1px solid $c-border-table;
 }
 
-table td:last-child, table th:last-child {
+.table-custom td:last-child, table th:last-child {
     border-right: 1px solid $c-border-table;
 }
 
-table tr:last-child td {
+.table-custom tr:last-child td {
     border-bottom: 1px solid $c-border-table;
 }
 
@@ -89,18 +91,19 @@ table tr:last-child td {
     }
 
     tbody {
-        tr {          
+        tr {
             td {
                 font-weight: normal;
                 vertical-align: middle;
                 padding: 8px 7px;
-                line-height: 1.42857143;   
+                line-height: 1.42857143;
+
                 &.overloadRequest {
                     a {
                         color: #f44336;
                     }
                 }
-            }       
+            }
 
             &.row-divider {
                 background: #f2f2c2;
