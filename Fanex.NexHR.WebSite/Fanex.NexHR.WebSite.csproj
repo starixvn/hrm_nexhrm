@@ -234,6 +234,9 @@
     <Content Include="Content\Common\vendors\slick.css" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
+    <Content Include="Content\Views\employee.birthday.min.css">
+      <DependentUpon>employee.birthday.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\employee.postnatal.css">
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
@@ -242,6 +245,9 @@
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
+    <Content Include="Content\Views\employee.birthday.css.map">
+      <DependentUpon>employee.birthday.css</DependentUpon>
+    </Content>
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
