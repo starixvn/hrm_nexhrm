@@ -2,6 +2,8 @@
 /*global _global, loadNotification */
 /*exported index, processRequest*/
 
+var workingHours = 0.0;
+
 var MyDashboard = (function ($) {
     return {
         linkDays: null,
@@ -99,6 +101,31 @@ function processRequest(requestId) {
     });
 }
 
+function displayTotalWorkingHour(value) {
+    var display = '',
+        hour = Math.floor(value);
+
+    if (hour >= 0) {
+        display = (hour < 10 ? '0' + hour + ':' : hour + ':');
+    }
+
+    var minute = Math.round((value - hour) * 60);
+    return minute < 10 ? display + '0' + minute : display + minute;
+}
+
+function caculateWorkingHours() {
+    var now = moment();
+    var startBreaktime = moment().hours(11).minutes(30);
+    var endBreaktime = moment().hours(12).minutes(30);
+
+    if (!(startBreaktime <= now && endBreaktime >= now)) {
+        workingHours = parseFloat($('#workinghour').val());
+        workingHours = workingHours + (1 / 60.0);
+        $('#displayWorkingHour').html(displayTotalWorkingHour(workingHours));
+        $('#workinghour').val(workingHours);
+    }
+}
+
 $(document).ready(function () {
     MyDashboard.init();
 
@@ -117,5 +144,8 @@ $(document).ready(function () {
     initTodoList();
     loadNotification();
     initTeamWorkload();
+    workingHours = parseFloat($('#workinghour').val());
+
+    setInterval(caculateWorkingHours, 60000);
 });
 

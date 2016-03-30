@@ -32,7 +32,7 @@
                         <i class="mdi-action-alarm-add left medium"></i>
                     </div>
                     <div class="col s9 center">
-                        <p class="txt-tittle">@Model.DisplayTotalWorkingHoursToday</p>
+                        <p class="txt-tittle" id="displayWorkingHour">@Model.DisplayTotalWorkingHoursToday</p>
                         @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
                         <span class="txt-uppercase txt-12px">Working hours today</span>
                     </div>
