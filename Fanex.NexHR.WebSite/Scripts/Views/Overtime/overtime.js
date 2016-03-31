@@ -66,7 +66,7 @@ function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
         type: 'GET',
         data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
         dataType: 'html',
-        async: true,
+        async: false,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#OTRequest .loading-process').fadeIn(300);
@@ -110,7 +110,7 @@ function loadMemberOvertime(isFirstLoad) {
         url: _global.root + 'overtime/memberovertime',
         type: 'GET',
         dataType: 'html',
-        async: true,
+        async: false,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('#memberOT .loading-process').fadeIn(300);
@@ -137,7 +137,7 @@ function loadMyOvertime() {
         url: _global.root + 'overtime/myovertime',
         type: 'GET',
         dataType: 'html',
-        async: true,
+        async: false,
         beforeSend: function () {
             $('#myOT .loading-process').fadeIn(300);
         },
