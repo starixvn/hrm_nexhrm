@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 62.5%; }
 
 body {
@@ -21,24 +21,23 @@ main {
 @media only screen and (max-width: 1024px) {
   header, main, footer {
     padding-left: 0; } }
+
 @media (min-width: 1900px) {
   .row .col.s1 {
     width: 10%; }
-
   .row .col.s2 {
     width: 15%; }
-
   .row .col.s3 {
     width: 20%; }
-
   .row .col.s4 {
     width: 25%; } }
+
 @media (min-width: 1280px) and (max-width: 1899px) {
   .row .col.s1 {
     width: 20%; }
-
   .row .col.s4 {
     width: 44%; } }
+
 #section_content {
   padding: 0 .8rem; }
 
@@ -184,8 +183,10 @@ main {
 
 .card-container-base .txt-tittle {
   font-size: 2rem; }
+
 .card-container-base .txt-12px {
   font-size: 1.2rem; }
+
 .card-container-base .card-content {
   padding-bottom: 16px; }
   .card-container-base .card-content .card-title-block {
@@ -199,6 +200,7 @@ main {
   .card-container-base .card-content.white-text {
     padding: 2.3rem 2rem 2rem;
     height: 11rem; }
+
 .card-container-base .card-body {
   width: 100%; }
   .card-container-base .card-body p {
@@ -215,6 +217,7 @@ main {
 
 .table tbody tr.offdate, .table tbody tr.noshift {
   /* background: #ccc !important;*/ }
+
 .table tbody tr td a.tooltip-request {
   display: inline-flex;
   padding: .4rem .6rem;
@@ -328,7 +331,7 @@ span.req {
   margin: 0;
   height: inherit; }
   .ui-dialog .ui-dialog-titlebar-close .ui-icon-closethick {
-    top: 10px;
+    top: 20px;
     left: 0;
     margin-left: 0;
     margin-top: 0; }
@@ -568,6 +571,7 @@ a:active, a:focus {
 
 .mdi-delete:hover {
   color: #ff0a09; }
+
 .mdi-delete.mdi-disabled {
   color: rgba(0, 0, 0, 0.2);
   cursor: default; }
@@ -690,6 +694,7 @@ input#fileName::-webkit-file-upload-button {
 
 .form-input .col {
   padding-right: 1.6rem; }
+
 .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -701,18 +706,23 @@ input#fileName::-webkit-file-upload-button {
   visibility: unset !important;
   left: unset !important;
   border-radius: 2px; }
+
 .form-input label {
   margin-top: 5px;
   display: block;
   color: #6f8396; }
+
 .form-input span.label {
   margin-top: 5px;
   display: block; }
+
 .form-input .site-label {
   margin-left: 6px; }
+
 .form-input .btn-datepicker {
   padding: 5px;
   color: #6f8396; }
+
 .form-input .btn-add {
   position: relative;
   right: -7px; }
@@ -877,6 +887,7 @@ input#fileName::-webkit-file-upload-button {
   position: fixed;
   left: 1.6rem;
   color: #e8ecf0; }
+
 .navbar-fixed .logo {
   margin-left: 1.6rem; }
 
@@ -962,9 +973,9 @@ input#fileName::-webkit-file-upload-button {
     cursor: pointer;
     border-radius: 50%;
     /*&:hover, &:focus {
-    	background: rgba(255,255,255,0.5);
-    	transition: background 0.3s ease-out;
-    }*/ }
+			background: rgba(255,255,255,0.5);
+			transition: background 0.3s ease-out;
+		}*/ }
     .search_bar #label-search i {
       position: relative;
       bottom: 20px;
@@ -1015,6 +1026,7 @@ input#fileName::-webkit-file-upload-button {
   .table.table-custom th.col-checkbox [type="checkbox"] + label, .table.table-custom td.col-checkbox [type="checkbox"] + label {
     height: 1.5rem;
     padding-left: .3rem; }
+
 .table.table-custom thead {
   color: #fff; }
   .table.table-custom thead tr th {
@@ -1023,9 +1035,9 @@ input#fileName::-webkit-file-upload-button {
     padding: 8px 7px;
     border-color: #646d80;
     /*border-right-width: 0;
-    border-bottom: 1px solid #646d80;
-    border-left: 1px solid #646d80;
-    border-top: 1px solid #646d80;*/
+                border-bottom: 1px solid #646d80;
+                border-left: 1px solid #646d80;
+                border-top: 1px solid #646d80;*/
     text-align: center;
     line-height: 1.42857143; }
     .table.table-custom thead tr th.col-checkbox [type="checkbox"] + label:after {
@@ -1036,7 +1048,8 @@ input#fileName::-webkit-file-upload-button {
       height: 1.6rem;
       cursor: pointer;
       display: inline-block;
-      float: right; }
+      float: right;
+      margin-top: 2px; }
       .table.table-custom thead tr th.col-sorter .sorter.desc {
         background-position: 0 -5.3rem; }
       .table.table-custom thead tr th.col-sorter .sorter.asc {
@@ -1045,6 +1058,7 @@ input#fileName::-webkit-file-upload-button {
     background: #343c4e; }
   .table.table-custom thead tr:nth-child(2) {
     background: #3b4254; }
+
 .table.table-custom tbody tr td {
   font-weight: normal;
   vertical-align: middle;
@@ -1052,14 +1066,18 @@ input#fileName::-webkit-file-upload-button {
   line-height: 1.42857143; }
   .table.table-custom tbody tr td.overloadRequest a {
     color: #f44336; }
+
 .table.table-custom tbody tr.row-divider {
   background: #f2f2c2; }
   .table.table-custom tbody tr.row-divider td {
     text-align: left; }
+
 .table.table-custom tbody tr.row-selected {
   background: #ffff8d; }
+
 .table.table-custom tbody tr.disabled {
   background: rgba(0, 0, 0, 0.15); }
+
 .table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve {
   position: relative; }
   .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {
@@ -1074,8 +1092,10 @@ input#fileName::-webkit-file-upload-button {
     opacity: 0; }
   .table.table-custom tbody tr a.c-pending:hover:after, .table.table-custom tbody tr a.c-approve:hover:after {
     opacity: 1; }
+
 .table.table-custom tbody tr:last-child {
   border-bottom: 1px solid black; }
+
 .table.table-custom tfoot tr {
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2;
@@ -1086,11 +1106,13 @@ table .striped thead {
   color: #fff; }
   table .striped thead th {
     font-weight: normal; }
+
 table .mdi-border-color, table .mdi-delete {
   position: relative;
   top: 2px; }
   table .mdi-border-color:focus, table .mdi-border-color:active, table .mdi-delete:focus, table .mdi-delete:active {
     outline: none; }
+
 table .trigger {
   color: #fff;
   padding: 0 4px;
@@ -1100,8 +1122,10 @@ table .trigger {
     background: #559fb7; }
   table .trigger.function {
     background: #49aa2b; }
+
 table .dropdown-button {
   color: #303f4d; }
+
 table .run {
   cursor: pointer; }
   table .run .pause {
@@ -1114,21 +1138,26 @@ table .run {
     display: none; }
   table .run i {
     color: #303f4d; }
+
 table .pagination {
   margin: 7px 0.5rem 0 10px;
   overflow: hidden; }
   table .pagination.right p {
     margin-bottom: 0;
     margin-top: 5px; }
+
 table .lbl {
   margin-left: 1rem;
   margin-right: 1rem; }
+
 table .page-size {
   width: 5.5rem;
   margin-top: 7px; }
+
 table .edit i {
   font-size: 1.85rem;
   color: #303f4d; }
+
 table .mail-item {
   position: relative; }
   table .mail-item i {
@@ -1209,8 +1238,10 @@ table.data thead tr:nth-child(even) {
     .side-nav.fixed li a.collapsible-header {
       line-height: 44px;
       height: 44px; }
+
 .side-nav.fixed ul.collapsible-accordion {
   background-color: #FFF; }
+
 .side-nav.fixed:hover {
   overflow-y: auto; }
 
@@ -1225,9 +1256,11 @@ table.data thead tr:nth-child(even) {
   font-size: 19px;
   transform: rotate(0);
   transition: transform 0.2s ease-out; }
+
 #nav-mobile .collapsible-header.active .mdi-navigation-chevron-right {
   transform: rotate(90deg);
   transition: transform 0.2s ease-out; }
+
 #nav-mobile .collapsible-body [class*="mdi"] {
   font-size: 20px;
   line-height: 44px;
@@ -1235,6 +1268,7 @@ table.data thead tr:nth-child(even) {
   margin-left: 15px;
   position: relative;
   top: 2px; }
+
 #nav-mobile .collapsible-body li:hover a, #nav-mobile .collapsible-body li:hover i, #nav-mobile .collapsible-body li.active a, #nav-mobile .collapsible-body li.active i {
   color: #f4783d; }
 
@@ -1361,7 +1395,7 @@ table.data thead tr:nth-child(even) {
   .tipsy.tipsy-avatar .tipsy-inner img {
     width: 6.5rem;
     height: 6.5rem; }
+
 .tipsy.tipsy-avatar .tipsy-arrow {
   border: none; }
 
-/*# sourceMappingURL=site.css.map */
