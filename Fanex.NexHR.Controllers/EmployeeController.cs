@@ -315,7 +315,7 @@
                 {
                     using (var processor = new ImageProcessor())
                     {
-                        var resizer = new ResizeFilter(64, 64, ResizeMethod.Crop, AnchorLocation.Middle);
+                        var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
 
                         processor.AddFilter(resizer);
                         processor.OutputFormat = OutputFormat.Jpeg;
@@ -380,10 +380,12 @@
             if (month != 0)
             {
                 sortedEmployees = SortEmployeeBirthdayByMonth(employees.Where(e => e.DateOfBirth.Month == month));
+                ViewBag.ShowOneMonth = true;
             }
             else
             {
                 sortedEmployees = SortEmployeeBirthdayByMonth(employees);
+                ViewBag.ShowOneMonth = false;
             }
 
             return View(sortedEmployees);
