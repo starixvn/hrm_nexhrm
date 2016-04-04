@@ -53,7 +53,7 @@
                 }
 
                 model.CurrentPage = Constants.CurrentPage;
-                model.ItemsPerPage = Constants.ItemsPerPage;
+                model.ItemsPerPage = 200;
                 model.Teams = teamService.GetAll();
             }
 
