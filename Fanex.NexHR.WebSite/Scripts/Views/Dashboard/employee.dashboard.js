@@ -120,9 +120,11 @@ function caculateWorkingHours() {
 
     if (!(startBreaktime <= now && endBreaktime >= now)) {
         workingHours = parseFloat($('#workinghour').val());
-        workingHours = workingHours + (1 / 60.0);
-        $('#displayWorkingHour').html(displayTotalWorkingHour(workingHours));
-        $('#workinghour').val(workingHours);
+        if (workingHours != 0) {
+            workingHours = workingHours + (1 / 60.0);
+            $('#displayWorkingHour').html(displayTotalWorkingHour(workingHours));
+            $('#workinghour').val(workingHours);
+        }
     }
 }
 
