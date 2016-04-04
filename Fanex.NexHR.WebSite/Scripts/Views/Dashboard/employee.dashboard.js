@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, loadNotification */
+/*global _global, loadNotification, moment */
 /*exported index, processRequest*/
 
 var workingHours = 0.0;
@@ -120,7 +120,7 @@ function caculateWorkingHours() {
 
     if (!(startBreaktime <= now && endBreaktime >= now)) {
         workingHours = parseFloat($('#workinghour').val());
-        if (workingHours != 0) {
+        if (workingHours !== 0) {
             workingHours = workingHours + (1 / 60.0);
             $('#displayWorkingHour').html(displayTotalWorkingHour(workingHours));
             $('#workinghour').val(workingHours);
