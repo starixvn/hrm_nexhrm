@@ -124,7 +124,7 @@
             return View(model);
         }
 
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public JsonResult Delete(int id)
         {
             CommandResult result = new CommandResult();

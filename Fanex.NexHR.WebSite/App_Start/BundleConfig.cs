@@ -516,6 +516,9 @@
 
             bundles.Add(new StyleBundle("~/Content/companyevent")
                   .Include("~/Content/Common/vendors/jquery.timepicker.css", new CssRewriteUrlTransform()));
+
+            bundles.Add(new StyleBundle("~/Content/eventcalendarcss")
+                  .Include("~/Content/Views/eventcalendar.css", new CssRewriteUrlTransform()));
         }
     }
 }

@@ -249,12 +249,22 @@
     <Content Include="Content\Views\employee.birthday.css.map">
       <DependentUpon>employee.birthday.css</DependentUpon>
     </Content>
+    <Content Include="Content\Views\eventcalendar.min.css">
+      <DependentUpon>eventcalendar.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\eventcalendar.scss" />
+    <Content Include="Content\Views\eventcalendar.css.map">
+      <DependentUpon>eventcalendar.css</DependentUpon>
+    </Content>
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
+    <Content Include="Content\Views\eventcalendar.css">
+      <DependentUpon>eventcalendar.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
     </Content>
