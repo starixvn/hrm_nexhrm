@@ -9,7 +9,7 @@
     control.on('changeTime', function () {
         var value = control.timepicker('getTime');
         //var value = control.val();
-        alert(value);
+        //alert(value);
     });
 }
 

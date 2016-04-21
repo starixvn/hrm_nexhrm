@@ -14,9 +14,9 @@
 
         public DateTime ToDate { get; set; }
 
-        public TimeSpan FromTime { get; set; }
+        public string FromTime { get; set; }
 
-        public TimeSpan ToTime { get; set; }
+        public string ToTime { get; set; }
 
         public string Description { get; set; }
 

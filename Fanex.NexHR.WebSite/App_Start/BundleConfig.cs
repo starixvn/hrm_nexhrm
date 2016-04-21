@@ -511,6 +511,7 @@
                 "~/Scripts/Views/CompanyEvent/event-edit.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/companyeventjs").Include(
+                "~/Scripts/Libs/jquery.contextMenu.min.js",
                 "~/Scripts/Views/CompanyEvent/event.js"));
 
             bundles.Add(new StyleBundle("~/Content/companyevent")

@@ -35,6 +35,7 @@
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+
             GetAllEventCriteria criteria = new GetAllEventCriteria()
             {
                 FromDate = firstDay,
@@ -44,14 +45,12 @@
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(DateTime from, DateTime to)
         {
             var companyEvent = new CompanyEvent()
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
-                FromTime = new TimeSpan(0,0,0),
-                ToTime = new TimeSpan(0, 0, 0)
+                FromDate = from,
+                ToDate = to
             };
             return View(companyEvent);
         }
@@ -67,11 +66,12 @@
                     Title = model.Title,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
-                    FromTime = model.FromTime,
-                    ToTime = model.ToTime,
+                    FromTime = model.FromTime == null ? string.Empty : model.FromTime,
+                    ToTime = model.ToTime == null ? string.Empty : model.ToTime,
                     Description = model.Description,
                     CreatedBy = CurrentUser.Id
                 };
+
                 CommandResult result = commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
@@ -106,8 +106,8 @@
                     Title = model.Title,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
-                    FromTime = TimeSpan.MinValue,
-                    ToTime = TimeSpan.MinValue,
+                    FromTime = model.FromTime,
+                    ToTime = model.ToTime,
                     Description = model.Description
                 };
                 CommandResult result = commandService.Update(criteria);
@@ -124,22 +124,22 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
-        public JsonResult Delete(int Id)
+        //[Authorize(Roles = "HR")]
+        public JsonResult Delete(int id)
         {
             CommandResult result = new CommandResult();
-            if (Id > 0)
+            if (id > 0)
             {
-                DeleteEventCriteria criteria = new DeleteEventCriteria() { Id = Id };
+                DeleteEventCriteria criteria = new DeleteEventCriteria() { Id = id };
                 result = commandService.Delete(criteria);
-                return Json(result);
             }
             else
             {
                 result.Code = 1;
                 result.Message = Messages.InvalidInputData;
             }
-            return Json(result);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

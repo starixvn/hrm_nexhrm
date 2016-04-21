@@ -24,12 +24,11 @@
                         {
                             @Html.ValidationSummary()
 
-                            if (ViewBag.Insert == true)
+                            if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Company event has
-                                        been created successfully!
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.UpdatedSuccessfully
                                     </div>
                                 </div>
                                 <input type="hidden" id="successed" value="true" />
@@ -71,7 +70,16 @@
                                         @Html.Label("Duration")
                                     </div>
                                     <div class="left input">
-                                        @Html.MaterializeCheckBox("chkDuration", new { @class = "filled-in" })
+                                        @{
+                            if (Model.FromTime != "" && Model.ToTime != "")
+                            {
+                                @Html.MaterializeCheckBox("chkDuration", true, new { @class = "filled-in" })
+                            }
+                            else
+                            {
+                                @Html.MaterializeCheckBox("chkDuration", new { @class = "filled-in" })
+                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +120,7 @@
                                         &nbsp;
                                     </div>
                                     <a class="btn-back waves-effect waves-light"
-                                       href="~/event/index">
+                                       href="~/companyevent/index">
                                         @Labels.Cancel
                                     </a>
                                     <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
