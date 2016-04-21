@@ -295,4 +295,11 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
     </Setting>
   </Function>
+  <Function Name="CompanyEvent">
+    <Setting Key="CompanyEvent_GetAll" SpName="CompanyEvent_GetAll" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="CompanyEvent_GetEventById" SpName="CompanyEvent_GetEventById" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="CompanyEvent_Insert" SpName="CompanyEvent_Insert" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="CompanyEvent_Update" SpName="CompanyEvent_Update" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="CompanyEvent_Delete" SpName="CompanyEvent_Delete" DbName="nexhr" Plain="1"></Setting>
+  </Function>
 </Functions>

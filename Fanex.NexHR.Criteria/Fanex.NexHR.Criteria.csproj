@@ -67,6 +67,11 @@
     <Compile Include="AnnualLeave\InsertLeaveConversionCriteria.cs" />
     <Compile Include="AnnualLeave\UpdateLeaveConversionCriteria.cs" />
     <Compile Include="Calendar\UpdateEmployeeShiftDateCriteria.cs" />
+    <Compile Include="CompanyEvent\GetEventByIdCriteria.cs" />
+    <Compile Include="CompanyEvent\GetAllEventCriteria.cs" />
+    <Compile Include="CompanyEvent\DeleteEventCriteria.cs" />
+    <Compile Include="CompanyEvent\UpdateEventCriteria.cs" />
+    <Compile Include="CompanyEvent\InsertEventCriteria.cs" />
     <Compile Include="Department\DeleteDepartmentCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Department\GetDepartmentByIdCriteria.cs" />

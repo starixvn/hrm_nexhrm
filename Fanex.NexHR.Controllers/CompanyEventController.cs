@@ -1,0 +1,145 @@
+﻿namespace Fanex.NexHR.Controllers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using Fanex.NexHR.Criteria.CompanyEvent;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.CompanyEvent;
+    using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
+
+    public class CompanyEventController : BaseController
+    {
+        private readonly ICommandService commandService;
+        private readonly ICompanyEventService eventService;
+
+        public CompanyEventController()
+            : this(null, null)
+        {
+        }
+
+        public CompanyEventController(ICommandService commandService, ICompanyEventService eventService)
+        {
+            this.commandService = commandService ?? new CommandService();
+            this.eventService = eventService ?? new CompanyEventService();
+        }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public JsonResult GetAllEvents()
+        {
+            var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            GetAllEventCriteria criteria = new GetAllEventCriteria()
+            {
+                FromDate = firstDay,
+                ToDate = lastDay
+            };
+            IList<CompanyEvent> events = eventService.GetAll(criteria);
+            return Json(events, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Create()
+        {
+            var companyEvent = new CompanyEvent()
+            {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
+                FromTime = new TimeSpan(0,0,0),
+                ToTime = new TimeSpan(0, 0, 0)
+            };
+            return View(companyEvent);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult Create(CompanyEvent model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                InsertEventCriteria criteria = new InsertEventCriteria()
+                {
+                    Title = model.Title,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    FromTime = model.FromTime,
+                    ToTime = model.ToTime,
+                    Description = model.Description,
+                    CreatedBy = CurrentUser.Id
+                };
+                CommandResult result = commandService.Insert(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Insert = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult Edit(int id)
+        {
+            var criteria = new GetEventByIdCriteria() { Id = id };
+            CompanyEvent model = eventService.GetById(criteria);
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult Edit(CompanyEvent model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new UpdateEventCriteria()
+                {
+                    Id = model.Id,
+                    Title = model.Title,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    FromTime = TimeSpan.MinValue,
+                    ToTime = TimeSpan.MinValue,
+                    Description = model.Description
+                };
+                CommandResult result = commandService.Update(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Updated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        public JsonResult Delete(int Id)
+        {
+            CommandResult result = new CommandResult();
+            if (Id > 0)
+            {
+                DeleteEventCriteria criteria = new DeleteEventCriteria() { Id = Id };
+                result = commandService.Delete(criteria);
+                return Json(result);
+            }
+            else
+            {
+                result.Code = 1;
+                result.Message = Messages.InvalidInputData;
+            }
+            return Json(result);
+        }
+    }
+}

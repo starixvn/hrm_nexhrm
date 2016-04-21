@@ -86,6 +86,7 @@
     <Compile Include="DashboardCompanySpace.cs" />
     <Compile Include="DashboardPersonalSpace.cs" />
     <Compile Include="EmployeeOvertime.cs" />
+    <Compile Include="CompanyEvent\CompanyEvent.cs" />
     <Compile Include="JobTitle.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOut.cs" />
     <Compile Include="Notification\Notification.cs" />

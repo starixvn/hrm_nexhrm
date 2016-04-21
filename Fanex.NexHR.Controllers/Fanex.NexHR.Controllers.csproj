@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="CalendarController.cs" />
     <Compile Include="EmployeeController.cs" />
+    <Compile Include="CompanyEventController.cs" />
     <Compile Include="ExportController.cs" />
     <Compile Include="ExtensionNoController.cs" />
     <Compile Include="FileController.cs" />

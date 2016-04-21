@@ -228,6 +228,7 @@
     <Content Include="Content\Common\components\iconfont\materialdesignicons-webfont.woff2" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Common\vendors\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\Common\vendors\jquery.timepicker.css" />
     <Content Include="Content\Images\bg_todolist.jpg" />
     <Content Include="Content\Images\CustomScrollbar\mCSB_buttons.png" />
     <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
@@ -381,6 +382,7 @@
     <Content Include="Scripts\Libs\CustomScrollbar\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.js" />
     <Content Include="Scripts\Libs\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\Libs\jquery.timepicker.js" />
     <Content Include="Scripts\Libs\jquery.tipsy.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Libs\jquery.unobtrusive-ajax.min.js" />
@@ -396,6 +398,8 @@
     <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\Notification\notification.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.conversion.detail.js" />
+    <Content Include="Scripts\Views\CompanyEvent\event-edit.js" />
+    <Content Include="Scripts\Views\CompanyEvent\event.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\AnnualLeave\annualleave.edit.js" />
     <Content Include="Scripts\Views\AnnualLeave\employee.js" />
@@ -799,6 +803,9 @@
     <None Include="Properties\PublishProfiles\NexHRM.pubxml" />
     <Content Include="Views\Dashboard\_Notification.cshtml" />
     <Content Include="Views\Dashboard\_ListTeamWorkload.cshtml" />
+    <Content Include="Views\CompanyEvent\Index.cshtml" />
+    <Content Include="Views\CompanyEvent\Create.cshtml" />
+    <Content Include="Views\CompanyEvent\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

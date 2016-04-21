@@ -21,7 +21,8 @@
         {
             get
             {
-                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue)
+                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue 
+                    || _listeningReadingExamDate.Value.Year == 1900)
                 {
                     _listeningReadingExamDate = null;
                 }

@@ -95,6 +95,8 @@
             BuildBundleForContextMenu(bundles);
 
             BuildBundleForMonthPicker(bundles);
+
+            BuildBundleForCompanyEvent(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -500,6 +502,19 @@
 
             bundles.Add(new StyleBundle("~/Content/postnatalcss")
                   .Include("~/Content/Views/employee.postnatal.css", new CssRewriteUrlTransform()));
+        }
+
+        private static void BuildBundleForCompanyEvent(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/companyeventeditjs").Include(
+                "~/Scripts/Libs/jquery.timepicker.js",
+                "~/Scripts/Views/CompanyEvent/event-edit.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/companyeventjs").Include(
+                "~/Scripts/Views/CompanyEvent/event.js"));
+
+            bundles.Add(new StyleBundle("~/Content/companyevent")
+                  .Include("~/Content/Common/vendors/jquery.timepicker.css", new CssRewriteUrlTransform()));
         }
     }
 }

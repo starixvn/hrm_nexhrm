@@ -42,6 +42,7 @@
       <siteMapNode title="Geolocation Map" controller="geographicmap" action="index" icon="map-marker" />
       <siteMapNode title="Extension Numbers" controller="ExtensionNo" action="index" icon="cellphone" />
       <siteMapNode title="Company Memo" controller="memo" action="index" icon="file-document-box" />
+      <siteMapNode title="Company Event" controller="companyevent" action="index" icon="file-document-box" />
     </siteMapNode>
   </siteMapNode>
 </siteMap>

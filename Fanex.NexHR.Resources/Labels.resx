@@ -1341,4 +1341,10 @@
   <data name="LateInEarlyOutDashboard" xml:space="preserve">
     <value>Monthly Late In/Early Out (hour/time):</value>
   </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>From Time</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>To Time</value>
+  </data>
 </root>
