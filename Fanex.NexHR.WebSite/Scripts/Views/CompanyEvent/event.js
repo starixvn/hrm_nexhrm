@@ -59,7 +59,7 @@ function initEventCalendar() {
         },
         editable: false,
         dayClick: function (date) {
-            if (_global.roles = 4) {
+            if (_global.roles == 4 || isHRRole) {
                 location.href = "/CompanyEvent/Create?from=" + date.format() + "&to=" + date.format();
             }
         },
@@ -90,7 +90,7 @@ function initEventCalendar() {
                         });
                     });
                     callback(events);
-                    if (_global.roles = 4) {
+                    if (_global.roles == 4 || isHRRole) {
                         bindingContextMenu();
                     }
                 }
@@ -107,9 +107,6 @@ function initEventCalendar() {
                         "<tr>" +
                             "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
                         "</tr>" +
-                        //"<tr>" +
-                        //    "<td colspan='2'>" + from + " - " + to + "</td>" +
-                        //"</tr>" +
                         "<tr>" +
                             "<td>" + 'Creator:' + "</td>" +
                             "<td>" + event.createdBy + "</td>" +
@@ -118,29 +115,31 @@ function initEventCalendar() {
                             "<td>" + 'Location:' + "</td>" +
                             "<td>" + event.location + "</td>" +
                         "</tr>" +
+                        "<tr>" +
+                            "<td>" + 'Time:' + "</td>" +
+                            "<td>" + event.start.format("DD MMM, YYYY") + "</td>" +
+                        "</tr>" +
                     "</table>";
                 }
             });
         },
         dayRender: function (date, cell) {
-            var addButton = "<a href='#' style='display: none;'>+</a>";
-            cell.html(addButton);
-            cell.mouseover(function () {
-                addButton = cell.children();
-                $(addButton).css("display", "initial");
-            });
-            cell.mouseleave(function () {
-                addButton = cell.children();
-                $(addButton).css("display", "none");
-            });
+            if (isHRRole) {
+                var addButton = "<a href='#' style='display: none;'>+</a>";
+                cell.html(addButton);
+                cell.mouseover(function () {
+                    addButton = cell.children();
+                    $(addButton).css("display", "initial");
+                });
+                cell.mouseleave(function () {
+                    addButton = cell.children();
+                    $(addButton).css("display", "none");
+                });
+            }
         }
     });
 }
 
 $(document).ready(function () {
     initEventCalendar();
-    //$('.fc-day.ui-widget-content').mouseover(function () {
-    //    var addButton = this.getElementsByTagName('a');
-    //    $(addButton).css("display", "initial");
-    //});
 });
