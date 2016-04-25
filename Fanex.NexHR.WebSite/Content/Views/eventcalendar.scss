@@ -172,3 +172,29 @@
         overflow: visible;
     }
 }
+
+//------------------------------TOOLTIP------------------------------//
+.detail-calendar {
+    opacity: 0.9 !important;
+    //position: relative;
+    //top: 2rem;
+    .tipsy-inner {
+        max-width: none;
+        //background: #fff;
+        //color: #000;
+        position: relative;
+        //top: 3rem;
+        @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+    }
+
+    .tipsy-arrow-s {
+        border-top-color: #fff;
+    }
+
+    .table-tooltip {
+        td {
+            padding: 7px 10px;
+            font-size: 1.3rem;
+        }
+    }
+}
