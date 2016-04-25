@@ -88,11 +88,18 @@
                     text-align: center;
                     border-top: none !important;
 
-                    .fc-day-grid-event .fc-content {
+                    .fc-day-grid-event {
+                        padding: 0;
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                    .fc-content {
                         cursor: pointer;
-                        background-color: rgb(87, 113, 138);
-                        border-radius: 7%;
+                        background-color: #1d79ac;
+                        border-radius: 0;
                         color: #FFFFFF;
+                        padding: 2px;
                     }
 
                     .fc-event {
@@ -103,6 +110,10 @@
                         .fc-content {
                             .fc-time {
                                 display: none;
+                            }
+
+                            .fc-title {
+                                font-size: 12px;
                             }
                         }
 
