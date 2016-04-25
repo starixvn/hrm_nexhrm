@@ -122,6 +122,15 @@
                         }
                     }
                 }
+
+                .fc-more-cell {
+                    text-align: center;
+
+
+                    .fc-more {
+                        font-size: 13px;
+                    }
+                }
             }
         }
     }
@@ -136,8 +145,6 @@
 
                 table {
                     thead {
-
-
                         tr {
                             th {
                                 border: 1px solid #3c4355 !important;
@@ -161,7 +168,7 @@
             }
 
             .fc-body {
-                border: 1px solid $c-border-table;
+                //border: 1px solid $c-border-table;
             }
         }
     }
@@ -195,6 +202,32 @@
         td {
             padding: 7px 10px;
             font-size: 1.3rem;
+        }
+    }
+}
+
+//--------------------MORE POPOVER---------------------//
+.fc-more-popover {
+    background: #fff;
+    padding: 5px;
+    @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+
+    .fc-header {
+        padding-top: 5px;
+    }
+
+    .fc-day-grid-event {
+        margin: 0 0 5px 0;
+        border-radius: 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .fc-content {
+            padding: 2px;
+            font-size: 13px;
+            cursor: pointer;
         }
     }
 }
