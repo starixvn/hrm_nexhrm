@@ -22,7 +22,6 @@
 
         public string CreatedBy { get; set; }
 
-        [Required]
         public string Description { get; set; }
     }
 }

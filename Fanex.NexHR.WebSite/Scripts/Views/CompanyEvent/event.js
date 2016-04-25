@@ -124,18 +124,18 @@ function initEventCalendar() {
             });
         },
         dayRender: function (date, cell) {
-            if (isHRRole) {
-                var addButton = "<a href='#' style='display: none;'>+</a>";
-                cell.html(addButton);
-                cell.mouseover(function () {
-                    addButton = cell.children();
-                    $(addButton).css("display", "initial");
-                });
-                cell.mouseleave(function () {
-                    addButton = cell.children();
-                    $(addButton).css("display", "none");
-                });
-            }
+            //if (isHRRole) {
+            //    var addButton = "<a href='#' style='display: none;'>+</a>";
+            //    cell.html(addButton);
+            //    cell.mouseover(function () {
+            //        addButton = cell.children();
+            //        $(addButton).css("display", "initial");
+            //    });
+            //    cell.mouseleave(function () {
+            //        addButton = cell.children();
+            //        $(addButton).css("display", "none");
+            //    });
+            //}
         }
     });
 }

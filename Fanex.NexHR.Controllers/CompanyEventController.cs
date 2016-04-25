@@ -69,7 +69,7 @@
                     FromTime = model.FromTime == null ? string.Empty : model.FromTime,
                     ToTime = model.ToTime == null ? string.Empty : model.ToTime,
                     Location = model.Location,
-                    Description = model.Description,
+                    Description = model.Description == null ? string.Empty : model.Description,
                     CreatedBy = CurrentUser.Id
                 };
 
@@ -110,7 +110,7 @@
                     FromTime = model.FromTime == null ? string.Empty : model.FromTime,
                     ToTime = model.ToTime == null ? string.Empty : model.ToTime,
                     Location = model.Location,
-                    Description = model.Description
+                    Description = model.Description == null ? string.Empty : model.Description
                 };
                 CommandResult result = commandService.Update(criteria);
                 if (result.IsSuccessful)
