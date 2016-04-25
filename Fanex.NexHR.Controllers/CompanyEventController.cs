@@ -33,8 +33,8 @@
 
         public JsonResult GetAllEvents()
         {
-            var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);
+            var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1).AddMonths(6);
 
             GetAllEventCriteria criteria = new GetAllEventCriteria()
             {
@@ -68,6 +68,7 @@
                     ToDate = model.ToDate,
                     FromTime = model.FromTime == null ? string.Empty : model.FromTime,
                     ToTime = model.ToTime == null ? string.Empty : model.ToTime,
+                    Location = model.Location,
                     Description = model.Description,
                     CreatedBy = CurrentUser.Id
                 };
@@ -106,8 +107,9 @@
                     Title = model.Title,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
-                    FromTime = model.FromTime,
-                    ToTime = model.ToTime,
+                    FromTime = model.FromTime == null ? string.Empty : model.FromTime,
+                    ToTime = model.ToTime == null ? string.Empty : model.ToTime,
+                    Location = model.Location,
                     Description = model.Description
                 };
                 CommandResult result = commandService.Update(criteria);

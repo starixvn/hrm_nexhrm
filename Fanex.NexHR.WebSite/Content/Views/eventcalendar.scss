@@ -1,5 +1,6 @@
 @import '../Common/utils/mixins';
 @import '../Common/utils/variables';
+
 #calendar {
     width: 560px;
 
@@ -8,7 +9,7 @@
     }
 
     .fc-toolbar {
-        background: #353c4e;        
+        background: #353c4e;
         margin: 0;
         padding: 1.4rem;
 
@@ -18,22 +19,23 @@
         }
 
         .fc-prev-button, .fc-next-button {
-			background: #78828c;
-			padding: 0;
-			border-radius: 1px;
+            background: #78828c;
+            padding: 0;
+            border-radius: 1px;
+
             .ui-icon {
                 width: 30px;
                 height: 30px;
                 background: none;
                 text-indent: initial;
 
-                &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {                       
+                &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
                     width: 30px;
-					height: 30px;
+                    height: 30px;
                     font-family: "Material Design Icons";
                     font-size: 18px;
-					line-height: 30px;
-					color: #fff;
+                    line-height: 30px;
+                    color: #fff;
                 }
 
                 &.ui-icon-circle-triangle-e:after {
@@ -45,15 +47,14 @@
                 }
             }
         }
-        
     }
 
     .fc-view-container {
         table {
             @include css3(box-shadow, none);
         }
-        
-        .fc-head {            
+
+        .fc-head {
             table {
                 thead {
                     background: #3b4354;
@@ -61,7 +62,7 @@
 
                     tr {
                         th {
-                            padding: .8rem .7rem;                            
+                            padding: .8rem .7rem;
                             font-weight: normal;
                         }
                     }
@@ -69,7 +70,7 @@
             }
         }
 
-        .fc-body {  
+        .fc-body {
             .fc-row.fc-week {
                 .fc-content-skeleton {
                     table thead {
@@ -87,9 +88,12 @@
                     text-align: center;
                     border-top: none !important;
 
-					.fc-day-grid-event .fc-content {
-						cursor: pointer;
-					}
+                    .fc-day-grid-event .fc-content {
+                        cursor: pointer;
+                        background-color: rgb(87, 113, 138);
+                        border-radius: 7%;
+                        color: #FFFFFF;
+                    }
 
                     .fc-event {
                         background: none;
@@ -111,28 +115,29 @@
         }
     }
 
-	&.schedule {
-		.fc-view-container {
-			.fc-head {
-				.ui-widget-header {
-					border: 1px solid #3c4355 !important;
-					font-weight: normal;
-				}
-				table {
-					thead {
-						
+    &.schedule {
+        .fc-view-container {
+            .fc-head {
+                .ui-widget-header {
+                    border: 1px solid #3c4355 !important;
+                    font-weight: normal;
+                }
 
-						tr {
-							th {
-								
-								border: 1px solid #3c4355 !important;
-								font-weight: normal;
-							}
-						}
-					}
-				}
-			}
-			.fc-day {
+                table {
+                    thead {
+
+
+                        tr {
+                            th {
+                                border: 1px solid #3c4355 !important;
+                                font-weight: normal;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fc-day {
                 border: 1px solid $c-border-table;
 
                 &.fc-sat, &.fc-sun {
@@ -143,11 +148,12 @@
                     background: #f4773d;
                 }
             }
-			.fc-body {
-				border: 1px solid $c-border-table;
-			}
-		}
-	}
+
+            .fc-body {
+                border: 1px solid $c-border-table;
+            }
+        }
+    }
 }
 
 .ui-dialog {

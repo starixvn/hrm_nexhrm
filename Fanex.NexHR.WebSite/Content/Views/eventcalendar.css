@@ -48,7 +48,10 @@
     text-align: center;
     border-top: none !important; }
     #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-day-grid-event .fc-content {
-      cursor: pointer; }
+      cursor: pointer;
+      background-color: #57718a;
+      border-radius: 7%;
+      color: #FFFFFF; }
     #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event {
       background: none;
       color: #303f4d;

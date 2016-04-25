@@ -18,6 +18,10 @@
 
         public string ToTime { get; set; }
 
+        public string Location { get; set; }
+
+        public string CreatedBy { get; set; }
+
         [Required]
         public string Description { get; set; }
     }

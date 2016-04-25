@@ -3,21 +3,19 @@
 var eventId = 0;
 
 function deleteEvent(id) {
-    $.ajax({
-        url: _global.root + 'CompanyEvent/Delete/' + id,
-        type: 'GET',
-        success: function (response) {
-            if (response.IsSuccessful) {
-                confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>');
-                $('#calendar').fullCalendar('refetchEvents');
+    confirm('Are you sure you want to delete this event?', function () {
+        $.ajax({
+            url: _global.root + 'CompanyEvent/Delete/' + id,
+            type: 'GET',
+            success: function (response) {
+                if (response.IsSuccessful) {
+                    $('#calendar').fullCalendar('refetchEvents');
+                }
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
             }
-            else {
-
-            }
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        }
+        });
     });
 }
 
@@ -86,7 +84,9 @@ function initEventCalendar() {
                             id: item.Id,
                             title: item.Title,
                             start: formatJsonDate(item.FromDate),
-                            end: formatJsonDate(item.ToDate)
+                            end: formatJsonDate(item.ToDate),
+                            createdBy: item.CreatedBy,
+                            location: item.Location
                         });
                     });
                     callback(events);
@@ -95,10 +95,52 @@ function initEventCalendar() {
                     }
                 }
             });
+        },
+        eventRender: function (event, element) {
+            element.tipsy({
+                className: 'detail-calendar',
+                gravity: 'nw',
+                offset: 0,
+                html: true,
+                title: function () {
+                    return "<table class='table-tooltip'>" +
+                        "<tr>" +
+                            "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
+                        "</tr>" +
+                        //"<tr>" +
+                        //    "<td colspan='2'>" + from + " - " + to + "</td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "<td>" + 'Creator:' + "</td>" +
+                            "<td>" + event.createdBy + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>" + 'Location:' + "</td>" +
+                            "<td>" + event.location + "</td>" +
+                        "</tr>" +
+                    "</table>";
+                }
+            });
+        },
+        dayRender: function (date, cell) {
+            var addButton = "<a href='#' style='display: none;'>+</a>";
+            cell.html(addButton);
+            cell.mouseover(function () {
+                addButton = cell.children();
+                $(addButton).css("display", "initial");
+            });
+            cell.mouseleave(function () {
+                addButton = cell.children();
+                $(addButton).css("display", "none");
+            });
         }
     });
 }
 
 $(document).ready(function () {
     initEventCalendar();
+    //$('.fc-day.ui-widget-content').mouseover(function () {
+    //    var addButton = this.getElementsByTagName('a');
+    //    $(addButton).css("display", "initial");
+    //});
 });
