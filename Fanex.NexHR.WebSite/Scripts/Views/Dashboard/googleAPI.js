@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var CLIENT_ID = '671733700422-oa3ghgv4fpbb14qoj25oe25melmr1l4b.apps.googleusercontent.com';
+var CLIENT_ID = '440830040122-43po943b2doq86690jaoao7db7h0arlv.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 var eventList = [];
 var isAuthenGG = false;
@@ -70,10 +70,15 @@ function getListEvents() {
     });
 
     request.execute(function (resp) {
-        initCalendar(resp.items);
+        if (resp.items) {
+            initCalendar(resp.items);
 
-        if (resp.items.length == 0) {
-            $(".fc-time").css("cssText", "display: none !important;");
+            if (resp.items.length == 0) {
+                $(".fc-time").css("cssText", "display: none !important;");
+            }
+        }
+        else if (resp.error) {
+            alert("Google Calendar: " + resp.error.message);
         }
     });
 }
