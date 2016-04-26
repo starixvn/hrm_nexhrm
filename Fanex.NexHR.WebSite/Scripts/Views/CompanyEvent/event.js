@@ -83,8 +83,8 @@ function initEventCalendar() {
                         events.push({
                             id: item.Id,
                             title: item.Title,
-                            start: formatJsonDate(item.FromDate),
-                            end: formatJsonDate(item.ToDate),
+                            start: formatJsonDate(item.FromDateTime),
+                            end: formatJsonDate(item.ToDateTime),
                             createdBy: item.CreatedBy,
                             location: item.Location
                         });
@@ -97,6 +97,11 @@ function initEventCalendar() {
             });
         },
         eventRender: function (event, element) {
+            if (true) {
+
+            }
+            var from = event.start.hours() + ":" + (event.start.minutes() >= 10 ? event.start.minutes() : '0' + event.start.minutes());
+            var to = event.end.hours() + ":" + (event.end.minutes() >= 10 ? event.end.minutes() : '0' + event.end.minutes());
             element.tipsy({
                 className: 'detail-calendar',
                 gravity: 'nw',
@@ -108,6 +113,9 @@ function initEventCalendar() {
                             "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
                         "</tr>" +
                         "<tr>" +
+                            "<td colspan='2'>" + (from == "0:00" ? "" : from) + " - " + (to == "0:00" ? "" : to) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
                             "<td>" + 'Creator:' + "</td>" +
                             "<td>" + event.createdBy + "</td>" +
                         "</tr>" +
@@ -115,10 +123,10 @@ function initEventCalendar() {
                             "<td>" + 'Location:' + "</td>" +
                             "<td>" + event.location + "</td>" +
                         "</tr>" +
-                        "<tr>" +
-                            "<td>" + 'Time:' + "</td>" +
-                            "<td>" + event.start.format("DD MMM, YYYY") + "</td>" +
-                        "</tr>" +
+                        //"<tr>" +
+                        //    "<td>" + 'Time:' + "</td>" +
+                        //    "<td>" + event.start.format("DD MMM, YYYY") + "</td>" +
+                        //"</tr>" +
                     "</table>";
                 }
             });

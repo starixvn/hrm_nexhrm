@@ -23,5 +23,35 @@
         public string CreatedBy { get; set; }
 
         public string Description { get; set; }
+
+        public DateTime FromDateTime
+        {
+            get
+            {
+                if (FromTime != string.Empty)
+                {
+                    return new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
+                }
+                else
+                {
+                    return FromDate;
+                }
+            }
+        }
+
+        public DateTime ToDateTime
+        {
+            get
+            {
+                if (ToTime != string.Empty)
+                {
+                    return new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
+                }
+                else
+                {
+                    return ToDate;
+                }
+            }
+        }
     }
 }
