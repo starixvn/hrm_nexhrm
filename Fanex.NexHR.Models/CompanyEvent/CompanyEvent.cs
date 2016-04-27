@@ -28,7 +28,7 @@
         {
             get
             {
-                if (FromTime != string.Empty)
+                if (FromTime != string.Empty && FromTime != null)
                 {
                     return new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
                 }
@@ -43,7 +43,7 @@
         {
             get
             {
-                if (ToTime != string.Empty)
+                if (ToTime != string.Empty && ToTime != null)
                 {
                     return new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
                 }
