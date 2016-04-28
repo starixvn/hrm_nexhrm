@@ -56,13 +56,14 @@
         default:
         <p class="orange-border">
             <span class="text-left">
-                Please approve @item.LeaveType.Name request of @item.Requester.NickName: 
-                 @Html.Raw(RequestService.ConvertToRequestMessage(item))
+                Please approve @item.LeaveType.Name request of @item.Requester.NickName:
+                @Html.Raw(RequestService.ConvertToRequestMessage(item))
             </span>
+            <i class="mdi mdi-information-outline tooltip" title="@item.Remark"></i>
             <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                 Approve
             </a>
         </p>
-                break;
+            break;
     }
 }

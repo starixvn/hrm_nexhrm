@@ -23,11 +23,11 @@
     </div>
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.Employee)
+            @Html.LabelFor(model => model.AddEmployee, "Employee")
         </div>
         <div class="left input--m">
-            @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.EmployeeId)
+            @Html.TextBoxFor(model => model.AddEmployee, new { placeholder = Messages.SearchEmployeeWatermark })
+            @Html.HiddenFor(model => model.AddEmployeeId)
         </div>
     </div>
     <div class="row form-input center">

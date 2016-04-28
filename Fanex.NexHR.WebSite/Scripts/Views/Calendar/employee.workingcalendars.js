@@ -35,7 +35,7 @@ $(document).ready(function () {
         $('#addform').dialog({
             modal: true,
             width: 410,
-            height: 300,
+            height: 460,
             open: function () {
                 initDatePicker();
             }
@@ -63,4 +63,6 @@ $(document).ready(function () {
                 });
         });
     });
+
+    initAutocomplete('#AddEmployee', '#AddEmployeeId');
 });

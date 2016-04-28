@@ -277,7 +277,9 @@
     <Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="1">
+      <Mapping DataField="Type" ObjectProperty="Types" />
+    </Setting>
   </Function>
   <Function Name="EmployeePostnatal">
     <Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert" DbName="nexhr" Plain="1"></Setting>

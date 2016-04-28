@@ -4,9 +4,9 @@
 
     public class AddEmployeeCalendarViewModel
     {
-        public int? EmployeeId { get; set; }
+        public int? AddEmployeeId { get; set; }
 
-        public string Employee { get; set; }
+        public string AddEmployee { get; set; }
 
         public DateTime FromDate { get; set; }
 

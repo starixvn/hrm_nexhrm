@@ -56,7 +56,7 @@
             {
                 var criteria = new InsertEmployeeCalendarCriteria()
                 {
-                    EmployeeId = model.EmployeeId,
+                    EmployeeId = model.AddEmployeeId,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate
                 };
