@@ -25,10 +25,8 @@
                     <img class="avatar" src="~/employee/avatar/@(Model.Code)" alt="@Model.NickName" />
                 </div>
                 <ul id="dropdown1" class="dropdown-content">
-                    <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
-                    <li class="divider"></li>
-                    <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>
-                    <li class="divider"></li>
+                    <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>                    
+                    <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>                   
                     <li><a class="" href="@Url.Action("myprofile", "employee")">My profile</a></li>
                 </ul>
             </div>

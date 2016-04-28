@@ -448,7 +448,7 @@ td, th{
   .collection-item {
     background-color: $collection-bg-color;
     line-height: 1.5rem;
-    padding: 10px 20px;
+    padding: 0 20px;
     margin: 0;
     //border-bottom: 1px solid $collection-border-color;
 
@@ -517,11 +517,11 @@ td, th{
     display: block;
     @include transition(.25s);
     color: $secondary-color;
-    &:not(.active) {
+    /*&:not(.active) {
       &:hover {
         background-color: $collection-hover-bg-color;
       }
-    }
+    }*/
   }
 
   &.with-header {

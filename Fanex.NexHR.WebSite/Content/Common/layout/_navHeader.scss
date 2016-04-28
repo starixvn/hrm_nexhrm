@@ -1,7 +1,7 @@
 ﻿@import "../utils/variables";
 
 .navbar-fixed {
-    //Icon hambuger responsive    
+    //Icon hambuger responsive
     .top-nav {
         font-size: 2.4rem;
         padding: 1.2rem 0;
@@ -10,52 +10,73 @@
         color: $color-text-header;
     }
 
-	.logo {		
-		margin-left: 1.6rem;
-	}
+    .logo {
+        margin-left: 1.6rem;
+    }
 }
 
 // Header Top Right
 .nav-wrapper {
     padding-right: 1.1rem;
+
     > div {
         float: right;
         font-size: 1.3rem;
     }
+
     .drop-down {
         .dropdown-button {
-            padding: 0; 
+            padding: 0;
             cursor: pointer;
-            img {                
+
+            img {
                 margin-right: 1rem;
                 position: relative;
                 top: 1.3rem;
             }
+
             .name {
                 display: inline-block;
-                margin-right: 1.7rem;                
+                margin-right: 1.7rem;
+
                 p {
                     margin: 0;
                     line-height: 1.5;
                 }
             }
 
-			.avatar {
-				width: 3.7rem;
-				height: 3.7rem;
-				border-radius: 50%;	
-			}
+            .avatar {
+                width: 3.7rem;
+                height: 3.7rem;
+                border-radius: 50%;
+            }
 
             i {
                 display: inline-block;
                 font-size: 1.5rem;
             }
         }
+
         .dropdown-content {
-			top: auto !important;
-            li a {
+            top: 64px !important;
+            left: inherit !important;
+            right: 0;
+
+            li {
+                border-bottom: 1px solid #343842;
                 background: $color-background-header;
-                color: $color-text-header;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &:hover {
+                    background: darken($color-background-header, 10%);
+                }
+            }
+
+            li a {
+                color: rgba(255, 255, 255, 0.7);
             }
 
             .collection-item.avatar {
@@ -75,12 +96,13 @@
     .notification {
         position: relative;
         margin-right: 2rem;
-        .badge {           
-            border-radius: 1rem;    
-            display: inline-block;    
+
+        .badge {
+            border-radius: 1rem;
+            display: inline-block;
             font-weight: bold;
             line-height: 1;
-            min-width: 1rem;           
+            min-width: 1rem;
             text-align: center;
             vertical-align: middle;
             white-space: nowrap;
@@ -88,81 +110,118 @@
             color: #fff;
             cursor: pointer;
             font-size: .9rem;
-            font-weight: normal;            
-            padding: .4rem .6rem;           
+            font-weight: normal;
+            padding: .4rem .6rem;
             top: 15px;
             right: -3px;
         }
+
         i {
             font-size: 24px;
             color: $c-text-header;
         }
     }
-	#dropdown-notification {
-		left: inherit !important;
-		right: -20px !important;
-		min-width: 40rem;
-		.badge {
-			right: 16px;
-			font-size: 11px;
-		}
-	}
+
+    .dropdown-notification {
+        left: inherit !important;
+        right: -10rem !important;
+        min-width: 30rem;
+
+        .badge {
+            right: 16px;
+            font-size: 11px;
+        }
+
+        li {
+            padding: 0 1.8rem;            
+            > a {
+                padding: 1.8rem 0;
+                border-bottom: 1px solid #e0e0e0;
+                color: inherit;
+                font-style: italic;
+                transition: all 0.3s ease;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            &:last-child > a {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background: none;
+
+                > a {
+                    color: $c-primary;
+                }
+            }
+        }
+
+        .collection-header {
+            padding-left: 1.8rem;
+            padding-top: 2rem;
+
+            &:hover {
+                background: none;
+            }
+        }
+    }
 }
 
 .search_bar {
-	box-sizing: border-box;
+    box-sizing: border-box;
     display: inline-block;
-    font-size: 16px;    
-    width: 4rem;    
-    position: relative;   
+    font-size: 16px;
+    width: 4rem;
+    position: relative;
     transition: all 0.2s ease-out;
     margin-right: 2rem;
 
-	form {
-		overflow: hidden;
-	}
+    form {
+        overflow: hidden;
+    }
 
-	#label-search {
-		position: absolute;
-		top: 20px;
-		width: 25px;
-		height: 25px;
-		color: $c-text-header;		
-		cursor: pointer;
-		border-radius: 50%;
-		
-		
-		/*&:hover, &:focus {
+    #label-search {
+        position: absolute;
+        top: 20px;
+        width: 25px;
+        height: 25px;
+        color: $c-text-header;
+        cursor: pointer;
+        border-radius: 50%;
+        /*&:hover, &:focus {
 			background: rgba(255,255,255,0.5);
 			transition: background 0.3s ease-out;
 		}*/
-		
-		i {
-			position: relative;
-			bottom: 20px;
-			text-align: center;
-		}		
-	}
+        i {
+            position: relative;
+            bottom: 20px;
+            text-align: center;
+        }
+    }
 
-	.placeholder {
-		background: transparent none repeat scroll 0 0;
-		display: block;
-		margin-left: 2rem;
-		width: calc(100% - 4rem);	
-		margin-top: 16px;	
-		padding-left: 5px;
-		border-bottom: none;
-		opacity: 0.7;
-	}
-	
+    .placeholder {
+        background: transparent none repeat scroll 0 0;
+        display: block;
+        margin-left: 2rem;
+        width: calc(100% - 4rem);
+        margin-top: 16px;
+        padding-left: 5px;
+        border-bottom: none;
+        opacity: 0.7;
+    }
+
     &.focused {
         width: 20rem;
         transition: all 0.2s ease-out;
+
         .placeholder {
             border-bottom: 1px solid $c-text-header;
             box-shadow: 0 1px 0 0 $c-text-header;
             vertical-align: middle;
-			background: transparent none repeat scroll 0 0;    
+            background: transparent none repeat scroll 0 0;
         }
 
         .placeholder:focus {
@@ -170,9 +229,8 @@
             box-shadow: 0 1px 0 0 $c-text-header;
         }
 
-		label {
-			color: $color-text-main;
-		}
+        label {
+            color: $color-text-main;
+        }
     }
 }
-

@@ -20,9 +20,9 @@
     text-align: left;
     text-transform: none;
 
-    &:hover, &.active {
+    /*&:hover, &.active {
       background-color: $dropdown-hover-bg-color;
-    }
+    }*/
 
     & > a, & > span {
       font-size: 1.2rem;

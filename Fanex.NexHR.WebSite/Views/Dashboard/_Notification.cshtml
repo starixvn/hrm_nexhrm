@@ -11,51 +11,49 @@
 </div>
 @if (!(Model.QuantityOfNewAlert != string.Empty))
 {
-    <ul id='dropdown-notification' class='dropdown-content collection with-header'>
+    <ul id='dropdown-notification' class='dropdown-content dropdown-notification'>
         <li class="collection-header">
-            <h5 class="txt-uppercase">Notifications</h5>
-            <span class="new badge">@Model.QuantityOfNewAlert</span>
+            <h5 class="txt-uppercase primary-color">Notifications</h5>
+            @*<span class="new badge">@Model.QuantityOfNewAlert</span>*@
         </li>
         @if (!(Model.LateInEarlyOutInYear >= 2))
         {
-            <li class="collection-item avatar">
-                <i class="circle blue mdi-action-event"></i>
+            <li class="collection-item">                
                 <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
                     <p id="lateearlyYear">
-                        You have violated Late in/Early out @Model.LateInEarlyOutInYear times within 12 months<br>
+                        You have violated Late in/Early out <span class="txt-bold">@Model.LateInEarlyOutInYear times</span> within 12 months<br>
                     </p>
                 </a>
             </li>
         }
         @if (!(Model.LateInEarlyOutInMonth >= 3))
         {
-            <li class="collection-item avatar">
-                <i class="circle materialize-red mdi-action-description"></i>
+            <li class="collection-item">                
                 <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
                     <p>
-                        You have violated Late in/Early out @Model.LateInEarlyOutInMonth times in this month<br>
-                    </p>
+                        You have violated Late in/Early out <span class="txt-bold">@Model.LateInEarlyOutInMonth times</span> in this month<br>
+</p>
                 </a>
             </li>
         }
         @if (!(Model.TimeMisssingCheckInOutThisMonth >= 2))
         {
-            <li class="collection-item avatar">
-                <i class="circle green mdi-social-person"></i>
+            <li class="collection-item">                
                 <a href="~/checkinout/employeeview">
                     <p>
-                        You have forgot Check in/Check out @Model.TimeMisssingCheckInOutThisMonth  times in this month<br>
-                    </p>
+                        You have forgot Check in/Check out <span class="txt-bold">@Model.TimeMisssingCheckInOutThisMonth  times</span> in this month<br>
+</p>
                 </a>
             </li>
         }
         @if (!(Model.ToeicExpired))
         {
-            <li class="collection-item avatar">
-                <i class="circle materialize-red mdi-action-settings"></i>
-                <p>
-                    You have to submit your Toeic score in this month <br>
-                </p>
+            <li class="collection-item">   
+                <a href="#">
+                    <p>
+                        You have to submit your Toeic score in this month <br>
+                    </p>
+                </a>    
             </li>
         }
     </ul>
