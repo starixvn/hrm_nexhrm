@@ -3040,6 +3040,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resigned Date.
+        /// </summary>
+        public static string ResignedDate {
+            get {
+                return ResourceManager.GetString("ResignedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roles.
         /// </summary>
         public static string Roles {

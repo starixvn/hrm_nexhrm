@@ -1347,4 +1347,7 @@
   <data name="ToTime" xml:space="preserve">
     <value>To Time</value>
   </data>
+  <data name="ResignedDate" xml:space="preserve">
+    <value>Resigned Date</value>
+  </data>
 </root>

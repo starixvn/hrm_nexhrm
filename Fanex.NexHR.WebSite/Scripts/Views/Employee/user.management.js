@@ -3,6 +3,7 @@
 /* exported index, enable*/
 
 var rowIndex = 1,
+    employeeListType = 0,
     sorts = [];
 
 function index() {
@@ -43,9 +44,10 @@ function query(jobTitleId, isFirstLoad) {
             }
         },
         success: function (data) {
+            employeeListType = data.Type;
             $('#data tbody').children().remove();
-
-            if (data && data.length > 0) {
+            var listEmployee = data.Employees;
+            if (listEmployee && listEmployee.length > 0) {
                 rowIndex = 1;
 
                 var tmpl = $.templates('#template'),
@@ -53,7 +55,7 @@ function query(jobTitleId, isFirstLoad) {
                         index: index,
                         formatDate: formatJsonDate
                     },
-                    html = tmpl.render(data, helpers);
+                    html = tmpl.render(listEmployee, helpers);
 
                 $(html).appendTo('table#data');
 
@@ -66,7 +68,12 @@ function query(jobTitleId, isFirstLoad) {
                     }
                 });
             } else {
-                $(noInformation(11)).appendTo('table#data');
+                if (employeeListType === 0) {
+                    $(noInformation(11)).appendTo('table#data');
+                }
+                else {
+                    $(noInformation(12)).appendTo('table#data');
+                }
             }
 
             floatThead('table#data');
@@ -75,6 +82,14 @@ function query(jobTitleId, isFirstLoad) {
             alert(_messages.errorTryAgain);
         },
         complete: function () {
+            if (employeeListType === 0) {
+                $('#resignedDate').hide();
+                $('.ResignedDate').hide();
+            }
+            else {
+                $('#resignedDate').show();
+                $('.ResignedDate').show();
+            }
             if (!isFirstLoad) {
                 $('.loading-process').fadeOut(300);
             }

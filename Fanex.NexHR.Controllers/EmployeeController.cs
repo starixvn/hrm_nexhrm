@@ -82,6 +82,23 @@
                 teamId = null;
             }
 
+            EmployeeListViewModel listEmployee = new EmployeeListViewModel();
+            if (enable != null)
+            {
+                if (enable == false)
+                {
+                    listEmployee.Type = (int)TypeList.Active;
+                }
+                else
+                {
+                    listEmployee.Type = (int)TypeList.Disabled;
+                }
+            }
+            else
+            {
+                listEmployee.Type = (int)TypeList.Deleted;
+            }
+
             var criteria = new GetEmployeeCriteria()
             {
                 Query = query,
@@ -94,11 +111,11 @@
                 TotalRow = 2000
             };
 
-            var employees = employeeService.Query(criteria);
+            listEmployee.Employees = employeeService.Query(criteria);
 
-            employees = SortEmployee(sort, employees);
+            listEmployee.Employees = SortEmployee(sort, listEmployee.Employees);
 
-            return Json(employees, JsonRequestBehavior.AllowGet);
+            return Json(listEmployee, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Detail(int employeeId)
