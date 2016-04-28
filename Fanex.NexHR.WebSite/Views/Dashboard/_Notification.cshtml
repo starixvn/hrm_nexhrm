@@ -3,20 +3,20 @@
 <div class="notification">
     <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
         <i class="mdi-social-notifications"></i>
-        @if (!(Model.QuantityOfNewAlert != string.Empty))
+        @if (Model.QuantityOfNewAlert != string.Empty)
         {
             <span class="badge">@Model.QuantityOfNewAlert</span>
         }
     </a>
 </div>
-@if (!(Model.QuantityOfNewAlert != string.Empty))
+@if (Model.QuantityOfNewAlert != string.Empty)
 {
     <ul id='dropdown-notification' class='dropdown-content dropdown-notification'>
         <li class="collection-header">
             <h5 class="txt-uppercase primary-color">Notifications</h5>
             @*<span class="new badge">@Model.QuantityOfNewAlert</span>*@
         </li>
-        @if (!(Model.LateInEarlyOutInYear >= 2))
+        @if (Model.LateInEarlyOutInYear >= 2)
         {
             <li class="collection-item">                
                 <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
@@ -26,7 +26,7 @@
                 </a>
             </li>
         }
-        @if (!(Model.LateInEarlyOutInMonth >= 3))
+        @if (Model.LateInEarlyOutInMonth >= 3)
         {
             <li class="collection-item">                
                 <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
@@ -36,7 +36,7 @@
                 </a>
             </li>
         }
-        @if (!(Model.TimeMisssingCheckInOutThisMonth >= 2))
+        @if (Model.TimeMisssingCheckInOutThisMonth >= 2)
         {
             <li class="collection-item">                
                 <a href="~/checkinout/employeeview">
@@ -46,7 +46,7 @@
                 </a>
             </li>
         }
-        @if (!(Model.ToeicExpired))
+        @if (Model.ToeicExpired)
         {
             <li class="collection-item">   
                 <a href="#">
