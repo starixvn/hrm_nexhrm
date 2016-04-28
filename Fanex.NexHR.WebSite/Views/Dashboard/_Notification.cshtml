@@ -3,20 +3,20 @@
 <div class="notification">
     <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
         <i class="mdi-social-notifications"></i>
-        @if (Model.QuantityOfNewAlert != string.Empty)
+        @if (!(Model.QuantityOfNewAlert != string.Empty))
         {
             <span class="badge">@Model.QuantityOfNewAlert</span>
         }
     </a>
 </div>
-@if (Model.QuantityOfNewAlert != string.Empty)
+@if (!(Model.QuantityOfNewAlert != string.Empty))
 {
     <ul id='dropdown-notification' class='dropdown-content collection with-header'>
         <li class="collection-header">
             <h5 class="txt-uppercase">Notifications</h5>
             <span class="new badge">@Model.QuantityOfNewAlert</span>
         </li>
-        @if (Model.LateInEarlyOutInYear >= 2)
+        @if (!(Model.LateInEarlyOutInYear >= 2))
         {
             <li class="collection-item avatar">
                 <i class="circle blue mdi-action-event"></i>
@@ -27,7 +27,7 @@
                 </a>
             </li>
         }
-        @if (Model.LateInEarlyOutInMonth >= 3)
+        @if (!(Model.LateInEarlyOutInMonth >= 3))
         {
             <li class="collection-item avatar">
                 <i class="circle materialize-red mdi-action-description"></i>
@@ -38,7 +38,7 @@
                 </a>
             </li>
         }
-        @if (Model.TimeMisssingCheckInOutThisMonth >= 2)
+        @if (!(Model.TimeMisssingCheckInOutThisMonth >= 2))
         {
             <li class="collection-item avatar">
                 <i class="circle green mdi-social-person"></i>
@@ -49,7 +49,7 @@
                 </a>
             </li>
         }
-        @if (Model.ToeicExpired)
+        @if (!(Model.ToeicExpired))
         {
             <li class="collection-item avatar">
                 <i class="circle materialize-red mdi-action-settings"></i>
