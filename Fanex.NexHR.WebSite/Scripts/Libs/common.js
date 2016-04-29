@@ -645,8 +645,9 @@ function initAutocomplete(selectorName, selectorId) {
                     $top: 10
                 },
                 success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
+                    var listEmployee = data.Employees;
+                    if (listEmployee && listEmployee.length > 0) {
+                        response($.map(listEmployee, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id
