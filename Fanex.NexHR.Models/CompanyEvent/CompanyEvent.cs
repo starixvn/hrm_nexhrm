@@ -18,6 +18,7 @@
 
         public string ToTime { get; set; }
 
+        [Required]
         public string Location { get; set; }
 
         public string CreatedBy { get; set; }
