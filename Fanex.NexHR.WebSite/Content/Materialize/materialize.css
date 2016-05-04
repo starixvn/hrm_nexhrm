@@ -2321,7 +2321,9 @@ td, th {
       min-height: 58px;
       padding-left: 140px;
       position: relative;
-      padding-right: 55px; }
+      padding-right: 55px;
+      padding-top: 10px;
+      padding-bottom: 10px; }
       .collection .collection-item.avatar .circle {
         position: absolute;
         width: 35px;
