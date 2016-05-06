@@ -233,6 +233,11 @@
     <Content Include="Content\Images\CustomScrollbar\mCSB_buttons.png" />
     <Content Include="Content\Common\vendors\monPickr-0.0.3.css" />
     <Content Include="Content\Common\vendors\slick.css" />
+    <Content Include="Content\Images\Dashboard\1.png" />
+    <Content Include="Content\Images\Dashboard\2.png" />
+    <Content Include="Content\Images\Dashboard\3.png" />
+    <Content Include="Content\Images\Dashboard\4.png" />
+    <Content Include="Content\Images\Dashboard\5.png" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
     <Content Include="Content\Views\employee.postnatal.css">
