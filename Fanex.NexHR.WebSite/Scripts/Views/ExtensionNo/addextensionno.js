@@ -62,7 +62,7 @@ $(document).ready(function () {
                     query: request.term
                 },
                 success: function (data) {
-                    response($.map(data, function (item) {
+                    response($.map(data.Employees, function (item) {
                         return {
                             label: item.NickName + ' (' + item.FullName + ')',
                             value: item.Id,

@@ -61,8 +61,15 @@
 
         public bool Delete(string fileName)
         {
-            System.IO.File.Delete(Server.MapPath("~/" + fileName));
-            return true;
+            try
+            {
+                System.IO.File.Delete(Server.MapPath("~/" + fileName));
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }

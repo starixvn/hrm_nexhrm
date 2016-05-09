@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web;
 
     public class ExtensionNoController : BaseController
     {
@@ -164,7 +165,7 @@
         {
             var criteria = new AddNewExternalGroupCriteria
             {
-                FullName = groupName
+                FullName = HttpUtility.HtmlEncode(groupName)
             };
             CommandResult result = commandService.Insert(criteria);
 

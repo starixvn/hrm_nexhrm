@@ -163,7 +163,7 @@ function loadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status
 
 $(document).ready(function () {
     loadMyOvertime(true);
-    if (_global.roles !== "") {
+    if (_global.roles !== "" || _global.teamId == 13) {
         loadMemberOvertime(true);
     }
     loadOTRequest(true);

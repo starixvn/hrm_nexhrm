@@ -27,7 +27,7 @@ function query(isFirstLoad) {
         success: function (data) {
             $('table#data tbody').children().remove();
 
-            if (data.length > 0) {
+            if (data.Employees.length > 0) {
                 rowIndex = 1;
 
                 var tmpl = $.templates('#template'),
@@ -35,7 +35,7 @@ function query(isFirstLoad) {
                         index: index,
                         formatDate: formatJsonDate
                     },
-                    html = tmpl.render(data, helpers);
+                    html = tmpl.render(data.Employees, helpers);
 
                 $(html).appendTo('table#data');
 

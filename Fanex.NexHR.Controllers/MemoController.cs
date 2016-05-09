@@ -9,6 +9,7 @@
     using Fanex.NexHR.ViewModels.Memo;
     using System;
     using System.Collections.Generic;
+    using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
 
@@ -99,7 +100,7 @@
                     SentDate = model.SentDate,
                     SentFrom = model.SentFrom,
                     SentTo = model.SentTo,
-                    Subject = model.Subject,
+                    Subject = HttpUtility.HtmlEncode(model.Subject),
                     TotalPages = model.TotalPages,
                     MemoType = model.MemoType,
                     Status = model.Status == 1
@@ -167,7 +168,7 @@
                     SentDate = model.SentDate,
                     SentFrom = model.SentFrom,
                     SentTo = model.SentTo,
-                    Subject = model.Subject,
+                    Subject = HttpUtility.HtmlEncode(model.Subject),
                     TotalPages = model.TotalPages,
                     MemoType = model.MemoType,
                     Status = model.Status == 1
