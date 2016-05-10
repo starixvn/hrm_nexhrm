@@ -151,7 +151,7 @@ function query() {
     var keyword = $('#keyword').val();
     $.getJSON(_global.root + 'employee/getemployees', { query: keyword, groupId: null }, function (data) {
         $('#data tbody').children().remove();
-        $('#itemTemplate').tmpl(data).appendTo('#data');
+        $('#itemTemplate').tmpl(data.Employees).appendTo('#data');
         if (keyword.length > 0) {
             $('#data tbody').highlight(keyword);
         }

@@ -116,8 +116,8 @@ function searchEmployeeInCompany() {
                     $top: 10
                 },
                 success: function (data) {
-                    if (data && data.length > 0) {
-                        response($.map(data, function (item) {
+                    if (data.Employees && data.Employees.length > 0) {
+                        response($.map(data.Employees, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 lat: item.GeoMapLatitude,
@@ -205,7 +205,7 @@ function initialize() {
         },
         async: false,
         success: function (employeeInfo) {
-            data = employeeInfo;
+            data = employeeInfo.Employees;
         }
     });
 
