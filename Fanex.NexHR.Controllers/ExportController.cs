@@ -70,6 +70,7 @@
             return new EmptyResult();
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpGet]
         public ActionResult EmployeeProfile(

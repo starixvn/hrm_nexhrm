@@ -37,27 +37,35 @@
             return View(new LateInEarlyOutViewModel());
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LateInEarlyOutViewModel model)
         {
             if (model != null & ModelState.IsValid)
             {
-                InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
+                if (model.EmpId != 0)
                 {
-                    EmpId = model.EmpId,
-                    Types = model.TypeCode,
-                    Minutes = model.Minutes,
-                    WorkDate = model.WorkDate,
-                    ModifiedBy = CurrentUser.Id
-                };
-                CommandResult result = commandService.Insert(criteria);
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Requested = true;
+                    InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
+                    {
+                        EmpId = model.EmpId,
+                        Types = model.TypeCode,
+                        Minutes = model.Minutes,
+                        WorkDate = model.WorkDate,
+                        ModifiedBy = CurrentUser.Id
+                    };
+                    CommandResult result = commandService.Insert(criteria);
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Requested = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, "Invalid Employee!");
                 }
             }
 
@@ -80,28 +88,36 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(LateInEarlyOutViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
-                UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                if (model.EmpId != 0)
                 {
-                    Id = (int)model.Id,
-                    EmpId = model.EmpId,
-                    Types = int.Parse(model.Types),
-                    Minutes = model.Minutes,
-                    WorkDate = model.WorkDate,
-                    ModifiedBy = CurrentUser.Id
-                };
-                CommandResult result = commandService.Update(criteria);
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Requested = true;
+                    UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                    {
+                        Id = (int)model.Id,
+                        EmpId = model.EmpId,
+                        Types = int.Parse(model.Types),
+                        Minutes = model.Minutes,
+                        WorkDate = model.WorkDate,
+                        ModifiedBy = CurrentUser.Id
+                    };
+                    CommandResult result = commandService.Update(criteria);
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Requested = true;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, "Invalid Employee!");
                 }
             }
 

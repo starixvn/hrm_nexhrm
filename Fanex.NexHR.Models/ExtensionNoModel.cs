@@ -13,11 +13,13 @@
 
         public string TeamName { get; set; }
 
+        [Required]
         public string FullName { get; set; }
 
         public string NickName { get; set; }
 
         [Required]
+        [Range(1000, 9999)]
         public string ExtensionNo { get; set; }
 
         public int OrderNoGroup { get; set; }

@@ -81,6 +81,7 @@
             return View(viewModel);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
@@ -89,41 +90,48 @@
                 model.By = CurrentUser.Id;
                 model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
 
-                var criteria = new InsertRequestCriteria()
+                if (model.EmployeeId != 0)
                 {
-                    EmpId = model.EmployeeId,
-                    RequestType = model.CheckInOutType,
-                    IsPlanned = false,
-                    Remark = null,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = model.By,
-                    FromDate = model.ForDate,
-                    FromShift = null,
-                    ToDate = null,
-                    ToShift = null,
-                    LeaveTypeId = null,
-                    TotalDays = null,
-                    LateInMins = null,
-                    EarlyOutMins = null
-                };
+                    var criteria = new InsertRequestCriteria()
+                    {
+                        EmpId = model.EmployeeId,
+                        RequestType = model.CheckInOutType,
+                        IsPlanned = false,
+                        Remark = null,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = model.By,
+                        FromDate = model.ForDate,
+                        FromShift = null,
+                        ToDate = null,
+                        ToShift = null,
+                        LeaveTypeId = null,
+                        TotalDays = null,
+                        LateInMins = null,
+                        EarlyOutMins = null
+                    };
 
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                model.Id = criteria.Id;
+                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                    model.Id = criteria.Id;
 
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Requested = true;
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Requested = true;
 
-                    model.IsEdit = false;
-                    model.GetTemplatePath();
-                    Task.Factory.StartNew(() => 
-                    { 
-                        requestService.SendMailForCheckInOut(model); 
-                    });
+                        model.IsEdit = false;
+                        model.GetTemplatePath();
+                        Task.Factory.StartNew(() =>
+                        {
+                            requestService.SendMailForCheckInOut(model);
+                        });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, "Invalid Employee !");
                 }
 
                 ViewBag.Year = model.ForDate.Year;

@@ -94,6 +94,7 @@
             return View(request);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel request)
         {
@@ -148,6 +149,7 @@
             return View("HRView", request);
         }
 
+        [ValidateInput(false)]
         public ActionResult GetAllRequestByEmployee(RequestViewModel request)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
@@ -202,6 +204,7 @@
             return View(request);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         public ActionResult GetAllRequestByHR(RequestViewModel request)
         {

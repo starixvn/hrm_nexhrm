@@ -265,6 +265,7 @@
             return PartialView(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult OvertimeRequestDetail(MemberOvertimeViewModel model)
         {

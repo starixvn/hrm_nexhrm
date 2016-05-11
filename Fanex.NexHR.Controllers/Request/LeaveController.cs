@@ -76,6 +76,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
@@ -91,36 +92,43 @@
                     model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
                 }
 
-                var criteria = new InsertRequestCriteria()
+                if (model.EmployeeId != 0)
                 {
-                    EmpId = model.EmployeeId,
-                    RequestType = (short)RequestType.Leave,
-                    IsPlanned = model.IsPlanned,
-                    Remark = model.Remark,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = CurrentUser.Id,
-                    FromDate = model.FromDate,
-                    ToDate = model.ToDate,
-                    LeaveTypeId = model.LeaveTypeId,
-                    TotalDays = model.TotalDays
-                };
+                    var criteria = new InsertRequestCriteria()
+                    {
+                        EmpId = model.EmployeeId,
+                        RequestType = (short)RequestType.Leave,
+                        IsPlanned = model.IsPlanned,
+                        Remark = model.Remark,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = CurrentUser.Id,
+                        FromDate = model.FromDate,
+                        ToDate = model.ToDate,
+                        LeaveTypeId = model.LeaveTypeId,
+                        TotalDays = model.TotalDays
+                    };
 
-                CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                model.Id = criteria.Id;
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Requested = true;
-                    model.IsEdit = false;
-                    model.GetTemplatePath();
+                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                    model.Id = criteria.Id;
+                    if (result.IsSuccessful)
+                    {
+                        ViewBag.Requested = true;
+                        model.IsEdit = false;
+                        model.GetTemplatePath();
 
-                    Task.Factory.StartNew(() => 
-                    { 
-                        requestService.SendMailForLeave(model); 
-                    });
+                        Task.Factory.StartNew(() =>
+                        {
+                            requestService.SendMailForLeave(model);
+                        });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
+                    ModelState.AddModelError(string.Empty, "Invalid Employee !");
                 }
             }
 
@@ -185,9 +193,9 @@
                     model.IsEdit = true;
                     model.GetTemplatePath();
 
-                    Task.Factory.StartNew(() => 
-                    { 
-                        requestService.SendMailForLeave(model); 
+                    Task.Factory.StartNew(() =>
+                    {
+                        requestService.SendMailForLeave(model);
                     });
                 }
                 else

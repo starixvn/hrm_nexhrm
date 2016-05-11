@@ -86,6 +86,7 @@
             return View();
         }
 
+        [ValidateInput(false)]
         public ActionResult WorkingCalendars(WorkingCalendarViewModel model)
         {
             if (model != null)

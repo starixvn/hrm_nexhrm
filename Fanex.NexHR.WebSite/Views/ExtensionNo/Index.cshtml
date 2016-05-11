@@ -63,10 +63,10 @@
                                             @(index++)
                                         </td>
                                         <td class="align-left">
-                                            @ext.FullName
+                                            @HttpUtility.HtmlDecode(ext.FullName)
                                         </td>
                                         <td>
-                                            @ext.NickName
+                                            @HttpUtility.HtmlDecode(ext.NickName)
                                         </td>
                                         <td style="color: #0789D1;">
                                             @ext.ExtensionNo

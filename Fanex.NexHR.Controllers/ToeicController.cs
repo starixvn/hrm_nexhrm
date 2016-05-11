@@ -59,6 +59,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
         {
             IList<Employee> employees = new List<Employee>();

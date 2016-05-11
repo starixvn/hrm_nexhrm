@@ -50,6 +50,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)

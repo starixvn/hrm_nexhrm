@@ -29,6 +29,7 @@
             return View();
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Index(string jobTitle = "")
@@ -39,6 +40,7 @@
             return PartialView("_Index", jobTitles);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Insert(string name)

@@ -21,6 +21,7 @@
         [Display(Name = "Leader", ResourceType = typeof(Labels))]
         public string Leader { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Invalid Leader!")]
         public int LeaderId { get; set; }
 
         [Display(Name = "Assistant Leader")]

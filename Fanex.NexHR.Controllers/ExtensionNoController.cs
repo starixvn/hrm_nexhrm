@@ -48,6 +48,7 @@
             return View(new ExtensionNoModel());
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
@@ -58,8 +59,8 @@
                 var criteria = new AddNewExtensionNoMemberCriteria
                 {
                     EmpId = model.EmpId,
-                    NickName = model.NickName,
-                    FullName = model.FullName,
+                    NickName = HttpUtility.HtmlEncode(model.NickName),
+                    FullName = HttpUtility.HtmlEncode(model.FullName),
                     GroupId = model.TeamId,
                     IsInternal = model.IsInternal,
                     ExtensionNo = model.ExtensionNo
@@ -99,9 +100,13 @@
                 Text = x.TeamName,
                 Value = x.TeamId.ToString()
             }).ToList();
+            model.FullName = HttpUtility.HtmlDecode(model.FullName);
+            model.NickName = HttpUtility.HtmlDecode(model.NickName);
+
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
@@ -125,8 +130,8 @@
                 {
                     ExtId = model.EmpExtId,
                     EmpId = model.EmpId,
-                    NickName = model.NickName,
-                    FullName = model.FullName,
+                    NickName = HttpUtility.HtmlEncode(model.NickName),
+                    FullName = HttpUtility.HtmlEncode(model.FullName),
                     GroupId = model.TeamId,
                     IsInternal = model.IsInternal,
                     ExtensionNo = model.ExtensionNo

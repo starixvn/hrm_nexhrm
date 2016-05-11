@@ -69,6 +69,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         public JsonResult GetEmployees(
             string query,
             int? teamId = null,
@@ -141,6 +142,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
@@ -196,6 +198,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]

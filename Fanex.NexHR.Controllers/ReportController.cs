@@ -60,6 +60,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         public ActionResult ListAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> attendances = new List<EmployeeAttendanceModel>();
@@ -238,6 +239,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public JsonResult GetTotalWorkingHour(TotalWorkingHoursViewModel model)
         {
@@ -268,6 +270,7 @@
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
 
+        [ValidateInput(false)]
         public ActionResult LateInEarlyOut(int empId = 0, string nickname = "")
         {
             IList<Team> teams = teamService.GetAll();
@@ -295,6 +298,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {

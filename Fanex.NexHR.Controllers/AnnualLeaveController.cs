@@ -51,6 +51,7 @@
             return View("Index", model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Index(LeaveSummaryViewModel model)
         {

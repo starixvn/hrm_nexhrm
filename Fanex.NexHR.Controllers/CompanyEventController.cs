@@ -55,6 +55,7 @@
             return View(companyEvent);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CompanyEvent model)
@@ -95,6 +96,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(CompanyEvent model)
