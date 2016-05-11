@@ -97,17 +97,9 @@
                         EmpId = model.EmployeeId,
                         RequestType = model.CheckInOutType,
                         IsPlanned = false,
-                        Remark = null,
                         CreatedDate = DateTime.Now,
                         CreatedBy = model.By,
-                        FromDate = model.ForDate,
-                        FromShift = null,
-                        ToDate = null,
-                        ToShift = null,
-                        LeaveTypeId = null,
-                        TotalDays = null,
-                        LateInMins = null,
-                        EarlyOutMins = null
+                        FromDate = model.ForDate
                     };
 
                     CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);

@@ -63,6 +63,7 @@
             return PartialView(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)

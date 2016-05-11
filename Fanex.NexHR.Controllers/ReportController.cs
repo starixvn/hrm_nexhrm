@@ -388,6 +388,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
@@ -482,6 +483,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {

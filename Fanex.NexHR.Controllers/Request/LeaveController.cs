@@ -82,16 +82,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                model.LeaveTypes = leaveTypeService.GetAll();
-                model.UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id);
-                ViewBag.Year = model.FromDate.Year;
-                if (model.HalfDayOff)
-                {
-                    model.TotalDays = (decimal)0.5;
-                    model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                    model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
-                }
-
+                model = PrepareModel(model);
                 if (model.EmployeeId != 0)
                 {
                     var criteria = new InsertRequestCriteria()
@@ -133,6 +124,21 @@
             }
 
             return View(model);
+        }
+
+        private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
+        {
+            model.LeaveTypes = leaveTypeService.GetAll();
+            model.UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id);
+            ViewBag.Year = model.FromDate.Year;
+            if (model.HalfDayOff)
+            {
+                model.TotalDays = (decimal)0.5;
+                model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+                model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+            }
+            
+            return model;
         }
 
         public ActionResult Update(int id)
