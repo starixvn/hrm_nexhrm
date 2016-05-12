@@ -91,6 +91,11 @@
         {
             if (model != null)
             {
+                if (model.Year == 0)
+                {
+                    model.EmployeeId = -1;
+                }
+
                 model.Teams = teamService.GetAll();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
@@ -99,7 +104,7 @@
                 {
                     FromDate = date,
                     ToDate = date.AddMonths(1).AddDays(-1),
-                    EmployeeId = model.EmployeeId <= 0 ? (int?)null : model.EmployeeId,
+                    EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
                     TeamId = model.TeamId
                 };
 

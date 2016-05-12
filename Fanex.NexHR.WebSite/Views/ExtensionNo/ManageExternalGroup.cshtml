@@ -38,33 +38,33 @@
                                     int index = 1;
                                     foreach (ExtensionNoModel item in Model)
                                     {
-                                    <tr id="@item.TeamId">
-                                        <td>
-                                            @(index++)
-                                        </td>
-                                        <td class="align-left">
-                                            <span class="groupName">@item.TeamName</span>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:;" class="editExternal">
-                                                <i class='mdi mdi-border-color mdi-dark'></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @if (item.TotalMember > 0)
-                                            {
-                                                <a href="javascript:;" style="cursor: default">
-                                                    <i class='mdi mdi-delete mdi-disabled mdi-dark mdi-18px'></i>
+                                        <tr id="@item.TeamId">
+                                            <td>
+                                                @(index++)
+                                            </td>
+                                            <td class="align-left">
+                                                <span class="groupName">@item.TeamName</span>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="editExternal">
+                                                    <i class='mdi mdi-border-color mdi-dark'></i>
                                                 </a>
-                                            }
-                                            else
-                                            {
-                                                <a href="javascript:;" class="deleteExternal">
-                                                    <i class='mdi mdi-delete mdi-dark mdi-18px'></i>
-                                                </a>
-                                            }
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                @if (item.TotalMember > 0)
+                                                {
+                                                    <a href="javascript:;" style="cursor: default">
+                                                        <i class='mdi mdi-delete mdi-disabled mdi-dark mdi-18px'></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:;" class="deleteExternal">
+                                                        <i class='mdi mdi-delete mdi-dark mdi-18px'></i>
+                                                    </a>
+                                                }
+                                            </td>
+                                        </tr>
                                     }
                                 }
                                 else
@@ -77,27 +77,27 @@
                     <div id="dialog-form" title="Add new External Group">
                         <p class="validateTips"></p>
                         <form class="form">
-                        <div class="row form-input">
-                            <div class="left label--m left-align">
-                                <label>@Labels.GroupName</label>
+                            <div class="row form-input">
+                                <div class="left label--m left-align">
+                                    <label>@Labels.GroupName</label>
+                                </div>
+                                <div class="left input--m input">
+                                    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+                                </div>
                             </div>
-                            <div class="left input--m input">
-                                <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-                            </div>
-                        </div>
                         </form>
                     </div>
                     <div id="dialog-form_edit" title="Update External Group" style="display: none">
                         <p class="validateTips"></p>
                         <form class="form">
-                        <div class="row form-input">
-                            <div class="left label--l left-align">
-                                <label>@Labels.GroupName</label>
+                            <div class="row form-input">
+                                <div class="left label--l left-align">
+                                    <label>@Labels.GroupName</label>
+                                </div>
+                                <div class="left input--m input">
+                                    <input type="text" name="name" id="name_edit" class="text ui-widget-content ui-corner-all" />
+                                </div>
                             </div>
-                            <div class="left input--m input">
-                                <input type="text" name="name" id="name_edit" class="text ui-widget-content ui-corner-all" />
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>

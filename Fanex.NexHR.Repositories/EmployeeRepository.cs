@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using Fanex.Data;
+    using Fanex.Data.Repository;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.CompanyEvent;
+    using Fanex.NexHR.Models.Workload;
+    using Fanex.NexHR.Repositories.Interfaces;
     using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Fanex.Data;
-using Fanex.Data.Repository;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.Models.Workload;
-using Fanex.NexHR.Repositories.Interfaces;
+    using System.Linq;
 
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -102,6 +102,7 @@ using Fanex.NexHR.Repositories.Interfaces;
                 {
                     model.EmployeeHasBirthday = multi.Read<Employee>().ToList();
                     model.EmployeeHasFirstWorkingDay = multi.Read<Employee>().ToList();
+                    model.EventList = multi.Read<CompanyEvent>().ToList();
                 }
             }
 

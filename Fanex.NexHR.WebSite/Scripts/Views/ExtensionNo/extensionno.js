@@ -83,7 +83,7 @@ $(function () {
 
                 if (bValid) {
                     $.post(_global.root + 'extensionno/AddNewExternalGroup',
-                        { groupName: name.val() },
+                        { groupName: htmlEncode(name.val()) },
                         function (response) {
                             if (response.IsSuccessful) {
                                 document.location = _global.root + 'extensionno/ManageExternalGroup';

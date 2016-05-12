@@ -66,11 +66,11 @@
                                     <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName" />
                                 </div>
                                 <div class="col s9 center detail">
-                                    <span>Events in @DateTime.Now.ToString("MMMM")!</span>
+                                    <span>Birthday in @DateTime.Now.ToString("MMMM")!</span>
                                 </div>
                             </a>
                         </div>
-                        @{var birthdayList = @Model.SystemReminder.EmployeeHasBirthday; }
+                        @{var birthdayList = Model.SystemReminder.EmployeeHasBirthday; }
                         @if (birthdayList != null && birthdayList.Count > 0)
                         {
                             foreach (var item in birthdayList)
@@ -85,7 +85,7 @@
                                 </div>
                             }
                         }
-                        @{var firstWorkDay = @Model.SystemReminder.EmployeeHasFirstWorkingDay; }
+                        @{var firstWorkDay = Model.SystemReminder.EmployeeHasFirstWorkingDay; }
                         @if (firstWorkDay != null && firstWorkDay.Count > 0)
                         {
                             foreach (var item in firstWorkDay)
@@ -96,6 +96,32 @@
                                     </div>
                                     <div class="col s9 center detail">
                                         <span>First working day anniversary of @item.NickName!</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        @{var eventList = Model.SystemReminder.EventList; }
+                        @if (eventList != null && eventList.Count > 0)
+                        {
+                            foreach (var item in eventList)
+                            {
+                                <div class="slide-content">
+                                    <div class="col s3">
+                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName" />
+                                    </div>
+                                    <div class="col s9 center detail">
+                                        <span class="txt-uppercase">@item.Title</span><br />
+                                        @if (item.FromDate == item.ToDate)
+                                        {
+                                            <span>(@item.FromDate.ToString("dd MMMM, yyyy"))</span>
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                (@item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM"))
+                                            </span>
+                                        }
+
                                     </div>
                                 </div>
                             }
@@ -197,53 +223,8 @@
                 </div>
             </div>
         </div>
-        @*<div class="col s12 m6 card-container-base to-do-list">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title-block">
-                            <span class="card-title txt-uppercase left">To do list</span>
-                        </div>
-                        <div id="todoList" class="card-body p-x--s scrollTodo mCustomScrollbar" data-mcs-theme="dark">
-                        </div>
-                    </div>
-                </div>
-            </div>*@
         @Html.Partial("MyTeamAttendance", Model.EmployeeAttendanceModel)
         <div>
-            @*<div class="col s12 m4 card-container-base workload">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-title-block">
-                                <span class="card-title left primary-color">
-                                    <span class="txt-uppercase">
-                                        MY TOTAL SPENT
-                                        TIME
-                                    </span>
-                            </div>
-                            <div class="card-body p-x--s">
-                                <div class="total-hours">
-                                    <img src="~/Content/Images/chart.jpg" />
-                                </div>
-                                <div class="detail">
-                                    <ul>
-                                        <li>
-                                            <span class="color1"></span><span>Alpha</span> <span class="right">37:45h</span>
-                                        </li>
-                                        <li>
-                                            <span class="color2"></span><span>Nexcel Website</span> <span class="right">16:22h</span>
-                                        </li>
-                                        <li>
-                                            <span class="color3"></span><span>HRM Website</span> <span class="right">3:14h</span>
-                                        </li>
-                                        <li>
-                                            <span class="color4"></span><span>Company Profile</span> <span class="right">26:18h</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
             <div class="col s12 m8 card-container-base my-members">
                 <div class="card">
                     <div class="card-content">

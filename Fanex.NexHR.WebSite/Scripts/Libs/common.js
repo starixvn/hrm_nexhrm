@@ -627,6 +627,7 @@ function ajaxLoadingProcess() {
         $('.loading-process').fadeOut(300);
     });
 }
+
 function initAutocomplete(selectorName, selectorId) {
     $(selectorName).autocomplete({
         source: function (request, response) {
@@ -689,4 +690,12 @@ function initAutocomplete(selectorName, selectorId) {
             }
         }
     });
+}
+
+function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value) {
+    return $('<div/>').html(value).text();
 }

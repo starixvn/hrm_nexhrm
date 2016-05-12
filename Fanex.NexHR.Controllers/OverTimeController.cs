@@ -302,7 +302,7 @@
         public ActionResult OvertimeSummary(int? empId, int? teamId, int year)
         {
             int? employeeId = null;
-            if (empId.HasValue && empId.Value > 0)
+            if (empId.HasValue && empId.Value >= 0)
             {
                 employeeId = empId;
             }

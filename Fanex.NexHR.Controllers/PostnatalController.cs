@@ -44,6 +44,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(PostnatalViewModel model)
         {
@@ -91,6 +92,7 @@
             return View(employee);
         }        
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(PostnatalViewModel model)
         {

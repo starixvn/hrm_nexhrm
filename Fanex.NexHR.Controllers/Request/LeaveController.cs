@@ -166,6 +166,7 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
