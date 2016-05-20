@@ -1350,4 +1350,10 @@
   <data name="ResignedDate" xml:space="preserve">
     <value>Resigned Date</value>
   </data>
+  <data name="MemoDetail" xml:space="preserve">
+    <value>Memo Detail</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
 </root>

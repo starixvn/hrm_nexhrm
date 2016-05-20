@@ -31,6 +31,17 @@
             return View();
         }
 
+        public ActionResult Detail(int id)
+        {
+            CompanyEvent model = new CompanyEvent();
+            if (id > 0)
+            {
+                var criteria = new GetEventByIdCriteria() { Id = id };
+                model = eventService.GetById(criteria);
+            }
+            return View(model);
+        }
+
         public JsonResult GetAllEvents()
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);
@@ -91,8 +102,12 @@
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
-            var criteria = new GetEventByIdCriteria() { Id = id };
-            CompanyEvent model = eventService.GetById(criteria);
+            CompanyEvent model = new CompanyEvent();
+            if (id > 0)
+            {
+                var criteria = new GetEventByIdCriteria() { Id = id };
+                model = eventService.GetById(criteria);
+            }
             return View(model);
         }
 

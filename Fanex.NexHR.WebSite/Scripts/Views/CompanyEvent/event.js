@@ -33,7 +33,7 @@ function processMenu(command) {
 function bindingContextMenu() {
     $.contextMenu({
         selector: '.fc-content',
-        trigger: 'left',
+        trigger: 'right',
         build: function ($trigger, e) {
             return {
                 callback: function (key) {
@@ -70,7 +70,7 @@ function initEventCalendar() {
             }
         },
         eventClick: function (event) {
-            eventId = event.id;
+            window.location.href = _global.root + 'companyevent/detail/' + event.id;
         },
         events: function (start, end, timezone, callback) {
             $.ajax({
@@ -124,6 +124,11 @@ function initEventCalendar() {
                             "<td>" + event.location + "</td>" +
                         "</tr>" +
                     "</table>";
+                }
+            });
+            element.bind('mousedown', function (e) {
+                if (e.which == 3) {
+                    eventId = event.id;
                 }
             });
         },

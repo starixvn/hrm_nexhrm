@@ -2014,6 +2014,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to L/R Score &gt;=.
         /// </summary>
         public static string LRScore {
@@ -2154,6 +2163,15 @@ namespace Fanex.NexHR.Resources {
         public static string Memo {
             get {
                 return ResourceManager.GetString("Memo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memo Detail.
+        /// </summary>
+        public static string MemoDetail {
+            get {
+                return ResourceManager.GetString("MemoDetail", resourceCulture);
             }
         }
         

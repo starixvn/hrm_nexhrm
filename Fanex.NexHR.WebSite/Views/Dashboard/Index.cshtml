@@ -109,20 +109,22 @@
                                     <div class="col s3">
                                         <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName" />
                                     </div>
-                                    <div class="col s9 center detail">
-                                        <span class="txt-uppercase">@item.Title</span><br />
-                                        @if (item.FromDate == item.ToDate)
-                                        {
-                                            <span>(@item.FromDate.ToString("dd MMMM, yyyy"))</span>
-                                        }
-                                        else
-                                        {
-                                            <span>
-                                                (@item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM"))
-                                            </span>
-                                        }
+                                    <a class="white-text" href="~/companyevent/detail/@item.Id">
+                                        <div class="col s9 center detail">
+                                            <span class="txt-uppercase">@item.Title</span><br />
+                                            @if (item.FromDate == item.ToDate)
+                                            {
+                                                <span>(@item.FromDate.ToString("dd MMMM, yyyy"))</span>
+                                            }
+                                            else
+                                            {
+                                                <span>
+                                                    (@item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM"))
+                                                </span>
+                                            }
 
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                             }
                         }

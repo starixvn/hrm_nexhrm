@@ -809,6 +809,7 @@
     <Content Include="Views\CompanyEvent\Index.cshtml" />
     <Content Include="Views\CompanyEvent\Create.cshtml" />
     <Content Include="Views\CompanyEvent\Edit.cshtml" />
+    <Content Include="Views\CompanyEvent\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
