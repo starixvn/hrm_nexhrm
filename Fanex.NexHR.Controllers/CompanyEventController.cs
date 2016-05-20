@@ -39,6 +39,7 @@
                 var criteria = new GetEventByIdCriteria() { Id = id };
                 model = eventService.GetById(criteria);
             }
+
             return View(model);
         }
 
@@ -108,6 +109,7 @@
                 var criteria = new GetEventByIdCriteria() { Id = id };
                 model = eventService.GetById(criteria);
             }
+
             return View(model);
         }
 
