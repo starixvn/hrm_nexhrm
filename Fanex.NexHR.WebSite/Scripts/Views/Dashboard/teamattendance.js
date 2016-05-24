@@ -11,8 +11,8 @@ function index() {
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
-    fromDate = $.format.date(new Date(parseInt(fromDate.substr(6))), "dd MMM, yyyy hh:mm");
-    toDate = $.format.date(new Date(parseInt(toDate.substr(6))), "dd MMM, yyyy hh:mm");
+    fromDate = $.format.date(new Date(parseInt(fromDate.substr(6))), "dd MMM, yyyy HH:mm");
+    toDate = $.format.date(new Date(parseInt(toDate.substr(6))), "dd MMM, yyyy HH:mm");
 
     $.ajax({
         url: _global.root + "request/GetRequestDetail",
