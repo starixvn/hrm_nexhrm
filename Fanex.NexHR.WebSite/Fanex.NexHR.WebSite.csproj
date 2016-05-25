@@ -240,16 +240,10 @@
     <Content Include="Content\Images\Dashboard\5.png" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
-    <Content Include="Content\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <Content Include="Content\Views\employee.postnatal.css">
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\employee.postnatal.scss" />
-    <Content Include="Content\site.css.map">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
     <None Include="Content\Views\annualleavebalance.scss" />
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
