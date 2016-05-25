@@ -12,7 +12,7 @@
         public ActionResult Index()
         {
             ViewBag.Employee = this.CurrentUser;
-            return View(RedirectToAction("myspace", "employee"));
+            return View(RedirectToAction("index", "dashboard"));
         }
 
         [AllowAnonymous]
