@@ -38,6 +38,7 @@ $tf*/
 *.css.map
 
 Fanex.NexHR.Controllers/Settings.StyleCop
+WebEssentials-Settings.json
 
 packages/
 Fanex.NexHR.Site/

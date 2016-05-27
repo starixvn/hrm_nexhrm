@@ -340,7 +340,8 @@
             get
             {
                 IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => ((t.TypeId == (int)DashBoardType.MissingCheckInOut || 
+                        t.TypeId == (int)DashBoardType.CheckInOut) && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "-";
                 if (currentMonthMissingCheckInOuts.Count > 0)
@@ -525,12 +526,16 @@
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
-                        results += item.Nickname + " (" + item.Types + " - " + item.Minutes + "'" + ")" + ", ";
+                        results += item.Nickname + "<span class='txt-normal'> (" + item.Types + " " + item.Minutes + "'" + ")</span>" + ", ";
                     }
 
                     if (results.Length > 2)
                     {
                         results = results.Substring(0, results.Length - 2);
+                    }
+                    else
+                    {
+                        results += "-";
                     }
                 }
 

@@ -17,7 +17,7 @@
     .table-custom {
 
         tbody tr td.first-column {
-            text-align: right; 
+            text-align: right;
             width: 170px;
             color: #000;
         }
@@ -36,8 +36,6 @@
     p {
         padding: 1rem 0;
         line-height: inherit;
-
-        
     }
 
     .left-align {
@@ -50,14 +48,23 @@
         width: calc(100% - 230px);
         display: block;
         float: left;
+
         a {
             cursor: text;
         }
     }
+
+    .txt-normal {
+        font-weight: normal;
+    }
+
+    .txt-italic {
+        font-style: italic;
+    }
 }
 
 .todoBlock {
-    background: url(/Content/Images/bg_todolist.jpg) no-repeat  center bottom;
+    background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
     background-size: cover;
 
     .card-body {

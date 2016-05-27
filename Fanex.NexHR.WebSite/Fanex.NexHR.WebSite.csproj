@@ -265,6 +265,9 @@
       <DependentUpon>report.timesheet.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\_monthPicker.scss" />
+    <Content Include="Content\Views\mydashboard.css.map">
+      <DependentUpon>mydashboard.css</DependentUpon>
+    </Content>
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
