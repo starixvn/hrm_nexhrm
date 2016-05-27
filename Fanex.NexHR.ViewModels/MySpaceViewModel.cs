@@ -525,7 +525,7 @@
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
-                        results += item.Nickname + " (" + item.Types + " - " + item.Minutes + "m" + ")" + ", ";
+                        results += item.Nickname + " (" + item.Types + " - " + item.Minutes + "'" + ")" + ", ";
                     }
 
                     if (results.Length > 2)
