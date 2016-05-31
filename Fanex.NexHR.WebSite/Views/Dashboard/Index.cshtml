@@ -114,12 +114,12 @@
                                             <span class="txt-uppercase">@item.Title</span><br />
                                             @if (item.FromDate == item.ToDate)
                                             {
-                                                <span>(@item.FromDate.ToString("dd MMMM, yyyy"))</span>
+                                                <span>@item.FromDate.ToString("dd MMMM, yyyy")</span>
                                             }
                                             else
                                             {
                                                 <span>
-                                                    (@item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM"))
+                                                    @item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM")
                                                 </span>
                                             }
 
