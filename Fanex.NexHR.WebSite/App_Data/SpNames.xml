@@ -36,6 +36,7 @@
       <Mapping DataField="LeaveTypeName" ObjectProperty="Name" />
     </Setting>
     <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_GetLeaderAndHR" SpName="Employee_GetLeaderAndHR" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>

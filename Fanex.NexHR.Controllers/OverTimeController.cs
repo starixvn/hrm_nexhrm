@@ -112,7 +112,7 @@
                 CommandResult result = commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
-                    overtimeService.SendMail("Overtime Notification", model);
+                    overtimeService.SendMail("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else

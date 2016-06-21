@@ -66,6 +66,7 @@
     <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
+    <Compile Include="Employee\GetLeaderAndHRCriteria.cs" />
     <Compile Include="Employee\GetLeaderForStanbyTeamCriteria.cs" />
     <Compile Include="Employee\GetManagementsCriteria.cs" />
     <Compile Include="Calendar\InsertEmployeeCalendarCriteria.cs" />

@@ -89,7 +89,7 @@
         {
             if (model != null)
             {
-                GetLeadersOfEmployeeCriteria getLeaderCriteria = new GetLeadersOfEmployeeCriteria();
+                GetLeaderAndHRCriteria getLeaderCriteria = new GetLeaderAndHRCriteria();
                 GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
 
                 IList<Employee> leaderReceive;

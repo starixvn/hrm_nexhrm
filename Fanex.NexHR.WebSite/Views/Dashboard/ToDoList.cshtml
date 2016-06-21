@@ -35,35 +35,38 @@
 }
 @foreach (var item in Model.PendingRequestsList)
 {
-    switch (item.RequestType.Id)
+    if (item.IsAllowUpdateStatus)
     {
-        case 1:
+        switch (item.RequestType.Id)
+        {
+            case 1:
+                <p class="green-border">
+                    <span class="left-align">Please approve Check In request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
+                    <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
+                        Approve
+                    </a>
+                </p>
+                break;
+            case 2:
             <p class="green-border">
-                <span class="left-align">Please approve Check In request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
+                <span class="left-align">Please approve Check Out request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
                 <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
                     Approve
                 </a>
             </p>
-            break;
-        case 2:
-        <p class="green-border">
-            <span class="left-align">Please approve Check Out request of @item.Requester.NickName:  @Html.Raw(RequestService.ConvertToRequestMessage(item))</span>
-            <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
-                Approve
-            </a>
-        </p>
-            break;
-        default:
-        <p class="orange-border">
-            <span class="text-left">
-                Please approve @item.LeaveType.Name request of @item.Requester.NickName:
-                @Html.Raw(RequestService.ConvertToRequestMessage(item))
-            </span>
-            <i class="mdi mdi-information-outline tooltip" title="@item.Remark"></i>
-            <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
-                Approve
-            </a>
-        </p>
-            break;
+                break;
+            default:
+            <p class="orange-border">
+                <span class="text-left">
+                    Please approve @item.LeaveType.Name request of @item.Requester.NickName:
+                    @Html.Raw(RequestService.ConvertToRequestMessage(item))
+                </span>
+                <i class="mdi mdi-information-outline tooltip" title="@item.Remark"></i>
+                <a class="btn-submit waves-effect waves-light right" onclick="processRequest(@item.Id)">
+                    Approve
+                </a>
+            </p>
+                break;
+        }
     }
 }
