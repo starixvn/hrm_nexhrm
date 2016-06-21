@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DateRangeFilter.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="DateRangeFilter.cs" company=".">
+// Copyright (c) .. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

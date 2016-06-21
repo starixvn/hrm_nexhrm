@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="GetRequestMonitorReportCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// Copyright (c) .. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>

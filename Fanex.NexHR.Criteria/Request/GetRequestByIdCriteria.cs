@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetRequestByIdCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="GetRequestByIdCriteria.cs" company=".">
+// Copyright (c) .. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

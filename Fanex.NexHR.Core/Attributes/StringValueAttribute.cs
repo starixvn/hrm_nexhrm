@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="StringValueAttribute.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="StringValueAttribute.cs" company=".">
+// Copyright (c) .. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
