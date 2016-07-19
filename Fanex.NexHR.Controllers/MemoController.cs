@@ -205,8 +205,15 @@
         [HttpPost]
         public JsonResult DeleteMemo(int id)
         {
+            GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
+            Memo memo = memoService.GetById(getMemoByIdCriteria);
+
             var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
             CommandResult result = commandService.Delete(deleteMemoCriteria);
+            if (result.IsSuccessful && memo.MemoType == 1)
+            {
+                Delete(memo.Contents);
+            }
             return Json(result);
         }
 
@@ -222,6 +229,19 @@
             IList<Memo> memos = memoService.GetAll(criteria);
 
             return Json(memos);
+        }
+
+        private bool Delete(string fileName)
+        {
+            try
+            {
+                System.IO.File.Delete(Server.MapPath("~/" + fileName));
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }

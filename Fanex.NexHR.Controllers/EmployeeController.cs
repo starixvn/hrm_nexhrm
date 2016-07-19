@@ -304,7 +304,6 @@
         }
 
         [AllowAnonymous]
-        [OutputCache(Duration = 604800, VaryByParam = "*")]
         public FileResult Avatar(string id)
         {
             string fileName = "/avatars/avatar.jpg";

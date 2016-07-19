@@ -115,11 +115,11 @@
         </td>
         <td title="Delete">
             {{if MemoType == 1}}
-            <a href="javascript:;" onclick="deleteMemo({{:Id}}, '{{:Contents}}', {{:MemoType}});">
+            <a href="javascript:;" onclick="deleteMemo('{{:Id}}');">
                 <i class='mdi mdi-delete mdi-dark'></i>
             </a>
             {{else}}
-            <a href="javascript:;" onclick="deleteMemo({{:Id}}, '', {{:MemoType}});">
+            <a href="javascript:;" onclick="deleteMemo('{{:Id}}');">
                 <i class='mdi mdi-delete mdi-dark'></i>
             </a>
             {{/if}}

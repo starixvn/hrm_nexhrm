@@ -58,18 +58,5 @@
 
             return pathAttachFiles;
         }
-
-        public bool Delete(string fileName)
-        {
-            try
-            {
-                System.IO.File.Delete(Server.MapPath("~/" + fileName));
-                return true;
-            }
-            catch (System.Exception)
-            {
-                return false;
-            }
-        }
     }
 }

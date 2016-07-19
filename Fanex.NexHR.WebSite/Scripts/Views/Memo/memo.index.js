@@ -7,15 +7,13 @@ function index() {
     return rowIndex++;
 }
 
-function deleteMemo(id, fileName, type) {
+function deleteMemo(id) {
     confirm('Are you sure you want to delete this memo?', function () {
         $.post(_global.root + 'memo/deletememo', { id: id }, function (response) {
             if (response.IsSuccessful) {
                 $('#row_' + id).remove();
                 autoIndex();
-                if (type === 1) {
-                    deleteMemoFile(fileName);
-                }
+                alert("Successfull!");
             }
             else {
                 alert(response.Message);
