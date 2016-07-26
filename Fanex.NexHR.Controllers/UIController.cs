@@ -94,31 +94,45 @@ namespace Fanex.NexHR.Controllers
         public IList<NavigationViewModel> GetNagivationData()
         {
             var navigationItemList = new List<NavigationViewModel>();
-
             var roles = Roles.GetRolesForUser();
             navigationItemList = new List<NavigationViewModel>();
 
-            // populate sitemap data
             SiteMapNode root = SiteMap.RootNode;
-
             foreach (SiteMapNode sectionNode in root.ChildNodes)
             {
-                // section level
-                if (sectionNode.Roles.Count == 0
-                    || this.CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList<string>()))
+                if (CurrentUser.IsSpecialUser)
                 {
-                    var sectionItem = new NavigationViewModel(sectionNode);
-                    navigationItemList.Add(sectionItem);
-
-                    // populate navigation item by section item
-                    sectionItem.Childs = new List<NavigationViewModel>();
-                    foreach (SiteMapNode navNode in sectionNode.ChildNodes)
+                    if (sectionNode.Roles.Contains("SpecialUser"))
                     {
-                        var navItem = new NavigationViewModel(navNode);
-                        if (navNode.Roles == null || navNode.Roles.Count == 0 ||
-                            roles.Any(i => navNode.Roles.Contains(i)))
+                        var sectionItem = new NavigationViewModel(sectionNode);
+                        navigationItemList.Add(sectionItem);
+
+                        sectionItem.Childs = new List<NavigationViewModel>();
+                        foreach (SiteMapNode navNode in sectionNode.ChildNodes)
                         {
-                            sectionItem.Childs.Add(navItem);
+                            var navItem = new NavigationViewModel(navNode);
+                            if (navNode.Roles.Contains("SpecialUser"))
+                            {
+                                sectionItem.Childs.Add(navItem);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList<string>()))
+                    {
+                        var sectionItem = new NavigationViewModel(sectionNode);
+                        navigationItemList.Add(sectionItem);
+
+                        sectionItem.Childs = new List<NavigationViewModel>();
+                        foreach (SiteMapNode navNode in sectionNode.ChildNodes)
+                        {
+                            var navItem = new NavigationViewModel(navNode);
+                            if (roles.Any(i => navNode.Roles.Contains(i)))
+                            {
+                                sectionItem.Childs.Add(navItem);
+                            }
                         }
                     }
                 }

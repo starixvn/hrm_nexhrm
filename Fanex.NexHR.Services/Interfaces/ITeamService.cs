@@ -8,6 +8,8 @@
     {
         Team GetById(GetTeamByIdCriteria criteria);
 
+        IList<Team> Get();
+
         IList<Team> GetAll();
 
         IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria);

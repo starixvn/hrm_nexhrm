@@ -291,7 +291,7 @@
         {
             OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel()
             {
-                Teams = teamService.GetAll(),
+                Teams = teamService.Get(),
                 Year = DateTime.Now.Year
             };
 

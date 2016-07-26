@@ -44,7 +44,7 @@
             {
                 Year = DateTime.Now.Year,
                 EmployeeId = -1,
-                Teams = teamService.GetAll(),
+                Teams = teamService.Get(),
                 ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance()
             };
 
@@ -415,7 +415,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = teamService.GetAll();
+            IList<Team> teams = teamService.Get();
 
             var model = new LeaveConversionDetailViewModel
             {
@@ -557,7 +557,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = teamService.GetAll();
+            IList<Team> teams = teamService.Get();
 
             var model = new LeaveConversionDetailViewModel
             {

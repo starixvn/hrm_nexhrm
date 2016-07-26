@@ -63,7 +63,7 @@
                 DateOption = 0,
                 ExcludeUserDelete = true,
             };
-            empAttendance.Teams = teamService.GetAll();
+            empAttendance.Teams = teamService.Get();
             model.EmployeeAttendanceModel = empAttendance;
 
             model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();

@@ -221,7 +221,7 @@
             var groupExtensions = new List<SelectListItem>();
             if (isInternal)
             {
-                IList<Team> teams = teamService.GetAll();
+                IList<Team> teams = teamService.Get();
                 groupExtensions = teams.Select(x => new SelectListItem
                 {
                     Text = x.Name,

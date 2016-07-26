@@ -51,7 +51,7 @@
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.Teams = teamService.GetAll();
+            model.Teams = teamService.Get();
 
             return View(model);
         }
@@ -62,7 +62,7 @@
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                Teams = teamService.GetAll(),
+                Teams = teamService.Get(),
                 JobTitles = jobTitleService.GetAll()
             };
 

@@ -29,6 +29,8 @@
 
         public bool IsDeleted { get; set; }
 
+        public bool IsSpecialUser { get; set; }
+
         public string Phone { get; set; }
 
         public byte? Gender { get; set; }

@@ -27,9 +27,24 @@
             return team;
         }
 
-        public IList<Team> GetAll()
+        public IList<Team> Get()
         {
             var criteria = new GetTeamCriteria();
+            IList<Team> teams = null;
+            if (criteria.IsValid())
+            {
+                teams = teamRepository.GetAll(criteria);
+            }
+
+            return teams ?? new List<Team>();
+        }
+
+        public IList<Team> GetAll()
+        {
+            var criteria = new GetAllTeamCriteria() 
+            {
+                IncludeSpecialTeam = true
+            };
             IList<Team> teams = null;
             if (criteria.IsValid())
             {

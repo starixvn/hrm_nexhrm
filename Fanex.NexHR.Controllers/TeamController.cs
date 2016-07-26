@@ -33,7 +33,7 @@
 
         public ActionResult Index()
         {
-            IList<Team> teams = teamService.GetAll();
+            IList<Team> teams = teamService.Get();
 
             return View(teams);
         }
@@ -44,7 +44,7 @@
             var model = new TeamViewModel
             {
                 Departments = departmentService.GetAll(),
-                Teams = teamService.GetAll()
+                Teams = teamService.Get()
             };
 
             return View(model);
@@ -83,7 +83,7 @@
                 }
 
                 model.Departments = departmentService.GetAll();
-                model.Teams = teamService.GetAll();
+                model.Teams = teamService.Get();
             }
 
             return View(model);
@@ -115,7 +115,7 @@
             }
 
             model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetAll().Where(p => p.Id != id).ToList();
+            model.Teams = teamService.Get().Where(p => p.Id != id).ToList();
 
             return View(model);
         }
@@ -160,7 +160,7 @@
             }
 
             model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetAll().Where(p => p.Id != model.Id).ToList();
+            model.Teams = teamService.Get().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

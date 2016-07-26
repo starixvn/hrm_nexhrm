@@ -50,11 +50,11 @@
             {
                 JobTitleId = jobTitleId,
                 JobTitles = jobTitleService.GetAll(),
-                Teams = teamService.GetAll()
+                Teams = teamService.Get()
             };
 
             model.JobTitles = jobTitleService.GetAll();
-            model.Teams = teamService.GetAll();
+            model.Teams = teamService.Get();
 
             return View(model);
         }
