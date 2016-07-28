@@ -214,6 +214,7 @@
             {
                 Delete(memo.Contents);
             }
+
             return Json(result);
         }
 

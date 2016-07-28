@@ -86,7 +86,6 @@ namespace Fanex.NexHR.Controllers
                             filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
                         }
                     }
-                    
                 }
             }
         }
