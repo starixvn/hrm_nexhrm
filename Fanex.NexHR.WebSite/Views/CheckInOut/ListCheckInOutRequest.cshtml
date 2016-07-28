@@ -28,7 +28,7 @@
                         @request.Requester.Team.Code
                     </td>
                     <td>@request.RequestType.ToString()</td>
-                    <td>@request.FromShift.Name.ToString()</td>
+                    <td>@request.FromShift.Name</td>
                     <td>@request.FromDate.ToShortFormatedDate()</td>
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
