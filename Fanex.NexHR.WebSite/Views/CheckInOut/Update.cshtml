@@ -62,8 +62,7 @@
                                         <div class="datepicker-button left select--s">
                                             @Html.DatePickerFor(model => model.ForDate,
                                                 Utilities.RequestAvailableFromDate,
-                                                DateTime.Now,
-                                                unavailDates: Model.UnavailDates)
+                                                DateTime.Now)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                         <div class="col m-l--m">
