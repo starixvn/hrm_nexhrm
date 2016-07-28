@@ -118,6 +118,7 @@
         {
             var criteria = new GetRequestCriteria()
             {
+                ActorId = CurrentUser.Id,
                 Role = (short)Role.AssistantLeader,
                 FromDate = DateTime.Now.AddMonths(-3),
                 ToDate = DateTime.Now,
