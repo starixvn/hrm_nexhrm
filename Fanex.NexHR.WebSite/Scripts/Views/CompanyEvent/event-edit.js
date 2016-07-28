@@ -1,4 +1,7 @@
-﻿function initTimepicker(control) {
+﻿'use strict';
+/*global _global:false*/
+
+function initTimepicker(control) {
     control.timepicker({
         'step': 15,
         'disableTimeRanges': [
@@ -7,9 +10,7 @@
         'timeFormat': 'H:i'
     });
     control.on('changeTime', function () {
-        var value = control.timepicker('getTime');
-        //var value = control.val();
-        //alert(value);
+        control.timepicker('getTime');
     });
 }
 

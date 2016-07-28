@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, noInformation, autoIndex, deleteMemoFile, formatJsonDate, isHRRole, floatThead */
+﻿/*global _global, _messages, noInformation, autoIndex, formatJsonDate, isHRRole, floatThead */
 /* exported index, deleteMemo*/
 'use strict';
 

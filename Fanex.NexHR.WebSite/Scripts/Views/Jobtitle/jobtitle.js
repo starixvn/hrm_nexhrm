@@ -182,8 +182,6 @@ $(function () {
 });
 
 $(document).ready(function () {
-    var enable = true;
-
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);

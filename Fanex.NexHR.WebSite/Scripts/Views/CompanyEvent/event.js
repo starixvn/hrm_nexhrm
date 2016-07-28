@@ -113,7 +113,7 @@ function initEventCalendar() {
                             "<td colspan='2' class='primary-color txt-bold'>" + event.title + "</td>" +
                         "</tr>" +
                         "<tr>" +
-                            "<td colspan='2'>" + (from == "0:00" ? "" : from) + " - " + (to == "0:00" ? "" : to) + "</td>" +
+                            "<td colspan='2'>" + (from === "0:00" ? "" : from) + " - " + (to === "0:00" ? "" : to) + "</td>" +
                         "</tr>" +
                         "<tr>" +
                             "<td>" + 'Creator:' + "</td>" +
@@ -127,7 +127,7 @@ function initEventCalendar() {
                 }
             });
             element.bind('mousedown', function (e) {
-                if (e.which == 3) {
+                if (e.which === 3) {
                     eventId = event.id;
                 }
             });

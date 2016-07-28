@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, getParam, floatThead, _messages, noInformation, formatJsonDate*/
+/*global _global, getParam, floatThead, _messages, noInformation, formatJsonDate, htmlEncode*/
 /* exported index, enable*/
 
 var rowIndex = 1,

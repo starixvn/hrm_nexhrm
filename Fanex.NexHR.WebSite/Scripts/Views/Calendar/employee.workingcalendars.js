@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global:false, initDatePicker*/
+/*global _global:false, initDatePicker, initAutocomplete*/
 /*exported initMonthPick*/
 
 function initMonthPick() {
