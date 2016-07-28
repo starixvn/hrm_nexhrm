@@ -105,8 +105,7 @@
             return PartialView("ToDoList", model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
-        public IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
+        private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
         {
             GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria()
             {
@@ -115,8 +114,7 @@
             return employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
-        [Authorize(Roles = "SpecialUser")]
-        public IList<RequestEntity> GetPendingRequest()
+        private IList<RequestEntity> GetPendingRequest()
         {
             var criteria = new GetRequestCriteria()
             {
