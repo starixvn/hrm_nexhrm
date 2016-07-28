@@ -34,11 +34,13 @@
             this.commandService = commandService ?? new CommandService();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult ListLeaveRequest(int year)
         {
             var criteria = new GetRequestCriteria()
@@ -59,6 +61,7 @@
             return PartialView(leaveRequests);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Create()
         {
             var model = new LeaveRequestViewModel
@@ -76,6 +79,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
@@ -101,16 +105,18 @@
 
                     CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                     model.Id = criteria.Id;
-                    if (result.IsSuccessful)
+                    if (result.Code == 0 || result.Code == -1)
                     {
                         ViewBag.Requested = true;
-                        model.IsEdit = false;
-                        model.GetTemplatePath();
-
-                        Task.Factory.StartNew(() =>
+                        if (result.Code == 0)
                         {
-                            requestService.SendMailForLeave(model);
-                        });
+                            model.IsEdit = false;
+                            model.GetTemplatePath();
+                            Task.Factory.StartNew(() =>
+                            {
+                                requestService.SendMailForLeave(model);
+                            });
+                        }
                     }
                     else
                     {
@@ -141,6 +147,7 @@
             return model;
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria() { Id = id };
@@ -166,6 +173,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
@@ -194,16 +202,18 @@
                 };
 
                 CommandResult result = commandService.Update(criteria);
-                if (result.IsSuccessful)
+                if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Updated = true;
-                    model.IsEdit = true;
-                    model.GetTemplatePath();
-
-                    Task.Factory.StartNew(() =>
+                    if (result.Code == 0)
                     {
-                        requestService.SendMailForLeave(model);
-                    });
+                        model.IsEdit = true;
+                        model.GetTemplatePath();
+                        Task.Factory.StartNew(() =>
+                        {
+                            requestService.SendMailForLeave(model);
+                        });
+                    }
                 }
                 else
                 {

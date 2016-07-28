@@ -38,6 +38,9 @@
         /// Project Manager role.
         /// </summary>
         [StringValue("PM")]
-        PM = 5
+        PM = 5,
+
+        [StringValue("SpecialUser")]
+        SpecialUser = 6
     }
 }

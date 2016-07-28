@@ -39,6 +39,7 @@ namespace Fanex.NexHR.Controllers
         /// Action to render header.
         /// </summary>
         /// <returns>Action Result.</returns>
+        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public ActionResult Header()
         {
@@ -67,6 +68,7 @@ namespace Fanex.NexHR.Controllers
             return PartialView(this.CurrentUser);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public ActionResult GlobalScript()
         {
@@ -74,6 +76,7 @@ namespace Fanex.NexHR.Controllers
             return PartialView();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public PartialViewResult NavBar()
         {

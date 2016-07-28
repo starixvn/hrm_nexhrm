@@ -26,11 +26,13 @@
             this.eventService = eventService ?? new CompanyEventService();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Detail(int id)
         {
             CompanyEvent model = new CompanyEvent();
@@ -43,6 +45,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public JsonResult GetAllEvents()
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);

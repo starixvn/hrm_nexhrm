@@ -33,6 +33,8 @@ namespace Fanex.NexHR.Criteria.Request
 
         public int? Status { get; set; }
 
+        public int ActorId { get; set; }
+
         [SpParam(SqlParamName = "excludedEmpID")]
         public int? ExcludeEmployeeId { get; set; }
 

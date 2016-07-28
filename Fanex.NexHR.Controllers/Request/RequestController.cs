@@ -40,7 +40,7 @@
             this.commandService = commandService ?? new CommandService();
         }
 
-        [Authorize(Roles = "AssistantLeader,HR")]
+        [Authorize(Roles = "AssistantLeader,HR,SpecialUser")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
@@ -53,7 +53,7 @@
             return PartialView(request);
         }
 
-        [Authorize(Roles = "AssistantLeader")]
+        [Authorize(Roles = "AssistantLeader,SpecialUser")]
         public ActionResult Member(RequestViewModel request)
         {
             if (request != null)
@@ -95,7 +95,7 @@
         }
 
         [ValidateInput(false)]
-        [Authorize(Roles = "AssistantLeader")]
+        [Authorize(Roles = "AssistantLeader,SpecialUser")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel request)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
@@ -222,6 +222,7 @@
             return PartialView("AllRequest", entityList);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult ViewHistory(long requestId, int requestType)
         {
             var criteria = new GetRequestHistoryCriteria
@@ -286,6 +287,7 @@
         {
             var criteria = new GetRequestCriteria()
             {
+                ActorId = CurrentUser.Id,
                 Role = role,
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,

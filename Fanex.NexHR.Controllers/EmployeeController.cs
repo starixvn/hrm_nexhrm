@@ -303,6 +303,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
@@ -392,6 +393,7 @@
             }
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Birthday(int month = 0)
         {
             IEnumerable<Employee> employees = GetEmployees();
@@ -410,6 +412,7 @@
             return View(sortedEmployees);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult MyProfile()
         {
             var criteria = new GetEmployeeByIdCriteria()

@@ -45,7 +45,8 @@
             this.notificationService = notificationService ?? new NotificationService();
             this.lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
         }
-
+         
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria()
@@ -92,6 +93,7 @@
             return lstEmployee;
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult GetTodoList(int? employeeId)
         {
             ToDoViewModel model = new ToDoViewModel()
@@ -103,6 +105,7 @@
             return PartialView("ToDoList", model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
         {
             GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria()
@@ -112,6 +115,7 @@
             return employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public IList<RequestEntity> GetPendingRequest()
         {
             var criteria = new GetRequestCriteria()
@@ -132,6 +136,7 @@
             return entityList;
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria() { EmpId = employeeId };
@@ -140,6 +145,7 @@
             return PartialView("_Notification", noti);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult GetTeamWorkload()
         {
             GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria()

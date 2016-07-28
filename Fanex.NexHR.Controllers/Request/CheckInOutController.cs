@@ -34,11 +34,13 @@
             this.commandService = commandService ?? new CommandService();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult ListCheckInOutRequest(int year)
         {
             ViewBag.Year = year;
@@ -61,6 +63,7 @@
             return PartialView(checkInOutRequests);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Create(short? type = 1, DateTime? date = null)
         {
             CheckInOutRequestViewModel viewModel = new CheckInOutRequestViewModel() 
@@ -81,6 +84,7 @@
             return View(viewModel);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
@@ -105,16 +109,18 @@
                     CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
                     model.Id = criteria.Id;
 
-                    if (result.IsSuccessful)
+                    if (result.Code == 0 || result.Code == -1)
                     {
                         ViewBag.Requested = true;
-
-                        model.IsEdit = false;
-                        model.GetTemplatePath();
-                        Task.Factory.StartNew(() =>
+                        if (result.Code == 0)
                         {
-                            requestService.SendMailForCheckInOut(model);
-                        });
+                            model.IsEdit = false;
+                            model.GetTemplatePath();
+                            Task.Factory.StartNew(() =>
+                            {
+                                requestService.SendMailForCheckInOut(model);
+                            });
+                        }
                     }
                     else
                     {
@@ -132,6 +138,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria() { Id = id };
@@ -160,6 +167,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "SpecialUser")]
         [HttpPost]
         public ActionResult Update(CheckInOutRequestViewModel model)
         {
@@ -186,16 +194,18 @@
 
                 CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
 
-                if (result.IsSuccessful)
+                if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Updated = true;
-
-                    model.IsEdit = true;
-                    model.GetTemplatePath();
-                    Task.Factory.StartNew(() => 
-                    { 
-                        requestService.SendMailForCheckInOut(model); 
-                    });
+                    if (result.Code == 0)
+                    {
+                        model.IsEdit = true;
+                        model.GetTemplatePath();
+                        Task.Factory.StartNew(() =>
+                        {
+                            requestService.SendMailForCheckInOut(model);
+                        });
+                    }
                 }
                 else
                 {
