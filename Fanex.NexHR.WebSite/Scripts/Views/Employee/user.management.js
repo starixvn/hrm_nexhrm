@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global _global, getParam, floatThead, _messages, noInformation, formatJsonDate, htmlEncode*/
+/*global _global, getParam, floatThead, _messages, noInformation, formatJsonDate*/
 /* exported index, enable*/
 
 var rowIndex = 1,
@@ -172,8 +172,7 @@ function eventExportExcel(jobTitleId) {
 }
 
 $(document).ready(function () {
-    var enable = null,
-        jobTitleId = $('#JobTitleId').val();
+    var jobTitleId = $('#JobTitleId').val();
 
     $("#JobTitleId").val(jobTitleId);
     $('#JobTitleId').material_select(); // jshint ignore:line
