@@ -38,6 +38,10 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                 {
                     cell.SetCellValue((long)value);
                 }
+                else if (value is float)
+                {
+                    cell.SetCellValue((float)value);
+                }
                 else if (value is double)
                 {
                     cell.SetCellValue((double)value);

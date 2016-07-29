@@ -112,15 +112,16 @@
                 Nick = totalWorkingHours.Employee.NickName,
                 Team = totalWorkingHours.Employee.Team.Code,
                 WorkingDay = totalWorkingHours.WorkingDay,
-                ActualWorkingDay = totalWorkingHours.ActualWorkingDay.ToString(),
-                PaidLeave = totalWorkingHours.PaidLeave.ToString(),
-                UnpaidLeave = totalWorkingHours.UnpaidLeave.ToString(),
-                SickLeave = totalWorkingHours.SickLeave.ToString(),
-                AccidentLaborLeave = totalWorkingHours.AccidentLaborLeave.ToString(),
-                LateIn = totalWorkingHours.LateIn.ToString(),
-                EarlyOut = totalWorkingHours.EarlyOut.ToString(),
-                TotalHours = totalWorkingHours.TotalHours.ToString("#.##"),
-                AverageHours = totalWorkingHours.AverageHours.ToString("#.##")
+                ActualWorkingDay = totalWorkingHours.ActualWorkingDay,
+                BusinessTrip = totalWorkingHours.BusinessTripLeave,
+                PaidLeave = totalWorkingHours.PaidLeave,
+                InsuranceLeave = totalWorkingHours.InsuranceLeave,
+                UnpaidLeave = totalWorkingHours.UnpaidLeave,
+                AccidentLaborLeave = totalWorkingHours.AccidentLaborLeave,
+                LateIn = totalWorkingHours.LateIn,
+                EarlyOut = totalWorkingHours.EarlyOut,
+                TotalHours = totalWorkingHours.TotalHours,
+                AverageHours = totalWorkingHours.AverageHours
             };
             rowIndex++;
 

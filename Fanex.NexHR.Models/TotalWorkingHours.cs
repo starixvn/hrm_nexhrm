@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="TotalWorkingHours.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
-    /// <summary>
-    /// Total working hours.
-    /// </summary>
     public class TotalWorkingHours
     {
         public Employee Employee { get; set; }
@@ -20,11 +8,13 @@ namespace Fanex.NexHR.Models
 
         public float ActualWorkingDay { get; set; }
 
+        public float BusinessTripLeave { get; set; }
+
         public float PaidLeave { get; set; }
 
-        public float UnpaidLeave { get; set; }
+        public float InsuranceLeave { get; set; }
 
-        public float SickLeave { get; set; }
+        public float UnpaidLeave { get; set; }
 
         public float AccidentLaborLeave { get; set; }
 

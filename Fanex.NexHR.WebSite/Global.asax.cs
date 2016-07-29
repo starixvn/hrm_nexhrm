@@ -32,14 +32,17 @@ namespace Fanex.NexHR.WebSite
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception ex = Server.GetLastError().GetBaseException();
-            string message = ex.Message +
-                    "\r\nSource: " + ex.Source +
-                    "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-                    "\r\nTargetSite: " + ex.TargetSite +
-                    "\r\nStackTrace: " + ex.StackTrace;
+            if (!Request.IsLocal)
+            {
+                Exception ex = Server.GetLastError().GetBaseException();
+                string message = ex.Message +
+                        "\r\nSource: " + ex.Source +
+                        "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
+                        "\r\nTargetSite: " + ex.TargetSite +
+                        "\r\nStackTrace: " + ex.StackTrace;
 
-            LogService.Error(message);
+                LogService.Error(message);
+            }
         }
     }
 }

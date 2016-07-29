@@ -309,20 +309,20 @@ function initEventForSubGroupAndLeaderGroup() {
             $(this).prop('checked', false);
         }
 
-        if (!$(this).prop('checked')) {
-            $('#LeaderGroupsArray' + id).prop('checked', false);
-        }
+        //if (!$(this).prop('checked')) {
+        //    $('#LeaderGroupsArray' + id).prop('checked', false);
+        //}
     });
 
-    $('input.LeaderGroupsArray').on('change', function () {
-        var id = $(this).val(),
-            teamId = $('#TeamId').val();
+    //$('input.LeaderGroupsArray').on('change', function () {
+    //    var id = $(this).val(),
+    //        teamId = $('#TeamId').val();
 
-        if (id !== teamId && $('#SubGroupArray' + id).prop('checked') === false) {
-            $(this).prop('checked', false);
-            alert('Teams\' leaders receive request must be the main team or other team(s)');
-        }
-    });
+    //    if (id !== teamId && $('#SubGroupArray' + id).prop('checked') === false) {
+    //        $(this).prop('checked', false);
+    //        alert('Teams\' leaders receive request must be the main team or other team(s)');
+    //    }
+    //});
 }
 
 function initEventForUpdateToeic() {

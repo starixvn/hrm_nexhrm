@@ -87,9 +87,10 @@
                                             <th>@Labels.Team</th>
                                             <th>@Labels.WorkigDay</th>
                                             <th>@Labels.ActualWorkingDay</th>
+                                            <th>@Labels.BusinessTrip</th>
                                             <th>@Labels.PaidLeave</th>
+                                            <th>Insurance Leave</th>
                                             <th>@Labels.UnpaidLeave</th>
-                                            <th>@Labels.SickLeave</th>
                                             <th>@Labels.AccidentLaborLeave</th>
                                             <th>@Labels.LateIn</th>
                                             <th>@Labels.EarlyOut</th>
@@ -121,7 +122,9 @@
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
         <td>{{:WorkingDay}}</td>
         <td>{{:ActualWorkingDay}}</td>
+        <td>{{:BusinessTripLeave.toFixed(1)}}</td>
         <td>{{:PaidLeave.toFixed(1)}}</td>
+        <td>{{:InsuranceLeave.toFixed(1)}}</td>
         <td id="unpaidLeave">
             {{if ~isHRRole}}
             <form id="form" style="display:none;">
@@ -143,15 +146,6 @@
             </a>
             {{else}}
             {{:UnpaidLeave.toFixed(1)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ~isHRRole && SickLeave > 0}}
-            <a class="SickLeave" href="javascript:;">
-                {{:SickLeave.toFixed(1)}}
-            </a>
-            {{else}}
-            {{:SickLeave.toFixed(1)}}
             {{/if}}
         </td>
         <td>
