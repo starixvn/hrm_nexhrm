@@ -83,7 +83,7 @@ function query(isFirstLoad) {
 
     //if no user is selected, clear the empId also
     if ($('#Employee').val() === '') {
-        $('#EmpId').val('');
+        $('#EmployeeId').val('');
     }
 
     $.ajax({
@@ -123,11 +123,11 @@ function initExportExcel() {
     $('#exportExcel').on('click', function (evt) {
         evt.preventDefault();
         if ($('#Employee').val() === '') {
-            $('#EmpId').val('');
+            $('#EmployeeId').val('');
         }
 
         window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
-            '&empId=' + $('#EmpId').val() + '&groupId=' + $('#GroupId').val() +
+            '&empId=' + $('#EmployeeId').val() + '&groupId=' + $('#GroupId').val() +
             '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete').prop('checked');
     });
 }
