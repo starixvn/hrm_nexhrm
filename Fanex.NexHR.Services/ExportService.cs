@@ -24,12 +24,10 @@
             writer.WriteRow(0, new object[] { reportTitle });
 
             // Fill report header.
-            writer.CopyRows(1, 2);
-
+            writer.CopyRows(0, 4);
             FillContentRowTotalWorkingHours(listTotalWorkingHours, ref writer);
-            writer.AutosizeColumns(15);
-            writer.CreateFreezePane(0, 3);
 
+            writer.CreateFreezePane(0, 4);
             writer.Render();
         }
 
@@ -92,11 +90,11 @@
 
             if ((rowIndex - 1) % 2 == 0)
             {
-                writer.WriteRow(4, record);
+                writer.WriteRow(5, record);
             }
             else
             {
-                writer.WriteRow(3, record);
+                writer.WriteRow(4, record);
             }
         }
 
@@ -113,11 +111,11 @@
                 Team = totalWorkingHours.Employee.Team.Code,
                 WorkingDay = totalWorkingHours.WorkingDay,
                 ActualWorkingDay = totalWorkingHours.ActualWorkingDay,
-                BusinessTrip = totalWorkingHours.BusinessTripLeave,
+                AnnualLeave = totalWorkingHours.AnnualLeave,
                 PaidLeave = totalWorkingHours.PaidLeave,
+                SickLeave = totalWorkingHours.SickLeave,
                 InsuranceLeave = totalWorkingHours.InsuranceLeave,
                 UnpaidLeave = totalWorkingHours.UnpaidLeave,
-                AccidentLaborLeave = totalWorkingHours.AccidentLaborLeave,
                 LateIn = totalWorkingHours.LateIn,
                 EarlyOut = totalWorkingHours.EarlyOut,
                 TotalHours = totalWorkingHours.TotalHours,

@@ -20,21 +20,28 @@ function bindingHourAndMinute() {
 //this function for load Edit
 function getShiftByDate() {
     var empId = parseInt($('#EmployeeId').val());
-
     if (empId > 0) {
-        $.post(_global.root + 'shift/getshiftbydate', { employeeId: empId, date: $('#ForDate').val() },
-        function (data) {
-            if (data != null) {
-                $('#shiftname').text(data.DisplayName);
-                $('#Shift').val(data.DisplayName);
-                $('#InTime').val(data.BeginCheckInTime);
-                $('#OutTime').val(data.BeginCheckOutTime);
-                $('input[type=submit]').show();
-                bindingHourAndMinute();
-            } else {
+        $.ajax({
+            url: _global.root + 'shift/getshiftbydate',
+            type: 'POST',
+            dataType: 'json',
+            data: { employeeId: empId, date: $('#ForDate').val() },
+            success: function (data) {
+                if (data != null) {
+                    $('#shiftname').text(data.DisplayName);
+                    $('#Shift').val(data.DisplayName);
+                    $('#InTime').val(data.BeginCheckInTime);
+                    $('#OutTime').val(data.BeginCheckOutTime);
+                    $('input[type=submit]').show();
+                    bindingHourAndMinute();
+                } else {
+                    $('#shiftname').text(_messages.notAvailable);
+                    $('#Shift').val(_messages.notAvailable);
+                }
+            },
+            error: function () {
                 $('#shiftname').text(_messages.notAvailable);
                 $('#Shift').val(_messages.notAvailable);
-                $('input[type=submit]').hide();
             }
         });
     }

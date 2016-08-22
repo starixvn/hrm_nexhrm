@@ -80,22 +80,26 @@
                                 <table id="data" class="table bordered striped highlight table-custom centered">
                                     <thead>
                                         <tr>
-                                            <th>@Labels.SymbolCount</th>
-                                            <th>@Labels.Code</th>
-                                            <th>@Labels.FullName</th>
-                                            <th>@Labels.Nick</th>
-                                            <th>@Labels.Team</th>
-                                            <th>@Labels.WorkigDay</th>
-                                            <th>@Labels.ActualWorkingDay</th>
-                                            <th>@Labels.BusinessTrip</th>
-                                            <th>@Labels.PaidLeave</th>
-                                            <th>Insurance Leave</th>
-                                            <th>@Labels.UnpaidLeave</th>
-                                            <th>@Labels.AccidentLaborLeave</th>
-                                            <th>@Labels.LateIn</th>
-                                            <th>@Labels.EarlyOut</th>
-                                            <th>@Labels.TotalHours</th>
-                                            <th>@Labels.AverageHours</th>
+                                            <th rowspan="2">@Labels.SymbolCount</th>
+                                            <th rowspan="2">@Labels.Code</th>
+                                            <th rowspan="2">@Labels.FullName</th>
+                                            <th rowspan="2">@Labels.Nick</th>
+                                            <th rowspan="2">@Labels.Team</th>
+                                            <th rowspan="2">@Labels.WorkigDay</th>
+                                            <th rowspan="2">@Labels.ActualWorkingDay</th>
+                                            <th colspan="2">For Company</th>
+                                            <th colspan="2">For Insurance</th>
+                                            <th rowspan="2">@Labels.UnpaidLeave</th>
+                                            <th rowspan="2">@Labels.LateIn</th>
+                                            <th rowspan="2">@Labels.EarlyOut</th>
+                                            <th rowspan="2">@Labels.TotalHours</th>
+                                            <th rowspan="2">@Labels.AverageHours</th>
+                                        </tr>
+                                        <tr>
+                                            <th>@Labels.AnnualLeave</th>
+                                            <th>@Labels.Others</th>
+                                            <th>@Labels.SickLeave</th>
+                                            <th>@Labels.Others</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -122,8 +126,9 @@
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
         <td>{{:WorkingDay}}</td>
         <td>{{:ActualWorkingDay}}</td>
-        <td>{{:BusinessTripLeave.toFixed(1)}}</td>
+        <td>{{:AnnualLeave.toFixed(1)}}</td>
         <td>{{:PaidLeave.toFixed(1)}}</td>
+        <td>{{:SickLeave.toFixed(1)}}</td>
         <td>{{:InsuranceLeave.toFixed(1)}}</td>
         <td id="unpaidLeave">
             {{if ~isHRRole}}
@@ -146,15 +151,6 @@
             </a>
             {{else}}
             {{:UnpaidLeave.toFixed(1)}}
-            {{/if}}
-        </td>
-        <td>
-            {{if ~isHRRole && AccidentLaborLeave > 0}}
-            <a class="AccidentLaborLeave" href="javascript:;">
-                {{:AccidentLaborLeave.toFixed(1)}}
-            </a>
-            {{else}}
-            {{:AccidentLaborLeave.toFixed(1)}}
             {{/if}}
         </td>
         <td>{{:~displayMinuteForTotalWorking(LateIn)}}</td>

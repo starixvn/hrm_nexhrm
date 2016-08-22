@@ -104,6 +104,12 @@ function processRequest(requestId) {
 function displayTotalWorkingHour(value) {
     var display = '',
         hour = Math.floor(value);
+    var minute = Math.round((value - hour) * 60);
+    if (minute >= 60)
+    {
+        hour = hour + 1;
+        minute = 0;
+    }
 
     if (hour >= 0) {
         display = (hour < 10 ? '0' + hour + ':' : hour + ':');

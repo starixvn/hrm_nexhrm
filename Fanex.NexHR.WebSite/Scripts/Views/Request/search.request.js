@@ -57,7 +57,6 @@ $(document).ready(function () {
                                     shiftChange();
                                     break;
                                 case 2: // check in out
-                                    $("#ForDate").attr("disabledDate", response.join(","));
                                     $("#ForDate").change();
                                     break;
                             }

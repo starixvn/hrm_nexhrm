@@ -8,15 +8,15 @@
 
         public float ActualWorkingDay { get; set; }
 
-        public float BusinessTripLeave { get; set; }
+        public float AnnualLeave { get; set; }
 
         public float PaidLeave { get; set; }
+
+        public float SickLeave { get; set; }
 
         public float InsuranceLeave { get; set; }
 
         public float UnpaidLeave { get; set; }
-
-        public float AccidentLaborLeave { get; set; }
 
         public int LateIn { get; set; }
 
