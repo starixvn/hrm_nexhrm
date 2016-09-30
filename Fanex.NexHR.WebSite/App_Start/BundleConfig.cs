@@ -9,6 +9,7 @@
         public static void RegisterBundles()
         {
             var bundles = BundleTable.Bundles;
+            bundles.UseCdn = true;
 
             BuildBundleForCommon(bundles);
 
@@ -374,6 +375,9 @@
 
         private static void BuildBundleForDashboard(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/apiclientcalendarjs", "https://apis.google.com/js/client.js?onload=checkAuth").Include(
+                "~/Scripts/Views/Dashboard/client.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                 "~/Scripts/Libs/slick.min.js",
                 "~/Scripts/Views/Dashboard/employee.dashboard.js",
@@ -383,7 +387,6 @@
                 "~/Scripts/Libs/gcal.js",
                 "~/Scripts/Views/Dashboard/calendar.js",
                 "~/Scripts/Views/Dashboard/googleAPI.js",
-                "~/Scripts/Views/Dashboard/client.js",
                 "~/Scripts/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard2js").Include(

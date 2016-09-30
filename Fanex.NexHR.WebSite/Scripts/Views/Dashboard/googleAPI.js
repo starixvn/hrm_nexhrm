@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var CLIENT_ID = '440830040122-43po943b2doq86690jaoao7db7h0arlv.apps.googleusercontent.com';
+var CLIENT_ID = '767140646524-obgpj03hqhcsa1t2eta7j89r3j2f882j.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 var eventList = [];
 var isAuthenGG = false;
