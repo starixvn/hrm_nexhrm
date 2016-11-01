@@ -50,7 +50,8 @@ $(document).ready(function () {
     $('#btnAdd').click(function () {
         confirm('Are you sure you add calendars?', function () {
             $.post(_global.root + 'calendar/InsertEmployeeCalendar',
-                { EmployeeId: $.trim($("#Employee").val()).length > 0 ? $("#EmployeeId").val() : null,
+                {
+                    AddEmployeeId: $.trim($("#AddEmployee").val()).length > 0 ? $("#AddEmployeeId").val() : null,
                     FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
                 },
                 function (response) {

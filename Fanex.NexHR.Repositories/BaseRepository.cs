@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
 
     public class BaseRepository : IBaseRepository
     {
@@ -57,11 +57,6 @@
             };
         }
 
-        /// <summary>
-        /// Function to set new value from Hash table to Criteria.
-        /// </summary>
-        /// <param name="criteria">The Criteria.</param>
-        /// <param name="hash">The Hash table.</param>
         private void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
         {
             IEnumerable<PropertyInfo> properties = criteria.GetType().GetProperties().Where(
