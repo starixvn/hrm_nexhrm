@@ -12,7 +12,7 @@
     {
         private const int _DEFAULT_TIMER_INTERVAL = 300;
         private static readonly ILog _LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly MailReminderService mailReminderService = new MailReminderService();
+        private static readonly MailReminderService MailReminderService = new MailReminderService();
 
         private Timer _updateCounterTimer = null;
         private bool _isBusy = false;
@@ -47,9 +47,9 @@
                     _isBusy = true;
                     var today = DateTime.Now;
 
-                    mailReminderService.ReminderForgotCheckInOut(today);
+                    MailReminderService.ReminderForgotCheckInOut(today);
 
-                    mailReminderService.ReminderBirthdayAndFirstWorkingday(today);
+                    MailReminderService.ReminderBirthdayAndFirstWorkingday(today);
 
                     _isBusy = false;
                 }

@@ -33,8 +33,8 @@
 
         private static readonly List<string> _IgnoreList = new List<string> { "sean", "joe" };
         
-        public static bool _checkSendMailCheckInOut = false;
-        public static bool _checkSendMailReminderBirthday = false;
+        private bool checkSendMailCheckInOut = false;
+        private bool checkSendMailReminderBirthday = false;
 
         public void ReminderForgotCheckInOut(DateTime today)
         {
@@ -42,17 +42,17 @@
             {
                 if (today.Hour >= int.Parse(_TimeSendMailForgotCheckInOut) && today.Hour < (int.Parse(_TimeSendMailForgotCheckInOut) + 1))
                 {
-                    if (!_checkSendMailCheckInOut)
+                    if (!checkSendMailCheckInOut)
                     {
                         _LOG.Info("CheckInOut Reminder started at " + DateTime.Now.ToString());
                         SendMailReminderForgotCheckInOut();
                         _LOG.Info("CheckInOut Reminder stopped at " + DateTime.Now.ToString());
-                        _checkSendMailCheckInOut = true;
+                        checkSendMailCheckInOut = true;
                     }
                 }
                 else
                 {
-                    _checkSendMailCheckInOut = false;
+                    checkSendMailCheckInOut = false;
                 }
             }
         }
@@ -66,7 +66,7 @@
                 {
                     if (today.Hour >= int.Parse(_TimeSendMailReminderBirthday) && today.Hour < (int.Parse(_TimeSendMailReminderBirthday) + 1))
                     {
-                        if (!_checkSendMailReminderBirthday)
+                        if (!checkSendMailReminderBirthday)
                         {
                             _LOG.Info("Birthday and First working day Reminder started at " + DateTime.Now.ToString());
 
@@ -78,12 +78,12 @@
                             }
 
                             _LOG.Info("Birthday and First working day Reminder stopped at " + DateTime.Now.ToString());
-                            _checkSendMailReminderBirthday = true;
+                            checkSendMailReminderBirthday = true;
                         }
                     }
                     else
                     {
-                        _checkSendMailReminderBirthday = false;
+                        checkSendMailReminderBirthday = false;
                     }
                 }
             }
