@@ -46,15 +46,15 @@ namespace AutoJobs
             this._serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
             this._serviceInstaller1 = new System.ServiceProcess.ServiceInstaller();
             // 
-            // serviceProcessInstaller1
+            // _serviceProcessInstaller1
             // 
             this._serviceProcessInstaller1.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this._serviceProcessInstaller1.Password = null;
             this._serviceProcessInstaller1.Username = null;
             // 
-            // serviceInstaller1
+            // _serviceInstaller1
             // 
-            this._serviceInstaller1.ServiceName = "AutoJob";
+            this._serviceInstaller1.ServiceName = "NexHRM_AutoMail_ReminderMissingCheckInOut";
             this._serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

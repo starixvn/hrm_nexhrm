@@ -49,7 +49,8 @@
         public JsonResult GetAllEvents()
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);
-            var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1).AddMonths(6);
+
+            var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1).AddMonths(7);
 
             GetAllEventCriteria criteria = new GetAllEventCriteria()
             {

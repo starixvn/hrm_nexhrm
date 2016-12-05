@@ -24,7 +24,7 @@
                 MailCc = mailCC,
                 Subject = subject,
                 Title = ConfigurationManager.AppSettings["Email.SenderName"],
-                Body = body
+                Body = body,
             };
 
             using (var client = new MailDeliver())

@@ -371,6 +371,7 @@
 
             if (employees != null && projectManagers != null)
             {
+                projectManagers = projectManagers.Where(t => !employees.Any(x=>x.Id == t.Id)).ToList();
                 employees = employees.Union(projectManagers);
             }
             else if (employees != null)
