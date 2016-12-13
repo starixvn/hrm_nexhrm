@@ -162,7 +162,7 @@
                     Description = model.Description,
                     FromDate = model.AffectedFrom,
                     ToDate = model.AffectedFrom,
-                    DeductDays = model.TotalDays > 0 ? 0 : model.TotalDays,
+                    DeductDays = model.TotalDays > 0 ? 0 : -model.TotalDays,
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     CreatedBy = CurrentUser.Id
                 };
@@ -212,7 +212,7 @@
                     LeaveTransactionId = model.LeaveTransactionId,
                     Description = model.Description,
                     FromDate = model.AffectedFrom,
-                    DeductDays = model.TotalDays > 0 ? 0 : model.TotalDays,
+                    DeductDays = model.TotalDays > 0 ? 0 : -model.TotalDays,
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     ModifiedBy = CurrentUser.Id
                 };
@@ -260,7 +260,7 @@
                     EmployeeId = model.EmpIds,
                     Description = model.Description,
                     FromDate = model.AffectedFrom,
-                    DeductDays = model.TotalDays > 0 ? 0 : model.TotalDays,
+                    DeductDays = model.TotalDays > 0 ? 0 : -model.TotalDays,
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     CreatedBy = CurrentUser.Id
                 };
