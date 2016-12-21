@@ -92,13 +92,11 @@ function eventCloseBalance() {
 
     $('#resetform form').submit(function (evt) {
         evt.preventDefault();
-
         confirm('Are you sure you want to reset leave transaction?', function () {
-            var $form = $(this);
-            _totalDays = parseFloat($('#TotalDays').val());
+            _totalDays = parseFloat($('#MinBalance').val());
 
-            if ($form.valid()) {
-                $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', $('form').serialize(), function (response) {
+            if (_totalDays >= 0) {
+                $.post(_global.root + 'AnnualLeave/ResetAnnualLeaves', { minbalance: _totalDays, descriptionReset: $('#DescriptionReset').val() }, function (response) {
                     if (response.IsSuccessful) {
                         $('#resetform').dialog('close');
                     } else {
