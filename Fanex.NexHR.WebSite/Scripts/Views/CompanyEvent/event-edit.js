@@ -4,9 +4,6 @@
 function initTimepicker(control) {
     control.timepicker({
         'step': 15,
-        'disableTimeRanges': [
-            ['11:29am', '12:31pm']
-        ],
         'timeFormat': 'H:i'
     });
     control.on('changeTime', function () {
