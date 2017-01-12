@@ -9,6 +9,7 @@
     using Fanex.NexHR.ViewModels.Memo;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -212,7 +213,7 @@
             CommandResult result = commandService.Delete(deleteMemoCriteria);
             if (result.IsSuccessful && memo.MemoType == 1)
             {
-                Delete(memo.Contents);
+                System.IO.File.Delete(Server.MapPath("~/" + memo.Contents));
             }
 
             return Json(result);
@@ -230,19 +231,6 @@
             IList<Memo> memos = memoService.GetAll(criteria);
 
             return Json(memos);
-        }
-
-        private bool Delete(string fileName)
-        {
-            try
-            {
-                System.IO.File.Delete(Server.MapPath("~/" + fileName));
-                return true;
-            }
-            catch (System.Exception)
-            {
-                return false;
-            }
         }
     }
 }

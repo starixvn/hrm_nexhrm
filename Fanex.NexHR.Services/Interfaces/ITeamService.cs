@@ -8,7 +8,7 @@
     {
         Team GetById(GetTeamByIdCriteria criteria);
 
-        IList<Team> Get();
+        IList<Team> GetTeam();
 
         IList<Team> GetAll();
 

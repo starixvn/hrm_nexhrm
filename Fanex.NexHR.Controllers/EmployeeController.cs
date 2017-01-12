@@ -1,12 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Core.Model;
@@ -19,7 +12,13 @@
     using FPS.Client;
     using Newtonsoft.Json;
     using Simplicode.Imaging;
-    using Simplicode.Imaging.Filters;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
 
     public class EmployeeController : BaseController
     {
@@ -51,7 +50,7 @@
         public ActionResult Index()
         {
             var model = new StaffInfoViewModel();
-            model.Teams = teamService.Get();
+            model.Teams = teamService.GetTeam();
 
             return View(model);
         }
@@ -62,7 +61,7 @@
             var model = new UserManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                Teams = teamService.Get(),
+                Teams = teamService.GetTeam(),
                 JobTitles = jobTitleService.GetAll()
             };
 
@@ -88,16 +87,16 @@
             {
                 if (enable == false)
                 {
-                    listEmployee.Type = (int)TypeList.Active;
+                    listEmployee.StatusViewType = (int)TypeList.Active;
                 }
                 else
                 {
-                    listEmployee.Type = (int)TypeList.Disabled;
+                    listEmployee.StatusViewType = (int)TypeList.Disabled;
                 }
             }
             else
             {
-                listEmployee.Type = (int)TypeList.Deleted;
+                listEmployee.StatusViewType = (int)TypeList.Deleted;
             }
 
             var criteria = new GetEmployeeCriteria()
@@ -352,45 +351,45 @@
             return Json(null);
         }
 
-        public ActionResult MySpace()
-        {
-            var getMySpaceCriteria = new GetMySpaceCriteria()
-            {
-                EmpId = CurrentUser.Id
-            };
-            var model = employeeService.GetMySpace(getMySpaceCriteria);
+        ////public ActionResult MySpace()
+        ////{
+        ////    var getMySpaceCriteria = new GetMySpaceCriteria()
+        ////    {
+        ////        EmpId = CurrentUser.Id
+        ////    };
+        ////    var model = employeeService.GetMySpace(getMySpaceCriteria);
 
-            return View(model);
-        }
+        ////    return View(model);
+        ////}
 
-        [ChildActionOnly]
-        public ActionResult ManagementDashboard()
-        {
-            if (CurrentUser.IsInRoles(Role.AssistantLeader))
-            {
-                var criteria = new GetHRLeaderDashboardCriteria()
-                {
-                    EmployeeId = CurrentUser.Id,
-                };
-                var model = employeeService.GetHRLeaderDashboard(criteria);
-                return PartialView(model);
-            }
+        ////[ChildActionOnly]
+        ////public ActionResult ManagementDashboard()
+        ////{
+        ////    if (CurrentUser.IsInRoles(Role.AssistantLeader))
+        ////    {
+        ////        var criteria = new GetHRLeaderDashboardCriteria()
+        ////        {
+        ////            EmployeeId = CurrentUser.Id,
+        ////        };
+        ////        var model = employeeService.GetHRLeaderDashboard(criteria);
+        ////        return PartialView(model);
+        ////    }
 
-            return Content(string.Empty);
-        }
+        ////    return Content(string.Empty);
+        ////}
 
-        [HttpPost]
-        public ActionResult PostFpsTransaction()
-        {
-            using (var serviceFPS = new Service())
-            {
-                var resultMessage = string.Empty;
-                var deviceCode = string.Empty;
-                serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
+        ////[HttpPost]
+        ////public ActionResult PostFpsTransaction()
+        ////{
+        ////    using (var serviceFPS = new Service())
+        ////    {
+        ////        var resultMessage = string.Empty;
+        ////        var deviceCode = string.Empty;
+        ////        serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
 
-                return Content(string.Empty);
-            }
-        }
+        ////        return Content(string.Empty);
+        ////    }
+        ////}
 
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Birthday(int month = 0)
@@ -478,17 +477,6 @@
             };
 
             return criteria;
-        }
-
-        private MySpaceViewModel GetMySpace()
-        {
-            var criteria = new GetMySpaceCriteria()
-            {
-                EmpId = CurrentUser.Id
-            };
-            MySpaceViewModel myspace = employeeService.GetMySpace(criteria);
-
-            return myspace;
         }
 
         private IList<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)

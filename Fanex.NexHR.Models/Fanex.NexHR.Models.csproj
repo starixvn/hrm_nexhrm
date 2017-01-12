@@ -81,14 +81,12 @@
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
     <Compile Include="Calendar\WorkingSchedule.cs" />
-    <Compile Include="CheckInOutRequest.cs" />
     <Compile Include="CommandResult.cs" />
     <Compile Include="DashboardCompanySpace.cs" />
     <Compile Include="DashboardPersonalSpace.cs" />
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
     <Compile Include="JobTitle.cs" />
-    <Compile Include="LateInEarlyOut\LateInEarlyOut.cs" />
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Overtime\Overtime.cs" />
     <Compile Include="Overtime\OvertimeRecord.cs" />
@@ -117,7 +115,6 @@
     <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Holiday\Holiday.cs" />
-    <Compile Include="LateInEarlyOut\LateInEarlyOutRequest.cs" />
     <Compile Include="LeaveType.cs" />
     <Compile Include="LookupData.cs" />
     <Compile Include="Memo\Memo.cs" />

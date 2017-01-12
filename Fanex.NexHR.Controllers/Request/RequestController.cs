@@ -138,7 +138,7 @@
                 request.CurrentPage = Constants.CurrentPage;
                 request.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = teamService.Get();
+                request.Teams = teamService.GetTeam();
 
                 request.LeaveTypes = leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
@@ -193,7 +193,7 @@
                 request.CurrentPage = Constants.CurrentPage;
                 request.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = teamService.Get();
+                request.Teams = teamService.GetTeam();
 
                 request.LeaveTypes = leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });

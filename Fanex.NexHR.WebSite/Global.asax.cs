@@ -11,6 +11,7 @@ namespace Fanex.NexHR.WebSite
 {
     using Fanex.Data.Configuration;
     using Fanex.Logging;
+    using Fanex.NexHR.Resources;
     using System;
     using System.Web;
     using System.Web.Http;
@@ -36,10 +37,10 @@ namespace Fanex.NexHR.WebSite
             {
                 Exception ex = Server.GetLastError().GetBaseException();
                 string message = ex.Message +
-                        "\r\nSource: " + ex.Source +
-                        "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-                        "\r\nTargetSite: " + ex.TargetSite +
-                        "\r\nStackTrace: " + ex.StackTrace;
+                         Environment.NewLine + Labels.Source + ex.Source +
+                        Environment.NewLine + Labels.Domain + HttpContext.Current.Request.Headers["Host"] +
+                        Environment.NewLine + Labels.TargetSite + ex.TargetSite +
+                        Environment.NewLine + Labels.StackTrace + ex.StackTrace;
 
                 LogService.Error(message);
             }

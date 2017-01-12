@@ -14,6 +14,6 @@
     {
         public IList<Employee> Employees { get; set; }
 
-        public int Type { get; set; }
+        public int StatusViewType { get; set; }
     }
 }

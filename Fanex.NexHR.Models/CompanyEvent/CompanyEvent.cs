@@ -29,7 +29,7 @@
         {
             get
             {
-                if (FromTime != string.Empty && FromTime != null)
+                if (!string.IsNullOrWhiteSpace(FromTime))
                 {
                     return new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
                 }
@@ -44,7 +44,7 @@
         {
             get
             {
-                if (ToTime != string.Empty && ToTime != null)
+                if (!string.IsNullOrWhiteSpace(ToTime))
                 {
                     return new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
                 }

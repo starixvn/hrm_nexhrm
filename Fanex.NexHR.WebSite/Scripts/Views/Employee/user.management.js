@@ -44,7 +44,7 @@ function query(jobTitleId, isFirstLoad) {
             }
         },
         success: function (data) {
-            employeeListType = data.Type;
+            employeeListType = data.StatusViewType;
             $('#data tbody').children().remove();
             var listEmployee = data.Employees;
             if (listEmployee && listEmployee.length > 0) {

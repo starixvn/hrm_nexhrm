@@ -1356,4 +1356,22 @@
   <data name="Location" xml:space="preserve">
     <value>Location</value>
   </data>
+  <data name="Domain" xml:space="preserve">
+    <value>Domain</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="StackTrace" xml:space="preserve">
+    <value>TargetSite</value>
+  </data>
+  <data name="TargetSite" xml:space="preserve">
+    <value>TargetSite</value>
+  </data>
+  <data name="MinuteFormat" xml:space="preserve">
+    <value>{0}'</value>
+  </data>
+  <data name="HourFormat" xml:space="preserve">
+    <value>{0}:{1}</value>
+  </data>
 </root>

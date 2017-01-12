@@ -31,11 +31,6 @@ namespace Fanex.NexHR.Core
 
         #region Constructors
 
-        public ExcelTemplateWriter(string filePath, string excelFileName = "Report.xls", string sheetName = "Result")
-            : this(new FileStream(filePath, FileMode.Open, FileAccess.Read), excelFileName, sheetName)
-        {
-        }
-
         public ExcelTemplateWriter(FileStream fs, string excelFileName = "Report.xls", string sheetName = "Result")
             : this(new HSSFWorkbook(fs), excelFileName, sheetName)
         {

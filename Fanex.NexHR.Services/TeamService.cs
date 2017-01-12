@@ -27,7 +27,7 @@
             return team;
         }
 
-        public IList<Team> Get()
+        public IList<Team> GetTeam()
         {
             var criteria = new GetTeamCriteria();
             IList<Team> teams = null;

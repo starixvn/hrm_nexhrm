@@ -98,7 +98,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = teamService.Get();
+                model.Teams = teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
                 DateTime date = new DateTime(model.Year, model.Month, 1);

@@ -54,7 +54,7 @@
 
                 model.CurrentPage = Constants.CurrentPage;
                 model.ItemsPerPage = 200;
-                model.Teams = teamService.Get();
+                model.Teams = teamService.GetTeam();
             }
 
             return View(model);
@@ -228,7 +228,7 @@
 
         public ActionResult TotalWorkingHour()
         {
-            IList<Team> teams = teamService.Get();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new TotalWorkingHoursViewModel
             {
@@ -276,7 +276,7 @@
         [ValidateInput(false)]
         public ActionResult LateInEarlyOut(int empId = 0, string nickname = "")
         {
-            IList<Team> teams = teamService.Get();
+            IList<Team> teams = teamService.GetTeam();
 
             LateInEarlyOutViewModel model;
             if (empId != 0)
@@ -330,7 +330,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = teamService.Get();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new LateInEarlyOutDetailViewModel
             {
@@ -376,7 +376,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult LateInEarlyOutDiscipline()
         {
-            IList<Team> teams = teamService.Get();
+            IList<Team> teams = teamService.GetTeam();
             var today = DateTime.Today;
 
             var model = new LateInEarlyOutSummaryViewModel()
@@ -474,7 +474,7 @@
                 toDate = DateTime.Now.Date;
             }
 
-            IList<Team> teams = teamService.Get();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new TimeRecordViewModel
             {

@@ -1024,6 +1024,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Domain.
+        /// </summary>
+        public static string Domain {
+            get {
+                return ResourceManager.GetString("Domain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Domain Username.
         /// </summary>
         public static string DomainUsername {
@@ -1479,6 +1488,15 @@ namespace Fanex.NexHR.Resources {
         public static string Holidays {
             get {
                 return ResourceManager.GetString("Holidays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}:{1}.
+        /// </summary>
+        public static string HourFormat {
+            get {
+                return ResourceManager.GetString("HourFormat", resourceCulture);
             }
         }
         
@@ -2181,6 +2199,15 @@ namespace Fanex.NexHR.Resources {
         public static string MinBalance {
             get {
                 return ResourceManager.GetString("MinBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}&apos;.
+        /// </summary>
+        public static string MinuteFormat {
+            get {
+                return ResourceManager.GetString("MinuteFormat", resourceCulture);
             }
         }
         
@@ -3256,11 +3283,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        public static string Source {
+            get {
+                return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speaking.
         /// </summary>
         public static string Speaking {
             get {
                 return ResourceManager.GetString("Speaking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TargetSite.
+        /// </summary>
+        public static string StackTrace {
+            get {
+                return ResourceManager.GetString("StackTrace", resourceCulture);
             }
         }
         
@@ -3342,6 +3387,15 @@ namespace Fanex.NexHR.Resources {
         public static string SymbolCount {
             get {
                 return ResourceManager.GetString("SymbolCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TargetSite.
+        /// </summary>
+        public static string TargetSite {
+            get {
+                return ResourceManager.GetString("TargetSite", resourceCulture);
             }
         }
         

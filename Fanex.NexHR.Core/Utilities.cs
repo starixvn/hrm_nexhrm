@@ -9,6 +9,9 @@
 
 namespace Fanex.NexHR.Core
 {
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -18,8 +21,6 @@ namespace Fanex.NexHR.Core
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Core.Model;
 
     public static class Utilities
     {
@@ -139,7 +140,7 @@ namespace Fanex.NexHR.Core
             {
                 list.Add(new SelectListItem()
                 {
-                    Text = index + "'",
+                    Text = string.Format(Labels.MinuteFormat, index),
                     Value = index.ToString()
                 });
                 index -= step;
@@ -156,7 +157,7 @@ namespace Fanex.NexHR.Core
 
             while (hour < 24)
             {
-                var value = ZeroPrefix(hour) + ":" + ZeroPrefix(minute);
+                var value = string.Format(Labels.HourFormat, ZeroPrefix(hour), ZeroPrefix(minute));
                 list.Add(new SelectListItem()
                 {
                     Text = value,
@@ -173,14 +174,9 @@ namespace Fanex.NexHR.Core
             return list;
         }
 
-        public static string ZeroPrefix(int value)
+        public static string ZeroPrefix(object value)
         {
-            return value < 10 ? "0" + value : value.ToString();
-        }
-
-        public static string ZeroPrefix(string value)
-        {
-            return int.Parse(value) < 10 ? "0" + value : value;
+            return value.ToString().PadLeft(2, '0');
         }
 
         public static string StringArrayToString(string[] array)

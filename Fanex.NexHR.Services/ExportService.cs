@@ -5,6 +5,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Report;
+    using System.IO;
 
     public class ExportService
     {
@@ -18,17 +19,20 @@
                 sheetName = "Total Working Hours";
 
             var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
-            var writer = new ExcelTemplateWriter(templatePath, fileName, sheetName);
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
-            // Fill report title.
-            writer.WriteRow(0, new object[] { reportTitle });
+                // Fill report title.
+                writer.WriteRow(0, new object[] { reportTitle });
 
-            // Fill report header.
-            writer.CopyRows(0, 4);
-            FillContentRowTotalWorkingHours(listTotalWorkingHours, ref writer);
+                // Fill report header.
+                writer.CopyRows(0, 4);
+                FillContentRowTotalWorkingHours(listTotalWorkingHours, ref writer);
 
-            writer.CreateFreezePane(0, 4);
-            writer.Render();
+                writer.CreateFreezePane(0, 4);
+                writer.Render();
+            }
         }
 
         public void ExportEmployeeAttendances(
@@ -37,16 +41,20 @@
         {
             string fileName = "EmployeeAttendance",
                 sheetName = "Employee Attendance";
-            var writer = new ExcelTemplateWriter(templatePath, fileName, sheetName);
 
-            // Fill report header.
-            writer.CopyRows(0, 3);
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
-            FillContentRowEmployeeAttendances(employeeAttendances, ref writer);
-            writer.AutosizeColumns(13);
-            writer.CreateFreezePane(0, 3);
+                // Fill report header.
+                writer.CopyRows(0, 3);
 
-            writer.Render();
+                FillContentRowEmployeeAttendances(employeeAttendances, ref writer);
+                writer.AutosizeColumns(13);
+                writer.CreateFreezePane(0, 3);
+
+                writer.Render();
+            }
         }
 
         public void ExportEmployeeProfile(
@@ -55,16 +63,20 @@
         {
             string fileName = "EmployeeProfile",
                 sheetName = "Employee Profile";
-            var writer = new ExcelTemplateWriter(templatePath, fileName, sheetName);
 
-            // Fill report header.
-            writer.CopyRows(0, 3);
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
-            FillContentRowEmployeeProfile(employees, ref writer);
-            writer.AutosizeColumns(24);
-            writer.CreateFreezePane(0, 3);
+                // Fill report header.
+                writer.CopyRows(0, 3);
 
-            writer.Render();
+                FillContentRowEmployeeProfile(employees, ref writer);
+                writer.AutosizeColumns(24);
+                writer.CreateFreezePane(0, 3);
+
+                writer.Render();
+            }
         }
 
         #region Total Working Hours
