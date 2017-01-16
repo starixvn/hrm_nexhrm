@@ -1363,7 +1363,7 @@
     <value>Source</value>
   </data>
   <data name="StackTrace" xml:space="preserve">
-    <value>TargetSite</value>
+    <value>StackTrace</value>
   </data>
   <data name="TargetSite" xml:space="preserve">
     <value>TargetSite</value>

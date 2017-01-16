@@ -3301,7 +3301,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TargetSite.
+        ///   Looks up a localized string similar to StackTrace.
         /// </summary>
         public static string StackTrace {
             get {
