@@ -87,47 +87,40 @@
             if (model != null)
             {
                 model = PrepareModel(model);
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && model.EmployeeId != 0)
                 {
-                    if (model.EmployeeId != 0)
+                    var criteria = new InsertRequestCriteria()
                     {
-                        var criteria = new InsertRequestCriteria()
-                        {
-                            EmpId = model.EmployeeId,
-                            RequestType = (short)RequestType.Leave,
-                            IsPlanned = model.IsPlanned,
-                            Remark = model.Remark,
-                            CreatedDate = DateTime.Now,
-                            CreatedBy = CurrentUser.Id,
-                            FromDate = model.FromDate,
-                            ToDate = model.ToDate,
-                            LeaveTypeId = model.LeaveTypeId,
-                            TotalDays = model.TotalDays
-                        };
+                        EmpId = model.EmployeeId,
+                        RequestType = (short)RequestType.Leave,
+                        IsPlanned = model.IsPlanned,
+                        Remark = model.Remark,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = CurrentUser.Id,
+                        FromDate = model.FromDate,
+                        ToDate = model.ToDate,
+                        LeaveTypeId = model.LeaveTypeId,
+                        TotalDays = model.TotalDays
+                    };
 
-                        CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
-                        model.Id = criteria.Id;
-                        if (result.Code == 0 || result.Code == -1)
+                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                    model.Id = criteria.Id;
+                    if (result.Code == 0 || result.Code == -1)
+                    {
+                        ViewBag.Requested = true;
+                        if (result.Code == 0)
                         {
-                            ViewBag.Requested = true;
-                            if (result.Code == 0)
+                            model.IsEdit = false;
+                            model.GetTemplatePath();
+                            Task.Factory.StartNew(() =>
                             {
-                                model.IsEdit = false;
-                                model.GetTemplatePath();
-                                Task.Factory.StartNew(() =>
-                                {
-                                    requestService.SendMailForLeave(model);
-                                });
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(string.Empty, result.Message);
+                                requestService.SendMailForLeave(model);
+                            });
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid Employee !");
+                        ModelState.AddModelError(string.Empty, result.Message);
                     }
                 }
             }
