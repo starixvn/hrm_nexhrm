@@ -165,6 +165,7 @@
             {
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,
                 IsLeader = false
@@ -190,6 +191,7 @@
             {
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                RequestType = 0,
                 MaxRequest = 1,
                 DateOption = 0,
                 IsLeader = true
@@ -211,6 +213,7 @@
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
+                RequestType = model.RequestType,
                 MaxRequest = model.MaxRequest,
                 Role = model.IsLeader ? (int)Role.AssistantLeader : (int)Role.HR,
                 EmployeeId = CurrentUser.Id

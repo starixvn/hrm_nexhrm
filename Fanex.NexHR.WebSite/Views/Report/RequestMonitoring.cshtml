@@ -53,12 +53,22 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
+                                        @Html.LabelFor(model => model.RequestType)
+                                    </div>
+                                    <div class="left select--s">
+                                        @RazorHelper.RequestTypeReport("RequestType", Model.RequestType)
+                                    </div>
+                                </div>
+
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
                                         @Html.LabelFor(model => model.MaxRequest)
                                     </div>
                                     <div class="left select--s">
                                         @RazorHelper.MaxRequestDropDownList(Model.MaxRequest)
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>

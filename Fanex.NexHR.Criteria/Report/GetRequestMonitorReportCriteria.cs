@@ -25,6 +25,8 @@ namespace Fanex.NexHR.Criteria.Report
 
         public DateTime ToDate { get; set; }
 
+        public int RequestType { get; set; }
+
         public int MaxRequest { get; set; }
 
         public override string GetSettingKey()
