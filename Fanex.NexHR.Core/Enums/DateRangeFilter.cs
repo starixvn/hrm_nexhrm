@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Core
 {
     using System.ComponentModel;
 
-    public enum DateRangeFilter : int
+    public enum DateRangeFilter
     {
         [Description("Date Range")]
         DateRange = 0,

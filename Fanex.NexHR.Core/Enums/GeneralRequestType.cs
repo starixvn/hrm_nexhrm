@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Core.Enums
     /// <summary>
     /// ENUM General Leave Type.
     /// </summary>
-    public enum GeneralRequestType : int
+    public enum GeneralRequestType
     {
         /// <summary>
         /// Leave request.

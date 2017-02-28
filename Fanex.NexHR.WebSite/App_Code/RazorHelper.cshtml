@@ -74,7 +74,7 @@ else
 {
         <td>
             @status.Name
-    </td>
+        </td>
 }
 }
 @helper ModifierDisplay(string nickName, string fullName, DateTime? modifiedDate, long requestId)
@@ -91,7 +91,7 @@ if (!string.IsNullOrWhiteSpace(nickName))
     {
             <td id="pb@(requestId)">
                 @nickName
-        </td>
+            </td>
     }
 }
 else
@@ -148,17 +148,17 @@ else
                     <tr>
                         <td>
                             @item.Name
-                    </td>
-                    <td>
-                        @item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
-                    </td>
-                    <td>
-                        @item.BeginCheckOutTime &nbsp;@((item.BeginCheckOutTime == item.EndCheckOutTime) ? string.Empty : "- " + item.EndCheckOutTime)
-                    </td>
-                    <td>
-                        @((item.BreakTimeMins == 0) ? string.Empty : "11:30 - 12:30")
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            @item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
+                        </td>
+                        <td>
+                            @item.BeginCheckOutTime &nbsp;@((item.BeginCheckOutTime == item.EndCheckOutTime) ? string.Empty : "- " + item.EndCheckOutTime)
+                        </td>
+                        <td>
+                            @((item.BreakTimeMins == 0) ? string.Empty : "11:30 - 12:30")
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -275,11 +275,11 @@ else
     </select>
 }
 
-@helper RequestTypeReport(string name, int selectValue)
+@helper RequestMonitoringType(string name, int selectValue)
 {
     <select id="@name" name="@name">
         @{
-            foreach (RequestTypeReport requestType in (RequestTypeReport[])Enum.GetValues(typeof(RequestTypeReport)))
+            foreach (RequestMonitoringType requestType in (RequestMonitoringType[])Enum.GetValues(typeof(RequestMonitoringType)))
             {
                 var value = (int)requestType;
                 <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(requestType)</option>

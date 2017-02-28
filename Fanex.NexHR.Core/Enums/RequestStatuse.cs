@@ -13,7 +13,7 @@ namespace Fanex.NexHR.Core.Enums
     using Fanex.NexHR.Core.Attributes;
 
     [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "Reviewed. Suppression is OK here.")]
-    public enum RequestStatuse : int
+    public enum RequestStatuse
     {
         /// <summary>
         /// Pending status.

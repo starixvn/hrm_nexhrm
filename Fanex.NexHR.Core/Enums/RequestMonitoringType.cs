@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
 
-    public enum RequestTypeReport : int
+    public enum RequestMonitoringType
     {
         [Description("All")]
         All = 0,

@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Core.Enums
 {
     using System.ComponentModel;
 
-    public enum RequestTypeFilter : int
+    public enum RequestTypeFilter
     {
         [Description("All")]
         All = 0,

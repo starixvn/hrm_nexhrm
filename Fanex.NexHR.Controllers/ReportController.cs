@@ -178,6 +178,7 @@
         public ActionResult ListHRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
+
             return PartialView("_ListRequestMonitoring", requestMonitorings);
         }
 
@@ -204,6 +205,7 @@
         public ActionResult ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
+
             return PartialView("_ListRequestMonitoring", requestMonitorings);
         }
 

@@ -111,7 +111,7 @@
     <Compile Include="Enums\GeneralRequestType.cs" />
     <Compile Include="Enums\DateRangeFilter.cs" />
     <Compile Include="Enums\LeaveConversionType.cs" />
-    <Compile Include="Enums\RequestTypeReport.cs" />
+    <Compile Include="Enums\RequestMonitoringType.cs" />
     <Compile Include="Enums\RequestStatuse.cs" />
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Enums\RequestTypeFilter.cs" />

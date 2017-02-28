@@ -2,7 +2,7 @@
 {
     using Fanex.NexHR.Core.Attributes;
 
-    public enum Role : int
+    public enum Role
     {
         /// <summary>
         /// Member role.

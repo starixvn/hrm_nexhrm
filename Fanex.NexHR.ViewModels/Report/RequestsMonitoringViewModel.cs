@@ -11,10 +11,10 @@
         [DataType(DataType.Date)]
         public DateTime ToDate { get; set; }
 
-        [Display(Name = "Request Type")]
+        [Display(Name = "Type")]
         public int RequestType { get; set; }
 
-        [Display(Name = "Total Request >=")]
+        [Display(Name = "Times >=")]
         public int MaxRequest { get; set; }
 
         public int DateOption { get; set; }

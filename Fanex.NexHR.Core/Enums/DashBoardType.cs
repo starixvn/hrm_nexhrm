@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Core.Enums
 {
     using Fanex.NexHR.Core.Attributes;
 
-    public enum DashBoardType : int
+    public enum DashBoardType
     {
         /// <summary>
         /// None value.
