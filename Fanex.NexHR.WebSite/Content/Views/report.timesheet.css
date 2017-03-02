@@ -1,4 +1,4 @@
-﻿.monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-prev .ui-icon, .monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-next .ui-icon {
+.monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-prev .ui-icon, .monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-next .ui-icon {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -194,3 +194,10 @@
   .datagrid-body table tbody > tr:nth-child(odd) {
     background: #ededed; }
 
+#addform input[type="checkbox"] {
+  position: relative;
+  left: 0;
+  visibility: visible;
+  margin-top: 8px; }
+
+/*# sourceMappingURL=report.timesheet.css.map */

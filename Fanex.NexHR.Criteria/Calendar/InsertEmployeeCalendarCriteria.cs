@@ -12,6 +12,8 @@
 
         public DateTime ToDate { get; set; }
 
+        public bool SetOffDay { get; set; }
+
         public override string GetSettingKey()
         {
             return "EmployeeCalendar_Insert";

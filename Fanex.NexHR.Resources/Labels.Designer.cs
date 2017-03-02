@@ -3238,6 +3238,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Off Day.
+        /// </summary>
+        public static string SetOffDay {
+            get {
+                return ResourceManager.GetString("SetOffDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shift.
         /// </summary>
         public static string Shift {

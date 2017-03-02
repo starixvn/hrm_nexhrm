@@ -1374,4 +1374,7 @@
   <data name="HourFormat" xml:space="preserve">
     <value>{0}:{1}</value>
   </data>
+  <data name="SetOffDay" xml:space="preserve">
+    <value>Set Off Day</value>
+  </data>
 </root>

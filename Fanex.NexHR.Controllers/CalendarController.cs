@@ -58,7 +58,8 @@
                 {
                     EmployeeId = model.AddEmployeeId,
                     FromDate = model.FromDate,
-                    ToDate = model.ToDate
+                    ToDate = model.ToDate,
+                    SetOffDay = model.SetOffDay
                 };
 
                 result = commandService.Insert(criteria);
@@ -113,7 +114,7 @@
                 IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
                 model.WorkingSchedules = schedules;
             }
-            
+
             return View(model);
         }
 

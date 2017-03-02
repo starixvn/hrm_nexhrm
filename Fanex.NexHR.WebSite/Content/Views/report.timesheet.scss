@@ -15,7 +15,7 @@
     }
 
     .datagrid-view {
-        width: 100%; 
+        width: 100%;
         height: 580px;
 
         .datagrid-view1 {
@@ -23,42 +23,49 @@
 
             td {
                 padding: 0;
+
                 div {
                     height: 30px;
                     line-height: 30px;
                 }
-                
             }
+
             .datagrid-header {
                 width: 100%;
-                
+
                 .datagrid-header-inner {
                     color: #fff;
-                     table tbody {
+
+                    table tbody {
                         td {
                             border-left: 1px solid #4d5568;
                             border-bottom: 1px solid #4d5568;
+
                             &.rownumber {
                                 width: 26px;
+
                                 @media (min-width: 1900px) {
                                     width: 43px;
                                 }
                             }
+
                             &.rowfullname {
                                 width: 189px;
+
                                 @media (min-width: 1900px) {
                                     width: 315px;
                                 }
                             }
                         }
+
                         tr:first-child {
-                            background:#353c4e;
+                            background: #353c4e;
                         }
 
                         tr:last-child {
                             background: #3c4355;
                         }
-                     }
+                    }
                 }
             }
 
@@ -69,6 +76,7 @@
                 td {
                     border-left: 1px solid $c-border-table;
                     border-bottom: 1px solid $c-border-table;
+
                     &:last-child {
                         border-right: 1px solid $c-border-table;
                     }
@@ -88,16 +96,15 @@
                 width: 1084px;
             }
 
-
             td {
                 padding: 0;
+
                 div {
-                    width: 40px;                
+                    width: 40px;
                     height: 30px;
                     text-align: center;
                     line-height: 30px;
                 }
-                
             }
 
             .datagrid-header {
@@ -111,15 +118,18 @@
                 @media (min-width: 1900px) {
                     width: 1067px;
                 }
+
                 .datagrid-header-inner {
                     color: #fff;
+
                     td {
-                            border-left: 1px solid #4d5568;
-                            border-bottom: 1px solid #4d5568;
-                        }
-                     table tbody {
+                        border-left: 1px solid #4d5568;
+                        border-bottom: 1px solid #4d5568;
+                    }
+
+                    table tbody {
                         tr:first-child {
-                            background:#353c4e;
+                            background: #353c4e;
                         }
 
                         tr:last-child {
@@ -132,16 +142,19 @@
             .datagrid-body {
                 width: 100%;
                 height: 517px;
+
                 tr {
                     &:hover {
                         background: #f4d1c0;
                     }
                 }
+
                 td {
                     border-left: 1px solid $c-border-table;
                     border-bottom: 1px solid $c-border-table;
                 }
-                tr:hover{
+
+                tr:hover {
                     background-color: #f4d1c0;
                 }
             }
@@ -149,21 +162,24 @@
     }
 }
 
-
 .datagrid-wrap {
     position: relative;
+
     .datagrid-view {
         position: relative;
         overflow: hidden;
+
         .datagrid-view1 {
             position: absolute;
             overflow: hidden;
             left: 0;
             top: 0;
+
             .datagrid-body {
                 overflow: hidden;
             }
         }
+
         .datagrid-view2 {
             position: absolute;
             overflow: hidden;
@@ -186,11 +202,21 @@
     padding: 0;
     overflow: auto;
     zoom: 1;
+
     table {
         tbody > tr {
             &:nth-child(odd) {
                 background: #ededed;
             }
         }
+    }
+}
+
+#addform {
+    input[type="checkbox"] {
+        position: relative;
+        left: 0;
+        visibility: visible;
+        margin-top: 8px;
     }
 }

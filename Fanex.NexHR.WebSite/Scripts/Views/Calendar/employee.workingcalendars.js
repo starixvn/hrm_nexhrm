@@ -35,7 +35,7 @@ $(document).ready(function () {
         $('#addform').dialog({
             modal: true,
             width: 410,
-            height: 460,
+            height: 550,
             open: function () {
                 initDatePicker();
             }
@@ -52,7 +52,9 @@ $(document).ready(function () {
             $.post(_global.root + 'calendar/InsertEmployeeCalendar',
                 {
                     AddEmployeeId: $.trim($("#AddEmployee").val()).length > 0 ? $("#AddEmployeeId").val() : null,
-                    FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val()
+                    FromDate: $("#FromDate").val(),
+                    ToDate: $("#ToDate").val(),
+                    SetOffDay: $("#SetOffDay").is(':checked')
                 },
                 function (response) {
                     if (response.IsSuccessful) {

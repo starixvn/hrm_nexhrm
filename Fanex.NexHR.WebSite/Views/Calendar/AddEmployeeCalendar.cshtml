@@ -30,6 +30,16 @@
             @Html.HiddenFor(model => model.AddEmployeeId)
         </div>
     </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.SetOffDay, Labels.SetOffDay)
+        </div>
+        <div class="left input--m">
+            @Html.CheckBoxFor(model => model.SetOffDay)
+        </div>
+    </div>
+    </br>
     <div class="row form-input center">
         <input class="btn-cancel waves-effect waves-light m-r--m" id="btnCancel" type="button" value="@Labels.Cancel" />
         <input class="btn-ok waves-effect waves-light" id="btnAdd" type="button" value="@Labels.Add" />
