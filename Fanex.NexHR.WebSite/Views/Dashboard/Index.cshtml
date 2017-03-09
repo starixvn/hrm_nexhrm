@@ -3,7 +3,7 @@
     @Styles.Render("~/Content/dashboardcss")
 }
 @section js{
-   
+
     @Scripts.Render("~/bundles/dashboardjs")
     @Scripts.Render("~/bundles/apiclientcalendarjs")
 }
@@ -124,7 +124,6 @@
                                                     @item.FromDate.ToString("dd MMMM") - @item.ToDate.ToString("dd MMMM")
                                                 </span>
                                             }
-
                                         </div>
                                     </a>
                                 </div>
@@ -229,17 +228,21 @@
         </div>
         @Html.Partial("MyTeamAttendance", Model.EmployeeAttendanceModel)
         <div>
-            <div class="col s12 m8 card-container-base my-members">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title-block">
-                            <span class="card-title txt-uppercase left primary-color">MY TEAM WORKLOAD</span>
-                        </div>
-                        <div class="card-body" id="teamWorkload">
+            @if (Model.IsLoadTeamWorkload)
+            {
+                <div class="col s12 m8 card-container-base my-members">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-title-block">
+                                <span class="card-title txt-uppercase left primary-color">MY TEAM WORKLOAD</span>
+                            </div>
+                            <div class="card-body" id="teamWorkload">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+
             <div class="col s12 m4 card-container-base">
                 <div class="card">
                     <div id="calendar" class="dashboardCalendar">

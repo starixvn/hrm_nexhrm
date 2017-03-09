@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Core
     {
         public static bool IsShowCloseBalance
         {
-            get 
+            get
             {
                 return Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
             }
@@ -24,9 +24,9 @@ namespace Fanex.NexHR.Core
 
         public static string ProjectManagerTeams
         {
-            get 
+            get
             {
-                return ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString(); 
+                return ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString();
             }
         }
 
@@ -43,6 +43,14 @@ namespace Fanex.NexHR.Core
             get
             {
                 return ConfigurationManager.AppSettings["domain"].ToString();
+            }
+        }
+
+        public static string IgnoreTeamWorkload
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["IgnoreTeamWorkload"].ToString();
             }
         }
     }

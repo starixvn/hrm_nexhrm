@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
+    using Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
@@ -18,6 +16,9 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels;
     using Fanex.NexHR.ViewModels.Report;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
     public class DashboardController : BaseController
     {
@@ -45,7 +46,7 @@
             this.notificationService = notificationService ?? new NotificationService();
             this.lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
         }
-         
+
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
@@ -66,8 +67,9 @@
             };
             empAttendance.Teams = teamService.GetTeam();
             model.EmployeeAttendanceModel = empAttendance;
-
             model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();
+            model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+
             return View(model);
         }
 
@@ -156,6 +158,19 @@
             IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
 
             return PartialView("_ListTeamWorkload", listWorkload);
+        }
+
+        [NonAction]
+        private bool IsLoadTeamWorkload()
+        {
+            var ignoreTeamWorkloads = AppSetting.IgnoreTeamWorkload.Split(',');
+
+            if (Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

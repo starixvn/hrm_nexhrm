@@ -239,7 +239,7 @@
                 Code = employee.Code,
                 FullName = employee.FullName,
                 Nick = employee.NickName,
-                DoB = employee.DateOfBirth.ToString("dd-MMM-yyyy"),
+                DoB = FormatDate(employee.DateOfBirth),
                 Email = employee.Email,
                 JobTitle = employee.JobTitle == null ? string.Empty : employee.JobTitle.Name,
                 Team = FormatString(employee.Team.Name),

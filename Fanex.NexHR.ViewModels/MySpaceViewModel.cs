@@ -36,6 +36,8 @@
 
         public int TimesLateInEarlyOutCurrentMonth { get; set; }
 
+        public bool IsLoadTeamWorkload { get; set; }
+
         public IList<DashBoardCompanySpace> DashboardCompanySpace { get; set; }
 
         public IList<DashBoardPersonalSpace> DashboardEmployeeSpace { get; set; }
@@ -340,7 +342,7 @@
             get
             {
                 IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => ((t.TypeId == (int)DashBoardType.MissingCheckInOut || 
+                    DashboardEmployeeSpace.Where(t => ((t.TypeId == (int)DashBoardType.MissingCheckInOut ||
                         t.TypeId == (int)DashBoardType.CheckInOut) && t.IsCurrent)).ToList();
                 var dates = new StringBuilder();
                 var displayValue = "-";
@@ -519,7 +521,7 @@
 
         public string DisplayLateInEarlyOutNotification
         {
-            get 
+            get
             {
                 string results = string.Empty;
                 if (NotificationLateInEarlyOutToDay != null)
