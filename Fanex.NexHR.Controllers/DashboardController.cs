@@ -164,13 +164,7 @@
         private bool IsLoadTeamWorkload()
         {
             var ignoreTeamWorkloads = AppSetting.IgnoreTeamWorkload.Split(',');
-
-            if (Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0)
-            {
-                return true;
-            }
-
-            return false;
+            return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0;
         }
     }
 }
