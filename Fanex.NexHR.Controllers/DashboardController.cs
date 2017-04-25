@@ -1,32 +1,32 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Criteria.Notification;
-    using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Criteria.Workload;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Notification;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Models.Workload;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.Report;
+    using Core.Enums;
+    using Criteria;
+    using Criteria.Employee;
+    using Criteria.LateInEarlyOut;
+    using Criteria.Notification;
+    using Criteria.Request;
+    using Criteria.Workload;
+    using Models;
+    using Models.Notification;
+    using Models.Request;
+    using Models.Workload;
+    using Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using ViewModels;
+    using ViewModels.Report;
 
     public class DashboardController : BaseController
     {
-        private readonly IEmployeeService employeeService;
-        private readonly ITeamService teamService;
-        private readonly IRequestService requestService;
-        private readonly INotificationService notificationService;
-        private readonly ILateInEarlyOutService lateinearlyoutService;
+        private readonly IEmployeeService _employeeService;
+        private readonly ITeamService _teamService;
+        private readonly IRequestService _requestService;
+        private readonly INotificationService _notificationService;
+        private readonly ILateInEarlyOutService _lateinearlyoutService;
 
         public DashboardController()
             : this(null, null, null, null, null)
@@ -40,11 +40,11 @@
             INotificationService notificationService,
             ILateInEarlyOutService lateinearlyoutService)
         {
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.teamService = teamService ?? new TeamService();
-            this.requestService = requestService ?? new RequestService();
-            this.notificationService = notificationService ?? new NotificationService();
-            this.lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
+            _employeeService = employeeService ?? new EmployeeService();
+            _teamService = teamService ?? new TeamService();
+            _requestService = requestService ?? new RequestService();
+            _notificationService = notificationService ?? new NotificationService();
+            _lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -54,18 +54,20 @@
             {
                 EmpId = CurrentUser.Id
             };
-            MySpaceViewModel model = employeeService.GetMySpace(getMySpaceCriteria);
+
+            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = GetRemind();
 
-            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel()
+            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
                 GroupId = CurrentUser.Team.Id,
                 DateOption = 0,
                 ExcludeUserDelete = true,
+                Teams = _teamService.GetTeam(),
             };
-            empAttendance.Teams = teamService.GetTeam();
+
             model.EmployeeAttendanceModel = empAttendance;
             model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();
             model.IsLoadTeamWorkload = IsLoadTeamWorkload();
@@ -73,25 +75,24 @@
             return View(model);
         }
 
-        private IList<Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> GetLateInEarlyOutNotification()
+        private IList<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> GetLateInEarlyOutNotification()
         {
             GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria()
             {
                 Date = DateTime.Now.Date
             };
 
-            return lateinearlyoutService.GetAllEmployee(criteria);
+            return _lateinearlyoutService.GetAllEmployee(criteria);
         }
 
         private SystemReminderModel GetRemind()
         {
-            SystemReminderModel lstEmployee = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
                 OnDate = DateTime.Now.Date
             };
 
-            lstEmployee = employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            var lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             return lstEmployee;
         }
 
@@ -113,7 +114,7 @@
             {
                 EmpId = employeeId
             };
-            return employeeService.GetMissingCheckInOutByEmpId(criteria);
+            return _employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
         private IList<RequestEntity> GetPendingRequest()
@@ -126,13 +127,13 @@
                 ToDate = DateTime.Now,
                 GroupId = null,
                 Status = 1,
-                ExcludeEmployeeId = new int?(CurrentUser.Id),
+                ExcludeEmployeeId = CurrentUser.Id,
                 RequestType = string.Empty,
                 IsFilterByEffectedDate = false,
                 ItemsPerPage = 100
             };
 
-            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
             return entityList;
         }
@@ -141,7 +142,7 @@
         public ActionResult GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria() { EmpId = employeeId };
-            Notification noti = notificationService.GetViolationByEmpId(criteria);
+            Notification noti = _notificationService.GetViolationByEmpId(criteria);
 
             return PartialView("_Notification", noti);
         }
@@ -155,7 +156,7 @@
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Today
             };
-            IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
+            IList<Workload> listWorkload = _employeeService.GetWorkloadByTeam(criteria);
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }

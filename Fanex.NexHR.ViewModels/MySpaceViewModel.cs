@@ -1,20 +1,22 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
+    using Core;
+    using Core.Enums;
+    using Models;
+    using Report;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels.Report;
 
     public class MySpaceViewModel
     {
-        private const string _DisplayCellTpl = @"<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a>
+        private const string DisplayCellTpl =
+            @"<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a>
             <ul class='list-unstyled drop-menu'>{1}</ul></span>";
 
-        private const string _DisplayCellDetailTpl = "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
+        private const string DisplayCellDetailTpl =
+            "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
         public decimal AnnualLeaveBalance { get; set; }
 
@@ -50,7 +52,9 @@
                 IList<DashBoardCompanySpace> todayLeaves = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent))
                     .OrderByDescending(t => t.LeaveDay)
-                    .ThenBy(t => t.Employee.NickName).ToList();
+                    .ThenBy(t => t.Employee.NickName)
+                    .ToList();
+
                 foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
@@ -70,8 +74,11 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> yesterdayLeaves = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
-                    .OrderByDescending(t => t.LeaveDay).ThenBy(t => t.Employee.NickName).ToList();
+                IList<DashBoardCompanySpace> yesterdayLeaves = DashboardCompanySpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
+                    .OrderByDescending(t => t.LeaveDay)
+                    .ThenBy(t => t.Employee.NickName)
+                    .ToList();
                 foreach (DashBoardCompanySpace leave in yesterdayLeaves)
                 {
                     employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
@@ -91,7 +98,9 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> todayCheckInOuts = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
+                IList<DashBoardCompanySpace> todayCheckInOuts = DashboardCompanySpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent))
+                    .ToList();
                 foreach (DashBoardCompanySpace checkInOut in todayCheckInOuts)
                 {
                     employees += checkInOut.Employee.NickName + ", ";
@@ -112,7 +121,8 @@
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> yesterdayCheckInOuts =
-                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent))
+                        .ToList();
                 foreach (DashBoardCompanySpace checkInOut in yesterdayCheckInOuts)
                 {
                     employees += checkInOut.Employee.NickName + ", ";
@@ -133,7 +143,8 @@
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> todayMissingCheckInOuts =
-                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent)).ToList();
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent))
+                        .ToList();
                 foreach (DashBoardCompanySpace missingCheckInOut in todayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
@@ -154,7 +165,8 @@
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> yesterdayMissingCheckInOuts =
-                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent))
+                        .ToList();
                 foreach (DashBoardCompanySpace missingCheckInOut in yesterdayMissingCheckInOuts)
                 {
                     employees += missingCheckInOut.Employee.NickName + ", ";
@@ -175,7 +187,8 @@
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> todayLateInEarlyOuts =
-                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent))
+                        .ToList();
                 foreach (DashBoardCompanySpace lateInEarlyOut in todayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
@@ -196,7 +209,8 @@
             {
                 var employees = string.Empty;
                 IList<DashBoardCompanySpace> yesterdayLateInEarlyOuts =
-                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
+                    DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent))
+                        .ToList();
                 foreach (DashBoardCompanySpace lateInEarlyOut in yesterdayLateInEarlyOuts)
                 {
                     employees += lateInEarlyOut.Employee.NickName + ", ";
@@ -216,7 +230,9 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> todayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
+                IList<DashBoardCompanySpace> todayAbsents = DashboardCompanySpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent))
+                    .ToList();
                 foreach (DashBoardCompanySpace absent in todayAbsents)
                 {
                     employees += absent.Employee.NickName + ", ";
@@ -236,7 +252,9 @@
             get
             {
                 var employees = string.Empty;
-                IList<DashBoardCompanySpace> yesterdayAbsents = DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
+                IList<DashBoardCompanySpace> yesterdayAbsents = DashboardCompanySpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent))
+                    .ToList();
                 foreach (DashBoardCompanySpace absent in yesterdayAbsents)
                 {
                     employees += absent.Employee.NickName + ", ";
@@ -255,17 +273,20 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> currentMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> currentMonthLeaves = DashboardEmployeeSpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent))
+                    .ToList();
+
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthLeaves.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace leave in currentMonthLeaves)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, currentMonthLeaves.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, currentMonthLeaves.Count, dates);
                 }
 
                 return displayValue;
@@ -276,17 +297,19 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> lastMonthLeaves = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> lastMonthLeaves = DashboardEmployeeSpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
+                    .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthLeaves.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace leave in lastMonthLeaves)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl, leave.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, lastMonthLeaves.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, lastMonthLeaves.Count, dates);
                 }
 
                 return displayValue;
@@ -298,17 +321,19 @@
             get
             {
                 IList<DashBoardPersonalSpace> currentMonthCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent))
+                        .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthCheckInOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace checkInOut in currentMonthCheckInOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, currentMonthCheckInOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, currentMonthCheckInOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -320,17 +345,19 @@
             get
             {
                 IList<DashBoardPersonalSpace> lastMonthCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent))
+                        .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthCheckInOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace checkInOut in lastMonthCheckInOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, lastMonthCheckInOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, lastMonthCheckInOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -342,18 +369,24 @@
             get
             {
                 IList<DashBoardPersonalSpace> currentMonthMissingCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => ((t.TypeId == (int)DashBoardType.MissingCheckInOut ||
-                        t.TypeId == (int)DashBoardType.CheckInOut) && t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => (
+                            (t.TypeId == (int)DashBoardType.MissingCheckInOut
+                             || t.TypeId == (int)DashBoardType.CheckInOut)
+                            && t.IsCurrent))
+                        .ToList();
+
                 var dates = new StringBuilder();
                 var displayValue = "-";
+
                 if (currentMonthMissingCheckInOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace missingCheckInOut in currentMonthMissingCheckInOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, currentMonthMissingCheckInOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, currentMonthMissingCheckInOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -365,17 +398,20 @@
             get
             {
                 IList<DashBoardPersonalSpace> lastMonthMissingCheckInOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace
+                        .Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent))
+                        .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthMissingCheckInOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace missingCheckInOut in lastMonthMissingCheckInOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, lastMonthMissingCheckInOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, lastMonthMissingCheckInOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -387,17 +423,19 @@
             get
             {
                 IList<DashBoardPersonalSpace> currentMonthLateInEarlyOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent))
+                        .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthLateInEarlyOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace lateInEarlyOut in currentMonthLateInEarlyOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, currentMonthLateInEarlyOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, currentMonthLateInEarlyOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -409,17 +447,19 @@
             get
             {
                 IList<DashBoardPersonalSpace> lastMonthLateInEarlyOuts =
-                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent)).ToList();
+                    DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent))
+                        .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthLateInEarlyOuts.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace lateInEarlyOut in lastMonthLateInEarlyOuts)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, lastMonthLateInEarlyOuts.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, lastMonthLateInEarlyOuts.Count, dates);
                 }
 
                 return displayValue;
@@ -430,17 +470,20 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> currentMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> currentMonthAbsents = DashboardEmployeeSpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent))
+                    .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (currentMonthAbsents.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace absent in currentMonthAbsents)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, absent.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, currentMonthAbsents.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, currentMonthAbsents.Count, dates);
                 }
 
                 return displayValue;
@@ -451,17 +494,20 @@
         {
             get
             {
-                IList<DashBoardPersonalSpace> lastMonthAbsents = DashboardEmployeeSpace.Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent)).ToList();
+                IList<DashBoardPersonalSpace> lastMonthAbsents = DashboardEmployeeSpace
+                    .Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent))
+                    .ToList();
                 var dates = new StringBuilder();
                 var displayValue = "0";
                 if (lastMonthAbsents.Count > 0)
                 {
                     foreach (DashBoardPersonalSpace absent in lastMonthAbsents)
                     {
-                        dates.Append(string.Format(_DisplayCellDetailTpl, absent.WorkDate.ToDateMonthYearFormatedDate()));
+                        dates.Append(string.Format(DisplayCellDetailTpl,
+                            absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
-                    displayValue = string.Format(_DisplayCellTpl, lastMonthAbsents.Count, dates.ToString());
+                    displayValue = string.Format(DisplayCellTpl, lastMonthAbsents.Count, dates);
                 }
 
                 return displayValue;
@@ -517,7 +563,7 @@
 
         public EmployeeAttendanceViewModel EmployeeAttendanceModel { get; set; }
 
-        public IList<Fanex.NexHR.ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> NotificationLateInEarlyOutToDay { get; set; }
+        public IList<LateInEarlyOut.LateInEarlyOutViewModel> NotificationLateInEarlyOutToDay { get; set; }
 
         public string DisplayLateInEarlyOutNotification
         {
@@ -528,7 +574,8 @@
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
-                        results += item.Nickname + "<span class='txt-normal'> (" + item.Types + " " + item.Minutes + "'" + ")</span>" + ", ";
+                        results += item.Nickname + "<span class='txt-normal'> (" + item.Types + " " + item.Minutes +
+                                   "'" + ")</span>" + ", ";
                     }
 
                     if (results.Length > 2)
