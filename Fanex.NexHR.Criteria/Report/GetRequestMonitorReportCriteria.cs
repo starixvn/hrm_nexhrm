@@ -9,8 +9,8 @@
 
 namespace Fanex.NexHR.Criteria.Report
 {
+    using Data.Repository;
     using System;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get request monitor criteria.
@@ -31,7 +31,7 @@ namespace Fanex.NexHR.Criteria.Report
 
         public override string GetSettingKey()
         {
-            return "RequestMonitoring";
+            return "Report_RequestMonitor";
         }
 
         public override bool IsValid()

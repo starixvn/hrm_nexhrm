@@ -1,4 +1,4 @@
-﻿@model List<RequestsMonitoring>
+﻿@model IList<RequestsMonitoring>
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
@@ -144,7 +144,7 @@
         }
         else
         { 
-            @RazorHelper.DisplayNoInformation(colspan: 12);
+            @RazorHelper.DisplayNoInformation(12)
         }
     </tbody>
 </table>

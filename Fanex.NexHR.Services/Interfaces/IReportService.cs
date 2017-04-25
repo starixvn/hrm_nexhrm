@@ -1,11 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using Criteria.Report;
+    using Models;
+    using Models.Report;
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.AnnualLeave;
-    using Fanex.NexHR.Criteria.Report;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.AnnualLeave;
-    using Fanex.NexHR.Models.Report;
 
     public interface IReportService
     {
