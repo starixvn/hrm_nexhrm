@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
+    using Core;
+    using Core.Enums;
+    using Models;
+    using Resources;
 
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
@@ -38,13 +38,7 @@
 
         public string LeaveTypeName { get; set; }
 
-        public int ForRequest
-        {
-            get
-            {
-                return (int)GeneralRequestType.Leave;
-            }
-        }
+        public int ForRequest => (int)GeneralRequestType.Leave;
 
         public decimal TotalRequest { get; set; }
 
@@ -52,32 +46,14 @@
 
         public IList<DateTime> UnavailDates { get; set; }
 
-        public bool IsUnpaidLeave
-        {
-            get
-            {
-                return LeaveTypeId == Constants.UnpaidLeaveType;
-            }
-        }
+        public bool IsUnpaidLeave => LeaveTypeId == Constants.UnpaidLeaveType;
 
-        public bool IsAnnualLeaveOver5Day
-        {
-            get
-            {
-                return (LeaveTypeId == Constants.AnnualLeaveType || LeaveTypeId == Constants.UnplannedAnnualLeaveType)
-                    && TotalDays >= 5;
-            }
-        }
+        public bool IsAnnualLeaveOver5Day => (LeaveTypeId == Constants.AnnualLeaveType || LeaveTypeId == Constants.UnplannedAnnualLeaveType)
+                                             && TotalDays >= 5;
 
         public bool IsEdit { get; set; }
 
-        public string EmailTemplate 
-        { 
-            get 
-            {
-                return Utilities.ReadTextFile(EmailTemplatePath);
-            } 
-        }
+        public string EmailTemplate => Utilities.ReadTextFile(EmailTemplatePath);
 
         public string EmailTemplatePath { get; private set; }
 

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
-    using Fanex.NexHR.Resources;
+    using Resources;
 
     public class PostnatalViewModel
     {        

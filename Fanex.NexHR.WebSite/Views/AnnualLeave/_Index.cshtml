@@ -72,7 +72,7 @@
                         @if (Roles.IsUserInRole("HR"))
                         {
                             <td class="col-checkbox">
-                                @Html.MaterializeCheckBox("checkbox_" + @leaveSummary.Employee.Id, htmlAttributes)
+                                @Html.MaterializeCheckBox("checkbox_" + leaveSummary.Employee.Id, htmlAttributes)
                             </td>
                         }
                         else

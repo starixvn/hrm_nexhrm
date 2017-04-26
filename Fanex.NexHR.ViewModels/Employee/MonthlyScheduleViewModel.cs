@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
-    using Fanex.NexHR.Models;
     using System.Collections.Generic;
+    using Models;
 
     public class MonthlyScheduleViewModel
     {

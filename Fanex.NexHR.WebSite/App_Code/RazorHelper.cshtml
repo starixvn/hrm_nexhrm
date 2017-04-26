@@ -1,10 +1,9 @@
-﻿@using System.Web.Mvc;
-@using System.Web.WebPages;
-@using System.Web.Mvc.Html;
+﻿@using System.Globalization
 @using Fanex.NexHR.Core.Enums;
 @using Fanex.NexHR.Core;
 @using Fanex.NexHR.Models;
 @using Fanex.NexHR.Resources;
+
 @helper RequestType(short type)
 {
 switch (type)
@@ -56,9 +55,9 @@ switch (type)
         {
             <option selected="@(status == 0)" value="0">All</option>
         }
-        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@Labels.Rejected.ToString()</option>
-        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@Labels.Approved.ToString()</option>
+        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending</option>
+        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@Labels.Rejected</option>
+        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@Labels.Approved</option>
     </select>
 
 }
@@ -113,10 +112,10 @@ else
         }
     </select>
 }
-@helper EmployeeDropDownList(List<string> EmployeeList)
+@helper EmployeeDropDownList(List<string> employeeList)
 {
     <select id="employee">
-        @foreach (string emp in EmployeeList)
+        @foreach (string emp in employeeList)
         {
             <option value="@emp">@emp</option>
         }
@@ -292,7 +291,7 @@ else
 {
 var hour = Math.Floor(minutes / 60);
 var minute = minutes % 60;
-var display = string.Empty;
+string display;
 
 if (hour == 0)
 {
@@ -300,7 +299,7 @@ if (hour == 0)
 }
 else
 {
-    display = (hour > 9 ? hour.ToString() : "0" + hour) + ":" + (minute > 9 ? minute.ToString() : "0" + minute);
+    display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
 }
 
     <span>@display</span>

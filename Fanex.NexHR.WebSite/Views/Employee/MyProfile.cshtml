@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="avatar">
-                                    <img src="~/employee/avatar/@(Model.Code)" alt="@Model.NickName" />
+                                    <img src="@Url.Action("Avatar","Employee", new {id=Model.Code})" alt="@Model.NickName" />
                                 </div>
                             </div>
                             <div class="col">
@@ -72,7 +72,7 @@
                                                 <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
+                                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage ? "Yes" : "No")</span>
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--l">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>

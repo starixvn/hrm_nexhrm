@@ -2,7 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Fanex.NexHR.Resources;
+    using Resources;
 
     public class LeaveDeductionViewModel
     {

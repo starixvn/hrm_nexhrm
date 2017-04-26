@@ -30,7 +30,7 @@
                     <td>@item.Minutes</td>
                     <td>@item.ModifiedDate.Date.ToString("dd MMM, yyyy")</td>
                     <td title="Edit">
-                        <a href="/lateearly/Edit/@item.Id">
+                        <a href="@Url.Action("Edit","LateEarly",new {id=item.Id})">
                             <i class='mdi mdi-border-color mdi-dark'></i>
                         </a>
                     </td>
@@ -44,7 +44,7 @@
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 8);
+            @RazorHelper.DisplayNoInformation(colspan: 8)
         }
     </tbody>
 </table>

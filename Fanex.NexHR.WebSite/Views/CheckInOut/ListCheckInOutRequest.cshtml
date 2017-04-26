@@ -15,9 +15,10 @@
     @if (Model.Any())
     {
         <tbody>
-            @{int index = 1;}
-            @{string selectedClass = string.Empty;}
-            @foreach (RequestEntity request in Model)
+            @{
+                int index = 1;
+            }
+        @foreach (RequestEntity request in Model)
             {
                 <tr id="row_@(request.Id)">
                     <td>@(index++)</td>
@@ -51,6 +52,6 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(colspan: 10);
+        @RazorHelper.DisplayNoInformation(colspan: 10)
     }
 </table>

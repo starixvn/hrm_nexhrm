@@ -35,7 +35,7 @@
                                 {
                                     <div class="col m-r--m">
                                         <div class="left label--l">
-                                            @Html.Label(@Labels.MinBalance)
+                                            @Html.Label(Labels.MinBalance)
                                         </div>
                                         <div class="left select--xs">
                                             @Html.DropDownListFor(model => model.MinAnnualBalance, Model.MinAnnualBalances, Labels.None)
@@ -44,7 +44,7 @@
                                 }
                                 <div class="col m-r--m">
                                     <div class="left label--s">
-                                        @Html.LabelFor(model => model.TeamId, @Labels.Team)
+                                        @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
                                     <div class="left select--m">
                                         @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.None)

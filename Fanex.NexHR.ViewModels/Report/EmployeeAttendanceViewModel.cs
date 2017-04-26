@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.ViewModels.Report
 {
-    using Common;
-    using Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Common;
+    using Models;
 
     public class EmployeeAttendanceViewModel : PagerOptionModel
     {

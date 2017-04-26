@@ -20,13 +20,13 @@
         {
             if (sitemapNode != null)
             {
-                this.Controller = sitemapNode["Controller"];
-                this.Action = sitemapNode["Action"];
-                this.Title = sitemapNode.Title;
-                this.Icon = sitemapNode["Icon"];
-                this.HoverController = sitemapNode["HoverController"];
-                this.HoverAction = sitemapNode["HoverAction"];
-                this.HoverIcon = sitemapNode["HoverIcon"];
+                Controller = sitemapNode["Controller"];
+                Action = sitemapNode["Action"];
+                Title = sitemapNode.Title;
+                Icon = sitemapNode["Icon"];
+                HoverController = sitemapNode["HoverController"];
+                HoverAction = sitemapNode["HoverAction"];
+                HoverIcon = sitemapNode["HoverIcon"];
             }
         }
 
@@ -36,12 +36,12 @@
         {
             get
             {
-                return this._controller.ToLower();
+                return _controller.ToLower();
             }
 
             set
             {
-                this._controller = value ?? string.Empty;
+                _controller = value ?? string.Empty;
             }
         }
 
@@ -49,12 +49,12 @@
         {
             get
             {
-                return this._action.ToLower();
+                return _action.ToLower();
             }
 
             set
             {
-                this._action = value ?? string.Empty;
+                _action = value ?? string.Empty;
             }
         }
 
@@ -62,12 +62,12 @@
         {
             get
             {
-                return this._title;
+                return _title;
             }
 
             set
             {
-                this._title = value ?? string.Empty;
+                _title = value ?? string.Empty;
             }
         }
 
@@ -75,13 +75,7 @@
 
         public List<NavigationViewModel> Childs { get; set; }
 
-        public string Id
-        {
-            get
-            {
-                return string.Format("{0}_{1}", this.Controller, this.Action);
-            }
-        }
+        public string Id => $"{Controller}_{Action}";
 
         public string HoverController { get; set; }
 

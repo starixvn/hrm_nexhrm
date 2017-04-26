@@ -80,7 +80,7 @@
                                     @Html.LabelFor(model => model.DepartmentId)
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "-- " + @Messages.SelectDepartment + " --")
+                                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "-- " + Messages.SelectDepartment + " --")
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                     @Html.LabelFor(model => model.ParentId)
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.Teams, "Id", "Name"), "-- " + @Messages.SelectParentTeam + " --")
+                                    @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.Teams, "Id", "Name"), "-- " + Messages.SelectParentTeam + " --")
                                 </div>
                             </div>
                         </div>

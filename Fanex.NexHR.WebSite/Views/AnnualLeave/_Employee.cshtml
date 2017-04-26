@@ -33,7 +33,7 @@
                     @if (item.RequestId == null)
                     {
                         <td>
-                            <a href="~/annualleave/edit?leavetransactionId=@item.LeaveTransactionId">@Labels.Edit</a>
+                            <a href="@Url.Action("Edit","AnnualLeave", new {leavetransactionId = item.LeaveTransactionId})">@Labels.Edit</a>
                         </td>
                         <td title="Delete">
                             <a href="javascript:;" onclick="deleteLeaveTrans(@item.LeaveTransactionId)">

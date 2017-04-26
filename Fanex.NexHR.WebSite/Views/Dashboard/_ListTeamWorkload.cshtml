@@ -5,7 +5,7 @@
     @foreach (var item in Model)
     {
         <li class="collection-item avatar">
-            <img src="~/employee/avatar/@item.Employee.Code" class="circle" />
+            <img src="@Url.Action("Avatar","Employee", new {id= item.Employee.Code})" class="circle" />
             <span class="title">@item.Employee.NickName</span>
             <div class="progress">
                 <div class="determinate @item.CssClassForPercent" style="width: @item.DisplayPercentWorkload">

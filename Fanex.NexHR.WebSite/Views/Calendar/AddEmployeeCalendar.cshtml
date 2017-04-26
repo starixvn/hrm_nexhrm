@@ -12,6 +12,7 @@
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
+
     <div class="row form-input">
         <div class="left label--m">
             @Html.LabelFor(model => model.ToDate, Labels.ToDate)
@@ -21,6 +22,7 @@
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
+
     <div class="row form-input">
         <div class="left label--m">
             @Html.LabelFor(model => model.AddEmployee, "Employee")
@@ -39,7 +41,7 @@
             @Html.CheckBoxFor(model => model.SetOffDay)
         </div>
     </div>
-    </br>
+
     <div class="row form-input center">
         <input class="btn-cancel waves-effect waves-light m-r--m" id="btnCancel" type="button" value="@Labels.Cancel" />
         <input class="btn-ok waves-effect waves-light" id="btnAdd" type="button" value="@Labels.Add" />

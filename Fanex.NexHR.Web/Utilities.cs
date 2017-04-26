@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Web
 {
-    using Fanex.NexHR.Core.Enums;
+    using Core.Enums;
     using System.Web.Security;
 
     public static class Utilities

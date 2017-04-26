@@ -17,10 +17,10 @@
 @{
     //Set max month we can select in MonthPick
     int Month = 12;
-    int Year = DateTime.Now.GetMaxDate().Year + 1;
+    int year = DateTime.Now.GetMaxDate().Year + 1;
 
     var maxDate = new System.Text.StringBuilder();
-    maxDate.AppendFormat("{0}/{1}/1", Year, Month);
+    maxDate.AppendFormat("{0}/{1}/1", year, Month);
     DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
 
     IList<WorkingSchedule> employeeSchedules = Model.WorkingSchedules.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
@@ -41,7 +41,7 @@
                             <div class="row form-input">
                                 <div class="col m-l--l m-r--xl">
                                     <div class="left label--s">
-                                        @Html.Label(@Labels.Month)
+                                        @Html.Label(Labels.Month)
                                     </div>
                                     <div class="left select--s">
                                         <div id="monthPickr"></div>
@@ -54,10 +54,10 @@
                                 </div>
                                 <div class="col m-l--l m-r--l">
                                     <div class="left label--s">
-                                        @Html.Label(@Labels.Team)
+                                        @Html.Label(Labels.Team)
                                     </div>
                                     <div class="left select-team">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), @Labels.AllTeams)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
@@ -213,108 +213,103 @@
                                             {
                                                 foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                 {
-                                                    var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == employeeSchedule.Employee.Id);
-                                                    var day = 1;
+                                                    var schedule = employeeSchedule;
+                                                    var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == schedule.Employee.Id);
                                                     <tr class="row">
                                                         @foreach (WorkingSchedule workingSchedule in workingSchedules)
                                                         {
                                                             if (workingSchedule.IsLeaveHalfDay)
                                                             {
-                                                        <td class="HAL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="HAL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("AL") || workingSchedule.Title.Equals("UAL"))
                                                             {
-                                                        <td class="AL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="AL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("UPL"))
                                                             {
-                                                        <td class="UPL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="UPL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("HAL"))
                                                             {
-                                                        <td class="HAL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="HAL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("OFF") || workingSchedule.Title.Equals("PH"))
                                                             {
-                                                        <td class="OFF">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="OFF">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("BL"))
                                                             {
-                                                        <td class="BL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="BL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("BT"))
                                                             {
-                                                        <td class="BT">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="BT">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Equals("WL"))
                                                             {
-                                                        <td class="WL">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="WL">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Contains("ML"))
                                                             {
-                                                        <td class="ML">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="ML">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else if (workingSchedule.Title.Contains('/'))
                                                             {
-                                                        <td class="HH">
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td class="HH">
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
                                                             else
                                                             {
-                                                        <td>
-                                                            <div class="datagrid-cell">
-                                                                @workingSchedule.Title
-                                                            </div>
-                                                        </td>
+                                                                <td>
+                                                                    <div class="datagrid-cell">
+                                                                        @workingSchedule.Title
+                                                                    </div>
+                                                                </td>
                                                             }
-                                                            day++;
                                                         }
                                                     </tr>
                                                 }
                                             }
-                                            @*else
-                                            {
-                                                @RazorHelper.DisplayNoInformation(colspan: 1);
-                                            }*@
                                         </tbody>
                                     </table>
                                 </div>

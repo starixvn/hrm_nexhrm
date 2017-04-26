@@ -72,7 +72,7 @@
                                         <div class="left label--m">
                                             &nbsp;</div>
                                         <div class="left">
-                                            @Html.ActionLink(@Labels.Cancel, "employee", new { employeeId = Model.EmployeeId, year = Model.AffectedFrom.Year }, new { @class = "btn-cancel waves-effect waves-light" })
+                                            @Html.ActionLink(Labels.Cancel, "employee", new { employeeId = Model.EmployeeId, year = Model.AffectedFrom.Year }, new { @class = "btn-cancel waves-effect waves-light" })
                                             <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />
                                         </div>
                                     </div>

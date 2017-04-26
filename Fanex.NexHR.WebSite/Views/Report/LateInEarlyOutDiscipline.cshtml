@@ -27,7 +27,7 @@
                             <div class="row form-input">
                                 <div class="col m-l--l m-r--xl">
                                     <div class="left label--s">
-                                        @Html.Label(@Labels.To)
+                                        @Html.Label(Labels.To)
                                     </div>
                                     <div class="left select--s">
                                         <div id="toMonthPickr"></div>
@@ -46,10 +46,10 @@
                                 
                                 <div class="col m-l--l m-r--l">
                                     <div class="left label--s">
-                                        @Html.Label(@Labels.Team)
+                                        @Html.Label(Labels.Team)
                                     </div>
                                     <div class="left select-team">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), @Labels.AllTeams)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col m-r--l">

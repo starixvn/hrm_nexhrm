@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.AnnualLeave;
+    using Models;
+    using Models.AnnualLeave;
 
     public class LeaveSummaryViewModel
     {

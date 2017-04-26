@@ -40,7 +40,7 @@
                                         @Html.LabelFor(model => model.EmpId, Labels.Employee)
                                     </div>
                                     <div class="left input--m">
-                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { @id = "EmployeeId" })
+                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })
                                         @Html.EditorFor(model => model.Employee)
                                     </div>
                                 </div>
@@ -84,8 +84,8 @@
                                         @{
                             var minutesList = new List<SelectListItem>
                                                 {
-                                                    new SelectListItem() {Text = "30m", Value = "30", Selected = true},
-                                                    new SelectListItem() {Text = "60m", Value = "60"},
+                                                    new SelectListItem {Text = "30m", Value = "30", Selected = true},
+                                                    new SelectListItem {Text = "60m", Value = "60"},
                                                 };
                                         }
                                         @Html.RadioButtonList(model => model.Minutes, minutesList)

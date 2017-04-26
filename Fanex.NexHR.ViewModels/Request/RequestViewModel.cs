@@ -4,21 +4,21 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels.Common;    
+    using Common;
+    using Core.Enums;
+    using Models;
+    using Resources;
 
     public class RequestViewModel : PagerOptionModel
     {
         public RequestViewModel()
         {
-            this.StatusId = (byte)RequestStatuse.Pending;
-            this.FromDate = DateTime.Now;
-            this.ToDate = DateTime.Now;
-            this.DateOption = 1;
-            this.TeamId = -1;
-            this.EmployeeId = -1;
+            StatusId = (byte)RequestStatuse.Pending;
+            FromDate = DateTime.Now;
+            ToDate = DateTime.Now;
+            DateOption = 1;
+            TeamId = -1;
+            EmployeeId = -1;
         }
 
         public int DateOption { get; set; }
@@ -54,30 +54,18 @@
 
         public IList<LeaveType> LeaveTypes { get; set; }
 
-        public List<SelectListItem> DateTypes
+        public List<SelectListItem> DateTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() { Text = Labels.EffectedDate, Value = "true" },
-                    new SelectListItem() { Text = Labels.CreatedDate, Value = "false" },
-                };
-            }
-        }
+            new SelectListItem() { Text = Labels.EffectedDate, Value = "true" },
+            new SelectListItem() { Text = Labels.CreatedDate, Value = "false" },
+        };
 
-        public List<SelectListItem> RequestTypes
+        public List<SelectListItem> RequestTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() { Text = Labels.All, Value = "5" },
-                    new SelectListItem() { Text = Labels.Leave, Value = "1" },
-                    new SelectListItem() { Text = Labels.CheckInOut, Value = "4" }
-                };
-            }
-        }
+            new SelectListItem() { Text = Labels.All, Value = "5" },
+            new SelectListItem() { Text = Labels.Leave, Value = "1" },
+            new SelectListItem() { Text = Labels.CheckInOut, Value = "4" }
+        };
 
         public IList<SelectListItem> GetSelectListItemTeam(int? teamId)
         {
@@ -92,12 +80,12 @@
 
             selecListItemTeam.Add(firstItem);
 
-            if (this.Teams == null)
+            if (Teams == null)
             {
-                this.Teams = new List<Team>();
+                Teams = new List<Team>();
             }
 
-            foreach (Team team in this.Teams)
+            foreach (Team team in Teams)
             {
                 var item = new SelectListItem
                 {

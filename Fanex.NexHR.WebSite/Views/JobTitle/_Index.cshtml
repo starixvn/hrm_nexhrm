@@ -26,7 +26,7 @@
                         @if(jobtitle.NumberOfEmployee.Equals(0)) {
                             <span>@jobtitle.NumberOfEmployee</span>
                         } else {
-                            <a href="/employee/usermanagement/?jobtitleid=@jobtitle.Id">@jobtitle.NumberOfEmployee</a>
+                            <a href="@Url.Action("UserManagement","Employee", new { jobtitleid = jobtitle.Id })">@jobtitle.NumberOfEmployee</a>
                         }
                     </td>
                     <td class="col-edit">
@@ -58,7 +58,7 @@
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 5);
+            @RazorHelper.DisplayNoInformation(colspan: 5)
         }
     </tbody>
 </table>

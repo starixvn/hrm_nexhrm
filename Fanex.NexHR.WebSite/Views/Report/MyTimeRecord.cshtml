@@ -1,6 +1,6 @@
 ﻿@model TimeRecordViewModel
 @{
-    ViewBag.Title = @Labels.MyTimeRecord;
+    ViewBag.Title = Labels.MyTimeRecord;
 }
 @section css{
     @Styles.Render("~/Content/simplepaginationcss")
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col m-r--m">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate, @Labels.FromDate)
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
                                     <div class="datepicker-button left select--s">
                                         @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="left label--m">
-                                       @Html.LabelFor(model => model.ToDate, @Labels.ToDate)
+                                       @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
                                     <div class="datepicker-button left select--s">
                                         @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)

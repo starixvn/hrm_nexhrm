@@ -39,9 +39,9 @@
                                         <label for="Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--employee">
-                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { @id = "EmployeeId" })
-                                        @Html.HiddenFor(model => model.OldEmpId, htmlAttributes: new { @id = "OldEmployeeId" })
-                                        @Html.TextBoxFor(model => model.Nickname, htmlAttributes: new { @id = "Employee" })
+                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })
+                                        @Html.HiddenFor(model => model.OldEmpId, htmlAttributes: new { id = "OldEmployeeId" })
+                                        @Html.TextBoxFor(model => model.Nickname, htmlAttributes: new { id = "Employee" })
                                     </div>
                                 </div>
                             </div>

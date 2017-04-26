@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels.Calendar
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Calendar;
+    using Models;
+    using Models.Calendar;
 
     public class WorkingCalendarViewModel
     {

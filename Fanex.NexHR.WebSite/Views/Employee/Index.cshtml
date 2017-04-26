@@ -30,7 +30,7 @@
                             </div>
                             <div class="col">
                                 <div class="left label--s">
-                                    @Html.LabelFor(model => model.TeamId, @Labels.Team)
+                                    @Html.LabelFor(model => model.TeamId, Labels.Team)
                                 </div>
                                 <div class="left select--m">
                                     @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)

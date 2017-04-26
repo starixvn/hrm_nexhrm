@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Core.Enums;
     using Resources;
 
     public class MemberOvertimeViewModel

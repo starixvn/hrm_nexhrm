@@ -16,7 +16,7 @@ namespace Fanex.NexHR.WebSite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }

@@ -1,11 +1,10 @@
 ﻿namespace Fanex.NexHR.ViewModels.LateInEarlyOut
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
 
     public class LateInEarlyOutViewModel : BaseRequestModel
-    {        
+    {
         public int EmpId { get; set; }
 
         public string Nickname { get; set; }
@@ -22,24 +21,18 @@
 
         public DateTime ModifiedDate { get; set; }
 
-        public List<Types> TypesList 
-        { 
-            get 
+        public List<Types> TypesList => new List<Types>()
+        {
+            new Types()
             {
-                return new List<Types>()
-                {
-                    new Types()
-                    {
-                        Id = 1, 
-                        Name = "Late in"
-                    },
-                    new Types()
-                    { 
-                        Id = 2, 
-                        Name = "Early out" 
-                    }
-                };
-            }            
-        }
+                Id = 1,
+                Name = "Late in"
+            },
+            new Types()
+            {
+                Id = 2,
+                Name = "Early out"
+            }
+        };
     }
 }
