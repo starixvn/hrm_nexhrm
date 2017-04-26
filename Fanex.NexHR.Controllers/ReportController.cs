@@ -158,6 +158,7 @@
             return PartialView("_ListTimesheet", employeeAttendances);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Hr", Justification = "Reviewed")]
         [Authorize(Roles = "HR")]
         public ActionResult HrRequestMonitoring()
         {
@@ -177,6 +178,7 @@
             return View("RequestMonitoring", model);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Hr", Justification = "Reviewed")]
         [Authorize(Roles = "HR")]
         public ActionResult ListHrRequestMonitoring(RequestsMonitoringViewModel model)
         {
