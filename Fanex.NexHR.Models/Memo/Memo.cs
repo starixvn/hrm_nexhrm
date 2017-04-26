@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Models.Memo
 {
-    using Fanex.NexHR.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
+    using Resources;
 
     public class Memo : EntityBase<int>
     {
@@ -46,17 +46,11 @@
 
         public IList<LookupData> MemoCategories { get; set; }
 
-        public List<SelectListItem> StatusTypes
+        public List<SelectListItem> StatusTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() { Text = Labels.All, Value = "-1" },       
-                    new SelectListItem() { Text = Labels.Active, Value = "0" },                    
-                    new SelectListItem() { Text = Labels.Deactive, Value = "1" }
-                };
-            }
-        }
+            new SelectListItem() { Text = Labels.All, Value = "-1" },       
+            new SelectListItem() { Text = Labels.Active, Value = "0" },                    
+            new SelectListItem() { Text = Labels.Deactive, Value = "1" }
+        };
     }
 }

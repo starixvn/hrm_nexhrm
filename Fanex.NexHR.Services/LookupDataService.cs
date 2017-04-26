@@ -1,10 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections;
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.LookupData;
+    using Interfaces;
+    using Models;
 
     public class LookupDataService : BaseService, ILookupDataService
     {

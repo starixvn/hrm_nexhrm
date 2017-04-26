@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
     using System;
+    using Core.Attributes;
+    using Data.Repository;
 
     /// <summary>
     /// Insert Memo Criteria.

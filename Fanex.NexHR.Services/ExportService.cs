@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Report;
+    using System.Globalization;
     using System.IO;
+    using Core;
+    using Models;
+    using Models.Report;
 
     public class ExportService
     {
@@ -100,14 +101,7 @@
         {
             object record = CreateRecordTotalWorkingHours(totalWorkingHours, ref rowIndex);
 
-            if ((rowIndex - 1) % 2 == 0)
-            {
-                writer.WriteRow(5, record);
-            }
-            else
-            {
-                writer.WriteRow(4, record);
-            }
+            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 5 : 4, record);
         }
 
         private object CreateRecordTotalWorkingHours(
@@ -161,14 +155,7 @@
         {
             object record = CreateRecordEmployeeAttendances(employeeAttendance, ref rowIndex);
 
-            if ((rowIndex - 1) % 2 == 0)
-            {
-                writer.WriteRow(4, record);
-            }
-            else
-            {
-                writer.WriteRow(3, record);
-            }
+            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
         }
 
         private object CreateRecordEmployeeAttendances(
@@ -219,14 +206,7 @@
         {
             object record = CreateRecordEmployeeProfile(employee, ref rowIndex);
 
-            if ((rowIndex - 1) % 2 == 0)
-            {
-                writer.WriteRow(4, record);
-            }
-            else
-            {
-                writer.WriteRow(3, record);
-            }
+            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
         }
 
         private object CreateRecordEmployeeProfile(
@@ -298,7 +278,7 @@
                     return minute > 9 ? "00:" + minute : "00:0" + minute;
                 }
 
-                return (hour > 9 ? hour.ToString() : "0" + hour) + ':' + (minute > 9 ? minute.ToString() : "0" + minute);
+                return (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ':' + (minute > 9 ? minute.ToString() : "0" + minute);
             }
 
             return string.Empty;

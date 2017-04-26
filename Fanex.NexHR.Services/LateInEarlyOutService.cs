@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.LateInEarlyOut;
+    using Criteria.LateInEarlyOut;
+    using Interfaces;
+    using ViewModels.LateInEarlyOut;
 
     public class LateInEarlyOutService : BaseService, ILateInEarlyOutService
     {

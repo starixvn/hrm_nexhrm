@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Request
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Get request history criteria.

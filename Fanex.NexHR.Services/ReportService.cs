@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
     using Criteria.Report;
     using Interfaces;
     using Models;
     using Models.Report;
     using Repositories;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
 
     public class ReportService : BaseService, IReportService
     {

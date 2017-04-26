@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Team
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetTeamByIdCriteria : CriteriaBase
     {

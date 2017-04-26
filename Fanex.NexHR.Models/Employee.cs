@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.Attributes;    
+    using Attributes;
+    using Core;
+    using Core.Enums;
 
     public class Employee : EntityBase<int>
     {
@@ -35,13 +35,7 @@
 
         public byte? Gender { get; set; }
 
-        public string CodeOfTeam
-        {
-            get
-            {
-                return Team != null ? Team.Code : string.Empty;
-            }
-        }
+        public string CodeOfTeam => Team != null ? Team.Code : string.Empty;
 
         public Team Team { get; set; }
 
@@ -183,21 +177,9 @@
             }
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                return NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
-            }
-        }
+        public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
 
-        public bool HasRolePM
-        {
-            get
-            {
-                return Team != null && Team.Code == "PM";
-            }
-        }
+        public bool HasRolePM => Team != null && Team.Code == "PM";
 
         public bool IsInRoles(params Role[] roles)
         {

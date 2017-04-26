@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetNumberRequestInMonthCriteria : CriteriaBase
     {

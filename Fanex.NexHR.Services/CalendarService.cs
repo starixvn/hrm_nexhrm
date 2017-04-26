@@ -1,22 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.Calendar;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models.Calendar;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.Calendar;
+    using Interfaces;
+    using Models.Calendar;
+    using Repositories;
+    using Repositories.Interfaces;
 
     public class CalendarService : BaseService, ICalendarService
     {
-        private readonly ICalendarRepository calendarRepository;
+        private readonly ICalendarRepository _calendarRepository;
 
         public CalendarService(ICalendarRepository calendarRepository = null)
         {
-            this.calendarRepository = calendarRepository ?? new CalendarRepository();
+            _calendarRepository = calendarRepository ?? new CalendarRepository();
         }
 
         public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
@@ -24,7 +21,7 @@
             IList<WorkingSchedule> workingSchedules = null;
             if (criteria != null && criteria.IsValid())
             {
-                workingSchedules = calendarRepository.GetWorkingSchedule(criteria);
+                workingSchedules = _calendarRepository.GetWorkingSchedule(criteria);
             }
 
             return workingSchedules ?? new List<WorkingSchedule>();

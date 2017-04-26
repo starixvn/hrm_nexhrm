@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.CompanyEvent;
-    using Fanex.NexHR.Models.CompanyEvent;
+    using Criteria.CompanyEvent;
+    using Models.CompanyEvent;
 
     public interface ICompanyEventService
     {

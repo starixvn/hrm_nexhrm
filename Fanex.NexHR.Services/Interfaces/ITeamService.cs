@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Models;
+    using Criteria.Team;
+    using Models;
 
     public interface ITeamService
     {

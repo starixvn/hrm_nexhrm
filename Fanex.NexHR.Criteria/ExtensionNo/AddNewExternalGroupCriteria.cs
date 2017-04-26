@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class AddNewExternalGroupCriteria : CriteriaBase
     {

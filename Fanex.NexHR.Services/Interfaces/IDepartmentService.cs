@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.Department;
-    using Fanex.NexHR.Models;
+    using Criteria.Department;
+    using Models;
 
     public interface IDepartmentService
     {

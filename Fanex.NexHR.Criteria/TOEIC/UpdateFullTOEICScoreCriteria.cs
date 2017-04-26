@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Toeic
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Update Full TOEIC Score Criteria.

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.NexHR.Criteria.Postnatal;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Postnatal;
     using System.Collections.Generic;
     using System.Linq;
+    using Criteria.Postnatal;
+    using Interfaces;
+    using ViewModels.Postnatal;
 
     public class PostnatalService : BaseService, IPostnatalService
     {

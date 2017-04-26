@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.AnnualLeave;
-    using Fanex.NexHR.Models.AnnualLeave;
+    using Criteria.AnnualLeave;
+    using Models.AnnualLeave;
 
     public interface IAnnualLeaveService
     {

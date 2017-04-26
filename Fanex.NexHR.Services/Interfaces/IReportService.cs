@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Collections.Generic;
     using Criteria.Report;
     using Models;
     using Models.Report;
-    using System.Collections.Generic;
 
     public interface IReportService
     {

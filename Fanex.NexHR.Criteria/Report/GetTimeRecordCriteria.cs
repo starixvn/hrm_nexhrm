@@ -10,8 +10,8 @@
 namespace Fanex.NexHR.Criteria.Report
 {
     using System;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
+    using Core.Attributes;
+    using Data.Repository;
 
     public class GetTimeRecordCriteria : CriteriaBase
     {

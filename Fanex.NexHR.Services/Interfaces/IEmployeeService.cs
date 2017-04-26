@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Workload;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Workload;
-    using Fanex.NexHR.ViewModels;
+    using Criteria;
+    using Criteria.Employee;
+    using Criteria.Workload;
+    using Models;
+    using Models.Workload;
+    using ViewModels;
 
     public interface IEmployeeService
     {

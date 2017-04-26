@@ -20,11 +20,12 @@
                 {
                     if (BeginCheckInTime.Equals(EndCheckInTime))
                     {
-                        return string.Format("{0} (IN {1} -> OUT:{2})", Name, BeginCheckInTime, BeginCheckOutTime);
+                        return $"{Name} (IN {BeginCheckInTime} -> OUT:{BeginCheckOutTime})";
                     }
                     else
                     {
-                        return string.Format("{0} (IN {1} - {2} -> OUT {3} - {4})", Name, BeginCheckInTime, EndCheckInTime, BeginCheckOutTime, EndCheckOutTime);
+                        return
+                            $"{Name} (IN {BeginCheckInTime} - {EndCheckInTime} -> OUT {BeginCheckOutTime} - {EndCheckOutTime})";
                     }
                 }
                 else

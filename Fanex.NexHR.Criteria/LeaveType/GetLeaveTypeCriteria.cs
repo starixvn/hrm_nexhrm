@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.LeaveType
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetLeaveTypeCriteria : CriteriaBase
     {

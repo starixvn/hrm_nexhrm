@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Criteria.Report
 {
+    using System;
     using Core.Attributes;
     using Data.Repository;
-    using System;
 
     public class GetEmployeeAttendanceReportByTypeCriteria : CriteriaBase
     {

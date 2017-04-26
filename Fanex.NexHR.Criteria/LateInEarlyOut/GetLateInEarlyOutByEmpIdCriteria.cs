@@ -1,10 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using Fanex.Data.Repository;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Data.Repository;
 
     public class GetLateInEarlyOutByEmpIdCriteria : CriteriaBase
     {

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Workload
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetEmployeeWorkloadCriteria : CriteriaBase
     {
@@ -14,7 +14,7 @@
 
         public override bool IsValid()
         {
-            return FromDate != null && ToDate != null && TeamId != 0;
+            return TeamId != 0;
         }
 
         public override string GetSettingKey()

@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.NexHR.Criteria.Toeic;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services.Interfaces;
-    using System.Linq;
+    using Criteria.Toeic;
+    using Interfaces;
+    using Models;
 
     public class ToeicService : BaseService, IToeicService
     {

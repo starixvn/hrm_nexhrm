@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
@@ -8,7 +9,6 @@
     using Models.Workload;
     using Repositories;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
     using ViewModels;
 
     public class EmployeeService : BaseService, IEmployeeService

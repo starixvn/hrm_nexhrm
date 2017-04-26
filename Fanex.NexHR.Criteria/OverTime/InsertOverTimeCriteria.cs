@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models.Overtime;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Data.Repository;
+    using Models.Overtime;
 
     public class InsertOvertimeCriteria : CriteriaBase
     {
@@ -23,7 +23,7 @@
         {
             get
             {
-                var time = TimeSheets.Select(i => string.Format("{0}:{1}", i.Employee.Id, i.Hour));
+                var time = TimeSheets.Select(i => $"{i.Employee.Id}:{i.Hour}");
                 var times = string.Join(",", time);
 
                 return times;

@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.Toeic
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Get TOEIC Score By Employee Id.

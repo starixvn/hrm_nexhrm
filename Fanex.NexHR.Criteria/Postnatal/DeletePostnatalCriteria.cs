@@ -1,8 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Postnatal
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
     using System;
+    using Data.Repository;
 
     public class DeletePostnatalCriteria : CriteriaBase
     {

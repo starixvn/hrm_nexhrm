@@ -22,13 +22,7 @@
 
         public Employee ModifiedBy { get; set; }
 
-        public int TotalMember
-        {
-            get
-            {
-                return OvertimeRecords.Count;
-            }
-        }
+        public int TotalMember => OvertimeRecords.Count;
 
         public float Totalhours
         {

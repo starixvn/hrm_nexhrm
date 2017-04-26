@@ -1,8 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
-    using System;
+    using Core.Attributes;
+    using Data.Repository;
 
     public class InsertEmployeeCriteria : CriteriaBase
     {

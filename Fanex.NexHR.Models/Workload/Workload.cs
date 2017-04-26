@@ -12,8 +12,7 @@
         {
             get
             {
-                string display = string.Empty;
-                display = (Math.Round(PercentWorkload, 2) * 100) + "%";
+                var display = (Math.Round(PercentWorkload, 2) * 100) + "%";
 
                 return display;
             }
@@ -23,7 +22,7 @@
         {
             get
             {
-                string css = string.Empty;
+                string css;
                 double roundedPercent = Math.Round(PercentWorkload, 2);
                 if (roundedPercent >= 0.9)
                 {

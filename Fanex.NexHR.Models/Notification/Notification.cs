@@ -1,10 +1,5 @@
 ﻿namespace Fanex.NexHR.Models.Notification
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class Notification
     {
         public Employee Employee { get; set; }

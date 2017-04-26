@@ -1,16 +1,15 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.Common.Helper;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services.Interfaces;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Repositories;
+    using Repositories.Interfaces;
+    using Resources;
 
     public class CommandService : ICommandService
     {
-        private readonly IBaseRepository repository;
+        private readonly IBaseRepository _repository;
 
         public CommandService()
             : this(null)
@@ -19,15 +18,15 @@
 
         public CommandService(IBaseRepository repository)
         {
-            this.repository = repository ?? new BaseRepository();
+            _repository = repository ?? new BaseRepository();
         }
 
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result = null;
+            CommandResult result;
             if (criteria != null && criteria.IsValid())
             {
-                result = repository.Insert(criteria, hasGetOutputParams);
+                result = _repository.Insert(criteria, hasGetOutputParams);
             }
             else
             {
@@ -39,10 +38,10 @@
 
         public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result = null;
+            CommandResult result;
             if (criteria != null && criteria.IsValid())
             {
-                result = repository.Update(criteria, hasGetOutputParams);
+                result = _repository.Update(criteria, hasGetOutputParams);
             }
             else
             {
@@ -54,10 +53,10 @@
 
         public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result = null;
+            CommandResult result;
             if (criteria != null && criteria.IsValid())
             {
-                result = repository.Delete(criteria, hasGetOutputParams);
+                result = _repository.Delete(criteria, hasGetOutputParams);
             }
             else
             {

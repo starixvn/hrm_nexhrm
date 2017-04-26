@@ -50,20 +50,8 @@ namespace Fanex.NexHR.Models.AnnualLeave
 
         public bool IsClosedBalance { get; set; }
 
-        public bool IsShowOpenBalance
-        {
-            get
-            {
-                return !IsOpenedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
-            }
-        }
+        public bool IsShowOpenBalance => !IsOpenedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
 
-        public bool IsShowCloseBalance
-        {
-            get
-            {
-                return !IsClosedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
-            }
-        }
+        public bool IsShowCloseBalance => !IsClosedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
     }
 }

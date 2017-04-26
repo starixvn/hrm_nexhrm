@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
-    using Fanex.NexHR.Resources;
+    using Resources;
 
     public class TimeRecord
     {

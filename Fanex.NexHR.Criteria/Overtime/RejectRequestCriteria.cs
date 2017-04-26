@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class RejectRequestCriteria : CriteriaBase
     {

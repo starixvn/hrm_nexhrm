@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public interface ILeaveTypeService
     {

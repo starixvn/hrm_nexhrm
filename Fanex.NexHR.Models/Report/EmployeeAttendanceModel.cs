@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Models.Report
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NexHR.Models.Request;
+    using Request;
 
     /// <summary>
     /// Employee attendance model.

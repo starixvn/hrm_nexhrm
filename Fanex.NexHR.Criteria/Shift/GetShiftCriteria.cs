@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Shift
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetShiftCriteria : CriteriaBase
     {

@@ -6,12 +6,6 @@
 
         public string Message { get; set; }
 
-        public bool IsSuccessful
-        {
-            get
-            {
-                return Code == 0;
-            }
-        }
+        public bool IsSuccessful => Code == 0;
     }
 }

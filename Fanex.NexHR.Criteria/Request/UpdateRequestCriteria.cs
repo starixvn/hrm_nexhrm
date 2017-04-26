@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Update Request Criteria.

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.NexHR.Models
+﻿namespace Fanex.NexHR.Models
 {
+    using System;
+
     public class Postnatal
     {
         public int EmpId { get; set; }

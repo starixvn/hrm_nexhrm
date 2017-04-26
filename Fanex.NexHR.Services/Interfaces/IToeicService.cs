@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using Fanex.NexHR.Criteria.Toeic;
-    using Fanex.NexHR.Models;
+    using Criteria.Toeic;
+    using Models;
 
     public interface IToeicService
     {

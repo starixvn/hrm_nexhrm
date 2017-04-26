@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using Fanex.Data.Repository;
     using System;
+    using Data.Repository;
 
     public class InsertLateInEarlyOutCriteria : CriteriaBase
     {
@@ -21,7 +21,7 @@
 
         public override bool IsValid()
         {
-            bool result = false;
+            bool result;
             if (Types == 1 || Types == 2)
             {
                 result = true;

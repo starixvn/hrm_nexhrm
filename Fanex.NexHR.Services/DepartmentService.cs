@@ -1,16 +1,15 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using Criteria.Department;
+    using Interfaces;
+    using Models;
+    using Repositories;
+    using Repositories.Interfaces;
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
-    using Fanex.NexHR.Criteria.Department;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
 
     public class DepartmentService : BaseService, IDepartmentService
     {
-        private IDepartmentRepository departmentRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
         public DepartmentService()
             : this(null)
@@ -19,7 +18,7 @@
 
         public DepartmentService(IDepartmentRepository departmentRepository)
         {
-            this.departmentRepository = departmentRepository ?? new DepartmentRepository();
+            _departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
         public IList<Department> GetAll()
@@ -29,7 +28,7 @@
 
             if (criteria.IsValid())
             {
-                departments = departmentRepository.GetAll(criteria);
+                departments = _departmentRepository.GetAll(criteria);
             }
 
             return departments ?? new List<Department>();
@@ -40,7 +39,7 @@
             Department department = null;
             if (criteria != null && criteria.IsValid())
             {
-                department = departmentRepository.GetDepartmentById(criteria);
+                department = _departmentRepository.GetDepartmentById(criteria);
             }
 
             return department;

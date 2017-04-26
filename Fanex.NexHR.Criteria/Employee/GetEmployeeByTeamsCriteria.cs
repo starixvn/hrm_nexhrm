@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetEmployeeByTeamsCriteria : CriteriaBase
     {

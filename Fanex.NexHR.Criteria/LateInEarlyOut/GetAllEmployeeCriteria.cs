@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
+    using Data.Repository;
     using System;
-    using Fanex.Data.Repository;
 
     public class GetAllEmployeeCriteria : CriteriaBase
     {
@@ -9,7 +9,7 @@
 
         public override bool IsValid()
         {
-            return Date != null;
+            return true;
         }
 
         public override string GetSettingKey()

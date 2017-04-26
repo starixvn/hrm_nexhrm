@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.CompanyEvent
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetEventByIdCriteria : CriteriaBase
     {

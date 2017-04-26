@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.Holiday;
-    using Fanex.NexHR.Models.Holiday;
+    using Criteria.Holiday;
+    using Models.Holiday;
 
     public interface IHolidayService
     {

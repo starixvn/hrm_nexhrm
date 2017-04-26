@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Get Memo By Id.

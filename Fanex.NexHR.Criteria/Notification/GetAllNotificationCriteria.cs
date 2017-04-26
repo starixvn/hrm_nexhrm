@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Notification
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetAllNotificationCriteria : CriteriaBase
     {

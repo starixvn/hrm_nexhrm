@@ -1,10 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.CompanyEvent
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class InsertEventCriteria : CriteriaBase
     {

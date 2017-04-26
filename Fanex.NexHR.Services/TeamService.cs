@@ -1,19 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.Team;
+    using Interfaces;
+    using Models;
+    using Repositories;
+    using Repositories.Interfaces;
 
     public class TeamService : BaseService, ITeamService
     {
-        private readonly ITeamRepository teamRepository;
+        private readonly ITeamRepository _teamRepository;
 
         public TeamService(ITeamRepository teamRepository = null)
         {
-            this.teamRepository = teamRepository ?? new TeamRepository();
+            _teamRepository = teamRepository ?? new TeamRepository();
         }
 
         public Team GetById(GetTeamByIdCriteria criteria)
@@ -21,7 +21,7 @@
             Team team = null;
             if (criteria != null && criteria.IsValid())
             {
-                team = teamRepository.GetById(criteria);
+                team = _teamRepository.GetById(criteria);
             }
 
             return team;
@@ -33,7 +33,7 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = teamRepository.GetAll(criteria);
+                teams = _teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();
@@ -48,7 +48,7 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = teamRepository.GetAll(criteria);
+                teams = _teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();

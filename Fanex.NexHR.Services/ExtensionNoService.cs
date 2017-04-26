@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Fanex.NexHR.Criteria.ExtensionNo;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
+    using Criteria.ExtensionNo;
+    using Interfaces;
+    using Models;
 
     public class ExtensionNoService : BaseService, IExtensionNoService
     {

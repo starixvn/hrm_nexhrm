@@ -3,24 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Caching;
-    using Fanex.NexHR.Criteria.Shift;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services.Interfaces;
+    using Caching;
+    using Criteria.Shift;
+    using Interfaces;
+    using Models;
 
     public class ShiftService : BaseService, IShiftService
     {
-        private const string _CacheKeyAllShift = "ShiftService_AllShift";
+        private const string CacheKeyAllShift = "ShiftService_AllShift";
         private readonly ICache _cacheManager;
 
         public ShiftService()
         {
-            this._cacheManager = CacheService.CreateInstance();
+            _cacheManager = CacheService.CreateInstance();
         }
 
         public IList<Shift> GetAll()
         {
-            var shifts = _cacheManager.Get<IList<Shift>>(_CacheKeyAllShift);
+            var shifts = _cacheManager.Get<IList<Shift>>(CacheKeyAllShift);
             if (shifts == null || !shifts.Any())
             {
                 var criteria = new GetShiftCriteria();
@@ -28,7 +28,7 @@
 
                 if (shifts != null && shifts.Any())
                 {
-                    _cacheManager.Set<IList<Shift>>(_CacheKeyAllShift, shifts, TimeSpan.FromHours(1));
+                    _cacheManager.Set(CacheKeyAllShift, shifts, TimeSpan.FromHours(1));
                 }
             }
 

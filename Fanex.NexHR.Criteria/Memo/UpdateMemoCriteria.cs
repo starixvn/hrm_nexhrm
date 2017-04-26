@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Update Memo Criteria.

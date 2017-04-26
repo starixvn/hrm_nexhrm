@@ -1,10 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using Fanex.Data.Repository;
-    using System;    
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System;
+    using Data.Repository;
 
     public class UpdateLateInEarlyOutCriteria : CriteriaBase
     {
@@ -23,7 +20,7 @@
 
         public override bool IsValid()
         {
-            bool result = false;
+            bool result;
             if (Types == 1 || Types == 2)
             {
                 result = true;

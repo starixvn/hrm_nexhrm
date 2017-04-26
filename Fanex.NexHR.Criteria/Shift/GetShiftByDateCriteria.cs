@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Shift
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// Get Shift By Date Criteria.

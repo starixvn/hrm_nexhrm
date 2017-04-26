@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Fanex.Data.Repository;
     using System;
+    using Data.Repository;
 
     public class GetEmployeeOvertimeCriteria : CriteriaBase
     {

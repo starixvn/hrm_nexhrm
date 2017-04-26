@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Configuration;
-    using Fanex.MailDeliver.MailClient.API;
-    using Fanex.MailDeliver.Model;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Services.Interfaces;
+    using Core;
+    using Interfaces;
+    using MailDeliver.MailClient.API;
+    using MailDeliver.Model;
 
     public class EmailService : IEmailService
     {
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
         {
-            var disableSendMail = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendMail"].ToString());
+            var disableSendMail = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendMail"]);
             if (!Utilities.IsValidEmail(senderEmail) ||
                 !Utilities.IsValidEmail(receiverEmail)
                 || disableSendMail)

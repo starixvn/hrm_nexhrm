@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Holiday
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetHolidayByYearCriteria : CriteriaBase
     {

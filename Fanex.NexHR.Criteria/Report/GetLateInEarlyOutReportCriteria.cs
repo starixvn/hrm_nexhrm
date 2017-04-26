@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Report
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetLateInEarlyOutReportCriteria : CriteriaBase
     {

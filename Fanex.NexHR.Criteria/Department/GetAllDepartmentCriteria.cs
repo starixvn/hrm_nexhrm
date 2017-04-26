@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Department
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class GetAllDepartmentCriteria : CriteriaBase
     {

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     public class DeleteLeaveConversionCriteria : CriteriaBase
     {

@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// GetAllExtensionNo Criteria.

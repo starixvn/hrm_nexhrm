@@ -9,8 +9,8 @@
 
 namespace Fanex.NexHR.Criteria.Report
 {
-    using Data.Repository;
     using System;
+    using Data.Repository;
 
     /// <summary>
     /// Get request monitor criteria.

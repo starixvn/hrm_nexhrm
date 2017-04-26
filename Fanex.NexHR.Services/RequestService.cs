@@ -1,5 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -11,13 +18,6 @@
     using Repositories;
     using Repositories.Interfaces;
     using Resources;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -593,7 +593,7 @@
             body = string.Format(
                 body,
                 request.ModifiedBy.NickName,
-                string.Format("{0} ({1})", request.Requester.NickName, request.Requester.FullName),
+                $"{request.Requester.NickName} ({request.Requester.FullName})",
                 Labels.Leave,
                 forDate,
                 request.LeaveType.Name,

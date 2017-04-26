@@ -10,7 +10,7 @@
 namespace Fanex.NexHR.Criteria.Report
 {
     using System;
-    using Fanex.Data.Repository;
+    using Data.Repository;
 
     /// <summary>
     /// TimeRecordUpdateType Criteria.

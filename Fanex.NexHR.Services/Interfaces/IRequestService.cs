@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System;
+    using System.Collections.Generic;
     using Core.Enums;
     using Criteria.Request;
     using Models;
     using Models.Request;
-    using System;
-    using System.Collections.Generic;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 

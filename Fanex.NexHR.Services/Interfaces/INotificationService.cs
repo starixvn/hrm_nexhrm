@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models.Notification;
+    using Data.Repository;
+    using Models.Notification;
 
     public interface INotificationService
     {

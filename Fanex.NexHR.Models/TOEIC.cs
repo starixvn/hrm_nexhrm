@@ -67,13 +67,7 @@
         [Range(0, 200)]
         public int? Writing { get; set; }
 
-        public int? LRTotal
-        {
-            get
-            {
-                return Listening + Reading;
-            }
-        }
+        public int? LRTotal => Listening + Reading;
 
         [Range(0, 495)]
         public int? OldListening { get; set; }

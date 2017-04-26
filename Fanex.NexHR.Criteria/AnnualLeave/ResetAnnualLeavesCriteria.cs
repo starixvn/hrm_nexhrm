@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models.AnnualLeave;
+    using Data.Repository;
+    using Models.AnnualLeave;
 
     public class ResetAnnualLeavesCriteria : CriteriaBase
     {

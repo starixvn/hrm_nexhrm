@@ -10,8 +10,8 @@
 namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
+    using Core.Attributes;
+    using Data.Repository;
 
     /// <summary>
     /// Get Request Criteria.
