@@ -9,22 +9,22 @@
 
 namespace Fanex.NexHR.Web.Providers
 {
+    using Core;
+    using Core.Enums;
+    using Criteria.Employee;
+    using Models;
+    using Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Web.Security;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
 
     /// <summary>
     /// Custom role provider.
     /// </summary>
     public class CustomRoleProvider : RoleProvider
     {
-        private IEmployeeService _employeeService;
+        private readonly IEmployeeService _employeeService;
 
         public CustomRoleProvider(IEmployeeService employeeService = null)
         {
@@ -82,10 +82,11 @@ namespace Fanex.NexHR.Web.Providers
         public override string[] GetRolesForUser(string username)
         {
             var user = GetCurrentUser(username);
-            var roles = new List<string>();
-
-            roles.Add(Role.Member.EnumToString());
-            roles.Add(Role.SpecialUser.EnumToString());
+            var roles = new List<string>
+            {
+                Role.Member.EnumToString(),
+                Role.SpecialUser.EnumToString()
+            };
 
             if (user.HasRolePM)
             {

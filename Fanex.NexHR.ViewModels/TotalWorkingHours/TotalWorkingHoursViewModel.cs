@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public class TotalWorkingHoursViewModel
     {

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.ViewModels.Common;    
+    using Common;
+    using Models;
 
     public class TimeRecordViewModel : PagerOptionModel
     {

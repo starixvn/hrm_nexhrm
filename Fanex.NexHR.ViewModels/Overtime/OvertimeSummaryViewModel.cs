@@ -1,10 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Overtime
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public class OvertimeSummaryViewModel
     {

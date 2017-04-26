@@ -1,8 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Report
 {
-    using System;
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public class LateInEarlyOutSummaryViewModel
     {

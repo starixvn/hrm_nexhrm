@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.ViewModels.Memo
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
     using System.Web.Mvc;
-    using Fanex.NexHR.Resources;
+    using Models;
+    using Resources;
 
     public class MemoViewModel
     {
@@ -17,17 +17,11 @@
 
         public IList<LookupData> MemoCategories { get; set; }
 
-        public List<SelectListItem> StatusTypes
+        public List<SelectListItem> StatusTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem() { Text = Labels.All, Value = "-1" },
-                    new SelectListItem() { Text = Labels.Active, Value = "1" },
-                    new SelectListItem() { Text = Labels.Deactive, Value = "0" }
-                };
-            }
-        }
+            new SelectListItem() { Text = Labels.All, Value = "-1" },
+            new SelectListItem() { Text = Labels.Active, Value = "1" },
+            new SelectListItem() { Text = Labels.Deactive, Value = "0" }
+        };
     }
 }

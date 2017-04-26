@@ -1,18 +1,18 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Overtime;
     using Models;
     using Models.Overtime;
-    using ViewModels.Overtime;
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using ViewModels.Overtime;
 
     public class OvertimeController : BaseController
     {

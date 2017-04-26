@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public class LeaveConversionDetailViewModel
     {

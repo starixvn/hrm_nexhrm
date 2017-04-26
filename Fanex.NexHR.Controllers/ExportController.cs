@@ -6,13 +6,13 @@
     using Criteria.Report;
     using Models;
     using Models.Report;
+    using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using ViewModels.TotalWorkingHours;
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using ViewModels.TotalWorkingHours;
 
     public class ExportController : BaseController
     {

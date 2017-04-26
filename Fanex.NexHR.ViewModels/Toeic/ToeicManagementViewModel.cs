@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Toeic
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public class ToeicManagementViewModel
     {

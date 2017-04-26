@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Core;
-    using Core.Enums;
-    using Models;
-    using Report;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Core;
+    using Core.Enums;
+    using Models;
+    using Report;
 
     public class MySpaceViewModel
     {

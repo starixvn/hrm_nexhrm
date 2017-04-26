@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Fanex.NexHR.Models.Request;
     using System.Collections.Generic;
+    using Models.Request;
 
     public class ToDoViewModel
     {

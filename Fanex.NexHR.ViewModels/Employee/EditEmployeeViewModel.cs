@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Attributes;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Core;
+    using Models;
+    using Models.Attributes;
 
     public class EditEmployeeViewModel
     {

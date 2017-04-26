@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
+    using Core;
+    using Core.Enums;
+    using Models;
+    using Resources;
 
     public class CheckInOutRequestViewModel : BaseRequestModel, IValidatableObject
     {
@@ -31,13 +31,7 @@
 
         public string Shift { get; set; }
 
-        public int ForRequest
-        {
-            get
-            {
-                return (int)GeneralRequestType.CheckInOut;
-            }
-        }
+        public int ForRequest => (int)GeneralRequestType.CheckInOut;
 
         public IList<DateTime> UnavailDates { get; set; }
 
@@ -49,36 +43,18 @@
 
         public bool IsEdit { get; set; }
 
-        public string EmailTemplate
-        {
-            get
-            {
-                return Utilities.ReadTextFile(EmailTemplatePath);
-            }
-        }
+        public string EmailTemplate => Utilities.ReadTextFile(EmailTemplatePath);
 
         public string EmailTemplatePath { get; private set; }
 
-        public string SubjectEmail
-        {
-            get
-            {
-                return string.Format(
-                    "{0} {1} on {2}",
-                    IsEdit ? Messages.UpdatedCheckInOutEmailSubject : Messages.CheckInOutEmailSubject,
-                    Employee,
-                    ForDate.ToDateMonthYearFormatedDate());
-            }
-        }
+        public string SubjectEmail => string.Format(
+            "{0} {1} on {2}",
+            IsEdit ? Messages.UpdatedCheckInOutEmailSubject : Messages.CheckInOutEmailSubject,
+            Employee,
+            ForDate.ToDateMonthYearFormatedDate());
 
-        public bool IsStandbyAtWeeken
-        {
-            get
-            {
-                return Shift.Contains("A2")
-                    && (ForDate.DayOfWeek == DayOfWeek.Saturday || ForDate.DayOfWeek == DayOfWeek.Sunday);
-            }
-        }
+        public bool IsStandbyAtWeeken => Shift.Contains("A2")
+                                         && (ForDate.DayOfWeek == DayOfWeek.Saturday || ForDate.DayOfWeek == DayOfWeek.Sunday);
 
         public void GetTemplatePath()
         {
@@ -100,7 +76,7 @@
             if (ForDate.Date > DateTime.Today)
             {
                 var validation = new ValidationResult(
-                    Resources.Messages.NoFutureCheckInOutRequest,
+                    Messages.NoFutureCheckInOutRequest,
                     new[] { "ForDate" });
                 result.Add(validation);
             }
@@ -121,11 +97,11 @@
             if (shift != null)
             {
                 Hour = CheckInOutType == (int)RequestType.CheckOut
-                    ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[0])
-                    : int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[0]);
+                    ? int.Parse(shift.BeginCheckOutTime.Split(':')[0])
+                    : int.Parse(shift.BeginCheckInTime.Split(':')[0]);
                 Minute = CheckInOutType == (int)RequestType.CheckOut
-                            ? int.Parse(shift.BeginCheckOutTime.Split(new[] { ':' })[1])
-                            : int.Parse(shift.BeginCheckInTime.Split(new[] { ':' })[1]);
+                            ? int.Parse(shift.BeginCheckOutTime.Split(':')[1])
+                            : int.Parse(shift.BeginCheckInTime.Split(':')[1]);
                 Shift = shift.DisplayName;
                 InTime = shift.BeginCheckInTime;
                 OutTime = shift.BeginCheckOutTime;

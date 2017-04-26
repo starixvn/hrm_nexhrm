@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
     using System.Collections.Generic;
-    using Fanex.NexHR.Models;
+    using Models;
 
     public enum TypeList
     {

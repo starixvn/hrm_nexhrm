@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Fanex.NexHR.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Models;
 
     public class CreateEmployeeViewModel
     {
