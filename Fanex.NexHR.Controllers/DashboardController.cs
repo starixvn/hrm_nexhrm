@@ -50,7 +50,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
-            var getMySpaceCriteria = new GetMySpaceCriteria()
+            var getMySpaceCriteria = new GetMySpaceCriteria
             {
                 EmpId = CurrentUser.Id
             };
@@ -77,7 +77,7 @@
 
         private IList<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> GetLateInEarlyOutNotification()
         {
-            GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria()
+            GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria
             {
                 Date = DateTime.Now.Date
             };
@@ -99,7 +99,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult GetTodoList(int? employeeId)
         {
-            ToDoViewModel model = new ToDoViewModel()
+            ToDoViewModel model = new ToDoViewModel
             {
                 MissingCheckInOutList = GetMissingCheckInOut(employeeId),
                 PendingRequestsList = GetPendingRequest()
@@ -110,7 +110,7 @@
 
         private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
         {
-            GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria()
+            GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria
             {
                 EmpId = employeeId
             };
@@ -119,7 +119,7 @@
 
         private IList<RequestEntity> GetPendingRequest()
         {
-            var criteria = new GetRequestCriteria()
+            var criteria = new GetRequestCriteria
             {
                 ActorId = CurrentUser.Id,
                 Role = (short)Role.AssistantLeader,
@@ -141,7 +141,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult GetNotification(int employeeId)
         {
-            GetAllNotificationCriteria criteria = new GetAllNotificationCriteria() { EmpId = employeeId };
+            GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
             Notification noti = _notificationService.GetViolationByEmpId(criteria);
 
             return PartialView("_Notification", noti);
@@ -150,7 +150,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult GetTeamWorkload()
         {
-            GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria()
+            GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria
             {
                 TeamId = CurrentUser.Team.Id,
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),

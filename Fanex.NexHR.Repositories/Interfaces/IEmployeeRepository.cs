@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
+    using Data.Repository;
+    using Models;
+    using Models.Workload;
     using System.Collections.Generic;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Workload;
 
     public interface IEmployeeRepository
     {

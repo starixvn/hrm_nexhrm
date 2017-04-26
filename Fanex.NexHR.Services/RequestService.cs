@@ -1,5 +1,16 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using Core;
+    using Core.Enums;
+    using Criteria.Employee;
+    using Criteria.Request;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Request;
+    using Repositories;
+    using Repositories.Interfaces;
+    using Resources;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -7,25 +18,14 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.CheckInOutRequest;
+    using ViewModels;
+    using ViewModels.CheckInOutRequest;
 
     public class RequestService : BaseService, IRequestService
     {
-        private readonly IRequestRepository requestRepository;
-        private readonly IEmailService emailService;
-        private readonly ICommandService commandService;
+        private readonly IRequestRepository _requestRepository;
+        private readonly IEmailService _emailService;
+        private readonly ICommandService _commandService;
 
         public RequestService()
             : this(null, null, null)
@@ -37,9 +37,9 @@
             IEmailService emailService,
             ICommandService commandService)
         {
-            this.requestRepository = requestRepository ?? new RequestRepository();
-            this.emailService = emailService ?? new EmailService();
-            this.commandService = commandService ?? new CommandService();
+            _requestRepository = requestRepository ?? new RequestRepository();
+            _emailService = emailService ?? new EmailService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public static string ConvertToRequestMessage(RequestEntity request)
@@ -52,11 +52,13 @@
                     case (int)RequestType.Leave:
                         if (request.TotalDays > 1)
                         {
-                            msg.AppendFormat(Constants.MsgLeave, Convert.ToInt32(request.TotalDays), GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                            msg.AppendFormat(Constants.MsgLeave, Convert.ToInt32(request.TotalDays),
+                                GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                         }
                         else if (request.TotalDays == 1)
                         {
-                            msg.AppendFormat(Constants.MsgLeaveOneDay, GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
+                            msg.AppendFormat(Constants.MsgLeaveOneDay,
+                                GetMessageDateforLeaveRequest(request.FromDate, request.ToDate));
                         }
                         else
                         {
@@ -72,19 +74,21 @@
 
                     case (int)RequestType.CheckIn:
                     case (int)RequestType.CheckOut:
-                        msg.AppendFormat(Constants.MsgCheckInOut, request.FromDate.ToString("HH:mm"), request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                        msg.AppendFormat(Constants.MsgCheckInOut, request.FromDate.ToString("HH:mm"),
+                            request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
                         break;
 
                     case (int)RequestType.LateIn:
-                        msg.AppendFormat(Constants.MsgLateIn, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                        msg.AppendFormat(Constants.MsgLateIn, request.TotalMins, request.FromShift.Name,
+                            request.FromDate.ToDateMonthYearFormatedDate());
                         break;
                     case (int)RequestType.EarlyOut:
-                        msg.AppendFormat(Constants.MsgEarlyOut, request.TotalMins, request.FromShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
+                        msg.AppendFormat(Constants.MsgEarlyOut, request.TotalMins, request.FromShift.Name,
+                            request.FromDate.ToDateMonthYearFormatedDate());
                         break;
                     case (int)RequestType.ChangeShift:
-                        msg.AppendFormat(Constants.MsgChangeShift, request.FromShift.Name, request.ToShift.Name, request.FromDate.ToDateMonthYearFormatedDate());
-                        break;
-                    default:
+                        msg.AppendFormat(Constants.MsgChangeShift, request.FromShift.Name, request.ToShift.Name,
+                            request.FromDate.ToDateMonthYearFormatedDate());
                         break;
                 }
             }
@@ -123,7 +127,7 @@
                     break;
             }
 
-            CommandResult result = commandService.Update(processRequestCriteria);
+            CommandResult result = _commandService.Update(processRequestCriteria);
 
             if (result.IsSuccessful)
             {
@@ -133,9 +137,10 @@
                     .MapPath(Constants.EmailTemplatePathForLeaveApproved);
                 string templateInOutEmailToRelated = HttpContext.Current.Server
                     .MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
-                Task.Factory.StartNew(() => 
-                { 
-                    SendMailForProcessRequest(id, command, templateEmailToRequester, templateLeaveEmailToRelated, templateInOutEmailToRelated); 
+                Task.Factory.StartNew(() =>
+                {
+                    SendMailForProcessRequest(id, command, templateEmailToRequester, templateLeaveEmailToRelated,
+                        templateInOutEmailToRelated);
                 });
             }
 
@@ -148,7 +153,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                entityList = requestRepository.GetRequest(criteria);
+                entityList = _requestRepository.GetRequest(criteria);
             }
 
             return entityList ?? new List<RequestEntity>();
@@ -159,7 +164,7 @@
             RequestEntity request = new RequestEntity();
             if (criteria != null && criteria.IsValid())
             {
-                request = requestRepository.GetRequestEntity(criteria);
+                request = _requestRepository.GetRequestEntity(criteria);
             }
 
             return request;
@@ -170,7 +175,7 @@
             IList<RequestEntity> requests = null;
             if (criteria != null && criteria.IsValid())
             {
-                requests = requestRepository.GetRequest(criteria);
+                requests = _requestRepository.GetRequest(criteria);
             }
 
             return requests ?? new List<RequestEntity>();
@@ -178,18 +183,20 @@
 
         public decimal GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
-            int year = DateTime.Now.Year,
-            month = DateTime.Now.Month;
-            var criteria = new GetNumberRequestInMonthCriteria()
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+
+            var criteria = new GetNumberRequestInMonthCriteria
             {
                 EmpId = employeeId,
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = (int)requestType
             };
+
             NumberRequestInMonth numberRequest = GetDataEntity<NumberRequestInMonth>(criteria);
 
-            return numberRequest == null ? 0 : numberRequest.NumberRequest;
+            return numberRequest?.NumberRequest ?? 0;
         }
 
         public IList<DateTime> GetDisableRequestDate(int employeeId)
@@ -215,8 +222,8 @@
         {
             if (model != null)
             {
-                var body = string.Empty;
-                var criteria = new GetLeadersOfEmployeeCriteria() { EmployeeId = model.EmployeeId };
+                string body;
+                var criteria = new GetLeadersOfEmployeeCriteria { EmployeeId = model.EmployeeId };
                 IList<Employee> leaders = GetData<Employee>(criteria);
 
                 string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
@@ -225,10 +232,11 @@
                     var getManagementsCriteria = new GetManagementsCriteria();
                     IList<Employee> managers = GetData<Employee>(getManagementsCriteria).ToList();
 
-                    if (managers != null && managers.Any())
+                    if (managers.Any())
                     {
-                        body = string.Format(model.EmailTemplate, model.Employee, forDate, model.LeaveTypeName, model.Remark);
-                        emailService.SendEmail(
+                        body = string.Format(model.EmailTemplate, model.Employee, forDate, model.LeaveTypeName,
+                            model.Remark);
+                        _emailService.SendEmail(
                             ConfigurationManager.AppSettings["Email"],
                             string.Join(";", managers.Select(t => t.Email)),
                             string.Join(";", leaders.Select(t => t.Email)),
@@ -240,8 +248,9 @@
                 {
                     if (leaders != null && leaders.Any())
                     {
-                        body = string.Format(model.EmailTemplate, leaders.First().NickName, model.Employee, forDate, model.LeaveTypeName, model.Remark);
-                        emailService.SendEmail(
+                        body = string.Format(model.EmailTemplate, leaders.First().NickName, model.Employee, forDate,
+                            model.LeaveTypeName, model.Remark);
+                        _emailService.SendEmail(
                             ConfigurationManager.AppSettings["Email"],
                             string.Join(";", leaders.Select(t => t.Email)),
                             string.Empty,
@@ -272,8 +281,9 @@
                         Shift = model.Shift
                     };
 
-                    var body = string.Format(model.EmailTemplate, content.Leader, content.Member, content.Type, content.ForDate, content.Shift, content.Time);
-                    this.emailService.SendEmail(
+                    var body = string.Format(model.EmailTemplate, content.Leader, content.Member, content.Type,
+                        content.ForDate, content.Shift, content.Time);
+                    _emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         string.Join(";", leaders.Select(t => t.Email)),
                         string.Empty,
@@ -285,7 +295,7 @@
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
         {
-            string result = string.Empty;
+            string result;
             if ((toDate - fromDate).Days > 0)
             {
                 if (fromDate.Year == toDate.Year)
@@ -314,7 +324,8 @@
 
         private IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
         {
-            IList<Employee> leaders = null;
+            IList<Employee> leaders;
+
             if (model.IsStandbyAtWeeken)
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
@@ -322,10 +333,11 @@
             }
             else
             {
-                var criteria = new GetLeadersOfEmployeeCriteria()
+                var criteria = new GetLeadersOfEmployeeCriteria
                 {
                     EmployeeId = model.EmployeeId
                 };
+
                 leaders = GetData<Employee>(criteria);
             }
 
@@ -334,11 +346,12 @@
 
         private string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)
         {
-            string forDate = string.Empty;
+            string forDate;
 
             if (totalDays > 1)
             {
-                forDate = string.Format(Constants.MailContentLeave, fromDate.ToDateMonthYearFormatedDate(), toDate.ToDateMonthYearFormatedDate(), totalDays);
+                forDate = string.Format(Constants.MailContentLeave, fromDate.ToDateMonthYearFormatedDate(),
+                    toDate.ToDateMonthYearFormatedDate(), totalDays);
             }
             else
             {
@@ -367,11 +380,12 @@
                 TeamCodes = AppSetting.ProjectManagerTeams,
                 IgnoreTeams = AppSetting.IgnoreTeams
             };
+
             var projectManagers = GetData<Employee>(getEmployeeByTeamsCriteria);
 
             if (employees != null && projectManagers != null)
             {
-                projectManagers = projectManagers.Where(t => !employees.Any(x => x.Id == t.Id)).ToList();
+                projectManagers = projectManagers.Where(t => employees.All(x => x.Id != t.Id)).ToList();
                 employees = employees.Union(projectManagers);
             }
             else if (employees != null)
@@ -389,23 +403,24 @@
             string templateLeaveEmailToRelatedPath,
             string templateInOutEmailToRelatedPath)
         {
-            var getRequestByIdCriteria = new GetRequestByIdCriteria() { Id = id };
-            var request = this.requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            var getRequestByIdCriteria = new GetRequestByIdCriteria { Id = id };
+            var request = _requestRepository.GetRequestEntity(getRequestByIdCriteria);
 
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 
             if (command == Command.Approve.EnumToString())
             {
-                this.SendMailToRelatedPeople(request, templateLeaveEmailToRelatedPath, templateInOutEmailToRelatedPath);
+                SendMailToRelatedPeople(request, templateLeaveEmailToRelatedPath, templateInOutEmailToRelatedPath);
             }
         }
 
         private void SendMailToRequester(RequestEntity request, string command, string templateEmailToRequesterPath)
         {
-            string forDate = string.Empty;
+            string forDate;
             if (request.TotalDays > 1)
             {
-                forDate = " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " + request.ToDate.ToDateMonthYearFormatedDate();
+                forDate = " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
+                          request.ToDate.ToDateMonthYearFormatedDate();
             }
             else
             {
@@ -414,8 +429,8 @@
 
             var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
             var action = command == Command.Reject.EnumToString()
-                    ? Resources.Labels.Rejected
-                    : (command == Command.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved);
+                ? Labels.Rejected
+                : (command == Command.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved);
             body = string.Format(
                 body,
                 request.Requester.NickName,
@@ -425,9 +440,10 @@
                 request.ModifiedBy.NickName,
                 request.ModifiedBy.FullName);
 
-            var subject = string.Format(Messages.ProcessSubject, request.RequestType.Name, forDate, action, request.ModifiedBy.NickName);
+            var subject = string.Format(Messages.ProcessSubject, request.RequestType.Name, forDate, action,
+                request.ModifiedBy.NickName);
 
-            this.emailService.SendEmail(
+            _emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.Requester.Email,
                 string.Empty,
@@ -435,10 +451,12 @@
                 body);
         }
 
-        private void SendMailToRelatedPeople(RequestEntity request, string templateLeaveEmailToRelatedPath, string templateInOutEmailToRelatedPath)
+        private void SendMailToRelatedPeople(RequestEntity request, string templateLeaveEmailToRelatedPath,
+            string templateInOutEmailToRelatedPath)
         {
-            var criteria = new GetEmployeeForRelatedTeamCriteria() { EmpId = request.Requester.Id };
-            var employees = GetData<Employee>(criteria).Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id);
+            var criteria = new GetEmployeeForRelatedTeamCriteria { EmpId = request.Requester.Id };
+            var employees = GetData<Employee>(criteria)
+                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id);
 
             if (request.RequestType.Id == (int)RequestType.Leave)
             {
@@ -482,7 +500,7 @@
                 request.FromShift.Name,
                 request.FromDate.ToString("HH:mm"));
 
-            this.emailService.SendEmail(
+            _emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.ModifiedBy.Email,
                 sendCc,
@@ -508,7 +526,7 @@
                 request.LeaveType.Name,
                 request.Remark);
 
-            this.emailService.SendEmail(
+            _emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 request.ModifiedBy.Email,
                 sendCc,

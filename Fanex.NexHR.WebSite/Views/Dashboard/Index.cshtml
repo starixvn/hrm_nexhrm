@@ -1,17 +1,22 @@
 ﻿@model MySpaceViewModel
-@section css{
+
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+@section css
+{
     @Styles.Render("~/Content/dashboardcss")
 }
-@section js{
+
+@section js
+{
 
     @Scripts.Render("~/bundles/dashboardjs")
     @Scripts.Render("~/bundles/apiclientcalendarjs")
 }
-@{
-    ViewBag.Title = "Dashboard";
-}
-@section Breadcrumb {
-}
+
 <div class="row content">
     <div class="row">
         <div class="col s12 m6 l3 card-container-base">
@@ -43,7 +48,7 @@
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card yellow darken-4">
-                <a href="/leave/Create">
+                <a href="@Url.Action("Create", "Leave")">
                     <div class="card-content white-text hidden">
                         <div class="col s3">
                             <i class="mdi-action-perm-identity left medium"></i>
@@ -63,7 +68,7 @@
                 <div class="card-content white-text hidden">
                     <div class="slide">
                         <div class="slide-content">
-                            <a class="white-text noEvent" href="~/employee/birthday?month=@DateTime.Now.Month">
+                            <a class="white-text noEvent" href="@Url.Action("Birthday", "Employee", new {month = DateTime.Now.Month})">
                                 <div class="col s3">
                                     <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName" />
                                 </div>
@@ -72,14 +77,16 @@
                                 </div>
                             </a>
                         </div>
-                        @{var birthdayList = Model.SystemReminder.EmployeeHasBirthday; }
+                        @{
+                            var birthdayList = Model.SystemReminder.EmployeeHasBirthday;
+                        }
                         @if (birthdayList != null && birthdayList.Count > 0)
                         {
                             foreach (var item in birthdayList)
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/employee/avatar/@item.Code" />
+                                        <img class="circle" alt="" src="@Url.Action("Avatar", "Employee", new {id=item.Code})" />
                                     </div>
                                     <div class="col s9 center detail">
                                         <span>Happy birthday to @item.NickName!</span>
@@ -87,14 +94,16 @@
                                 </div>
                             }
                         }
-                        @{var firstWorkDay = Model.SystemReminder.EmployeeHasFirstWorkingDay; }
+                        @{
+                            var firstWorkDay = Model.SystemReminder.EmployeeHasFirstWorkingDay;
+                        }
                         @if (firstWorkDay != null && firstWorkDay.Count > 0)
                         {
                             foreach (var item in firstWorkDay)
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/employee/avatar/@item.Code" />
+                                        <img class="circle" alt="" src="@Url.Action("Avatar", "Employee", new {id=item.Code})" />
                                     </div>
                                     <div class="col s9 center detail">
                                         <span>First working day anniversary of @item.NickName!</span>
@@ -102,18 +111,20 @@
                                 </div>
                             }
                         }
-                        @{var eventList = Model.SystemReminder.EventList; }
+                        @{
+                            var eventList = Model.SystemReminder.EventList;
+                        }
                         @if (eventList != null && eventList.Count > 0)
                         {
                             foreach (var item in eventList)
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName" />
+                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@Model.RandomPictureName"/>
                                     </div>
-                                    <a class="white-text" href="~/companyevent/detail/@item.Id">
+                                    <a class="white-text" href="@Url.Action("Detail", "CompanyEvent", new { id = item.Id })">
                                         <div class="col s9 center detail">
-                                            <span class="txt-uppercase">@item.Title</span><br />
+                                            <span class="txt-uppercase">@item.Title</span><br/>
                                             @if (item.FromDate == item.ToDate)
                                             {
                                                 <span>@item.FromDate.ToString("dd MMMM, yyyy")</span>
@@ -151,15 +162,11 @@
                                             @{
                                                 double hour = Model.MinutesLateInEarlyOutCurrentMonth / 60.0;
                                                 int times = Model.TimesLateInEarlyOutCurrentMonth;
+                                                var lateInEarlyOutDisplay = hour != 0 && times != 0
+                                                    ? string.Format("{0}/{1}", hour, times)
+                                                    : "-/-";
                                             }
-                                            @if (hour != 0 && times != 0)
-                                            {
-                                                <span>@hour/@times</span>
-                                            }
-                                            else
-                                            {
-                                                <span>-/-</span>
-                                            }
+                                            <span>@lateInEarlyOutDisplay</span>
                                         </a>
                                     </span>
                                 </td>

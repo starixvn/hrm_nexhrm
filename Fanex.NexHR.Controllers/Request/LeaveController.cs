@@ -1,23 +1,23 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using Core;
+    using Core.Enums;
+    using Criteria.Request;
+    using Models;
+    using Models.Request;
+    using Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using ViewModels;
 
     public class LeaveController : BaseController
     {
-        private readonly ILeaveTypeService leaveTypeService;
-        private readonly IRequestService requestService;
-        private readonly ICommandService commandService;
+        private readonly ILeaveTypeService _leaveTypeService;
+        private readonly IRequestService _requestService;
+        private readonly ICommandService _commandService;
 
         public LeaveController()
             : this(null, null, null)
@@ -29,9 +29,9 @@
             IRequestService requestService,
             ICommandService commandService)
         {
-            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            this.requestService = requestService ?? new RequestService();
-            this.commandService = commandService ?? new CommandService();
+            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            _requestService = requestService ?? new RequestService();
+            _commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -48,7 +48,7 @@
                 Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31),
-                EmployeeId = this.CurrentUser.Id,
+                EmployeeId = CurrentUser.Id,
                 GroupId = null,
                 Status = null,
                 ExcludeEmployeeId = null,
@@ -56,7 +56,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> leaveRequests = requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = _requestService.GetRequest(criteria);
 
             return PartialView(leaveRequests);
         }
@@ -71,9 +71,9 @@
                 FromDate = DateTime.Now.Date,
                 ToDate = DateTime.Now.Date,
                 TotalDays = 1,
-                LeaveTypes = leaveTypeService.GetAll(),
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id),
-                TotalRequest = requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
+                LeaveTypes = _leaveTypeService.GetAll(),
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
+                TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
             };
 
             return View(model);
@@ -103,7 +103,7 @@
                         TotalDays = model.TotalDays
                     };
 
-                    CommandResult result = commandService.Insert(criteria, hasGetOutputParams: true);
+                    CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
                     model.Id = criteria.Id;
                     if (result.Code == 0 || result.Code == -1)
                     {
@@ -114,7 +114,7 @@
                             model.GetTemplatePath();
                             Task.Factory.StartNew(() =>
                             {
-                                requestService.SendMailForLeave(model);
+                                _requestService.SendMailForLeave(model);
                             });
                         }
                     }
@@ -130,8 +130,8 @@
 
         private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
         {
-            model.LeaveTypes = leaveTypeService.GetAll();
-            model.UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id);
+            model.LeaveTypes = _leaveTypeService.GetAll();
+            model.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id);
             ViewBag.Year = model.FromDate.Year;
             if (model.HalfDayOff)
             {
@@ -139,7 +139,7 @@
                 model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
                 model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
             }
-            
+
             return model;
         }
 
@@ -147,7 +147,7 @@
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria() { Id = id };
-            RequestEntity request = requestService.GetRequestEntity(criteria);
+            RequestEntity request = _requestService.GetRequestEntity(criteria);
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -157,13 +157,13 @@
                 FromTime = Utilities.GetTime(request.FromDate),
                 ToDate = request.ToDate,
                 ToTime = Utilities.GetTime(request.ToDate),
-                TotalDays = (decimal)request.TotalDays,
-                LeaveTypeId = (int)request.LeaveType.Id,
+                TotalDays = request.TotalDays,
+                LeaveTypeId = request.LeaveType.Id,
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                LeaveTypes = leaveTypeService.GetAll(),
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id)
+                LeaveTypes = _leaveTypeService.GetAll(),
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id)
             };
 
             return View(model);
@@ -176,7 +176,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                model.LeaveTypes = leaveTypeService.GetAll();
+                model.LeaveTypes = _leaveTypeService.GetAll();
                 if (model.HalfDayOff)
                 {
                     model.TotalDays = (decimal)0.5;
@@ -197,7 +197,7 @@
                     TotalDays = model.TotalDays
                 };
 
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = _commandService.Update(criteria);
                 if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Updated = true;
@@ -207,7 +207,7 @@
                         model.GetTemplatePath();
                         Task.Factory.StartNew(() =>
                         {
-                            requestService.SendMailForLeave(model);
+                            _requestService.SendMailForLeave(model);
                         });
                     }
                 }

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Core.Enums
 {
-    using Fanex.NexHR.Core.Attributes;
+    using Attributes;
 
     public enum Role
     {

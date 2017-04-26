@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using Fanex.NexHR.Resources;
+    using Resources;
 
     /// <summary>
     /// Request status.
@@ -36,7 +36,7 @@ namespace Fanex.NexHR.Models.Request
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
     }
 }

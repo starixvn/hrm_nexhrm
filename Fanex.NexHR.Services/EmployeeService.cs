@@ -1,24 +1,23 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections;
+    using Criteria;
+    using Criteria.Employee;
+    using Criteria.Workload;
+    using Interfaces;
+    using Models;
+    using Models.Workload;
+    using Repositories;
+    using Repositories.Interfaces;
     using System.Collections.Generic;
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Workload;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Workload;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using ViewModels;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository = null)
         {
-            this.employeeRepository = employeeRepository ?? new EmployeeRepository();
+            _employeeRepository = employeeRepository ?? new EmployeeRepository();
         }
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -26,7 +25,7 @@
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = employeeRepository.GetById(criteria);
+                employee = _employeeRepository.GetById(criteria);
             }
 
             return employee;
@@ -37,7 +36,7 @@
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = employeeRepository.GetByDomainName(criteria);
+                employee = _employeeRepository.GetByDomainName(criteria);
             }
 
             return employee;
@@ -48,7 +47,7 @@
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = employeeRepository.Query(criteria);
+                employees = _employeeRepository.Query(criteria);
             }
 
             return employees ?? new List<Employee>();
@@ -95,7 +94,7 @@
                     criteria.Enable = criteria.Enable != true;
                 }
 
-                employees = employeeRepository.GetEmployeeToeicScore(criteria);
+                employees = _employeeRepository.GetEmployeeToeicScore(criteria);
             }
 
             return employees ?? new List<Employee>();
@@ -106,7 +105,7 @@
             SystemReminderModel employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                employees = _employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
 
             return employees;
@@ -126,12 +125,12 @@
 
         private IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(int employeeId)
         {
-            var criteria = new GetDashBoardPersonalSpaceCriteria()
+            var criteria = new GetDashBoardPersonalSpaceCriteria
             {
                 EmpId = employeeId
             };
 
-            return employeeRepository.GetDashBoardPersonalSpace(criteria);
+            return _employeeRepository.GetDashBoardPersonalSpace(criteria);
         }
 
         private IList<DashBoardCompanySpace> GetDashBoardCompanySpace(int employeeId)
@@ -141,12 +140,12 @@
                 EmpId = employeeId
             };
 
-            return employeeRepository.GetDashBoardCompanySpace(criteria);
+            return _employeeRepository.GetDashBoardCompanySpace(criteria);
         }
 
         public IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
         {
-            return employeeRepository.GetWorkloadByTeam(criteria);
+            return _employeeRepository.GetWorkloadByTeam(criteria);
         }
     }
 }

@@ -9,7 +9,7 @@
 
 namespace Fanex.NexHR.Models.Request
 {
-    using Fanex.NexHR.Resources;
+    using Resources;
 
     /// <summary>
     /// Request type.
@@ -18,10 +18,10 @@ namespace Fanex.NexHR.Models.Request
     {
         public new string Name
         {
-            get 
+            get
             {
                 switch (Id)
-                { 
+                {
                     case 1:
                         return Labels.CheckIn;
                     case 2:
@@ -42,10 +42,10 @@ namespace Fanex.NexHR.Models.Request
 
         public int RequestFilter
         {
-            get 
+            get
             {
                 switch (Id)
-                { 
+                {
                     case 1:
                     case 2:
                         return 4;
@@ -86,7 +86,7 @@ namespace Fanex.NexHR.Models.Request
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
     }
 }
