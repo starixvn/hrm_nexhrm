@@ -35,11 +35,7 @@
                             },
                             "RequestTypeId, FromShiftId, ToShiftId, RequesterId, LeaveTypeId");
 
-                    PropertyInfo totalitem = criteria.GetType()
-                        .GetProperties(
-                        )
-                        .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) &&
-                                                prop.Name.ToLower().Equals("totalitem"));
+                    PropertyInfo totalitem = GetTotalItemPropertyInfo(criteria);
 
                     if (totalitem != null)
                     {
@@ -49,21 +45,14 @@
 
                     foreach (EmployeeAttendanceModel attendance in attendances)
                     {
-                        attendance.Requests = requests
-                            .Where(t => attendance.AttendanceDate != null && (t.Requester.Id == attendance.EmpId
-                                                                              &&
-                                                                              (attendance.AttendanceDate.Value.Date - t
-                                                                                   .FromDate.Date).Days >= 0
-                                                                              &&
-                                                                              (t.ToDate.Date - attendance.AttendanceDate
-                                                                                   .Value.Date).Days >= 0))
-                            .ToList();
-                        attendance.IsMissingCheckin = (attendance.IsMissingCheckin == 0 ||
-                                                       (attendance.Requests.Any(t => t.RequestType.Id == 1)))
+                        attendance.Requests = GetAttendanceRequests(requests, attendance);
+                        attendance.IsMissingCheckin = attendance.IsMissingCheckin == 0 ||
+                                                      attendance.Requests.Any(t => t.RequestType.Id == 1)
                             ? 0
                             : 1;
-                        attendance.IsMissingCheckOut = (attendance.IsMissingCheckOut == 0 ||
-                                                        (attendance.Requests.Any(t => t.RequestType.Id == 2)))
+
+                        attendance.IsMissingCheckOut = attendance.IsMissingCheckOut == 0 ||
+                                                       attendance.Requests.Any(t => t.RequestType.Id == 2)
                             ? 0
                             : 1;
                     }
@@ -71,6 +60,27 @@
                     return attendances;
                 }
             }
+        }
+
+        private PropertyInfo GetTotalItemPropertyInfo(ICriteria criteria)
+        {
+            return criteria.GetType()
+                .GetProperties()
+                .FirstOrDefault(prop =>
+                    Attribute.IsDefined(prop, typeof(OutputAttribute))
+                    && prop.Name.ToLower().Equals("totalitem"));
+        }
+
+        private IList<RequestEntity> GetAttendanceRequests(
+            IEnumerable<RequestEntity> requests,
+            EmployeeAttendanceModel attendance)
+        {
+            return requests.Where(t =>
+                    attendance.AttendanceDate != null
+                    && (t.Requester.Id == attendance.EmpId
+                        && (attendance.AttendanceDate.Value.Date - t.FromDate.Date).Days >= 0
+                        && (t.ToDate.Date - attendance.AttendanceDate.Value.Date).Days >= 0))
+                .ToList();
         }
 
         public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
@@ -127,10 +137,9 @@
                     .ToList();
 
                 PropertyInfo totalitem = criteria.GetType()
-                    .GetProperties(
-                    )
-                    .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) &&
-                                            prop.Name.ToLower().Equals("totalitem"));
+                    .GetProperties()
+                    .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute))
+                                            && prop.Name.ToLower().Equals("totalitem"));
 
                 if (totalitem != null)
                 {
