@@ -329,7 +329,8 @@
                 {
                     foreach (DashBoardPersonalSpace checkInOut in currentMonthCheckInOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -353,7 +354,8 @@
                 {
                     foreach (DashBoardPersonalSpace checkInOut in lastMonthCheckInOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             checkInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -382,7 +384,8 @@
                 {
                     foreach (DashBoardPersonalSpace missingCheckInOut in currentMonthMissingCheckInOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -407,7 +410,8 @@
                 {
                     foreach (DashBoardPersonalSpace missingCheckInOut in lastMonthMissingCheckInOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             missingCheckInOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -431,7 +435,8 @@
                 {
                     foreach (DashBoardPersonalSpace lateInEarlyOut in currentMonthLateInEarlyOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -455,7 +460,8 @@
                 {
                     foreach (DashBoardPersonalSpace lateInEarlyOut in lastMonthLateInEarlyOuts)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             lateInEarlyOut.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -479,7 +485,8 @@
                 {
                     foreach (DashBoardPersonalSpace absent in currentMonthAbsents)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
@@ -503,7 +510,8 @@
                 {
                     foreach (DashBoardPersonalSpace absent in lastMonthAbsents)
                     {
-                        dates.Append(string.Format(DisplayCellDetailTpl,
+                        dates.Append(string.Format(
+                            DisplayCellDetailTpl,
                             absent.WorkDate.ToDateMonthYearFormatedDate()));
                     }
 
