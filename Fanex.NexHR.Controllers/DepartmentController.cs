@@ -1,18 +1,18 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Criteria.Department;
+    using Models;
+    using Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Department;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using ViewModels;
 
     public class DepartmentController : BaseController
     {
-        private readonly IDepartmentService departmentService;
-        private readonly ICommandService commandService;
+        private readonly IDepartmentService _departmentService;
+        private readonly ICommandService _commandService;
 
         public DepartmentController()
             : this(null, null)
@@ -23,13 +23,13 @@
             IDepartmentService departmentService,
             ICommandService commandService)
         {
-            this.departmentService = departmentService ?? new DepartmentService();
-            this.commandService = commandService ?? new CommandService();
+            _departmentService = departmentService ?? new DepartmentService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
-            IList<Department> departments = departmentService.GetAll();
+            IList<Department> departments = _departmentService.GetAll();
 
             ViewBag.Departments = departments;
             return View();
@@ -37,7 +37,7 @@
 
         public ActionResult Create()
         {
-            IList<Department> departments = departmentService.GetAll();
+            IList<Department> departments = _departmentService.GetAll();
             ViewBag.Departments = departments;
 
             var model = new DepartmentViewModel();
@@ -58,7 +58,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = commandService.Insert(criteria);
+                CommandResult commandResult = _commandService.Insert(criteria);
                 if (commandResult.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
@@ -69,7 +69,7 @@
                 }
             }
 
-            IEnumerable<Department> departments = departmentService.GetAll();
+            IEnumerable<Department> departments = _departmentService.GetAll();
             ViewBag.Departments = departments;
 
             return View(model);
@@ -77,32 +77,37 @@
 
         public ActionResult Edit(int id)
         {
-            IEnumerable<Department> departments = departmentService.GetAll();
+            IEnumerable<Department> departments = _departmentService.GetAll();
 
-            Department department = departments.Where(dep => dep.Id == id).SingleOrDefault();
+            Department department = departments.SingleOrDefault(dep => dep.Id == id);
             ViewBag.Departments = departments.Where(dep => dep.Id != id);
 
             string managerName = string.Empty;
             int managerId = 0;
 
-            if (department.Manager != null) 
+            if (department?.Manager != null) 
             {
                 Employee manager = department.Manager;
                 managerName = manager.DisplayName;
                 managerId = manager.Id;
             }
 
-            var model = new DepartmentViewModel
+            if (department != null)
             {
-                Code = department.Code,
-                Name = department.Name,
-                DepartmentId = department.Id,
-                ManagerId = managerId,
-                ManagerName = managerName,
-                ParentId = department.Parent == null ? 0 : department.Parent.Id
-            };
+                var model = new DepartmentViewModel
+                {
+                    Code = department.Code,
+                    Name = department.Name,
+                    DepartmentId = department.Id,
+                    ManagerId = managerId,
+                    ManagerName = managerName,
+                    ParentId = department.Parent?.Id ?? 0
+                };
 
-            return View(model);
+                return View(model);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -120,7 +125,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = commandService.Update(criteria);
+                CommandResult commandResult = _commandService.Update(criteria);
 
                 if (commandResult.IsSuccessful)
                 {
@@ -132,8 +137,8 @@
                 }
             }
 
-            IEnumerable<Department> departments = departmentService.GetAll();
-            ViewBag.Departments = departments.Where(dep => dep.Id != model.DepartmentId);
+            IEnumerable<Department> departments = _departmentService.GetAll();
+            ViewBag.Departments = departments.Where(dep => model != null && dep.Id != model.DepartmentId);
 
             return View(model);
         }
@@ -146,7 +151,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult commandResult = commandService.Delete(criteria);
+            CommandResult commandResult = _commandService.Delete(criteria);
             return Json(commandResult);
         }
     }

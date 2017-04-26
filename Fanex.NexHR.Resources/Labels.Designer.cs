@@ -1627,6 +1627,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Employee !.
+        /// </summary>
+        public static string InvalidEmployee {
+            get {
+                return ResourceManager.GetString("InvalidEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Total Days.
         /// </summary>
         public static string InvalidTotalDays {
@@ -2415,6 +2424,15 @@ namespace Fanex.NexHR.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to name cannot be null or empty..
+        /// </summary>
+        public static string NameCannotBeNullOrEmpty {
+            get {
+                return ResourceManager.GetString("NameCannotBeNullOrEmpty", resourceCulture);
             }
         }
         

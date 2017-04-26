@@ -1377,4 +1377,10 @@
   <data name="SetOffDay" xml:space="preserve">
     <value>Set Off Day</value>
   </data>
+  <data name="NameCannotBeNullOrEmpty" xml:space="preserve">
+    <value>name cannot be null or empty.</value>
+  </data>
+  <data name="InvalidEmployee" xml:space="preserve">
+    <value>Invalid Employee !</value>
+  </data>
 </root>

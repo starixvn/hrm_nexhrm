@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Core.Attributes;
     using Data;
     using Data.Repository;
@@ -7,10 +11,6 @@
     using Models;
     using Models.Report;
     using Models.Request;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
 
     public class ReportRepository : IReportRepository
     {

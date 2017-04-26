@@ -9,23 +9,22 @@
 
 namespace Fanex.NexHR.Core
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
-    using Fanex.NexHR.Core.NPOIExtensions;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using NPOIExtensions;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
 
     public class ExcelTemplateWriter
     {
         #region Attributes
 
-        private string _fileName;
-        private string _sheetName;
-        private ISheet _templateSheet;
-        private ISheet _sheet;
-        private int _rowId = 0;
+        private readonly string _fileName;
+        private readonly ISheet _templateSheet;
+        private readonly ISheet _sheet;
+        private int _rowId;
 
         #endregion Attributes
 
@@ -39,38 +38,31 @@ namespace Fanex.NexHR.Core
 
         public ExcelTemplateWriter(HSSFWorkbook template, string excelFileName, string sheetName)
         {
-            this._fileName = excelFileName;
-            this._sheetName = sheetName;
-            this._templateSheet = template.GetSheetAt(0);
-            this._sheet = template.CreateSheet(this._sheetName);
+            _fileName = excelFileName;
+            _templateSheet = template.GetSheetAt(0);
+            _sheet = template.CreateSheet(sheetName);
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public int RowId
-        {
-            get
-            {
-                return this._rowId;
-            }
-        }
+        public int RowId => _rowId;
 
         #endregion Properties
 
         public void Render()
         {
-            this._sheet.Workbook.RemoveSheetAt(0);
-            this._sheet.Workbook.ToReponseStream(this._fileName);
+            _sheet.Workbook.RemoveSheetAt(0);
+            _sheet.Workbook.ToReponseStream(_fileName);
         }
 
         public void WriteCellRange(int rowIndex, int totalRow, int colIndex, int totalCol, object value)
         {
             var cellRange = new CellRangeAddress(rowIndex, rowIndex + totalRow - 1, colIndex, colIndex + totalCol - 1);
-            this._sheet.AddMergedRegion(cellRange);
+            _sheet.AddMergedRegion(cellRange);
 
-            var cell = this._sheet.GetCell(rowIndex, colIndex);
+            var cell = _sheet.GetCell(rowIndex, colIndex);
             cell.SetCellValue(value);
         }
 
@@ -80,13 +72,13 @@ namespace Fanex.NexHR.Core
         {
             for (int i = from; i <= to; i++)
             {
-                this._sheet.AutoSizeColumn(i, false);
+                _sheet.AutoSizeColumn(i, false);
             }
         }
 
         public void AutosizeColumns(int total)
         {
-            this.AutosizeColumns(0, total - 1);
+            AutosizeColumns(0, total - 1);
         }
 
         #endregion Auto resize columns' width
@@ -97,13 +89,13 @@ namespace Fanex.NexHR.Core
         {
             for (int i = from; i <= to; i++)
             {
-                this._sheet.SetColumnWidth(i, this._templateSheet.GetColumnWidth(i));
+                _sheet.SetColumnWidth(i, _templateSheet.GetColumnWidth(i));
             }
         }
 
         public void SyncColumnsWidth(int total)
         {
-            this.SyncColumnsWidth(0, total - 1);
+            SyncColumnsWidth(0, total - 1);
         }
 
         #endregion Synchronize columns' width
@@ -112,18 +104,18 @@ namespace Fanex.NexHR.Core
 
         public void WriteRow(int rowIndex, object[] values)
         {
-            IRow row = this.CreateRow(rowIndex);
+            IRow row = CreateRow(rowIndex);
             row.WriteCells(0, values);
         }
 
         public void WriteRows(int rowIndex, List<object[]> arrayList)
         {
             int total = arrayList.Count;
-            IRow row = this.CreateRows(rowIndex, total);
+            IRow row = CreateRows(rowIndex, total);
             for (int i = 0; i < total; i++)
             {
                 row.WriteCells(0, arrayList[i]);
-                row = this._sheet.GetRow(row.RowNum + 1);
+                row = _sheet.GetRow(row.RowNum + 1);
             }
         }
 
@@ -143,7 +135,7 @@ namespace Fanex.NexHR.Core
         {
             foreach (var record in recordList)
             {
-                this.WriteRow(rowId, record);
+                WriteRow(rowId, record);
             }
         }
 
@@ -159,16 +151,16 @@ namespace Fanex.NexHR.Core
 
         private IRow CreateRows(int rowIndex, int total)
         {
-            this._sheet.CopyRows(this._templateSheet, rowIndex, this._rowId, total);
-            this._rowId += total;
-            return this._sheet.GetRow(this._rowId - total);
+            _sheet.CopyRows(_templateSheet, rowIndex, _rowId, total);
+            _rowId += total;
+            return _sheet.GetRow(_rowId - total);
         }
 
         #endregion Row related methods
 
         public void CreateFreezePane(int colSplit, int rowSplit)
         {
-            this._sheet.CreateFreezePane(colSplit, rowSplit);
+            _sheet.CreateFreezePane(colSplit, rowSplit);
         }
     }
 }

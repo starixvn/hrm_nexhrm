@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Criteria.Postnatal;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Postnatal;
+    using Criteria.Postnatal;
+    using Models;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.Postnatal;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,8 +12,8 @@
 
     public class PostnatalController : BaseController
     {
-        private readonly IPostnatalService postnatalService;
-        private readonly ICommandService commandService;
+        private readonly IPostnatalService _postnatalService;
+        private readonly ICommandService _commandService;
 
         public PostnatalController()
             : this(null, null)
@@ -22,8 +22,8 @@
 
         public PostnatalController(IPostnatalService postnatalService, ICommandService commandService)
         {
-            this.postnatalService = postnatalService ?? new PostnatalService();
-            this.commandService = commandService ?? new CommandService();
+            _postnatalService = postnatalService ?? new PostnatalService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -59,7 +59,7 @@
                     Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -81,7 +81,7 @@
                 FromDate = DateTime.Parse(from),
                 ToDate = DateTime.Parse(to)
             };
-            PostnatalViewModel employee = postnatalService.GetById(criteria);
+            PostnatalViewModel employee = _postnatalService.GetById(criteria);
             if (employee != null)
             {
                 employee.OldEmpId = employee.EmpId;
@@ -110,7 +110,7 @@
                     Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = _commandService.Update(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -132,7 +132,7 @@
                 FromDate = fromDate,
                 ToDate = toDate
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
             return Json(result);
         }
 
@@ -143,7 +143,7 @@
                 EmpId = empId,
                 Year = year
             };
-            List<PostnatalViewModel> listPostnatal = postnatalService.GetAll(criteria).ToList();
+            List<PostnatalViewModel> listPostnatal = _postnatalService.GetAll(criteria).ToList();
 
             return PartialView("_ListPostnatalEmployee", listPostnatal);
         }

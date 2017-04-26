@@ -1,6 +1,5 @@
 ﻿namespace AutoJobs
 {
-    using System;
     using System.ServiceProcess;
 
     public static class Program
@@ -8,11 +7,11 @@
         public static void Main()
         {
             log4net.Config.XmlConfigurator.Configure();
-            ServiceBase[] servicesToRun;
-            servicesToRun = new ServiceBase[] 
+            var servicesToRun = new ServiceBase[] 
             { 
                 new JobService() 
             };
+
             ServiceBase.Run(servicesToRun);
 
             ////log4net.Config.XmlConfigurator.Configure();

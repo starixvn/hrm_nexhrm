@@ -8,11 +8,10 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
+    using Criteria.Employee;
+    using Models;
+    using Services;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
 
@@ -28,7 +27,7 @@ namespace Fanex.NexHR.Controllers
                     FormsAuthentication.RedirectToLoginPage();
                 }
 
-                Employee currentUser = (Employee)HttpContext.Session["CurrentUser"];
+                Employee currentUser = (Employee)HttpContext.Session?["CurrentUser"];
 
                 if (currentUser == null)
                 {
@@ -41,7 +40,10 @@ namespace Fanex.NexHR.Controllers
                             Response.Redirect("~/home/accountsuspended", true);
                         }
 
-                        HttpContext.Session["CurrentUser"] = currentUser;
+                        if (HttpContext.Session != null)
+                        {
+                            HttpContext.Session["CurrentUser"] = currentUser;
+                        }
                     }
                     else
                     {
@@ -74,16 +76,16 @@ namespace Fanex.NexHR.Controllers
                     {
                         if (!item.Roles.Contains("SpecialUser"))
                         {
-                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                         }
                     }
                     else
                     {
                         item.Roles = item.Roles.Replace("SpecialUser", string.Empty);
                         if (!string.IsNullOrEmpty(item.Roles)
-                            && !CurrentUser.IsInRoles(item.Roles.Split(new[] { ',' }).ToList()))
+                            && !CurrentUser.IsInRoles(item.Roles.Split(',').ToList()))
                         {
-                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url.AbsoluteUri);
+                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                         }
                     }
                 }

@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Calendar;
-    using Fanex.NexHR.Repositories.Interfaces;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Calendar;
 
     public class CalendarRepository : ICalendarRepository
     {

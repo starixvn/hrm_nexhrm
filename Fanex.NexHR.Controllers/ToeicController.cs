@@ -5,23 +5,23 @@
     using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Toeic;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Toeic;
+    using Core;
+    using Criteria.Employee;
+    using Criteria.Toeic;
+    using Models;
+    using Resources;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.Toeic;
 
     public class ToeicController : BaseController
     {
-        private readonly IEmployeeService employeeService;
-        private readonly IEmailService emailService;
-        private readonly IJobTitleService jobTitleService;
-        private readonly ITeamService teamService;
-        private readonly IToeicService toeicService;
-        private readonly ICommandService commandService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IEmailService _emailService;
+        private readonly IJobTitleService _jobTitleService;
+        private readonly ITeamService _teamService;
+        private readonly IToeicService _toeicService;
+        private readonly ICommandService _commandService;
 
         public ToeicController()
             : this(null, null, null, null, null, null)
@@ -36,12 +36,12 @@
             IToeicService toeicService,
             ICommandService commandService)
         {
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.emailService = emailService ?? new EmailService();
-            this.jobTitleService = jobTitleService ?? new JobTitleService();
-            this.teamService = teamService ?? new TeamService();
-            this.toeicService = toeicService ?? new ToeicService();
-            this.commandService = commandService ?? new CommandService();
+            _employeeService = employeeService ?? new EmployeeService();
+            _emailService = emailService ?? new EmailService();
+            _jobTitleService = jobTitleService ?? new JobTitleService();
+            _teamService = teamService ?? new TeamService();
+            _toeicService = toeicService ?? new ToeicService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult ToeicManagement(int? jobTitleId = null)
@@ -49,12 +49,12 @@
             var model = new ToeicManagementViewModel()
             {
                 JobTitleId = jobTitleId,
-                JobTitles = jobTitleService.GetAll(),
-                Teams = teamService.GetTeam()
+                JobTitles = _jobTitleService.GetAll(),
+                Teams = _teamService.GetTeam()
             };
 
-            model.JobTitles = jobTitleService.GetAll();
-            model.Teams = teamService.GetTeam();
+            model.JobTitles = _jobTitleService.GetAll();
+            model.Teams = _teamService.GetTeam();
 
             return View(model);
         }
@@ -76,7 +76,7 @@
                     GroupId = model.TeamId,
                     TitleId = model.JobTitleId
                 };
-                employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+                employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
             }
 
             return PartialView("_ToeicManagementDetail", employees);
@@ -94,7 +94,7 @@
                 {
                     EmpId = id.Value
                 };
-                toeic = toeicService.GetById(criteria);
+                toeic = _toeicService.GetById(criteria);
                 toeic = toeic ?? new Toeic { EmpId = id.Value };
             }
 
@@ -143,7 +143,7 @@
                         SWExamDate = model.SWExamDate,
                         Writing = model.Writing
                     };
-                    result = commandService.Update(toeicCriteria);
+                    result = _commandService.Update(toeicCriteria);
 
                     if (result.IsSuccessful && model.SendMail)
                     {
@@ -203,7 +203,7 @@
                         ModifiedBy = CurrentUser.Id,
                         ModifiedDate = DateTime.Now
                     };
-                    CommandResult rerult = commandService.Update(toeicScoreCriteria);
+                    CommandResult rerult = _commandService.Update(toeicScoreCriteria);
 
                     if (rerult.IsSuccessful && model.SendMail)
                     {
@@ -271,55 +271,14 @@
             {
                 return true;
             }
-            else if ((!number1.HasValue || number1.Value == 0) &&
+
+            if ((!number1.HasValue || number1.Value == 0) &&
                 (!number2.HasValue || number2.Value == 0))
             {
                 return true;
             }
 
             return false;
-        }
-
-        private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(Employee model)
-        {
-            var criteria = new UpdateEmployeeCriteria()
-            {
-                Code = model.Code,
-                ConfirmedDate = model.ConfirmedDate,
-                CurrAddress = model.CurrentAddress,
-                Address = model.Address,
-                Distancetocompany = model.DistanceToCompany,
-                DateOfBirth = model.DateOfBirth,
-                DomainUsername = model.DomainUsername,
-                Email = model.Email,
-                Enabled = model.Enabled,
-                FullName = model.FullName,
-                Gender = model.Gender,
-                Geomaplatitude = model.GeoMapLatitude,
-                Geomaplongtitude = model.GeoMapLongtitude,
-                HandleRequestGroupIds = model.LeaderGroups,
-                EmployeeId = model.Id,
-                IdCardNo = model.CardNo,
-                IssuedDate = model.IssuedDate,
-                IssuedPlace = model.IssuedPlace,
-                JobTitleId = model.JobTitle != null ? model.JobTitle.Id : 0,
-                JoinedDate = model.JoinedDate,
-                TeamId = model.Team.Id,
-                Mariage = model.Mariage,
-                ModifiedBy = model.Modifier.Id,
-                NickName = model.NickName,
-                PassportExp = model.PassportExp,
-                PassportNo = model.PassportNo,
-                Phone = model.Phone,
-                ResignedDate = model.ResignedDate,
-                Roles = model.Roles,
-                Skype = model.Skype,
-                SubGroups = model.SubGroups,
-                Yahoo = model.Yahoo,
-                EmployeeCard = model.EmployeeCard
-            };
-
-            return criteria;
         }
 
         private void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
@@ -331,9 +290,9 @@
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
             {
                 var criteria = new GetUpdatingScoreRelatedPeopleCriteria() { Id = empId };
-                var employees = employeeService.GetUpdatingScoreRelatedPeople(criteria);
+                var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
 
-                if (employees.Count() > 0)
+                if (employees.Any())
                 {
                     foreach (var employee in employees)
                     {
@@ -362,7 +321,7 @@
 
                     body = string.Format(body, bodyContent.User, bodyContent.NewListening, bodyContent.OldListening, bodyContent.NewReading, bodyContent.OldReading);
 
-                    this.emailService.SendEmail(
+                    _emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         receiverEmail,
                         mailCC,
@@ -374,12 +333,8 @@
 
         private Toeic GetToeicScore(int empid)
         {
-            var criteria = new GetToeicScoreByEmployeeIdCriteria() { EmpId = empid };
-            var score = toeicService.GetById(criteria);
-            if (score == null)
-            {
-                score = new Toeic();
-            }
+            var criteria = new GetToeicScoreByEmployeeIdCriteria { EmpId = empid };
+            var score = _toeicService.GetById(criteria) ?? new Toeic();
 
             return score;
         }

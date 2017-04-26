@@ -1,14 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.NexHR.Core.Enums;
+    using Core.Enums;
 
     public class GeographicMapController : BaseController
     {
-        public GeographicMapController()
-        {
-        }
-
         public ActionResult Index()
         {
             var user = CurrentUser;

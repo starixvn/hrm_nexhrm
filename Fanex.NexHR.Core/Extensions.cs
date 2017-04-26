@@ -9,6 +9,9 @@
 
 namespace Fanex.NexHR.Core
 {
+    using Attributes;
+    using Enums;
+    using Resources;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -20,13 +23,10 @@ namespace Fanex.NexHR.Core
     using System.Web.Mvc.Html;
     using System.Web.Routing;
     using System.Web.WebPages;
-    using Fanex.NexHR.Core.Attributes;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Resources;
 
     public static class Extensions
     {
-        private static readonly object _O = new object();
+        private static readonly object ExtensionObject = new object();
 
         public static string EnumToString(this Command value)
         {
@@ -34,7 +34,7 @@ namespace Fanex.NexHR.Core
             var fieldInfo = type.GetField(value.ToString());
             var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
-            return attribs.Length > 0 ? attribs[0].ToString() : null;
+            return attribs != null && attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
         public static string EnumToString(this Role value)
@@ -43,7 +43,7 @@ namespace Fanex.NexHR.Core
             var fieldInfo = type.GetField(value.ToString());
             var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
-            return attribs.Length > 0 ? attribs[0].ToString() : null;
+            return attribs != null && attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
         public static string EnumToString(this RequestType value)
@@ -52,7 +52,7 @@ namespace Fanex.NexHR.Core
             var fieldInfo = type.GetField(value.ToString());
             var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
-            return attribs.Length > 0 ? attribs[0].ToString() : null;
+            return attribs != null && attribs.Length > 0 ? attribs[0].ToString() : null;
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
@@ -70,11 +70,11 @@ namespace Fanex.NexHR.Core
                 foreach (SelectListItem item in listOfValues)
                 {
                     // Generate an id to be given to the radio button field
-                    var id = string.Format("{0}_{1}", metaData.PropertyName, item.Value);
+                    var id = $"{metaData.PropertyName}_{item.Value}";
 
                     // Create and populate a radio button using the existing html helpers
                     var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
-                    var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id = id, @class = "with-gap" }).ToHtmlString();
+                    var radio = htmlHelper.RadioButtonFor(expression, item.Value, new { id, @class = "with-gap" }).ToHtmlString();
 
                     // Create the html string that will be returned to the client
                     // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" />
@@ -100,7 +100,7 @@ namespace Fanex.NexHR.Core
             string formatDate = "dd MMM, yyyy",
             IEnumerable<DateTime> unavailDates = null)
         {
-            string disabledDate = (unavailDates != null && unavailDates.Count() > 0)
+            string disabledDate = (unavailDates != null && unavailDates.Any())
                 ? string.Join(",", unavailDates.Select(d => d.ToString("dd MMM yyyy")))
                 : string.Empty;
 
@@ -109,10 +109,10 @@ namespace Fanex.NexHR.Core
                 @class = "datepicker",
                 mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null",
                 maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null",
-                disabledDate = disabledDate
+                disabledDate
             };
 
-            var dateValue = date.HasValue ? date.Value.ToString(formatDate) : string.Empty;
+            var dateValue = date?.ToString(formatDate) ?? string.Empty;
 
             var textbox = htmlHelper.TextBox(name, dateValue, htmlAttribute);
 
@@ -129,9 +129,9 @@ namespace Fanex.NexHR.Core
             IEnumerable<DateTime> unavailDates = null)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
-            DateTime? value = DateTime.Now;
+            DateTime? value;
 
-            if (metaData.Model is DateTime? || metaData.Model is DateTime)
+            if (metaData.Model is DateTime || metaData.Model is DateTime)
             {
                 value = (DateTime?)metaData.Model;
             }
@@ -185,7 +185,7 @@ namespace Fanex.NexHR.Core
                 {
                     Text = i.ToString(),
                     Value = i.ToString(),
-                    Selected = !hasFirstItem ? (i == currentYear) : false
+                    Selected = !hasFirstItem && (i == currentYear)
                 });
             }
 
@@ -237,7 +237,7 @@ namespace Fanex.NexHR.Core
             }
             else
             {
-                return defaultContent(_O);
+                return defaultContent(ExtensionObject);
             }
         }
 
@@ -251,7 +251,7 @@ namespace Fanex.NexHR.Core
             string name,
             IEnumerable<SelectListItem> selectList)
         {
-            return CheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
+            return CheckBoxList(htmlHelper, name, selectList, null);
         }
 
         public static MvcHtmlString CheckBoxList(
@@ -274,7 +274,7 @@ namespace Fanex.NexHR.Core
 
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
-                throw new ArgumentException("name cannot be null or empty.", "name");
+                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
             bool selectListFromViewData = false;
@@ -287,7 +287,7 @@ namespace Fanex.NexHR.Core
 
             if (selectList == null)
             {
-                throw new ArgumentNullException("selectList");
+                throw new ArgumentNullException(nameof(selectList));
             }
 
             object values = null;
@@ -305,13 +305,17 @@ namespace Fanex.NexHR.Core
 
             if (values != null)
             {
-                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(new[] { ',' });
+                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(',');
 
                 var list = new List<SelectListItem>();
 
                 foreach (SelectListItem item in selectList)
                 {
-                    item.Selected = (item.Value != null) && valueList.Contains(item.Value);
+                    if (valueList != null)
+                    {
+                        item.Selected = (item.Value != null) && valueList.Contains(item.Value);
+                    }
+
                     list.Add(item);
                 }
 
@@ -330,18 +334,20 @@ namespace Fanex.NexHR.Core
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", "checkbox");
                 input.MergeAttribute("id", name + item.Value);
-                input.MergeAttribute("name", fullHtmlFieldName, replaceExisting: true);
-                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, replaceExisting: true);
+                input.MergeAttribute("name", fullHtmlFieldName, true);
+                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, true);
 
                 if (item.Selected)
                 {
                     input.MergeAttribute("checked", "checked");
                 }
 
-                var label = new TagBuilder("label");
-                label.InnerHtml = input.ToString(TagRenderMode.SelfClosing) + item.Text;
+                var label = new TagBuilder("label")
+                {
+                    InnerHtml = input.ToString(TagRenderMode.SelfClosing) + item.Text
+                };
 
-                sb.Append(label.ToString());
+                sb.Append(label);
             }
 
             return MvcHtmlString.Create(sb.ToString());
@@ -361,7 +367,7 @@ namespace Fanex.NexHR.Core
             Expression<Func<TModel, TProperty>> expression,
             IEnumerable<SelectListItem> selectList)
         {
-            return CheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
+            return CheckBoxListFor(htmlHelper, expression, selectList, null);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
@@ -384,7 +390,7 @@ namespace Fanex.NexHR.Core
         {
             if (expression == null)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
 
             return CheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
@@ -408,7 +414,7 @@ namespace Fanex.NexHR.Core
 
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
-                throw new ArgumentException("name cannot be null or empty.", "name");
+                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
             TagBuilder checkbox = new TagBuilder("input");
@@ -449,7 +455,7 @@ namespace Fanex.NexHR.Core
 
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
-                throw new ArgumentException("name cannot be null or empty.", "name");
+                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
             TagBuilder checkbox = new TagBuilder("input");
@@ -491,7 +497,7 @@ namespace Fanex.NexHR.Core
 
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
-                throw new ArgumentException("name cannot be null or empty.", "name");
+                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
             TagBuilder checkbox = new TagBuilder("input");
@@ -542,7 +548,7 @@ namespace Fanex.NexHR.Core
             Expression<Func<TModel, bool>> expression,
             IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression<TModel, bool>(expression, htmlHelper.ViewData);
+            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string propertyName = expression.Body.ToString().Split('.').Last();
 
             TagBuilder checkbox = new TagBuilder("input");
@@ -585,7 +591,7 @@ namespace Fanex.NexHR.Core
             string name,
             IEnumerable<SelectListItem> selectList)
         {
-            return MaterializeCheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
+            return MaterializeCheckBoxList(htmlHelper, name, selectList, null);
         }
 
         public static MvcHtmlString MaterializeCheckBoxList(
@@ -608,7 +614,7 @@ namespace Fanex.NexHR.Core
 
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
-                throw new ArgumentException("name cannot be null or empty.", "name");
+                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
             bool selectListFromViewData = false;
@@ -621,7 +627,7 @@ namespace Fanex.NexHR.Core
 
             if (selectList == null)
             {
-                throw new ArgumentNullException("selectList");
+                throw new ArgumentNullException(nameof(selectList));
             }
 
             object values = null;
@@ -639,13 +645,17 @@ namespace Fanex.NexHR.Core
 
             if (values != null)
             {
-                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(new[] { ',' });
+                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(',');
 
                 var list = new List<SelectListItem>();
 
                 foreach (SelectListItem item in selectList)
                 {
-                    item.Selected = (item.Value != null) && valueList.Contains(item.Value);
+                    if (valueList != null)
+                    {
+                        item.Selected = (item.Value != null) && valueList.Contains(item.Value);
+                    }
+
                     list.Add(item);
                 }
 
@@ -664,8 +674,8 @@ namespace Fanex.NexHR.Core
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
                 input.MergeAttribute("id", name + item.Value);
-                input.MergeAttribute("name", fullHtmlFieldName, replaceExisting: true);
-                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, replaceExisting: true);
+                input.MergeAttribute("name", fullHtmlFieldName, true);
+                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, true);
 
                 if (item.Selected)
                 {
@@ -673,13 +683,15 @@ namespace Fanex.NexHR.Core
                 }
 
                 var labelFor = new TagBuilder("label");
-                labelFor.MergeAttribute("for", name + item.Value, replaceExisting: true);
+                labelFor.MergeAttribute("for", name + item.Value, true);
                 labelFor.InnerHtml = item.Text;
 
-                var label = new TagBuilder("label");
-                label.InnerHtml = input.ToString(TagRenderMode.SelfClosing) + labelFor;
+                var label = new TagBuilder("label")
+                {
+                    InnerHtml = input.ToString(TagRenderMode.SelfClosing) + labelFor
+                };
 
-                sb.Append(label.ToString());
+                sb.Append(label);
             }
 
             return MvcHtmlString.Create(sb.ToString());
@@ -701,7 +713,7 @@ namespace Fanex.NexHR.Core
             Expression<Func<TModel, TProperty>> expression,
             IEnumerable<SelectListItem> selectList)
         {
-            return MaterializeCheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
+            return MaterializeCheckBoxListFor(htmlHelper, expression, selectList, null);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
@@ -723,7 +735,7 @@ namespace Fanex.NexHR.Core
         {
             if (expression == null)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
 
             return MaterializeCheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
@@ -868,26 +880,22 @@ namespace Fanex.NexHR.Core
             SelectListItem firstItem,
             object htmlAttributes)
         {
-            if (firstItem != null)
+            if (firstItem?.Value != null)
             {
-                if (firstItem.Value != null)
+                var list = new List<SelectListItem> { firstItem };
+
+                if (selectList != null)
                 {
-                    var list = new List<SelectListItem>();
-                    list.Add(firstItem);
-
-                    if (selectList != null)
+                    foreach (SelectListItem item in selectList)
                     {
-                        foreach (SelectListItem item in selectList)
-                        {
-                            list.Add(item);
-                        }
+                        list.Add(item);
                     }
-
-                    selectList = list;
                 }
+
+                selectList = list;
             }
 
-            return SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
+            return htmlHelper.DropDownListFor(expression, selectList, htmlAttributes);
         }
 
         #endregion Business

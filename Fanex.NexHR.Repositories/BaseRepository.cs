@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interfaces;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Core.Attributes;
+    using Criteria;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
 
     public class BaseRepository : IBaseRepository
     {

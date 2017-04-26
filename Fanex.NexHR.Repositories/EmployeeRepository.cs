@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.CompanyEvent;
-    using Fanex.NexHR.Models.Workload;
-    using Fanex.NexHR.Repositories.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.CompanyEvent;
+    using Models.Workload;
 
     public class EmployeeRepository : IEmployeeRepository
     {

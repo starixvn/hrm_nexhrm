@@ -1,11 +1,5 @@
 ﻿namespace AutoJobs
 {
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.ViewModels;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -13,62 +7,68 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Fanex.NexHR.Criteria;
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.ViewModels;
+    using log4net;
 
     public class MailReminderService
     {
-        private static readonly ILog _LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly EmailService _EmailService = new EmailService();
-        private static readonly EmployeeService _EmployeeService = new EmployeeService();
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly EmailService EmailService = new EmailService();
+        private static readonly EmployeeService EmployeeService = new EmployeeService();
 
-        private static readonly string _SenderEmail = ConfigurationManager.AppSettings["Email.Sender"].ToString();
-        private static readonly string _SenderName = ConfigurationManager.AppSettings["Email.SenderName"].ToString();
-        private static readonly string _EmailSD = ConfigurationManager.AppSettings["EmailSD"].ToString();
-        private static readonly string _EmailGO = ConfigurationManager.AppSettings["EmailGo"].ToString();
-        private static readonly string _EmailIT = ConfigurationManager.AppSettings["EmailIT"].ToString();
+        private static readonly string SenderEmail = ConfigurationManager.AppSettings["Email.Sender"];
+        private static readonly string SenderName = ConfigurationManager.AppSettings["Email.SenderName"];
+        private static readonly string EmailSd = ConfigurationManager.AppSettings["EmailSD"];
+        private static readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
+        private static readonly string EmailIt = ConfigurationManager.AppSettings["EmailIT"];
 
-        private static readonly string _AllowSendForgotCheckInOut = ConfigurationManager.AppSettings["AllowSendForgotCheckInOut"].ToString();
-        private static readonly string _AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"].ToString();
-        private static readonly string _TimeSendMailForgotCheckInOut = ConfigurationManager.AppSettings["TimeSendMailForgotCheckInOut"].ToString();
-        private static readonly string _TimeSendMailReminderBirthday = ConfigurationManager.AppSettings["TimeSendMailReminderBirthday"].ToString();
+        private static readonly string AllowSendForgotCheckInOut = ConfigurationManager.AppSettings["AllowSendForgotCheckInOut"];
+        private static readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
+        private static readonly string TimeSendMailForgotCheckInOut = ConfigurationManager.AppSettings["TimeSendMailForgotCheckInOut"];
+        private static readonly string TimeSendMailReminderBirthday = ConfigurationManager.AppSettings["TimeSendMailReminderBirthday"];
 
-        private static readonly List<string> _IgnoreList = new List<string> { "sean", "joe" };
+        private static readonly List<string> IgnoreList = new List<string> { "sean", "joe" };
         
-        private bool checkSendMailCheckInOut = false;
-        private bool checkSendMailReminderBirthday = false;
+        private bool _checkSendMailCheckInOut;
+        private bool _checkSendMailReminderBirthday;
 
         public void ReminderForgotCheckInOut(DateTime today)
         {
-            if (bool.Parse(_AllowSendForgotCheckInOut))
+            if (bool.Parse(AllowSendForgotCheckInOut))
             {
-                if (today.Hour >= int.Parse(_TimeSendMailForgotCheckInOut) && today.Hour < (int.Parse(_TimeSendMailForgotCheckInOut) + 1))
+                if (today.Hour >= int.Parse(TimeSendMailForgotCheckInOut) && today.Hour < (int.Parse(TimeSendMailForgotCheckInOut) + 1))
                 {
-                    if (!checkSendMailCheckInOut)
+                    if (!_checkSendMailCheckInOut)
                     {
-                        _LOG.Info("CheckInOut Reminder started at " + DateTime.Now.ToString());
+                        Log.Info("CheckInOut Reminder started at " + DateTime.Now);
                         SendMailReminderForgotCheckInOut();
-                        _LOG.Info("CheckInOut Reminder stopped at " + DateTime.Now.ToString());
-                        checkSendMailCheckInOut = true;
+                        Log.Info("CheckInOut Reminder stopped at " + DateTime.Now);
+                        _checkSendMailCheckInOut = true;
                     }
                 }
                 else
                 {
-                    checkSendMailCheckInOut = false;
+                    _checkSendMailCheckInOut = false;
                 }
             }
         }
 
         public void ReminderBirthdayAndFirstWorkingday(DateTime today)
         {
-            if (bool.Parse(_AllowSendMailReminderBirthday))
+            if (bool.Parse(AllowSendMailReminderBirthday))
             {
                 //// Satuday don't send, becase it was sent on Friday.
                 if (today.DayOfWeek != DayOfWeek.Saturday)
                 {
-                    if (today.Hour >= int.Parse(_TimeSendMailReminderBirthday) && today.Hour < (int.Parse(_TimeSendMailReminderBirthday) + 1))
+                    if (today.Hour >= int.Parse(TimeSendMailReminderBirthday) && today.Hour < (int.Parse(TimeSendMailReminderBirthday) + 1))
                     {
-                        if (!checkSendMailReminderBirthday)
+                        if (!_checkSendMailReminderBirthday)
                         {
-                            _LOG.Info("Birthday and First working day Reminder started at " + DateTime.Now.ToString());
+                            Log.Info("Birthday and First working day Reminder started at " + DateTime.Now);
 
                             SendMailBirthdayAndFirstWorkingDay(today.AddDays(1));
 
@@ -77,13 +77,13 @@
                                 SendMailBirthdayAndFirstWorkingDay(today.AddDays(2));
                             }
 
-                            _LOG.Info("Birthday and First working day Reminder stopped at " + DateTime.Now.ToString());
-                            checkSendMailReminderBirthday = true;
+                            Log.Info("Birthday and First working day Reminder stopped at " + DateTime.Now);
+                            _checkSendMailReminderBirthday = true;
                         }
                     }
                     else
                     {
-                        checkSendMailReminderBirthday = false;
+                        _checkSendMailReminderBirthday = false;
                     }
                 }
             }
@@ -96,12 +96,12 @@
             {
                 // Get employee who forgot check in or check out
                 var getMissingCheckInOutCriteria = new GetMissingCheckInOutEmployeesCriteria();
-                var employeeList = _EmployeeService.GetMissingCheckInOutByEmpId(getMissingCheckInOutCriteria);
-                employeeList = employeeList.Where(s => !_IgnoreList.Contains(s.NickName.ToLower())).ToList();
+                var employeeList = EmployeeService.GetMissingCheckInOutByEmpId(getMissingCheckInOutCriteria);
+                employeeList = employeeList.Where(s => !IgnoreList.Contains(s.NickName.ToLower())).ToList();
 
                 if (employeeList.Count > 0)
                 {
-                    _LOG.Info("There is/are " + employeeList.Count + " employee(s) forgot check in/out");
+                    Log.Info("There is/are " + employeeList.Count + " employee(s) forgot check in/out");
 
                     var bodyTemplate = ReadTextFile("emails/forgetcheckinginout.cshtml");
 
@@ -109,12 +109,12 @@
                     {
                         foreach (var item in employeeList)
                         {
-                            _LOG.Info(item.Email);
+                            Log.Info(item.Email);
                             string emailContent = CreateEmailBody(bodyTemplate, item);
-                            string emailSubject = string.Join(null, _SenderName, " - Forgot ", item.MissingType == 1 ? "Check In" : "Check Out");
+                            string emailSubject = string.Join(null, SenderName, " - Forgot ", item.MissingType == 1 ? "Check In" : "Check Out");
 
-                            _EmailService.SendEmail(
-                                _SenderEmail,
+                            EmailService.SendEmail(
+                                SenderEmail,
                                 receiverEmail: item.Email,
                                 mailCC: null,
                                 subject: emailSubject,
@@ -123,17 +123,17 @@
                     }
                     else
                     {
-                        _LOG.Error("Cannot load email template service emails/forgetcheckinginout.cshtml or it's empty");
+                        Log.Error("Cannot load email template service emails/forgetcheckinginout.cshtml or it's empty");
                     }
                 }
                 else
                 {
-                    _LOG.Info("No one missed check in/out");
+                    Log.Info("No one missed check in/out");
                 }
             }
             catch (Exception ex)
             {
-                _LOG.Error(ex.Message, ex);
+                Log.Error(ex.Message, ex);
             }
         }
 
@@ -146,7 +146,6 @@
         {
             try
             {
-                SystemReminderModel lstEmployee = null;
                 List<Employee> employeesBirthday = null;
                 List<Employee> employeesFirstWorkingday = null;
                 var criteria = new GetBirthdayAndFirstWorkingdayCriteria
@@ -154,7 +153,7 @@
                     OnDate = forDate
                 };
 
-                lstEmployee = _EmployeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                var lstEmployee = EmployeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
                 if (lstEmployee != null)
                 {
                     employeesBirthday = lstEmployee.EmployeeHasBirthday;
@@ -173,7 +172,7 @@
             }
             catch (Exception ex)
             {
-                _LOG.Error(ex.Message, ex);
+                Log.Error(ex.Message, ex);
             }
         }
 
@@ -187,7 +186,7 @@
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new System.ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
@@ -206,7 +205,7 @@
             }
             catch (Exception ex)
             {
-                _LOG.Error(ex.Message, ex);
+                Log.Error(ex.Message, ex);
                 return string.Empty;
             }
         }
@@ -247,9 +246,9 @@
             var bodyTemplate = ReadTextFile("emails/ReminderBirthday.cshtml");
             var emailContent = string.Format(bodyTemplate, employees);
 
-            _EmailService.SendEmail(
-                        _SenderEmail,
-                        receiverEmail: _EmailSD + ";" + _EmailGO + ";" + _EmailIT,
+            EmailService.SendEmail(
+                        SenderEmail,
+                        receiverEmail: EmailSd + ";" + EmailGo + ";" + EmailIt,
                         mailCC: null,
                         subject: emailSubject,
                         body: emailContent);
@@ -264,16 +263,16 @@
             var employees = string.Join(
                 "<br />",
                 employeesFirstWorkingday.Select(t => ("- <strong>" + t.NickName + "</strong> (" + t.FullName + "): "
-                    + (t.JoinedDate.HasValue ? t.JoinedDate.Value.ToString("dd MMM, yyyy") : string.Empty))));
+                    + (t.JoinedDate?.ToString("dd MMM, yyyy") ?? string.Empty))));
 
             string emailSubject = "Reminder: First working day anniversary of "
                 + string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName));
             var bodyTemplate = ReadTextFile("emails/ReminderFirstWorkingday.cshtml");
             var emailContent = string.Format(bodyTemplate, employees);
 
-            _EmailService.SendEmail(
-                        _SenderEmail,
-                        receiverEmail: _EmailSD + ";" + _EmailGO + ";" + _EmailIT,
+            EmailService.SendEmail(
+                        SenderEmail,
+                        receiverEmail: EmailSd + ";" + EmailGo + ";" + EmailIt,
                         mailCC: null,
                         subject: emailSubject,
                         body: emailContent);

@@ -10,48 +10,18 @@
 namespace Fanex.NexHR.Core
 {
     using System.Configuration;
-    using Fanex.Common;
+    using Common;
 
     public static class AppSetting
     {
-        public static bool IsShowCloseBalance
-        {
-            get
-            {
-                return Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"].ToString());
-            }
-        }
+        public static bool IsShowCloseBalance => Converter.ToBool(ConfigurationManager.AppSettings["IsCloseBalance"]);
 
-        public static string ProjectManagerTeams
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["ProjectManagerTeams"].ToString();
-            }
-        }
+        public static string ProjectManagerTeams => ConfigurationManager.AppSettings["ProjectManagerTeams"];
 
-        public static string IgnoreTeams
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["IgnoreTeams"].ToString();
-            }
-        }
+        public static string IgnoreTeams => ConfigurationManager.AppSettings["IgnoreTeams"];
 
-        public static string DomainName
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["domain"].ToString();
-            }
-        }
+        public static string DomainName => ConfigurationManager.AppSettings["domain"];
 
-        public static string IgnoreTeamWorkload
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["IgnoreTeamWorkload"].ToString();
-            }
-        }
+        public static string IgnoreTeamWorkload => ConfigurationManager.AppSettings["IgnoreTeamWorkload"];
     }
 }

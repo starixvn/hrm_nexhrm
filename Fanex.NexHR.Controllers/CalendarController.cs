@@ -3,19 +3,19 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Calendar;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Calendar;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.Calendar;
+    using Criteria.Calendar;
+    using Models;
+    using Models.Calendar;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels;
+    using ViewModels.Calendar;
 
     public class CalendarController : BaseController
     {
-        private readonly ICalendarService calendarService;
-        private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly ICalendarService _calendarService;
+        private readonly ITeamService _teamService;
+        private readonly ICommandService _commandService;
 
         public CalendarController()
             : this(null, null, null)
@@ -27,9 +27,9 @@
             ITeamService teamService,
             ICommandService commandService)
         {
-            this.calendarService = calendarService ?? new CalendarService();
-            this.teamService = teamService ?? new TeamService();
-            this.commandService = commandService ?? new CommandService();
+            _calendarService = calendarService ?? new CalendarService();
+            _teamService = teamService ?? new TeamService();
+            _commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "HR")]
@@ -42,7 +42,7 @@
                 ShiftId = shiftId,
                 ModifiedBy = CurrentUser.Id,
             };
-            CommandResult result = commandService.Update(criteria);
+            CommandResult result = _commandService.Update(criteria);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -62,7 +62,7 @@
                     SetOffDay = model.SetOffDay
                 };
 
-                result = commandService.Insert(criteria);
+                result = _commandService.Insert(criteria);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -79,7 +79,7 @@
                 EmployeeId = employeeId
             };
 
-            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+            IList<WorkingSchedule> schedules = _calendarService.GetWorkingSchedule(criteria);
             return Json(schedules, JsonRequestBehavior.AllowGet);
         }
 
@@ -99,7 +99,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = teamService.GetTeam();
+                model.Teams = _teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
                 DateTime date = new DateTime(model.Year, model.Month, 1);
@@ -111,7 +111,7 @@
                     TeamId = model.TeamId
                 };
 
-                IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+                IList<WorkingSchedule> schedules = _calendarService.GetWorkingSchedule(criteria);
                 model.WorkingSchedules = schedules;
             }
 

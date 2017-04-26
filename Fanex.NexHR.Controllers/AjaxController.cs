@@ -2,14 +2,14 @@
 {
     using System;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Report;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.Report;
+    using Models;
+    using Services;
+    using Services.Interfaces;
 
     public class AjaxController : BaseController
     {
-        private readonly ICommandService commandService;
+        private readonly ICommandService _commandService;
 
         public AjaxController()
             : this(null)
@@ -19,7 +19,7 @@
         public AjaxController(
             ICommandService commandService)
         {
-            this.commandService = commandService ?? new CommandService();
+            _commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "HR")]
@@ -32,7 +32,7 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            CommandResult commandResult = commandService.Update(criteria);
+            CommandResult commandResult = _commandService.Update(criteria);
 
             return Json(commandResult, JsonRequestBehavior.AllowGet);
         }

@@ -9,9 +9,6 @@
 
 namespace Fanex.NexHR.Core
 {
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Core.Model;
-    using Fanex.NexHR.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -21,6 +18,9 @@ namespace Fanex.NexHR.Core
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
+    using Enums;
+    using Model;
+    using Resources;
 
     public static class Utilities
     {
@@ -44,33 +44,21 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        public static IList<SelectListItem> CheckInOutTypes
+        public static IList<SelectListItem> CheckInOutTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                    {
-                        new SelectListItem() { Text = Fanex.NexHR.Resources.Labels.CheckIn, Value = ((short)RequestType.CheckIn).ToString() },
-                        new SelectListItem() { Text = Fanex.NexHR.Resources.Labels.CheckOut, Value = ((short)RequestType.CheckOut).ToString() }
-                    };
-            }
-        }
+            new SelectListItem() { Text = Labels.CheckIn, Value = ((short)RequestType.CheckIn).ToString() },
+            new SelectListItem() { Text = Labels.CheckOut, Value = ((short)RequestType.CheckOut).ToString() }
+        };
 
-        public static IList<SelectListItem> LateInEarlyOutTypes
+        public static IList<SelectListItem> LateInEarlyOutTypes => new List<SelectListItem>
         {
-            get
-            {
-                return new List<SelectListItem>
-                    {
-                        new SelectListItem() { Text = Fanex.NexHR.Resources.Labels.LateIn, Value = ((short)RequestType.LateIn).ToString() },
-                        new SelectListItem() { Text = Fanex.NexHR.Resources.Labels.EarlyOut, Value = ((short)RequestType.EarlyOut).ToString() }
-                    };
-            }
-        }
+            new SelectListItem() { Text = Labels.LateIn, Value = ((short)RequestType.LateIn).ToString() },
+            new SelectListItem() { Text = Labels.EarlyOut, Value = ((short)RequestType.EarlyOut).ToString() }
+        };
 
         public static DateTime AddTimeToDate(DateTime dateTime, string time)
         {
-            var times = time.Split(new[] { ':' });
+            var times = time.Split(':');
             TimeSpan ts = new TimeSpan(int.Parse(times[0]), int.Parse(times[1]), 0);
             return dateTime.Date + ts;
         }
@@ -259,23 +247,25 @@ namespace Fanex.NexHR.Core
             {
                 // We need to keep the loop index, not sure why it is altered by the Linq.
                 var index = i;
-                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property).GetValue(item, null);
+                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property)?.GetValue(item, null);
 
                 if (sortExpressions[index].Direction == "asc")
                 {
-                    orderedQuery = (index == 0) ? query.OrderBy(expression)
-                      : orderedQuery.ThenBy(expression);
+                    if (orderedQuery != null)
+                    {
+                        orderedQuery = (index == 0)
+                            ? query.OrderBy(expression)
+                            : orderedQuery.ThenBy(expression);
+                    }
                 }
                 else
                 {
                     orderedQuery = (index == 0) ? query.OrderByDescending(expression)
-                             : orderedQuery.ThenByDescending(expression);
+                             : orderedQuery?.ThenByDescending(expression);
                 }
             }
 
-            query = orderedQuery;
-
-            return query.ToList();
+            return orderedQuery?.ToList();
         }
 
         public static string GetDescription(Enum enumType)

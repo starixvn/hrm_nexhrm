@@ -9,11 +9,6 @@
 
 namespace Fanex.NexHR.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public static class Constants
     {
         public const string MsgLeave = "<span class='req leave'>{1}</span> {0} days";

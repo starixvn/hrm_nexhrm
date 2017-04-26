@@ -1,27 +1,27 @@
 ﻿namespace AutoJobs
 {
-    using log4net;
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.ServiceProcess;
     using System.Timers;
+    using log4net;
 
     public partial class JobService : ServiceBase
     {
-        private const int _DEFAULT_TIMER_INTERVAL = 300;
-        private static readonly ILog _LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private const int DefaultTimerInterval = 300;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly MailReminderService MailReminderService = new MailReminderService();
 
-        private Timer _updateCounterTimer = null;
-        private bool _isBusy = false;
+        private readonly Timer _updateCounterTimer;
+        private bool _isBusy;
 
         public JobService()
         {
             InitializeComponent();
             Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
-            int timerInterval = _DEFAULT_TIMER_INTERVAL;
+            int timerInterval = DefaultTimerInterval;
 
             int configTimerInterval = int.Parse(ConfigurationManager.AppSettings["TimerInterval"]);
             if (configTimerInterval > -1)
@@ -31,11 +31,11 @@
 
             TimerInterval = timerInterval;
             _updateCounterTimer = new Timer(TimerInterval * 1000);
-            _updateCounterTimer.Elapsed += new ElapsedEventHandler(ExecuteJob);
+            _updateCounterTimer.Elapsed += ExecuteJob;
             _updateCounterTimer.Enabled = false;
         }
 
-        public int TimerInterval { get; private set; }
+        public int TimerInterval { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         public void ExecuteJob(object sender, ElapsedEventArgs e)
@@ -56,13 +56,13 @@
             }
             catch (Exception ex)
             {
-                _LOG.Error("Error: " + ex.Message);
+                Log.Error("Error: " + ex.Message);
             }
         }
 
         protected override void OnStart(string[] args)
         {
-            _LOG.Info("Service started at " + DateTime.Now.ToString());
+            Log.Info("Service started at " + DateTime.Now);
 
             _updateCounterTimer.Enabled = true;
         }
@@ -71,7 +71,7 @@
         {
             _updateCounterTimer.Enabled = false;
 
-            _LOG.Info("Service stopped at " + DateTime.Now.ToString());
+            Log.Info("Service stopped at " + DateTime.Now);
         }
     }
 }

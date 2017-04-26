@@ -5,21 +5,21 @@
     using System.Linq;
     using System.Web.Mvc;
     using Core.Enums;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Overtime;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Overtime;
-    using Fanex.NexHR.ViewModels.Overtime;
+    using Criteria.Employee;
+    using Criteria.Overtime;
+    using Models;
+    using Models.Overtime;
+    using ViewModels.Overtime;
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
 
     public class OvertimeController : BaseController
     {
-        private readonly IOvertimeService overtimeService;
-        private readonly IEmployeeService employeeService;
-        private readonly ICommandService commandService;
-        private readonly ITeamService teamService;
+        private readonly IOvertimeService _overtimeService;
+        private readonly IEmployeeService _employeeService;
+        private readonly ICommandService _commandService;
+        private readonly ITeamService _teamService;
 
         public OvertimeController()
             : this(null, null, null, null)
@@ -32,10 +32,10 @@
             ICommandService commandService,
             ITeamService teamService)
         {
-            this.overtimeService = service ?? new OvertimeService();
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.commandService = commandService ?? new CommandService();
-            this.teamService = teamService ?? new TeamService();
+            _overtimeService = service ?? new OvertimeService();
+            _employeeService = employeeService ?? new EmployeeService();
+            _commandService = commandService ?? new CommandService();
+            _teamService = teamService ?? new TeamService();
         }
 
         public ActionResult Index(int chosenTab = 0)
@@ -78,7 +78,7 @@
                     CreatedBy = model.CreatedBy,
                     Status = model.Status
                 };
-                result = overtimeService.GetOvertime(criteria);
+                result = _overtimeService.GetOvertime(criteria);
             }
 
             return PartialView("_ListMemberOvertime", result);
@@ -109,10 +109,10 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
-                    overtimeService.SendMail("NEX request Notification", model);
+                    _overtimeService.SendMail("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else
@@ -128,7 +128,7 @@
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
-            Overtime overtime = overtimeService.GetOvertimeById(criteria);
+            Overtime overtime = _overtimeService.GetOvertimeById(criteria);
             var model = new CreateOvertimeViewModel()
             {
                 Id = overtime.Id,
@@ -165,7 +165,7 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = _commandService.Update(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -190,7 +190,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = commandService.Update(criteria);
+            CommandResult result = _commandService.Update(criteria);
 
             return Json(result);
         }
@@ -206,7 +206,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = commandService.Update(criteria);
+            CommandResult result = _commandService.Update(criteria);
 
             return Json(result);
         }
@@ -222,7 +222,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = commandService.Update(criteria);
+            CommandResult result = _commandService.Update(criteria);
 
             return Json(result);
         }
@@ -241,7 +241,7 @@
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31)
             };
-            IList<EmployeeOvertime> employeeOvertimes = overtimeService.GetMyOvertime(criteria);
+            IList<EmployeeOvertime> employeeOvertimes = _overtimeService.GetMyOvertime(criteria);
 
             return PartialView("_ListMyOvertime", employeeOvertimes);
         }
@@ -253,13 +253,13 @@
                 if (model.EmployeeId.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                    model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
+                    model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
                 }
 
                 if (model.CreatedBy.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
-                    model.CreatedName = employeeService.GetEmployeeById(criteria).DisplayName;
+                    model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
                 }
             }
 
@@ -281,7 +281,7 @@
                     Status = model.Status,
                     EmployeeId = model.EmployeeId
                 };
-                result = overtimeService.GetEmployeeOvertime(criteria);
+                result = _overtimeService.GetEmployeeOvertime(criteria);
             }
 
             return PartialView("_ListOvertimeRequest", result);
@@ -291,7 +291,7 @@
         {
             OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel()
             {
-                Teams = teamService.GetTeam(),
+                Teams = _teamService.GetTeam(),
                 Year = DateTime.Now.Year
             };
 
@@ -314,7 +314,7 @@
                 Year = year
             };
 
-            List<OvertimeSummary> listSummary = overtimeService.GetOvertimeSummary(criteria);
+            List<OvertimeSummary> listSummary = _overtimeService.GetOvertimeSummary(criteria);
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
         }

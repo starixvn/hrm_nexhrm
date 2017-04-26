@@ -5,14 +5,10 @@
     [Authorize]
     public class HomeController : BaseController
     {
-        public HomeController()
-        { 
-        }
-
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
-            ViewBag.Employee = this.CurrentUser;
+            ViewBag.Employee = CurrentUser;
             return View(RedirectToAction("index", "dashboard"));
         }
 

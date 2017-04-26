@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories.Interfaces;
     using System.Linq;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
 
     public class DepartmentRepository : IDepartmentRepository
     {

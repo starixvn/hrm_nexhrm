@@ -1,14 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Model;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Criteria.Report;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Report;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.TotalWorkingHours;
+    using Core;
+    using Core.Model;
+    using Criteria.Employee;
+    using Criteria.Report;
+    using Models;
+    using Models.Report;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.TotalWorkingHours;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -20,18 +20,18 @@
         private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
 
-        private readonly IEmployeeService employeeService;
-        private readonly IReportService reportService;
-        private readonly ExportService exportService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IReportService _reportService;
+        private readonly ExportService _exportService;
 
         public ExportController(
             EmployeeService employeeService,
             ExportService exportService,
             IReportService reportService)
         {
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.exportService = exportService ?? new ExportService();
-            this.reportService = reportService ?? new ReportService();
+            _employeeService = employeeService ?? new EmployeeService();
+            _exportService = exportService ?? new ExportService();
+            _reportService = reportService ?? new ReportService();
         }
 
         public ExportController()
@@ -62,10 +62,10 @@
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> listTotalWorkingHours = reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
             string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
 
-            exportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
+            _exportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
 
             return new EmptyResult();
         }
@@ -98,7 +98,7 @@
                 TotalRow = 2000
             };
 
-            IList<Employee> listEmployees = employeeService.Query(getAllEmployeeCriteria);
+            IList<Employee> listEmployees = _employeeService.Query(getAllEmployeeCriteria);
 
             if (sort != null)
             {
@@ -108,7 +108,7 @@
             }
 
             string templatePath = Server.MapPath(EmployeeProfileTemplatePath);
-            exportService.ExportEmployeeProfile(listEmployees, templatePath);
+            _exportService.ExportEmployeeProfile(listEmployees, templatePath);
 
             return new EmptyResult();
         }
@@ -137,10 +137,10 @@
                 ExcludeUserDelete = excludeUserDelete
             };
 
-            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
-            exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+            _exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
             return new EmptyResult();
         }

@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Resources;
     using ViewModels.CheckInOutRequest;
 
     public class CheckInOutController : BaseController
@@ -131,7 +132,7 @@
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid Employee !");
+                    ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
                 }
 
                 ViewBag.Year = model.ForDate.Year;

@@ -24,13 +24,7 @@ namespace Fanex.NexHR.Core.Attributes
             _value = value;
         }
 
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-        }
+        public string Value => _value;
 
         public override string ToString()
         {

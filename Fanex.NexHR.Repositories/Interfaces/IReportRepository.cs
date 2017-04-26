@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
+    using System.Collections.Generic;
     using Data.Repository;
     using Models;
     using Models.Report;
-    using System.Collections.Generic;
 
     public interface IReportRepository
     {

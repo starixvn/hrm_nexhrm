@@ -1,20 +1,19 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
+    using Criteria.LateInEarlyOut;
+    using Models;
+    using Resources;
+    using Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.LateInEarlyOut;
+    using ViewModels.LateInEarlyOut;
 
     public class LateEarlyController : BaseController
     {
-        private readonly ILateInEarlyOutService lateinEarlyoutService;
-        private readonly ICommandService commandService;
+        private readonly ILateInEarlyOutService _lateinEarlyoutService;
+        private readonly ICommandService _commandService;
 
         public LateEarlyController()
             : this(null, null)
@@ -23,8 +22,8 @@
 
         public LateEarlyController(ILateInEarlyOutService service, ICommandService commandService)
         {
-            this.lateinEarlyoutService = service ?? new LateInEarlyOutService();
-            this.commandService = commandService ?? new CommandService();
+            _lateinEarlyoutService = service ?? new LateInEarlyOutService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -53,7 +52,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = commandService.Insert(criteria);
+                    CommandResult result = _commandService.Insert(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -65,7 +64,7 @@
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid Employee!");
+                    ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
                 }
             }
 
@@ -82,7 +81,7 @@
 
             if (id > 0)
             {
-                model = lateinEarlyoutService.GetById(criteria);
+                model = _lateinEarlyoutService.GetById(criteria);
             }
 
             return View(model);
@@ -105,7 +104,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = commandService.Update(criteria);
+                    CommandResult result = _commandService.Update(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -117,7 +116,7 @@
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid Employee!");
+                    ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
                 }
             }
 
@@ -127,7 +126,7 @@
         public JsonResult Delete(int id)
         {
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -145,7 +144,7 @@
                 EmpId = empId,
                 Year = year
             };
-            IList<LateInEarlyOutViewModel> list = lateinEarlyoutService.GetAllByEmpId(criteria);
+            IList<LateInEarlyOutViewModel> list = _lateinEarlyoutService.GetAllByEmpId(criteria);
 
             return list;
         }

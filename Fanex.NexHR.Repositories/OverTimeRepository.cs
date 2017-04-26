@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Data;
-    using Fanex.Data.Repository;
+    using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Overtime;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class OvertimeRepository : IOvertimeRepository
     {
@@ -66,7 +66,10 @@
                        },
                         "EmployeeId");
 
-                    overtimeRequest.OvertimeRecords = overtimeRecords.ToList();
+                    if (overtimeRequest != null)
+                    {
+                        overtimeRequest.OvertimeRecords = overtimeRecords.ToList();
+                    }
 
                     return overtimeRequest;
                 }

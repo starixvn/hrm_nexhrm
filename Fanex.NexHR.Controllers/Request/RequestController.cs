@@ -4,24 +4,24 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Request;
-    using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
-    using Fanex.NexHR.ViewModels.Common;
+    using Core;
+    using Core.Enums;
+    using Criteria.Request;
+    using Criteria.Team;
+    using Models;
+    using Models.Request;
+    using Resources;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels;
+    using ViewModels.Common;
 
     public class RequestController : BaseController
     {
-        private readonly IRequestService requestService;
-        private readonly ITeamService teamService;
-        private readonly ILeaveTypeService leaveTypeService;
-        private readonly ICommandService commandService;
+        private readonly IRequestService _requestService;
+        private readonly ITeamService _teamService;
+        private readonly ILeaveTypeService _leaveTypeService;
+        private readonly ICommandService _commandService;
 
         public RequestController()
             : this(null, null, null, null)
@@ -34,17 +34,17 @@
             ILeaveTypeService leaveTypeService,
             ICommandService commandService)
         {
-            this.requestService = requestService ?? new RequestService();
-            this.teamService = teamService ?? new TeamService();
-            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            this.commandService = commandService ?? new CommandService();
+            _requestService = requestService ?? new RequestService();
+            _teamService = teamService ?? new TeamService();
+            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            _commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "AssistantLeader,HR,SpecialUser")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
-            CommandResult result = requestService.Process(command, id, CurrentUser.Id);
+            CommandResult result = _requestService.Process(command, id, CurrentUser.Id);
             return Json(result);
         }
 
@@ -81,11 +81,11 @@
 
                 var criteria = new GetTeamByManagerIdCriteria()
                 {
-                    ManagerId = this.CurrentUser.Id
+                    ManagerId = CurrentUser.Id
                 };
-                request.Teams = teamService.GetTeamManagedByEmp(criteria);
+                request.Teams = _teamService.GetTeamManagedByEmp(criteria);
 
-                request.LeaveTypes = leaveTypeService.GetAll();
+                request.LeaveTypes = _leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByAssistantLeader";
@@ -138,9 +138,9 @@
                 request.CurrentPage = Constants.CurrentPage;
                 request.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = teamService.GetTeam();
+                request.Teams = _teamService.GetTeam();
 
-                request.LeaveTypes = leaveTypeService.GetAll();
+                request.LeaveTypes = _leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByEmployee";
@@ -193,9 +193,9 @@
                 request.CurrentPage = Constants.CurrentPage;
                 request.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = teamService.GetTeam();
+                request.Teams = _teamService.GetTeam();
 
-                request.LeaveTypes = leaveTypeService.GetAll();
+                request.LeaveTypes = _leaveTypeService.GetAll();
                 request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByHR";
@@ -230,7 +230,7 @@
                 RequestId = requestId
             };
 
-            IList<RequestEntity> requests = requestService.GetRequestHistory(criteria);
+            IList<RequestEntity> requests = _requestService.GetRequestHistory(criteria);
 
             ViewBag.requestType = requestType;
 
@@ -244,7 +244,7 @@
             {
                 Id = id
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -265,7 +265,7 @@
 
         public JsonResult GetUnavailDate(int employeeId)
         {
-            IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId);
+            IList<DateTime> dates = _requestService.GetDisableRequestDate(employeeId);
             return Json(dates.Select(t => t.ToString("dd MMM yyyy")), JsonRequestBehavior.AllowGet);
         }
 
@@ -278,7 +278,7 @@
                 ToDate = toDate
             };
 
-            DateRange totalDays = requestService.GetDateRange(getDateRangeCriteria);
+            DateRange totalDays = _requestService.GetDateRange(getDateRangeCriteria);
 
             return Json(totalDays.TotalDay, JsonRequestBehavior.AllowGet);
         }
@@ -295,7 +295,7 @@
                 GroupId = request.TeamId,
                 LeaveTypeId = request.LeaveTypeId == 0 ? null : new int?(request.LeaveTypeId),
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
-                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(this.CurrentUser.Id) : null,
+                ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(CurrentUser.Id) : null,
                 RequestType = request.RequestType == 1
                     ? Convert.ToString((int)RequestType.Leave)
                     : (request.RequestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty),
@@ -304,16 +304,19 @@
                 ItemsPerPage = request.ItemsPerPage
             };
 
-            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
-            var pagerOption = new PagerOptionModel()
+            if (criteria.TotalItem != null)
             {
-                CurrentPage = request.CurrentPage,
-                ItemsPerPage = request.ItemsPerPage,
-                TotalItem = (int)criteria.TotalItem
-            };
+                var pagerOption = new PagerOptionModel
+                {
+                    CurrentPage = request.CurrentPage,
+                    ItemsPerPage = request.ItemsPerPage,
+                    TotalItem = (int)criteria.TotalItem
+                };
 
-            ViewBag.PagerOption = pagerOption;
+                ViewBag.PagerOption = pagerOption;
+            }
 
             return entityList;
         }

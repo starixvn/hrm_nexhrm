@@ -3,18 +3,18 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Team;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels;
+    using Criteria.Team;
+    using Models;
+    using Resources;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels;
 
     public class TeamController : BaseController
     {
-        private readonly ITeamService teamService;
-        private readonly IDepartmentService departmentService;
-        private readonly ICommandService commandService;
+        private readonly ITeamService _teamService;
+        private readonly IDepartmentService _departmentService;
+        private readonly ICommandService _commandService;
 
         public TeamController()
             : this(null, null, null)
@@ -26,14 +26,14 @@
             IDepartmentService departmentService,
             ICommandService commandService)
         {
-            this.teamService = teamService ?? new TeamService();
-            this.departmentService = departmentService ?? new DepartmentService();
-            this.commandService = commandService ?? new CommandService();
+            _teamService = teamService ?? new TeamService();
+            _departmentService = departmentService ?? new DepartmentService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
-            IList<Team> teams = teamService.GetTeam();
+            IList<Team> teams = _teamService.GetTeam();
 
             return View(teams);
         }
@@ -43,8 +43,8 @@
         {
             var model = new TeamViewModel
             {
-                Departments = departmentService.GetAll(),
-                Teams = teamService.GetTeam()
+                Departments = _departmentService.GetAll(),
+                Teams = _teamService.GetTeam()
             };
 
             return View(model);
@@ -64,13 +64,13 @@
                         Code = model.TeamCode,
                         Name = model.TeamName,
                         LeaderId = model.LeaderId,
-                        AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                        AssistantLeaderId = model.AssistantLeaderId ?? default(int),
                         DepartmentId = model.DepartmentId,
                         ParentId = model.ParentId,
                         CreatedBy = CurrentUser.Id
                     };
 
-                    CommandResult result = commandService.Insert(criteria);
+                    CommandResult result = _commandService.Insert(criteria);
 
                     if (result.IsSuccessful)
                     {
@@ -82,8 +82,8 @@
                     }
                 }
 
-                model.Departments = departmentService.GetAll();
-                model.Teams = teamService.GetTeam();
+                model.Departments = _departmentService.GetAll();
+                model.Teams = _teamService.GetTeam();
             }
 
             return View(model);
@@ -96,7 +96,7 @@
             {
                 Id = id
             };
-            Team team = teamService.GetById(criteria);
+            Team team = _teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)
@@ -105,17 +105,20 @@
                 {
                     TeamCode = team.Code,
                     TeamName = team.Name,
-                    DepartmentId = team.Department != null ? team.Department.Id : 0,
-                    ParentId = team.Parent != null ? team.Parent.Id : 0,
+                    DepartmentId = team.Department?.Id ?? 0,
+                    ParentId = team.Parent?.Id ?? 0,
                     Leader = team.Leader.DisplayName,
                     LeaderId = team.Leader.Id,
                     AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
-                    AssistantLeaderId = team.AssistantLeader != null ? team.AssistantLeader.Id : 0,
+                    AssistantLeaderId = team.AssistantLeader?.Id ?? 0,
                 };
             }
 
-            model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetTeam().Where(p => p.Id != id).ToList();
+            if (model != null)
+            {
+                model.Departments = _departmentService.GetAll();
+                model.Teams = _teamService.GetTeam().Where(p => p.Id != id).ToList();
+            }
 
             return View(model);
         }
@@ -139,11 +142,11 @@
                     DepartmentId = model.DepartmentId,
                     ParentId = model.ParentId,
                     LeaderId = model.LeaderId,
-                    AssistantLeaderId = model.AssistantLeaderId != null ? model.AssistantLeaderId.Value : default(int),
+                    AssistantLeaderId = model.AssistantLeaderId ?? default(int),
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = _commandService.Update(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -159,8 +162,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetTeam().Where(p => p.Id != model.Id).ToList();
+            model.Departments = _departmentService.GetAll();
+            model.Teams = _teamService.GetTeam().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }
@@ -175,7 +178,7 @@
                 ModifiedBy = CurrentUser.Id,
             };
 
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
             return Json(result);
         }
     }

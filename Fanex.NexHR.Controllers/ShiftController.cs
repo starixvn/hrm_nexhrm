@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Shift;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.Shift;
+    using Models;
+    using Services;
+    using Services.Interfaces;
 
     public class ShiftController : BaseController
     {
-        private readonly IShiftService shiftService;
+        private readonly IShiftService _shiftService;
 
         public ShiftController()
             : this(null)
@@ -19,12 +19,12 @@
 
         public ShiftController(IShiftService shiftService = null)
         {
-            this.shiftService = shiftService ?? new ShiftService();
+            _shiftService = shiftService ?? new ShiftService();
         }
 
         public ActionResult Index()
         {
-            IList<Shift> shifts = shiftService.GetAll();
+            IList<Shift> shifts = _shiftService.GetAll();
 
             return View(shifts);
         }
@@ -36,7 +36,7 @@
                 EmployeeId = employeeId,
                 Date = date
             };
-            Shift shift = shiftService.GetByDate(getShiftByDateCriteria);
+            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
 
             return Json(shift);
         }

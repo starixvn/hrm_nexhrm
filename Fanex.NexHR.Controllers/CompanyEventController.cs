@@ -3,17 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.CompanyEvent;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.CompanyEvent;
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.CompanyEvent;
+    using Models;
+    using Models.CompanyEvent;
+    using Resources;
+    using Services;
+    using Services.Interfaces;
 
     public class CompanyEventController : BaseController
     {
-        private readonly ICommandService commandService;
-        private readonly ICompanyEventService eventService;
+        private readonly ICommandService _commandService;
+        private readonly ICompanyEventService _eventService;
 
         public CompanyEventController()
             : this(null, null)
@@ -22,8 +22,8 @@
 
         public CompanyEventController(ICommandService commandService, ICompanyEventService eventService)
         {
-            this.commandService = commandService ?? new CommandService();
-            this.eventService = eventService ?? new CompanyEventService();
+            _commandService = commandService ?? new CommandService();
+            _eventService = eventService ?? new CompanyEventService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -39,7 +39,7 @@
             if (id > 0)
             {
                 var criteria = new GetEventByIdCriteria() { Id = id };
-                model = eventService.GetById(criteria);
+                model = _eventService.GetById(criteria);
             }
 
             return View(model);
@@ -57,7 +57,7 @@
                 FromDate = firstDay,
                 ToDate = lastDay
             };
-            IList<CompanyEvent> events = eventService.GetAll(criteria);
+            IList<CompanyEvent> events = _eventService.GetAll(criteria);
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
@@ -83,14 +83,14 @@
                     Title = model.Title,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
-                    FromTime = model.FromTime == null ? string.Empty : model.FromTime,
-                    ToTime = model.ToTime == null ? string.Empty : model.ToTime,
+                    FromTime = model.FromTime ?? string.Empty,
+                    ToTime = model.ToTime ?? string.Empty,
                     Location = model.Location,
-                    Description = model.Description == null ? string.Empty : model.Description,
+                    Description = model.Description ?? string.Empty,
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Insert = true;
@@ -111,7 +111,7 @@
             if (id > 0)
             {
                 var criteria = new GetEventByIdCriteria() { Id = id };
-                model = eventService.GetById(criteria);
+                model = _eventService.GetById(criteria);
             }
 
             return View(model);
@@ -130,12 +130,12 @@
                     Title = model.Title,
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
-                    FromTime = model.FromTime == null ? string.Empty : model.FromTime,
-                    ToTime = model.ToTime == null ? string.Empty : model.ToTime,
+                    FromTime = model.FromTime ?? string.Empty,
+                    ToTime = model.ToTime ?? string.Empty,
                     Location = model.Location,
-                    Description = model.Description == null ? string.Empty : model.Description
+                    Description = model.Description ?? string.Empty
                 };
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = _commandService.Update(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -156,7 +156,7 @@
             if (id > 0)
             {
                 DeleteEventCriteria criteria = new DeleteEventCriteria() { Id = id };
-                result = commandService.Delete(criteria);
+                result = _commandService.Delete(criteria);
             }
             else
             {

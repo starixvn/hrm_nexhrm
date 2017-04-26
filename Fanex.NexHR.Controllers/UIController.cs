@@ -9,11 +9,11 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Criteria;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Navigation;
+    using Criteria;
+    using Models;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.Navigation;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -43,7 +43,6 @@ namespace Fanex.NexHR.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
-            SystemReminderModel lstEmployee = null;
             List<Employee> employeesBirthday = null;
             List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
@@ -51,7 +50,7 @@ namespace Fanex.NexHR.Controllers
                 OnDate = DateTime.Now.Date
             };
 
-            lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            var lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             if (lstEmployee != null)
             {
                 employeesBirthday = lstEmployee.EmployeeHasBirthday;
@@ -65,14 +64,14 @@ namespace Fanex.NexHR.Controllers
             ViewBag.EmployeesBirthday = employeesBirthday;
             ViewBag.EmployeesFirstWorkingday = employeesFirstWorkingday;
 
-            return PartialView(this.CurrentUser);
+            return PartialView(CurrentUser);
         }
 
         [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public ActionResult GlobalScript()
         {
-            ViewBag.Employee = this.CurrentUser;
+            ViewBag.Employee = CurrentUser;
             return PartialView();
         }
 
@@ -96,9 +95,8 @@ namespace Fanex.NexHR.Controllers
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed. Suppression is OK here.")]
         public IList<NavigationViewModel> GetNagivationData()
         {
-            var navigationItemList = new List<NavigationViewModel>();
             var roles = Roles.GetRolesForUser();
-            navigationItemList = new List<NavigationViewModel>();
+            var navigationItemList = new List<NavigationViewModel>();
 
             SiteMapNode root = SiteMap.RootNode;
             foreach (SiteMapNode sectionNode in root.ChildNodes)
@@ -123,7 +121,7 @@ namespace Fanex.NexHR.Controllers
                 }
                 else
                 {
-                    if (CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList<string>()))
+                    if (CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
                     {
                         var sectionItem = new NavigationViewModel(sectionNode);
                         navigationItemList.Add(sectionItem);

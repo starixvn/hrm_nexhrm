@@ -29,7 +29,7 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
             response.Clear();
             response.ContentType = "application/vnd.ms-excel";
-            response.AddHeader("Content-Disposition", string.Format("attachment; filename={0}.xls", fileName));
+            response.AddHeader("Content-Disposition", $"attachment; filename={fileName}.xls");
 
             workbook.Write(response.OutputStream);
         }

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Notification;
-    using Fanex.NexHR.Repositories.Interfaces;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Notification;
 
     public class NotificationRepository : INotificationRepository
     {

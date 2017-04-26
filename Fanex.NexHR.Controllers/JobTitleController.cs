@@ -2,15 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
+    using Criteria.LookupData;
+    using Models;
+    using Services;
+    using Services.Interfaces;
 
     public class JobTitleController : BaseController
     {
-        private readonly IJobTitleService jobTitleService;
-        private readonly ICommandService commandService;
+        private readonly IJobTitleService _jobTitleService;
+        private readonly ICommandService _commandService;
 
         public JobTitleController()
             : this(null, null)
@@ -19,8 +19,8 @@
 
         public JobTitleController(IJobTitleService jobTitleService, ICommandService commandService)
         {
-            this.jobTitleService = jobTitleService ?? new JobTitleService();
-            this.commandService = commandService ?? new CommandService();
+            _jobTitleService = jobTitleService ?? new JobTitleService();
+            _commandService = commandService ?? new CommandService();
         }
 
         [Authorize(Roles = "HR")]
@@ -32,10 +32,10 @@
         [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Index(string jobTitle = "")
+        public ActionResult Index(string jobTitle)
         {
-            var lookupDataJobTitleCriteria = new GetJobTitleCriteria() { JobTitle = jobTitle };
-            IList<JobTitle> jobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = jobTitle };
+            IList<JobTitle> jobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return PartialView("_Index", jobTitles);
         }
@@ -50,7 +50,7 @@
                 LookupCode = LookupCodeName.JobTitle,
                 Name = name
             };
-            CommandResult result = commandService.Insert(insertLookupDataCriteria);
+            CommandResult result = _commandService.Insert(insertLookupDataCriteria);
 
             return Json(result);
         }
@@ -64,7 +64,7 @@
                 Id = id,
                 Name = name
             };
-            CommandResult result = commandService.Update(updateLookupDataCriteria);
+            CommandResult result = _commandService.Update(updateLookupDataCriteria);
 
             return Json(result);
         }
@@ -74,7 +74,7 @@
         public JsonResult Delete(int id)
         {
             var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
-            CommandResult result = commandService.Delete(deleteLookupDataCriteria);
+            CommandResult result = _commandService.Delete(deleteLookupDataCriteria);
 
             return Json(result);
         }

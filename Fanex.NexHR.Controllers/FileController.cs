@@ -16,13 +16,11 @@
             {
                 foreach (HttpPostedFileBase file in files)
                 {
-                    string pathAttach = string.Empty;
-
                     if (file.ContentLength > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
                         var dir = "~/file/uploads/" + categoryId;
-                        pathAttach = dir + "/" + fileName;
+                        var pathAttach = dir + "/" + fileName;
 
                         if (overRide == 0)
                         {
@@ -38,20 +36,23 @@
                             Directory.CreateDirectory(Server.MapPath(dir));
                         }
 
-                        var path = Path.Combine(Server.MapPath(dir), fileName);
-
-                        pathAttach = pathAttach.Substring(2);
-
-                        if (string.IsNullOrEmpty(pathAttachFiles))
+                        if (fileName != null)
                         {
-                            pathAttachFiles = pathAttach;
-                        }
-                        else
-                        {
-                            pathAttachFiles += ";/" + pathAttach;
-                        }
+                            var path = Path.Combine(Server.MapPath(dir), fileName);
 
-                        file.SaveAs(path);
+                            pathAttach = pathAttach.Substring(2);
+
+                            if (string.IsNullOrEmpty(pathAttachFiles))
+                            {
+                                pathAttachFiles = pathAttach;
+                            }
+                            else
+                            {
+                                pathAttachFiles += ";/" + pathAttach;
+                            }
+
+                            file.SaveAs(path);
+                        }
                     }
                 }
             }

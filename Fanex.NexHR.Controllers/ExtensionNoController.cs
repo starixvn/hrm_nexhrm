@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Criteria.ExtensionNo;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.ExtensionNo;
+    using Criteria.ExtensionNo;
+    using Models;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.ExtensionNo;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
@@ -12,9 +12,9 @@
 
     public class ExtensionNoController : BaseController
     {
-        private readonly IExtensionNoService extensionNoService;
-        private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly IExtensionNoService _extensionNoService;
+        private readonly ITeamService _teamService;
+        private readonly ICommandService _commandService;
 
         public ExtensionNoController()
             : this(null, null, null)
@@ -26,15 +26,15 @@
             ITeamService teamService,
             ICommandService commandService)
         {
-            this.extensionNoService = extensionNoService ?? new ExtensionNoService();
-            this.teamService = teamService ?? new TeamService();
-            this.commandService = commandService ?? new CommandService();
+            _extensionNoService = extensionNoService ?? new ExtensionNoService();
+            _teamService = teamService ?? new TeamService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
         {
             GetAllExtensionNoCriteria criteria = new GetAllExtensionNoCriteria();
-            List<ExtensionNoModel> lstEntity = extensionNoService.GetAllExtensionNo(criteria).ToList();
+            List<ExtensionNoModel> lstEntity = _extensionNoService.GetAllExtensionNo(criteria).ToList();
             var model = (from item in lstEntity
                          group item by item.TeamName into g
                          select new ExtensionNoViewModel() { Name = g.Key, ListExt = g.ToList() }).ToList();
@@ -66,7 +66,7 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -88,13 +88,13 @@
                 IsInternal = isInternal,
                 EmpExtId = empExtId
             };
-            var model = extensionNoService.GetEmployeeExtensionNoById(criteria);
+            var model = _extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria
             {
                 IsInternal = isInternal,
                 GroupId = null
             };
-            var group = extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
+            var group = _extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
             ViewBag.Group = group.Select(x => new SelectListItem
             {
                 Text = x.TeamName,
@@ -119,7 +119,7 @@
                     IsInternal = model.IsInternal,
                     GroupId = null
                 };
-                var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
                 ViewBag.Group = group.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,
@@ -137,7 +137,7 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.Update(updateCriteria);
+                CommandResult result = _commandService.Update(updateCriteria);
                 if (result.IsSuccessful)
                 {
                         ViewBag.Updated = true;
@@ -159,7 +159,7 @@
             {
                 ExtId = extId
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -172,7 +172,7 @@
             {
                 FullName = HttpUtility.HtmlEncode(groupName)
             };
-            CommandResult result = commandService.Insert(criteria);
+            CommandResult result = _commandService.Insert(criteria);
 
             return Json(result);
         }
@@ -185,7 +185,7 @@
             {
                 ExtId = extId
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = _commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -199,7 +199,7 @@
                 ExtId = extId,
                 FullName = groupName
             };
-            CommandResult result = commandService.Update(criteria);
+            CommandResult result = _commandService.Update(criteria);
 
             return Json(result);
         }
@@ -211,17 +211,17 @@
                 IsInternal = false,
                 GroupId = null
             };
-            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
+            var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
 
             return View(group);
         }
 
         public JsonResult GetGroupExtension(bool isInternal, int? groupId)
         {
-            var groupExtensions = new List<SelectListItem>();
+            List<SelectListItem> groupExtensions;
             if (isInternal)
             {
-                IList<Team> teams = teamService.GetTeam();
+                IList<Team> teams = _teamService.GetTeam();
                 groupExtensions = teams.Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -232,10 +232,10 @@
             {
                 var criteria = new GetAllExtensionGroupInfoCriteria
                 {
-                    IsInternal = isInternal,
+                    IsInternal = false,
                     GroupId = groupId
                 };
-                IList<ExtensionNoModel> extensions = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                IList<ExtensionNoModel> extensions = _extensionNoService.GetAllExtensionGroupInfo(criteria);
                 groupExtensions = extensions.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,

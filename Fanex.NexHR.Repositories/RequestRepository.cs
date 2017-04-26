@@ -10,18 +10,17 @@
 namespace Fanex.NexHR.Repositories
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Reflection;
-    using Fanex.Common.Extensions;
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fanex.NexHR.Core.Attributes;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Request;
-    using Fanex.NexHR.Repositories.Interfaces;
+    using Common.Extensions;
+    using Core.Attributes;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Request;
 
     public class RequestRepository : BaseRepository, IRequestRepository
     {
@@ -41,8 +40,10 @@ namespace Fanex.NexHR.Repositories
                     }
                 }
 
-                PropertyInfo totalitem = criteria.GetType().GetProperties().Where(
-                    prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) && prop.Name.ToLower().Equals("totalitem")).FirstOrDefault();
+                PropertyInfo totalitem = criteria.GetType()
+                    .GetProperties()
+                    .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) &&
+                                            prop.Name.ToLower().Equals("totalitem"));
 
                 if (totalitem != null)
                 {
@@ -56,7 +57,6 @@ namespace Fanex.NexHR.Repositories
 
         public RequestEntity GetRequestEntity(ICriteria criteria)
         {
-            RequestEntity request = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
@@ -65,14 +65,14 @@ namespace Fanex.NexHR.Repositories
                     {
                         while (reader.Read())
                         {
-                            request = GetRequestInfo(reader);
+                            var request = GetRequestInfo(reader);
                             return request;
                         }
                     }
                 }
             }
 
-            return request;
+            return null;
         }
 
         private RequestEntity GetRequestInfo(IDataReader reader)
