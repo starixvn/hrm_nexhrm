@@ -1,32 +1,27 @@
-﻿@model Fanex.NexHR.ViewModels.RequestViewModel
-@using Fanex.NexHR.Models.Request
+﻿@model RequestViewModel
+
 @{
     ViewBag.Title = Labels.RequestHistory;
     Layout = null;
 }
-@section css{
-}
-@section js{
-}
-@section Breadcrumb {
-}
+
 @switch ((int)ViewBag.requestType)
 {
     case 1:
         IList<RequestEntity> entityCheckInOut = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewCheckInOutRequestHistory", entityCheckInOut);
+        @Html.Partial("History/CheckInOutRequestHistory", entityCheckInOut)
         break;
     case 2:
         IList<RequestEntity> entityLateInEarlyOut = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewLateInEarlyOutRequestHistory", entityLateInEarlyOut);
+        @Html.Partial("History/LateInEarlyOutRequestHistory", entityLateInEarlyOut)
         break;
     case 3:
         IList<RequestEntity> entityChangeShift = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewChangeShiftRequestHistory", entityChangeShift);
+        @Html.Partial("History/ChangeShiftRequestHistory", entityChangeShift)
         break;
     case 4:
         IList<RequestEntity> entityLeave = ViewBag.EntityList;
-        Html.RenderPartial("Request/HR/HRViewLeaveRequestHistory", entityLeave);
+        @Html.Partial("History/LeaveRequestHistory", entityLeave)
         break;
 
 }

@@ -53,7 +53,7 @@
                     else if (item.IsMissingCheckin.Equals(1))
                     {
                         <td>
-                            <a href="../checkinout/create?type=1&date=@item.AttendanceDate.ToDateMonthYearFormatedDate()">Request</a>
+                            @Html.ActionLink("Request","Create","CheckInOut", new {type = 1, date = item.AttendanceDate.ToDateMonthYearFormatedDate()}, null)
                         </td>
                     }
                     else
@@ -67,7 +67,7 @@
                     else if (item.IsMissingCheckOut.Equals(1))
                     {
                         <td>
-                            <a href="../checkinout/create?type=2&date=@item.AttendanceDate.ToDateMonthYearFormatedDate()">Request</a>
+                            @Html.ActionLink("Request", "Create", "CheckInOut", new { type = 2, date = item.AttendanceDate.ToDateMonthYearFormatedDate() }, null)
                         </td>
                     }
                     else
@@ -131,6 +131,6 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(colspan: 12);
+        @RazorHelper.DisplayNoInformation(colspan: 12)
     }
 </table>

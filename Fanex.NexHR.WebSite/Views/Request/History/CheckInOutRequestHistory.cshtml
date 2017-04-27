@@ -23,7 +23,7 @@
                     <td>@(index++)</td>
                     <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code</td>
                     <td class="tooltip" title="@request.Requester.FullName">
-                        @request.Requester.NickName.ToString()
+                        @request.Requester.NickName
                     </td>
                     <td>@request.RequestType.ToString()</td>
                     <td>@request.FromShift.Name</td>
@@ -37,6 +37,6 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(colspan: 11);
+        @RazorHelper.DisplayNoInformation(colspan: 11)
     }
 </table>

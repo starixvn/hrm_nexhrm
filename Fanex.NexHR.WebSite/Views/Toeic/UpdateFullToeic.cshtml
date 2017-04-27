@@ -70,52 +70,6 @@
             </div>
         </div>
     </div>
-    @*<div class="row form-input">
-        <div class="left label--l">
-            @Html.LabelFor(model => model.SWExamDate)
-        </div>
-        <div class="left">
-            <div class="datepicker-button select--s">
-                @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
-                <i class="mdi-action-event calendar-icon left"></i>
-            </div>
-            @Html.ValidationMessageFor(model => model.SWExamDate)
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.NewOldSpeaking</label>
-        </div>
-        <div class="left">
-            <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Speaking, new { type = "number", step = "5" })
-                @Html.ValidationMessageFor(model => model.Speaking)
-            </div>
-            <div class="col left">
-                /</div>
-            <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldSpeaking, new { type = "number", step = "5" })
-                @Html.ValidationMessageFor(model => model.OldSpeaking)
-            </div>
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.NewOldWriting</label>
-        </div>
-        <div class="left">
-            <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Writing, new { type = "number", step = "5" })
-                @Html.ValidationMessageFor(model => model.Writing)
-            </div>
-            <div class="col left">
-                /</div>
-            <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldWriting, new { type = "number", step = "5" })
-                @Html.ValidationMessageFor(model => model.OldWriting)
-            </div>
-        </div>
-    </div>*@
     <div class="row form-input">
         <div class="left label--l">
             @Html.LabelFor(m => m.SendMail, Labels.SendMail)

@@ -46,7 +46,7 @@
     <div id="message">
     </div>
     <script type="text/javascript">
-        var isHRRole = '@Roles.IsUserInRole("HR")' == 'True';
+        var isHRRole = '@Roles.IsUserInRole("HR")' === 'True';
     </script>
     @Scripts.Render("~/bundles/sitejs")
     @RenderSection("js", false)

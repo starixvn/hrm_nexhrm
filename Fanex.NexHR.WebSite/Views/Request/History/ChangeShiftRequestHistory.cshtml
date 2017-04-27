@@ -24,16 +24,16 @@
                     <td>@(index++)</td>
                     <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code</td>
                     <td class="tooltip" title="@request.Requester.FullName">
-                        @request.Requester.NickName.ToString()
+                        @request.Requester.NickName
                     </td>
                     <td>@request.RequestedDate.ToDateMonthYearFormatedDate()</td>
-                    <td>@request.FromShift.Name.ToString()</td>
-                    <td>@request.ToShift.Name.ToString()</td>
+                    <td>@request.FromShift.Name</td>
+                    <td>@request.ToShift.Name</td>
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     @if (!string.IsNullOrWhiteSpace(request.Remark))
                     {
                         <td class="tooltip" title="@request.Remark">
-                            <span class="mdi mdi-message-text" alt="remark" />
+                            <span class="mdi mdi-message-text" alt="remark"></span>
                         </td>
                     }
                     else
@@ -48,6 +48,6 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(colspan: 11);
+        @RazorHelper.DisplayNoInformation(colspan: 11)
     }
 </table>

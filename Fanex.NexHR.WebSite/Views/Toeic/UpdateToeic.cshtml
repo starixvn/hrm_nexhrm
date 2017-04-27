@@ -47,33 +47,8 @@
             @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5" })
         </div>
     </div>
-    @*<div class="row form-input">
-        <div class="left label--l">
-            @Html.LabelFor(model => model.SWExamDate)
-        </div>
-        <div class="datepicker-button left select--s">
-            @Html.DatePickerFor(model => model.SWExamDate, currentDate.AddYears(-100), currentDate)
-            <i class="mdi-action-event calendar-icon left"></i>
-        </div>
-    </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Speaking</label>
-        </div>
-        <div class="left input--s">
-            @Html.TextBoxFor(m => m.Speaking, new { type = "number", step = "5" })
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Writing</label>
-        </div>
-        <div class="left input--s">
-            @Html.TextBoxFor(m => m.Writing, new { type = "number", step = "5" })
-        </div>
-    </div>*@
-    <div class="row form-input">
-        <div class="left label--l">            
             @Html.LabelFor(m => m.SendMail, Labels.SendMail)
         </div>
         <div class="left input--s">

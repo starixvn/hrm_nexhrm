@@ -4,12 +4,9 @@
 @{
     ViewBag.Title = Labels.TOEICScoreMgmt;
 }
-@section css {
-}
+
 @section js {
     @Scripts.Render("~/bundles/toeicjs")
-}
-@section Breadcrumb {
 }
 <div class="row content">
     <div class="col s12 card-container-base">
@@ -38,14 +35,6 @@
                                         @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
-                                @*<div class="col">
-                                    <div class="left label--s">
-                                        <label>@Labels.Title</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
-                                    </div>
-                                </div>*@
                                 <div class="col">
                                     <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
                                     @if (Roles.IsUserInRole("HR"))

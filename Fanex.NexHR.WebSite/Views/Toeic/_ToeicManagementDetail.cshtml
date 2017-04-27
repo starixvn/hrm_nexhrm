@@ -79,36 +79,6 @@
                             @employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()
                         }
                     </td>
-                    @*<td>
-                        @if (employee.ToeicScore.Speaking != null && employee.ToeicScore.Speaking.Equals(0))
-                        {
-                            <span>-</span>
-                        }
-                        else
-                        {
-                            <span>@employee.ToeicScore.Speaking</span>
-                        }
-                    </td>
-                    <td>
-                        @if (employee.ToeicScore.Writing != null && employee.ToeicScore.Writing.Equals(0))
-                        {
-                            <span>-</span>
-                        }
-                        else
-                        {
-                            <span>@employee.ToeicScore.Writing</span>
-                        }
-                    </td>
-                    <td>
-                        @if (employee.ToeicScore.SWExamDate != null)
-                        {
-                            <span>-</span>
-                        }
-                        else
-                        {
-                            @employee.ToeicScore.SWExamDate.ToDateMonthYearFormatedDate()
-                        }
-                    </td>*@
                     @if (employee.ToeicScore.InputDate != null)
                     {
                         if (employee.ToeicScore.InputDate < DateTime.Now)

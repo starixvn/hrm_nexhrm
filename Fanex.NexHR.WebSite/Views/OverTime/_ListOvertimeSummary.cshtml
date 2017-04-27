@@ -15,12 +15,6 @@
         IList<OvertimeSummary> overtimeSummaries = Model.Where(t => t.Employee.Team.Id == overtimeSummaryByTeam.Employee.Team.Id).ToList();
         foreach (OvertimeSummary overtimeSummary in overtimeSummaries)
         {
-            var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
-                new
-                {
-                    @class = "aba filled-in",
-                    data_id = overtimeSummary.Employee.Id
-                });
             <tr>
 
                 <td>@(index++)</td>

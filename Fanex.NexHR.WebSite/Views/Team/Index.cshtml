@@ -39,7 +39,7 @@
                             </thead>
                             <tbody>
                                 @{int index = 1;}
-                                @foreach (Fanex.NexHR.Models.Team team in Model)
+                                @foreach (var team in Model)
                                 {
                                     string assistantLeaderFullName = team.AssistantLeader != null ? team.AssistantLeader.FullName : string.Empty;
                                     string assistantLeaderNickName = team.AssistantLeader != null ? team.AssistantLeader.NickName : string.Empty;
@@ -51,7 +51,7 @@
                                         <td class="tooltip" title="@assistantLeaderFullName">@assistantLeaderNickName
                                         </td>
                                         <td class="cmd">
-                                            <a href="@Url.Action("Edit", "Team", new { Id = team.Id })">
+                                            <a href="@Url.Action("Edit", "Team", new { team.Id })">
                                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                                             </a>
                                         </td>

@@ -1,4 +1,4 @@
-﻿@model Fanex.NexHR.Models.Employee
+﻿@model Employee
 <div id="user_utilities" class="dropdown_navigation">
     <h2>
         @Model.FullName - <i>@Model.NickName</i>
@@ -10,6 +10,6 @@
         <li><a class="" href="#">Request change shift</a> </li>
         <li><a class="" href="#">Request late in - early out</a> </li>
         <li><a class="" href="#">Request check in/out</a> </li>
-        <li><a class="" href="~/auth/logoff">Logoff</a> </li>
+        @*<li><a class="" href="~/auth/logoff">Logoff</a> </li>*@
     </ol>
 </div>
