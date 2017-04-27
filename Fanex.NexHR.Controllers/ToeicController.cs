@@ -1,10 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Web.Mvc;
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
@@ -12,6 +7,11 @@
     using Resources;
     using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Web.Mvc;
     using ViewModels.Toeic;
 
     public class ToeicController : BaseController
@@ -46,7 +46,7 @@
 
         public ActionResult ToeicManagement(int? jobTitleId = null)
         {
-            var model = new ToeicManagementViewModel()
+            var model = new ToeicManagementViewModel
             {
                 JobTitleId = jobTitleId,
                 JobTitles = _jobTitleService.GetAll(),
@@ -90,7 +90,7 @@
 
             if (id.HasValue && id.Value > 0)
             {
-                var criteria = new GetToeicScoreByEmployeeIdCriteria()
+                var criteria = new GetToeicScoreByEmployeeIdCriteria
                 {
                     EmpId = id.Value
                 };
@@ -108,7 +108,7 @@
         public ActionResult UpdateFullToeic(Toeic model)
         {
             var currentUserId = CurrentUser.Id;
-            CommandResult result = new CommandResult()
+            CommandResult result = new CommandResult
             {
                 Code = 1,
                 Message = Messages.InvalidInputData
@@ -124,7 +124,7 @@
 
                     model.CreatedBy = model.ModifiedBy = currentUserId;
                     model.CreatedDate = model.ModifiedDate = DateTime.Now;
-                    var toeicCriteria = new UpdateFullToeicScoreCriteria()
+                    var toeicCriteria = new UpdateFullToeicScoreCriteria
                     {
                         CreatedBy = currentUserId,
                         CreatedDate = DateTime.Now,
@@ -188,7 +188,7 @@
                 if (ModelState.IsValid)
                 {
                     var oldScore = GetToeicScore(model.EmpId);
-                    var toeicScoreCriteria = new UpdateToeicScoreCriteria()
+                    var toeicScoreCriteria = new UpdateToeicScoreCriteria
                     {
                         EmpId = model.EmpId,
                         InputDate = model.InputDate,
@@ -240,10 +240,10 @@
             }
 
             // check L/R/S/W
-            if ((!model.Listening.HasValue || model.Listening == 0) &&
-                (!model.Reading.HasValue || model.Reading == 0) &&
-                (!model.Speaking.HasValue || model.Speaking == 0) &&
-                (!model.Writing.HasValue || model.Writing == 0))
+            if ((!model.Listening.HasValue || model.Listening == 0)
+                && (!model.Reading.HasValue || model.Reading == 0)
+                && (!model.Speaking.HasValue || model.Speaking == 0)
+                && (!model.Writing.HasValue || model.Writing == 0))
             {
                 if (model.LRExamDate.HasValue || model.SWExamDate.HasValue || !model.InputDate.HasValue)
                 {
@@ -289,7 +289,7 @@
             var subject = Labels.UpdateTOEICScore;
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
             {
-                var criteria = new GetUpdatingScoreRelatedPeopleCriteria() { Id = empId };
+                var criteria = new GetUpdatingScoreRelatedPeopleCriteria { Id = empId };
                 var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
 
                 if (employees.Any())
@@ -308,18 +308,7 @@
                         }
                     }
 
-                    var body = Utilities.ReadTextFile(
-                        System.Web.HttpContext.Current.Server.MapPath("~/app_data/emails/TOEICScoreUpdatedNotification.cshtml"));
-                    var bodyContent = new
-                    {
-                        User = nickName,
-                        NewListening = newScore.Listening.ToString(),
-                        OldListening = oldScore.Listening != null ? oldScore.Listening.ToString() : "-",
-                        NewReading = newScore.Reading.ToString(),
-                        OldReading = oldScore.Reading != null ? oldScore.Reading.ToString() : "-"
-                    };
-
-                    body = string.Format(body, bodyContent.User, bodyContent.NewListening, bodyContent.OldListening, bodyContent.NewReading, bodyContent.OldReading);
+                    var body = GetToeicNotificationEmailBody(nickName, newScore, oldScore);
 
                     _emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
@@ -329,6 +318,36 @@
                         body);
                 }
             }
+        }
+
+        private string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
+        {
+            var bodyContent = new
+            {
+                User = nickName,
+                NewListening = newScore.Listening.ToString(),
+                OldListening = oldScore.Listening != null ? oldScore.Listening.ToString() : "-",
+                NewReading = newScore.Reading.ToString(),
+                OldReading = oldScore.Reading != null ? oldScore.Reading.ToString() : "-",
+                NewTotal = newScore.LRTotal != null ? newScore.LRTotal.ToString() : "-",
+                OldTotal = oldScore.LRTotal != null ? oldScore.LRTotal.ToString() : "-"
+            };
+
+            var body = Utilities.ReadTextFile(
+                System.Web.HttpContext.Current.Server.MapPath(
+                    "~/app_data/emails/TOEICScoreUpdatedNotification.cshtml"));
+
+            body = string.Format(
+                body,
+                bodyContent.User,
+                bodyContent.NewListening,
+                bodyContent.OldListening,
+                bodyContent.NewReading,
+                bodyContent.OldReading,
+                bodyContent.NewTotal,
+                bodyContent.OldTotal);
+
+            return body;
         }
 
         private Toeic GetToeicScore(int empid)
