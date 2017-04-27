@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Text;
     using System.Web.Mvc;
     using ViewModels.Toeic;
 
@@ -122,8 +123,12 @@
                     var oldScore = GetToeicScore(model.EmpId);
                     var newScore = model;
 
-                    model.CreatedBy = model.ModifiedBy = currentUserId;
-                    model.CreatedDate = model.ModifiedDate = DateTime.Now;
+                    model.CreatedBy = currentUserId;
+                    model.ModifiedBy = currentUserId;
+
+                    model.CreatedDate = DateTime.Now;
+                    model.ModifiedDate = DateTime.Now;
+
                     var toeicCriteria = new UpdateFullToeicScoreCriteria
                     {
                         CreatedBy = currentUserId,
@@ -222,23 +227,13 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidEmployeeID);
             }
 
-            // check date
-            DateTime currentDate = DateTime.Today;
+            CheckTOEICDate(model);
 
-            if (model.LRExamDate.HasValue && model.LRExamDate.Value > currentDate)
-            {
-                ModelState.AddModelError(
-                    string.Empty,
-                    string.Format(Messages.InvalidTOEICLRExamDate, currentDate.ToString("dd MMM, yyyy")));
-            }
+            CheckTOEICScores(model);
+        }
 
-            if (model.SWExamDate.HasValue && model.SWExamDate.Value > currentDate)
-            {
-                ModelState.AddModelError(
-                    string.Empty,
-                    string.Format(Messages.InvalidTOEICSWExamDate, currentDate.ToString("dd MMM, yyyy")));
-            }
-
+        private void CheckTOEICScores(Toeic model)
+        {
             // check L/R/S/W
             if ((!model.Listening.HasValue || model.Listening == 0)
                 && (!model.Reading.HasValue || model.Reading == 0)
@@ -264,6 +259,23 @@
             }
         }
 
+        private void CheckTOEICDate(Toeic model)
+        {
+            if (model.LRExamDate.HasValue && model.LRExamDate.Value > DateTime.Today)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    string.Format(Messages.InvalidTOEICLRExamDate, DateTime.Today.ToString("dd MMM, yyyy")));
+            }
+
+            if (model.SWExamDate.HasValue && model.SWExamDate.Value > DateTime.Today)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    string.Format(Messages.InvalidTOEICSWExamDate, DateTime.Today.ToString("dd MMM, yyyy")));
+            }
+        }
+
         private bool ValidateNumberPair(int? number1, int? number2)
         {
             if ((number1.HasValue && number1.Value > 0) &&
@@ -284,7 +296,7 @@
         private void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
         {
             var receiverEmail = string.Empty;
-            var mailCC = string.Empty;
+            var mailCC = new StringBuilder();
             var nickName = string.Empty;
             var subject = Labels.UpdateTOEICScore;
             if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
@@ -304,7 +316,8 @@
                         }
                         else if (employee.Email.Length > 0)
                         {
-                            mailCC += employee.Email + ";";
+                            mailCC.Append(employee.Email);
+                            mailCC.Append(";");
                         }
                     }
 
@@ -313,7 +326,7 @@
                     _emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
                         receiverEmail,
-                        mailCC,
+                        mailCC.ToString(),
                         subject,
                         body);
                 }
