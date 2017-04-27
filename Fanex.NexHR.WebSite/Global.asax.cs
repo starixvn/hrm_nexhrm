@@ -9,16 +9,16 @@
 
 namespace Fanex.NexHR.WebSite
 {
-    using Fanex.Data.Configuration;
-    using Fanex.Logging;
-    using Fanex.NexHR.Resources;
+    using Data.Configuration;
+    using Logging;
+    using Resources;
     using System;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
