@@ -43,3 +43,4 @@ WebEssentials-Settings.json
 packages/
 Fanex.NexHR.Site/
 .sass-cache/
+.vs/
