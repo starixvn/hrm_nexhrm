@@ -22,6 +22,7 @@
     var maxDate = new System.Text.StringBuilder();
     maxDate.AppendFormat("{0}/{1}/1", year, Month);
     DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
+    int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
 
     IList<WorkingSchedule> employeeSchedules = Model.WorkingSchedules.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
 }
@@ -164,9 +165,9 @@
                                                     }
                                                 }
                                                 @*else
-                                                {
-                                                    //@RazorHelper.DisplayNoInformation(colspan: 15);
-                                                }*@
+                                                    {
+                                                        //@RazorHelper.DisplayNoInformation(colspan: 15);
+                                                    }*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -178,7 +179,6 @@
                                         <table cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 @{
-                                                    int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                                                     <tr>
                                                         @for (int i = 1; i <= daysInMonth; i++)
                                                         {
@@ -214,10 +214,46 @@
                                                 foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                 {
                                                     var schedule = employeeSchedule;
-                                                    var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == schedule.Employee.Id);
-                                                    <tr class="row">
-                                                        @foreach (WorkingSchedule workingSchedule in workingSchedules)
+                                                    var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == schedule.Employee.Id).ToList();
+
+                                                    IList<WorkingSchedule> renderWorkingSchedules = null;
+                                                    int currentWorkingDays = workingSchedules.Count();
+                                                    if (currentWorkingDays == daysInMonth)
+                                                    {
+                                                        renderWorkingSchedules = workingSchedules;
+                                                    }
+                                                    else
+                                                    {
+                                                        renderWorkingSchedules = new List<WorkingSchedule>(currentWorkingDays);
+
+                                                        for (var i = 0; i < daysInMonth; i++)
                                                         {
+                                                            renderWorkingSchedules.Add(new WorkingSchedule());
+                                                        }
+
+                                                        foreach (WorkingSchedule workingSchedule in workingSchedules)
+                                                        {
+                                                            var currentElementIndex = workingSchedule.WorkDate.Day - 1;
+
+                                                            renderWorkingSchedules[currentElementIndex] = workingSchedule;
+
+                                                        }
+                                                    }
+
+                                                    <tr class="row">
+
+                                                        @foreach (WorkingSchedule workingSchedule in renderWorkingSchedules)
+                                                        {
+                                                            if (workingSchedule.Title == null)
+                                                            {
+                                                                <td>
+                                                                    <div class="datagrid-cell">
+                                                                    </div>
+                                                                </td>
+
+                                                                continue;
+                                                            }
+
                                                             if (workingSchedule.IsLeaveHalfDay)
                                                             {
                                                                 <td class="HAL">
