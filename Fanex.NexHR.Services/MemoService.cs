@@ -45,7 +45,7 @@
                 if (!string.IsNullOrEmpty(attachFile))
                 {
                     memo.Contents =
-                        $"<a href=\'{HttpUtility.HtmlEncode(memo.AttachFile)}\'> {HttpUtility.HtmlEncode(attachFile.Split('/')[attachFile.Split('/').Length - 1])}</a>";
+                        $"<a href=\'{HttpUtility.HtmlEncode(attachFile)}\'> {HttpUtility.HtmlEncode(attachFile.Split('/')[attachFile.Split('/').Length - 1])}</a>";
                 }
             }
 
