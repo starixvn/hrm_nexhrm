@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
 	<Function Name="Attendance">
-		<Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0">
+      <Mapping DataField="Type" ObjectProperty="MissingType" />
+    </Setting>
     <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
 	</Function>
 </Functions>
