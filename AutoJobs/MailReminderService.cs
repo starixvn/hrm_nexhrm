@@ -1,18 +1,19 @@
 ﻿namespace AutoJobs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.ViewModels;
     using log4net;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
 
     public class MailReminderService
     {
@@ -97,7 +98,7 @@
                 // Get employee who forgot check in or check out
                 var getMissingCheckInOutCriteria = new GetMissingCheckInOutEmployeesCriteria();
                 var employeeList = EmployeeService.GetMissingCheckInOutByEmpId(getMissingCheckInOutCriteria);
-                employeeList = employeeList.Where(s => !IgnoreList.Contains(s.NickName.ToLower())).ToList();
+                employeeList = employeeList.Where(s => !IgnoreList.Contains(s.NickName.ToLower(CultureInfo.InvariantCulture))).ToList();
 
                 if (employeeList.Count > 0)
                 {

@@ -1,12 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -18,6 +11,14 @@
     using Repositories;
     using Repositories.Interfaces;
     using Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -111,6 +112,8 @@
                             request.FromShift.Name,
                             request.ToShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
+                        break;
+                    default:
                         break;
                 }
             }
@@ -359,8 +362,8 @@
                         Leader = leaders.First().NickName,
                         Member = model.Employee,
                         Type = model.CheckInOutType == (short)RequestType.CheckIn
-                            ? RequestType.CheckIn.EnumToString().ToLower()
-                            : RequestType.CheckOut.EnumToString().ToLower(),
+                            ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
+                            : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture),
                         RequestId = model.Id,
                         ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
                         Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),

@@ -11,6 +11,7 @@
     using Data.Repository;
     using Interfaces;
     using Models;
+    using System.Globalization;
 
     public class BaseRepository : IBaseRepository
     {
@@ -57,7 +58,7 @@
             };
         }
 
-        private void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
+        private static void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
         {
             IEnumerable<PropertyInfo> properties = criteria.GetType().GetProperties().Where(
                 prop => Attribute.IsDefined(prop, typeof(OutputAttribute)));
@@ -66,7 +67,7 @@
             {
                 if (property.CanWrite)
                 {
-                    var value = hash[property.Name.ToLower()];
+                    var value = hash[property.Name.ToLower(CultureInfo.InvariantCulture)];
                     property.SetValue(criteria, value, null);
                 }
             }

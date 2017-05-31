@@ -40,7 +40,7 @@
 
         public string DisplayValue(float value)
         {
-            return value == 0 ? "-" : value.ToString("0.0");
+            return value.Equals(0) ? "-" : value.ToString("0.0");
         }
     }
 }

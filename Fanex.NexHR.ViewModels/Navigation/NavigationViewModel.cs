@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Navigation
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Web;
 
     /// <summary>
@@ -36,7 +37,7 @@
         {
             get
             {
-                return _controller.ToLower();
+                return _controller.ToLower(CultureInfo.InvariantCulture);
             }
 
             set
@@ -49,7 +50,7 @@
         {
             get
             {
-                return _action.ToLower();
+                return _action.ToLower(CultureInfo.InvariantCulture);
             }
 
             set

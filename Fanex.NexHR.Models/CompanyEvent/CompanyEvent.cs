@@ -29,14 +29,9 @@
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(FromTime))
-                {
-                    return new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
-                }
-                else
-                {
-                    return FromDate;
-                }
+                return string.IsNullOrWhiteSpace(FromTime) 
+                    ? FromDate 
+                    : new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
             }
         }
 
@@ -44,14 +39,9 @@
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(ToTime))
-                {
-                    return new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
-                }
-                else
-                {
-                    return ToDate;
-                }
+                return string.IsNullOrWhiteSpace(ToTime)
+                    ? ToDate
+                    : new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
             }
         }
     }

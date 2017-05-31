@@ -81,18 +81,13 @@
             int? jobTitleId = null,
             string sort = null)
         {
-            if (teamId == -1)
-            {
-                teamId = null;
-            }
-
             var getAllEmployeeCriteria = new GetEmployeeCriteria()
             {
                 Query = query,
-                TeamId = teamId,
+                TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
-                Enable = CheckUserEnableCondition(enable),
-                IsDelete = CheckDeletedUserCondition(isDelete),
+                EnableStatus = enable,
+                DeleteStatus = isDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000
@@ -143,44 +138,6 @@
             _exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
             return new EmptyResult();
-        }
-
-        private int? CheckUserEnableCondition(bool? enable)
-        {
-            int? disableUsers;
-            if (enable == true)
-            {
-                disableUsers = 0;
-            }
-            else if (enable == false)
-            {
-                disableUsers = 1;
-            }
-            else
-            {
-                disableUsers = null;
-            }
-
-            return disableUsers;
-        }
-
-        private int? CheckDeletedUserCondition(bool? isDelete)
-        {
-            int? deleteUsers;
-            if (isDelete == true)
-            {
-                deleteUsers = 1;
-            }
-            else if (isDelete == false)
-            {
-                deleteUsers = 0;
-            }
-            else
-            {
-                deleteUsers = null;
-            }
-
-            return deleteUsers;
         }
     }
 }

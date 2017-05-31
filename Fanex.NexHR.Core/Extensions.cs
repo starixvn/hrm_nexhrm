@@ -131,7 +131,7 @@ namespace Fanex.NexHR.Core
             var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
             DateTime? value;
 
-            if (metaData.Model is DateTime || metaData.Model is DateTime)
+            if (metaData.Model is DateTime)
             {
                 value = (DateTime?)metaData.Model;
             }

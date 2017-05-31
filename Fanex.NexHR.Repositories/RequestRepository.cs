@@ -9,11 +9,6 @@
 
 namespace Fanex.NexHR.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Reflection;
     using Common.Extensions;
     using Core.Attributes;
     using Data;
@@ -21,6 +16,12 @@ namespace Fanex.NexHR.Repositories
     using Interfaces;
     using Models;
     using Models.Request;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
 
     public class RequestRepository : BaseRepository, IRequestRepository
     {
@@ -43,7 +44,7 @@ namespace Fanex.NexHR.Repositories
                 PropertyInfo totalitem = criteria.GetType()
                     .GetProperties()
                     .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) &&
-                                            prop.Name.ToLower().Equals("totalitem"));
+                                            prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
 
                 if (totalitem != null)
                 {
@@ -57,6 +58,7 @@ namespace Fanex.NexHR.Repositories
 
         public RequestEntity GetRequestEntity(ICriteria criteria)
         {
+            RequestEntity request = new RequestEntity();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
@@ -65,14 +67,13 @@ namespace Fanex.NexHR.Repositories
                     {
                         while (reader.Read())
                         {
-                            var request = GetRequestInfo(reader);
-                            return request;
+                            request = GetRequestInfo(reader);
                         }
                     }
                 }
             }
 
-            return null;
+            return request;
         }
 
         private RequestEntity GetRequestInfo(IDataReader reader)

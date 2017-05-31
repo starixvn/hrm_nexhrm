@@ -75,35 +75,16 @@
             int? jobTitleId = null,
             string sort = null)
         {
-            if (teamId == -1)
-            {
-                teamId = null;
-            }
-
             EmployeeListViewModel listEmployee = new EmployeeListViewModel();
-            if (enable != null)
-            {
-                if (enable == false)
-                {
-                    listEmployee.StatusViewType = (int)TypeList.Active;
-                }
-                else
-                {
-                    listEmployee.StatusViewType = (int)TypeList.Disabled;
-                }
-            }
-            else
-            {
-                listEmployee.StatusViewType = (int)TypeList.Deleted;
-            }
+            listEmployee.StatusViewType = enable.HasValue ? (enable.Value ? (int)TypeList.Disabled : (int)TypeList.Active) : (int)TypeList.Deleted;
 
-            var criteria = new GetEmployeeCriteria()
+            var criteria = new GetEmployeeCriteria
             {
                 Query = query,
-                TeamId = teamId,
+                TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
-                Enable = CheckUserEnableCondition(enable),
-                IsDelete = CheckDeletedUserCondition(isDelete),
+                EnableStatus = enable,
+                DeleteStatus = isDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000
@@ -125,7 +106,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
-            var model = new CreateEmployeeViewModel()
+            var model = new CreateEmployeeViewModel
             {
                 MonShift = 1,
                 TueShift = 1,
@@ -341,8 +322,10 @@
                         processor.JpegCompression = 100;
                         processor.ProcessImage(file.InputStream, stream);
 
-                        var image = Image.FromStream(stream);
-                        image.Save(Server.MapPath("/avatars/") + code + ".jpg");
+                        using (var image = Image.FromStream(stream))
+                        {
+                            image.Save(Server.MapPath("/avatars/") + code + ".jpg");
+                        }
 
                         return Json(true);
                     }
@@ -513,8 +496,8 @@
                 Query = null,
                 TeamId = null,
                 JobTitleId = null,
-                Enable = null,
-                IsDelete = null,
+                EnableStatus = null,
+                DeleteStatus = null,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000
@@ -551,54 +534,17 @@
             return defaultSchedule;
         }
 
-        private int? CheckUserEnableCondition(bool? enable)
+        private static IList<Employee> SortEmployee(string sort, IList<Employee> employees)
         {
-            int? disableUsers;
-            if (enable == true)
-            {
-                disableUsers = 0;
-            }
-            else if (enable == false)
-            {
-                disableUsers = 1;
-            }
-            else
-            {
-                disableUsers = null;
-            }
-
-            return disableUsers;
-        }
-
-        private int? CheckDeletedUserCondition(bool? isDelete)
-        {
-            int? deleteUsers;
-            if (isDelete == true)
-            {
-                deleteUsers = 1;
-            }
-            else if (isDelete == false)
-            {
-                deleteUsers = 0;
-            }
-            else
-            {
-                deleteUsers = null;
-            }
-
-            return deleteUsers;
-        }
-
-        private IList<Employee> SortEmployee(string sort, IList<Employee> employees)
-        {
+            IList<Employee> employeesSorted = new List<Employee>();
             if (sort != null)
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
 
-                employees = Utilities.MultipleSort(employees, sorts);
+                employeesSorted = Utilities.MultipleSort(employees, sorts);
             }
 
-            return employees;
+            return employeesSorted;
         }
     }
 }

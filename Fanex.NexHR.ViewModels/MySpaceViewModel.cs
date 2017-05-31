@@ -57,7 +57,7 @@
 
                 foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
-                    employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
+                    employees += leave.Employee.NickName + (leave.LeaveDay.Equals(0.5) ? " (½)" : string.Empty) + ", ";
                 }
 
                 if (employees.Length > 2)
@@ -81,7 +81,7 @@
                     .ToList();
                 foreach (DashBoardCompanySpace leave in yesterdayLeaves)
                 {
-                    employees += leave.Employee.NickName + (leave.LeaveDay == 0.5 ? " (½)" : string.Empty) + ", ";
+                    employees += leave.Employee.NickName + (leave.LeaveDay.Equals(0.5) ? " (½)" : string.Empty) + ", ";
                 }
 
                 if (employees.Length > 2)

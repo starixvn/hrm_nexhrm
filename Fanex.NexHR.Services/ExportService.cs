@@ -267,18 +267,12 @@
             return date.Value.ToString("hh:mm");
         }
 
-        private string DisplayMinute(int minutes)
+        private static string DisplayMinute(int minutes)
         {
             if (minutes > 0)
             {
-                var hour = Math.Floor(Convert.ToDouble(minutes) / 60);
-                var minute = minutes % 60;
-                if (hour == 0)
-                {
-                    return minute > 9 ? "00:" + minute : "00:0" + minute;
-                }
-
-                return (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ':' + (minute > 9 ? minute.ToString() : "0" + minute);
+                TimeSpan timeSpan = TimeSpan.FromMinutes(minutes);
+                return timeSpan.ToString("hh:mm");
             }
 
             return string.Empty;

@@ -102,7 +102,7 @@
                 ExcludedRequestTrans = false
             };
 
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
             Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (employee == null || employee.Id == 0)

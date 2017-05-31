@@ -9,18 +9,19 @@
 
 namespace Fanex.NexHR.Core
 {
+    using Enums;
+    using Model;
+    using Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
-    using Enums;
-    using Model;
-    using Resources;
 
     public static class Utilities
     {
@@ -116,7 +117,7 @@ namespace Fanex.NexHR.Core
                     ca[i] = ci;
                 }
 
-                return new string(ca).ToLower();
+                return new string(ca).ToLower(CultureInfo.InvariantCulture);
             }
         }
 

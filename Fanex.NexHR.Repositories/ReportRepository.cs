@@ -1,9 +1,5 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using Core.Attributes;
     using Data;
     using Data.Repository;
@@ -11,6 +7,11 @@
     using Models;
     using Models.Report;
     using Models.Request;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
 
     public class ReportRepository : IReportRepository
     {
@@ -68,7 +69,7 @@
                 .GetProperties()
                 .FirstOrDefault(prop =>
                     Attribute.IsDefined(prop, typeof(OutputAttribute))
-                    && prop.Name.ToLower().Equals("totalitem"));
+                    && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
         }
 
         private IList<RequestEntity> GetAttendanceRequests(
@@ -139,7 +140,7 @@
                 PropertyInfo totalitem = criteria.GetType()
                     .GetProperties()
                     .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute))
-                                            && prop.Name.ToLower().Equals("totalitem"));
+                                            && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
 
                 if (totalitem != null)
                 {

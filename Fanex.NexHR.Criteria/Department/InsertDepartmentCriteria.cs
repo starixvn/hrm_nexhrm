@@ -21,7 +21,7 @@
 
         public override bool IsValid()
         {
-            return !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(Code);
+            return !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(Name);
         }
     }
 }
