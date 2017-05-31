@@ -33,7 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>FanexRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Fanex.NexHR.WebSite.Debug.ruleset</CodeAnalysisRuleSet>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
@@ -44,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.NexHR.WebSite.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -803,6 +804,8 @@
     <Content Include="Views\AnnualLeave\LeaveConversionDetail.cshtml" />
     <Content Include="Views\AnnualLeave\EditLeaveConversion.cshtml" />
     <Content Include="Deployment.ignore" />
+    <Content Include="Fanex.NexHR.WebSite.Debug.ruleset" />
+    <Content Include="Fanex.NexHR.WebSite.ruleset" />
     <None Include="Properties\PublishProfiles\NexHRM.pubxml" />
     <Content Include="Views\Dashboard\_Notification.cshtml" />
     <Content Include="Views\Dashboard\_ListTeamWorkload.cshtml" />
@@ -811,7 +814,11 @@
     <Content Include="Views\CompanyEvent\Edit.cshtml" />
     <Content Include="Views\CompanyEvent\Detail.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.5.10.1.1411\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.5.10.1.1411\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.5.10.1.1411\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

@@ -45,6 +45,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoJobs", "AutoJobs\AutoJo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.WebSite", "Fanex.NexHR.WebSite\Fanex.NexHR.WebSite.csproj", "{A06A4E0F-8FA4-4A74-819D-47BCB0099082}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{EDA43C3D-A86E-43C8-BB30-8F1A5FA2A482}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\NexHRMCSharp.ruleset = SonarQube\NexHRMCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
