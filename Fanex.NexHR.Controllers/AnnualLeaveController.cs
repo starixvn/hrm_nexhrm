@@ -275,10 +275,9 @@
         [HttpPost]
         public JsonResult OpenAnnualLeaves()
         {
-            var model = new ShowOpenAndCloseAnnualBalance();
             var criteria = new OpenAnnualBalanceForNewYearCriteria
             {
-                Year = model.ToDate.Year
+                Year = ShowOpenAndCloseAnnualBalance.ToDate.Year
             };
 
             return Json(_commandService.Insert(criteria));
@@ -288,12 +287,11 @@
         [HttpPost]
         public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
-            var model = new ShowOpenAndCloseAnnualBalance();
             var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
             {
                 EmployeeId = null,
                 GroupId = null,
-                Year = model.FromDate.Year
+                Year = ShowOpenAndCloseAnnualBalance.FromDate.Year
             };
 
             IList<LeaveSummary> leaveSummaries = _annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
@@ -301,7 +299,7 @@
             var resetAnnualLeaves = new ResetAnnualLeavesCriteria
             {
                 Description = descriptionReset,
-                FromDate = new DateTime(model.FromDate.Year, 12, 31),
+                FromDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31),
                 ResetDays = minbalance,
                 CreatedBy = CurrentUser.Id,
                 LeaveSummaries = leaveSummaries
@@ -602,14 +600,13 @@
 
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
         {
-            var model = new ShowOpenAndCloseAnnualBalance();
             var criteria = new GetOpenAndCloseAnnualBalanceCriteria
             {
-                OpenDate = new DateTime(model.ToDate.Year, 1, 1),
-                CloseDate = new DateTime(model.FromDate.Year, 12, 31)
+                OpenDate = new DateTime(ShowOpenAndCloseAnnualBalance.ToDate.Year, 1, 1),
+                CloseDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31)
             };
 
-            model = _annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
+            ShowOpenAndCloseAnnualBalance model = _annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
 
             return model;
         }

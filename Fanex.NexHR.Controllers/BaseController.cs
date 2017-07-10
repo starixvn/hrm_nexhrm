@@ -83,7 +83,7 @@ namespace Fanex.NexHR.Controllers
                     {
                         item.Roles = item.Roles.Replace("SpecialUser", string.Empty);
                         if (!string.IsNullOrEmpty(item.Roles)
-                            && !CurrentUser.IsInRoles(item.Roles.Split(',').ToList()))
+                            && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
                         {
                             filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                         }

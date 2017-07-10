@@ -121,12 +121,13 @@ namespace Fanex.NexHR.Controllers
                 }
                 else
                 {
-                    if (CurrentUser.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
+                    if (Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
                     {
                         var sectionItem = new NavigationViewModel(sectionNode);
                         navigationItemList.Add(sectionItem);
                         roles = roles.Where(t => !t.Contains("SpecialUser")).ToArray();
                         sectionItem.Childs = new List<NavigationViewModel>();
+
                         foreach (SiteMapNode navNode in sectionNode.ChildNodes)
                         {
                             var navItem = new NavigationViewModel(navNode);

@@ -103,7 +103,7 @@
             }
 
             string templatePath = Server.MapPath(EmployeeProfileTemplatePath);
-            _exportService.ExportEmployeeProfile(listEmployees, templatePath);
+            ExportService.ExportEmployeeProfile(listEmployees, templatePath);
 
             return new EmptyResult();
         }
