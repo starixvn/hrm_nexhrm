@@ -31,7 +31,7 @@
 
         public string Shift { get; set; }
 
-        public int ForRequest => (int)GeneralRequestType.CheckInOut;
+        public static int ForRequest => (int)GeneralRequestType.CheckInOut;
 
         public IList<DateTime> UnavailDates { get; set; }
 

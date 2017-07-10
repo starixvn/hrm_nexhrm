@@ -7,7 +7,7 @@
     using Resources;
 
     public class PostnatalViewModel
-    {        
+    {
         public int EmpId { get; set; }
 
         public string Nickname { get; set; }
@@ -35,7 +35,7 @@
         [Display(Name = "Type")]
         [Required]
         public List<int> ChosenTypes { get; set; }
-        
+
         public List<SelectListItem> TypeList
         {
             get
@@ -44,12 +44,12 @@
                 {
                     new SelectListItem
                     {
-                        Text = Labels.LateInEarlyOut, 
+                        Text = Labels.LateInEarlyOut,
                         Value = "1"
                     },
                     new SelectListItem
                     {
-                        Text = Labels.BreakTime, 
+                        Text = Labels.BreakTime,
                         Value = "2"
                     }
                 };
@@ -57,9 +57,6 @@
                 {
                     switch (Types)
                     {
-                        case 1:
-                            listTypes[0].Selected = true;
-                            break;
                         case 2:
                             listTypes[1].Selected = true;
                             break;

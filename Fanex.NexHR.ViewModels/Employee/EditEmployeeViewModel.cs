@@ -1,17 +1,14 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using Core;
     using Models;
     using Models.Attributes;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class EditEmployeeViewModel
     {
-        public EditEmployeeViewModel()
-        { 
-        }
 
         public EditEmployeeViewModel(Employee employee = null)
         {
@@ -112,10 +109,7 @@
                 return Roles.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
 
-            set
-            {
-                Roles = Utilities.StringArrayToString(value);
-            }
+            set { Roles = Utilities.StringArrayToString(value); }
         }
 
         public string[] SubGroupArray
@@ -130,10 +124,7 @@
                 return SubGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
 
-            set
-            {
-                SubGroups = Utilities.StringArrayToString(value);
-            }
+            set { SubGroups = Utilities.StringArrayToString(value); }
         }
 
         public string[] LeaderGroupsArray
@@ -148,10 +139,7 @@
                 return LeaderGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
 
-            set
-            {
-                LeaderGroups = Utilities.StringArrayToString(value);
-            }
+            set { LeaderGroups = Utilities.StringArrayToString(value); }
         }
 
         private void InitData(Employee employee)

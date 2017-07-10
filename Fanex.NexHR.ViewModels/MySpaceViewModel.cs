@@ -48,7 +48,7 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> todayLeaves = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Leave && t.IsCurrent))
                     .OrderByDescending(t => t.LeaveDay)
@@ -57,15 +57,12 @@
 
                 foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
-                    employees += leave.Employee.NickName + (leave.LeaveDay.Equals(0.5) ? " (½)" : string.Empty) + ", ";
+                    employees.Append(leave.Employee.NickName);
+                    employees.Append(leave.LeaveDay.Equals(0.5f) ? " (½)" : string.Empty);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -73,7 +70,7 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> yesterdayLeaves = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Leave && !t.IsCurrent))
                     .OrderByDescending(t => t.LeaveDay)
@@ -81,15 +78,12 @@
                     .ToList();
                 foreach (DashBoardCompanySpace leave in yesterdayLeaves)
                 {
-                    employees += leave.Employee.NickName + (leave.LeaveDay.Equals(0.5) ? " (½)" : string.Empty) + ", ";
+                    employees.Append(leave.Employee.NickName);
+                    employees.Append(leave.LeaveDay.Equals(0.5f) ? " (½)" : string.Empty);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -97,21 +91,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> todayCheckInOuts = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && t.IsCurrent))
                     .ToList();
                 foreach (DashBoardCompanySpace checkInOut in todayCheckInOuts)
                 {
-                    employees += checkInOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -119,21 +109,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> yesterdayCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.CheckInOut && !t.IsCurrent))
                         .ToList();
                 foreach (DashBoardCompanySpace checkInOut in yesterdayCheckInOuts)
                 {
-                    employees += checkInOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -141,21 +127,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> todayMissingCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && t.IsCurrent))
                         .ToList();
-                foreach (DashBoardCompanySpace missingCheckInOut in todayMissingCheckInOuts)
+                foreach (DashBoardCompanySpace checkInOut in todayMissingCheckInOuts)
                 {
-                    employees += missingCheckInOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -163,21 +145,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> yesterdayMissingCheckInOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.MissingCheckInOut && !t.IsCurrent))
                         .ToList();
-                foreach (DashBoardCompanySpace missingCheckInOut in yesterdayMissingCheckInOuts)
+                foreach (DashBoardCompanySpace checkInOut in yesterdayMissingCheckInOuts)
                 {
-                    employees += missingCheckInOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -185,21 +163,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> todayLateInEarlyOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && t.IsCurrent))
                         .ToList();
-                foreach (DashBoardCompanySpace lateInEarlyOut in todayLateInEarlyOuts)
+                foreach (DashBoardCompanySpace checkInOut in todayLateInEarlyOuts)
                 {
-                    employees += lateInEarlyOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -207,21 +181,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> yesterdayLateInEarlyOuts =
                     DashboardCompanySpace.Where(t => (t.TypeId == (int)DashBoardType.LateInEarlyOut && !t.IsCurrent))
                         .ToList();
-                foreach (DashBoardCompanySpace lateInEarlyOut in yesterdayLateInEarlyOuts)
+                foreach (DashBoardCompanySpace checkInOut in yesterdayLateInEarlyOuts)
                 {
-                    employees += lateInEarlyOut.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -229,21 +199,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> todayAbsents = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Absent && t.IsCurrent))
                     .ToList();
-                foreach (DashBoardCompanySpace absent in todayAbsents)
+                foreach (DashBoardCompanySpace checkInOut in todayAbsents)
                 {
-                    employees += absent.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -251,21 +217,17 @@
         {
             get
             {
-                var employees = string.Empty;
+                var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> yesterdayAbsents = DashboardCompanySpace
                     .Where(t => (t.TypeId == (int)DashBoardType.Absent && !t.IsCurrent))
                     .ToList();
-                foreach (DashBoardCompanySpace absent in yesterdayAbsents)
+                foreach (DashBoardCompanySpace checkInOut in yesterdayAbsents)
                 {
-                    employees += absent.Employee.NickName + ", ";
+                    employees.Append(checkInOut.Employee.NickName);
+                    employees.Append(", ");
                 }
 
-                if (employees.Length > 2)
-                {
-                    employees = employees.Substring(0, employees.Length - 2);
-                }
-
-                return employees;
+                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
             }
         }
 
@@ -577,30 +539,23 @@
         {
             get
             {
-                string results = string.Empty;
+                var results = new StringBuilder("-");
+
                 if (NotificationLateInEarlyOutToDay != null)
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
-                        results += item.Nickname + "<span class='txt-normal'> (" + item.Types + " " + item.Minutes +
-                                   "'" + ")</span>" + ", ";
-                    }
-
-                    if (results.Length > 2)
-                    {
-                        results = results.Substring(0, results.Length - 2);
-                    }
-                    else
-                    {
-                        results += "-";
+                        string itemString =
+                            $"{item.Nickname}<span class=\'txt-normal\'> ({item.Types} {item.Minutes}\')</span>, ";
+                        results.Append(itemString);
                     }
                 }
 
-                return results;
+                return results.Length > 2 ? results.ToString(0, results.Length - 2) : results.ToString();
             }
         }
 
-        public string RandomPictureName
+        public static string RandomPictureName
         {
             get
             {

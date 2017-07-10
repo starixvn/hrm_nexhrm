@@ -38,7 +38,7 @@
 
         public string LeaveTypeName { get; set; }
 
-        public int ForRequest => (int)GeneralRequestType.Leave;
+        public static int ForRequest => (int)GeneralRequestType.Leave;
 
         public decimal TotalRequest { get; set; }
 
