@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Text;
     using System.Web;
     using System.Web.Mvc;
 
@@ -10,54 +11,65 @@
         [HttpPost]
         public string UploadFile(IEnumerable<HttpPostedFileBase> files, int categoryId, int overRide)
         {
-            string pathAttachFiles = string.Empty;
+            var attachedFilePath = new StringBuilder();
 
-            if (files != null)
+            if (files == null)
             {
-                foreach (HttpPostedFileBase file in files)
-                {
-                    if (file.ContentLength > 0)
-                    {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var dir = "~/file/uploads/" + categoryId;
-                        var pathAttach = dir + "/" + fileName;
-
-                        if (overRide == 0)
-                        {
-                            while (System.IO.File.Exists(Server.MapPath(pathAttach)))
-                            {
-                                fileName = "(1)" + fileName;
-                                pathAttach = dir + "/" + fileName;
-                            }
-                        }
-
-                        if (!Directory.Exists(Server.MapPath(dir)))
-                        {
-                            Directory.CreateDirectory(Server.MapPath(dir));
-                        }
-
-                        if (fileName != null)
-                        {
-                            var path = Path.Combine(Server.MapPath(dir), fileName);
-
-                            pathAttach = pathAttach.Substring(2);
-
-                            if (string.IsNullOrEmpty(pathAttachFiles))
-                            {
-                                pathAttachFiles = pathAttach;
-                            }
-                            else
-                            {
-                                pathAttachFiles += ";/" + pathAttach;
-                            }
-
-                            file.SaveAs(path);
-                        }
-                    }
-                }
+                return attachedFilePath.ToString();
             }
 
-            return pathAttachFiles;
+            foreach (HttpPostedFileBase file in files)
+            {
+                if (file.ContentLength <= 0)
+                {
+                    continue;
+                }
+
+                var fileName = Path.GetFileName(file.FileName);
+                var dir = $"~/file/uploads/{categoryId}";
+
+                var pathAttach = new StringBuilder($"{dir}/{fileName}");
+
+                if (overRide == 0)
+                {
+                    while (System.IO.File.Exists(Server.MapPath(pathAttach.ToString())))
+                    {
+                        fileName = $"(1){fileName}";
+                    }
+                }
+
+                CreateDirectory(dir);
+
+                if (fileName == null)
+                {
+                    continue;
+                }
+
+                var path = Path.Combine(Server.MapPath(dir), fileName);
+
+                pathAttach = new StringBuilder(pathAttach.ToString().Substring(2));
+
+                if (attachedFilePath.Length > 0)
+                {
+                    attachedFilePath = pathAttach;
+                }
+                else
+                {
+                    attachedFilePath.Append($";/{pathAttach}");
+                }
+
+                file.SaveAs(path);
+            }
+
+            return attachedFilePath.ToString();
+        }
+
+        private void CreateDirectory(string dir)
+        {
+            if (!Directory.Exists(Server.MapPath(dir)))
+            {
+                Directory.CreateDirectory(Server.MapPath(dir));
+            }
         }
     }
 }

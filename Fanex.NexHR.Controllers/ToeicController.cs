@@ -276,7 +276,7 @@
             }
         }
 
-        private bool ValidateNumberPair(int? number1, int? number2)
+        private static bool ValidateNumberPair(int? number1, int? number2)
         {
             if ((number1.HasValue && number1.Value > 0) &&
                 (number2.HasValue && number2.Value > 0))
@@ -299,41 +299,49 @@
             var mailCC = new StringBuilder();
             var nickName = string.Empty;
             var subject = Labels.UpdateTOEICScore;
-            if (newScore.Listening != oldScore.Listening || newScore.Reading != oldScore.Reading)
+
+            if (newScore.Listening == oldScore.Listening && newScore.Reading == oldScore.Reading)
             {
-                var criteria = new GetUpdatingScoreRelatedPeopleCriteria { Id = empId };
-                var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
-
-                if (employees.Any())
-                {
-                    foreach (var employee in employees)
-                    {
-                        if (employee.Email.Length > 0 && employee.Id == empId)
-                        {
-                            receiverEmail = employee.Email;
-                            nickName = employee.NickName;
-                            subject = string.Format(subject, employee.NickName);
-                        }
-                        else if (employee.Email.Length > 0)
-                        {
-                            mailCC.Append(employee.Email);
-                            mailCC.Append(";");
-                        }
-                    }
-
-                    var body = GetToeicNotificationEmailBody(nickName, newScore, oldScore);
-
-                    _emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        receiverEmail,
-                        mailCC.ToString(),
-                        subject,
-                        body);
-                }
+                return;
             }
+
+            var criteria = new GetUpdatingScoreRelatedPeopleCriteria { Id = empId };
+            var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
+
+            if (!employees.Any())
+            {
+                return;
+            }
+
+            foreach (var employee in employees)
+            {
+                if (employee.Email.Length <= 0)
+                {
+                    continue;
+                }
+
+                if (employee.Id == empId)
+                {
+                    receiverEmail = employee.Email;
+                    nickName = employee.NickName;
+                    subject = string.Format(subject, employee.NickName);
+                }
+
+                mailCC.Append(employee.Email);
+                mailCC.Append(";");
+            }
+
+            var body = GetToeicNotificationEmailBody(nickName, newScore, oldScore);
+
+            _emailService.SendEmail(
+                ConfigurationManager.AppSettings["Email"],
+                receiverEmail,
+                mailCC.ToString(),
+                subject,
+                body);
         }
 
-        private string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
+        private static string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
         {
             var bodyContent = new
             {

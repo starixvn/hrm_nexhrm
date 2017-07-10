@@ -99,48 +99,74 @@ namespace Fanex.NexHR.Controllers
             var navigationItemList = new List<NavigationViewModel>();
 
             SiteMapNode root = SiteMap.RootNode;
+
             foreach (SiteMapNode sectionNode in root.ChildNodes)
             {
                 if (CurrentUser.IsSpecialUser)
                 {
-                    if (sectionNode.Roles.Contains("SpecialUser"))
+                    if (!sectionNode.Roles.Contains("SpecialUser"))
                     {
-                        var sectionItem = new NavigationViewModel(sectionNode);
-                        navigationItemList.Add(sectionItem);
-
-                        sectionItem.Childs = new List<NavigationViewModel>();
-                        foreach (SiteMapNode navNode in sectionNode.ChildNodes)
-                        {
-                            var navItem = new NavigationViewModel(navNode);
-                            if (navNode.Roles.Contains("SpecialUser"))
-                            {
-                                sectionItem.Childs.Add(navItem);
-                            }
-                        }
+                        continue;
                     }
+
+                    NavigationViewModel sectionItem = CreateSectionItemFromSectionNode(sectionNode);
+
+                    navigationItemList.Add(sectionItem);
                 }
                 else
                 {
-                    if (Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
+                    if (!Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
                     {
-                        var sectionItem = new NavigationViewModel(sectionNode);
-                        navigationItemList.Add(sectionItem);
-                        roles = roles.Where(t => !t.Contains("SpecialUser")).ToArray();
-                        sectionItem.Childs = new List<NavigationViewModel>();
-
-                        foreach (SiteMapNode navNode in sectionNode.ChildNodes)
-                        {
-                            var navItem = new NavigationViewModel(navNode);
-                            if (roles.Any(i => navNode.Roles.Contains(i)))
-                            {
-                                sectionItem.Childs.Add(navItem);
-                            }
-                        }
+                        continue;
                     }
+
+                    roles = roles.Where(t => !t.Contains("SpecialUser")).ToArray();
+
+                    NavigationViewModel sectionItem = CreateSectionItemFromSectionNodeWithRoles(roles, sectionNode);
+
+                    navigationItemList.Add(sectionItem);
                 }
             }
 
             return navigationItemList;
+        }
+
+        private static NavigationViewModel CreateSectionItemFromSectionNodeWithRoles(string[] roles, SiteMapNode sectionNode)
+        {
+            var sectionItem = new NavigationViewModel(sectionNode)
+            {
+                Childs = new List<NavigationViewModel>()
+            };
+
+            foreach (SiteMapNode navNode in sectionNode.ChildNodes)
+            {
+                var navItem = new NavigationViewModel(navNode);
+                if (roles.Any(i => navNode.Roles.Contains(i)))
+                {
+                    sectionItem.Childs.Add(navItem);
+                }
+            }
+
+            return sectionItem;
+        }
+
+        private static NavigationViewModel CreateSectionItemFromSectionNode(SiteMapNode sectionNode)
+        {
+            var sectionItem = new NavigationViewModel(sectionNode)
+            {
+                Childs = new List<NavigationViewModel>()
+            };
+
+            foreach (SiteMapNode navNode in sectionNode.ChildNodes)
+            {
+                var navItem = new NavigationViewModel(navNode);
+                if (navNode.Roles.Contains("SpecialUser"))
+                {
+                    sectionItem.Childs.Add(navItem);
+                }
+            }
+
+            return sectionItem;
         }
     }
 }

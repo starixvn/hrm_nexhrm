@@ -57,39 +57,48 @@ namespace Fanex.NexHR.Controllers
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (filterContext != null)
+            if (filterContext == null)
             {
-                var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);
-                if (attributes.Length == 0)
-                {
-                    attributes = GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
-                }
+                return;
+            }
 
-                if (attributes.Length == 0)
-                {
-                    return;
-                }
+            object[] attributes = GetAttributes(filterContext);
 
-                foreach (AuthorizeAttribute item in attributes)
+            if (attributes.Length == 0)
+            {
+                return;
+            }
+
+            foreach (AuthorizeAttribute item in attributes)
+            {
+                if (CurrentUser.IsSpecialUser)
                 {
-                    if (CurrentUser.IsSpecialUser)
+                    if (!item.Roles.Contains("SpecialUser"))
                     {
-                        if (!item.Roles.Contains("SpecialUser"))
-                        {
-                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
-                        }
+                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
-                    else
+                }
+                else
+                {
+                    item.Roles = item.Roles.Replace("SpecialUser", string.Empty);
+                    if (!string.IsNullOrEmpty(item.Roles)
+                        && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
                     {
-                        item.Roles = item.Roles.Replace("SpecialUser", string.Empty);
-                        if (!string.IsNullOrEmpty(item.Roles)
-                            && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
-                        {
-                            filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
-                        }
+                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
                 }
             }
+        }
+
+        private object[] GetAttributes(AuthorizationContext filterContext)
+        {
+            var attributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            if (attributes.Length == 0)
+            {
+                attributes = GetType().GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            }
+
+            return attributes;
         }
     }
 }

@@ -40,7 +40,7 @@
         [HttpPost]
         public ActionResult Create(LateInEarlyOutViewModel model)
         {
-            if (model != null & ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
                 if (model.EmpId != 0)
                 {

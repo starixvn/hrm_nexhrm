@@ -55,7 +55,7 @@
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
-                EmployeeId = (model.EmployeeId != -1 & model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId
             };
 

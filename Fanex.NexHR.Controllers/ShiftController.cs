@@ -17,7 +17,7 @@
         {
         }
 
-        public ShiftController(IShiftService shiftService = null)
+        public ShiftController(IShiftService shiftService)
         {
             _shiftService = shiftService ?? new ShiftService();
         }

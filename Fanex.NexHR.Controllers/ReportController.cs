@@ -258,8 +258,8 @@
         {
             if (model == null)
             {
-                int year = DateTime.Now.Year,
-                    month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
+                int month = DateTime.Now.Month;
 
                 model = new TotalWorkingHoursViewModel
                 {
@@ -288,25 +288,19 @@
         {
             IList<Team> teams = _teamService.GetTeam();
 
-            LateInEarlyOutViewModel model;
-            if (empId != 0)
-            {
-                model = new LateInEarlyOutViewModel
+            var model = empId != 0
+                ? new LateInEarlyOutViewModel
                 {
                     Year = DateTime.Now.Year,
                     Teams = teams,
                     EmployeeId = empId,
                     Employee = nickname
-                };
-            }
-            else
-            {
-                model = new LateInEarlyOutViewModel
+                }
+                : new LateInEarlyOutViewModel
                 {
                     Year = DateTime.Now.Year,
                     Teams = teams,
                 };
-            }
 
             return View(model);
         }
