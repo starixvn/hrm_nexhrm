@@ -29,7 +29,7 @@
 
                 for (int i = 1; i <= 10; i++)
                 {
-                    SelectListItem item = new SelectListItem()
+                    SelectListItem item = new SelectListItem
                     {
                         Text = i.ToString(),
                         Value = i.ToString()

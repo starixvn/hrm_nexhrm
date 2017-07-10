@@ -40,7 +40,7 @@
             OvertimeEditViewModel editModel = null;
             if (overtime != null)
             {
-                editModel = new OvertimeEditViewModel()
+                editModel = new OvertimeEditViewModel
                 {
                     Id = overtime.Id,
                     Date = overtime.OnDate,

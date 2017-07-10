@@ -123,8 +123,8 @@
                                         @{
                         var status = new List<SelectListItem>
                                                 {
-                                                    new SelectListItem() {Text = "Active", Value = "1", Selected = true},
-                                                    new SelectListItem() {Text = "Deactive", Value = "0"},
+                                                    new SelectListItem {Text = "Active", Value = "1", Selected = true},
+                                                    new SelectListItem {Text = "Deactive", Value = "0"},
                                                 };
                                         }
                                         @Html.RadioButtonList(model => model.Status, status)
@@ -141,8 +141,8 @@
                                         @{
                         var types = new List<SelectListItem>
                                             {
-                                                new SelectListItem() {Text = "Upload", Value = "1", Selected = true},
-                                                new SelectListItem() {Text = "FCK Editor", Value = "0"},
+                                                new SelectListItem {Text = "Upload", Value = "1", Selected = true},
+                                                new SelectListItem {Text = "FCK Editor", Value = "0"},
                                             };
                                         }
                                         @Html.RadioButtonList(model => model.MemoType, types)

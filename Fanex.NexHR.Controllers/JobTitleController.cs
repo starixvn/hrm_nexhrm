@@ -45,7 +45,7 @@
         [HttpPost]
         public JsonResult Insert(string name)
         {
-            var insertLookupDataCriteria = new InsertLookupDataCriteria()
+            var insertLookupDataCriteria = new InsertLookupDataCriteria
             {
                 LookupCode = LookupCodeName.JobTitle,
                 Name = name
@@ -59,7 +59,7 @@
         [HttpPost]
         public JsonResult Update(int id, string name)
         {
-            var updateLookupDataCriteria = new UpdateLookupDataCriteria()
+            var updateLookupDataCriteria = new UpdateLookupDataCriteria
             {
                 Id = id,
                 Name = name
@@ -73,7 +73,7 @@
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var deleteLookupDataCriteria = new DeleteLookupDataCriteria() { Id = id };
+            var deleteLookupDataCriteria = new DeleteLookupDataCriteria { Id = id };
             CommandResult result = _commandService.Delete(deleteLookupDataCriteria);
 
             return Json(result);

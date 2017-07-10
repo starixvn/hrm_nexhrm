@@ -37,7 +37,7 @@
             List<ExtensionNoModel> lstEntity = _extensionNoService.GetAllExtensionNo(criteria).ToList();
             var model = (from item in lstEntity
                          group item by item.TeamName into g
-                         select new ExtensionNoViewModel() { Name = g.Key, ListExt = g.ToList() }).ToList();
+                         select new ExtensionNoViewModel { Name = g.Key, ListExt = g.ToList() }).ToList();
 
             return View(model);
         }

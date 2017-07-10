@@ -59,7 +59,7 @@
             {
                 if (ModelState.IsValid)
                 {
-                    var criteria = new InsertTeamCriteria()
+                    var criteria = new InsertTeamCriteria
                     {
                         Code = model.TeamCode,
                         Name = model.TeamName,
@@ -134,7 +134,7 @@
                     model.AssistantLeaderId = null;
                 }
 
-                var criteria = new UpdateTeamCriteria()
+                var criteria = new UpdateTeamCriteria
                 {
                     Id = model.Id,
                     Code = model.TeamCode,
@@ -172,7 +172,7 @@
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var criteria = new DeleteTeamCriteria()
+            var criteria = new DeleteTeamCriteria
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id,

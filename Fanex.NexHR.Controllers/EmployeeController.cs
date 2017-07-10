@@ -56,7 +56,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult UserManagement(int jobTitleId = 0)
         {
-            var model = new UserManagementViewModel()
+            var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
                 Teams = _teamService.GetTeam(),
@@ -128,7 +128,7 @@
             if (model != null && ModelState.IsValid)
             {
                 model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
-                var criteria = new InsertEmployeeCriteria()
+                var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
                     CreateBy = CurrentUser.Id,
@@ -192,7 +192,7 @@
                     ViewBag.Updated = true;
                     if (CurrentUser.Id == model.Id)
                     {
-                        var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = model.Id };
+                        var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
                         Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
                         if (HttpContext.Session != null)
                         {
@@ -216,7 +216,7 @@
         [HttpPost]
         public JsonResult Delete(int employeeId, DateTime resignedDate)
         {
-            var criteria = new DeleteEmployeeCriteria()
+            var criteria = new DeleteEmployeeCriteria
             {
                 EmployeeId = employeeId,
                 ResignedDate = resignedDate
@@ -242,7 +242,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateScheduleDefaultCriteria()
+                var criteria = new UpdateScheduleDefaultCriteria
                 {
                     EmployeeId = model.EmployeeId,
                     MonShift = model.MonShiftId,
@@ -397,7 +397,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult MyProfile()
         {
-            var criteria = new GetEmployeeByIdCriteria()
+            var criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = CurrentUser.Id
             };
@@ -423,7 +423,7 @@
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {
-            var criteria = new UpdateEmployeeCriteria()
+            var criteria = new UpdateEmployeeCriteria
             {
                 Code = model.Code,
                 ConfirmedDate = model.ConfirmedDate,
@@ -491,7 +491,7 @@
 
         private IEnumerable<Employee> GetEmployees()
         {
-            var getAllEmployeeCriteria = new GetEmployeeCriteria()
+            var getAllEmployeeCriteria = new GetEmployeeCriteria
             {
                 Query = null,
                 TeamId = null,
@@ -508,7 +508,7 @@
 
         private Employee GetEmployeeById(int employeeId)
         {
-            var criteria = new GetEmployeeByIdCriteria()
+            var criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = employeeId
             };
@@ -518,7 +518,7 @@
 
         private DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)
         {
-            var defaultSchedule = new DefaultScheduleViewModel()
+            var defaultSchedule = new DefaultScheduleViewModel
             {
                 EmployeeId = employee.Id,
                 EmployeeNickName = employee.NickName,

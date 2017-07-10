@@ -165,8 +165,8 @@
                                             @{
                                                 var gender = new List<SelectListItem>
                                             {
-                                                new SelectListItem() {Text = "Female", Value = "0"},
-                                                new SelectListItem() {Text = "Male", Value = "1"}
+                                                new SelectListItem {Text = "Female", Value = "0"},
+                                                new SelectListItem {Text = "Male", Value = "1"}
                                             };
                                             }
                                             @Html.DropDownListFor(model => model.Gender, gender)
@@ -313,10 +313,10 @@
                                             @{
                                                 var roles = new List<SelectListItem>
                                             {
-                                                new SelectListItem() {Text = "Assistant leader", Value = "1"},
-                                                new SelectListItem() {Text = "Leader", Value = "2"},
-                                                new SelectListItem() {Text = "Human resource", Value = "3"},
-                                                new SelectListItem() {Text = "System admin", Value = "4"}
+                                                new SelectListItem {Text = "Assistant leader", Value = "1"},
+                                                new SelectListItem {Text = "Leader", Value = "2"},
+                                                new SelectListItem {Text = "Human resource", Value = "3"},
+                                                new SelectListItem {Text = "System admin", Value = "4"}
                                             };
                                             }
                                             <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked"

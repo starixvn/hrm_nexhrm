@@ -33,12 +33,12 @@
 
         public ActionResult Index()
         {
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria
             {
                 LookupCode = LookupCodeName.MemoCategory
             };
             IList<LookupData> memoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
-            memoCategories.Insert(0, new LookupData() { Name = "All", Id = -1 });
+            memoCategories.Insert(0, new LookupData { Name = "All", Id = -1 });
             var model = new MemoViewModel
             {
                 Content = string.Empty,
@@ -60,7 +60,7 @@
 
             Memo memo = _memoService.GetById(getMemoByIdCriteria);
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria()
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria
             {
                 LookupCode = LookupCodeName.MemoCategory
             };
@@ -79,7 +79,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+                var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
                 model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
                 if (model.MemoType == 1)
                 {
@@ -90,7 +90,7 @@
                     }
                 }
 
-                var updateMemoCriteria = new UpdateMemoCriteria()
+                var updateMemoCriteria = new UpdateMemoCriteria
                 {
                     Id = model.Id,
                     Category = model.Category,
@@ -136,7 +136,7 @@
                 MemoType = 1
             };
 
-            var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+            var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
             model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
 
             ViewBag.Updated = false;
@@ -151,14 +151,14 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var getAllLookupDataCriteria = new GetAllLookupDataCriteria() { LookupCode = LookupCodeName.MemoCategory };
+                var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
                 model.MemoCategories = _lookupDataService.GetAll(getAllLookupDataCriteria);
                 if (model.MemoType == 1)
                 {
                     model.Contents = model.AttachFile;
                 }
 
-                var insertMemoCriteria = new InsertMemoCriteria()
+                var insertMemoCriteria = new InsertMemoCriteria
                 {
                     Category = model.Category,
                     Contents = model.Contents,
@@ -208,7 +208,7 @@
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
             Memo memo = _memoService.GetById(getMemoByIdCriteria);
 
-            var deleteMemoCriteria = new DeleteMemoCriteria() { Id = id };
+            var deleteMemoCriteria = new DeleteMemoCriteria { Id = id };
             CommandResult result = _commandService.Delete(deleteMemoCriteria);
             if (result.IsSuccessful && memo.MemoType == 1)
             {
@@ -220,7 +220,7 @@
 
         public JsonResult GetMemos(int category, int year, int status)
         {
-            GetAllMemoCriteria criteria = new GetAllMemoCriteria()
+            GetAllMemoCriteria criteria = new GetAllMemoCriteria
             {
                 Category = category,
                 Year = year,

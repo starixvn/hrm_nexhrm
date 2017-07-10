@@ -45,7 +45,7 @@
                                         @Html.LabelFor(model => model.Category)
                                     </div>
                                     <div class="left select--s">
-                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem() { Value = "-1", Text = "All" })
+                                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.MemoCategories, "Id", "Name"), new SelectListItem { Value = "-1", Text = "All" })
                                     </div>
                                 </div>
                                 @if (Roles.IsUserInRole("HR"))

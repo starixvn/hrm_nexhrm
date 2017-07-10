@@ -126,7 +126,7 @@
             }
         }
 
-        private Employee GetEmployeeEntity(ICriteria criteria)
+        private static Employee GetEmployeeEntity(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -146,9 +146,9 @@
             }
         }
 
-        private DefaultSchedule GetDefaultSchedule(dynamic defaultSchedule)
+        private static DefaultSchedule GetDefaultSchedule(dynamic defaultSchedule)
         {
-            var def = new DefaultSchedule()
+            var def = new DefaultSchedule
             {
                 Monday = GetMonShift(defaultSchedule),
                 Tuesday = GetTueShift(defaultSchedule),
@@ -162,65 +162,65 @@
             return def;
         }
 
-        private Shift GetMonShift(dynamic defaultSchedule)
+        private static Shift GetMonShift(dynamic defaultSchedule)
         {
-            return new Shift()
-                {
-                    Id = defaultSchedule.MonShiftId == null ? 0 : defaultSchedule.MonShiftId,
+            return new Shift
+            {
+                    Id = defaultSchedule.MonShiftId ?? 0,
                     Name = defaultSchedule.MonShiftName
                 };
         }
 
-        private Shift GetTueShift(dynamic defaultSchedule)
+        private static Shift GetTueShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.TueShiftId == null ? 0 : defaultSchedule.TueShiftId,
+                Id = defaultSchedule.TueShiftId ?? 0,
                 Name = defaultSchedule.TueShiftName
             };
         }
 
-        private Shift GetWedShift(dynamic defaultSchedule)
+        private static Shift GetWedShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.WedShiftId == null ? 0 : defaultSchedule.WedShiftId,
+                Id = defaultSchedule.WedShiftId ?? 0,
                 Name = defaultSchedule.WedShiftName
             };
         }
 
-        private Shift GetThuShift(dynamic defaultSchedule)
+        private static Shift GetThuShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.ThuShiftId == null ? 0 : defaultSchedule.ThuShiftId,
+                Id = defaultSchedule.ThuShiftId ?? 0,
                 Name = defaultSchedule.ThuShiftName
             };
         }
 
-        private Shift GetFriShift(dynamic defaultSchedule)
+        private static Shift GetFriShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.FriShiftId == null ? 0 : defaultSchedule.FriShiftId,
+                Id = defaultSchedule.FriShiftId ?? 0,
                 Name = defaultSchedule.FriShiftName
             };
         }
 
-        private Shift GetSatShift(dynamic defaultSchedule)
+        private static Shift GetSatShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.SatShiftId == null ? 0 : defaultSchedule.SatShiftId,
+                Id = defaultSchedule.SatShiftId ?? 0,
                 Name = defaultSchedule.SatShiftName
             };
         }
 
-        private Shift GetSunShift(dynamic defaultSchedule)
+        private static Shift GetSunShift(dynamic defaultSchedule)
         {
-            return new Shift()
+            return new Shift
             {
-                Id = defaultSchedule.SunShiftId == null ? 0 : defaultSchedule.SunShiftId,
+                Id = defaultSchedule.SunShiftId ?? 0,
                 Name = defaultSchedule.SunShiftName
             };
         }

@@ -47,14 +47,14 @@ namespace Fanex.NexHR.Core
 
         public static IList<SelectListItem> CheckInOutTypes => new List<SelectListItem>
         {
-            new SelectListItem() { Text = Labels.CheckIn, Value = ((short)RequestType.CheckIn).ToString() },
-            new SelectListItem() { Text = Labels.CheckOut, Value = ((short)RequestType.CheckOut).ToString() }
+            new SelectListItem { Text = Labels.CheckIn, Value = ((short)RequestType.CheckIn).ToString() },
+            new SelectListItem { Text = Labels.CheckOut, Value = ((short)RequestType.CheckOut).ToString() }
         };
 
         public static IList<SelectListItem> LateInEarlyOutTypes => new List<SelectListItem>
         {
-            new SelectListItem() { Text = Labels.LateIn, Value = ((short)RequestType.LateIn).ToString() },
-            new SelectListItem() { Text = Labels.EarlyOut, Value = ((short)RequestType.EarlyOut).ToString() }
+            new SelectListItem { Text = Labels.LateIn, Value = ((short)RequestType.LateIn).ToString() },
+            new SelectListItem { Text = Labels.EarlyOut, Value = ((short)RequestType.EarlyOut).ToString() }
         };
 
         public static DateTime AddTimeToDate(DateTime dateTime, string time)
@@ -127,7 +127,7 @@ namespace Fanex.NexHR.Core
             var index = 60;
             while (index > 15)
             {
-                list.Add(new SelectListItem()
+                list.Add(new SelectListItem
                 {
                     Text = string.Format(Labels.MinuteFormat, index),
                     Value = index.ToString()
@@ -147,7 +147,7 @@ namespace Fanex.NexHR.Core
             while (hour < 24)
             {
                 var value = string.Format(Labels.HourFormat, ZeroPrefix(hour), ZeroPrefix(minute));
-                list.Add(new SelectListItem()
+                list.Add(new SelectListItem
                 {
                     Text = value,
                     Value = value

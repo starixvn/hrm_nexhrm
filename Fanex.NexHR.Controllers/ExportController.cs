@@ -81,7 +81,7 @@
             int? jobTitleId = null,
             string sort = null)
         {
-            var getAllEmployeeCriteria = new GetEmployeeCriteria()
+            var getAllEmployeeCriteria = new GetEmployeeCriteria
             {
                 Query = query,
                 TeamId = teamId == -1 ? null : teamId,

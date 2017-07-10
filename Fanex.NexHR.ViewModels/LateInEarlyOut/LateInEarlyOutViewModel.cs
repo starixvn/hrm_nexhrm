@@ -21,14 +21,14 @@
 
         public DateTime ModifiedDate { get; set; }
 
-        public List<Types> TypesList => new List<Types>()
+        public List<Types> TypesList => new List<Types>
         {
-            new Types()
+            new Types
             {
                 Id = 1,
                 Name = "Late in"
             },
-            new Types()
+            new Types
             {
                 Id = 2,
                 Name = "Early out"

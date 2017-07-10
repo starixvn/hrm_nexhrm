@@ -43,7 +43,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult ListLeaveRequest(int year)
         {
-            var criteria = new GetRequestCriteria()
+            var criteria = new GetRequestCriteria
             {
                 Role = (short)Role.Member,
                 FromDate = new DateTime(year, 1, 1),
@@ -89,7 +89,7 @@
                 model = PrepareModel(model);
                 if (ModelState.IsValid && model.EmployeeId != 0)
                 {
-                    var criteria = new InsertRequestCriteria()
+                    var criteria = new InsertRequestCriteria
                     {
                         EmpId = model.EmployeeId,
                         RequestType = (short)RequestType.Leave,
@@ -146,7 +146,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Update(int id)
         {
-            var criteria = new GetRequestByIdCriteria() { Id = id };
+            var criteria = new GetRequestByIdCriteria { Id = id };
             RequestEntity request = _requestService.GetRequestEntity(criteria);
             var model = new LeaveRequestViewModel
             {
@@ -184,7 +184,7 @@
                     model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
                 }
 
-                var criteria = new UpdateRequestCriteria()
+                var criteria = new UpdateRequestCriteria
                 {
                     Id = model.Id,
                     IsPlanned = model.IsPlanned,

@@ -33,7 +33,7 @@
 
         public ActionResult Create()
         {
-            PostnatalViewModel model = new PostnatalViewModel()
+            PostnatalViewModel model = new PostnatalViewModel
             {
                 EmpId = CurrentUser.Id,
                 FromDate = DateTime.Now,
@@ -50,7 +50,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                InsertPostnatalCriteria criteria = new InsertPostnatalCriteria()
+                InsertPostnatalCriteria criteria = new InsertPostnatalCriteria
                 {
                     EmployeeId = model.EmpId,
                     FromDate = model.FromDate,
@@ -75,7 +75,7 @@
 
         public ActionResult Edit(int empId, string from, string to)
         {
-            GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria()
+            GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria
             {
                 EmployeeId = empId,
                 FromDate = DateTime.Parse(from),
@@ -98,7 +98,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                UpdatePostnatalCriteria criteria = new UpdatePostnatalCriteria()
+                UpdatePostnatalCriteria criteria = new UpdatePostnatalCriteria
                 {
                     OldEmployeeId = model.OldEmpId,
                     OldFromDate = model.OldFromDate,
@@ -126,7 +126,7 @@
 
         public JsonResult Delete(int empId, DateTime fromDate, DateTime toDate)
         {
-            DeletePostnatalCriteria criteria = new DeletePostnatalCriteria()
+            DeletePostnatalCriteria criteria = new DeletePostnatalCriteria
             {
                 EmployeeId = empId,
                 FromDate = fromDate,
@@ -138,7 +138,7 @@
 
         public ActionResult ListPostnatalEmployee(int empId, int year)
         {
-            GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria()
+            GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria
             {
                 EmpId = empId,
                 Year = year

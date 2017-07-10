@@ -147,7 +147,7 @@ namespace Fanex.NexHR.Web.Providers
 
         private Employee GetCurrentUser(string username)
         {
-            var getEmployeeCriteria = new GetEmployeeByDomainNameCriteria() { DomainUserName = username };
+            var getEmployeeCriteria = new GetEmployeeByDomainNameCriteria { DomainUserName = username };
             var user = _employeeService.GetEmployeeByDomainName(getEmployeeCriteria);
 
             return user;

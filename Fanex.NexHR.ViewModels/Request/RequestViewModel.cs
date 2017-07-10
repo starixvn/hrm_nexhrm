@@ -56,15 +56,15 @@
 
         public List<SelectListItem> DateTypes => new List<SelectListItem>
         {
-            new SelectListItem() { Text = Labels.EffectedDate, Value = "true" },
-            new SelectListItem() { Text = Labels.CreatedDate, Value = "false" },
+            new SelectListItem { Text = Labels.EffectedDate, Value = "true" },
+            new SelectListItem { Text = Labels.CreatedDate, Value = "false" },
         };
 
         public List<SelectListItem> RequestTypes => new List<SelectListItem>
         {
-            new SelectListItem() { Text = Labels.All, Value = "5" },
-            new SelectListItem() { Text = Labels.Leave, Value = "1" },
-            new SelectListItem() { Text = Labels.CheckInOut, Value = "4" }
+            new SelectListItem { Text = Labels.All, Value = "5" },
+            new SelectListItem { Text = Labels.Leave, Value = "1" },
+            new SelectListItem { Text = Labels.CheckInOut, Value = "4" }
         };
 
         public IList<SelectListItem> GetSelectListItemTeam(int? teamId)

@@ -129,7 +129,7 @@
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
             Overtime overtime = _overtimeService.GetOvertimeById(criteria);
-            var model = new CreateOvertimeViewModel()
+            var model = new CreateOvertimeViewModel
             {
                 Id = overtime.Id,
                 Date = overtime.OnDate,
@@ -289,7 +289,7 @@
 
         public ActionResult OvertimeSummary()
         {
-            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel()
+            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel
             {
                 Teams = _teamService.GetTeam(),
                 Year = DateTime.Now.Year
@@ -307,7 +307,7 @@
                 employeeId = empId;
             }
 
-            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria()
+            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria
             {
                 EmployeeId = employeeId,
                 TeamId = teamId,

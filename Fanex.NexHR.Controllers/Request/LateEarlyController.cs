@@ -44,7 +44,7 @@
             {
                 if (model.EmpId != 0)
                 {
-                    InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria()
+                    InsertLateInEarlyOutCriteria criteria = new InsertLateInEarlyOutCriteria
                     {
                         EmpId = model.EmpId,
                         Types = model.TypeCode,
@@ -74,7 +74,7 @@
         public ActionResult Edit(int id)
         {
             LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
-            GetLateInEarlyOutByIdCriteria criteria = new GetLateInEarlyOutByIdCriteria()
+            GetLateInEarlyOutByIdCriteria criteria = new GetLateInEarlyOutByIdCriteria
             {
                 Id = id
             };
@@ -95,7 +95,7 @@
             {
                 if (model.EmpId != 0)
                 {
-                    UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria()
+                    UpdateLateInEarlyOutCriteria criteria = new UpdateLateInEarlyOutCriteria
                     {
                         Id = (int)model.Id,
                         EmpId = model.EmpId,
@@ -125,7 +125,7 @@
 
         public JsonResult Delete(int id)
         {
-            DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria() { Id = id };
+            DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria { Id = id };
             CommandResult result = _commandService.Delete(criteria);
 
             return Json(result);
@@ -139,7 +139,7 @@
 
         private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int year)
         {
-            var criteria = new GetLateInEarlyOutByEmpIdCriteria()
+            var criteria = new GetLateInEarlyOutByEmpIdCriteria
             {
                 EmpId = empId,
                 Year = year

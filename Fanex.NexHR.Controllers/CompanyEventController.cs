@@ -38,7 +38,7 @@
             CompanyEvent model = new CompanyEvent();
             if (id > 0)
             {
-                var criteria = new GetEventByIdCriteria() { Id = id };
+                var criteria = new GetEventByIdCriteria { Id = id };
                 model = _eventService.GetById(criteria);
             }
 
@@ -52,7 +52,7 @@
 
             var lastDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1).AddMonths(7);
 
-            GetAllEventCriteria criteria = new GetAllEventCriteria()
+            GetAllEventCriteria criteria = new GetAllEventCriteria
             {
                 FromDate = firstDay,
                 ToDate = lastDay
@@ -63,7 +63,7 @@
 
         public ActionResult Create(DateTime from, DateTime to)
         {
-            var companyEvent = new CompanyEvent()
+            var companyEvent = new CompanyEvent
             {
                 FromDate = from,
                 ToDate = to
@@ -78,7 +78,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                InsertEventCriteria criteria = new InsertEventCriteria()
+                InsertEventCriteria criteria = new InsertEventCriteria
                 {
                     Title = model.Title,
                     FromDate = model.FromDate,
@@ -110,7 +110,7 @@
             CompanyEvent model = new CompanyEvent();
             if (id > 0)
             {
-                var criteria = new GetEventByIdCriteria() { Id = id };
+                var criteria = new GetEventByIdCriteria { Id = id };
                 model = _eventService.GetById(criteria);
             }
 
@@ -124,7 +124,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateEventCriteria()
+                var criteria = new UpdateEventCriteria
                 {
                     Id = model.Id,
                     Title = model.Title,
@@ -155,7 +155,7 @@
             CommandResult result = new CommandResult();
             if (id > 0)
             {
-                DeleteEventCriteria criteria = new DeleteEventCriteria() { Id = id };
+                DeleteEventCriteria criteria = new DeleteEventCriteria { Id = id };
                 result = _commandService.Delete(criteria);
             }
             else

@@ -31,7 +31,7 @@
 
         public JsonResult GetShiftByDate(int employeeId, DateTime date)
         {
-            var getShiftByDateCriteria = new GetShiftByDateCriteria()
+            var getShiftByDateCriteria = new GetShiftByDateCriteria
             {
                 EmployeeId = employeeId,
                 Date = date

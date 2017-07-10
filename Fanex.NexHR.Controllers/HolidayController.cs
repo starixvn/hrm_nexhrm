@@ -35,7 +35,7 @@
 
         public JsonResult GetHoliday(int year)
         {
-            var criteria = new GetHolidayByYearCriteria()
+            var criteria = new GetHolidayByYearCriteria
             {
                 Year = year
             };
@@ -95,13 +95,13 @@
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
-            var criteria = new GetHolidayByIdCriteria()
+            var criteria = new GetHolidayByIdCriteria
             {
                 Id = id
             };
             Holiday holiday = _holidayService.GetById(criteria);
 
-            var model = new HolidayViewModel()
+            var model = new HolidayViewModel
             {
                 Id = holiday.Id,
                 Name = holiday.Name,
@@ -153,7 +153,7 @@
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var criteria = new DeleteHolidayCriteria()
+            var criteria = new DeleteHolidayCriteria
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id

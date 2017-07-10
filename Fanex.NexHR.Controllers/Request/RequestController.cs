@@ -79,14 +79,14 @@
                 request.CurrentPage = Constants.CurrentPage;
                 request.ItemsPerPage = Constants.ItemsPerPage;
 
-                var criteria = new GetTeamByManagerIdCriteria()
+                var criteria = new GetTeamByManagerIdCriteria
                 {
                     ManagerId = CurrentUser.Id
                 };
                 request.Teams = _teamService.GetTeamManagedByEmp(criteria);
 
                 request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByAssistantLeader";
             }
@@ -141,7 +141,7 @@
                 request.Teams = _teamService.GetTeam();
 
                 request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByEmployee";
             }
@@ -196,7 +196,7 @@
                 request.Teams = _teamService.GetTeam();
 
                 request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType() { Id = 0, Name = Labels.All });
+                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByHR";
             }
@@ -240,7 +240,7 @@
         [HttpPost]
         public ActionResult DeleteWorkingTimeRequest(int id)
         {
-            var criteria = new DeleteRequestCriteria()
+            var criteria = new DeleteRequestCriteria
             {
                 Id = id
             };
@@ -285,7 +285,7 @@
 
         private IList<RequestEntity> GetRequest(RequestViewModel request, short role)
         {
-            var criteria = new GetRequestCriteria()
+            var criteria = new GetRequestCriteria
             {
                 ActorId = CurrentUser.Id,
                 Role = role,

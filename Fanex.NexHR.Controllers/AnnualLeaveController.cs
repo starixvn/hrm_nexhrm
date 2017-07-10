@@ -140,7 +140,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult Create(int employeeId)
         {
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId };
+            var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
             ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
             return View(new AddAnnualLeaveTransactionViewModel
@@ -190,7 +190,7 @@
             };
 
             AnnualLeaveTransaction leaveTransaction = _annualLeaveService.GetAnnualLeaveTransactionById(criteria);
-            var model = new EditAnnualLeaveTransactionViewModel()
+            var model = new EditAnnualLeaveTransactionViewModel
             {
                 LeaveTransactionId = leaveTransaction.LeaveTransactionId,
                 TotalDays = leaveTransaction.TotalDays,
@@ -247,7 +247,7 @@
         [HttpPost]
         public JsonResult AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
         {
-            CommandResult result = new CommandResult()
+            CommandResult result = new CommandResult
             {
                 Code = -1,
                 Message = Messages.InvalidInputData
@@ -276,7 +276,7 @@
         public JsonResult OpenAnnualLeaves()
         {
             var model = new ShowOpenAndCloseAnnualBalance();
-            var criteria = new OpenAnnualBalanceForNewYearCriteria()
+            var criteria = new OpenAnnualBalanceForNewYearCriteria
             {
                 Year = model.ToDate.Year
             };
@@ -356,7 +356,7 @@
             }
             else
             {
-                result = new CommandResult()
+                result = new CommandResult
                 {
                     Code = 1,
                     Message = Messages.InvalidInputData
@@ -386,7 +386,7 @@
             }
             else
             {
-                result = new CommandResult()
+                result = new CommandResult
                 {
                     Code = 1,
                     Message = Messages.InvalidInputData
@@ -428,7 +428,7 @@
 
             if (employeeId.HasValue)
             {
-                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
                 Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
@@ -443,7 +443,7 @@
             IList<LeaveConversionDetail> leaveDeductions = new List<LeaveConversionDetail>();
             if (model != null)
             {
-                var criteria = new GetLeaveConversionDetailCriteria()
+                var criteria = new GetLeaveConversionDetailCriteria
                 {
                     EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                     GroupId = model.TeamId,
@@ -499,7 +499,7 @@
             }
             else
             {
-                result = new CommandResult()
+                result = new CommandResult
                 {
                     Code = 1,
                     Message = Messages.InvalidInputData
@@ -528,7 +528,7 @@
             }
             else
             {
-                result = new CommandResult()
+                result = new CommandResult
                 {
                     Code = 1,
                     Message = Messages.InvalidInputData
@@ -570,7 +570,7 @@
 
             if (employeeId.HasValue)
             {
-                var getEmployeeCriteria = new GetEmployeeByIdCriteria() { EmployeeId = employeeId.Value };
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
                 Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
@@ -585,7 +585,7 @@
             IList<LeaveConversionDetail> leaveConversions = new List<LeaveConversionDetail>();
             if (model != null)
             {
-                var criteria = new GetLeaveConversionDetailCriteria()
+                var criteria = new GetLeaveConversionDetailCriteria
                 {
                     EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
                     GroupId = model.TeamId,
@@ -603,7 +603,7 @@
         private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
         {
             var model = new ShowOpenAndCloseAnnualBalance();
-            var criteria = new GetOpenAndCloseAnnualBalanceCriteria()
+            var criteria = new GetOpenAndCloseAnnualBalanceCriteria
             {
                 OpenDate = new DateTime(model.ToDate.Year, 1, 1),
                 CloseDate = new DateTime(model.FromDate.Year, 12, 31)

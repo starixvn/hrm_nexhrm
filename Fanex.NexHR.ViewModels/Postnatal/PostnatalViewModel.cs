@@ -40,14 +40,14 @@
         {
             get
             {
-                List<SelectListItem> listTypes = new List<SelectListItem>()
+                List<SelectListItem> listTypes = new List<SelectListItem>
                 {
-                    new SelectListItem() 
+                    new SelectListItem
                     {
                         Text = Labels.LateInEarlyOut, 
                         Value = "1"
                     },
-                    new SelectListItem() 
+                    new SelectListItem
                     {
                         Text = Labels.BreakTime, 
                         Value = "2"

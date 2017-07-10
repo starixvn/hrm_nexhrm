@@ -54,7 +54,7 @@
             CommandResult result = new CommandResult();
             if (model != null)
             {
-                var criteria = new InsertEmployeeCalendarCriteria()
+                var criteria = new InsertEmployeeCalendarCriteria
                 {
                     EmployeeId = model.AddEmployeeId,
                     FromDate = model.FromDate,
