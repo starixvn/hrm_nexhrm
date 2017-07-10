@@ -45,29 +45,13 @@
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
         {
-            string result;
-            if ((toDate - fromDate).Days > 0)
-            {
-                if (fromDate.Year == toDate.Year)
-                {
-                    if (fromDate.Month != toDate.Month)
-                    {
-                        result = fromDate.ToString("dd MMM") + " - " + toDate.ToDateMonthYearFormatedDate();
-                    }
-                    else
-                    {
-                        result = fromDate.ToString("dd") + " - " + toDate.ToDateMonthYearFormatedDate();
-                    }
-                }
-                else
-                {
-                    result = fromDate.ToDateMonthYearFormatedDate() + " - " + toDate.ToDateMonthYearFormatedDate();
-                }
-            }
-            else
-            {
-                result = fromDate.ToDateMonthYearFormatedDate();
-            }
+            var result = (toDate - fromDate).Days > 0
+                ? (fromDate.Year == toDate.Year
+                    ? (fromDate.Month != toDate.Month
+                        ? fromDate.ToString("dd MMM") + " - " + toDate.ToDateMonthYearFormatedDate()
+                        : fromDate.ToString("dd") + " - " + toDate.ToDateMonthYearFormatedDate())
+                    : fromDate.ToDateMonthYearFormatedDate() + " - " + toDate.ToDateMonthYearFormatedDate())
+                : fromDate.ToDateMonthYearFormatedDate();
 
             return result;
         }
@@ -112,8 +96,6 @@
                             request.FromShift.Name,
                             request.ToShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
-                        break;
-                    default:
                         break;
                 }
             }
@@ -411,39 +393,29 @@
             return leaders;
         }
 
-        private string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)
+        private static string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)
         {
-            string forDate;
-
-            if (totalDays > 1)
-            {
-                forDate = string.Format(
+            var forDate = totalDays > 1
+                ? string.Format(
                     Constants.MailContentLeave,
                     fromDate.ToDateMonthYearFormatedDate(),
                     toDate.ToDateMonthYearFormatedDate(),
-                    totalDays);
-            }
-            else
-            {
-                if (totalDays == 1)
-                {
-                    forDate = string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate());
-                }
-                else
-                {
-                    forDate = string.Format(
+                    totalDays)
+                : (totalDays == 1
+                    ? string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate())
+                    : string.Format(
                         Constants.MailContentLeaveHalfDay,
                         fromDate.ToDateMonthYearFormatedDate(),
                         fromDate.ToString("HH:mm"),
-                        toDate.ToString("HH:mm"));
-                }
-            }
+                        toDate.ToString("HH:mm")));
 
             return forDate;
         }
 
         private IEnumerable<Employee> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)
         {
+            IEnumerable<Employee> results = employees;
+
             var getEmployeeByTeamsCriteria = new GetEmployeeByTeamsCriteria
             {
                 EmployeeId = employeeId,
@@ -453,17 +425,22 @@
 
             var projectManagers = GetData<Employee>(getEmployeeByTeamsCriteria);
 
-            if (employees != null && projectManagers != null)
+            if (results == null)
             {
-                projectManagers = projectManagers.Where(t => employees.All(x => x.Id != t.Id)).ToList();
-                employees = employees.Union(projectManagers);
-            }
-            else if (employees != null)
-            {
-                employees = projectManagers;
+                return null;
             }
 
-            return employees;
+            if (projectManagers != null)
+            {
+                projectManagers = projectManagers.Where(t => results.All(x => x.Id != t.Id)).ToList();
+                results = results.Union(projectManagers);
+            }
+            else
+            {
+                results = null;
+            }
+
+            return results;
         }
 
         private void SendMailForProcessRequest(
@@ -486,16 +463,10 @@
 
         private void SendMailToRequester(RequestEntity request, string command, string templateEmailToRequesterPath)
         {
-            string forDate;
-            if (request.TotalDays > 1)
-            {
-                forDate = " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
-                          request.ToDate.ToDateMonthYearFormatedDate();
-            }
-            else
-            {
-                forDate = " on " + request.FromDate.ToDateMonthYearFormatedDate();
-            }
+            var forDate = request.TotalDays > 1
+                ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
+                  request.ToDate.ToDateMonthYearFormatedDate()
+                : " on " + request.FromDate.ToDateMonthYearFormatedDate();
 
             var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
             var action = command == Command.Reject.EnumToString()

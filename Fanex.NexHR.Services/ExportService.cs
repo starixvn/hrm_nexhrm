@@ -1,12 +1,11 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
     using Core;
     using Models;
     using Models.Report;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
 
     public class ExportService
     {
@@ -16,8 +15,8 @@
             DateTime toDate,
             string templatePath)
         {
-            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year,
-                sheetName = "Total Working Hours";
+            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
+            string sheetName = "Total Working Hours";
 
             var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
@@ -40,8 +39,8 @@
             IList<EmployeeAttendanceModel> employeeAttendances,
             string templatePath)
         {
-            string fileName = "EmployeeAttendance",
-                sheetName = "Employee Attendance";
+            string fileName = "EmployeeAttendance";
+            string sheetName = "Employee Attendance";
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
@@ -58,12 +57,12 @@
             }
         }
 
-        public void ExportEmployeeProfile(
+        public static void ExportEmployeeProfile(
             IList<Employee> employees,
             string templatePath)
         {
-            string fileName = "EmployeeProfile",
-                sheetName = "Employee Profile";
+            string fileName = "EmployeeProfile";
+            string sheetName = "Employee Profile";
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
@@ -187,7 +186,7 @@
 
         #region Employee Profile
 
-        private void FillContentRowEmployeeProfile(
+        private static void FillContentRowEmployeeProfile(
             IList<Employee> employees,
             ref ExcelTemplateWriter writer)
         {
@@ -199,7 +198,7 @@
             }
         }
 
-        private void FillRowEmployeeProfile(
+        private static void FillRowEmployeeProfile(
             Employee employee,
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
@@ -209,7 +208,7 @@
             writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
         }
 
-        private object CreateRecordEmployeeProfile(
+        private static object CreateRecordEmployeeProfile(
             Employee employee,
             ref int rowIndex)
         {
@@ -247,7 +246,7 @@
 
         #endregion Employee Profile
 
-        private string FormatDate(DateTime? date)
+        private static string FormatDate(DateTime? date)
         {
             if (date == null)
             {
@@ -257,7 +256,7 @@
             return date.Value.ToString("dd MMM, yyyy");
         }
 
-        private string GetTime(DateTime? date)
+        private static string GetTime(DateTime? date)
         {
             if (date == null)
             {
@@ -278,7 +277,7 @@
             return string.Empty;
         }
 
-        private string TotalHoursToTime(decimal value)
+        private static string TotalHoursToTime(decimal value)
         {
             if (value > 0)
             {
@@ -296,7 +295,7 @@
             return string.Empty;
         }
 
-        private dynamic FormatToeicScore(int? score)
+        private static dynamic FormatToeicScore(int? score)
         {
             if (score == null)
             {
@@ -306,14 +305,9 @@
             return score.Value;
         }
 
-        private string FormatString(string value)
+        private static string FormatString(string value)
         {
-            if (value == null)
-            {
-                return string.Empty;
-            }
-
-            return value.Trim();
+            return value?.Trim() ?? string.Empty;
         }
     }
 }

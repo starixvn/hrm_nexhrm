@@ -6,7 +6,7 @@
     public class InsertLateInEarlyOutCriteria : CriteriaBase
     {
         public DateTime WorkDate { get; set; }
-        
+
         /// <summary>
         /// 1: Late In or 2: Early Out
         /// </summary>
@@ -21,15 +21,7 @@
 
         public override bool IsValid()
         {
-            bool result;
-            if (Types == 1 || Types == 2)
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
+            var result = Types == 1 || Types == 2;
 
             return result;
         }

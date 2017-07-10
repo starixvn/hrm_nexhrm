@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Text;
     using Attributes;
     using Core;
     using Core.Enums;
@@ -192,7 +193,7 @@
             return roles.Any(role => userRoles.Contains(role.EnumToString()));
         }
 
-        public bool IsInRoles(IList<string> roles)
+        public static bool IsInRoles(IList<string> roles)
         {
             if (roles == null || roles.Count == 0)
             {
@@ -205,10 +206,10 @@
 
         public string DisplayRoles()
         {
-            var roles = "Member";
+            StringBuilder roles = new StringBuilder("Member");
             if (string.IsNullOrWhiteSpace(Roles))
             {
-                return roles;
+                return roles.ToString();
             }
 
             foreach (var item in RoleArray)
@@ -216,24 +217,27 @@
                 switch (item)
                 {
                     case "1":
-                        roles += ", AssistantLeader";
+                        roles.Append(", AssistantLeader");
                         break;
 
                     case "2":
-                        roles += ", Leader";
+                        roles.Append(", Leader");
                         break;
 
                     case "3":
-                        roles += ", HR";
+                        roles.Append(", HR");
                         break;
 
                     case "4":
-                        roles = "System admin";
+                        roles = new StringBuilder("System admin");
+                        break;
+                    default:
+                        roles = new StringBuilder("Member");
                         break;
                 }
             }
 
-            return roles;
+            return roles.ToString();
         }
     }
 }

@@ -75,11 +75,15 @@
 
         public override bool IsValid()
         {
-            return EmployeeId > 0
-                && TeamId > 0
-                && !string.IsNullOrWhiteSpace(Code)
-                && !string.IsNullOrWhiteSpace(NickName)
-                && !string.IsNullOrWhiteSpace(FullName);
+            return IsEmployeeIdAndTeamIdValid()
+                   && !string.IsNullOrWhiteSpace(Code)
+                   && !string.IsNullOrWhiteSpace(NickName)
+                   && !string.IsNullOrWhiteSpace(FullName);
+        }
+
+        private bool IsEmployeeIdAndTeamIdValid()
+        {
+            return EmployeeId > 0 && TeamId > 0;
         }
 
         public override string GetSettingKey()

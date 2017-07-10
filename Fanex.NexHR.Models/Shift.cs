@@ -12,27 +12,11 @@
 
         public int BreakTimeMins { get; set; }
 
-        public string DisplayName
-        {
-            get
-            {
-                if (BeginCheckInTime != null && EndCheckInTime != null)
-                {
-                    if (BeginCheckInTime.Equals(EndCheckInTime))
-                    {
-                        return $"{Name} (IN {BeginCheckInTime} -> OUT:{BeginCheckOutTime})";
-                    }
-                    else
-                    {
-                        return
-                            $"{Name} (IN {BeginCheckInTime} - {EndCheckInTime} -> OUT {BeginCheckOutTime} - {EndCheckOutTime})";
-                    }
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-        }
+        public string DisplayName => BeginCheckInTime != null && EndCheckInTime != null
+            ? (BeginCheckInTime.Equals(EndCheckInTime)
+                ? $"{Name} (IN {BeginCheckInTime} -> OUT:{BeginCheckOutTime})"
+                : $"{Name} (IN {BeginCheckInTime} - {EndCheckInTime} -> OUT {BeginCheckOutTime} - {EndCheckOutTime})"
+            )
+            : string.Empty;
     }
 }

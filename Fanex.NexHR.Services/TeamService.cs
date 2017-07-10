@@ -41,7 +41,7 @@
 
         public IList<Team> GetAll()
         {
-            var criteria = new GetAllTeamCriteria() 
+            var criteria = new GetAllTeamCriteria
             {
                 IncludeSpecialTeam = true
             };

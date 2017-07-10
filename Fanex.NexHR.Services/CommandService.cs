@@ -23,52 +23,34 @@
 
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result;
-            if (criteria != null && criteria.IsValid())
-            {
-                result = _repository.Insert(criteria, hasGetOutputParams);
-            }
-            else
-            {
-                result = GetInvalidInput();
-            }
+            var result = criteria != null && criteria.IsValid()
+                ? _repository.Insert(criteria, hasGetOutputParams)
+                : GetInvalidInput();
 
             return result;
         }
 
         public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result;
-            if (criteria != null && criteria.IsValid())
-            {
-                result = _repository.Update(criteria, hasGetOutputParams);
-            }
-            else
-            {
-                result = GetInvalidInput();
-            }
+            var result = criteria != null && criteria.IsValid()
+                ? _repository.Update(criteria, hasGetOutputParams)
+                : GetInvalidInput();
 
             return result;
         }
 
         public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
         {
-            CommandResult result;
-            if (criteria != null && criteria.IsValid())
-            {
-                result = _repository.Delete(criteria, hasGetOutputParams);
-            }
-            else
-            {
-                result = GetInvalidInput();
-            }
+            var result = criteria != null && criteria.IsValid()
+                ? _repository.Delete(criteria, hasGetOutputParams)
+                : GetInvalidInput();
 
             return result;
         }
 
-        private CommandResult GetInvalidInput()
+        private static CommandResult GetInvalidInput()
         {
-            return new CommandResult()
+            return new CommandResult
             {
                 Code = 1,
                 Message = Messages.InvalidInputData

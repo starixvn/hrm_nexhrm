@@ -38,7 +38,7 @@
 
         public Employee Employee { get; set; }
 
-        public string DisplayValue(float value)
+        public static string DisplayValue(float value)
         {
             return value.Equals(0) ? "-" : value.ToString("0.0");
         }

@@ -48,9 +48,9 @@
 
         public List<SelectListItem> StatusTypes => new List<SelectListItem>
         {
-            new SelectListItem() { Text = Labels.All, Value = "-1" },       
-            new SelectListItem() { Text = Labels.Active, Value = "0" },                    
-            new SelectListItem() { Text = Labels.Deactive, Value = "1" }
+            new SelectListItem { Text = Labels.All, Value = "-1" },
+            new SelectListItem { Text = Labels.Active, Value = "0" },
+            new SelectListItem { Text = Labels.Deactive, Value = "1" }
         };
     }
 }

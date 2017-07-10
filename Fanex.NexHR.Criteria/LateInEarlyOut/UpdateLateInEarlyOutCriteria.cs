@@ -20,15 +20,7 @@
 
         public override bool IsValid()
         {
-            bool result;
-            if (Types == 1 || Types == 2)
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
+            var result = Types == 1 || Types == 2;
 
             return result;
         }

@@ -17,16 +17,15 @@
         {
             get
             {
-                if (InOutType == 0)
+                switch (InOutType)
                 {
-                    return Labels.In;
+                    case 0:
+                        return Labels.In;
+                    case 1:
+                        return Labels.Out;
+                    default:
+                        return "None";
                 }
-                else if (InOutType == 1)
-                {
-                    return Labels.Out;
-                }
-
-                return "None";
             }
         }
     }
