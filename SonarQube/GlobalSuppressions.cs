@@ -23,4 +23,9 @@
     Justification = "Need only 3 cases",
     Scope = "member",
     Target = "~M:Fanex.NexHR.Services.RequestService.SendMailToRelatedPeople(Fanex.NexHR.Models.Request.RequestEntity,System.String,System.String)")]
-
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Sonar Code Smell",
+    "S2325:Methods and properties that don't access instance data should be static",
+    Justification = "Required to run",
+    Scope = "member",
+    Target = "~M:Fanex.NexHR.WebSite.MvcApplication.Application_Start")]

@@ -20,7 +20,7 @@ namespace Fanex.NexHR.Web.Providers
     public class FriendlyNameModelMetadataProvider : DataAnnotationsModelMetadataProvider
     {
         // Uppercase followed by lowercase but not on existing word boundary (eg. the start)
-        // Regex _camelCaseRegex = new Regex(@"\B\p{Lu}\p{Ll}", RegexOptions.Compiled);
+        //// Regex _camelCaseRegex = new Regex(@"\B\p{Lu}\p{Ll}", RegexOptions.Compiled);
 
         // Creates a nice DisplayName from the model’s property name if one hasn't been specified
         protected override ModelMetadata GetMetadataForProperty(
@@ -43,7 +43,7 @@ namespace Fanex.NexHR.Web.Providers
         /// </summary>
         /// <param name="name">The input name.</param>
         /// <returns>The formatted name.</returns>
-        private string DisplayNameFromCamelCase(string name)
+        private static string DisplayNameFromCamelCase(string name)
         {
             var temp = "(?<!^)" + // don't match on the first character - never want to place a space here
                 "(" +

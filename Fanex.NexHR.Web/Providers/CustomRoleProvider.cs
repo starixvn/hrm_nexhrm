@@ -26,27 +26,21 @@ namespace Fanex.NexHR.Web.Providers
     {
         private readonly IEmployeeService _employeeService;
 
-        public CustomRoleProvider(IEmployeeService employeeService = null)
+        public CustomRoleProvider(IEmployeeService employeeService)
         {
             _employeeService = employeeService ?? new EmployeeService();
         }
 
         public CustomRoleProvider()
             : this(null)
-        { 
+        {
         }
 
         public override string ApplicationName
         {
-            get
-            {
-                return "NexHR";
-            }
+            get { return "NexHR"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -99,7 +93,7 @@ namespace Fanex.NexHR.Web.Providers
                 {
                     switch (item)
                     {
-                        case 1:
+                        default:
                             roles.Add(Role.AssistantLeader.EnumToString());
                             break;
 
@@ -151,6 +145,6 @@ namespace Fanex.NexHR.Web.Providers
             var user = _employeeService.GetEmployeeByDomainName(getEmployeeCriteria);
 
             return user;
-        }      
+        }
     }
 }

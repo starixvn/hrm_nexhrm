@@ -36,11 +36,18 @@ namespace Fanex.NexHR.WebSite
             if (!Request.IsLocal)
             {
                 Exception ex = Server.GetLastError().GetBaseException();
-                string message = ex.Message +
-                         Environment.NewLine + Labels.Source + ex.Source +
-                        Environment.NewLine + Labels.Domain + HttpContext.Current.Request.Headers["Host"] +
-                        Environment.NewLine + Labels.TargetSite + ex.TargetSite +
-                        Environment.NewLine + Labels.StackTrace + ex.StackTrace;
+                string message = string.Format(
+                    "{0}{1}{2}{3}{1}{4}{5}{1}{6}{7}{1}{8}{9}",
+                    ex.Message,
+                    Environment.NewLine,
+                    Labels.Source,
+                    ex.Source,
+                    Labels.Domain,
+                    HttpContext.Current.Request.Headers["Host"],
+                    Labels.TargetSite,
+                    ex.TargetSite,
+                    Labels.StackTrace,
+                    ex.StackTrace);
 
                 LogService.Error(message);
             }
