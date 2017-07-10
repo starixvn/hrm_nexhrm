@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.WebSite", "Fane
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{EDA43C3D-A86E-43C8-BB30-8F1A5FA2A482}"
 	ProjectSection(SolutionItems) = preProject
-		GlobalSuppression.cs = GlobalSuppression.cs
+		SonarQube\GlobalSuppressions.cs = SonarQube\GlobalSuppressions.cs
 		SonarQube\NexHRMCSharp.ruleset = SonarQube\NexHRMCSharp.ruleset
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
 	EndProjectSection

@@ -22,20 +22,17 @@
 
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
-        private readonly ExportService _exportService;
 
         public ExportController(
             EmployeeService employeeService,
-            ExportService exportService,
             IReportService reportService)
         {
             _employeeService = employeeService ?? new EmployeeService();
-            _exportService = exportService ?? new ExportService();
             _reportService = reportService ?? new ReportService();
         }
 
         public ExportController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
@@ -65,7 +62,7 @@
             IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
             string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
 
-            _exportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
+            ExportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
 
             return new EmptyResult();
         }
@@ -135,7 +132,7 @@
             IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
-            _exportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+            ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
             return new EmptyResult();
         }

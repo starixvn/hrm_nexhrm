@@ -97,6 +97,10 @@
                             request.ToShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
                         break;
+
+                    default:
+                        msg = new StringBuilder();
+                        break;
                 }
             }
 
@@ -161,7 +165,7 @@
             return result;
         }
 
-        private ICriteria GetProcessRequestCriteria(string command, long id, int processBy)
+        private static ICriteria GetProcessRequestCriteria(string command, long id, int processBy)
         {
             ICriteria processRequestCriteria;
             switch (command)

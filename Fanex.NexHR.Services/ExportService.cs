@@ -7,9 +7,9 @@
     using System.Collections.Generic;
     using System.IO;
 
-    public class ExportService
+    public static class ExportService
     {
-        public void ExportTotalWorkingHours(
+        public static void ExportTotalWorkingHours(
             IList<TotalWorkingHours> listTotalWorkingHours,
             DateTime fromDate,
             DateTime toDate,
@@ -35,7 +35,7 @@
             }
         }
 
-        public void ExportEmployeeAttendances(
+        public static void ExportEmployeeAttendances(
             IList<EmployeeAttendanceModel> employeeAttendances,
             string templatePath)
         {
@@ -81,7 +81,7 @@
 
         #region Total Working Hours
 
-        private void FillContentRowTotalWorkingHours(
+        private static void FillContentRowTotalWorkingHours(
             IList<TotalWorkingHours> listTotalWorkingHours,
             ref ExcelTemplateWriter writer)
         {
@@ -93,7 +93,7 @@
             }
         }
 
-        private void FillRowTotalWorkingHours(
+        private static void FillRowTotalWorkingHours(
             TotalWorkingHours totalWorkingHours,
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
@@ -103,7 +103,7 @@
             writer.WriteRow((rowIndex - 1) % 2 == 0 ? 5 : 4, record);
         }
 
-        private object CreateRecordTotalWorkingHours(
+        private static object CreateRecordTotalWorkingHours(
             TotalWorkingHours totalWorkingHours,
             ref int rowIndex)
         {
@@ -111,20 +111,20 @@
             {
                 Count = rowIndex,
                 Code = totalWorkingHours.Employee.Code.Trim(),
-                FullName = totalWorkingHours.Employee.FullName,
+                totalWorkingHours.Employee.FullName,
                 Nick = totalWorkingHours.Employee.NickName,
                 Team = totalWorkingHours.Employee.Team.Code,
-                WorkingDay = totalWorkingHours.WorkingDay,
-                ActualWorkingDay = totalWorkingHours.ActualWorkingDay,
-                AnnualLeave = totalWorkingHours.AnnualLeave,
-                PaidLeave = totalWorkingHours.PaidLeave,
-                SickLeave = totalWorkingHours.SickLeave,
-                InsuranceLeave = totalWorkingHours.InsuranceLeave,
-                UnpaidLeave = totalWorkingHours.UnpaidLeave,
-                LateIn = totalWorkingHours.LateIn,
-                EarlyOut = totalWorkingHours.EarlyOut,
-                TotalHours = totalWorkingHours.TotalHours,
-                AverageHours = totalWorkingHours.AverageHours
+                totalWorkingHours.WorkingDay,
+                totalWorkingHours.ActualWorkingDay,
+                totalWorkingHours.AnnualLeave,
+                totalWorkingHours.PaidLeave,
+                totalWorkingHours.SickLeave,
+                totalWorkingHours.InsuranceLeave,
+                totalWorkingHours.UnpaidLeave,
+                totalWorkingHours.LateIn,
+                totalWorkingHours.EarlyOut,
+                totalWorkingHours.TotalHours,
+                totalWorkingHours.AverageHours
             };
             rowIndex++;
 
@@ -135,7 +135,7 @@
 
         #region Employee Attendances
 
-        private void FillContentRowEmployeeAttendances(
+        private static void FillContentRowEmployeeAttendances(
             IList<EmployeeAttendanceModel> employeeAttendances,
             ref ExcelTemplateWriter writer)
         {
@@ -147,7 +147,7 @@
             }
         }
 
-        private void FillRowEmployeeAttendances(
+        private static void FillRowEmployeeAttendances(
             EmployeeAttendanceModel employeeAttendance,
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
@@ -157,7 +157,7 @@
             writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
         }
 
-        private object CreateRecordEmployeeAttendances(
+        private static object CreateRecordEmployeeAttendances(
             EmployeeAttendanceModel employeeAttendance,
             ref int rowIndex)
         {
@@ -165,17 +165,17 @@
             {
                 Count = rowIndex,
                 AttendanceDate = FormatDate(employeeAttendance.AttendanceDate),
-                Code = employeeAttendance.Code,
+                employeeAttendance.Code,
                 Nick = employeeAttendance.NickName,
-                FullName = employeeAttendance.FullName,
+                employeeAttendance.FullName,
                 Team = employeeAttendance.TeamCode,
-                ShiftCode = employeeAttendance.ShiftCode,
+                employeeAttendance.ShiftCode,
                 CheckIn = GetTime(employeeAttendance.InFixed),
                 CheckOut = GetTime(employeeAttendance.OutFixed),
                 TotalHours = TotalHoursToTime(employeeAttendance.TotalWorkHours),
                 LateIn = DisplayMinute(employeeAttendance.LateIn),
                 EarlyOut = DisplayMinute(employeeAttendance.EarlyOut),
-                Notes = employeeAttendance.Notes
+                employeeAttendance.Notes
             };
             rowIndex++;
 
@@ -215,18 +215,18 @@
             var record = new
             {
                 Count = rowIndex,
-                Code = employee.Code,
-                FullName = employee.FullName,
+                employee.Code,
+                employee.FullName,
                 Nick = employee.NickName,
                 DoB = FormatDate(employee.DateOfBirth),
-                Email = employee.Email,
-                JobTitle = employee.JobTitle == null ? string.Empty : employee.JobTitle.Name,
+                employee.Email,
+                JobTitle = JobTitle(employee),
                 Team = FormatString(employee.Team.Name),
                 JoinedDate = FormatDate(employee.JoinedDate),
                 ConfirmedDate = FormatDate(employee.ConfirmedDate),
                 ResignedDate = FormatDate(employee.ResignedDate),
                 Phone = FormatString(employee.Phone),
-                Gender = employee.Gender == 0 ? "F" : "M",
+                Gender = Gender(employee),
                 CardNo = FormatString(employee.CardNo),
                 IssuedDate = FormatDate(employee.IssuedDate),
                 IssuedPlace = FormatString(employee.IssuedPlace),
@@ -234,14 +234,24 @@
                 PermanentAddress = FormatString(employee.PermanentAddress),
                 PassportNo = FormatString(employee.PassportNo),
                 PassportExp = FormatDate(employee.PassportExp),
-                Listening = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Listening),
-                Reading = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Reading),
-                Speaking = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Speaking),
-                Writing = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Writing)
+                Listening = FormatToeicScore(employee.ToeicScore?.Listening),
+                Reading = FormatToeicScore(employee.ToeicScore?.Reading),
+                Speaking = FormatToeicScore(employee.ToeicScore?.Speaking),
+                Writing = FormatToeicScore(employee.ToeicScore?.Writing)
             };
             rowIndex++;
 
             return record;
+        }
+
+        private static string JobTitle(Employee employee)
+        {
+            return employee.JobTitle == null ? string.Empty : employee.JobTitle.Name;
+        }
+
+        private static string Gender(Employee employee)
+        {
+            return employee.Gender == 0 ? "F" : "M";
         }
 
         #endregion Employee Profile
