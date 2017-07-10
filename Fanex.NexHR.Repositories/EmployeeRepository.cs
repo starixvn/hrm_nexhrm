@@ -119,7 +119,6 @@
                          w.Employee = e;
                          return w;
                      },
-                     splitOn: "Id",
                      parameterValues: criteria.GetSpParams());
 
                 return entityList.ToList();

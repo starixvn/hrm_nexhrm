@@ -20,6 +20,7 @@ namespace Fanex.NexHR.Core
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
+    using System.Text;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
 
@@ -175,14 +176,15 @@ namespace Fanex.NexHR.Core
                 return string.Empty;
             }
 
-            var result = string.Empty;
+            StringBuilder result = new StringBuilder();
 
             foreach (string item in array)
             {
-                result += item + ",";
+                result.Append(item);
+                result.Append(",");
             }
 
-            return result.Substring(0, result.Length - 1);
+            return result.ToString(0, result.Length - 1);
         }
 
         public static bool IsValidEmail(string email)
@@ -274,14 +276,7 @@ namespace Fanex.NexHR.Core
             FieldInfo fi = enumType.GetType().GetField(enumType.ToString());
             DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            if (attributes.Length > 0)
-            {
-                return attributes[0].Description;
-            }
-            else
-            {
-                return enumType.ToString();
-            }
+            return attributes.Length > 0 ? attributes[0].Description : enumType.ToString();
         }
     }
 }

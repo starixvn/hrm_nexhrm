@@ -63,7 +63,7 @@
             }
         }
 
-        private PropertyInfo GetTotalItemPropertyInfo(ICriteria criteria)
+        private static PropertyInfo GetTotalItemPropertyInfo(ICriteria criteria)
         {
             return criteria.GetType()
                 .GetProperties()
@@ -72,7 +72,7 @@
                     && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
         }
 
-        private IList<RequestEntity> GetAttendanceRequests(
+        private static IList<RequestEntity> GetAttendanceRequests(
             IEnumerable<RequestEntity> requests,
             EmployeeAttendanceModel attendance)
         {
@@ -219,7 +219,7 @@
             return lateinEarlyOuts;
         }
 
-        private void GroupLateInEarlyOutSummaryDetailByEmployeeId(
+        private static void GroupLateInEarlyOutSummaryDetailByEmployeeId(
             IList<LateInEarlyOutDiscipline> lateinEarlyOuts,
             IList<LateInEarlyOutDisciplineDetail> lateInEarlyOutDetails)
         {

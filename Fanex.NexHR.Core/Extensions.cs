@@ -231,14 +231,7 @@ namespace Fanex.NexHR.Core
             string sectionName,
             Func<object, HelperResult> defaultContent)
         {
-            if (page.IsSectionDefined(sectionName))
-            {
-                return page.RenderSection(sectionName);
-            }
-            else
-            {
-                return defaultContent(ExtensionObject);
-            }
+            return page.IsSectionDefined(sectionName) ? page.RenderSection(sectionName) : defaultContent(ExtensionObject);
         }
 
         public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name)
