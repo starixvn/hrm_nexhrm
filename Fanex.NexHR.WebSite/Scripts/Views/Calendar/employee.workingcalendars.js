@@ -29,7 +29,7 @@ function initMonthPick() {
 }
 
 $(document).ready(function () {
-    initMonthPick($("#hdtoday").val(), $("#hdmonth").val());
+    initMonthPick();
 
     $('#btnAddCalendar').click(function () {
         $('#addform').dialog({

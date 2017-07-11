@@ -65,7 +65,14 @@
   {
     "outputFile": "Content/Views/eventcalendar.css",
     "inputFile": "Content/Views/eventcalendar.scss",
-      "minify": {
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Content/Views/report.workinghoursstatistic.css",
+    "inputFile": "Content/Views/report.workinghoursstatistic.scss",
+    "minify": {
       "enabled": false
     }
   }

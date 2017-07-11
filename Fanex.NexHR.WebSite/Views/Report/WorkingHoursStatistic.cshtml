@@ -1,0 +1,157 @@
+﻿@using Fanex.NexHR.ViewModels.TotalWorkingHours
+@model TotalWorkingHoursViewModel
+@{
+    ViewBag.Title = Labels.WorkingHoursStatistic;
+}
+@section css {
+    @Styles.Render("~/Content/monthpickercss",
+                   "~/Content/workinghoursstatisticcss")
+}
+@section js{
+    @Scripts.Render("~/bundles/workinghoursstatisticjs",
+                    "~/bundles/monthpickerjs")
+}
+@section Breadcrumb {
+}
+
+@{
+    //Set max month we can select in MonthPick
+    int Month = 12;
+    int year = DateTime.Now.GetMaxDate().Year + 1;
+
+    var maxDate = new System.Text.StringBuilder();
+    maxDate.AppendFormat("{0}/{1}/1", year, Month);
+    // DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
+
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="form">
+                        @using (Html.BeginGetForm())
+                        {
+                            <div class="row form-input">
+                                <div class="col m-l--l m-r--xl">
+                                    <div class="left label--s">
+                                        @Html.Label(Labels.Month)
+                                    </div>
+                                    <div class="left select--s">
+                                        <div id="monthPickr"></div>
+                                        <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
+                                        @Html.HiddenFor(model => model.Month)
+                                        @Html.HiddenFor(model => model.Year)
+                                    </div>
+                                </div>
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--s">
+                                        @Html.Label(Labels.Team)
+                                    </div>
+                                    <div class="left select-team">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input id="btnsubmit" type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />                     
+                                    <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
+                                     @Html.HiddenFor(model => model.IsExportExcel)
+  
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">@Labels.SymbolCount</th>
+                                    <th rowspan="2">@Labels.Code</th>
+                                    <th rowspan="2">@Labels.FullName</th>
+                                    <th rowspan="2">@Labels.Nick</th>
+                                    <th rowspan="2">@Labels.Team</th>
+                                    <th rowspan="2">@Labels.ActualWorkingDay</th>
+                                    <th colspan="2">Paid Leave</th>
+                                    <th colspan="2">Insurance Leave</th>
+                                    <th rowspan="2">@Labels.UnpaidLeave</th>
+                                    <th rowspan="2">Total Working Day in month</th>
+                                    <th rowspan="2">AL Balance</th>
+                                    <th colspan="2">Unpaid Leave of Previous month</th>
+                                </tr>
+                                <tr>
+                                    <th>@Labels.AnnualLeave</th>
+                                    <th>@Labels.Others</th>
+                                    <th>@Labels.SickLeave</th>
+                                    <th>@Labels.Others</th>
+                                    <th>@Labels.SickLeave</th>
+                                    <th>UPL</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dateOption = '@Model.DateOption',
+        fromDate = '@Model.FromDate',
+        toDate = '@Model.ToDate';
+</script>
+<script id="template" type="text/x-jsrender">
+    <tr>
+        <td>{{:~index()}}</td>
+        <td>{{:Employee.Code}}</td>
+        <td class="align-left">{{:Employee.FullName}}</td>
+        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
+        <td>{{:WorkingDay}}</td>
+        <td>{{:ActualWorkingDay}}</td>
+        <td>{{:AnnualLeave.toFixed(1)}}</td>
+        <td>{{:PaidLeave.toFixed(1)}}</td>
+        <td>{{:SickLeave.toFixed(1)}}</td>
+        <td>{{:InsuranceLeave.toFixed(1)}}</td>
+        <td id="unpaidLeave">
+            {{if ~isHRRole}}
+            <form id="form" style="display:none;">
+                <input type="text" class="DateOption" id="DateOption" name="DateOption" value="{{:~dateOption}}" />
+                <input type="text" class="FromDate" id="FromDate" name="FromDate" value="{{:~fromDate}}" />
+                <input type="text" class="ToDate" id="ToDate" name="ToDate" value="{{:~toDate}}" />
+                <input type="text" id="EmployeeId" name="EmployeeId" value="{{:Employee.Id}}" />
+                <input type="text" id="Employee" name="Employee" value="{{:Employee.NickName}} ({{:Employee.FullName}})" />
+                <input type="text" class="TeamId" id="TeamId" name="TeamId" value="{{if Employee.TeamId == null}} -2 {{else}} Employee.TeamId {{/if}}" />
+                <input type="text" id="StatusId" name="StatusId" value="0" />
+                <input type="text" id="RequestType" name="RequestType" value="1" />
+                <input type="text" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />
+                <input type="text" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26" />
+            </form>
+            {{/if}}
+            {{if ~isHRRole && UnpaidLeave > 0}}
+            <a class="UnpaidLeave" href="javascript:;">
+                {{:UnpaidLeave.toFixed(1)}}
+            </a>
+            {{else}}
+            {{:UnpaidLeave.toFixed(1)}}
+            {{/if}}
+        </td>
+        <td>{{:~displayMinuteForTotalWorking(LateIn)}}</td>
+        <td>{{:~displayMinuteForTotalWorking(EarlyOut)}}</td>
+        <td>{{:~totalHoursToTime(TotalHours)}}</td>
+        <td>{{:~totalHoursToTime(AverageHours)}}</td>
+    </tr>
+</script>

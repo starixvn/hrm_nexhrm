@@ -1383,4 +1383,7 @@
   <data name="InvalidEmployee" xml:space="preserve">
     <value>Invalid Employee !</value>
   </data>
+  <data name="WorkingHoursStatistic" xml:space="preserve">
+    <value>Working Hours Statistic</value>
+  </data>
 </root>
