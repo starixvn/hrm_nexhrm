@@ -165,7 +165,7 @@
             var record = new
             {
                 Count = rowIndex,
-                AttendanceDate = FormatDate(employeeAttendance.AttendanceDate),
+                AttendanceDate = employeeAttendance.AttendanceDate,
                 Code = employeeAttendance.Code,
                 Nick = employeeAttendance.NickName,
                 FullName = employeeAttendance.FullName,
@@ -219,22 +219,22 @@
                 Code = employee.Code,
                 FullName = employee.FullName,
                 Nick = employee.NickName,
-                DoB = FormatDate(employee.DateOfBirth),
+                DoB = employee.DateOfBirth,
                 Email = employee.Email,
                 JobTitle = employee.JobTitle == null ? string.Empty : employee.JobTitle.Name,
                 Team = FormatString(employee.Team.Name),
-                JoinedDate = FormatDate(employee.JoinedDate),
-                ConfirmedDate = FormatDate(employee.ConfirmedDate),
-                ResignedDate = FormatDate(employee.ResignedDate),
+                JoinedDate = employee.JoinedDate,
+                ConfirmedDate = employee.ConfirmedDate,
+                ResignedDate = employee.ResignedDate,
                 Phone = FormatString(employee.Phone),
                 Gender = employee.Gender == 0 ? "F" : "M",
                 CardNo = FormatString(employee.CardNo),
-                IssuedDate = FormatDate(employee.IssuedDate),
+                IssuedDate = employee.IssuedDate,
                 IssuedPlace = FormatString(employee.IssuedPlace),
                 CurrentAddress = FormatString(employee.CurrentAddress),
                 PermanentAddress = FormatString(employee.PermanentAddress),
                 PassportNo = FormatString(employee.PassportNo),
-                PassportExp = FormatDate(employee.PassportExp),
+                PassportExp = employee.PassportExp,
                 Listening = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Listening),
                 Reading = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Reading),
                 Speaking = employee.ToeicScore == null ? string.Empty : FormatToeicScore(employee.ToeicScore.Speaking),
@@ -246,16 +246,6 @@
         }
 
         #endregion Employee Profile
-
-        private string FormatDate(DateTime? date)
-        {
-            if (date == null)
-            {
-                return string.Empty;
-            }
-
-            return date.Value.ToString("dd MMM, yyyy");
-        }
 
         private string GetTime(DateTime? date)
         {
