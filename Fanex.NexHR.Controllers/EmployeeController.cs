@@ -182,32 +182,34 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model == null || !ModelState.IsValid)
             {
-                UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-                CommandResult result = _commandService.Update(criteria);
+                return View(model);
+            }
 
-                if (result.IsSuccessful)
+            UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
+            CommandResult result = _commandService.Update(criteria);
+
+            if (result.IsSuccessful)
+            {
+                ViewBag.Updated = true;
+                if (CurrentUser.Id == model.Id)
                 {
-                    ViewBag.Updated = true;
-                    if (CurrentUser.Id == model.Id)
+                    var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
+                    Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                    if (HttpContext.Session != null)
                     {
-                        var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
-                        Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
-                        if (HttpContext.Session != null)
-                        {
-                            HttpContext.Session["CurrentUser"] = currentUser;
-                        }
+                        HttpContext.Session["CurrentUser"] = currentUser;
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
-
-                model.Teams = _teamService.GetAll();
-                model.JobTitles = _jobTitleService.GetAll();
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
+
+            model.Teams = _teamService.GetAll();
+            model.JobTitles = _jobTitleService.GetAll();
 
             return View(model);
         }

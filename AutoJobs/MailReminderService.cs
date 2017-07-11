@@ -60,33 +60,32 @@
 
         public void ReminderBirthdayAndFirstWorkingday(DateTime today)
         {
-            if (bool.Parse(AllowSendMailReminderBirthday))
+            if (!bool.Parse(AllowSendMailReminderBirthday) || today.DayOfWeek == DayOfWeek.Saturday)
             {
-                //// Satuday don't send, becase it was sent on Friday.
-                if (today.DayOfWeek != DayOfWeek.Saturday)
+                return;
+            }
+
+            if (today.Hour >= int.Parse(TimeSendMailReminderBirthday) &&
+                today.Hour < (int.Parse(TimeSendMailReminderBirthday) + 1))
+            {
+                if (!_checkSendMailReminderBirthday)
                 {
-                    if (today.Hour >= int.Parse(TimeSendMailReminderBirthday) && today.Hour < (int.Parse(TimeSendMailReminderBirthday) + 1))
+                    Log.Info("Birthday and First working day Reminder started at " + DateTime.Now);
+
+                    SendMailBirthdayAndFirstWorkingDay(today.AddDays(1));
+
+                    if (today.DayOfWeek == DayOfWeek.Friday)
                     {
-                        if (!_checkSendMailReminderBirthday)
-                        {
-                            Log.Info("Birthday and First working day Reminder started at " + DateTime.Now);
-
-                            SendMailBirthdayAndFirstWorkingDay(today.AddDays(1));
-
-                            if (today.DayOfWeek == DayOfWeek.Friday)
-                            {
-                                SendMailBirthdayAndFirstWorkingDay(today.AddDays(2));
-                            }
-
-                            Log.Info("Birthday and First working day Reminder stopped at " + DateTime.Now);
-                            _checkSendMailReminderBirthday = true;
-                        }
+                        SendMailBirthdayAndFirstWorkingDay(today.AddDays(2));
                     }
-                    else
-                    {
-                        _checkSendMailReminderBirthday = false;
-                    }
+
+                    Log.Info("Birthday and First working day Reminder stopped at " + DateTime.Now);
+                    _checkSendMailReminderBirthday = true;
                 }
+            }
+            else
+            {
+                _checkSendMailReminderBirthday = false;
             }
         }
 
@@ -217,7 +216,7 @@
         /// <param name="bodyTemplate">Body template.</param>
         /// <param name="item">MissingCheckInOut Model.</param>
         /// <returns>Content of email body.</returns>
-        private string CreateEmailBody(string bodyTemplate, MissingCheckInOutModel item)
+        private static string CreateEmailBody(string bodyTemplate, MissingCheckInOutModel item)
         {
             var data = new CheckInOutInfo
             {

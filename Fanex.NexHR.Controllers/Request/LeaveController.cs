@@ -84,45 +84,52 @@
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            if (model != null)
+            if (model == null)
             {
-                model = PrepareModel(model);
-                if (ModelState.IsValid && model.EmployeeId != 0)
-                {
-                    var criteria = new InsertRequestCriteria
-                    {
-                        EmpId = model.EmployeeId,
-                        RequestType = (short)RequestType.Leave,
-                        IsPlanned = model.IsPlanned,
-                        Remark = model.Remark,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = CurrentUser.Id,
-                        FromDate = model.FromDate,
-                        ToDate = model.ToDate,
-                        LeaveTypeId = model.LeaveTypeId,
-                        TotalDays = model.TotalDays
-                    };
+                return View((LeaveRequestViewModel)null);
+            }
 
-                    CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
-                    model.Id = criteria.Id;
-                    if (result.Code == 0 || result.Code == -1)
-                    {
-                        ViewBag.Requested = true;
-                        if (result.Code == 0)
-                        {
-                            model.IsEdit = false;
-                            model.GetTemplatePath();
-                            Task.Factory.StartNew(() =>
-                            {
-                                _requestService.SendMailForLeave(model);
-                            });
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+            model = PrepareModel(model);
+
+            if (!ModelState.IsValid || model.EmployeeId == 0)
+            {
+                return View(model);
+            }
+
+            var criteria = new InsertRequestCriteria
+            {
+                EmpId = model.EmployeeId,
+                RequestType = (short)RequestType.Leave,
+                IsPlanned = model.IsPlanned,
+                Remark = model.Remark,
+                CreatedDate = DateTime.Now,
+                CreatedBy = CurrentUser.Id,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                LeaveTypeId = model.LeaveTypeId,
+                TotalDays = model.TotalDays
+            };
+
+            CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+            model.Id = criteria.Id;
+            if (result.Code == 0 || result.Code == -1)
+            {
+                ViewBag.Requested = true;
+                if (result.Code != 0)
+                {
+                    return View(model);
                 }
+
+                model.IsEdit = false;
+                model.GetTemplatePath();
+                Task.Factory.StartNew(() =>
+                {
+                    _requestService.SendMailForLeave(model);
+                });
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
             }
 
             return View(model);

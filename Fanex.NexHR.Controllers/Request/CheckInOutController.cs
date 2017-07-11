@@ -92,51 +92,53 @@
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model == null || !ModelState.IsValid)
             {
-                model.By = CurrentUser.Id;
-                model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
+                return View(model);
+            }
 
-                if (model.EmployeeId != 0)
+            model.By = CurrentUser.Id;
+            model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
+
+            if (model.EmployeeId != 0)
+            {
+                var criteria = new InsertRequestCriteria
                 {
-                    var criteria = new InsertRequestCriteria
-                    {
-                        EmpId = model.EmployeeId,
-                        RequestType = model.CheckInOutType,
-                        IsPlanned = false,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = model.By,
-                        FromDate = model.ForDate
-                    };
+                    EmpId = model.EmployeeId,
+                    RequestType = model.CheckInOutType,
+                    IsPlanned = false,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = model.By,
+                    FromDate = model.ForDate
+                };
 
-                    CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
-                    model.Id = criteria.Id;
+                CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+                model.Id = criteria.Id;
 
-                    if (result.Code == 0 || result.Code == -1)
+                if (result.Code == 0 || result.Code == -1)
+                {
+                    ViewBag.Requested = true;
+                    if (result.Code == 0)
                     {
-                        ViewBag.Requested = true;
-                        if (result.Code == 0)
+                        model.IsEdit = false;
+                        model.GetTemplatePath();
+                        Task.Factory.StartNew(() =>
                         {
-                            model.IsEdit = false;
-                            model.GetTemplatePath();
-                            Task.Factory.StartNew(() =>
-                            {
-                                _requestService.SendMailForCheckInOut(model);
-                            });
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
+                            _requestService.SendMailForCheckInOut(model);
+                        });
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
-
-                ViewBag.Year = model.ForDate.Year;
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
+            }
+
+            ViewBag.Year = model.ForDate.Year;
 
             return View(model);
         }
