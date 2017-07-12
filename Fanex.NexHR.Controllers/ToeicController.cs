@@ -346,17 +346,22 @@
                 body);
         }
 
+        private static string GetDisplayScore(int? score)
+        {
+            return score != null ? score.ToString() : "-";
+        }
+
         private static string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
         {
             var bodyContent = new
             {
                 User = nickName,
                 NewListening = newScore.Listening.ToString(),
-                OldListening = oldScore.Listening != null ? oldScore.Listening.ToString() : "-",
+                OldListening = GetDisplayScore(oldScore.Listening),
                 NewReading = newScore.Reading.ToString(),
-                OldReading = oldScore.Reading != null ? oldScore.Reading.ToString() : "-",
-                NewTotal = newScore.LRTotal != null ? newScore.LRTotal.ToString() : "-",
-                OldTotal = oldScore.LRTotal != null ? oldScore.LRTotal.ToString() : "-"
+                OldReading = GetDisplayScore(oldScore.Reading),
+                NewTotal = GetDisplayScore(newScore.LRTotal),
+                OldTotal = GetDisplayScore(oldScore.LRTotal)
             };
 
             var body = Utilities.ReadTextFile(

@@ -84,30 +84,31 @@
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
-            if (model == null)
+            var leaveRequestViewModel = model;
+            if (leaveRequestViewModel == null)
             {
                 return View((LeaveRequestViewModel)null);
             }
 
-            model = PrepareModel(model);
+            leaveRequestViewModel = PrepareModel(leaveRequestViewModel);
 
-            if (!ModelState.IsValid || model.EmployeeId == 0)
+            if (!ModelState.IsValid || leaveRequestViewModel.EmployeeId == 0)
             {
-                return View(model);
+                return View(leaveRequestViewModel);
             }
 
             var criteria = new InsertRequestCriteria
             {
-                EmpId = model.EmployeeId,
+                EmpId = leaveRequestViewModel.EmployeeId,
                 RequestType = (short)RequestType.Leave,
-                IsPlanned = model.IsPlanned,
-                Remark = model.Remark,
+                IsPlanned = leaveRequestViewModel.IsPlanned,
+                Remark = leaveRequestViewModel.Remark,
                 CreatedDate = DateTime.Now,
                 CreatedBy = CurrentUser.Id,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                LeaveTypeId = model.LeaveTypeId,
-                TotalDays = model.TotalDays
+                FromDate = leaveRequestViewModel.FromDate,
+                ToDate = leaveRequestViewModel.ToDate,
+                LeaveTypeId = leaveRequestViewModel.LeaveTypeId,
+                TotalDays = leaveRequestViewModel.TotalDays
             };
 
             CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);

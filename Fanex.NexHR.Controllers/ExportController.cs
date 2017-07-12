@@ -41,9 +41,11 @@
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
 
-            if (model == null)
+            var totalWorkingHoursViewModel = model;
+
+            if (totalWorkingHoursViewModel == null)
             {
-                model = new TotalWorkingHoursViewModel
+                totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
                     FromDate = new DateTime(year, month, 1),
                     ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -53,16 +55,18 @@
 
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId
+                FromDate = totalWorkingHoursViewModel.FromDate,
+                ToDate = totalWorkingHoursViewModel.ToDate,
+                EmployeeId = (totalWorkingHoursViewModel.EmployeeId != -1 && totalWorkingHoursViewModel.EmployeeId != 0)
+                    ? new int?(totalWorkingHoursViewModel.EmployeeId)
+                    : null,
+                GroupId = totalWorkingHoursViewModel.TeamId
             };
 
             IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
             string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
 
-            ExportService.ExportTotalWorkingHours(listTotalWorkingHours, model.FromDate, model.ToDate, templatePath);
+            ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
             return new EmptyResult();
         }
@@ -114,18 +118,13 @@
             short attendanceType,
             bool excludeUserDelete)
         {
-            if (groupId == -1)
-            {
-                groupId = null;
-            }
-
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
                 FromDate = fromDate,
                 ToDate = toDate,
                 ReportType = attendanceType,
                 EmployeeId = empId,
-                GroupId = groupId,
+                GroupId = groupId == -1 ? null : groupId,
                 ExcludeUserDelete = excludeUserDelete
             };
 

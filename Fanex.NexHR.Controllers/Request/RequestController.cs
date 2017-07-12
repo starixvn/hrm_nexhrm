@@ -56,11 +56,14 @@
         [Authorize(Roles = "AssistantLeader,SpecialUser")]
         public ActionResult Member(RequestViewModel request)
         {
+            RequestViewModel modifiedRequest = null;
             if (request != null)
             {
+                modifiedRequest = request;
+
                 if (request.TeamId == -1)
                 {
-                    request = new RequestViewModel
+                    modifiedRequest = new RequestViewModel
                     {
                         DateOption = 0,
                         ToDate = DateTime.Now,
@@ -73,25 +76,25 @@
 
                 if (request.TeamId == -2)
                 {
-                    request.TeamId = null;
+                    modifiedRequest.TeamId = null;
                 }
 
-                request.CurrentPage = Constants.CurrentPage;
-                request.ItemsPerPage = Constants.ItemsPerPage;
+                modifiedRequest.CurrentPage = Constants.CurrentPage;
+                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
 
                 var criteria = new GetTeamByManagerIdCriteria
                 {
                     ManagerId = CurrentUser.Id
                 };
-                request.Teams = _teamService.GetTeamManagedByEmp(criteria);
+                modifiedRequest.Teams = _teamService.GetTeamManagedByEmp(criteria);
 
-                request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
+                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByAssistantLeader";
             }
 
-            return View(request);
+            return View(modifiedRequest);
         }
 
         [ValidateInput(false)]
@@ -114,12 +117,13 @@
 
         public ActionResult EmployeeView(RequestViewModel request)
         {
-            if (request != null)
+            var modifiedRequest = request;
+            if (modifiedRequest != null)
             {
                 // Default view all request type
-                if (request.TeamId == -1)
+                if (modifiedRequest.TeamId == -1)
                 {
-                    request = new RequestViewModel
+                    modifiedRequest = new RequestViewModel
                     {
                         StatusId = 0,
                         RequestType = 5,
@@ -129,24 +133,24 @@
                 }
 
                 // Get request model from Request monitoring view.
-                if (request.TeamId == -2)
+                if (modifiedRequest.TeamId == -2)
                 {
-                    request.StatusId = 0;
-                    request.TeamId = null;
+                    modifiedRequest.StatusId = 0;
+                    modifiedRequest.TeamId = null;
                 }
 
-                request.CurrentPage = Constants.CurrentPage;
-                request.ItemsPerPage = Constants.ItemsPerPage;
+                modifiedRequest.CurrentPage = Constants.CurrentPage;
+                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = _teamService.GetTeam();
+                modifiedRequest.Teams = _teamService.GetTeam();
 
-                request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
+                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByEmployee";
             }
 
-            return View("HRView", request);
+            return View("HRView", modifiedRequest);
         }
 
         [ValidateInput(false)]
@@ -169,12 +173,13 @@
         [Authorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel request)
         {
-            if (request != null)
+            var modifiedRequest = request;
+            if (modifiedRequest != null)
             {
                 // Default view all request type
-                if (request.TeamId == -1)
+                if (modifiedRequest.TeamId == -1)
                 {
-                    request = new RequestViewModel
+                    modifiedRequest = new RequestViewModel
                     {
                         StatusId = 0,
                         RequestType = 5,
@@ -184,24 +189,24 @@
                 }
 
                 // Get request model from Request monitoring view.
-                if (request.TeamId == -2)
+                if (modifiedRequest.TeamId == -2)
                 {
-                    request.StatusId = 0;
-                    request.TeamId = null;
+                    modifiedRequest.StatusId = 0;
+                    modifiedRequest.TeamId = null;
                 }
 
-                request.CurrentPage = Constants.CurrentPage;
-                request.ItemsPerPage = Constants.ItemsPerPage;
+                modifiedRequest.CurrentPage = Constants.CurrentPage;
+                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
 
-                request.Teams = _teamService.GetTeam();
+                modifiedRequest.Teams = _teamService.GetTeam();
 
-                request.LeaveTypes = _leaveTypeService.GetAll();
-                request.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
+                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
                 ViewBag.ActionName = "GetAllRequestByHR";
             }
 
-            return View(request);
+            return View(modifiedRequest);
         }
 
         [ValidateInput(false)]

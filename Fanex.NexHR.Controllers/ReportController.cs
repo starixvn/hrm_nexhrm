@@ -39,11 +39,12 @@
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
-            if (model != null)
+            var employeeAttendanceViewModel = model;
+            if (employeeAttendanceViewModel != null)
             {
-                if (model.FromDate == DateTime.MinValue)
+                if (employeeAttendanceViewModel.FromDate == DateTime.MinValue)
                 {
-                    model = new EmployeeAttendanceViewModel
+                    employeeAttendanceViewModel = new EmployeeAttendanceViewModel
                     {
                         FromDate = DateTime.Now,
                         ToDate = DateTime.Now,
@@ -52,12 +53,12 @@
                     };
                 }
 
-                model.CurrentPage = Constants.CurrentPage;
-                model.ItemsPerPage = 200;
-                model.Teams = _teamService.GetTeam();
+                employeeAttendanceViewModel.CurrentPage = Constants.CurrentPage;
+                employeeAttendanceViewModel.ItemsPerPage = 200;
+                employeeAttendanceViewModel.Teams = _teamService.GetTeam();
             }
 
-            return View(model);
+            return View(employeeAttendanceViewModel);
         }
 
         [ValidateInput(false)]
@@ -256,12 +257,13 @@
         [HttpPost]
         public JsonResult GetTotalWorkingHour(TotalWorkingHoursViewModel model)
         {
-            if (model == null)
+            var totalWorkingHoursViewModel = model;
+            if (totalWorkingHoursViewModel == null)
             {
                 int year = DateTime.Now.Year;
                 int month = DateTime.Now.Month;
 
-                model = new TotalWorkingHoursViewModel
+                totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
                     FromDate = new DateTime(year, month, 1),
                     ToDate = DateTime.Now,
@@ -272,10 +274,10 @@
 
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-                EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId
+                FromDate = totalWorkingHoursViewModel.FromDate,
+                ToDate = totalWorkingHoursViewModel.ToDate,
+                EmployeeId = (totalWorkingHoursViewModel.EmployeeId > 0) ? new int?(totalWorkingHoursViewModel.EmployeeId) : null,
+                GroupId = totalWorkingHoursViewModel.TeamId
             };
 
             IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
@@ -422,16 +424,23 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
+            DateTime from;
+            DateTime to;
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                toDate = DateTime.Today;
+                from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                to = DateTime.Today;
+            }
+            else
+            {
+                from = fromDate.Value;
+                to = toDate.Value;
             }
 
             var model = new TimeRecordViewModel
             {
-                FromDate = fromDate.Value,
-                ToDate = toDate.Value,
+                FromDate = from,
+                ToDate = to,
                 EmployeeId = CurrentUser.Id,
                 CurrentPage = Constants.CurrentPage,
                 ItemsPerPage = Constants.ItemsPerPage
@@ -475,18 +484,26 @@
         [Authorize(Roles = "HR")]
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
         {
+            DateTime from;
+            DateTime to;
+
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                fromDate = DateTime.Now.Date;
-                toDate = DateTime.Now.Date;
+                from = DateTime.Now.Date;
+                to = DateTime.Now.Date;
+            }
+            else
+            {
+                from = fromDate.Value;
+                to = toDate.Value;
             }
 
             IList<Team> teams = _teamService.GetTeam();
 
             var model = new TimeRecordViewModel
             {
-                FromDate = fromDate.Value,
-                ToDate = toDate.Value,
+                FromDate = from,
+                ToDate = to,
                 Teams = teams,
                 CurrentPage = Constants.CurrentPage,
                 ItemsPerPage = Constants.ItemsPerPage

@@ -291,18 +291,20 @@
         public FileResult Avatar(string id)
         {
             string fileName = "/avatars/avatar.jpg";
-            if (string.IsNullOrWhiteSpace(id))
+            string userId = id;
+
+            if (string.IsNullOrWhiteSpace(userId))
             {
-                id = CurrentUser.Code + ".jpg";
+                userId = CurrentUser.Code + ".jpg";
             }
             else
             {
-                id += ".jpg";
+                userId += ".jpg";
             }
 
-            if (System.IO.File.Exists(Server.MapPath("/avatars/" + id)))
+            if (System.IO.File.Exists(Server.MapPath("/avatars/" + userId)))
             {
-                fileName = "/avatars/" + id;
+                fileName = "/avatars/" + userId;
             }
 
             return File(fileName, "image/jpeg");
@@ -465,27 +467,21 @@
             return criteria;
         }
 
-        private IList<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
+        private static IList<EmployeeBirthdayViewModel> SortEmployeeBirthdayByMonth(IEnumerable<Employee> employees)
         {
             var sortedEmployees = new List<EmployeeBirthdayViewModel>();
 
             if (employees.Any())
             {
-                employees = employees.OrderBy(e => e.DateOfBirth.Month).ThenBy(e => e.DateOfBirth.Day);
+                var orderedEmployees = employees.OrderBy(e => e.DateOfBirth.Month).ThenBy(e => e.DateOfBirth.Day);
 
-                foreach (var employee in employees)
+                sortedEmployees.AddRange(orderedEmployees.Select(employee => new EmployeeBirthdayViewModel
                 {
-                    var employeeBirthdayViewModel =
-                        new EmployeeBirthdayViewModel
-                        {
-                            DateOfBirth = employee.DateOfBirth.ToString("dd-MMM-yyyy"),
-                            FullName = employee.FullName,
-                            Month = employee.DateOfBirth.Month,
-                            NickName = employee.NickName
-                        };
-
-                    sortedEmployees.Add(employeeBirthdayViewModel);
-                }
+                    DateOfBirth = employee.DateOfBirth.ToString("dd-MMM-yyyy"),
+                    FullName = employee.FullName,
+                    Month = employee.DateOfBirth.Month,
+                    NickName = employee.NickName
+                }));
             }
 
             return sortedEmployees;
@@ -518,7 +514,7 @@
             return _employeeService.GetEmployeeById(criteria);
         }
 
-        private DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)
+        private static DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)
         {
             var defaultSchedule = new DefaultScheduleViewModel
             {
