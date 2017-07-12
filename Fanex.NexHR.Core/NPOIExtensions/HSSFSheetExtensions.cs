@@ -116,70 +116,79 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                 var row = sheet.GetRow(rowIndex);
 
                 // If no row exists here then skip to next row.
-                if (row != null)
+                if (row == null)
                 {
-                    // Get the last available column of current row.
-                    int lastColumn = row.LastCellNum;
-
-                    if (lastColumn >= columnIndex)
-                    {
-                        for (int currentCol = columnIndex; currentCol < lastColumn; currentCol++)
-                        {
-                            // Remove old cell.
-                            var oldCell = row.GetCell(currentCol);
-                            if (oldCell != null)
-                            {
-                                row.RemoveCell(oldCell);
-                            }
-
-                            // Move cell.
-                            var nextCell = row.GetCell(currentCol + 1);
-                            if (nextCell != null)
-                            {
-                                var newCell = row.CreateCell(currentCol, nextCell.CellType);
-                                if (adjustColumn)
-                                {
-                                    sheet.SetColumnWidth(newCell.ColumnIndex, sheet.GetColumnWidth(nextCell.ColumnIndex));
-                                }
-
-                                CloneCell(newCell, nextCell);
-                            }
-                        }
-
-                        // Remove last cell.
-                        var removeCell = row.GetCell(lastColumn);
-                        if (removeCell != null)
-                        {
-                            row.RemoveCell(removeCell);
-                        }
-                    }
-
-                    // Adjust merged region
-                    for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
-                    {
-                        var mergedRegion = sheet.GetMergedRegion(i);
-
-                        if (rowIndex == mergedRegion.FirstRow)
-                        {
-                            if ((columnIndex == mergedRegion.FirstColumn)
-                                && (columnIndex == mergedRegion.LastColumn))
-                            {
-                                sheet.RemoveMergedRegion(i);
-                            }
-                            else if (mergedRegion.FirstColumn > columnIndex)
-                            {
-                                mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
-                                mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                            }
-                            else if (columnIndex <= mergedRegion.LastColumn)
-                            {
-                                mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                            }
-                        }
-                    }
-
-                    adjustColumn = false;
+                    continue;
                 }
+
+                // Get the last available column of current row.
+                int lastColumn = row.LastCellNum;
+
+                if (lastColumn >= columnIndex)
+                {
+                    CopyCell(sheet, columnIndex, adjustColumn, row, lastColumn);
+                }
+
+                // Adjust merged region
+                for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
+                {
+                    var mergedRegion = sheet.GetMergedRegion(i);
+
+                    if (rowIndex != mergedRegion.FirstRow)
+                    {
+                        continue;
+                    }
+
+                    if ((columnIndex == mergedRegion.FirstColumn)
+                        && (columnIndex == mergedRegion.LastColumn))
+                    {
+                        sheet.RemoveMergedRegion(i);
+                    }
+                    else if (mergedRegion.FirstColumn > columnIndex)
+                    {
+                        mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
+                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                    }
+                    else if (columnIndex <= mergedRegion.LastColumn)
+                    {
+                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                    }
+                }
+
+                adjustColumn = false;
+            }
+        }
+
+        private static void CopyCell(ISheet sheet, int columnIndex, bool adjustColumn, IRow row, int lastColumn)
+        {
+            for (int currentCol = columnIndex; currentCol < lastColumn; currentCol++)
+            {
+                // Remove old cell.
+                var oldCell = row.GetCell(currentCol);
+                if (oldCell != null)
+                {
+                    row.RemoveCell(oldCell);
+                }
+
+                // Move cell.
+                var nextCell = row.GetCell(currentCol + 1);
+                if (nextCell != null)
+                {
+                    var newCell = row.CreateCell(currentCol, nextCell.CellType);
+                    if (adjustColumn)
+                    {
+                        sheet.SetColumnWidth(newCell.ColumnIndex, sheet.GetColumnWidth(nextCell.ColumnIndex));
+                    }
+
+                    CloneCell(newCell, nextCell);
+                }
+            }
+
+            // Remove last cell.
+            var removeCell = row.GetCell(lastColumn);
+            if (removeCell != null)
+            {
+                row.RemoveCell(removeCell);
             }
         }
 
@@ -244,60 +253,70 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             return cell;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
         private static void CloneCell(ICell newCell, ICell sourceCell)
         {
-            if (sourceCell != null)
+            if (sourceCell == null)
             {
-                if (sourceCell.CellComment != null)
-                {
-                    newCell.CellComment = sourceCell.CellComment;
-                }
+                return;
+            }
 
-                if (sourceCell.Hyperlink != null)
-                {
-                    newCell.Hyperlink = sourceCell.Hyperlink;
-                }
+            if (sourceCell.CellComment != null)
+            {
+                newCell.CellComment = sourceCell.CellComment;
+            }
 
-                if (sourceCell.CellStyle != null)
-                {
-                    newCell.CellStyle = sourceCell.CellStyle;
-                }
+            if (sourceCell.Hyperlink != null)
+            {
+                newCell.Hyperlink = sourceCell.Hyperlink;
+            }
 
-                newCell.SetCellType(sourceCell.CellType);
+            if (sourceCell.CellStyle != null)
+            {
+                newCell.CellStyle = sourceCell.CellStyle;
+            }
 
-                switch (sourceCell.CellType)
-                {
-                    case CellType.Boolean:
-                        {
-                            newCell.SetCellValue(sourceCell.BooleanCellValue);
-                            break;
-                        }
+            newCell.SetCellType(sourceCell.CellType);
+            SetCellValue(newCell, sourceCell);
+        }
 
-                    case CellType.Numeric:
-                        {
-                            newCell.SetCellValue(sourceCell.NumericCellValue);
-                            break;
-                        }
+        private static void SetCellValue(ICell newCell, ICell sourceCell)
+        {
+            switch (sourceCell.CellType)
+            {
+                case CellType.Boolean:
+                    {
+                        newCell.SetCellValue(sourceCell.BooleanCellValue);
+                        break;
+                    }
 
-                    case CellType.String:
-                        {
-                            newCell.SetCellValue(sourceCell.StringCellValue);
-                            break;
-                        }
+                case CellType.Numeric:
+                    {
+                        newCell.SetCellValue(sourceCell.NumericCellValue);
+                        break;
+                    }
 
-                    case CellType.Error:
-                        {
-                            newCell.SetCellValue(sourceCell.ErrorCellValue);
-                            break;
-                        }
+                case CellType.String:
+                    {
+                        newCell.SetCellValue(sourceCell.StringCellValue);
+                        break;
+                    }
 
-                    case CellType.Formula:
-                        {
-                            newCell.CellFormula = sourceCell.CellFormula;
-                            break;
-                        }
-                }
+                case CellType.Error:
+                    {
+                        newCell.SetCellValue(sourceCell.ErrorCellValue);
+                        break;
+                    }
+
+                case CellType.Formula:
+                    {
+                        newCell.CellFormula = sourceCell.CellFormula;
+                        break;
+                    }
+                case CellType.Unknown:
+                case CellType.Blank:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(sourceCell.CellType.ToString());
             }
         }
     }

@@ -29,3 +29,9 @@
     Justification = "Required to run",
     Scope = "member",
     Target = "~M:Fanex.NexHR.WebSite.MvcApplication.Application_Start")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.Core.Utilities.#RandomString(System.Int32)")]
+

@@ -104,11 +104,19 @@ namespace Fanex.NexHR.Core
                 ? string.Join(",", unavailDates.Select(d => d.ToString("dd MMM yyyy")))
                 : string.Empty;
 
+            var minDateString = minDate != null && minDate != DateTime.MinValue
+                ? ((DateTime)minDate).ToString("yyyy/MM/dd")
+                : "null";
+
+            var maxDateString = maxDate != null && maxDate != DateTime.MinValue
+                ? ((DateTime)maxDate).ToString("yyyy/MM/dd")
+                : "null";
+
             var htmlAttribute = new
             {
                 @class = "datepicker",
-                mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null",
-                maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null",
+                mindate = minDateString,
+                maxdate = maxDateString,
                 disabledDate
             };
 
