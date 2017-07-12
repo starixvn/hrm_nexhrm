@@ -232,13 +232,18 @@
             CheckTOEICScores(model);
         }
 
+        private static bool IsSubToeicScoreValid(int? score)
+        {
+            return score != null && score.Value != 0;
+        }
+
         private void CheckTOEICScores(Toeic model)
         {
             // check L/R/S/W
-            if ((!model.Listening.HasValue || model.Listening == 0)
-                && (!model.Reading.HasValue || model.Reading == 0)
-                && (!model.Speaking.HasValue || model.Speaking == 0)
-                && (!model.Writing.HasValue || model.Writing == 0))
+            if (!IsSubToeicScoreValid(model.Listening)
+                && !IsSubToeicScoreValid(model.Reading)
+                && !IsSubToeicScoreValid(model.Speaking)
+                && !IsSubToeicScoreValid(model.Writing))
             {
                 if (model.LRExamDate.HasValue || model.SWExamDate.HasValue || !model.InputDate.HasValue)
                 {
