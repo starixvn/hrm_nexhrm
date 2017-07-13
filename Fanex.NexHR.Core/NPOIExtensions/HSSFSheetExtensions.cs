@@ -47,43 +47,47 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                 int firstCellNum = Math.Min(sourceRow.FirstCellNum, firstColumnIndex);
                 int lastCellNum = Math.Min(sourceRow.LastCellNum, lastColumnIndex + 1);
 
-                // Loop through each cell of the source row to copy its data to the new row.
-                for (int i = firstCellNum; i < lastCellNum; i++)
+                CopyRowData(sheet, sourceSheet, sourceRow, newRow, firstCellNum, lastCellNum);
+            }
+        }
+
+        private static void CopyRowData(ISheet sheet, ISheet sourceSheet, IRow sourceRow, IRow newRow, int firstCellNum, int lastCellNum)
+        {
+            // Loop through each cell of the source row to copy its data to the new row.
+            for (int i = firstCellNum; i < lastCellNum; i++)
+            {
+                // Get the source cell.
+                var sourceCell = sourceRow.GetCell(i);
+
+                // If the source cell is null then jump to next cell
+                if (sourceCell == null)
                 {
-                    // Get the source cell.
-                    var sourceCell = sourceRow.GetCell(i);
+                    continue;
+                }
 
-                    // If the source cell is null then jump to next cell
-                    if (sourceCell == null)
+                // Create a new cell at current sheet, and clone the source cell data and style to it.
+                var newCell = newRow.CreateCell(i);
+                CloneCell(newCell, sourceCell);
+
+                // Copy merged area.
+                CellRangeAddress sourceRange = null;
+                for (var j = 0; j < sourceSheet.NumMergedRegions && sourceRange == null; j++)
+                {
+                    CellRangeAddress range = sourceSheet.GetMergedRegion(j);
+                    if (range.FirstColumn == sourceCell.ColumnIndex && range.FirstRow == sourceCell.RowIndex)
                     {
-                        continue;
+                        sourceRange = range;
                     }
+                }
 
-                    // Create a new cell at current sheet, and clone the source cell data and style to it.
-                    var newCell = newRow.CreateCell(i);
-                    CloneCell(newCell, sourceCell);
-
-                    // Copy merged area.
-                    CellRangeAddress sourceRange = null;
-                    for (var j = 0; j < sourceSheet.NumMergedRegions; j++)
-                    {
-                        CellRangeAddress range = sourceSheet.GetMergedRegion(j);
-                        if (range.FirstColumn == sourceCell.ColumnIndex && range.FirstRow == sourceCell.RowIndex)
-                        {
-                            sourceRange = range;
-                            break;
-                        }
-                    }
-
-                    if (sourceRange != null)
-                    {
-                        var newRange = new CellRangeAddress(
-                            newCell.RowIndex,
-                            newCell.RowIndex + sourceRange.LastRow - sourceRange.FirstRow,
-                            newCell.ColumnIndex,
-                            newCell.ColumnIndex + sourceRange.LastColumn - sourceRange.FirstColumn);
-                        sheet.AddMergedRegion(newRange);
-                    }
+                if (sourceRange != null)
+                {
+                    var newRange = new CellRangeAddress(
+                        newCell.RowIndex,
+                        newCell.RowIndex + sourceRange.LastRow - sourceRange.FirstRow,
+                        newCell.ColumnIndex,
+                        newCell.ColumnIndex + sourceRange.LastColumn - sourceRange.FirstColumn);
+                    sheet.AddMergedRegion(newRange);
                 }
             }
         }

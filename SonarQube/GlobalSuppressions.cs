@@ -34,4 +34,14 @@
     "CA1308:NormalizeStringsToUppercase",
     Scope = "member",
     Target = "Fanex.NexHR.Core.Utilities.#RandomString(System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.ViewModels.Navigation.NavigationViewModel.#Controller")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.ViewModels.Navigation.NavigationViewModel.#Action")]
 

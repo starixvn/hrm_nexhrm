@@ -101,7 +101,7 @@ namespace Fanex.NexHR.Core
                     var rand = (int)random[i];
                     while (!found)
                     {
-                        if (((rand >= 48) && (rand <= 57)) || ((rand >= 65) && (rand <= 90)) || ((rand >= 97) && (rand <= 122)))
+                        if (rand.IsWithin(48,57) || rand.IsWithin(65,90) || rand.IsWithin(97,122))
                         {
                             found = true;
                         }
@@ -120,6 +120,11 @@ namespace Fanex.NexHR.Core
 
                 return new string(ca).ToLower(CultureInfo.InvariantCulture);
             }
+        }
+
+        public static bool IsWithin(this int value, int minimum, int maximum)
+        {
+            return value >= minimum && value <= maximum;
         }
 
         public static IList<SelectListItem> MinuteSteps(int step)

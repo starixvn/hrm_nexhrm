@@ -67,8 +67,14 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         public static void SetCellValue(this ICell cell, double? value)
         {
-            value = value ?? 0;
-            cell.SetCellValue((double)value);
+            if (value != null)
+            {
+                cell.SetCellValue((double)value);
+            }
+            else
+            {
+                cell.SetCellValue(0);
+            }
         }
 
         public static void SetCellValue(this ICell cell, decimal value)
@@ -78,8 +84,14 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         public static void SetCellValue(this ICell cell, decimal? value)
         {
-            value = value ?? 0;
-            cell.SetCellValue((decimal)value);
+            if (value != null)
+            {
+                cell.SetCellValue((decimal)value);
+            }
+            else
+            {
+                cell.SetCellValue(0);
+            }
         }
 
         public static void SetCellValue(this ICell cell, int value)
@@ -89,8 +101,7 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         public static void SetCellValue(this ICell cell, int? value)
         {
-            value = value ?? 0;
-            cell.SetCellValue((int)value);
+            cell.SetCellValue(value ?? 0);
         }
 
         public static void SetCellValue(this ICell cell, long value)
@@ -100,8 +111,14 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         public static void SetCellValue(this ICell cell, long? value)
         {
-            value = value ?? 0;
-            cell.SetCellValue((long)value);
+            if (value != null)
+            {
+                cell.SetCellValue((long)value);
+            }
+            else
+            {
+                cell.SetCellValue(0);
+            }
         }
 
         public static void CopyFrom(this ICell cell, ICell sourceCell)
@@ -109,7 +126,7 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             // Copy merged cells.
             CellRangeAddress sourceRange = null;
 
-            for (var i = 0; i < sourceCell.Sheet.NumMergedRegions; i++)
+            for (var i = 0; i < sourceCell.Sheet.NumMergedRegions && sourceRange == null; i++)
             {
                 CellRangeAddress range = sourceCell.Sheet.GetMergedRegion(i);
 
@@ -119,7 +136,6 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                     && (range.LastRow >= sourceCell.RowIndex))
                 {
                     sourceRange = range;
-                    break;
                 }
             }
 
