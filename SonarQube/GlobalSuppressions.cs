@@ -64,4 +64,15 @@
     "CA1308:NormalizeStringsToUppercase",
     Scope = "member",
     Target = "Fanex.NexHR.Repositories.BaseRepository.#SetValueForOutputProperty(Fanex.Data.Repository.ICriteria,System.Collections.Hashtable)")]
-
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Sonar Code Smell",
+    "S126:\"if ... else if\" constructs should end with \"else\" clauses",
+    Justification = "<Pending>",
+    Scope = "member",
+    Target = "~M:Fanex.NexHR.Core.NPOIExtensions.HSSFCellExtensions.SetCellValue(NPOI.SS.UserModel.ICell,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Sonar Code Smell",
+    "S126:\"if ... else if\" constructs should end with \"else\" clauses",
+    Justification = "<Pending>",
+    Scope = "member",
+    Target = "~M:Fanex.NexHR.Core.NPOIExtensions.HSSFSheetExtensions.AdjustMergeRegion(NPOI.SS.UserModel.ISheet,System.Int32,System.Int32)")]

@@ -483,8 +483,8 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
             checkbox.MergeAttribute("value", "true");
 
-            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-            checkbox.MergeAttributes(htmlAttributes);
+            IDictionary<string, object> attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(attributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", fullHtmlFieldName);
@@ -529,8 +529,8 @@ namespace Fanex.NexHR.Core
                 checkbox.MergeAttribute("checked", "checked");
             }
 
-            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-            checkbox.MergeAttributes(htmlAttributes);
+            var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(attributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", fullHtmlFieldName);
@@ -580,8 +580,8 @@ namespace Fanex.NexHR.Core
                 checkbox.MergeAttribute("checked", "checked");
             }
 
-            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-            checkbox.MergeAttributes(htmlAttributes);
+            var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(attributes);
 
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", propertyName);
@@ -880,22 +880,19 @@ namespace Fanex.NexHR.Core
             SelectListItem firstItem,
             object htmlAttributes)
         {
-            if (firstItem?.Value != null)
+            if (firstItem?.Value == null)
             {
-                var list = new List<SelectListItem> { firstItem };
-
-                if (selectList != null)
-                {
-                    foreach (SelectListItem item in selectList)
-                    {
-                        list.Add(item);
-                    }
-                }
-
-                selectList = list;
+                return htmlHelper.DropDownListFor(expression, selectList, htmlAttributes);
             }
 
-            return htmlHelper.DropDownListFor(expression, selectList, htmlAttributes);
+            var list = new List<SelectListItem> { firstItem };
+
+            if (selectList != null)
+            {
+                list.AddRange(selectList);
+            }
+
+            return htmlHelper.DropDownListFor(expression, list, htmlAttributes);
         }
 
         #endregion Business

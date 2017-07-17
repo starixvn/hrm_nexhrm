@@ -133,33 +133,37 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                     CopyCell(sheet, columnIndex, adjustColumn, row, lastColumn);
                 }
 
-                // Adjust merged region
-                for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
-                {
-                    var mergedRegion = sheet.GetMergedRegion(i);
-
-                    if (rowIndex != mergedRegion.FirstRow)
-                    {
-                        continue;
-                    }
-
-                    if ((columnIndex == mergedRegion.FirstColumn)
-                        && (columnIndex == mergedRegion.LastColumn))
-                    {
-                        sheet.RemoveMergedRegion(i);
-                    }
-                    else if (mergedRegion.FirstColumn > columnIndex)
-                    {
-                        mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
-                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                    }
-                    else if (columnIndex <= mergedRegion.LastColumn)
-                    {
-                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                    }
-                }
+                AdjustMergeRegion(sheet, columnIndex, rowIndex);
 
                 adjustColumn = false;
+            }
+        }
+
+        private static void AdjustMergeRegion(ISheet sheet, int columnIndex, int rowIndex)
+        {
+            // Adjust merged region
+            for (var i = sheet.NumMergedRegions - 1; i >= 0; i--)
+            {
+                var mergedRegion = sheet.GetMergedRegion(i);
+
+                if (rowIndex != mergedRegion.FirstRow)
+                {
+                    continue;
+                }
+
+                if (columnIndex == mergedRegion.FirstColumn && columnIndex == mergedRegion.LastColumn)
+                {
+                    sheet.RemoveMergedRegion(i);
+                }
+                else if (columnIndex < mergedRegion.FirstColumn)
+                {
+                    mergedRegion.FirstColumn--;
+                    mergedRegion.LastColumn--;
+                }
+                else if (columnIndex <= mergedRegion.LastColumn)
+                {
+                    mergedRegion.LastColumn--;
+                }
             }
         }
 
