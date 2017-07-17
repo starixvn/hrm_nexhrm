@@ -19,20 +19,20 @@
 
                 <td>@(index++)</td>
                 <td class="tooltip" title="@overtimeSummary.Employee.FullName">@overtimeSummary.Employee.NickName</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.BalanceLastYear)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jan)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Feb)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Mar)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Apr)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.May)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jun)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Jul)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Aug)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Sep)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Oct)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Nov)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.Dec)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceLastYear)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jan)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Feb)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Mar)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Apr)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.May)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jun)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jul)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Aug)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Sep)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Oct)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Nov)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Dec)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
                 @if (overtimeSummary.LeaveConversion != 0)
                 {
                     var url = "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
@@ -49,8 +49,8 @@
                 {
                     <td>-</td>
                 }
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.LateInEarlyOut)</td>
-                <td>@overtimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.LateInEarlyOut)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
             </tr>
         }
     }

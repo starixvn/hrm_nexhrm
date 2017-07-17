@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SonarQube\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="AnnualLeaveRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />

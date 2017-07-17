@@ -44,4 +44,24 @@
     "CA1308:NormalizeStringsToUppercase",
     Scope = "member",
     Target = "Fanex.NexHR.ViewModels.Navigation.NavigationViewModel.#Action")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.Repositories.RequestRepository.#GetRequest(Fanex.Data.Repository.ICriteria)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.Repositories.ReportRepository.#GetTotalItemPropertyInfo(Fanex.Data.Repository.ICriteria)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.Repositories.ReportRepository.#GetTimeRecords(Fanex.Data.Repository.ICriteria)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "Fanex.NexHR.Repositories.BaseRepository.#SetValueForOutputProperty(Fanex.Data.Repository.ICriteria,System.Collections.Hashtable)")]
 

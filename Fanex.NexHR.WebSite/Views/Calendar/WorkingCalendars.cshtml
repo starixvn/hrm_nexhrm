@@ -216,8 +216,8 @@
                                                     var schedule = employeeSchedule;
                                                     var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == schedule.Employee.Id).ToList();
 
-                                                    IList<WorkingSchedule> renderWorkingSchedules = null;
-                                                    int currentWorkingDays = workingSchedules.Count();
+                                                    IList<WorkingSchedule> renderWorkingSchedules;
+                                                    int currentWorkingDays = workingSchedules.Count;
                                                     if (currentWorkingDays == daysInMonth)
                                                     {
                                                         renderWorkingSchedules = workingSchedules;

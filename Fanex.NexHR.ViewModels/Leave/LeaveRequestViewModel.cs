@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web;
     using Core;
     using Core.Enums;
     using Models;
     using Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
@@ -38,7 +38,7 @@
 
         public string LeaveTypeName { get; set; }
 
-        public static int ForRequest => (int)GeneralRequestType.Leave;
+        public int ForRequest { get; set; } = (int)GeneralRequestType.Leave;
 
         public decimal TotalRequest { get; set; }
 

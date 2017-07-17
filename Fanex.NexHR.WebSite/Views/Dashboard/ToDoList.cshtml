@@ -21,13 +21,13 @@
             </p>
             break;
         case 2:
-        <p class="green-border">
-            <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
-            <a href="~/checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
-               class="btn-toDoRequest waves-effect waves-light right">
-                Request
-            </a>
-        </p>
+            <p class="green-border">
+                <span class="left-align">You forgot to Check Out on <span class="teal link">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span></span>
+                <a href="~/checkinout/Create?date=@item.AttendanceDate.ToString("MM/dd/yyyy")&type=@item.MissingType"
+                   class="btn-toDoRequest waves-effect waves-light right">
+                    Request
+                </a>
+            </p>
             break;
     }
 }

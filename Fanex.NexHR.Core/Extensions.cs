@@ -280,17 +280,32 @@ namespace Fanex.NexHR.Core
 
             bool selectListFromViewData = false;
 
-            if (selectList == null)
+            IEnumerable<SelectListItem> copiedList = selectList;
+
+            if (copiedList == null)
             {
-                selectList = htmlHelper.ViewData.Eval(fullHtmlFieldName) as IEnumerable<SelectListItem>;
+                copiedList = htmlHelper.ViewData.Eval(fullHtmlFieldName) as IEnumerable<SelectListItem>;
                 selectListFromViewData = true;
             }
 
-            if (selectList == null)
+            if (copiedList == null)
             {
                 throw new ArgumentNullException(nameof(selectList));
             }
 
+            PopulateListData(htmlHelper, fullHtmlFieldName, ref selectListFromViewData, ref copiedList);
+
+            StringBuilder checkBoxListHtmlString = CreateCheckBoxListHtmlString(name, ref htmlAttributes, fullHtmlFieldName, copiedList);
+
+            return MvcHtmlString.Create(checkBoxListHtmlString.ToString());
+        }
+
+        private static void PopulateListData(
+            HtmlHelper htmlHelper,
+            string fullHtmlFieldName,
+            ref bool selectListFromViewData,
+            ref IEnumerable<SelectListItem> copiedList)
+        {
             object values = null;
             ModelState state;
 
@@ -310,7 +325,7 @@ namespace Fanex.NexHR.Core
 
                 var list = new List<SelectListItem>();
 
-                foreach (SelectListItem item in selectList)
+                foreach (SelectListItem item in copiedList)
                 {
                     if (valueList != null)
                     {
@@ -320,15 +335,18 @@ namespace Fanex.NexHR.Core
                     list.Add(item);
                 }
 
-                selectList = list;
+                copiedList = list;
             }
+        }
 
+        private static StringBuilder CreateCheckBoxListHtmlString(string name, ref IDictionary<string, object> htmlAttributes, string fullHtmlFieldName, IEnumerable<SelectListItem> copiedList)
+        {
             var sb = new StringBuilder();
 
             htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             htmlAttributes.Remove("checked");
 
-            foreach (var item in selectList)
+            foreach (var item in copiedList)
             {
                 var input = new TagBuilder("input");
 
@@ -351,7 +369,7 @@ namespace Fanex.NexHR.Core
                 sb.Append(label);
             }
 
-            return MvcHtmlString.Create(sb.ToString());
+            return sb;
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
@@ -618,57 +636,38 @@ namespace Fanex.NexHR.Core
                 throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
+            IEnumerable<SelectListItem> copiedList = selectList;
             bool selectListFromViewData = false;
 
-            if (selectList == null)
+            if (copiedList == null)
             {
-                selectList = htmlHelper.ViewData.Eval(fullHtmlFieldName) as IEnumerable<SelectListItem>;
+                copiedList = htmlHelper.ViewData.Eval(fullHtmlFieldName) as IEnumerable<SelectListItem>;
                 selectListFromViewData = true;
             }
 
-            if (selectList == null)
+            if (copiedList == null)
             {
                 throw new ArgumentNullException(nameof(selectList));
             }
 
-            object values = null;
-            ModelState state;
+            PopulateListData(htmlHelper, fullHtmlFieldName, ref selectListFromViewData, ref copiedList);
+            StringBuilder sb = CreateMaterializeCheckBoxListHtmlString(name, ref htmlAttributes, fullHtmlFieldName, copiedList);
 
-            if (htmlHelper.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out state) && (state.Value != null))
-            {
-                values = state.Value.ConvertTo(typeof(string[]), null);
-            }
+            return MvcHtmlString.Create(sb.ToString());
+        }
 
-            if (!selectListFromViewData && (values == null))
-            {
-                values = htmlHelper.ViewData.Eval(fullHtmlFieldName);
-            }
-
-            if (values != null)
-            {
-                var valueList = values.GetType() == typeof(string[]) ? values as string[] : values.ToString().Split(',');
-
-                var list = new List<SelectListItem>();
-
-                foreach (SelectListItem item in selectList)
-                {
-                    if (valueList != null)
-                    {
-                        item.Selected = (item.Value != null) && valueList.Contains(item.Value);
-                    }
-
-                    list.Add(item);
-                }
-
-                selectList = list;
-            }
-
+        private static StringBuilder CreateMaterializeCheckBoxListHtmlString(
+            string name,
+            ref IDictionary<string, object> htmlAttributes,
+            string fullHtmlFieldName,
+            IEnumerable<SelectListItem> copiedList)
+        {
             var sb = new StringBuilder();
 
             htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             htmlAttributes.Remove("checked");
 
-            foreach (var item in selectList)
+            foreach (var item in copiedList)
             {
                 var input = new TagBuilder("input");
 
@@ -695,7 +694,7 @@ namespace Fanex.NexHR.Core
                 sb.Append(label);
             }
 
-            return MvcHtmlString.Create(sb.ToString());
+            return sb;
         }
 
         #endregion MaterializeCheckBoxList
