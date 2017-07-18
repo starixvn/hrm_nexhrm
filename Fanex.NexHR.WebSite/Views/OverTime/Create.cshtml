@@ -34,7 +34,8 @@
                                     </div>
                                 </div>
                             }
-                            <div class="row form-input">
+
+                            @*<div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.Date)
@@ -44,9 +45,55 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
+                            </div>*@
+
+                            <!--From-->
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.FromDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.FromDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--m">
+                                    @*@Html.Html5Number(0, 23, 1, Model.FromDate.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
+                                    @*@Html.TextBoxFor(x => x.FromDate.Hour, new {type="number", max="23", min="0", step="1"})*@
+                                    @*<input type="number" max="23" min="0" step="1"/>*@
+                                </div>
+                                <div class="col p-0">
+                                    <span class="colon">:</span>
+                                </div>
+                                <div class="col">
+                                    @*@Html.Html5Number(0, 59, 1, Model.FromDate.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
+                                </div>
                             </div>
 
+                            <!--To-->
                             <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ToDate)
+                                    </div>
+                                    <div class="datepicker-button left select--s">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--m">
+                                    @*@Html.Html5Number(0, 23, 1, Model.ToDate.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
+                                </div>
+                                <div class="col p-0">
+                                    <span class="colon">:</span>
+                                </div>
+                                <div class="col">
+                                    @*@Html.Html5Number(0, 59, 1, Model.ToDate.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
+                                </div>
+                            </div>
+
+                            @*<div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.Hour, Labels.Duration)
@@ -55,7 +102,7 @@
                                         @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5", min = "1" })
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <div class="row form-input">
                                 <div class="col m-r--m">

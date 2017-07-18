@@ -435,23 +435,14 @@ namespace Fanex.NexHR.Core
             string name,
             bool isChecked)
         {
-            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            string fullHtmlFieldName;
+            TagBuilder checkbox;
+            InitializeBasicCheckBox(htmlHelper, name, isChecked, out fullHtmlFieldName, out checkbox);
+            return ApplyTagLabel(fullHtmlFieldName, checkbox);
+        }
 
-            if (string.IsNullOrEmpty(fullHtmlFieldName))
-            {
-                throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
-            }
-
-            TagBuilder checkbox = new TagBuilder("input");
-            checkbox.MergeAttribute("id", fullHtmlFieldName);
-            checkbox.MergeAttribute("name", fullHtmlFieldName);
-            checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
-            checkbox.MergeAttribute("value", "true");
-            if (isChecked)
-            {
-                checkbox.MergeAttribute("checked", "checked");
-            }
-
+        private static MvcHtmlString ApplyTagLabel(string fullHtmlFieldName, TagBuilder checkbox)
+        {
             TagBuilder label = new TagBuilder("label");
             label.MergeAttribute("for", fullHtmlFieldName);
 
@@ -518,14 +509,25 @@ namespace Fanex.NexHR.Core
             bool isChecked,
             IDictionary<string, object> htmlAttributes)
         {
-            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            string fullHtmlFieldName;
+            TagBuilder checkbox;
+            InitializeBasicCheckBox(htmlHelper, name, isChecked, out fullHtmlFieldName, out checkbox);
 
+            var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            checkbox.MergeAttributes(attributes);
+
+            return ApplyTagLabel(fullHtmlFieldName, checkbox);
+        }
+
+        private static void InitializeBasicCheckBox(HtmlHelper htmlHelper, string name, bool isChecked, out string fullHtmlFieldName, out TagBuilder checkbox)
+        {
+            fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             if (string.IsNullOrEmpty(fullHtmlFieldName))
             {
                 throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
-            TagBuilder checkbox = new TagBuilder("input");
+            checkbox = new TagBuilder("input");
             checkbox.MergeAttribute("id", fullHtmlFieldName);
             checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
@@ -534,19 +536,6 @@ namespace Fanex.NexHR.Core
             {
                 checkbox.MergeAttribute("checked", "checked");
             }
-
-            var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-            checkbox.MergeAttributes(attributes);
-
-            TagBuilder label = new TagBuilder("label");
-            label.MergeAttribute("for", fullHtmlFieldName);
-
-            TagBuilder hidden = new TagBuilder("input");
-            hidden.MergeAttribute("name", fullHtmlFieldName);
-            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
-            hidden.MergeAttribute("value", "false");
-
-            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
 
         #endregion MaterializeCheckBox
