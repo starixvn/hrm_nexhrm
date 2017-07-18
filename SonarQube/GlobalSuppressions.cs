@@ -76,3 +76,8 @@
     Justification = "<Pending>",
     Scope = "member",
     Target = "~M:Fanex.NexHR.Core.NPOIExtensions.HSSFSheetExtensions.AdjustMergeRegion(NPOI.SS.UserModel.ISheet,System.Int32,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Microsoft.Globalization",
+    "CA1308:NormalizeStringsToUppercase",
+    Scope = "member",
+    Target = "AutoJobs.MailReminderService.#SendMailReminderForgotCheckInOut()")]

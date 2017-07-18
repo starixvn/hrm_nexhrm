@@ -281,7 +281,7 @@
             if (minutes > 0)
             {
                 TimeSpan timeSpan = TimeSpan.FromMinutes(minutes);
-                return timeSpan.ToString("hh:mm");
+                return $"{timeSpan.Hours}:{timeSpan.Minutes}";
             }
 
             return string.Empty;

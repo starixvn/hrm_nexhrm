@@ -99,36 +99,35 @@
                 var employeeList = EmployeeService.GetMissingCheckInOutByEmpId(getMissingCheckInOutCriteria);
                 employeeList = employeeList.Where(s => !IgnoreList.Contains(s.NickName.ToLower(CultureInfo.InvariantCulture))).ToList();
 
-                if (employeeList.Count > 0)
-                {
-                    Log.Info("There is/are " + employeeList.Count + " employee(s) forgot check in/out");
-
-                    var bodyTemplate = ReadTextFile("emails/forgetcheckinginout.cshtml");
-
-                    if (!string.IsNullOrWhiteSpace(bodyTemplate))
-                    {
-                        foreach (var item in employeeList)
-                        {
-                            Log.Info(item.Email);
-                            string emailContent = CreateEmailBody(bodyTemplate, item);
-                            string emailSubject = string.Join(null, SenderName, " - Forgot ", item.MissingType == 1 ? "Check In" : "Check Out");
-
-                            EmailService.SendEmail(
-                                SenderEmail,
-                                receiverEmail: item.Email,
-                                mailCC: null,
-                                subject: emailSubject,
-                                body: emailContent);
-                        }
-                    }
-                    else
-                    {
-                        Log.Error("Cannot load email template service emails/forgetcheckinginout.cshtml or it's empty");
-                    }
-                }
-                else
+                if (employeeList.Count <= 0)
                 {
                     Log.Info("No one missed check in/out");
+                    return;
+                }
+
+                Log.Info($"There is/are {employeeList.Count} employee(s) forgot check in/out");
+
+                var bodyTemplate = ReadTextFile("emails/forgetcheckinginout.cshtml");
+
+                if (string.IsNullOrWhiteSpace(bodyTemplate))
+                {
+                    Log.Error("Cannot load email template service emails/forgetcheckinginout.cshtml or it's empty");
+                    return;
+                }
+
+                foreach (var item in employeeList)
+                {
+                    Log.Info(item.Email);
+                    string emailContent = CreateEmailBody(bodyTemplate, item);
+                    string emailSubject = string.Join(null, SenderName, " - Forgot ",
+                        item.MissingType == 1 ? "Check In" : "Check Out");
+
+                    EmailService.SendEmail(
+                        SenderEmail,
+                        receiverEmail: item.Email,
+                        mailCC: null,
+                        subject: emailSubject,
+                        body: emailContent);
                 }
             }
             catch (Exception ex)
@@ -189,16 +188,16 @@
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
+            var pathCombine = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
 
-            if (!File.Exists(filePath))
+            if (!File.Exists(pathCombine))
             {
-                throw new FileNotFoundException(filePath);
+                throw new FileNotFoundException(pathCombine);
             }
 
             try
             {
-                using (var sr = new StreamReader(filePath))
+                using (var sr = new StreamReader(pathCombine))
                 {
                     return sr.ReadToEnd();
                 }

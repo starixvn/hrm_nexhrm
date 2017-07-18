@@ -248,32 +248,44 @@ namespace Fanex.NexHR.Core
             }
 
             // Let us sort it.
-            IEnumerable<T> query = from item in data select item;
+            IEnumerable<T> query = data.Select(item => item);
             IOrderedEnumerable<T> orderedQuery = null;
 
             for (int i = 0; i < sortExpressions.Count; i++)
             {
                 // We need to keep the loop index, not sure why it is altered by the Linq.
                 var index = i;
-                Func<T, object> expression = item => item.GetType().GetProperty(sortExpressions[index].Property)?.GetValue(item, null);
-
-                if (sortExpressions[index].Direction == "asc")
-                {
-                    if (orderedQuery != null)
-                    {
-                        orderedQuery = (index == 0)
-                            ? query.OrderBy(expression)
-                            : orderedQuery.ThenBy(expression);
-                    }
-                }
-                else
-                {
-                    orderedQuery = (index == 0) ? query.OrderByDescending(expression)
-                             : orderedQuery?.ThenByDescending(expression);
-                }
+                Func<T, object> expression = GetSortExpression<T>(sortExpressions, index);
+                orderedQuery = SortOrderedQuery(sortExpressions, query, orderedQuery, index, expression);
             }
 
             return orderedQuery?.ToList();
+        }
+
+        private static IOrderedEnumerable<T> SortOrderedQuery<T>(IList<SortModel> sortExpressions, IEnumerable<T> query, IOrderedEnumerable<T> orderedQuery, int index, Func<T, object> expression)
+        {
+            IOrderedEnumerable<T> sorted = null;
+            if (sortExpressions[index].Direction == "asc")
+            {
+                if (orderedQuery != null)
+                {
+                    sorted = (index == 0)
+                        ? query.OrderBy(expression)
+                        : orderedQuery.ThenBy(expression);
+                }
+            }
+            else
+            {
+                sorted = (index == 0) ? query.OrderByDescending(expression)
+                         : orderedQuery?.ThenByDescending(expression);
+            }
+
+            return sorted;
+        }
+
+        private static Func<T, object> GetSortExpression<T>(IList<SortModel> sortExpressions, int index)
+        {
+            return item => item.GetType().GetProperty(sortExpressions[index].Property)?.GetValue(item, null);
         }
 
         public static string GetDescription(Enum enumType)

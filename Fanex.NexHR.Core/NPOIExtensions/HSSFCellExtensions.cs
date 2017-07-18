@@ -9,9 +9,9 @@
 
 namespace Fanex.NexHR.Core.NPOIExtensions
 {
-    using System;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
 
     public static class HSSFCellExtensions
     {
@@ -20,49 +20,65 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             if (value == null)
             {
                 cell.SetCellValue(string.Empty);
+                return;
+            }
+
+            var stringValue = value as string;
+            ////var richTextString = value as IRichTextString;
+
+            if (!string.IsNullOrEmpty(stringValue))
+            {
+                ////if (richTextString != null)
+                ////{
+                ////    cell.SetCellValue(richTextString);
+                ////}
+                ////else
+                ////{
+                    cell.SetCellValue(stringValue);
+                ////}
             }
             else
             {
-                var stringValue = value as string;
-                var richTextString = value as IRichTextString;
-
-                if (stringValue != null)
-                {
-                    cell.SetCellValue(stringValue);
-                }
-                else if (value is int)
-                {
-                    cell.SetCellValue((int)value);
-                }
-                else if (value is long)
-                {
-                    cell.SetCellValue((long)value);
-                }
-                else if (value is float)
-                {
-                    cell.SetCellValue((float)value);
-                }
-                else if (value is double)
-                {
-                    cell.SetCellValue((double)value);
-                }
-                else if (value is decimal)
-                {
-                    cell.SetCellValue((decimal)value);
-                }
-                else if (value is bool)
-                {
-                    cell.SetCellValue((bool)value);
-                }
-                else if (value is DateTime)
-                {
-                    cell.SetCellValue((DateTime)value);
-                }
-                else if (richTextString != null)
-                {
-                    cell.SetCellValue(richTextString);
-                }
+                dynamic dynamicValue = value;
+                cell.SetCellValue(dynamicValue);
             }
+
+            ////if (stringValue != null)
+            ////{
+            ////    cell.SetCellValue(stringValue);
+            ////}
+            ////else if (value is int)
+            ////{
+            ////    cell.SetCellValue((int)value);
+            ////}
+            ////else if (value is long)
+            ////{
+            ////    cell.SetCellValue((long)value);
+            ////}
+            ////else if (value is float)
+            ////{
+            ////    cell.SetCellValue((float)value);
+            ////}
+            ////else if (value is double)
+            ////{
+            ////    cell.SetCellValue((double)value);
+            ////}
+            ////else if (value is decimal)
+            ////{
+            ////    SetCellValue(cell, (object)(decimal)value);
+            ////}
+            ////else if (value is bool)
+            ////{
+            ////    cell.SetCellValue((bool)value);
+            ////}
+            ////else if (value is DateTime)
+            ////{
+            ////    cell.SetCellValue((DateTime)value);
+            ////}
+            ////else if (richTextString != null)
+            ////{
+            ////    cell.SetCellValue(richTextString);
+            ////}
         }
 
         public static void SetCellValue(this ICell cell, double? value)
