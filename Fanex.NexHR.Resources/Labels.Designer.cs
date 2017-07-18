@@ -3814,6 +3814,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Working Hours Statistic.
+        /// </summary>
+        public static string WorkingHoursStatistic {
+            get {
+                return ResourceManager.GetString("WorkingHoursStatistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Working Schedule.
         /// </summary>
         public static string WorkingSchedule {

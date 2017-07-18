@@ -241,6 +241,15 @@
     <Content Include="Content\Images\Dashboard\5.png" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
+    <Content Include="Content\Materialize\materialize.css">
+      <DependentUpon>materialize.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\employee.edit.css">
+      <DependentUpon>employee.edit.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\employee.postnatal.css">
       <DependentUpon>employee.postnatal.scss</DependentUpon>
     </Content>
@@ -249,6 +258,9 @@
     <None Include="Content\Common\components\_dropdown.scss" />
     <None Include="Content\Common\components\_color.scss" />
     <None Include="Content\Common\components\_button.scss" />
+    <Content Include="Content\Views\eventcalendar.css">
+      <DependentUpon>eventcalendar.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Views\eventcalendar.scss" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
@@ -256,8 +268,11 @@
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
-    <Content Include="Content\Views\eventcalendar.css">
-      <DependentUpon>eventcalendar.scss</DependentUpon>
+    <Content Include="Content\Views\my.profile.css">
+      <DependentUpon>my.profile.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\mycalendar.css">
+      <DependentUpon>mycalendar.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
@@ -265,11 +280,12 @@
     <Content Include="Content\Views\report.timesheet.css">
       <DependentUpon>report.timesheet.scss</DependentUpon>
     </Content>
-    <Content Include="Content\Views\_monthPicker.scss" />
-    <Content Include="Content\Views\mydashboard.css">
-      <DependentUpon>mydashboard.scss</DependentUpon>
+    <Content Include="Content\Views\report.workinghoursstatistic.css">
+      <DependentUpon>report.workinghoursstatistic.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\_monthPicker.scss" />
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
+    <Content Include="Content\Views\report.workinghoursstatistic.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
@@ -295,13 +311,7 @@
     <Content Include="Content\Images\skype.png" />
     <Content Include="Content\Images\sort-icon.png" />
     <Content Include="Content\Images\sprite_ico_2012-05-15.png" />
-    <Content Include="Content\Materialize\materialize.css">
-      <DependentUpon>materialize.scss</DependentUpon>
-    </Content>
     <Content Include="Content\Images\user.png" />
-    <Content Include="Content\site.css">
-      <DependentUpon>site.scss</DependentUpon>
-    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -341,20 +351,11 @@
     <Content Include="Content\Views\employee.birthday.css">
       <DependentUpon>employee.birthday.scss</DependentUpon>
     </Content>
-    <Content Include="Content\Views\employee.edit.css">
-      <DependentUpon>employee.edit.scss</DependentUpon>
-    </Content>
     <Content Include="Content\Views\geolocation.css">
       <DependentUpon>geolocation.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\jobtitle.css">
       <DependentUpon>jobtitle.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Views\my.profile.css">
-      <DependentUpon>my.profile.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Views\mycalendar.css">
-      <DependentUpon>mycalendar.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\mydashboard.css">
       <DependentUpon>mydashboard.scss</DependentUpon>
@@ -695,6 +696,7 @@
     <Content Include="Scripts\Views\AnnualLeave\leave.deduction.detail.js" />
     <Content Include="Scripts\Views\Report\report.leave.summary.js" />
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
+    <Content Include="Scripts\Views\Report\report.workinghoursstatistic.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Report\report.monitoring.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
@@ -816,6 +818,7 @@
     <Content Include="Views\CompanyEvent\Create.cshtml" />
     <Content Include="Views\CompanyEvent\Edit.cshtml" />
     <Content Include="Views\CompanyEvent\Detail.cshtml" />
+    <Content Include="Views\Report\WorkingHoursStatistic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

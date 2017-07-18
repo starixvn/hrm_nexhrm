@@ -164,8 +164,8 @@
             var record = new
             {
                 Count = rowIndex,
-                AttendanceDate = FormatDate(employeeAttendance.AttendanceDate),
-                employeeAttendance.Code,
+                AttendanceDate = employeeAttendance.AttendanceDate,
+                Code = employeeAttendance.Code,
                 Nick = employeeAttendance.NickName,
                 employeeAttendance.FullName,
                 Team = employeeAttendance.TeamCode,
@@ -218,26 +218,26 @@
                 employee.Code,
                 employee.FullName,
                 Nick = employee.NickName,
-                DoB = FormatDate(employee.DateOfBirth),
+                DoB = employee.DateOfBirth,
                 employee.Email,
                 JobTitle = JobTitle(employee),
                 Team = FormatString(employee.Team.Name),
-                JoinedDate = FormatDate(employee.JoinedDate),
-                ConfirmedDate = FormatDate(employee.ConfirmedDate),
-                ResignedDate = FormatDate(employee.ResignedDate),
+                JoinedDate = employee.JoinedDate,
+                ConfirmedDate = employee.ConfirmedDate,
+                ResignedDate = employee.ResignedDate,
                 Phone = FormatString(employee.Phone),
                 Gender = Gender(employee),
                 CardNo = FormatString(employee.CardNo),
-                IssuedDate = FormatDate(employee.IssuedDate),
+                IssuedDate = employee.IssuedDate,
                 IssuedPlace = FormatString(employee.IssuedPlace),
                 CurrentAddress = FormatString(employee.CurrentAddress),
                 PermanentAddress = FormatString(employee.PermanentAddress),
                 PassportNo = FormatString(employee.PassportNo),
-                PassportExp = FormatDate(employee.PassportExp),
                 Listening = FormatToeicScore(employee.ToeicScore?.Listening),
                 Reading = FormatToeicScore(employee.ToeicScore?.Reading),
                 Speaking = FormatToeicScore(employee.ToeicScore?.Speaking),
                 Writing = FormatToeicScore(employee.ToeicScore?.Writing)
+                PassportExp = employee.PassportExp,
             };
             rowIndex++;
 
@@ -256,17 +256,7 @@
 
         #endregion Employee Profile
 
-        private static string FormatDate(DateTime? date)
-        {
-            if (date == null)
-            {
-                return string.Empty;
-            }
-
-            return date.Value.ToString("dd MMM, yyyy");
-        }
-
-        private static string GetTime(DateTime? date)
+        private string GetTime(DateTime? date)
         {
             if (date == null)
             {

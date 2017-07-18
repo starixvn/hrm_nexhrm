@@ -546,5 +546,52 @@
 
             return PartialView("_ListTimeRecord", timeRecords);
         }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public JsonResult GetWorkingHoursStatistic(TotalWorkingHoursViewModel model)
+        {
+            if (model == null)
+            {
+                int year = DateTime.Now.Year,
+                    month = DateTime.Now.Month;
+
+                model = new TotalWorkingHoursViewModel
+                {
+                    FromDate = new DateTime(year, month, 1),
+                    ToDate = DateTime.Now,
+                    DateOption = 5,
+                    IsExportExcel = false
+                };
+            }
+
+            var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId
+            };
+
+            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+
+            return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult WorkingHoursStatistic()
+        {
+            IList<Team> teams = _teamService.GetTeam();
+
+            var model = new TotalWorkingHoursViewModel
+            {
+                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
+                ToDate = DateTime.Now,
+                DateOption = 5,
+                IsExportExcel = false,
+                Teams = teams
+            };
+            return View(model);
+        }
     }
 }

@@ -98,6 +98,8 @@
             BuildBundleForMonthPicker(bundles);
 
             BuildBundleForCompanyEvent(bundles);
+
+            BuildBundleForWorkingHoursStatistic(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -168,6 +170,15 @@
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.totalworkinghours.js"));
+        }
+
+        private static void BuildBundleForWorkingHoursStatistic(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/workinghoursstatisticjs").Include(
+                "~/Scripts/Views/Report/report.workinghoursstatistic.js"));
+
+            bundles.Add(new StyleBundle("~/Content/workinghoursstatisticcss")
+                .Include("~/Content/Views/report.timesheet.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForHolidays(BundleCollection bundles)
