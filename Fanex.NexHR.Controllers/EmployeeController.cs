@@ -75,8 +75,13 @@
             int? jobTitleId = null,
             string sort = null)
         {
-            EmployeeListViewModel listEmployee = new EmployeeListViewModel();
-            listEmployee.StatusViewType = enable.HasValue ? (enable.Value ? (int)TypeList.Disabled : (int)TypeList.Active) : (int)TypeList.Deleted;
+            EmployeeListViewModel listEmployee =
+                new EmployeeListViewModel
+                {
+                    StatusViewType = enable.HasValue
+                        ? (enable.Value ? (int)TypeList.Disabled : (int)TypeList.Active)
+                        : (int)TypeList.Deleted
+                };
 
             var criteria = new GetEmployeeCriteria
             {
@@ -534,11 +539,11 @@
 
         private static IList<Employee> SortEmployee(string sort, IList<Employee> employees)
         {
-            IList<Employee> employeesSorted = new List<Employee>();
+            IList<Employee> employeesSorted = employees;
+
             if (sort != null)
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
-
                 employeesSorted = Utilities.MultipleSort(employees, sorts);
             }
 
