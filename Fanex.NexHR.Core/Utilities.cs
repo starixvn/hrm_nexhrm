@@ -262,7 +262,12 @@ namespace Fanex.NexHR.Core
             return orderedQuery?.ToList();
         }
 
-        private static IOrderedEnumerable<T> SortOrderedQuery<T>(IList<SortModel> sortExpressions, IEnumerable<T> query, IOrderedEnumerable<T> orderedQuery, int index, Func<T, object> expression)
+        private static IOrderedEnumerable<T> SortOrderedQuery<T>(
+            IList<SortModel> sortExpressions,
+            IEnumerable<T> query,
+            IOrderedEnumerable<T> orderedQuery,
+            int index,
+            Func<T, object> expression)
         {
             IOrderedEnumerable<T> sorted = null;
             if (sortExpressions[index].Direction == "asc")
@@ -276,8 +281,9 @@ namespace Fanex.NexHR.Core
             }
             else
             {
-                sorted = (index == 0) ? query.OrderByDescending(expression)
-                         : orderedQuery?.ThenByDescending(expression);
+                sorted = (index == 0)
+                    ? query.OrderByDescending(expression)
+                    : orderedQuery?.ThenByDescending(expression);
             }
 
             return sorted;

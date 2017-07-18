@@ -25,8 +25,13 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
-        public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex, int firstColumnIndex, int lastColumnIndex)
+        public static void CopyRow(
+            this ISheet sheet,
+            ISheet sourceSheet,
+            int sourceRowIndex,
+            int rowIndex,
+            int firstColumnIndex,
+            int lastColumnIndex)
         {
             // Expand the sheet to satisfy the number of needed rows.
             for (var i = sheet.LastRowNum + 1; i <= rowIndex; i++)
@@ -51,7 +56,8 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             }
         }
 
-        private static void CopyRowData(ISheet sheet, ISheet sourceSheet, IRow sourceRow, IRow newRow, int firstCellNum, int lastCellNum)
+        private static void CopyRowData(ISheet sheet, ISheet sourceSheet, IRow sourceRow, IRow newRow, int firstCellNum,
+            int lastCellNum)
         {
             // Loop through each cell of the source row to copy its data to the new row.
             for (int i = firstCellNum; i < lastCellNum; i++)
@@ -111,7 +117,8 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Need to review here.")]
         public static void RemoveColumn(this ISheet sheet, int columnIndex)
         {
             bool adjustColumn = true;
@@ -243,7 +250,8 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             return cell;
         }
 
-        public static ICell CreateCell(this ISheet sheet, int rowIndex, int colIndex, int rowSpan, int colSpan, ICellStyle cellStyle)
+        public static ICell CreateCell(this ISheet sheet, int rowIndex, int colIndex, int rowSpan, int colSpan,
+            ICellStyle cellStyle)
         {
             ICell cell = sheet.CreateCell(rowIndex, colIndex, rowSpan, colSpan);
             cell.CellStyle = cellStyle;
@@ -292,34 +300,34 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             switch (sourceCell.CellType)
             {
                 case CellType.Boolean:
-                    {
-                        newCell.SetCellValue(sourceCell.BooleanCellValue);
-                        break;
-                    }
+                {
+                    newCell.SetCellValue(sourceCell.BooleanCellValue);
+                    break;
+                }
 
                 case CellType.Numeric:
-                    {
-                        newCell.SetCellValue(sourceCell.NumericCellValue);
-                        break;
-                    }
+                {
+                    newCell.SetCellValue(sourceCell.NumericCellValue);
+                    break;
+                }
 
                 case CellType.String:
-                    {
-                        newCell.SetCellValue(sourceCell.StringCellValue);
-                        break;
-                    }
+                {
+                    newCell.SetCellValue(sourceCell.StringCellValue);
+                    break;
+                }
 
                 case CellType.Error:
-                    {
-                        newCell.SetCellValue(sourceCell.ErrorCellValue);
-                        break;
-                    }
+                {
+                    newCell.SetCellValue(sourceCell.ErrorCellValue);
+                    break;
+                }
 
                 case CellType.Formula:
-                    {
-                        newCell.CellFormula = sourceCell.CellFormula;
-                        break;
-                    }
+                {
+                    newCell.CellFormula = sourceCell.CellFormula;
+                    break;
+                }
                 case CellType.Unknown:
                 case CellType.Blank:
                     break;

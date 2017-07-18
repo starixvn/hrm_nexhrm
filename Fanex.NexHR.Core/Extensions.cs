@@ -339,11 +339,17 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        private static StringBuilder CreateCheckBoxListHtmlString(string name, ref IDictionary<string, object> htmlAttributes, string fullHtmlFieldName, IEnumerable<SelectListItem> copiedList)
+        private static StringBuilder CreateCheckBoxListHtmlString(
+            string name,
+            ref IDictionary<string, object> htmlAttributes,
+            string fullHtmlFieldName,
+            IEnumerable<SelectListItem> copiedList)
         {
             var sb = new StringBuilder();
 
-            htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            htmlAttributes = (htmlAttributes == null)
+                ? new RouteValueDictionary()
+                : new RouteValueDictionary(htmlAttributes);
             htmlAttributes.Remove("checked");
 
             foreach (var item in copiedList)
