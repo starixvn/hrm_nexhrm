@@ -81,6 +81,7 @@
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
+    <Compile Include="Report\GetWorkingHoursStatisticCriteria.cs" />
     <Compile Include="Request\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetDashBoardCompanySpaceCriteria.cs" />

@@ -98,5 +98,16 @@
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutDiscipline>();
         }
+
+        public IList<WorkingHoursStatistic> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria)
+        {
+            IList<WorkingHoursStatistic> totalWorkingHours = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                totalWorkingHours = _reportRepository.GetWorkingHoursStatistic(criteria);
+            }
+
+            return totalWorkingHours ?? new List<WorkingHoursStatistic>();
+        }
     }
 }

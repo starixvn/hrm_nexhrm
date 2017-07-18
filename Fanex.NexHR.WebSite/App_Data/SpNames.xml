@@ -203,6 +203,12 @@
       <Mapping DataField="GroupCode" ObjectProperty="Code" />
       <Mapping DataField="GroupName" ObjectProperty="Name" />
     </Setting>
+    <Setting Key="Report_WorkingHoursStatistic" SpName="Report_WorkingHoursStatistic" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+      <Mapping DataField="GroupCode" ObjectProperty="Code" />
+      <Mapping DataField="GroupName" ObjectProperty="Name" />
+    </Setting>
     <Setting Key="Report_RequestMonitor" SpName="Report_RequestMonitor" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />

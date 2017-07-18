@@ -538,14 +538,14 @@
 
         [ValidateInput(false)]
         [HttpPost]
-        public JsonResult GetWorkingHoursStatistic(TotalWorkingHoursViewModel model)
+        public JsonResult GetWorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
             if (model == null)
             {
                 int year = DateTime.Now.Year,
                     month = DateTime.Now.Month;
 
-                model = new TotalWorkingHoursViewModel
+                model = new WorkingHoursStatisticViewModel
                 {
                     FromDate = new DateTime(year, month, 1),
                     ToDate = DateTime.Now,
@@ -554,7 +554,7 @@
                 };
             }
 
-            var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
+            var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
@@ -562,7 +562,7 @@
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<WorkingHoursStatistic> totalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
@@ -572,13 +572,16 @@
         {
             IList<Team> teams = _teamService.GetTeam();
 
-            var model = new TotalWorkingHoursViewModel
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var model = new WorkingHoursStatisticViewModel
             {
-                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
-                ToDate = DateTime.Now,
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1),
                 DateOption = 5,
                 IsExportExcel = false,
-                Teams = teams
+                Teams = teams,
+                Month = date.Month,
+                Year = date.Year
             };
             return View(model);
         }
