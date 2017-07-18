@@ -483,15 +483,7 @@ namespace Fanex.NexHR.Core
             IDictionary<string, object> attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             checkbox.MergeAttributes(attributes);
 
-            TagBuilder label = new TagBuilder("label");
-            label.MergeAttribute("for", fullHtmlFieldName);
-
-            TagBuilder hidden = new TagBuilder("input");
-            hidden.MergeAttribute("name", fullHtmlFieldName);
-            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
-            hidden.MergeAttribute("value", "false");
-
-            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
+            return ApplyTagLabel(fullHtmlFieldName, checkbox);
         }
 
         public static MvcHtmlString MaterializeCheckBox(

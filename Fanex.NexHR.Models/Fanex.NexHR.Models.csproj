@@ -124,6 +124,7 @@
     <Compile Include="Shift.cs" />
     <Compile Include="TimeRecord.cs" />
     <Compile Include="Toeic.cs" />
+    <Compile Include="TotalOfEachMonth.cs" />
     <Compile Include="TotalWorkingHours.cs" />
     <Compile Include="UserChangedShift.cs" />
     <Compile Include="WeekWorking.cs" />
