@@ -549,12 +549,13 @@
 
         [ValidateInput(false)]
         [HttpPost]
-        public JsonResult GetWorkingHoursStatistic(TotalWorkingHoursViewModel model)
+        public JsonResult GetWorkingHoursStatistic(TotalWorkingHoursViewModel totalWorkingHoursViewModel)
         {
+            var model = totalWorkingHoursViewModel;
             if (model == null)
             {
-                int year = DateTime.Now.Year,
-                    month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
+                int month = DateTime.Now.Month;
 
                 model = new TotalWorkingHoursViewModel
                 {

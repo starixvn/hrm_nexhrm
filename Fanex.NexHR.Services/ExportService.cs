@@ -236,8 +236,8 @@
                 Listening = FormatToeicScore(employee.ToeicScore?.Listening),
                 Reading = FormatToeicScore(employee.ToeicScore?.Reading),
                 Speaking = FormatToeicScore(employee.ToeicScore?.Speaking),
-                Writing = FormatToeicScore(employee.ToeicScore?.Writing)
-                PassportExp = employee.PassportExp,
+                Writing = FormatToeicScore(employee.ToeicScore?.Writing),
+                PassportExp = employee.PassportExp
             };
             rowIndex++;
 
@@ -256,7 +256,7 @@
 
         #endregion Employee Profile
 
-        private string GetTime(DateTime? date)
+        private static string GetTime(DateTime? date)
         {
             if (date == null)
             {
