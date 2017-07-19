@@ -201,6 +201,7 @@
     <Compile Include="Workload\GetEmployeeWorkloadCriteria.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.NexHR.Criteria.Debug.ruleset" />
     <None Include="Fanex.NexHR.Criteria.ruleset" />
     <None Include="packages.config" />

@@ -167,6 +167,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.NexHR.Models.Debug.ruleset" />
     <None Include="Fanex.NexHR.Models.ruleset" />
     <None Include="packages.config" />

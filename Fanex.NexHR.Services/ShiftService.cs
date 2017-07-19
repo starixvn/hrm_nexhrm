@@ -11,16 +11,17 @@
     public class ShiftService : BaseService, IShiftService
     {
         private const string CacheKeyAllShift = "ShiftService_AllShift";
-        private readonly ICache _cacheManager;
+        ////private readonly ICache _cacheManager;
 
-        public ShiftService()
-        {
-            _cacheManager = CacheService.CreateInstance();
-        }
+        ////public ShiftService()
+        ////{
+        ////_cacheManager = CacheService.CreateInstance();
+        ////}
 
         public IList<Shift> GetAll()
         {
-            var shifts = _cacheManager.Get<IList<Shift>>(CacheKeyAllShift);
+            ////var shifts = _cacheManager.Get<IList<Shift>>(CacheKeyAllShift);
+            var shifts = ConfiguredCacheService.Get<IList<Shift>>(CacheKeyAllShift);
             if (shifts == null || !shifts.Any())
             {
                 var criteria = new GetShiftCriteria();
@@ -28,7 +29,9 @@
 
                 if (shifts != null && shifts.Any())
                 {
-                    _cacheManager.Set(CacheKeyAllShift, shifts, TimeSpan.FromHours(1));
+                    ////ConfiguredCacheService.Set(CacheKeyAllShift, shifts, TimeSpan.FromHours(1));
+                    ConfiguredCacheService.Set(CacheKeyAllShift, shifts,
+                        new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1)));
                 }
             }
 
