@@ -11,7 +11,7 @@ function index() {
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'report/gettotalworkinghour',
+        url: _global.root + 'report/GetWorkingHoursStatistic',
         type: 'POST',
         data: $("#form").serialize(),
         beforeSend: function () {
@@ -28,8 +28,6 @@ function query(isFirstLoad) {
                 var tmpl = $.templates('#template'),
                     helpers = {
                         index: index,
-                        displayMinuteForTotalWorking: displayMinuteForTotalWorking,
-                        totalHoursToTime: totalHoursToTime,
                         isHRRole: isHRRole,
                         dateOption: $('#DateOption').val(),
                         fromDate: $('#FromDate').val(),

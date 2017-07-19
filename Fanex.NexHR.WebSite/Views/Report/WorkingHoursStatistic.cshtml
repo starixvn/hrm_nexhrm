@@ -33,7 +33,7 @@
                 <div class="card-body">
 
                     <div class="form">
-                        @using (Html.BeginGetForm())
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                         {
                             <div class="row form-input">
                                 <div class="col m-l--l m-r--xl">
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input id="btnsubmit" type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />                     
+                                    <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />                     
                                     <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
                                      @Html.HiddenFor(model => model.IsExportExcel)
   
@@ -86,7 +86,7 @@
                                     <th colspan="2">Paid Leave</th>
                                     <th colspan="2">Insurance Leave</th>
                                     <th rowspan="2">@Labels.UnpaidLeave</th>
-                                    <th rowspan="2">Total Working Day in month</th>
+                                    <th rowspan="2">Total Working Day</th>
                                     <th rowspan="2">AL Balance</th>
                                     <th colspan="2">Unpaid Leave of Previous month</th>
                                 </tr>
@@ -119,7 +119,6 @@
         <td class="align-left">{{:Employee.FullName}}</td>
         <td>{{:Employee.NickName}}</td>
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
-        <td>{{:WorkingDay}}</td>
         <td>{{:ActualWorkingDay}}</td>
         <td>{{:AnnualLeave.toFixed(1)}}</td>
         <td>{{:PaidLeave.toFixed(1)}}</td>
@@ -148,9 +147,9 @@
             {{:UnpaidLeave.toFixed(1)}}
             {{/if}}
         </td>
-        <td>{{:~displayMinuteForTotalWorking(LateIn)}}</td>
-        <td>{{:~displayMinuteForTotalWorking(EarlyOut)}}</td>
-        <td>{{:~totalHoursToTime(TotalHours)}}</td>
-        <td>{{:~totalHoursToTime(AverageHours)}}</td>
+        <td>{{:TotalWorkingDay}}</td>
+        <td></td>
+        <td>{{:PreMonthSickLeave.toFixed(1)}}</td>
+        <td>{{:PreMonthUnpaidLeave.toFixed(1)}}</td>
     </tr>
 </script>

@@ -4,7 +4,7 @@
     {
         public Employee Employee { get; set; }
 
-        public int WorkingDay { get; set; }
+        public int TotalWorkingDay { get; set; }
 
         public float ActualWorkingDay { get; set; }
 
@@ -18,12 +18,8 @@
 
         public float UnpaidLeave { get; set; }
 
-        public int LateIn { get; set; }
+        public float PreMonthSickLeave { get; set; }
 
-        public int EarlyOut { get; set; }
-
-        public float TotalHours { get; set; }
-
-        public float AverageHours { get; set; }
+        public float PreMonthUnpaidLeave { get; set; }
     }
 }
