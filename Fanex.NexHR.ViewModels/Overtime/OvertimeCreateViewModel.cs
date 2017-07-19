@@ -24,7 +24,6 @@
 
         [Display(Name = "Date", ResourceType = typeof(Labels))]
         [Required]
-        [Obsolete("Change to FromDate and ToDate")]
         public DateTime Date { get; set; }
 
         [Display(Name = "From", ResourceType = typeof(Labels))]
@@ -42,7 +41,6 @@
         public bool IsApprove { get; set; }
 
         [Display(Name = "Hours", ResourceType = typeof(Labels))]
-        [Obsolete("Change to FromDate and ToDate")]
         public float Hour { get; set; }
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
