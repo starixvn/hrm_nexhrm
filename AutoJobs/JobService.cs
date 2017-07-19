@@ -1,12 +1,14 @@
 ﻿namespace AutoJobs
 {
+    using Fanex.Data;
+    using Fanex.Data.OldConnectionStringProvider;
+    using log4net;
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.ServiceProcess;
     using System.Timers;
-    using log4net;
 
     public partial class JobService : ServiceBase
     {
@@ -20,7 +22,14 @@
         public JobService()
         {
             InitializeComponent();
-            Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
+            DbSettingProviderManager
+                .StartNewSession()
+                .Use(new OldConnectionStringProvider())
+                .UseDefaultDbSettingProvider(
+                    resourcePath: "~/App_Data",
+                    enableWatching: true)
+                .Run();
+
             int timerInterval = DefaultTimerInterval;
 
             int configTimerInterval = int.Parse(ConfigurationManager.AppSettings["TimerInterval"]);
