@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Criteria.Report
 {
     using System;
     using Core.Attributes;
+    using Data;
     using Data.Repository;
 
     public class GetEmployeeAttendanceReportByTypeCriteria : CriteriaBase
@@ -32,7 +33,7 @@ namespace Fanex.NexHR.Criteria.Report
         public short ReportType { get; set; }
 
         [Output]
-        public int? TotalItem { get; set; }
+        public int? TotalItem { get; set; } = 0;
 
         public int? ItemsPerPage { get; set; }
 

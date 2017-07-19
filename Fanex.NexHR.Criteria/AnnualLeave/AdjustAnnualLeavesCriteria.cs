@@ -1,7 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
-    using System;
+    using Data;
     using Data.Repository;
+    using System;
 
     public class AdjustAnnualLeavesCriteria : CriteriaBase
     {

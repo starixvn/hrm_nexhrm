@@ -1,7 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using System;
+    using Data;
     using Data.Repository;
+    using System;
 
     public class InsertLateInEarlyOutCriteria : CriteriaBase
     {

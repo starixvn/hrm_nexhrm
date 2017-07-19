@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Request
 {
     using System;
+    using Data;
     using Data.Repository;
 
     public class GetUnavailableRequestDateCriteria : CriteriaBase

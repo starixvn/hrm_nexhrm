@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
     using Criteria.AnnualLeave;
     using Interfaces;
     using Models.AnnualLeave;
     using Repositories;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
 
     public class AnnualLeaveService : BaseService, IAnnualLeaveService
     {

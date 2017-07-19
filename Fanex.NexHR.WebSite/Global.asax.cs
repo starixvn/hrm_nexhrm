@@ -9,7 +9,8 @@
 
 namespace Fanex.NexHR.WebSite
 {
-    using Data.Configuration;
+    using Data;
+    using Data.OldConnectionStringProvider;
     using Logging;
     using Resources;
     using System;
@@ -28,7 +29,13 @@ namespace Fanex.NexHR.WebSite
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles();
-            DbSettingProviderManager.Current.Start();
+            DbSettingProviderManager
+                .StartNewSession()
+                .Use(new OldConnectionStringProvider())
+                .UseDefaultDbSettingProvider(
+                    resourcePath: "~/App_Data",
+                    enableWatching: true)
+                .Run();
         }
 
         protected void Application_Error(object sender, EventArgs e)

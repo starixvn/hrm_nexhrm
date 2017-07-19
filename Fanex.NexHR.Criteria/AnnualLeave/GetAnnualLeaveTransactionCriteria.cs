@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
+    using Data;
     using Data.Repository;
 
     public class GetAnnualLeaveTransactionCriteria : CriteriaBase

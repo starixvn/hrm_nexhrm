@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
+    using Data;
     using Data.Repository;
 
     public class OvertimeSummaryCriteria : CriteriaBase

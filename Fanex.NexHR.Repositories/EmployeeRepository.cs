@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.CompanyEvent;
     using Models.Workload;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -86,8 +86,8 @@
                          e.ToeicScore = to;
                          return e;
                      },
-                     splitOn: "TeamID, JobTitleId, LRExamDate",
-                     parameterValues: criteria.GetSpParams());
+                     "TeamID, JobTitleId, LRExamDate",
+                     criteria.GetSpParams());
 
                 return entityList.ToList();
             }
@@ -119,7 +119,7 @@
                          w.Employee = e;
                          return w;
                      },
-                     parameterValues: criteria.GetSpParams());
+                     parameterSet: criteria.GetSpParams());
 
                 return entityList.ToList();
             }

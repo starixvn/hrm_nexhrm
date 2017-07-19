@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Postnatal
 {
     using System;
+    using Data;
     using Data.Repository;
 
     public class UpdatePostnatalCriteria : CriteriaBase

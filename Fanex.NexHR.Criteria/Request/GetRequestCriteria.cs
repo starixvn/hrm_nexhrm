@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Criteria.Request
 {
     using System;
     using Core.Attributes;
+    using Data;
     using Data.Repository;
 
     /// <summary>
@@ -47,7 +48,7 @@ namespace Fanex.NexHR.Criteria.Request
         public int? ItemsPerPage { get; set; }
 
         [Output]
-        public int? TotalItem { get; set; }
+        public int? TotalItem { get; set; } = 0;
 
         public override string GetSettingKey()
         {

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Workload
 {
     using System;
+    using Data;
     using Data.Repository;
 
     public class GetEmployeeWorkloadCriteria : CriteriaBase

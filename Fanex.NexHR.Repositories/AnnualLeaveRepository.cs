@@ -75,7 +75,7 @@
                         return le;
                     },
                     splitOn: "EmpId, GroupId, ModifiedById",
-                    parameterValues: criteria.GetSpParams()).ToList();
+                    parameterSet: criteria.GetSpParams()).ToList();
 
                 return leaveDeductions;
             }

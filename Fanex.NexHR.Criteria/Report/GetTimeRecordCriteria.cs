@@ -28,7 +28,7 @@ namespace Fanex.NexHR.Criteria.Report
         public int? ItemsPerPage { get; set; }
 
         [Output]
-        public int? TotalItem { get; set; }
+        public int? TotalItem { get; set; } = 0;
 
         public override string GetSettingKey()
         {

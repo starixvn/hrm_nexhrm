@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
+    using Data;
     using Data.Repository;
 
     public class UpdateEmployeeCriteria : CriteriaBase

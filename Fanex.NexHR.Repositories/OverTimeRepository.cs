@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Overtime;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class OvertimeRepository : IOvertimeRepository
     {
@@ -14,7 +14,7 @@
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>
@@ -47,7 +47,7 @@
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>

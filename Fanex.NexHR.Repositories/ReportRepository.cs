@@ -96,7 +96,7 @@
                             return rq;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 return entityList;
@@ -115,7 +115,7 @@
                             return wkh;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 return entityList;
@@ -134,7 +134,7 @@
                             return t;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 PropertyInfo totalitem = criteria.GetType()
@@ -164,7 +164,7 @@
                             return la;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 return lateinEarlyOuts;
@@ -183,7 +183,7 @@
                             return la;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 return lateInEarlyOuts;

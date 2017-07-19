@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Calendar
 {
     using System;
+    using Data;
     using Data.Repository;
 
     public class GetWorkingScheduleCriteria : CriteriaBase

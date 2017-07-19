@@ -10,6 +10,7 @@
 namespace Fanex.NexHR.Criteria.Report
 {
     using System;
+    using Data;
     using Data.Repository;
 
     /// <summary>

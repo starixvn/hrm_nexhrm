@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
+    using Data;
     using Data.Repository;
     using System;
 
@@ -27,5 +28,15 @@
 
         [SpParam(SqlParamName = "Type")]
         public int MemoType { get; set; }
+
+        public override string GetSettingKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

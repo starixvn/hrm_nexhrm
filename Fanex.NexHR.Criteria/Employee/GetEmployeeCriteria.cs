@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
+    using Data;
     using Data.Repository;
 
     public class GetEmployeeCriteria : CriteriaBase
@@ -15,21 +16,9 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
-        public int? Enable
-        {
-            get
-            {
-                return EnableStatus.HasValue ? (EnableStatus.Value ? 0 : 1) : new int?();
-            }
-        }
+        public int? Enable => EnableStatus.HasValue ? (EnableStatus.Value ? 0 : 1) : new int?();
 
-        public int? IsDelete
-        {
-            get
-            {
-                return DeleteStatus.HasValue ? (DeleteStatus.Value ? 1 : 0) : new int?();
-            }
-        }
+        public int? IsDelete => DeleteStatus.HasValue ? (DeleteStatus.Value ? 1 : 0) : new int?();
 
         public int? JobTitleId { get; set; }
 
