@@ -80,10 +80,12 @@ function initMonthPick() {
         minDate: '2010/1/1',
         maxDate: $('#maxDate').val(),
         afterChangeMonth: function () {
-            var Month = $('#monthPickr').monPickr('getMonth', 'MM'),
+            var Month = $('#monthPickr').monPickr('getMonth'),
                 Year = $('#monthPickr').monPickr('getMonth', 'yyyy');
             $('#Month').val(Month);
             $('#Year').val(Year);
+            $('#FromDate').val(new Date(Year, Month - 1));
+            $('#ToDate').val(new Date(Year, Month, 0));
         }
     });
 
@@ -102,9 +104,9 @@ $(document).ready(function () {
     initMonthPick($("#hdtoday").val(), $("#hdmonth").val());
 
     //search onload
-    //query(true);
+    query(true);
 
-    $('#btnSubmit').click(function (evt) {
+    $('#btnSubmit').on("click", function (evt) {
         evt.preventDefault();
 
         if (validateFromDateAndToDate()) {
@@ -112,13 +114,8 @@ $(document).ready(function () {
         }
     });
 
-    $('#btnExport').click(function () {
-        document.location = _global.root + "export/TotalWorkingHours?" + $("#form").serialize();
+    $('#btnExport').on("click",function () {
+        document.location = _global.root + "export/WorkingHoursStatistic?" + $("#form").serialize();
     });
 
-    $('#FromDate, #ToDate').on('change', function () {
-        $('#Date').val('0');
-        $('#Date').material_select(); // jshint ignore:line
-        $('#DateOption').attr('value', '0');
-    });
 });

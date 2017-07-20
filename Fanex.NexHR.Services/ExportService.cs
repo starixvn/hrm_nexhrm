@@ -305,5 +305,84 @@
 
             return value.Trim();
         }
+
+        public void ExportWorkingHoursStatistic(
+            IList<WorkingHoursStatistic> listTotalWorkingHours,
+            DateTime fromDate,
+            DateTime toDate,
+            string templatePath)
+        {
+            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year,
+                sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
+
+            var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
+
+                // Fill report title.
+                writer.WriteRow(0, new object[] { reportTitle });
+
+                // Fill report header.
+                writer.CopyRows(0, 3);
+                FillContentRowWorkingHoursStatistic(listTotalWorkingHours, ref writer);
+
+                writer.CreateFreezePane(0, 4);
+                writer.Render();
+            }
+        }
+
+        #region Working Hours Statistic
+
+        private void FillContentRowWorkingHoursStatistic(
+            IList<WorkingHoursStatistic> listTotalWorkingHours,
+            ref ExcelTemplateWriter writer)
+        {
+            int rowIndex = 1;
+
+            foreach (WorkingHoursStatistic totalWorkingHours in listTotalWorkingHours)
+            {
+                FillRowWorkingHoursStatistic(totalWorkingHours, ref writer, ref rowIndex);
+            }
+        }
+
+        private void FillRowWorkingHoursStatistic(
+            WorkingHoursStatistic totalWorkingHours,
+            ref ExcelTemplateWriter writer,
+            ref int rowIndex)
+        {
+            object record = CreateRecordWorkingHoursStatistic(totalWorkingHours, ref rowIndex);
+
+            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
+        }
+
+        private object CreateRecordWorkingHoursStatistic(
+            WorkingHoursStatistic totalWorkingHours,
+            ref int rowIndex)
+        {
+            var record = new
+            {
+                Count = rowIndex,
+                Code = totalWorkingHours.Employee.Code.Trim(),
+                FullName = totalWorkingHours.Employee.FullName,
+                Nick = totalWorkingHours.Employee.NickName,
+                Team = totalWorkingHours.Employee.Team.Code,
+                ActualWorkingDay = totalWorkingHours.ActualWorkingDay,
+                AnnualLeave = totalWorkingHours.AnnualLeave,
+                PaidLeave = totalWorkingHours.PaidLeave,
+                SickLeave = totalWorkingHours.SickLeave,
+                InsuranceLeave = totalWorkingHours.InsuranceLeave,
+                UnpaidLeave = totalWorkingHours.UnpaidLeave,
+                WorkingDay = totalWorkingHours.TotalWorkingDay,
+                AnnualLeaveBalance = 0,
+                PreMonthSickLeave = totalWorkingHours.PreMonthSickLeave,
+                PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave
+            };
+            rowIndex++;
+
+            return record;
+        }
+
+        #endregion Working Hours Statistic
     }
 }

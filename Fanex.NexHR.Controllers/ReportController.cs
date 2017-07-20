@@ -580,7 +580,7 @@
             {
                 FromDate = date,
                 ToDate = date.AddMonths(1).AddDays(-1),
-                DateOption = 5,
+                DateOption = 0,
                 IsExportExcel = false,
                 Teams = teams,
                 Month = date.Month,

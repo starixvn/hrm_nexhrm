@@ -20,7 +20,6 @@
 
     var maxDate = new System.Text.StringBuilder();
     maxDate.AppendFormat("{0}/{1}/1", year, Month);
-    // DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
 
 }
 <div class="row content">
@@ -45,6 +44,9 @@
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
                                         @Html.HiddenFor(model => model.Month)
                                         @Html.HiddenFor(model => model.Year)
+                                        @Html.HiddenFor(model => model.FromDate)
+                                        @Html.HiddenFor(model => model.ToDate)
+                                        @Html.HiddenFor(model => model.DateOption)
                                     </div>
                                 </div>
                                 <div class="col m-l--l m-r--l">
@@ -107,11 +109,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var dateOption = '@Model.DateOption',
-        fromDate = '@Model.FromDate',
-        toDate = '@Model.ToDate';
-</script>
+
 <script id="template" type="text/x-jsrender">
     <tr>
         <td>{{:~index()}}</td>
@@ -125,27 +123,7 @@
         <td>{{:SickLeave.toFixed(1)}}</td>
         <td>{{:InsuranceLeave.toFixed(1)}}</td>
         <td id="unpaidLeave">
-            {{if ~isHRRole}}
-            <form id="form" style="display:none;">
-                <input type="text" class="DateOption" id="DateOption" name="DateOption" value="{{:~dateOption}}" />
-                <input type="text" class="FromDate" id="FromDate" name="FromDate" value="{{:~fromDate}}" />
-                <input type="text" class="ToDate" id="ToDate" name="ToDate" value="{{:~toDate}}" />
-                <input type="text" id="EmployeeId" name="EmployeeId" value="{{:Employee.Id}}" />
-                <input type="text" id="Employee" name="Employee" value="{{:Employee.NickName}} ({{:Employee.FullName}})" />
-                <input type="text" class="TeamId" id="TeamId" name="TeamId" value="{{if Employee.TeamId == null}} -2 {{else}} Employee.TeamId {{/if}}" />
-                <input type="text" id="StatusId" name="StatusId" value="0" />
-                <input type="text" id="RequestType" name="RequestType" value="1" />
-                <input type="text" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />
-                <input type="text" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26" />
-            </form>
-            {{/if}}
-            {{if ~isHRRole && UnpaidLeave > 0}}
-            <a class="UnpaidLeave" href="javascript:;">
-                {{:UnpaidLeave.toFixed(1)}}
-            </a>
-            {{else}}
             {{:UnpaidLeave.toFixed(1)}}
-            {{/if}}
         </td>
         <td>{{:TotalWorkingDay}}</td>
         <td></td>
