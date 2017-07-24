@@ -234,5 +234,24 @@
                 }
             }
         }
+
+        public IList<WorkingHoursStatistic> GetWorkingHoursStatistic(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var entityList = db.Query<WorkingHoursStatistic, Employee, Team, WorkingHoursStatistic>(
+                        (wkh, e, g) =>
+                        {
+                            wkh.Employee = e;
+                            e.Team = g;
+                            return wkh;
+                        },
+                        splitOn: "EmpId, GroupId",
+                        parameterValues: criteria.GetSpParams())
+                    .ToList();
+
+                return entityList;
+            }
+        }
     }
 }

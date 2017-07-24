@@ -124,6 +124,7 @@
     <Compile Include="ExtensionNoModel.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="AnnualLeave\LeaveSummary.cs" />
+    <Compile Include="Report\WorkingHoursStatistic.cs" />
     <Compile Include="RequestsMonitoring.cs" />
     <Compile Include="Request\DateRange.cs" />
     <Compile Include="Request\NumberRequestInMonth.cs" />

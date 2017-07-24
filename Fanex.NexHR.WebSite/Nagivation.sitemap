@@ -21,7 +21,7 @@
       <siteMapNode title="Job Title Management" controller="jobtitle" action="index" icon="book" roles="HR" />
       <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar-clock" roles="HR" />
       <siteMapNode title="Late In/Early Out Violation" controller="report" action="lateinearlyoutdiscipline" icon="alarm" roles="HR" />
-      <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm" roles="HR" />
+      <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" roles="Member" />

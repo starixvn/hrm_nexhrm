@@ -12,6 +12,7 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
 
     public class ExportController : BaseController
@@ -19,6 +20,7 @@
         private const string EmployeeAttendaceTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeAttendace.xls";
         private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
+        private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
 
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
@@ -132,6 +134,30 @@
 
             string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
             ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+
+            return new EmptyResult();
+        }
+
+        public ActionResult WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
+        {
+
+
+            model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
+            model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
+            DateTime date = new DateTime(model.Year, model.Month, 1);
+
+            var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
+            {
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1),
+                EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                GroupId = model.TeamId
+            };
+
+            IList<WorkingHoursStatistic> listTotalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
+            string templatePath = Server.MapPath(WorkingHoursStatisticTemplatePath);
+
+            _exportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDate, getWorkingHoursCriteria.ToDate, templatePath);
 
             return new EmptyResult();
         }

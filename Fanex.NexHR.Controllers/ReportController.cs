@@ -549,32 +549,34 @@
 
         [ValidateInput(false)]
         [HttpPost]
-        public JsonResult GetWorkingHoursStatistic(TotalWorkingHoursViewModel totalWorkingHoursViewModel)
+        public JsonResult GetWorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
-            var model = totalWorkingHoursViewModel;
-            if (model == null)
-            {
-                int year = DateTime.Now.Year;
-                int month = DateTime.Now.Month;
+            //if (model == null)
+            //{
+            //    int year = DateTime.Now.Year,
+            //        month = DateTime.Now.Month;
 
-                model = new TotalWorkingHoursViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = DateTime.Now,
-                    DateOption = 5,
-                    IsExportExcel = false
-                };
-            }
+            //    model = new WorkingHoursStatisticViewModel
+            //    {
+            //        FromDate = new DateTime(year, month, 1),
+            //        ToDate = DateTime.Now,
+            //        DateOption = 5,
+            //        IsExportExcel = false
+            //    };
+            //}
 
-            var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
+            model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
+            model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
+            DateTime date = new DateTime(model.Year, model.Month, 1);
+            var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1),
                 EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId
             };
 
-            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<WorkingHoursStatistic> totalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
@@ -584,13 +586,16 @@
         {
             IList<Team> teams = _teamService.GetTeam();
 
-            var model = new TotalWorkingHoursViewModel
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var model = new WorkingHoursStatisticViewModel
             {
-                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
-                ToDate = DateTime.Now,
-                DateOption = 5,
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1),
+                DateOption = 0,
                 IsExportExcel = false,
-                Teams = teams
+                Teams = teams,
+                Month = date.Month,
+                Year = date.Year
             };
             return View(model);
         }
