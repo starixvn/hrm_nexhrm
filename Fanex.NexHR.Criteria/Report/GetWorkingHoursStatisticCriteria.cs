@@ -1,8 +1,9 @@
 ﻿
 namespace Fanex.NexHR.Criteria.Report
 {
-    using System;
+    using Data;
     using Data.Repository;
+    using System;
 
     /// <summary>
     /// Get total working hours summary criteria.

@@ -310,14 +310,14 @@
             return value?.Trim() ?? string.Empty;
         }
 
-        public void ExportWorkingHoursStatistic(
+        public static void ExportWorkingHoursStatistic(
             IList<WorkingHoursStatistic> listTotalWorkingHours,
             DateTime fromDate,
             DateTime toDate,
             string templatePath)
         {
-            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year,
-                sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
+            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
+            string sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
 
             var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
@@ -338,7 +338,7 @@
 
         #region Working Hours Statistic
 
-        private void FillContentRowWorkingHoursStatistic(
+        private static void FillContentRowWorkingHoursStatistic(
             IList<WorkingHoursStatistic> listTotalWorkingHours,
             ref ExcelTemplateWriter writer)
         {
@@ -350,7 +350,7 @@
             }
         }
 
-        private void FillRowWorkingHoursStatistic(
+        private static void FillRowWorkingHoursStatistic(
             WorkingHoursStatistic totalWorkingHours,
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
@@ -360,7 +360,7 @@
             writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
         }
 
-        private object CreateRecordWorkingHoursStatistic(
+        private static object CreateRecordWorkingHoursStatistic(
             WorkingHoursStatistic totalWorkingHours,
             ref int rowIndex)
         {

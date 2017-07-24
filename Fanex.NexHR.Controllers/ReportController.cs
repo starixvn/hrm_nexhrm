@@ -551,20 +551,6 @@
         [HttpPost]
         public JsonResult GetWorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
-            //if (model == null)
-            //{
-            //    int year = DateTime.Now.Year,
-            //        month = DateTime.Now.Month;
-
-            //    model = new WorkingHoursStatisticViewModel
-            //    {
-            //        FromDate = new DateTime(year, month, 1),
-            //        ToDate = DateTime.Now,
-            //        DateOption = 5,
-            //        IsExportExcel = false
-            //    };
-            //}
-
             model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
             model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
             DateTime date = new DateTime(model.Year, model.Month, 1);

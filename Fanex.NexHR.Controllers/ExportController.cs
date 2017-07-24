@@ -157,7 +157,7 @@
             IList<WorkingHoursStatistic> listTotalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
             string templatePath = Server.MapPath(WorkingHoursStatisticTemplatePath);
 
-            _exportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDate, getWorkingHoursCriteria.ToDate, templatePath);
+            ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDate, getWorkingHoursCriteria.ToDate, templatePath);
 
             return new EmptyResult();
         }

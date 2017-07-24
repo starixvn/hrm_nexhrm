@@ -247,7 +247,7 @@
                             return wkh;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterValues: criteria.GetSpParams())
+                        parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 return entityList;
