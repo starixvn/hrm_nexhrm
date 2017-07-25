@@ -539,12 +539,16 @@
 
         private static IList<Employee> SortEmployee(string sort, IList<Employee> employees)
         {
-            IList<Employee> employeesSorted = employees;
+            IList<Employee> employeesSorted;
 
             if (sort != null)
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
                 employeesSorted = Utilities.MultipleSort(employees, sorts);
+            }
+            else
+            {
+                employeesSorted = employees;
             }
 
             return employeesSorted;
