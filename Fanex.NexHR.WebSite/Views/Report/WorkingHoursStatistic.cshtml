@@ -123,7 +123,27 @@
         <td>{{:SickLeave.toFixed(1)}}</td>
         <td>{{:InsuranceLeave.toFixed(1)}}</td>
         <td id="unpaidLeave">
+            {{if ~isHRRole}}
+            <form id="form" style="display:none;">
+                <input type="text" class="DateOption" id="DateOption" name="DateOption" value="{{:~dateOption}}" />
+                <input type="text" class="FromDate" id="FromDate" name="FromDate" value="01 Dec, 2016" />
+                <input type="text" class="ToDate" id="ToDate" name="ToDate" value="31 Dec, 2016" />
+                <input type="text" id="EmployeeId" name="EmployeeId" value="{{:Employee.Id}}" />
+                <input type="text" id="Employee" name="Employee" value="{{:Employee.NickName}} ({{:Employee.FullName}})" />
+                <input type="text" class="TeamId" id="TeamId" name="TeamId" value="{{if Employee.TeamId == null}} -2 {{else}} Employee.TeamId {{/if}}" />
+                <input type="text" id="StatusId" name="StatusId" value="0" />
+                <input type="text" id="RequestType" name="RequestType" value="1" />
+                <input type="text" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />
+                <input type="text" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26" />
+            </form>
+            {{/if}}
+            {{if ~isHRRole && UnpaidLeave > 0}}
+            <a class="UnpaidLeave" href="javascript:;">
+                {{:UnpaidLeave.toFixed(1)}}
+            </a>
+            {{else}}
             {{:UnpaidLeave.toFixed(1)}}
+            {{/if}}
         </td>
         <td>{{:TotalWorkingDay}}</td>
         <td></td>

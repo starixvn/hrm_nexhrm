@@ -84,8 +84,8 @@ function initMonthPick() {
                 Year = $('#monthPickr').monPickr('getMonth', 'yyyy');
             $('#Month').val(Month);
             $('#Year').val(Year);
-            $('#FromDate').val(new Date(Year, Month - 1));
-            $('#ToDate').val(new Date(Year, Month, 0));
+            $('#FromDate').val(formatDate(new Date(Year, Month - 1), 'dd MMM, yyyy'));
+            $('#ToDate').val(formatDate(new Date(Year, Month, 0), 'dd MMM, yyyy'));
         }
     });
 
