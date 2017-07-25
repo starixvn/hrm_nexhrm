@@ -175,6 +175,7 @@
         private static void BuildBundleForWorkingHoursStatistic(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/workinghoursstatisticjs").Include(
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.workinghoursstatistic.js"));
 
             bundles.Add(new StyleBundle("~/Content/workinghoursstatisticcss")
