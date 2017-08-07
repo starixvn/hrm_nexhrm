@@ -18,6 +18,8 @@
         private const string DisplayCellDetailTpl =
             "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
+        private const float HalfDay = (float)0.5;
+
         public decimal AnnualLeaveBalance { get; set; }
 
         public decimal TotalWorkingHoursToday { get; set; }
@@ -62,7 +64,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > 2 ? employees.ToString().Substring(0, employees.Length - 2) : string.Empty;
             }
         }
 
@@ -83,7 +85,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > 2 ? employees.ToString().Substring(0, employees.Length - 2) : string.Empty;
             }
         }
 
