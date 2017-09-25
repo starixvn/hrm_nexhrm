@@ -35,11 +35,8 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
                 if (value is DateTime)
                 {
-                    var dataStyle = row.Sheet.Workbook.CreateCellStyle();
-                    dataStyle.CloneStyleFrom(row.GetCell(id).CellStyle);
-                    dataStyle.DataFormat = dateFormat;
-
-                    row.GetCell(id).CellStyle = dataStyle;
+                    row.GetCell(id).CellStyle.CloneStyleFrom(row.GetCell(id).CellStyle);
+                    row.GetCell(id).CellStyle.DataFormat = dateFormat;
                 }
 
                 id++;
