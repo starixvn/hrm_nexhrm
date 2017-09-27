@@ -4,24 +4,24 @@
     var proxied = window.alert;
 
     window.alert = function() {
-        $('<div>' + '<p>' + arguments[0] + '</p>').dialog({
-            title       : 'NexHRM',
-            modal       : true,
-            resizable   : false,
-            buttons     : [{
-                    text    : 'OK',
-                    class   : 'btn-ok waves-effect waves-light',
-                    click   : function() {
-                        $(this).dialog('close');
-                        return true;
-                    }
-                }
-            ],
-            show        : 'fade',
-            hide        : 'fade',
-            minHeight   : 50,
-            dialogClass : 'modal-shadow'
-        });
+        //$('<div>' + '<p>' + arguments[0] + '</p>').dialog({
+        //    title       : 'NexHRM',
+        //    modal       : true,
+        //    resizable   : false,
+        //    buttons     : [{
+        //            text    : 'OK',
+        //            class   : 'btn-ok waves-effect waves-light',
+        //            click   : function() {
+        //                $(this).dialog('close');
+        //                return true;
+        //            }
+        //        }
+        //    ],
+        //    show        : 'fade',
+        //    hide        : 'fade',
+        //    minHeight   : 50,
+        //    dialogClass : 'modal-shadow'
+        //});
     };
 })();
 
