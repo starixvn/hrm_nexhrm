@@ -81,6 +81,9 @@
         [Range(0, 200)]
         public int? OldWriting { get; set; }
 
+        [Range(0, 990)]
+        public int? MinimumScore { get; set; }
+
         public int? CreatedBy { get; set; }
 
         public DateTime? CreatedDate { get; set; }

@@ -67,6 +67,9 @@
         [Range(0, 200)]
         public int? Writing { get; set; }
 
+        [Range(0, 990)]
+        public int? MinimumScore { get; set; }
+
         public bool SendMail { get; set; }
     }
 }

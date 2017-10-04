@@ -49,6 +49,14 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
+            <label>@Labels.MinimumScore</label>
+        </div>
+        <div class="left input--s">
+            @Html.TextBoxFor(m => m.MinimumScore, new { type = "number", step = "5" })
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
             @Html.LabelFor(m => m.SendMail, Labels.SendMail)
         </div>
         <div class="left input--s">

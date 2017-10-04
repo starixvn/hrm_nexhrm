@@ -2212,6 +2212,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minimum Score.
+        /// </summary>
+        public static string MinimumScore {
+            get {
+                return ResourceManager.GetString("MinimumScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}&apos;.
         /// </summary>
         public static string MinuteFormat {

@@ -109,7 +109,7 @@
         public ActionResult UpdateFullToeic(Toeic model)
         {
             var currentUserId = CurrentUser.Id;
-            CommandResult result = new CommandResult
+            var result = new CommandResult
             {
                 Code = 1,
                 Message = Messages.InvalidInputData
@@ -146,7 +146,8 @@
                         Reading = model.Reading,
                         Speaking = model.Speaking,
                         SWExamDate = model.SWExamDate,
-                        Writing = model.Writing
+                        Writing = model.Writing,
+                        MinimumScore = model.MinimumScore
                     };
                     result = _commandService.Update(toeicCriteria);
 
@@ -171,7 +172,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(ToeicViewModel model)
         {
-            CommandResult result = new CommandResult();
+            var result = new CommandResult();
             if (model != null && ModelState.IsValid)
             {
                 var toeic = new Toeic
@@ -184,6 +185,7 @@
                     SWExamDate = model.SWExamDate,
                     Speaking = model.Speaking,
                     Writing = model.Writing,
+                    MinimumScore = model.MinimumScore,
                     CreatedBy = CurrentUser.Id,
                     ModifiedBy = CurrentUser.Id
                 };
@@ -203,14 +205,15 @@
                         SWExamDate = model.SWExamDate,
                         Speaking = model.Speaking,
                         Writing = model.Writing,
+                        MinimumScore = model.MinimumScore,
                         CreatedBy = CurrentUser.Id,
                         CreatedDate = DateTime.Now,
                         ModifiedBy = CurrentUser.Id,
                         ModifiedDate = DateTime.Now
                     };
-                    CommandResult rerult = _commandService.Update(toeicScoreCriteria);
+                    result = _commandService.Update(toeicScoreCriteria);
 
-                    if (rerult.IsSuccessful && model.SendMail)
+                    if (result.IsSuccessful && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }

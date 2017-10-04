@@ -39,6 +39,8 @@ namespace Fanex.NexHR.Criteria.Toeic
 
         public int? OldWriting { get; set; }
 
+        public int? MinimumScore { get; set; }
+
         public DateTime? InputDate { get; set; }
 
         public int CreatedBy { get; set; }

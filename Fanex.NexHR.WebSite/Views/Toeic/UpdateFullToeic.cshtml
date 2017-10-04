@@ -72,6 +72,17 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
+            <label>@Labels.MinimumScore</label>
+        </div>
+        <div class="left">
+            <div class="left select--xs m-r--s">
+                @Html.TextBoxFor(m => m.MinimumScore, new { type = "number", step = "5" })
+                @Html.ValidationMessageFor(model => model.MinimumScore)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
             @Html.LabelFor(m => m.SendMail, Labels.SendMail)
         </div>
         <div class="left input--s">

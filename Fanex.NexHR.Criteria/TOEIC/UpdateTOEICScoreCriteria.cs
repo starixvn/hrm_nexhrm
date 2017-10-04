@@ -29,6 +29,8 @@ namespace Fanex.NexHR.Criteria.Toeic
 
         public int? Writing { get; set; }
 
+        public int? MinimumScore { get; set; }
+
         public DateTime? SWExamDate { get; set; }
 
         public DateTime? InputDate { get; set; }
