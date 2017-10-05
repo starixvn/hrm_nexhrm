@@ -11,6 +11,7 @@
             <th rowspan="2">@Labels.ExpiredDate</th>
             @if (Roles.IsUserInRole("HR"))
             {
+                <th rowspan="2">@Labels.MinimumScore</th>
                 <th rowspan="2">@Labels.Edit</th>
             }
         </tr>
@@ -40,7 +41,7 @@
                     </td>
                     <td class="align-left">@employee.JobTitle.Name</td>
                     <td>
-                        @if(employee.ToeicScore.Listening != null && employee.ToeicScore.Listening.Equals(0))
+                        @if(employee.ToeicScore.Listening.HasValue && employee.ToeicScore.Listening.Equals(0))
                         {
                             <span>-</span>
                         }
@@ -50,7 +51,7 @@
                         }
                     </td>
                     <td>
-                        @if (employee.ToeicScore.Reading != null && employee.ToeicScore.Reading.Equals(0))
+                        @if (employee.ToeicScore.Reading.HasValue && employee.ToeicScore.Reading.Equals(0))
                         {
                             <span>-</span>
                         }
@@ -60,7 +61,7 @@
                         }
                     </td>
                     <td>
-                        @if (employee.ToeicScore.LRTotal != null && employee.ToeicScore.LRTotal.Equals(0))
+                        @if (employee.ToeicScore.LRTotal.HasValue && employee.ToeicScore.LRTotal.Equals(0))
                         {
                             <span>-</span>
                         }
@@ -70,7 +71,7 @@
                         }
                     </td>
                     <td>
-                        @if (employee.ToeicScore.LRExamDate == null)
+                        @if (employee.ToeicScore.LRExamDate.HasValue)
                         {
                             <span>-</span>
                         }
@@ -79,7 +80,7 @@
                             @employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()
                         }
                     </td>
-                    @if (employee.ToeicScore.InputDate != null)
+                    @if (employee.ToeicScore.InputDate.HasValue)
                     {
                         if (employee.ToeicScore.InputDate < DateTime.Now)
                         {
@@ -96,6 +97,16 @@
                     }
                     @if (Roles.IsUserInRole("HR"))
                     {
+                        <td>
+                            @if (employee.ToeicScore.MinimumScore.HasValue && employee.ToeicScore.MinimumScore.Value != 0)
+                            {
+                                <span>@employee.ToeicScore.MinimumScore</span>
+                            }
+                            else
+                            { 
+                                <span>-</span>
+                            }
+                        </td>
                         <td>
                             @if (employee.IsDeleted)
                             {
