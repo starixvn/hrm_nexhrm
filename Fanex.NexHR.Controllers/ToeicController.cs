@@ -172,7 +172,11 @@
         [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(ToeicViewModel model)
         {
-            var result = new CommandResult();
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
             if (model != null && ModelState.IsValid)
             {
                 var toeic = new Toeic
