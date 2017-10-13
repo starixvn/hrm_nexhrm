@@ -18,14 +18,6 @@
 
         public int? GroupId { get; set; }
 
-        public int? TitleId { get; set; }
-
-        public int? Score { get; set; }
-
-        public bool? Enable { get; set; }
-
-        public bool? IsDelete { get; set; }
-
         public int PageNumber
         {
             get

@@ -74,8 +74,7 @@
                 var getToeicScoreCriteria = new GetEmployeeToeicScoreCriteria
                 {
                     Query = model.Query,
-                    GroupId = model.TeamId,
-                    TitleId = model.JobTitleId
+                    GroupId = model.TeamId
                 };
                 employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
             }

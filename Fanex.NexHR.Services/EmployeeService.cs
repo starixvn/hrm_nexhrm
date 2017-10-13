@@ -89,11 +89,6 @@
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                if (criteria.Enable != null)
-                {
-                    criteria.Enable = criteria.Enable != true;
-                }
-
                 employees = _employeeRepository.GetEmployeeToeicScore(criteria);
             }
 
