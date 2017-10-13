@@ -151,7 +151,7 @@
         </td>
         <td class="align-left">
             {{if JobTitle != null}}
-            {{:JobTitle.Name}}
+            {{:JobTitle ?? JobTitle.Name}}
             {{/if}}
         </td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
