@@ -9,7 +9,7 @@
     {
         public IList<JobTitle> GetAll()
         {
-            var criteria = new GetJobTitleCriteria();
+            var criteria = new GetAllLookupDataCriteria { LookupCode = "JT" };
             IList<JobTitle> jobTitles = GetData<JobTitle>(criteria);
             return jobTitles;
         }
