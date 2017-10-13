@@ -276,7 +276,6 @@ namespace Fanex.NexHR.Core
                 {
                     sorted = (index == 0)
                         ? query.OrderBy(expression)
-                        ? query.OrderBy(expression)
                         : orderedQuery.ThenBy(expression);
                 }
             }
