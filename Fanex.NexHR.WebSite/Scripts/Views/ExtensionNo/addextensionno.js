@@ -96,10 +96,10 @@ $(document).ready(function () {
             $('#EmpId').val(ui.item != null ? ui.item.value : "");
             $('#FullName').val(ui.item.fullname);
             $('#NickName').val(ui.item.nickname);
-        },
-        close: function (event, ui) {
-            var nickName = ui.item != null ? ui.item.label : "";
-            $('#Employee').val(nickName);
         }
+        //close: function (event, ui) {
+        //    var nickName = ui.item != null ? ui.item.label : "";
+        //    $('#Employee').val(nickName);
+        //}
     });    
 });
