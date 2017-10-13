@@ -9,7 +9,12 @@
 
     public class EditEmployeeViewModel
     {
-        public EditEmployeeViewModel(Employee employee = null)
+        public EditEmployeeViewModel()
+        {
+            InitData(null);
+        }
+
+        public EditEmployeeViewModel(Employee employee)
         {
             InitData(employee);
         }
