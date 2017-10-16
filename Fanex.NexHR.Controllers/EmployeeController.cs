@@ -496,7 +496,7 @@
         {
             var getAllEmployeeCriteria = new GetEmployeeCriteria
             {
-                Query = null,
+                Query = string.Empty,
                 TeamId = null,
                 JobTitleId = null,
                 EnableStatus = null,
