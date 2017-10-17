@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Text;
     using System.Web;
     using Core;
     using Criteria.Memo;
@@ -42,11 +43,21 @@
             {
                 string attachFile = memo.Contents;
 
-                if (!string.IsNullOrEmpty(attachFile))
+                memo.AttachFile = attachFile;
+
+                string[] files = memo.AttachFile.Split(';');
+                
+                StringBuilder content = new StringBuilder();
+                foreach (string file in files)
                 {
-                    memo.Contents =
-                        $"<a href=\'{HttpUtility.HtmlEncode(attachFile)}\'> {HttpUtility.HtmlEncode(attachFile.Split('/')[attachFile.Split('/').Length - 1])}</a>";
+                    if (!string.IsNullOrEmpty(file))
+                    {
+                        string filePath = HttpUtility.HtmlEncode(file);
+                        string fileName = HttpUtility.HtmlEncode(file.Split('/')[file.Split('/').Length - 1]);
+                        content.Append($"<a href=\'{filePath}\'> {fileName}</a></br>");
+                    }
                 }
+                memo.Contents = content.ToString();
             }
 
             return memo;

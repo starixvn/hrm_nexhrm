@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
@@ -18,53 +19,49 @@
                 return attachedFilePath.ToString();
             }
 
+            var dir = $"~/file/uploads/{categoryId}";
+            CreateOrOpenDirectory(dir);
+            
             foreach (HttpPostedFileBase file in files)
             {
-                if (file.ContentLength <= 0)
-                {
-                    continue;
-                }
-
-                var fileName = Path.GetFileName(file.FileName);
-                var dir = $"~/file/uploads/{categoryId}";
-
-                var pathAttach = new StringBuilder($"{dir}/{fileName}");
-
-                if (overRide == 0)
-                {
-                    while (System.IO.File.Exists(Server.MapPath(pathAttach.ToString())))
-                    {
-                        fileName = $"(1){fileName}";
-                    }
-                }
-
-                CreateDirectory(dir);
-
-                if (fileName == null)
-                {
-                    continue;
-                }
-
-                var path = Path.Combine(Server.MapPath(dir), fileName);
-
-                pathAttach = new StringBuilder(pathAttach.ToString().Substring(2));
-
-                if (attachedFilePath.Length > 0)
-                {
-                    attachedFilePath = pathAttach;
-                }
-                else
-                {
-                    attachedFilePath.Append($";/{pathAttach}");
-                }
-
-                file.SaveAs(path);
+                string savedFilePath = SaveFile(overRide, file, dir);
+                attachedFilePath.Append("/" + savedFilePath + ";");
             }
 
-            return attachedFilePath.ToString();
+            return attachedFilePath.ToString().Remove(0, 1);
         }
 
-        private void CreateDirectory(string dir)
+        private string SaveFile(int overRide, HttpPostedFileBase file, string dir)
+        {
+            if (file.ContentLength <= 0)
+            {
+                return null;
+            }
+
+            var fileName = Path.GetFileName(file.FileName);
+            var pathAttach = new StringBuilder($"{dir}/{fileName}");
+
+            fileName = ChangeNameForDuplicatedFile(overRide, pathAttach.ToString(), fileName);
+
+            if (fileName == null)
+            {
+                return null;
+            }
+
+            var path = Path.Combine(Server.MapPath(dir), fileName);
+            file.SaveAs(path);
+
+            return pathAttach.ToString().Substring(2);
+        }
+
+        private string ChangeNameForDuplicatedFile(int overRide, string pathAttach, string fileName)
+        {
+            return overRide == 0 && System.IO.File.Exists(Server.MapPath(pathAttach))
+                ? $"{Guid.NewGuid().ToString()}-{fileName}"
+                : fileName;
+        }
+
+        private void CreateOrOpenDirectory(string dir)
         {
             if (!Directory.Exists(Server.MapPath(dir)))
             {

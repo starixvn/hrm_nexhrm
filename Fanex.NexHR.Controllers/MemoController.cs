@@ -210,9 +210,18 @@
 
             var deleteMemoCriteria = new DeleteMemoCriteria { Id = id };
             CommandResult result = _commandService.Delete(deleteMemoCriteria);
+            
             if (result.IsSuccessful && memo.MemoType == 1)
             {
-                System.IO.File.Delete(Server.MapPath("~/" + memo.Contents));
+                string[] files = memo.AttachFile.TrimEnd(';').Split(';');
+
+                foreach (string file in files)
+                {
+                    if (!string.IsNullOrEmpty(file))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~" + file));
+                    }
+                }
             }
 
             return Json(result);
