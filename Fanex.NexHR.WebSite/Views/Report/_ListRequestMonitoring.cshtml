@@ -25,24 +25,34 @@
         {
             int index = 1;
             var isLeader = (bool)ViewBag.isLeader;
-            
+
             foreach (RequestsMonitoring request in Model)
             {
                 var requestLink = "/request/{0}?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&StatusId={1}&FromDate={2}&ToDate={3}&EmployeeId={4}&Employee={5}&RequestType={6}";
-                var leaveRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview", 
-                    (byte)RequestStatuse.Approve, 
-                    ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
-                    ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
-                    request.Requester.Id,
-                    request.Requester.DisplayName,
-                    1);
-                var checkInOutRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
+                var leaveRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
                     (byte)RequestStatuse.Approve,
                     ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
                     ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
                     request.Requester.Id,
                     request.Requester.DisplayName,
-                    4);
+                    1);
+
+                var allLeaveTypeQuery = "&LeaveTypeId=1";
+                var anualLeaveTypeQuery = "&LeaveTypeId=2";
+                var unpaidLeaveTypeQuery = "&LeaveTypeId=26";
+
+                var allLeaveRequestLink = string.Concat(leaveRequestLink, allLeaveTypeQuery);
+                var anualLeaveRequestLink = string.Concat(leaveRequestLink, anualLeaveTypeQuery);
+                var unpaidLeaveRequestLink = string.Concat(leaveRequestLink, unpaidLeaveTypeQuery);
+
+
+                var checkInOutRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
+                (byte)RequestStatuse.Approve,
+                ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
+                ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
+                request.Requester.Id,
+                request.Requester.DisplayName,
+                4);
                 var attendanceLink = "/report/attendance?FromDate={0}&ToDate={1}&EmployeeId={2}&Employee={3}";
                 attendanceLink = string.Format(attendanceLink, ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
                     ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
@@ -62,7 +72,7 @@
                 <td class="@(request.TotalLeaveTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalLeaveTimes > 0)
                     {
-                        <a class="TotalLeaveTimes" href="@leaveRequestLink">@request.TotalLeaveTimes</a>
+                        <a class="TotalLeaveTimes" href="@allLeaveRequestLink">@request.TotalLeaveTimes</a>
                     }
                     else
                     {
@@ -72,7 +82,7 @@
                 <td class="@(request.TotalAnnualLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalAnnualLeave > 0)
                     {
-                        <a href="@leaveRequestLink">@request.TotalAnnualLeave.ToString("0.0")</a>
+                        <a href="@anualLeaveRequestLink">@request.TotalAnnualLeave.ToString("0.0")</a>
                     }
                     else
                     {
@@ -82,7 +92,7 @@
                 <td class="@(request.TotalUnpaidLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalUnpaidLeave > 0)
                     {
-                        <a href="@leaveRequestLink">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                        <a href="@unpaidLeaveRequestLink">@request.TotalUnpaidLeave.ToString("0.0")</a>
                     }
                     else
                     {

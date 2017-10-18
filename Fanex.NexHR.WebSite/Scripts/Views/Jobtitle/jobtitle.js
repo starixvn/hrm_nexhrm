@@ -181,6 +181,49 @@ $(function () {
     });
 });
 
+
+
+function sortTable(n) {
+    var table, rows, switching, i, currentRow, nextRow, shouldSwitch, dir, switchcount = 0;
+    table = $("#data");
+    switching = true;
+    dir = "asc";
+    
+    while (switching) {
+        switching = false;
+        rows = table.find("tr");
+        
+        for (i = 1; i < (rows.length - 1) ; i++) {
+            shouldSwitch = false;
+            
+            currentRow = rows[i].getElementsByTagName("td")[n];
+            nextRow = rows[i + 1].getElementsByTagName("td")[n];
+            if (dir == "asc") {
+                if (currentRow.innerHTML.toLowerCase() > nextRow.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                if (currentRow.innerHTML.toLowerCase() < nextRow.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+           
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+}
+
 $(document).ready(function () {
     $('#keyword').keyup(function (event) {
         if (event.keyCode === 13) {

@@ -4,7 +4,11 @@
         <tr>
             <th>@Labels.SymbolCount</th>
             <th>@Labels.JobTitle</th>
-            <th>@Labels.Employee</th>
+            <th class="col-sorter"  onclick="sortTable(2)">
+                @Labels.Employee
+                <div class="sorter">
+                </div>
+            </th>
             <th>@Labels.Edit</th>
             <th>@Labels.Delete</th>
         </tr>
@@ -23,9 +27,12 @@
                         <input class="jobTitle" type="text" value="@jobtitle.Name" id="txtJobTile_@jobtitle.Id" style="display:none;" />
                     </td>
                     <td>
-                        @if(jobtitle.NumberOfEmployee.Equals(0)) {
+                        @if (jobtitle.NumberOfEmployee.Equals(0))
+                        {
                             <span>@jobtitle.NumberOfEmployee</span>
-                        } else {
+                        }
+                        else
+                        {
                             <a href="@Url.Action("UserManagement","Employee", new { jobtitleid = jobtitle.Id })">@jobtitle.NumberOfEmployee</a>
                         }
                     </td>
@@ -47,7 +54,8 @@
                                 <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
                             </a>
                         }
-                        else {
+                        else
+                        {
                             <a href="javascript:;">
                                 <i class="mdi mdi-delete mdi-disabled mdi-dark mdi-18px"></i>
                             </a>
