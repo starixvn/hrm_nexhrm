@@ -18,8 +18,6 @@
         private const string DisplayCellDetailTpl =
             "<li><span class='mdi-navigation-chevron-right'></span><span>{0}</span></li>";
 
-        private const float HalfDay = (float)0.5;
-
         public decimal AnnualLeaveBalance { get; set; }
 
         public decimal TotalWorkingHoursToday { get; set; }
