@@ -38,11 +38,11 @@
                     1);
 
                 var allLeaveTypeQuery = "&LeaveTypeId=1";
-                var anualLeaveTypeQuery = "&LeaveTypeId=2";
+                var annualLeaveTypeQuery = "&LeaveTypeId=2";
                 var unpaidLeaveTypeQuery = "&LeaveTypeId=26";
 
                 var allLeaveRequestLink = string.Concat(leaveRequestLink, allLeaveTypeQuery);
-                var anualLeaveRequestLink = string.Concat(leaveRequestLink, anualLeaveTypeQuery);
+                var annualLeaveRequestLink = string.Concat(leaveRequestLink, annualLeaveTypeQuery);
                 var unpaidLeaveRequestLink = string.Concat(leaveRequestLink, unpaidLeaveTypeQuery);
 
 
@@ -82,7 +82,7 @@
                 <td class="@(request.TotalAnnualLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
                     @if (request.TotalAnnualLeave > 0)
                     {
-                        <a href="@anualLeaveRequestLink">@request.TotalAnnualLeave.ToString("0.0")</a>
+                        <a href="@annualLeaveRequestLink">@request.TotalAnnualLeave.ToString("0.0")</a>
                     }
                     else
                     {
