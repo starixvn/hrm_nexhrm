@@ -77,11 +77,11 @@
                     <td>
                         @if (employee.ToeicScore.LRExamDate.HasValue)
                         {
-                            <span>-</span>
+                            @employee.ToeicScore.LRExamDate.Value.ToDateMonthYearFormatedDate()
                         }
                         else
                         {
-                            @employee.ToeicScore.LRExamDate.ToDateMonthYearFormatedDate()
+                            <span>-</span>
                         }
                     </td>
                     @if (employee.ToeicScore.InputDate.HasValue)
