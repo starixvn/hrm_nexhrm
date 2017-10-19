@@ -48,7 +48,7 @@
             <div class="col left colon">
                 /</div>
             <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldListening, new { type = "number", step = "5", onchange = "calculateOldToeicScore" })
+                @Html.TextBoxFor(m => m.OldListening, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
                 @Html.ValidationMessageFor(model => model.OldListening)
             </div>
         </div>
