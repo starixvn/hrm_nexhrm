@@ -239,8 +239,33 @@ function initialize() {
         });
     });
 }
+
+function calculateToeicScore() {
+    var listening = $('#frmUpdFullTOEIC').find('input[name=Listening]').val();
+    if (!listening) listening = 0;
+
+    var reading = $('#frmUpdFullTOEIC').find('input[name=Reading]').val();
+    if (!reading) reading = 0;
+
+    var total = parseInt(listening) + parseInt(reading);
+
+    $('#frmUpdFullTOEIC').find('input[name=Total]').val(total);
+}
+
+function calculateOldToeicScore() {
+    var oldListening = $('#frmUpdFullTOEIC').find('input[name=OldListening]').val();
+    if (!oldListening) oldListening = 0;
+
+    var oldReading = $('#frmUpdFullTOEIC').find('input[name=OldReading]').val();
+    if (!oldReading) oldReading = 0;
+
+    var oldTotal = parseInt(oldListening) + parseInt(oldReading);
+    $('#frmUpdFullTOEIC').find('input[name=OldTotal]').val(oldTotal);
+}
+
 $(document).ready(function () {
     initialize();
 
     query(true);
 });
+

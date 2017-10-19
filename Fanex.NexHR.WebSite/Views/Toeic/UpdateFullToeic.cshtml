@@ -42,13 +42,13 @@
         </div>
         <div class="left">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5" })
+                @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
                 @Html.ValidationMessageFor(model => model.Listening)
             </div>
             <div class="col left colon">
                 /</div>
             <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldListening, new { type = "number", step = "5" })
+                @Html.TextBoxFor(m => m.OldListening, new { type = "number", step = "5", onchange = "calculateOldToeicScore" })
                 @Html.ValidationMessageFor(model => model.OldListening)
             </div>
         </div>
@@ -59,13 +59,13 @@
         </div>
         <div class="left">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5" })
+                @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
                 @Html.ValidationMessageFor(model => model.Reading)
             </div>
             <div class="col left colon">
                 /</div>
             <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldReading, new { type = "number", step = "5" })
+                @Html.TextBoxFor(m => m.OldReading, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
                 @Html.ValidationMessageFor(model => model.OldReading)
             </div>
         </div>
@@ -76,13 +76,13 @@
         </div>
         <div class="left">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Total, new { @readonly = "readonly" })
+                @Html.TextBoxFor(m => m.Total, new { @readonly = "readonly", @class = "readonly-input" })
             </div>
             <div class="col left colon">
                 /
             </div>
             <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldTotal, new { @readonly = "readonly" })
+                @Html.TextBoxFor(m => m.OldTotal, new { @readonly = "readonly", @class = "readonly-input" })
             </div>
         </div>
     </div>

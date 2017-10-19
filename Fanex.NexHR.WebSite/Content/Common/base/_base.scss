@@ -486,3 +486,7 @@ span.req {
 .expired-date {
     color: #FF0000;
 }
+input.readonly-input {
+    color: $back !important;
+    background-color: $c-border-table;
+}

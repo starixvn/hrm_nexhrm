@@ -339,6 +339,10 @@ span.req {
 .expired-date {
   color: #FF0000; }
 
+input.readonly-input {
+  color: #242730 !important;
+  background-color: #d2d2d2; }
+
 a:active, a:focus {
   outline: none; }
 
