@@ -241,15 +241,15 @@ function initialize() {
 }
 
 function calculateToeicScore() {
-    var listening = $('#frmUpdFullTOEIC').find('input[name=Listening]').val();
+    var listening = $('form').find('input[name=Listening]').val();
     if (!listening) listening = 0;
 
-    var reading = $('#frmUpdFullTOEIC').find('input[name=Reading]').val();
+    var reading = $('form').find('input[name=Reading]').val();
     if (!reading) reading = 0;
 
     var total = parseInt(listening) + parseInt(reading);
 
-    $('#frmUpdFullTOEIC').find('input[name=Total]').val(total);
+    $('form').find('input[name=Total]').val(total);
 }
 
 function calculateOldToeicScore() {

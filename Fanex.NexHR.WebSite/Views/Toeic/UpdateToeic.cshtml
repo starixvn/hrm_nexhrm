@@ -36,7 +36,7 @@
             <label>@Labels.Listening</label>
         </div>
         <div class="left input--s">
-            @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5" })
+            @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
         </div>
     </div>
     <div class="row form-input">
@@ -44,7 +44,7 @@
             <label>@Labels.Reading</label>
         </div>
         <div class="left input--s">
-            @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5" })
+            @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
         </div>
     </div>
     <div class="row form-input">
@@ -52,7 +52,7 @@
             <label>@Labels.Total</label>
         </div>
         <div class="left input--s">
-            <input class="readonly-input" type="number" name="TotalScore" readonly ="readonly" />
+            <input class="readonly-input" type="number" name="Total" readonly ="readonly" />
         </div>
     </div>
     <div class="row form-input">
