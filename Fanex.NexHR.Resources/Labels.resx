@@ -1389,4 +1389,13 @@
   <data name="MinimumScore" xml:space="preserve">
     <value>Minimum Score</value>
   </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="RequiredScore" xml:space="preserve">
+    <value>Required Score</value>
+  </data>
+  <data name="NewOldTotal" xml:space="preserve">
+    <value>Total/Old</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
@@ -21,7 +22,7 @@
         {
             get
             {
-                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue 
+                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue
                     || _listeningReadingExamDate.Value.Year == 1900)
                 {
                     _listeningReadingExamDate = null;
@@ -41,6 +42,9 @@
 
         [Range(0, 495)]
         public int? Reading { get; set; }
+
+        [ReadOnly(true)]
+        public int? Total { get { return Listening + Reading; } }
 
         [Display(Name = "S/W Exam Date")]
         public DateTime? SWExamDate
@@ -74,6 +78,9 @@
 
         [Range(0, 495)]
         public int? OldReading { get; set; }
+
+        [ReadOnly(true)]
+        public int? OldTotal { get { return OldListening + OldReading; } }
 
         [Range(0, 200)]
         public int? OldSpeaking { get; set; }

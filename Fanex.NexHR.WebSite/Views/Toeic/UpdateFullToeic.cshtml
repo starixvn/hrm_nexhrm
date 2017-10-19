@@ -14,7 +14,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
+            @Html.LabelFor(model => model.InputDate, Labels.Deadline)
         </div>
         <div class="left">
             <div class="datepicker-button select--s">
@@ -72,7 +72,23 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.MinimumScore</label>
+            <label>@Labels.NewOldTotal</label>
+        </div>
+        <div class="left">
+            <div class="left select--xs m-r--s">
+                @Html.TextBoxFor(m => m.Total, new { @readonly = "readonly" })
+            </div>
+            <div class="col left colon">
+                /
+            </div>
+            <div class="left select--xs">
+                @Html.TextBoxFor(m => m.OldTotal, new { @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.RequiredScore</label>
         </div>
         <div class="left">
             <div class="left select--xs m-r--s">

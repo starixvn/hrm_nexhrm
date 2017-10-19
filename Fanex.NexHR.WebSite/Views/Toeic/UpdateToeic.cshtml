@@ -15,7 +15,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.InputDate, Labels.ExpiredDate)
+            @Html.LabelFor(model => model.InputDate, Labels.Deadline)
         </div>
         <div class="datepicker-button left select--s">
             @Html.DatePickerFor(model => model.InputDate)
@@ -49,7 +49,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.MinimumScore</label>
+            <label>@Labels.RequiredScore</label>
         </div>
         <div class="left input--s">
             @Html.TextBoxFor(m => m.MinimumScore, new { type = "number", step = "5" })

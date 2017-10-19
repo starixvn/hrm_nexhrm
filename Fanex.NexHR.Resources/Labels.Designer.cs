@@ -889,6 +889,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deadline.
+        /// </summary>
+        public static string Deadline {
+            get {
+                return ResourceManager.GetString("Deadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dec.
         /// </summary>
         public static string Dec {
@@ -2563,6 +2572,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total/Old.
+        /// </summary>
+        public static string NewOldTotal {
+            get {
+                return ResourceManager.GetString("NewOldTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Writing/Old.
         /// </summary>
         public static string NewOldWriting {
@@ -3099,6 +3117,15 @@ namespace Fanex.NexHR.Resources {
         public static string RequestType {
             get {
                 return ResourceManager.GetString("RequestType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required Score.
+        /// </summary>
+        public static string RequiredScore {
+            get {
+                return ResourceManager.GetString("RequiredScore", resourceCulture);
             }
         }
         
