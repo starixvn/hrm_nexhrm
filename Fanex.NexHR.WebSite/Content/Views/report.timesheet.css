@@ -68,6 +68,9 @@
       -ms-border-radius: 0.3rem;
       border-radius: 0.3rem; }
 
+.date-group {
+  padding-top: 15px !important; }
+
 .datagrid-wrap {
   width: 976px;
   height: 600px; }

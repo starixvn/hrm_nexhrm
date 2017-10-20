@@ -35,8 +35,8 @@
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                         {
                             <div class="row form-input">
-                                <div class="col m-l--l m-r--xl">
-                                    <div class="left label--s">
+                                <div class="col m-r--l">
+                                    <div class="left label--xl">
                                         @Html.Label(Labels.Month)
                                     </div>
                                     <div class="left select--s">
@@ -44,12 +44,60 @@
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
                                         @Html.HiddenFor(model => model.Month)
                                         @Html.HiddenFor(model => model.Year)
-                                        @Html.HiddenFor(model => model.FromDate)
-                                        @Html.HiddenFor(model => model.ToDate)
                                         @Html.HiddenFor(model => model.DateOption)
                                     </div>
                                 </div>
-                                <div class="col m-l--l m-r--l">
+
+                                <div class="col s12 date-group">
+                                    <div class="row">
+                                        <div class="left label--xl">
+                                            @Html.Label(Labels.CurrentMonth)
+                                        </div>
+                                        <div class="col m-r--l">
+                                            <div class="left label--m">
+                                                @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                            </div>
+                                            <div class="left datepicker-button input--s">
+                                                @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                                <i class="mdi-action-event calendar-icon left"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col m-l--l m-r--xl">
+                                            <div class="left label--m">
+                                                @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                            </div>
+                                            <div class="left datepicker-button input--s">
+                                                @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                                <i class="mdi-action-event calendar-icon left"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="left label--xl">
+                                            @Html.Label(Labels.LastMonth)
+                                        </div>
+                                        <div class="col m-r--l">
+                                            <div class="left label--m">
+                                                @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                            </div>
+                                            <div class="left datepicker-button input--s">
+                                                @Html.DatePickerFor(model => model.FromDateLastMonth, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                                <i class="mdi-action-event calendar-icon left"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col m-l--l m-r--xl">
+                                            <div class="left label--m">
+                                                @Html.LabelFor(model => model.ToDateLastMonth, Labels.ToDate)
+                                            </div>
+                                            <div class="left datepicker-button input--s">
+                                                @Html.DatePickerFor(model => model.ToDateLastMonth, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                                <i class="mdi-action-event calendar-icon left"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col m-l--xl m-r--l">
                                     <div class="left label--s">
                                         @Html.Label(Labels.Team)
                                     </div>
@@ -67,10 +115,9 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />                     
+                                    <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
-                                     @Html.HiddenFor(model => model.IsExportExcel)
-  
+                                    @Html.HiddenFor(model => model.IsExportExcel)
                                 </div>
                             </div>
                         }

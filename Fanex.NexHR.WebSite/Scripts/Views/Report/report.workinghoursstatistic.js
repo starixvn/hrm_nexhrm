@@ -1,4 +1,4 @@
-﻿/*global _global, _messages, noInformation, dateOption, setDateTimeRange, isHRRole, totalHoursToTime, validateFromDateAndToDate, 
+﻿/*global _global, _messages, noInformation, dateOption, setDateTimeRange, isHRRole, totalHoursToTime, validateFromDateAndToDate,
  floatThead, displayMinuteForTotalWorking */
 /*exported index*/
 'use strict';
@@ -85,7 +85,9 @@ function initMonthPick() {
             $('#Month').val(Month);
             $('#Year').val(Year);
             $('#FromDate').val(formatDate(new Date(Year, Month - 1), 'dd MMM, yyyy'));
-            $('#ToDate').val(formatDate(new Date(Year, Month, 0), 'dd MMM, yyyy'));
+            $('#ToDate').val(formatDate(new Date(Year, Month - 1, 25), 'dd MMM, yyyy'));
+            $('#FromDateLastMonth').val(formatDate(new Date(Year, Month - 2, 26), 'dd MMM, yyyy'));
+            $('#ToDateLastMonth').val(formatDate(new Date(Year, Month - 1, 0), 'dd MMM, yyyy'));
         }
     });
 
@@ -114,8 +116,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#btnExport').on("click",function () {
+    $('#btnExport').on("click", function () {
         document.location = _global.root + "export/WorkingHoursStatistic?" + $("#form").serialize();
     });
-
 });

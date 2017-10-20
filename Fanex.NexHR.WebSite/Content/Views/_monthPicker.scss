@@ -1,15 +1,17 @@
 ﻿@import '../Common/utils/mixins';
 @import '../Common/utils/variables';
 
-%boxshadow {    
+%boxshadow {
     @include css3(box-shadow, (0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)));
 }
 
 .monpickr-wrap-parent {
     width: 200px !important;
+
     #monthPickr, #fromMonthPickr, #toMonthPickr {
         width: 200px !important;
     }
+
     .monpickr-wrap {
         z-index: 997 !important;
 
@@ -20,6 +22,7 @@
             .monpickr-prev, .monpickr-next {
                 padding: 0;
                 background: #78828c;
+
                 .ui-icon {
                     width: 30px;
                     height: 30px;
@@ -63,7 +66,7 @@
                 margin-left: 40px;
                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
                 -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
-                -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;               
+                -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
             }
         }
 
@@ -97,4 +100,8 @@
             }
         }
     }
+}
+
+.date-group {
+    padding-top: 15px !important;
 }

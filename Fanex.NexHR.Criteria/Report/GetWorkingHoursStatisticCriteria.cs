@@ -1,5 +1,4 @@
-﻿
-namespace Fanex.NexHR.Criteria.Report
+﻿namespace Fanex.NexHR.Criteria.Report
 {
     using Data;
     using Data.Repository;
@@ -13,6 +12,10 @@ namespace Fanex.NexHR.Criteria.Report
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public DateTime FromDateLastMonth { get; set; }
+
+        public DateTime ToDateLastMonth { get; set; }
 
         [SpParam(SqlParamName = "empid")]
         public int? EmployeeId { get; set; }

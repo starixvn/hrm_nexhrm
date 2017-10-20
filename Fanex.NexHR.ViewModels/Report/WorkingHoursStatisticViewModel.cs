@@ -10,6 +10,10 @@
         public int Month { get; set; }
 
         public int Year { get; set; }
+
+        public DateTime FromDateLastMonth { get; set; }
+
+        public DateTime ToDateLastMonth { get; set; }
     }
 
     public class WorkingHours
@@ -23,6 +27,9 @@
         [DataType(DataType.DateTime)]
         public DateTime FromDate { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime ToDate { get; set; }
+
         public bool IsExportExcel { get; set; }
 
         public string Team { get; set; }
@@ -30,8 +37,5 @@
         public int? TeamId { get; set; }
 
         public IList<Team> Teams { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime ToDate { get; set; }
     }
 }
