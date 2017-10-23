@@ -22,6 +22,8 @@
 
         public float PreMonthUnpaidLeave { get; set; }
 
-        public int PreMonthTotalWorkingDay { get; set; }
+        public int PreMonthTotalWorkingDay
+        {
+            get; set;
+        }
     }
-}
