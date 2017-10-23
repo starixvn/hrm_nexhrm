@@ -6,7 +6,7 @@
 
 .monpickr-wrap-parent {
   width: 200px !important; }
-  .monpickr-wrap-parent #monthPickr, .monpickr-wrap-parent #fromMonthPickr, .monpickr-wrap-parent #toMonthPickr {
+  .monpickr-wrap-parent #monthPickr, .monpickr-wrap-parent #fromMonthPickr, .monpickr-wrap-parent #toMonthPickr, .monpickr-wrap-parent #lastMonthPickr {
     width: 200px !important; }
   .monpickr-wrap-parent .monpickr-wrap {
     z-index: 997 !important; }

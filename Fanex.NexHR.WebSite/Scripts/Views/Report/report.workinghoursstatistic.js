@@ -83,6 +83,7 @@ function initMonthPick() {
             var Month = $('#monthPickr').monPickr('getMonth'),
                 Year = $('#monthPickr').monPickr('getMonth', 'yyyy');
             $('#Month').val(Month);
+            $('#LastMonth').val(Month - 1);
             $('#Year').val(Year);
             $('#FromDate').val(formatDate(new Date(Year, Month - 1), 'dd MMM, yyyy'));
             $('#ToDate').val(formatDate(new Date(Year, Month - 1, 25), 'dd MMM, yyyy'));

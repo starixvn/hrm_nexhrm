@@ -1384,6 +1384,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From (Last month).
+        /// </summary>
+        public static string FromLastMonth {
+            get {
+                return ResourceManager.GetString("FromLastMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From Time.
         /// </summary>
         public static string FromTime {

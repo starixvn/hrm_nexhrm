@@ -1398,4 +1398,7 @@
   <data name="NewOldTotal" xml:space="preserve">
     <value>Total/Old</value>
   </data>
+  <data name="FromLastMonth" xml:space="preserve">
+    <value>From (Last month)</value>
+  </data>
 </root>
