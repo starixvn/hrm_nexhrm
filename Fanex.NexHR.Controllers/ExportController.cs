@@ -140,14 +140,10 @@
 
         public ActionResult WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
-            model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
-            model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
-            DateTime date = new DateTime(model.Year, model.Month, 1);
-
             var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
-                FromDate = date,
-                ToDate = date.AddMonths(1).AddDays(-1),
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
                 FromDateLastMonth = model.FromDateLastMonth,
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
