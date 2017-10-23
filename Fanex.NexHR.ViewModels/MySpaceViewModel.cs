@@ -539,7 +539,7 @@
         {
             get
             {
-                var results = new StringBuilder("-");
+                var results = new StringBuilder();
 
                 if (NotificationLateInEarlyOutToDay != null)
                 {
