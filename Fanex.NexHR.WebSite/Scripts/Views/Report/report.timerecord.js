@@ -2,9 +2,11 @@
 /*global _global, _messages, floatThead, setDateTimeRange, validateFromDateAndToDate*/
 /*exported*/
 
+var recordTimeIdToChange = 0;
+
 function processInOut(inoutType, eventElement) {
     $.post(_global.root + 'ajax/ProcessInOut',
-    { inoutType: inoutType, recordTimeId: $(eventElement).attr('data-id') },
+    { inoutType: inoutType, recordTimeId: recordTimeIdToChange },
     function (response) {
         if (response.IsSuccessful) {
             query(false);   // jshint ignore:line
@@ -17,7 +19,8 @@ function processInOut(inoutType, eventElement) {
 
 function bindMenuIn() {
     $('table#data tbody td a.in-action').on('mouseup', function () {
-        var $this = $(this);
+        //var $this = $(this);
+        recordTimeIdToChange = $(this).data("id");
 
         $.contextMenu({
             selector: '.in-action',
@@ -26,7 +29,7 @@ function bindMenuIn() {
                 return {
                     callback: function () {
                         confirm('Are you sure you change to in?', function () {
-                            processInOut(0, $this);
+                            processInOut(0, recordTimeIdToChange);
                         });
                     },
                     items: {
@@ -40,7 +43,8 @@ function bindMenuIn() {
 
 function bindMenuOut() {
     $('table#data tbody td a.out-action').on('mouseup', function () {
-        var $this = $(this);
+        //var $this = $(this);
+        recordTimeIdToChange = $(this).data("id");
 
         $.contextMenu({
             selector: '.out-action',
@@ -49,7 +53,7 @@ function bindMenuOut() {
                 return {
                     callback: function () {
                         confirm('Are you sure you change to out?', function () {
-                            processInOut(1, $this);
+                            processInOut(1, recordTimeIdToChange);
                         });
                     },
                     items: {
