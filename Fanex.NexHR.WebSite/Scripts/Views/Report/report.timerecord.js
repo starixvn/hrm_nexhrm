@@ -67,7 +67,7 @@ function bindMenuOut() {
 
 function bindMenuInOut() {
     $('table#data tbody td a.inout-action').on('mouseup', function () {
-        var $this = $(this);
+        recordTimeIdToChange = $(this).data("id");
 
         $.contextMenu({
             selector: '.inout-action',
@@ -78,13 +78,13 @@ function bindMenuInOut() {
                         switch (key) {
                             case 'in':
                                 confirm('Are you sure you change to in?', function () {
-                                    processInOut(0, $this);
+                                    processInOut(0, recordTimeIdToChange);
                                 });
 
                                 break;
                             case 'out':
                                 confirm('Are you sure you change to out?', function () {
-                                    processInOut(1, $this);
+                                    processInOut(1, recordTimeIdToChange);
                                 });
 
                                 break;
