@@ -256,6 +256,8 @@ namespace Fanex.NexHR.Core
                 // We need to keep the loop index, not sure why it is altered by the Linq.
                 var index = i;
                 Func<T, object> expression = GetSortExpression<T>(sortExpressions, index);
+
+                // Need to review the functionality of 'orderedQuery'
                 orderedQuery = SortOrderedQuery(sortExpressions, query, orderedQuery, index, expression);
             }
 
@@ -272,12 +274,12 @@ namespace Fanex.NexHR.Core
             IOrderedEnumerable<T> sorted = null;
             if (sortExpressions[index].Direction == "asc")
             {
-                if (orderedQuery != null)
-                {
+                ////if (orderedQuery != null)
+                ////{
                     sorted = (index == 0)
                         ? query.OrderBy(expression)
-                        : orderedQuery.ThenBy(expression);
-                }
+                        : orderedQuery?.ThenBy(expression);
+                ////}
             }
             else
             {
