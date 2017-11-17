@@ -271,22 +271,13 @@ namespace Fanex.NexHR.Core
             int index,
             Func<T, object> expression)
         {
-            IOrderedEnumerable<T> sorted = null;
-            if (sortExpressions[index].Direction == "asc")
-            {
-                ////if (orderedQuery != null)
-                ////{
-                    sorted = (index == 0)
-                        ? query.OrderBy(expression)
-                        : orderedQuery?.ThenBy(expression);
-                ////}
-            }
-            else
-            {
-                sorted = (index == 0)
+            var sorted = sortExpressions[index].Direction == "asc"
+                ? ((index == 0)
+                    ? query.OrderBy(expression)
+                    : orderedQuery?.ThenBy(expression))
+                : ((index == 0)
                     ? query.OrderByDescending(expression)
-                    : orderedQuery?.ThenByDescending(expression);
-            }
+                    : orderedQuery?.ThenByDescending(expression));
 
             return sorted;
         }
