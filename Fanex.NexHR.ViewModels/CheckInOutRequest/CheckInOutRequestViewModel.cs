@@ -53,8 +53,7 @@
             Employee,
             ForDate.ToDateMonthYearFormatedDate());
 
-        public bool IsStandbyAtWeeken => Shift.Contains("A2")
-                                         && (ForDate.DayOfWeek == DayOfWeek.Saturday || ForDate.DayOfWeek == DayOfWeek.Sunday);
+        public bool IsStandbyAtWeekend => (ForDate.DayOfWeek == DayOfWeek.Saturday || ForDate.DayOfWeek == DayOfWeek.Sunday);
 
         public void GetTemplatePath()
         {
@@ -65,27 +64,11 @@
         {
             IList<ValidationResult> result = new List<ValidationResult>();
 
-            if (string.IsNullOrEmpty(Shift))
-            {
-                var validation = new ValidationResult(
-                    "Invalid shift",
-                    new[] { "Shift" });
-                result.Add(validation);
-            }
-
             if (ForDate.Date > DateTime.Today)
             {
                 var validation = new ValidationResult(
                     Messages.NoFutureCheckInOutRequest,
                     new[] { "ForDate" });
-                result.Add(validation);
-            }
-
-            if (string.IsNullOrEmpty(Shift))
-            {
-                var validation = new ValidationResult(
-                    "Invalid shift",
-                    new[] { "Shift" });
                 result.Add(validation);
             }
 

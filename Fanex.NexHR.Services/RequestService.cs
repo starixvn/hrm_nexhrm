@@ -379,7 +379,7 @@
         {
             IList<Employee> leaders;
 
-            if (model.IsStandbyAtWeeken)
+            if (model.IsStandbyAtWeekend)
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
                 leaders = GetData<Employee>(getLeaderCriteria);
