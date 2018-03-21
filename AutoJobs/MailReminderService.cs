@@ -90,7 +90,7 @@
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        private void SendMailReminderForgotCheckInOut()
+        private static void SendMailReminderForgotCheckInOut()
         {
             try
             {
