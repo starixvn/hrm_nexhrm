@@ -181,7 +181,7 @@
         /// <param name="filePath">File path.</param>
         /// <returns>Content of file.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        private string ReadTextFile(string filePath)
+        private static string ReadTextFile(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
