@@ -141,7 +141,7 @@
         /// </summary>
         /// <param name="forDate">The date which employee have birthday and first working day.</param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        private void SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
+        private static void SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
         {
             try
             {
@@ -235,7 +235,7 @@
         /// Function to send mail reminder birthday.
         /// </summary>
         /// <param name="employeesBirthday">List employees have birthday.</param>
-        private void SendmailReminderBirthday(IList<Employee> employeesBirthday)
+        private static void SendmailReminderBirthday(IList<Employee> employeesBirthday)
         {
             var employees = string.Join(
                 "<br />",
@@ -257,7 +257,7 @@
         /// Function to send mail reminder first working day anniversary.
         /// </summary>
         /// <param name="employeesFirstWorkingday">Employees which have first working day on the date.</param>
-        private void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday)
+        private static void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday)
         {
             var employees = string.Join(
                 "<br />",
