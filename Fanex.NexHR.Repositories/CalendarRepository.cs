@@ -27,5 +27,23 @@
                 return workingSchedules.ToList();
             }
         }
+
+        public IList<LeaveSchedule> GetLeaveSchedule(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var leaveSchedules = db.Query<LeaveSchedule, Employee, Team, LeaveSchedule>(
+                     (schedule, employee, team) =>
+                     {
+                         employee.Team = team;
+                         schedule.Employee = employee;
+                         return schedule;
+                     },
+                     "EmpId, GroupId",
+                     criteria.GetSpParams());
+
+                return leaveSchedules.ToList();
+            }
+        }
     }
 }

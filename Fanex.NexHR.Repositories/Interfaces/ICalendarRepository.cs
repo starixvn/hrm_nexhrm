@@ -7,5 +7,7 @@
     public interface ICalendarRepository
     {
         IList<WorkingSchedule> GetWorkingSchedule(ICriteria criteria);
+
+        IList<LeaveSchedule> GetLeaveSchedule(ICriteria criteria);
     }
 }

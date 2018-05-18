@@ -419,6 +419,11 @@
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/fixtable.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/leavecalendarsjs").Include(
+                "~/Scripts/Views/Calendar/employee.leavecalendar.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                "~/Scripts/Views/fixtable.js"));
+
             bundles.Add(new StyleBundle("~/Content/workingcalendarscss")
                   .Include("~/Content/Views/report.timesheet.css", new CssRewriteUrlTransform()));
         }

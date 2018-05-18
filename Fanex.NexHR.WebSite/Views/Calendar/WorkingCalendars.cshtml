@@ -80,6 +80,7 @@
                                         {
                                             <a class="btn-request waves-effect waves-light" href="javascript:;" id="btnAddCalendar">@Labels.AddEmployeeCalendar</a>
                                         }
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="@Url.Action("LeaveSchedule", "Calendar")">@Labels.LeaveSchedules</a>
                                     </div>
                                 </div>
                                 @*<div class="col">
@@ -112,104 +113,106 @@
                             </div>
                         }
                     </div>
-                    <div class="datagrid-wrap panel-body p-x--s">
-                        <div class="datagrid-view">
-                            <div class="datagrid-view1">
-                                <div class="datagrid-header">
-                                    <div class="datagrid-header-inner">
-                                        <table cellspacing="0" cellpadding="0" border="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="3" align="right">
-                                                        <div class="datagrid-cell p-l--s">
-                                                            <b style="text-transform: uppercase">@(new DateTime(currentDate.Year, currentDate.Month, 1).ToString("MMM yyyy"))</b>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="rownumber">
-                                                        <div class="datagrid-cell-rownumber center">@Labels.SymbolCount</div>
-                                                    </td>
-                                                    <td class="p-l--s rowfullname">
-                                                        <div class="datagrid-cell ">@Labels.FullName</div>
-                                                    </td>
-                                                    <td class="p-l--s rownick">
-                                                        <div class="datagrid-cell ">@Labels.Nick</div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                    <div>
+
+                        <div class="datagrid-wrap panel-body p-x--s">
+                            <div class="datagrid-view">
+                                <div class="datagrid-view1">
+                                    <div class="datagrid-header">
+                                        <div class="datagrid-header-inner">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="3" align="right">
+                                                            <div class="datagrid-cell p-l--s">
+                                                                <b style="text-transform: uppercase">@(new DateTime(currentDate.Year, currentDate.Month, 1).ToString("MMM yyyy"))</b>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rownumber">
+                                                            <div class="datagrid-cell-rownumber center">@Labels.SymbolCount</div>
+                                                        </td>
+                                                        <td class="p-l--s rowfullname">
+                                                            <div class="datagrid-cell ">@Labels.FullName</div>
+                                                        </td>
+                                                        <td class="p-l--s rownick">
+                                                            <div class="datagrid-cell ">@Labels.Nick</div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="datagrid-body">
-                                    <div class="datagrid-body-inner">
-                                        <table cellspacing="0" cellpadding="0" border="0">
-                                            <tbody>
-                                                @{int rowId = 1;}
-                                                @if (employeeSchedules.Count > 0)
+                                    <div class="datagrid-body">
+                                        <div class="datagrid-body-inner">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tbody>
+                                                    @{int rowId = 1;}
+                                                    @if (employeeSchedules.Count > 0)
                                                 {
                                                     foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                     {
-                                                        <tr>
-                                                            <td class="datagrid-header-rownumber center">
-                                                                <div class="datagrid-cell-rownumber">@rowId</div>
-                                                            </td>
-                                                            <td class="datagrid-fullname p-l--s">
-                                                                <div class="datagrid-cell">@employeeSchedule.Employee.FullName</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="datagrid-cell p-l--s">@employeeSchedule.Employee.NickName</div>
-                                                            </td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td class="datagrid-header-rownumber center">
+                                                                    <div class="datagrid-cell-rownumber">@rowId</div>
+                                                                </td>
+                                                                <td class="datagrid-fullname p-l--s">
+                                                                    <div class="datagrid-cell">@employeeSchedule.Employee.FullName</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="datagrid-cell p-l--s">@employeeSchedule.Employee.NickName</div>
+                                                                </td>
+                                                            </tr>
                                                         rowId++;
                                                     }
                                                 }
-                                                @*else
-                                                    {
-                                                        //@RazorHelper.DisplayNoInformation(colspan: 15);
-                                                    }*@
-                                            </tbody>
-                                        </table>
+                                                    @*else
+                                        {
+                                            //@RazorHelper.DisplayNoInformation(colspan: 15);
+                                        }*@
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="datagrid-view2">
-                                <div class="datagrid-header">
-                                    <div class="datagrid-header-inner">
-                                        <table cellspacing="0" cellpadding="0" border="0">
-                                            <tbody>
-                                                @{
-                                                    <tr>
-                                                        @for (int i = 1; i <= daysInMonth; i++)
+                                <div class="datagrid-view2">
+                                    <div class="datagrid-header">
+                                        <div class="datagrid-header-inner">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tbody>
+                                                    @{
+                                                        <tr>
+                                                            @for (int i = 1; i <= daysInMonth; i++)
                                                         {
 
-                                                            <td>
-                                                                <div class="datagrid-cell ">
-                                                                    @i
-                                                                </div>
-                                                            </td>
+                                                                <td>
+                                                                    <div class="datagrid-cell ">
+                                                                        @i
+                                                                    </div>
+                                                                </td>
                                                         }
-                                                    </tr>
-                                                    <tr>
-                                                        @for (int i = 1; i <= daysInMonth; i++)
+                                                        </tr>
+                                                        <tr>
+                                                            @for (int i = 1; i <= daysInMonth; i++)
                                                         {
                                                             DateTime dt = new DateTime(currentDate.Year, currentDate.Month, i);
-                                                            <td class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
-                                                                <div class="datagrid-cell">
-                                                                    @dt.ToString("ddd")
-                                                                </div>
-                                                            </td>
+                                                                <td class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
+                                                                    <div class="datagrid-cell">
+                                                                        @dt.ToString("ddd")
+                                                                    </div>
+                                                                </td>
                                                         }
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="datagrid-body">
-                                    <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
-                                        <tbody>
-                                            @if (employeeSchedules.Count > 0)
+                                    <div class="datagrid-body">
+                                        <table cellspacing="0" cellpadding="0" border="0" class="shift-grid">
+                                            <tbody>
+                                                @if (employeeSchedules.Count > 0)
                                             {
                                                 foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                 {
@@ -346,12 +349,14 @@
                                                     </tr>
                                                 }
                                             }
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row form-input" id="colordef">
                         <div class="col s3">
                             <div class="row m-b--m">

@@ -49,12 +49,16 @@
     <Setting Key="Employee_GetManagements" SpName="Employee_GetManagements" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
-      <Mapping DataField="Workload" ObjectProperty="PercentWorkload"/>
-      <Mapping DataField="GroupId" ObjectProperty="Id"/>
+      <Mapping DataField="Workload" ObjectProperty="PercentWorkload" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
   </Function>
   <Function Name="Calendar">
     <Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="EmployeeCalendar_GetLeaveSchedule" SpName="EmployeeCalendar_GetLeaveSchedule" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>

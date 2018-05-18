@@ -28,9 +28,17 @@ function initMonthPick() {
         });
 }
 
+function eventExportExcel() {
+    $('#exportExcel').on('click', function (e) {
+        e.preventDefault();
+        var filter = $(".form-filter form").serialize();
+        window.location.href = _global.root + "Export/LeaveScheduleReport?" + filter;
+    });
+}
+
 $(document).ready(function () {
     initMonthPick();
-
+    eventExportExcel();
     $('#btnAddCalendar').click(function () {
         $('#addform').dialog({
             modal: true,

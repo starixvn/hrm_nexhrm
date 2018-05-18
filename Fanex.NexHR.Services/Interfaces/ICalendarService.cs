@@ -7,5 +7,7 @@
     public interface ICalendarService
     {
         IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
+
+        LeaveDaySummarySchedule GetLeaveSchedule(GetLeaveScheduleCriteria criteria);
     }
 }

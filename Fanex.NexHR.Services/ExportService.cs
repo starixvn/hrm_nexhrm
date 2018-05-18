@@ -1,11 +1,13 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Core;
-    using Models;
-    using Models.Report;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Core;
+    using Models;
+    using Models.Calendar;
+    using Models.Report;
+    using Resources;
 
     public static class ExportService
     {
@@ -255,6 +257,83 @@
         }
 
         #endregion Employee Profile
+
+        #region Employee Leave Schedule
+
+        public static void ExportLeaveSummaryScheduleReport(LeaveDaySummarySchedule schedules, string templatePath)
+        {
+            string fileName = Labels.LeaveTakenSchedulesReport;
+            string sheetName = Labels.LeaveSchedules;
+
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
+
+                writer.CopyRows(0, 1);
+                writer.CopyRows(1, 3);
+                WriteHeaderLeaveDaysSchedule(schedules, ref writer);
+                WriteLeaveDayScheduleContent(schedules.EmployeeLeaveShedules, ref writer);
+                WriteLeaveDayScheduleSumRow(schedules.TotalLeaves, ref writer, schedules.EmployeeLeaveShedules.Count);
+                writer.Render();
+            }
+        }
+
+        private static void WriteHeaderLeaveDaysSchedule(LeaveDaySummarySchedule schedules, ref ExcelTemplateWriter writer)
+        {
+            var startCol = 4;
+            writer.WriteCellRange(1, 1, startCol, schedules.DaysInMonth, schedules.Month.ToString("MMM - yyyy"));
+            foreach (var date in schedules.ListDates)
+            {
+                writer.WriteCellRange(3, 1, startCol, 1, date);
+                startCol++;
+            }
+        }
+
+        private static void WriteLeaveDayScheduleContent(IList<EmployeeLeaveSchedule> schedules, ref ExcelTemplateWriter writer)
+        {
+            var count = 0;
+            var rowIndex = 4;
+            foreach (var schedule in schedules)
+            {
+                count++;
+                var employeeInfo = new
+                {
+                    No = count,
+                    Name = schedule.Employee.FullName,
+                    Nick = schedule.Employee.NickName,
+                    TeamName = schedule.Employee.CodeOfTeam
+                };
+                writer.WriteRow(4, employeeInfo);
+                WriteDateLeaveSchedules(schedule.LeaveSchedules, ref writer, rowIndex);
+                rowIndex++;
+            }
+        }
+
+        private static void WriteDateLeaveSchedules(IList<LeaveSchedule> leaveSchedules, ref ExcelTemplateWriter writer, int rowIndex)
+        {
+            var startCol = 4;
+            foreach (var leaveSchedule in leaveSchedules)
+            {
+                var cellValue = leaveSchedule.IsLeaveDay ? !leaveSchedule.IsHalfDayLeave ? "x" : leaveSchedule.LeaveType : leaveSchedule.LeaveType;
+
+                writer.WriteCellRange(rowIndex, 1, startCol, 1, cellValue);
+                startCol++;
+            }
+        }
+
+        private static void WriteLeaveDayScheduleSumRow(IList<double> totalLeaves, ref ExcelTemplateWriter writer, int employeeLength)
+        {
+            writer.CopyRows(5, 1);
+            var rowIndex = employeeLength + 4;
+            var startCol = 4;
+            foreach (var totalLeave in totalLeaves)
+            {
+                writer.WriteCellRange(rowIndex, 1, startCol, 1, totalLeave);
+                startCol++;
+            }
+        }
+
+        #endregion Employee Leave Schedule
 
         private static string GetTime(DateTime? date)
         {

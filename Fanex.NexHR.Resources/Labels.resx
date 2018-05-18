@@ -1401,4 +1401,10 @@
   <data name="FromLastMonth" xml:space="preserve">
     <value>From (Last month)</value>
   </data>
+  <data name="LeaveSchedules" xml:space="preserve">
+    <value>Leave Schedules</value>
+  </data>
+  <data name="LeaveTakenSchedulesReport" xml:space="preserve">
+    <value>LeaveTakenSchedulesReport</value>
+  </data>
 </root>

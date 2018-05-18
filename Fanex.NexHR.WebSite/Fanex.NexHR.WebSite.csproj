@@ -821,6 +821,9 @@
     <Content Include="Views\CompanyEvent\Edit.cshtml" />
     <Content Include="Views\CompanyEvent\Detail.cshtml" />
     <Content Include="Views\Report\WorkingHoursStatistic.cshtml" />
+    <Content Include="Views\Calendar\LeaveSchedule.cshtml" />
+    <Content Include="Scripts\Views\Calendar\employee.leavecalendar.js" />
+    <Content Include="Views\Calendar\_LeaveDaySummarySchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

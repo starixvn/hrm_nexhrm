@@ -2023,6 +2023,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Schedules.
+        /// </summary>
+        public static string LeaveSchedules {
+            get {
+                return ResourceManager.GetString("LeaveSchedules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave summary.
         /// </summary>
         public static string LeaveSummary {
@@ -2037,6 +2046,15 @@ namespace Fanex.NexHR.Resources {
         public static string LeaveTaken {
             get {
                 return ResourceManager.GetString("LeaveTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LeaveTakenSchedulesReport.
+        /// </summary>
+        public static string LeaveTakenSchedulesReport {
+            get {
+                return ResourceManager.GetString("LeaveTakenSchedulesReport", resourceCulture);
             }
         }
         

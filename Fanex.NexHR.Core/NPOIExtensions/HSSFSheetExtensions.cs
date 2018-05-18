@@ -214,6 +214,7 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
         {
+            sheet.CreateCell(rowIndex, colIndex);
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
@@ -300,37 +301,38 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             switch (sourceCell.CellType)
             {
                 case CellType.Boolean:
-                {
-                    newCell.SetCellValue(sourceCell.BooleanCellValue);
-                    break;
-                }
+                    {
+                        newCell.SetCellValue(sourceCell.BooleanCellValue);
+                        break;
+                    }
 
                 case CellType.Numeric:
-                {
-                    newCell.SetCellValue(sourceCell.NumericCellValue);
-                    break;
-                }
+                    {
+                        newCell.SetCellValue(sourceCell.NumericCellValue);
+                        break;
+                    }
 
                 case CellType.String:
-                {
-                    newCell.SetCellValue(sourceCell.StringCellValue);
-                    break;
-                }
+                    {
+                        newCell.SetCellValue(sourceCell.StringCellValue);
+                        break;
+                    }
 
                 case CellType.Error:
-                {
-                    newCell.SetCellValue(sourceCell.ErrorCellValue);
-                    break;
-                }
+                    {
+                        newCell.SetCellValue(sourceCell.ErrorCellValue);
+                        break;
+                    }
 
                 case CellType.Formula:
-                {
-                    newCell.CellFormula = sourceCell.CellFormula;
-                    break;
-                }
+                    {
+                        newCell.CellFormula = sourceCell.CellFormula;
+                        break;
+                    }
                 case CellType.Unknown:
                 case CellType.Blank:
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(sourceCell.CellType.ToString());
             }

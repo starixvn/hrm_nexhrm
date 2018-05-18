@@ -1,7 +1,11 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Core;
     using Core.Model;
+    using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
     using Models;
@@ -9,9 +13,7 @@
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
+    using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
 
@@ -21,20 +23,24 @@
         private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
+        private const string DayOffScheduleTemplatePath = @"~\App_Data\ExcelTemplates\DayOffSchedule.xls";
 
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
+        private readonly ICalendarService _calendarService;
 
         public ExportController(
             EmployeeService employeeService,
-            IReportService reportService)
+            IReportService reportService,
+            ICalendarService calendarService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _reportService = reportService ?? new ReportService();
+            _calendarService = calendarService ?? new CalendarService();
         }
 
         public ExportController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
@@ -154,6 +160,26 @@
             string templatePath = Server.MapPath(WorkingHoursStatisticTemplatePath);
 
             ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
+
+            return new EmptyResult();
+        }
+
+        public ActionResult LeaveScheduleReport(WorkingCalendarViewModel model)
+        {
+            DateTime date = new DateTime(model.Year, model.Month, 1);
+            var templatePath = Server.MapPath(DayOffScheduleTemplatePath);
+
+            var criteria = new GetLeaveScheduleCriteria
+            {
+                FromDate = date,
+                ToDate = date.AddMonths(1).AddDays(-1),
+                EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
+                TeamId = model.TeamId
+            };
+
+            var schedules = _calendarService.GetLeaveSchedule(criteria);
+
+            ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
 
             return new EmptyResult();
         }
