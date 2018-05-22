@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using Core;
     using Models;
     using Models.Calendar;
@@ -284,7 +285,7 @@
             writer.WriteCellRange(1, 1, startCol, schedules.DaysInMonth, schedules.Month.ToString("MMM - yyyy"));
             foreach (var date in schedules.ListDates)
             {
-                writer.WriteCellRange(3, 1, startCol, 1, date);
+                writer.WriteCellRange(3, 1, startCol, 1, date.ToString("ddd"));
                 startCol++;
             }
         }
@@ -334,6 +335,80 @@
         }
 
         #endregion Employee Leave Schedule
+
+        #region Head Count Report
+
+        public static void ExportHeadCountReport(HeadCountModel report, string templatePath)
+        {
+            var reportName = string.Format("{0}{1}", "HeadCount", report.StartDate.Year);
+            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
+            {
+                var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);
+                // Fill report header.
+                writer.WriteRow(0, new object[] { string.Format("{0}{1}", "HEAD COUNT ", report.StartDate.Year) });
+                FillHeaderHeadCount(report, ref writer);
+                FillContentHeadCount(report.HeadCount, ref writer);
+                FillTotalRowHeadCount(report.HeadCount, ref writer);
+                writer.AutosizeColumns(8);
+
+                writer.Render();
+            }
+        }
+
+        private static void FillHeaderHeadCount(HeadCountModel report, ref ExcelTemplateWriter writer)
+        {
+            var row = new
+            {
+                Count = "No.",
+                Team = "Team",
+                Code = "Code",
+                FirstDate = report.StartDate.ToString("dd MMM yyyy"),
+                NewHire = Labels.NewHire,
+                Resignation = Labels.Resignation,
+                LastDate = report.EndDate.ToString("dd MMM yyyy"),
+                Variance = Labels.Variance
+            };
+            writer.WriteRow(1, row);
+        }
+
+        private static void FillContentHeadCount(IList<HeadCount> headCount, ref ExcelTemplateWriter writer)
+        {
+            var index = 1;
+            foreach (HeadCount item in headCount)
+            {
+                var record = new
+                {
+                    Count = index,
+                    Team = item.GroupName,
+                    Code = item.GroupCode,
+                    FirstDate = item.EmployeeAtJanuary,
+                    NewHire = item.NewHire,
+                    Resignation = item.Resigned,
+                    LastDate = item.EmployeeAtDecember,
+                    Variance = item.Variance
+                };
+                writer.WriteRow(2, record);
+                index++;
+            }
+        }
+
+        private static void FillTotalRowHeadCount(IList<HeadCount> headCount, ref ExcelTemplateWriter writer)
+        {
+            var record = new
+            {
+                Total = Labels.Total,
+                MergeCol1 = string.Empty,
+                MergeCol2 = string.Empty,
+                EmployeeAtJanuary = headCount.Sum(x => x.EmployeeAtJanuary),
+                NewHire = headCount.Sum(x => x.NewHire),
+                Resigned = headCount.Sum(x => x.Resigned),
+                EmployeeAtDecember = headCount.Sum(x => x.EmployeeAtDecember),
+                Variance = headCount.Sum(x => x.Variance)
+            };
+            writer.WriteRow(3, record);
+        }
+
+        #endregion Head Count Report
 
         private static string GetTime(DateTime? date)
         {

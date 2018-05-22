@@ -100,6 +100,8 @@
             BuildBundleForCompanyEvent(bundles);
 
             BuildBundleForWorkingHoursStatistic(bundles);
+
+            BuildBundleForHeadCountReport(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -170,6 +172,13 @@
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/Report/report.totalworkinghours.js"));
+        }
+
+        private static void BuildBundleForHeadCountReport(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/headcount").Include(
+                 "~/Scripts/Views/Report/report.headcount.js"
+                ));
         }
 
         private static void BuildBundleForWorkingHoursStatistic(BundleCollection bundles)

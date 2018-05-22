@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "HeadCount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    @Styles.Render("~/Content/contextmenucss")
+}
+@section js{
+    @Scripts.Render("~/bundles/contextmenujs", "~/bundles/headcount")
+}
+@section Breadcrumb {
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Year</label>
+                                </div>
+                                <div class="left select--xs">
+                                    @Html.YearPicker("Year", 2010, DateTime.Now.Year)
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input id="submit" type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                <input id="exportExcel" type="button" value="@Labels.Excel" class="waves-effect waves-light btn-export-excel m-r--b" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="head-count-grid" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@
     using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
+    using Criteria.Team;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
@@ -24,6 +25,7 @@
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
         private const string DayOffScheduleTemplatePath = @"~\App_Data\ExcelTemplates\DayOffSchedule.xls";
+        private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
 
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
@@ -181,6 +183,26 @@
 
             ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
 
+            return new EmptyResult();
+        }
+
+        public ActionResult HeadCountExport(int year)
+        {
+            var templatePath = Server.MapPath(HeadCountReportTemplatePath);
+            var criteria = new GetHeadCountByYearCriteria
+            {
+                StartDateOfYear = new DateTime(year, 1, 1),
+                EndDateOfYear = new DateTime(year, 12, 31)
+            };
+
+            var headCount = _reportService.GetTeamHeadCountInYear(criteria);
+            var report = new HeadCountModel
+            {
+                StartDate = criteria.StartDateOfYear,
+                EndDate = criteria.EndDateOfYear,
+                HeadCount = headCount
+            };
+            ExportService.ExportHeadCountReport(report, templatePath);
             return new EmptyResult();
         }
     }

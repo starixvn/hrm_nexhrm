@@ -86,9 +86,10 @@
                                 <tr>
                                     @foreach (var date in Model.ListDates)
                                     {
-                                        <td class="@((date.Equals("Sat") || date.Equals("Sun")) ? "SatSunDay" : string.Empty)">
+                                        var cssClass = (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty;
+                                        <td class="@cssClass">
                                             <div class="datagrid-cell">
-                                                @date
+                                                @date.ToString("ddd")
                                             </div>
                                         </td>
                                     }

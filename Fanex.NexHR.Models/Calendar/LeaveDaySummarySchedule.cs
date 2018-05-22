@@ -11,7 +11,7 @@
 
         public DateTime Month { get; set; }
 
-        public IList<string> ListDates { get; set; }
+        public IList<DateTime> ListDates { get; set; }
 
         public IList<double> TotalLeaves { get; set; }
     }

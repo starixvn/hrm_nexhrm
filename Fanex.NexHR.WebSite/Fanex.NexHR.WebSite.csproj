@@ -693,6 +693,7 @@
     <Content Include="Scripts\Views\Postanal\postnatalemployee.js" />
     <Content Include="Scripts\Views\Overtime\overtime.member.js" />
     <Content Include="Scripts\Views\Overtime\overtimeRequest.js" />
+    <Content Include="Scripts\Views\Report\report.headcount.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.js" />
     <Content Include="Scripts\Views\Report\report.latein.earlyout.detail.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.deduction.detail.js" />
@@ -824,6 +825,8 @@
     <Content Include="Views\Calendar\LeaveSchedule.cshtml" />
     <Content Include="Scripts\Views\Calendar\employee.leavecalendar.js" />
     <Content Include="Views\Calendar\_LeaveDaySummarySchedule.cshtml" />
+    <Content Include="Views\Report\HeadCount.cshtml" />
+    <Content Include="Views\Report\_HeadCountTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

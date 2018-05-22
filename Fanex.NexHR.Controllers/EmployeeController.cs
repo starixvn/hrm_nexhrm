@@ -1,5 +1,12 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Core.Model;
@@ -9,13 +16,6 @@
     using Services;
     using Services.Interfaces;
     using Simplicode.Imaging;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
     using ViewModels;
     using ViewModels.Employee;
 

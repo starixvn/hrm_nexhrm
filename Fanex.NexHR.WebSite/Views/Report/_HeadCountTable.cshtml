@@ -1,0 +1,51 @@
+﻿@using Fanex.NexHR.Models.Report
+@model HeadCountModel
+
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.Code</th>
+            <th>@Model.StartDate.ToString("dd MMM yyyy")</th>
+            <th>@Labels.NewHire</th>
+            <th>@Labels.Resignation</th>
+            <th>@Model.EndDate.ToString("dd MMM yyyy")</th>
+            <th>@Labels.Variance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.HeadCount.Any())
+        {
+            int index = 1;
+            foreach (HeadCount item in Model.HeadCount)
+            {
+                <tr>
+                    <td>@index</td>
+                    <td class="left">@item.GroupName</td>
+                    <td>@item.GroupCode</td>
+                    <td>@item.EmployeeAtJanuary</td>
+                    <td>@item.NewHire</td>
+                    <td>@item.Resigned</td>
+                    <td>@item.EmployeeAtDecember</td>
+                    @{
+                        var variance = item.Variance >= 0 ? string.Format("{0}{1}", "+", item.Variance.ToString()) : item.Variance.ToString();
+                    }
+                    <td>@variance</td>
+                </tr>
+
+                                index++;
+                            }
+                        }
+    </tbody>
+    <tfoot>
+        <tr class="center">
+            <td colspan="3">@Labels.Total</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtJanuary)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.NewHire)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.Resigned)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtDecember)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.Variance)</td>
+        </tr>
+    </tfoot>
+</table>

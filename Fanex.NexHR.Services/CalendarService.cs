@@ -77,12 +77,12 @@
             return totalLeavesTaken;
         }
 
-        private static IList<string> GetListDate(DateTime fromDate, DateTime toDate)
+        private static IList<DateTime> GetListDate(DateTime fromDate, DateTime toDate)
         {
-            var listDates = new List<string>();
+            var listDates = new List<DateTime>();
             foreach (DateTime day in GetDatesFromRange(fromDate, toDate))
             {
-                listDates.Add(day.ToString("ddd"));
+                listDates.Add(day);
             }
             return listDates;
         }

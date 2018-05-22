@@ -2527,6 +2527,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Hire.
+        /// </summary>
+        public static string NewHire {
+            get {
+                return ResourceManager.GetString("NewHire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Holiday.
         /// </summary>
         public static string NewHoliday {
@@ -3166,6 +3175,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resignation.
+        /// </summary>
+        public static string Resignation {
+            get {
+                return ResourceManager.GetString("Resignation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resigned Date.
         /// </summary>
         public static string ResignedDate {
@@ -3765,6 +3783,15 @@ namespace Fanex.NexHR.Resources {
         public static string UserWarning {
             get {
                 return ResourceManager.GetString("UserWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variance.
+        /// </summary>
+        public static string Variance {
+            get {
+                return ResourceManager.GetString("Variance", resourceCulture);
             }
         }
         

@@ -182,6 +182,7 @@
     <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />
+    <Compile Include="Team\GetTeamHeadCountByYearCriteria.cs" />
     <Compile Include="Team\InsertTeamCriteria.cs" />
     <Compile Include="Team\DeleteTeamCriteria.cs" />
     <Compile Include="Team\GetTeamCriteria.cs" />

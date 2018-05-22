@@ -1407,4 +1407,13 @@
   <data name="LeaveTakenSchedulesReport" xml:space="preserve">
     <value>LeaveTakenSchedulesReport</value>
   </data>
+  <data name="NewHire" xml:space="preserve">
+    <value>New Hire</value>
+  </data>
+  <data name="Resignation" xml:space="preserve">
+    <value>Resignation</value>
+  </data>
+  <data name="Variance" xml:space="preserve">
+    <value>Variance</value>
+  </data>
 </root>

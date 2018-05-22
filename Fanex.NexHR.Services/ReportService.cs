@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Criteria.Report;
+    using Criteria.Team;
     using Interfaces;
     using Models;
     using Models.Report;
@@ -108,6 +109,12 @@
             }
 
             return totalWorkingHours ?? new List<WorkingHoursStatistic>();
+        }
+
+        public IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria)
+        {
+            IList<HeadCount> headCount = GetData<HeadCount>(criteria);
+            return headCount;
         }
     }
 }

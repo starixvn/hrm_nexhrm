@@ -108,6 +108,8 @@
     <Compile Include="DashboardPersonalSpace.cs" />
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
+    <Compile Include="Report\HeadCount.cs" />
+    <Compile Include="Report\HeadCountModel.cs" />
     <Compile Include="JobTitle.cs" />
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Overtime\Overtime.cs" />

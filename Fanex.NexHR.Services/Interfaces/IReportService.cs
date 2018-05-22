@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Criteria.Report;
+    using Criteria.Team;
     using Models;
     using Models.Report;
 
@@ -22,5 +23,7 @@
         IList<LateInEarlyOutDiscipline> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria);
 
         IList<WorkingHoursStatistic> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria);
+
+        IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria);
     }
 }

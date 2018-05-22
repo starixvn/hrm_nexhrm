@@ -1,16 +1,17 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Report;
+    using Criteria.Team;
     using Models;
     using Models.Report;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using ViewModels;
     using ViewModels.Common;
     using ViewModels.Report;
@@ -585,6 +586,30 @@
                 Year = date.Year
             };
             return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult HeadCount()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult GetHeadCount(int year)
+        {
+            var critera = new GetHeadCountByYearCriteria
+            {
+                StartDateOfYear = new DateTime(year, 1, 1),
+                EndDateOfYear = new DateTime(year, 12, 31)
+            };
+
+            var model = new HeadCountModel
+            {
+                StartDate = critera.StartDateOfYear,
+                EndDate = critera.EndDateOfYear,
+                HeadCount = _reportService.GetTeamHeadCountInYear(critera)
+            };
+            return PartialView("_HeadCountTable", model);
         }
     }
 }

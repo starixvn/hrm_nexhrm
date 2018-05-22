@@ -41,6 +41,8 @@
     <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeGroup_GetHeadCountByYear" SpName="EmployeeGroup_GetHeadCountByYear" DbName="nexhr" Plain="0"></Setting>
+
     <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
