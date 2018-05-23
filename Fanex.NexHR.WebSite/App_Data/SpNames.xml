@@ -41,7 +41,6 @@
     <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmployeeGroup_GetHeadCountByYear" SpName="EmployeeGroup_GetHeadCountByYear" DbName="nexhr" Plain="0"></Setting>
 
     <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
@@ -230,6 +229,7 @@
     <Setting Key="Report_LateInEarlyOutSummary" SpName="Report_LateInEarlyOutSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="Report_GetHeadCountByYear" SpName="Report_GetHeadCountByYear" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Get" SpName="LeaveConversion_Get" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />

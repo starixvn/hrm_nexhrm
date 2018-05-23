@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Criteria.Team
+﻿namespace Fanex.NexHR.Criteria.Report
 {
     using System;
     using Data.Repository;
@@ -9,7 +9,7 @@
 
         public DateTime EndDateOfYear { get; set; }
 
-        public override string GetSettingKey() => "EmployeeGroup_GetHeadCountByYear";
+        public override string GetSettingKey() => "Report_GetHeadCountByYear";
 
         public override bool IsValid() => EndDateOfYear.Year <= DateTime.Now.Year && StartDateOfYear < EndDateOfYear;
     }

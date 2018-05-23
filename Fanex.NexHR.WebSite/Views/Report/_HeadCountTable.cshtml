@@ -25,13 +25,10 @@
                     <td class="left">@item.GroupName</td>
                     <td>@item.GroupCode</td>
                     <td>@item.EmployeeAtJanuary</td>
-                    <td>@item.NewHire</td>
-                    <td>@item.Resigned</td>
+                    <td>@(item.NewHire != 0 ? item.NewHire.ToString() : string.Empty)</td>
+                    <td>@(item.Resigned != 0 ? item.Resigned.ToString() : string.Empty)</td>
                     <td>@item.EmployeeAtDecember</td>
-                    @{
-                        var variance = item.Variance >= 0 ? string.Format("{0}{1}", "+", item.Variance.ToString()) : item.Variance.ToString();
-                    }
-                    <td>@variance</td>
+                    <td>@item.Variance</td>
                 </tr>
 
                                 index++;
