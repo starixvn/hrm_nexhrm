@@ -382,8 +382,8 @@
                     Team = item.GroupName,
                     Code = item.GroupCode,
                     FirstDate = item.EmployeeAtJanuary,
-                    NewHire = item.NewHire,
-                    Resignation = item.Resigned,
+                    NewHire = item.NewHire != 0 ? item.NewHire.ToString() : string.Empty,
+                    Resignation = item.Resigned != 0 ? item.Resigned.ToString() : string.Empty,
                     LastDate = item.EmployeeAtDecember,
                     Variance = item.Variance
                 };
