@@ -22,7 +22,6 @@ var leaveSchedule = (function ($) {
 			afterChangeMonth: function () {
 				var Month = $(domElement.MonthPick).monPickr('getMonth', 'MM'),
 					Year = $(domElement.MonthPick).monPickr('getMonth', 'yyyy');
-				console.log(Month + '/' + Year);
 				$(domElement.Month).val(Month);
 				$(domElement.Year).val(Year);
 			}

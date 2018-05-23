@@ -48,19 +48,47 @@
             {
                 var leaveSchedules = GetLeavingSchedule(criteria);
 
+                leaveSummarySchedule.TotalLeaves = CalculateTotalLeavesTaken(leaveSchedules);
+
                 var employeeShedules = leaveSchedules.GroupBy(x => x.Employee.Id).Select(g => new EmployeeLeaveSchedule
                 {
                     Employee = g.First().Employee,
                     LeaveSchedules = g.OrderBy(e => e.WorkDate).ToList()
                 }).ToList();
-                leaveSummarySchedule.TotalLeaves = CalculateTotalLeavesTaken(leaveSchedules);
-                leaveSummarySchedule.EmployeeLeaveShedules = employeeShedules;
+
+                leaveSummarySchedule.EmployeeLeaveShedules = ReCalculateEmployeeLeaveSchedule(employeeShedules, GetListDate(criteria.FromDate));
                 leaveSummarySchedule.DaysInMonth = DateTime.DaysInMonth(criteria.FromDate.Year, criteria.FromDate.Month);
-                leaveSummarySchedule.ListDates = GetListDate(criteria.FromDate, criteria.ToDate);
+                leaveSummarySchedule.ListDates = GetListDate(criteria.FromDate);
                 leaveSummarySchedule.Month = criteria.FromDate;
             }
 
             return leaveSummarySchedule;
+        }
+
+        private IList<EmployeeLeaveSchedule> ReCalculateEmployeeLeaveSchedule(IList<EmployeeLeaveSchedule> schedules, IList<DateTime> listDates)
+        {
+            foreach (var schedule in schedules)
+            {
+                if (schedule.LeaveSchedules.Count < listDates.Count)
+                {
+                    var dateNotContains = listDates.Except(schedule.LeaveSchedules.Select(x => x.WorkDate)).ToList();
+                    FillFullWorkDate(dateNotContains, schedule);
+                    schedule.LeaveSchedules = schedule.LeaveSchedules.OrderBy(x => x.WorkDate).ToList();
+                }
+            }
+            return schedules;
+        }
+
+        private void FillFullWorkDate(IList<DateTime> dateNotContains, EmployeeLeaveSchedule schedule)
+        {
+            foreach (var date in dateNotContains)
+            {
+                var leaveSchedule = new LeaveSchedule
+                {
+                    WorkDate = date
+                };
+                schedule.LeaveSchedules.Add(leaveSchedule);
+            }
         }
 
         private IList<double> CalculateTotalLeavesTaken(IList<LeaveSchedule> schedules)
@@ -77,22 +105,15 @@
             return totalLeavesTaken;
         }
 
-        private static IList<DateTime> GetListDate(DateTime fromDate, DateTime toDate)
+        private static IList<DateTime> GetListDate(DateTime fromDate)
         {
             var listDates = new List<DateTime>();
-            foreach (DateTime day in GetDatesFromRange(fromDate, toDate))
+            int daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
+            for (int i = 1; i <= daysInMonth; i++)
             {
-                listDates.Add(day);
+                listDates.Add(new DateTime(fromDate.Year, fromDate.Month, i));
             }
             return listDates;
-        }
-
-        private static IEnumerable<DateTime> GetDatesFromRange(DateTime fromDate, DateTime toDate)
-        {
-            for (var day = fromDate.Date; day.Date <= toDate.Date; day = day.AddDays(1))
-            {
-                yield return day;
-            }
         }
     }
 }
