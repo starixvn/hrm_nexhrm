@@ -229,6 +229,10 @@ main {
   -ms-border-radius: 0.2rem;
   border-radius: 0.2rem; }
 
+.table-footer {
+  font-weight: bold;
+  background-color: #ffe4c4; }
+
 .tipsy {
   font-size: 1.2rem !important; }
   .tipsy.tipsy-request {

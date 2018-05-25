@@ -275,6 +275,8 @@
                 WriteHeaderLeaveDaysSchedule(schedules, ref writer);
                 WriteLeaveDayScheduleContent(schedules.EmployeeLeaveShedules, ref writer);
                 WriteLeaveDayScheduleSumRow(schedules.TotalLeaves, ref writer, schedules.EmployeeLeaveShedules.Count);
+
+                writer.SyncColumnsWidth(35);
                 writer.Render();
             }
         }
@@ -282,7 +284,7 @@
         private static void WriteHeaderLeaveDaysSchedule(LeaveDaySummarySchedule schedules, ref ExcelTemplateWriter writer)
         {
             var startCol = 4;
-            writer.WriteCellRange(1, 1, startCol, schedules.DaysInMonth, schedules.Month.ToString("MMM - yyyy"));
+            writer.WriteCellRange(1, 1, startCol, schedules.DaysInMonth, schedules.Month.ToString("MMM yyyy"));
             foreach (var date in schedules.ListDates)
             {
                 writer.WriteCellRange(3, 1, startCol, 1, date.ToString("ddd"));

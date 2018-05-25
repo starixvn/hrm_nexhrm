@@ -35,10 +35,10 @@
                             }
                         }
     </tbody>
-    <tfoot>
+    <tfoot class="table-footer">
         <tr class="center">
             <td colspan="3">@Labels.Total</td>
-            <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtJanuary)</td>
+            <td class="center ">@Model.HeadCount.Sum(x => x.EmployeeAtJanuary)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.NewHire)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.Resigned)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtDecember)</td>
