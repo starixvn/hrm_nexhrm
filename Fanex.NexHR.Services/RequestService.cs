@@ -251,6 +251,12 @@
             return numberRequest?.NumberRequest ?? 0;
         }
 
+        public LeaveBalanceInMonth GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria)
+        {
+            var entityList = GetDataEntity<LeaveBalanceInMonth>(criteria);
+            return entityList;
+        }
+
         public IList<DateTime> GetDisableRequestDate(int employeeId)
         {
             var criteria = new GetUnavailableRequestDateCriteria

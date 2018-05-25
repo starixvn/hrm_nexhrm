@@ -133,6 +133,7 @@
     <Compile Include="Report\WorkingHoursStatistic.cs" />
     <Compile Include="RequestsMonitoring.cs" />
     <Compile Include="Request\DateRange.cs" />
+    <Compile Include="Request\LeaveBalanceInMonth.cs" />
     <Compile Include="Request\NumberRequestInMonth.cs" />
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />

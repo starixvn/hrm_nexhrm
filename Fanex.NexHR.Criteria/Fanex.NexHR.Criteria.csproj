@@ -92,6 +92,7 @@
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetDashBoardCompanySpaceCriteria.cs" />
     <Compile Include="Employee\GetDashBoardPersonalSpaceCriteria.cs" />
+    <Compile Include="Request\GetLeaveBalanceInMonthCriteria.cs" />
     <Compile Include="Request\GetUnavailableRequestDateCriteria.cs" />
     <Compile Include="Employee\GetMemberByManagerCriteria.cs" />
     <Compile Include="Employee\GetMySpaceCriteria.cs" />

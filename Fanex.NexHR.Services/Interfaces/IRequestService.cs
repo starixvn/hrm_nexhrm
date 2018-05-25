@@ -28,5 +28,7 @@
         void SendMailForCheckInOut(CheckInOutRequestViewModel model);
 
         void SendMailForLeave(LeaveRequestViewModel model);
+
+        LeaveBalanceInMonth GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria);
     }
 }

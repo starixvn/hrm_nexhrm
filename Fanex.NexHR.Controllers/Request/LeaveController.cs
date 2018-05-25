@@ -227,5 +227,20 @@
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult GetAnnualLeaveBalanceInMonth(int empId, DateTime effectedDate, long? requestId)
+        {
+            var criteria = new GetLeaveBalanceInMonthCriteria
+            {
+                EmpId = empId,
+                EffectedDate = effectedDate,
+                RequestId = requestId
+            };
+
+            var leaveBalanceInMonth = _requestService.GetAnnualLeaveBalanceInMonth(criteria);
+
+            return Json(leaveBalanceInMonth);
+        }
     }
 }
