@@ -205,6 +205,8 @@
     <Content Include="App_Data\ExcelTemplates\EmployeeProfile.xls" />
     <Content Include="App_Data\ExcelTemplates\TotalWorkingHours.xls" />
     <Content Include="App_Data\ExcelTemplates\WorkingHoursStatistic.xls" />
+    <Content Include="App_Data\ExcelTemplates\DayOffSchedule.xls" />
+    <Content Include="App_Data\ExcelTemplates\HeadCountReport.xls" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
