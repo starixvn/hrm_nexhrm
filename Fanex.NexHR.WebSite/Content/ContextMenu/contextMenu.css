@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * jQuery contextMenu - Plugin for simple contextMenu handling
  *
@@ -188,6 +188,12 @@
 
 .context-menu-icon-delete.context-menu-hover {
   color: #ff0909;
+  cursor: pointer;  
+}
+
+.context-menu-icon-select-normal.context-menu-hover {
+  color: #fff;
+  background-color: #3744c3;
   cursor: pointer;  
 }
 

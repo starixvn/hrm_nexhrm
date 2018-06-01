@@ -108,6 +108,9 @@
     <Compile Include="DashboardPersonalSpace.cs" />
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
+    <Compile Include="RedmineAPI\LogTimeIssue.cs" />
+    <Compile Include="RedmineAPI\RedmineIssue.cs" />
+    <Compile Include="RedmineAPI\RedmineUser.cs" />
     <Compile Include="Report\HeadCount.cs" />
     <Compile Include="Report\HeadCountModel.cs" />
     <Compile Include="JobTitle.cs" />

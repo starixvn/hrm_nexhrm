@@ -112,7 +112,7 @@ function initDatePicker() {
             $datepicker.datepicker("option", 'maxDate', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
         }
 
-        if(disabledDates.length > 0) {
+        if(disabledDates !== 'null' && disabledDates.length > 0) {
             $datepicker.datepicker("option", 'beforeShowDay', function(mydate) {
                 var isEnable = true,
                     badDates = disabledDates.split(","),

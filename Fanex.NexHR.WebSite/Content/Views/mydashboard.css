@@ -43,7 +43,60 @@
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
   background-size: cover; }
   .todoBlock .card-body {
-    margin-top: 1.6rem; }
+    margin-top: 1.6rem;
+    height: 300px;
+    overflow-y: scroll; }
+  .todoBlock .tasks {
+    background: #eeeeef none repeat scroll 0 0;
+    margin-bottom: 0.2rem !important;
+    padding: 0;
+    line-height: 25px; }
+    .todoBlock .tasks .task-info {
+      padding: 10px 0;
+      border-top: 1px solid #000;
+      position: relative; }
+      .todoBlock .tasks .task-info:last-child {
+        border-bottom: 1px solid #000; }
+    .todoBlock .tasks .btn-logtime {
+      position: absolute;
+      right: 15px;
+      height: 3rem;
+      line-height: 3rem; }
+    .todoBlock .tasks .issue-status {
+      position: absolute;
+      right: 160px;
+      font-weight: 500; }
+      .todoBlock .tasks .issue-status .caret:before {
+        content: "\25BC";
+        font-size: 1.2rem; }
+    .todoBlock .tasks .subject {
+      display: inline-block;
+      margin-left: 15px;
+      font-weight: 400;
+      width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .todoBlock .tasks .priority {
+      display: inline-block;
+      font-weight: 500;
+      color: #fff;
+      float: left; }
+      .todoBlock .tasks .priority span {
+        padding: 3px 10px;
+        margin-left: 15px;
+        border-radius: 3px;
+        text-align: center; }
+      .todoBlock .tasks .priority .immediate {
+        background-color: #ef3636; }
+      .todoBlock .tasks .priority .urgent {
+        background-color: #e46426; }
+      .todoBlock .tasks .priority .high {
+        background-color: #e4bb26; }
+      .todoBlock .tasks .priority .normal {
+        background-color: #0400f5; }
+      .todoBlock .tasks .priority .low {
+        background-color: #2c9a09; }
   .todoBlock p {
     background: #eeeeef none repeat scroll 0 0;
     margin-bottom: 0.2rem !important;
@@ -288,6 +341,16 @@
       padding: 1.5rem 0; }
     .dashboardCalendar .authenGoogle .button {
       padding-bottom: 3rem; }
+
+.comment {
+  font-size: 1.3rem;
+  margin: 0 0 15px 0;
+  padding: 0;
+  height: auto; }
+
+.field-validation-valid {
+  color: #ff0a09;
+  text-align: left; }
 
 /*.fc-basicWeek-view .fc-content-skeleton, .fc-basicDay-view .fc-content-skeleton {
     padding-bottom: 0 !important;

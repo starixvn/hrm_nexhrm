@@ -1,5 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria;
@@ -10,13 +15,11 @@
     using Criteria.Workload;
     using Models;
     using Models.Notification;
+    using Models.RedmineAPI;
     using Models.Request;
     using Models.Workload;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using ViewModels;
     using ViewModels.Report;
 
@@ -27,9 +30,10 @@
         private readonly IRequestService _requestService;
         private readonly INotificationService _notificationService;
         private readonly ILateInEarlyOutService _lateinearlyoutService;
+        private readonly IRedmineService _redmineService;
 
         public DashboardController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -38,13 +42,15 @@
             ITeamService teamService,
             IRequestService requestService,
             INotificationService notificationService,
-            ILateInEarlyOutService lateinearlyoutService)
+            ILateInEarlyOutService lateinearlyoutService,
+            IRedmineService redmineService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _requestService = requestService ?? new RequestService();
             _notificationService = notificationService ?? new NotificationService();
             _lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
+            _redmineService = redmineService ?? new RedmineService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -97,15 +103,59 @@
         }
 
         [Authorize(Roles = "SpecialUser")]
-        public ActionResult GetTodoList(int? employeeId)
+        public async Task<ActionResult> GetTodoList(int? employeeId)
         {
             ToDoViewModel model = new ToDoViewModel
             {
                 MissingCheckInOutList = GetMissingCheckInOut(employeeId),
-                PendingRequestsList = GetPendingRequest()
+                PendingRequestsList = GetPendingRequest(),
+                InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false)
             };
 
             return PartialView("ToDoList", model);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangeIssueStatus(RedmineIssue issue)
+        {
+            var result = new CommandResult();
+            if (issue.IssueId > 0 && issue.Status > 0)
+            {
+                result = await _redmineService.UpdateIssueRedmine(issue.IssueId, issue.Status, HttpContext.User.Identity.Name).ConfigureAwait(false);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LogtimeIssue(int issueId, string issueName)
+        {
+            var model = new LogTimeIssue
+            {
+                IssueId = issueId,
+                IssueName = issueName,
+                SpentOn = DateTime.Now
+            };
+            return PartialView("_LogtimeDialog", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> LogtimeIssue(LogTimeIssue model)
+        {
+            var isSuccessful = false;
+            var message = string.Empty;
+
+            if (ModelState.IsValid)
+            {
+                var commandResul = await _redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
+
+                isSuccessful = commandResul.IsSuccessful;
+                message = commandResul.Message;
+            }
+
+            var errors = ModelState
+                .Where(item => item.Value.Errors.Any())
+                .Select(item => new { item.Key, item.Value.Errors.FirstOrDefault()?.ErrorMessage });
+
+            return Json(new { isSuccessful, errors, message });
         }
 
         private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)

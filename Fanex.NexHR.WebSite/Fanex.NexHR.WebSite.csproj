@@ -829,6 +829,7 @@
     <Content Include="Views\Calendar\_LeaveDaySummarySchedule.cshtml" />
     <Content Include="Views\Report\HeadCount.cshtml" />
     <Content Include="Views\Report\_HeadCountTable.cshtml" />
+    <Content Include="Views\Dashboard\_LogtimeDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -988,6 +989,7 @@
     <None Include="Content\Views\mydashboard.scss" />
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\packages\AspNetMvc.4.0.20126.16343\lib\net40\System.Web.Mvc.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />

@@ -9,11 +9,9 @@
 
 namespace Fanex.NexHR.Core
 {
-    using Attributes;
-    using Enums;
-    using Resources;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Linq.Expressions;
@@ -23,6 +21,9 @@ namespace Fanex.NexHR.Core
     using System.Web.Mvc.Html;
     using System.Web.Routing;
     using System.Web.WebPages;
+    using Attributes;
+    using Enums;
+    using Resources;
 
     public static class Extensions
     {
@@ -53,6 +54,25 @@ namespace Fanex.NexHR.Core
             var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
             return attribs != null && attribs.Length > 0 ? attribs[0].ToString() : null;
+        }
+
+        public static string GetDisplayName(this Enum enumeration)
+        {
+            var type = enumeration.GetType();
+            var memberInfo = type.GetMember(enumeration.ToString());
+
+            // if there is member information
+            if (memberInfo.Length > 0)
+            {
+                var attributes = memberInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false);
+
+                if (attributes.Length > 0)
+                {
+                    return ((DisplayAttribute)attributes.First()).GetName();
+                }
+            }
+
+            return enumeration.ToString();
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]

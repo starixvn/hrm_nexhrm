@@ -1,5 +1,6 @@
-﻿@model ToDoViewModel
-@if ((Model.MissingCheckInOutList.Count == 0) && Model.PendingRequestsList.Count == 0)
+﻿@using Fanex.NexHR.Core
+@model ToDoViewModel
+@if ((Model.MissingCheckInOutList.Count == 0) && (Model.PendingRequestsList.Count == 0) && Model.InProgressTasks.Count == 0)
 {
     <p class="green-border">
         <span class="left-align">
@@ -68,3 +69,30 @@
         }
     }
 }
+
+@if (Model.InProgressTasks.Count > 0)
+{
+    <div class="tasks">
+        <ul>
+            @foreach (var issue in Model.InProgressTasks)
+            {
+                <li class="text-left task-info">
+                    @{
+                        var priorityClass = issue.Priority.ToString().ToLowerInvariant();
+                    }
+                    <div class="priority"><span class="@priorityClass">@issue.Priority.ToString()</span></div>
+                    <div class="subject tooltip" title="@issue.Subject">
+                        <a href="http://10.70.70.223:88/issues/@issue.IssueId" target="_blank">@issue.Subject</a>
+                    </div>
+                    <a class="btn waves-light btn-logtime" onclick="getLogtimeDialog(@issue.IssueId)">Log Time</a>
+                    <a issueId="@issue.IssueId" href="javascript:;" class="issue-status c-pending">
+                        @issue.Status.GetDisplayName()
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                        }
+        </ul>
+    </div>
+                        }
+
+<div id="logtime-dialog"></div>

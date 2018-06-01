@@ -1,0 +1,44 @@
+﻿@model Fanex.NexHR.Models.RedmineAPI.LogTimeIssue
+
+<form id="formLogtime" class="form">
+
+    @Html.HiddenFor(model => model.IssueId)
+
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.SpentOn)
+        </div>
+        <div class="left">
+            <div class="datepicker-button select--m">
+                @Html.DatePickerFor(model => model.SpentOn, maxDate: DateTime.Now)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+            @Html.ValidationMessageFor(model => model.SpentOn)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.Hours)
+        </div>
+        <div class="left">
+            <div class="select--m">
+                @Html.TextBoxFor(model => model.Hours)
+            </div>
+            @Html.ValidationMessageFor(model => model.Hours)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.Comments)
+        </div>
+        <div class="left">
+            <div class="left select--m">
+                @Html.TextArea("Comments", new { @class = "comment", rows = 3 })
+                @Html.ValidationMessageFor(model => model.Comments)
+            </div>
+        </div>
+    </div>
+</form>

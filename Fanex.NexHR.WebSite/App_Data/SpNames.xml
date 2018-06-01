@@ -318,4 +318,7 @@
     <Setting Key="CompanyEvent_Update" SpName="CompanyEvent_Update" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="CompanyEvent_Delete" SpName="CompanyEvent_Delete" DbName="nexhr" Plain="1"></Setting>
   </Function>
+  <Function Name="RedmineAPI">
+    <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="1"></Setting>
+  </Function>
 </Functions>
