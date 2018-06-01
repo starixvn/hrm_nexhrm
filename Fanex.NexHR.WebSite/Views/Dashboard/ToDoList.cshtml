@@ -82,7 +82,10 @@
                     }
                     <div class="priority"><span class="@priorityClass">@issue.Priority.ToString()</span></div>
                     <div class="subject tooltip" title="@issue.Subject">
-                        <a href="http://10.70.70.223:88/issues/@issue.IssueId" target="_blank">@issue.Subject</a>
+                        @{
+                            var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
+                        }
+                        <a href="@href" target="_blank">@issue.Subject</a>
                     </div>
                     <a class="btn waves-light btn-logtime" onclick="getLogtimeDialog(@issue.IssueId)">Log Time</a>
                     <a issueId="@issue.IssueId" href="javascript:;" class="issue-status c-pending">
@@ -90,9 +93,9 @@
                         <span class="caret"></span>
                     </a>
                 </li>
-                        }
+                            }
         </ul>
     </div>
-                        }
+                            }
 
 <div id="logtime-dialog"></div>
