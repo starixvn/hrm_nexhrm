@@ -10,6 +10,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Script.Serialization;
+    using Core;
     using Core.Enums;
     using Criteria.RedmineAPI;
     using Interfaces;
@@ -19,10 +20,8 @@
 
     public class RedmineService : BaseService, IRedmineService
     {
-        private const string applicationType = ".json";
-        private const string baseDomain = "http://10.70.70.223:88/";
-        private const string adminUsername = "oliver.test";
-        private const string pwdAdmin = "1234aa";
+        private readonly string applicationType = ".json";
+        private readonly string baseDomain = AppSetting.Redmine_API_Address;
 
         private int GetCurrentRedmineId(string loginName)
         {
@@ -40,7 +39,7 @@
 
         private HttpClient AuthorizeRequestHeader()
         {
-            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{adminUsername}:{pwdAdmin}")));
+            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.Redmin_Admin_Account}")));
 
             var client = new HttpClient
             {
@@ -86,28 +85,26 @@
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                JavaScriptSerializer jss = new JavaScriptSerializer();
+                var jss = new JavaScriptSerializer();
                 var obj = jss.Deserialize<dynamic>(json);
-                if (obj["total_count"] > 0)
-                {
-                    var issues = obj["issues"];
-                    for (int i = 0; i < issues.Length; i++)
-                    {
-                        var issue = new RedmineIssue
-                        {
-                            IssueId = (int)issues[i]["id"],
-                            Subject = issues[i]["subject"],
-                            Description = issues[i]["description"],
-                            ProjectName = issues[i]["project"]["name"],
-                            Author = issues[i]["author"]["name"],
-                            StartDate = DateTime.ParseExact(issues[i]["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                            DueDate = DateTime.ParseExact(issues[i]["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                            Priority = (RedmineIssuePriority)issues[i]["priority"]["id"],
-                            Status = (RedmineIssueStatus)issues[i]["status"]["id"]
-                        };
+                var issues = obj["issues"];
 
-                        tasks.Add(issue);
-                    }
+                for (int i = 0; i < obj["total_count"]; i++)
+                {
+                    var issue = new RedmineIssue
+                    {
+                        IssueId = (int)issues[i]["id"],
+                        Subject = issues[i]["subject"],
+                        Description = issues[i]["description"],
+                        ProjectName = issues[i]["project"]["name"],
+                        Author = issues[i]["author"]["name"],
+                        StartDate = DateTime.ParseExact(issues[i]["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        DueDate = DateTime.ParseExact(issues[i]["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        Priority = (RedmineIssuePriority)issues[i]["priority"]["id"],
+                        Status = (RedmineIssueStatus)issues[i]["status"]["id"]
+                    };
+
+                    tasks.Add(issue);
                 }
             }
             return tasks.OrderByDescending(x => x.Priority).ToList();
@@ -173,6 +170,7 @@
 
             var currentUser = await GetCurrentRedmineUser(GetLoginNameThroughDomainName(domainName)).ConfigureAwait(false);
             var url = new Uri($"{baseDomain}time_entries{applicationType}?key={currentUser.ApiKey}");
+
             var jsonData = "{\"time_entry\":" +
                 JsonConvert.SerializeObject(new
                 {

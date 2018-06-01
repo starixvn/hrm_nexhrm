@@ -23,5 +23,9 @@ namespace Fanex.NexHR.Core
         public static string DomainName => ConfigurationManager.AppSettings["domain"];
 
         public static string IgnoreTeamWorkload => ConfigurationManager.AppSettings["IgnoreTeamWorkload"];
+
+        public static string Redmine_API_Address => ConfigurationManager.AppSettings["Redmine_API_Address"];
+
+        public static string Redmin_Admin_Account => string.Format("{0}:{1}", ConfigurationManager.AppSettings["Redmin_Admin_User"], ConfigurationManager.AppSettings["Redmine_Admin_Password"]);
     }
 }

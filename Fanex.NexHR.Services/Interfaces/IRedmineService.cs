@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Core.Enums;
-    using Fanex.NexHR.Models.RedmineAPI;
     using Models;
+    using Models.RedmineAPI;
 
     public interface IRedmineService
     {
