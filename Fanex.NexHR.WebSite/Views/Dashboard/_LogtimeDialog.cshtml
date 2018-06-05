@@ -34,7 +34,7 @@
             @Html.LabelFor(model => model.Comments)
         </div>
         <div class="left">
-            <div class="left select--m">
+            <div class="select--m">
                 @Html.TextArea("Comments", new { @class = "comment", rows = 3 })
                 @Html.ValidationMessageFor(model => model.Comments)
             </div>
