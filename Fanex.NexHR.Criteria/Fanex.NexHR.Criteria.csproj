@@ -84,6 +84,7 @@
     <Compile Include="AnnualLeave\GetAnnualLeaveTransactionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
+    <Compile Include="Employee\GetWorkedDatesByUserCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />

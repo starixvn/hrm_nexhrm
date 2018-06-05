@@ -1,10 +1,11 @@
 ﻿@using Fanex.NexHR.Models.Notification
+@using Fanex.NexHR.Core
 @model Notification
 <div class="notification">
     <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
         <i class="mdi-social-notifications"></i>
         @if (Model.QuantityOfNewAlert != string.Empty)
-        {
+            {
             <span class="badge">@Model.QuantityOfNewAlert</span>
         }
     </a>
@@ -56,5 +57,18 @@
                 </a>
             </li>
         }
+        @if (Model.ForgetLogtimeDates.Count > 0)
+        {
+            <li class="collection-item">
+                <a href="@AppSetting.Redmine_API_Address" target="_blank">
+                    <p>
+                        @{
+                            var dates = string.Join("; ", Model.ForgetLogtimeDates.Select(x => x.ToString("dd MMM")).ToArray());
+                        }
+                        You have forgot Log time on <span class="txt-bold">@dates </span><br>
+                    </p>
+                </a>
+            </li>
+                            }
     </ul>
-}
+                            }

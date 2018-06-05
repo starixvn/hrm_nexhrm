@@ -1416,4 +1416,13 @@
   <data name="Variance" xml:space="preserve">
     <value>Variance</value>
   </data>
+  <data name="SpentOn" xml:space="preserve">
+    <value>Spent On</value>
+  </data>
+  <data name="LogtimeHoursErrrorMessage" xml:space="preserve">
+    <value>Hours must be greater than 0 and less than 24</value>
+  </data>
+  <data name="HoursLogtimeErrorMessage" xml:space="preserve">
+    <value>{0} must be greater than 0 and less than {2}</value>
+  </data>
 </root>

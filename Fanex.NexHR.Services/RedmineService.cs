@@ -12,6 +12,7 @@
     using System.Web.Script.Serialization;
     using Core;
     using Core.Enums;
+    using Criteria.Employee;
     using Criteria.RedmineAPI;
     using Interfaces;
     using Models;
@@ -39,7 +40,7 @@
 
         private HttpClient AuthorizeRequestHeader()
         {
-            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.Redmin_Admin_Account}")));
+            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.Redmine_Admin_Account}")));
 
             var client = new HttpClient
             {
@@ -49,27 +50,26 @@
             return client;
         }
 
-        private async Task<RedmineUser> GetCurrentRedmineUser(string domainName)
+        private async Task<string> GetCurrentRedmineUser(string domainName)
         {
             HttpClient client = AuthorizeRequestHeader();
             int currentId = GetCurrentRedmineId(domainName);
             var url = new Uri($"{baseDomain}users/{currentId}{applicationType}");
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
-            var redmineUser = new RedmineUser();
+            var apiKey = string.Empty;
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var json = response.Content.ReadAsStringAsync().Result;
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 JavaScriptSerializer jss = new JavaScriptSerializer();
                 var obj = jss.Deserialize<dynamic>(json);
 
-                redmineUser.RedmineId = obj["user"]["id"];
-                redmineUser.ApiKey = obj["user"]["api_key"];
+                apiKey = obj["user"]["api_key"];
             }
-            return redmineUser;
+            return apiKey;
         }
 
-        private static string GetLoginNameThroughDomainName(string domainName)
+        private static string GetLoginNameByDomainName(string domainName)
         {
             return domainName.Substring(5);
         }
@@ -77,8 +77,8 @@
         public async Task<IList<RedmineIssue>> GetInProgressIssues(string domainName)
         {
             HttpClient client = AuthorizeRequestHeader();
-            int currentId = GetCurrentRedmineId(GetLoginNameThroughDomainName(domainName));
-            var url = new Uri($"{baseDomain}issues.json?assigned_to_id={currentId}&status_id={(int)RedmineIssueStatus.InProgress}");
+            int currentId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
+            var url = new Uri($"{baseDomain}issues{applicationType}?assigned_to_id={currentId}&status_id={(int)RedmineIssueStatus.InProgress}");
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
             var tasks = new List<RedmineIssue>();
@@ -87,89 +87,34 @@
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var jss = new JavaScriptSerializer();
                 var obj = jss.Deserialize<dynamic>(json);
-                var issues = obj["issues"];
 
-                for (int i = 0; i < obj["total_count"]; i++)
+                foreach (var issue in obj["issues"])
                 {
-                    var issue = new RedmineIssue
+                    var issueRemine = new RedmineIssue
                     {
-                        IssueId = (int)issues[i]["id"],
-                        Subject = issues[i]["subject"],
-                        Description = issues[i]["description"],
-                        ProjectName = issues[i]["project"]["name"],
-                        Author = issues[i]["author"]["name"],
-                        StartDate = DateTime.ParseExact(issues[i]["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                        DueDate = DateTime.ParseExact(issues[i]["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                        Priority = (RedmineIssuePriority)issues[i]["priority"]["id"],
-                        Status = (RedmineIssueStatus)issues[i]["status"]["id"]
+                        IssueId = (int)issue["id"],
+                        Subject = issue["subject"],
+                        Description = issue["description"],
+                        ProjectName = issue["project"]["name"],
+                        Author = issue["author"]["name"],
+                        Priority = issue["priority"]["name"],
+                        Tracker = issue["tracker"]["name"],
+                        StartDate = DateTime.ParseExact(issue["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        DueDate = DateTime.ParseExact(issue["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     };
 
-                    tasks.Add(issue);
+                    tasks.Add(issueRemine);
                 }
             }
             return tasks.OrderByDescending(x => x.Priority).ToList();
-        }
-
-        public async Task<RedmineIssue> GetIssue(int issueId)
-        {
-            HttpClient client = AuthorizeRequestHeader();
-            var url = new Uri($"{baseDomain}issues/{issueId}{applicationType}");
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
-
-            var redmineIssue = new RedmineIssue();
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var json = response.Content.ReadAsStringAsync().Result;
-                JavaScriptSerializer jss = new JavaScriptSerializer();
-                var obj = jss.Deserialize<dynamic>(json);
-                var issue = obj["issue"];
-
-                redmineIssue.IssueId = (int)issue["id"];
-                redmineIssue.Subject = issue["subject"];
-                redmineIssue.Description = issue["description"];
-                redmineIssue.ProjectName = issue["project"]["name"];
-                redmineIssue.EstimatedHours = (double)issue["estimated_hours"];
-                redmineIssue.SpentHours = (double)issue["spent_hours"];
-                redmineIssue.StartDate = DateTime.ParseExact(issue["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                redmineIssue.DueDate = DateTime.ParseExact(issue["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                redmineIssue.Author = issue["author"]["name"];
-                redmineIssue.Priority = (RedmineIssuePriority)issue["priority"]["id"];
-                redmineIssue.Status = (RedmineIssueStatus)issue["status"]["id"];
-            }
-
-            return redmineIssue;
-        }
-
-        public async Task<CommandResult> UpdateIssueRedmine(int issueId, RedmineIssueStatus status, string domainName)
-        {
-            HttpClient client = new HttpClient();
-
-            var currentUser = await GetCurrentRedmineUser(GetLoginNameThroughDomainName(domainName)).ConfigureAwait(false);
-            var url = new Uri($"{baseDomain}issues/{issueId}{applicationType}?key={currentUser.ApiKey}");
-            var jsonData = "{\"issue\":" +
-                JsonConvert.SerializeObject(new
-                {
-                    status_id = status
-                }) + "}";
-
-            HttpResponseMessage response = await client.PutAsync(url,
-                                                                new StringContent(jsonData, Encoding.UTF8, "application/json"))
-                                                                .ConfigureAwait(false);
-            var result = new CommandResult();
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                result.Code = -1;
-                result.Message = response.ReasonPhrase;
-            }
-            return result;
         }
 
         public async Task<CommandResult> LogtimeToIssue(LogTimeIssue issue, string domainName)
         {
             HttpClient client = new HttpClient();
 
-            var currentUser = await GetCurrentRedmineUser(GetLoginNameThroughDomainName(domainName)).ConfigureAwait(false);
-            var url = new Uri($"{baseDomain}time_entries{applicationType}?key={currentUser.ApiKey}");
+            var apiKey = await GetCurrentRedmineUser(GetLoginNameByDomainName(domainName)).ConfigureAwait(false);
+            var url = new Uri($"{baseDomain}time_entries{applicationType}?key={apiKey}");
 
             var jsonData = "{\"time_entry\":" +
                 JsonConvert.SerializeObject(new
@@ -190,6 +135,60 @@
                 result.Message = response.ReasonPhrase;
             }
             return result;
+        }
+
+        private async Task<IList<TimeEntry>> GetTimeEntries(string domainUser, DateTime fromDate, DateTime toDate)
+        {
+            HttpClient client = AuthorizeRequestHeader();
+            var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
+            var listEntries = new List<TimeEntry>();
+
+            var url = new Uri($"{baseDomain}time_entries{applicationType}?user_id={currentUserId}&spent_on=><{fromDate.ToString("yyyy-MM-dd")}|{toDate.ToString("yyyy-MM-dd")}");
+            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                var obj = jss.Deserialize<dynamic>(json);
+                var timeEntries = obj["time_entries"];
+
+                foreach (var timeEntry in timeEntries)
+                {
+                    var entry = new TimeEntry
+                    {
+                        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        Hours = (double)timeEntry["hours"],
+                        Activity = (RedmineLogTimeActivity)timeEntry["activity"]["id"]
+                    };
+
+                    listEntries.Add(entry);
+                }
+            }
+
+            return listEntries;
+        }
+
+        private IList<DateTime> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
+        {
+            var criteria = new GetWorkedDatesByUserCriteria
+            {
+                UserId = currentUserId,
+                FromDate = from,
+                ToDate = to
+            };
+            return GetData<DateTime>(criteria);
+        }
+
+        public async Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId)
+        {
+            var toDate = DateTime.Now.AddDays(-1);
+            var fromDate = toDate.AddDays(-6);
+            var timeEntries = await GetTimeEntries(domainUser, fromDate, toDate).ConfigureAwait(false);
+            var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
+            var onWorkedDates = GetWorkedDatesOfUser(fromDate, toDate, currentUserId).ToList();
+
+            return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
         }
     }
 }

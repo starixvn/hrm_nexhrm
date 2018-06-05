@@ -39,6 +39,13 @@
 .information .txt-italic {
   font-style: italic; }
 
+#formLogtime {
+  text-align: left !important; }
+  #formLogtime input {
+    margin-bottom: 0; }
+  #formLogtime .select--m {
+    margin-bottom: 15px; }
+
 .todoBlock {
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
   background-size: cover; }
@@ -71,12 +78,34 @@
         font-size: 1.2rem; }
     .todoBlock .tasks .subject {
       display: inline-block;
-      margin-left: 15px;
-      font-weight: 400;
+      margin-left: 10px;
+      font-weight: 700;
       width: 300px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; }
+      .todoBlock .tasks .subject a {
+        color: rgba(0, 0, 0, 0.741176); }
+      .todoBlock .tasks .subject .hotfix {
+        color: #ef3636; }
+      .todoBlock .tasks .subject .bug {
+        color: #e46426; }
+      .todoBlock .tasks .subject .feature {
+        color: #e4bb26; }
+      .todoBlock .tasks .subject .support {
+        color: #0400f5; }
+      .todoBlock .tasks .subject .task {
+        color: #2c9a09; }
+      .todoBlock .tasks .subject .deploy {
+        color: #15b092; }
+      .todoBlock .tasks .subject .sp,
+      .todoBlock .tasks .subject .milestone,
+      .todoBlock .tasks .subject .epic {
+        color: #000;
+        background-color: #9a9a9a; }
+      .todoBlock .tasks .subject .changerequest,
+      .todoBlock .tasks .subject .meeting {
+        background-color: #d09b0f; }
     .todoBlock .tasks .priority {
       display: inline-block;
       font-weight: 500;
@@ -92,7 +121,7 @@
       .todoBlock .tasks .priority .urgent {
         background-color: #e46426; }
       .todoBlock .tasks .priority .high {
-        background-color: #e4bb26; }
+        background-color: #ff0000; }
       .todoBlock .tasks .priority .normal {
         background-color: #0400f5; }
       .todoBlock .tasks .priority .low {

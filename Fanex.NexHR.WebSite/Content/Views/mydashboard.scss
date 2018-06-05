@@ -15,7 +15,6 @@
     max-width: 750px;
 
     .table-custom {
-
         tbody tr td.first-column {
             text-align: right;
             width: 170px;
@@ -63,6 +62,17 @@
     }
 }
 
+ #formLogtime {
+        text-align: left !important;
+
+        input {
+            margin-bottom: 0;
+        }
+        .select--m {
+            margin-bottom: 15px;
+        }
+    }
+
 .todoBlock {
     background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
     background-size: cover;
@@ -109,12 +119,52 @@
 
         .subject {
             display: inline-block;
-            margin-left: 15px;
-            font-weight: 400;
+            margin-left: 10px;
+            font-weight: 700;
             width: 300px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            a {
+                color: rgba(0, 0, 0, 0.7411764705882353); 
+            }
+            .hotfix {
+                color: #ef3636;
+            }
+
+            .bug {
+                color: #e46426;
+            }
+
+            .feature {
+                color: #e4bb26;
+            }
+
+            .support {
+                color: #0400f5;
+            }
+
+            .task {
+                color: #2c9a09;
+            }
+
+            .deploy {
+                color: #15b092;
+            }
+
+            .sp,
+            .milestone,
+            .epic {
+                color: #000;
+                background-color: #9a9a9a;
+            }
+
+            .changerequest,
+            .meeting {
+                background-color: #d09b0f;
+            }
+
         }
 
         .priority {
@@ -122,25 +172,24 @@
             font-weight: 500;
             color: #fff;
             float: left;
-            
+
             span {
                 padding: 3px 10px;
                 margin-left: 15px;
                 border-radius: 3px;
-                text-align: center; 
+                text-align: center;
             }
-            
 
             .immediate {
                 background-color: #ef3636;
             }
 
             .urgent {
-                background-color: #e46426; 
+                background-color: #e46426;
             }
 
             .high {
-                background-color: #e4bb26; 
+                background-color: #ff0000;
             }
 
             .normal {
@@ -152,6 +201,8 @@
             }
         }
     }
+
+   
 
     p {
         background: #eeeeef none repeat scroll 0 0;
@@ -587,7 +638,6 @@
     }
 }
 
-   
 .comment {
     font-size: 1.3rem;
     margin: 0 0 15px 0;
@@ -596,8 +646,8 @@
 }
 
 .field-validation-valid {
-   color: #ff0a09;
-   text-align: left;
+    color: #ff0a09;
+    text-align: left;
 }
 
 /*.fc-basicWeek-view .fc-content-skeleton, .fc-basicDay-view .fc-content-skeleton {
@@ -628,6 +678,5 @@
         }
     }
 }
-
 
 //---------------------Scroll Bar---------------------------------

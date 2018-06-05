@@ -4,7 +4,6 @@
 
     @Html.HiddenFor(model => model.IssueId)
 
-
     <div class="row form-input">
         <div class="left label--m">
             @Html.LabelFor(model => model.SpentOn)
@@ -13,8 +12,8 @@
             <div class="datepicker-button select--m">
                 @Html.DatePickerFor(model => model.SpentOn, maxDate: DateTime.Now)
                 <i class="mdi-action-event calendar-icon left"></i>
+                @Html.ValidationMessageFor(model => model.SpentOn)
             </div>
-            @Html.ValidationMessageFor(model => model.SpentOn)
         </div>
     </div>
 
@@ -25,8 +24,8 @@
         <div class="left">
             <div class="select--m">
                 @Html.TextBoxFor(model => model.Hours)
+                @Html.ValidationMessageFor(model => model.Hours)
             </div>
-            @Html.ValidationMessageFor(model => model.Hours)
         </div>
     </div>
 

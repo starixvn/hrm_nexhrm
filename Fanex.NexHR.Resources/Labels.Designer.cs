@@ -1528,6 +1528,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} must be greater than 0 and less than {2}.
+        /// </summary>
+        public static string HoursLogtimeErrorMessage {
+            get {
+                return ResourceManager.GetString("HoursLogtimeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HR Space.
         /// </summary>
         public static string HRSpace {
@@ -2082,6 +2091,15 @@ namespace Fanex.NexHR.Resources {
         public static string Location {
             get {
                 return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hours must be greater than 0 and less than 24.
+        /// </summary>
+        public static string LogtimeHoursErrrorMessage {
+            get {
+                return ResourceManager.GetString("LogtimeHoursErrrorMessage", resourceCulture);
             }
         }
         
@@ -3405,6 +3423,15 @@ namespace Fanex.NexHR.Resources {
         public static string Speaking {
             get {
                 return ResourceManager.GetString("Speaking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spent On.
+        /// </summary>
+        public static string SpentOn {
+            get {
+                return ResourceManager.GetString("SpentOn", resourceCulture);
             }
         }
         

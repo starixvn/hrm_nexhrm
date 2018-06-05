@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Resources;
 
     public class LogTimeIssue
     {
@@ -11,12 +12,12 @@
         public string IssueName { get; set; }
 
         [Required]
-        [Display(Name = "Spent On")]
+        [Display(Name = nameof(Labels.SpentOn), ResourceType = typeof(Labels))]
         public DateTime SpentOn { get; set; }
 
         [Required]
-        [Range(0.01, 24, ErrorMessage = "{0} must be between {1} and {2}")]
-        public double Hours { get; set; }
+        [Range(0, 24, ErrorMessageResourceType = typeof(Labels), ErrorMessageResourceName = nameof(Labels.HoursLogtimeErrorMessage))]
+        public double? Hours { get; set; }
 
         [StringLength(255)]
         public string Comments { get; set; }

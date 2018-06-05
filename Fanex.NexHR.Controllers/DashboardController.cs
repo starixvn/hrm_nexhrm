@@ -14,10 +14,10 @@
     using Criteria.Request;
     using Criteria.Workload;
     using Models;
-    using Models.Notification;
     using Models.RedmineAPI;
     using Models.Request;
     using Models.Workload;
+    using Resources;
     using Services;
     using Services.Interfaces;
     using ViewModels;
@@ -115,24 +115,14 @@
             return PartialView("ToDoList", model);
         }
 
-        [HttpPost]
-        public async Task<JsonResult> ChangeIssueStatus(RedmineIssue issue)
-        {
-            var result = new CommandResult();
-            if (issue.IssueId > 0 && issue.Status > 0)
-            {
-                result = await _redmineService.UpdateIssueRedmine(issue.IssueId, issue.Status, HttpContext.User.Identity.Name).ConfigureAwait(false);
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult LogtimeIssue(int issueId, string issueName)
         {
             var model = new LogTimeIssue
             {
                 IssueId = issueId,
                 IssueName = issueName,
-                SpentOn = DateTime.Now
+                SpentOn = DateTime.Now,
+                Hours = null
             };
             return PartialView("_LogtimeDialog", model);
         }
@@ -142,6 +132,11 @@
         {
             var isSuccessful = false;
             var message = string.Empty;
+
+            if (model.Hours.Equals(0.0))
+            {
+                ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
+            }
 
             if (ModelState.IsValid)
             {
@@ -189,10 +184,13 @@
         }
 
         [Authorize(Roles = "SpecialUser")]
-        public ActionResult GetNotification(int employeeId)
+        public async Task<ActionResult> GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
-            Notification noti = _notificationService.GetViolationByEmpId(criteria);
+
+            var noti = _notificationService.GetViolationByEmpId(criteria);
+
+            noti.ForgetLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
 
             return PartialView("_Notification", noti);
         }

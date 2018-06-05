@@ -30,7 +30,6 @@ function initTodoList() {
         success: function (data) {
             if (data) {
                 $('#todoList').html(data);
-                bindIssueStatus();
             }
         },
         error: function (textStatus, errorThrown) {
@@ -132,52 +131,52 @@ function getLogtimeDialog(issueId, issueName) {
     });
 }
 
-function changeIssueStatus(statusId, eventElement) {
-    var issueId = $(eventElement).attr('issueId');
-    if (issueId > 0 && statusId > 0) {
-        var data = {
-            IssueId: issueId,
-            Status: statusId
-        }
-        $.ajax({
-            url: _global.root + 'dashboard/ChangeIssueStatus',
-            method: "POST",
-            data: data,
-            dataType: "json",
-            success: function (res) {
-                if (res.IsSuccessful) {
-                    alert("Changed status successful!");
-                    initTodoList();
-                } else {
-                    alert(res.Message);
-                }
-            },
-        });
-    }
-}
+//function changeIssueStatus(statusId, eventElement) {
+//    var issueId = $(eventElement).attr('issueId');
+//    if (issueId > 0 && statusId > 0) {
+//        var data = {
+//            IssueId: issueId,
+//            Status: statusId
+//        }
+//        $.ajax({
+//            url: _global.root + 'dashboard/ChangeIssueStatus',
+//            method: "POST",
+//            data: data,
+//            dataType: "json",
+//            success: function (res) {
+//                if (res.IsSuccessful) {
+//                    alert("Changed status successful!");
+//                    initTodoList();
+//                } else {
+//                    alert(res.Message);
+//                }
+//            },
+//        });
+//    }
+//}
 
-function bindIssueStatus() {
-    $.contextMenu({
-        selector: '.issue-status',
-        trigger: 'left',
-        build: function ($trigger, e) {
-            return {
-                callback: function (key) {
-                    confirm('Are you sure you want to change status this issue?', function () {
-                        changeIssueStatus(key, e.currentTarget);
-                    });
-                },
-                items: {
-                    1: { name: "New", icon: "select-normal" },
-                    3: { name: "Resolved", icon: "select-normal" },
-                    5: { name: "Closed", icon: "select-normal" },
-                    6: { name: "Rejected", icon: "select-normal" },
-                    9: { name: "Pending", icon: "select-normal" }
-                }
-            };
-        }
-    });
-}
+//function bindIssueStatus() {
+//    $.contextMenu({
+//        selector: '.issue-status',
+//        trigger: 'left',
+//        build: function ($trigger, e) {
+//            return {
+//                callback: function (key) {
+//                    confirm('Are you sure you want to change status this issue?', function () {
+//                        changeIssueStatus(key, e.currentTarget);
+//                    });
+//                },
+//                items: {
+//                    1: { name: "New", icon: "select-normal" },
+//                    3: { name: "Resolved", icon: "select-normal" },
+//                    5: { name: "Closed", icon: "select-normal" },
+//                    6: { name: "Rejected", icon: "select-normal" },
+//                    9: { name: "Pending", icon: "select-normal" }
+//                }
+//            };
+//        }
+//    });
+//}
 
 function initTeamWorkload() {
     $.ajax({
