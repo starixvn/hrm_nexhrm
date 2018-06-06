@@ -40,92 +40,42 @@
   font-style: italic; }
 
 #formLogtime {
-  text-align: left !important; }
-  #formLogtime input {
-    margin-bottom: 0; }
-  #formLogtime .select--m {
-    margin-bottom: 15px; }
+  text-align: left; }
+  #formLogtime input, #formLogtime textarea {
+    box-sizing: border-box; }
+  #formLogtime .calendar-icon {
+    right: -10px; }
+  #formLogtime .comment {
+    height: auto; }
 
 .todoBlock {
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
   background-size: cover; }
   .todoBlock .card-body {
-    margin-top: 1.6rem;
-    height: 300px;
-    overflow-y: scroll; }
-  .todoBlock .tasks {
-    background: #eeeeef none repeat scroll 0 0;
-    margin-bottom: 0.2rem !important;
-    padding: 0;
-    line-height: 25px; }
-    .todoBlock .tasks .task-info {
-      padding: 10px 0;
-      border-top: 1px solid #000;
-      position: relative; }
-      .todoBlock .tasks .task-info:last-child {
-        border-bottom: 1px solid #000; }
-    .todoBlock .tasks .btn-logtime {
-      position: absolute;
-      right: 15px;
-      height: 3rem;
-      line-height: 3rem; }
-    .todoBlock .tasks .issue-status {
-      position: absolute;
-      right: 160px;
-      font-weight: 500; }
-      .todoBlock .tasks .issue-status .caret:before {
-        content: "\25BC";
-        font-size: 1.2rem; }
-    .todoBlock .tasks .subject {
-      display: inline-block;
-      margin-left: 10px;
-      font-weight: 700;
-      width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-      .todoBlock .tasks .subject a {
-        color: rgba(0, 0, 0, 0.741176); }
-      .todoBlock .tasks .subject .hotfix {
-        color: #ef3636; }
-      .todoBlock .tasks .subject .bug {
-        color: #e46426; }
-      .todoBlock .tasks .subject .feature {
-        color: #e4bb26; }
-      .todoBlock .tasks .subject .support {
-        color: #0400f5; }
-      .todoBlock .tasks .subject .task {
-        color: #2c9a09; }
-      .todoBlock .tasks .subject .deploy {
-        color: #15b092; }
-      .todoBlock .tasks .subject .sp,
-      .todoBlock .tasks .subject .milestone,
-      .todoBlock .tasks .subject .epic {
-        color: #000;
-        background-color: #9a9a9a; }
-      .todoBlock .tasks .subject .changerequest,
-      .todoBlock .tasks .subject .meeting {
-        background-color: #d09b0f; }
-    .todoBlock .tasks .priority {
-      display: inline-block;
-      font-weight: 500;
-      color: #fff;
-      float: left; }
-      .todoBlock .tasks .priority span {
-        padding: 3px 10px;
-        margin-left: 15px;
-        border-radius: 3px;
-        text-align: center; }
-      .todoBlock .tasks .priority .immediate {
-        background-color: #ef3636; }
-      .todoBlock .tasks .priority .urgent {
-        background-color: #e46426; }
-      .todoBlock .tasks .priority .high {
-        background-color: #ff0000; }
-      .todoBlock .tasks .priority .normal {
-        background-color: #0400f5; }
-      .todoBlock .tasks .priority .low {
-        background-color: #2c9a09; }
+    margin-top: 1.6rem; }
+  .todoBlock .tasks .subject {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #484343; }
+  .todoBlock .tasks .priority {
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px; }
+    .todoBlock .tasks .priority.immediate {
+      background-color: #f10b0b; }
+    .todoBlock .tasks .priority.urgent {
+      background-color: rgba(241, 11, 11, 0.75); }
+    .todoBlock .tasks .priority.high {
+      background-color: #ef9e36; }
+    .todoBlock .tasks .priority.normal {
+      background-color: #928c96; }
+    .todoBlock .tasks .priority.low {
+      background-color: rgba(104, 184, 40, 0.7); }
+  .todoBlock .tasks .tracker {
+    font-weight: 700;
+    color: #8996a2; }
   .todoBlock p {
     background: #eeeeef none repeat scroll 0 0;
     margin-bottom: 0.2rem !important;
@@ -142,6 +92,10 @@
       border-left: 2px solid #15b092; }
     .todoBlock p.orange-border {
       border-left: 2px solid #ef9e36; }
+    .todoBlock p.red-border {
+      border-left: 2px solid #f14a4a; }
+    .todoBlock p.yellow-border {
+      border-left: 2px solid rgba(239, 235, 54, 0.7); }
     .todoBlock p span .link {
       color: #fff;
       font-weight: normal;
@@ -163,6 +117,12 @@
   .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
   .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
     background-color: rgba(0, 0, 0, 0.5); }
+
+.ui-dialog .ui-dialog-content {
+  padding: 0 !important; }
+
+.ui-dialog .ui-dialog-buttonpane {
+  margin-top: 0; }
 
 .workload .card-title-block {
   border-bottom: none !important; }
@@ -370,12 +330,6 @@
       padding: 1.5rem 0; }
     .dashboardCalendar .authenGoogle .button {
       padding-bottom: 3rem; }
-
-.comment {
-  font-size: 1.3rem;
-  margin: 0 0 15px 0;
-  padding: 0;
-  height: auto; }
 
 .field-validation-valid {
   color: #ff0a09;

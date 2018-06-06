@@ -72,27 +72,34 @@
 
 @if (Model.InProgressTasks.Count > 0)
 {
-    <div class="tasks">
-        <ul>
-            @foreach (var issue in Model.InProgressTasks)
-            {
-                <li class="text-left task-info">
-                    @{
-                        var priorityClass = issue.Priority.ToLowerInvariant();
-                        var trackerClass = issue.Tracker.ToLowerInvariant();
+    foreach (var issue in Model.InProgressTasks)
+    {
+        <p class="red-border tasks">
+            @{
+                var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
+                var priorityClass = issue.Priority.ToLowerInvariant();
+            }
+            <span class="priority @priorityClass">@issue.Priority</span>
+            <span class="tracker">@issue.Tracker #@issue.IssueId: </span><a href="@href" class="subject tooltip" title="@issue.Subject" target="_blank">@issue.Subject</a>
+            <a class="btn-submit waves-effect waves-light right" onclick="getLogtimeDialog(@issue.IssueId)">
+                Log time
+            </a>
+        </p>
                     }
-                    <div class="priority"><span class="@priorityClass">@issue.Priority</span></div>
-                    <div class="subject tooltip" title="@issue.Subject">
-                        @{
-                            var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
-                        }
-                        <a href="@href" target="_blank"><span class="@trackerClass">[ @issue.Tracker ] </span>@issue.Subject</a>
-                    </div>
-                    <a class="btn waves-light btn-logtime" onclick="getLogtimeDialog(@issue.IssueId)">Log Time</a>
-                </li>
-                            }
-        </ul>
-    </div>
-                            }
 
-<div id="logtime-dialog"></div>
+                }
+
+@if (Model.ForgotLogtimeDates.Count > 0)
+{
+    <p class="yellow-border">
+        <span class="text-left">
+            You forgot log time on
+        </span>
+        @foreach (var date in Model.ForgotLogtimeDates)
+        {
+            <a href="@AppSetting.Redmine_API_Address" target="_blank"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
+        }
+    </p>
+}
+
+<div id="logtime-dialog" class="logtime-dialog"></div>

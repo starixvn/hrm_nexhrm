@@ -49,7 +49,7 @@ function initLogtimeDialog(issueId) {
     $('#logtime-dialog').dialog({
         modal: true,
         width: 'auto',
-        title: 'Log time for issue ' + issueId,
+        title: 'Log time on issue #' + issueId,
         buttons: [
             {
                 text: 'Cancel',

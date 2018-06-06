@@ -62,16 +62,21 @@
     }
 }
 
- #formLogtime {
-        text-align: left !important;
+#formLogtime {
+    text-align: left;
 
-        input {
-            margin-bottom: 0;
-        }
-        .select--m {
-            margin-bottom: 15px;
-        }
+    input, textarea {
+        box-sizing: border-box;
     }
+
+    .calendar-icon {
+        right: -10px;
+    }
+
+    .comment {
+        height: auto;
+    }
+}
 
 .todoBlock {
     background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
@@ -79,130 +84,48 @@
 
     .card-body {
         margin-top: 1.6rem;
-        height: 300px;
-        overflow-y: scroll;
     }
 
     .tasks {
-        background: #eeeeef none repeat scroll 0 0;
-        margin-bottom: 0.2rem !important;
-        padding: 0;
-        line-height: 25px;
-
-        .task-info {
-            padding: 10px 0;
-            border-top: 1px solid #000;
-            position: relative;
-
-            &:last-child {
-                border-bottom: 1px solid #000;
-            }
-        }
-
-        .btn-logtime {
-            position: absolute;
-            right: 15px;
-            height: 3rem;
-            line-height: 3rem;
-        }
-
-        .issue-status {
-            position: absolute;
-            right: 160px;
-            font-weight: 500;
-
-            .caret:before {
-                content: "\25BC";
-                font-size: 1.2rem;
-            }
-        }
-
         .subject {
-            display: inline-block;
-            margin-left: 10px;
-            font-weight: 700;
-            width: 300px;
+            max-width: 300px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-
-            a {
-                color: rgba(0, 0, 0, 0.7411764705882353); 
-            }
-            .hotfix {
-                color: #ef3636;
-            }
-
-            .bug {
-                color: #e46426;
-            }
-
-            .feature {
-                color: #e4bb26;
-            }
-
-            .support {
-                color: #0400f5;
-            }
-
-            .task {
-                color: #2c9a09;
-            }
-
-            .deploy {
-                color: #15b092;
-            }
-
-            .sp,
-            .milestone,
-            .epic {
-                color: #000;
-                background-color: #9a9a9a;
-            }
-
-            .changerequest,
-            .meeting {
-                background-color: #d09b0f;
-            }
-
+            color: #484343;
         }
 
         .priority {
-            display: inline-block;
-            font-weight: 500;
-            color: #fff;
-            float: left;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 3px;
 
-            span {
-                padding: 3px 10px;
-                margin-left: 15px;
-                border-radius: 3px;
-                text-align: center;
+            &.immediate {
+                background-color: rgba(241, 11, 11, 1.00);
             }
 
-            .immediate {
-                background-color: #ef3636;
+            &.urgent {
+                background-color: rgba(241, 11, 11, 0.75);
             }
 
-            .urgent {
-                background-color: #e46426;
+            &.high {
+                background-color: #ef9e36;
             }
 
-            .high {
-                background-color: #ff0000;
+            &.normal {
+                background-color: #928c96;
             }
 
-            .normal {
-                background-color: #0400f5;
-            }
-
-            .low {
-                background-color: #2c9a09;
+            &.low {
+                background-color: rgba(104, 184, 40, 0.70);
             }
         }
-    }
 
-   
+        .tracker {
+            font-weight: 700;
+            color: #8996a2;
+        }
+    }
 
     p {
         background: #eeeeef none repeat scroll 0 0;
@@ -229,6 +152,14 @@
 
         &.orange-border {
             border-left: 2px solid #ef9e36;
+        }
+
+        &.red-border {
+            border-left: 2px solid #f14a4a;
+        }
+
+        &.yellow-border {
+            border-left: 2px solid rgba(239, 235, 54, 0.70);
         }
 
         span {
@@ -273,6 +204,15 @@
         background-color: rgba(0,0,0,0.5);
     }
 }
+
+.ui-dialog .ui-dialog-content {
+    padding: 0!important;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    margin-top: 0;
+}
+
 
 .workload {
     .card-title-block {
@@ -636,13 +576,6 @@
             padding-bottom: 3rem;
         }
     }
-}
-
-.comment {
-    font-size: 1.3rem;
-    margin: 0 0 15px 0;
-    padding: 0;
-    height: auto;
 }
 
 .field-validation-valid {

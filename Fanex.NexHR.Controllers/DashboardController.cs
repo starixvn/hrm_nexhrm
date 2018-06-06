@@ -109,7 +109,8 @@
             {
                 MissingCheckInOutList = GetMissingCheckInOut(employeeId),
                 PendingRequestsList = GetPendingRequest(),
-                InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false)
+                InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false),
+                ForgotLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false)
             };
 
             return PartialView("ToDoList", model);
@@ -184,13 +185,11 @@
         }
 
         [Authorize(Roles = "SpecialUser")]
-        public async Task<ActionResult> GetNotification(int employeeId)
+        public ActionResult GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
 
             var noti = _notificationService.GetViolationByEmpId(criteria);
-
-            noti.ForgetLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
 
             return PartialView("_Notification", noti);
         }
