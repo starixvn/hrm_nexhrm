@@ -1,7 +1,5 @@
 ﻿namespace Fanex.NexHR.Models.RedmineAPI
 {
-    using System;
-
     public class RedmineIssue
     {
         public int IssueId { get; set; }
@@ -12,13 +10,7 @@
 
         public string ProjectName { get; set; }
 
-        public string Author { get; set; }
-
         public string Tracker { get; set; }
-
-        public DateTime StartDate { get; set; }
-
-        public DateTime DueDate { get; set; }
 
         public string Priority { get; set; }
     }

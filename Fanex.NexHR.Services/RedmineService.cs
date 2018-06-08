@@ -96,11 +96,8 @@
                         Subject = issue["subject"],
                         Description = issue["description"],
                         ProjectName = issue["project"]["name"],
-                        Author = issue["author"]["name"],
                         Priority = issue["priority"]["name"],
-                        Tracker = issue["tracker"]["name"],
-                        StartDate = DateTime.ParseExact(issue["start_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                        DueDate = DateTime.ParseExact(issue["due_date"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        Tracker = issue["tracker"]["name"]
                     };
 
                     tasks.Add(issueRemine);
