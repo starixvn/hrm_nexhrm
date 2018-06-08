@@ -109,28 +109,37 @@
         public async Task<CommandResult> LogtimeToIssue(LogTimeIssue issue, string domainName)
         {
             HttpClient client = new HttpClient();
+            var result = new CommandResult();
 
             var apiKey = await GetCurrentRedmineUser(GetLoginNameByDomainName(domainName)).ConfigureAwait(false);
-            var url = new Uri($"{baseDomain}time_entries{applicationType}?key={apiKey}");
-
-            var jsonData = "{\"time_entry\":" +
-                JsonConvert.SerializeObject(new
-                {
-                    issue_id = issue.IssueId,
-                    spent_on = issue.SpentOn.ToString("yyyy-MM-dd"),
-                    hours = issue.Hours,
-                    comments = issue.Comments
-                }) + "}";
-
-            HttpResponseMessage response = await client.PostAsync(url,
-                                                                new StringContent(jsonData, Encoding.UTF8, "application/json"))
-                                                                .ConfigureAwait(false);
-            var result = new CommandResult();
-            if (response.StatusCode != HttpStatusCode.Created)
+            if (!string.IsNullOrEmpty(apiKey))
             {
                 result.Code = -1;
-                result.Message = response.ReasonPhrase;
+                result.Message = "No Permission";
             }
+            else
+            {
+                var url = new Uri($"{baseDomain}time_entries{applicationType}?key={apiKey}");
+
+                var jsonData = "{\"time_entry\":" +
+                    JsonConvert.SerializeObject(new
+                    {
+                        issue_id = issue.IssueId,
+                        spent_on = issue.SpentOn.ToString("yyyy-MM-dd"),
+                        hours = issue.Hours,
+                        comments = issue.Comments
+                    }) + "}";
+
+                HttpResponseMessage response = await client.PostAsync(url,
+                                                                    new StringContent(jsonData, Encoding.UTF8, "application/json"))
+                                                                    .ConfigureAwait(false);
+                if (response.StatusCode != HttpStatusCode.Created)
+                {
+                    result.Code = -1;
+                    result.Message = response.ReasonPhrase;
+                }
+            }
+
             return result;
         }
 
