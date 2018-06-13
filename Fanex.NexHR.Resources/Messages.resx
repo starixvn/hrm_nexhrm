@@ -289,6 +289,6 @@
     <value>Total NEX hours deducted by Late In/Early Out</value>
   </data>
   <data name="LeaveRequestLegendText" xml:space="preserve">
-    <value>※ In &lt;span id='lblMonth'&gt;{0}&lt;/span&gt;, you can use up to &lt;span id='lblAnnualLeaveCanBeUsed' class='red-color'&gt;{1}&lt;/span&gt; days AL in a total of &lt;span id = 'lblAnnualLeaveBalance' class='red-color'&gt; {2} &lt;/span&gt; days for &lt;span id='lblYear'&gt;{3}&lt;/span&gt;</value>
+    <value>※ In &lt;span id='lblMonth'&gt;{0}&lt;/span&gt;, you can use up to &lt;span id='lblAnnualLeaveCanBeUsed' class='red-color'&gt;{1}&lt;/span&gt; day (s) AL in a total of &lt;span id = 'lblAnnualLeaveBalance' class='red-color'&gt; {2} &lt;/span&gt; day (s) for &lt;span id='lblYear'&gt;{3}&lt;/span&gt;</value>
   </data>
 </root>

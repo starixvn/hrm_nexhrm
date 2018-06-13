@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
-    using Core;
-    using Core.Enums;
-    using Models;
-    using Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using Core;
+    using Core.Enums;
+    using Models;
+    using Resources;
 
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
@@ -42,6 +42,8 @@
 
         public decimal TotalRequest { get; set; }
 
+        public string CurrentUserEmail { get; set; }
+
         public IList<LeaveType> LeaveTypes { get; set; }
 
         public IList<DateTime> UnavailDates { get; set; }
@@ -63,9 +65,9 @@
             {
                 string subjectTemplate = TotalDays > 1 ? "{0} {1} from {2} to {3}" : "{0} {1} on {2}";
                 return string.Format(
-                    subjectTemplate, 
-                    IsEdit ? Messages.UpdatedLeaveEmailSubject : Messages.LeaveEmailSubject, 
-                    Employee, 
+                    subjectTemplate,
+                    IsEdit ? Messages.UpdatedLeaveEmailSubject : Messages.LeaveEmailSubject,
+                    Employee,
                     FromDate.ToDateMonthYearFormatedDate(),
                     ToDate.ToDateMonthYearFormatedDate());
             }

@@ -11,6 +11,8 @@
             <th>@Labels.Team</th>
             <th>@Labels.TimeRecord</th>
             <th>@Labels.InOut</th>
+            <th>Reader Name</th>
+            <th>Event Name</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +21,7 @@
             var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
             foreach (TimeRecord item in Model)
             {
-                index++; 
+                index++;
                 <tr>
                     <td>@index</td>
                     <td>
@@ -39,21 +41,21 @@
                         {
                             if (item.InOutType == 0)
                             {
-                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
-                                @item.GetInOutName
-                            </a>
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
+                                    @item.GetInOutName
+                                </a>
                             }
                             else if (item.InOutType == 1)
                             {
-                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
-                                @item.GetInOutName
-                            </a>
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
+                                    @item.GetInOutName
+                                </a>
                             }
                             else
                             {
-                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
-                                @item.GetInOutName
-                            </a>
+                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
+                                    @item.GetInOutName
+                                </a>
                             }
                         }
                         else
@@ -61,13 +63,15 @@
                             @item.GetInOutName
                         }
                     </td>
+                    <td>@item.ReaderName</td>
+                    <td>@item.EventName</td>
                 </tr>
-                
+
             }
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 6)
+            @RazorHelper.DisplayNoInformation(colspan: 8)
         }
     </tbody>
     <tfoot>
@@ -90,6 +94,6 @@
                     </div>
                 </td>
             </tr>
-        }
+                            }
     </tfoot>
 </table>

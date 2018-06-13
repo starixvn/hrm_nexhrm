@@ -331,7 +331,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ※ In &lt;span id=&apos;lblMonth&apos;&gt;{0}&lt;/span&gt;, you can use up to &lt;span id=&apos;lblAnnualLeaveCanBeUsed&apos; class=&apos;red-color&apos;&gt;{1}&lt;/span&gt; days AL in a total of &lt;span id = &apos;lblAnnualLeaveBalance&apos; class=&apos;red-color&apos;&gt; {2} &lt;/span&gt; days for &lt;span id=&apos;lblYear&apos;&gt;{3}&lt;/span&gt;.
+        ///   Looks up a localized string similar to ※ In &lt;span id=&apos;lblMonth&apos;&gt;{0}&lt;/span&gt;, you can use up to &lt;span id=&apos;lblAnnualLeaveCanBeUsed&apos; class=&apos;red-color&apos;&gt;{1}&lt;/span&gt; day (s) AL in a total of &lt;span id = &apos;lblAnnualLeaveBalance&apos; class=&apos;red-color&apos;&gt; {2} &lt;/span&gt; day (s) for &lt;span id=&apos;lblYear&apos;&gt;{3}&lt;/span&gt;.
         /// </summary>
         public static string LeaveRequestLegendText {
             get {

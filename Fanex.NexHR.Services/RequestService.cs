@@ -1,5 +1,13 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -11,14 +19,6 @@
     using Repositories;
     using Repositories.Interfaces;
     using Resources;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -83,6 +83,7 @@
                             request.FromShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
                         break;
+
                     case (int)RequestType.EarlyOut:
                         msg.AppendFormat(
                             Constants.MsgEarlyOut,
@@ -90,6 +91,7 @@
                             request.FromShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
                         break;
+
                     case (int)RequestType.ChangeShift:
                         msg.AppendFormat(
                             Constants.MsgChangeShift,
@@ -178,6 +180,7 @@
                         ModifiedDate = DateTime.Now
                     };
                     break;
+
                 case "Reject":
                     processRequestCriteria = new RejectRequestCriteria
                     {
@@ -186,6 +189,7 @@
                         ProcessedDate = DateTime.Now
                     };
                     break;
+
                 default:
                     processRequestCriteria = new ApproveRequestCriteria
                     {
@@ -315,7 +319,7 @@
                 _emailService.SendEmail(
                     ConfigurationManager.AppSettings["Email"],
                     string.Join(";", managers.Select(t => t.Email)),
-                    string.Join(";", leaders.Select(t => t.Email)),
+                    string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
                     model.SubjectEmail,
                     body);
             }
@@ -513,7 +517,7 @@
         {
             var criteria = new GetEmployeeForRelatedTeamCriteria { EmpId = request.Requester.Id };
             var employees = GetData<Employee>(criteria)
-                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id);
+                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && !i.Email.Equals(request.ModifiedBy.Email));
 
             if (request.RequestType.Id == (int)RequestType.Leave)
             {
@@ -528,8 +532,9 @@
                 case 2:
                     CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
                     break;
+
                 case 6:
-                    LeaveRelatedMail(request, sendCc, templateLeaveEmailToRelatedPath);
+                    LeaveRelatedMail(request, employees, templateLeaveEmailToRelatedPath);
                     break;
             }
         }
@@ -565,7 +570,7 @@
                 body);
         }
 
-        private void LeaveRelatedMail(RequestEntity request, string sendCc, string templateLeaveEmailToRelatedPath)
+        private void LeaveRelatedMail(RequestEntity request, IEnumerable<Employee> employees, string templateLeaveEmailToRelatedPath)
         {
             var subject = string.Format(
                 Messages.ApprovalNotificationLeaveSubject,
@@ -576,19 +581,24 @@
 
             body = string.Format(
                 body,
-                request.ModifiedBy.NickName,
                 $"{request.Requester.NickName} ({request.Requester.FullName})",
                 Labels.Leave,
                 forDate,
                 request.LeaveType.Name,
                 request.Remark);
 
-            _emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
-                request.ModifiedBy.Email,
-                sendCc,
-                subject,
-                body);
+            if (employees.Any())
+            {
+                foreach (var employee in employees)
+                {
+                    _emailService.SendEmail(
+                         ConfigurationManager.AppSettings["Email"],
+                         employee.Email,
+                         string.Empty,
+                         subject,
+                         body);
+                }
+            }
         }
     }
 }

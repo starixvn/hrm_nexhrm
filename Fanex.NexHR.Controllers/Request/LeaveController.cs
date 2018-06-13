@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria.Request;
@@ -7,10 +11,6 @@
     using Models.Request;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
     using ViewModels;
 
     public class LeaveController : BaseController
@@ -123,6 +123,7 @@
 
                 model.IsEdit = false;
                 model.GetTemplatePath();
+                model.CurrentUserEmail = CurrentUser.Email;
                 Task.Factory.StartNew(() =>
                 {
                     _requestService.SendMailForLeave(model);

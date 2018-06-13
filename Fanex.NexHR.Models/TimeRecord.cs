@@ -13,6 +13,10 @@
 
         public short InOutType { get; set; }
 
+        public string ReaderName { get; set; }
+
+        public string EventName { get; set; }
+
         public string GetInOutName
         {
             get
@@ -21,8 +25,10 @@
                 {
                     case 0:
                         return Labels.In;
+
                     case 1:
                         return Labels.Out;
+
                     default:
                         return "None";
                 }
