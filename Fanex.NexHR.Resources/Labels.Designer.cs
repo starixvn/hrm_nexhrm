@@ -1240,6 +1240,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Name.
+        /// </summary>
+        public static string EventName {
+            get {
+                return ResourceManager.GetString("EventName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exam Date.
         /// </summary>
         public static string ExamDate {
@@ -3018,6 +3027,15 @@ namespace Fanex.NexHR.Resources {
         public static string R {
             get {
                 return ResourceManager.GetString("R", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reader Name.
+        /// </summary>
+        public static string ReaderName {
+            get {
+                return ResourceManager.GetString("ReaderName", resourceCulture);
             }
         }
         

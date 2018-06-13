@@ -1425,4 +1425,10 @@
   <data name="HoursLogtimeErrorMessage" xml:space="preserve">
     <value>{0} must be greater than 0 and less than {2}</value>
   </data>
+  <data name="ReaderName" xml:space="preserve">
+    <value>Reader Name</value>
+  </data>
+  <data name="EventName" xml:space="preserve">
+    <value>Event Name</value>
+  </data>
 </root>
