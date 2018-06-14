@@ -40,7 +40,7 @@
 
         private HttpClient AuthorizeRequestHeader()
         {
-            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.Redmine_Admin_Account}")));
+            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.Redmine_ConnectionString}")));
 
             var client = new HttpClient
             {

@@ -58,7 +58,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: #484343;
-    max-width: calc(100% - 150px); }
+    max-width: 600px; }
+    @media screen and (max-width: 1440px) {
+      .todoBlock .tasks .subject {
+        max-width: 360px; } }
   .todoBlock .tasks .priority {
     color: white;
     padding: 3px 6px;
@@ -76,6 +79,8 @@
   .todoBlock .tasks .tracker {
     font-weight: 700;
     color: #8996a2; }
+  .todoBlock .remine-date {
+    display: inline-block; }
   .todoBlock p {
     background: #eeeeef none repeat scroll 0 0;
     margin-bottom: 0.2rem !important;

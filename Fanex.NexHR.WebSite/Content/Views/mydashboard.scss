@@ -92,7 +92,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             color: #484343;
-            max-width: calc(100% - 150px);
+            max-width: 600px;
+            @media screen and (max-width: 1440px) {
+                max-width: 360px;
+            }
         }
 
         .priority {
@@ -126,6 +129,10 @@
             color: #8996a2;
         }
     }
+
+    .remine-date {
+            display: inline-block;
+        }
 
     p {
         background: #eeeeef none repeat scroll 0 0;
