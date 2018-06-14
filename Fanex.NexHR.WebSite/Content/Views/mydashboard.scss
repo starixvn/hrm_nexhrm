@@ -88,11 +88,11 @@
 
     .tasks {
         .subject {
-            max-width: 300px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             color: #484343;
+            max-width: calc(100% - 150px);
         }
 
         .priority {

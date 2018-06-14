@@ -54,11 +54,11 @@
   .todoBlock .card-body {
     margin-top: 1.6rem; }
   .todoBlock .tasks .subject {
-    max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #484343; }
+    color: #484343;
+    max-width: calc(100% - 150px); }
   .todoBlock .tasks .priority {
     color: white;
     padding: 3px 6px;
