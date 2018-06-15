@@ -80,7 +80,7 @@
                 var priorityClass = issue.Priority.ToLowerInvariant();
             }
             <span class="priority @priorityClass">@issue.Priority</span>
-            <a href="@href" class="subject tooltip" title="@issue.Subject" target="_blank"><span class="tracker">@issue.Tracker #@issue.IssueId: </span>@issue.Subject</a>
+            <a href="@href" class="subject" title="@issue.Subject" target="_blank"><span class="tracker">@issue.Tracker #@issue.IssueId: </span>@issue.Subject</a>
             <a class="btn-submit waves-effect waves-light right" onclick="getLogtimeDialog(@issue.IssueId)">
                 Log time
             </a>
