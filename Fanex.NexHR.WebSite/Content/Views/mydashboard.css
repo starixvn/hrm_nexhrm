@@ -64,10 +64,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 600px; }
-    @media screen and (max-width: 1280px) {
+    max-width: 620px; }
+    @media screen and (max-width: 1366px) {
       .todoBlock .tasks .subject {
-        max-width: 250px; } }
+        max-width: 370px; } }
   .todoBlock .tasks .priority {
     color: white;
     padding: 3px 6px;
@@ -85,6 +85,9 @@
   .todoBlock .tasks .tracker {
     font-weight: 700;
     color: #8996a2; }
+  .todoBlock .tasks .logtime-icon {
+    cursor: pointer;
+    margin-top: 14px; }
   .todoBlock .remine-date {
     display: inline-block; }
   .todoBlock p {
