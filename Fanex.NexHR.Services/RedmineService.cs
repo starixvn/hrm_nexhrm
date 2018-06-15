@@ -166,7 +166,6 @@
                     {
                         SpentOn = DateTime.ParseExact(timeEntry["spent_on"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
                         Hours = (double)timeEntry["hours"],
-                        Activity = (RedmineLogTimeActivity)timeEntry["activity"]["id"]
                     };
 
                     listEntries.Add(entry);
