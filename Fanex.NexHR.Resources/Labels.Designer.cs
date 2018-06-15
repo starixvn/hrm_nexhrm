@@ -2725,6 +2725,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission on this action..
+        /// </summary>
+        public static string NoPermission {
+            get {
+                return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Note {

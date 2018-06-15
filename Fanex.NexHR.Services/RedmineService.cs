@@ -18,6 +18,7 @@
     using Models;
     using Models.RedmineAPI;
     using Newtonsoft.Json;
+    using Resources;
 
     public class RedmineService : BaseService, IRedmineService
     {
@@ -115,7 +116,7 @@
             if (string.IsNullOrEmpty(apiKey))
             {
                 result.Code = -1;
-                result.Message = "No Permission";
+                result.Message = Labels.NoPermission;
             }
             else
             {

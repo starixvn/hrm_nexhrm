@@ -1431,4 +1431,7 @@
   <data name="EventName" xml:space="preserve">
     <value>Event Name</value>
   </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>You don't have permission on this action.</value>
+  </data>
 </root>
