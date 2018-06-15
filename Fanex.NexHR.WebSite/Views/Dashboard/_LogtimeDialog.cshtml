@@ -27,6 +27,15 @@
 
     <div class="row form-input">
         <div class="left label--m">
+            @Html.LabelFor(model => model.Activity)
+        </div>
+        <div class="left select--m">
+            @Html.EnumDropDownListFor(model => model.Activity)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
             @Html.LabelFor(model => model.Comments)
         </div>
         <div class="left select--m">

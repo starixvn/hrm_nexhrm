@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Core.Enums;
     using Resources;
 
     public class LogTimeIssue
@@ -21,5 +22,8 @@
 
         [StringLength(255)]
         public string Comments { get; set; }
+
+        [Required]
+        public RedmineLogTimeActivity Activity { get; set; }
     }
 }

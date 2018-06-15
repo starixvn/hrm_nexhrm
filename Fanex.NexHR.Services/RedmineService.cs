@@ -112,7 +112,7 @@
             var result = new CommandResult();
 
             var apiKey = await GetCurrentRedmineUser(GetLoginNameByDomainName(domainName)).ConfigureAwait(false);
-            if (!string.IsNullOrEmpty(apiKey))
+            if (string.IsNullOrEmpty(apiKey))
             {
                 result.Code = -1;
                 result.Message = "No Permission";
@@ -127,7 +127,8 @@
                         issue_id = issue.IssueId,
                         spent_on = issue.SpentOn.ToString("yyyy-MM-dd"),
                         hours = issue.Hours,
-                        comments = issue.Comments
+                        comments = issue.Comments,
+                        activity_id = (int)issue.Activity
                     }) + "}";
 
                 HttpResponseMessage response = await client.PostAsync(url,

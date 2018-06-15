@@ -47,6 +47,8 @@
     right: -10px; }
   #formLogtime .comment {
     height: auto; }
+  #formLogtime .dropdown-content {
+    max-height: 18rem; }
 
 .todoBlock {
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;

@@ -122,6 +122,7 @@ function getLogtimeDialog(issueId, issueName) {
         dataType: 'html',
         success: function (data) {
             $('#logtime-dialog').html(data);
+            $('select').material_select();
             initLogtimeDialog(issueId);
             initDatePicker();
         },

@@ -123,7 +123,8 @@
                 IssueId = issueId,
                 IssueName = issueName,
                 SpentOn = DateTime.Now,
-                Hours = null
+                Hours = null,
+                Activity = RedmineLogTimeActivity.Development
             };
             return PartialView("_LogtimeDialog", model);
         }
