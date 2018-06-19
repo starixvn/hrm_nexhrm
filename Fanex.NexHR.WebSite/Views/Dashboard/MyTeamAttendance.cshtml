@@ -1,5 +1,5 @@
 ﻿@model EmployeeAttendanceViewModel
-@if (Model.IsDisplayTeamAttendence)
+@if (Model.IsDisplayTeamAttendence && !Request.Browser.IsMobileDevice)
 {
     <div class="col s12 card-container-base">
         <div class="card">

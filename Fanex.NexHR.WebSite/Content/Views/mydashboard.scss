@@ -3,6 +3,9 @@
 
 .flexWrap {
     display: flex;
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
 
     .infoBlock, .todoBlock {
         flex: 1;
@@ -104,6 +107,10 @@
             
             @media screen and (max-width: 1366px) {
                 max-width: 370px;
+            }
+
+            @media screen and (max-width: 480px) {
+                max-width: 195px;
             }
         }
 

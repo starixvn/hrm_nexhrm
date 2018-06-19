@@ -1,5 +1,8 @@
 ﻿.flexWrap {
   display: flex; }
+  @media screen and (max-width: 768px) {
+    .flexWrap {
+      display: block; } }
   .flexWrap .infoBlock, .flexWrap .todoBlock {
     flex: 1;
     margin-left: 0.8rem;
@@ -68,6 +71,9 @@
     @media screen and (max-width: 1366px) {
       .todoBlock .tasks .subject {
         max-width: 370px; } }
+    @media screen and (max-width: 480px) {
+      .todoBlock .tasks .subject {
+        max-width: 195px; } }
   .todoBlock .tasks .priority {
     color: white;
     padding: 3px 6px;
