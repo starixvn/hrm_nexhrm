@@ -146,6 +146,11 @@ function setDateTimeRange(selectedIndex) {
         toDate = new Date($('#ToDate').val()),
         now = $('#DateTime-Now').val();
 
+    if (now === undefined) {
+        var toDay = new Date();
+        now = toDay.toString("dd MMM, yyyy");
+    }
+
     fromDate = $.format.date(fromDate, 'dd MMM, yyyy');
     toDate = $.format.date(toDate, 'dd MMM, yyyy');
 

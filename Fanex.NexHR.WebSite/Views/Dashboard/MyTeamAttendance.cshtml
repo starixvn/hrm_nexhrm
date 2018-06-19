@@ -8,7 +8,7 @@
                     <span class="card-title txt-uppercase left">MY TEAM ATTENDANCE</span>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("", "", FormMethod.Get, new { style = "display: none;" }))
+                    @using (Html.BeginForm("", "", FormMethod.Get, new { id = "team-attendance",style = "display: none;" }))
                 {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">

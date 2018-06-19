@@ -71,49 +71,50 @@ function query(isFirstLoad) {
     if ($('#Employee').val() === '') {
         $('#EmpId').val('');
     }
+    if ($("#team-attendance").length) {
+        $.ajax({
+            url: _global.root + 'report/GetEmployeeAttendance',
+            data: $('form').serialize(),
+            method: 'POST',
+            beforeSend: function () {
+                if (!isFirstLoad) {
+                    $('.loading-process').fadeIn(300);
+                }
+            },
+            success: function (data) {
+                $('table#data tbody').children().remove();
 
-    $.ajax({
-        url: _global.root + 'report/GetEmployeeAttendance',
-        data: $('form').serialize(),
-        method: 'POST',
-        beforeSend: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeIn(300);
+                if (data && data.length > 0) {
+                    rowIndex = 1;
+
+                    var tmpl = $.templates('#template'),
+                        helpers = {
+                            index: index,
+                            formatJsonDate: formatJsonDate,
+                            totalHoursToTime: totalHoursToTime,
+                            displayMinute: displayMinute
+                        },
+                        html = tmpl.render(data, helpers);
+
+                    $(html).appendTo('table#data');
+
+                    initTooltip();
+                } else {
+                    $(noInformation(14)).appendTo('table#data');
+                }
+
+                floatThead('table#data');
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                if (!isFirstLoad) {
+                    $('.loading-process').fadeOut(300);
+                }
             }
-        },
-        success: function (data) {
-            $('table#data tbody').children().remove();
-
-            if (data && data.length > 0) {
-                rowIndex = 1;
-
-                var tmpl = $.templates('#template'),
-                    helpers = {
-                        index: index,
-                        formatJsonDate: formatJsonDate,
-                        totalHoursToTime: totalHoursToTime,
-                        displayMinute: displayMinute
-                    },
-                    html = tmpl.render(data, helpers);
-
-                $(html).appendTo('table#data');
-
-                initTooltip();
-            } else {
-                $(noInformation(14)).appendTo('table#data');
-            }
-
-            floatThead('table#data');
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
-            if (!isFirstLoad) {
-                $('.loading-process').fadeOut(300);
-            }
-        }
-    });
+        });
+    }
 }
 
 $(document).ready(function () {
