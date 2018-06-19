@@ -8,12 +8,12 @@
 // </history>
 namespace Fanex.NexHR.Controllers
 {
-    using Criteria.Employee;
-    using Models;
-    using Services;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Criteria.Employee;
+    using Models;
+    using Services;
 
     [Authorize]
     public class BaseController : Controller
@@ -52,6 +52,40 @@ namespace Fanex.NexHR.Controllers
                 }
 
                 return currentUser;
+            }
+        }
+
+        public EmployeeSetting CurrentUserSetting
+        {
+            get
+            {
+                if (!HttpContext.User.Identity.IsAuthenticated)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+
+                EmployeeSetting currentSetting = (EmployeeSetting)HttpContext.Session?["CurrentUserSetting"];
+
+                if (currentSetting == null)
+                {
+                    var employeeSettingCriteria = new GetCurrentUserSettingCriteria { EmployeeId = CurrentUser.Id };
+                    var baseService = new BaseService();
+                    currentSetting = baseService.GetDataEntity<EmployeeSetting>(employeeSettingCriteria);
+
+                    if (currentSetting != null)
+                    {
+                        if (HttpContext.Session != null)
+                        {
+                            HttpContext.Session["CurrentUserSetting"] = currentSetting;
+                        }
+                    }
+                    else
+                    {
+                        FormsAuthentication.RedirectToLoginPage();
+                    }
+                }
+
+                return currentSetting;
             }
         }
 

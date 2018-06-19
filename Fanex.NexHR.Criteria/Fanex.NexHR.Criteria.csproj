@@ -70,6 +70,7 @@
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\GetCurrentUserSettingCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
     <Compile Include="Employee\GetLeaderAndHRCriteria.cs" />

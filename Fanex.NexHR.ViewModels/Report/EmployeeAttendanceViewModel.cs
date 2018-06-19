@@ -28,5 +28,7 @@
         public bool ExcludeUserDelete { get; set; }
 
         public IList<Team> Teams { get; set; }
+
+        public bool IsDisplayTeamAttendence { get; set; }
     }
 }

@@ -72,6 +72,7 @@
                 DateOption = 0,
                 ExcludeUserDelete = true,
                 Teams = _teamService.GetTeam(),
+                IsDisplayTeamAttendence = CurrentUserSetting.DisplayTeamAttendence
             };
 
             model.EmployeeAttendanceModel = empAttendance;
@@ -105,13 +106,18 @@
         [Authorize(Roles = "SpecialUser")]
         public async Task<ActionResult> GetTodoList(int? employeeId)
         {
-            ToDoViewModel model = new ToDoViewModel
+            var model = new ToDoViewModel();
+
+            if (CurrentUserSetting.DisplayInfoAndTodoList)
             {
-                MissingCheckInOutList = GetMissingCheckInOut(employeeId),
-                PendingRequestsList = GetPendingRequest(),
-                InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false),
-                ForgotLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false)
-            };
+                model.MissingCheckInOutList = GetMissingCheckInOut(employeeId);
+                model.PendingRequestsList = GetPendingRequest();
+                if (CurrentUserSetting.DisplayRedmineTask)
+                {
+                    model.InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false);
+                    model.ForgotLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
+                }
+            }
 
             return PartialView("ToDoList", model);
         }
@@ -213,7 +219,7 @@
         private bool IsLoadTeamWorkload()
         {
             var ignoreTeamWorkloads = AppSetting.IgnoreTeamWorkload.Split(',');
-            return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0;
+            return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
     }
 }

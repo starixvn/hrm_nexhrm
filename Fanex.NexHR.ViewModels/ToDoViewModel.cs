@@ -7,6 +7,14 @@
 
     public class ToDoViewModel
     {
+        public ToDoViewModel()
+        {
+            MissingCheckInOutList = new List<MissingCheckInOutModel>();
+            PendingRequestsList = new List<RequestEntity>();
+            InProgressTasks = new List<RedmineIssue>();
+            ForgotLogtimeDates = new List<DateTime>();
+        }
+
         public IList<MissingCheckInOutModel> MissingCheckInOutList { get; set; }
 
         public IList<RequestEntity> PendingRequestsList { get; set; }
