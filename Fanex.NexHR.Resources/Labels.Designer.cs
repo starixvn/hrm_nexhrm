@@ -3463,6 +3463,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spent on must be after or equal to current date.
+        /// </summary>
+        public static string SpentOnErrorMessage {
+            get {
+                return ResourceManager.GetString("SpentOnErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to StackTrace.
         /// </summary>
         public static string StackTrace {

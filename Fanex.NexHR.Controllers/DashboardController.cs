@@ -146,6 +146,11 @@
                 ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
             }
 
+            if (model.SpentOn.Date > DateTime.Now.Date)
+            {
+                ModelState.AddModelError("SpentOn", Labels.SpentOnErrorMessage);
+            }
+
             if (ModelState.IsValid)
             {
                 var commandResul = await _redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);

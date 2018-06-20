@@ -22,8 +22,11 @@
 
     public class RedmineService : BaseService, IRedmineService
     {
-        private readonly string applicationType = ".json";
-        private readonly string baseDomain = AppSetting.Redmine_API_Address;
+        private readonly string apiDateTimeFormat = "yyyy-MM-dd";
+        private readonly string getCurrentUserUrl = AppSetting.Redmine_API_Address + "/users/{0}.json";
+        private readonly string getInprogessTasksUrl = AppSetting.Redmine_API_Address + "issues.json?assigned_to_id={0}&status_id=" + (int)RedmineIssueStatus.InProgress;
+        private readonly string logtimeToIssueUrl = AppSetting.Redmine_API_Address + "time_entries.json?key={0}";
+        private readonly string getTimeEntriesUrl = AppSetting.Redmine_API_Address + "time_entries.json?user_id={0}&spent_on=><{1}|{2}";
 
         private int GetCurrentRedmineId(string loginName)
         {
@@ -55,7 +58,7 @@
         {
             HttpClient client = AuthorizeRequestHeader();
             int currentId = GetCurrentRedmineId(domainName);
-            var url = new Uri($"{baseDomain}users/{currentId}{applicationType}");
+            var url = new Uri(string.Format(getCurrentUserUrl, currentId));
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
             var apiKey = string.Empty;
@@ -79,7 +82,7 @@
         {
             HttpClient client = AuthorizeRequestHeader();
             int currentId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
-            var url = new Uri($"{baseDomain}issues{applicationType}?assigned_to_id={currentId}&status_id={(int)RedmineIssueStatus.InProgress}");
+            var url = new Uri(string.Format(getInprogessTasksUrl, currentId));
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
             var tasks = new List<RedmineIssue>();
@@ -120,13 +123,13 @@
             }
             else
             {
-                var url = new Uri($"{baseDomain}time_entries{applicationType}?key={apiKey}");
+                var url = new Uri(string.Format(logtimeToIssueUrl, apiKey));
 
                 var jsonData = "{\"time_entry\":" +
                     JsonConvert.SerializeObject(new
                     {
                         issue_id = issue.IssueId,
-                        spent_on = issue.SpentOn.ToString("yyyy-MM-dd"),
+                        spent_on = issue.SpentOn.ToString(apiDateTimeFormat),
                         hours = issue.Hours,
                         comments = issue.Comments,
                         activity_id = (int)issue.Activity
@@ -151,7 +154,7 @@
             var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
             var listEntries = new List<TimeEntry>();
 
-            var url = new Uri($"{baseDomain}time_entries{applicationType}?user_id={currentUserId}&spent_on=><{fromDate.ToString("yyyy-MM-dd")}|{toDate.ToString("yyyy-MM-dd")}");
+            var url = new Uri(string.Format(getTimeEntriesUrl, currentUserId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.OK)
@@ -165,7 +168,7 @@
                 {
                     var entry = new TimeEntry
                     {
-                        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], apiDateTimeFormat, CultureInfo.InvariantCulture),
                         Hours = (double)timeEntry["hours"],
                     };
 

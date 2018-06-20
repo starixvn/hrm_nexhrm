@@ -1434,4 +1434,7 @@
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this action.</value>
   </data>
+  <data name="SpentOnErrorMessage" xml:space="preserve">
+    <value>Spent on must be after or equal to current date</value>
+  </data>
 </root>
