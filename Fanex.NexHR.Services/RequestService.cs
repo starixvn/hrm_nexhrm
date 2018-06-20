@@ -525,6 +525,7 @@
             }
 
             var sendCc = string.Join(",", employees.Select(t => t.Email));
+            var sendTo = string.Join(";", employees.Select(t => t.Email));
 
             switch (request.RequestType.Id)
             {
@@ -534,7 +535,7 @@
                     break;
 
                 case 6:
-                    LeaveRelatedMail(request, employees, templateLeaveEmailToRelatedPath);
+                    LeaveRelatedMail(request, sendTo, templateLeaveEmailToRelatedPath);
                     break;
             }
         }
@@ -570,7 +571,7 @@
                 body);
         }
 
-        private void LeaveRelatedMail(RequestEntity request, IEnumerable<Employee> employees, string templateLeaveEmailToRelatedPath)
+        private void LeaveRelatedMail(RequestEntity request, string sendTo, string templateLeaveEmailToRelatedPath)
         {
             var subject = string.Format(
                 Messages.ApprovalNotificationLeaveSubject,
@@ -587,17 +588,14 @@
                 request.LeaveType.Name,
                 request.Remark);
 
-            if (employees.Any())
+            if (!string.IsNullOrEmpty(sendTo))
             {
-                foreach (var employee in employees)
-                {
-                    _emailService.SendEmail(
-                         ConfigurationManager.AppSettings["Email"],
-                         employee.Email,
-                         string.Empty,
-                         subject,
-                         body);
-                }
+                _emailService.SendEmail(
+                     ConfigurationManager.AppSettings["Email"],
+                     sendTo,
+                     string.Empty,
+                     subject,
+                     body);
             }
         }
     }
