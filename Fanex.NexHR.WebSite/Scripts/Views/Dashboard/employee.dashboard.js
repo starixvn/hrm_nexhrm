@@ -30,6 +30,9 @@ function initTodoList() {
         success: function (data) {
             if (data) {
                 $('#todoList').html(data);
+                if ($("table").length) {
+                    floatThead($("table"));
+                }
             }
         },
         error: function (textStatus, errorThrown) {
