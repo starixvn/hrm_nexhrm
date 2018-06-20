@@ -67,13 +67,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 620px; }
-    @media screen and (max-width: 1366px) {
-      .todoBlock .tasks .subject {
-        max-width: 370px; } }
-    @media screen and (max-width: 480px) {
-      .todoBlock .tasks .subject {
-        max-width: 195px; } }
+    max-width: calc(100% - 120px); }
   .todoBlock .tasks .priority {
     color: white;
     padding: 3px 6px;

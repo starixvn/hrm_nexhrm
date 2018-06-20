@@ -103,15 +103,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-            max-width: 620px;
-            
-            @media screen and (max-width: 1366px) {
-                max-width: 370px;
-            }
-
-            @media screen and (max-width: 480px) {
-                max-width: 195px;
-            }
+            max-width: calc(100% - 120px);
         }
 
         .priority {

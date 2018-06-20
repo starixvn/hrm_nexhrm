@@ -82,7 +82,7 @@ function query(isFirstLoad) {
                 }
             },
             success: function (data) {
-                $('table#data tbody').children().remove();
+                $('table#attendance tbody').children().remove();
 
                 if (data && data.length > 0) {
                     rowIndex = 1;
@@ -96,14 +96,12 @@ function query(isFirstLoad) {
                         },
                         html = tmpl.render(data, helpers);
 
-                    $(html).appendTo('table#data');
+                    $(html).appendTo('table#attendance');
 
                     initTooltip();
                 } else {
-                    $(noInformation(14)).appendTo('table#data');
+                    $(noInformation(14)).appendTo('table#attendance');
                 }
-
-                floatThead('table#data');
             },
             error: function () {
                 alert(_messages.errorTryAgain);
