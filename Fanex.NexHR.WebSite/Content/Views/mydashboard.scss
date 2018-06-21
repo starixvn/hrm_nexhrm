@@ -94,7 +94,7 @@
 
     .total-hour-message {
         line-height: 0;
-        color: red;
+        color: #e83737;
         font-style: italic;
         font-weight: 500;
         font-size: 12px;
@@ -124,21 +124,14 @@
             color: white;
             padding: 3px 6px;
             border-radius: 3px;
-            background-color: rgba(241, 11, 11, 1.00);
-
-            &.immediate {
-            }
-
-            &.urgent {
-                background-color: rgba(241, 11, 11, 0.75);
-            }
+            background-color: rgb(241, 81, 81);                    
         }
 
         
 
         .tracker {
             font-weight: 700;
-            color: #8996a2;
+            color: #484343;
         }
 
         .logtime-icon {
@@ -147,7 +140,7 @@
         }
     }
 
-    .remine-date {
+    .redmine-date {
         display: inline-block;
     }
 
@@ -250,23 +243,23 @@
             border-radius: 3px;
 
             &.immediate {
-                background-color: rgba(241, 11, 11, 1.00);
+                background-color: rgb(238, 55, 55);
             }
 
             &.urgent {
-                background-color: rgba(241, 11, 11, 0.75);
+                background-color: rgba(243, 92, 92, 0.75);
             }
 
             &.high {
-                background-color: #ef9e36;
+                background-color: #f1a748;
             }
 
             &.normal {
-                background-color: #928c96;
+                background-color: #9a969c;
             }
 
             &.low {
-                background-color: rgba(104, 184, 40, 0.70);
+                background-color: rgba(109, 185, 48, 0.70);
             }
         }
 
@@ -276,7 +269,7 @@
 
     .tracker {
         font-weight: 700;
-        color: #8996a2;
+        color: #484343;
     }
 }
 

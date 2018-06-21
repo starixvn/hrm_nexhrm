@@ -92,7 +92,7 @@ function initTooltipTodoList() {
                 tracker: object.attr('data-tracker'),
                 status: object.attr('data-status'),
                 startDate: object.attr('data-startdate'),
-                dueDate: new Date(object.attr('data-duedate')).toString("dd MMM, yyyy"),
+                dueDate: object.attr('data-duedate'),
                 assignee: object.attr('data-assignee'),
                 priority: object.attr('data-priority'),
                 createdBy: object.attr('data-createdBy'),

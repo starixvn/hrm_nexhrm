@@ -11,5 +11,7 @@
         public bool DisplayTeamWorkload { get; set; }
 
         public bool DisplayRedmineTask { get; set; }
+
+        public bool DisplayRedmineInputSpendTime { get; set; }
     }
 }

@@ -22,5 +22,7 @@
         public IList<RedmineIssue> InProgressTasks { get; set; }
 
         public IList<DateTime> ForgotLogtimeDates { get; set; }
+
+        public bool IsAllowInputSpendTime { get; set; }
     }
 }

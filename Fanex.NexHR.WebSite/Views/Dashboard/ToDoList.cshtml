@@ -78,6 +78,8 @@
             @{
                 var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
                 var dueDate = issue.DueDate.HasValue ? issue.DueDate.Value.ToString("dd MMM, yyyy") : string.Empty;
+                var startDate = issue.StartDate.HasValue ? issue.StartDate.Value.ToString("dd MMM, yyyy") : string.Empty;
+
             }
             @if (issue.IsOverDue)
             {
@@ -89,14 +91,17 @@
                data-subject="@issue.Subject"
                data-project="@issue.ProjectName"
                data-status="@issue.Status"
-               data-startdate="@issue.StartDate.ToString("dd MMM, yyyy")"
+               data-startdate="@startDate"
                data-duedate="@dueDate"
                data-assignee="@issue.Assignee"
                data-createdBy="@issue.CreatedBy"
                data-priority="@issue.Priority">
                 <span class="tracker">@issue.Tracker #@issue.IssueId: </span>@issue.Subject
             </a>
-            <i class="mdi mdi-clock logtime-icon right" title="Log time" onclick="getLogtimeDialog(@issue.IssueId)"></i>
+            @if (Model.IsAllowInputSpendTime)
+            {
+                <i class="mdi mdi-clock logtime-icon right" title="Log time" onclick="getLogtimeDialog(@issue.IssueId)"></i>
+            }
         </p>
                     }
 
@@ -110,7 +115,7 @@
         </span>
         @foreach (var date in Model.ForgotLogtimeDates)
         {
-            <a href="@AppSetting.Redmine_API_Address" target="_blank" class="remine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
+            <a href="@AppSetting.Redmine_API_Address" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
         }
     </p>
 }
