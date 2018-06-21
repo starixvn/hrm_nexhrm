@@ -83,7 +83,7 @@
             }
             @if (issue.IsOverDue)
             {
-                <span class="over-due">Over due</span>
+                <span class="over-due">@Labels.Overdue</span>
             }
             <a href="@href" class="subject tooltip-request req" target="_blank"
                data-issueId="@issue.IssueId"

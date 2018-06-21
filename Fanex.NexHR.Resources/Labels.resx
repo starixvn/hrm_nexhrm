@@ -1437,4 +1437,7 @@
   <data name="SpentOnErrorMessage" xml:space="preserve">
     <value>Spent on must be after or equal to current date</value>
   </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
 </root>

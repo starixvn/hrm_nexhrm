@@ -2869,6 +2869,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overdue.
+        /// </summary>
+        public static string Overdue {
+            get {
+                return ResourceManager.GetString("Overdue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Override.
         /// </summary>
         public static string Override {

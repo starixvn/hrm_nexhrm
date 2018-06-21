@@ -82,6 +82,7 @@
     color: white;
     padding: 3px 6px;
     border-radius: 3px;
+    margin-right: 2px;
     background-color: #f15151; }
   .todoBlock .tasks .tracker {
     font-weight: 700;
