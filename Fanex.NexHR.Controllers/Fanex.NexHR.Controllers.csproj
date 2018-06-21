@@ -149,6 +149,7 @@
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="BioStationManagementController.cs" />
     <Compile Include="DashboardController.cs" />
     <Compile Include="DepartmentController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
