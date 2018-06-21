@@ -12,8 +12,7 @@
         flex: 1;
         margin-left: 0.8rem;
         margin-right: 0.8rem;
-        max-height: 500px;
-        overflow-y: auto;
+        overflow: auto;
     }
 }
 
@@ -107,6 +106,8 @@
 
     .card-body {
         margin-top: 1.6rem;
+        max-height: 400px;
+        overflow-y: auto;
     }
 
     .tasks {
@@ -124,10 +125,8 @@
             color: white;
             padding: 3px 6px;
             border-radius: 3px;
-            background-color: rgb(241, 81, 81);                    
+            background-color: rgb(241, 81, 81);
         }
-
-        
 
         .tracker {
             font-weight: 700;
@@ -234,34 +233,35 @@
     .subject {
         line-height: 17px;
         border-bottom: 1px solid #000;
-        text-align:justify;
+        text-align: justify;
         padding-bottom: 5px;
     }
+
     .priority {
-            color: white;
-            padding: 3px 6px;
-            border-radius: 3px;
+        color: white;
+        padding: 3px 6px;
+        border-radius: 3px;
 
-            &.immediate {
-                background-color: rgb(238, 55, 55);
-            }
-
-            &.urgent {
-                background-color: rgba(243, 92, 92, 0.75);
-            }
-
-            &.high {
-                background-color: #f1a748;
-            }
-
-            &.normal {
-                background-color: #9a969c;
-            }
-
-            &.low {
-                background-color: rgba(109, 185, 48, 0.70);
-            }
+        &.immediate {
+            background-color: rgb(238, 55, 55);
         }
+
+        &.urgent {
+            background-color: rgba(243, 92, 92, 0.75);
+        }
+
+        &.high {
+            background-color: #f1a748;
+        }
+
+        &.normal {
+            background-color: #9a969c;
+        }
+
+        &.low {
+            background-color: rgba(109, 185, 48, 0.70);
+        }
+    }
 
     .bold {
         font-weight: 700;

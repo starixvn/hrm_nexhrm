@@ -7,8 +7,7 @@
     flex: 1;
     margin-left: 0.8rem;
     margin-right: 0.8rem;
-    max-height: 500px;
-    overflow-y: auto; }
+    overflow: auto; }
 
 .my-dashboard2 {
   max-width: 750px; }
@@ -68,7 +67,9 @@
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
   background-size: cover; }
   .todoBlock .card-body {
-    margin-top: 1.6rem; }
+    margin-top: 1.6rem;
+    max-height: 400px;
+    overflow-y: auto; }
   .todoBlock .tasks .subject {
     display: inline-block;
     vertical-align: middle;
