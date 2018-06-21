@@ -30,6 +30,7 @@ function initTodoList() {
         success: function (data) {
             if (data) {
                 $('#todoList').html(data);
+                initTooltipTodoList();
             }
         },
         error: function (textStatus, errorThrown) {
@@ -77,6 +78,61 @@ function initLogtimeDialog(issueId) {
     });
 }
 
+function initTooltipTodoList() {
+    $('.tooltip-request').tipsy({
+        className: 'tipsy-request',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            var object = $(this);
+            var result = {
+                issueId: object.attr('data-issueId'),
+                subject: object.attr('data-subject'),
+                project: object.attr('data-project'),
+                tracker: object.attr('data-tracker'),
+                status: object.attr('data-status'),
+                startDate: object.attr('data-startdate'),
+                dueDate: new Date(object.attr('data-duedate')).toString("dd MMM, yyyy"),
+                assignee: object.attr('data-assignee'),
+                priority: object.attr('data-priority'),
+                createdBy: object.attr('data-createdBy'),
+            };
+            var priorityClass = result.priority.toLowerCase();
+
+            return "<div class='redmine-tooltip'>" +
+                        "<p class='subject'><span class='tracker'>" + result.tracker + " #" + result.issueId + ": </span>" + result.subject + "</p>" +
+                        "<p><span class='bold'>Project</span>: " + result.project + "</p>" +
+                        "<p><span class='bold'>Status</span>: " + result.status + "</p>" +
+                        "<p><span class='bold'>Start date</span>: " + result.startDate + "</p>" +
+                        "<p><span class='bold'>Due date</span>: " + result.dueDate + "</p>" +
+                        "<p><span class='bold'>Created by</span>: " + result.createdBy + "</p>" +
+                        "<p><span class='bold'>Assignee</span>: " + result.assignee + "</p>" +
+                        "<p><span class='bold'>Priority</span>: <span class='priority "+ priorityClass +"'>" + result.priority + "</span></p>" +
+                    "</div>";
+        }
+    });
+}
+
+function displayTotalSpendHourOnDate(onDate) {
+    var url = _global.root + 'dashboard/GetTotalLogtimeHourOnDate?onDate=' + onDate;
+    var message = "";
+    $.ajax({
+        url: url,
+        method: "GET",
+        data: {
+            onDate: onDate
+        },
+        success: function (res) {
+            if (res.totalHours > 0) {
+                message = "You had input " + res.totalHours + " hour(s) on this day.";
+            } else {
+                message = "You have not log time on this day."
+            }
+            $(".total-hour-message").text(message);
+        }
+    });
+}
+
 function logtimeToIssue() {
     $("#formLogtime").find("input").removeClass("input-validation-error");
     $("#formLogtime").find('.field-validation-valid').text("");
@@ -111,6 +167,12 @@ function showErrorMessage(form, errors) {
     });
 }
 
+function registerSpentOnEvent() {
+    $("#SpentOn").on("change", function () {
+        displayTotalSpendHourOnDate($(this).val());
+    });
+}
+
 function getLogtimeDialog(issueId, issueName) {
     $.ajax({
         type: 'GET',
@@ -125,6 +187,8 @@ function getLogtimeDialog(issueId, issueName) {
             $('select').material_select();
             initLogtimeDialog(issueId);
             initDatePicker();
+            registerSpentOnEvent();
+            displayTotalSpendHourOnDate($("#SpentOn").val());
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);

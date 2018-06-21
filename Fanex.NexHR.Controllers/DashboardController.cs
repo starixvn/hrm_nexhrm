@@ -11,6 +11,7 @@
     using Criteria.Employee;
     using Criteria.LateInEarlyOut;
     using Criteria.Notification;
+    using Criteria.RedmineAPI;
     using Criteria.Request;
     using Criteria.Workload;
     using Models;
@@ -30,10 +31,11 @@
         private readonly IRequestService _requestService;
         private readonly INotificationService _notificationService;
         private readonly ILateInEarlyOutService _lateinearlyoutService;
+        private readonly ICommandService _commandService;
         private readonly IRedmineService _redmineService;
 
         public DashboardController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -43,13 +45,15 @@
             IRequestService requestService,
             INotificationService notificationService,
             ILateInEarlyOutService lateinearlyoutService,
-            IRedmineService redmineService)
+            ICommandService commandService,
+        IRedmineService redmineService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _requestService = requestService ?? new RequestService();
             _notificationService = notificationService ?? new NotificationService();
             _lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
+            _commandService = commandService ?? new CommandService();
             _redmineService = redmineService ?? new RedmineService();
         }
 
@@ -153,17 +157,43 @@
 
             if (ModelState.IsValid)
             {
-                var commandResul = await _redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
-
-                isSuccessful = commandResul.IsSuccessful;
-                message = commandResul.Message;
+                var commandResult = await _redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
+                isSuccessful = commandResult.IsSuccessful;
+                message = commandResult.Message;
             }
 
             var errors = ModelState
                 .Where(item => item.Value.Errors.Any())
                 .Select(item => new { item.Key, item.Value.Errors.FirstOrDefault()?.ErrorMessage });
 
+            if (isSuccessful)
+            {
+                WriteLogInputSpendTime(model);
+            }
             return Json(new { isSuccessful, errors, message });
+        }
+
+        public async Task<ActionResult> GetTotalLogtimeHourOnDate(DateTime onDate)
+        {
+            var totalHours = await _redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate).ConfigureAwait(false);
+
+            return Json(new { totalHours }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void WriteLogInputSpendTime(LogTimeIssue issue)
+        {
+            var criteria = new WriteLogInputSpendTimeRedmineCriteria
+            {
+                EmpId = CurrentUser.Id,
+                IssueId = issue.IssueId,
+                SpentOn = issue.SpentOn,
+                Hours = issue.Hours,
+                Comments = issue.Comments,
+                Activity = issue.Activity,
+                CreatedDate = DateTime.Now
+            };
+
+            _commandService.Insert(criteria);
         }
 
         private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)

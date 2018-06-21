@@ -47,13 +47,22 @@
 #formLogtime {
   text-align: left; }
   #formLogtime input, #formLogtime textarea {
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    margin: 0; }
+  #formLogtime .form-input {
+    margin-bottom: 15px; }
   #formLogtime .calendar-icon {
     right: -10px; }
   #formLogtime .comment {
     height: auto; }
   #formLogtime .dropdown-content {
     max-height: 18rem; }
+  #formLogtime .total-hour-message {
+    line-height: 0;
+    color: red;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 12px; }
 
 .todoBlock {
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
@@ -68,20 +77,13 @@
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: calc(100% - 120px); }
-  .todoBlock .tasks .priority {
+  .todoBlock .tasks .over-due {
     color: white;
     padding: 3px 6px;
-    border-radius: 3px; }
-    .todoBlock .tasks .priority.immediate {
-      background-color: #f10b0b; }
-    .todoBlock .tasks .priority.urgent {
+    border-radius: 3px;
+    background-color: #f10b0b; }
+    .todoBlock .tasks .over-due.urgent {
       background-color: rgba(241, 11, 11, 0.75); }
-    .todoBlock .tasks .priority.high {
-      background-color: #ef9e36; }
-    .todoBlock .tasks .priority.normal {
-      background-color: #928c96; }
-    .todoBlock .tasks .priority.low {
-      background-color: rgba(104, 184, 40, 0.7); }
   .todoBlock .tasks .tracker {
     font-weight: 700;
     color: #8996a2; }
@@ -131,6 +133,37 @@
   .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
   .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
     background-color: rgba(0, 0, 0, 0.5); }
+
+.redmine-tooltip {
+  min-width: 300px;
+  padding: 5px;
+  border-radius: 3px; }
+  .redmine-tooltip p {
+    line-height: 7px; }
+  .redmine-tooltip .subject {
+    line-height: 17px;
+    border-bottom: 1px solid #000;
+    text-align: justify;
+    padding-bottom: 5px; }
+  .redmine-tooltip .priority {
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px; }
+    .redmine-tooltip .priority.immediate {
+      background-color: #f10b0b; }
+    .redmine-tooltip .priority.urgent {
+      background-color: rgba(241, 11, 11, 0.75); }
+    .redmine-tooltip .priority.high {
+      background-color: #ef9e36; }
+    .redmine-tooltip .priority.normal {
+      background-color: #928c96; }
+    .redmine-tooltip .priority.low {
+      background-color: rgba(104, 184, 40, 0.7); }
+  .redmine-tooltip .bold {
+    font-weight: 700; }
+  .redmine-tooltip .tracker {
+    font-weight: 700;
+    color: #8996a2; }
 
 .ui-dialog .ui-dialog-content {
   padding: 0 !important; }

@@ -90,6 +90,7 @@
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />
+    <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetWorkingHoursStatisticCriteria.cs" />
     <Compile Include="Request\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />

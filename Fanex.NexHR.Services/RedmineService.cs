@@ -23,7 +23,7 @@
     public class RedmineService : BaseService, IRedmineService
     {
         private readonly string apiDateTimeFormat = "yyyy-MM-dd";
-        private readonly string getCurrentUserUrl = AppSetting.Redmine_API_Address + "/users/{0}.json";
+        private readonly string getCurrentUserUrl = AppSetting.Redmine_API_Address + "/users/{0}.json?offset=0&limit=100";
         private readonly string getInprogessTasksUrl = AppSetting.Redmine_API_Address + "issues.json?assigned_to_id={0}&status_id=" + (int)RedmineIssueStatus.InProgress;
         private readonly string logtimeToIssueUrl = AppSetting.Redmine_API_Address + "time_entries.json?key={0}";
         private readonly string getTimeEntriesUrl = AppSetting.Redmine_API_Address + "time_entries.json?user_id={0}&spent_on=><{1}|{2}";
@@ -100,9 +100,18 @@
                         Subject = issue["subject"],
                         Description = issue["description"],
                         ProjectName = issue["project"]["name"],
+                        StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture),
                         Priority = issue["priority"]["name"],
-                        Tracker = issue["tracker"]["name"]
+                        Tracker = issue["tracker"]["name"],
+                        Status = issue["status"]["name"],
+                        CreatedBy = issue["author"]["name"],
+                        Assignee = issue["assigned_to"]["name"]
                     };
+
+                    if (issue.ContainsKey("due_date"))
+                    {
+                        issueRemine.DueDate = DateTime.ParseExact(issue["due_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
+                    }
 
                     tasks.Add(issueRemine);
                 }
@@ -199,6 +208,12 @@
             var onWorkedDates = GetWorkedDatesOfUser(fromDate, toDate, currentUserId).ToList();
 
             return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
+        }
+
+        public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
+        {
+            var timeEntries = await GetTimeEntries(domainName, onDate, onDate).ConfigureAwait(false);
+            return timeEntries.Sum(x => x.Hours);
         }
     }
 }

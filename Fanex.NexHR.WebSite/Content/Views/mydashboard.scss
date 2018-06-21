@@ -3,6 +3,7 @@
 
 .flexWrap {
     display: flex;
+
     @media screen and (max-width: 768px) {
         display: block;
     }
@@ -72,6 +73,11 @@
 
     input, textarea {
         box-sizing: border-box;
+        margin: 0;
+    }
+
+    .form-input {
+        margin-bottom: 15px;
     }
 
     .calendar-icon {
@@ -84,6 +90,14 @@
 
     .dropdown-content {
         max-height: 18rem;
+    }
+
+    .total-hour-message {
+        line-height: 0;
+        color: red;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 12px;
     }
 }
 
@@ -106,31 +120,21 @@
             max-width: calc(100% - 120px);
         }
 
-        .priority {
+        .over-due {
             color: white;
             padding: 3px 6px;
             border-radius: 3px;
+            background-color: rgba(241, 11, 11, 1.00);
 
             &.immediate {
-                background-color: rgba(241, 11, 11, 1.00);
             }
 
             &.urgent {
                 background-color: rgba(241, 11, 11, 0.75);
             }
-
-            &.high {
-                background-color: #ef9e36;
-            }
-
-            &.normal {
-                background-color: #928c96;
-            }
-
-            &.low {
-                background-color: rgba(104, 184, 40, 0.70);
-            }
         }
+
+        
 
         .tracker {
             font-weight: 700;
@@ -144,8 +148,8 @@
     }
 
     .remine-date {
-            display: inline-block;
-        }
+        display: inline-block;
+    }
 
     p {
         background: #eeeeef none repeat scroll 0 0;
@@ -225,14 +229,64 @@
     }
 }
 
+.redmine-tooltip {
+    min-width: 300px;
+    padding: 5px;
+    border-radius: 3px;
+
+    p {
+        line-height: 7px;
+    }
+
+    .subject {
+        line-height: 17px;
+        border-bottom: 1px solid #000;
+        text-align:justify;
+        padding-bottom: 5px;
+    }
+    .priority {
+            color: white;
+            padding: 3px 6px;
+            border-radius: 3px;
+
+            &.immediate {
+                background-color: rgba(241, 11, 11, 1.00);
+            }
+
+            &.urgent {
+                background-color: rgba(241, 11, 11, 0.75);
+            }
+
+            &.high {
+                background-color: #ef9e36;
+            }
+
+            &.normal {
+                background-color: #928c96;
+            }
+
+            &.low {
+                background-color: rgba(104, 184, 40, 0.70);
+            }
+        }
+
+    .bold {
+        font-weight: 700;
+    }
+
+    .tracker {
+        font-weight: 700;
+        color: #8996a2;
+    }
+}
+
 .ui-dialog .ui-dialog-content {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
     margin-top: 0;
 }
-
 
 .workload {
     .card-title-block {

@@ -11,6 +11,7 @@
         <div class="left datepicker-button select--m">
             @Html.DatePickerFor(model => model.SpentOn, maxDate: DateTime.Now)
             <i class="mdi-action-event calendar-icon left"></i>
+            <p class="bold total-hour-message"></p>
             @Html.ValidationMessageFor(model => model.SpentOn)
         </div>
     </div>

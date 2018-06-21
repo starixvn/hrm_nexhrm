@@ -77,10 +77,25 @@
         <p class="red-border tasks">
             @{
                 var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
-                var priorityClass = issue.Priority.ToLowerInvariant();
+                var dueDate = issue.DueDate.HasValue ? issue.DueDate.Value.ToString("dd MMM, yyyy") : string.Empty;
             }
-            <span class="priority @priorityClass">@issue.Priority</span>
-            <a href="@href" class="subject" title="@issue.Subject" target="_blank"><span class="tracker">@issue.Tracker #@issue.IssueId: </span>@issue.Subject</a>
+            @if (issue.IsOverDue)
+            {
+                <span class="over-due">Over due</span>
+            }
+            <a href="@href" class="subject tooltip-request req" target="_blank"
+               data-issueId="@issue.IssueId"
+               data-tracker="@issue.Tracker"
+               data-subject="@issue.Subject"
+               data-project="@issue.ProjectName"
+               data-status="@issue.Status"
+               data-startdate="@issue.StartDate.ToString("dd MMM, yyyy")"
+               data-duedate="@dueDate"
+               data-assignee="@issue.Assignee"
+               data-createdBy="@issue.CreatedBy"
+               data-priority="@issue.Priority">
+                <span class="tracker">@issue.Tracker #@issue.IssueId: </span>@issue.Subject
+            </a>
             <i class="mdi mdi-clock logtime-icon right" title="Log time" onclick="getLogtimeDialog(@issue.IssueId)"></i>
         </p>
                     }
