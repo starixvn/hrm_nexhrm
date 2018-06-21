@@ -31,7 +31,10 @@ function initTodoList() {
             if (data) {
                 $('#todoList').html(data);
                 initTooltipTodoList();
-                $('#todoList').mCustomScrollbar({ axis : "y" });
+                $('#todoList').mCustomScrollbar({
+                    axis: "y",
+                    scrollInertia: 100
+                });
             }
         },
         error: function (textStatus, errorThrown) {
