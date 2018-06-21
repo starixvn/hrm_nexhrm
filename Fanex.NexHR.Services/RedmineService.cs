@@ -100,13 +100,17 @@
                         Subject = issue["subject"],
                         Description = issue["description"],
                         ProjectName = issue["project"]["name"],
-                        StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture),
                         Priority = issue["priority"]["name"],
                         Tracker = issue["tracker"]["name"],
                         Status = issue["status"]["name"],
                         CreatedBy = issue["author"]["name"],
-                        Assignee = issue["assigned_to"]["name"]
+                        Assignee = issue.ContainsKey("assigned_to") ? issue["assigned_to"]["name"] : string.Empty
                     };
+
+                    if (issue.ContainsKey("start_date"))
+                    {
+                        issueRemine.StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
+                    }
 
                     if (issue.ContainsKey("due_date"))
                     {
