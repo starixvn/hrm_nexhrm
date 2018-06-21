@@ -1440,4 +1440,22 @@
   <data name="Overdue" xml:space="preserve">
     <value>Overdue</value>
   </data>
+  <data name="BioStationManagement" xml:space="preserve">
+    <value>Bio Station Management</value>
+  </data>
+  <data name="DeviceId" xml:space="preserve">
+    <value>Device Id</value>
+  </data>
+  <data name="DeviceName" xml:space="preserve">
+    <value>Device Name</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

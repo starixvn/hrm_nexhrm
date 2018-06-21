@@ -102,6 +102,8 @@
             BuildBundleForWorkingHoursStatistic(bundles);
 
             BuildBundleForHeadCountReport(bundles);
+
+            BuildBundleForBioStationManagement(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -548,6 +550,15 @@
 
             bundles.Add(new StyleBundle("~/Content/eventcalendarcss")
                   .Include("~/Content/Views/eventcalendar.css", new CssRewriteUrlTransform()));
+        }
+
+        private static void BuildBundleForBioStationManagement(BundleCollection bundles)
+        {
+            //bundles.Add(new ScriptBundle("~/bundles/biostationmanagementjs").Include(
+            //    "~/Scripts/Libs/jquery-editable-1.5.1/jquery-editable/js/jquery-editable-poshytip.js"));
+
+            //bundles.Add(new StyleBundle("~/Content/biostationmanagementcss")
+            //    .Include("~/Scripts/Libs/jquery-editable-1.5.1/jquery-editable/css/jquery-editable.css", new CssRewriteUrlTransform()));
         }
     }
 }

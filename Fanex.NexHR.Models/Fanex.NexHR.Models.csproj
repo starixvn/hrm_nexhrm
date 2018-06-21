@@ -98,6 +98,7 @@
     <Compile Include="AnnualLeave\AnnualLeaveTransaction.cs" />
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
+    <Compile Include="Bio\BioDevice.cs" />
     <Compile Include="Calendar\EmployeeLeaveSchedule.cs" />
     <Compile Include="Calendar\EmployeeWorkingSchedule.cs" />
     <Compile Include="Calendar\LeaveDaySummarySchedule.cs" />

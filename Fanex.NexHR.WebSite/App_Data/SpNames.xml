@@ -324,4 +324,7 @@
     <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
   </Function>
+  <Function Name="BioStation">
+    <Setting Key="Bio_GetBioDevices" SpName="Bio_GetBioDevices" DbName="nexhr" Plain="1"></Setting>
+  </Function>
 </Functions>

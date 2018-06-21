@@ -3,7 +3,7 @@
 
 function processRequest(command, eventElement) {
     $.post(_global.root + 'request/processrequest',
-    { command: command, id: $(eventElement).attr('requestId') },
+        { command: command, id: $(eventElement).attr('requestId') },
         function (response) {
             if (response.IsSuccessful) {
                 query(false);
@@ -17,7 +17,6 @@ function processRequest(command, eventElement) {
 
 function bindMenuPending() {
     $('table#data tbody td a.Pending').on('mouseup', function () {
-
         $.contextMenu({
             selector: '.Pending',
             trigger: 'left',
@@ -49,7 +48,6 @@ function bindMenuPending() {
 
 function bindMenuApproved() {
     $('table#data tbody td a.Approved').on('mouseup', function () {
-
         $.contextMenu({
             selector: '.Approved',
             trigger: 'left',
