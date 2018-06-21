@@ -71,12 +71,15 @@ function initLogtimeDialog(issueId) {
                 }
             }
         ],
+        open: function () {
+            initDatePicker();
+        },
         show: {
-            effect: 'fade',
+            effect: 'blin',
             duration: 300
         },
         hide: {
-            effect: 'fade',
+            effect: 'blin',
             duration: 200
         }
     });
@@ -190,7 +193,6 @@ function getLogtimeDialog(issueId, issueName) {
             $('#logtime-dialog').html(data);
             $('select').material_select();
             initLogtimeDialog(issueId);
-            initDatePicker();
             registerSpentOnEvent();
             displayTotalSpendHourOnDate($("#SpentOn").val());
         },
