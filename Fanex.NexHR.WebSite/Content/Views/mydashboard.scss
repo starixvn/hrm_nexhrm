@@ -222,6 +222,23 @@
     }
 }
 
+.tipsy-redmine {
+    opacity: 1!important;
+    font-size: 1.2rem !important;
+
+    .tipsy-inner {
+        background-color: rgb(237, 243, 246);
+        text-align: left;
+        max-width:none;
+        color: #1e1c1c;
+    }
+
+    .tipsy-arrow {
+        display: none;
+    }
+}
+
+
 .redmine-tooltip {
     min-width: 300px;
     padding: 5px;

@@ -134,6 +134,17 @@
   .todoBlock .mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
     background-color: rgba(0, 0, 0, 0.5); }
 
+.tipsy-redmine {
+  opacity: 1 !important;
+  font-size: 1.2rem !important; }
+  .tipsy-redmine .tipsy-inner {
+    background-color: #edf3f6;
+    text-align: left;
+    max-width: none;
+    color: #1e1c1c; }
+  .tipsy-redmine .tipsy-arrow {
+    display: none; }
+
 .redmine-tooltip {
   min-width: 300px;
   padding: 5px;
