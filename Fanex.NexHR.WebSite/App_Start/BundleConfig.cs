@@ -554,8 +554,9 @@
 
         private static void BuildBundleForBioStationManagement(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/biostationmanagementjs").Include(
-            //    "~/Scripts/Libs/jquery-editable-1.5.1/jquery-editable/js/jquery-editable-poshytip.js"));
+            bundles.Add(new ScriptBundle("~/bundles/biostationmanagementjs").Include(
+                "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
+                "~/Scripts/Views/BioStationManagement/bio-management.js"));
 
             //bundles.Add(new StyleBundle("~/Content/biostationmanagementcss")
             //    .Include("~/Scripts/Libs/jquery-editable-1.5.1/jquery-editable/css/jquery-editable.css", new CssRewriteUrlTransform()));

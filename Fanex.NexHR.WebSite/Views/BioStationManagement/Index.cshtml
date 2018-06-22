@@ -11,7 +11,7 @@
 
 }
 @section js{
-    @*@Scripts.Render("~/bundles/biostationmanagementjs")*@
+    @Scripts.Render("~/bundles/biostationmanagementjs")
 }
 
 <div class="row content">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <div class="p-x--s m-t--m">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                        <table id="bio-device-table" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
                                 <tr>
                                     <th>@Labels.DeviceId</th>
@@ -31,17 +31,12 @@
                                     <th>@Labels.DisplayName</th>
                                     <th>@Labels.Active</th>
                                     <th>@Labels.Status</th>
+                                    <th></th>
                             </thead>
                             <tbody>
                                 @foreach (var bioDevice in Model)
                                 {
-                                    <tr>
-                                        <td>@bioDevice.DeviceId</td>
-                                        <td>@bioDevice.DeviceName</td>
-                                        <td>@bioDevice.DisplayName</td>
-                                        <td>@bioDevice.ActiveLabel</td>
-                                        <td>@bioDevice.Status</td>
-                                    </tr>
+                                    Html.RenderPartial("_BioDeviceRow", bioDevice);
                                 }
                             </tbody>
                         </table>
@@ -50,4 +45,7 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="dialog">
 </div>

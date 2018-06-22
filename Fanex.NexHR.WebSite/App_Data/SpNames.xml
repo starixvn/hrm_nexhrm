@@ -326,5 +326,9 @@
   </Function>
   <Function Name="BioStation">
     <Setting Key="Bio_GetBioDevices" SpName="Bio_GetBioDevices" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="Bio_GetBioDevice" SpName="Bio_GetBioDevice" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="Bio_GetBioDeviceDisplayNames" SpName="Bio_GetBioDeviceDisplayNames" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="Bio_GetBioDeviceStatuses" SpName="Bio_GetBioDeviceStatuses" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="Bio_EditBioDevice" SpName="Bio_EditBioDevice" DbName="nexhr" Plain="1"></Setting>
   </Function>
 </Functions>

@@ -89,6 +89,7 @@
     <Compile Include="AnnualLeave\EditAnnualLeaveTransactionViewModel.cs" />
     <Compile Include="AnnualLeave\LeaveConversionViewModel.cs" />
     <Compile Include="Bio\BioDeviceViewModel.cs" />
+    <Compile Include="Bio\EditBioDeviceViewModel.cs" />
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="Employee\EmployeeListViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />

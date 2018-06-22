@@ -57,7 +57,11 @@
     <Compile Include="AnnualLeave\DeleteLeaveConversionCriteria.cs" />
     <Compile Include="AnnualLeave\InsertLeaveConversionCriteria.cs" />
     <Compile Include="AnnualLeave\UpdateLeaveConversionCriteria.cs" />
+    <Compile Include="Bio\EditBioDeviceCriteria.cs" />
+    <Compile Include="Bio\GetBioDeviceCriteria.cs" />
+    <Compile Include="Bio\GetBioDeviceDisplayNamesCriteria.cs" />
     <Compile Include="Bio\GetBioDevicesCriteria.cs" />
+    <Compile Include="Bio\GetBioDeviceStatusesCriteria.cs" />
     <Compile Include="Calendar\GetLeaveScheduleCriteria.cs" />
     <Compile Include="Calendar\UpdateEmployeeShiftDateCriteria.cs" />
     <Compile Include="CompanyEvent\GetEventByIdCriteria.cs" />
