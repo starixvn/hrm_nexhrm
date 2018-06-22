@@ -6,11 +6,9 @@
 
         public string DeviceName { get; set; }
 
-        public int? DisplayId { get; set; }
-
         public string DisplayName { get; set; }
 
-        public int? StatusId { get; set; }
+        public string StatusId { get; set; }
 
         public string Status { get; set; }
 

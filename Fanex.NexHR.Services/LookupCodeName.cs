@@ -4,5 +4,6 @@
     {
         public const string JobTitle = "JT";
         public const string MemoCategory = "MC";
+        public const string BioDeviceStatus = "BDS";
     }
 }

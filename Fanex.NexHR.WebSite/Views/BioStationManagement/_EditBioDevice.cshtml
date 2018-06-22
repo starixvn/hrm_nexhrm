@@ -21,11 +21,11 @@
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.DisplayId)
+            @Html.LabelFor(model => model.DisplayName)
         </div>
         <div class="left select--m">
-            @Html.DropDownListFor(x => x.DisplayId, Model.BioDeviceDisplayNames, "")
-            @Html.ValidationMessageFor(x => x.DisplayId)
+            @Html.TextBoxFor(x => x.DisplayName)
+            @Html.ValidationMessageFor(x => x.DisplayName)
         </div>
     </div>
 }

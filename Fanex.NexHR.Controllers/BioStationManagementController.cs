@@ -3,6 +3,8 @@
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.NexHR.Criteria.Bio;
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Bio;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -28,7 +30,6 @@
             {
                 DeviceId = x.DeviceId,
                 DeviceName = x.DeviceName,
-                DisplayId = x.DisplayId,
                 DisplayName = x.DisplayName,
                 StatusId = x.StatusId,
                 Status = x.Status,
@@ -45,18 +46,12 @@
             var viewModel = new EditBioDeviceViewModel
             {
                 DeviceId = bioDevice.DeviceId,
-                DisplayId = bioDevice.DisplayId,
+                DisplayName = bioDevice.DisplayName,
                 StatusId = bioDevice.StatusId,
-                BioDeviceStatuses = baseService.GetData<BioDeviceStatus>(new GetBioDeviceStatusesCriteria())
+                BioDeviceStatuses = baseService.GetData<LookupData>(new GetAllLookupDataCriteria { LookupCode = LookupCodeName.BioDeviceStatus })
                 .Select(x => new SelectListItem
                 {
-                    Value = x.StatusId.ToString(),
-                    Text = x.Name
-                }),
-                BioDeviceDisplayNames = baseService.GetData<BioDeviceDisplayName>(new GetBioDeviceDisplayNamesCriteria())
-                .Select(x => new SelectListItem
-                {
-                    Value = x.DisplayId.ToString(),
+                    Value = x.Value,
                     Text = x.Name
                 })
             };
@@ -72,7 +67,7 @@
                 var criteria = new EditBioDeviceCriteria
                 {
                     DeviceId = viewModel.DeviceId,
-                    DisplayId = viewModel.DisplayId,
+                    DisplayName = viewModel.DisplayName,
                     StatusId = viewModel.StatusId,
                     UpdatedBy = CurrentUser.Id
                 };
@@ -100,7 +95,6 @@
             {
                 DeviceId = bioDevice.DeviceId,
                 DeviceName = bioDevice.DeviceName,
-                DisplayId = bioDevice.DisplayId,
                 DisplayName = bioDevice.DisplayName,
                 StatusId = bioDevice.StatusId,
                 Status = bioDevice.Status,
