@@ -23,12 +23,8 @@
       <siteMapNode title="Late In/Early Out Violation" controller="report" action="lateinearlyoutdiscipline" icon="alarm" roles="HR" />
       <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
-<<<<<<< HEAD
       <siteMapNode title="Bio Station Management" controller="BioStationManagement" action="Index" icon="fingerprint" roles="HR" />
-=======
-      <siteMapNode title="Bio Station Management" controller="BioStationMangement" action="Index" icon="account" roles="HR" />
       <siteMapNode title="Fingerprint/Card Management" controller="FingerprintScanner" action="Index" icon="fingerprint" roles="HR" />
->>>>>>> 97331 - listing Fingerprint and card data
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" roles="Member" />
