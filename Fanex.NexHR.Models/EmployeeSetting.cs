@@ -13,5 +13,7 @@
         public bool DisplayRedmineTask { get; set; }
 
         public bool DisplayRedmineInputSpendTime { get; set; }
+
+        public bool DisplayRemindLogtime { get; set; }
     }
 }

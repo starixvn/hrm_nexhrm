@@ -117,9 +117,14 @@
                 model.MissingCheckInOutList = GetMissingCheckInOut(employeeId);
                 model.PendingRequestsList = GetPendingRequest();
                 model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
+
                 if (CurrentUserSetting.DisplayRedmineTask)
                 {
                     model.InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false);
+                }
+
+                if (CurrentUserSetting.DisplayRemindLogtime)
+                {
                     model.ForgotLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
                 }
             }
