@@ -88,7 +88,7 @@ function initLogtimeDialog(issueId) {
 function initTooltipTodoList() {
     $('.tooltip-request').tipsy({
         className: 'tipsy-redmine',
-        gravity: 'sn',
+        gravity: 'ne',
         html: true,
         title: function () {
             var object = $(this);
