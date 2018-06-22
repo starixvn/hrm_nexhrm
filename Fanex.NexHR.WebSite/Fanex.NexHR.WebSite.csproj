@@ -687,6 +687,7 @@
     <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\ExtensionNo\extensionno.js" />
+    <Content Include="Scripts\Views\FingerprintScanner\fingerprint-scanner.js" />
     <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\Geolocationmap\geolocationmap.js" />
     <Content Include="Scripts\Views\Holiday\holiday.edit.js" />
@@ -830,9 +831,14 @@
     <Content Include="Views\Report\HeadCount.cshtml" />
     <Content Include="Views\Report\_HeadCountTable.cshtml" />
     <Content Include="Views\Dashboard\_LogtimeDialog.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\BioStationManagement\Index.cshtml" />
     <Content Include="Views\BioStationManagement\_EditBioDevice.cshtml" />
     <Content Include="Views\BioStationManagement\_BioDeviceRow.cshtml" />
+=======
+    <Content Include="Views\FingerprintScanner\Index.cshtml" />
+    <Content Include="Views\FingerprintScanner\_ListFingerprint.cshtml" />
+>>>>>>> 97331 - listing Fingerprint and card data
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

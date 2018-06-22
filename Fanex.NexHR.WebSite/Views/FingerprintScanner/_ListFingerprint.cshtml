@@ -1,0 +1,52 @@
+﻿@using Fanex.NexHR.Models.FingerprintScanner
+@model IList<FingerprintAndCard>
+
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Code</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.Team</th>
+            <th>Fingerprint</th>
+            <th>Card</th>
+            <th>Warnning</th>
+        </tr>
+    </thead>
+
+    @if (Model.Any())
+    {
+        <tbody>
+            @{
+                var index = 0;
+            }
+            @foreach (FingerprintAndCard item in Model)
+                {
+                    index++;
+                <tr>
+                    <td>@index</td>
+                    <td>@item.Employee.Code</td>
+                    <td>@item.Employee.NickName</td>
+                    <td>@item.Employee.FullName</td>
+                    <td>@item.Employee.Team.Name</td>
+                    <td>@item.Fingerprint</td>
+                    <td>@item.Card</td>
+                    <td>
+                        @if (item.IsWarnning)
+                        {
+                            <span class="material-icons">
+                                warning
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+                }
+                else
+                {
+                    @RazorHelper.DisplayNoInformation(colspan: 14)
+                }
+</table>

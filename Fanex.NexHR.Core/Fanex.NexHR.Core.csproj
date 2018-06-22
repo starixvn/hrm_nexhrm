@@ -125,6 +125,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Enums\Command.cs" />
     <Compile Include="Enums\DashBoardType.cs" />
+    <Compile Include="Enums\FingerprintScannerType.cs" />
     <Compile Include="Enums\GeneralRequestType.cs" />
     <Compile Include="Enums\DateRangeFilter.cs" />
     <Compile Include="Enums\LeaveConversionType.cs" />

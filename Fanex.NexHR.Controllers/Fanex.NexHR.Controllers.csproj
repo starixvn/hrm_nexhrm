@@ -160,6 +160,7 @@
     <Compile Include="ExportController.cs" />
     <Compile Include="ExtensionNoController.cs" />
     <Compile Include="FileController.cs" />
+    <Compile Include="FingerprintScannerController.cs" />
     <Compile Include="GeographicMapController.cs" />
     <Compile Include="HolidayController.cs" />
     <Compile Include="HomeController.cs" />

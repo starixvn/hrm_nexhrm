@@ -71,6 +71,8 @@
 
             BuildBundleForStaffInfo(bundles);
 
+            BuildBundleForFingerprintScanner(bundles);
+
             BuildBundleForStaffBirthday(bundles);
 
             BuildBundleForLeaveDeductionDetail(bundles);
@@ -443,6 +445,14 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/staffinfojs").Include(
                 "~/Scripts/Views/Employee/employee.index.js"));
+        }
+
+        private static void BuildBundleForFingerprintScanner(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/fingerprintscanner").Include(
+                 "~/Scripts/Views/FingerprintScanner/fingerprint-scanner.js",
+                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                "~/Scripts/Views/fixtable.js"));
         }
 
         private static void BuildBundleForStaffBirthday(BundleCollection bundles)

@@ -1,0 +1,67 @@
+﻿@model FingerprintAndCardViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section js {
+    @Scripts.Render(
+        "~/bundles/fingerprintscanner")
+}
+@{
+    ViewBag.Title = "Fingerprint & Card management";
+}
+
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm("GetFingerprintScannerData", "FingerprintScanner", FormMethod.Get, new { id="fingerprint-scanner"}))
+                        {
+                            <div class="row form-input">
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--s">
+                                        @Html.Label(Labels.Team)
+                                    </div>
+                                    <div class="left select-team">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Type)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.EnumDropDownListFor(model => model.Type, Labels.All)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="list-finger-card">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
