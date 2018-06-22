@@ -831,14 +831,11 @@
     <Content Include="Views\Report\HeadCount.cshtml" />
     <Content Include="Views\Report\_HeadCountTable.cshtml" />
     <Content Include="Views\Dashboard\_LogtimeDialog.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\BioStationManagement\Index.cshtml" />
     <Content Include="Views\BioStationManagement\_EditBioDevice.cshtml" />
     <Content Include="Views\BioStationManagement\_BioDeviceRow.cshtml" />
-=======
     <Content Include="Views\FingerprintScanner\Index.cshtml" />
     <Content Include="Views\FingerprintScanner\_ListFingerprint.cshtml" />
->>>>>>> 97331 - listing Fingerprint and card data
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1042,7 +1039,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
