@@ -11,7 +11,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public override string GetSettingKey() => "EmployeeCalender_GetCurrentUserWorkedDates";
+        public override string GetSettingKey() => "EmployeeCalendar_GetCurrentUserWorkedDates";
 
         public override bool IsValid() => UserId > 0 && FromDate < ToDate;
     }

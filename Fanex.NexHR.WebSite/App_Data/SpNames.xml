@@ -45,7 +45,7 @@
 
     <Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmployeeCalender_GetCurrentUserWorkedDates" SpName="EmployeeCalender_GetCurrentUserWorkedDates" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeCalendar_GetCurrentUserWorkedDates" SpName="EmployeeCalendar_GetCurrentUserWorkedDates" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
