@@ -132,12 +132,14 @@
     </Compile>
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
+    <Compile Include="BioService.cs" />
     <Compile Include="CommandService.cs" />
     <Compile Include="CompanyEventService.cs" />
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
+    <Compile Include="Interfaces\IBioService.cs" />
     <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\ICompanyEventService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />

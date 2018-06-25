@@ -1,8 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Models.FingerprintScanner;
+    using Criteria.Bio;
     using Services;
     using Services.Interfaces;
     using ViewModels;
@@ -10,16 +9,19 @@
     public class FingerprintScannerController : BaseController
     {
         private readonly ITeamService _teamService;
+        private readonly IBioService _bioService;
 
         public FingerprintScannerController()
-            : this(null)
+            : this(null, null)
         {
         }
 
         public FingerprintScannerController(
-            ITeamService teamService)
+            ITeamService teamService,
+            IBioService bioService)
         {
             _teamService = teamService ?? new TeamService();
+            _bioService = bioService ?? new BioService();
         }
 
         public ActionResult Index()
@@ -33,7 +35,15 @@
 
         public ActionResult GetFingerprintScannerData(FingerprintAndCardViewModel viewModel)
         {
-            var listFingerprintData = new List<FingerprintAndCard>();
+            var criteria = new GetFingerprintAndCardSummaryCriteria
+            {
+                EmployeeId = viewModel.EmployeeId,
+                GroupId = viewModel.TeamId,
+                Type = viewModel.Type
+            };
+
+            var listFingerprintData = _bioService.GetFingerprintAndCardSummary(criteria);
+
             return PartialView("_ListFingerprint", listFingerprintData);
         }
     }

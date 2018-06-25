@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Data.Repository;
     using Models;
+    using Models.Bio;
     using Models.Report;
 
     public interface IReportRepository
@@ -22,5 +23,7 @@
         IList<LateInEarlyOutDiscipline> GetLateInEarlyOutSummary(ICriteria criteria);
 
         IList<WorkingHoursStatistic> GetWorkingHoursStatistic(ICriteria criteria);
+
+        IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria);
     }
 }

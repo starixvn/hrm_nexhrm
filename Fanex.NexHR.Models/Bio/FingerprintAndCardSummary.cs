@@ -1,8 +1,10 @@
-﻿namespace Fanex.NexHR.Models.FingerprintScanner
+﻿namespace Fanex.NexHR.Models.Bio
 {
-    public class FingerprintAndCard
+    public class FingerprintAndCardSummary
     {
         public Employee Employee { get; set; }
+
+        public int BioUserId { get; set; }
 
         public int Fingerprint { get; set; }
 

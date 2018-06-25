@@ -1,17 +1,18 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Core.Attributes;
-    using Data;
-    using Data.Repository;
-    using Interfaces;
-    using Models;
-    using Models.Report;
-    using Models.Request;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using Core.Attributes;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Bio;
+    using Models.Report;
+    using Models.Request;
 
     public class ReportRepository : IReportRepository
     {
@@ -245,6 +246,25 @@
                             wkh.Employee = e;
                             e.Team = g;
                             return wkh;
+                        },
+                        splitOn: "EmpId, GroupId",
+                        parameterSet: criteria.GetSpParams())
+                    .ToList();
+
+                return entityList;
+            }
+        }
+
+        public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var entityList = db.Query<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
+                        (f, e, g) =>
+                        {
+                            f.Employee = e;
+                            e.Team = g;
+                            return f;
                         },
                         splitOn: "EmpId, GroupId",
                         parameterSet: criteria.GetSpParams())
