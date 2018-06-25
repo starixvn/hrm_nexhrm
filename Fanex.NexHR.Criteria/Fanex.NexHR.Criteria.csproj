@@ -60,11 +60,7 @@
     <Compile Include="Bio\EditBioDeviceCriteria.cs" />
     <Compile Include="Bio\GetBioDeviceCriteria.cs" />
     <Compile Include="Bio\GetBioDevicesCriteria.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="Bio\GetBioDeviceStatusesCriteria.cs" />
     <Compile Include="Bio\GetFingerprintAndCardSummaryCriteria.cs" />
->>>>>>> 97331 - listing Fingerprint and card data
     <Compile Include="Calendar\GetLeaveScheduleCriteria.cs" />
     <Compile Include="Calendar\UpdateEmployeeShiftDateCriteria.cs" />
     <Compile Include="CompanyEvent\GetEventByIdCriteria.cs" />
@@ -236,7 +232,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
