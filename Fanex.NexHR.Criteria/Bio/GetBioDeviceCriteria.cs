@@ -6,7 +6,7 @@
     {
         public int DeviceId { get; set; }
 
-        public override string GetSettingKey() => "Bio_GetBioDevice";
+        public override string GetSettingKey() => "BioDevice_Get";
 
         public override bool IsValid() => DeviceId > 0;
     }

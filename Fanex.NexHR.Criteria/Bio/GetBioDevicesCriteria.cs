@@ -4,7 +4,7 @@
 
     public class GetBioDevicesCriteria : CriteriaBase
     {
-        public override string GetSettingKey() => "Bio_GetBioDevices";
+        public override string GetSettingKey() => "BioDevice_GetAll";
 
         public override bool IsValid() => true;
     }

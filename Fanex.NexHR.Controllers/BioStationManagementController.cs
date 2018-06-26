@@ -69,7 +69,7 @@
                     DeviceId = viewModel.DeviceId,
                     DisplayName = viewModel.DisplayName,
                     StatusId = viewModel.StatusId,
-                    UpdatedBy = CurrentUser.Id
+                    ModifiedBy = CurrentUser.Id
                 };
 
                 var result = commandService.Update(criteria);

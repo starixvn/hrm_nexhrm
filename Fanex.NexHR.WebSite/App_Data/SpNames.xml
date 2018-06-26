@@ -325,9 +325,9 @@
     <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
   </Function>
   <Function Name="BioStation">
-    <Setting Key="Bio_GetBioDevices" SpName="Bio_GetBioDevices" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_GetBioDevice" SpName="Bio_GetBioDevice" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_EditBioDevice" SpName="Bio_EditBioDevice" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="Bio_GetFigerprintAndCard" SpName="Bio_GetFigerprintAndCard" DbName="nexhr" Plain="1">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />

@@ -11,21 +11,21 @@
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(x => x.StatusId)
-        </div>
-        <div class="left select--m">
-            @Html.DropDownListFor(x => x.StatusId, Model.BioDeviceStatuses, "")
-            @Html.ValidationMessageFor(x => x.StatusId)
-        </div>
-    </div>
-
-    <div class="row form-input">
-        <div class="left label--m">
             @Html.LabelFor(model => model.DisplayName)
         </div>
         <div class="left select--m">
             @Html.TextBoxFor(x => x.DisplayName)
             @Html.ValidationMessageFor(x => x.DisplayName)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(x => x.StatusId)
+        </div>
+        <div class="left select--m">
+            @Html.DropDownListFor(x => x.StatusId, Model.BioDeviceStatuses, "")
+            @Html.ValidationMessageFor(x => x.StatusId)
         </div>
     </div>
 }

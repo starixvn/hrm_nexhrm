@@ -10,10 +10,10 @@
 
         public string DisplayName { get; set; }
 
-        public int UpdatedBy { get; set; }
+        public int ModifiedBy { get; set; }
 
-        public override string GetSettingKey() => "Bio_EditBioDevice";
+        public override string GetSettingKey() => "BioDevice_Edit";
 
-        public override bool IsValid() => DeviceId > 0 && UpdatedBy > 0;
+        public override bool IsValid() => DeviceId > 0 && ModifiedBy > 0;
     }
 }
