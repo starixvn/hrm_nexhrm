@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Criteria.Bio;
     using Interfaces;
     using Models.Bio;
@@ -54,8 +55,8 @@
 
             return fingers;
         }
-        
-                public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
+
+        public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
         {
             IList<BioTimeChange> bioTimeChanges = null;
 
@@ -65,7 +66,6 @@
             }
 
             return bioTimeChanges ?? new List<BioTimeChange>();
-	}
-
+        }
     }
 }
