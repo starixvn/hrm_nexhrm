@@ -46,5 +46,23 @@
 
             return PartialView("_ListFingerprint", listFingerprintData);
         }
+
+        public ActionResult Fingerprint(int empId)
+        {
+            var criteria = new GetFingerprintDetailByEmployeeIdCriteria { EmpId = empId };
+
+            var fingers = _bioService.GetFingerprintDetailByEmployeeId(criteria);
+
+            return View(fingers);
+        }
+
+        public ActionResult Card(int empId)
+        {
+            var criteria = new GetCardDetailByEmployeeIdCriteria { EmpId = empId };
+
+            var fingers = _bioService.GetCardDetailByEmployeeId(criteria);
+
+            return View(fingers);
+        }
     }
 }

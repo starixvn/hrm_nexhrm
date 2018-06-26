@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -498,6 +498,15 @@ namespace Fanex.NexHR.Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card.
+        /// </summary>
+        public static string Card {
+            get {
+                return ResourceManager.GetString("Card", resourceCulture);
             }
         }
         
@@ -1389,6 +1398,15 @@ namespace Fanex.NexHR.Resources {
         public static string FilterBy {
             get {
                 return ResourceManager.GetString("FilterBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fingerprint.
+        /// </summary>
+        public static string Fingerprint {
+            get {
+                return ResourceManager.GetString("Fingerprint", resourceCulture);
             }
         }
         

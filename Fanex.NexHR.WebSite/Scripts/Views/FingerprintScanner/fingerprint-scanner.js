@@ -10,8 +10,19 @@
             method: $form.attr("method"),
             data: $form.serialize(),
             dataType: "html",
+            beforeSend: function () {
+                $('.loading-process').fadeIn(300);
+            },
             success: function (res) {
                 $(domElement.TablePlace).html(res);
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                if ($('.loading-process').length) {
+                    $('.loading-process').fadeOut(300);
+                }
             }
         });
     }

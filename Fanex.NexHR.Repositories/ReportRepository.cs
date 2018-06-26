@@ -10,7 +10,6 @@
     using Data.Repository;
     using Interfaces;
     using Models;
-    using Models.Bio;
     using Models.Report;
     using Models.Request;
 
@@ -246,25 +245,6 @@
                             wkh.Employee = e;
                             e.Team = g;
                             return wkh;
-                        },
-                        splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams())
-                    .ToList();
-
-                return entityList;
-            }
-        }
-
-        public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entityList = db.Query<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
-                        (f, e, g) =>
-                        {
-                            f.Employee = e;
-                            e.Team = g;
-                            return f;
                         },
                         splitOn: "EmpId, GroupId",
                         parameterSet: criteria.GetSpParams())

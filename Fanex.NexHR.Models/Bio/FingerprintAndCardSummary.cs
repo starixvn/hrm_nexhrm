@@ -10,6 +10,6 @@
 
         public int Card { get; set; }
 
-        public bool IsWarnning { get; set; }
+        public bool IsWarning { get; set; }
     }
 }

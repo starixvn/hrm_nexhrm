@@ -9,11 +9,6 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    using Criteria;
-    using Models;
-    using Services;
-    using Services.Interfaces;
-    using ViewModels.Navigation;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -21,6 +16,11 @@ namespace Fanex.NexHR.Controllers
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Criteria;
+    using Models;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.Navigation;
 
     /// <summary>
     /// UI controller.
@@ -141,7 +141,7 @@ namespace Fanex.NexHR.Controllers
             foreach (SiteMapNode navNode in sectionNode.ChildNodes)
             {
                 var navItem = new NavigationViewModel(navNode);
-                if (roles.Any(i => navNode.Roles.Contains(i)))
+                if (roles.Any(navNode.Roles.Contains))
                 {
                     sectionItem.Childs.Add(navItem);
                 }

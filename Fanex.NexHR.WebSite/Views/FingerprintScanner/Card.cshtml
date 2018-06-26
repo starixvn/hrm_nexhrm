@@ -1,0 +1,75 @@
+﻿@using Fanex.NexHR.Models.Bio
+@model IList<Card>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section js {
+    @Scripts.Render(
+        "~/bundles/fingerprintscanner")
+}
+@{
+    ViewBag.Title = "Card detail";
+}
+
+@section Breadcrumb {
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <table id="data" class="table bordered striped highlight table-custom centered">
+                        <thead>
+                            <tr>
+                                <th>@Labels.SymbolCount</th>
+                                <th>@Labels.Code</th>
+                                <th>@Labels.Nick</th>
+                                <th>@Labels.FullName</th>
+                                <th>@Labels.Team</th>
+                                <th>Card No</th>
+                                <th>Custom No</th>
+                                <th>@Labels.Status</th>
+                            </tr>
+                        </thead>
+
+                        @if (Model.Any())
+                        {
+                            <tbody>
+                                @{
+                                    var index = 0;
+                                }
+                                @foreach (Card item in Model)
+                {
+                    index++;
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@item.Employee.Code</td>
+                                        <td>@item.Employee.NickName</td>
+                                        <td class="align-left">@item.Employee.FullName</td>
+                                        <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
+                                        <td>@item.CardNo</td>
+                                        <td>@item.CustomNo</td>
+                                        <td>
+                                            @item.Status.ToString()
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                                    }
+                                    else
+                                    {
+                                        @RazorHelper.DisplayNoInformation(colspan: 14)
+                                    }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

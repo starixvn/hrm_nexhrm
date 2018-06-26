@@ -98,10 +98,13 @@
     <Compile Include="AnnualLeave\AnnualLeaveTransaction.cs" />
     <Compile Include="Attributes\EmailAttribute.cs" />
     <Compile Include="Attributes\EmailValidationRule.cs" />
+    <Compile Include="Bio\BioCard.cs" />
     <Compile Include="Bio\BioDevice.cs" />
     <Compile Include="Bio\BioDeviceDisplayName.cs" />
     <Compile Include="Bio\BioDeviceStatus.cs" />
     <Compile Include="Bio\BioTimeChange.cs" />
+    <Compile Include="Bio\Card.cs" />
+    <Compile Include="Bio\Fingerprint.cs" />
     <Compile Include="Calendar\EmployeeLeaveSchedule.cs" />
     <Compile Include="Calendar\EmployeeWorkingSchedule.cs" />
     <Compile Include="Calendar\LeaveDaySummarySchedule.cs" />

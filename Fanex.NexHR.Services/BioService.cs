@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Criteria.Bio;
     using Interfaces;
     using Models.Bio;
@@ -10,17 +9,15 @@
 
     public class BioService : BaseService, IBioService
     {
-        private readonly IReportRepository _reportRepository;
         private readonly IBioRepository _bioRepository;
 
         public BioService()
-            : this(null, null)
+            : this(null)
         {
         }
 
-        public BioService(IReportRepository reportRepository, IBioRepository bioRepository)
+        public BioService(IBioRepository bioRepository)
         {
-            _reportRepository = reportRepository ?? new ReportRepository();
             _bioRepository = bioRepository ?? new BioRepository();
         }
 
@@ -30,13 +27,35 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                fingerprintAndCardSummary = _reportRepository.GetFingerprintAndCardSummary(criteria);
+                fingerprintAndCardSummary = _bioRepository.GetFingerprintAndCardSummary(criteria);
             }
 
             return fingerprintAndCardSummary ?? new List<FingerprintAndCardSummary>();
         }
 
-        public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
+        public IList<Fingerprint> GetFingerprintDetailByEmployeeId(GetFingerprintDetailByEmployeeIdCriteria criteria)
+        {
+            IList<Fingerprint> fingers = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                fingers = _bioRepository.GetFingerprintDetailByEmpId(criteria);
+            }
+
+            return fingers;
+        }
+
+        public IList<Card> GetCardDetailByEmployeeId(GetCardDetailByEmployeeIdCriteria criteria)
+        {
+            IList<Card> fingers = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                fingers = _bioRepository.GetCardDetailByEmpId(criteria);
+            }
+
+            return fingers;
+        }
+        
+                public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
         {
             IList<BioTimeChange> bioTimeChanges = null;
 
@@ -46,6 +65,7 @@
             }
 
             return bioTimeChanges ?? new List<BioTimeChange>();
-        }
+	}
+
     }
 }

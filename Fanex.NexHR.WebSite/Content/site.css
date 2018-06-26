@@ -114,6 +114,10 @@ main {
   #confirm p {
     padding-bottom: 0; }
 
+.deep-orange-text {
+  color: #f9a234;
+  font-size: 1.5rem; }
+
 #legendInfo {
   display: inline-block;
   vertical-align: middle;

@@ -1476,4 +1476,13 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>Fingerprint</value>
+  </data>
+  <data name="Card" xml:space="preserve">
+    <value>Card</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

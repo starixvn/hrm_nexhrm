@@ -837,6 +837,8 @@
     <Content Include="Views\FingerprintScanner\Index.cshtml" />
     <Content Include="Views\FingerprintScanner\_ListFingerprint.cshtml" />
     <Content Include="Views\BioStationTimeChange\Index.cshtml" />
+    <Content Include="Views\FingerprintScanner\Fingerprint.cshtml" />
+    <Content Include="Views\FingerprintScanner\Card.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
