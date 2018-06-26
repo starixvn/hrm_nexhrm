@@ -430,6 +430,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bio Station Time Changes.
+        /// </summary>
+        public static string BioStationTimeChanges {
+            get {
+                return ResourceManager.GetString("BioStationTimeChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday.
         /// </summary>
         public static string Birthday {
@@ -1002,6 +1011,15 @@ namespace Fanex.NexHR.Resources {
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Display Name.
+        /// </summary>
+        public static string DeviceDisplayName {
+            get {
+                return ResourceManager.GetString("DeviceDisplayName", resourceCulture);
             }
         }
         
@@ -2725,6 +2743,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next Logged Time on other device.
+        /// </summary>
+        public static string NextLoggedTimeOnOtherDevice {
+            get {
+                return ResourceManager.GetString("NextLoggedTimeOnOtherDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nick.
         /// </summary>
         public static string Nick {
@@ -3045,6 +3072,15 @@ namespace Fanex.NexHR.Resources {
         public static string Photoshop {
             get {
                 return ResourceManager.GetString("Photoshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Logged Time on other device.
+        /// </summary>
+        public static string PreviousLoggedTimeOnOtherDevice {
+            get {
+                return ResourceManager.GetString("PreviousLoggedTimeOnOtherDevice", resourceCulture);
             }
         }
         
@@ -3670,6 +3706,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time Changed.
+        /// </summary>
+        public static string TimeChanged {
+            get {
+                return ResourceManager.GetString("TimeChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time Record.
         /// </summary>
         public static string TimeRecord {
@@ -3954,6 +3999,15 @@ namespace Fanex.NexHR.Resources {
         public static string W {
             get {
                 return ResourceManager.GetString("W", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

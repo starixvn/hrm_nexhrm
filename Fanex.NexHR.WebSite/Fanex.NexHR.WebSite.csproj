@@ -836,6 +836,7 @@
     <Content Include="Views\BioStationManagement\_BioDeviceRow.cshtml" />
     <Content Include="Views\FingerprintScanner\Index.cshtml" />
     <Content Include="Views\FingerprintScanner\_ListFingerprint.cshtml" />
+    <Content Include="Views\BioStationTimeChange\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

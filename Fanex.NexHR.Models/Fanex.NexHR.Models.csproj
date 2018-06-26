@@ -101,6 +101,7 @@
     <Compile Include="Bio\BioDevice.cs" />
     <Compile Include="Bio\BioDeviceDisplayName.cs" />
     <Compile Include="Bio\BioDeviceStatus.cs" />
+    <Compile Include="Bio\BioTimeChange.cs" />
     <Compile Include="Calendar\EmployeeLeaveSchedule.cs" />
     <Compile Include="Calendar\EmployeeWorkingSchedule.cs" />
     <Compile Include="Calendar\LeaveDaySummarySchedule.cs" />

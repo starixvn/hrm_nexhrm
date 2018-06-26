@@ -1458,4 +1458,22 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="BioStationTimeChanges" xml:space="preserve">
+    <value>Bio Station Time Changes</value>
+  </data>
+  <data name="TimeChanged" xml:space="preserve">
+    <value>Time Changed</value>
+  </data>
+  <data name="PreviousLoggedTimeOnOtherDevice" xml:space="preserve">
+    <value>Previous Logged Time on other device</value>
+  </data>
+  <data name="NextLoggedTimeOnOtherDevice" xml:space="preserve">
+    <value>Next Logged Time on other device</value>
+  </data>
+  <data name="DeviceDisplayName" xml:space="preserve">
+    <value>Device Display Name</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

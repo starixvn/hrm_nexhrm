@@ -7,5 +7,7 @@
     public interface IBioService
     {
         IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria);
+
+        IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria);
     }
 }

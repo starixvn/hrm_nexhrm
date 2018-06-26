@@ -1,0 +1,53 @@
+﻿@using Fanex.NexHR.Models.Bio
+@model Fanex.NexHR.ViewModels.Bio.BioStationTimeChangeViewModel
+
+@{
+    ViewBag.Title = Labels.BioStationTimeChanges;
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                    </div>
+                    <div id="list-finger-card">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.DeviceDisplayName</th>
+                                    <th>@Labels.TimeChanged</th>
+                                    <th>@Labels.PreviousLoggedTimeOnOtherDevice</th>
+                                    <th>@Labels.NextLoggedTimeOnOtherDevice</th>
+                                    <th>@Labels.Warning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (BioTimeChange bio in Model.TimeChanges)
+                                {
+                                    <tr>
+                                        <td>@bio.DisplayName</td>
+                                        <td>@bio.TimeChange</td>
+                                        <td>@bio.PreviousLogTime</td>
+                                        <td>@bio.NextLogTime</td>
+                                        <td>
+                                            @if (bio.Warning)
+                                            {
+                                                @Labels.Warning
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

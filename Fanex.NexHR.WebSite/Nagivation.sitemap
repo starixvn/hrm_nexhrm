@@ -24,6 +24,7 @@
       <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
       <siteMapNode title="Bio Station Management" controller="BioStationManagement" action="Index" icon="bio" roles="HR" />
+      <siteMapNode title="Bio Station Time Change" controller="BioStationTimeChange" action="Index" icon="bio" roles="HR" />
       <siteMapNode title="Fingerprint/Card Management" controller="FingerprintScanner" action="Index" icon="fingerprint" roles="HR" />
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">

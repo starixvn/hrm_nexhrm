@@ -332,5 +332,6 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="1"></Setting>
   </Function>
 </Functions>
