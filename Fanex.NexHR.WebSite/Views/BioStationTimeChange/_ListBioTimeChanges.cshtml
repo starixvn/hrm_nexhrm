@@ -3,7 +3,9 @@
 <table id="data" class="table bordered striped highlight table-custom centered">
     <thead>
     <tr>
-        <th>@Labels.DeviceDisplayName</th>
+        <th>@Labels.DeviceId</th>
+        <th>@Labels.DeviceName</th>
+        <th>@Labels.DisplayName</th>
         <th>@Labels.TimeChanged</th>
         <th>@Labels.PreviousLoggedTimeOnOtherDevice</th>
         <th>@Labels.NextLoggedTimeOnOtherDevice</th>
@@ -14,6 +16,8 @@
     @foreach (BioTimeChange bio in Model)
     {
         <tr>
+            <td>@bio.DeviceId</td>
+            <td>@bio.DeviceName</td>
             <td>@bio.DisplayName</td>
             <td>@bio.TimeChange.ToDetailFormatedDate()</td>
             <td>@bio.PreviousLogTime.ToDetailFormatedDate()</td>
