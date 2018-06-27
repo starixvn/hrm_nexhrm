@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using Criteria.Bio;
     using Services;
@@ -24,10 +25,23 @@
         {
             var viewModel = new BioStationTimeChangeViewModel
             {
-                TimeChanges = bioService.GetBioTimeChanges(new GetBioTimeChangeCriteria())
+                To = DateTime.Now
             };
 
             return View(viewModel);
+        }
+
+        public ActionResult GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
+        {
+            var criteria = new GetBioTimeChangeCriteria
+            {
+                From = viewModel.From,
+                To = viewModel.To
+            };
+
+            var timeChanges = bioService.GetBioTimeChanges(criteria);
+
+            return PartialView("_ListBioTimeChanges", timeChanges);
         }
     }
 }

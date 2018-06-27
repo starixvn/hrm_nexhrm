@@ -666,6 +666,7 @@
     <Content Include="Scripts\Views\AnnualLeave\leave.conversion.detail.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.deduction.detail.js" />
     <Content Include="Scripts\Views\BioStationManagement\bio-management.js" />
+    <Content Include="Scripts\Views\BioStationTimeChange\biostationtimechange.js" />
     <Content Include="Scripts\Views\Calendar\employee.leavecalendar.js" />
     <Content Include="Scripts\Views\Calendar\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\Calendar\mycalendar.js" />
@@ -839,6 +840,7 @@
     <Content Include="Views\BioStationTimeChange\Index.cshtml" />
     <Content Include="Views\FingerprintScanner\Fingerprint.cshtml" />
     <Content Include="Views\FingerprintScanner\Card.cshtml" />
+    <Content Include="Views\BioStationTimeChange\_ListBioTimeChanges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

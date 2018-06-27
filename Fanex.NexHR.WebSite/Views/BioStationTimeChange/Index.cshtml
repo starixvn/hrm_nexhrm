@@ -1,8 +1,12 @@
-﻿@using Fanex.NexHR.Models.Bio
-@model Fanex.NexHR.ViewModels.Bio.BioStationTimeChangeViewModel
+﻿@model Fanex.NexHR.ViewModels.Bio.BioStationTimeChangeViewModel
 
 @{
     ViewBag.Title = Labels.BioStationTimeChanges;
+}
+
+@section js
+{
+    <script type="text/javascript" src="~/Scripts/Views/BioStationTimeChange/biostationtimechange.js"></script>
 }
 
 <div class="row content">
@@ -14,37 +18,36 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
+                        @using (Html.BeginForm("GetBioStationTimeChange", "BioStationTimeChange", FormMethod.Post, new { @class = "form-filter" }))
+                        {
+                            @Html.HiddenFor(model => model.ItemsPerPage)
+                            @Html.HiddenFor(model => model.CurrentPage)
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.From, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.From, minDate: new DateTime(2016, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--s m-r--s">
+                                        @Html.LabelFor(model => model.To, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.To, minDate: new DateTime(2016, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        }
                     </div>
-                    <div id="list-finger-card">
-                        <table id="data" class="table bordered striped highlight table-custom centered">
-                            <thead>
-                                <tr>
-                                    <th>@Labels.DeviceDisplayName</th>
-                                    <th>@Labels.TimeChanged</th>
-                                    <th>@Labels.PreviousLoggedTimeOnOtherDevice</th>
-                                    <th>@Labels.NextLoggedTimeOnOtherDevice</th>
-                                    <th>@Labels.Warning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (BioTimeChange bio in Model.TimeChanges)
-                                {
-                                    <tr>
-                                        <td>@bio.DisplayName</td>
-                                        <td>@bio.TimeChange</td>
-                                        <td>@bio.PreviousLogTime</td>
-                                        <td>@bio.NextLogTime</td>
-                                        <td>
-                                            @if (bio.Warning)
-                                            {
-                                                @Labels.Warning
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="table-list"></div>
                 </div>
             </div>
         </div>
