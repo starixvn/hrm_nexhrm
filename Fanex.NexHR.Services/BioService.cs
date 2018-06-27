@@ -62,7 +62,10 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                bioTimeChanges = _bioRepository.GetAllBioTimeChanges(criteria).ToList();
+                bioTimeChanges = _bioRepository
+                    .GetAllBioTimeChanges(criteria)
+                    .OrderByDescending(x => x.TimeChange)
+                    .ToList();
             }
 
             return bioTimeChanges ?? new List<BioTimeChange>();

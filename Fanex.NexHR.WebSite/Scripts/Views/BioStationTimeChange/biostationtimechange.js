@@ -1,10 +1,10 @@
 ﻿var biostationtimechange = {
-    init: function() {
+    init: function () {
         biostationtimechange.handleFilter();
         biostationtimechange.loadDefault();
     },
 
-    loadDefault: function() {
+    loadDefault: function () {
         $(".form-filter").trigger("submit");
     },
 
@@ -17,14 +17,21 @@
                     url: form.attr("action"),
                     method: form.attr("method"),
                     data: form.serialize(),
-                    success: function(value) {
+                    beforeSend: function () {
+                        $(".loading-process").fadeIn(300);
+                    },
+                    success: function (value) {
                         $("#table-list").html(value);
+                        floatThead("table#data");
+                    },
+                    complete: function () {
+                        $(".loading-process").fadeOut(300);
                     }
                 });
             });
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     biostationtimechange.init();
 })
