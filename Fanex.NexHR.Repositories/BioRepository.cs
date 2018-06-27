@@ -10,15 +10,15 @@
 
     public class BioRepository : BaseRepository, IBioRepository
     {
-    
-    	public IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria)
+
+        public IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<BioTimeChange>(criteria.GetSpParams());
-             }
-         }
-   	
+            }
+        }
+
         public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
