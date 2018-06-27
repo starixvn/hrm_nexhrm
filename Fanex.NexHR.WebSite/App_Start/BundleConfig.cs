@@ -106,6 +106,8 @@
             BuildBundleForHeadCountReport(bundles);
 
             BuildBundleForBioStationManagement(bundles);
+
+            BuildBundleForBioStationTimeChange(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -567,6 +569,12 @@
             bundles.Add(new ScriptBundle("~/bundles/biostationmanagementjs").Include(
                 "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
                 "~/Scripts/Views/BioStationManagement/bio-management.js"));
+        }
+
+        private static void BuildBundleForBioStationTimeChange(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/biostationtimechangejs").Include(
+                "~/Scripts/Views/BioStationTimeChange/biostationtimechange.js"));
         }
     }
 }
