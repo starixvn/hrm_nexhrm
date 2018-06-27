@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels.Bio
 {
     using System;
-    using Common;
 
-    public class BioStationTimeChangeViewModel : PagerOptionModel
+    public class BioStationTimeChangeViewModel
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
