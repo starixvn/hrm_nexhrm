@@ -15,9 +15,9 @@
     {
         <tr>
             <td>@bio.DisplayName</td>
-            <td>@bio.TimeChange</td>
-            <td>@bio.PreviousLogTime</td>
-            <td>@bio.NextLogTime</td>
+            <td>@bio.TimeChange.ToDetailFormatedDate()</td>
+            <td>@bio.PreviousLogTime.ToDetailFormatedDate()</td>
+            <td>@bio.NextLogTime.ToDetailFormatedDate()</td>
             <td>
                 @if (bio.Warning)
                 {
