@@ -78,7 +78,8 @@
                 EmployeeId = employeeId,
                 BioUserId = bioUserId,
                 FingerIndex = index,
-                Status = status
+                Status = status,
+                UpdatedBy = CurrentUser.Id
             };
 
             var commandResult = _commandService.Update(criteria);
@@ -92,7 +93,8 @@
             {
                 EmployeeId = employeeId,
                 CardId = cardId,
-                Status = status
+                Status = status,
+                UpdatedBy = CurrentUser.Id
             };
 
             var commandResult = _commandService.Update(criteria);

@@ -9,10 +9,12 @@
 
         public int CardId { get; set; }
 
+        public int UpdatedBy { get; set; }
+
         public FingerprintScannerAction Status { get; set; }
 
         public override string GetSettingKey() => "Bio_UpdateCardStatus";
 
-        public override bool IsValid() => EmployeeId > 0 && CardId > 0;
+        public override bool IsValid() => EmployeeId > 0 && CardId > 0 && UpdatedBy > 0;
     }
 }
