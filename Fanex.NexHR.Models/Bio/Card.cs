@@ -1,7 +1,8 @@
-﻿using Fanex.NexHR.Core.Enums;
-
-namespace Fanex.NexHR.Models.Bio
+﻿namespace Fanex.NexHR.Models.Bio
 {
+    using System;
+    using Fanex.NexHR.Core.Enums;
+
     public class Card
     {
         public Employee Employee { get; set; }
@@ -15,6 +16,8 @@ namespace Fanex.NexHR.Models.Bio
         public string CardNo { get; set; }
 
         public string CustomNo { get; set; }
+
+        public DateTime RegisterDate { get; set; }
 
         public FingerprintScannerAction Status { get; set; }
     }

@@ -3229,6 +3229,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register Date.
+        /// </summary>
+        public static string RegisterDate {
+            get {
+                return ResourceManager.GetString("RegisterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reject.
         /// </summary>
         public static string Reject {

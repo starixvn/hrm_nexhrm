@@ -40,6 +40,7 @@
                                 <th>@Labels.CardId</th>
                                 <th>@Labels.CardNo</th>
                                 <th>@Labels.CustomNo</th>
+                                <th>@Labels.RegisterDate</th>
                                 <th>@Labels.Status</th>
                             </tr>
                         </thead>
@@ -62,6 +63,7 @@
                                         <td>@item.CardId</td>
                                         <td>@item.CardNo</td>
                                         <td>@item.CustomNo</td>
+                                        <td>@item.RegisterDate.ToShortFormatedDate()</td>
                                         <td>
                                             @{
                                                 var className = item.Status == FingerprintScannerAction.Pending ? "c-pending" : "c-approve";

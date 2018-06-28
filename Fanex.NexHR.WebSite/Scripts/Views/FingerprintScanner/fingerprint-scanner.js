@@ -15,6 +15,7 @@
             },
             success: function (res) {
                 $(domElement.TablePlace).html(res);
+                floatThead('#data')
             },
             error: function () {
                 alert(_messages.errorTryAgain);

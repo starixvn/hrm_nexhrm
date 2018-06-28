@@ -1503,4 +1503,7 @@
   <data name="FingerprintIndex" xml:space="preserve">
     <value>Fingerprint Index</value>
   </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Register Date</value>
+  </data>
 </root>

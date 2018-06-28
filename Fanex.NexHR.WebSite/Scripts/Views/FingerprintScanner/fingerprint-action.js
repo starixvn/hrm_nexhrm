@@ -20,9 +20,7 @@
                 var result = response.commandResult;
                 alert(result.Message);
                 if (result.IsSuccessful) {
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 3000);
+                    location.reload(true);
                 }
             },
             error: function (textStatus, errorThrown) {
@@ -72,7 +70,6 @@
     return {
         init
     }
-
 })(jQuery);
 
 $(document).ready(function () {
