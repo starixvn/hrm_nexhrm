@@ -11,7 +11,7 @@
 
         public FingerprintScannerType? Type { get; set; }
 
-        public override string GetSettingKey() => "Bio_GetFigerprintAndCard";
+        public override string GetSettingKey() => "Bio_GetFigerprintAndCardSummary";
 
         public override bool IsValid() => true;
     }

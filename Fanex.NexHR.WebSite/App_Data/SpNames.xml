@@ -328,7 +328,7 @@
     <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_GetFigerprintAndCard" SpName="Bio_GetFigerprintAndCard" DbName="nexhr" Plain="1">
+    <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="1">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
