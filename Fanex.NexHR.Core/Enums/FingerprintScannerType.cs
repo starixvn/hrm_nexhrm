@@ -5,9 +5,9 @@
     public enum FingerprintScannerType
     {
         [Display(Name = "Fingerprint")]
-        Fingerprint = 0,
+        Fingerprint = 1,
 
         [Display(Name = "Card")]
-        Card = 1,
+        Card = 2,
     }
 }

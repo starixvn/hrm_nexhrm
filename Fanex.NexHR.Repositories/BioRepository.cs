@@ -19,7 +19,7 @@
             }
         }
 
-        public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
+        public IEnumerable<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -38,7 +38,7 @@
             }
         }
 
-        public IList<Fingerprint> GetFingerprintDetailByEmpId(ICriteria criteria)
+        public IEnumerable<Fingerprint> GetFingerprintDetailByEmpId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -57,7 +57,7 @@
             }
         }
 
-        public IList<Card> GetCardDetailByEmpId(ICriteria criteria)
+        public IEnumerable<Card> GetCardDetailByEmpId(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

@@ -1,27 +1,32 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Web.Mvc;
+    using Core.Enums;
     using Criteria.Bio;
     using Services;
     using Services.Interfaces;
     using ViewModels;
 
+    [Authorize(Roles = "HR")]
     public class FingerprintScannerController : BaseController
     {
         private readonly ITeamService _teamService;
         private readonly IBioService _bioService;
+        private readonly ICommandService _commandService;
 
         public FingerprintScannerController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public FingerprintScannerController(
             ITeamService teamService,
-            IBioService bioService)
+            IBioService bioService,
+            ICommandService commandService)
         {
             _teamService = teamService ?? new TeamService();
             _bioService = bioService ?? new BioService();
+            _commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -63,6 +68,36 @@
             var fingers = _bioService.GetCardDetailByEmployeeId(criteria);
 
             return View(fingers);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeFingerStatus(int employeeId, int bioUserId, int index, FingerprintScannerAction status)
+        {
+            var criteria = new UpdateFingerprintStatusCriteria
+            {
+                EmployeeId = employeeId,
+                BioUserId = bioUserId,
+                FingerIndex = index,
+                Status = status
+            };
+
+            var commandResult = _commandService.Update(criteria);
+
+            return Json(new { commandResult });
+        }
+
+        public ActionResult ChangeCardStatus(int employeeId, int cardId, FingerprintScannerAction status)
+        {
+            var criteria = new UpdateCardStatusCriteria
+            {
+                EmployeeId = employeeId,
+                CardId = cardId,
+                Status = status
+            };
+
+            var commandResult = _commandService.Update(criteria);
+
+            return Json(new { commandResult });
         }
     }
 }

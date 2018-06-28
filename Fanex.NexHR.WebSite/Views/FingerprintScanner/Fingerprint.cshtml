@@ -5,10 +5,14 @@
     ViewBag.Title = "Fingerprint";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section css{
+    @Styles.Render("~/Content/contextmenucss")
+}
 
 @section js {
     @Scripts.Render(
-        "~/bundles/fingerprintscanner")
+        "~/bundles/contextmenujs")
+    <script type="text/javascript" src="~/Scripts/Views/FingerprintScanner/fingerprint-action.js"></script>
 }
 @{
     ViewBag.Title = "Fingerprint detail";
@@ -33,9 +37,7 @@
                                 <th>@Labels.Nick</th>
                                 <th>@Labels.FullName</th>
                                 <th>@Labels.Team</th>
-                                <th>Index</th>
                                 <th>Fingerprint Index</th>
-                                <th>Images</th>
                                 <th>@Labels.Status</th>
                             </tr>
                         </thead>
@@ -56,21 +58,26 @@
                                         <td class="align-left">@item.Employee.FullName</td>
                                         <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
                                         <td>@item.Index</td>
-                                        <td>@item.FingerIndex</td>
                                         <td>
-                                        </td>
-                                        <td>
-                                            @item.Status.ToString()
+                                            @{
+                                                var className = item.Status == FingerprintScannerAction.Pending ? "c-pending" : "c-approve";
+                                            }
+                                            <a href="javascript:;" class="@item.Status.ToString().ToLowerInvariant() tooltip @className"
+                                               data-employeeId="@item.Employee.Id"
+                                               data-bioUserId="@item.BioUserId"
+                                               data-index="@item.Index">
+                                                @item.Status.ToString()
+                                            </a>
                                         </td>
                                     </tr>
-                                }
+                                                }
                             </tbody>
 
-                                    }
-                                    else
-                                    {
-                                        @RazorHelper.DisplayNoInformation(colspan: 14)
-                                    }
+                                                }
+                                                else
+                                                {
+                                                    @RazorHelper.DisplayNoInformation(colspan: 9)
+                                                }
                     </table>
                 </div>
             </div>

@@ -24,11 +24,21 @@
 
         public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria)
         {
-            IList<FingerprintAndCardSummary> fingerprintAndCardSummary = null;
+            var fingerprintAndCardSummary = new List<FingerprintAndCardSummary>();
 
             if (criteria != null && criteria.IsValid())
             {
-                fingerprintAndCardSummary = _bioRepository.GetFingerprintAndCardSummary(criteria);
+                fingerprintAndCardSummary = _bioRepository.GetFingerprintAndCardSummary(criteria).ToList();
+
+                if (criteria.Type == Core.Enums.FingerprintScannerType.Card)
+                {
+                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => x.Card > 0).ToList();
+                }
+
+                if (criteria.Type == Core.Enums.FingerprintScannerType.Fingerprint)
+                {
+                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => x.Fingerprint > 0).ToList();
+                }
             }
 
             return fingerprintAndCardSummary ?? new List<FingerprintAndCardSummary>();
@@ -36,10 +46,10 @@
 
         public IList<Fingerprint> GetFingerprintDetailByEmployeeId(GetFingerprintDetailByEmployeeIdCriteria criteria)
         {
-            IList<Fingerprint> fingers = null;
+            var fingers = new List<Fingerprint>();
             if (criteria != null && criteria.IsValid())
             {
-                fingers = _bioRepository.GetFingerprintDetailByEmpId(criteria);
+                fingers = _bioRepository.GetFingerprintDetailByEmpId(criteria).ToList();
             }
 
             return fingers;
@@ -50,7 +60,7 @@
             IList<Card> fingers = null;
             if (criteria != null && criteria.IsValid())
             {
-                fingers = _bioRepository.GetCardDetailByEmpId(criteria);
+                fingers = _bioRepository.GetCardDetailByEmpId(criteria).ToList();
             }
 
             return fingers;

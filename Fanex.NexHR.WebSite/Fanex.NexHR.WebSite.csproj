@@ -688,6 +688,8 @@
     <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\ExtensionNo\extensionno.js" />
+    <Content Include="Scripts\Views\FingerprintScanner\card-action.js" />
+    <Content Include="Scripts\Views\FingerprintScanner\fingerprint-action.js" />
     <Content Include="Scripts\Views\FingerprintScanner\fingerprint-scanner.js" />
     <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\Geolocationmap\geolocationmap.js" />

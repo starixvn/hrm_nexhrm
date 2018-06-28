@@ -90,6 +90,7 @@
     <Compile Include="AnnualLeave\LeaveConversionViewModel.cs" />
     <Compile Include="Bio\BioDeviceViewModel.cs" />
     <Compile Include="Bio\BioStationTimeChangeViewModel.cs" />
+    <Compile Include="Bio\ChangeFingerViewModel.cs" />
     <Compile Include="Bio\EditBioDeviceViewModel.cs" />
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="Employee\EmployeeListViewModel.cs" />

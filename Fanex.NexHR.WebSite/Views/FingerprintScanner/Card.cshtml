@@ -5,9 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section css{
+    @Styles.Render("~/Content/contextmenucss")
+}
+
 @section js {
     @Scripts.Render(
-        "~/bundles/fingerprintscanner")
+        "~/bundles/contextmenujs")
+    <script type="text/javascript" src="~/Scripts/Views/FingerprintScanner/card-action.js"></script>
 }
 @{
     ViewBag.Title = "Card detail";
@@ -32,6 +37,7 @@
                                 <th>@Labels.Nick</th>
                                 <th>@Labels.FullName</th>
                                 <th>@Labels.Team</th>
+                                <th>Card Id</th>
                                 <th>Card No</th>
                                 <th>Custom No</th>
                                 <th>@Labels.Status</th>
@@ -53,20 +59,28 @@
                                         <td>@item.Employee.NickName</td>
                                         <td class="align-left">@item.Employee.FullName</td>
                                         <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
+                                        <td>@item.CardId</td>
                                         <td>@item.CardNo</td>
                                         <td>@item.CustomNo</td>
                                         <td>
-                                            @item.Status.ToString()
+                                            @{
+                                                var className = item.Status == FingerprintScannerAction.Pending ? "c-pending" : "c-approve";
+                                            }
+                                            <a href="javascript:;" class="@item.Status.ToString().ToLowerInvariant() tooltip @className"
+                                               data-employeeId="@item.Employee.Id"
+                                               data-cardId="@item.CardId">
+                                                @item.Status.ToString()
+                                            </a>
                                         </td>
                                     </tr>
-                                }
+                                                }
                             </tbody>
 
-                                    }
-                                    else
-                                    {
-                                        @RazorHelper.DisplayNoInformation(colspan: 14)
-                                    }
+                                                }
+                                                else
+                                                {
+                                                    @RazorHelper.DisplayNoInformation(colspan: 9)
+                                                }
                     </table>
                 </div>
             </div>

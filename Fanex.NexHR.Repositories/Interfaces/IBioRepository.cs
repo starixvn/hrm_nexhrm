@@ -6,12 +6,12 @@
 
     public interface IBioRepository
     {
-    	IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria);
-    	
-        IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria);
+        IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria);
 
-        IList<Fingerprint> GetFingerprintDetailByEmpId(ICriteria criteria);
+        IEnumerable<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria);
 
-        IList<Card> GetCardDetailByEmpId(ICriteria criteria);
+        IEnumerable<Fingerprint> GetFingerprintDetailByEmpId(ICriteria criteria);
+
+        IEnumerable<Card> GetCardDetailByEmpId(ICriteria criteria);
     }
 }
