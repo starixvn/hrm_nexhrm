@@ -15,7 +15,7 @@
     <script type="text/javascript" src="~/Scripts/Views/FingerprintScanner/fingerprint-action.js"></script>
 }
 @{
-    ViewBag.Title = "Fingerprint detail";
+    ViewBag.Title = @Labels.FingerprintDetail;
 }
 
 @section Breadcrumb {
@@ -37,7 +37,7 @@
                                 <th>@Labels.Nick</th>
                                 <th>@Labels.FullName</th>
                                 <th>@Labels.Team</th>
-                                <th>Fingerprint Index</th>
+                                <th>@Labels.FingerprintIndex</th>
                                 <th>@Labels.Status</th>
                             </tr>
                         </thead>

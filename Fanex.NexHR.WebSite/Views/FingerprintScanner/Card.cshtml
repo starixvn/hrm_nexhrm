@@ -15,7 +15,7 @@
     <script type="text/javascript" src="~/Scripts/Views/FingerprintScanner/card-action.js"></script>
 }
 @{
-    ViewBag.Title = "Card detail";
+    ViewBag.Title = @Labels.CardDetail;
 }
 
 @section Breadcrumb {
@@ -37,9 +37,9 @@
                                 <th>@Labels.Nick</th>
                                 <th>@Labels.FullName</th>
                                 <th>@Labels.Team</th>
-                                <th>Card Id</th>
-                                <th>Card No</th>
-                                <th>Custom No</th>
+                                <th>@Labels.CardId</th>
+                                <th>@Labels.CardNo</th>
+                                <th>@Labels.CustomNo</th>
                                 <th>@Labels.Status</th>
                             </tr>
                         </thead>

@@ -511,6 +511,33 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Card detail.
+        /// </summary>
+        public static string CardDetail {
+            get {
+                return ResourceManager.GetString("CardDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card Id.
+        /// </summary>
+        public static string CardId {
+            get {
+                return ResourceManager.GetString("CardId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card No.
+        /// </summary>
+        public static string CardNo {
+            get {
+                return ResourceManager.GetString("CardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
@@ -831,6 +858,15 @@ namespace Fanex.NexHR.Resources {
         public static string CurrentWeek {
             get {
                 return ResourceManager.GetString("CurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom No.
+        /// </summary>
+        public static string CustomNo {
+            get {
+                return ResourceManager.GetString("CustomNo", resourceCulture);
             }
         }
         
@@ -1407,6 +1443,24 @@ namespace Fanex.NexHR.Resources {
         public static string Fingerprint {
             get {
                 return ResourceManager.GetString("Fingerprint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fingerprint detail.
+        /// </summary>
+        public static string FingerprintDetail {
+            get {
+                return ResourceManager.GetString("FingerprintDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fingerprint Index.
+        /// </summary>
+        public static string FingerprintIndex {
+            get {
+                return ResourceManager.GetString("FingerprintIndex", resourceCulture);
             }
         }
         
@@ -4026,6 +4080,15 @@ namespace Fanex.NexHR.Resources {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning_Duplicate_1_ {
+            get {
+                return ResourceManager.GetString("Warning_Duplicate[1]", resourceCulture);
             }
         }
         

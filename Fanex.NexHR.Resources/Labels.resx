@@ -1482,7 +1482,25 @@
   <data name="Card" xml:space="preserve">
     <value>Card</value>
   </data>
-  <data name="Warning" xml:space="preserve">
+  <data name="Warning_Duplicate[1]" xml:space="preserve">
     <value>Warning</value>
+  </data>
+  <data name="CardDetail" xml:space="preserve">
+    <value>Card detail</value>
+  </data>
+  <data name="CardId" xml:space="preserve">
+    <value>Card Id</value>
+  </data>
+  <data name="CardNo" xml:space="preserve">
+    <value>Card No</value>
+  </data>
+  <data name="CustomNo" xml:space="preserve">
+    <value>Custom No</value>
+  </data>
+  <data name="FingerprintDetail" xml:space="preserve">
+    <value>Fingerprint detail</value>
+  </data>
+  <data name="FingerprintIndex" xml:space="preserve">
+    <value>Fingerprint Index</value>
   </data>
 </root>
