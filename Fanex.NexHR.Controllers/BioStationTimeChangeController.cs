@@ -25,6 +25,7 @@
         {
             var viewModel = new BioStationTimeChangeViewModel
             {
+                From = DateTime.Now.AddMonths(-1),
                 To = DateTime.Now
             };
 
