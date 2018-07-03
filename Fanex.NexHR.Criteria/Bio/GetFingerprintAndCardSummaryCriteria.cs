@@ -13,6 +13,8 @@
         [SpParam(Ignored = true)]
         public FingerprintScannerType? Type { get; set; }
 
+        public FingerprintScannerStatus? Status { get; set; }
+
         public override string GetSettingKey() => "Bio_GetFigerprintAndCardSummary";
 
         public override bool IsValid() => true;

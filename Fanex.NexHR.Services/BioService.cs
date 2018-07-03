@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Enums;
     using Criteria.Bio;
     using Interfaces;
     using Models.Bio;
@@ -30,40 +31,18 @@
             {
                 fingerprintAndCardSummary = _bioRepository.GetFingerprintAndCardSummary(criteria).ToList();
 
-                if (criteria.Type == Core.Enums.FingerprintScannerType.Card)
+                if (criteria.Type == FingerprintScannerType.Card)
                 {
-                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => x.Card > 0).ToList();
+                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => !string.IsNullOrEmpty(x.CardNo)).ToList();
                 }
 
-                if (criteria.Type == Core.Enums.FingerprintScannerType.Fingerprint)
+                if (criteria.Type == FingerprintScannerType.Fingerprint)
                 {
-                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => x.Fingerprint > 0).ToList();
+                    fingerprintAndCardSummary = fingerprintAndCardSummary.Where(x => x.TotalFingerprint > 0).ToList();
                 }
             }
 
             return fingerprintAndCardSummary ?? new List<FingerprintAndCardSummary>();
-        }
-
-        public IList<Fingerprint> GetFingerprintDetailByEmployeeId(GetFingerprintDetailByEmployeeIdCriteria criteria)
-        {
-            var fingers = new List<Fingerprint>();
-            if (criteria != null && criteria.IsValid())
-            {
-                fingers = _bioRepository.GetFingerprintDetailByEmpId(criteria).ToList();
-            }
-
-            return fingers;
-        }
-
-        public IList<Card> GetCardDetailByEmployeeId(GetCardDetailByEmployeeIdCriteria criteria)
-        {
-            IList<Card> fingers = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                fingers = _bioRepository.GetCardDetailByEmpId(criteria).ToList();
-            }
-
-            return fingers;
         }
 
         public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)

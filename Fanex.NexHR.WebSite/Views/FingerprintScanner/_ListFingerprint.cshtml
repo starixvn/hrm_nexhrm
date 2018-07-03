@@ -10,8 +10,9 @@
             <th>@Labels.FullName</th>
             <th>@Labels.Team</th>
             <th>@Labels.Fingerprint</th>
-            <th>@Labels.Card</th>
+            <th>@Labels.CardNo</th>
             <th>@Labels.Warning</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -31,9 +32,9 @@
                     <td class="align-left">@item.Employee.FullName</td>
                     <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
                     <td>
-                        @if (@item.Fingerprint > 0)
+                        @if (@item.TotalFingerprint > 0)
                         {
-                            @Html.ActionLink(@item.Fingerprint.ToString(), "Fingerprint", new { @empId = @item.Employee.Id })
+                            @item.TotalFingerprint;
                         }
                         else
                         {
@@ -41,14 +42,11 @@
                         }
                     </td>
                     <td>
-                        @if (@item.Card > 0)
-                        {
-                            @Html.ActionLink(@item.Card.ToString(), "Card", new { @empId = @item.Employee.Id })
+                        @{
+                            var displayCardNo = !string.IsNullOrEmpty(item.CardNo) ? item.CardNo : "-";
                         }
-                        else
-                        {
-                            <span>-</span>
-                        }
+
+                        @displayCardNo
                     </td>
                     <td>
                         @if (item.IsWarning)
@@ -56,13 +54,25 @@
                             <i class="alert mdi-alert-warning deep-orange-text"></i>
                         }
                     </td>
+                    <td>
+                        @{
+                            var className = item.IsWarning ? "c-pending" : "c-approve";
+                            var status = item.IsWarning ? FingerprintScannerStatus.Pending.ToString()
+                                                    : FingerprintScannerStatus.Approve.ToString();
+                        }
+                        <a href="javascript:;" class="@status.ToLowerInvariant() tooltip @className"
+                           data-employeeId="@item.Employee.Id"
+                           data-bioUserId="@item.BioUserId">
+                            @status
+                        </a>
+                    </td>
                 </tr>
-            }
+                            }
         </tbody>
 
-                }
-                else
-                {
-                    @RazorHelper.DisplayNoInformation(colspan: 14)
-                }
+                            }
+                            else
+                            {
+                                @RazorHelper.DisplayNoInformation(colspan: 14)
+                            }
 </table>

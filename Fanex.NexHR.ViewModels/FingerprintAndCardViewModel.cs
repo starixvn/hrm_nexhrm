@@ -14,6 +14,8 @@
 
         public FingerprintScannerType? Type { get; set; }
 
+        public FingerprintScannerStatus? Status { get; set; }
+
         public IList<Team> Teams { get; set; }
     }
 }

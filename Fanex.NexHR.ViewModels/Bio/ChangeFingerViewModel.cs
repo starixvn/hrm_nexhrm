@@ -12,6 +12,6 @@
 
         public int TemplateIndex { get; set; }
 
-        public FingerprintScannerAction Status { get; set; }
+        public FingerprintScannerStatus Status { get; set; }
     }
 }

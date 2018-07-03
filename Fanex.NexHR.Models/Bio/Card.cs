@@ -19,6 +19,6 @@
 
         public DateTime RegisterDate { get; set; }
 
-        public FingerprintScannerAction Status { get; set; }
+        public FingerprintScannerStatus Status { get; set; }
     }
 }

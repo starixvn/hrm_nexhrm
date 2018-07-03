@@ -10,6 +10,6 @@ namespace Fanex.NexHR.Models.Bio
 
         public int Index { get; set; }
 
-        public FingerprintScannerAction Status { get; set; }
+        public FingerprintScannerStatus Status { get; set; }
     }
 }

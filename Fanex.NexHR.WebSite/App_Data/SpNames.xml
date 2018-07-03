@@ -332,16 +332,7 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="BioFingerprint_Get" SpName="BioFingerprint_Get" DbName="nexhr" Plain="1">
-      <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="1"></Setting>
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
-    <Setting Key="BioCard_Get" SpName="BioCard_Get" DbName="nexhr" Plain="1">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
-    <Setting Key="Bio_UpdateFingerprintStatus" SpName="Bio_UpdateFingerprintStatus" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_UpdateCardStatus" SpName="Bio_UpdateCardStatus" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="1"></Setting>
   </Function>
 </Functions>

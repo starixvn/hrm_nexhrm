@@ -61,11 +61,8 @@
     <Compile Include="Bio\GetBioDeviceCriteria.cs" />
     <Compile Include="Bio\GetBioDevicesCriteria.cs" />
     <Compile Include="Bio\GetBioTimeChangeCriteria.cs" />
-    <Compile Include="Bio\GetCardDetailByEmployeeIdCriteria.cs" />
     <Compile Include="Bio\GetFingerprintAndCardSummaryCriteria.cs" />
-    <Compile Include="Bio\GetFingerprintDetailByEmployeeIdCriteria.cs" />
-    <Compile Include="Bio\UpdateCardStatusCriteria.cs" />
-    <Compile Include="Bio\UpdateFingerprintStatusCriteria.cs" />
+    <Compile Include="Bio\UpdateFingerprintAndCardStatusCriteria.cs" />
     <Compile Include="Calendar\GetLeaveScheduleCriteria.cs" />
     <Compile Include="Calendar\UpdateEmployeeShiftDateCriteria.cs" />
     <Compile Include="CompanyEvent\GetEventByIdCriteria.cs" />

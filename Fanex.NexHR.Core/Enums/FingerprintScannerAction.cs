@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public enum FingerprintScannerAction
+    public enum FingerprintScannerStatus
     {
         [Display(Name = "Pending")]
         Pending = 0,

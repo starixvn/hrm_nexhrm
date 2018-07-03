@@ -44,7 +44,8 @@
             {
                 EmployeeId = viewModel.EmployeeId,
                 GroupId = viewModel.TeamId,
-                Type = viewModel.Type
+                Type = viewModel.Type,
+                Status = viewModel.Status
             };
 
             var listFingerprintData = _bioService.GetFingerprintAndCardSummary(criteria);
@@ -52,47 +53,13 @@
             return PartialView("_ListFingerprint", listFingerprintData);
         }
 
-        public ActionResult Fingerprint(int empId)
-        {
-            var criteria = new GetFingerprintDetailByEmployeeIdCriteria { EmpId = empId };
-
-            var fingers = _bioService.GetFingerprintDetailByEmployeeId(criteria);
-
-            return View(fingers);
-        }
-
-        public ActionResult Card(int empId)
-        {
-            var criteria = new GetCardDetailByEmployeeIdCriteria { EmpId = empId };
-
-            var fingers = _bioService.GetCardDetailByEmployeeId(criteria);
-
-            return View(fingers);
-        }
-
         [HttpPost]
-        public ActionResult ChangeFingerStatus(int employeeId, int bioUserId, int index, FingerprintScannerAction status)
+        public ActionResult ChangeStatus(int employeeId, int bioUserId, FingerprintScannerStatus status)
         {
-            var criteria = new UpdateFingerprintStatusCriteria
+            var criteria = new UpdateFingerprintAndCardStatusCriteria
             {
                 EmployeeId = employeeId,
                 BioUserId = bioUserId,
-                FingerIndex = index,
-                Status = status,
-                UpdatedBy = CurrentUser.Id
-            };
-
-            var commandResult = _commandService.Update(criteria);
-
-            return Json(new { commandResult });
-        }
-
-        public ActionResult ChangeCardStatus(int employeeId, int cardId, FingerprintScannerAction status)
-        {
-            var criteria = new UpdateCardStatusCriteria
-            {
-                EmployeeId = employeeId,
-                CardId = cardId,
                 Status = status,
                 UpdatedBy = CurrentUser.Id
             };
