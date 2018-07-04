@@ -421,6 +421,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bio Station.
+        /// </summary>
+        public static string BioStation {
+            get {
+                return ResourceManager.GetString("BioStation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bio Station Management.
         /// </summary>
         public static string BioStationManagement {

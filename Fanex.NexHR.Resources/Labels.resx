@@ -1506,4 +1506,7 @@
   <data name="RegisterDate" xml:space="preserve">
     <value>Register Date</value>
   </data>
+  <data name="BioStation" xml:space="preserve">
+    <value>Bio Station</value>
+  </data>
 </root>
