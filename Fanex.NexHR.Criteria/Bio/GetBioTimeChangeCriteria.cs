@@ -5,27 +5,27 @@
 
     public class GetBioTimeChangeCriteria : CriteriaBase
     {
-        public DateTime? From { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime? To { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public override string GetSettingKey() => "BioStationTimeChange_Get";
 
         public override bool IsValid()
         {
-            if (From == null)
+            if (FromDate == null)
             {
                 return true;
             }
 
-            if (To == null)
+            if (ToDate == null)
             {
                 return true;
             }
 
-            if (From != null && To != null)
+            if (FromDate != null && ToDate != null)
             {
-                return From <= To;
+                return FromDate <= ToDate;
             }
 
             return false;

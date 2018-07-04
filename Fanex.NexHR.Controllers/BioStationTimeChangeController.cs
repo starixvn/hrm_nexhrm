@@ -36,8 +36,8 @@
         {
             var criteria = new GetBioTimeChangeCriteria
             {
-                From = viewModel.From,
-                To = viewModel.To
+                FromDate = viewModel.From,
+                ToDate = viewModel.To
             };
 
             var timeChanges = bioService.GetBioTimeChanges(criteria);
