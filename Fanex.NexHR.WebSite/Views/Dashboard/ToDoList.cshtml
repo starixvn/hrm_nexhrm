@@ -1,6 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @model ToDoViewModel
-@if ((Model.MissingCheckInOutList.Count == 0) && (Model.PendingRequestsList.Count == 0) && Model.InProgressTasks.Count == 0)
+@if ((Model.MissingCheckInOutList.Count == 0) && (Model.PendingRequestsList.Count == 0) && (Model.InProgressTasks.Count == 0) && Model.ForgotLogtimeDates.Count == 0)
 {
     <p class="green-border">
         <span class="left-align">
@@ -8,6 +8,7 @@
         </span>
     </p>
 }
+
 @foreach (var item in Model.MissingCheckInOutList)
 {
     switch (item.MissingType)
@@ -32,6 +33,7 @@
             break;
     }
 }
+
 @foreach (var item in Model.PendingRequestsList)
 {
     if (item.IsAllowUpdateStatus)
@@ -103,9 +105,9 @@
                 <i class="mdi mdi-clock logtime-icon right" title="Log time" onclick="getLogtimeDialog(@issue.IssueId)"></i>
             }
         </p>
-    }
+                    }
 
-}
+                }
 
 @if (Model.ForgotLogtimeDates.Count > 0)
 {
