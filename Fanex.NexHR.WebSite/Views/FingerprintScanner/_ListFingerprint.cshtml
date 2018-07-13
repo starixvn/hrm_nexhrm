@@ -24,7 +24,7 @@
             @foreach (FingerprintAndCardSummary item in Model)
             {
                 index++;
-                var warningClass = item.IsWarning ? "bio-warning" : "";
+                var warningClass = item.IsWarning ? "warning" : "";
                 <tr class="@warningClass">
                     <td>@index</td>
                     <td>@item.Employee.Code</td>

@@ -118,9 +118,6 @@ main {
   color: #f9a234;
   font-size: 1.5rem; }
 
-.bio-warning {
-  background-color: antiquewhite !important; }
-
 #legendInfo {
   display: inline-block;
   vertical-align: middle;
@@ -1116,6 +1113,9 @@ input#fileName::-webkit-file-upload-button {
   background: #f2f2c2; }
   .table.table-custom tbody tr.row-divider td {
     text-align: left; }
+
+.table.table-custom tbody tr.warning {
+  background: #f2f2c2; }
 
 .table.table-custom tbody tr.row-selected {
   background: #ffff8d; }
