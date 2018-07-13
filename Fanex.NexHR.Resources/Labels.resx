@@ -1509,4 +1509,7 @@
   <data name="BioStation" xml:space="preserve">
     <value>Bio Station</value>
   </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
 </root>

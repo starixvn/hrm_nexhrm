@@ -11,7 +11,6 @@
             <th>@Labels.Team</th>
             <th>@Labels.Fingerprint</th>
             <th>@Labels.CardNo</th>
-            <th>@Labels.Warning</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -23,9 +22,10 @@
                 var index = 0;
             }
             @foreach (FingerprintAndCardSummary item in Model)
-                {
-                    index++;
-                <tr>
+            {
+                index++;
+                var warningClass = item.IsWarning ? "bio-warning" : "";
+                <tr class="@warningClass">
                     <td>@index</td>
                     <td>@item.Employee.Code</td>
                     <td>@item.Employee.NickName</td>
@@ -48,12 +48,7 @@
 
                         @displayCardNo
                     </td>
-                    <td>
-                        @if (item.IsWarning)
-                        {
-                            <i class="alert mdi-alert-warning deep-orange-text"></i>
-                        }
-                    </td>
+                    
                     <td>
                         @{
                             var className = item.IsWarning ? "c-pending" : "c-approve";

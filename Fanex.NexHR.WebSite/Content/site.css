@@ -118,6 +118,9 @@ main {
   color: #f9a234;
   font-size: 1.5rem; }
 
+.bio-warning {
+  background-color: antiquewhite !important; }
+
 #legendInfo {
   display: inline-block;
   vertical-align: middle;
