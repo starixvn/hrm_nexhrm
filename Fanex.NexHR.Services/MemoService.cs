@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
@@ -46,7 +47,7 @@
                 memo.AttachFile = attachFile;
 
                 string[] files = memo.AttachFile.Split(';');
-                
+
                 StringBuilder content = new StringBuilder();
                 foreach (string file in files)
                 {
@@ -72,7 +73,7 @@
             //// send email(s)
             var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/MemoNotification.cshtml"));
 
-            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId);
+            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, DateTime.Now.Year.ToString());
             _emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 groupGo,
