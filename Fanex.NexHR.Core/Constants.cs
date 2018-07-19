@@ -37,5 +37,7 @@ namespace Fanex.NexHR.Core
         public const int AnnualLeaveType = 2;
         public const int UnplannedAnnualLeaveType = 30;
         public const int UnpaidLeaveType = 26;
+
+        public const string NewLine = "\n\n";
     }
 }

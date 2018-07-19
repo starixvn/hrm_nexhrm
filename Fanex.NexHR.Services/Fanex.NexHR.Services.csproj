@@ -147,6 +147,7 @@
     <Compile Include="Interfaces\IExtensionNoService.cs" />
     <Compile Include="Interfaces\IJobTitleService.cs" />
     <Compile Include="Interfaces\ILateInEarlyOutService.cs" />
+    <Compile Include="Interfaces\INexbotService.cs" />
     <Compile Include="Interfaces\IRedmineService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\IOvertimeService.cs">
@@ -171,6 +172,7 @@
     <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="MemoService.cs" />
     <Compile Include="ExportService.cs" />
+    <Compile Include="NexbotService.cs" />
     <Compile Include="NotificationService.cs" />
     <Compile Include="OvertimeService.cs" />
     <Compile Include="PostnatalService.cs" />

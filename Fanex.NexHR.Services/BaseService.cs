@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data.Repository;
 
     public class BaseService
@@ -23,6 +24,16 @@
             if (criteria != null && criteria.IsValid())
             {
                 return _dynamicRepository.Fetch<T>(criteria).ToList();
+            }
+
+            return new List<T>();
+        }
+
+        public virtual async Task<IEnumerable<T>> GetDataAsync<T>(ICriteria criteria)
+        {
+            if (criteria != null && criteria.IsValid())
+            {
+                return await _dynamicRepository.FetchAsync<T>(criteria).ConfigureAwait(false);
             }
 
             return new List<T>();

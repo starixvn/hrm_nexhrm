@@ -10,6 +10,16 @@
 
         public string CardNo { get; set; }
 
-        public bool IsWarning { get; set; }
+        public bool IsFingerprintWarning { get; set; }
+
+        public bool IsCardWarning { get; set; }
+
+        public bool IsWarning
+        {
+            get
+            {
+                return IsFingerprintWarning || IsCardWarning;
+            }
+        }
     }
 }

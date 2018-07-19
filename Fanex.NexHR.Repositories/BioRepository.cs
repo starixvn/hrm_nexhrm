@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -10,12 +11,19 @@
 
     public class BioRepository : BaseRepository, IBioRepository
     {
-
         public IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<BioTimeChange>(criteria.GetSpParams());
+            }
+        }
+
+        public async Task<IEnumerable<BioTimeChange>> GetAllBioTimeChangesAsync(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return await db.QueryAsync<BioTimeChange>(criteria.GetSpParams()).ConfigureAwait(false);
             }
         }
 
@@ -38,11 +46,11 @@
             }
         }
 
-        public IEnumerable<Fingerprint> GetFingerprintDetailByEmpId(ICriteria criteria)
+        public async Task<IEnumerable<FingerprintAndCardSummary>> GetFingerprintAndCardSummaryAsync(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Fingerprint, Employee, Team, Fingerprint>(
+                var entityList = await db.QueryAsync<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
                         (f, e, g) =>
                         {
                             f.Employee = e;
@@ -50,27 +58,7 @@
                             return f;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams())
-                    .ToList();
-
-                return entityList;
-            }
-        }
-
-        public IEnumerable<Card> GetCardDetailByEmpId(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                var entityList = db.Query<Card, Employee, Team, Card>(
-                        (c, e, g) =>
-                        {
-                            c.Employee = e;
-                            e.Team = g;
-                            return c;
-                        },
-                        splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams())
-                    .ToList();
+                        parameterSet: criteria.GetSpParams()).ConfigureAwait(false);
 
                 return entityList;
             }

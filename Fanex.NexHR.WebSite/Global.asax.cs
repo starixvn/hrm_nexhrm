@@ -9,15 +9,15 @@
 
 namespace Fanex.NexHR.WebSite
 {
-    using Data;
-    using Data.OldConnectionStringProvider;
-    using Logging;
-    using Resources;
     using System;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Data;
+    using Data.OldConnectionStringProvider;
+    using Logging;
+    using Resources;
 
     public class MvcApplication : HttpApplication
     {
@@ -30,6 +30,7 @@ namespace Fanex.NexHR.WebSite
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles();
+
             DbSettingProviderManager
                 .StartNewSession()
                 .Use(new OldConnectionStringProvider())

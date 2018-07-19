@@ -2,13 +2,13 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.NexHR.Criteria.Bio;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Bio;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.Bio;
+    using Criteria.Bio;
+    using Criteria.LookupData;
+    using Models;
+    using Models.Bio;
+    using Services;
+    using Services.Interfaces;
+    using ViewModels.Bio;
 
     [Authorize(Roles = "HR")]
     public class BioStationManagementController : BaseController
