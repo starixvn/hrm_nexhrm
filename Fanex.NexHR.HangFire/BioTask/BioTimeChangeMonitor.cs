@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Threading.Tasks;
     using Core;
@@ -12,18 +13,18 @@
     using Services;
     using Services.Interfaces;
 
-    public class BioTimeChangeMonitor
+    public class BioTimeChangeMonitor : INexbotEvent
     {
-        private readonly BaseService baseService;
         private readonly INexbotService nexbotService;
         private readonly IBioService bioService;
 
         private readonly DateTime today = DateTime.Now;
-        private readonly int intervalMinute = 15;
+
+        private readonly int intervalMinute = ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"] != null ?
+                                                int.Parse(ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"]) : 30;
 
         public BioTimeChangeMonitor()
         {
-            baseService = new BaseService();
             nexbotService = new NexbotService();
             bioService = new BioService();
         }
@@ -53,7 +54,7 @@
 
         private string GenerateMesssage(IEnumerable<BioTimeChange> timeChanges)
         {
-            var message = $"Hi All {Constants.NewLine}";
+            var message = $"Hi All, {Constants.NewLine}";
             message += $"There is(are) {timeChanges.Count()} time changes alert today ({today.ToString("dd MMM, yyyy")}): {Constants.NewLine} ";
             foreach (var timeChange in timeChanges)
             {
@@ -67,7 +68,7 @@
         {
             var criteria = new GetBioTimeChangeCriteria
             {
-                FromDate = new DateTime(2018, 6, 1),
+                FromDate = today,
                 ToDate = today
             };
 

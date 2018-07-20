@@ -73,6 +73,9 @@
       <HintPath>..\packages\Hangfire.SqlServer.1.6.19\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -241,6 +244,8 @@
     <Compile Include="BioTask\BioDeviceMonitor.cs" />
     <Compile Include="BioTask\BioFingerScannerMonitor.cs" />
     <Compile Include="BioTask\BioTimeChangeMonitor.cs" />
+    <Compile Include="BioTask\INexbotEvent.cs" />
+    <Compile Include="EventsInitial.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -268,6 +273,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Hangfire.pubxml" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -325,10 +332,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoJobs\AutoJobs.csproj">
-      <Project>{E0F23F85-57F1-408B-8DE7-2C47516BC84B}</Project>
-      <Name>AutoJobs</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">
       <Project>{2493CFDA-E539-4F5C-BE9D-4AE823E42473}</Project>
       <Name>Fanex.NexHR.Core</Name>

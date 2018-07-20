@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.HangFire.BioTask
 {
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Threading.Tasks;
     using Core;
@@ -11,16 +12,16 @@
     using Services;
     using Services.Interfaces;
 
-    public class BioFingerScannerMonitor
+    public class BioFingerScannerMonitor : INexbotEvent
     {
-        private readonly BaseService baseService;
         private readonly INexbotService nexbotService;
         private readonly IBioService bioService;
-        private readonly int intervalMinute = 15;
+
+        private readonly int intervalMinute = ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"] != null ?
+                                                int.Parse(ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"]) : 30;
 
         public BioFingerScannerMonitor()
         {
-            baseService = new BaseService();
             nexbotService = new NexbotService();
             bioService = new BioService();
         }
@@ -50,7 +51,7 @@
 
         private string GenerateMesssage(IEnumerable<FingerprintAndCardSummary> members)
         {
-            var message = $"Hi All {Constants.NewLine}";
+            var message = $"Hi All, {Constants.NewLine}";
             message += $"There are {members.Count()} member(s) need approved fingerprint or card: {Constants.NewLine}";
             foreach (var member in members)
             {

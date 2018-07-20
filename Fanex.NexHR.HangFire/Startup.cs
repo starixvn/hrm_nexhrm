@@ -17,6 +17,9 @@ namespace Fanex.NexHR.HangFire
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
+
+            var initEvents = new EventsInitial();
+            initEvents.Initialize();
         }
     }
 }

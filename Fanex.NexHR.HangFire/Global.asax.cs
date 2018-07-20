@@ -10,7 +10,7 @@
     using System.Web.Routing;
     using Data.OldConnectionStringProvider;
     using Fanex.Data;
-    using Logging;
+    using Fanex.Logging;
     using Resources;
 
     public class MvcApplication : HttpApplication
