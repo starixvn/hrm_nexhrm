@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Core.Enums
 {
-    public enum CategoryMessageType
+    public enum HangfireCategoryMessageType
     {
         BioDevice = 1,
 

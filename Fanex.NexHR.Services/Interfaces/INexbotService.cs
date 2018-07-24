@@ -8,6 +8,6 @@
     {
         Task SendMessage(string conversationId, string message);
 
-        Task<IEnumerable<string>> GetRegisteredConversation(CategoryMessageType categoryId);
+        Task<IEnumerable<string>> GetRegisteredConversation(HangfireCategoryMessageType categoryId);
     }
 }

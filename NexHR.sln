@@ -52,7 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.HangFire", "Fanex.NexHR.HangFire\Fanex.NexHR.HangFire.csproj", "{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NexHR.NexBot", "Fanex.NexHR.NexBot\Fanex.NexHR.NexBot.csproj", "{A91F1F0A-89B1-4847-AFBC-327211A74B53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,18 +175,18 @@ Global
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082}.Release|x86.ActiveCfg = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Debug|x86.Build.0 = Debug|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|x86.ActiveCfg = Release|Any CPU
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C}.Release|x86.Build.0 = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Debug|x86.Build.0 = Debug|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|x86.ActiveCfg = Release|Any CPU
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,10 +203,10 @@ Global
 		{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7} = {5F490EB2-2747-4165-A0D0-6F920A02A7F0}
 		{E0F23F85-57F1-408B-8DE7-2C47516BC84B} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 		{A06A4E0F-8FA4-4A74-819D-47BCB0099082} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
-		{B891126F-06DF-4DFE-8BB8-41AAC2B9C66C} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
+		{A91F1F0A-89B1-4847-AFBC-327211A74B53} = {4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35
 	EndGlobalSection
 EndGlobal

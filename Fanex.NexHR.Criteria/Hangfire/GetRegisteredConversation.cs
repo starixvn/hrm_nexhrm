@@ -5,7 +5,7 @@
 
     public class GetRegisteredConversation : CriteriaBase
     {
-        public CategoryMessageType CategoryId { get; set; }
+        public HangfireCategoryMessageType CategoryId { get; set; }
 
         public override string GetSettingKey() => "NexBot_GetRegisteredConversation";
 

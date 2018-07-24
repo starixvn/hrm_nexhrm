@@ -24,7 +24,7 @@
             await ForwardToBot(message, conversationId, token).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<string>> GetRegisteredConversation(CategoryMessageType categoryId)
+        public async Task<IEnumerable<string>> GetRegisteredConversation(HangfireCategoryMessageType categoryId)
         {
             return await GetDataAsync<string>(
                 new GetRegisteredConversation

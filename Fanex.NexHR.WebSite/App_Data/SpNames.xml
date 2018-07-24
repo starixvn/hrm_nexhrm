@@ -325,14 +325,21 @@
     <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
   </Function>
   <Function Name="BioStation">
-    <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="1">
+    <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="1"></Setting>
-    <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
+  </Function>
+  <Function Name="NexBot">
+    <Setting Key="NexBot_GetRegisteredConversation" SpName="NexBot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="NexBot_GetAllEmployeeConversation" SpName="NexBot_GetAllEmployeeConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0">
+      <Mapping DataField="Type" ObjectProperty="MissingType" />
+    </Setting>
   </Function>
 </Functions>
