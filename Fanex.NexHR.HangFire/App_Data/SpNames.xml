@@ -11,5 +11,9 @@
   </Function>
   <Function Name="NexBot">
     <Setting Key="NexBot_GetRegisteredConversation" SpName="NexBot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="NexBot_GetAllEmployeeConversation" SpName="NexBot_GetAllEmployeeConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0">
+      <Mapping DataField="Type" ObjectProperty="MissingType" />
+    </Setting>
   </Function>
 </Functions>

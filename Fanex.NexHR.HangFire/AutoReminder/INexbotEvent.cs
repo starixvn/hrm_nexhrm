@@ -7,6 +7,6 @@
     {
         void Initialize();
 
-        Task SendMessageToConversation(HangfireCategoryMessageType categoryId);
+        Task SendMessageToConversation(CategoryMessageType categoryId);
     }
 }

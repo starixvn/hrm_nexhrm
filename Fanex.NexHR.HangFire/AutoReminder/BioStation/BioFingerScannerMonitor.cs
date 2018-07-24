@@ -17,8 +17,8 @@
         private readonly INexbotService nexbotService;
         private readonly IBioService bioService;
 
-        private readonly int intervalMinute = ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"] != null ?
-                                                int.Parse(ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"]) : 30;
+        private readonly int intervalMinute = ConfigurationManager.AppSettings["BioMonitorIntervalMinute"] != null ?
+                                                int.Parse(ConfigurationManager.AppSettings["BioMonitorIntervalMinute"]) : 30;
 
         public BioFingerScannerMonitor()
         {
@@ -28,10 +28,10 @@
 
         public void Initialize()
         {
-            RecurringJob.AddOrUpdate(() => SendMessageToConversation(HangfireCategoryMessageType.BioFingerprintAndCard), Cron.MinuteInterval(intervalMinute));
+            RecurringJob.AddOrUpdate(() => SendMessageToConversation(CategoryMessageType.BioFingerprintAndCard), Cron.MinuteInterval(intervalMinute));
         }
 
-        public async Task SendMessageToConversation(HangfireCategoryMessageType categoryId)
+        public async Task SendMessageToConversation(CategoryMessageType categoryId)
         {
             var members = await GetWarningMembers();
             if (members.Any())
@@ -52,7 +52,7 @@
         private string GenerateMesssage(IEnumerable<FingerprintAndCardSummary> members)
         {
             var message = $"Hi All, {Constants.NewLine}";
-            message += $"There are {members.Count()} member(s) need approved fingerprint or card: {Constants.NewLine}";
+            message += $"There is (are) {members.Count()} member(s) need approved fingerprint or card: {Constants.NewLine}";
             foreach (var member in members)
             {
                 string typeToApprove = member.IsFingerprintWarning ? "**Fingerprint**" : string.Empty;
@@ -62,7 +62,7 @@
                 message += $"_ - {member.Employee.FullName} ({member.Employee.NickName}) need approved {typeToApprove}. _ {Constants.NewLine}";
             }
             var hrmLink = "https://hrm.nexcel.vn/fingerprintscanner";
-            message += $"Please take a look at {hrmLink} to review this. {Constants.NewLine} Thanks";
+            message += $"Please take a look at {hrmLink} to review this. {Constants.NewLine}Thanks";
             return message;
         }
 

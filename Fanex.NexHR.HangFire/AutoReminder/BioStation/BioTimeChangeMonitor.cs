@@ -20,8 +20,8 @@
 
         private readonly DateTime today = DateTime.Now;
 
-        private readonly int intervalMinute = ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"] != null ?
-                                                int.Parse(ConfigurationManager.AppSettings["IntervalMiniteToSendMessage"]) : 30;
+        private readonly int intervalMinute = ConfigurationManager.AppSettings["BioMonitorIntervalMinute"] != null ?
+                                                int.Parse(ConfigurationManager.AppSettings["BioMonitorIntervalMinute"]) : 30;
 
         public BioTimeChangeMonitor()
         {
@@ -31,10 +31,10 @@
 
         public void Initialize()
         {
-            RecurringJob.AddOrUpdate(() => SendMessageToConversation(HangfireCategoryMessageType.BioTimeChange), Cron.MinuteInterval(intervalMinute));
+            RecurringJob.AddOrUpdate(() => SendMessageToConversation(CategoryMessageType.BioTimeChange), Cron.MinuteInterval(intervalMinute));
         }
 
-        public async Task SendMessageToConversation(HangfireCategoryMessageType categoryId)
+        public async Task SendMessageToConversation(CategoryMessageType categoryId)
         {
             var timeChanges = await GetWarningTimeChange();
             if (timeChanges.Any())
@@ -55,12 +55,12 @@
         private string GenerateMesssage(IEnumerable<BioTimeChange> timeChanges)
         {
             var message = $"Hi All, {Constants.NewLine}";
-            message += $"There is(are) {timeChanges.Count()} time changes alert today ({today.ToString("dd MMM, yyyy")}): {Constants.NewLine} ";
+            message += $"There is (are) {timeChanges.Count()} time changes alert today ({today.ToString("dd MMM, yyyy")}): {Constants.NewLine} ";
             foreach (var timeChange in timeChanges)
             {
                 message += $"_- Device Id: {timeChange.DeviceId}. Device Name: {timeChange.DeviceName}. Time Changed: {timeChange.TimeChange.ToShortFormatedDate()} _ {Constants.NewLine}";
             }
-            message += $"Please take a look review this. {Constants.NewLine} Thanks";
+            message += $"Please take a look review this. {Constants.NewLine}Thanks";
             return message;
         }
 
@@ -68,7 +68,7 @@
         {
             var criteria = new GetBioTimeChangeCriteria
             {
-                FromDate = today,
+                FromDate = new DateTime(2018, 6, 1),
                 ToDate = today
             };
 

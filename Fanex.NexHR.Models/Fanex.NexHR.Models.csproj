@@ -122,6 +122,7 @@
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
     <Compile Include="EmployeeSetting.cs" />
     <Compile Include="Bio\FingerprintAndCardSummary.cs" />
+    <Compile Include="Hangfire\EmployeeConversation.cs" />
     <Compile Include="NexBot\NexBotConfiguration.cs" />
     <Compile Include="NexBot\Token.cs" />
     <Compile Include="RedmineAPI\LogTimeIssue.cs" />
