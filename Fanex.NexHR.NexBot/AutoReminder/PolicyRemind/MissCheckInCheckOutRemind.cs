@@ -33,7 +33,7 @@
 
         public void Initialize()
         {
-            RecurringJob.AddOrUpdate(() => SendMessageToConversation(HangfireCategoryMessageType.MissingCheckInOut), CronExpression);
+            RecurringJob.AddOrUpdate(HangfireCategoryMessageType.MissingCheckInOut.GetDisplayName(), () => SendMessageToConversation(HangfireCategoryMessageType.MissingCheckInOut), CronExpression);
         }
 
         public async Task SendMessageToConversation(HangfireCategoryMessageType categoryId)

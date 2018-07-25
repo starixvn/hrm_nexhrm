@@ -22,8 +22,7 @@
 
         private readonly DateTime today = DateTime.Now;
 
-        private readonly int intervalMinute = ConfigurationManager.AppSettings["BioMonitorIntervalMinute"] != null ?
-                                                int.Parse(ConfigurationManager.AppSettings["BioMonitorIntervalMinute"]) : 30;
+        private readonly string intervalCronExpression = ConfigurationManager.AppSettings["BioMachineCronExpression"] ?? "0 0/12 * * 1-5";
 
         public BioTimeChangeMonitor()
         {
@@ -33,7 +32,9 @@
 
         public void Initialize()
         {
-            RecurringJob.AddOrUpdate(() => SendMessageToConversation(HangfireCategoryMessageType.BioTimeChange), Cron.MinuteInterval(intervalMinute));
+            RecurringJob.AddOrUpdate(HangfireCategoryMessageType.BioTimeChange.GetDisplayName(),
+                () => SendMessageToConversation(HangfireCategoryMessageType.BioTimeChange),
+                intervalCronExpression);
         }
 
         public async Task SendMessageToConversation(HangfireCategoryMessageType categoryId)

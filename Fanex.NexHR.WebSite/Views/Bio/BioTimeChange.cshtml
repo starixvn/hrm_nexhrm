@@ -1,0 +1,53 @@
+﻿@model Fanex.NexHR.ViewModels.Bio.BioStationTimeChangeViewModel
+
+@{
+    ViewBag.Title = Labels.BioStationTimeChanges;
+}
+
+@section js
+{
+    @Scripts.Render("~/bundles/biostationtimechangejs")
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @using (Html.BeginForm("GetBioStationTimeChange", "Bio", FormMethod.Post, new { @class = "form-filter" }))
+                        {
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.From, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.From, minDate: new DateTime(2016, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--s m-r--s">
+                                        @Html.LabelFor(model => model.To, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.To, minDate: new DateTime(2016, 01, 01), maxDate: DateTime.Now)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="table-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

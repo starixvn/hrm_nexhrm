@@ -37,7 +37,7 @@
         };
 
         $.ajax({
-            url: _global.root + "FingerprintScanner/ChangeStatus",
+            url: _global.root + "Bio/ChangeFingerprintStatus",
             method: "post",
             data: data,
             success: function (response) {

@@ -1,0 +1,43 @@
+﻿@using Fanex.NexHR.Models.Bio
+@model IList<BioTimeChange>
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.DeviceId</th>
+            <th>@Labels.DeviceName</th>
+            <th>@Labels.DisplayName</th>
+            <th>@Labels.TimeChanged</th>
+            <th>@Labels.PreviousLoggedTimeOnOtherDevice</th>
+            <th>@Labels.NextLoggedTimeOnOtherDevice</th>
+            <th>@Labels.Alert</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (BioTimeChange bio in Model)
+            {
+                <tr>
+                    <td class="align-left">@bio.DeviceId</td>
+                    <td class="align-left">@bio.DeviceName</td>
+                    <td class="align-left">@bio.DisplayName</td>
+                    <td>@bio.TimeChange.ToShortFormatedDate()</td>
+                    <td>@bio.PreviousLogTime.ToShortFormatedDate()</td>
+                    <td>@bio.NextLogTime.ToShortFormatedDate()</td>
+                    <td>
+                        @if (bio.Warning)
+                    {
+                            <i class="alert mdi-alert-warning deep-orange-text"></i>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">@Messages.NoInformation</td>
+            </tr>
+        }
+    </tbody>
+</table>

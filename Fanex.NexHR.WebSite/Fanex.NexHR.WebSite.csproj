@@ -695,8 +695,8 @@
     <Content Include="Scripts\Views\AnnualLeave\index.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.conversion.detail.js" />
     <Content Include="Scripts\Views\AnnualLeave\leave.deduction.detail.js" />
-    <Content Include="Scripts\Views\BioStationManagement\bio-management.js" />
-    <Content Include="Scripts\Views\BioStationTimeChange\biostationtimechange.js" />
+    <Content Include="Scripts\Views\Bio\bio-management.js" />
+    <Content Include="Scripts\Views\Bio\biostationtimechange.js" />
     <Content Include="Scripts\Views\Calendar\employee.leavecalendar.js" />
     <Content Include="Scripts\Views\Calendar\employee.workingcalendars.js" />
     <Content Include="Scripts\Views\Calendar\mycalendar.js" />
@@ -718,7 +718,7 @@
     <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
     <Content Include="Scripts\Views\ExtensionNo\addextensionno.js" />
     <Content Include="Scripts\Views\ExtensionNo\extensionno.js" />
-    <Content Include="Scripts\Views\FingerprintScanner\fingerprint-scanner.js" />
+    <Content Include="Scripts\Views\Bio\fingerprint-scanner.js" />
     <Content Include="Scripts\Views\fixtable.js" />
     <Content Include="Scripts\Views\Geolocationmap\geolocationmap.js" />
     <Content Include="Scripts\Views\Holiday\holiday.edit.js" />
@@ -862,13 +862,13 @@
     <Content Include="Views\Report\HeadCount.cshtml" />
     <Content Include="Views\Report\_HeadCountTable.cshtml" />
     <Content Include="Views\Dashboard\_LogtimeDialog.cshtml" />
-    <Content Include="Views\BioStationManagement\Index.cshtml" />
-    <Content Include="Views\BioStationManagement\_EditBioDevice.cshtml" />
-    <Content Include="Views\BioStationManagement\_BioDeviceRow.cshtml" />
-    <Content Include="Views\FingerprintScanner\Index.cshtml" />
-    <Content Include="Views\FingerprintScanner\_ListFingerprint.cshtml" />
-    <Content Include="Views\BioStationTimeChange\Index.cshtml" />
-    <Content Include="Views\BioStationTimeChange\_ListBioTimeChanges.cshtml" />
+    <Content Include="Views\Bio\BioDevice.cshtml" />
+    <Content Include="Views\Bio\_EditBioDevice.cshtml" />
+    <Content Include="Views\Bio\_BioDeviceRow.cshtml" />
+    <Content Include="Views\Bio\Fingerprint.cshtml" />
+    <Content Include="Views\Bio\_ListFingerprint.cshtml" />
+    <Content Include="Views\Bio\BioTimeChange.cshtml" />
+    <Content Include="Views\Bio\_ListBioTimeChanges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1048,6 +1048,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -19,7 +19,7 @@
       <siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" roles="HR" />
       <siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" roles="HR" />
       <siteMapNode title="Job Title Management" controller="jobtitle" action="index" icon="book" roles="HR" />
-      
+
       <siteMapNode title="Late In/Early Out Violation" controller="report" action="lateinearlyoutdiscipline" icon="alarm" roles="HR" />
       <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
@@ -42,9 +42,9 @@
 
     <siteMapNode title="BIO Space" roles="HR">
       <siteMapNode title="Time Record" controller="report" action="timerecord" icon="calendar-clock" roles="HR" />
-      <siteMapNode title="Bio Station Management" controller="BioStationManagement" action="Index" icon="bio" roles="HR" />
-      <siteMapNode title="Bio Station Time Change" controller="BioStationTimeChange" action="Index" icon="timer" roles="HR" />
-      <siteMapNode title="Fingerprint/Card Management" controller="FingerprintScanner" action="Index" icon="fingerprint" roles="HR" />
+      <siteMapNode title="Bio Station Management" controller="Bio" action="BioDevice" icon="bio" roles="HR" />
+      <siteMapNode title="Bio Station Time Change" controller="Bio" action="BioTimeChange" icon="timer" roles="HR" />
+      <siteMapNode title="Fingerprint/Card Management" controller="Bio" action="Fingerprint" icon="fingerprint" roles="HR" />
     </siteMapNode>
   </siteMapNode>
 </siteMap>

@@ -452,7 +452,7 @@
         private static void BuildBundleForFingerprintScanner(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/fingerprintscanner").Include(
-                 "~/Scripts/Views/FingerprintScanner/fingerprint-scanner.js",
+                 "~/Scripts/Views/Bio/fingerprint-scanner.js",
                 "~/Scripts/Views/Employee/_employee.search.in.company.js",
                 "~/Scripts/Views/fixtable.js"));
         }
@@ -568,13 +568,13 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/biostationmanagementjs").Include(
                 "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
-                "~/Scripts/Views/BioStationManagement/bio-management.js"));
+                "~/Scripts/Views/Bio/bio-management.js"));
         }
 
         private static void BuildBundleForBioStationTimeChange(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/biostationtimechangejs").Include(
-                "~/Scripts/Views/BioStationTimeChange/biostationtimechange.js"));
+                "~/Scripts/Views/Bio/biostationtimechange.js"));
         }
     }
 }

@@ -19,8 +19,7 @@
         private readonly INexbotService nexbotService;
         private readonly IBioService bioService;
 
-        private readonly int intervalMinute = ConfigurationManager.AppSettings["BioMonitorIntervalMinute"] != null ?
-                                                int.Parse(ConfigurationManager.AppSettings["BioMonitorIntervalMinute"]) : 30;
+        private readonly string intervalCronExpression = ConfigurationManager.AppSettings["BioMachineCronExpression"] ?? "0 0/12 * * 1-5";
 
         public BioFingerScannerMonitor()
         {
@@ -30,7 +29,9 @@
 
         public void Initialize()
         {
-            RecurringJob.AddOrUpdate(() => SendMessageToConversation(HangfireCategoryMessageType.BioFingerprintAndCard), Cron.MinuteInterval(intervalMinute));
+            RecurringJob.AddOrUpdate(HangfireCategoryMessageType.BioFingerprintAndCard.GetDisplayName(),
+                () => SendMessageToConversation(HangfireCategoryMessageType.BioFingerprintAndCard),
+                intervalCronExpression);
         }
 
         public async Task SendMessageToConversation(HangfireCategoryMessageType categoryId)
