@@ -62,13 +62,12 @@
         private static string GenerateMessage(IEnumerable<BioDevice> bioDevices)
         {
             StringBuilder message = new StringBuilder();
-            message.Append($"Hi All, {Constants.NewLine}");
-            message.Append($"There is (are) {bioDevices.Count()} device(s) just injected into the BIO system: {Constants.NewLine}");
+            message.Append($"Hi All, There is/are {bioDevices.Count()} device(s) injected into the BIO system: {Constants.NewLine}");
             foreach (var device in bioDevices)
             {
                 message.Append($"_ - Device Id: {device.DeviceId}. Device Name: {device.DeviceName } _ {Constants.NewLine}");
             }
-            message.Append($"Please take a look review this. {Constants.NewLine}Thanks");
+            message.Append($"Please review this. Thanks");
             return message.ToString();
         }
     }
