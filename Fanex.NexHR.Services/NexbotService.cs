@@ -5,17 +5,23 @@
     using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.Hangfire;
+    using Criteria.SkypeAccount;
     using Interfaces;
     using Models.NexBot;
+    using Models.SkypeAccount;
+    using Repositories;
+    using Repositories.Interfaces;
     using RestSharp;
 
     public class NexbotService : BaseService, INexbotService
     {
         private readonly IRestClient webClient;
+        private readonly INexbotRepository nexbotRepository;
 
         public NexbotService()
         {
             webClient = new RestClient { Encoding = Encoding.UTF8 };
+            nexbotRepository = new NexbotRepository();
         }
 
         public async Task SendMessage(string conversationId, string message)
@@ -61,6 +67,16 @@
             var response = await webClient.ExecutePostTaskAsync<Token>(request).ConfigureAwait(false);
 
             return response.Data;
+        }
+
+        public IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria)
+        {
+            if (criteria != null && criteria.IsValid())
+            {
+                return nexbotRepository.GetEmployeeSkypeAccount(criteria);
+            }
+
+            return new List<EmployeeSkypeAccount>();
         }
     }
 }

@@ -342,4 +342,13 @@
       <Mapping DataField="Type" ObjectProperty="MissingType" />
     </Setting>
   </Function>
+
+  <Function Name="Employee Skype Account Management">
+    <Setting Key="SkypeAccount_GetAllEmployee" SpName="SkypeAccount_GetAllEmployee" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="SkypeAccount_GetSuggestion" SpName="SkypeAccount_GetSuggestion" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="SkypeAccount_UpdateNickName" SpName="SkypeAccount_UpdateNickName" DbName="nexhr" Plain="0"></Setting>
+  </Function>
 </Functions>

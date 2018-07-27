@@ -1,0 +1,57 @@
+﻿@using Fanex.NexHR.Models.SkypeAccount
+@model IEnumerable<EmployeeSkypeAccount>
+
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.Team</th>
+            <th>Skype Name</th>
+            <th>Confirmed</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    @if (Model.Any())
+    {
+        <tbody>
+            @{
+                var index = 0;
+            }
+            @foreach (EmployeeSkypeAccount account in Model)
+                {
+                    index++;
+                <tr>
+                    <td>@index</td>
+                    <td>@account.Employee.NickName</td>
+                    <td class="align-left">@account.Employee.FullName</td>
+                    <td class="tooltip" title="@account.Employee.Team.Name">@account.Employee.Team.Code</td>
+                    <td class="align-left">
+                        @account.SkypeDisplayName
+                    </td>
+                    <td>
+                        @if (account.IsConfirmed)
+                        {
+                            <i class="mdi mdi-check mdi-18px green-text icon-bold"></i>
+                        }
+                    </td>
+                    <td>
+                        <a href="#">
+                            <i class="mdi mdi-border-color mdi-dark mdi-18px account-edit"
+                                data-empId="@account.Employee.Id"
+                                data-fullName="@account.Employee.FullName"
+                                data-nickName="@account.Employee.NickName"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+                }
+                else
+                {
+                    @RazorHelper.DisplayNoInformation(colspan: 14)
+                }
+</table>

@@ -159,6 +159,8 @@
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestTypeModel.cs" />
+    <Compile Include="SkypeAccount\ConversationUser.cs" />
+    <Compile Include="SkypeAccount\EmployeeSkypeAccount.cs" />
     <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Holiday\Holiday.cs" />

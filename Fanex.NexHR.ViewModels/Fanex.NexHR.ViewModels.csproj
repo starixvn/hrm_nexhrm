@@ -108,6 +108,8 @@
     <Compile Include="LateInEarlyOut\Types.cs" />
     <Compile Include="Postnatal\PostnatalViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
+    <Compile Include="SkypeAccount\SkypeAccountFilter.cs" />
+    <Compile Include="SkypeAccount\SkypeAccountViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
     <Compile Include="Overtime\OvertimeEditViewModel.cs" />
     <Compile Include="Employee\UserManagementViewModel.cs" />

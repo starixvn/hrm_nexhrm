@@ -1,0 +1,35 @@
+﻿@using Fanex.NexHR.ViewModels.SkypeAccount
+@model SkypeAccountViewModel
+
+<form id="skype-account-edit" class="form align-left">
+
+    @Html.HiddenFor(model => model.EmpId)
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.NickName)
+        </div>
+        <div class="left select--m">
+            <span>@Model.NickName</span>
+        </div>
+    </div>
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.FullName)
+        </div>
+        <div class="left select--m">
+            <span>@Model.FullName</span>
+        </div>
+    </div>
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.ConversationId)
+        </div>
+        <div class="left select--m">
+            @Html.DropDownListFor(model => model.ConversationId, Model.SkypeUserSuggestion, new { @searchable = "search here.." })
+            @Html.ValidationMessageFor(model => model.ConversationId)
+        </div>
+    </div>
+</form>

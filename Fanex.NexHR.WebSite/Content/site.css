@@ -372,6 +372,9 @@ a:active, a:focus {
 .align-left {
   text-align: left !important; }
 
+.icon-bold {
+  font-weight: bold; }
+
 .btn-submit, .btn-request, .btn-back, .btn-ok, .btn-cancel, .btn-close, .btn-export-excel, .btn-delete, .btn-signin, .btn-toDoRequest {
   padding: 0 1.5rem;
   height: 3rem;
@@ -548,6 +551,9 @@ a:active, a:focus {
     padding: 1.5rem 2rem;
     font-size: 13px; }
 
+#skype-account-dialog .dropdown-content {
+  max-height: 13.5rem; }
+
 .icon {
   background-repeat: no-repeat;
   display: inline-block;
@@ -704,6 +710,9 @@ input#fileName::-webkit-file-upload-button {
   @media (min-width: 1900px) {
     .checkBox {
       margin-top: 0; } }
+
+.mgr-b-15 {
+  margin-bottom: 15px; }
 
 .form-input .col {
   padding-right: 1.6rem; }

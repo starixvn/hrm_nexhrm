@@ -1512,4 +1512,7 @@
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
   </data>
+  <data name="SkypeName" xml:space="preserve">
+    <value>Skype Name</value>
+  </data>
 </root>
