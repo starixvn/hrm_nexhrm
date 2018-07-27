@@ -126,7 +126,7 @@
 
     function initSelectMaterial() {
         var select = $(domElement.editForm).find("select");
-        $(select).material_select("update");
+        $(select).material_select();
     }
 
     function registerEventSubmit() {

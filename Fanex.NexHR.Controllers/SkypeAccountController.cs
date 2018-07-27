@@ -68,7 +68,8 @@
             var suggestions = suggestionList.Select(x => new SelectListItem
             {
                 Text = x.UserName,
-                Value = x.ConversationId
+                Value = x.ConversationId,
+                Selected = x.NickName != null && x.NickName.Equals(nickName)
             });
 
             return suggestions.OrderByDescending(s => s.Text.ToLowerInvariant().IndexOf(nickName.ToLowerInvariant(), System.StringComparison.Ordinal));

@@ -28,7 +28,7 @@
             @Html.LabelFor(model => model.ConversationId)
         </div>
         <div class="left select--m">
-            @Html.DropDownListFor(model => model.ConversationId, Model.SkypeUserSuggestion, new { @searchable = "search here.." })
+            @Html.DropDownListFor(model => model.ConversationId, Model.SkypeUserSuggestion, new { @searchable = true })
             @Html.ValidationMessageFor(model => model.ConversationId)
         </div>
     </div>
