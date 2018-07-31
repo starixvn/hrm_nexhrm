@@ -341,10 +341,15 @@
     <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0">
       <Mapping DataField="Type" ObjectProperty="MissingType" />
     </Setting>
+    <Setting Key="NexBot_ GetEmployeeToRemindForgotSpendTime" SpName="NexBot_ GetEmployeeToRemindForgotSpendTime" DbName="nexhr" Plain="0"></Setting>
   </Function>
 
   <Function Name="Employee Skype Account Management">
     <Setting Key="SkypeAccount_GetAllEmployee" SpName="SkypeAccount_GetAllEmployee" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="SkypeAccount_GetLeaders" SpName="SkypeAccount_GetLeaders" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>

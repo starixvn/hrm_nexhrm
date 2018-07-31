@@ -18,20 +18,23 @@
         private readonly ILeaveTypeService _leaveTypeService;
         private readonly IRequestService _requestService;
         private readonly ICommandService _commandService;
+        private readonly INexbotService _nexbotService;
 
         public LeaveController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public LeaveController(
             ILeaveTypeService leaveTypeService,
             IRequestService requestService,
-            ICommandService commandService)
+            ICommandService commandService,
+            INexbotService nexbotService)
         {
             _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
             _requestService = requestService ?? new RequestService();
             _commandService = commandService ?? new CommandService();
+            _nexbotService = nexbotService ?? new NexbotService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -127,6 +130,7 @@
                 Task.Factory.StartNew(() =>
                 {
                     _requestService.SendMailForLeave(model);
+                    _nexbotService.SendMessageForLeaveRequest(model);
                 });
             }
             else

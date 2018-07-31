@@ -1,8 +1,11 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Core;
     using Core.Enums;
     using Criteria.Hangfire;
     using Criteria.SkypeAccount;
@@ -12,6 +15,7 @@
     using Repositories;
     using Repositories.Interfaces;
     using RestSharp;
+    using ViewModels;
 
     public class NexbotService : BaseService, INexbotService
     {
@@ -77,6 +81,79 @@
             }
 
             return new List<EmployeeSkypeAccount>();
+        }
+
+        public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request)
+        {
+            if (request != null)
+            {
+                var criteria = new GetLeaderSkypeAccountCriteria
+                {
+                    EmployeeId = request.EmployeeId
+                };
+                var members = nexbotRepository.GetEmployeeSkypeAccount(criteria);
+                if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
+                {
+                    var managements = nexbotRepository.GetEmployeeSkypeAccount(new GetManagementSkypeAccountCriteria());
+                    members = members.Concat(managements);
+                }
+                await SendMessageToHandleLeaveRequestMembers(members, request).ConfigureAwait(false);
+            }
+        }
+
+        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeSkypeAccount> members, LeaveRequestViewModel request)
+        {
+            if (members != null && members.Any())
+            {
+                foreach (var member in members)
+                {
+                    var message = GenerateMessageForLeaveRequest(request, member.Employee.NickName);
+                    await SendMessage(member.ConversationId, message).ConfigureAwait(false);
+                }
+            }
+        }
+
+        private static string GenerateMessageForLeaveRequest(LeaveRequestViewModel request, string leaderName)
+        {
+            var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
+            var message = $"Dear {leaderName}, {Constants.NewLine}";
+            message += $"This is inform you about your member, {request.Employee} had a leave request {Constants.NewLine}";
+            message += $"- Date: _{forDate}_ {Constants.NewLine}";
+            message += $"- Type: _{request.LeaveTypeName}_ {Constants.NewLine}";
+            message += $"- Remark: _{request.Remark}_ {Constants.NewLine}";
+            message += $"Please process this request at: http://hrm.nexcel.vn/request/member {Constants.NewLine}.";
+            message += "Any questions, please contact HR department.";
+            return message;
+        }
+
+        private static string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)
+        {
+            var forDate = totalDays > 1
+                ? string.Format(
+                    Constants.MailContentLeave,
+                    fromDate.ToDateMonthYearFormatedDate(),
+                    toDate.ToDateMonthYearFormatedDate(),
+                    totalDays)
+                : (totalDays == 1
+                    ? string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate())
+                    : string.Format(
+                        Constants.MailContentLeaveHalfDay,
+                        fromDate.ToDateMonthYearFormatedDate(),
+                        fromDate.ToString("HH:mm"),
+                        toDate.ToString("HH:mm")));
+
+            return forDate;
+        }
+
+        public async Task SendMessageConfirmApproveRequest(LeaveRequestViewModel request)
+        {
+            var skypeAccount = nexbotRepository.GetEmployeeSkypeAccount(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.EmployeeId }).FirstOrDefault();
+            if (skypeAccount != null)
+            {
+                var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
+                message += "";
+                await SendMessage(skypeAccount.ConversationId, message).ConfigureAwait(false);
+            }
         }
     }
 }

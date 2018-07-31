@@ -14,6 +14,9 @@
         BioFingerprintAndCard = 3,
 
         [Display(Name = "Missing Check In/Check Out")]
-        MissingCheckInOut = 4
+        MissingCheckInOut = 4,
+
+        [Display(Name = "Forgot spend time Remind")]
+        ForgotSpendTime = 5
     }
 }

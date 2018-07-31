@@ -5,6 +5,7 @@
     using Core.Enums;
     using Criteria.SkypeAccount;
     using Models.SkypeAccount;
+    using ViewModels;
 
     public interface INexbotService
     {
@@ -13,5 +14,7 @@
         Task<IEnumerable<string>> GetRegisteredConversation(HangfireCategoryMessageType categoryId);
 
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
+
+        Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
     }
 }

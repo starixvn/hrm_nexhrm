@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.NexBot
 {
     using AutoReminder.BioStation;
+    using AutoReminder.PolicyRemind;
     using Hangfire;
     using Hangfire.Storage;
     using Interfaces;
@@ -12,6 +13,7 @@
         private readonly INexbotEvent timeChangeEvent;
         private readonly INexbotEvent fingerScannerEvent;
         private readonly INexbotEvent missCheckInOutEvent;
+        private readonly INexbotEvent forgotLogtimeEvent;
 
         public Initial()
         {
@@ -19,6 +21,7 @@
             timeChangeEvent = new BioTimeChangeMonitor();
             fingerScannerEvent = new BioFingerScannerMonitor();
             missCheckInOutEvent = new MissCheckInCheckOutRemind();
+            forgotLogtimeEvent = new ForgotSpendTimeRemind();
         }
 
         public void Initialize()
@@ -41,12 +44,10 @@
         private void InitAllEvent()
         {
             bioDeviceEvent.Initialize();
-
             timeChangeEvent.Initialize();
-
             fingerScannerEvent.Initialize();
-
             missCheckInOutEvent.Initialize();
+            forgotLogtimeEvent.Initialize();
         }
     }
 }
