@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.SkypeAccount;
+    using Models.Request;
     using Models.SkypeAccount;
     using ViewModels;
 
@@ -16,5 +17,7 @@
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
 
         Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
+
+        Task SendMessageProcessRequest(RequestEntity request, string command);
     }
 }

@@ -27,20 +27,23 @@
         private readonly IRequestRepository _requestRepository;
         private readonly IEmailService _emailService;
         private readonly ICommandService _commandService;
+        private readonly INexbotService _nexbotService;
 
         public RequestService()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
-            ICommandService commandService)
+            ICommandService commandService,
+            INexbotService nexbotService)
         {
             _requestRepository = requestRepository ?? new RequestRepository();
             _emailService = emailService ?? new EmailService();
             _commandService = commandService ?? new CommandService();
+            _nexbotService = nexbotService ?? new NexbotService();
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -161,6 +164,8 @@
                         templateEmailToRequester,
                         templateLeaveEmailToRelated,
                         templateInOutEmailToRelated);
+
+                    _nexbotService.SendMessageProcessRequest(GetRequestEntity(id), command);
                 });
             }
 
@@ -457,6 +462,16 @@
             return results;
         }
 
+        private RequestEntity GetRequestEntity(long requestId)
+        {
+            var getRequestByIdCriteria = new GetRequestByIdCriteria
+            {
+                Id = requestId
+            };
+            var request = _requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            return request;
+        }
+
         private void SendMailForProcessRequest(
             long id,
             string command,
@@ -464,8 +479,7 @@
             string templateLeaveEmailToRelatedPath,
             string templateInOutEmailToRelatedPath)
         {
-            var getRequestByIdCriteria = new GetRequestByIdCriteria { Id = id };
-            var request = _requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            var request = GetRequestEntity(id);
 
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 

@@ -11,6 +11,7 @@
     using Criteria.SkypeAccount;
     using Interfaces;
     using Models.NexBot;
+    using Models.Request;
     using Models.SkypeAccount;
     using Repositories;
     using Repositories.Interfaces;
@@ -145,15 +146,27 @@
             return forDate;
         }
 
-        public async Task SendMessageConfirmApproveRequest(LeaveRequestViewModel request)
+        public async Task SendMessageProcessRequest(RequestEntity request, string command)
         {
-            var skypeAccount = nexbotRepository.GetEmployeeSkypeAccount(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.EmployeeId }).FirstOrDefault();
+            var skypeAccount = nexbotRepository.GetEmployeeSkypeAccount(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id }).FirstOrDefault();
             if (skypeAccount != null)
             {
-                var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
-                message += "";
+                var message = GenerateProcessRequestMessage(request, skypeAccount, command);
                 await SendMessage(skypeAccount.ConversationId, message).ConfigureAwait(false);
             }
+        }
+
+        private static string GenerateProcessRequestMessage(RequestEntity request, EmployeeSkypeAccount skypeAccount, string command)
+        {
+            var action = command == Command.Reject.EnumToString() ? $"{command}ed" : $"{command}d";
+            var forDate = request.TotalDays > 1
+                ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
+                  request.ToDate.ToDateMonthYearFormatedDate()
+                : " on " + request.FromDate.ToDateMonthYearFormatedDate();
+            var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
+            message += $"Your {request.RequestType.Name} request _{forDate}_ created at _{request.CreatedDate.ToDateMonthYearFormatedDate()}_ " +
+                    $"has been {action} by _{request.ModifiedBy.DisplayName}_ at _{request.ModifiedDate.ToDateMonthYearFormatedDate()}_";
+            return message;
         }
     }
 }
