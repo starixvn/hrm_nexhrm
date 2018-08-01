@@ -221,6 +221,7 @@
                         Task.Factory.StartNew(() =>
                         {
                             _requestService.SendMailForLeave(model);
+                            _nexbotService.SendMessageForLeaveRequest(model);
                         });
                     }
                 }

@@ -1,17 +1,17 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Shift;
     using Models;
     using Models.Request;
+    using Resources;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
-    using Resources;
     using ViewModels.CheckInOutRequest;
 
     public class CheckInOutController : BaseController
@@ -19,20 +19,23 @@
         private readonly IRequestService _requestService;
         private readonly IShiftService _shiftService;
         private readonly ICommandService _commandService;
+        private readonly INexbotService _nexbotService;
 
         public CheckInOutController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public CheckInOutController(
             IRequestService requestService,
             IShiftService shiftService,
-            ICommandService commandService)
+            ICommandService commandService,
+            INexbotService nexbotService)
         {
             _requestService = requestService ?? new RequestService();
             _shiftService = shiftService ?? new ShiftService();
             _commandService = commandService ?? new CommandService();
+            _nexbotService = nexbotService ?? new NexbotService();
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -125,6 +128,7 @@
                         Task.Factory.StartNew(() =>
                         {
                             _requestService.SendMailForCheckInOut(model);
+                            _nexbotService.SendMessageForCheckInOutRequest(model);
                         });
                     }
                 }
@@ -209,6 +213,7 @@
                         Task.Factory.StartNew(() =>
                         {
                             _requestService.SendMailForCheckInOut(model);
+                            _nexbotService.SendMessageForCheckInOutRequest(model);
                         });
                     }
                 }

@@ -7,6 +7,7 @@
     using Models.Request;
     using Models.SkypeAccount;
     using ViewModels;
+    using ViewModels.CheckInOutRequest;
 
     public interface INexbotService
     {
@@ -19,5 +20,7 @@
         Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
 
         Task SendMessageProcessRequest(RequestEntity request, string command);
+
+        Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request);
     }
 }

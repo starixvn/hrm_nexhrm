@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -17,6 +18,7 @@
     using Repositories.Interfaces;
     using RestSharp;
     using ViewModels;
+    using ViewModels.CheckInOutRequest;
 
     public class NexbotService : BaseService, INexbotService
     {
@@ -166,6 +168,36 @@
             var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
             message += $"Your {request.RequestType.Name} request _{forDate}_ created at _{request.CreatedDate.ToDateMonthYearFormatedDate()}_ " +
                     $"has been {action} by _{request.ModifiedBy.DisplayName}_ at _{request.ModifiedDate.ToDateMonthYearFormatedDate()}_";
+            return message;
+        }
+
+        public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request)
+        {
+            var criteria = new GetLeaderSkypeAccountCriteria
+            {
+                EmployeeId = request.EmployeeId
+            };
+            var leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria);
+
+            if (leaders != null && leaders.Any())
+            {
+                var message = GenerateCheckInOutRequestMessage(request, leaders.First().Employee.NickName);
+                await SendMessage(leaders.First().ConversationId, message).ConfigureAwait(false);
+            }
+        }
+
+        private static string GenerateCheckInOutRequestMessage(CheckInOutRequestViewModel request, string leaderName)
+        {
+            string type = request.CheckInOutType == (short)RequestType.CheckIn
+                            ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
+                            : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
+            string time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0');
+            string message = $"Dear {leaderName}, {Constants.NewLine}";
+            message += $"This is to inform you about your member, {request.Employee} had a {type} request:{Constants.NewLine}";
+            message += $"- Date: _{request.ForDate}_ ({request.Shift}){Constants.NewLine}";
+            message += $"- Time: _{time}_{Constants.NewLine}";
+            message += $"Please process this request at: http://hrm.nexcel.vn/request/member. {Constants.NewLine}";
+            message += $"Any questions, please contact HR department. Thanks";
             return message;
         }
     }
