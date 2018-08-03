@@ -114,7 +114,8 @@ namespace Fanex.NexHR.Repositories
                     Id = reader.ToInt("LeaveTypeId"),
                     Name = reader.ToString("LeaveTypeName")
                 },
-                Remark = reader.ToString("Remark")
+                Remark = reader.ToString("Remark"),
+                IsCrossDate = reader.ToBool("IsCrossDate")
             };
 
             return entity;

@@ -844,6 +844,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cross Date.
+        /// </summary>
+        public static string CrossDate {
+            get {
+                return ResourceManager.GetString("CrossDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CS.
         /// </summary>
         public static string CS {

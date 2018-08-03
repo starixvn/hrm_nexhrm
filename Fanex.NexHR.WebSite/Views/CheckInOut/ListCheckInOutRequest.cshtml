@@ -30,7 +30,7 @@
                     </td>
                     <td>@request.RequestType.ToString()</td>
                     <td>@request.FromShift.Name</td>
-                    <td>@request.FromDate.ToShortFormatedDate()</td>
+                    <td>@(request.FromDate.ToShortFormatedDate() + (request.IsCrossDate ? " (*)" : string.Empty))</td>
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
                     {

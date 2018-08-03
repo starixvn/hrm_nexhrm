@@ -1515,4 +1515,7 @@
   <data name="SkypeName" xml:space="preserve">
     <value>Skype Name</value>
   </data>
+  <data name="CrossDate" xml:space="preserve">
+    <value>Cross Date</value>
+  </data>
 </root>

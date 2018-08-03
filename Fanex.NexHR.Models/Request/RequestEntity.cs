@@ -56,5 +56,7 @@ namespace Fanex.NexHR.Models.Request
 
         // LateIn-EarlyOut
         public int TotalMins { get; set; }
+
+        public bool IsCrossDate { get; set; }
     }
 }

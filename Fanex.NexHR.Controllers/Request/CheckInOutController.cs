@@ -69,16 +69,17 @@
         }
 
         [Authorize(Roles = "SpecialUser")]
-        public ActionResult Create(short? type = 1, DateTime? date = null)
+        public ActionResult Create(short? type = 1, DateTime? date = null, bool isCrossDate = false)
         {
             CheckInOutRequestViewModel viewModel = new CheckInOutRequestViewModel
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                ForDate = date ?? DateTime.Today,
+                WorkDate = date ?? DateTime.Today,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
                 UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
-                TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn)
+                TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
+                IsCrossDate = isCrossDate
             };
 
             Shift shift = GetShiftByDate(date);
@@ -101,7 +102,7 @@
             }
 
             model.By = CurrentUser.Id;
-            model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
+            model.WorkDate = model.WorkDate + new TimeSpan(model.Hour, model.Minute, 0);
 
             if (model.EmployeeId != 0)
             {
@@ -110,9 +111,10 @@
                     EmpId = model.EmployeeId,
                     RequestType = model.CheckInOutType,
                     IsPlanned = false,
+                    IsCrossDate = model.IsCrossDate,
                     CreatedDate = DateTime.Now,
                     CreatedBy = model.By,
-                    FromDate = model.ForDate
+                    FromDate = model.WorkDate
                 };
 
                 CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
@@ -142,7 +144,7 @@
                 ModelState.AddModelError(string.Empty, Labels.InvalidEmployee);
             }
 
-            ViewBag.Year = model.ForDate.Year;
+            ViewBag.Year = model.WorkDate.Year;
 
             return View(model);
         }
@@ -163,11 +165,12 @@
                 Id = request.Id,
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                ForDate = request.FromDate.Date,
+                WorkDate = request.FromDate.Date,
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,
                 CheckInOutType = request.RequestType.Id,
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id)
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
+                IsCrossDate = request.IsCrossDate
             };
 
             Shift shift = GetShiftByDate(request.FromDate.Date);
@@ -183,14 +186,14 @@
             if (model != null && ModelState.IsValid)
             {
                 model.By = CurrentUser.Id;
-                model.ForDate = model.ForDate + new TimeSpan(model.Hour, model.Minute, 0);
+                model.WorkDate = model.WorkDate + new TimeSpan(model.Hour, model.Minute, 0);
                 var criteria = new UpdateRequestCriteria
                 {
                     Id = model.Id,
                     IsPlanned = false,
                     Remark = model.Remark,
                     ModifiedBy = model.EmployeeId,
-                    FromDate = model.ForDate,
+                    FromDate = model.WorkDate,
                     ModifiedDate = DateTime.Now,
                     FromShift = null,
                     ToDate = null,
@@ -198,7 +201,8 @@
                     LeaveTypeId = null,
                     TotalDays = null,
                     LateInMins = null,
-                    EarlyOutMins = null
+                    EarlyOutMins = null,
+                    IsCrossDate = model.IsCrossDate
                 };
 
                 CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
@@ -222,7 +226,7 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                ViewBag.Year = model.ForDate.Year;
+                ViewBag.Year = model.WorkDate.Year;
             }
 
             return View(model);

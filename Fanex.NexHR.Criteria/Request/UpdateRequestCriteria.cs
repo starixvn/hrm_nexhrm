@@ -39,6 +39,8 @@ namespace Fanex.NexHR.Criteria.Request
 
         public int? EarlyOutMins { get; set; }
 
+        public bool IsCrossDate { get; set; }
+
         public DateTime ModifiedDate { get; set; }
 
         public int ModifiedBy { get; set; }

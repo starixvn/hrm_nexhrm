@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="left">
                                         <div class="datepicker-button left select--s">
-                                            @Html.DatePickerFor(model => model.ForDate,
+                                            @Html.DatePickerFor(model => model.WorkDate,
                                                 Utilities.RequestAvailableFromDate,
                                                 DateTime.Now)
                                             <i class="mdi-action-event calendar-icon left"></i>
@@ -101,6 +101,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if (Model.IsCrossDate)
+                                {
+                                    <div class="row form-input">
+                                        <div class="left label--xl">
+                                            @Html.LabelFor(model => model.IsCrossDate, Labels.CrossDate)
+                                        </div>
+                                        <div class="left input--m">
+                                            @Html.MaterializeCheckBoxFor(model => model.IsCrossDate, new { @class = "filled-in" })
+                                        </div>
+                                    </div>
+                                }
                                 <div class="row form-input m-b--m">
                                     <div class="left label--xl">
                                         <label>@Labels.Shift</label>

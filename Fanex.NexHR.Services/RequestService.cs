@@ -74,7 +74,7 @@
                     case (int)RequestType.CheckOut:
                         msg.AppendFormat(
                             Constants.MsgCheckInOut,
-                            request.FromDate.ToString("HH:mm"),
+                            request.FromDate.ToString("HH:mm") + (request.IsCrossDate ? "*" : string.Empty),
                             request.FromShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
                         break;
@@ -366,7 +366,7 @@
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture),
                         RequestId = model.Id,
-                        ForDate = model.ForDate.ToDateMonthYearFormatedDate(),
+                        ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
                         Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
                         Shift = model.Shift
                     };

@@ -14,7 +14,9 @@
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime ForDate { get; set; }
+        public DateTime WorkDate { get; set; }
+
+        public bool IsCrossDate { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
@@ -51,9 +53,9 @@
             "{0} {1} on {2}",
             IsEdit ? Messages.UpdatedCheckInOutEmailSubject : Messages.CheckInOutEmailSubject,
             Employee,
-            ForDate.ToDateMonthYearFormatedDate());
+            WorkDate.ToDateMonthYearFormatedDate());
 
-        public bool IsStandbyAtWeekend => (ForDate.DayOfWeek == DayOfWeek.Saturday || ForDate.DayOfWeek == DayOfWeek.Sunday);
+        public bool IsStandbyAtWeekend => (WorkDate.DayOfWeek == DayOfWeek.Saturday || WorkDate.DayOfWeek == DayOfWeek.Sunday);
 
         public void GetTemplatePath()
         {
@@ -64,7 +66,7 @@
         {
             IList<ValidationResult> result = new List<ValidationResult>();
 
-            if (ForDate.Date > DateTime.Today)
+            if (WorkDate.Date > DateTime.Today)
             {
                 var validation = new ValidationResult(
                     Messages.NoFutureCheckInOutRequest,
