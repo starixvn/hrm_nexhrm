@@ -17,6 +17,9 @@
         MissingCheckInOut = 4,
 
         [Display(Name = "Forgot spend time Remind")]
-        ForgotSpendTime = 5
+        ForgotSpendTime = 5,
+
+        [Display(Name = "Late in, Early out Warning")]
+        LateInEarlyOutWarning = 6,
     }
 }

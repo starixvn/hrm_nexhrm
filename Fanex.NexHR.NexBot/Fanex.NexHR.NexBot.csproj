@@ -74,6 +74,7 @@
     <Compile Include="AutoReminder\Initial.cs" />
     <Compile Include="AutoReminder\Interfaces\INexbotEvent.cs" />
     <Compile Include="AutoReminder\PolicyRemind\ForgotSpendTimeRemind.cs" />
+    <Compile Include="AutoReminder\PolicyRemind\LateInEarlyOutWarningHR.cs" />
     <Compile Include="AutoReminder\PolicyRemind\MissCheckInCheckOutRemind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

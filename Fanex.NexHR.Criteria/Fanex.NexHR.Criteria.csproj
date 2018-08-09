@@ -92,9 +92,6 @@
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
     <Compile Include="Employee\GetWorkedDatesByUserCriteria.cs" />
-    <Compile Include="Hangfire\GetAllEmployeeConversationCriteria.cs" />
-    <Compile Include="Hangfire\GetEmployeeToRemindForgotSpendTimeCriteria.cs" />
-    <Compile Include="Hangfire\GetRegisteredConversation.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />

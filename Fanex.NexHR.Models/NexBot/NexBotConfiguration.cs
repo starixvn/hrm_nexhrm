@@ -3,10 +3,8 @@
     using System;
     using System.Configuration;
 
-    public class NexBotConfiguration
+    public static class NexBotConfiguration
     {
-        public static NexBotConfiguration Settings => new NexBotConfiguration();
-
         public static Uri BotServiceUrl { get; internal set; }
             = new Uri(ConfigurationManager.AppSettings["FanexBotClient:BotServiceUrl"]);
 

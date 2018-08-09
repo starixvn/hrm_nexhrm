@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using Core;
     using Core.Enums;
-    using Criteria.Hangfire;
     using Criteria.SkypeAccount;
     using Interfaces;
     using Models.NexBot;
@@ -35,15 +34,6 @@
         {
             var token = await GetToken().ConfigureAwait(false);
             await ForwardToBot(message, conversationId, token).ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<string>> GetRegisteredConversation(HangfireCategoryMessageType categoryId)
-        {
-            return await GetDataAsync<string>(
-                new GetRegisteredConversation
-                {
-                    CategoryId = categoryId
-                }).ConfigureAwait(false);
         }
 
         private async Task ForwardToBot(string message, string conversationId, Token token)
