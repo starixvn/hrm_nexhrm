@@ -111,9 +111,9 @@
             var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
             var message = $"Dear {leaderName}, {Constants.NewLine}";
             message += $"This is inform you about your member, {request.Employee} had a leave request {Constants.NewLine}";
-            message += $"- Date: _{forDate}_ {Constants.NewLine}";
-            message += $"- Type: _{request.LeaveTypeName}_ {Constants.NewLine}";
-            message += $"- Remark: _{request.Remark}_ {Constants.NewLine}";
+            message += $"_- Date: {forDate}_ {Constants.NewLine}";
+            message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
+            message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
             message += $"Please process this request at: http://hrm.nexcel.vn/request/member {Constants.NewLine}.";
             message += "Any questions, please contact HR department.";
             return message;
