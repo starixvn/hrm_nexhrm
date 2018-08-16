@@ -43,25 +43,30 @@
 .information .txt-italic {
   font-style: italic; }
 
-#formLogtime {
-  text-align: left; }
-  #formLogtime input, #formLogtime textarea {
+#logtime-dialog {
+  text-align: left;
+  padding: 0 !important; }
+  #logtime-dialog input, #logtime-dialog textarea {
     box-sizing: border-box;
     margin: 0; }
-  #formLogtime .form-input {
+  #logtime-dialog .form-input {
     margin-bottom: 15px; }
-  #formLogtime .calendar-icon {
+  #logtime-dialog .calendar-icon {
     right: -10px; }
-  #formLogtime .comment {
+  #logtime-dialog .comment {
     height: auto; }
-  #formLogtime .dropdown-content {
+  #logtime-dialog .dropdown-content {
     max-height: 18rem; }
-  #formLogtime .total-hour-message {
+  #logtime-dialog .total-hour-message {
     line-height: 0;
     color: #e83737;
     font-style: italic;
     font-weight: 500;
     font-size: 12px; }
+  #logtime-dialog .ui-dialog-content {
+    padding: 0 !important; }
+  #logtime-dialog .ui-dialog .ui-dialog-buttonpane {
+    margin-top: 0; }
 
 .todoBlock {
   background: url(/Content/Images/bg_todolist.jpg) no-repeat center bottom;
@@ -175,12 +180,6 @@
   .redmine-tooltip .tracker {
     font-weight: 700;
     color: #484343; }
-
-.ui-dialog .ui-dialog-content {
-  padding: 0 !important; }
-
-.ui-dialog .ui-dialog-buttonpane {
-  margin-top: 0; }
 
 .workload .card-title-block {
   border-bottom: none !important; }
