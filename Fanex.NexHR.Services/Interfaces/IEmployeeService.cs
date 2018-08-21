@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
@@ -32,8 +31,6 @@
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria);
-
-        Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutAsync(GetMissingCheckInOutEmployeesCriteria criteria);
 
         IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
     }

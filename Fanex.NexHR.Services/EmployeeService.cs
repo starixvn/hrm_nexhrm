@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
@@ -117,12 +116,6 @@
         {
             IList<MissingCheckInOutModel> missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;
-        }
-
-        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutAsync(GetMissingCheckInOutEmployeesCriteria criteria)
-        {
-            var missingCheckInOuts = await GetDataAsync<MissingCheckInOutModel>(criteria).ConfigureAwait(false);
-            return missingCheckInOuts ?? new List<MissingCheckInOutModel>();
         }
 
         private IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(int employeeId)
