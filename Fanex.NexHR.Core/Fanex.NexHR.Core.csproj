@@ -112,7 +112,6 @@
     <Compile Include="Enums\FingerprintScannerType.cs" />
     <Compile Include="Enums\GeneralRequestType.cs" />
     <Compile Include="Enums\DateRangeFilter.cs" />
-    <Compile Include="Enums\HangfireCategoryMessageType.cs" />
     <Compile Include="Enums\LeaveConversionType.cs" />
     <Compile Include="Enums\RedmineIssueStatus.cs" />
     <Compile Include="Enums\RedmineLogTimeActivity.cs" />
