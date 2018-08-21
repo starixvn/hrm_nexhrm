@@ -8,6 +8,7 @@
     using Services;
     using Services.Interfaces;
     using ViewModels.SkypeAccount;
+    using System;
 
     public class SkypeAccountController : BaseController
     {
@@ -48,13 +49,12 @@
             return PartialView("_ListAccount", employeeAccounts);
         }
 
-        public ActionResult EditAccount(int empId, string fullName, string nickName)
+        public ActionResult EditAccount(string fullName, string nickName)
         {
             var skypeNameSuggestionList = baseService.GetData<ConversationUser>(new GetSkypeUserSuggestionCriteria());
 
             var viewModel = new SkypeAccountViewModel
             {
-                EmpId = empId,
                 FullName = fullName,
                 NickName = nickName,
                 SkypeUserSuggestion = GetSkypeUserSuggestionSelectList(skypeNameSuggestionList, nickName)
@@ -72,7 +72,7 @@
                 Selected = x.NickName != null && x.NickName.Equals(nickName)
             });
 
-            return suggestions.OrderByDescending(s => s.Text.ToLowerInvariant().IndexOf(nickName.ToLowerInvariant(), System.StringComparison.Ordinal));
+            return suggestions.OrderByDescending(s => s.Text.ToLowerInvariant().IndexOf(nickName.ToLowerInvariant(), StringComparison.Ordinal));
         }
 
         [HttpPost]
@@ -84,7 +84,7 @@
             {
                 var criteria = new UpdateSkypeAccountNickNameCriteria
                 {
-                    EmployeeId = viewModel.EmpId,
+                    NickName = viewModel.NickName,
                     ConversationId = viewModel.ConversationId
                 };
 

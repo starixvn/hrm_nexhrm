@@ -100,14 +100,12 @@
 
     function registerEditEvent() {
         $(domElement.editIcon).on("click", function () {
-            var empId = $(this).attr("data-empId");
             var fullName = $(this).attr("data-fullName");
             var nickName = $(this).attr("data-nickName");
             $.ajax({
                 method: 'GET',
                 url: _global.root + 'SkypeAccount/EditAccount',
                 data: {
-                    empId,
                     fullName,
                     nickName
                 },
