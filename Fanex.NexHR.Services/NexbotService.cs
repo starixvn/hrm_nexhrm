@@ -152,9 +152,9 @@
         {
             var action = command == Command.Reject.EnumToString() ? $"{command}ed" : $"{command}d";
             var forDate = request.TotalDays > 1
-                ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
+                ? "from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
-                : " on " + request.FromDate.ToDateMonthYearFormatedDate();
+                : "on " + request.FromDate.ToDateMonthYearFormatedDate();
             var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
             message += $"Your {request.RequestType.Name} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._";
             return message;
