@@ -114,7 +114,7 @@
             message += $"_- Date: {forDate}_ {Constants.NewLine}";
             message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
             message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
-            message += $"Please process this request at: http://hrm.nexcel.vn/request/member {Constants.NewLine}.";
+            message += $"Please process this request at: http://hrm.nexcel.vn/request/member  {Constants.NewLine}";
             message += "Any questions, please contact HR department.";
             return message;
         }
@@ -156,8 +156,7 @@
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
             var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
-            message += $"Your {request.RequestType.Name} request _{forDate}_ created at _{request.CreatedDate.ToDateMonthYearFormatedDate()}_ " +
-                    $"has been {action} by _{request.ModifiedBy.DisplayName}_ at _{request.ModifiedDate.ToDateMonthYearFormatedDate()}_";
+            message += $"Your {request.RequestType.Name} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._";
             return message;
         }
 
