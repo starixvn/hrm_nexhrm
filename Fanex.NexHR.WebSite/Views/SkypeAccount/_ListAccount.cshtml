@@ -10,7 +10,11 @@
             <th>@Labels.Team</th>
             <th>Skype Name</th>
             <th>Confirmed</th>
-            <th>Action</th>
+            @if (Roles.IsUserInRole("HR"))
+            {
+                <th>Action</th>
+            }
+
         </tr>
     </thead>
 
@@ -37,14 +41,18 @@
                             <i class="mdi mdi-check mdi-18px green-text icon-bold"></i>
                         }
                     </td>
-                    <td>
-                        <a href="#">
-                            <i class="mdi mdi-border-color mdi-dark mdi-18px account-edit"
-                                data-empId="@account.Employee.Id"
-                                data-fullName="@account.Employee.FullName"
-                                data-nickName="@account.Employee.NickName"></i>
-                        </a>
-                    </td>
+                    @if (Roles.IsUserInRole("HR"))
+                    {
+                        <td>
+                            <a href="#">
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px account-edit"
+                                   data-empId="@account.Employee.Id"
+                                   data-fullName="@account.Employee.FullName"
+                                   data-nickName="@account.Employee.NickName"></i>
+                            </a>
+                        </td>
+                    }
+
                 </tr>
             }
         </tbody>

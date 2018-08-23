@@ -21,6 +21,11 @@
             return GetEmployeeEntity(criteria);
         }
 
+        public Employee GetByNickName(ICriteria criteria)
+        {
+            return GetEmployeeEntity(criteria);
+        }
+
         public IList<Employee> Query(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

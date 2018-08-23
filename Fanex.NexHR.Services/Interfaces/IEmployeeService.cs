@@ -14,6 +14,8 @@
 
         Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
+        Employee GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
+
         IList<Employee> Query(GetEmployeeCriteria criteria);
 
         IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);

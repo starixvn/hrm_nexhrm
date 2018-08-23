@@ -42,6 +42,17 @@
             return employee;
         }
 
+        public Employee GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
+        {
+            Employee employee = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                employee = _employeeRepository.GetByNickName(criteria);
+            }
+
+            return employee;
+        }
+
         public IList<Employee> Query(GetEmployeeCriteria criteria)
         {
             IList<Employee> employees = null;

@@ -11,6 +11,8 @@
 
         Employee GetByDomainName(ICriteria criteria);
 
+        Employee GetByNickName(ICriteria criteria);
+
         IList<Employee> Query(ICriteria criteria);
 
         IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria);

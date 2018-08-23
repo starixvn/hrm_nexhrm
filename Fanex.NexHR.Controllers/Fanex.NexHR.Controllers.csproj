@@ -148,6 +148,7 @@
   <ItemGroup>
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
+    <Compile Include="API\RequestController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BioController.cs" />
     <Compile Include="DashboardController.cs" />
@@ -251,6 +252,7 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

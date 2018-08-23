@@ -49,6 +49,7 @@
             return PartialView("_ListAccount", employeeAccounts);
         }
 
+        [Authorize(Roles = "HR")]
         public ActionResult EditAccount(string fullName, string nickName)
         {
             var skypeNameSuggestionList = baseService.GetData<ConversationUser>(new GetSkypeUserSuggestionCriteria());
@@ -76,6 +77,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "HR")]
         public ActionResult EditAccount(SkypeAccountViewModel viewModel)
         {
             bool isSuccessful = false;
