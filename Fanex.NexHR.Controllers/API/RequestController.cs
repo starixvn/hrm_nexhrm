@@ -25,7 +25,7 @@
             this.employeeService = employeeService ?? new EmployeeService();
         }
 
-        [Route("api/ProcessRequest")]
+        [Route("api/Request/ProcessRequest")]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
             var criteria = new GetEmployeeByNickNameCriteria
@@ -39,7 +39,7 @@
             return Json(result);
         }
 
-        [Route("api/GetData")]
+        [Route("api/Request/GetData")]
         public IHttpActionResult GetData()
         {
             return Json("test");
