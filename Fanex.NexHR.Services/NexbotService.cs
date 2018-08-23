@@ -114,7 +114,7 @@
             message += $"_- Date: {forDate}_ {Constants.NewLine}";
             message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
             message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
-            message += $"Please process this request at: http://hrm.nexcel.vn/request/member  {Constants.NewLine}";
+            message += $"Please process this request at: http://hrm.nexcel.vn/request/member.  {Constants.NewLine}";
             message += "Any questions, please contact HR department.";
             return message;
         }
