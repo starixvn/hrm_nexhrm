@@ -150,13 +150,15 @@
 
         private static string GenerateProcessRequestMessage(RequestEntity request, EmployeeSkypeAccount skypeAccount, string command)
         {
-            var action = command == Command.Reject.EnumToString() ? $"{command}ed" : $"{command}d";
+            var action = command == Command.Reject.EnumToString() ? $"{command.ToLowerInvariant()}ed" : $"{command.ToLowerInvariant()}d";
+
             var forDate = request.TotalDays > 1
                 ? "from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : "on " + request.FromDate.ToDateMonthYearFormatedDate();
             var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
-            message += $"Your {request.RequestType.Name} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._";
+            message += $"Your {request.RequestType.Name.ToLowerInvariant()} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._{Constants.NewLine}";
+            message += $"For more detail, please visit: https://hrm.nexcel.vn. Thanks";
             return message;
         }
 
