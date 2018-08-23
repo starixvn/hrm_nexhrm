@@ -183,7 +183,8 @@
             string time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0');
             string message = $"Dear {leaderName}, {Constants.NewLine}";
             message += $"This is to inform you about your member, {request.Employee} had a {type} request:{Constants.NewLine}";
-            message += $"_- Date: {request.WorkDate} ({request.Shift})_{Constants.NewLine}";
+            message += $"_- Date: {request.WorkDate.ToDateMonthYearFormatedDate()}_{Constants.NewLine}";
+            message += $"_- Shift: {request.Shift}_{Constants.NewLine}";
             message += $"_- Time: {time}_{Constants.NewLine}";
             message += $"Please process this request at: https://hrm.nexcel.vn/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
