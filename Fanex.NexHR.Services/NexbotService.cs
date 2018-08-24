@@ -32,8 +32,11 @@
 
         public async Task SendMessage(string conversationId, string message)
         {
-            var token = await GetToken().ConfigureAwait(false);
-            await ForwardToBot(message, conversationId, token).ConfigureAwait(false);
+            if (!string.IsNullOrWhiteSpace(conversationId))
+            {
+                var token = await GetToken().ConfigureAwait(false);
+                await ForwardToBot(message, conversationId, token).ConfigureAwait(false);
+            }
         }
 
         private async Task ForwardToBot(string message, string conversationId, Token token)
