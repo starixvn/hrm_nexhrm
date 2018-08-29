@@ -6,6 +6,7 @@
     using Services.Interfaces;
     using System.Web.Http;
 
+    [Route("api/[controller]")]
     public class RequestController : ApiController
     {
         private readonly IRequestService requestService;
@@ -25,7 +26,7 @@
         }
 
         [HttpPost]
-        [Route("api/Request/ProcessRequest")]
+        [Route("ProcessRequest")]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
 
@@ -40,7 +41,7 @@
             return Json(result);
         }
 
-        [Route("api/Request/GetData")]
+        [Route("GetData")]
         public IHttpActionResult GetData()
         {
             return Json("test");
