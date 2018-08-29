@@ -24,9 +24,11 @@
             this.employeeService = employeeService ?? new EmployeeService();
         }
 
+        [HttpPost]
         [Route("api/Request/ProcessRequest")]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
+
             var criteria = new GetEmployeeByNickNameCriteria
             {
                  NickName = nickName
