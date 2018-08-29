@@ -11,7 +11,6 @@
         private readonly IRequestService requestService;
         private readonly IEmployeeService employeeService;
 
-
         public RequestController()
             : this(null, null)
         {

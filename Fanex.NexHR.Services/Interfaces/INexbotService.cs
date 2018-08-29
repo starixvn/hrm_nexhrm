@@ -12,6 +12,8 @@
     {
         Task SendMessage(string conversationId, string message);
 
+        Task SendApproveMessage(string conversationId, long requestId, string message);
+
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
 
         Task SendMessageForLeaveRequest(LeaveRequestViewModel request);

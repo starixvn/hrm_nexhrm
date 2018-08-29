@@ -39,15 +39,33 @@
             }
         }
 
+        public async Task SendApproveMessage(string conversationId, long requestId, string message)
+        {
+            var token = await GetToken().ConfigureAwait(false);
+
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+
+            var request = new RestRequest("/request/approve", Method.POST);
+            request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+
+            request.AddParameter("conversationId", conversationId);
+            request.AddParameter("requestId", requestId);
+            request.AddParameter("message", message);
+
+            await webClient.ExecutePostTaskAsync(request).ConfigureAwait(false);
+        }
+
         private async Task ForwardToBot(string message, string conversationId, Token token)
         {
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
 
-            var request = new RestRequest("/messages/forward", Method.POST);
+            var request = new RestRequest("/message/forward", Method.POST);
             request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            request.AddParameter("message", message);
+            
             request.AddParameter("conversationId", conversationId);
+            request.AddParameter("message", message);
 
             await webClient.ExecutePostTaskAsync(request).ConfigureAwait(false);
         }
@@ -104,7 +122,7 @@
                 foreach (var member in members)
                 {
                     var message = GenerateMessageForLeaveRequest(request, member.Employee.NickName);
-                    await SendMessage(member.ConversationId, message).ConfigureAwait(false);
+                    await SendApproveMessage(member.ConversationId, request.Id, message).ConfigureAwait(false);
                 }
             }
         }
@@ -176,7 +194,7 @@
             if (leaders != null && leaders.Any())
             {
                 var message = GenerateCheckInOutRequestMessage(request, leaders.First().Employee.NickName);
-                await SendMessage(leaders.First().ConversationId, message).ConfigureAwait(false);
+                await SendApproveMessage(leaders.First().ConversationId, request.Id, message).ConfigureAwait(false);
             }
         }
 
