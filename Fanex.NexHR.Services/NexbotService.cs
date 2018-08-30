@@ -33,20 +33,26 @@
         {
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
-                var token = GetToken();
-                ForwardToBot(message, conversationId, token);
+                ForwardToBot(message, conversationId);
             }
+        }
+
+        private RestRequest CreateRequestHeader(string resource, Method method)
+        {
+            var token = GetToken();
+
+            var request = new RestRequest(resource, method);
+            request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+
+            return request;
         }
 
         public void SendApproveMessage(string conversationId, long requestId, string message)
         {
-            var token = GetToken();
-
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
 
-            var request = new RestRequest("/request/approve", Method.POST);
-            request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            var request = CreateRequestHeader("/request/approve", Method.POST);
 
             request.AddParameter("conversationId", conversationId);
             request.AddParameter("requestId", requestId);
@@ -55,19 +61,16 @@
             webClient.Execute(request);
         }
 
-        private void ForwardToBot(string message, string conversationId, Token token)
+        private void ForwardToBot(string message, string conversationId)
         {
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+            var request = CreateRequestHeader("/messages/forward", Method.POST);
 
-            var request = new RestRequest("/message/forward", Method.POST);
-            request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
 
             request.AddParameter("message", message);
             request.AddParameter("conversationId", conversationId);
 
-            var result = webClient.Execute(request);
-            var content = result.Content;
+            webClient.Execute(request);
         }
 
         private Token GetToken()
@@ -165,7 +168,7 @@
             if (skypeAccount != null)
             {
                 var message = GenerateProcessRequestMessage(request, skypeAccount, command);
-                SendMessage(skypeAccount.ConversationId, message); 
+                SendMessage(skypeAccount.ConversationId, message);
             }
         }
 
