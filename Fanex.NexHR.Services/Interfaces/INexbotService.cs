@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria.SkypeAccount;
     using Models.Request;
     using Models.SkypeAccount;
@@ -10,16 +9,16 @@
 
     public interface INexbotService
     {
-        Task SendMessage(string conversationId, string message);
+        void SendMessage(string conversationId, string message);
 
-        Task SendApproveMessage(string conversationId, long requestId, string message);
+        void SendApproveMessage(string conversationId, long requestId, string message);
 
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
 
-        Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
+        void SendMessageForLeaveRequest(LeaveRequestViewModel request);
 
-        Task SendMessageProcessRequest(RequestEntity request, string command);
+        void SendMessageProcessRequest(RequestEntity request, string command);
 
-        Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request);
+        void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request);
     }
 }

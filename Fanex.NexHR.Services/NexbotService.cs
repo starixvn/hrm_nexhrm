@@ -5,7 +5,6 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
@@ -30,18 +29,18 @@
             nexbotRepository = new NexbotRepository();
         }
 
-        public async Task SendMessage(string conversationId, string message)
+        public void SendMessage(string conversationId, string message)
         {
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
-                var token = await GetToken().ConfigureAwait(false);
-                await ForwardToBot(message, conversationId, token).ConfigureAwait(false);
+                var token = GetToken();
+                ForwardToBot(message, conversationId, token);
             }
         }
 
-        public async Task SendApproveMessage(string conversationId, long requestId, string message)
+        public void SendApproveMessage(string conversationId, long requestId, string message)
         {
-            var token = await GetToken().ConfigureAwait(false);
+            var token = GetToken();
 
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
 
@@ -53,24 +52,25 @@
             request.AddParameter("requestId", requestId);
             request.AddParameter("message", message);
 
-            await webClient.ExecutePostTaskAsync(request).ConfigureAwait(false);
+            webClient.Execute(request);
         }
 
-        private async Task ForwardToBot(string message, string conversationId, Token token)
+        private void ForwardToBot(string message, string conversationId, Token token)
         {
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
 
             var request = new RestRequest("/message/forward", Method.POST);
             request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            
-            request.AddParameter("conversationId", conversationId);
-            request.AddParameter("message", message);
 
-            await webClient.ExecutePostTaskAsync(request).ConfigureAwait(false);
+            request.AddParameter("message", message);
+            request.AddParameter("conversationId", conversationId);
+
+            var result = webClient.Execute(request);
+            var content = result.Content;
         }
 
-        private async Task<Token> GetToken()
+        private Token GetToken()
         {
             webClient.BaseUrl = NexBotConfiguration.TokenUrl;
 
@@ -82,7 +82,7 @@
 
             request.AddHeader("Content-type", "application/x-www-form-urlencoded");
 
-            var response = await webClient.ExecutePostTaskAsync<Token>(request).ConfigureAwait(false);
+            var response = webClient.Execute<Token>(request);
 
             return response.Data;
         }
@@ -97,7 +97,7 @@
             return new List<EmployeeSkypeAccount>();
         }
 
-        public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request)
+        public void SendMessageForLeaveRequest(LeaveRequestViewModel request)
         {
             if (request != null)
             {
@@ -111,18 +111,18 @@
                     var managements = nexbotRepository.GetEmployeeSkypeAccount(new GetManagementSkypeAccountCriteria());
                     members = members.Concat(managements);
                 }
-                await SendMessageToHandleLeaveRequestMembers(members, request).ConfigureAwait(false);
+                SendMessageToHandleLeaveRequestMembers(members, request);
             }
         }
 
-        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeSkypeAccount> members, LeaveRequestViewModel request)
+        private void SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeSkypeAccount> members, LeaveRequestViewModel request)
         {
             if (members != null && members.Any())
             {
                 foreach (var member in members)
                 {
                     var message = GenerateMessageForLeaveRequest(request, member.Employee.NickName);
-                    await SendApproveMessage(member.ConversationId, request.Id, message).ConfigureAwait(false);
+                    SendApproveMessage(member.ConversationId, request.Id, message);
                 }
             }
         }
@@ -159,13 +159,13 @@
             return forDate;
         }
 
-        public async Task SendMessageProcessRequest(RequestEntity request, string command)
+        public void SendMessageProcessRequest(RequestEntity request, string command)
         {
             var skypeAccount = nexbotRepository.GetEmployeeSkypeAccount(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id }).FirstOrDefault();
             if (skypeAccount != null)
             {
                 var message = GenerateProcessRequestMessage(request, skypeAccount, command);
-                await SendMessage(skypeAccount.ConversationId, message).ConfigureAwait(false);
+                SendMessage(skypeAccount.ConversationId, message); 
             }
         }
 
@@ -183,7 +183,7 @@
             return message;
         }
 
-        public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request)
+        public void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request)
         {
             var criteria = new GetLeaderSkypeAccountCriteria
             {
@@ -194,7 +194,7 @@
             if (leaders != null && leaders.Any())
             {
                 var message = GenerateCheckInOutRequestMessage(request, leaders.First().Employee.NickName);
-                await SendApproveMessage(leaders.First().ConversationId, request.Id, message).ConfigureAwait(false);
+                SendApproveMessage(leaders.First().ConversationId, request.Id, message);
             }
         }
 
