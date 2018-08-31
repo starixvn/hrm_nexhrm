@@ -50,26 +50,23 @@
 
         public void SendApproveMessage(string conversationId, long requestId, string message)
         {
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-
             var request = CreateRequestHeader("/request/approve", Method.POST);
 
             request.AddParameter("conversationId", conversationId);
             request.AddParameter("requestId", requestId);
             request.AddParameter("message", message);
 
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
             webClient.Execute(request);
         }
 
         private void ForwardToBot(string message, string conversationId)
         {
             var request = CreateRequestHeader("/messages/forward", Method.POST);
-
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-
             request.AddParameter("message", message);
             request.AddParameter("conversationId", conversationId);
 
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
             webClient.Execute(request);
         }
 
