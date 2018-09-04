@@ -29,7 +29,6 @@
         [Route("ProcessRequest")]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
-
             var criteria = new GetEmployeeByNickNameCriteria
             {
                  NickName = nickName

@@ -108,8 +108,7 @@
                 var members = nexbotRepository.GetEmployeeSkypeAccount(criteria);
                 if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
                 {
-                    var managements = nexbotRepository.GetEmployeeSkypeAccount(new GetManagementSkypeAccountCriteria());
-                    members = members.Concat(managements);
+                    members = nexbotRepository.GetEmployeeSkypeAccount(new GetManagementSkypeAccountCriteria());
                 }
                 SendMessageToHandleLeaveRequestMembers(members, request);
             }
