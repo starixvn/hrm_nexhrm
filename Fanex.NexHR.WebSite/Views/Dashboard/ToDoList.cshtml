@@ -34,6 +34,19 @@
     }
 }
 
+@foreach (var item in Model.EmployeeLatetInEarlyOuts)
+{
+    <p class="green-border">
+        <span class="left-align">You have been Late In/Early Out for more than 60 minutes on <span class="teal link  checkinout">@item.AttendanceDate.ToDateMonthYearFormatedDate()</span>
+            which was considered a half day leave as stated in the policy.
+        </span>
+        <a href="~/leave/Create?fromdate=@item.AttendanceDate.ToDateMonthYearFormatedDate()&todate=@item.AttendanceDate.ToDateMonthYearFormatedDate()"
+           class="btn-toDoRequest waves-effect waves-light right">
+            Request
+        </a>
+    </p>
+}
+
 @foreach (var item in Model.PendingRequestsList)
 {
     if (item.IsAllowUpdateStatus)

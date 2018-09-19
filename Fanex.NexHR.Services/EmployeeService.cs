@@ -10,6 +10,7 @@
     using Repositories;
     using Repositories.Interfaces;
     using ViewModels;
+    using Models.Report;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -127,6 +128,12 @@
         {
             IList<MissingCheckInOutModel> missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;
+        }
+
+        public IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
+        {
+            IList<EmployeeLateInEarlyOut> employees = GetData<EmployeeLateInEarlyOut>(criteria);
+            return employees;
         }
 
         private IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(int employeeId)

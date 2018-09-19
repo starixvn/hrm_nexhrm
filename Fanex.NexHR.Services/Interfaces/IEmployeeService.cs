@@ -7,6 +7,7 @@
     using Models;
     using Models.Workload;
     using ViewModels;
+    using Models.Report;
 
     public interface IEmployeeService
     {
@@ -33,6 +34,8 @@
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 
         IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria);
+
+        IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria);
 
         IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
     }

@@ -111,6 +111,7 @@
     <Compile Include="RedmineAPI\RedmineIssue.cs" />
     <Compile Include="RedmineAPI\RedmineUser.cs" />
     <Compile Include="RedmineAPI\TimeEntry.cs" />
+    <Compile Include="Report\EmployeeLateInEarlyOut.cs" />
     <Compile Include="Report\HeadCount.cs" />
     <Compile Include="Report\HeadCountModel.cs" />
     <Compile Include="JobTitle.cs" />

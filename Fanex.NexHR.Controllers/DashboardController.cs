@@ -23,6 +23,7 @@
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Report;
+    using Models.Report;
 
     public class DashboardController : BaseController
     {
@@ -117,6 +118,7 @@
                 model.MissingCheckInOutList = GetMissingCheckInOut(employeeId);
                 model.PendingRequestsList = GetPendingRequest();
                 model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
+                model.EmployeeLatetInEarlyOuts = GetEmployeeLateInEarlyOut();
 
                 if (CurrentUserSetting.DisplayRedmineTask)
                 {
@@ -230,6 +232,18 @@
             IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
 
             return entityList;
+        }
+
+        private IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut()
+        {
+            var criteria = new GetEmployeeAttendanceLateInEarlyOutCriteria
+            {
+                EmpId = CurrentUser.Id
+            };
+
+            IList<EmployeeLateInEarlyOut> employees = _employeeService.GetEmployeeLateInEarlyOut(criteria);
+
+            return employees;
         }
 
         [Authorize(Roles = "SpecialUser")]

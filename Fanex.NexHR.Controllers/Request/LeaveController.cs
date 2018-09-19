@@ -65,14 +65,14 @@
         }
 
         [Authorize(Roles = "SpecialUser")]
-        public ActionResult Create()
+        public ActionResult Create(DateTime? fromDate, DateTime? toDate)
         {
             var model = new LeaveRequestViewModel
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                FromDate = DateTime.Now.Date,
-                ToDate = DateTime.Now.Date,
+                FromDate = fromDate.HasValue ? fromDate.Value : DateTime.Now.Date,
+                ToDate = toDate.HasValue ? toDate.Value : DateTime.Now.Date,
                 TotalDays = 1,
                 LeaveTypes = _leaveTypeService.GetAll(),
                 UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
