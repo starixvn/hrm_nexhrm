@@ -184,11 +184,20 @@
 
         public void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request)
         {
-            var criteria = new GetLeaderSkypeAccountCriteria
+            IList<EmployeeSkypeAccount> leaders;
+            if (request.IsStandbyAtWeekend)
             {
-                EmployeeId = request.EmployeeId
-            };
-            var leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria);
+                var criteria = new GetLeaderForStanbyTeamSkypeAccountCriteria();
+                leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
+            }
+            else
+            {
+                var criteria = new GetLeaderSkypeAccountCriteria
+                {
+                    EmployeeId = request.EmployeeId
+                };
+                leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
+            }
 
             if (leaders != null && leaders.Any())
             {

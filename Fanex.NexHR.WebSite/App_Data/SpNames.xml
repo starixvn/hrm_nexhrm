@@ -362,6 +362,10 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="SkypeAccount_GetLeaderForStanbyTeam" SpName="SkypeAccount_GetLeaderForStanbyTeam" DbName="hangfire" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
     <Setting Key="SkypeAccount_GetSuggestion" SpName="SkypeAccount_GetSuggestion" DbName="nexbot" Plain="0"></Setting>
     <Setting Key="SkypeAccount_UpdateNickName" SpName="SkypeAccount_UpdateNickName" DbName="nexbot" Plain="0"></Setting>
   </Function>
