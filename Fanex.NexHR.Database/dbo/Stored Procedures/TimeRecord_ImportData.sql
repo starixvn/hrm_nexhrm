@@ -1,0 +1,48 @@
+﻿
+CREATE PROCEDURE [dbo].[TimeRecord_ImportData]
+AS
+/*
+Created: 20160927
+Task: Import data from BioAdmin to HRSmart system
+DB: NexHR
+Original: 
+
+Revisions:    
+Param's Explanation:
+• @importdate: the date to import data
+*/
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @FromDate DATETIME
+		,@Today DATETIME
+		,@TempDate DATETIME
+
+	SELECT @Today = GETDATE()
+
+	SELECT @FromDate = DATEADD(dd, - 1, @Today)
+
+	EXEC dbo.TimeRecord_ImportFromBioAdmin @FromDate
+		,@Today
+
+	SELECT @TempDate = DATEADD(MM, 2, GETDATE())
+
+	IF (DATEDIFF(MI, CAST(@Today AS DATE), @Today) < 5)
+	BEGIN
+		IF EXISTS (
+				SELECT 1
+				FROM dbo.Employee AS e WITH (NOLOCK)
+					LEFT JOIN dbo.EmployeeCalendar AS cl WITH (NOLOCK) ON e.Id = cl.EmpId
+					AND DATEDIFF(DD, WorkDate, @TempDate) = 0
+					AND ISNULL(e.Enabled, 0) = 1
+					AND ISNULL(e.isDeleted, 0) = 0
+				)
+		BEGIN
+			EXEC dbo.EmployeeCalendar_Insert NULL
+				,@TempDate
+				,@TempDate
+		END
+	END
+
+	EXEC dbo.TimeRecord_ImportBioStationTimeChange
+END
