@@ -71,15 +71,6 @@ BEGIN
     DELETE FROM dbo.Department
     WHERE DepartmentId = @DepartmentId
 
-    IF @@ERROR <> 0
-    BEGIN
-        SELECT @ErrCode = 1
-            ,@ErrMsg = N'Delete department failed.'
-    END
-    ELSE
-    BEGIN
-        SELECT @ErrCode = 0
-            ,@ErrMsg = ''
-    END
+	SELECT @ErrCode = 0, @ErrMsg = ''
 END
 

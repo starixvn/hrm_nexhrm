@@ -37,7 +37,7 @@ BEGIN
             )
     BEGIN
         SELECT @ErrCode = 1
-            ,@ErrMsg = N'Department code' + @Code + ' has already exists'
+            ,@ErrMsg = N'Department code ' + @Code + ' has already exists'
 
         RETURN
     END
@@ -76,15 +76,6 @@ BEGIN
         ,@DepartmentLevel
         )
 
-    IF @@ERROR <> 0
-    BEGIN
-        SELECT @ErrCode = 1
-            ,@ErrMsg = N'Insert department failed.'
-    END
-    ELSE
-    BEGIN
-        SELECT @ErrCode = 0
-            ,@ErrMsg = ''
-    END
+    SELECT @ErrCode = 0, @ErrMsg = ''
 END
 

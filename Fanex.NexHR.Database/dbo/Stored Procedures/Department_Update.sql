@@ -42,7 +42,7 @@ BEGIN
             )
     BEGIN
         SELECT @ErrCode = 1
-            ,@ErrMsg = N'Department code' + @Code + ' has already exists'
+            ,@ErrMsg = N'Department code ' + @Code + ' has already exists'
 
         RETURN
     END
@@ -83,15 +83,6 @@ BEGIN
     FROM dbo.Department AS dp WITH (ROWLOCK, UPDLOCK)
     INNER JOIN dbo.RelatedDepartment(@DepartmentId) AS d ON dp.DepartmentId = d.DepartmentId
 
-    IF @@ERROR <> 0
-    BEGIN
-        SELECT @ErrCode = 1
-            ,@ErrMsg = N'Update department failed.'
-    END
-    ELSE
-    BEGIN
-        SELECT @ErrCode = 0
-            ,@ErrMsg = ''
-    END
+    SELECT @ErrCode = 0, @ErrMsg = ''
 END
 

@@ -115,6 +115,14 @@
     <Folder Include="Security\" />
     <Folder Include="Tests" />
     <Folder Include="Tests\DepartmentTests" />
+    <Folder Include="Tests\DepartmentTests\Department_Get" />
+    <Folder Include="Tests\DepartmentTests\Department_GetById" />
+    <Folder Include="Tests\DepartmentTests\Department_Insert" />
+    <Folder Include="Tests\DepartmentTests\Department_Update" />
+    <Folder Include="Tests\DepartmentTests\Department_Delete" />
+    <Folder Include="Tests\AnnualLeaveTests" />
+    <Folder Include="Tests\AnnualLeaveTests\AnnualLeave_DeleteTransaction" />
+    <Folder Include="Tests\AnnualLeaveTests\AnnualLeave_GetById" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="NexHRM_Test">
@@ -692,8 +700,36 @@
     <Build Include="tSQLt\User Defined Types\AssertStringTable.sql" />
     <Build Include="Security\tSQLt.sql" />
     <Build Include="Tests\DepartmentTests\DepartmentTests.sql" />
-    <Build Include="Tests\DepartmentTests\Test to check Department table exists.sql" />
-    <Build Include="Tests\DepartmentTests\Test to check Department_Insert procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Test Department table exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure only return childs when ParentId not null.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure only return correct department with IsDisable status.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure return all when IsDisabled null.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure return all when ParentId null.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Get\Test Department_Get procedure return empty when ParentId not exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_GetById\Test Department_GetById procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_GetById\Test Department_GetById return correct Department when DepartmentId exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_GetById\Test Department_GetById return empty when DepartmentId not exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Insert\Test Department_Insert procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Insert\Test Department_Insert return correct error when Department Code exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Insert\Test Department_Insert sucessful when Department Code not exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Insert\Test Department_Insert sucessful when department table empty.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Update\Test Department_Update procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Update\Test Department_Update return correct error when Department Code exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Update\Test Department_Update sucessful when Department Code not exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Update\Test Department_Update sucessful when department have only this one.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Delete\Test Department_Delete procedure exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Delete\Test Department_Delete return correct error when department has child.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Delete\Test Department_Delete return correct error when department has group.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Delete\Test Department_Delete return correct error when departmentId not exists.sql" />
+    <Build Include="Tests\DepartmentTests\Department_Delete\Test Department_Delete sucessful when DepartmenId valid.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeaveTests.sql" />
+    <Build Include="Tests\AnnualLeaveTests\Test LeaveTrans table exists.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeave_DeleteTransaction\Test AnnualLeave_DeleteTransaction procedure exists.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeave_DeleteTransaction\Test AnnualLeave_DeleteTransaction return correct error when this trans is deleted before.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeave_DeleteTransaction\Test AnnualLeave_DeleteTransaction sucessful and return correct AL when transaction exists.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeave_GetById\Test AnnualLeave_GetById procedure exits.sql" />
+    <Build Include="Tests\AnnualLeaveTests\AnnualLeave_GetById\Test AnnualLeave_GetById return correct Transaction when TransactionId exists.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
