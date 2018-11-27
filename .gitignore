@@ -32,7 +32,6 @@ log.txt.*
 obj/
 [Rr]elease*/
 _ReSharper*/
-[Tt]est[Rr]esult*
 *.vssscc
 $tf*/
 *.css.map
