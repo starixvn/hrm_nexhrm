@@ -4,7 +4,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>NexHRM_Test</TargetDatabaseName>
     <DeployScriptFileName>Fanex.NexHR.Database.Tests.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=10.18.200.114;Persist Security Info=True;User ID=internalteam;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
+    <TargetConnectionString>Data Source=10.18.200.114;Persist Security Info=True;User ID=internalteam;password='@357$abc^FFZ%';Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
   </PropertyGroup>
   <ItemGroup>
