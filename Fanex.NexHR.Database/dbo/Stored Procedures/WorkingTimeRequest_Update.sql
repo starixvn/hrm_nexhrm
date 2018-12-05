@@ -1,6 +1,5 @@
 ﻿
 
-
 /****** Object:  Stored Procedure dbo.WorkingTimeRequest_Update    Script Date: 3/13/2016 3:21:44 PM ******/
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_Update]
     @Id bigint,
@@ -390,6 +389,44 @@ BEGIN
 
             RETURN
     END
+
+	IF (@RequestType = 6)
+	BEGIN
+		DECLARE @OldLeaveTypeId INT
+		,@OldFromDate DATETIME
+		,@OldToDate DATETIME
+		,@OldTotalDays NUMERIC(5, 1)
+
+	SELECT @OldFromDate = FromDate
+		,@OldToDate = ToDate
+		,@OldLeaveTypeId = LeaveTypeID
+		,@OldTotalDays = TotalDays
+	FROM dbo.WorkingTimeRequest
+	WHERE Id = @Id
+		select @id
+		,@EmpId
+		,@LeaveTypeId
+		,@FromDate
+		,@ToDate
+		,@TotalDays
+		,@OldLeaveTypeId
+		,@OldFromDate
+		,@OldToDate
+		,@OldTotalDays
+		,@ModifiedBy
+
+		EXEC [dbo].[WorkingTimeRequest_EditLeaveRequest_UpdateCalendar] @id
+		,@EmpId
+		,@LeaveTypeId
+		,@FromDate
+		,@ToDate
+		,@TotalDays
+		,@OldLeaveTypeId
+		,@OldFromDate
+		,@OldToDate
+		,@OldTotalDays
+		,@ModifiedBy
+	END
 
     UPDATE WorkingTimeRequest WITH (ROWLOCK, UPDLOCK)
     SET     

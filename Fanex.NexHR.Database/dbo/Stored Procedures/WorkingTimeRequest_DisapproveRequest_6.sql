@@ -1,4 +1,4 @@
-﻿/****** Object:  Stored Procedure dbo.WorkingTimeRequest_DisapproveRequest_6    Script Date: 3/15/2016 10:01:09 AM ******/
+﻿
 
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_DisapproveRequest_6] @RequestID BIGINT
 	,@EmpId INT
@@ -35,79 +35,6 @@ SET XACT_ABORT ON;
 
 BEGIN TRY
 	BEGIN TRANSACTION;
-
-	-- Josh: Check if exist other leave request in same day --
-	DECLARE @ExistLeaveTypeId INT
-		,@ExistLeaveTypeId2 INT
-
-	SELECT @ExistLeaveTypeId = LeaveTypeId
-		,@ExistLeaveTypeId2 = LeaveTypeId2
-	FROM dbo.EmployeeCalendar
-	WHERE EmpID = @EmpId
-		AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-			AND CONVERT(VARCHAR(10), @ToDate, 111)
-
-	IF (@ExistLeaveTypeId2 IS NULL)
-	BEGIN
-		-- update the working calendar to clear the check-in time
-		UPDATE dbo.EmployeeCalendar
-		SET IsLeaveDay = 0
-			,LeaveTypeID = NULL
-			,LeaveDay = 0
-			,ModifiedDate = @ModifiedDate
-			,ModifiedBy = @ModifiedBy
-		WHERE EmpID = @EmpId
-			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-				AND CONVERT(VARCHAR(10), @ToDate, 111) -- cut off time before compare
-	END
-	ELSE
-	BEGIN
-		IF (@ExistLeaveTypeId <> @ExistLeaveTypeId2)
-		BEGIN
-			IF (@ExistLeaveTypeId2 = @LeaveTypeID)
-			BEGIN
-				UPDATE dbo.EmployeeCalendar
-				SET LeaveTypeId2 = NULL
-					,LeaveDay = 0.5
-					,ModifiedDate = @ModifiedDate
-					,ModifiedBy = @ModifiedBy
-				WHERE EmpID = @EmpId
-					AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-						AND CONVERT(VARCHAR(10), @ToDate, 111)
-			END
-
-			IF (@ExistLeaveTypeId = @LeaveTypeID)
-			BEGIN
-				UPDATE dbo.EmployeeCalendar
-				SET LeaveTypeId = @ExistLeaveTypeId2
-					,LeaveTypeId2 = NULL
-					,LeaveDay = 0.5
-					,ModifiedDate = @ModifiedDate
-					,ModifiedBy = @ModifiedBy
-				WHERE EmpID = @EmpId
-					AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-						AND CONVERT(VARCHAR(10), @ToDate, 111)
-			END
-		END
-		ELSE
-		BEGIN
-			UPDATE dbo.EmployeeCalendar
-			SET LeaveTypeId2 = NULL
-				,LeaveDay = 0.5
-				,ModifiedDate = @ModifiedDate
-				,ModifiedBy = @ModifiedBy
-			WHERE EmpID = @EmpId
-				AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-					AND CONVERT(VARCHAR(10), @ToDate, 111)
-		END
-	END
-
-	-- Josh end: Check if exist other leave request in same day --
-	-- process the calendar into attendance
-	EXEC EmployeeAttendance_ProcessingAndInsert @EmpId
-		,@FromDate
-		,@ToDate
-		,1
 
 	-- get id from the leave trans
 	SELECT @LeaveTransId = Id

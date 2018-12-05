@@ -451,6 +451,22 @@ BEGIN
 
 	EXEC [WorkingTimeRequest_WriteHistory] @id
 
+	IF (@RequestType = 6)
+	BEGIN
+		EXEC [dbo].[WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar] @id
+		,@EmpId
+		,@LeaveTypeId
+		,@FromDate
+		,@ToDate
+		,@TotalDays
+		,@CreatedBy
+
+		EXEC dbo.EmployeeAttendance_ProcessingAndInsert @EmpId
+			,@FromDate
+			,@ToDate
+			,1
+	END
+
 	IF (@LeaveTypeID = @BusinessLeave)
 	BEGIN
 		SELECT @ErrCode = - 1

@@ -319,6 +319,9 @@
     <Build Include="dbo\Stored Procedures\Employee_GetBirthdayAndFirstWorkingday.sql" />
     <Build Include="dbo\Stored Procedures\AnnualLeave_GetSummary.sql" />
     <Build Include="dbo\Stored Procedures\Report_GetLateInEarlyOut.sql" />
+    <Build Include="dbo\Stored Procedures\WorkingTimeRequest_EditLeaveRequest_UpdateCalendar.sql" />
+    <Build Include="dbo\Stored Procedures\WorkingTimeRequest_DeleteLeaveRequest_UpdateCalendar.sql" />
+    <Build Include="dbo\Stored Procedures\WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

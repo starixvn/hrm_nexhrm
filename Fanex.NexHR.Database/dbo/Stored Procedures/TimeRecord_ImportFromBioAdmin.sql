@@ -105,7 +105,5 @@ BEGIN
 END
 
 GO
-GRANT EXECUTE
-    ON OBJECT::[dbo].[TimeRecord_ImportFromBioAdmin] TO [NT AUTHORITY\NETWORK SERVICE]
-    AS [dbo];
+
 

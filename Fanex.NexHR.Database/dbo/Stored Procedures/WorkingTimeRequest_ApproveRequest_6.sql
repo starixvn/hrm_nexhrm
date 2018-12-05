@@ -1,5 +1,4 @@
-﻿/****** Object:  Stored Procedure dbo.WorkingTimeRequest_ApproveRequest_6    Script Date: 3/15/2016 10:01:08 AM ******/
-
+﻿
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_ApproveRequest_6] @RequestID BIGINT
 	,@EmpId INT
 	,@ApprovedBy INT
@@ -14,68 +13,18 @@ Original:
 Revisions:    
 Param's Explanation:
 */
-DECLARE @LeaveTypeID INT
+BEGIN TRY
+	BEGIN TRANSACTION;
+
+	DECLARE @LeaveTypeID INT
 	,@TotalDays NUMERIC(5, 1)
 	,@FromDate DATETIME
 	,@ToDate DATETIME
 
--- get request detail
-SELECT @FromDate = FromDate
-	,@ToDate = ToDate
-	,@LeaveTypeID = LeaveTypeID
-	,@TotalDays = TotalDays
-FROM dbo.WorkingTimeRequest
-WHERE Id = @RequestID
-
--- SET XACT_ABORT ON will cause the transaction to be uncommittable
--- when the constraint violation occurs. 
-SET XACT_ABORT ON;
-
-BEGIN TRY
-	BEGIN TRANSACTION;
-
-	-- Josh: Check if exist other leave request in same day --
-	DECLARE @ExistLeaveTypeId INT
-
-	SELECT @ExistLeaveTypeId = LeaveTypeId
-	FROM dbo.EmployeeCalendar
-	WHERE EmpID = @EmpId
-		AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-			AND CONVERT(VARCHAR(10), @ToDate, 111)
-
-	IF (@ExistLeaveTypeId IS NULL)
-	BEGIN
-		-- update the working calendar to record the check-in time
-		UPDATE dbo.EmployeeCalendar
-		SET IsLeaveDay = 1
-			,LeaveTypeID = @LeaveTypeID
-			,LeaveDay = CASE 
-				WHEN @TotalDays = 0.5 THEN @TotalDays
-				ELSE 1
-				END
-			,ModifiedDate = @ApprovedDate
-			,ModifiedBy = @ApprovedBy
-		WHERE EmpID = @EmpId
-			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-				AND CONVERT(VARCHAR(10), @ToDate, 111) -- cut off time before compare
-	END
-	ELSE
-	BEGIN
-		UPDATE dbo.EmployeeCalendar
-		SET LeaveTypeId2 = @LeaveTypeID
-			,LeaveDay = 1
-			,ModifiedDate = @ApprovedDate
-			,ModifiedBy = @ApprovedBy
-		WHERE EmpID = @EmpId
-			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
-				AND CONVERT(VARCHAR(10), @ToDate, 111) -- cut off time before compare
-	END
-
-	-- Josh end: Check if exist other leave request in same day --
 	-- insert leave record		
 	IF (
 			EXISTS (
-				SELECT *
+				SELECT 1
 				FROM dbo.LeaveType
 				WHERE Id = @LeaveTypeID
 					AND IsALDeduction = 1
@@ -110,11 +59,6 @@ BEGIN TRY
 		,ModifiedDate = @ApprovedDate
 		,ModifiedBy = @ApprovedBy
 	WHERE Id = @RequestID
-
-	EXEC EmployeeAttendance_ProcessingAndInsert @EmpId
-		,@FromDate
-		,@ToDate
-		,1
 
 	COMMIT TRANSACTION;
 END TRY
