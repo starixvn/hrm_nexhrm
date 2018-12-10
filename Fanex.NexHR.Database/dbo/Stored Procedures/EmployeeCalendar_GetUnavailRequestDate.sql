@@ -67,6 +67,7 @@ BEGIN
 					AND DATEDIFF(DD, rq.FromDate, cl.WorkDate) >= 0
 					AND DATEDIFF(DD, cl.WorkDate, rq.ToDate) >= 0
 					AND rq.TotalDays > 0.5
+					AND rq.Id = @requestId
 				)
 	END
 
