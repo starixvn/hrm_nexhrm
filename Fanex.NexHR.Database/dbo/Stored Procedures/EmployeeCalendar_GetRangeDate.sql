@@ -1,30 +1,45 @@
-﻿
-/****** Object:  Stored Procedure dbo.EmployeeCalendar_GetRangeDate    Script Date: 3/13/2016 3:21:40 PM ******/
-
--- =============================================
--- Author:        <Author,,Quinn.vo>
--- Create date: <Create Date,,2012-08-09>
--- Description:    <Description,,get work days in range date>
--- =============================================
-CREATE PROCEDURE [dbo].[EmployeeCalendar_GetRangeDate] 
-    -- Add the parameters for the stored procedure here
+﻿CREATE PROCEDURE [dbo].[EmployeeCalendar_GetRangeDate] 
     @EmpId INT
     ,@fromDate DATETIME
     ,@toDate DATETIME
+	,@RequestId BIGINT = NULL
 AS
-BEGIN
-    -- SET NOCOUNT ON added to prevent extra result sets from
-    -- interfering with SELECT statements.
-    SET NOCOUNT ON;
+/*
+Created: 2018/12/10@Quinn.Vo
+Task: Get number of days when create/edit leave request.
+DB: NexHR
+Original: 
 
-    -- Insert statements for procedure here
-    SELECT COUNT(1) AS TotalDay
-    FROM dbo.EmployeeCalendar WITH (NOLOCK)
-    WHERE EmpID = @EmpId
-        AND WorkDate BETWEEN @fromDate
-            AND @toDate
-        AND IsHoliday = 0
-        AND IsOffDay = 0
-        AND IsLeaveDay = 0
+Revisions:
+Param's Explanation:
+*/
+BEGIN
+   SET NOCOUNT ON;
+
+	DECLARE @TotalDay NUMERIC(5,1)
+
+	IF (@RequestId IS NULL)
+	BEGIN
+		SELECT @TotalDay = COUNT(1)
+		FROM dbo.EmployeeCalendar WITH (NOLOCK)
+		WHERE EmpID = @EmpId
+			AND WorkDate BETWEEN @fromDate
+				AND @toDate
+			AND IsHoliday = 0
+			AND IsOffDay = 0
+			AND IsLeaveDay = 0
+	END
+	ELSE
+	BEGIN
+		SELECT @TotalDay = COUNT(1)
+			FROM dbo.EmployeeCalendar WITH (NOLOCK)
+			WHERE EmpID = @EmpId
+				AND WorkDate BETWEEN @fromDate
+					AND @toDate
+				AND IsHoliday = 0
+				AND IsOffDay = 0
+	END
+
+	SELECT @TotalDay AS TotalDay
 END
 

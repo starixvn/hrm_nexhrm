@@ -75,7 +75,7 @@
                 ToDate = toDate.HasValue ? toDate.Value : DateTime.Now.Date,
                 TotalDays = 1,
                 LeaveTypes = _leaveTypeService.GetAll(),
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
             };
 
@@ -144,7 +144,7 @@
         private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
         {
             model.LeaveTypes = _leaveTypeService.GetAll();
-            model.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id);
+            model.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
             ViewBag.Year = model.FromDate.Year;
             if (model.HalfDayOff)
             {
@@ -176,7 +176,7 @@
                 Remark = request.Remark,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
                 LeaveTypes = _leaveTypeService.GetAll(),
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id)
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id)
             };
 
             return View(model);

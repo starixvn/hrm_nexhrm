@@ -21,7 +21,7 @@
 
         decimal GetNumberRequestInMonth(int employeeId, RequestType requestType);
 
-        IList<DateTime> GetDisableRequestDate(int employeeId);
+        IList<DateTime> GetDisableRequestDate(int employeeId, long? requestId);
 
         DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
 

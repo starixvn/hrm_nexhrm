@@ -113,10 +113,11 @@ function initEventForFromDateAndToDate() {
                         }
                     });
             } else {
+                var requestId = $('#Id').val();
                 $.getJSON(_global.root + 'request/GetDateRange',
-                    { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val() },
+                    { employeeId: empId, fromDate: $('#FromDate').val(), toDate: $('#ToDate').val(), requestId: requestId },
                     function (response) {
-                        if (response != null) {
+                        if (response !== null) {
                             $('#TotalDays').val(response);
                         }
                     });

@@ -1,23 +1,19 @@
-﻿
-
-/****** Object:  Stored Procedure dbo.WorkingTimeRequest_Update    Script Date: 3/13/2016 3:21:44 PM ******/
-CREATE PROCEDURE [dbo].[WorkingTimeRequest_Update]
-    @Id bigint,
-    @IsPlanned bit,
-    @Remark nvarchar(2000)= null,
-    @FromDate datetime, 
-    @FromShift int = null, 
-    @ToDate datetime = null, 
-    @ToShift int = null,
-    @LeaveTypeID int = null, 
-    @TotalDays numeric(5,1) = null, 
-    @LateInMins int = null,
-    @EarlyOutMins int = null,
-	@IsCrossDate BIT = 0,
-    @ModifiedDate datetime, 
-    @ModifiedBy int
-    ,@ErrCode INT = 0 OUTPUT
-    ,@ErrMsg NVARCHAR(200) = '' OUTPUT
+﻿CREATE PROCEDURE [dbo].[WorkingTimeRequest_Update] @Id BIGINT
+	,@IsPlanned BIT
+	,@Remark NVARCHAR(2000) = NULL
+	,@FromDate DATETIME
+	,@FromShift INT = NULL
+	,@ToDate DATETIME = NULL
+	,@ToShift INT = NULL
+	,@LeaveTypeID INT = NULL
+	,@TotalDays NUMERIC(5, 1) = NULL
+	,@LateInMins INT = NULL
+	,@EarlyOutMins INT = NULL
+	,@IsCrossDate BIT = 0
+	,@ModifiedDate DATETIME
+	,@ModifiedBy INT
+	,@ErrCode INT = 0 OUTPUT
+	,@ErrMsg NVARCHAR(200) = '' OUTPUT
 AS
 /*
 Created: 2012/05/08@Dan
@@ -28,26 +24,36 @@ Original:
 Revisions:
 Param's Explanation:
 */
-
 BEGIN
-    DECLARE @empId INT, @requestType INT,@Status INT
-
-	DECLARE @AnnualLeaveBalance NUMERIC(5, 1)
+	DECLARE @empId INT
+		,@requestType INT
+		,@Status INT
+		,@AnnualLeaveBalance NUMERIC(5, 1)
 		,@TotalPedingDays NUMERIC(5, 1)
 		,@annualLeaveType INT
 		,@callInLeaveType INT
 		,@NEXLeaveType INT
 		,@BusinessLeave INT
 		,@IsValidLeaveDay BIT
+		,@OldLeaveTypeId INT
+		,@OldFromDate DATETIME
+		,@OldToDate DATETIME
+		,@OldTotalDays NUMERIC(5, 1)
 
 	SELECT @annualLeaveType = 2
 		,@callInLeaveType = 30
 		,@NEXLeaveType = 31
 		,@BusinessLeave = 32
 
-    SELECT @empId = EmpId, @requestType = RequestType, @Status = [Status]
-    FROM dbo.WorkingTimeRequest WITH (NOLOCK)
-    WHERE Id = @Id
+	SELECT @empId = EmpId
+		,@requestType = RequestType
+		,@Status = [Status]
+		,@OldFromDate = FromDate
+		,@OldToDate = ToDate
+		,@OldLeaveTypeId = LeaveTypeID
+		,@OldTotalDays = TotalDays
+	FROM dbo.WorkingTimeRequest WITH (NOLOCK)
+	WHERE Id = @Id
 
 	IF (@RequestType IN (1, 2))
 	BEGIN
@@ -137,14 +143,13 @@ BEGIN
 		END
 
 		-- END
-		
-		IF(@EmpId = 88) -- user Thien is auto approve check in/out request.
+		IF (@EmpId = 88) -- user Thien is auto approve check in/out request.
 		BEGIN
 			SELECT @ErrCode = - 1
 		END
 	END
-    ELSE IF (@RequestType = 6)
-    BEGIN
+	ELSE IF (@RequestType = 6)
+	BEGIN
 		IF (
 				@FromDate IS NULL
 				OR @ToDate IS NULL
@@ -178,7 +183,7 @@ BEGIN
 					SELECT 1
 					FROM dbo.WorkingTimeRequest WITH (NOLOCK)
 					WHERE Id <> @Id
-                        AND empid = @empid
+						AND empid = @empid
 						AND RequestType = @RequestType
 						AND STATUS IN (1, 2)
 						AND (
@@ -246,31 +251,17 @@ BEGIN
 			END
 		END
 
-		--SELECT @TotalPedingDays = SUM(TotalDays)
-		--FROM dbo.WorkingTimeRequest WITH (NOLOCK)
-		--WHERE id <> @Id 
-		--	AND EmpId = @EmpId
-		--	AND [Status] = 1
-		--	AND RequestType = 6
-		--	AND (
-		--		LeaveTypeID = @annualLeaveType
-		--		OR LeaveTypeID = @callInLeaveType
-		--		)
-
-		--SELECT @AnnualLeaveBalance = SUM(CreditDays) - SUM(DeductDays)
-		--FROM dbo.LeaveTrans WITH (NOLOCK)
-		--WHERE EmpId = @EmpId
-		--	AND ISNULL(Deleted, 0) = 0
-		--	AND YEAR(FromDate) = YEAR(@FromDate)
-
-		IF(@LeaveTypeID = @annualLeaveType OR @LeaveTypeID = @callInLeaveType)
+		IF (
+				@LeaveTypeID = @annualLeaveType
+				OR @LeaveTypeID = @callInLeaveType
+				)
 		BEGIN
 			SELECT @IsValidLeaveDay = dbo.fnc_CheckValidAnnualLeaveBalanceByRequest(@EmpId, @ToDate, @TotalDays, @Id)
 
-			IF(@IsValidLeaveDay = 0)
+			IF (@IsValidLeaveDay = 0)
 			BEGIN
 				SELECT @ErrCode = 111
-				,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the “Unpaid Leave” instead.'
+					,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the “Unpaid Leave” instead.'
 
 				RETURN
 			END
@@ -380,79 +371,58 @@ BEGIN
 				RETURN
 			END
 		END
-    END
+	END
 
-    IF(@Status <> 1 OR @empId <> @ModifiedBy)
-    BEGIN
-       SELECT @ErrCode = 111
-                ,@ErrMsg = 'You can not update this request. Please contact HR for more detail.'
+	IF (
+			@Status <> 1
+			OR @empId <> @ModifiedBy
+			)
+	BEGIN
+		SELECT @ErrCode = 111
+			,@ErrMsg = 'You can not update this request. Please contact HR for more detail.'
 
-            RETURN
-    END
+		RETURN
+	END
 
 	IF (@RequestType = 6)
 	BEGIN
-		DECLARE @OldLeaveTypeId INT
-		,@OldFromDate DATETIME
-		,@OldToDate DATETIME
-		,@OldTotalDays NUMERIC(5, 1)
-
-	SELECT @OldFromDate = FromDate
-		,@OldToDate = ToDate
-		,@OldLeaveTypeId = LeaveTypeID
-		,@OldTotalDays = TotalDays
-	FROM dbo.WorkingTimeRequest
-	WHERE Id = @Id
-		select @id
-		,@EmpId
-		,@LeaveTypeId
-		,@FromDate
-		,@ToDate
-		,@TotalDays
-		,@OldLeaveTypeId
-		,@OldFromDate
-		,@OldToDate
-		,@OldTotalDays
-		,@ModifiedBy
-
 		EXEC [dbo].[WorkingTimeRequest_EditLeaveRequest_UpdateCalendar] @id
-		,@EmpId
-		,@LeaveTypeId
-		,@FromDate
-		,@ToDate
-		,@TotalDays
-		,@OldLeaveTypeId
-		,@OldFromDate
-		,@OldToDate
-		,@OldTotalDays
-		,@ModifiedBy
+			,@EmpId
+			,@LeaveTypeId
+			,@FromDate
+			,@ToDate
+			,@TotalDays
+			,@OldLeaveTypeId
+			,@OldFromDate
+			,@OldToDate
+			,@OldTotalDays
+			,@ModifiedBy
 	END
 
-    UPDATE WorkingTimeRequest WITH (ROWLOCK, UPDLOCK)
-    SET     
-            IsPlanned = @IsPlanned,
-            Remark = @Remark ,
-            FromDate = @FromDate, 
-            FromShift = @FromShift, 
-            ToDate = @ToDate, 
-            ToShift = @ToShift, 
-            LeaveTypeID = @LeaveTypeID, 
-            TotalDays = @TotalDays, 
-            LateInMins = @LateInMins,
-            EarlyOutMins = @EarlyOutMins,
-            ModifiedDate = @ModifiedDate,
-            ModifiedBy = @ModifiedBy,
-			IsCrossDate = @IsCrossDate 
-     WHERE Id=@Id
+	UPDATE WorkingTimeRequest WITH (ROWLOCK, UPDLOCK)
+	SET IsPlanned = @IsPlanned
+		,Remark = @Remark
+		,FromDate = @FromDate
+		,FromShift = @FromShift
+		,ToDate = @ToDate
+		,ToShift = @ToShift
+		,LeaveTypeID = @LeaveTypeID
+		,TotalDays = @TotalDays
+		,LateInMins = @LateInMins
+		,EarlyOutMins = @EarlyOutMins
+		,ModifiedDate = @ModifiedDate
+		,ModifiedBy = @ModifiedBy
+		,IsCrossDate = @IsCrossDate
+	WHERE Id = @Id
 
-    EXEC [WorkingTimeRequest_WriteHistory] @Id
+	EXEC [WorkingTimeRequest_WriteHistory] @Id
 
 	IF (@LeaveTypeID = @BusinessLeave)
 	BEGIN
 		SELECT @ErrCode = - 1
 	END
 
-    IF (
+	IF (
 			NOT EXISTS (
 				SELECT eg.GroupId
 				FROM dbo.EmployeeGroup_Employee eg WITH (NOLOCK)
@@ -484,5 +454,3 @@ BEGIN
 		SET @ErrCode = 0
 	END
 END
-
-

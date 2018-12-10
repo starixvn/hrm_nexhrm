@@ -77,7 +77,7 @@
                 EmployeeId = CurrentUser.Id,
                 WorkDate = date ?? DateTime.Today,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
                 IsCrossDate = isCrossDate
             };
@@ -169,7 +169,7 @@
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,
                 CheckInOutType = request.RequestType.Id,
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id),
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 IsCrossDate = request.IsCrossDate
             };
 

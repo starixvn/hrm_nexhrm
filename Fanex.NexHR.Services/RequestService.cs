@@ -266,13 +266,14 @@
             return entityList;
         }
 
-        public IList<DateTime> GetDisableRequestDate(int employeeId)
+        public IList<DateTime> GetDisableRequestDate(int employeeId, long? requestId)
         {
             var criteria = new GetUnavailableRequestDateCriteria
             {
                 EmployeeId = employeeId,
                 FromDate = Utilities.RequestAvailableFromDate,
-                ToDate = Utilities.RequestAvailableToDate
+                ToDate = Utilities.RequestAvailableToDate,
+                RequestId = requestId
             };
 
             IList<DateTime> dates = GetData<DateTime>(criteria);

@@ -270,17 +270,18 @@
 
         public JsonResult GetUnavailDate(int employeeId)
         {
-            IList<DateTime> dates = _requestService.GetDisableRequestDate(employeeId);
+            IList<DateTime> dates = _requestService.GetDisableRequestDate(employeeId, requestId: null);
             return Json(dates.Select(t => t.ToString("dd MMM yyyy")), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate)
+        public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate, long? requestId)
         {
             var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
             {
                 EmployeeId = employeeId,
                 FromDate = fromDate,
-                ToDate = toDate
+                ToDate = toDate,
+                RequestId = requestId == 0 ? null : requestId
             };
 
             DateRange totalDays = _requestService.GetDateRange(getDateRangeCriteria);

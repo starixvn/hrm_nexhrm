@@ -21,6 +21,13 @@ BEGIN TRY
 	,@FromDate DATETIME
 	,@ToDate DATETIME
 
+	SELECT @FromDate = FromDate
+		,@ToDate = ToDate
+		,@LeaveTypeID = LeaveTypeID
+		,@TotalDays = TotalDays
+	FROM dbo.WorkingTimeRequest WITH (NOLOCK)
+	WHERE Id = @RequestID
+
 	-- insert leave record		
 	IF (
 			EXISTS (

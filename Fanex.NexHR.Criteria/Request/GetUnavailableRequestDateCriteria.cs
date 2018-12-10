@@ -13,6 +13,8 @@
 
         public DateTime ToDate { get; set; }
 
+        public long? RequestId { get; set; }
+
         public override string GetSettingKey()
         {
             return "EmployeeCalendar_GetUnavailRequestDate";
