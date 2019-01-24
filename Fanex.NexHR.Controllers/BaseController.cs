@@ -37,7 +37,7 @@ namespace Fanex.NexHR.Controllers
                     {
                         if (!currentUser.Enabled || currentUser.IsDeleted)
                         {
-                            Response.Redirect("~/home/accountsuspended", true);
+                            Response.Redirect("~/error/accountsuspended", true);
                         }
 
                         if (HttpContext.Session != null)
@@ -93,7 +93,7 @@ namespace Fanex.NexHR.Controllers
         {
             if (CurrentUser == null)
             {
-                filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
             }
 
             if (filterContext == null)
@@ -114,7 +114,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     if (!item.Roles.Contains("SpecialUser"))
                     {
-                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                        filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
                 }
                 else
@@ -123,7 +123,7 @@ namespace Fanex.NexHR.Controllers
                     if (!string.IsNullOrEmpty(item.Roles)
                         && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
                     {
-                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                        filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
                 }
             }
