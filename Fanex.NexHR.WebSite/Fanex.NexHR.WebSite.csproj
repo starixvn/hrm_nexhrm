@@ -807,7 +807,7 @@
     <Content Include="Views\Overtime\MemberOvertime.cshtml" />
     <Content Include="Views\LateEarly\Index.cshtml" />
     <Content Include="Views\Report\LateInEarlyOutDiscipline.cshtml" />
-    <Content Include="Views\Home\NoData.cshtml" />
+    <Content Include="Views\Error\NoData.cshtml" />
     <Content Include="Views\Report\_ListLateInEarlyOutDiscipline.cshtml" />
     <Content Include="Views\Report\_ListLateInEarlyOut.cshtml" />
     <Content Include="Views\Report\_ListTimesheet.cshtml" />
@@ -913,8 +913,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
-    <Content Include="Views\Home\AccountSuspended.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\AccountSuspended.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
