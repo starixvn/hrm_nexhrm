@@ -75,47 +75,50 @@ namespace Fanex.NexHR.Web.Providers
         /// <returns>List of role.</returns>
         public override string[] GetRolesForUser(string username)
         {
-            var user = GetCurrentUser(username);
             var roles = new List<string>
             {
                 Role.Member.EnumToString(),
                 Role.SpecialUser.EnumToString()
             };
 
-            if (user.HasRolePM)
+            var user = GetCurrentUser(username);
+            if(user != null)
             {
-                roles.Add(Role.PM.EnumToString());
-            }
-
-            if (user.RoleList != null)
-            {
-                foreach (var item in user.RoleList)
+                if (user.HasRolePM)
                 {
-                    switch (item)
+                    roles.Add(Role.PM.EnumToString());
+                }
+
+                if (user.RoleList != null)
+                {
+                    foreach (var item in user.RoleList)
                     {
-                        default:
-                            roles.Add(Role.AssistantLeader.EnumToString());
-                            break;
+                        switch (item)
+                        {
+                            default:
+                                roles.Add(Role.AssistantLeader.EnumToString());
+                                break;
 
-                        case 2:
-                            roles.Add(Role.AssistantLeader.EnumToString());
-                            roles.Add(Role.Leader.EnumToString());
-                            break;
+                            case 2:
+                                roles.Add(Role.AssistantLeader.EnumToString());
+                                roles.Add(Role.Leader.EnumToString());
+                                break;
 
-                        case 3:
-                            roles.Add(Role.HR.EnumToString());
-                            break;
+                            case 3:
+                                roles.Add(Role.HR.EnumToString());
+                                break;
 
-                        case 4:
-                            roles.Add(Role.AssistantLeader.EnumToString());
-                            roles.Add(Role.Leader.EnumToString());
-                            roles.Add(Role.HR.EnumToString());
-                            roles.Add(Role.SA.EnumToString());
-                            break;
+                            case 4:
+                                roles.Add(Role.AssistantLeader.EnumToString());
+                                roles.Add(Role.Leader.EnumToString());
+                                roles.Add(Role.HR.EnumToString());
+                                roles.Add(Role.SA.EnumToString());
+                                break;
+                        }
                     }
                 }
             }
-
+            
             return roles.ToArray();
         }
 
