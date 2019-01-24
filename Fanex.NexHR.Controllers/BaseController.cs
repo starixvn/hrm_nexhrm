@@ -105,7 +105,7 @@ namespace Fanex.NexHR.Controllers
 
             foreach (AuthorizeAttribute item in attributes)
             {
-                if (CurrentUser.IsSpecialUser)
+                if (CurrentUser != null && CurrentUser.IsSpecialUser)
                 {
                     if (!item.Roles.Contains("SpecialUser"))
                     {
