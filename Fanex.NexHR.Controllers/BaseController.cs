@@ -91,6 +91,11 @@ namespace Fanex.NexHR.Controllers
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
+            if (CurrentUser == null)
+            {
+                filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
+            }
+
             if (filterContext == null)
             {
                 return;
@@ -105,7 +110,7 @@ namespace Fanex.NexHR.Controllers
 
             foreach (AuthorizeAttribute item in attributes)
             {
-                if (CurrentUser != null && CurrentUser.IsSpecialUser)
+                if (CurrentUser.IsSpecialUser)
                 {
                     if (!item.Roles.Contains("SpecialUser"))
                     {
