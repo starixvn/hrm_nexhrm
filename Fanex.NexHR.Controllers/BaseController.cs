@@ -107,15 +107,17 @@ namespace Fanex.NexHR.Controllers
             {
                 return;
             }
-
-            CheckRoles(filterContext, attributes);
+            if(CurrentUser!= null)
+            {
+                CheckRoles(filterContext, attributes);
+            }
         }
 
         private void CheckRoles(AuthorizationContext filterContext, object[] attributes)
         {
             foreach (AuthorizeAttribute item in attributes)
             {
-                if (CurrentUser.IsSpecialUser)
+                if (CurrentUser.IsSpecialUser && !item.Roles.Contains("SpecialUser"))
                 {
                     if (!item.Roles.Contains("SpecialUser"))
                     {
