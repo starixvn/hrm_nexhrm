@@ -93,7 +93,7 @@ namespace Fanex.NexHR.Controllers
         {
             if (CurrentUser == null)
             {
-                filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                filterContext.Result = new RedirectResult("~/error.html");
             }
 
             if (filterContext == null)
@@ -108,13 +108,18 @@ namespace Fanex.NexHR.Controllers
                 return;
             }
 
+            CheckRoles(filterContext, attributes);
+        }
+
+        private void CheckRoles(AuthorizationContext filterContext, object[] attributes)
+        {
             foreach (AuthorizeAttribute item in attributes)
             {
                 if (CurrentUser.IsSpecialUser)
                 {
                     if (!item.Roles.Contains("SpecialUser"))
                     {
-                        filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
                 }
                 else
@@ -123,7 +128,7 @@ namespace Fanex.NexHR.Controllers
                     if (!string.IsNullOrEmpty(item.Roles)
                         && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
                     {
-                        filterContext.Result = new RedirectResult("~/error/accessdenied?url=" + Request.Url?.AbsoluteUri);
+                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                     }
                 }
             }

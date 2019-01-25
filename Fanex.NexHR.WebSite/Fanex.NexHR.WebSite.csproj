@@ -371,6 +371,7 @@
     <Content Include="Content\Views\myrequest.css">
       <DependentUpon>myrequest.scss</DependentUpon>
     </Content>
+    <Content Include="error.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Libs\SimplePagination\jquery.simplePagination.js" />
