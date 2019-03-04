@@ -236,11 +236,11 @@
                 CurrentAddress = FormatString(employee.CurrentAddress),
                 PermanentAddress = FormatString(employee.PermanentAddress),
                 PassportNo = FormatString(employee.PassportNo),
+                PassportExp = employee.PassportExp,
                 Listening = FormatToeicScore(employee.ToeicScore?.Listening),
                 Reading = FormatToeicScore(employee.ToeicScore?.Reading),
                 Speaking = FormatToeicScore(employee.ToeicScore?.Speaking),
-                Writing = FormatToeicScore(employee.ToeicScore?.Writing),
-                PassportExp = employee.PassportExp
+                Writing = FormatToeicScore(employee.ToeicScore?.Writing)
             };
             rowIndex++;
 
