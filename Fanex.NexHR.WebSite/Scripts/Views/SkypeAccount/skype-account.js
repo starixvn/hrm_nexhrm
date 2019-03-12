@@ -5,7 +5,7 @@
         editForm: "#skype-account-edit",
         dialog: "#skype-account-dialog",
         editIcon: ".account-edit"
-    }
+    };
 
     function getSkypeAccountList() {
         var $form = $(domElement.filterForm);
@@ -29,7 +29,7 @@
                     $('.loading-process').fadeOut(300);
                 }
             }
-        })
+        });
     }
 
     function initDialog() {
@@ -88,7 +88,7 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus + ': ' + errorThrown);
             }
-        })
+        });
     }
 
     function showErrorMessage(form, errors) {
@@ -100,12 +100,14 @@
 
     function registerEditEvent() {
         $(domElement.editIcon).on("click", function () {
+            var employeeId = $(this).attr("data-empId");
             var fullName = $(this).attr("data-fullName");
             var nickName = $(this).attr("data-nickName");
             $.ajax({
                 method: 'GET',
                 url: _global.root + 'SkypeAccount/EditAccount',
                 data: {
+                    employeeId,
                     fullName,
                     nickName
                 },
@@ -131,7 +133,7 @@
         $(domElement.filterForm).on("submit", function (e) {
             e.preventDefault();
             getSkypeAccountList();
-        })
+        });
     }
 
     function init() {
@@ -141,7 +143,7 @@
 
     return {
         initModule: init
-    }
+    };
 })(jQuery);
 
 $(document).ready(function () {

@@ -10,7 +10,7 @@
 
         public bool? IsConfirmed { get; set; }
 
-        public override string GetSettingKey() => "SkypeAccount_GetAllEmployee";
+        public override string GetSettingKey() => "Employee_GetSkypeAccount";
 
         public override bool IsValid() => true;
     }

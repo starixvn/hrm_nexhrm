@@ -350,23 +350,10 @@
   </Function>
 
   <Function Name="Employee Skype Account Management">
-    <Setting Key="SkypeAccount_GetAllEmployee" SpName="SkypeAccount_GetAllEmployee" DbName="hangfire" Plain="0">
+    <Setting Key="Employee_GetSkypeAccount" SpName="Employee_GetSkypeAccount" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="SkypeAccount_GetLeaders" SpName="SkypeAccount_GetLeaders" DbName="hangfire" Plain="0">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
-    <Setting Key="SkypeAccount_GetManagements" SpName="SkypeAccount_GetManagements" DbName="hangfire" Plain="0">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
-    <Setting Key="SkypeAccount_GetLeaderForStanbyTeam" SpName="SkypeAccount_GetLeaderForStanbyTeam" DbName="hangfire" Plain="0">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
-    <Setting Key="SkypeAccount_GetSuggestion" SpName="SkypeAccount_GetSuggestion" DbName="nexbot" Plain="0"></Setting>
-    <Setting Key="SkypeAccount_UpdateNickName" SpName="SkypeAccount_UpdateNickName" DbName="nexbot" Plain="0"></Setting>
+    <Setting Key="Employee_UpdateSkypeAccount" SpName="Employee_UpdateSkypeAccount" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

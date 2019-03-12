@@ -15,13 +15,11 @@
         private readonly ITeamService teamService;
         private readonly INexbotService nexbotService;
         private readonly ICommandService commandService;
-        private readonly BaseService baseService;
 
         public SkypeAccountController()
         {
             teamService = new TeamService();
             nexbotService = new NexbotService();
-            baseService = new BaseService();
             commandService = new CommandService();
         }
 
@@ -50,15 +48,16 @@
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult EditAccount(string fullName, string nickName)
+        public ActionResult EditAccount(int employeeId, string fullName, string nickName)
         {
-            var skypeNameSuggestionList = baseService.GetData<ConversationUser>(new GetSkypeUserSuggestionCriteria());
+            var skypeAccounts = nexbotService.GetSkypeAccount();
 
             var viewModel = new SkypeAccountViewModel
             {
+                EmployeeId = employeeId,
                 FullName = fullName,
                 NickName = nickName,
-                SkypeUserSuggestion = GetSkypeUserSuggestionSelectList(skypeNameSuggestionList, nickName)
+                SkypeUserSuggestion = GetSkypeUserSuggestionSelectList(skypeAccounts, nickName)
             };
 
             return PartialView("_EditAccount", viewModel);
@@ -86,7 +85,7 @@
             {
                 var criteria = new UpdateSkypeAccountNickNameCriteria
                 {
-                    NickName = viewModel.NickName,
+                    EmployeeId = viewModel.EmployeeId,
                     ConversationId = viewModel.ConversationId
                 };
 

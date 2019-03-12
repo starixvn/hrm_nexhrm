@@ -125,13 +125,7 @@
                 }
 
                 model.IsEdit = false;
-                model.GetTemplatePath();
-                model.CurrentUserEmail = CurrentUser.Email;
-                Task.Factory.StartNew(() =>
-                {
-                    _requestService.SendMailForLeave(model);
-                    _nexbotService.SendMessageForLeaveRequest(model);
-                });
+                SendEmailAndSkype(model);
             }
             else
             {
@@ -139,6 +133,17 @@
             }
 
             return View(model);
+        }
+
+        private void SendEmailAndSkype(LeaveRequestViewModel model)
+        {
+            model.GetTemplatePath();
+            model.CurrentUserEmail = CurrentUser.Email;
+            Task.Factory.StartNew(() =>
+            {
+                _requestService.SendMailForLeave(model);
+                _nexbotService.SendMessageForLeaveRequest(model);
+            });
         }
 
         private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
@@ -217,12 +222,7 @@
                     if (result.Code == 0)
                     {
                         model.IsEdit = true;
-                        model.GetTemplatePath();
-                        Task.Factory.StartNew(() =>
-                        {
-                            _requestService.SendMailForLeave(model);
-                            _nexbotService.SendMessageForLeaveRequest(model);
-                        });
+                        SendEmailAndSkype(model);
                     }
                 }
                 else

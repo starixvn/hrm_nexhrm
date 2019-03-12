@@ -352,46 +352,39 @@
             }
         }
 
-        public void SendMailForCheckInOut(CheckInOutRequestViewModel model)
+        public void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders)
         {
-            if (model != null)
+            var content = new
             {
-                IList<Employee> leaders = GetLeaderForCheckInOut(model);
-                if (leaders != null && leaders.Any())
-                {
-                    var content = new
-                    {
-                        Leader = leaders.First().NickName,
-                        Member = model.Employee,
-                        Type = model.CheckInOutType == (short)RequestType.CheckIn
+                Leader = leaders.First().NickName,
+                Member = model.Employee,
+                Type = model.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture),
-                        RequestId = model.Id,
-                        ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
-                        Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
-                        Shift = model.Shift
-                    };
+                RequestId = model.Id,
+                ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
+                Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
+                Shift = model.Shift
+            };
 
-                    var body = string.Format(
-                        model.EmailTemplate,
-                        content.Leader,
-                        content.Member,
-                        content.Type,
-                        content.ForDate,
-                        content.Shift,
-                        content.Time);
+            var body = string.Format(
+                model.EmailTemplate,
+                content.Leader,
+                content.Member,
+                content.Type,
+                content.ForDate,
+                content.Shift,
+                content.Time);
 
-                    _emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        string.Join(";", leaders.Select(t => t.Email)),
-                        string.Empty,
-                        model.SubjectEmail,
-                        body);
-                }
-            }
+            _emailService.SendEmail(
+                ConfigurationManager.AppSettings["Email"],
+                string.Join(";", leaders.Select(t => t.Email)),
+                string.Empty,
+                model.SubjectEmail,
+                body);
         }
 
-        private IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
+        public IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
         {
             IList<Employee> leaders;
 

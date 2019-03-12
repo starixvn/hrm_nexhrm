@@ -101,6 +101,8 @@
 
         public Toeic ToeicScore { get; set; }
 
+        public string ConversationId { get; set; }
+
         public DefaultSchedule DefaultSchedule { get; set; }
 
         public IList<short> RoleList

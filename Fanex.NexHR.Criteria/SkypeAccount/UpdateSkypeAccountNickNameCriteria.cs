@@ -4,12 +4,12 @@
 
     public class UpdateSkypeAccountNickNameCriteria : CriteriaBase
     {
-        public string NickName { get; set; }
+        public int EmployeeId { get; set; }
 
         public string ConversationId { get; set; }
 
-        public override string GetSettingKey() => "SkypeAccount_UpdateNickName";
+        public override string GetSettingKey() => "Employee_UpdateSkypeAccount";
 
-        public override bool IsValid() => !string.IsNullOrWhiteSpace(NickName) && !string.IsNullOrWhiteSpace(ConversationId);
+        public override bool IsValid() => EmployeeId > 0 && !string.IsNullOrWhiteSpace(ConversationId);
     }
 }

@@ -14,7 +14,7 @@
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(ConversationNickName);
+                return !string.IsNullOrWhiteSpace(ConversationId);
             }
         }
     }

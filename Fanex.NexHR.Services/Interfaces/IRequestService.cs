@@ -25,7 +25,9 @@
 
         DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        void SendMailForCheckInOut(CheckInOutRequestViewModel model);
+        void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders);
+
+        IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model);
 
         void SendMailForLeave(LeaveRequestViewModel model);
 

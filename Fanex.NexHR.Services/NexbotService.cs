@@ -8,6 +8,8 @@
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Models;
     using Interfaces;
     using Models.NexBot;
     using Models.Request;
@@ -46,6 +48,17 @@
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
 
             return request;
+        }
+
+        public IList<ConversationUser> GetSkypeAccount()
+        {
+            var request = CreateRequestHeader("/account/index", Method.GET);
+
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>> (request);
+            var skypeAccounts = response.Data;
+
+            return skypeAccounts;
         }
 
         public void SendApproveMessage(string conversationId, long requestId, string message)
@@ -91,37 +104,59 @@
         {
             if (criteria != null && criteria.IsValid())
             {
-                return nexbotRepository.GetEmployeeSkypeAccount(criteria);
+                var employeeAccounts = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
+
+                var conversationUsers = GetSkypeAccount();
+
+                return CombineEmployeeSkypeAccount(employeeAccounts, conversationUsers);
             }
 
             return new List<EmployeeSkypeAccount>();
+        }
+
+        private static IList<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IList<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
+        {
+            foreach (var account in employeeAccounts)
+            {
+                var conversation = conversationUsers.FirstOrDefault(t => t.ConversationId == account.ConversationId);
+                if (conversation != null)
+                {
+                    account.SkypeDisplayName = conversation.UserName;
+                }
+            }
+
+            return employeeAccounts;
         }
 
         public void SendMessageForLeaveRequest(LeaveRequestViewModel request)
         {
             if (request != null)
             {
-                var criteria = new GetLeaderSkypeAccountCriteria
-                {
-                    EmployeeId = request.EmployeeId
-                };
-                var members = nexbotRepository.GetEmployeeSkypeAccount(criteria);
+                IEnumerable<Employee> leaders;
                 if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
                 {
-                    members = nexbotRepository.GetEmployeeSkypeAccount(new GetManagementSkypeAccountCriteria());
+                    leaders = GetData<Employee>(new GetManagementsCriteria());
                 }
-                SendMessageToHandleLeaveRequestMembers(members, request);
+                else
+                {
+                    var criteria = new GetLeadersOfEmployeeCriteria
+                    {
+                        EmployeeId = request.EmployeeId
+                    };
+                    leaders = GetData<Employee>(criteria);
+                }
+                SendMessageToHandleLeaveRequestMembers(leaders, request);
             }
         }
 
-        private void SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeSkypeAccount> members, LeaveRequestViewModel request)
+        private void SendMessageToHandleLeaveRequestMembers(IEnumerable<Employee> leaders, LeaveRequestViewModel request)
         {
-            if (members != null && members.Any())
+            if (leaders != null && leaders.Any())
             {
-                foreach (var member in members)
+                foreach (var leader in leaders)
                 {
-                    var message = GenerateMessageForLeaveRequest(request, member.Employee.NickName);
-                    SendApproveMessage(member.ConversationId, request.Id, message);
+                    var message = GenerateMessageForLeaveRequest(request, leader.NickName);
+                    SendApproveMessage(leader.ConversationId, request.Id, message);
                 }
             }
         }
@@ -160,15 +195,15 @@
 
         public void SendMessageProcessRequest(RequestEntity request, string command)
         {
-            var skypeAccount = nexbotRepository.GetEmployeeSkypeAccount(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id }).FirstOrDefault();
-            if (skypeAccount != null)
+            var employeee = GetDataEntity<Employee>(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id });
+            if (employeee != null)
             {
-                var message = GenerateProcessRequestMessage(request, skypeAccount, command);
-                SendMessage(skypeAccount.ConversationId, message);
+                var message = GenerateProcessRequestMessage(request, command);
+                SendMessage(employeee.ConversationId, message);
             }
         }
 
-        private static string GenerateProcessRequestMessage(RequestEntity request, EmployeeSkypeAccount skypeAccount, string command)
+        private static string GenerateProcessRequestMessage(RequestEntity request, string command)
         {
             var action = command == Command.Reject.EnumToString() ? $"{command.ToLowerInvariant()}ed" : $"{command.ToLowerInvariant()}d";
 
@@ -176,33 +211,18 @@
                 ? "from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : "on " + request.FromDate.ToDateMonthYearFormatedDate();
-            var message = $"Dear {skypeAccount.Employee.NickName},{Constants.NewLine}";
+            var message = $"Dear {request.Requester.NickName},{Constants.NewLine}";
             message += $"Your {request.RequestType.Name.ToLowerInvariant()} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._{Constants.NewLine}";
             message += $"For more detail, please visit: https://hrm.nexcel.vn. Thanks";
             return message;
         }
 
-        public void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request)
+        public void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders)
         {
-            IList<EmployeeSkypeAccount> leaders;
-            if (request.IsStandbyAtWeekend)
+            foreach (var leader in leaders)
             {
-                var criteria = new GetLeaderForStanbyTeamSkypeAccountCriteria();
-                leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
-            }
-            else
-            {
-                var criteria = new GetLeaderSkypeAccountCriteria
-                {
-                    EmployeeId = request.EmployeeId
-                };
-                leaders = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
-            }
-
-            if (leaders != null && leaders.Any())
-            {
-                var message = GenerateCheckInOutRequestMessage(request, leaders.First().Employee.NickName);
-                SendApproveMessage(leaders.First().ConversationId, request.Id, message);
+                var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
+                SendApproveMessage(leader.ConversationId, request.Id, message);
             }
         }
 

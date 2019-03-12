@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Core.Enums;
@@ -123,15 +124,10 @@
                 if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Requested = true;
-                    if (result.Code == 0)
+                    if (result.IsSuccessful)
                     {
                         model.IsEdit = false;
-                        model.GetTemplatePath();
-                        Task.Factory.StartNew(() =>
-                        {
-                            _requestService.SendMailForCheckInOut(model);
-                            _nexbotService.SendMessageForCheckInOutRequest(model);
-                        });
+                        SendEmailAndSkype(model);
                     }
                 }
                 else
@@ -147,6 +143,20 @@
             ViewBag.Year = model.WorkDate.Year;
 
             return View(model);
+        }
+
+        private void SendEmailAndSkype(CheckInOutRequestViewModel model)
+        {
+            model.GetTemplatePath();
+            Task.Factory.StartNew(() =>
+            {
+                var leaders = _requestService.GetLeaderForCheckInOut(model);
+                if (leaders != null && leaders.Any())
+                {
+                    _requestService.SendMailForCheckInOut(model, leaders);
+                    _nexbotService.SendMessageForCheckInOutRequest(model, leaders);
+                }
+            });
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -213,12 +223,7 @@
                     if (result.Code == 0)
                     {
                         model.IsEdit = true;
-                        model.GetTemplatePath();
-                        Task.Factory.StartNew(() =>
-                        {
-                            _requestService.SendMailForCheckInOut(model);
-                            _nexbotService.SendMessageForCheckInOutRequest(model);
-                        });
+                        SendEmailAndSkype(model);
                     }
                 }
                 else
