@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = Labels.ScheduledMessage;
+}
+
+@section js{
+    @Scripts.Render("~/bundles/scheduledmessagejs")
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Ajax.BeginForm("Search", "ScheduledMessage", null))
+                    {
+                        <div class="form clearfix">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        @Html.YearPicker("Year", 2010, DateTime.Now.Year)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <i class="btn-submit waves-effect waves-light waves-input-wrapper m-r--b" style="">
+                                        <input id="btn-submit" class="waves-button-input" type="submit" value="@Labels.Submit">
+                                    </i>
+                                    @Ajax.ActionLink("New Message", "Create", null, new AjaxOptions {
+                                   InsertionMode = InsertionMode.Replace,
+                                   UpdateTargetId = "dialog",
+                                   OnSuccess = "sceduledMessage.onLoadingCreateSuccess"
+                               }, new { @class= "btn-request waves-effect waves-light" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="p-x--s m-t--m">
+                        <table id="bio-device-table" class="table bordered striped highlight centered responsive-table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.DeviceId</th>
+                                    <th>@Labels.DeviceName</th>
+                                    <th>@Labels.DisplayName</th>
+                                    <th>@Labels.Active</th>
+                                    <th>@Labels.Status</th>
+                                    <th>@Labels.Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog">
+</div>

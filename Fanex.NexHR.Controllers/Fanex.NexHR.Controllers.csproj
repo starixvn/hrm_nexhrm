@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="Request\LeaveController.cs" />
     <Compile Include="Request\RequestController.cs" />
+    <Compile Include="ScheduledMessageController.cs" />
     <Compile Include="ShiftController.cs" />
     <Compile Include="SkypeAccountController.cs" />
     <Compile Include="TeamController.cs" />

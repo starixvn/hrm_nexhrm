@@ -1518,4 +1518,7 @@
   <data name="CrossDate" xml:space="preserve">
     <value>Cross Date</value>
   </data>
+  <data name="ScheduledMessage" xml:space="preserve">
+    <value>Scheduled Message</value>
+  </data>
 </root>

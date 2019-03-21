@@ -108,6 +108,8 @@
             BuildBundleForBioStationManagement(bundles);
 
             BuildBundleForBioStationTimeChange(bundles);
+
+            BuildBundleForScheduledMessage(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -575,6 +577,14 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/biostationtimechangejs").Include(
                 "~/Scripts/Views/Bio/biostationtimechange.js"));
+        }
+
+        private static void BuildBundleForScheduledMessage(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/scheduledmessagejs").Include(
+                "~/Scripts/Libs/jquery.validate.unobtrusive.js",
+                "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
+                "~/Scripts/Views/ScheduledMessage/scheduled-message.js"));
         }
     }
 }

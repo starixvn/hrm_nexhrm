@@ -735,6 +735,7 @@
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\search.request.js" />
+    <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
     <Content Include="Scripts\Views\TeamManagement\team.management.js" />
     <Content Include="Web.config">
@@ -853,6 +854,7 @@
     <Content Include="Views\SkypeAccount\Index.cshtml" />
     <Content Include="Views\SkypeAccount\_ListAccount.cshtml" />
     <Content Include="Views\SkypeAccount\_EditAccount.cshtml" />
+    <Content Include="Views\ScheduledMessage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
