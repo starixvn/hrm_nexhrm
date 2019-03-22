@@ -1,77 +1,126 @@
-﻿#calendar {
-  width: 560px; }
-  #calendar .ui-widget-content {
-    border: none; }
-  #calendar .fc-toolbar {
-    background: #353c4e;
-    margin: 0;
-    padding: 1.4rem; }
-    #calendar .fc-toolbar h2 {
-      font-size: 25px;
-      color: #fff; }
-    #calendar .fc-toolbar .fc-prev-button, #calendar .fc-toolbar .fc-next-button {
-      background: #78828c;
-      padding: 0;
-      border-radius: 1px; }
-      #calendar .fc-toolbar .fc-prev-button .ui-icon, #calendar .fc-toolbar .fc-next-button .ui-icon {
-        width: 30px;
-        height: 30px;
-        background: none;
-        text-indent: initial; }
-        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
-          width: 30px;
-          height: 30px;
-          font-family: "Material Design Icons";
-          font-size: 18px;
-          line-height: 30px;
-          color: #fff; }
-        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after {
-          content: "\f417"; }
-        #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
-          content: "\f416"; }
-  #calendar .fc-view-container table {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    -ms-box-shadow: none;
-    box-shadow: none; }
-  #calendar .fc-view-container .fc-head table thead {
-    background: #3b4354;
-    color: #fff; }
-    #calendar .fc-view-container .fc-head table thead tr th {
-      padding: .8rem .7rem;
-      font-weight: normal; }
-  #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead {
-    border-bottom: none; }
-    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead .fc-day-number.fc-today {
-      color: #fff; }
-  #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
-    text-align: center;
-    border-top: none !important; }
-    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-day-grid-event .fc-content {
-      cursor: pointer; }
-    #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event {
-      background: none;
-      color: #303f4d;
-      border: none; }
-      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
-        display: none; }
-      #calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event.today {
-        color: #fff; }
-  #calendar.schedule .fc-view-container .fc-head .ui-widget-header {
-    border: 1px solid #3c4355 !important;
-    font-weight: normal; }
-  #calendar.schedule .fc-view-container .fc-head table thead tr th {
-    border: 1px solid #3c4355 !important;
-    font-weight: normal; }
-  #calendar.schedule .fc-view-container .fc-day {
-    border: 1px solid #d2d2d2; }
-    #calendar.schedule .fc-view-container .fc-day.fc-sat, #calendar.schedule .fc-view-container .fc-day.fc-sun {
-      background: #e0e0e0; }
-    #calendar.schedule .fc-view-container .fc-day.fc-today {
-      background: #f4773d; }
-  #calendar.schedule .fc-view-container .fc-body {
-    border: 1px solid #d2d2d2; }
+#calendar {
+  width: 560px;
+}
+
+#calendar .ui-widget-content {
+  border: none;
+}
+
+#calendar .fc-toolbar {
+  background: #353c4e;
+  margin: 0;
+  padding: 1.4rem;
+}
+
+#calendar .fc-toolbar h2 {
+  font-size: 25px;
+  color: #fff;
+}
+
+#calendar .fc-toolbar .fc-prev-button, #calendar .fc-toolbar .fc-next-button {
+  background: #78828c;
+  padding: 0;
+  border-radius: 1px;
+}
+
+#calendar .fc-toolbar .fc-prev-button .ui-icon, #calendar .fc-toolbar .fc-next-button .ui-icon {
+  width: 30px;
+  height: 30px;
+  background: none;
+  text-indent: initial;
+}
+
+#calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
+  width: 30px;
+  height: 30px;
+  font-family: "Material Design Icons";
+  font-size: 18px;
+  line-height: 30px;
+  color: #fff;
+}
+
+#calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-e:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-e:after {
+  content: "\f417";
+}
+
+#calendar .fc-toolbar .fc-prev-button .ui-icon.ui-icon-circle-triangle-w:after, #calendar .fc-toolbar .fc-next-button .ui-icon.ui-icon-circle-triangle-w:after {
+  content: "\f416";
+}
+
+#calendar .fc-view-container table {
+  -webkit-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+}
+
+#calendar .fc-view-container .fc-head table thead {
+  background: #3b4354;
+  color: #fff;
+}
+
+#calendar .fc-view-container .fc-head table thead tr th {
+  padding: .8rem .7rem;
+  font-weight: normal;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead {
+  border-bottom: none;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-content-skeleton table thead .fc-day-number.fc-today {
+  color: #fff;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container {
+  text-align: center;
+  border-top: none !important;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-day-grid-event .fc-content {
+  cursor: pointer;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event {
+  background: none;
+  color: #303f4d;
+  border: none;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event .fc-content .fc-time {
+  display: none;
+}
+
+#calendar .fc-view-container .fc-body .fc-row.fc-week .fc-event-container .fc-event.today {
+  color: #fff;
+}
+
+#calendar.schedule .fc-view-container .fc-head .ui-widget-header {
+  border: 1px solid #3c4355 !important;
+  font-weight: normal;
+}
+
+#calendar.schedule .fc-view-container .fc-head table thead tr th {
+  border: 1px solid #3c4355 !important;
+  font-weight: normal;
+}
+
+#calendar.schedule .fc-view-container .fc-day {
+  border: 1px solid #d2d2d2;
+}
+
+#calendar.schedule .fc-view-container .fc-day.fc-sat, #calendar.schedule .fc-view-container .fc-day.fc-sun {
+  background: #e0e0e0;
+}
+
+#calendar.schedule .fc-view-container .fc-day.fc-today {
+  background: #f4773d;
+}
+
+#calendar.schedule .fc-view-container .fc-body {
+  border: 1px solid #d2d2d2;
+}
 
 .ui-dialog.dialog-update-shift {
-  overflow: visible; }
-
+  overflow: visible;
+}
+/*# sourceMappingURL=mycalendar.css.map */

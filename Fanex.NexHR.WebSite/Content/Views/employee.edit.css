@@ -1,82 +1,106 @@
-﻿#DOBPicker .birthday-picker {
+#DOBPicker .birthday-picker {
   border: unset;
   margin: 0;
-  padding: 0 0 1rem; }
-  #DOBPicker .birthday-picker select {
-    display: inline-block;
-    width: auto;
-    margin-right: .5rem;
-    border: 1px solid #d0d0d0;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1); }
+  padding: 0 0 1rem;
+}
+
+#DOBPicker .birthday-picker select {
+  display: inline-block;
+  width: auto;
+  margin-right: .5rem;
+  border: 1px solid #d0d0d0;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
 
 .img-employee {
   width: 110px;
-  height: 150px; }
+  height: 150px;
+}
 
 .showHideGeolocationMap a {
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .subteam [type="checkbox"].filled-in + label, .role [type="checkbox"].filled-in + label {
   color: #303f4d;
-  font-size: 1.3rem; }
-  .subteam [type="checkbox"].filled-in + label:after, .role [type="checkbox"].filled-in + label:after {
-    width: 1.6rem;
-    height: 1.6rem; }
+  font-size: 1.3rem;
+}
+
+.subteam [type="checkbox"].filled-in + label:after, .role [type="checkbox"].filled-in + label:after {
+  width: 1.6rem;
+  height: 1.6rem;
+}
 
 .subteam {
   width: 41rem;
   height: 21rem;
   overflow-x: hidden;
   overflow-y: scroll;
-  border: solid .1rem #ccc; }
-  .subteam [type="checkbox"] + label {
-    height: 35px;
-    line-height: 35px;
-    padding-left: 40px; }
-  .subteam [type="checkbox"].filled-in + label:before, .subteam [type="checkbox"].filled-in + label:after {
-    margin-left: 1rem;
-    margin-top: .6rem; }
-  .subteam [type="checkbox"].filled-in + label:before {
-    top: 2px; }
-  .subteam label {
-    display: block;
-    margin-top: 0; }
+  border: solid .1rem #ccc;
+}
+
+.subteam [type="checkbox"] + label {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 40px;
+}
+
+.subteam [type="checkbox"].filled-in + label:before, .subteam [type="checkbox"].filled-in + label:after {
+  margin-left: 1rem;
+  margin-top: .6rem;
+}
+
+.subteam [type="checkbox"].filled-in + label:before {
+  top: 2px;
+}
+
+.subteam label {
+  display: block;
+  margin-top: 0;
+}
 
 .toeic {
   -webkit-box-shadow: 0px 0px 0px 1px #d2d2d2;
-  -moz-box-shadow: 0px 0px 0px 1px #d2d2d2;
   -ms-box-shadow: 0px 0px 0px 1px #d2d2d2;
   box-shadow: 0px 0px 0px 1px #d2d2d2;
-  width: 250px; }
-  .toeic thead tr th {
-    background: #3B4254;
-    color: #fff;
-    font-weight: normal;
-    border-right: 1px solid #353a4a;
-    border-bottom: 1px solid #353a4a; }
-  .toeic td {
-    border-right: 1px solid #d2d2d2;
-    border-bottom: 1px solid #d2d2d2; }
+  width: 250px;
+}
+
+.toeic thead tr th {
+  background: #3B4254;
+  color: #fff;
+  font-weight: normal;
+  border-right: 1px solid #353a4a;
+  border-bottom: 1px solid #353a4a;
+}
+
+.toeic td {
+  border-right: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+}
 
 .fileUpload {
   position: relative;
-  overflow: hidden; }
-  .fileUpload input.chooseFile::-webkit-file-upload-button {
-    padding: 0 1.5rem;
-    height: 3rem;
-    line-height: 3rem;
-    border-radius: 2px;
-    color: #fff;
-    background: #2aaa55;
-    border: none;
-    cursor: pointer;
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
-    .fileUpload input.chooseFile::-webkit-file-upload-button:focus, .fileUpload input.chooseFile::-webkit-file-upload-button:active {
-      outline: none; }
+  overflow: hidden;
+}
 
+.fileUpload input.chooseFile::-webkit-file-upload-button {
+  padding: 0 1.5rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 2px;
+  color: #fff;
+  background: #2aaa55;
+  border: none;
+  cursor: pointer;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -ms-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.fileUpload input.chooseFile::-webkit-file-upload-button:focus, .fileUpload input.chooseFile::-webkit-file-upload-button:active {
+  outline: none;
+}
+/*# sourceMappingURL=employee.edit.css.map */

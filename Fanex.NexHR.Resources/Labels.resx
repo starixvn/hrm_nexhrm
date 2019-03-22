@@ -1521,4 +1521,10 @@
   <data name="ScheduledMessage" xml:space="preserve">
     <value>Scheduled Message</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="SendDate" xml:space="preserve">
+    <value>Send Date</value>
+  </data>
 </root>

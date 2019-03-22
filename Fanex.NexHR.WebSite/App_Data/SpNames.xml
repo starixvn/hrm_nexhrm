@@ -26,7 +26,6 @@
       <Mapping DataField="JobTitleId" ObjectProperty="Id" />
     </Setting>
 
-    
     <Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -213,11 +212,11 @@
       <Mapping DataField="EmpId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard" DbName="nexhr" Plain="0"></Setting>
-    
+
     <Setting Key="EmployeeAttendance_ReminderLateInEarlyOut" SpName="EmployeeAttendance_ReminderLateInEarlyOut" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
     </Setting>
-    
+
     <Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
@@ -355,5 +354,8 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Employee_UpdateSkypeAccount" SpName="Employee_UpdateSkypeAccount" DbName="nexhr" Plain="0"></Setting>
+  </Function>
+  <Function Name="Scheduled Message">
+    <Setting Key="GroupConversation_Get" SpName="GroupConversation_Get" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

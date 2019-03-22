@@ -158,6 +158,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Interfaces\IReportService.cs" />
+    <Compile Include="Interfaces\IScheduledMessageService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
     <Compile Include="Interfaces\IPostnatalService.cs" />
     <Compile Include="JobTitleService.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="PostnatalService.cs" />
     <Compile Include="RedmineService.cs" />
     <Compile Include="ReportService.cs" />
+    <Compile Include="ScheduledMessageService.cs" />
     <Compile Include="TeamService.cs" />
     <Compile Include="HolidayService.cs" />
     <Compile Include="Interfaces\IHolidayService.cs" />

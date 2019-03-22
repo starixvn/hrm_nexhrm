@@ -1,0 +1,48 @@
+﻿@model Fanex.NexHR.ViewModels.ScheduledMessage.CreateScheduledMessageViewModel
+
+@using (Ajax.BeginForm("Create", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "scheduledMessage.onCreateSuccess"
+}, new { id = "create-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.ConversationId)
+            </div>
+            <div class="left select--l">
+                @Html.DropDownListFor(x => x.ConversationId, Model.GroupConversations)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.SendDate)
+            </div>
+            <div class="datepicker-button left select--m">
+                @Html.DatePickerFor(model => model.SendDate, DateTime.Today)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+        <div class="col">
+            <div class="left select--s">
+                <span class="time">
+                    @Html.DropDownListFor(model => model.Time, Utilities.TimeSteps(5))
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(x => x.Content)
+            </div>
+            <div class="left input--l">
+                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea" })
+            </div>
+        </div>
+    </div>
+}

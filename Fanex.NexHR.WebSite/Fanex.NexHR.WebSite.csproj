@@ -318,9 +318,11 @@
     <Content Include="Content\Views\report.workinghoursstatistic.css">
       <DependentUpon>report.workinghoursstatistic.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\scheduled-message.css" />
     <Content Include="Content\Views\_monthPicker.scss" />
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <Content Include="Content\Views\report.workinghoursstatistic.scss" />
+    <Content Include="Content\Views\scheduled-message.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
@@ -855,6 +857,7 @@
     <Content Include="Views\SkypeAccount\_ListAccount.cshtml" />
     <Content Include="Views\SkypeAccount\_EditAccount.cshtml" />
     <Content Include="Views\ScheduledMessage\Index.cshtml" />
+    <Content Include="Views\ScheduledMessage\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

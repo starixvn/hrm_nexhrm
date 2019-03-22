@@ -2,6 +2,10 @@
     ViewBag.Title = Labels.ScheduledMessage;
 }
 
+@section css{
+    @Styles.Render("~/Content/scheduledmessagecss")
+}
+
 @section js{
     @Scripts.Render("~/bundles/scheduledmessagejs")
 }
@@ -33,7 +37,7 @@
                                     @Ajax.ActionLink("New Message", "Create", null, new AjaxOptions {
                                    InsertionMode = InsertionMode.Replace,
                                    UpdateTargetId = "dialog",
-                                   OnSuccess = "sceduledMessage.onLoadingCreateSuccess"
+                                   OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
                                }, new { @class= "btn-request waves-effect waves-light" })
                                 </div>
                             </div>
