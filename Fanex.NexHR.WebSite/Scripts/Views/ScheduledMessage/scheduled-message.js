@@ -46,14 +46,12 @@
     return {
         init: init,
         onLoadingCreateFormSuccess: initCreateDialog,
-        onEditBioDeviceSuccess: function (response) {
+        onCreateSuccess: function (response) {
             if (response.isSuccessful) {
-                var deviceId = $('#DeviceId').val()
                 $dialog.dialog('close');
-                $('#reload-bio-' + deviceId).click();
             } else {
                 if (response.errors) {
-                    $editBioForm.validate().showErrors(response.errors);
+                    $createForm.validate().showErrors(response.errors);
                 }
             }
         }

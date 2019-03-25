@@ -13,7 +13,7 @@
     using ViewModels;
     using ViewModels.Bio;
 
-    [Authorize(Roles = "HR")]
+    [AllowAnonymous]
     public class BioController : BaseController
     {
         private readonly BaseService baseService;

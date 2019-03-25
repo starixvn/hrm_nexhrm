@@ -39,5 +39,35 @@
 
             return PartialView("_Create", viewModel);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(CreateScheduledMessageViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var times = viewModel.Time.Split(':');
+
+                viewModel.SendDate = viewModel.SendDate.AddHours(int.Parse(times[0]));
+                viewModel.SendDate = viewModel.SendDate.AddMinutes(int.Parse(times[1]));
+
+                var result = await scheduledMessageService.CreateAsync(new CreateScheduledMessage
+                {
+                    ConversationId = viewModel.ConversationId,
+                    SendDate = viewModel.SendDate,
+                    Content = viewModel.Content,
+                    CreatedBy = CurrentUser.Id
+                }).ConfigureAwait(false) ;
+
+                return Json(new
+                {
+                    isSuccessful = result.IsSuccessful,
+                    message = result.Message
+                });
+            }
+
+            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
+
+            return Json(new { isSuccessful = false, errors });
+        }
     }
 }

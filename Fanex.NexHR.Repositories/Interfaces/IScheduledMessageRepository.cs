@@ -2,11 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Fanex.Data.Repository;
+    using Fanex.NexHR.Criteria.ScheduledMessage;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
 
     public interface IScheduledMessageRepository
     {
-        Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync(ICriteria criteria);
+        Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync(GetGroupConversationsCriteria criteria);
+        Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria);
     }
 }

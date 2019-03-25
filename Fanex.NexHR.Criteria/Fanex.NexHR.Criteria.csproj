@@ -192,6 +192,7 @@
     <Compile Include="Request\UpdateRequestCriteria.cs" />
     <Compile Include="Request\InsertRequestCriteria.cs" />
     <Compile Include="ResultCriteria.cs" />
+    <Compile Include="ScheduledMessage\CreateScheduledMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\GetGroupConversationsCriteria.cs" />
     <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
