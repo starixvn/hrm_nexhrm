@@ -9,7 +9,7 @@
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class ScheduledMessageService :  IScheduledMessageService
+    public class ScheduledMessageService : IScheduledMessageService
     {
         private readonly IScheduledMessageRepository scheduledMessageRepository;
 
@@ -31,6 +31,14 @@
                 SendDate = model.SendDate,
                 Content = model.Content,
                 CreatedBy = model.CreatedBy
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(int year)
+        {
+            return await scheduledMessageRepository.GetScheduledMessageAsync(new GetScheduleMessageCriteria
+            {
+                Year = year
             }).ConfigureAwait(false);
         }
     }

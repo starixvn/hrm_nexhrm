@@ -858,6 +858,7 @@
     <Content Include="Views\SkypeAccount\_EditAccount.cshtml" />
     <Content Include="Views\ScheduledMessage\Index.cshtml" />
     <Content Include="Views\ScheduledMessage\_Create.cshtml" />
+    <Content Include="Views\ScheduledMessage\_ScheduleMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

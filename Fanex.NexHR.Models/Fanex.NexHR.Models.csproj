@@ -144,6 +144,7 @@
     <Compile Include="Request\RequestTypeModel.cs" />
     <Compile Include="ScheduledMessage\CreateScheduledMessage.cs" />
     <Compile Include="ScheduledMessage\GroupConversation.cs" />
+    <Compile Include="ScheduledMessage\ScheduledMessage.cs" />
     <Compile Include="SkypeAccount\ConversationUser.cs" />
     <Compile Include="SkypeAccount\EmployeeSkypeAccount.cs" />
     <Compile Include="SystemReminderModel.cs" />

@@ -27,6 +27,25 @@
         }
 
         [HttpGet]
+        public async Task<ActionResult> Search(int year)
+        {
+            var scheduledMessages = await scheduledMessageService.GetScheduledMessageAsync(year).ConfigureAwait(false);
+
+            var viewModel = scheduledMessages.Select(x => new ScheduledMessageViewModel
+            {
+                ScheduledMessageId = x.ScheduledMessageId,
+                ConversationId = x.ConversationId,
+                GroupName = x.GroupName,
+                Content = x.Content,
+                SendDate = x.SendDate,
+                CreatedBy = x.CreatedBy,
+                NickName = x.NickName
+            });
+
+            return PartialView("_ScheduleMessages", viewModel);
+        }
+
+        [HttpGet]
         public async Task<ActionResult> Create()
         {
             var groupConversations = await scheduledMessageService.GetGroupConversationsAsync().ConfigureAwait(false);
@@ -56,7 +75,7 @@
                     SendDate = viewModel.SendDate,
                     Content = viewModel.Content,
                     CreatedBy = CurrentUser.Id
-                }).ConfigureAwait(false) ;
+                }).ConfigureAwait(false);
 
                 return Json(new
                 {

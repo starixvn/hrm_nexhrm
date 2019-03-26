@@ -1,6 +1,7 @@
 ﻿var scheduledMessage = (function ($) {
     var $dialog;
     var $createForm;
+    var $searchForm;
 
     function initCreateDialog() {
         $('select', $dialog).material_select();
@@ -41,6 +42,8 @@
 
     function init() {
         $dialog = $('#dialog');
+        $searchForm = $('#search-form');
+        $searchForm.submit();
     }
 
     return {
@@ -49,6 +52,7 @@
         onCreateSuccess: function (response) {
             if (response.isSuccessful) {
                 $dialog.dialog('close');
+                $searchForm.submit();
             } else {
                 if (response.errors) {
                     $createForm.validate().showErrors(response.errors);

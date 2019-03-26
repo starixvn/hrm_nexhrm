@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Fanex.NexHR.ViewModels.ScheduledMessage.ScheduledMessageViewModel>
+
+@foreach (var item in Model)
+{
+    <tr id="scheduled-message-@item.ScheduledMessageId">
+        <td>@item.GroupName</td>
+        <td>@item.SendDate.ToShortFormatedDate()</td>
+
+        <td class="tooltip" title="@item.Content">
+            <span class="mdi mdi-message-text" alt="remark"></span>
+        </td>
+        <td>@item.NickName</td>
+        <td>
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Create", new { id = item.ScheduledMessageId })"
+               data-ajax-success="scheduledMessage.onLoadingCreateFormSuccess">
+                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+            </a>
+
+            @using (Ajax.BeginForm("Search", "ScheduledMessage", null, new AjaxOptions
+            {
+
+                UpdateTargetId = "scheduled-message-" + item.ScheduledMessageId,
+                HttpMethod = "GET"
+            }))
+            {
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Remove", new { id = item.ScheduledMessageId })"
+                   data-ajax-success="bioManagement.onLoadingEditBioSuccess">
+                    <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                </a>
+            }
+        </td>
+    </tr>
+}

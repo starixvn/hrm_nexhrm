@@ -9,6 +9,9 @@
     public interface IScheduledMessageRepository
     {
         Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync(GetGroupConversationsCriteria criteria);
+
         Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria);
+
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(GetScheduleMessageCriteria criteria);
     }
 }

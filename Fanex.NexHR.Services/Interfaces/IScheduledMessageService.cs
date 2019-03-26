@@ -8,6 +8,9 @@
     public interface IScheduledMessageService
     {
         Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync();
+
         Task<CommandResult> CreateAsync(CreateScheduledMessage model);
+
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(int year);
     }
 }

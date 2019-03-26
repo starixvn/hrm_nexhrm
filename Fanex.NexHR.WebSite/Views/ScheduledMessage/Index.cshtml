@@ -18,7 +18,12 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    @using (Ajax.BeginForm("Search", "ScheduledMessage", null))
+                    @using (Ajax.BeginForm("Search", "ScheduledMessage", null, new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "scheduled-message-body",
+                        HttpMethod = "GET"
+                    }, new { id = "search-form" }))
                     {
                         <div class="form clearfix">
                             <div class="row form-input">
@@ -45,18 +50,17 @@
                     }
 
                     <div class="p-x--s m-t--m">
-                        <table id="bio-device-table" class="table bordered striped highlight centered responsive-table table-custom">
+                        <table id="scheduled-message-table" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
                                 <tr>
-                                    <th>@Labels.DeviceId</th>
-                                    <th>@Labels.DeviceName</th>
-                                    <th>@Labels.DisplayName</th>
-                                    <th>@Labels.Active</th>
-                                    <th>@Labels.Status</th>
-                                    <th>@Labels.Edit</th>
+                                    <th>@Labels.Group</th>
+                                    <th>@Labels.SendDate</th>
+                                    <th>@Labels.Content</th>
+                                    <th>@Labels.CreatedBy</th>
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody id="scheduled-message-body"></tbody>
                         </table>
                     </div>
                 </div>

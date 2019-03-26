@@ -358,5 +358,6 @@
   <Function Name="Scheduled Message">
     <Setting Key="GroupConversation_Get" SpName="GroupConversation_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Create" SpName="ScheduledMessage_Create" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="ScheduledMessage_Get" SpName="ScheduledMessage_Get" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>
