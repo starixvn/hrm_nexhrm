@@ -1,15 +1,13 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.ScheduledMessage;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
 
     public class ScheduledMessageController : BaseController
     {
@@ -29,7 +27,7 @@
         [HttpGet]
         public async Task<ActionResult> Search(int year)
         {
-            var scheduledMessages = await scheduledMessageService.GetScheduledMessageAsync(year).ConfigureAwait(false);
+            var scheduledMessages = await scheduledMessageService.GetScheduledMessagesAsync(year).ConfigureAwait(false);
 
             var viewModel = scheduledMessages.Select(x => new ScheduledMessageViewModel
             {
@@ -53,21 +51,41 @@
             var viewModel = new CreateScheduledMessageViewModel
             {
                 SendDate = DateTime.Today,
+                Hour = 8,
+                Minute = 0,
                 GroupConversations = new SelectList(groupConversations, nameof(GroupConversation.ConversationId), nameof(GroupConversation.GroupName))
             };
 
             return PartialView("_Create", viewModel);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            var groupConversations = await scheduledMessageService.GetGroupConversationsAsync().ConfigureAwait(false);
+            var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
+
+            var viewModel = new EditScheduledMessageViewModel
+            {
+                ScheduledMessageId = scheduledMessage.ScheduledMessageId,
+                ConversationId = scheduledMessage.ConversationId,
+                SendDate = scheduledMessage.SendDate.Date,
+                Hour = scheduledMessage.SendDate.Hour,
+                Minute = scheduledMessage.SendDate.Minute,
+                Content = scheduledMessage.Content,
+                GroupConversations = new SelectList(groupConversations, nameof(GroupConversation.ConversationId), nameof(GroupConversation.GroupName))
+            };
+
+            return PartialView("_Edit", viewModel);
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateScheduledMessageViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var times = viewModel.Time.Split(':');
-
-                viewModel.SendDate = viewModel.SendDate.AddHours(int.Parse(times[0]));
-                viewModel.SendDate = viewModel.SendDate.AddMinutes(int.Parse(times[1]));
+                viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
 
                 var result = await scheduledMessageService.CreateAsync(new CreateScheduledMessage
                 {
@@ -87,6 +105,51 @@
             var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
 
             return Json(new { isSuccessful = false, errors });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditScheduledMessageViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
+
+                var result = await scheduledMessageService.EditAsync(new EditScheduledMessage
+                {
+                    ScheduledMessageId = viewModel.ScheduledMessageId,
+                    ConversationId = viewModel.ConversationId,
+                    SendDate = viewModel.SendDate,
+                    Content = viewModel.Content,
+                }).ConfigureAwait(false);
+
+                return Json(new
+                {
+                    isSuccessful = result.IsSuccessful,
+                    message = result.Message
+                });
+            }
+
+            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
+
+            return Json(new { isSuccessful = false, errors });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Remove(int id)
+        {
+            if (id > 0)
+            {
+                var result = await scheduledMessageService.RemoveAsync(id).ConfigureAwait(false);
+
+                return Json(new
+                {
+                    isSuccessful = result.IsSuccessful,
+                    message = result.Message
+                });
+            }
+            return Json(new { isSuccessful = false });
         }
     }
 }

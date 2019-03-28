@@ -193,8 +193,11 @@
     <Compile Include="Request\InsertRequestCriteria.cs" />
     <Compile Include="ResultCriteria.cs" />
     <Compile Include="ScheduledMessage\CreateScheduledMessageCriteria.cs" />
+    <Compile Include="ScheduledMessage\EditScheduledMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\GetGroupConversationsCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduleMessageCriteria.cs" />
+    <Compile Include="ScheduledMessage\GetScheduleMessagesCriteria.cs" />
+    <Compile Include="ScheduledMessage\RemoveScheduleMessageCriteria.cs" />
     <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="SkypeAccount\GetEmployeeSkypeAccountCriteria.cs" />

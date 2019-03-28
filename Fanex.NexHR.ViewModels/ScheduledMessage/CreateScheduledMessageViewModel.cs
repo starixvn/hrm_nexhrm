@@ -16,7 +16,10 @@
         public DateTime SendDate { get; set; }
 
         [Required]
-        public string Time { get; set; }
+        public int Hour { get; set; }
+
+        [Required]
+        public int Minute { get; set; }
 
         [Required]
         public string Content { get; set; }

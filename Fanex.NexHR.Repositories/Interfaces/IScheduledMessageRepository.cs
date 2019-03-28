@@ -12,6 +12,12 @@
 
         Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria);
 
-        Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(GetScheduleMessageCriteria criteria);
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(GetScheduleMessagesCriteria criteria);
+
+        Task<ScheduledMessage> GetScheduledMessageAsync(GetScheduleMessageCriteria criteria);
+
+        Task<CommandResult> EditAsync(EditScheduledMessageCriteria criteria);
+
+        Task<CommandResult> RemoveAsync(RemoveScheduleMessageCriteria criteria);
     }
 }

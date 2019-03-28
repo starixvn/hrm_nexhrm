@@ -1,0 +1,56 @@
+﻿@model Fanex.NexHR.ViewModels.ScheduledMessage.EditScheduledMessageViewModel
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "scheduledMessage.onEditSuccess"
+}, new { id = "edit-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ScheduledMessageId)
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.ConversationId)
+            </div>
+            <div class="left select--l">
+                @Html.DropDownListFor(x => x.ConversationId, Model.GroupConversations)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.SendDate)
+            </div>
+            <div class="datepicker-button left select--m">
+                @Html.DatePickerFor(model => model.SendDate, DateTime.Today)
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+        <div class="col">
+            <div class="left input-xs">
+                <span class="time">
+                    @Html.TextBoxFor(model => model.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2" })
+                </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="left input-xs">
+                <span class="time">
+                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2" })
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(x => x.Content)
+            </div>
+            <div class="left input--l">
+                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea", rows = "5" })
+            </div>
+        </div>
+    </div>
+}

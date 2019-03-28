@@ -4,10 +4,10 @@
 
     public class GetScheduleMessageCriteria : CriteriaBase
     {
-        public int Year { get; set; }
+        public int ScheduledMessageId { get; set; }
 
-        public override string GetSettingKey() => "ScheduledMessage_Get";
+        public override string GetSettingKey() => "ScheduledMessage_GetById";
 
-        public override bool IsValid() => Year > 0;
+        public override bool IsValid() => ScheduledMessageId > 0;
     }
 }

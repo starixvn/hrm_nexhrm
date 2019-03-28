@@ -34,11 +34,38 @@
             }).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(int year)
+        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year)
+        {
+            return await scheduledMessageRepository.GetScheduledMessagesAsync(new GetScheduleMessagesCriteria
+            {
+                Year = year
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<ScheduledMessage> GetScheduledMessageAsync(int scheduledMessageId)
         {
             return await scheduledMessageRepository.GetScheduledMessageAsync(new GetScheduleMessageCriteria
             {
-                Year = year
+                ScheduledMessageId = scheduledMessageId
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<CommandResult> EditAsync(EditScheduledMessage model)
+        {
+            return await scheduledMessageRepository.EditAsync(new EditScheduledMessageCriteria
+            {
+                ScheduledMessageId = model.ScheduledMessageId,
+                ConversationId = model.ConversationId,
+                SendDate = model.SendDate,
+                Content = model.Content
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<CommandResult> RemoveAsync(int scheduledMessageId)
+        {
+            return await scheduledMessageRepository.RemoveAsync(new RemoveScheduleMessageCriteria
+            {
+                ScheduledMessageId = scheduledMessageId
             }).ConfigureAwait(false);
         }
     }

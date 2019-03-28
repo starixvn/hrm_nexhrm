@@ -11,22 +11,20 @@
         </td>
         <td>@item.NickName</td>
         <td>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Create", new { id = item.ScheduledMessageId })"
-               data-ajax-success="scheduledMessage.onLoadingCreateFormSuccess">
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.ScheduledMessageId })"
+               data-ajax-success="scheduledMessage.onLoadingEditFormSuccess">
                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
             </a>
-
-            @using (Ajax.BeginForm("Search", "ScheduledMessage", null, new AjaxOptions
+            <a href="" data-id="@item.ScheduledMessageId" class="remove-scheduled-message" data-form-target-id="#@("remove-form-"+ item.ScheduledMessageId)">
+                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+            </a>
+            @using (Ajax.BeginForm("Remove", "ScheduledMessage", new { id = item.ScheduledMessageId }, new AjaxOptions
             {
-
-                UpdateTargetId = "scheduled-message-" + item.ScheduledMessageId,
-                HttpMethod = "GET"
-            }))
+                HttpMethod = "POST",
+                OnSuccess = "scheduledMessage.onRemoveSuccess"
+            }, new { id = "remove-form-" + item.ScheduledMessageId }))
             {
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Remove", new { id = item.ScheduledMessageId })"
-                   data-ajax-success="bioManagement.onLoadingEditBioSuccess">
-                    <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
-                </a>
+                @Html.AntiForgeryToken()
             }
         </td>
     </tr>

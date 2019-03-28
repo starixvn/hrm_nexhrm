@@ -1,5 +1,10 @@
-#create-form .dropdown-content {
+#create-form .dropdown-content, #edit-form .dropdown-content {
   max-height: 17rem;
+}
+
+#create-form textarea, #edit-form textarea {
+  height: auto;
+  resize: vertical;
 }
 
 table .mdi-border-color {

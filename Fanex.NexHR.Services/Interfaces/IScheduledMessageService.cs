@@ -11,6 +11,12 @@
 
         Task<CommandResult> CreateAsync(CreateScheduledMessage model);
 
-        Task<IEnumerable<ScheduledMessage>> GetScheduledMessageAsync(int year);
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year);
+
+        Task<ScheduledMessage> GetScheduledMessageAsync(int scheduledMessageId);
+
+        Task<CommandResult> EditAsync(EditScheduledMessage model);
+
+        Task<CommandResult> RemoveAsync(int scheduledMessageId);
     }
 }

@@ -13,7 +13,7 @@
 
         public int CreatedBy { get; set; }
 
-        public override string GetSettingKey() => "ScheduledMessage_Create";
+        public override string GetSettingKey() => "ScheduledMessage_Insert";
 
         public override bool IsValid() => !string.IsNullOrEmpty(ConversationId) && !string.IsNullOrEmpty(Content) && CreatedBy > 0;
     }

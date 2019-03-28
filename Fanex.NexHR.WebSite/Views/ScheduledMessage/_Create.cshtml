@@ -28,9 +28,16 @@
             </div>
         </div>
         <div class="col">
-            <div class="left select--s">
+            <div class="left input-xs">
                 <span class="time">
-                    @Html.DropDownListFor(model => model.Time, Utilities.TimeSteps(5))
+                    @Html.TextBoxFor(model => model.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2" })
+                </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="left input-xs">
+                <span class="time">
+                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2" })
                 </span>
             </div>
         </div>
@@ -41,7 +48,7 @@
                 @Html.LabelFor(x => x.Content)
             </div>
             <div class="left input--l">
-                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea" })
+                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea", rows = "5" })
             </div>
         </div>
     </div>

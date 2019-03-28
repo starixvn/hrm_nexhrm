@@ -859,6 +859,7 @@
     <Content Include="Views\ScheduledMessage\Index.cshtml" />
     <Content Include="Views\ScheduledMessage\_Create.cshtml" />
     <Content Include="Views\ScheduledMessage\_ScheduleMessages.cshtml" />
+    <Content Include="Views\ScheduledMessage\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

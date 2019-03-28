@@ -143,6 +143,7 @@
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestTypeModel.cs" />
     <Compile Include="ScheduledMessage\CreateScheduledMessage.cs" />
+    <Compile Include="ScheduledMessage\EditScheduledMessage.cs" />
     <Compile Include="ScheduledMessage\GroupConversation.cs" />
     <Compile Include="ScheduledMessage\ScheduledMessage.cs" />
     <Compile Include="SkypeAccount\ConversationUser.cs" />

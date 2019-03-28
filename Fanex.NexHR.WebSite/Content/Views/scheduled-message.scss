@@ -1,6 +1,11 @@
-#create-form{
+#create-form, #edit-form {
     .dropdown-content {
         max-height: 17rem;
+    }
+    
+    textarea {
+        height: auto;
+        resize: vertical;
     }
 }
 
