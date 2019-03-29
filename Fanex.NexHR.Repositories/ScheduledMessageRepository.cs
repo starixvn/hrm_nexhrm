@@ -48,5 +48,13 @@
         {
             return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesToProcessAsync(GetScheduledMessagesToProcessCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return await db.QueryAsync<ScheduledMessage>(criteria.GetSpParams()).ConfigureAwait(false);
+            }
+        }
     }
 }

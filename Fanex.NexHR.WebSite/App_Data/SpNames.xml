@@ -362,5 +362,6 @@
     <Setting Key="ScheduledMessage_GetById" SpName="ScheduledMessage_GetById" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Update" SpName="ScheduledMessage_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Delete" SpName="ScheduledMessage_Delete" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

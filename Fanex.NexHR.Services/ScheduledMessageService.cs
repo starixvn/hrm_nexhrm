@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.ScheduledMessage;
@@ -12,10 +13,12 @@
     public class ScheduledMessageService : IScheduledMessageService
     {
         private readonly IScheduledMessageRepository scheduledMessageRepository;
+        private readonly INexbotService nexbotService;
 
         public ScheduledMessageService()
         {
             scheduledMessageRepository = new ScheduledMessageRepository();
+            nexbotService = new NexbotService();
         }
 
         public async Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync()
@@ -67,6 +70,25 @@
             {
                 ScheduledMessageId = scheduledMessageId
             }).ConfigureAwait(false);
+        }
+
+        public async Task<CommandResult> SendScheduledMessages()
+        {
+            var currentDate = DateTime.Now;
+            currentDate = currentDate.AddSeconds(-currentDate.Second).AddMilliseconds(-currentDate.Millisecond);
+
+            var scheduledMessages = await scheduledMessageRepository.GetScheduledMessagesToProcessAsync(new GetScheduledMessagesToProcessCriteria
+            {
+                FromDate = currentDate.AddMinutes(-4),
+                ToDate = currentDate
+            }).ConfigureAwait(false);
+
+            foreach (var scheduledMessage in scheduledMessages)
+            {
+                nexbotService.SendMessage(scheduledMessage.ConversationId, scheduledMessage.Content);
+            }
+
+            return new CommandResult();
         }
     }
 }

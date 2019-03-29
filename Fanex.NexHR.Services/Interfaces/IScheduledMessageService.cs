@@ -18,5 +18,7 @@
         Task<CommandResult> EditAsync(EditScheduledMessage model);
 
         Task<CommandResult> RemoveAsync(int scheduledMessageId);
+
+        Task<CommandResult> SendScheduledMessages();
     }
 }

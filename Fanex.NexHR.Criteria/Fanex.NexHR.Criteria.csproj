@@ -195,6 +195,7 @@
     <Compile Include="ScheduledMessage\CreateScheduledMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\EditScheduledMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\GetGroupConversationsCriteria.cs" />
+    <Compile Include="ScheduledMessage\GetScheduledMessagesToProcessCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduleMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduleMessagesCriteria.cs" />
     <Compile Include="ScheduledMessage\RemoveScheduleMessageCriteria.cs" />

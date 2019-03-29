@@ -19,5 +19,7 @@
         Task<CommandResult> EditAsync(EditScheduledMessageCriteria criteria);
 
         Task<CommandResult> RemoveAsync(RemoveScheduleMessageCriteria criteria);
+
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesToProcessAsync(GetScheduledMessagesToProcessCriteria criteria);
     }
 }

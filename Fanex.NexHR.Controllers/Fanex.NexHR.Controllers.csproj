@@ -149,6 +149,7 @@
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
     <Compile Include="API\RequestController.cs" />
+    <Compile Include="API\ScheduledMessageController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BioController.cs" />
     <Compile Include="DashboardController.cs" />
