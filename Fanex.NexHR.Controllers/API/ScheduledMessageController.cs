@@ -14,12 +14,11 @@
             scheduledMessageService = new ScheduledMessageService();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> SendScheduledMessage()
+        [HttpPost]
+        public async Task<IHttpActionResult> SendScheduledMessages()
         {
             var result = await scheduledMessageService.SendScheduledMessages().ConfigureAwait(false);
-            return Json(result);
+            return Ok(result);
         }
     }
 }
