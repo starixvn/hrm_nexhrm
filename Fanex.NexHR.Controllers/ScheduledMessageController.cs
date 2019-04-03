@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "HR")]
     public class ScheduledMessageController : BaseController
     {
         private readonly IScheduledMessageService scheduledMessageService;
