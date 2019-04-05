@@ -322,9 +322,9 @@
     <Build Include="dbo\Stored Procedures\WorkingTimeRequest_EditLeaveRequest_UpdateCalendar.sql" />
     <Build Include="dbo\Stored Procedures\WorkingTimeRequest_DeleteLeaveRequest_UpdateCalendar.sql" />
     <Build Include="dbo\Stored Procedures\WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar.sql" />
-    <Build Include="dbo\Tables\GroupConversation.sql" />
+    <Build Include="dbo\Tables\Conversation.sql" />
     <Build Include="dbo\Tables\ScheduledMessage.sql" />
-    <Build Include="dbo\Stored Procedures\GroupConversation_Get.sql" />
+    <Build Include="dbo\Stored Procedures\Conversation_Get.sql" />
     <Build Include="dbo\Stored Procedures\ScheduledMessage_Insert.sql" />
     <Build Include="dbo\Stored Procedures\ScheduledMessage_Delete.sql" />
     <Build Include="dbo\Stored Procedures\ScheduledMessage_Get.sql" />

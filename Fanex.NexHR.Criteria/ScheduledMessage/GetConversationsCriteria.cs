@@ -2,9 +2,9 @@
 {
     using Fanex.Data.Repository;
 
-    public class GetGroupConversationsCriteria : CriteriaBase
+    public class GetConversationsCriteria : CriteriaBase
     {
-        public override string GetSettingKey() => "GroupConversation_Get";
+        public override string GetSettingKey() => "Conversation_Get";
 
         public override bool IsValid() => true;
     }

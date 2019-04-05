@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GroupConversation_Get]
+﻿CREATE PROCEDURE [dbo].[Conversation_Get]
 AS
 /*
 Created: 20190320@elton.ton
@@ -11,6 +11,6 @@ BEGIN
 	SET NOCOUNT ON;
 	
 	SELECT ConversationId
-		,GroupName
-	FROM dbo.GroupConversation WITH (NOLOCK)
+		,ConversationName
+	FROM dbo.Conversation WITH (NOLOCK)
 END

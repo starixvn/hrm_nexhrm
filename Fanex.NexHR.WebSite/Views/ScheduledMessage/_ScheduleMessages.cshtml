@@ -3,28 +3,31 @@
 @foreach (var item in Model)
 {
     <tr id="scheduled-message-@item.ScheduledMessageId">
-        <td>@item.GroupName</td>
+        <td>@item.ConversationName</td>
         <td>@item.SendDate.ToShortFormatedDate()</td>
 
-        <td >
+        <td>
             <span class="mdi mdi-message-text tooltip" title="@item.Content" alt="remark"></span>
         </td>
         <td>@item.NickName</td>
         <td>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.ScheduledMessageId })"
-               data-ajax-success="scheduledMessage.onLoadingEditFormSuccess">
-                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
-            </a>
-            <a href="" data-id="@item.ScheduledMessageId" class="remove-scheduled-message" data-form-target-id="#@("remove-form-"+ item.ScheduledMessageId)">
-                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
-            </a>
-            @using (Ajax.BeginForm("Remove", "ScheduledMessage", new { id = item.ScheduledMessageId }, new AjaxOptions
+            @if (!item.IsSent)
             {
-                HttpMethod = "POST",
-                OnSuccess = "scheduledMessage.onRemoveSuccess"
-            }, new { id = "remove-form-" + item.ScheduledMessageId }))
-            {
-                @Html.AntiForgeryToken()
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.ScheduledMessageId })"
+                   data-ajax-success="scheduledMessage.onLoadingEditFormSuccess">
+                    <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                </a>
+                <a href="" data-id="@item.ScheduledMessageId" class="remove-scheduled-message" data-form-target-id="#@("remove-form-"+ item.ScheduledMessageId)">
+                    <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                </a>
+                using (Ajax.BeginForm("Remove", "ScheduledMessage", new { id = item.ScheduledMessageId }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "scheduledMessage.onRemoveSuccess"
+                }, new { id = "remove-form-" + item.ScheduledMessageId }))
+                {
+                    @Html.AntiForgeryToken()
+                }
             }
         </td>
     </tr>

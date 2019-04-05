@@ -10,7 +10,7 @@
 
     public interface INexbotService
     {
-        void SendMessage(string conversationId, string message);
+        bool SendMessage(string conversationId, string message);
 
         IList<ConversationUser> GetSkypeAccount();
 

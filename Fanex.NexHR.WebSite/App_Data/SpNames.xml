@@ -356,12 +356,13 @@
     <Setting Key="Employee_UpdateSkypeAccount" SpName="Employee_UpdateSkypeAccount" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Scheduled Message">
-    <Setting Key="GroupConversation_Get" SpName="GroupConversation_Get" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Conversation_Get" SpName="Conversation_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Insert" SpName="ScheduledMessage_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Get" SpName="ScheduledMessage_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_GetById" SpName="ScheduledMessage_GetById" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Update" SpName="ScheduledMessage_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_Delete" SpName="ScheduledMessage_Delete" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="ScheduledMessage_UpdateStatus" SpName="ScheduledMessage_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

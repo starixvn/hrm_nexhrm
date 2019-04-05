@@ -10,11 +10,11 @@
 
     public class ScheduledMessageRepository : BaseRepository, IScheduledMessageRepository
     {
-        public async Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync(GetGroupConversationsCriteria criteria)
+        public async Task<IEnumerable<Conversation>> GetConversationsAsync(GetConversationsCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<GroupConversation>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryAsync<Conversation>(criteria.GetSpParams()).ConfigureAwait(false);
             }
         }
 
@@ -55,6 +55,11 @@
             {
                 return await db.QueryAsync<ScheduledMessage>(criteria.GetSpParams()).ConfigureAwait(false);
             }
+        }
+
+        public async Task<CommandResult> UpdateSentMessageStatus(UpdateSentScheduledMessageStatusCriteria criteria)
+        {
+            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
         }
     }
 }

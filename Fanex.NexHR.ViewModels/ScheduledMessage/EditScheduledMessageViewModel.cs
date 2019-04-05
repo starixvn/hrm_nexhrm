@@ -26,6 +26,6 @@
         [Required]
         public string Content { get; set; }
 
-        public SelectList GroupConversations { get; set; }
+        public SelectList Conversations { get; set; }
     }
 }

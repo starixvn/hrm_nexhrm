@@ -16,13 +16,14 @@ BEGIN
 
 	SELECT sm.ScheduledMessageId
 		,sm.ConversationId
-		,gc.GroupName
+		,c.ConversationName
 		,sm.SendDate
 		,sm.Content
 		,sm.CreatedBy
 		,e.NickName
+		,sm.IsSent
 	FROM dbo.ScheduledMessage sm WITH (NOLOCK)
 		INNER JOIN dbo.Employee e WITH (NOLOCK) ON sm.CreatedBy = e.Id
-		INNER JOIN dbo.GroupConversation gc WITH (NOLOCK) ON sm.ConversationId = gc.ConversationId
+		INNER JOIN dbo.Conversation c WITH (NOLOCK) ON sm.ConversationId = c.ConversationId
 	WHERE sm.ScheduledMessageId = @ScheduledMessageId
 END

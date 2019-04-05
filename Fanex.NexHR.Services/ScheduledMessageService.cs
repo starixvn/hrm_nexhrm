@@ -21,9 +21,9 @@
             nexbotService = new NexbotService();
         }
 
-        public async Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync()
+        public async Task<IEnumerable<Conversation>> GetConversationsAsync()
         {
-            return await scheduledMessageRepository.GetGroupConversationsAsync(new GetGroupConversationsCriteria()).ConfigureAwait(false);
+            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria()).ConfigureAwait(false);
         }
 
         public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)
@@ -83,12 +83,22 @@
                 ToDate = currentDate
             }).ConfigureAwait(false);
 
+            var sentMessageIds = new List<int>();
+
             foreach (var scheduledMessage in scheduledMessages)
             {
-                nexbotService.SendMessage(scheduledMessage.ConversationId, scheduledMessage.Content);
+                if (nexbotService.SendMessage(scheduledMessage.ConversationId, scheduledMessage.Content))
+                {
+                    sentMessageIds.Add(scheduledMessage.ScheduledMessageId);
+                }
             }
 
-            return new CommandResult();
+            var result = await scheduledMessageRepository.UpdateSentMessageStatus(new UpdateSentScheduledMessageStatusCriteria
+            {
+                ScheduledMessageIds = string.Join(",", sentMessageIds)
+            }).ConfigureAwait(false);
+
+            return result;
         }
     }
 }

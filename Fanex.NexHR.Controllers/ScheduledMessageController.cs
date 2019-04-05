@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    [Authorize(Roles = "HR")]
+    // [Authorize(Roles = "HR")]
     public class ScheduledMessageController : BaseController
     {
         private readonly IScheduledMessageService scheduledMessageService;
@@ -34,11 +34,12 @@
             {
                 ScheduledMessageId = x.ScheduledMessageId,
                 ConversationId = x.ConversationId,
-                GroupName = x.GroupName,
+                ConversationName = x.ConversationName,
                 Content = x.Content,
                 SendDate = x.SendDate,
                 CreatedBy = x.CreatedBy,
-                NickName = x.NickName
+                NickName = x.NickName,
+                IsSent = x.IsSent
             });
 
             return PartialView("_ScheduleMessages", viewModel);
@@ -47,14 +48,14 @@
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var groupConversations = await scheduledMessageService.GetGroupConversationsAsync().ConfigureAwait(false);
+            var conversations = await scheduledMessageService.GetConversationsAsync().ConfigureAwait(false);
 
             var viewModel = new CreateScheduledMessageViewModel
             {
                 SendDate = DateTime.Today,
                 Hour = 8,
                 Minute = 0,
-                GroupConversations = new SelectList(groupConversations, nameof(GroupConversation.ConversationId), nameof(GroupConversation.GroupName))
+                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
             };
 
             return PartialView("_Create", viewModel);
@@ -63,7 +64,7 @@
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var groupConversations = await scheduledMessageService.GetGroupConversationsAsync().ConfigureAwait(false);
+            var conversations = await scheduledMessageService.GetConversationsAsync().ConfigureAwait(false);
             var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
 
             var viewModel = new EditScheduledMessageViewModel
@@ -74,7 +75,7 @@
                 Hour = scheduledMessage.SendDate.Hour,
                 Minute = scheduledMessage.SendDate.Minute,
                 Content = scheduledMessage.Content,
-                GroupConversations = new SelectList(groupConversations, nameof(GroupConversation.ConversationId), nameof(GroupConversation.GroupName))
+                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
             };
 
             return PartialView("_Edit", viewModel);
@@ -150,6 +151,7 @@
                     message = result.Message
                 });
             }
+
             return Json(new { isSuccessful = false });
         }
     }

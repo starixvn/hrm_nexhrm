@@ -31,12 +31,14 @@
             nexbotRepository = new NexbotRepository();
         }
 
-        public void SendMessage(string conversationId, string message)
+        public bool SendMessage(string conversationId, string message)
         {
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
-                ForwardToBot(message, conversationId);
+                return ForwardToBot(message, conversationId).IsSuccessful;
             }
+
+            return false;
         }
 
         private RestRequest CreateRequestHeader(string resource, Method method)
@@ -55,7 +57,7 @@
             var request = CreateRequestHeader("/account/index", Method.GET);
 
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>> (request);
+            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
             var skypeAccounts = response.Data;
 
             return skypeAccounts;
@@ -73,14 +75,14 @@
             webClient.Execute(request);
         }
 
-        private void ForwardToBot(string message, string conversationId)
+        private IRestResponse ForwardToBot(string message, string conversationId)
         {
             var request = CreateRequestHeader("/messages/forward", Method.POST);
             request.AddParameter("message", message);
             request.AddParameter("conversationId", conversationId);
 
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            webClient.Execute(request);
+            return webClient.Execute(request);
         }
 
         private Token GetToken()

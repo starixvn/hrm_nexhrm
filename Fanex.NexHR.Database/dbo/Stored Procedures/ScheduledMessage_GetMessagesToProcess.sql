@@ -15,8 +15,10 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-	SELECT sm.ConversationId
+	SELECT sm.ScheduledMessageId
+		,sm.ConversationId
 		,sm.Content
 	FROM dbo.ScheduledMessage sm WITH (NOLOCK)
 	WHERE sm.SendDate BETWEEN @FromDate AND @ToDate
+		AND sm.IsSent = 0
 END

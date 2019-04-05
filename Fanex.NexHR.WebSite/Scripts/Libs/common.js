@@ -1,12 +1,12 @@
 ﻿/// <reference path='jquery.min.js' />
 
-(function() {
+(function () {
     var proxied = window.alert;
 
     var isChrome = !!window.chrome && !!window.chrome.webstore;
 
     if (isChrome) {
-        window.alert = function() {
+        window.alert = function () {
             $('<div>' + '<p>' + arguments[0] + '</p>').dialog({
                 title: 'NexHRM',
                 modal: true,
@@ -15,7 +15,7 @@
                     {
                         text: 'OK',
                         class: 'btn-ok waves-effect waves-light',
-                        click: function() {
+                        click: function () {
                             $(this).dialog('close');
                             return true;
                         }
@@ -28,12 +28,12 @@
             });
         };
     } else {
-        window.alert = function(){}
+        window.alert = function () { }
     }
 })();
 
 $.extend({
-    getOrCreateDialog: function(id) {
+    getOrCreateDialog: function (id) {
         $box = $('#' + id);
         if (!$box.length) {
             $box = $('<div id="' + id + '"><p></p></div>').hide().appendTo('body');
@@ -45,14 +45,14 @@ $.extend({
 
 function confirm(message, callback, options) {
     var defaults = {
-        title       : 'NexHRM',
-        modal       : true,
-        resizable   : false,
-        buttons     : [            
+        title: 'NexHRM',
+        modal: true,
+        resizable: false,
+        buttons: [
             {
                 text: 'Cancel',
                 class: 'btn-cancel waves-effect waves-light m-r--m',
-                click: function() {
+                click: function () {
                     $(this).dialog('close');
                     return false;
                 }
@@ -60,20 +60,19 @@ function confirm(message, callback, options) {
             {
                 text: 'OK',
                 class: 'btn-ok waves-effect waves-light',
-                click: function() {
+                click: function () {
                     $(this).dialog('close');
-                    if(callback != null)
-                    {
+                    if (callback != null) {
                         callback();
                     }
                     return true;
                 }
             }
         ],
-        show        : 'fade',
-        hide        : 'fade',
-        minHeight   : 50,
-        dialogClass : 'modal-shadow'
+        show: 'fade',
+        hide: 'fade',
+        minHeight: 50,
+        dialogClass: 'modal-shadow'
     }
 
     $confirm = $.getOrCreateDialog('confirm');
@@ -84,18 +83,18 @@ function confirm(message, callback, options) {
 }
 
 function initDatePicker() {
-    $('.datepicker-button').each(function() {
+    $('.datepicker-button').each(function () {
         var $datepicker = $($(this).find('.datepicker')),
             $icon = $($(this).find('.calendar-icon'));
 
         $datepicker.datepicker({
-                dateFormat: "dd M, yy",
-                changeMonth: true,
-                changeYear: true,
-                nextText: '',
-                prevText: '',
-                showAnim: 'blind'
-            });
+            dateFormat: "dd M, yy",
+            changeMonth: true,
+            changeYear: true,
+            nextText: '',
+            prevText: '',
+            showAnim: 'blind'
+        });
 
         // get minDate, maxDate, disabledDates
         var mindate = $datepicker.attr('mindate'),
@@ -112,8 +111,8 @@ function initDatePicker() {
             $datepicker.datepicker("option", 'maxDate', new Date(maxdate[0], maxdate[1] - 1, maxdate[2]));
         }
 
-        if(disabledDates !== 'null' && disabledDates.length > 0) {
-            $datepicker.datepicker("option", 'beforeShowDay', function(mydate) {
+        if (disabledDates !== 'null' && disabledDates.length > 0) {
+            $datepicker.datepicker("option", 'beforeShowDay', function (mydate) {
                 var isEnable = true,
                     badDates = disabledDates.split(","),
                     checkdate = $.format.date(new Date(mydate), 'dd MMM, yyyy');
@@ -130,7 +129,7 @@ function initDatePicker() {
             });
         }
 
-        $icon.on('click', function(event) {
+        $icon.on('click', function (event) {
             event.stopPropagation();
             event.preventDefault();
 
@@ -210,7 +209,7 @@ function validateFromDateAndToDate() {
     return isValid;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     var currentUrl = $('#controller').val() + '_' + $('#action').val(),
         selectNavItem = $('#' + currentUrl);
 
@@ -218,7 +217,7 @@ $(document).ready(function(){
         selectNavItem.addClass('active');
 
         var section = selectNavItem.closest('div.collapsible-body').closest('li.section');
-        if(!$(section).hasClass('active')){
+        if (!$(section).hasClass('active')) {
             $(section).find('> a.collapsible-header').trigger('click');
         }
     }
@@ -228,14 +227,14 @@ $(document).ready(function(){
         gravity: $.fn.tipsy.autoNS
     });
 
-    $('.slider').slider({full_width: true});
+    $('.slider').slider({ full_width: true });
     $('.parallax').parallax();
     $('.modal-trigger').leanModal();
     $('.scrollspy').scrollSpy();
-    $('.button-collapse').sideNav({'edge': 'left'});
+    $('.button-collapse').sideNav({ 'edge': 'left' });
     $('select').not('.disabled').material_select();
 
-    $('.flash').animate({opacity: 0.25}, 3500, function(){
+    $('.flash').animate({ opacity: 0.25 }, 3500, function () {
         $(this).slideUp().remove();
     });
 
@@ -245,23 +244,23 @@ $(document).ready(function(){
         }
     });
 
-    $('#label-search').click(function () { 
-        $(this).parent().addClass('focused'); 
+    $('#label-search').click(function () {
+        $(this).parent().addClass('focused');
         $("#searchbox").focus();
     });
 
-    $("#searchbox").blur(function(){         
+    $("#searchbox").blur(function () {
         if (!$(this).val()) {
             $(this).parent().removeClass('focused');
         }
     });
 
     //Handle event when click search icon
-    $('#searchIcon').click(function(){
+    $('#searchIcon').click(function () {
         document.location = _global.root + 'employee/index?query=' + $('#searchbox').val();
     });
 
-    $('input[type=number]').keydown(function(event) {
+    $('input[type=number]').keydown(function (event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode === 13 ||
             // Allow: Ctrl+A
@@ -273,13 +272,13 @@ $(document).ready(function(){
         }
         else {
             // Ensure that it is a number and stop the keypress
-            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
             }
         }
     });
 
-    if($('.datepicker-button').length > 0) {
+    if ($('.datepicker-button').length > 0) {
         initDatePicker();
     }
 
@@ -292,8 +291,7 @@ function totalHoursToTime(value) {
     var display = '',
         hour = Math.floor(value);
 
-    if(hour > 0)
-    {
+    if (hour > 0) {
         display = hour < 10 ? '0' + hour + 'h' : hour + 'h';
     }
 
@@ -305,8 +303,7 @@ function displayMinute(minutes) {
     var hour = Math.floor(minutes / 60),
         minute = minutes % 60;
 
-    if(hour == 0)
-    {
+    if (hour == 0) {
         return minute > 9 ? '00:' + minute : '00:0' + minute;
     }
     return (hour > 9 ? hour : '0' + hour) + ':' + (minute > 9 ? minute : '0' + minute);
@@ -316,8 +313,7 @@ function displayMinuteForTotalWorking(minutes) {
     var hour = Math.floor(minutes / 60),
         minute = minutes % 60;
 
-    if(hour == 0)
-    {
+    if (hour == 0) {
         if (minute == 0) return ""
         return minute > 9 ? minute + '\'' : '0' + minute + '\'';
     }
@@ -328,9 +324,9 @@ function displayMinuteForTotalWorking(minutes) {
 function tooltip(element, enable) {
     if (enable) {
         $(element).tipsy({
-        live: false,
-        gravity: $.fn.tipsy.autoNS
-    });
+            live: false,
+            gravity: $.fn.tipsy.autoNS
+        });
     }
     else {
         $(element).tipsy('hide');
@@ -349,8 +345,7 @@ function getParam(name) {
 }
 
 function stringToBool(value) {
-    switch(value)
-    {
+    switch (value) {
         case 'null':
             return null;
         case 'false':
@@ -389,19 +384,19 @@ function getDomain(url) {
 }
 
 function getPlainText(text) {
-    if(text == null || typeof(text) != 'string') return null;
+    if (text == null || typeof (text) != 'string') return null;
     return text.replace(/<[^>]*>/g, '');
 }
 
 function getEncodePlainText(text) {
-    if(text == null || typeof(text) != 'string') return null;
+    if (text == null || typeof (text) != 'string') return null;
     return encodeURIComponent(text.replace(/<[^>]*>/g, ''));
 }
 
 function formatJsonDate(jsonDate, mask) {
     var date = new Date(parseInt(jsonDate.substr(6)));
 
-    if(mask){
+    if (mask) {
         date = $.format.date(date, mask);
     }
 
@@ -427,7 +422,7 @@ function formatJsonDateToShortFormatedDate(jsonDate) {
 };
 
 function formatDate(date, mask) {
-    if(mask){
+    if (mask) {
         date = $.format.date(date, mask);
     }
 
@@ -522,12 +517,10 @@ function enableEmotion(str) {
 function getImage(text) {
     text = text.replace(/\)|\(|&quot;/g, '');
     var img = $(text).find('img:first').attr('src');
-    if(img != null && img != undefined)
-    {
+    if (img != null && img != undefined) {
         return "<img alt='' src='" + img + "' />";
     }
-    else
-    {
+    else {
         return '';
     }
 }
@@ -580,8 +573,8 @@ $.fn.insertAtCaret = function (myValue) {
             var endPos = this.selectionEnd;
             var scrollTop = this.scrollTop;
             this.value = this.value.substring(0, startPos)
-                            + myValue
-                            + this.value.substring(endPos, this.value.length);
+                + myValue
+                + this.value.substring(endPos, this.value.length);
             this.focus();
             this.selectionStart = startPos + myValue.length;
             this.selectionEnd = startPos + myValue.length;
@@ -596,18 +589,18 @@ $.fn.insertAtCaret = function (myValue) {
 function changeNumber(element, amount) {
     var text = $(element).text();
     var r = text.match(/[\d\.]+/g);
-    if(text.length == 0 || r == null) return;
+    if (text.length == 0 || r == null) return;
 
     var next = parseInt(r[0]) + amount;
-    $(element).text(text.replace(r[0],next));
+    $(element).text(text.replace(r[0], next));
 }
 
-function  isInteger(str) {
+function isInteger(str) {
     return /^ *[0-9]+ *$/.test(str);
 }
 
 function noInformation(col) {
-    return '<tr><td colspan="'+col+'"></td></tr><tr><td colspan="'+col+'">No information available</td></tr>';
+    return '<tr><td colspan="' + col + '"></td></tr><tr><td colspan="' + col + '">No information available</td></tr>';
 }
 
 function autoIndex() {
@@ -619,11 +612,11 @@ function autoIndex() {
 }
 
 function zeroPrefix(value) {
-    if(parseInt(value) < 10) return '0' + parseInt(value);
+    if (parseInt(value) < 10) return '0' + parseInt(value);
     return value;
 }
 
-function floatThead(el){
+function floatThead(el) {
     $(el).floatThead({
         top: 64,
         zIndex: 888

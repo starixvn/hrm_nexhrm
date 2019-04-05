@@ -7,7 +7,7 @@
 
     public interface IScheduledMessageService
     {
-        Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync();
+        Task<IEnumerable<Conversation>> GetConversationsAsync();
 
         Task<CommandResult> CreateAsync(CreateScheduledMessage model);
 

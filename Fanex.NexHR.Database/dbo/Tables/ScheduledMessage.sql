@@ -5,5 +5,6 @@
 	[Content] [nvarchar](max) NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
 	[CreatedBy] [int] NOT NULL,
- CONSTRAINT [PK_ScheduledMessage] PRIMARY KEY ([ScheduledMessageId])
+	[IsSent] [bit] NOT NULL CONSTRAINT [DF_ScheduledMessage_IsSent]  DEFAULT ((0)),
+	CONSTRAINT [PK_ScheduledMessage] PRIMARY KEY ([ScheduledMessageId])
 )

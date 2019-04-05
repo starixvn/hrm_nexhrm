@@ -8,7 +8,7 @@
 
     public interface IScheduledMessageRepository
     {
-        Task<IEnumerable<GroupConversation>> GetGroupConversationsAsync(GetGroupConversationsCriteria criteria);
+        Task<IEnumerable<Conversation>> GetConversationsAsync(GetConversationsCriteria criteria);
 
         Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria);
 
@@ -21,5 +21,7 @@
         Task<CommandResult> RemoveAsync(RemoveScheduleMessageCriteria criteria);
 
         Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesToProcessAsync(GetScheduledMessagesToProcessCriteria criteria);
+
+        Task<CommandResult> UpdateSentMessageStatus(UpdateSentScheduledMessageStatusCriteria criteria);
     }
 }

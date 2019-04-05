@@ -1530,4 +1530,10 @@
   <data name="Content" xml:space="preserve">
     <value>Content</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Conversation" xml:space="preserve">
+    <value>Conversation</value>
+  </data>
 </root>
