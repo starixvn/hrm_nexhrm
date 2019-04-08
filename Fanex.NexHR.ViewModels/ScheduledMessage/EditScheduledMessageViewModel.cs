@@ -15,6 +15,7 @@
 
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.SendDate))]
+        [DataType(DataType.Date)]
         public DateTime SendDate { get; set; }
 
         [Required]

@@ -244,6 +244,8 @@
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Select2\select2.css" />
+    <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -416,6 +418,8 @@
     <Content Include="Scripts\Libs\modernizr-2.5.3.js" />
     <Content Include="Scripts\Libs\moment.js" />
     <Content Include="Scripts\Libs\monPickr-0.0.3.js" />
+    <Content Include="Scripts\Libs\select2.js" />
+    <Content Include="Scripts\Libs\select2.min.js" />
     <Content Include="Scripts\Libs\slick.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Notification\notification.js" />

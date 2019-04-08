@@ -4,11 +4,48 @@
     var $editForm;
     var $searchForm;
 
+    function initializeValidation($form) {
+        $.validator.unobtrusive.parse($form);
+
+        var validator = $form.data("validator");
+        validator.settings.ignore = null;
+
+        validator.settings.highlight = function (element, errorClass, validClass) {
+            if (element.type === "radio") {
+                this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+            } else {
+                var $element = $(element);
+                $element.addClass(errorClass).removeClass(validClass);
+
+                if ($element.hasClass('initialized')) {
+                    $element.siblings('input.select-dropdown').addClass(errorClass);
+                }
+            }
+        };
+
+        validator.settings.unhighlight = function (element, errorClass, validClass) {
+            if (element.type === "radio") {
+                this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+            } else {
+                var $element = $(element);
+                $element.removeClass(errorClass).addClass(validClass);
+
+                if ($element.hasClass('initialized')) {
+                    $element.siblings('input.select-dropdown').removeClass(errorClass);
+                }
+            }
+        };
+    }
+
     function initCreateDialog() {
-        $('select', $dialog).material_select();
+        $('select', $dialog).on('change', function () {
+            $(this).valid();
+        }).material_select();
+
         initDatePicker();
+
         $createForm = $('#create-form');
-        $.validator.unobtrusive.parse($createForm);
+        //  initializeValidation($createForm);
 
         $dialog.dialog({
             modal: true,
@@ -45,7 +82,8 @@
         $('select', $dialog).material_select();
         initDatePicker();
         $editForm = $('#edit-form');
-        $.validator.unobtrusive.parse($editForm);
+
+        initializeValidation($editForm);
 
         $dialog.dialog({
             modal: true,

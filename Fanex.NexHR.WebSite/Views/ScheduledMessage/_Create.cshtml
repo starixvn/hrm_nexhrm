@@ -7,13 +7,14 @@
 }, new { id = "create-form" }))
 {
     @Html.AntiForgeryToken()
+
     <div class="row form-input">
         <div class="col">
             <div class="left label--m">
                 @Html.LabelFor(model => model.ConversationId)
             </div>
             <div class="left select--l">
-                @Html.DropDownListFor(x => x.ConversationId, Model.Conversations)
+                @Html.DropDownListFor(x => x.ConversationId, Model.Conversations, "")
             </div>
         </div>
     </div>
