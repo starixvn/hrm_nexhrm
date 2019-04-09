@@ -7,14 +7,13 @@
 }, new { id = "create-form" }))
 {
     @Html.AntiForgeryToken()
-
     <div class="row form-input">
         <div class="col">
             <div class="left label--m">
                 @Html.LabelFor(model => model.ConversationId)
             </div>
             <div class="left select--l">
-                @Html.DropDownListFor(x => x.ConversationId, Model.Conversations, "")
+                @Html.DropDownListFor(model => model.ConversationId, Model.Conversations, "", new { @class = "material-select" })
             </div>
         </div>
     </div>
@@ -46,10 +45,10 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--m">
-                @Html.LabelFor(x => x.Content)
+                @Html.LabelFor(model => model.Content)
             </div>
             <div class="left input--l">
-                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea", rows = "5" })
+                @Html.TextAreaFor(model => model.Content, new { @class = "materialize-textarea", rows = "5" })
             </div>
         </div>
     </div>

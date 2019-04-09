@@ -61,5 +61,10 @@
         {
             return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
         }
+
+        public async Task<CommandResult> CreateConversationAsync(CreateConversationCriteria criteria)
+        {
+            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+        }
     }
 }

@@ -582,11 +582,13 @@
         private static void BuildBundleForScheduledMessage(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/scheduledmessagecss")
+                .Include("~/Content/Select2/materialize-select2.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Views/scheduled-message.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/scheduledmessagejs").Include(
                 "~/Scripts/Libs/jquery.validate.unobtrusive.js",
                 "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
+                "~/Scripts/Libs/select2.js",
                 "~/Scripts/Views/ScheduledMessage/scheduled-message.js"));
         }
     }

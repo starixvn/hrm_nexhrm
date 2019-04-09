@@ -8,7 +8,7 @@
     public class CreateScheduledMessageViewModel
     {
         [Required]
-        [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Group))]
+        [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Conversation))]
         public string ConversationId { get; set; }
 
         [Required]

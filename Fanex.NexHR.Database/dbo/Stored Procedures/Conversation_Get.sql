@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[Conversation_Get]
+	@EmployeeId INT
 AS
 /*
 Created: 20190320@elton.ton
@@ -10,7 +11,14 @@ Original:
 BEGIN
 	SET NOCOUNT ON;
 	
-	SELECT ConversationId
-		,ConversationName
-	FROM dbo.Conversation WITH (NOLOCK)
+	SELECT c.ConversationId
+		,c.ConversationName
+	FROM dbo.Conversation c WITH (NOLOCK)
+	WHERE c.CreatedBy = @EmployeeId
+		OR EXISTS (
+			SELECT 1
+			FROM dbo.ConversationPermission cp WITH (NOLOCK)
+			WHERE c.ConversationId = cp.ConversationId
+				AND cp.EmployeeId = @EmployeeId
+		)
 END

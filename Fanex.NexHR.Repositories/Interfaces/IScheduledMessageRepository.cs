@@ -23,5 +23,7 @@
         Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesToProcessAsync(GetScheduledMessagesToProcessCriteria criteria);
 
         Task<CommandResult> UpdateSentMessageStatus(UpdateSentScheduledMessageStatusCriteria criteria);
+
+        Task<CommandResult> CreateConversationAsync(CreateConversationCriteria criteria);
     }
 }

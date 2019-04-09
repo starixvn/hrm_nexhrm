@@ -244,6 +244,7 @@
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Select2\materialize-select2.css" />
     <Content Include="Content\Select2\select2.css" />
     <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\site.css">
@@ -864,6 +865,7 @@
     <Content Include="Views\ScheduledMessage\_Create.cshtml" />
     <Content Include="Views\ScheduledMessage\_ScheduleMessages.cshtml" />
     <Content Include="Views\ScheduledMessage\_Edit.cshtml" />
+    <Content Include="Views\ScheduledMessage\_CreateConversation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

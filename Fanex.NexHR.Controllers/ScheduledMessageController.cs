@@ -1,5 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -13,10 +15,12 @@
     public class ScheduledMessageController : BaseController
     {
         private readonly IScheduledMessageService scheduledMessageService;
+        private readonly IEmployeeService employeeService;
 
         public ScheduledMessageController()
         {
             scheduledMessageService = new ScheduledMessageService();
+            employeeService = new EmployeeService();
         }
 
         [HttpGet]
@@ -48,7 +52,7 @@
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var conversations = await scheduledMessageService.GetConversationsAsync().ConfigureAwait(false);
+            var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
 
             var viewModel = new CreateScheduledMessageViewModel
             {
@@ -64,7 +68,7 @@
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var conversations = await scheduledMessageService.GetConversationsAsync().ConfigureAwait(false);
+            var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
             var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
 
             var viewModel = new EditScheduledMessageViewModel
@@ -153,6 +157,51 @@
             }
 
             return Json(new { isSuccessful = false });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CreateConversation()
+        {
+            var employees = employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                DeleteStatus = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            var viewModel = new CreateConversationViewModel
+            {
+                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+            };
+
+            return PartialView("_CreateConversation", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateConversation(CreateConversationViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await scheduledMessageService.CreateConversationAsync(new CreateConversation
+                {
+                    ConversationName = viewModel.ConversationName,
+                    ConversationId = viewModel.ConversationId,
+                    CreatedBy = CurrentUser.Id,
+                    PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
+                }).ConfigureAwait(false);
+
+                return Json(new
+                {
+                    isSuccessful = result.IsSuccessful,
+                    message = result.Message
+                });
+            }
+
+            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
+
+            return Json(new { isSuccessful = false, errors });
         }
     }
 }

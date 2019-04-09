@@ -7,7 +7,7 @@
 
     public interface IScheduledMessageService
     {
-        Task<IEnumerable<Conversation>> GetConversationsAsync();
+        Task<IEnumerable<Conversation>> GetConversationsAsync(int employeeId);
 
         Task<CommandResult> CreateAsync(CreateScheduledMessage model);
 
@@ -20,5 +20,7 @@
         Task<CommandResult> RemoveAsync(int scheduledMessageId);
 
         Task<CommandResult> SendScheduledMessages();
+
+        Task<CommandResult> CreateConversationAsync(CreateConversation model);
     }
 }

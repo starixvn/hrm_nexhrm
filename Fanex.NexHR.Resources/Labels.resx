@@ -1536,4 +1536,7 @@
   <data name="Conversation" xml:space="preserve">
     <value>Conversation</value>
   </data>
+  <data name="PermittedEmployees" xml:space="preserve">
+    <value>Permitted Employees</value>
+  </data>
 </root>

@@ -21,9 +21,9 @@
             nexbotService = new NexbotService();
         }
 
-        public async Task<IEnumerable<Conversation>> GetConversationsAsync()
+        public async Task<IEnumerable<Conversation>> GetConversationsAsync(int employeeId)
         {
-            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria()).ConfigureAwait(false);
+            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = employeeId }).ConfigureAwait(false);
         }
 
         public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)
@@ -99,6 +99,17 @@
             }).ConfigureAwait(false);
 
             return result;
+        }
+
+        public async Task<CommandResult> CreateConversationAsync(CreateConversation model)
+        {
+            return await scheduledMessageRepository.CreateConversationAsync(new CreateConversationCriteria
+            {
+                ConversationId = model.ConversationId,
+                ConversationName = model.ConversationName,
+                PermittedEmployeeIds = model.PermittedEmployeeIds,
+                CreatedBy = model.CreatedBy
+            }).ConfigureAwait(false);
         }
     }
 }

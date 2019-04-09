@@ -40,9 +40,15 @@
                                         <input id="btn-submit" class="waves-button-input" type="submit" value="@Labels.Submit">
                                     </i>
                                     @Ajax.ActionLink("New Message", "Create", null, new AjaxOptions {
+                                       InsertionMode = InsertionMode.Replace,
+                                       UpdateTargetId = "dialog",
+                                       OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
+                                   }, new { @class= "btn-request waves-effect waves-light" })
+
+                                    @Ajax.ActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
                                    InsertionMode = InsertionMode.Replace,
                                    UpdateTargetId = "dialog",
-                                   OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
+                                   OnSuccess = "scheduledMessage.onLoadingCreateConversationFormSuccess"
                                }, new { @class= "btn-request waves-effect waves-light" })
                                 </div>
                             </div>

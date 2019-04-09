@@ -3175,6 +3175,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permitted Employees.
+        /// </summary>
+        public static string PermittedEmployees {
+            get {
+                return ResourceManager.GetString("PermittedEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal Information.
         /// </summary>
         public static string PersonalInformation {
