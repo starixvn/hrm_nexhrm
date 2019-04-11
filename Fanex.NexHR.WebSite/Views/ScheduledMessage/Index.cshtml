@@ -39,17 +39,18 @@
                                     <i class="btn-submit waves-effect waves-light waves-input-wrapper m-r--b" style="">
                                         <input id="btn-submit" class="waves-button-input" type="submit" value="@Labels.Submit">
                                     </i>
+
                                     @Ajax.ActionLink("New Message", "Create", null, new AjaxOptions {
                                        InsertionMode = InsertionMode.Replace,
                                        UpdateTargetId = "dialog",
                                        OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
-                                   }, new { @class= "btn-request waves-effect waves-light" })
+                                   }, new { @class= "btn-request waves-effect waves-light m-r--s" })
 
                                     @Ajax.ActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
                                    InsertionMode = InsertionMode.Replace,
                                    UpdateTargetId = "dialog",
                                    OnSuccess = "scheduledMessage.onLoadingCreateConversationFormSuccess"
-                               }, new { @class= "btn-request waves-effect waves-light" })
+                               }, new { @class= "btn-request waves-effect waves-light m-r--s" })
                                 </div>
                             </div>
                         </div>
