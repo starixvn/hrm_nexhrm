@@ -285,6 +285,7 @@
     <Content Include="Content\themes\base\spinner.css" />
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Views\conversation-management.css" />
     <Content Include="Content\Views\employee.edit.css">
       <DependentUpon>employee.edit.scss</DependentUpon>
     </Content>
@@ -300,6 +301,7 @@
       <DependentUpon>eventcalendar.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\eventcalendar.scss" />
+    <Content Include="Content\Views\conversation-management.scss" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
@@ -742,6 +744,7 @@
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\search.request.js" />
+    <Content Include="Scripts\Views\ScheduledMessage\conversation-management.js" />
     <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
     <Content Include="Scripts\Views\TeamManagement\team.management.js" />
@@ -866,6 +869,7 @@
     <Content Include="Views\ScheduledMessage\_ScheduleMessages.cshtml" />
     <Content Include="Views\ScheduledMessage\_Edit.cshtml" />
     <Content Include="Views\ScheduledMessage\_CreateConversation.cshtml" />
+    <Content Include="Views\ScheduledMessage\ManageConversations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

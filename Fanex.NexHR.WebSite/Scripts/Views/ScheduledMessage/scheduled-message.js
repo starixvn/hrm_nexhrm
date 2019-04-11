@@ -3,7 +3,6 @@
     var $createForm;
     var $editForm;
     var $searchForm;
-    var $createConversationForm;
 
     function initializeValidation($form) {
         $.validator.unobtrusive.parse($form);
@@ -42,8 +41,6 @@
         $('.material-select', $dialog).on('change', function () {
             $(this).valid();
         }).material_select();
-
-        $('.select-2', $dialog).select2({ closeOnSelect: false });
 
         initDatePicker();
 
@@ -119,44 +116,6 @@
         });
     }
 
-    function initCreateConversationDialog() {
-        $('.select-2', $dialog).select2({ closeOnSelect: false });
-
-        $createConversationForm = $('#create-conversation-form');
-
-        initializeValidation($createConversationForm);
-
-        $dialog.dialog({
-            modal: true,
-            width: 'auto',
-            title: 'Create New Conversation',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    class: 'btn-cancel waves-effect waves-light m-r--m',
-                    click: function () {
-                        $(this).dialog('close');
-                    }
-                },
-                {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light',
-                    click: function () {
-                        $createConversationForm.submit();
-                    }
-                }
-            ],
-            show: {
-                effect: 'fade',
-                duration: 300
-            },
-            hide: {
-                effect: 'fade',
-                duration: 200
-            }
-        });
-    }
-
     function initConfirmationDialog($form) {
         $dialog.html('Are you sure you want to remove this scheduled message?');
         $dialog.dialog({
@@ -202,33 +161,10 @@
         });
     }
 
-    function showErrorMessage(message) {
-        $('<div>' + '<p>' + message + '</p>').dialog({
-            title: 'NexHRM',
-            modal: true,
-            resizable: false,
-            buttons: [
-                {
-                    text: 'OK',
-                    class: 'btn-ok waves-effect waves-light',
-                    click: function () {
-                        $(this).dialog('close');
-                        return true;
-                    }
-                }
-            ],
-            show: 'fade',
-            hide: 'fade',
-            minHeight: 50,
-            dialogClass: 'modal-shadow'
-        });
-    }
-
     return {
         init: init,
         onLoadingCreateFormSuccess: initCreateDialog,
         onLoadingEditFormSuccess: initEditDialog,
-        onLoadingCreateConversationFormSuccess: initCreateConversationDialog,
         onCreateSuccess: function (response) {
             if (response.isSuccessful) {
                 $dialog.dialog('close');
@@ -253,18 +189,6 @@
             if (response.isSuccessful) {
                 $dialog.dialog('close');
                 $searchForm.submit();
-            }
-        },
-        onCreateConversationSuccess: function (response) {
-            if (response.isSuccessful) {
-                $dialog.dialog('close');
-            } else {
-                if (response.errors) {
-                    $createConversationForm.validate().showErrors(response.errors);
-                }
-                if (response.message) {
-                    showErrorMessage(response.message);
-                }
             }
         }
     };

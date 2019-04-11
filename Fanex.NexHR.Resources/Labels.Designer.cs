@@ -781,6 +781,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversation ID.
+        /// </summary>
+        public static string ConversationId {
+            get {
+                return ResourceManager.GetString("ConversationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CPU.
         /// </summary>
         public static string CPU {
@@ -2325,6 +2334,15 @@ namespace Fanex.NexHR.Resources {
         public static string MakeANewRequest {
             get {
                 return ResourceManager.GetString("MakeANewRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Conversations.
+        /// </summary>
+        public static string ManageConversations {
+            get {
+                return ResourceManager.GetString("ManageConversations", resourceCulture);
             }
         }
         

@@ -1,5 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
@@ -11,7 +13,6 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    // [Authorize(Roles = "HR")]
     public class ScheduledMessageController : BaseController
     {
         private readonly IScheduledMessageService scheduledMessageService;
@@ -160,7 +161,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> CreateConversation()
+        public ActionResult CreateConversation()
         {
             var employees = employeeService.Query(new GetEmployeeCriteria
             {
@@ -202,6 +203,11 @@
             var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
 
             return Json(new { isSuccessful = false, errors });
+        }
+
+        public ActionResult ManageConversations()
+        {
+            return View("ManageConversations", User.IsInRole(Role.HR.EnumToString()));
         }
     }
 }

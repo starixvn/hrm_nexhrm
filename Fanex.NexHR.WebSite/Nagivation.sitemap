@@ -10,7 +10,8 @@
       <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader,SpecialUser" />
       <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
       <siteMapNode title="My Profile" controller="employee" action="myprofile" icon="account-box-outline" roles="Member,SpecialUser" />
-      <siteMapNode title="Late in/Early out" controller="LateEarly" action="index" icon="alarm" roles="Member" />"
+      <siteMapNode title="Late in/Early out" controller="LateEarly" action="index" icon="alarm" roles="Member" />
+      <siteMapNode title="Scheduled Message" controller="ScheduledMessage" action="index" icon="alarm" roles="Member" />
     </siteMapNode>
     <siteMapNode title="HR Space" roles="HR">
       <siteMapNode title="Employee Requests" controller="request" action="hrview" icon="account-box" roles="HR" />
@@ -23,7 +24,6 @@
       <siteMapNode title="Late In/Early Out Violation" controller="report" action="lateinearlyoutdiscipline" icon="alarm" roles="HR" />
       <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
-      <siteMapNode title="Scheduled Message" controller="ScheduledMessage" action="index" icon="alarm" roles="HR" />
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" roles="Member" />

@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = Labels.ManageConversations;
+}
+
+@section css{
+    @Styles.Render("~/Content/conversationmanagementcss")
+}
+
+@section js{
+    @Scripts.Render("~/bundles/conversationmanagementjs")
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Ajax.BeginForm("SearchConversation", "ScheduledMessage", null, new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "conversation-body",
+                        HttpMethod = "GET"
+                    }, new { id = "search-form" }))
+                    {
+                        <div class="form clearfix">
+                            <div class="row form-input">
+                                <div class="col">
+                                    @Html.ActionLink(Labels.Back, "Index", null, new { @class = "btn-back waves-effect waves-light m-r--s" })
+
+                                    @Ajax.ActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
+                                   InsertionMode = InsertionMode.Replace,
+                                   UpdateTargetId = "dialog",
+                                   OnSuccess = "conversationManagement.onLoadingCreateFormSuccess"
+                               }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="p-x--s m-t--m">
+                        <table id="conversation-table" class="table bordered striped highlight centered responsive-table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.ConversationId</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.PermittedEmployees</th>
+                                    <th>@Labels.Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="conversation-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog">
+</div>

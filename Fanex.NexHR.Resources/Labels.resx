@@ -1539,4 +1539,10 @@
   <data name="PermittedEmployees" xml:space="preserve">
     <value>Permitted Employees</value>
   </data>
+  <data name="ManageConversations" xml:space="preserve">
+    <value>Manage Conversations</value>
+  </data>
+  <data name="ConversationId" xml:space="preserve">
+    <value>Conversation ID</value>
+  </data>
 </root>

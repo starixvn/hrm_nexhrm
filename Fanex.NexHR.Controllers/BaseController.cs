@@ -107,7 +107,7 @@ namespace Fanex.NexHR.Controllers
             {
                 return;
             }
-            if(CurrentUser!= null)
+            if (CurrentUser != null)
             {
                 CheckRoles(filterContext, attributes);
             }

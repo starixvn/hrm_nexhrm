@@ -46,11 +46,7 @@
                                        OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
                                    }, new { @class= "btn-request waves-effect waves-light m-r--s" })
 
-                                    @Ajax.ActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
-                                   InsertionMode = InsertionMode.Replace,
-                                   UpdateTargetId = "dialog",
-                                   OnSuccess = "scheduledMessage.onLoadingCreateConversationFormSuccess"
-                               }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                    @Html.ActionLink(Labels.ManageConversations, "ManageConversations", null, new { @class = "btn-request waves-effect waves-light m-r--s" })
                                 </div>
                             </div>
                         </div>
