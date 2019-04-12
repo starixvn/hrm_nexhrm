@@ -25,5 +25,11 @@
         Task<CommandResult> UpdateSentMessageStatus(UpdateSentScheduledMessageStatusCriteria criteria);
 
         Task<CommandResult> CreateConversationAsync(CreateConversationCriteria criteria);
+
+        Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(GetConversationsByCreatorCriteria criteria);
+
+        Task<Conversation> GetConversationByIdAsync(GetConversationsByIdCriteria criteria);
+
+        Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria);
     }
 }

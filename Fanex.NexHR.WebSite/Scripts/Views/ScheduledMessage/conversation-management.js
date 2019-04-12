@@ -40,7 +40,7 @@
     function initEditDialog() {
         $('.select-2', $dialog).select2({ closeOnSelect: false });
 
-        $editForm = $('#edit-form');
+        $editForm = $('#edit-conversation-form');
         initializeValidation($editForm);
 
         $dialog.dialog({
@@ -112,11 +112,11 @@
     }
 
     function initConfirmationDialog($form) {
-        $dialog.html('Are you sure you want to remove this scheduled message?');
+        $dialog.html('Are you sure you want to remove this conversation?');
         $dialog.dialog({
             modal: true,
             width: 'auto',
-            title: 'Remove Scheduled Message',
+            title: 'Remove Conversation',
             buttons: [
                 {
                     text: 'No',
@@ -182,6 +182,12 @@
         init: init,
         onLoadingEditFormSuccess: initEditDialog,
         onLoadingCreateFormSuccess: initCreateDialog,
+        onRemoveSuccess: function (response) {
+            if (response.isSuccessful) {
+                $dialog.dialog('close');
+                $searchForm.submit();
+            }
+        },
         onEditSuccess: function (response) {
             if (response.isSuccessful) {
                 $dialog.dialog('close');
@@ -196,15 +202,10 @@
                 }
             }
         },
-        onRemoveSuccess: function (response) {
-            if (response.isSuccessful) {
-                $dialog.dialog('close');
-                $searchForm.submit();
-            }
-        },
         onCreateSuccess: function (response) {
             if (response.isSuccessful) {
                 $dialog.dialog('close');
+                $searchForm.submit();
             } else {
                 if (response.errors) {
                     $createForm.validate().showErrors(response.errors);

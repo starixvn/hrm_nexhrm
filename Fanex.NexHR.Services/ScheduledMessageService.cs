@@ -21,11 +21,6 @@
             nexbotService = new NexbotService();
         }
 
-        public async Task<IEnumerable<Conversation>> GetConversationsAsync(int employeeId)
-        {
-            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = employeeId }).ConfigureAwait(false);
-        }
-
         public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)
         {
             return await scheduledMessageRepository.CreateAsync(new CreateScheduledMessageCriteria
@@ -37,11 +32,12 @@
             }).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year)
+        public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year, int createdBy)
         {
             return await scheduledMessageRepository.GetScheduledMessagesAsync(new GetScheduleMessagesCriteria
             {
-                Year = year
+                Year = year,
+                CreatedBy = createdBy
             }).ConfigureAwait(false);
         }
 
@@ -101,6 +97,11 @@
             return result;
         }
 
+        public async Task<IEnumerable<Conversation>> GetConversationsAsync(int employeeId)
+        {
+            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = employeeId }).ConfigureAwait(false);
+        }
+
         public async Task<CommandResult> CreateConversationAsync(CreateConversation model)
         {
             return await scheduledMessageRepository.CreateConversationAsync(new CreateConversationCriteria
@@ -109,6 +110,34 @@
                 ConversationName = model.ConversationName,
                 PermittedEmployeeIds = model.PermittedEmployeeIds,
                 CreatedBy = model.CreatedBy
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(int createdBy)
+        {
+            return await scheduledMessageRepository.GetConversationsByCreatorAsync(new GetConversationsByCreatorCriteria
+            {
+                CreatedBy = createdBy
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<Conversation> GetConversationByIdAsync(int id)
+        {
+            return await scheduledMessageRepository.GetConversationByIdAsync(new GetConversationsByIdCriteria
+            {
+                Id = id
+            }).ConfigureAwait(false);
+        }
+
+        public async Task<CommandResult> EditConversationAsync(EditConversation model)
+        {
+            return await scheduledMessageRepository.EditConversationAsync(new EditConversationCriteria
+            {
+                Id = model.Id,
+                ConversationId = model.ConversationId,
+                ConversationName = model.ConversationName,
+                PermittedEmployeeIds = model.PermittedEmployeeIds,
+                EditedBy = model.EditedBy
             }).ConfigureAwait(false);
         }
     }

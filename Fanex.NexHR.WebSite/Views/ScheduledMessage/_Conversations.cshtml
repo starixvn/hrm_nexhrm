@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Fanex.NexHR.ViewModels.ScheduledMessage.ConversationViewModel>
+
+@{
+    var isHR = User.IsInRole(Role.HR.EnumToString());
+}
+
+@foreach (var item in Model)
+{
+    <tr id="scheduled-message-@item.ConversationId">
+        <td>@item.ConversationId</td>
+        <td>@item.ConversationName</td>
+        @if (isHR)
+        {
+            <td>@item.PermittedEmployees</td>
+        }
+        <td>
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("EditConversation", new { id = item.Id })"
+               data-ajax-success="conversationManagement.onLoadingEditFormSuccess">
+                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+            </a>
+        </td>
+    </tr>
+}

@@ -11,7 +11,7 @@
 
         Task<CommandResult> CreateAsync(CreateScheduledMessage model);
 
-        Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year);
+        Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year, int createdBy);
 
         Task<ScheduledMessage> GetScheduledMessageAsync(int scheduledMessageId);
 
@@ -22,5 +22,11 @@
         Task<CommandResult> SendScheduledMessages();
 
         Task<CommandResult> CreateConversationAsync(CreateConversation model);
+
+        Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(int createdBy);
+
+        Task<Conversation> GetConversationByIdAsync(int id);
+
+        Task<CommandResult> EditConversationAsync(EditConversation model);
     }
 }

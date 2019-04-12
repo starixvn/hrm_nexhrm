@@ -43,9 +43,6 @@ namespace Fanex.NexHR.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
-            var i = User.IsInRole("Member");
-            var s = Roles.IsUserInRole("Member");
-            var k = Roles.GetRolesForUser();
             List<Employee> employeesBirthday = null;
             List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria

@@ -2,6 +2,8 @@
     ViewBag.Title = Labels.ManageConversations;
 }
 
+@model bool
+
 @section css{
     @Styles.Render("~/Content/conversationmanagementcss")
 }
@@ -46,7 +48,10 @@
                                 <tr>
                                     <th>@Labels.ConversationId</th>
                                     <th>@Labels.Name</th>
-                                    <th>@Labels.PermittedEmployees</th>
+                                    @if (Model)
+                                    {
+                                        <th>@Labels.PermittedEmployees</th>
+                                    }
                                     <th>@Labels.Action</th>
                                 </tr>
                             </thead>

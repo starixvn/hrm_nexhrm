@@ -365,5 +365,8 @@
     <Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="ScheduledMessage_UpdateStatus" SpName="ScheduledMessage_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Conversation_Insert" SpName="Conversation_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Conversation_GetByCreator" SpName="Conversation_GetByCreator" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

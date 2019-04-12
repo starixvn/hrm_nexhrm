@@ -6,8 +6,10 @@
     {
         public int Year { get; set; }
 
+        public int CreatedBy { get; set; }
+
         public override string GetSettingKey() => "ScheduledMessage_Get";
 
-        public override bool IsValid() => Year > 0;
+        public override bool IsValid() => Year > 0 && CreatedBy > 0;
     }
 }

@@ -33,7 +33,7 @@
         [HttpGet]
         public async Task<ActionResult> Search(int year)
         {
-            var scheduledMessages = await scheduledMessageService.GetScheduledMessagesAsync(year).ConfigureAwait(false);
+            var scheduledMessages = await scheduledMessageService.GetScheduledMessagesAsync(year, CurrentUser.Id).ConfigureAwait(false);
 
             var viewModel = scheduledMessages.Select(x => new ScheduledMessageViewModel
             {
@@ -163,18 +163,25 @@
         [HttpGet]
         public ActionResult CreateConversation()
         {
-            var employees = employeeService.Query(new GetEmployeeCriteria
-            {
-                Query = string.Empty,
-                DeleteStatus = false,
-                PageSize = int.MaxValue,
-                PageNumber = 1
-            });
+            var hasHRRole = User.IsInRole(Role.HR.EnumToString());
 
             var viewModel = new CreateConversationViewModel
             {
-                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+                HasHRRole = hasHRRole
             };
+
+            if (hasHRRole)
+            {
+                var employees = employeeService.Query(new GetEmployeeCriteria
+                {
+                    Query = string.Empty,
+                    DeleteStatus = false,
+                    PageSize = int.MaxValue,
+                    PageNumber = 1
+                });
+
+                viewModel.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
+            }
 
             return PartialView("_CreateConversation", viewModel);
         }
@@ -205,9 +212,81 @@
             return Json(new { isSuccessful = false, errors });
         }
 
+        [HttpGet]
         public ActionResult ManageConversations()
         {
             return View("ManageConversations", User.IsInRole(Role.HR.EnumToString()));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> SearchConversation()
+        {
+            var conversations = await scheduledMessageService.GetConversationsByCreatorAsync(CurrentUser.Id).ConfigureAwait(false);
+            var viewModel = conversations.Select(x => new ConversationViewModel
+            {
+                Id = x.Id,
+                ConversationId = x.ConversationId,
+                ConversationName = x.ConversationName,
+                PermittedEmployees = string.Join(", ", x.PermittedEmployees.Select(p => p.NickName))
+            });
+
+            return PartialView("_Conversations", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditConversation(int id)
+        {
+            var conversation = await scheduledMessageService.GetConversationByIdAsync(id).ConfigureAwait(false);
+            var viewModel = new EditConversationViewModel
+            {
+                Id = conversation.Id,
+                ConversationId = conversation.ConversationId,
+                ConversationName = conversation.ConversationName,
+                PermittedEmployeeIds = conversation.PermittedEmployees.Select(x => x.EmployeeId).ToArray(),
+                HasHRRole = User.IsInRole(Role.HR.EnumToString())
+            };
+
+            if (viewModel.HasHRRole)
+            {
+                var employees = employeeService.Query(new GetEmployeeCriteria
+                {
+                    Query = string.Empty,
+                    DeleteStatus = false,
+                    PageSize = int.MaxValue,
+                    PageNumber = 1
+                });
+
+                viewModel.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
+            }
+
+            return PartialView("_EditConversation", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditConversation(EditConversationViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await scheduledMessageService.EditConversationAsync(new EditConversation
+                {
+                    Id = viewModel.Id,
+                    ConversationName = viewModel.ConversationName,
+                    ConversationId = viewModel.ConversationId,
+                    EditedBy = CurrentUser.Id,
+                    PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
+                }).ConfigureAwait(false);
+
+                return Json(new
+                {
+                    isSuccessful = result.IsSuccessful,
+                    message = result.Message
+                });
+            }
+
+            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
+
+            return Json(new { isSuccessful = false, errors });
         }
     }
 }

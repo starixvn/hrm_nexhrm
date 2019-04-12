@@ -870,6 +870,8 @@
     <Content Include="Views\ScheduledMessage\_Edit.cshtml" />
     <Content Include="Views\ScheduledMessage\_CreateConversation.cshtml" />
     <Content Include="Views\ScheduledMessage\ManageConversations.cshtml" />
+    <Content Include="Views\ScheduledMessage\_Conversations.cshtml" />
+    <Content Include="Views\ScheduledMessage\_EditConversation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

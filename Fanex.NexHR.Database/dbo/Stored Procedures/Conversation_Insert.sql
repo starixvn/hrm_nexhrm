@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[Conversation_Insert]
 	@ConversationId VARCHAR(255)
-	,@ConversationName NVARCHAR(MAX)
+	,@ConversationName NVARCHAR(255)
 	,@CreatedBy INT
 	,@PermittedEmployeeIds VARCHAR(MAX) = NULL
     ,@ErrCode INT = 0 OUTPUT
@@ -37,12 +37,12 @@ BEGIN
 
 	IF @PermittedEmployeeIds IS NOT NULL
 	BEGIN
-
+		DECLARE @Id INT = SCOPE_IDENTITY()
 		INSERT INTO [dbo].[ConversationPermission]
            ([ConversationId]
            ,[EmployeeId])
-		SELECT @ConversationId
+		SELECT @Id
 			,val
 		FROM dbo.fnc_strSplit(@PermittedEmployeeIds, ',')
 	END
-END
+END;

@@ -18,5 +18,7 @@
         public int[] PermittedEmployeeIds { get; set; }
 
         public SelectList Employees { get; set; }
+
+        public bool HasHRRole { get; set; }
     }
 }
