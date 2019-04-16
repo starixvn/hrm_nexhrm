@@ -4,12 +4,14 @@
 
     public class Conversation
     {
-        public int Id { get; set; }
+        public int ConversationId { get; set; }
 
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         public string ConversationName { get; set; }
 
         public IEnumerable<PermittedEmployee> PermittedEmployees { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

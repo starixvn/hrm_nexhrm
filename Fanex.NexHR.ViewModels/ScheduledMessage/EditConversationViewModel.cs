@@ -8,7 +8,7 @@
     {
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.IdNo))]
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Name))]
@@ -19,8 +19,10 @@
 
         public SelectList Employees { get; set; }
 
+        public bool IsActive { get; set; }
+
         public bool HasHRRole { get; set; }
 
-        public int Id { get; set; }
+        public int ConversationId { get; set; }
     }
 }

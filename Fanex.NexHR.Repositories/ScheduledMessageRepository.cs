@@ -79,7 +79,7 @@
 
                     foreach (var conversation in conversations)
                     {
-                        conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.Id);
+                        conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
                     }
 
                     return conversations;
@@ -96,7 +96,7 @@
                     var conversation = multiReader.Read<Conversation>().FirstOrDefault();
                     var permittedEmployees = multiReader.Read<PermittedEmployee>();
 
-                    conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.Id);
+                    conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
 
                     return conversation;
                 }

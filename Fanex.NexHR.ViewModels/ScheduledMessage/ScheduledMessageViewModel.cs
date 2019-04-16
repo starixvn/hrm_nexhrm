@@ -6,7 +6,9 @@
     {
         public int ScheduledMessageId { get; set; }
 
-        public string ConversationId { get; set; }
+        public int ConversationId { get; set; }
+
+        public string SkypeConversationId { get; set; }
 
         public string ConversationName { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[ScheduledMessage_Insert]
-	@ConversationId VARCHAR(255)
+	@ConversationId INT
 	,@SendDate DATETIME
 	,@Content NVARCHAR(MAX)
 	,@CreatedBy INT

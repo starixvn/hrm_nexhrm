@@ -4,9 +4,9 @@
 
     public class EditConversationCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int ConversationId { get; set; }
 
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         public string ConversationName { get; set; }
 
@@ -14,9 +14,11 @@
 
         public int EditedBy { get; set; }
 
+        public bool IsActive { get; set; }
+
         public override string GetSettingKey() => "Conversation_Update";
 
-        public override bool IsValid() => !string.IsNullOrWhiteSpace(ConversationId) && !string.IsNullOrWhiteSpace(ConversationName)
-            && Id > 0 && EditedBy > 0;
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(ConversationName)
+            && ConversationId > 0 && EditedBy > 0;
     }
 }

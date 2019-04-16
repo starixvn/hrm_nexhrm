@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[ScheduledMessage_Update]
 	@ScheduledMessageId INT
-	,@ConversationId VARCHAR(255)
+	,@ConversationId INT
 	,@SendDate DATETIME
 	,@Content NVARCHAR(MAX)
 	,@ErrCode INT = 0 OUTPUT

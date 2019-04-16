@@ -8,7 +8,7 @@
     {
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.IdNo))]
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Name))]

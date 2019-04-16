@@ -2,7 +2,7 @@
 {
     public class CreateConversation
     {
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         public string ConversationName { get; set; }
 

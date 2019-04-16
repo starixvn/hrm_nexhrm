@@ -11,9 +11,10 @@ Original:
 BEGIN
 	SET NOCOUNT ON;
 	
-	SELECT c.Id
-		,c.ConversationId
+	SELECT c.ConversationId
+		,c.SkypeConversationId
 		,c.ConversationName
+		,c.IsActive
 	FROM dbo.Conversation c WITH (NOLOCK)
 	WHERE c.CreatedBy = @CreatedBy
 
@@ -25,6 +26,6 @@ BEGIN
 	WHERE EXISTS (
 		SELECT 1
 		FROM dbo.Conversation c WITH (NOLOCK)
-		WHERE c.CreatedBy = @CreatedBy AND c.Id = cp.ConversationId
+		WHERE c.CreatedBy = @CreatedBy AND c.ConversationId = cp.ConversationId
 	)
 END

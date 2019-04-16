@@ -6,7 +6,7 @@
     {
         public int ScheduledMessageId { get; set; }
 
-        public string ConversationId { get; set; }
+        public int ConversationId { get; set; }
 
         public DateTime SendDate { get; set; }
 

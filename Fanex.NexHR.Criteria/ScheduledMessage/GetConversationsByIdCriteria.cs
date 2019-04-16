@@ -4,10 +4,10 @@
 
     public class GetConversationsByIdCriteria : CriteriaBase
     {
-        public int Id { get; set; }
+        public int ConversationId { get; set; }
 
         public override string GetSettingKey() => "Conversation_GetById";
 
-        public override bool IsValid() => Id > 0;
+        public override bool IsValid() => ConversationId > 0;
     }
 }

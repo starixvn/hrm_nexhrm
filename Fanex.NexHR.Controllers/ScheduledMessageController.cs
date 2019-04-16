@@ -39,6 +39,7 @@
             {
                 ScheduledMessageId = x.ScheduledMessageId,
                 ConversationId = x.ConversationId,
+                SkypeConversationId = x.SkypeConversationId,
                 ConversationName = x.ConversationName,
                 Content = x.Content,
                 SendDate = x.SendDate,
@@ -195,7 +196,7 @@
                 var result = await scheduledMessageService.CreateConversationAsync(new CreateConversation
                 {
                     ConversationName = viewModel.ConversationName,
-                    ConversationId = viewModel.ConversationId,
+                    SkypeConversationId = viewModel.SkypeConversationId,
                     CreatedBy = CurrentUser.Id,
                     PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
                 }).ConfigureAwait(false);
@@ -224,9 +225,10 @@
             var conversations = await scheduledMessageService.GetConversationsByCreatorAsync(CurrentUser.Id).ConfigureAwait(false);
             var viewModel = conversations.Select(x => new ConversationViewModel
             {
-                Id = x.Id,
                 ConversationId = x.ConversationId,
+                SkypeConversationId = x.SkypeConversationId,
                 ConversationName = x.ConversationName,
+                IsActive = x.IsActive,
                 PermittedEmployees = string.Join(", ", x.PermittedEmployees.Select(p => p.NickName))
             });
 
@@ -239,10 +241,11 @@
             var conversation = await scheduledMessageService.GetConversationByIdAsync(id).ConfigureAwait(false);
             var viewModel = new EditConversationViewModel
             {
-                Id = conversation.Id,
                 ConversationId = conversation.ConversationId,
+                SkypeConversationId = conversation.SkypeConversationId,
                 ConversationName = conversation.ConversationName,
                 PermittedEmployeeIds = conversation.PermittedEmployees.Select(x => x.EmployeeId).ToArray(),
+                IsActive = conversation.IsActive,
                 HasHRRole = User.IsInRole(Role.HR.EnumToString())
             };
 
@@ -270,10 +273,11 @@
             {
                 var result = await scheduledMessageService.EditConversationAsync(new EditConversation
                 {
-                    Id = viewModel.Id,
-                    ConversationName = viewModel.ConversationName,
                     ConversationId = viewModel.ConversationId,
+                    ConversationName = viewModel.ConversationName,
+                    SkypeConversationId = viewModel.SkypeConversationId,
                     EditedBy = CurrentUser.Id,
+                    IsActive = viewModel.IsActive,
                     PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
                 }).ConfigureAwait(false);
 

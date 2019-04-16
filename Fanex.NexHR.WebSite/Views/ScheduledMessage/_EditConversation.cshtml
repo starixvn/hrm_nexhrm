@@ -8,14 +8,15 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.ConversationId)
+
     <div class="row form-input">
         <div class="col">
             <div class="left label--m">
-                @Html.LabelFor(model => model.ConversationId)
+                @Html.LabelFor(model => model.SkypeConversationId)
             </div>
             <div class="left select--l">
-                @Html.TextBoxFor(model => model.ConversationId)
+                @Html.TextBoxFor(model => model.SkypeConversationId)
             </div>
         </div>
     </div>
@@ -26,6 +27,17 @@
             </div>
             <div class="left input--l">
                 @Html.TextBoxFor(model => model.ConversationName)
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--m">
+                @Html.LabelFor(model => model.IsActive)
+            </div>
+            <div class="left">
+                @Html.MaterializeCheckBoxFor(model => model.IsActive, new { @class = "filled-in" })
             </div>
         </div>
     </div>

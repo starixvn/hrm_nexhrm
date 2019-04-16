@@ -6,15 +6,17 @@
 
 @foreach (var item in Model)
 {
-    <tr id="scheduled-message-@item.ConversationId">
-        <td>@item.ConversationId</td>
+    <tr id="conversation-@item.ConversationId">
+        <td>@item.SkypeConversationId</td>
         <td>@item.ConversationName</td>
         @if (isHR)
         {
             <td>@item.PermittedEmployees</td>
         }
+        <td>@Html.MaterializeCheckBox("IsActive-" + item.ConversationId, item.IsActive, new { @class = " filled-in", onclick = "return false" })</td>
+
         <td>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("EditConversation", new { id = item.Id })"
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("EditConversation", new { id = item.ConversationId })"
                data-ajax-success="conversationManagement.onLoadingEditFormSuccess">
                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
             </a>

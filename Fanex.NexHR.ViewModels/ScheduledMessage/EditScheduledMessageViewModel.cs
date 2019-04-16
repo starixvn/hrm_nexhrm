@@ -11,7 +11,7 @@
 
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Conversation))]
-        public string ConversationId { get; set; }
+        public int ConversationId { get; set; }
 
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.SendDate))]

@@ -83,7 +83,7 @@
 
             foreach (var scheduledMessage in scheduledMessages)
             {
-                if (nexbotService.SendMessage(scheduledMessage.ConversationId, scheduledMessage.Content))
+                if (nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content))
                 {
                     sentMessageIds.Add(scheduledMessage.ScheduledMessageId);
                 }
@@ -106,7 +106,7 @@
         {
             return await scheduledMessageRepository.CreateConversationAsync(new CreateConversationCriteria
             {
-                ConversationId = model.ConversationId,
+                SkypeConversationId = model.SkypeConversationId,
                 ConversationName = model.ConversationName,
                 PermittedEmployeeIds = model.PermittedEmployeeIds,
                 CreatedBy = model.CreatedBy
@@ -125,7 +125,7 @@
         {
             return await scheduledMessageRepository.GetConversationByIdAsync(new GetConversationsByIdCriteria
             {
-                Id = id
+                ConversationId = id
             }).ConfigureAwait(false);
         }
 
@@ -133,11 +133,12 @@
         {
             return await scheduledMessageRepository.EditConversationAsync(new EditConversationCriteria
             {
-                Id = model.Id,
                 ConversationId = model.ConversationId,
+                SkypeConversationId = model.SkypeConversationId,
                 ConversationName = model.ConversationName,
                 PermittedEmployeeIds = model.PermittedEmployeeIds,
-                EditedBy = model.EditedBy
+                EditedBy = model.EditedBy,
+                IsActive = model.IsActive
             }).ConfigureAwait(false);
         }
     }

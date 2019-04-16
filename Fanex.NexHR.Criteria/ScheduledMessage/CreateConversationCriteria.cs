@@ -4,7 +4,7 @@
 
     public class CreateConversationCriteria : CriteriaBase
     {
-        public string ConversationId { get; set; }
+        public string SkypeConversationId { get; set; }
 
         public string ConversationName { get; set; }
 
@@ -14,6 +14,6 @@
 
         public override string GetSettingKey() => "Conversation_Insert";
 
-        public override bool IsValid() => !string.IsNullOrWhiteSpace(ConversationId) && !string.IsNullOrWhiteSpace(ConversationName) && CreatedBy > 0;
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(SkypeConversationId) && !string.IsNullOrWhiteSpace(ConversationName) && CreatedBy > 0;
     }
 }

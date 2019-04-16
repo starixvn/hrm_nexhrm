@@ -18,7 +18,7 @@ BEGIN
 		OR EXISTS (
 			SELECT 1
 			FROM dbo.ConversationPermission cp WITH (NOLOCK)
-			WHERE c.Id = cp.ConversationId
+			WHERE c.ConversationId = cp.ConversationId
 				AND cp.EmployeeId = @EmployeeId
 		)
 END

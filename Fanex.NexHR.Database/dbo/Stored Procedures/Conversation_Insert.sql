@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[Conversation_Insert]
-	@ConversationId VARCHAR(255)
+	@SkypeConversationId VARCHAR(255)
 	,@ConversationName NVARCHAR(255)
 	,@CreatedBy INT
 	,@PermittedEmployeeIds VARCHAR(MAX) = NULL
@@ -19,7 +19,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-	IF EXISTS (SELECT 1 FROM dbo.Conversation c WITH (NOLOCK) WHERE c.ConversationId = @ConversationId)
+	IF EXISTS (SELECT 1 FROM dbo.Conversation c WITH (NOLOCK) WHERE c.SkypeConversationId = @SkypeConversationId)
 	BEGIN
 		SET @ErrCode = 1
 		SET @ErrMsg = 'The conversation is already existed.'
@@ -27,11 +27,11 @@ BEGIN
 	END
 
 	INSERT INTO [dbo].[Conversation]
-           ([ConversationId]
+           ([SkypeConversationId]
            ,[ConversationName]
            ,[CreatedBy])
      VALUES
-           (@ConversationId
+           (@SkypeConversationId
            ,@ConversationName
            ,@CreatedBy)
 
@@ -45,4 +45,4 @@ BEGIN
 			,val
 		FROM dbo.fnc_strSplit(@PermittedEmployeeIds, ',')
 	END
-END;
+END
