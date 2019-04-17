@@ -14,11 +14,13 @@ BEGIN
 	SELECT c.ConversationId
 		,c.ConversationName
 	FROM dbo.Conversation c WITH (NOLOCK)
-	WHERE c.CreatedBy = @EmployeeId AND c.IsActive = 1
-		OR EXISTS (
-			SELECT 1
-			FROM dbo.ConversationPermission cp WITH (NOLOCK)
-			WHERE c.ConversationId = cp.ConversationId
-				AND cp.EmployeeId = @EmployeeId
+	WHERE c.IsActive = 1
+		AND (c.CreatedBy = @EmployeeId 
+				OR EXISTS (
+					SELECT 1
+					FROM dbo.ConversationPermission cp WITH (NOLOCK)
+					WHERE c.ConversationId = cp.ConversationId
+						AND cp.EmployeeId = @EmployeeId
+				)
 		)
 END
