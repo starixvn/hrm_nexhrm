@@ -7,6 +7,8 @@
 }, new { id = "create-form" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
@@ -37,7 +39,7 @@
         <div class="col">
             <div class="left input-xs">
                 <span class="time">
-                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2" })
+                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "5", MaxLength = "2" })
                 </span>
             </div>
         </div>

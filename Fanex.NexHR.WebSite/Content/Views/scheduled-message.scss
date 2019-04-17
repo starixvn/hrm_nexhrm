@@ -2,7 +2,7 @@
     .dropdown-content {
         max-height: 17rem;
     }
-    
+
     textarea {
         height: auto;
         resize: vertical;
@@ -10,7 +10,11 @@
 }
 
 table {
-    .mdi-border-color{
+    .mdi-border-color {
         top: 4px;
     }
+}
+
+.field-validation-error {
+    font-size: inherit;
 }

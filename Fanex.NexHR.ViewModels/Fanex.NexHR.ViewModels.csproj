@@ -93,6 +93,7 @@
     <Compile Include="Bio\ChangeFingerViewModel.cs" />
     <Compile Include="Bio\EditBioDeviceViewModel.cs" />
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
+    <Compile Include="CustomValidationAttribute\MultipleOfAttribute.cs" />
     <Compile Include="Employee\EmployeeListViewModel.cs" />
     <Compile Include="FingerprintAndCardViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />

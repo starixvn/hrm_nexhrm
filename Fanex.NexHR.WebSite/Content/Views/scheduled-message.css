@@ -10,4 +10,8 @@
 table .mdi-border-color {
     top: 4px;
 }
+
+.field-validation-error {
+    font-size: inherit;
+}
 /*# sourceMappingURL=scheduled-message.css.map */

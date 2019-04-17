@@ -149,7 +149,36 @@
         });
     }
 
+    function showErrorMessage(message) {
+        $('<div>' + '<p>' + message + '</p>').dialog({
+            title: 'NexHRM',
+            modal: true,
+            resizable: false,
+            buttons: [
+                {
+                    text: 'OK',
+                    class: 'btn-ok waves-effect waves-light',
+                    click: function () {
+                        $(this).dialog('close');
+                        return true;
+                    }
+                }
+            ],
+            show: 'fade',
+            hide: 'fade',
+            minHeight: 50,
+            dialogClass: 'modal-shadow'
+        });
+    }
+
     function init() {
+        $.validator.unobtrusive.adapters.addSingleVal("multipleof", "value");
+
+        $.validator.addMethod("multipleof",
+            function (value, element, parameters) {
+                return value % parameters === 0;
+            });
+
         $dialog = $('#dialog');
         $searchForm = $('#search-form');
         $searchForm.submit();
@@ -173,6 +202,9 @@
                 if (response.errors) {
                     $createForm.validate().showErrors(response.errors);
                 }
+                if (response.message) {
+                    showErrorMessage(response.message);
+                }
             }
         },
         onEditSuccess: function (response) {
@@ -182,6 +214,9 @@
             } else {
                 if (response.errors) {
                     $editForm.validate().showErrors(response.errors);
+                }
+                if (response.message) {
+                    showErrorMessage(response.message);
                 }
             }
         },

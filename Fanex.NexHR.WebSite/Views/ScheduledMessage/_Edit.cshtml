@@ -8,6 +8,8 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ScheduledMessageId)
+    @Html.ValidationSummary()
+
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
