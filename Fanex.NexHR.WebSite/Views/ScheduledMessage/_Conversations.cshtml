@@ -9,12 +9,12 @@
     foreach (var item in Model)
     {
         <tr id="conversation-@item.ConversationId">
-            <td>@item.ConversationName</td>
+            <td class="align-left">@item.ConversationName</td>
 
-            <td>@item.SkypeConversationId</td>
+            <td class="align-left">@item.SkypeConversationId</td>
             @if (isHR)
             {
-                <td>@item.PermittedEmployees</td>
+                <td class="align-left">@item.PermittedEmployees</td>
             }
             <td>@Html.MaterializeCheckBox("IsActive-" + item.ConversationId, item.IsActive, new { @class = " filled-in", onclick = "return false" })</td>
 
