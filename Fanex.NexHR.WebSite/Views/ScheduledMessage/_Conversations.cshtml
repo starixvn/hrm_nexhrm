@@ -4,22 +4,30 @@
     var isHR = User.IsInRole(Role.HR.EnumToString());
 }
 
-@foreach (var item in Model)
+@if (Model.Any())
 {
-    <tr id="conversation-@item.ConversationId">
-        <td>@item.SkypeConversationId</td>
-        <td>@item.ConversationName</td>
-        @if (isHR)
-        {
-            <td>@item.PermittedEmployees</td>
-        }
-        <td>@Html.MaterializeCheckBox("IsActive-" + item.ConversationId, item.IsActive, new { @class = " filled-in", onclick = "return false" })</td>
+    foreach (var item in Model)
+    {
+        <tr id="conversation-@item.ConversationId">
+            <td>@item.ConversationName</td>
 
-        <td>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("EditConversation", new { id = item.ConversationId })"
-               data-ajax-success="conversationManagement.onLoadingEditFormSuccess">
-                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
-            </a>
-        </td>
-    </tr>
+            <td>@item.SkypeConversationId</td>
+            @if (isHR)
+            {
+                <td>@item.PermittedEmployees</td>
+            }
+            <td>@Html.MaterializeCheckBox("IsActive-" + item.ConversationId, item.IsActive, new { @class = " filled-in", onclick = "return false" })</td>
+
+            <td>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("EditConversation", new { id = item.ConversationId })"
+                   data-ajax-success="conversationManagement.onLoadingEditFormSuccess">
+                    <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                </a>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr><td colspan="@(isHR ? 5 : 4)">@Labels.NoData</td></tr>
 }

@@ -7,7 +7,7 @@
     public class CreateConversationViewModel
     {
         [Required]
-        [Display(ResourceType = typeof(Labels), Name = nameof(Labels.IdNo))]
+        [Display(ResourceType = typeof(Labels), Name = nameof(Labels.ConversationId))]
         public string SkypeConversationId { get; set; }
 
         [Required]

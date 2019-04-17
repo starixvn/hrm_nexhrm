@@ -12,7 +12,17 @@
 
     <div class="row form-input">
         <div class="col">
-            <div class="left label--m">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.ConversationName)
+            </div>
+            <div class="left input--l">
+                @Html.TextBoxFor(model => model.ConversationName)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
                 @Html.LabelFor(model => model.SkypeConversationId)
             </div>
             <div class="left select--l">
@@ -22,18 +32,7 @@
     </div>
     <div class="row form-input">
         <div class="col">
-            <div class="left label--m">
-                @Html.LabelFor(model => model.ConversationName)
-            </div>
-            <div class="left input--l">
-                @Html.TextBoxFor(model => model.ConversationName)
-            </div>
-        </div>
-    </div>
-
-    <div class="row form-input">
-        <div class="col">
-            <div class="left label--m">
+            <div class="left label--l">
                 @Html.LabelFor(model => model.IsActive)
             </div>
             <div class="left">
