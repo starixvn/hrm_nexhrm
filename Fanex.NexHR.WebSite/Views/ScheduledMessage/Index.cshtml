@@ -15,7 +15,10 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    <span class="card-title txt-uppercase left">
+                        @ViewBag.Title
+                        <a href="@AppSetting.ScheduledMessageUserGuide" target="_blank"><i class="mdi mdi-information-outline"></i></a>
+                    </span>
                 </div>
                 <div class="card-body">
                     @using (Ajax.BeginForm("Search", "ScheduledMessage", null, new AjaxOptions
