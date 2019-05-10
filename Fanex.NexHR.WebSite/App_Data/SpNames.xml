@@ -369,4 +369,7 @@
     <Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
   </Function>
+  <Function Name="Time Sheet">
+    <Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
+  </Function>
 </Functions>

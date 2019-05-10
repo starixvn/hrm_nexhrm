@@ -412,6 +412,19 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dear {0},
+        ///You have just reached {1} working hours today. 
+        ///
+        ///If you don&apos;t want to receive this category message, please use command: _stop_remind_reachedworkingtime_. 
+        ///Thanks.
+        /// </summary>
+        public static string RemindReachedWorkingTime {
+            get {
+                return ResourceManager.GetString("RemindReachedWorkingTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your request have been sent successfully!.
         /// </summary>
         public static string RequestCreated {

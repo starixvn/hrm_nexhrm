@@ -294,4 +294,11 @@
   <data name="MultipleOf" xml:space="preserve">
     <value>{0} must be a multiple of {1}</value>
   </data>
+  <data name="RemindReachedWorkingTime" xml:space="preserve">
+    <value>Dear {0},
+You have just reached {1} working hours today. 
+
+If you don't want to receive this category message, please use command: _stop_remind_reachedworkingtime_. 
+Thanks</value>
+  </data>
 </root>

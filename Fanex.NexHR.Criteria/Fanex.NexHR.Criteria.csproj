@@ -216,6 +216,7 @@
     <Compile Include="Team\GetTeamByIdCriteria.cs" />
     <Compile Include="Team\GetTeamByManagerIdCriteria.cs" />
     <Compile Include="Team\UpdateTeamCriteria.cs" />
+    <Compile Include="TimeSheet\GetEmployeeReachedWorkingTimeCriteria.cs" />
     <Compile Include="Toeic\GetTOEICScoreByEmployeeIdCriteria.cs" />
     <Compile Include="Toeic\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
@@ -242,6 +243,7 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

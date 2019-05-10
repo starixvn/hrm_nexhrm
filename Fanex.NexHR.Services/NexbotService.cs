@@ -63,6 +63,19 @@
             return skypeAccounts;
         }
 
+        public IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(int messageCategoryId)
+        {
+            var request = CreateRequestHeader("/account/getignoredbymessagecategory", Method.GET);
+            request.AddParameter("messageCategoryId", messageCategoryId);
+
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
+            var skypeAccounts = response.Data;
+
+            return skypeAccounts;
+        }
+
+
         public void SendApproveMessage(string conversationId, long requestId, string message)
         {
             var request = CreateRequestHeader("/request/approve", Method.POST);
