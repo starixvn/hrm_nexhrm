@@ -12,7 +12,8 @@
     public class TimeSheetService : BaseService, ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
- 
+        private const int MessageCategory = 9;
+
         private readonly INexbotService nexbotService;
         
 
@@ -44,7 +45,7 @@
             var conversations = ConfiguredCacheService.Get<IList<ConversationUser>>(CacheKeyIgnoredReminder);
             if (conversations == null || !conversations.Any())
             {
-                conversations = nexbotService.GetIgnoredSkypeAccountByMessageCategory(1);
+                conversations = nexbotService.GetIgnoredSkypeAccountByMessageCategory(MessageCategory);
 
                 if (conversations != null && conversations.Any())
                 {
