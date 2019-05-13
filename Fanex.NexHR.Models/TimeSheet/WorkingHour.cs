@@ -1,4 +1,5 @@
-﻿using Fanex.NexHR.Resources;
+﻿using Fanex.NexHR.Core;
+using Fanex.NexHR.Resources;
 
 namespace Fanex.NexHR.Models.TimeSheet
 {
@@ -18,7 +19,7 @@ namespace Fanex.NexHR.Models.TimeSheet
         {
             get
             {
-                return string.Format(Messages.RemindReachedWorkingTime, NickName, TotalWorkHours);
+                return string.Format(Messages.RemindReachedWorkingTime, NickName, Utilities.TotalHoursToTime(TotalWorkHours));
             }
         }
     }
