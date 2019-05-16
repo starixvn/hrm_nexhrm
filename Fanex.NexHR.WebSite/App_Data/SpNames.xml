@@ -371,5 +371,6 @@
   </Function>
   <Function Name="Time Sheet">
     <Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="LogReachedWorkingTime_Insert" SpName="LogReachedWorkingTime_Insert" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

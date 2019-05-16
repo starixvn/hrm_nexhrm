@@ -217,6 +217,7 @@
     <Compile Include="Team\GetTeamByManagerIdCriteria.cs" />
     <Compile Include="Team\UpdateTeamCriteria.cs" />
     <Compile Include="TimeSheet\GetEmployeeReachedWorkingTimeCriteria.cs" />
+    <Compile Include="TimeSheet\InsertLogReachedWorkingTimeCriteria.cs" />
     <Compile Include="Toeic\GetTOEICScoreByEmployeeIdCriteria.cs" />
     <Compile Include="Toeic\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
