@@ -52,7 +52,6 @@
                     WriteLogForSentSuccessful(employeeIds, today);
                 }
             }
-            
         }
 
         private void WriteLogForSentSuccessful(string employeeIds, DateTime workDate)
