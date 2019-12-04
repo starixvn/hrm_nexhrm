@@ -17,6 +17,7 @@
 
         public int By { get; set; }
 
+        [Required]
         public string Remark { get; set; }
     }
 }
