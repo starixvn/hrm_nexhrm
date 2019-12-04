@@ -49,6 +49,8 @@
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
+        public string PlaceOfBirth { get; set; }
+
         [Email]
         public string Email { get; set; }
 
@@ -96,6 +98,14 @@
         public string GeoMapLongtitude { get; set; }
 
         public string DistanceToCompany { get; set; }
+
+        public string ContactName { get; set; }
+
+        public string UserRelationship { get; set; }
+
+        public string ContactPhone { get; set; }
+
+        public string ContactAddress { get; set; }
 
         public IList<Team> Teams { get; set; }
 
@@ -185,6 +195,11 @@
                 GeoMapLatitude = employee.GeoMapLatitude;
                 GeoMapLongtitude = employee.GeoMapLongtitude;
                 DistanceToCompany = employee.DistanceToCompany;
+                PlaceOfBirth = employee.PlaceOfBirth;
+                ContactName = employee.ContactName;
+                UserRelationship = employee.UserRelationship;
+                ContactPhone = employee.ContactPhone;
+                ContactAddress = employee.ContactAddress;
             }
         }
     }

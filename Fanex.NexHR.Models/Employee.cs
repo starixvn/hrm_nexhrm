@@ -83,6 +83,16 @@
 
         public string CurrentAddress { get; set; }
 
+        public string PlaceOfBirth { get; set; }
+
+        public string ContactName { get; set; }
+
+        public string UserRelationship { get; set; }
+
+        public string ContactPhone { get; set; }
+
+        public string ContactAddress { get; set; }
+
         public string CardNo { get; set; }
 
         public DateTime? IssuedDate { get; set; }

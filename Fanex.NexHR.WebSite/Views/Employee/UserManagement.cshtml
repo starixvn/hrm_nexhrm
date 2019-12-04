@@ -108,6 +108,11 @@
                                     </div>
                                 </th>
                                 <th class="col-sorter">
+                                    @Labels.PlaceOfBirth
+                                    <div data-property="PlaceOfBirth">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
                                     @Labels.JoinedDate
                                     <div class="sorter" data-property="JoinedDate">
                                     </div>
@@ -155,6 +160,7 @@
             {{/if}}
         </td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
+        <td>{{:PlaceOfBirth}}</td>
         <td>
             {{if JoinedDate != null}}
             {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}

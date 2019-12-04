@@ -1545,4 +1545,19 @@
   <data name="ConversationId" xml:space="preserve">
     <value>Conversation ID</value>
   </data>
+  <data name="PlaceOfBirth" xml:space="preserve">
+    <value>Place Of Birth</value>
+  </data>
+  <data name="ContactAddress" xml:space="preserve">
+    <value>Contact Address</value>
+  </data>
+  <data name="ContactName" xml:space="preserve">
+    <value>Contact Name</value>
+  </data>
+  <data name="ContactPhone" xml:space="preserve">
+    <value>Contact Phone</value>
+  </data>
+  <data name="UserRelationship" xml:space="preserve">
+    <value>Relationship to you</value>
+  </data>
 </root>

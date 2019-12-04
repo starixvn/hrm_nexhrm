@@ -466,7 +466,12 @@
                 Skype = model.Skype,
                 SubGroups = model.SubGroups,
                 Yahoo = model.Yahoo,
-                EmployeeCard = model.EmployeeCard
+                EmployeeCard = model.EmployeeCard,
+                PlaceOfBirth = model.PlaceOfBirth,
+                ContactName = model.ContactName,
+                UserRelationship = model.UserRelationship,
+                ContactPhone = model.ContactPhone,
+                ContactAddress = model.ContactAddress
             };
 
             return criteria;

@@ -74,6 +74,16 @@
 
         public string Distancetocompany { get; set; }
 
+        public string PlaceOfBirth { get; set; }
+
+        public string ContactName { get; set; }
+
+        public string UserRelationship { get; set; }
+
+        public string ContactPhone { get; set; }
+
+        public string ContactAddress { get; set; }
+
         public override bool IsValid()
         {
             return IsEmployeeIdAndTeamIdValid()

@@ -754,11 +754,38 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Address.
+        /// </summary>
+        public static string ContactAddress {
+            get {
+                return ResourceManager.GetString("ContactAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Details.
         /// </summary>
         public static string ContactDetails {
             get {
                 return ResourceManager.GetString("ContactDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Name.
+        /// </summary>
+        public static string ContactName {
+            get {
+                return ResourceManager.GetString("ContactName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Phone.
+        /// </summary>
+        public static string ContactPhone {
+            get {
+                return ResourceManager.GetString("ContactPhone", resourceCulture);
             }
         }
         
@@ -3238,6 +3265,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Place Of Birth.
+        /// </summary>
+        public static string PlaceOfBirth {
+            get {
+                return ResourceManager.GetString("PlaceOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous Logged Time on other device.
         /// </summary>
         public static string PreviousLoggedTimeOnOtherDevice {
@@ -4134,6 +4170,15 @@ namespace Fanex.NexHR.Resources {
         public static string UsedNEX {
             get {
                 return ResourceManager.GetString("UsedNEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relationship to you.
+        /// </summary>
+        public static string UserRelationship {
+            get {
+                return ResourceManager.GetString("UserRelationship", resourceCulture);
             }
         }
         
