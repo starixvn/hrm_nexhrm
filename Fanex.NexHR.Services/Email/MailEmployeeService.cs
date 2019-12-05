@@ -14,7 +14,7 @@
 
         private readonly string SenderName = ConfigurationManager.AppSettings["Email.SenderName"];
 
-        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email.Sender"];
+        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
 
         private readonly EmailService EmailService = new EmailService();
 

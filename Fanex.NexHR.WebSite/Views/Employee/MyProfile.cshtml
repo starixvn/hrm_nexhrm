@@ -55,6 +55,18 @@
                                             <p class="accinfo">
                                                 <span class="label--l">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
                                             </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.ContactName:</span> <span>@Model.ContactName</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">Relationship:</span> <span>@Model.UserRelationship</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.ContactPhone:</span> <span>@Model.ContactPhone</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.ContactAddress:</span> <span class="address">@Model.ContactAddress</span>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -67,6 +79,9 @@
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
+                                            </p>
+                                            <p class="accinfo">
+                                                <span class="label--l">@Labels.PlaceOfBirth:</span> <span class="txt-bold">@Model.PlaceOfBirth</span>
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
