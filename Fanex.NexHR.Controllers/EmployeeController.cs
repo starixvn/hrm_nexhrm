@@ -18,6 +18,7 @@
     using Simplicode.Imaging;
     using ViewModels;
     using ViewModels.Employee;
+    using Services.Email;
 
     public class EmployeeController : BaseController
     {
@@ -207,6 +208,10 @@
                         HttpContext.Session["CurrentUser"] = currentUser;
                     }
                 }
+
+                var employee = GetEmployeeById(criteria.EmployeeId);
+                var mailService = new MailEmployeeService(employee);
+                mailService.SendMailUpdateSuccess();
             }
             else
             {
