@@ -33,6 +33,11 @@ CREATE PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
     ,@geoMapLongtitude VARCHAR(50) = ''
     ,@distanceToCompany VARCHAR(10) = ''
     ,@modifiedBy INT = NULL
+	,@placeOfBirth NVARCHAR(20) = NULL
+	,@contactName NVARCHAR(50) = NULL
+	,@userRelationship NVARCHAR(10) = NULL
+	,@contactPhone VARCHAR(50) = NULL
+	,@contactAddress NVARCHAR(250) = NULL
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
 AS
@@ -88,6 +93,11 @@ BEGIN
             ,GeoMapLatitude = @geoMapLatitude
             ,GeoMapLongtitude = @geoMapLongtitude
             ,DistanceToCompany = @distanceToCompany
+			,PlaceOfBirth = @placeOfBirth
+			,ContactName = @contactName
+			,UserRelationship = @userRelationship
+			,ContactPhone = @contactPhone
+			,ContactAddress = @contactAddress
             ,ModifiedDate = GETDATE()
             ,ModifiedBy = @modifiedBy
         WHERE Id = @employeeId

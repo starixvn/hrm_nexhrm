@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="Employee">
-    <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees_merlin" DbName="nexhr" Plain="0">
+    <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
       <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
       <Mapping DataField="JobTitleId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="Employee_GetById" SpName="Employee_GetById_merlin" DbName="nexhr" Plain="0">
+    <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
       <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
       <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
@@ -30,7 +30,7 @@
     <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee_merlin" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0">
@@ -223,7 +223,7 @@
       <Mapping DataField="GroupCode" ObjectProperty="Code" />
       <Mapping DataField="GroupName" ObjectProperty="Name" />
     </Setting>
-    <Setting Key="Report_WorkingHoursStatistic" SpName="Report_WorkingHoursStatistic_merlin" DbName="nexhr" Plain="0">
+    <Setting Key="Report_WorkingHoursStatistic" SpName="Report_WorkingHoursStatistic" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
       <Mapping DataField="GroupCode" ObjectProperty="Code" />

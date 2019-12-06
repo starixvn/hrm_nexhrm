@@ -8,6 +8,7 @@ DB: NexHRM
 Original: 
 
 Revisions:  
+	20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
 Param's Explanation:
 
 */
@@ -100,6 +101,11 @@ BEGIN
         ,[EmployeeCard]
         ,[IssuedDate]
         ,[IssuedPlace]
+		,[PlaceOfBirth]
+		,[ContactName]
+		,[UserRelationship]
+		,[ContactPhone]
+		,[ContactAddress]
         ,ISNULL([MonShift], 0) AS MonShiftId
         ,ISNULL(sh2.NAME, 'Off') AS MonShiftName
         ,ISNULL([TueShift], 0) AS TueShiftId

@@ -16,6 +16,7 @@ DB: NexHRM
 Original: 
 
 Revisions:  
+	20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
 Param's Explanation:
 
 */
@@ -101,6 +102,11 @@ BEGIN
         ,[EmployeeCard]
         ,[IssuedDate]
         ,[IssuedPlace]
+		,[PlaceOfBirth]
+		,[ContactName]
+		,[UserRelationship]
+		,[ContactPhone]
+		,[ContactAddress]
         ,(CASE e.Id
             WHEN g.LeaderId THEN 2 -- employee is leader
             WHEN g.AssistantLeaderId THEN 1 -- employee is assistant leader
@@ -159,6 +165,11 @@ BEGIN
             ,[EmployeeCard]
             ,[IssuedDate]
             ,[IssuedPlace]
+			,[PlaceOfBirth]
+			,[ContactName]
+			,[UserRelationship]
+			,[ContactPhone]
+			,[ContactAddress]
         FROM Employee WITH (NOLOCK)
         WHERE 
 			IsSpecialUser = 0

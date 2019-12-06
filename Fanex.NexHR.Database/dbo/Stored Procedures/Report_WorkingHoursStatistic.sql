@@ -15,17 +15,44 @@ Original:
 
 Revisions:   
   20170411@Raymond.Le: create SP Report_WorkingHoursStatistic
+  20191206@Merlin.Le: PreMonthSickLeave contains Maternity and Parternity
 Param's Explanation:
 
 */
+
+/* Script run
+USE [NexHRM]
+GO
+
+DECLARE	@return_value int
+
+EXEC	@return_value = [dbo].[Report_WorkingHoursStatistic]
+		@fromdate = N'8/1/2016 12:00:00 AM',
+		@todate = N'8/25/2016 12:00:00 AM',
+		@FromDateLastMonth = N'7/26/2016 12:00:00 AM',
+		@ToDateLastMonth = N'7/31/2016 12:00:00 AM'
+
+SELECT	'Return Value' = @return_value
+
+GO
+*/
+
+/* Result
+PreMonthSickLeave of Julien is 2
+*/
+
 DECLARE @UnpaidLeaveId INT
 	,@SickLeave INT
 	,@BusinessTrip INT
+	,@MaternityLeave INT
+	,@PaternityLeave INT
 
 
 SELECT @UnpaidLeaveId = 26
 	,@SickLeave = 28
 	,@BusinessTrip = 9
+	,@MaternityLeave = 13
+	,@PaternityLeave = 27
 
 CREATE TABLE #tmpWorkingHoursStatistic(
 	TotalWorkingDay INT
@@ -68,8 +95,12 @@ FROM (
 				WHEN isOffday = 0
 					AND c.isHoliday = 0
 					AND IsLeaveDay = 1
-					AND c.LeaveTypeId = @SickLeave
-					OR c.LeaveTypeId2 = @SickLeave THEN CASE 
+					AND (c.LeaveTypeId = @SickLeave
+					OR c.LeaveTypeId2 = @SickLeave
+					OR c.LeaveTypeId = @MaternityLeave
+					OR c.LeaveTypeId2 = @MaternityLeave
+					OR c.LeaveTypeId = @PaternityLeave
+					OR c.LeaveTypeId2 = @PaternityLeave) THEN CASE 
 						WHEN ISNULL(lv2.Id, 0) <> 0
 							AND ISNULL(lv1.Id, 0) <> ISNULL(lv2.Id, 0) THEN 0.5
 						ELSE c.LeaveDay
