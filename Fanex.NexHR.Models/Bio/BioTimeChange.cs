@@ -20,12 +20,14 @@
         {
             get
             {
+                const byte MaxMinuteChange = 2;
+
                 if (PreviousLogTime <= TimeChange && TimeChange <= NextLogTime)
                 {
                     return false;
                 }
 
-                if (Math.Abs((TimeChange - PreviousLogTime).Minutes) <= 2 || Math.Abs((TimeChange - NextLogTime).Minutes) <= 2)
+                if (Math.Abs((TimeChange - PreviousLogTime).Minutes) <= MaxMinuteChange || Math.Abs((TimeChange - NextLogTime).Minutes) <= MaxMinuteChange)
                 {
                     return false;
                 }

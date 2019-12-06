@@ -5,6 +5,8 @@
 
     public static class BundleConfig
     {
+        private const string EmployeeSearchInCompanyScript = "~/Scripts/Views/Employee/_employee.search.in.company.js";
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles()
         {
@@ -161,7 +163,7 @@
                          "~/Scripts/Views/Overtime/manage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimesummaryjs").Include(
-             "~/Scripts/Views/Employee/_employee.search.in.company.js",
+             EmployeeSearchInCompanyScript,
              "~/Scripts/Views/Overtime/overtimeSummary.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overtimejs").Include(
@@ -180,7 +182,7 @@
         private static void BuildBundleForTotalWorkingHours(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/totalworkinghourjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Report/report.totalworkinghours.js"));
         }
 
@@ -194,7 +196,7 @@
         private static void BuildBundleForWorkingHoursStatistic(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/workinghoursstatisticjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Report/report.workinghoursstatistic.js"));
 
             bundles.Add(new StyleBundle("~/Content/workinghoursstatisticcss")
@@ -299,7 +301,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/annualleavebalancejs").Include(
                 "~/Scripts/Views/AnnualLeave/index.js",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js"));
+                EmployeeSearchInCompanyScript));
 
             bundles.Add(new ScriptBundle("~/bundles/employeeannualleavebalancejs").Include(
                 "~/Scripts/Views/AnnualLeave/employee.js"));
@@ -335,21 +337,21 @@
         private static void BuildBundleForLateInEarlyOut(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Report/report.latein.earlyout.js"));
         }
 
         private static void BuildBundleForLateInEarlyOutDetail(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutdetailjs")
-                .Include("~/Scripts/Views/Employee/_employee.search.in.company.js")
+                .Include(EmployeeSearchInCompanyScript)
                 .Include("~/Scripts/Views/Report/report.latein.earlyout.detail.js"));
         }
 
         private static void BuildBundleForLateInEarlyOutDiscipline(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/lateinearlyoutdisciplinejs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Report/report.latein.earlyout.discipline.js"));
 
             bundles.Add(new StyleBundle("~/Content/lateinearlyoutdisciplinecss")
@@ -393,14 +395,14 @@
         private static void BuildBundleForReportTimeRecord(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/timerecordjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Report/report.timerecord.js"));
         }
 
         private static void BuildBundleForLeaveSummary(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leavesummaryjs").Include(
-             "~/Scripts/Views/Employee/_employee.search.in.company.js",
+             EmployeeSearchInCompanyScript,
              "~/Scripts/Views/Report/report.leave.summary.js"));
         }
 
@@ -435,12 +437,12 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/workingcalendarsjs").Include(
                 "~/Scripts/Views/Calendar/employee.workingcalendars.js",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/fixtable.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/leavecalendarsjs").Include(
                 "~/Scripts/Views/Calendar/employee.leavecalendar.js",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/fixtable.js"));
 
             bundles.Add(new StyleBundle("~/Content/workingcalendarscss")
@@ -457,7 +459,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/fingerprintscanner").Include(
                  "~/Scripts/Views/Bio/fingerprint-scanner.js",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/fixtable.js"));
         }
 
@@ -473,14 +475,14 @@
         private static void BuildBundleForLeaveDeductionDetail(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leavedeductiondetailjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/AnnualLeave/leave.deduction.detail.js"));
         }
 
         private static void BuildBundleForLeaveConversionDetail(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/leaveconversiondetailjs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/AnnualLeave/leave.conversion.detail.js"));
         }
 
@@ -541,10 +543,10 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/postnatalemployeejs").Include(
                 "~/Scripts/Views/Postanal/postnatalemployee.js",
-                "~/Scripts/Views/Employee/_employee.search.in.company.js"));
+                EmployeeSearchInCompanyScript));
 
             bundles.Add(new ScriptBundle("~/bundles/createpostnatalemployeejs").Include(
-                "~/Scripts/Views/Employee/_employee.search.in.company.js",
+                EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Postanal/create.js"));
 
             bundles.Add(new StyleBundle("~/Content/postnatalcss")

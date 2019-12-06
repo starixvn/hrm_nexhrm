@@ -468,8 +468,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            var model = GetLeaveDetailModel(fromDate, toDate, employeeId, teamId);
-            return View(model);
+            return View(GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
         [HttpPost]
@@ -499,8 +498,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            var model = GetLeaveDetailModel(fromDate, toDate, employeeId, teamId);
-            return View(model);
+            return View(GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
         [Authorize(Roles = "HR")]

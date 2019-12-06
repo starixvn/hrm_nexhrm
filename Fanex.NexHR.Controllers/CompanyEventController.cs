@@ -35,14 +35,7 @@
         [Authorize(Roles = "SpecialUser")]
         public ActionResult Detail(int id)
         {
-            CompanyEvent model = new CompanyEvent();
-            if (id > 0)
-            {
-                var criteria = new GetEventByIdCriteria { Id = id };
-                model = _eventService.GetById(criteria);
-            }
-
-            return View(model);
+            return View(GetDetail(id));
         }
 
         [Authorize(Roles = "SpecialUser")]
@@ -107,14 +100,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
-            CompanyEvent model = new CompanyEvent();
-            if (id > 0)
-            {
-                var criteria = new GetEventByIdCriteria { Id = id };
-                model = _eventService.GetById(criteria);
-            }
-
-            return View(model);
+            return View(GetDetail(id));
         }
 
         [ValidateInput(false)]
@@ -165,6 +151,18 @@
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private CompanyEvent GetDetail(int id)
+        {
+            CompanyEvent model = new CompanyEvent();
+            if (id > 0)
+            {
+                var criteria = new GetEventByIdCriteria { Id = id };
+                model = _eventService.GetById(criteria);
+            }
+
+            return model;
         }
     }
 }

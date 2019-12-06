@@ -35,7 +35,7 @@
                 return;
             }
 
-            var emailContent = string.Format(bodyTemplate, _employee.NickName, DateTime.Now.ToShortDateString(), "Successful Updating");
+            var emailContent = string.Format(bodyTemplate, _employee.NickName);
             var emailSubject = $"{SenderName} - Success update infomation";
 
             EmailService.SendEmail(

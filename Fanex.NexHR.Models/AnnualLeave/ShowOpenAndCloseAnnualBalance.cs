@@ -16,9 +16,13 @@ namespace Fanex.NexHR.Models.AnnualLeave
     /// </summary>
     public class ShowOpenAndCloseAnnualBalance
     {
-        public static DateTime FromDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year, 12, 1) : new DateTime(DateTime.Now.Year - 1, 12, 1);
+        private const byte MaxMonth = 12;
 
-        public static DateTime ToDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year + 1, 1, 31) : new DateTime(DateTime.Now.Year, 1, 31);
+        private const byte MaxDay = 31;
+
+        public static DateTime FromDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year, MaxMonth, 1) : new DateTime(DateTime.Now.Year - 1, MaxMonth, 1);
+
+        public static DateTime ToDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year + 1, 1, MaxDay) : new DateTime(DateTime.Now.Year, 1, MaxDay);
 
         public bool IsOpenedBalance { get; set; }
 

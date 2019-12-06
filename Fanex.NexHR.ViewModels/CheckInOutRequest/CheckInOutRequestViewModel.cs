@@ -11,6 +11,10 @@
 
     public class CheckInOutRequestViewModel : BaseRequestModel, IValidatableObject
     {
+        private const byte MaxHour = 23;
+
+        private const byte MaxMinute = 59;
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
@@ -20,12 +24,12 @@
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
-        [Range(0, 23)]
+        [Range(0, MaxHour)]
         public int Hour { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
-        [Range(0, 59)]
+        [Range(0, MaxMinute)]
         public int Minute { get; set; }
 
         [Required]

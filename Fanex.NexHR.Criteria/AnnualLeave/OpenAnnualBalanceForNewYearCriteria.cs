@@ -17,7 +17,8 @@
 
         public override bool IsValid()
         {
-            return Year > 2010;
+            const short minValidYear = 2010;
+            return Year > minValidYear;
         }
     }
 }

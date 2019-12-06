@@ -5,6 +5,10 @@
 
     public class CompanyEvent
     {
+        private const byte TimeStringLength = 2;
+
+        private const byte MinuteIndex = 3;
+
         public int Id { get; set; }
 
         [Required]
@@ -31,7 +35,7 @@
             {
                 return string.IsNullOrWhiteSpace(FromTime) 
                     ? FromDate 
-                    : new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, 2)), int.Parse(FromTime.Substring(3, 2)), 0);
+                    : new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, TimeStringLength)), int.Parse(FromTime.Substring(MinuteIndex, TimeStringLength)), 0);
             }
         }
 
@@ -41,7 +45,7 @@
             {
                 return string.IsNullOrWhiteSpace(ToTime)
                     ? ToDate
-                    : new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, 2)), int.Parse(ToTime.Substring(3, 2)), 0);
+                    : new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, TimeStringLength)), int.Parse(ToTime.Substring(MinuteIndex, TimeStringLength)), 0);
             }
         }
     }

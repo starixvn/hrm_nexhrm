@@ -26,8 +26,9 @@
             get
             {
                 IList<SelectListItem> minAnnualBalances = new List<SelectListItem>();
+                const byte annualBalanceLength = 10;
 
-                for (int i = 1; i <= 10; i++)
+                for (int i = 1; i <= annualBalanceLength; i++)
                 {
                     SelectListItem item = new SelectListItem
                     {
