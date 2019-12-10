@@ -25,6 +25,9 @@ function query(isFirstLoad) {
             }
         },
         success: function (response) {
+            var curYear = $('#Year').val();
+            $('#oldYear').html(curYear - 1);
+            $('#curYear').html(curYear);
             $('#listOvertimeSummary').html(response);
             initAddLeaveConversion();
             floatThead('table#data');
