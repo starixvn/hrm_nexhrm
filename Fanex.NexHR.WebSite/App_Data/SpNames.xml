@@ -137,7 +137,7 @@
   </Function>
 
   <Function Name="WorkingTimeRequest">
-    <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert_merlin" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_ApproveRequest" SpName="WorkingTimeRequest_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_DisapproveRequest" SpName="WorkingTimeRequest_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="WorkingTimeRequest_RejectRequest" SpName="WorkingTimeRequest_RejectRequest" DbName="nexhr" Plain="0"></Setting>
