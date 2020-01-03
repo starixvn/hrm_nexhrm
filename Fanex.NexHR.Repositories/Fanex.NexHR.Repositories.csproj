@@ -76,12 +76,14 @@
     <Compile Include="BioRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="CalendarRepository.cs" />
+    <Compile Include="HistoryWorkRepository.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IAnnualLeaveRepository.cs" />
     <Compile Include="Interfaces\IBioRepository.cs" />
     <Compile Include="Interfaces\IDepartmentRepository.cs" />
     <Compile Include="Interfaces\ICalendarRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Interfaces\IHistoryWorkRepository.cs" />
     <Compile Include="Interfaces\INexbotRepository.cs" />
     <Compile Include="Interfaces\INotificationRepository.cs" />
     <Compile Include="Interfaces\IOvertimeRepository.cs" />

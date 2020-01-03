@@ -19,6 +19,9 @@
     using ViewModels;
     using ViewModels.Employee;
     using Services.Email;
+    using Fanex.NexHR.Criteria.HistoryWork;
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Resources;
 
     public class EmployeeController : BaseController
     {
@@ -27,9 +30,10 @@
         private readonly IShiftService _shiftService;
         private readonly IEmployeeService _employeeService;
         private readonly ICommandService _commandService;
+        private readonly IHistoryWorkService _historyWorkService;
 
         public EmployeeController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -38,13 +42,15 @@
             ITeamService teamService,
             IJobTitleService jobTitleService,
             IShiftService shiftService,
-            ICommandService commandService)
+            ICommandService commandService,
+            IHistoryWorkService historyWorkService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
             _jobTitleService = jobTitleService ?? new JobTitleService();
             _shiftService = shiftService ?? new ShiftService();
             _commandService = commandService ?? new CommandService();
+            _historyWorkService = historyWorkService ?? new HistoryWorkService();
         }
 
         public ActionResult Index()
@@ -103,12 +109,148 @@
             return Json(listEmployee, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "HR")]
+        public ActionResult WorkingHistory(int employeeId)
+        {
+            var history = new WorkingHistoryViewModel { EmpId = employeeId };
+            
+            var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId  };           
+            history.Employee = _employeeService.GetEmployeeById(criteria);
+            history.FromDate = DateTime.Today.AddYears(-9);
+
+            return View(history);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult HistoryWorkDetail(WorkingHistoryViewModel model)
+        {
+            IList<HistoryWork> filterHistory = GetFilterHistoryWork(model);
+
+            return PartialView("_HistoryWorkDetail", filterHistory);
+        }
+
+        private IList<HistoryWork> GetFilterHistoryWork(WorkingHistoryViewModel model)
+        {
+            var criteria = new FilterHistoryWorkCriteria
+            {
+                EmpId = model.EmpId,
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+            };
+
+            IList<HistoryWork> filterHistoryWork = _historyWorkService.GetFilterHistoryWork(criteria);
+
+            return filterHistoryWork;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "HR")]
+        public ActionResult InsertHistoryWork(int employeeId)
+        {
+            var history = new WorkingHistoryViewModel { EmpId = employeeId };
+            history.Teams = _teamService.GetTeam();
+            var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
+            history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+
+            return View(history);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public ActionResult InsertHistoryWork(WorkingHistoryViewModel model)
+        {
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+
+            if (model != null)
+            {
+                var history = new InsertHistoryWorkCriteria
+                {
+                    EmpId = model.EmpId,
+                    ModifiedBy = CurrentUser.Id,
+                    AffectedDate = model.AffectedDate,
+                    ModifiedDate = DateTime.Today,
+                    JobtitleName = model.JobtitleName,
+                    GroupName = model.GroupName
+                };
+
+                result = _commandService.Insert(history);
+            }
+                  
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "HR")]
+        public ActionResult EditHistoryWork(int? id)
+        {
+            var history = new WorkingHistoryViewModel { };
+
+            if (id.HasValue && id.Value > 0)
+            {
+                var criteria = new EditHistoryWorkCriteria
+                {
+                   Id = id.Value
+                };
+
+                history = _historyWorkService.GetHistoryWorkInfo(criteria);
+                history.Teams = _teamService.GetTeam();
+                var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
+                history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+                history.Id = id;
+                history = history ?? new WorkingHistoryViewModel { };
+            }
+
+            return PartialView(history);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public ActionResult EditHistoryWork(WorkingHistoryViewModel model)
+        {
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+
+            if (model != null)
+            {
+                var history = new UpdateHistoryWorkCriteria
+                {
+                    Id = model.Id,
+                    ModifiedDate = model.ModifiedDate,
+                    JobtitleName = model.JobtitleName,
+                    GroupName = model.GroupName
+                };
+
+                result = _commandService.Update(history);
+            }
+
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        public JsonResult DeleteHistoryWork(int id)
+        {
+            var criteria = new DeleteHistoryWorkCriteria
+            {
+                Id = id,
+            };
+
+            CommandResult result = _commandService.Delete(criteria);
+            return Json(result);
+        }
+
         public ActionResult Detail(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
             return View(employee);
         }
-
+       
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {

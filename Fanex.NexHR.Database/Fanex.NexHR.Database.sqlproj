@@ -336,6 +336,13 @@
     <Build Include="dbo\Stored Procedures\Conversation_GetByCreator.sql" />
     <Build Include="dbo\Stored Procedures\Conversation_GetById.sql" />
     <Build Include="dbo\Stored Procedures\Conversation_Update.sql" />
+    <Build Include="dbo\Tables\HistoryWork.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_GetByEmpId.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_GetJobtitleAndTeam.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_Update.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\HistoryWork_Filter.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

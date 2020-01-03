@@ -205,6 +205,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Affected Date.
+        /// </summary>
+        public static string AffectedDate {
+            get {
+                return ResourceManager.GetString("AffectedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Affect from.
         /// </summary>
         public static string AffectFrom {
@@ -934,11 +943,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Jobtitle.
+        /// </summary>
+        public static string CurrentJobtitle {
+            get {
+                return ResourceManager.GetString("CurrentJobtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Month.
         /// </summary>
         public static string CurrentMonth {
             get {
                 return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Team.
+        /// </summary>
+        public static string CurrentTeam {
+            get {
+                return ResourceManager.GetString("CurrentTeam", resourceCulture);
             }
         }
         
@@ -1425,6 +1452,15 @@ namespace Fanex.NexHR.Resources {
         public static string EmployeeView {
             get {
                 return ResourceManager.GetString("EmployeeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Working History.
+        /// </summary>
+        public static string EmployeeWorkingHistory {
+            get {
+                return ResourceManager.GetString("EmployeeWorkingHistory", resourceCulture);
             }
         }
         
@@ -2572,6 +2608,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified Date.
+        /// </summary>
+        public static string ModifiedDate {
+            get {
+                return ResourceManager.GetString("ModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mon.
         /// </summary>
         public static string Mon {
@@ -2811,6 +2856,15 @@ namespace Fanex.NexHR.Resources {
         public static string NewJobTitle {
             get {
                 return ResourceManager.GetString("NewJobTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Jobtitle or Team.
+        /// </summary>
+        public static string NewJobtitleorTeam {
+            get {
+                return ResourceManager.GetString("NewJobtitleorTeam", resourceCulture);
             }
         }
         
@@ -4143,6 +4197,33 @@ namespace Fanex.NexHR.Resources {
         public static string UpdateDate {
             get {
                 return ResourceManager.GetString("UpdateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Jobtitle or Team.
+        /// </summary>
+        public static string UpdateJobOrTeam {
+            get {
+                return ResourceManager.GetString("UpdateJobOrTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Jobtitle.
+        /// </summary>
+        public static string UpdateJobtitle {
+            get {
+                return ResourceManager.GetString("UpdateJobtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Team.
+        /// </summary>
+        public static string UpdateTeam {
+            get {
+                return ResourceManager.GetString("UpdateTeam", resourceCulture);
             }
         }
         

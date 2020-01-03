@@ -80,6 +80,10 @@
     <Compile Include="Employee\GetEmployeeByNickNameCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
+    <Compile Include="HistoryWork\DeleteHistoryWorkCriteria.cs" />
+    <Compile Include="HistoryWork\EditHistoryWorkCriteria.cs" />
+    <Compile Include="HistoryWork\FilterHistoryWorkCriteria.cs" />
+    <Compile Include="HistoryWork\GetHistoryWorkByEmpIdCriteria.cs" />
     <Compile Include="Employee\GetLeaderAndHRCriteria.cs" />
     <Compile Include="Employee\GetLeaderForStanbyTeamCriteria.cs" />
     <Compile Include="Employee\GetManagementsCriteria.cs" />
@@ -93,6 +97,8 @@
     <Compile Include="Employee\GetEmployeeByTeamsCriteria.cs" />
     <Compile Include="Employee\GetHRLeaderDashboardCriteria.cs" />
     <Compile Include="Employee\GetWorkedDatesByUserCriteria.cs" />
+    <Compile Include="HistoryWork\InsertHistoryWorkCriteria.cs" />
+    <Compile Include="HistoryWork\UpdateHistoryWorkCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />

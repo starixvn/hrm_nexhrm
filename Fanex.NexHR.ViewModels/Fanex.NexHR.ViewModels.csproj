@@ -95,6 +95,7 @@
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="CustomValidationAttribute\MultipleOfAttribute.cs" />
     <Compile Include="Employee\EmployeeListViewModel.cs" />
+    <Compile Include="Employee\WorkingHistoryViewModel.cs" />
     <Compile Include="FingerprintAndCardViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />
     <Compile Include="Overtime\OvertimeViewModel.cs" />

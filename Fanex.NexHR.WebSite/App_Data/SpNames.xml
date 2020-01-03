@@ -62,6 +62,12 @@
       <Mapping DataField="Workload" ObjectProperty="PercentWorkload" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="HistoryWork_GetByEmpId" SpName="HistoryWork_GetByEmpId" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="HistoryWork_GetJobtitleAndTeam" SpName="HistoryWork_GetJobtitleAndTeam" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="HistoryWork_Update" SpName="HistoryWork_Update" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="HistoryWork_Filter" SpName="HistoryWork_Filter" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="HistoryWork_Delete" SpName="HistoryWork_Delete" DbName="nexhr" Plain="0"></Setting>
   </Function>
   <Function Name="Calendar">
     <Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0">

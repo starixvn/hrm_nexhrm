@@ -114,6 +114,8 @@
             BuildBundleForScheduledMessage(bundles);
 
             BuildBundleForConversationManagement(bundles);
+
+            BuildBundleForHistoryWork(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -605,6 +607,12 @@
                 "~/Scripts/Libs/jquery.unobtrusive-ajax.js",
                 "~/Scripts/Libs/select2.js",
                 "~/Scripts/Views/ScheduledMessage/conversation-management.js"));
+        }
+
+        private static void BuildBundleForHistoryWork(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/historyworkjs").Include(
+                "~/Scripts/Views/Employee/employee.historywork.js"));
         }
     }
 }

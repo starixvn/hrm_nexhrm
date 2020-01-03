@@ -93,11 +93,11 @@
 </div>
 
 <script id="template" type="text/x-jsrender">
-    <tr id="row{{:Id}}" {{if Enabled == false }} class="disabled"{{/if}}>
+    <tr id="row{{:Id}}" {{if Enabled == false }} class="disabled" {{/if}}>
         <td>{{:~index()}}</td>
-    <td class="nick align-left" data-code="{{:Code}}">
-        <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
-    </td>
+        <td class="nick align-left" data-code="{{:Code}}">
+            <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
+        </td>
         <td class="align-left">{{:FullName}}</td>
         <td title="{{:Team.Name}}" class="tooltip">{{:Team.Code}}</td>
         <td class="align-left">{{:JobTitle && JobTitle.Name}}</td>
@@ -108,6 +108,6 @@
             {{if JoinedDate != null}}
                 {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
             {{/if}}
-        </td>
+        </td>      
     </tr>
 </script>

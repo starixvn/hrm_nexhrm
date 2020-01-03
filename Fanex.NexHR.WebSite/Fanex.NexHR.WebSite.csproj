@@ -705,6 +705,7 @@
     <Content Include="Scripts\Views\Employee\employee.index.js" />
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.toeic.js" />
+    <Content Include="Scripts\Views\Employee\employee.historywork.js" />
     <Content Include="Scripts\Views\Employee\user.management.js" />
     <Content Include="Scripts\Views\Employee\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
@@ -875,6 +876,10 @@
     <Content Include="Views\ScheduledMessage\ManageConversations.cshtml" />
     <Content Include="Views\ScheduledMessage\_Conversations.cshtml" />
     <Content Include="Views\ScheduledMessage\_EditConversation.cshtml" />
+    <Content Include="Views\Employee\WorkingHistory.cshtml" />
+    <Content Include="Views\Employee\InsertHistoryWork.cshtml" />
+    <Content Include="Views\Employee\EditHistoryWork.cshtml" />
+    <Content Include="Views\Employee\_HistoryWorkDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

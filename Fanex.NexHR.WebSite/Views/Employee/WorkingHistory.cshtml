@@ -1,0 +1,66 @@
+﻿@model WorkingHistoryViewModel
+@{
+    ViewBag.Title = Labels.EmployeeWorkingHistory;
+}
+@section css {
+}
+@section js {
+    @Scripts.Render(
+           "~/bundles/historyworkjs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <form class="form-filter" action="#">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left select--daterange">
+                                        @Html.TextBox("FullName", Model.Employee.DisplayName, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmpId)
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--datepicker">
+                                        @Html.DatePickerFor(model => model.FromDate)
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <input type="hidden" id="employeeId" value="@Model.EmpId" />
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--datepicker">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                    <a class="btn-request waves-effect waves-light" id="btnInsertHistoryWork" href="javascript:;">@Labels.NewJobtitleorTeam</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="history-detail" class="p-x--s"></div>
+                    <div id="dialog-history" style="text-align:left; padding: 0.5em 0 0.5em;" title="New Jobtitle Or Team">&nbsp;</div>
+                    <div id="dialog-histtory-update" style="text-align:left; padding: 0.5em 0 0.5em;" title="Update Jobtitle Or Team">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
