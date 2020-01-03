@@ -525,7 +525,7 @@
         {
             var criteria = new GetEmployeeForRelatedTeamCriteria { EmpId = request.Requester.Id };
             var employees = GetData<Employee>(criteria)
-                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && !i.Email.Equals(request.ModifiedBy.Email));
+                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && i.Email != null && !i.Email.Equals(request.ModifiedBy.Email));
 
             if (request.RequestType.Id == (int)RequestType.Leave)
             {
