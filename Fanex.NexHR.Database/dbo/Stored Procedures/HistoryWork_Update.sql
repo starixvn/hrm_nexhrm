@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[HistoryWork_Update]
 	 @Id INT
+	,@AffectedDate DATETIME = NULL
 	,@ModifiedDate DATETIME = NULL
 	,@JobtitleId INT = NULL
 	,@JobtitleName VARCHAR(100) = NULL
@@ -30,7 +31,8 @@ BEGIN
     WHERE Name = @GroupName
 	
 	UPDATE [dbo].[HistoryWork]
-	SET ModifiedDate = @ModifiedDate
+	SET AffectedDate = @AffectedDate
+	,ModifiedDate = @ModifiedDate	
 	,JobtitleId = @JobtitleId
 	,JobtitleName = @JobtitleName
 	,GroupId = @GroupId

@@ -222,6 +222,7 @@
                 var history = new UpdateHistoryWorkCriteria
                 {
                     Id = model.Id,
+                    AffectedDate = model.AffectedDate,
                     ModifiedDate = model.ModifiedDate,
                     JobtitleName = model.JobtitleName,
                     GroupName = model.GroupName

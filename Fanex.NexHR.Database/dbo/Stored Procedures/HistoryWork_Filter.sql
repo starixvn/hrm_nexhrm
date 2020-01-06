@@ -28,5 +28,5 @@ BEGIN
 		
 	FROM dbo.HistoryWork sm WITH (NOLOCK)	
 		LEFT JOIN dbo.Employee e WITH (NOLOCK) ON sm.ModifiedBy = e.Id
-	WHERE sm.EmpId = @EmpId and @FromDate <= sm.ModifiedDate and @ToDate  >= sm.ModifiedDate
+	WHERE sm.EmpId = @EmpId and @FromDate <= sm.AffectedDate and @ToDate  >= sm.AffectedDate
 END
