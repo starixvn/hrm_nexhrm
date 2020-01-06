@@ -113,11 +113,10 @@
         public ActionResult WorkingHistory(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            
             var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId  };           
             history.Employee = _employeeService.GetEmployeeById(criteria);
-            history.FromDate = DateTime.Today.AddYears(-9);
-
+            history.FromDate = new DateTime(2011,01,01);
+            
             return View(history);
         }
 
@@ -140,6 +139,7 @@
 
             IList<HistoryWork> filterHistoryWork = _historyWorkService.GetFilterHistoryWork(criteria);
 
+            ViewBag.empid = model.EmpId;
             return filterHistoryWork;
         }
 
@@ -165,7 +165,7 @@
                 Message = Messages.InvalidInputData
             };
 
-            if (model != null)
+            if (model != null && model.EmpId > 0)
             {
                 var history = new InsertHistoryWorkCriteria
                 {
@@ -230,6 +230,10 @@
 
                 result = _commandService.Update(history);
             }
+             else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
 
             return Json(result);
         }

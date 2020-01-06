@@ -12,7 +12,7 @@ Param's Explanation:
 BEGIN
 	SET NOCOUNT ON;
 
-	SELECT ModifiedDate
+	SELECT AffectedDate
 		,GroupId
 		,GroupName
 		,JobtitleId

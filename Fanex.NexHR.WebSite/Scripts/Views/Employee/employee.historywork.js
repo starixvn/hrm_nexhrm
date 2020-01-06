@@ -2,7 +2,8 @@
 
 function initAddHistoryWorkDialog() {
     initDatePicker();
-    var empId = parseInt($('#employeeId').val());
+    var empId = parseInt($('#empId').val());
+
     $('#dialog-history').dialog({
         modal: true,
         width: 'auto',
@@ -22,9 +23,15 @@ function initAddHistoryWorkDialog() {
                     $.ajax({
                         type: 'POST',
                         url: _global.root + 'employee/InsertHistoryWork',
-                        dataType: 'json',
-                        data: $('#frmInsertHistoryWork').serialize(),
-                        success: function () {
+                        dataType: 'json',                      
+                        data: 
+                            {
+                                EmpId: empId,
+                                AffectedDate: $("#AffectedDate").val(),
+                                GroupName: $("#GroupName").val(),
+                                Jobtitlename: $("#JobtitleName").val(),
+                            },                            
+                        success: function () {                            
                             if (data) {
                                 var errorCont = $('#divErrorCont');
                                 errorCont.removeClass();
@@ -62,7 +69,7 @@ function initialize() {
     $('#btnInsertHistoryWork').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'employee/InsertHistoryWork?employeeId=' + empId,
+            url: _global.root + 'employee/InsertHistoryWork?employeeId=' + empId,         
             dataType: 'html',
             success: function (data) {
                 $('#dialog-history').html(data);
@@ -95,7 +102,7 @@ function editHistoryWork(id) {
 function initEditHistoryWorkDialog() {
 
     initDatePicker();
-    var empId = parseInt($('#employeeId').val());
+    var empId = parseInt($('#empId').val());
     $('#dialog-histtory-update').dialog({
         modal: true,
         width: 'auto',
