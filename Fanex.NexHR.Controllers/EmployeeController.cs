@@ -172,7 +172,7 @@
                     EmpId = model.EmpId,
                     ModifiedBy = CurrentUser.Id,
                     AffectedDate = model.AffectedDate,
-                    ModifiedDate = DateTime.Today,
+                    ModifiedDate = DateTime.Now,
                     JobtitleName = model.JobtitleName,
                     GroupName = model.GroupName
                 };
