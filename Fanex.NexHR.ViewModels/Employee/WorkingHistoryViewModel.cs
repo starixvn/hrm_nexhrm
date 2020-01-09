@@ -28,6 +28,8 @@
 
         public int GroupId { get; set; }
 
+        public int GroupIdOld { get; set; }
+
         [DataType(DataType.Date)]      
         public DateTime AffectedDate { get; set; }
 

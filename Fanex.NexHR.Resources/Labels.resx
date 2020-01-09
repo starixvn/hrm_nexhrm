@@ -1587,4 +1587,7 @@
   <data name="ModifiedDate" xml:space="preserve">
     <value>Modified Date</value>
   </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
 </root>

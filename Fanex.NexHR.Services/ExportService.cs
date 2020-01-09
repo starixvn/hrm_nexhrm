@@ -351,7 +351,7 @@
                 FillHeaderHeadCount(report, ref writer);
                 FillContentHeadCount(report.HeadCount, ref writer);
                 FillTotalRowHeadCount(report.HeadCount, ref writer);
-                writer.AutosizeColumns(8);
+                writer.AutosizeColumns(10);
 
                 writer.Render();
             }
@@ -365,6 +365,7 @@
                 Team = "Team",
                 Code = "Code",
                 FirstDate = report.StartDate.ToString("dd MMM yyyy"),
+                Transfed = "Transfer",
                 NewHire = Labels.NewHire,
                 Resignation = Labels.Resignation,
                 LastDate = report.EndDate.ToString("dd MMM yyyy"),
@@ -384,6 +385,8 @@
                     Team = item.GroupName,
                     Code = item.GroupCode,
                     FirstDate = item.EmployeeAtJanuary,
+                    MoveTeam = item.MoveTeam != 0 ? item.MoveTeam.ToString() : string.Empty,
+                    JoinTeam = item.JoinTeam != 0 ? item.JoinTeam.ToString() : string.Empty,
                     NewHire = item.NewHire != 0 ? item.NewHire.ToString() : string.Empty,
                     Resignation = item.Resigned != 0 ? item.Resigned.ToString() : string.Empty,
                     LastDate = item.EmployeeAtDecember,
@@ -402,6 +405,8 @@
                 MergeCol1 = string.Empty,
                 MergeCol2 = string.Empty,
                 EmployeeAtJanuary = headCount.Sum(x => x.EmployeeAtJanuary),
+                MoveTeam = headCount.Sum(x => x.MoveTeam),
+                JoinTeam = headCount.Sum(x => x.JoinTeam),
                 NewHire = headCount.Sum(x => x.NewHire),
                 Resigned = headCount.Sum(x => x.Resigned),
                 EmployeeAtDecember = headCount.Sum(x => x.EmployeeAtDecember),

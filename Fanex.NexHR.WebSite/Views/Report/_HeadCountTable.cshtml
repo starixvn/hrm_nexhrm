@@ -8,11 +8,13 @@
             <th>@Labels.Team</th>
             <th>@Labels.Code</th>
             <th>@Model.StartDate.ToString("dd MMM yyyy")</th>
+            <th colspan="2">@Labels.Transfer</th>     
             <th>@Labels.NewHire</th>
             <th>@Labels.Resignation</th>
             <th>@Model.EndDate.ToString("dd MMM yyyy")</th>
             <th>@Labels.Variance</th>
         </tr>
+       
     </thead>
     <tbody>
         @if (Model.HeadCount.Any())
@@ -25,6 +27,8 @@
                     <td class="left">@item.GroupName</td>
                     <td>@item.GroupCode</td>
                     <td>@item.EmployeeAtJanuary</td>
+                    <td>@(item.MoveTeam != 0 ? ("- " + item.MoveTeam).ToString() : string.Empty)</td>
+                    <td>@(item.JoinTeam != 0 ? ("+ " + item.JoinTeam).ToString() : string.Empty)</td>
                     <td>@(item.NewHire != 0 ? item.NewHire.ToString() : string.Empty)</td>
                     <td>@(item.Resigned != 0 ? item.Resigned.ToString() : string.Empty)</td>
                     <td>@item.EmployeeAtDecember</td>
@@ -38,7 +42,9 @@
     <tfoot class="table-footer">
         <tr class="center">
             <td colspan="3">@Labels.Total</td>
-            <td class="center ">@Model.HeadCount.Sum(x => x.EmployeeAtJanuary)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtJanuary)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.MoveTeam)</td>
+            <td class="center">@Model.HeadCount.Sum(x => x.JoinTeam)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.NewHire)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.Resigned)</td>
             <td class="center">@Model.HeadCount.Sum(x => x.EmployeeAtDecember)</td>

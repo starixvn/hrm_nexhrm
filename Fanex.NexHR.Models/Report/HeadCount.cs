@@ -10,13 +10,15 @@
 
         public int EmployeeAtJanuary { get; set; }
 
-        public int EmployeeAtDecember { get; set; }
-
         public int NewHire { get; set; }
 
         public int Resigned { get; set; }
 
-        public int Transfer { get; set; }
+        public int JoinTeam { get; set; }
+
+        public int MoveTeam { get; set; }
+
+        public int EmployeeAtDecember => EmployeeAtJanuary - MoveTeam + JoinTeam + NewHire - Resigned ;
 
         public int Variance
         {

@@ -8,5 +8,6 @@
     [JobtitleName]     VARCHAR(100) NULL,
 	[GroupId] INT NULL,
     [GroupName]         VARCHAR(100) NULL,
+    [GroupIdOld] INT NULL, 
     CONSTRAINT [PK_HistoryWork] PRIMARY KEY CLUSTERED ([Id] ASC)
 );

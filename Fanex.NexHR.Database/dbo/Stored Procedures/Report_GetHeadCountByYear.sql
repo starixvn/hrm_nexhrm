@@ -39,9 +39,12 @@ BEGIN
 				THEN 1
 				ELSE 0
 				END) AS EmployeeAtDecember
-	 
-	FROM [dbo].EmployeeGroup As g WITH (NOLOCK)
+		,COUNT(DISTINCT h.GroupId)  AS [JoinTeam]
+		,COUNT(DISTINCT h.GroupIdOld)  AS [MoveTeam]
+
+	FROM [dbo].EmployeeGroup As g WITH (NOLOCK)		
 		INNER JOIN [dbo].Employee AS e WITH (NOLOCK) ON e.GroupId = g.Id
+		LEFT JOIN HistoryWork AS h WITH (NOLOCK) ON h.GroupId = g.Id AND h.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear
 	WHERE ISNULL(g.Deleted, 0) = 0
 		AND e.IsSpecialUser = 0
 	GROUP BY g.Id
