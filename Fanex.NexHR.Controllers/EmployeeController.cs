@@ -112,10 +112,11 @@
         [Authorize(Roles = "HR")]
         public ActionResult WorkingHistory(int employeeId)
         {
+            var fromDate = new DateTime(2011, 01, 01);
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId  };           
             history.Employee = _employeeService.GetEmployeeById(criteria);
-            history.FromDate = new DateTime(2011,01,01);
+            history.FromDate = fromDate;
             
             return View(history);
         }
