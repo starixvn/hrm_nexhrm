@@ -4,6 +4,9 @@
 
     public class ExtensionNoModel
     {
+        const int minRange = 1000;
+        const int maxRange = 9999;
+
         public int EmpExtId { get; set; }
 
         [Required]
@@ -19,7 +22,7 @@
         public string NickName { get; set; }
 
         [Required]
-        [Range(1000, 9999)]
+        [Range(minRange, maxRange)]
         public string ExtensionNo { get; set; }
 
         public int OrderNoGroup { get; set; }

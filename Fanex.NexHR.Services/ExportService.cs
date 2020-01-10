@@ -19,9 +19,12 @@
             string templatePath)
         {
             string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
-            string sheetName = "Total Working Hours";
+            const string sheetName = "Total Working Hours";
+            const string fomatFromDate = "dd MMM, yyyy";
+            const int totalReportHeader = 4;
+            const int rowFreezePane = 4;
 
-            var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
+            var reportTitle = "Total Working Hours: " + fromDate.ToString(fomatFromDate) + " - " + toDate.ToString(fomatFromDate);
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
@@ -30,10 +33,10 @@
                 writer.WriteRow(0, new object[] { reportTitle });
 
                 // Fill report header.
-                writer.CopyRows(0, 4);
+                writer.CopyRows(0, totalReportHeader);
                 FillContentRowTotalWorkingHours(listTotalWorkingHours, ref writer);
 
-                writer.CreateFreezePane(0, 4);
+                writer.CreateFreezePane(0, rowFreezePane);
                 writer.Render();
             }
         }
@@ -42,19 +45,22 @@
             IList<EmployeeAttendanceModel> employeeAttendances,
             string templatePath)
         {
-            string fileName = "EmployeeAttendance";
-            string sheetName = "Employee Attendance";
+            const string fileName = "EmployeeAttendance";
+            const string sheetName = "Employee Attendance";
+            const int sizeColumns = 13;  
+            const int totalReportHeader = 3;
+            const int rowFreezePane = 3;
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
                 // Fill report header.
-                writer.CopyRows(0, 3);
+                writer.CopyRows(0, totalReportHeader);
 
                 FillContentRowEmployeeAttendances(employeeAttendances, ref writer);
-                writer.AutosizeColumns(13);
-                writer.CreateFreezePane(0, 3);
+                writer.AutosizeColumns(sizeColumns);
+                writer.CreateFreezePane(0, rowFreezePane);
 
                 writer.Render();
             }
@@ -64,19 +70,22 @@
             IList<Employee> employees,
             string templatePath)
         {
-            string fileName = "EmployeeProfile";
-            string sheetName = "Employee Profile";
+            const string fileName = "EmployeeProfile";
+            const string sheetName = "Employee Profile";
+            const int totalReportHeader = 3;
+            const int sizeColumns = 24;
+            const int rowFreezePane = 3;
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
                 // Fill report header.
-                writer.CopyRows(0, 3);
+                writer.CopyRows(0, totalReportHeader);
 
                 FillContentRowEmployeeProfile(employees, ref writer);
-                writer.AutosizeColumns(24);
-                writer.CreateFreezePane(0, 3);
+                writer.AutosizeColumns(sizeColumns);
+                writer.CreateFreezePane(0, rowFreezePane);
 
                 writer.Render();
             }
@@ -101,9 +110,13 @@
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
         {
+            const int rowIndexTrue = 5;
+            const int rowIndexFalse = 4;
+            const int number = 2;
+
             object record = CreateRecordTotalWorkingHours(totalWorkingHours, ref rowIndex);
 
-            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 5 : 4, record);
+            writer.WriteRow((rowIndex - 1) % number == 0 ? rowIndexTrue : rowIndexFalse, record);
         }
 
         private static object CreateRecordTotalWorkingHours(
@@ -155,9 +168,13 @@
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
         {
+            const int rowIndexTrue = 4;
+            const int rowIndexFalse = 3;
+            const int number = 2;
+
             object record = CreateRecordEmployeeAttendances(employeeAttendance, ref rowIndex);
 
-            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
+            writer.WriteRow((rowIndex - 1) % number == 0 ? rowIndexTrue : rowIndexFalse, record);
         }
 
         private static object CreateRecordEmployeeAttendances(
@@ -206,9 +223,13 @@
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
         {
+            const int rowIndexTrue = 4;
+            const int rowIndexFalse = 3;
+            const int number = 2;
+
             object record = CreateRecordEmployeeProfile(employee, ref rowIndex);
 
-            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
+            writer.WriteRow((rowIndex - 1) % number == 0 ? rowIndexTrue : rowIndexFalse, record);
         }
 
         private static object CreateRecordEmployeeProfile(
@@ -265,18 +286,21 @@
         {
             string fileName = Labels.LeaveTakenSchedulesReport;
             string sheetName = Labels.LeaveSchedules;
+            const int total1 = 1;
+            const int total2 = 3;
+            const int totalColumnsWidth = 35;
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
 
-                writer.CopyRows(0, 1);
-                writer.CopyRows(1, 3);
+                writer.CopyRows(0, total1);
+                writer.CopyRows(1, total2);
                 WriteHeaderLeaveDaysSchedule(schedules, ref writer);
                 WriteLeaveDayScheduleContent(schedules.EmployeeLeaveShedules, ref writer);
                 WriteLeaveDayScheduleSumRow(schedules.TotalLeaves, ref writer, schedules.EmployeeLeaveShedules.Count);
 
-                writer.SyncColumnsWidth(35);
+                writer.SyncColumnsWidth(totalColumnsWidth);
                 writer.Render();
             }
         }
@@ -284,10 +308,12 @@
         private static void WriteHeaderLeaveDaysSchedule(LeaveDaySummarySchedule schedules, ref ExcelTemplateWriter writer)
         {
             var startCol = 4;
+            const int rowIndex = 3;
+
             writer.WriteCellRange(1, 1, startCol, schedules.DaysInMonth, schedules.Month.ToString("MMM yyyy"));
             foreach (var date in schedules.ListDates)
             {
-                writer.WriteCellRange(3, 1, startCol, 1, date.ToString("ddd"));
+                writer.WriteCellRange(rowIndex, 1, startCol, 1, date.ToString("ddd"));
                 startCol++;
             }
         }
@@ -306,7 +332,7 @@
                     Nick = schedule.Employee.NickName,
                     TeamName = schedule.Employee.CodeOfTeam
                 };
-                writer.WriteRow(4, employeeInfo);
+                writer.WriteRow(rowIndex, employeeInfo);
                 WriteDateLeaveSchedules(schedule.LeaveSchedules, ref writer, rowIndex);
                 rowIndex++;
             }
@@ -326,7 +352,9 @@
 
         private static void WriteLeaveDayScheduleSumRow(IList<double> totalLeaves, ref ExcelTemplateWriter writer, int employeeLength)
         {
-            writer.CopyRows(5, 1);
+            const int rowIndexCopy = 5;
+
+            writer.CopyRows(rowIndexCopy, 1);
             var rowIndex = employeeLength + 4;
             var startCol = 4;
             foreach (var totalLeave in totalLeaves)
@@ -342,7 +370,9 @@
 
         public static void ExportHeadCountReport(HeadCountModel report, string templatePath)
         {
+            const int totalCol = 10;
             var reportName = string.Format("{0}{1}", "HeadCount", report.StartDate.Year);
+
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);               
@@ -351,7 +381,7 @@
                 FillHeaderHeadCount(report, ref writer);
                 FillContentHeadCount(report.HeadCount, ref writer);
                 FillTotalRowHeadCount(report.HeadCount, ref writer);
-                writer.AutosizeColumns(10);
+                writer.AutosizeColumns(totalCol);
 
                 writer.Render();
             }
@@ -376,7 +406,9 @@
 
         private static void FillContentHeadCount(IList<HeadCount> headCount, ref ExcelTemplateWriter writer)
         {
+            const int rowIndex = 2;
             var index = 1;
+
             foreach (HeadCount item in headCount)
             {
                 var record = new
@@ -392,13 +424,15 @@
                     LastDate = item.EmployeeAtDecember,
                     Variance = item.Variance
                 };
-                writer.WriteRow(2, record);
+                writer.WriteRow(rowIndex, record);
                 index++;
             }
         }
 
         private static void FillTotalRowHeadCount(IList<HeadCount> headCount, ref ExcelTemplateWriter writer)
         {
+            const int rowIndex = 3;
+
             var record = new
             {
                 Total = Labels.Total,
@@ -412,7 +446,7 @@
                 EmployeeAtDecember = headCount.Sum(x => x.EmployeeAtDecember),
                 Variance = headCount.Sum(x => x.Variance)
             };
-            writer.WriteRow(3, record);
+            writer.WriteRow(rowIndex, record);
         }
 
         #endregion Head Count Report
@@ -440,17 +474,19 @@
 
         private static string TotalHoursToTime(decimal value)
         {
+            const int number = 10;
+
             if (value > 0)
             {
                 var display = string.Empty;
                 var hour = Math.Floor(value);
                 if (hour > 0)
                 {
-                    display = hour < 10 ? "0" + hour + "h" : hour + "h";
+                    display = hour < number ? "0" + hour + "h" : hour + "h";
                 }
 
                 var minute = Math.Round((value - hour) * 60);
-                return minute < 10 ? display + "0" + minute + "'" : display + minute + "'";
+                return minute < number ? display + "0" + minute + "'" : display + minute + "'";
             }
 
             return string.Empty;
@@ -477,6 +513,8 @@
             DateTime toDate,
             string templatePath)
         {
+            const int totalReportHeader = 3;
+            const int rowFreezePane = 4;
             string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
             string sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
 
@@ -489,10 +527,10 @@
                 writer.WriteRow(0, new object[] { reportTitle });
 
                 // Fill report header.
-                writer.CopyRows(0, 3);
+                writer.CopyRows(0, totalReportHeader);
                 FillContentRowWorkingHoursStatistic(listTotalWorkingHours, ref writer);
 
-                writer.CreateFreezePane(0, 4);
+                writer.CreateFreezePane(0, rowFreezePane);
                 writer.Render();
             }
         }
@@ -516,9 +554,13 @@
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
         {
+            const int rowIndexTrue = 4;
+            const int rowIndexFalse = 3;
+            const int number = 2;
+
             object record = CreateRecordWorkingHoursStatistic(totalWorkingHours, ref rowIndex);
 
-            writer.WriteRow((rowIndex - 1) % 2 == 0 ? 4 : 3, record);
+            writer.WriteRow((rowIndex - 1) % number == 0 ? rowIndexTrue : rowIndexFalse, record);
         }
 
         private static object CreateRecordWorkingHoursStatistic(

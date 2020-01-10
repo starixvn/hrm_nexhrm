@@ -225,9 +225,10 @@ namespace Fanex.NexHR.Core
             this HtmlHelper htmlHelper,
             string name)
         {
+            const int numberOfItem = 12;
             var list = new List<SelectListItem>();
 
-            for (var i = 1; i <= 12; i++)
+            for (var i = 1; i <= numberOfItem; i++)
             {
                 list.Add(new SelectListItem
                 {
@@ -365,29 +366,33 @@ namespace Fanex.NexHR.Core
             string fullHtmlFieldName,
             IEnumerable<SelectListItem> copiedList)
         {
+            const string check = "checked";
+            const string stringInput = "input";
+            const string stringLabel = "label";
+            const string value = "value";
             var sb = new StringBuilder();
 
             htmlAttributes = (htmlAttributes == null)
                 ? new RouteValueDictionary()
                 : new RouteValueDictionary(htmlAttributes);
-            htmlAttributes.Remove("checked");
+            htmlAttributes.Remove(check);
 
             foreach (var item in copiedList)
             {
-                var input = new TagBuilder("input");
+                var input = new TagBuilder(stringInput);
 
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", "checkbox");
                 input.MergeAttribute("id", name + item.Value);
                 input.MergeAttribute("name", fullHtmlFieldName, true);
-                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, true);
+                input.MergeAttribute(value, item.Value ?? item.Text ?? string.Empty, true);
 
                 if (item.Selected)
                 {
                     input.MergeAttribute("checked", "checked");
                 }
 
-                var label = new TagBuilder("label")
+                var label = new TagBuilder(stringLabel)
                 {
                     InnerHtml = input.ToString(TagRenderMode.SelfClosing) + item.Text
                 };

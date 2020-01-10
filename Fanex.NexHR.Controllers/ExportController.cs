@@ -48,6 +48,7 @@
 
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
+            const int dateOption = 5;
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
 
@@ -59,7 +60,7 @@
                 {
                     FromDate = new DateTime(year, month, 1),
                     ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    DateOption = 5,
+                    DateOption = dateOption,
                 };
             }
 
