@@ -480,8 +480,9 @@
                     {
                         ////var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
                         ////processor.AddFilter(resizer);
+                        const int JpegCompression =  100;
                         processor.OutputFormat = OutputFormat.Jpeg;
-                        processor.JpegCompression = 100;
+                        processor.JpegCompression = JpegCompression;
                         processor.ProcessImage(file.InputStream, stream);
 
                         using (var image = Image.FromStream(stream))
@@ -570,6 +571,7 @@
         [Authorize(Roles = "AssistantLeader,HR")]
         public JsonResult GetMembersByManager(string keyword, int? groupId = null)
         {
+            const int Records = 10;
             var role = CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
             var getMemberByManager = new GetMemberByManagerCriteria
             {
@@ -580,7 +582,7 @@
                 ExcludedManager = false
             };
 
-            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(10), JsonRequestBehavior.AllowGet);
+            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(Records), JsonRequestBehavior.AllowGet);
         }
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
