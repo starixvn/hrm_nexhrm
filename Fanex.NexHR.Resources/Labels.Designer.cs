@@ -745,6 +745,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company Date.
+        /// </summary>
+        public static string CompanyDate {
+            get {
+                return ResourceManager.GetString("CompanyDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company Memo.
         /// </summary>
         public static string CompanyMemo {

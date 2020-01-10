@@ -84,6 +84,8 @@
 
         public string ContactAddress { get; set; }
 
+        public DateTime CompanyDate { get; set; }
+
         public override bool IsValid()
         {
             return IsEmployeeIdAndTeamIdValid()

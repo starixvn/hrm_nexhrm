@@ -115,6 +115,8 @@
 
         public DefaultSchedule DefaultSchedule { get; set; }
 
+        public DateTime CompanyDate { get; set; }
+
         public IList<short> RoleList
         {
             get

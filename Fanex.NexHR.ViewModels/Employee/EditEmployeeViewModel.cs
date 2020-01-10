@@ -81,6 +81,9 @@
         public DateTime? PassportExp { get; set; }
 
         [DataType(DataType.Date)]
+        public DateTime CompanyDate { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? JoinedDate { get; set; }
 
         [DataType(DataType.Date)]
@@ -198,6 +201,7 @@
                 PlaceOfBirth = employee.PlaceOfBirth;
                 ContactName = employee.ContactName;
                 UserRelationship = employee.UserRelationship;
+                CompanyDate = employee.CompanyDate;
                 ContactPhone = employee.ContactPhone;
                 ContactAddress = employee.ContactAddress;
             }

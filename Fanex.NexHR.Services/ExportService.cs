@@ -345,14 +345,13 @@
             var reportName = string.Format("{0}{1}", "HeadCount", report.StartDate.Year);
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
-                var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);
-                var writerColumns = 10;
+                var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);               
                 // Fill report header.
                 writer.WriteRow(0, new object[] { string.Format("{0}{1}", "HEAD COUNT ", report.StartDate.Year) });
                 FillHeaderHeadCount(report, ref writer);
                 FillContentHeadCount(report.HeadCount, ref writer);
                 FillTotalRowHeadCount(report.HeadCount, ref writer);
-                writer.AutosizeColumns(writerColumns);
+                writer.AutosizeColumns(10);
 
                 writer.Render();
             }
@@ -387,7 +386,7 @@
                     Code = item.GroupCode,
                     FirstDate = item.EmployeeAtJanuary,
                     MoveTeam = item.MoveTeam != 0 ? (-item.MoveTeam).ToString() : string.Empty,
-                    JoinTeam = item.JoinTeam != 0 ? ("+"+item.JoinTeam).ToString() : string.Empty,
+                    JoinTeam = item.JoinTeam != 0 ? ("+"+item.JoinTeam) : string.Empty,
                     NewHire = item.NewHire != 0 ? item.NewHire.ToString() : string.Empty,
                     Resignation = item.Resigned != 0 ? item.Resigned.ToString() : string.Empty,
                     LastDate = item.EmployeeAtDecember,

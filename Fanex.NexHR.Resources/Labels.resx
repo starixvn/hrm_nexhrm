@@ -1590,4 +1590,7 @@
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
   </data>
+  <data name="CompanyDate" xml:space="preserve">
+    <value>Company Date</value>
+  </data>
 </root>

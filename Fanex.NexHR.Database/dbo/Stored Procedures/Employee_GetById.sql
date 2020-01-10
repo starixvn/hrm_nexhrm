@@ -90,6 +90,7 @@ BEGIN
         ,e.[ModifiedBy]
         ,[isDeleted]
 		,[IsSpecialUser]
+		,[CompanyDate]
         ,[PermanentAddress] AS [Address]
         ,[CurrentAddress]
         ,[IdCardNumber]
@@ -151,4 +152,3 @@ BEGIN
         LEFT JOIN dbo.[Shift] AS sh8 WITH (NOLOCK) ON es.SunShift = sh8.Id
     WHERE e.Id = @EmployeeId
 END
-
