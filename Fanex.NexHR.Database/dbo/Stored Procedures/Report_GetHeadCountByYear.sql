@@ -39,12 +39,22 @@ BEGIN
 				THEN 1
 				ELSE 0
 				END) AS EmployeeAtDecember
-		,COUNT(DISTINCT h.GroupId)  AS [JoinTeam]
-		,COUNT(DISTINCT h.GroupIdOld)  AS [MoveTeam]
+		 ,(SELECT COUNT(h.Id) 
+			FROM HistoryWork as h
+			WHERE h.GroupId = g.Id AND h.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear) AS [JoinTeam]
+		 ,(SELECT COUNT(m.Id) 
+			FROM (select * 
+					from HistoryWork as h
+					Where h.AffectedDate not in (select top 1 AffectedDate 
+													from HistoryWork
+													where EmpId = h.EmpId
+													order by AffectedDate desc))
+													 as m
+			WHERE m.GroupId = g.Id AND m.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear)	AS [MoveTeam]
+
 
 	FROM [dbo].EmployeeGroup As g WITH (NOLOCK)		
 		INNER JOIN [dbo].Employee AS e WITH (NOLOCK) ON e.GroupId = g.Id
-		LEFT JOIN HistoryWork AS h WITH (NOLOCK) ON h.GroupId = g.Id AND h.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear
 	WHERE ISNULL(g.Deleted, 0) = 0
 		AND e.IsSpecialUser = 0
 	GROUP BY g.Id

@@ -346,12 +346,13 @@
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
                 var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);
+                var writerColumns = 10;
                 // Fill report header.
                 writer.WriteRow(0, new object[] { string.Format("{0}{1}", "HEAD COUNT ", report.StartDate.Year) });
                 FillHeaderHeadCount(report, ref writer);
                 FillContentHeadCount(report.HeadCount, ref writer);
                 FillTotalRowHeadCount(report.HeadCount, ref writer);
-                writer.AutosizeColumns(10);
+                writer.AutosizeColumns(writerColumns);
 
                 writer.Render();
             }
