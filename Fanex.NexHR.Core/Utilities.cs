@@ -137,7 +137,7 @@ namespace Fanex.NexHR.Core
         {
             var list = new List<SelectListItem>();
             var index = 60;
-            var number = 15;
+            const int number = 15;
             while (index > number)
             {
                 list.Add(new SelectListItem
@@ -156,8 +156,8 @@ namespace Fanex.NexHR.Core
             var list = new List<SelectListItem>();
             var hour = 6;
             var minute = 0;
-            var hours = 24;
-            var minutes = 60;
+            const int hours = 24;
+            const int minutes = 60;
 
             while (hour < hours)
             {
@@ -281,15 +281,23 @@ namespace Fanex.NexHR.Core
             int index,
             Func<T, object> expression)
         {
-            var sorted = sortExpressions[index].Direction == "asc"
-                ? ((index == 0)
-                    ? query.OrderBy(expression)
-                    : orderedQuery?.ThenBy(expression))
-                : ((index == 0)
-                    ? query.OrderByDescending(expression)
-                    : orderedQuery?.ThenByDescending(expression));
+            if (sortExpressions[index].Direction == "asc")
+            {
+                if (index == 0)
+                {
+                    return query.OrderBy(expression);
+                }
 
-            return sorted;
+                return orderedQuery?.ThenBy(expression);
+            }
+            else {
+                if (index == 0)
+                {
+                    return query.OrderByDescending(expression);
+                }
+
+                return orderedQuery?.ThenByDescending(expression);
+            }
         }
 
         private static Func<T, object> GetSortExpression<T>(IList<SortModel> sortExpressions, int index)
