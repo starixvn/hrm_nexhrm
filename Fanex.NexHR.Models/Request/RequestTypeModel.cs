@@ -16,6 +16,12 @@ namespace Fanex.NexHR.Models.Request
     /// </summary>
     public class RequestTypeModel : EntityBase<short>
     {
+        const int number2 = 2;
+        const int number3 = 3;
+        const int number4 = 4;
+        const int number5 = 5;
+        const int number6 = 6;
+
         public new string Name
         {
             get
@@ -24,15 +30,15 @@ namespace Fanex.NexHR.Models.Request
                 {
                     case 1:
                         return Labels.CheckIn;
-                    case 2:
+                    case number2:
                         return Labels.CheckOut;
-                    case 3:
+                    case number3:
                         return Labels.LateIn;
-                    case 4:
+                    case number4:
                         return Labels.EarlyOut;
-                    case 5:
+                    case number5:
                         return Labels.ChangeShift;
-                    case 6:
+                    case number6:
                         return Labels.Leave;
                     default:
                         return string.Empty;
@@ -47,17 +53,17 @@ namespace Fanex.NexHR.Models.Request
                 switch (Id)
                 {
                     case 1:
-                    case 2:
-                        return 4;
-                    case 3:
-                    case 4:
-                        return 3;
-                    case 5:
-                        return 2;
-                    case 6:
+                    case number2:
+                        return number4;
+                    case number3:
+                    case number4:
+                        return number3;
+                    case number5:
+                        return number2;
+                    case number6:
                         return 1;
                     default:
-                        return 5;
+                        return number5;
                 }
             }
         }
@@ -69,15 +75,15 @@ namespace Fanex.NexHR.Models.Request
                 switch (Id)
                 {
                     case 1:
-                    case 2:
+                    case number2:
                         return 1;
-                    case 3:
-                    case 4:
-                        return 2;
-                    case 5:
-                        return 3;
-                    case 6:
-                        return 4;
+                    case number3:
+                    case number4:
+                        return number2;
+                    case number5:
+                        return number3;
+                    case number6:
+                        return number4;
                     default:
                         return 0;
                 }

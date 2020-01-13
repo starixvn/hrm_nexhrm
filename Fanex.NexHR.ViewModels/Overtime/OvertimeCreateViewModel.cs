@@ -9,6 +9,8 @@
 
     public class CreateOvertimeViewModel
     {
+        private const int length = 4000;
+
         public CreateOvertimeViewModel()
         {
             Date = DateTime.Now;
@@ -45,7 +47,7 @@
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
         [Required]
-        [StringLength(4000)]
+        [StringLength(length)]
         public string Description { get; set; }
 
         public int Status { get; set; }

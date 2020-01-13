@@ -36,6 +36,7 @@
             _commandService = commandService ?? new CommandService();
             _nexbotService = nexbotService ?? new NexbotService();
         }
+        private const double day = 0.5;
 
         [Authorize(Roles = "SpecialUser")]
         public ActionResult EmployeeView()
@@ -153,7 +154,7 @@
             ViewBag.Year = model.FromDate.Year;
             if (model.HalfDayOff)
             {
-                model.TotalDays = (decimal)0.5;
+                model.TotalDays = (decimal)day;
                 model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
                 model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
             }
@@ -197,7 +198,7 @@
                 model.LeaveTypes = _leaveTypeService.GetAll();
                 if (model.HalfDayOff)
                 {
-                    model.TotalDays = (decimal)0.5;
+                    model.TotalDays = (decimal)day;
                     model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
                     model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
                 }

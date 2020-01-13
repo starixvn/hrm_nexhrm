@@ -2,6 +2,10 @@
 {
     public class Notification
     {
+        private const int years = 2;
+        private const int months = 3;
+        private const int timeMissMonths = 2;
+
         public Employee Employee { get; set; }
 
         public int LateInEarlyOutInYear { get; set; }
@@ -17,17 +21,17 @@
             get
             {
                 int quantity = 0;
-                if (LateInEarlyOutInYear >= 2)
+                if (LateInEarlyOutInYear >= years)
                 {
                     quantity += 1;
                 }
 
-                if (LateInEarlyOutInMonth >= 3)
+                if (LateInEarlyOutInMonth >= months)
                 {
                     quantity += 1;
                 }
 
-                if (TimeMisssingCheckInOutThisMonth >= 2)
+                if (TimeMisssingCheckInOutThisMonth >= timeMissMonths)
                 {
                     quantity += 1;
                 }

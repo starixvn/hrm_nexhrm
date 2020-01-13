@@ -20,13 +20,16 @@ namespace Fanex.NexHR.Models.Request
         {
             get
             {
+                const int secondCase = 2;
+                const int threeCase = 3;
+
                 switch (Id)
                 {
                     case 1:
                         return Labels.Pending;
-                    case 2:
+                    case secondCase:
                         return Labels.Approved;
-                    case 3:
+                    case threeCase:
                         return Labels.Rejected;
                     default:
                         return string.Empty;

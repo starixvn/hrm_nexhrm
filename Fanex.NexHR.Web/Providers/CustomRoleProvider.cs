@@ -75,6 +75,10 @@ namespace Fanex.NexHR.Web.Providers
         /// <returns>List of role.</returns>
         public override string[] GetRolesForUser(string username)
         {
+            const int secondCase = 2;
+            const int threeCase = 3;
+            const int FourCase = 4;
+
             var roles = new List<string>
             {
                 Role.Member.EnumToString(),
@@ -98,16 +102,16 @@ namespace Fanex.NexHR.Web.Providers
                             roles.Add(Role.AssistantLeader.EnumToString());
                             break;
 
-                        case 2:
+                        case secondCase:
                             roles.Add(Role.AssistantLeader.EnumToString());
                             roles.Add(Role.Leader.EnumToString());
                             break;
 
-                        case 3:
+                        case threeCase:
                             roles.Add(Role.HR.EnumToString());
                             break;
 
-                        case 4:
+                        case FourCase:
                             roles.Add(Role.AssistantLeader.EnumToString());
                             roles.Add(Role.Leader.EnumToString());
                             roles.Add(Role.HR.EnumToString());

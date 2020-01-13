@@ -8,6 +8,8 @@
 
     public class CreateScheduledMessageViewModel
     {
+        private const int value = 5;
+
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Conversation))]
         public int ConversationId { get; set; }
@@ -21,7 +23,7 @@
         public int Hour { get; set; }
 
         [Required]
-        [MultipleOf(Value = 5, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.MultipleOf))]
+        [MultipleOf(Value = value, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.MultipleOf))]
         public int Minute { get; set; }
 
         [Required]

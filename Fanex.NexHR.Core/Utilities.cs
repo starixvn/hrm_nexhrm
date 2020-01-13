@@ -99,9 +99,15 @@ namespace Fanex.NexHR.Core
                 {
                     var found = false;
                     var rand = (int)random[i];
+                    const int min1 =48 ;
+                    const int min2 =65 ;
+                    const int min3 =97 ;
+                    const int max1 =57 ;
+                    const int max2 =90 ;
+                    const int max3 =122 ;
                     while (!found)
                     {
-                        if (rand.IsWithin(48,57) || rand.IsWithin(65,90) || rand.IsWithin(97,122))
+                        if (rand.IsWithin(min1,max1) || rand.IsWithin(min2,max2) || rand.IsWithin(min3,max3))
                         {
                             found = true;
                         }
@@ -131,7 +137,8 @@ namespace Fanex.NexHR.Core
         {
             var list = new List<SelectListItem>();
             var index = 60;
-            while (index > 15)
+            var number = 15;
+            while (index > number)
             {
                 list.Add(new SelectListItem
                 {
@@ -149,8 +156,10 @@ namespace Fanex.NexHR.Core
             var list = new List<SelectListItem>();
             var hour = 6;
             var minute = 0;
+            var hours = 24;
+            var minutes = 60;
 
-            while (hour < 24)
+            while (hour < hours)
             {
                 var value = string.Format(Labels.HourFormat, ZeroPrefix(hour), ZeroPrefix(minute));
                 list.Add(new SelectListItem
@@ -159,7 +168,7 @@ namespace Fanex.NexHR.Core
                     Value = value
                 });
                 minute += minuteStep;
-                if (minute >= 60)
+                if (minute >= minutes)
                 {
                     minute = 0;
                     hour++;
@@ -171,7 +180,8 @@ namespace Fanex.NexHR.Core
 
         public static string ZeroPrefix(object value)
         {
-            return value.ToString().PadLeft(2, '0');
+            const int totalWidth = 2;
+            return value.ToString().PadLeft(totalWidth, '0');
         }
 
         public static string StringArrayToString(string[] array)

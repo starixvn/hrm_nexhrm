@@ -7,6 +7,9 @@
 
     public class LogTimeIssue
     {
+        private const int length = 255;
+        private const int maxRange = 24;
+
         [Required]
         public int IssueId { get; set; }
 
@@ -17,10 +20,10 @@
         public DateTime SpentOn { get; set; }
 
         [Required]
-        [Range(0, 24, ErrorMessageResourceType = typeof(Labels), ErrorMessageResourceName = nameof(Labels.HoursLogtimeErrorMessage))]
+        [Range(0, maxRange, ErrorMessageResourceType = typeof(Labels), ErrorMessageResourceName = nameof(Labels.HoursLogtimeErrorMessage))]
         public double? Hours { get; set; }
 
-        [StringLength(255)]
+        [StringLength(length)]
         public string Comments { get; set; }
 
         [Required]

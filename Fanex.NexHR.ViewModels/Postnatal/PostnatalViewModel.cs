@@ -40,6 +40,9 @@
         {
             get
             {
+                const int secondCase = 2;
+                const int threeCase = 3;
+
                 List<SelectListItem> listTypes = new List<SelectListItem>
                 {
                     new SelectListItem
@@ -57,10 +60,10 @@
                 {
                     switch (Types)
                     {
-                        case 2:
+                        case secondCase:
                             listTypes[1].Selected = true;
                             break;
-                        case 3:
+                        case threeCase:
                             listTypes[0].Selected = true;
                             listTypes[1].Selected = true;
                             break;

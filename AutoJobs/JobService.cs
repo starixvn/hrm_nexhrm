@@ -29,7 +29,7 @@
                     resourcePath: "~/App_Data",
                     enableWatching: true)
                 .Run();
-
+            const int timeLine = 1000;
             int timerInterval = DefaultTimerInterval;
 
             int configTimerInterval = int.Parse(ConfigurationManager.AppSettings["TimerInterval"]);
@@ -39,7 +39,7 @@
             }
 
             TimerInterval = timerInterval;
-            _updateCounterTimer = new Timer(TimerInterval * 1000);
+            _updateCounterTimer = new Timer(TimerInterval * timeLine);
             _updateCounterTimer.Elapsed += ExecuteJob;
             _updateCounterTimer.Enabled = false;
         }

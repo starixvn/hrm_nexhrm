@@ -11,6 +11,10 @@
 
     public class MySpaceViewModel
     {
+        private const float numberEqual = 0.5f;
+        private const int numberLength = 2;
+        private const int year = 2000;
+
         private const string DisplayCellTpl =
             @"<span class='contextmenu'><a href='javascript:;' class='blue-grey-text text-darken-3'>{0}</a>
             <ul class='list-unstyled drop-menu'>{1}</ul></span>";
@@ -58,11 +62,11 @@
                 foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
                     employees.Append(leave.Employee.NickName);
-                    employees.Append(leave.LeaveDay.Equals(0.5f) ? " (½)" : string.Empty);
+                    employees.Append(leave.LeaveDay.Equals(numberEqual) ? " (½)" : string.Empty);
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString().Substring(0, employees.Length - 2) : string.Empty;
+                return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
             }
         }
 
@@ -79,11 +83,11 @@
                 foreach (DashBoardCompanySpace leave in yesterdayLeaves)
                 {
                     employees.Append(leave.Employee.NickName);
-                    employees.Append(leave.LeaveDay.Equals(0.5f) ? " (½)" : string.Empty);
+                    employees.Append(leave.LeaveDay.Equals(numberEqual) ? " (½)" : string.Empty);
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString().Substring(0, employees.Length - 2) : string.Empty;
+                return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
             }
         }
 
@@ -101,7 +105,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -119,7 +123,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -137,7 +141,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -155,7 +159,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -173,7 +177,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -191,7 +195,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -209,7 +213,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -227,7 +231,7 @@
                     employees.Append(", ");
                 }
 
-                return employees.Length > 2 ? employees.ToString(0, employees.Length - 2) : employees.ToString();
+                return employees.Length > numberLength ? employees.ToString(0, employees.Length - numberLength) : employees.ToString();
             }
         }
 
@@ -490,7 +494,7 @@
             {
                 var displayValue = "None";
 
-                if ((CheckInTime - new DateTime(2000, 1, 1)).Days != 0)
+                if ((CheckInTime - new DateTime(year, 1, 1)).Days != 0)
                 {
                     displayValue = CheckInTime.ToShortTimeString();
                 }
@@ -505,7 +509,7 @@
             {
                 var displayValue = "None";
 
-                if ((CheckOutTime - new DateTime(2000, 1, 1)).Days != 0)
+                if ((CheckOutTime - new DateTime(year, 1, 1)).Days != 0)
                 {
                     displayValue = CheckOutTime.ToShortTimeString();
                 }
@@ -551,7 +555,7 @@
                     }
                 }
 
-                return results.Length > 2 ? results.ToString(0, results.Length - 2) : results.ToString();
+                return results.Length > numberLength ? results.ToString(0, results.Length - numberLength) : results.ToString();
             }
         }
 

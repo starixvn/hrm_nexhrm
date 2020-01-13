@@ -7,13 +7,17 @@
 
     public class OvertimeEditViewModel
     {
+        private const double minRange = 0.5;
+        private const int maxRange = 8;
+        private const int length = 4000;
+
         public int Id { get; set; }
         [Display(Name = "Date", ResourceType = typeof(Labels))]
         [Required]
         public DateTime Date { get; set; }
 
         [Display(Name = "Hours", ResourceType = typeof(Labels))]
-        [Range(minimum: 0.5, maximum: 8)]
+        [Range(minimum: minRange, maximum: maxRange)]
         public float Hour { get; set; }
 
         [Display(Name = "CreatedBy", ResourceType = typeof(Labels))]
@@ -30,7 +34,7 @@
 
         [Display(Name = "Description", ResourceType = typeof(Labels))]
         [Required]
-        [StringLength(4000)]
+        [StringLength(length)]
         public string Description { get; set; }
 
         public int Status { get; set; }

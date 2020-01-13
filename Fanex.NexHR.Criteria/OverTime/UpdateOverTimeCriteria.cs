@@ -45,6 +45,7 @@
 
         private bool IsValidOvertimeDetail()
         {
+            const int numberHour = 8;
             bool isValid = true;
             int i = 0;
             while (isValid && i < TimeSheets.Count)
@@ -52,7 +53,7 @@
                 if (TimeSheets[i].Employee == null 
                     || TimeSheets[i].Employee.Id <= 0 
                     || TimeSheets[i].Hour < 1
-                    || TimeSheets[i].Hour > 8)
+                    || TimeSheets[i].Hour > numberHour)
                 {
                     isValid = false;
                 }

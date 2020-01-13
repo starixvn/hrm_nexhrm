@@ -11,6 +11,8 @@
 
     public class LeaveRequestViewModel : BaseRequestModel, IValidatableObject
     {
+        private const int numberDay = 5;
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
@@ -51,7 +53,7 @@
         public bool IsUnpaidLeave => LeaveTypeId == Constants.UnpaidLeaveType;
 
         public bool IsAnnualLeaveOver5Day => (LeaveTypeId == Constants.AnnualLeaveType || LeaveTypeId == Constants.UnplannedAnnualLeaveType)
-                                             && TotalDays >= 5;
+                                             && TotalDays >= numberDay;
 
         public bool IsEdit { get; set; }
 

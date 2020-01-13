@@ -5,6 +5,8 @@
 
     public class OvertimeSummaryCriteria : CriteriaBase
     {
+        private const int year = 2010;
+
         public int? EmployeeId { get; set; }
 
         [SpParam(SqlParamName = "GroupId")]
@@ -19,7 +21,7 @@
 
         public override bool IsValid()
         {
-            return Year >= 2010;
+            return Year >= year;
         }
     }
 }

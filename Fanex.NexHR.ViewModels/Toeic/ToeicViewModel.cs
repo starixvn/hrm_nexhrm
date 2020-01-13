@@ -7,6 +7,9 @@
     {
         private DateTime? _listeningReadingExamDate;
         private DateTime? _speakingWritingExamDate;
+        private const int maxRangeRL = 495;
+        private const int maxRangeSW = 200;
+        private const int maxRangeTotal = 990;
 
         [Required]
         public string Employee { get; set; }
@@ -36,10 +39,10 @@
             }
         }
 
-        [Range(0, 495)]
+        [Range(0, maxRangeRL)]
         public int? Listening { get; set; }
 
-        [Range(0, 495)]
+        [Range(0, maxRangeRL)]
         public int? Reading { get; set; }
 
         [Display(Name = "S/W Exam Date")]
@@ -61,13 +64,13 @@
             }
         }
 
-        [Range(0, 200)]
+        [Range(0, maxRangeSW)]
         public int? Speaking { get; set; }
 
-        [Range(0, 200)]
+        [Range(0, maxRangeSW)]
         public int? Writing { get; set; }
 
-        [Range(0, 990)]
+        [Range(0, maxRangeTotal)]
         public int? MinimumScore { get; set; }
 
         public bool SendMail { get; set; }

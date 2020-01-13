@@ -40,12 +40,14 @@
 
         public ActionResult Index(int chosenTab = 0)
         {
+            const int secondCase = 2;
+
             switch (chosenTab)
             {
                 case 1:
                     ViewBag.Tab = "NexRequest";
                     break;
-                case 2:
+                case secondCase:
                     ViewBag.Tab = "NexDetail";
                     break;
                 default:

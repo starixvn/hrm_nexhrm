@@ -48,10 +48,11 @@
                 return null;
             }
 
+            const int startIndex = 2;
             var path = Path.Combine(Server.MapPath(dir), fileName);
             file.SaveAs(path);
 
-            return pathAttach.ToString().Substring(2);
+            return pathAttach.ToString().Substring(startIndex);
         }
 
         private string ChangeNameForDuplicatedFile(int overRide, string pathAttach, string fileName)

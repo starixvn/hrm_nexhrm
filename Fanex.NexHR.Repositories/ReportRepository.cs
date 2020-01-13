@@ -15,6 +15,9 @@
 
     public class ReportRepository : IReportRepository
     {
+        private const string totalItem = "totalitem";
+        private const string stringSplitOn = "EmpId, GroupId";
+
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -41,7 +44,7 @@
                     if (totalitem != null)
                     {
                         var hashParam = db.GetOuputParams();
-                        totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
+                        totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
                     }
 
                     foreach (EmployeeAttendanceModel attendance in attendances)
@@ -69,7 +72,7 @@
                 .GetProperties()
                 .FirstOrDefault(prop =>
                     Attribute.IsDefined(prop, typeof(OutputAttribute))
-                    && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
+                    && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals(totalItem));
         }
 
         private static IList<RequestEntity> GetAttendanceRequests(
@@ -95,7 +98,7 @@
                             e.Team = g;
                             return rq;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 
@@ -114,7 +117,7 @@
                             e.Team = g;
                             return wkh;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 
@@ -133,19 +136,19 @@
                             e.Team = g;
                             return t;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 
                 PropertyInfo totalitem = criteria.GetType()
                     .GetProperties()
                     .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute))
-                                            && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
+                                            && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals(totalItem));
 
                 if (totalitem != null)
                 {
                     var hashParam = db.GetOuputParams();
-                    totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
+                    totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
                 }
 
                 return timeRecords;
@@ -163,7 +166,7 @@
                             e.Team = g;
                             return la;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 
@@ -182,7 +185,7 @@
                             e.Team = g;
                             return la;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 
@@ -246,7 +249,7 @@
                             e.Team = g;
                             return wkh;
                         },
-                        splitOn: "EmpId, GroupId",
+                        splitOn: stringSplitOn,
                         parameterSet: criteria.GetSpParams())
                     .ToList();
 

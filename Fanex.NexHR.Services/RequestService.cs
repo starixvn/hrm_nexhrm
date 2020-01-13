@@ -28,6 +28,8 @@
         private readonly IEmailService _emailService;
         private readonly ICommandService _commandService;
         private readonly INexbotService _nexbotService;
+        private const string stringTime = "HH:mm";
+        private const string stringEmail = "Email";
 
         public RequestService()
             : this(null, null, null, null)
@@ -74,7 +76,7 @@
                     case (int)RequestType.CheckOut:
                         msg.AppendFormat(
                             Constants.MsgCheckInOut,
-                            request.FromDate.ToString("HH:mm") + (request.IsCrossDate ? "*" : string.Empty),
+                            request.FromDate.ToString(stringTime) + (request.IsCrossDate ? "*" : string.Empty),
                             request.FromShift.Name,
                             request.FromDate.ToDateMonthYearFormatedDate());
                         break;
@@ -134,8 +136,8 @@
                 msg.AppendFormat(
                     Constants.MsgLeaveHalfDay,
                     GetMessageDateforLeaveRequest(request.FromDate, request.ToDate),
-                    request.FromDate.ToString("HH:mm"),
-                    request.ToDate.ToString("HH:mm"));
+                    request.FromDate.ToString(stringTime),
+                    request.ToDate.ToString(stringTime));
             }
 
             return msg;
@@ -323,7 +325,7 @@
                     model.Remark);
 
                 _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
+                    ConfigurationManager.AppSettings[stringEmail],
                     string.Join(";", managers.Select(t => t.Email)),
                     string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
                     model.SubjectEmail,
@@ -344,7 +346,7 @@
                     model.Remark);
 
                 _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
+                    ConfigurationManager.AppSettings[stringEmail],
                     string.Join(";", leaders.Select(t => t.Email)),
                     string.Empty,
                     model.SubjectEmail,
@@ -377,7 +379,7 @@
                 content.Time);
 
             _emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                ConfigurationManager.AppSettings[stringEmail],
                 string.Join(";", leaders.Select(t => t.Email)),
                 string.Empty,
                 model.SubjectEmail,
@@ -419,8 +421,8 @@
                     : string.Format(
                         Constants.MailContentLeaveHalfDay,
                         fromDate.ToDateMonthYearFormatedDate(),
-                        fromDate.ToString("HH:mm"),
-                        toDate.ToString("HH:mm")));
+                        fromDate.ToString(stringTime),
+                        toDate.ToString(stringTime)));
 
             return forDate;
         }
@@ -440,7 +442,7 @@
 
             if (results == null)
             {
-                return null;
+                return results;
             }
 
             if (projectManagers != null)
@@ -534,15 +536,17 @@
 
             var sendCc = string.Join(",", employees.Select(t => t.Email));
             var sendTo = string.Join(";", employees.Select(t => t.Email));
+            const int secondCase = 2;
+            const int sixCase = 6;
 
             switch (request.RequestType.Id)
             {
                 case 1:
-                case 2:
+                case secondCase:
                     CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
                     break;
 
-                case 6:
+                case sixCase:
                     LeaveRelatedMail(request, sendTo, templateLeaveEmailToRelatedPath);
                     break;
             }
@@ -569,10 +573,10 @@
                 request.RequestType.Name,
                 request.FromDate.ToDateMonthYearFormatedDate(),
                 request.FromShift.Name,
-                request.FromDate.ToString("HH:mm"));
+                request.FromDate.ToString(stringTime));
 
             _emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                ConfigurationManager.AppSettings[stringEmail],
                 request.ModifiedBy.Email,
                 sendCc,
                 subject,
@@ -599,7 +603,7 @@
             if (!string.IsNullOrEmpty(sendTo))
             {
                 _emailService.SendEmail(
-                     ConfigurationManager.AppSettings["Email"],
+                     ConfigurationManager.AppSettings[stringEmail],
                      sendTo,
                      string.Empty,
                      subject,

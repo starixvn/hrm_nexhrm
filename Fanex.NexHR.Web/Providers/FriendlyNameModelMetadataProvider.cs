@@ -45,7 +45,7 @@ namespace Fanex.NexHR.Web.Providers
         /// <returns>The formatted name.</returns>
         private static string DisplayNameFromCamelCase(string name)
         {
-            var temp = "(?<!^)" + // don't match on the first character - never want to place a space here
+            const string temp = "(?<!^)" + // don't match on the first character - never want to place a space here
                 "(" +
                 "  [A-Z][a-z] |" + // put a space before "Aaaa"
                 "  (?<=[a-z])[A-Z] |" + // put a space into "aAAA" before the first capital

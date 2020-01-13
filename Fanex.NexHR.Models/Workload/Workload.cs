@@ -22,13 +22,17 @@
         {
             get
             {
+                const double round = 0.9;
+                const double round2 = 0.5;
+                const double round3 = 0.9;
+
                 string css;
                 double roundedPercent = Math.Round(PercentWorkload, 2);
-                if (roundedPercent >= 0.9)
+                if (roundedPercent >= round)
                 {
                     css = "light-blue lighten-1";
                 }
-                else if (roundedPercent >= 0.5 && roundedPercent < 0.9)
+                else if (roundedPercent >= round2 && roundedPercent < round3)
                 {
                     css = "pink darken-1";
                 }

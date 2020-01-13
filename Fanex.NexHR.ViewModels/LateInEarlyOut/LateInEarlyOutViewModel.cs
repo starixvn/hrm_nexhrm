@@ -5,6 +5,8 @@
 
     public class LateInEarlyOutViewModel : BaseRequestModel
     {
+        private const int valueId = 2;
+
         public int EmpId { get; set; }
 
         public string Nickname { get; set; }
@@ -30,7 +32,7 @@
             },
             new Types
             {
-                Id = 2,
+                Id = valueId,
                 Name = "Early out"
             }
         };

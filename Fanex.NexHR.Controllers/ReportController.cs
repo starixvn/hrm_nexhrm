@@ -39,6 +39,7 @@
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
+            const int numberItems = 200;
             var employeeAttendanceViewModel = model;
             if (employeeAttendanceViewModel != null)
             {
@@ -54,7 +55,7 @@
                 }
 
                 employeeAttendanceViewModel.CurrentPage = Constants.CurrentPage;
-                employeeAttendanceViewModel.ItemsPerPage = 200;
+                employeeAttendanceViewModel.ItemsPerPage = numberItems;
                 employeeAttendanceViewModel.Teams = _teamService.GetTeam();
             }
 
@@ -257,6 +258,7 @@
         [HttpPost]
         public JsonResult GetTotalWorkingHour(TotalWorkingHoursViewModel model)
         {
+            const int dayOptions = 5;
             var totalWorkingHoursViewModel = model;
             if (totalWorkingHoursViewModel == null)
             {
@@ -267,7 +269,7 @@
                 {
                     FromDate = new DateTime(year, month, 1),
                     ToDate = DateTime.Now,
-                    DateOption = 5,
+                    DateOption = dayOptions,
                     IsExportExcel = false
                 };
             }

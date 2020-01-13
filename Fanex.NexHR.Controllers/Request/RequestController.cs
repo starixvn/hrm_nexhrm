@@ -39,6 +39,9 @@
             _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
             _commandService = commandService ?? new CommandService();
         }
+        private const int months = 2;
+        private const int numberType = 5;
+        private const int numberId = 2;
 
         [Authorize(Roles = "AssistantLeader,HR,SpecialUser")]
         [HttpPost]
@@ -67,14 +70,14 @@
                     {
                         DateOption = 0,
                         ToDate = DateTime.Now,
-                        FromDate = request.ToDate.AddMonths(-2),
-                        RequestType = 5,
+                        FromDate = request.ToDate.AddMonths(-months),
+                        RequestType = numberType,
                         TeamId = null,
                         IsFilterByEffectedDate = false
                     };
                 }
 
-                if (request.TeamId == -2)
+                if (request.TeamId == -numberId)
                 {
                     modifiedRequest.TeamId = null;
                 }
@@ -126,14 +129,14 @@
                     modifiedRequest = new RequestViewModel
                     {
                         StatusId = 0,
-                        RequestType = 5,
+                        RequestType = numberType,
                         TeamId = null,
                         IsFilterByEffectedDate = true
                     };
                 }
 
                 // Get request model from Request monitoring view.
-                if (modifiedRequest.TeamId == -2)
+                if (modifiedRequest.TeamId == -numberId)
                 {
                     modifiedRequest.StatusId = 0;
                     modifiedRequest.TeamId = null;
@@ -182,14 +185,14 @@
                     modifiedRequest = new RequestViewModel
                     {
                         StatusId = 0,
-                        RequestType = 5,
+                        RequestType = numberType,
                         TeamId = null,
                         IsFilterByEffectedDate = false
                     };
                 }
 
                 // Get request model from Request monitoring view.
-                if (modifiedRequest.TeamId == -2)
+                if (modifiedRequest.TeamId == -numberId)
                 {
                     modifiedRequest.StatusId = 0;
                     modifiedRequest.TeamId = null;

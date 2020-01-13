@@ -28,6 +28,15 @@ namespace Fanex.NexHR.Core
     public static class Extensions
     {
         private static readonly object ExtensionObject = new object();
+        private const string stringCheck = "checked";
+        private const string stringInput = "input";
+        private const string stringLabel = "label";
+        private const string stringValue = "value";
+        private const int secondCase = 2;
+        private const int threeCase = 3;
+        private const int fourCase = 4;
+        private const int fiveCase = 5;
+        private const int sixCase = 6;
 
         public static string EnumToString(this Command value)
         {
@@ -366,16 +375,12 @@ namespace Fanex.NexHR.Core
             string fullHtmlFieldName,
             IEnumerable<SelectListItem> copiedList)
         {
-            const string check = "checked";
-            const string stringInput = "input";
-            const string stringLabel = "label";
-            const string value = "value";
             var sb = new StringBuilder();
 
             htmlAttributes = (htmlAttributes == null)
                 ? new RouteValueDictionary()
                 : new RouteValueDictionary(htmlAttributes);
-            htmlAttributes.Remove(check);
+            htmlAttributes.Remove(stringCheck);
 
             foreach (var item in copiedList)
             {
@@ -385,11 +390,11 @@ namespace Fanex.NexHR.Core
                 input.MergeAttribute("type", "checkbox");
                 input.MergeAttribute("id", name + item.Value);
                 input.MergeAttribute("name", fullHtmlFieldName, true);
-                input.MergeAttribute(value, item.Value ?? item.Text ?? string.Empty, true);
+                input.MergeAttribute(stringValue, item.Value ?? item.Text ?? string.Empty, true);
 
                 if (item.Selected)
                 {
-                    input.MergeAttribute("checked", "checked");
+                    input.MergeAttribute(stringCheck, stringCheck);
                 }
 
                 var label = new TagBuilder(stringLabel)
@@ -468,13 +473,13 @@ namespace Fanex.NexHR.Core
 
         private static MvcHtmlString ApplyTagLabel(string fullHtmlFieldName, TagBuilder checkbox)
         {
-            TagBuilder label = new TagBuilder("label");
+            TagBuilder label = new TagBuilder(stringLabel);
             label.MergeAttribute("for", fullHtmlFieldName);
 
-            TagBuilder hidden = new TagBuilder("input");
+            TagBuilder hidden = new TagBuilder(stringInput);
             hidden.MergeAttribute("name", fullHtmlFieldName);
             hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
-            hidden.MergeAttribute("value", "false");
+            hidden.MergeAttribute(stringValue, "false");
 
             return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
@@ -499,11 +504,11 @@ namespace Fanex.NexHR.Core
                 throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
-            TagBuilder checkbox = new TagBuilder("input");
+            TagBuilder checkbox = new TagBuilder(stringInput);
             checkbox.MergeAttribute("id", fullHtmlFieldName);
             checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
-            checkbox.MergeAttribute("value", "true");
+            checkbox.MergeAttribute(stringValue, "true");
 
             IDictionary<string, object> attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             checkbox.MergeAttributes(attributes);
@@ -544,14 +549,14 @@ namespace Fanex.NexHR.Core
                 throw new ArgumentException(Labels.NameCannotBeNullOrEmpty, nameof(name));
             }
 
-            checkbox = new TagBuilder("input");
+            checkbox = new TagBuilder(stringInput);
             checkbox.MergeAttribute("id", fullHtmlFieldName);
             checkbox.MergeAttribute("name", fullHtmlFieldName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
-            checkbox.MergeAttribute("value", "true");
+            checkbox.MergeAttribute(stringValue, "true");
             if (isChecked)
             {
-                checkbox.MergeAttribute("checked", "checked");
+                checkbox.MergeAttribute(stringCheck, stringCheck);
             }
         }
 
@@ -582,26 +587,26 @@ namespace Fanex.NexHR.Core
             ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string propertyName = expression.Body.ToString().Split('.').Last();
 
-            TagBuilder checkbox = new TagBuilder("input");
+            TagBuilder checkbox = new TagBuilder(stringInput);
             checkbox.MergeAttribute("id", propertyName);
             checkbox.MergeAttribute("name", propertyName);
             checkbox.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
-            checkbox.MergeAttribute("value", "true");
+            checkbox.MergeAttribute(stringValue, "true");
             if (modelMetadata.Model != null && (bool)modelMetadata.Model)
             {
-                checkbox.MergeAttribute("checked", "checked");
+                checkbox.MergeAttribute(stringCheck, stringCheck);
             }
 
             var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             checkbox.MergeAttributes(attributes);
 
-            TagBuilder label = new TagBuilder("label");
+            TagBuilder label = new TagBuilder(stringLabel);
             label.MergeAttribute("for", propertyName);
 
-            TagBuilder hidden = new TagBuilder("input");
+            TagBuilder hidden = new TagBuilder(stringInput);
             hidden.MergeAttribute("name", propertyName);
             hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
-            hidden.MergeAttribute("value", "false");
+            hidden.MergeAttribute(stringValue, "false");
 
             return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
@@ -677,28 +682,28 @@ namespace Fanex.NexHR.Core
             var sb = new StringBuilder();
 
             htmlAttributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
-            htmlAttributes.Remove("checked");
+            htmlAttributes.Remove(stringCheck);
 
             foreach (var item in copiedList)
             {
-                var input = new TagBuilder("input");
+                var input = new TagBuilder(stringInput);
 
                 input.MergeAttributes(htmlAttributes);
                 input.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.CheckBox));
                 input.MergeAttribute("id", name + item.Value);
                 input.MergeAttribute("name", fullHtmlFieldName, true);
-                input.MergeAttribute("value", item.Value ?? item.Text ?? string.Empty, true);
+                input.MergeAttribute(stringValue, item.Value ?? item.Text ?? string.Empty, true);
 
                 if (item.Selected)
                 {
-                    input.MergeAttribute("checked", "checked");
+                    input.MergeAttribute(stringCheck, stringCheck);
                 }
 
-                var labelFor = new TagBuilder("label");
+                var labelFor = new TagBuilder(stringLabel);
                 labelFor.MergeAttribute("for", name + item.Value, true);
                 labelFor.InnerHtml = item.Text;
 
-                var label = new TagBuilder("label")
+                var label = new TagBuilder(stringLabel)
                 {
                     InnerHtml = input.ToString(TagRenderMode.SelfClosing) + labelFor
                 };
@@ -758,16 +763,16 @@ namespace Fanex.NexHR.Core
         #region Business
 
         public static string ToText(this byte status)
-        {
+        {            
             switch (status)
             {
                 case 1:
                     return Labels.Pending;
 
-                case 2:
+                case secondCase:
                     return Labels.Approved;
 
-                case 3:
+                case threeCase:
                     return Labels.Rejected;
 
                 default:
@@ -782,19 +787,19 @@ namespace Fanex.NexHR.Core
                 case 1:
                     return Labels.CheckIn;
 
-                case 2:
+                case secondCase:
                     return Labels.CheckOut;
 
-                case 3:
+                case threeCase:
                     return Labels.LateIn;
 
-                case 4:
+                case fourCase:
                     return Labels.EarlyOut;
 
-                case 5:
+                case fiveCase:
                     return Labels.ChangeShift;
 
-                case 6:
+                case sixCase:
                     return Labels.Leave;
 
                 default:

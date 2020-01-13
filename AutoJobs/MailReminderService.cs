@@ -60,6 +60,8 @@
 
         public void ReminderBirthdayAndFirstWorkingday(DateTime today)
         {
+            const int days = 2;
+
             if (!bool.Parse(AllowSendMailReminderBirthday) || today.DayOfWeek == DayOfWeek.Saturday)
             {
                 return;
@@ -76,7 +78,7 @@
 
                     if (today.DayOfWeek == DayOfWeek.Friday)
                     {
-                        SendMailBirthdayAndFirstWorkingDay(today.AddDays(2));
+                        SendMailBirthdayAndFirstWorkingDay(today.AddDays(days));
                     }
 
                     Log.Info("Birthday and First working day Reminder stopped at " + DateTime.Now);
