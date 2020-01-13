@@ -49,16 +49,23 @@
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
-        {
-            var result = (toDate - fromDate).Days > 0
-                ? (fromDate.Year == toDate.Year
-                    ? (fromDate.Month != toDate.Month
-                        ? fromDate.ToString("dd MMM") + " - " + toDate.ToDateMonthYearFormatedDate()
-                        : fromDate.ToString("dd") + " - " + toDate.ToDateMonthYearFormatedDate())
-                    : fromDate.ToDateMonthYearFormatedDate() + " - " + toDate.ToDateMonthYearFormatedDate())
-                : fromDate.ToDateMonthYearFormatedDate();
+        {    
+            if ((toDate - fromDate).Days > 0)
+            {
+                if (fromDate.Year == toDate.Year)
+                {
+                    if (fromDate.Month != toDate.Month)
+                    {
+                        return fromDate.ToString("dd MMM") + " - " + toDate.ToDateMonthYearFormatedDate();
+                    }
 
-            return result;
+                    return fromDate.ToString("dd") + " - " + toDate.ToDateMonthYearFormatedDate();
+                }
+
+                return fromDate.ToDateMonthYearFormatedDate() + " - " + toDate.ToDateMonthYearFormatedDate();
+            }
+
+            return fromDate.ToDateMonthYearFormatedDate();
         }
 
         public static string ConvertToRequestMessage(RequestEntity request)
@@ -410,21 +417,27 @@
 
         private static string GetDateStringForLeaveRequest(DateTime fromDate, DateTime toDate, decimal totalDays)
         {
-            var forDate = totalDays > 1
-                ? string.Format(
+            if (totalDays > 1)
+            {
+                return string.Format(
                     Constants.MailContentLeave,
                     fromDate.ToDateMonthYearFormatedDate(),
                     toDate.ToDateMonthYearFormatedDate(),
-                    totalDays)
-                : (totalDays == 1
-                    ? string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate())
-                    : string.Format(
+                    totalDays);
+            }
+            else
+            {
+                if (totalDays == 1)
+                {
+                    return string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate());
+                }
+
+                return string.Format(
                         Constants.MailContentLeaveHalfDay,
                         fromDate.ToDateMonthYearFormatedDate(),
                         fromDate.ToString(stringTime),
-                        toDate.ToString(stringTime)));
-
-            return forDate;
+                        toDate.ToString(stringTime));
+            }
         }
 
         private IEnumerable<Employee> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)

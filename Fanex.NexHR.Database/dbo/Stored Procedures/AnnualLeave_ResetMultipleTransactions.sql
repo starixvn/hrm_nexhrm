@@ -131,12 +131,12 @@ BEGIN
 				ELSE (ISNULL(ot.Minutes, 0) - la.Minutes)
 				END AS OT
 		FROM (
-			SELECT *
+			SELECT [EmpId], [Year], [Minutes], [ModifiedBy], [ModifiedDate]
 			FROM dbo.[LateInEarlyOutYearly] WITH (NOLOCK)
 			WHERE [Year] = YEAR(@FromDate)
 			) AS la
 			LEFT JOIN (
-			SELECT *
+			SELECT [EmpId], [Year], [Minutes], [ModifiedBy], [ModifiedDate] 
 			FROM dbo.OvertimeYearly WITH (NOLOCK)
 			WHERE [Year] = YEAR(@FromDate)
 			) AS ot ON la.EmpId = ot.EmpId

@@ -1,6 +1,4 @@
-﻿
-
-CREATE PROCEDURE [dbo].[EmployeeAttendance_GetByType] @fromtime DATETIME
+﻿CREATE PROCEDURE [dbo].[EmployeeAttendance_GetByType] @fromtime DATETIME
     ,@totime DATETIME
     ,@type SMALLINT
     ,@empid INT = NULL
@@ -370,5 +368,3 @@ BEGIN
         DROP TABLE #EmployeeAttendance
     END
 END
-
-

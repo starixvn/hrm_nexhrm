@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -144,7 +145,7 @@
             {
                 if (string.IsNullOrWhiteSpace(Roles))
                 {
-                    return null;
+                    return new string[0];
                 }
 
                 return Roles.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -162,7 +163,7 @@
             {
                 if (string.IsNullOrWhiteSpace(SubGroups))
                 {
-                    return null;
+                    return new string[0];
                 }
 
                 return SubGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -180,7 +181,7 @@
             {
                 if (string.IsNullOrWhiteSpace(LeaderGroups))
                 {
-                    return null;
+                    return new string[0];
                 }
 
                 return LeaderGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);

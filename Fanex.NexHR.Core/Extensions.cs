@@ -29,6 +29,7 @@ namespace Fanex.NexHR.Core
     {
         private static readonly object ExtensionObject = new object();
         private const string stringCheck = "checked";
+        private const string stringCheck2 = "checked";
         private const string stringInput = "input";
         private const string stringLabel = "label";
         private const string stringValue = "value";
@@ -394,7 +395,7 @@ namespace Fanex.NexHR.Core
 
                 if (item.Selected)
                 {
-                    input.MergeAttribute(stringCheck, stringCheck);
+                    input.MergeAttribute(stringCheck, stringCheck2);
                 }
 
                 var label = new TagBuilder(stringLabel)
@@ -556,7 +557,7 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttribute(stringValue, "true");
             if (isChecked)
             {
-                checkbox.MergeAttribute(stringCheck, stringCheck);
+                checkbox.MergeAttribute(stringCheck, stringCheck2);
             }
         }
 
@@ -594,7 +595,7 @@ namespace Fanex.NexHR.Core
             checkbox.MergeAttribute(stringValue, "true");
             if (modelMetadata.Model != null && (bool)modelMetadata.Model)
             {
-                checkbox.MergeAttribute(stringCheck, stringCheck);
+                checkbox.MergeAttribute(stringCheck, stringCheck2);
             }
 
             var attributes = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
@@ -696,7 +697,7 @@ namespace Fanex.NexHR.Core
 
                 if (item.Selected)
                 {
-                    input.MergeAttribute(stringCheck, stringCheck);
+                    input.MergeAttribute(stringCheck, stringCheck2);
                 }
 
                 var labelFor = new TagBuilder(stringLabel);

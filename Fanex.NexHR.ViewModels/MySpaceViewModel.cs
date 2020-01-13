@@ -522,7 +522,7 @@
         {
             get
             {
-                var displayValue = "--:--";
+                const string displayValue = "--:--";
 
                 if (TotalWorkingHoursToday != 0)
                 {

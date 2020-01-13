@@ -85,7 +85,7 @@ begin
 		and WorkDate> = @FromTime
 		and WorkDate< = @ToTime
 		and (@EmpID is null or EmpID=@EmpID)
-	order by EmpID, RecordTime, InOutType	
+	order by EmpID ASC, RecordTime ASC, InOutType ASC	
 			
 	select @RecordIDPrev = 0, @EmpIDPrev = 0, @RecordTimePrev = null, @i = 1
 
@@ -133,7 +133,7 @@ begin
 						and RecordTime< dateadd(hh,-8,dateadd(d,1,@RecordTimePrev))
 						-- end Quinn change
 						and InOutType = 1
-					order by RecordTime
+					order by RecordTime ASC
 					
 					-- da du thong tin checkin-checkout
 					if (@OutOfMachine is not null)					
@@ -193,7 +193,7 @@ begin
 	declare cs cursor for 
 	select RecordID, EmpID, RecordTime, InOutType 
 	from @tbl_TimeRecord 
-	order by EmpID,RecordTime
+	order by EmpID ASC,RecordTime ASC
 	open cs
 	fetch next from cs into @RecordID, @EmpIDCur, @RecordTime, @InOutType
 	while @@fetch_status = 0

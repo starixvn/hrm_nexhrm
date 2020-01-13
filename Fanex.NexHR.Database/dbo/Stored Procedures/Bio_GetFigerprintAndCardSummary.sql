@@ -127,9 +127,9 @@ BEGIN
 		,fw.IsWarning
 		,cw.IsWarning
 
-	ORDER BY g.[Rank]
-			,g.Code
-			,e.Code
+	ORDER BY g.[Rank] ASC
+			,g.Code ASC
+			,e.Code ASC
 
 	DROP TABLE #FingerprintSummary
 	DROP TABLE #CardSummary
