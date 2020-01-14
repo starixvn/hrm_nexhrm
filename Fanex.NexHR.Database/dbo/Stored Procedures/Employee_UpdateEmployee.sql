@@ -38,6 +38,7 @@ CREATE PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
 	,@userRelationship NVARCHAR(10) = NULL
 	,@contactPhone VARCHAR(50) = NULL
 	,@contactAddress NVARCHAR(250) = NULL
+	,@companyDate DATE = NULL
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
 AS

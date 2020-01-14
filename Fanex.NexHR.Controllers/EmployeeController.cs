@@ -82,7 +82,7 @@
             int? jobTitleId = null,
             string sort = null)
         {
-            EmployeeListViewModel listEmployee =
+        EmployeeListViewModel listEmployee =
                 new EmployeeListViewModel
                 {
                     StatusViewType = enable.HasValue
