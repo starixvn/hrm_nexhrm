@@ -16,7 +16,6 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
-        //public int? Enable => EnableStatus.HasValue ? (EnableStatus.Value ? 0 : 1) : new int?();     
         public int? Enable
         {
             get
@@ -52,8 +51,6 @@
                 return new int?();
             }
         }
-
-        //public int? IsDelete => DeleteStatus.HasValue ? (DeleteStatus.Value ? 1 : 0) : new int?();
 
         public int? JobTitleId { get; set; }
 

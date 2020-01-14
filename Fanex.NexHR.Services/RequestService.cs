@@ -506,9 +506,20 @@
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
 
             var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
-            var action = command == Command.Reject.EnumToString()
-                ? Labels.Rejected
-                : (command == Command.Approve.EnumToString() ? Labels.Approved : Labels.Disapproved);
+            var action = Labels.Disapproved;
+
+            if (command == Command.Reject.EnumToString())
+            {
+                action = Labels.Rejected;
+            }
+            else
+            {
+                if (command == Command.Approve.EnumToString())
+                {
+                    action = Labels.Approved;
+                }
+            }
+
             body = string.Format(
                 body,
                 request.Requester.NickName,
