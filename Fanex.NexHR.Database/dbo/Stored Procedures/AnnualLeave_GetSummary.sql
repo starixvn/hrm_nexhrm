@@ -151,10 +151,10 @@ BEGIN
      WHERE 
 	 e.IsSpecialUser = 0
 		AND (ISNULL(CreditDays, 0) - ISNULL(DeductDays, 0)) >= @minAnnualBalance
-    ORDER BY g.[Rank]
-        ,g.Code
+    ORDER BY g.[Rank] ASC
+        ,g.Code ASC
         ,EmployeeRank DESC
-        ,e.code
+        ,e.code ASC
 
     DROP TABLE #CurrenBalace
 END

@@ -411,6 +411,7 @@
 
             foreach (HeadCount item in headCount)
             {
+                var joinTeam = item.JoinTeam != 0 ? ("+" + item.JoinTeam) : string.Empty;
                 var record = new
                 {
                     Count = index,
@@ -418,7 +419,7 @@
                     Code = item.GroupCode,
                     FirstDate = item.EmployeeAtJanuary,
                     MoveTeam = item.MoveTeam != 0 ? (-item.MoveTeam).ToString() : string.Empty,
-                    JoinTeam = item.JoinTeam != 0 ? ("+"+item.JoinTeam) : string.Empty,
+                    JoinTeam = joinTeam,
                     NewHire = item.NewHire != 0 ? item.NewHire.ToString() : string.Empty,
                     Resignation = item.Resigned != 0 ? item.Resigned.ToString() : string.Empty,
                     LastDate = item.EmployeeAtDecember,

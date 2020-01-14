@@ -17,6 +17,7 @@
     {
         private const string totalItem = "totalitem";
         private const string stringSplitOn = "EmpId, GroupId";
+        private const int requestTypeId = 2;
 
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
         {
@@ -56,7 +57,7 @@
                             : 1;
 
                         attendance.IsMissingCheckOut = attendance.IsMissingCheckOut == 0 ||
-                                                       attendance.Requests.Any(t => t.RequestType.Id == 2)
+                                                       attendance.Requests.Any(t => t.RequestType.Id == requestTypeId)
                             ? 0
                             : 1;
                     }

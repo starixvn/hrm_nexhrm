@@ -626,7 +626,8 @@
                 ContactName = model.ContactName,
                 UserRelationship = model.UserRelationship,
                 ContactPhone = model.ContactPhone,
-                ContactAddress = model.ContactAddress
+                ContactAddress = model.ContactAddress,
+                CompanyDate = model.CompanyDate
             };
 
             return criteria;
