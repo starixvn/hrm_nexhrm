@@ -5,23 +5,24 @@
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Core.Model;
     using Criteria.Employee;
+    using Fanex.NexHR.Criteria.HistoryWork;
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Resources;
     using Models;
     using Newtonsoft.Json;
     using Services;
+    using Services.Email;
     using Services.Interfaces;
     using Simplicode.Imaging;
     using ViewModels;
     using ViewModels.Employee;
-    using Services.Email;
-    using Fanex.NexHR.Criteria.HistoryWork;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Resources;
 
     public class EmployeeController : BaseController
     {
@@ -114,10 +115,10 @@
         {
             var fromDate = new DateTime(2011, 01, 01);
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId  };           
+            var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
             history.Employee = _employeeService.GetEmployeeById(criteria);
             history.FromDate = fromDate;
-            
+
             return View(history);
         }
 
@@ -180,7 +181,7 @@
 
                 result = _commandService.Insert(history);
             }
-                  
+
             return Json(result);
         }
 
@@ -194,7 +195,7 @@
             {
                 var criteria = new EditHistoryWorkCriteria
                 {
-                   Id = id.Value
+                    Id = id.Value
                 };
 
                 history = _historyWorkService.GetHistoryWorkInfo(criteria);
@@ -231,10 +232,10 @@
 
                 result = _commandService.Update(history);
             }
-             else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
 
             return Json(result);
         }
@@ -256,7 +257,7 @@
             Employee employee = GetEmployeeById(employeeId);
             return View(employee);
         }
-       
+
         [Authorize(Roles = "HR")]
         public ActionResult Create()
         {
@@ -357,9 +358,12 @@
                     }
                 }
 
-                var employee = GetEmployeeById(criteria.EmployeeId);
-                var mailService = new MailEmployeeService(employee);
-                mailService.SendMailUpdateSuccess();
+                Task.Factory.StartNew(() =>
+                {
+                    var employee = GetEmployeeById(criteria.EmployeeId);
+                    var mailService = new MailEmployeeService(employee);
+                    mailService.SendMailUpdateSuccess();
+                });
             }
             else
             {
@@ -480,7 +484,7 @@
                     {
                         ////var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
                         ////processor.AddFilter(resizer);
-                        const int JpegCompression =  100;
+                        const int JpegCompression = 100;
                         processor.OutputFormat = OutputFormat.Jpeg;
                         processor.JpegCompression = JpegCompression;
                         processor.ProcessImage(file.InputStream, stream);

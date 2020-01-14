@@ -125,8 +125,7 @@
                                             @Html.LabelFor(model => model.PlaceOfBirth, Labels.PlaceOfBirth)
                                         </div>
                                         <div class="left input--l">
-                                            @Html.EditorFor(model => model.PlaceOfBirth)
-                                            @Html.ValidationMessageFor(model => model.PlaceOfBirth)
+                                            @Html.TextAreaFor(model => model.PlaceOfBirth, new { @class = "materialize-textarea" })
                                         </div>
                                     </div>
                                 </div>
@@ -271,8 +270,7 @@
                                             @Html.LabelFor(model => model.ContactAddress, Labels.ContactAddress)
                                         </div>
                                         <div class="left input--l">
-                                            @Html.EditorFor(model => model.ContactAddress)
-                                            @Html.ValidationMessageFor(model => model.ContactAddress)
+                                            @Html.TextAreaFor(model => model.ContactAddress, new { @class = "materialize-textarea" })
                                         </div>
                                     </div>
                                 </div>

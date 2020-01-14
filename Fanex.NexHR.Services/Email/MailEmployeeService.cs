@@ -27,16 +27,9 @@
 
         public void SendMailUpdateSuccess()
         {
-            var bodyTemplate = ReadTextFile("emails\\successupdate.cshtml");
-
-            if (string.IsNullOrWhiteSpace(bodyTemplate))
-            {
-                Log.Error("Cannot load email template service emails/successupdate.cshtml or it's empty");
-                return;
-            }
-
+            var bodyTemplate = ReadTextFile(ConfigurationManager.AppSettings["EditEmployeeEmailTemplate"]);
             var emailContent = string.Format(bodyTemplate, _employee.NickName);
-            var emailSubject = $"{SenderName} - Success update infomation";
+            var emailSubject = $"{SenderName} - {ConfigurationManager.AppSettings["SuccessUpdateInfomation"]}";
 
             EmailService.SendEmail(
                 SenderEmail,
