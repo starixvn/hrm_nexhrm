@@ -1,6 +1,4 @@
-﻿
-
-CREATE PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
+﻿CREATE PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
 	,@EmpId INT
 	,@RequestType SMALLINT
 	,@IsPlanned BIT

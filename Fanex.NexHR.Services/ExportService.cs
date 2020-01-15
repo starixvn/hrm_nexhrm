@@ -340,11 +340,17 @@
 
         private static void WriteDateLeaveSchedules(IList<LeaveSchedule> leaveSchedules, ref ExcelTemplateWriter writer, int rowIndex)
         {
-            var startCol = 4;
+            var startCol = 4;            
             foreach (var leaveSchedule in leaveSchedules)
             {
-                var cellValue = leaveSchedule.IsLeaveDay ? !leaveSchedule.IsHalfDayLeave ? "x" : leaveSchedule.LeaveType : leaveSchedule.LeaveType;
+                var value = "x";
+                var cellValue = leaveSchedule.LeaveType;
 
+                if (leaveSchedule.IsLeaveDay)
+                {
+                    cellValue = !leaveSchedule.IsHalfDayLeave ? value : leaveSchedule.LeaveType;
+                }  
+                
                 writer.WriteCellRange(rowIndex, 1, startCol, 1, cellValue);
                 startCol++;
             }

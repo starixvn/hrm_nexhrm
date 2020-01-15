@@ -217,7 +217,8 @@
 
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
-            var timeEntries = await GetTimeEntries(domainName, onDate, onDate).ConfigureAwait(false);
+            DateTime toDate = onDate;
+            var timeEntries = await GetTimeEntries(domainName, onDate, toDate).ConfigureAwait(false);
             return timeEntries.Sum(x => x.Hours);
         }
     }

@@ -30,15 +30,15 @@
 
         public int GroupIdOld { get; set; }
 
-        [DataType(DataType.Date)]      
+        [DataType(DataType.Date)]
         public DateTime AffectedDate { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime ModifiedDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]     
-        public DateTime? FromDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime FromDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

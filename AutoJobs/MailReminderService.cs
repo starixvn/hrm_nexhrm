@@ -228,7 +228,8 @@
                 Remark = item.MissingType == 1 ? "Forgot Check In" : "Forgot Check Out"
             };
 
-            var emailContent = string.Format(bodyTemplate, data.Employee, data.InOutType, data.InOutType, data.Date, data.Shift, data.Remark);
+            var inOutType = data.InOutType;
+            var emailContent = string.Format(bodyTemplate, data.Employee, data.InOutType, inOutType, data.Date, data.Shift, data.Remark);
 
             return emailContent;
         }
