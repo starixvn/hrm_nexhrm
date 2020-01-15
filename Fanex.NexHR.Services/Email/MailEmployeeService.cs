@@ -4,6 +4,7 @@
     using System.Configuration;
     using System.IO;
     using System.Reflection;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using log4net;
@@ -27,9 +28,9 @@
 
         public void SendMailUpdateSuccess()
         {
-            var bodyTemplate = ReadTextFile(ConfigurationManager.AppSettings["EditEmployeeEmailTemplate"]);
+            var bodyTemplate = ReadTextFile(Constants.EditEmployeeEmailTemplate);
             var emailContent = string.Format(bodyTemplate, _employee.NickName);
-            var emailSubject = $"{SenderName} - {ConfigurationManager.AppSettings["SuccessUpdateInfomation"]}";
+            var emailSubject = $"{SenderName} - {Constants.SuccessUpdateInfomation}";
 
             EmailService.SendEmail(
                 SenderEmail,

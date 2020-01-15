@@ -39,5 +39,7 @@ namespace Fanex.NexHR.Core
         public const int UnpaidLeaveType = 26;
 
         public const string NewLine = "\n\n";
+        public const string EditEmployeeEmailTemplate = "emails\\successupdate.cshtml";
+        public const string SuccessUpdateInfomation = "Success update infomation";
     }
 }
