@@ -321,7 +321,7 @@ BEGIN
 							)
 						OR ((SELECT COUNT(1)
 						FROM EmployeeCalendar
-						WHERE EmpId = @EmpId AND (DATEADD(DAY, 1, @FromDate) = WorkDate OR DATEADD(DAY, -1, @FromDate) = WorkDate) AND LeaveDay = 1) > 0
+						WHERE EmpId = @EmpId AND (DATEADD(DAY, 1, @FromDate) = WorkDate OR DATEADD(DAY, -1, @FromDate) = WorkDate) AND LeaveDay = 1 AND DATEDIFF(D, GETDATE(), WorkDate) <= 2) > 0
 							)
 						)						
 					OR (
