@@ -1717,6 +1717,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Date.
+        /// </summary>
+        public static string GroupDate {
+            get {
+                return ResourceManager.GetString("GroupDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Name.
         /// </summary>
         public static string GroupName {

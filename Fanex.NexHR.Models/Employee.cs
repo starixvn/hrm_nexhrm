@@ -116,7 +116,7 @@
 
         public DefaultSchedule DefaultSchedule { get; set; }
 
-        public DateTime CompanyDate { get; set; }
+        public DateTime GroupDate { get; set; }
 
         public IList<short> RoleList
         {

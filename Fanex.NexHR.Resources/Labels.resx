@@ -1596,4 +1596,7 @@
   <data name="SuccessUpdateInfomation" xml:space="preserve">
     <value>Success update infomation</value>
   </data>
+  <data name="GroupDate" xml:space="preserve">
+    <value>Group Date</value>
+  </data>
 </root>

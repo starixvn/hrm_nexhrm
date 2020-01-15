@@ -631,7 +631,7 @@
                 UserRelationship = model.UserRelationship,
                 ContactPhone = model.ContactPhone,
                 ContactAddress = model.ContactAddress,
-                CompanyDate = model.CompanyDate
+                GroupDate = model.GroupDate
             };
 
             return criteria;

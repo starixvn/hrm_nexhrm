@@ -84,7 +84,7 @@
 
         public string ContactAddress { get; set; }
 
-        public DateTime CompanyDate { get; set; }
+        public DateTime GroupDate { get; set; }
 
         public override bool IsValid()
         {

@@ -38,7 +38,7 @@ CREATE PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
 	,@userRelationship NVARCHAR(10) = NULL
 	,@contactPhone VARCHAR(50) = NULL
 	,@contactAddress NVARCHAR(250) = NULL
-	,@companyDate DATE = NULL
+	,@groupDate DATE = NULL
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
 AS
@@ -78,7 +78,7 @@ BEGIN
             ,GroupId = @mainGroupID
             ,[Roles] = @roles
             ,JoinedDate = @joinedDate
-			,CompanyDate = CASE WHEN DATEDIFF(DD, '2012-01-01', @joinedDate) > 0 THEN @joinedDate ELSE CompanyDate END
+			,CompanyDate = @groupDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
             ,Skype = @skype
