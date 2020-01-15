@@ -319,7 +319,11 @@ BEGIN
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
 							)
-						)
+						OR ((SELECT COUNT(1)
+						FROM EmployeeCalendar
+						WHERE EmpId = @EmpId AND (DATEADD(DAY, 1, @FromDate) = WorkDate OR DATEADD(DAY, -1, @FromDate) = WorkDate) AND LeaveDay = 1) > 0
+							)
+						)						
 					OR (
 						@TotalDays >= 2
 						AND @TotalDays < 5

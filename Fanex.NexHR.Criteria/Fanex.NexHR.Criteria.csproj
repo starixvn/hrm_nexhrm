@@ -80,6 +80,7 @@
     <Compile Include="Employee\GetEmployeeByNickNameCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
+    <Compile Include="Employee\GetHRCriteria.cs" />
     <Compile Include="HistoryWork\DeleteHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\EditHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\FilterHistoryWorkCriteria.cs" />
