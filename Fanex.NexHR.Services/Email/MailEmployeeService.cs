@@ -8,6 +8,7 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
     using log4net;
+    using Fanex.NexHR.Resources;
 
     public class MailEmployeeService
     {
@@ -30,7 +31,7 @@
         {
             var bodyTemplate = ReadTextFile(Constants.EditEmployeeEmailTemplate);
             var emailContent = string.Format(bodyTemplate, _employee.NickName);
-            var emailSubject = $"{SenderName} - {Constants.SuccessUpdateInfomation}";
+            var emailSubject = $"{SenderName} - {Labels.SuccessUpdateInfomation}";
 
             EmailService.SendEmail(
                 SenderEmail,

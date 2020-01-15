@@ -1593,4 +1593,7 @@
   <data name="CompanyDate" xml:space="preserve">
     <value>Company Date</value>
   </data>
+  <data name="SuccessUpdateInfomation" xml:space="preserve">
+    <value>Success update infomation</value>
+  </data>
 </root>
