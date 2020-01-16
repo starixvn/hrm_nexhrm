@@ -301,4 +301,10 @@ You have just reached {1} working hours today.
 If you don't want to receive this category message, please use command: _stop_remind_reachedworkingtime_. 
 Thanks</value>
   </data>
+  <data name="RemarkRequireError" xml:space="preserve">
+    <value>The remark must be required and not be only spaces</value>
+  </data>
+  <data name="SuccessUpdateInformation" xml:space="preserve">
+    <value>Success update information</value>
+  </data>
 </root>

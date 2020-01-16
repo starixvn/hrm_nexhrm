@@ -31,7 +31,7 @@
         {
             var bodyTemplate = ReadTextFile(Constants.EditEmployeeEmailTemplate);
             var emailContent = string.Format(bodyTemplate, _employee.NickName);
-            var emailSubject = $"{SenderName} - {Labels.SuccessUpdateInfomation}";
+            var emailSubject = $"{SenderName} - {Messages.SuccessUpdateInformation}";
 
             EmailService.SendEmail(
                 SenderEmail,

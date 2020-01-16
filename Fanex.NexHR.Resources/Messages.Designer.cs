@@ -412,6 +412,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The remark must be required and not be only spaces.
+        /// </summary>
+        public static string RemarkRequireError {
+            get {
+                return ResourceManager.GetString("RemarkRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dear {0},
         ///You have just reached {1} working hours today. 
         ///
@@ -511,6 +520,15 @@ namespace Fanex.NexHR.Resources {
         public static string StopEditRequest {
             get {
                 return ResourceManager.GetString("StopEditRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success update information.
+        /// </summary>
+        public static string SuccessUpdateInformation {
+            get {
+                return ResourceManager.GetString("SuccessUpdateInformation", resourceCulture);
             }
         }
         

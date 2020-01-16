@@ -3931,15 +3931,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Success update infomation.
-        /// </summary>
-        public static string SuccessUpdateInfomation {
-            get {
-                return ResourceManager.GetString("SuccessUpdateInfomation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sun.
         /// </summary>
         public static string Sun {

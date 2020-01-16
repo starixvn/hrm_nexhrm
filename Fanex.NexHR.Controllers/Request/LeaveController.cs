@@ -12,6 +12,7 @@
     using Services;
     using Services.Interfaces;
     using ViewModels;
+    using Resources;
 
     public class LeaveController : BaseController
     {
@@ -99,6 +100,12 @@
             if (!ModelState.IsValid || leaveRequestViewModel.EmployeeId == 0)
             {
                 return View(leaveRequestViewModel);
+            }
+
+            if (string.IsNullOrEmpty(leaveRequestViewModel.Remark) || string.IsNullOrWhiteSpace(leaveRequestViewModel.Remark))
+            {
+                ModelState.AddModelError(string.Empty, Messages.RemarkRequireError);
+                return View(model);
             }
 
             var criteria = new InsertRequestCriteria
