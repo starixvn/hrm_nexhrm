@@ -317,11 +317,21 @@ BEGIN
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
 							)
-						OR ((SELECT COUNT(1)
-						FROM EmployeeCalendar
-						WHERE EmpId = @EmpId AND (DATEADD(DAY, 1, @FromDate) = WorkDate OR DATEADD(DAY, -1, @FromDate) = WorkDate) AND LeaveDay = 1 AND DATEDIFF(D, GETDATE(), WorkDate) <= 2) > 0
+						OR (SELECT COUNT(1)
+							FROM EmployeeCalendar
+							WHERE EmpId = @EmpId 
+								AND (DATEADD(DAY, 1, @FromDate) = WorkDate OR DATEADD(DAY, -1, @FromDate) = WorkDate )
+								AND LeaveDay = 1
+								AND DATEDIFF(D, GETDATE(), WorkDate) <= 2) > 0
 							)
-						)						
+						OR( SELECT COUNT(1) 
+							FROM EmployeeCalendar WITH (NOLOCK) 
+							WHERE (DATEADD(D, 1 , @FromDate) = WorkDate OR DATEADD(D, -1, @FromDate) = WorkDate) 
+								AND IsOffDay = 1 
+								AND (SELECT COUNT(1) 
+									FROM EmployeeCalendar WITH (NOLOCK) 
+									WHERE (DATEADD(D, 3 , @FromDate) = WorkDate OR DATEADD(D, -3, @FromDate) = WorkDate) AND LeaveDay = 1 AND DATEDIFF(D, GETDATE(),@FromDate)<= 4) > 0
+							) > 0
 					OR (
 						@TotalDays >= 2
 						AND @TotalDays < 5
@@ -506,5 +516,3 @@ BEGIN
 		SET @ErrCode = 0
 	END
 END
-
-

@@ -19,28 +19,26 @@ function initAddHistoryWorkDialog() {
                 text: 'Submit',
                 class: 'btn-submit waves-effect waves-light',
                 click: function () {
-
                     $.ajax({
                         type: 'POST',
                         url: _global.root + 'employee/InsertHistoryWork',
-                        dataType: 'json',                      
+                        dataType: 'json',
                         data: 
                             {
                                 EmpId: empId,
                                 AffectedDate: $("#AffectedDate").val(),
                                 GroupName: $("#GroupName").val(),
                                 Jobtitlename: $("#JobtitleName").val(),
-                            },                            
-                        success: function () {                            
+                            },
+                        success: function (){
                             if (data) {
                                 var errorCont = $('#divErrorCont');
                                 errorCont.removeClass();
                                 errorCont.html('');
-
                                 errorCont.addClass('success validation-summary-success');
-                                errorCont.append('Update History Work for Employee successfully!');                             
+                                errorCont.append('Update History Work for Employee successfully!');
                                 document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
-                            }  
+                            }
                             else {
                                 errorCont.addClass('validation-summary-errors');
                                 errorCont.append(('Update History Work failed!'));
@@ -69,7 +67,7 @@ function initialize() {
     $('#btnInsertHistoryWork').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'employee/InsertHistoryWork?employeeId=' + empId,         
+            url: _global.root + 'employee/InsertHistoryWork?employeeId=' + empId,
             dataType: 'html',
             success: function (data) {
                 $('#dialog-history').html(data);
@@ -132,7 +130,7 @@ function initEditHistoryWorkDialog() {
 
                                 if (data.IsSuccessful) {
                                     errorCont.addClass('success validation-summary-success');
-                                    errorCont.append('Update History Work for Employee successfully');                                 
+                                    errorCont.append('Update History Work for Employee successfully');
                                     document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
                                 }
                                 else {
@@ -164,7 +162,7 @@ function query(isFirstLoad) {
 
     $.ajax({
         type: 'GET',
-        url: _global.root + 'employee/HistoryWorkDetail',     
+        url: _global.root + 'employee/HistoryWorkDetail',
         dataType: 'html',
         data: $('form.form-filter').serialize(),
         beforeSend: function () {
@@ -198,7 +196,6 @@ function deleteHistoryWork(id,EmpId) {
                 else {
                     alert(response.Message);
                 }
-
             });
     });
 }
@@ -215,4 +212,3 @@ $(document).ready(function () {
         query(false);
     });
 });
-

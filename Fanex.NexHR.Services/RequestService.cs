@@ -306,7 +306,7 @@
 
                 if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day)
                 {
-                    IList<Employee> managers = GetData<Employee>(new GetHRCriteria()).ToList();
+                    IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
 
                     SendMailToManagers(managers, leaders, model, forDate);
                 }
