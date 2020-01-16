@@ -73,7 +73,7 @@
             const string fileName = "EmployeeProfile";
             const string sheetName = "Employee Profile";
             const int totalReportHeader = 3;
-            const int sizeColumns = 24;
+            const int sizeColumns = 29;
             const int rowFreezePane = 3;
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
@@ -243,25 +243,30 @@
                 employee.FullName,
                 Nick = employee.NickName,
                 DoB = employee.DateOfBirth,
+                employee.PlaceOfBirth,
                 employee.Email,
                 JobTitle = JobTitle(employee),
                 Team = FormatString(employee.Team.Name),
-                JoinedDate = employee.JoinedDate,
-                ConfirmedDate = employee.ConfirmedDate,
-                ResignedDate = employee.ResignedDate,
+                employee.JoinedDate,
+                employee.ConfirmedDate,
+                employee.ResignedDate,
                 Phone = FormatString(employee.Phone),
                 Gender = Gender(employee),
                 CardNo = FormatString(employee.CardNo),
-                IssuedDate = employee.IssuedDate,
+                employee.IssuedDate,
                 IssuedPlace = FormatString(employee.IssuedPlace),
                 CurrentAddress = FormatString(employee.CurrentAddress),
                 PermanentAddress = FormatString(employee.PermanentAddress),
                 PassportNo = FormatString(employee.PassportNo),
-                PassportExp = employee.PassportExp,
+                employee.PassportExp,
                 Listening = FormatToeicScore(employee.ToeicScore?.Listening),
                 Reading = FormatToeicScore(employee.ToeicScore?.Reading),
                 Speaking = FormatToeicScore(employee.ToeicScore?.Speaking),
-                Writing = FormatToeicScore(employee.ToeicScore?.Writing)
+                Writing = FormatToeicScore(employee.ToeicScore?.Writing),
+                employee.ContactName,
+                employee.UserRelationship,
+                employee.ContactPhone,
+                employee.ContactAddress
             };
             rowIndex++;
 
