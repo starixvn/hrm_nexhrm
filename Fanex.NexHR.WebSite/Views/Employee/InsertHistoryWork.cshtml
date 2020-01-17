@@ -22,7 +22,7 @@
             <label>@Labels.NewTeam</label>
         </div>
         <div class="left select--m" style="border: 1px solid #d0d0d0; border-radius: 3px; margin: 0 0 15px 0;">
-            @Html.DropDownListFor(model => model.GroupName, new SelectList(Model.Teams, "Name", "Name"))
+            @Html.DropDownListFor(model => model.GroupName, new SelectList(Model.Teams, "Name", "Name", Model.Employee.Team.Name))
         </div>
     </div>
     <div class="row form-input">
@@ -30,7 +30,7 @@
             <label>@Labels.NewJobTitle</label>
         </div>
         <div class="left select--m" style="border: 1px solid #d0d0d0;border-radius: 3px;">
-            @Html.DropDownListFor(model => model.JobtitleName, new SelectList(Model.JobTitles, "Name", "Name"))
+            @Html.DropDownListFor(model => model.JobtitleName, new SelectList(Model.JobTitles, "Name", "Name",Model.Employee.JobTitle.Name))
         </div>
     </div>
 </form>

@@ -150,6 +150,7 @@
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             history.Teams = _teamService.GetTeam();
+            history.Employee = GetEmployeeById(employeeId);
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
             history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 

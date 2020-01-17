@@ -1569,7 +1569,7 @@
   <data name="CurrentTeam" xml:space="preserve">
     <value>Current Team</value>
   </data>
-  <data name="UpdateJobOrTeam" xml:space="preserve">
+  <data name="UpdateJobtitleOrTeam" xml:space="preserve">
     <value>Update Jobtitle or Team</value>
   </data>
   <data name="UpdateJobtitle" xml:space="preserve">

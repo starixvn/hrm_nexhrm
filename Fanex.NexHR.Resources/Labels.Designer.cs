@@ -4228,20 +4228,20 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Jobtitle or Team.
-        /// </summary>
-        public static string UpdateJobOrTeam {
-            get {
-                return ResourceManager.GetString("UpdateJobOrTeam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update Jobtitle.
         /// </summary>
         public static string UpdateJobtitle {
             get {
                 return ResourceManager.GetString("UpdateJobtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Jobtitle or Team.
+        /// </summary>
+        public static string UpdateJobtitleOrTeam {
+            get {
+                return ResourceManager.GetString("UpdateJobtitleOrTeam", resourceCulture);
             }
         }
         
