@@ -12,6 +12,7 @@ DB: NexEPA
 Original: 
 
 Revisions:  
+	20200120@Merlin.Le: Order by employee rank and code
 Param's Explanation:
 
 */
@@ -125,13 +126,22 @@ BEGIN
 		e.Id,
 		e.Code,
 		e.NickName,
-		e.FullName
+		e.FullName,
+		(CASE e.Id
+            WHEN g.LeaderId THEN 2
+            WHEN g.AssistantLeaderId THEN 1
+            ELSE 0 END
+        ) AS EmployeeRank
 	FROM dbo.Employee AS e WITH (NOLOCK)
 		LEFT JOIN #TblTeamWorkHours AS h ON e.Id = h.EmpId
 		LEFT JOIN #TblReport AS re ON e.Id = re.EmpId
-     WHERE e.GroupId = @GroupId
+        INNER JOIN dbo.EmployeeGroup g WITH (NOLOCK) ON g.ID = e.GroupId
+    WHERE e.GroupId = @GroupId
 	AND e.Enabled = 1
 	AND ISNULL(e.isDeleted, 0) = 0
+	ORDER BY
+        EmployeeRank DESC
+        ,e.code ASC
 
 	DROP TABLE #TblReport
 	DROP TABLE #TblNickNames
