@@ -2,27 +2,53 @@
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th rowspan="2">@Labels.SymbolCount</th>
-            <th rowspan="2">@Labels.Nick</th>
-            <th rowspan="2">@Labels.Team</th>
-            <th rowspan="2">@Labels.JobTitle</th>
+            <th rowspan="2">
+                @Labels.SymbolCount
+            </th>
+            <th class="col-sorter" rowspan="2">
+                @Labels.Nick
+                <div class="sorter" data-property="NickName"></div>
+            </th>
+            <th class="col-sorter" rowspan="2">
+                @Labels.Team
+                <div class="sorter" data-property="Team"></div>
+            </th>
+            <th class="col-sorter" rowspan="2">
+                @Labels.JobTitle
+                <div class="sorter" data-property="JobTitle"></div>
+            </th>
             <th colspan="4">@Labels.Listening/@Labels.Reading</th>
-            @*<th colspan="3">@Labels.Speaking/@Labels.Writing</th>*@
-            <th rowspan="2">@Labels.Deadline</th>
+            <th class="col-sorter" rowspan="2">
+                @Labels.Deadline
+                <div class="sorter" data-property="Deadline"></div>
+            </th>
             @if (Roles.IsUserInRole("HR"))
             {
-                <th rowspan="2">@Labels.RequiredScore</th>
-                <th rowspan="2">@Labels.Edit</th>
+            <th class="col-sorter" rowspan="2">
+                @Labels.RequiredScore
+                <div class="sorter" data-property="RequiredScore"></div>
+            </th>
+                <th rowspan="2">@Labels.Edit
+            </th>
             }
         </tr>
         <tr>
-            <th>@Labels.L</th>
-            <th>@Labels.R</th>
-            <th>@Labels.LRTotal</th>
-            <th style="border-right: none;">@Labels.ExamDate</th>
-            @*<th>@Labels.S</th>
-            <th>@Labels.W</th>
-            <th>@Labels.ExamDate</th>*@
+            <th class="col-sorter">
+                @Labels.L
+                <div class="sorter" data-property="Listening"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.R
+                <div class="sorter" data-property="Reading"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.LRTotal
+                <div class="sorter" data-property="LRTotal"></div>
+            </th>
+            <th class="col-sorter" style="border-right: none;">
+                @Labels.ExamDate
+                <div class="sorter" data-property="ExamDate"></div>
+            </th>
         </tr>
     </thead>
     <tbody>

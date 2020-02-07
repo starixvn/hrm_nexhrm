@@ -2,7 +2,8 @@
 /*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead */
 /*exported index, isShowEdit, editTOEIC, isExpiredDate */
 
-var rowIndex = 1;
+var rowIndex = 1,
+    sorts = [];
 
 function index() {
     return rowIndex++;
@@ -42,7 +43,7 @@ function query(isFirstLoad) {
     $.ajax({
         url: _global.root + 'toeic/ToeicManagementDetail',
         dataType: 'html',
-        data: $('form.form-filter').serialize(),
+        data: $('form.form-filter').serialize() + '&sort=' + JSON.stringify(sorts),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -263,9 +264,49 @@ function calculateOldToeicScore() {
     $('#frmUpdFullTOEIC').find('input[name=OldTotal]').val(oldTotal);
 }
 
+function eventSorting() {
+    $('html').on('click', 'th.col-sorter', function () {
+        var $this = $(this).find('div.sorter'),
+            property = $this.attr('data-property'),
+            direction, index;
+
+        index = sorts.map(function (e) { return e.Property; }).indexOf(property);
+
+        if ($this.hasClass('desc')) {
+            $this.removeClass('desc').addClass('asc');
+            direction = 'asc';
+        } else if ($this.hasClass('asc')) {
+            $this.removeClass('asc').addClass('desc');
+            direction = 'desc';
+        } else {
+            refreshSorting();
+            $this.addClass('desc');
+            direction = 'desc';
+        }
+
+        if (index !== -1) {
+            sorts[index].Direction = direction;
+        } else {
+            sorts.shift();
+            sorts.push({ Property: property, Direction: direction });
+        }
+
+        query(false);
+    });
+}
+
+function refreshSorting() {
+    sorts = [];
+
+    $('th.col-sorter').each(function () {
+        $(this).find('div.sorter').removeClass('asc').removeClass('desc');
+    });
+}
+
 $(document).ready(function () {
     initialize();
 
+    eventSorting();
+
     query(true);
 });
-

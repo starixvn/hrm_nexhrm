@@ -135,7 +135,8 @@
             int? empId,
             int? groupId,
             short attendanceType,
-            bool excludeUserDelete)
+            bool excludeUserDelete,
+            string sort = null)
         {
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
@@ -148,6 +149,13 @@
             };
 
             IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+
+                employeeAttendances = Utilities.MultipleSort(employeeAttendances, sorts);
+            }
 
             string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
             ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);

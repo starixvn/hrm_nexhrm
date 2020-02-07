@@ -135,9 +135,8 @@ $(document).ready(function () {
     });
 
     $('#btnExport').click(function () {
-        var date = 0;
-        document.location = _global.root + "export/TotalWorkingHours?DateTimeNow=" + $('#DateTimeNow').val() + '&Date=' + date + '&DateOption=' + $('#DateOption').val() + '&FromDate=' + $('#FromDate').val() + '&ToDate=' + $('#ToDate').val() + '&TeamId=' + $('#TeamId').val() + '&Employee=' + $('#Employee').val() + '&EmployeeId=' + $('#EmployeeId').val() + '&IsExportExcel=' + false + '&sort=' + JSON.stringify(sorts);
-    });
+        document.location = _global.root + "export/TotalWorkingHours?" + $("#form").serialize() + '&sort=' + JSON.stringify(sorts);
+      });
 
     $('#FromDate, #ToDate').on('change', function () {
         $('#Date').val('0');

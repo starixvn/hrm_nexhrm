@@ -54,25 +54,25 @@ function initTooltip() {
         title: function () {
             var object = $(this);
             var result = getRequestDetail(
-                        object.attr('data-requesttype'),
-                        object.attr('data-fromdate'),
-                        object.attr('data-todate'),
-                        object.attr('data-createddate'),
-                        object.attr('data-fromshift'),
-                        object.attr('data-toshift'),
-                        object.attr('data-totaldays'),
-                        object.attr('data-totalmins'));
+                object.attr('data-requesttype'),
+                object.attr('data-fromdate'),
+                object.attr('data-todate'),
+                object.attr('data-createddate'),
+                object.attr('data-fromshift'),
+                object.attr('data-toshift'),
+                object.attr('data-totaldays'),
+                object.attr('data-totalmins'));
 
             return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Details</td>" +
-                            "<td>" + result + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Remark</td>" +
-                            "<td>" + object.attr('data-remark') + "</td>" +
-                        "</tr>" +
-                    "</table>";
+                "<tr>" +
+                "<td>Details</td>" +
+                "<td>" + result + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Remark</td>" +
+                "<td>" + object.attr('data-remark') + "</td>" +
+                "</tr>" +
+                "</table>";
         }
     });
 }
@@ -90,7 +90,7 @@ function query(isFirstLoad) {
 
     $.ajax({
         url: _global.root + 'report/ListAttendance',
-        data: $('form.form-filter').serialize(),
+        data: $('form.form-filter').serialize() + '&sort=' + JSON.stringify(sorts),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -130,13 +130,13 @@ function initExportExcel() {
 
         window.location.href = _global.root + 'Export/Attendance?fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val() +
             '&empId=' + $('#EmployeeId').val() + '&groupId=' + $('#GroupId').val() +
-            '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete').prop('checked');
+            '&attendanceType=' + $('#AttendanceType').val() + '&excludeUserDelete=' + $('#ExcludeUserDelete').prop('checked') + '&sort=' + JSON.stringify(sorts);
     });
 }
 
 function eventSorting() {
-    $('th.col-sorter').on('click', function () {
-        var $this = $(this).find('div.sorter'),
+    $('html').on('click', 'th.col-sorter', function () {
+        var $this = $(this).find('div.sorter','th.col-sorter'),
             property = $this.attr('data-property'),
             direction, index;
 
@@ -154,21 +154,26 @@ function eventSorting() {
             direction = 'desc';
         }
 
-        if (index !== -1) {
-            sorts[index].Direction = direction;
-        } else {
-            sorts.shift();
-            sorts.push({ Property: property, Direction: direction });
-        }
+        sorts.shift();
+        sorts.push({ Property: property, Direction: direction });
 
         query(false);
     });
 }
 
+function refreshSorting() {
+    sorts = [];
+
+    $('th.col-sorter').each(function () {
+        $(this).find('div.sorter').removeClass('asc').removeClass('desc');
+    });
+}
+
 $(document).ready(function () {
-    eventSorting()
     initAutocomplete('#Employee', '#EmployeeId');
     initExportExcel();
+
+    eventSorting();
 
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());

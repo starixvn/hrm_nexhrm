@@ -98,9 +98,27 @@
                     };
                     ViewBag.PagerOption = pagerOption;
                 }
+
+                attendances = SortAttendance(model.Sort, attendances);
+            }
+            return PartialView("_ListAttendance", attendances);
+        }
+
+        private static IList<EmployeeAttendanceModel> SortAttendance(string sort, IList<EmployeeAttendanceModel> attendances)
+        {
+            IList<EmployeeAttendanceModel> attendancesSorted;
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                attendancesSorted = Utilities.MultipleSort(attendances, sorts);
+            }
+            else
+            {
+                attendancesSorted = attendances;
             }
 
-            return PartialView("_ListAttendance", attendances);
+            return attendancesSorted;
         }
 
         [Authorize(Roles = "SpecialUser")]

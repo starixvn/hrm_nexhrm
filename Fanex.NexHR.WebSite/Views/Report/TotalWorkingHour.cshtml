@@ -20,7 +20,7 @@
                 <div class="card-body">
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                     {
-                        @Html.Hidden("DateTimeNow", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
                             <div class="row form-input">
                                 <div class="col m-r--l">

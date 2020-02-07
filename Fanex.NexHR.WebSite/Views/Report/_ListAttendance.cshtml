@@ -4,13 +4,13 @@
     var pagerOption = ViewBag.PagerOption;
 }
 
-<table id="data" class="table bordered striped highlight table-custom centered">
+<table id="data" class="table bordered striped highlight centered responsive-table table-custom">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
             <th class="col-sorter">
                 @Labels.Date
-                <div class="sorter" data-property="Date"></div>
+                <div class="sorter" data-property="AttendanceDate"></div>
             </th>
             <th class="col-sorter">
                 @Labels.Code
@@ -30,19 +30,19 @@
             </th>
             <th class="col-sorter">
                 @Labels.Shift
-                <div class="sorter" data-property="Shift"></div>
+                <div class="sorter" data-property="ShiftCode"></div>
             </th>
             <th class="col-sorter">
                 @Labels.CheckIn
-                <div class="sorter" data-property="CheckIn"></div>
+                <div class="sorter" data-property="InFixed"></div>
             </th>
             <th class="col-sorter">
                 @Labels.CheckOut
-                <div class="sorter" data-property="CheckOut"></div>
+                <div class="sorter" data-property="OutFixed"></div>
             </th>
             <th class="col-sorter">
                 @Labels.TotalHours
-                <div class="sorter" data-property="TotalHours"></div>
+                <div class="sorter" data-property="TotalWorkHours"></div>
             </th>
             <th class="col-sorter">
                 @Labels.LateIn
@@ -55,7 +55,7 @@
             <th>@Labels.Request</th>
             <th class="col-sorter">
                 @Labels.Note
-                <div class="sorter" data-property="Note"></div>
+                <div class="sorter" data-property="Notes"></div>
         </tr>
     </thead>
 
