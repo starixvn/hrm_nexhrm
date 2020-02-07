@@ -37,5 +37,7 @@
         public int? TeamId { get; set; }
 
         public IList<Team> Teams { get; set; }
+
+        public string Sort { get; set; }
     }
 }

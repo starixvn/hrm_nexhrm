@@ -3,17 +3,19 @@
 /*exported index*/
 'use strict';
 
-var rowIndex = 1;
+var rowIndex = 1,
+    sorts = [];
 
 function index() {
     return rowIndex++;
 }
 
 function query(isFirstLoad) {
+    var date = 0;
     $.ajax({
         url: _global.root + 'report/gettotalworkinghour',
         type: 'POST',
-        data: $("#form").serialize(),
+        data: { DateTimeNow: $('#DateTimeNow').val(), Date:date, DateOption: $('#DateOption').val(), FromDate: $('#FromDate').val(), ToDate: $('#ToDate').val(), TeamId: $('#TeamId').val(), Employee: $('#Employee').val(), EmployeeId: $('#EmployeeId').val(), IsExportExcel: false, sort: JSON.stringify(sorts) },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -74,6 +76,45 @@ function query(isFirstLoad) {
     });
 }
 
+function eventSorting() {
+    $('th.col-sorter').on('click', function () {
+        var $this = $(this).find('div.sorter'),
+            property = $this.attr('data-property'),
+            direction, index;
+
+        index = sorts.map(function (e) { return e.Property; }).indexOf(property);
+
+        if ($this.hasClass('desc')) {
+            $this.removeClass('desc').addClass('asc');
+            direction = 'asc';
+        } else if ($this.hasClass('asc')) {
+            $this.removeClass('asc').addClass('desc');
+            direction = 'desc';
+        } else {
+            refreshSorting();
+            $this.addClass('desc');
+            direction = 'desc';
+        }
+
+        if (index !== -1) {
+            sorts[index].Direction = direction;
+        } else {
+            sorts.shift();
+            sorts.push({ Property: property, Direction: direction });
+        }
+
+        query(false);
+    });
+}
+
+function refreshSorting() {
+    sorts = [];
+
+    $('th.col-sorter').each(function () {
+        $(this).find('div.sorter').removeClass('asc').removeClass('desc');
+    });
+}
+
 $(document).ready(function () {
     $("#Date").change(function () {
         setDateTimeRange($("#Date").val());
@@ -81,19 +122,22 @@ $(document).ready(function () {
         $(".DateOption").val($("#Date").val());
     });
 
+    eventSorting();
+
     //search onload
     query(true);
 
     $('#btnSubmit').click(function (evt) {
         evt.preventDefault();
-
+        refreshSorting();
         if (validateFromDateAndToDate()) {
             query(false);
         }
     });
 
     $('#btnExport').click(function () {
-        document.location = _global.root + "export/TotalWorkingHours?" + $("#form").serialize();
+        var date = 0;
+        document.location = _global.root + "export/TotalWorkingHours?DateTimeNow=" + $('#DateTimeNow').val() + '&Date=' + date + '&DateOption=' + $('#DateOption').val() + '&FromDate=' + $('#FromDate').val() + '&ToDate=' + $('#ToDate').val() + '&TeamId=' + $('#TeamId').val() + '&Employee=' + $('#Employee').val() + '&EmployeeId=' + $('#EmployeeId').val() + '&IsExportExcel=' + false + '&sort=' + JSON.stringify(sorts);
     });
 
     $('#FromDate, #ToDate').on('change', function () {

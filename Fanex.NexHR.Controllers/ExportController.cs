@@ -75,6 +75,14 @@
             };
 
             IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+
+            if (model.Sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(model.Sort);
+
+                listTotalWorkingHours = Utilities.MultipleSort(listTotalWorkingHours, sorts);
+            }
+
             string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
 
             ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);

@@ -2,6 +2,8 @@
 /*exported*/
 "use strict";
 
+var sorts = [];
+
 function initPagination() {
     var currentPage = $('table#data #pagination #CurrentPage').val(),
         itemsOnPage = $('table#data #pagination #ItemsPerPage').val(),
@@ -132,7 +134,39 @@ function initExportExcel() {
     });
 }
 
+function eventSorting() {
+    $('th.col-sorter').on('click', function () {
+        var $this = $(this).find('div.sorter'),
+            property = $this.attr('data-property'),
+            direction, index;
+
+        index = sorts.map(function (e) { return e.Property; }).indexOf(property);
+
+        if ($this.hasClass('desc')) {
+            $this.removeClass('desc').addClass('asc');
+            direction = 'asc';
+        } else if ($this.hasClass('asc')) {
+            $this.removeClass('asc').addClass('desc');
+            direction = 'desc';
+        } else {
+            refreshSorting();
+            $this.addClass('desc');
+            direction = 'desc';
+        }
+
+        if (index !== -1) {
+            sorts[index].Direction = direction;
+        } else {
+            sorts.shift();
+            sorts.push({ Property: property, Direction: direction });
+        }
+
+        query(false);
+    });
+}
+
 $(document).ready(function () {
+    eventSorting()
     initAutocomplete('#Employee', '#EmployeeId');
     initExportExcel();
 

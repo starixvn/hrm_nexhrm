@@ -77,19 +77,21 @@ function eventSorting() {
         index = sorts.map(function (e) { return e.Property; }).indexOf(property);
 
         if ($this.hasClass('desc')) {
-            $this.removeClass('asc').removeClass('desc').addClass('asc');
+            $this.removeClass('desc').addClass('asc');
             direction = 'asc';
         } else if ($this.hasClass('asc')) {
-            $this.removeClass('asc').removeClass('desc').addClass('desc');
+            $this.removeClass('asc').addClass('desc');
             direction = 'desc';
         } else {
-            $this.removeClass('asc').removeClass('desc').addClass('desc');
+            refreshSorting();
+            $this.addClass('desc');
             direction = 'desc';
         }
 
         if (index !== -1) {
             sorts[index].Direction = direction;
         } else {
+            sorts.shift();
             sorts.push({ Property: property, Direction: direction });
         }
 

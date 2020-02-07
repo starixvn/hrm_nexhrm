@@ -1596,4 +1596,10 @@
   <data name="GroupDate" xml:space="preserve">
     <value>Group Date</value>
   </data>
+  <data name="ForCompany" xml:space="preserve">
+    <value>For Company</value>
+  </data>
+  <data name="ForInsurance" xml:space="preserve">
+    <value>For Insurance</value>
+  </data>
 </root>

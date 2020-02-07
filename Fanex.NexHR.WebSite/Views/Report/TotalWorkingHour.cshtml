@@ -20,7 +20,7 @@
                 <div class="card-body">
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                     {
-                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        @Html.Hidden("DateTimeNow", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <div class="form">
                             <div class="row form-input">
                                 <div class="col m-r--l">
@@ -81,25 +81,85 @@
                                     <thead>
                                         <tr>
                                             <th rowspan="2">@Labels.SymbolCount</th>
-                                            <th rowspan="2">@Labels.Code</th>
-                                            <th rowspan="2">@Labels.FullName</th>
-                                            <th rowspan="2">@Labels.Nick</th>
-                                            <th rowspan="2">@Labels.Team</th>
-                                            <th rowspan="2">@Labels.WorkigDay</th>
-                                            <th rowspan="2">@Labels.ActualWorkingDay</th>
-                                            <th colspan="2">For Company</th>
-                                            <th colspan="2">For Insurance</th>
-                                            <th rowspan="2">@Labels.UnpaidLeave</th>
-                                            <th rowspan="2">@Labels.LateIn</th>
-                                            <th rowspan="2">@Labels.EarlyOut</th>
-                                            <th rowspan="2">@Labels.TotalHours</th>
-                                            <th rowspan="2">@Labels.AverageHours</th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Code
+                                                <div class="sorter" data-property="Code">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.FullName
+                                                <div class="sorter" data-property="FullName">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Nick
+                                                <div class="sorter" data-property="NickName">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Team
+                                                <div class="sorter" data-property="Team">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.WorkigDay
+                                                <div class="sorter" data-property="WorkigDay">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.ActualWorkingDay
+                                                <div class="sorter" data-property="ActualWorkingDay">
+                                                </div>
+                                            </th>
+                                            <th colspan="2">@Labels.ForCompany</th>
+                                            <th colspan="2">@Labels.ForInsurance</th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.UnpaidLeave
+                                                <div class="sorter" data-property="UnpaidLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.LateIn
+                                                <div class="sorter" data-property="LateIn">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.EarlyOut
+                                                <div class="sorter" data-property="EarlyOut">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.TotalHours
+                                                <div class="sorter" data-property="TotalHours">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.AverageHours
+                                                <div class="sorter" data-property="AverageHours">
+                                                </div>
+                                            </th>
                                         </tr>
                                         <tr>
-                                            <th>@Labels.AnnualLeave</th>
-                                            <th>@Labels.Others</th>
-                                            <th>@Labels.SickLeave</th>
-                                            <th>@Labels.Others</th>
+                                            <th class="col-sorter">
+                                                @Labels.AnnualLeave
+                                                <div class="sorter" data-property="AnnualLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.Others
+                                                <div class="sorter" data-property="Others">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.SickLeave
+                                                <div class="sorter" data-property="SickLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.Others
+                                                <div class="sorter" data-property="Others">
+                                                </div>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>

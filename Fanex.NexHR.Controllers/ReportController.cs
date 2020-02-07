@@ -7,8 +7,10 @@
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Report;
+    using Fanex.NexHR.Core.Model;
     using Models;
     using Models.Report;
+    using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
     using ViewModels;
@@ -284,7 +286,26 @@
 
             IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
+            IList<TotalWorkingHours> totalWorkingHour = SortTotalWorking(model.Sort, totalWorkingHours);
+
+            return Json(totalWorkingHour, JsonRequestBehavior.AllowGet);
+        }
+
+        private static IList<TotalWorkingHours> SortTotalWorking(string sort, IList<TotalWorkingHours> totalWorkingHours)
+        {
+            IList<TotalWorkingHours> totalWorkingSorted;
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                totalWorkingSorted = Utilities.MultipleSort(totalWorkingHours, sorts);
+            }
+            else
+            {
+                totalWorkingSorted = totalWorkingHours;
+            }
+
+            return totalWorkingSorted;
         }
 
         [ValidateInput(false)]

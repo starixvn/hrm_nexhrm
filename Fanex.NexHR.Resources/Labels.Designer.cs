@@ -1609,11 +1609,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For Company.
+        /// </summary>
+        public static string ForCompany {
+            get {
+                return ResourceManager.GetString("ForCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to For Info.
         /// </summary>
         public static string ForInfo {
             get {
                 return ResourceManager.GetString("ForInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For Insurance.
+        /// </summary>
+        public static string ForInsurance {
+            get {
+                return ResourceManager.GetString("ForInsurance", resourceCulture);
             }
         }
         

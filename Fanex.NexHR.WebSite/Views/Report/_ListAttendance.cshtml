@@ -8,19 +8,54 @@
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
-            <th>@Labels.Date</th>
-            <th>@Labels.Code</th>
-            <th>@Labels.Nick</th>
-            <th>@Labels.FullName</th>
-            <th>@Labels.Team</th>
-            <th>@Labels.Shift</th>
-            <th>@Labels.CheckIn</th>
-            <th>@Labels.CheckOut</th>
-            <th>@Labels.TotalHours</th>
-            <th>@Labels.LateIn</th>
-            <th>@Labels.EarlyOut</th>
+            <th class="col-sorter">
+                @Labels.Date
+                <div class="sorter" data-property="Date"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Code
+                <div class="sorter" data-property="Code"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Nick
+                <div class="sorter" data-property="NickName"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.FullName
+                <div class="sorter" data-property="FullName"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Team
+                <div class="sorter" data-property="Team"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Shift
+                <div class="sorter" data-property="Shift"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.CheckIn
+                <div class="sorter" data-property="CheckIn"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.CheckOut
+                <div class="sorter" data-property="CheckOut"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.TotalHours
+                <div class="sorter" data-property="TotalHours"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.LateIn
+                <div class="sorter" data-property="LateIn"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.EarlyOut
+                <div class="sorter" data-property="EarlyOut"></div>
+            </th>
             <th>@Labels.Request</th>
-            <th>@Labels.Note</th>
+            <th class="col-sorter">
+                @Labels.Note
+                <div class="sorter" data-property="Note"></div>
         </tr>
     </thead>
 
