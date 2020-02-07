@@ -30,6 +30,7 @@
         public IList<Team> Teams { get; set; }
 
         public bool IsDisplayTeamAttendence { get; set; }
+
         public string Sort { get; set; }
     }
 }

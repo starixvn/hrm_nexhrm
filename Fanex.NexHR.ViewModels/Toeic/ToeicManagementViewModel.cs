@@ -20,5 +20,7 @@
         public IList<Team> Teams { get; set; }
 
         public IList<JobTitle> JobTitles { get; set; }
+
+        public string Sort { get; set; }
     }
 }

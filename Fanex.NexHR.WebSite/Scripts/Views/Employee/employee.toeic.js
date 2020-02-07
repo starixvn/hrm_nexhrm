@@ -284,12 +284,8 @@ function eventSorting() {
             direction = 'desc';
         }
 
-        if (index !== -1) {
-            sorts[index].Direction = direction;
-        } else {
             sorts.shift();
             sorts.push({ Property: property, Direction: direction });
-        }
 
         query(false);
     });

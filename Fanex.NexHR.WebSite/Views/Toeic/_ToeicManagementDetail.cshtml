@@ -1,57 +1,5 @@
 ﻿@model IList<Employee>
-<table id="data" class="table bordered striped highlight centered table-custom">
-    <thead>
-        <tr>
-            <th rowspan="2">
-                @Labels.SymbolCount
-            </th>
-            <th class="col-sorter" rowspan="2">
-                @Labels.Nick
-                <div class="sorter" data-property="NickName"></div>
-            </th>
-            <th class="col-sorter" rowspan="2">
-                @Labels.Team
-                <div class="sorter" data-property="Team"></div>
-            </th>
-            <th class="col-sorter" rowspan="2">
-                @Labels.JobTitle
-                <div class="sorter" data-property="JobTitle"></div>
-            </th>
-            <th colspan="4">@Labels.Listening/@Labels.Reading</th>
-            <th class="col-sorter" rowspan="2">
-                @Labels.Deadline
-                <div class="sorter" data-property="Deadline"></div>
-            </th>
-            @if (Roles.IsUserInRole("HR"))
-            {
-            <th class="col-sorter" rowspan="2">
-                @Labels.RequiredScore
-                <div class="sorter" data-property="RequiredScore"></div>
-            </th>
-                <th rowspan="2">@Labels.Edit
-            </th>
-            }
-        </tr>
-        <tr>
-            <th class="col-sorter">
-                @Labels.L
-                <div class="sorter" data-property="Listening"></div>
-            </th>
-            <th class="col-sorter">
-                @Labels.R
-                <div class="sorter" data-property="Reading"></div>
-            </th>
-            <th class="col-sorter">
-                @Labels.LRTotal
-                <div class="sorter" data-property="LRTotal"></div>
-            </th>
-            <th class="col-sorter" style="border-right: none;">
-                @Labels.ExamDate
-                <div class="sorter" data-property="ExamDate"></div>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+
         @if (Model.Any())
         {
             var index = 0;
@@ -157,5 +105,3 @@
         {
             @RazorHelper.DisplayNoInformation(13)
         }
-    </tbody>
-</table>

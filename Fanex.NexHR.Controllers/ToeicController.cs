@@ -3,7 +3,9 @@
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
+    using Fanex.NexHR.Core.Model;
     using Models;
+    using Newtonsoft.Json;
     using Resources;
     using Services;
     using Services.Interfaces;
@@ -76,10 +78,31 @@
                     Query = model.Query,
                     GroupId = model.TeamId
                 };
+
                 employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+                employees = SortToeic(model.Sort, employees);
             }
 
+            ViewBag.Sort = model.Sort;
+
             return PartialView("_ToeicManagementDetail", employees);
+        }
+
+        private static IList<Employee> SortToeic(string sort, IList<Employee> employees)
+        {
+            IList<Employee> toeicSorted;
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                toeicSorted = Utilities.MultipleSort(employees, sorts);
+            }
+            else
+            {
+                toeicSorted = employees;
+            }
+
+            return toeicSorted;
         }
 
         [HttpGet]
