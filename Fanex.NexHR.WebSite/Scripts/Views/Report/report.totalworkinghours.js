@@ -11,11 +11,10 @@ function index() {
 }
 
 function query(isFirstLoad) {
-    var date = 0;
     $.ajax({
         url: _global.root + 'report/gettotalworkinghour',
         type: 'POST',
-        data: { DateTimeNow: $('#DateTimeNow').val(), Date:date, DateOption: $('#DateOption').val(), FromDate: $('#FromDate').val(), ToDate: $('#ToDate').val(), TeamId: $('#TeamId').val(), Employee: $('#Employee').val(), EmployeeId: $('#EmployeeId').val(), IsExportExcel: false, sort: JSON.stringify(sorts) },
+        data: $("#form").serialize() + '&sort=' + JSON.stringify(sorts),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
