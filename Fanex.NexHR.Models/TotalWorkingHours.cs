@@ -25,5 +25,14 @@
         public float TotalHours { get; set; }
 
         public float AverageHours { get; set; }
+
+        public string Code => Employee != null ? Employee.Code : string.Empty;
+
+        public string FullName => Employee != null ? Employee.CodeOfTeam : string.Empty;
+
+        public string NickName => Employee != null ? Employee.NickName : string.Empty;
+
+        public string CodeOfTeam => Employee != null ? Employee.CodeOfTeam : string.Empty;
+
     }
 }

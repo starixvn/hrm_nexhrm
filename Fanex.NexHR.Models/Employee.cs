@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -78,6 +77,8 @@
 
         public JobTitle JobTitle { get; set; }
 
+        public string JobTitles => JobTitle != null ? JobTitle.Name : string.Empty;
+
         public string Address { get; set; }
 
         public string PermanentAddress { get; set; }
@@ -111,6 +112,18 @@
         public string DistanceToCompany { get; set; }
 
         public Toeic ToeicScore { get; set; }
+
+        public int? Listening => ToeicScore != null ? ToeicScore.Listening : 0;
+
+        public int? Reading => ToeicScore != null ? ToeicScore.Reading : 0;
+
+        public int? LRTotal => ToeicScore != null ? ToeicScore.LRTotal : 0;
+
+        public int? RequiredScore => ToeicScore != null ? ToeicScore.MinimumScore : 0;
+
+        public DateTime? InputDate => ToeicScore != null ? ToeicScore.InputDate : null;
+
+        public DateTime? LRExamDate => ToeicScore != null ? ToeicScore.LRExamDate : null;
 
         public string ConversationId { get; set; }
 
