@@ -43,7 +43,7 @@ BEGIN
 			FROM HistoryWork as h
 			WHERE h.GroupId = g.Id AND h.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear) AS [JoinTeam]
 		 ,(SELECT COUNT(m.Id) 
-			FROM (select * 
+			FROM (select Id, EmpId, AffectedDate, ModifiedBy, ModifiedDate, JobtitleId, JobtitleName, GroupId, GroupName
 					from HistoryWork as h
 					Where h.AffectedDate not in (select top 1 AffectedDate 
 													from HistoryWork
@@ -53,7 +53,7 @@ BEGIN
 			WHERE m.GroupId = g.Id AND m.AffectedDate BETWEEN @startDateOfYear AND @endDateOfYear)	AS [MoveTeam]
 
 
-	FROM [dbo].EmployeeGroup As g WITH (NOLOCK)		
+	FROM [dbo].EmployeeGroup As g WITH (NOLOCK)
 		INNER JOIN [dbo].Employee AS e WITH (NOLOCK) ON e.GroupId = g.Id
 	WHERE ISNULL(g.Deleted, 0) = 0
 		AND e.IsSpecialUser = 0
