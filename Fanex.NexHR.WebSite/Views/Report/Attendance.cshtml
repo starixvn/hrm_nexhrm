@@ -103,11 +103,66 @@
                             </div>
                         </form>
                     </div>
-                    <div id="attendance-detail" class="p-x--s">
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th class="col-sorter">
+                                        @Labels.Date
+                                        <div class="sorter" data-property="AttendanceDate"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.Code
+                                        <div class="sorter" data-property="Code"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.Nick
+                                        <div class="sorter" data-property="NickName"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.FullName
+                                        <div class="sorter" data-property="FullName"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.Team
+                                        <div class="sorter" data-property="Team"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.Shift
+                                        <div class="sorter" data-property="ShiftCode"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.CheckIn
+                                        <div class="sorter" data-property="InFixed"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.CheckOut
+                                        <div class="sorter" data-property="OutFixed"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.TotalHours
+                                        <div class="sorter" data-property="TotalWorkHours"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.LateIn
+                                        <div class="sorter" data-property="LateIn"></div>
+                                    </th>
+                                    <th class="col-sorter">
+                                        @Labels.EarlyOut
+                                        <div class="sorter" data-property="EarlyOut"></div>
+                                    </th>
+                                    <th>@Labels.Request</th>
+                                    <th class="col-sorter">
+                                        @Labels.Note
+                                        <div class="sorter" data-property="Notes"></div>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-detail"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

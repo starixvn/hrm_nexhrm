@@ -222,6 +222,7 @@ function initialize() {
     });
 
     $('form.form-filter #submit').on('click', function () {
+        refreshSorting();
         query(false);
     });
 
