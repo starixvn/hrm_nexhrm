@@ -241,6 +241,7 @@
     <Content Include="Content\Images\Dashboard\5.png" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
+    <Content Include="Content\Images\LumiHRM.png" />
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>

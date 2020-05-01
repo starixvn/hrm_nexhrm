@@ -117,21 +117,10 @@ namespace Fanex.NexHR.Controllers
         {
             foreach (AuthorizeAttribute item in attributes)
             {
-                if (CurrentUser.IsSpecialUser && !item.Roles.Contains("SpecialUser"))
+                if (!string.IsNullOrEmpty(item.Roles)
+                    && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
                 {
-                    if (!item.Roles.Contains("SpecialUser"))
-                    {
-                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
-                    }
-                }
-                else
-                {
-                    item.Roles = item.Roles.Replace("SpecialUser", string.Empty);
-                    if (!string.IsNullOrEmpty(item.Roles)
-                        && !Employee.IsInRoles(item.Roles.Split(',').ToList()))
-                    {
-                        filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
-                    }
+                    filterContext.Result = new RedirectResult("~/home/accessdenied?url=" + Request.Url?.AbsoluteUri);
                 }
             }
         }

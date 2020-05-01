@@ -39,13 +39,11 @@
             _nexbotService = nexbotService ?? new NexbotService();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult ListCheckInOutRequest(int year)
         {
             ViewBag.Year = year;
@@ -69,7 +67,6 @@
             return PartialView(checkInOutRequests);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Create(short? type = 1, DateTime? date = null, bool isCrossDate = false)
         {
             CheckInOutRequestViewModel viewModel = new CheckInOutRequestViewModel
@@ -92,7 +89,6 @@
             return View(viewModel);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
@@ -159,7 +155,6 @@
             });
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
@@ -189,7 +184,6 @@
             return View(model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [HttpPost]
         public ActionResult Update(CheckInOutRequestViewModel model)
         {

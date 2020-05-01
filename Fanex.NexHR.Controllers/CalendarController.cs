@@ -68,7 +68,6 @@
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public JsonResult GetWorkingSchedule(int employeeId, DateTime date)
         {
             var fromdate = new DateTime(date.Year, date.Month, 1);
@@ -83,7 +82,6 @@
             return Json(schedules, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult MyWorkingSchedule()
         {
             return View();

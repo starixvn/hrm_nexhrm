@@ -39,13 +39,11 @@
         }
         private const double day = 0.5;
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult EmployeeView()
         {
             return View();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult ListLeaveRequest(int year)
         {
             var criteria = new GetRequestCriteria
@@ -66,7 +64,6 @@
             return PartialView(leaveRequests);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Create(DateTime? fromDate, DateTime? toDate)
         {
             var model = new LeaveRequestViewModel
@@ -84,7 +81,6 @@
             return View(model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
@@ -169,7 +165,6 @@
             return model;
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
@@ -195,7 +190,6 @@
             return View(model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)

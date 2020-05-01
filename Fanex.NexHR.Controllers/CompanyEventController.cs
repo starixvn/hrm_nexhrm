@@ -26,19 +26,16 @@
             _eventService = eventService ?? new CompanyEventService();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Detail(int id)
         {
             return View(GetDetail(id));
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public JsonResult GetAllEvents()
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);

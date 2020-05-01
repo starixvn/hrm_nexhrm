@@ -121,7 +121,6 @@
             return attendancesSorted;
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public JsonResult GetEmployeeAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
@@ -147,7 +146,6 @@
             return Json(employeeAttendances);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Timesheet()
         {
             var model = new TimesheetViewModel
@@ -159,7 +157,6 @@
             return View(model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [HttpPost]
         public ActionResult ListTimesheet(TimesheetViewModel model)
         {
@@ -462,7 +459,6 @@
             return PartialView("_ListLateInEarlyOutDiscipline", lateInEarlyOutDisciplines);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             DateTime from;
@@ -490,7 +486,6 @@
             return View(model);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult ListMyTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();

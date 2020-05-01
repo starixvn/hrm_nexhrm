@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
   <siteMapNode title="Root"  changeFrequency="Always"  updatePriority="Normal">
-    <siteMapNode title="Personal" roles="Member,SpecialUser">
-      <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" roles="Member,SpecialUser" />
-      <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" roles="Member,SpecialUser" />
-      <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" roles="Member,SpecialUser" />
-      <siteMapNode title="My Attendance" controller="report" action="timesheet" icon="table" roles="Member,SpecialUser" />
+    <siteMapNode title="Personal" roles="Member">
+      <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" roles="Member" />
+      <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" roles="Member" />
+      <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" roles="Member" />
+      <siteMapNode title="My Attendance" controller="report" action="timesheet" icon="table" roles="Member" />
       <siteMapNode title="NEX Request" controller="overtime" action="index" icon="calendar-clock" roles="Member" />
-      <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader,SpecialUser" />
+      <siteMapNode title="Member Requests" controller="request" action="member" icon="account" roles="AssistantLeader" />
       <siteMapNode title="Requests Statistic" controller="report" action="LeaderRequestMonitoring" icon="file-find" roles="AssistantLeader" id="1" />
-      <siteMapNode title="My Profile" controller="employee" action="myprofile" icon="account-box-outline" roles="Member,SpecialUser" />
+      <siteMapNode title="My Profile" controller="employee" action="myprofile" icon="account-box-outline" roles="Member" />
       <siteMapNode title="Late in/Early out" controller="LateEarly" action="index" icon="alarm" roles="Member" />
       <siteMapNode title="Scheduled Message" controller="ScheduledMessage" action="index" icon="alarm" roles="Member" />
     </siteMapNode>

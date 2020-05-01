@@ -4,7 +4,6 @@
 
     public class HomeController : BaseController
     {
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
             ViewBag.Employee = CurrentUser;

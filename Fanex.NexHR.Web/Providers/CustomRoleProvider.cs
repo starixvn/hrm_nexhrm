@@ -81,8 +81,7 @@ namespace Fanex.NexHR.Web.Providers
 
             var roles = new List<string>
             {
-                Role.Member.EnumToString(),
-                Role.SpecialUser.EnumToString()
+                Role.Member.EnumToString()
             };
 
             var user = GetCurrentUser(username);

@@ -58,7 +58,6 @@
             _redmineService = redmineService ?? new RedmineService();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult Index()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria
@@ -108,7 +107,6 @@
             return lstEmployee;
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public async Task<ActionResult> GetTodoList(int? employeeId)
         {
             var model = new ToDoViewModel();
@@ -246,7 +244,6 @@
             return employees;
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
@@ -256,7 +253,6 @@
             return PartialView("_Notification", noti);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult GetTeamWorkload()
         {
             GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria

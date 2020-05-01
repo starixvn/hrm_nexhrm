@@ -43,7 +43,7 @@
         private const int numberType = 5;
         private const int numberId = 2;
 
-        [Authorize(Roles = "AssistantLeader,HR,SpecialUser")]
+        [Authorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
@@ -56,7 +56,7 @@
             return PartialView(request);
         }
 
-        [Authorize(Roles = "AssistantLeader,SpecialUser")]
+        [Authorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel request)
         {
             RequestViewModel modifiedRequest = null;
@@ -101,7 +101,7 @@
         }
 
         [ValidateInput(false)]
-        [Authorize(Roles = "AssistantLeader,SpecialUser")]
+        [Authorize(Roles = "AssistantLeader")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel request)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
@@ -230,7 +230,6 @@
             return PartialView("AllRequest", entityList);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         public ActionResult ViewHistory(long requestId, int requestType)
         {
             var criteria = new GetRequestHistoryCriteria

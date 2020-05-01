@@ -39,7 +39,6 @@ namespace Fanex.NexHR.Controllers
         /// Action to render header.
         /// </summary>
         /// <returns>Action Result.</returns>
-        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public ActionResult Header()
         {
@@ -67,7 +66,6 @@ namespace Fanex.NexHR.Controllers
             return PartialView(CurrentUser);
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public ActionResult GlobalScript()
         {
@@ -75,7 +73,6 @@ namespace Fanex.NexHR.Controllers
             return PartialView();
         }
 
-        [Authorize(Roles = "SpecialUser")]
         [ChildActionOnly]
         public PartialViewResult NavBar()
         {
@@ -102,30 +99,14 @@ namespace Fanex.NexHR.Controllers
 
             foreach (SiteMapNode sectionNode in root.ChildNodes)
             {
-                if (CurrentUser.IsSpecialUser)
+                if (!Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
                 {
-                    if (!sectionNode.Roles.Contains("SpecialUser"))
-                    {
-                        continue;
-                    }
-
-                    NavigationViewModel sectionItem = CreateSectionItemFromSectionNode(sectionNode);
-
-                    navigationItemList.Add(sectionItem);
+                    continue;
                 }
-                else
-                {
-                    if (!Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
-                    {
-                        continue;
-                    }
 
-                    roles = roles.Where(t => !t.Contains("SpecialUser")).ToArray();
+                NavigationViewModel sectionItem = CreateSectionItemFromSectionNodeWithRoles(roles, sectionNode);
 
-                    NavigationViewModel sectionItem = CreateSectionItemFromSectionNodeWithRoles(roles, sectionNode);
-
-                    navigationItemList.Add(sectionItem);
-                }
+                navigationItemList.Add(sectionItem);
             }
 
             return navigationItemList;
@@ -142,25 +123,6 @@ namespace Fanex.NexHR.Controllers
             {
                 var navItem = new NavigationViewModel(navNode);
                 if (roles.Any(navNode.Roles.Contains))
-                {
-                    sectionItem.Childs.Add(navItem);
-                }
-            }
-
-            return sectionItem;
-        }
-
-        private static NavigationViewModel CreateSectionItemFromSectionNode(SiteMapNode sectionNode)
-        {
-            var sectionItem = new NavigationViewModel(sectionNode)
-            {
-                Childs = new List<NavigationViewModel>()
-            };
-
-            foreach (SiteMapNode navNode in sectionNode.ChildNodes)
-            {
-                var navItem = new NavigationViewModel(navNode);
-                if (navNode.Roles.Contains("SpecialUser"))
                 {
                     sectionItem.Childs.Add(navItem);
                 }
