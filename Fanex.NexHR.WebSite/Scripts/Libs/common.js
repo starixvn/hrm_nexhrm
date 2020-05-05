@@ -633,7 +633,7 @@ function ajaxLoadingProcess() {
     });
 }
 
-function initAutocomplete(selectorName, selectorId) {
+function initAutocomplete(selectorName, selectorId, isSpecial) {
     $(selectorName).autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -648,6 +648,7 @@ function initAutocomplete(selectorName, selectorId) {
                 dataType: 'json',
                 data: {
                     query: term,
+                    isSpecial: isSpecial ? true : false,
                     $top: 10
                 },
                 success: function (data) {

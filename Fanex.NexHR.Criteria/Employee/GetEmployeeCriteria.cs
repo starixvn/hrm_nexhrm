@@ -69,5 +69,7 @@
         {
             return "Employee_GetEmployees";
         }
+
+        public bool IsSpecial { get; set; }
     }
 }

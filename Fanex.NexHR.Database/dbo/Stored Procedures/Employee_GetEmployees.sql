@@ -6,7 +6,8 @@ CREATE PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
     ,@enable BIT = NULL
     ,@isDelete BIT = NULL
     ,@pageNumber INT = 1
-    ,@pageSize INT = 2000
+    ,@pageSize INT = 2000 
+    ,@isSpecial BIT
     ,@totalRow INT OUTPUT
 AS
 /*
@@ -172,7 +173,7 @@ BEGIN
 			,[ContactAddress]
         FROM Employee WITH (NOLOCK)
         WHERE 
-			IsSpecialUser = 0
+			IsSpecialUser = @isSpecial
 			AND (
                 @isDelete IS NULL
                 OR isDeleted = @isDelete

@@ -81,7 +81,8 @@
             bool? enable = null,
             bool? isDelete = null,
             int? jobTitleId = null,
-            string sort = null)
+            string sort = null,
+            bool? isSpecial = null)
         {
         EmployeeListViewModel listEmployee =
                 new EmployeeListViewModel
@@ -100,7 +101,8 @@
                 DeleteStatus = isDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
-                TotalRow = 2000
+                TotalRow = 2000,
+                IsSpecial = isSpecial ?? false
             };
 
             listEmployee.Employees = _employeeService.Query(criteria);
