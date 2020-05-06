@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -25,6 +26,9 @@
         private readonly IRestClient webClient;
         private readonly INexbotRepository nexbotRepository;
 
+        private static readonly bool IsDisabledSendSkype = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendSkype"]);
+        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
         public NexbotService()
         {
             webClient = new RestClient { Encoding = Encoding.UTF8 };
@@ -35,7 +39,7 @@
         {
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
-                return ForwardToBot(message, conversationId).IsSuccessful;
+                return ForwardToBot(message, conversationId);
             }
 
             return false;
@@ -67,7 +71,7 @@
         {
             var request = CreateRequestHeader("/account/GetIgnoredAccountByMessageCategory", Method.GET);
             request.AddParameter("messageCategoryId", messageCategoryId);
-            
+
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
             IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
             var skypeAccounts = response.Data;
@@ -75,27 +79,36 @@
             return skypeAccounts;
         }
 
-
-        public void SendApproveMessage(string conversationId, long requestId, string message)
+        private void SendApproveMessage(string conversationId, long requestId, string message)
         {
-            var request = CreateRequestHeader("/request/approve", Method.POST);
+            if (!IsDisabledSendSkype)
+            {
+                var request = CreateRequestHeader("/request/approve", Method.POST);
 
-            request.AddParameter("conversationId", conversationId);
-            request.AddParameter("requestId", requestId);
-            request.AddParameter("message", message);
+                request.AddParameter("conversationId", conversationId);
+                request.AddParameter("requestId", requestId);
+                request.AddParameter("message", message);
+                request.AddParameter("callBackUrl", BaseUrl + "/api");
 
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            webClient.Execute(request);
+                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+                webClient.Execute(request);
+            }
         }
 
-        private IRestResponse ForwardToBot(string message, string conversationId)
+        private bool ForwardToBot(string message, string conversationId)
         {
-            var request = CreateRequestHeader("/messages/forward", Method.POST);
-            request.AddParameter("message", message);
-            request.AddParameter("conversationId", conversationId);
+            var isSuccessful = false;
+            if (!IsDisabledSendSkype)
+            {
+                var request = CreateRequestHeader("/messages/forward", Method.POST);
+                request.AddParameter("message", message);
+                request.AddParameter("conversationId", conversationId);
 
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            return webClient.Execute(request);
+                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+                isSuccessful = webClient.Execute(request).IsSuccessful;
+            }
+
+            return isSuccessful;
         }
 
         private Token GetToken()
@@ -184,7 +197,7 @@
             message += $"_- Date: {forDate}_ {Constants.NewLine}";
             message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
             message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
-            message += $"Please process this request at: http://hrm.nexcel.vn/request/member.  {Constants.NewLine}";
+            message += $"Please process this request at: {BaseUrl}/request/member.  {Constants.NewLine}";
             message += "Any questions, please contact HR department.";
             return message;
         }
@@ -199,7 +212,8 @@
                     toDate.ToDateMonthYearFormatedDate(),
                     totalDays);
             }
-            else {
+            else
+            {
                 if (totalDays == 1)
                 {
                     return string.Format(Constants.MailContentLeaveOneDay, fromDate.ToDateMonthYearFormatedDate());
@@ -233,7 +247,7 @@
                 : "on " + request.FromDate.ToDateMonthYearFormatedDate();
             var message = $"Dear {request.Requester.NickName},{Constants.NewLine}";
             message += $"Your {request.RequestType.Name.ToLowerInvariant()} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._{Constants.NewLine}";
-            message += $"For more detail, please visit: https://hrm.nexcel.vn. Thanks";
+            message += $"For more detail, please visit: {BaseUrl}. Thanks";
             return message;
         }
 
@@ -257,7 +271,7 @@
             message += $"_- Date: {request.WorkDate.ToDateMonthYearFormatedDate()}_{Constants.NewLine}";
             message += $"_- Shift: {request.Shift}_{Constants.NewLine}";
             message += $"_- Time: {time}_{Constants.NewLine}";
-            message += $"Please process this request at: https://hrm.nexcel.vn/request/member. {Constants.NewLine}";
+            message += $"Please process this request at: {BaseUrl}/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
             return message;
         }

@@ -16,8 +16,6 @@
 
         IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(int messageCategoryId);
 
-        void SendApproveMessage(string conversationId, long requestId, string message);
-
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
 
         void SendMessageForLeaveRequest(LeaveRequestViewModel request);
