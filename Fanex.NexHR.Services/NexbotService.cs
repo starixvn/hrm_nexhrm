@@ -25,7 +25,7 @@
     {
         private readonly IRestClient webClient;
         private readonly INexbotRepository nexbotRepository;
-
+        
         private static readonly bool IsDisabledSendSkype = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendSkype"]);
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
