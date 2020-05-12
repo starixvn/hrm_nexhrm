@@ -97,10 +97,12 @@ function query(isFirstLoad) {
                         html = tmpl.render(data, helpers);
 
                     $(html).appendTo('table#attendance');
+                    $('table#attendance').addClass('table-success'); //add this class to style when table has data
 
                     initTooltip();
                 } else {
                     $(noInformation(14)).appendTo('table#attendance');
+                    $('table#attendance').addClass('table-fail'); //add this class to style when table hasn't data 
                 }
             },
             error: function () {
@@ -110,6 +112,7 @@ function query(isFirstLoad) {
                 if (!isFirstLoad) {
                     $('.loading-process').fadeOut(300);
                 }
+                
             }
         });
     }

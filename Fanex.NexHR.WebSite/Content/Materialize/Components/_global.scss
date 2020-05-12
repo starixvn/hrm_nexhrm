@@ -744,3 +744,46 @@ nav ul a span.badge {
 .no-padding {
   padding: 0 !important;
 }
+// update css mobile
+@media only screen and (max-width: $small-screen-up) {
+    // Collections
+    .collection {
+        .collection-item {
+            &.avatar {
+                padding: 10px 50px 1px 64px;
+                min-height: 30px;
+
+                .title {
+                    font-weight: 500;
+                    left: 8px;
+                    top: 15px;
+                    font-size: 1.2rem;
+                }
+
+                .secondary-content {
+                    font-weight: 500;
+                    right: 8px;
+                    top: 15px;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+    .progress {
+        height: 4px;
+        margin-bottom: 0;
+        background: #BFE9FC;
+
+        .pink.darken-1 {
+            background: #FF6721 !important;
+        }
+
+        .light-blue.lighten-1 {
+            background: #29B6F6 !important;
+        }
+
+        .grey.darken-1 {
+            background: #757575 !important;
+        }
+    }
+}

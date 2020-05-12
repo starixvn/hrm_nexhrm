@@ -10,7 +10,8 @@
 <div class="navbar-fixed">
     <div class="container left">
         <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only">
-            <i class="mdi-navigation-menu"></i>
+            <i class="mdi-navigation-menu icon-open"></i>
+            <i class="mdi-content-clear icon-close"></i>
         </a>
     </div>
     <nav class="right">
@@ -42,10 +43,17 @@
                     </a>
                 </div>
             </div>
-            <form class="search_bar" method="get" action="@Url.Action("Index","Employee")" accept-charset="UTF-8" id="search">
-                <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Nick or Full Name" />
-                <label id="label-search" for="search"><i class="mdi-action-search"></i></label>
-            </form>
+            <div class="box-search">
+                <div class="js-btn-search">
+                    <i class="mdi-action-search icon-open"></i>
+                    <i class="mdi-content-clear icon-close"></i>
+                </div>
+                <form class="search_bar" method="get" action="@Url.Action("Index","Employee")" accept-charset="UTF-8" id="search">
+                    <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Nick or Full Name" />
+                    <label id="label-search" for="search"><i class="mdi-action-search"></i></label>
+                </form>
+            </div>
+            
         </div>
     </nav>
 </div>

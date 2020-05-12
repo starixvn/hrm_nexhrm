@@ -475,7 +475,7 @@ span.req {
         }
 
         &.leave {
-            background: #da871c;
+            background: #F19826;
         }
 
         &.inout {
@@ -499,4 +499,114 @@ span.req {
 input.readonly-input {
     color: $back !important;
     background-color: $c-border-table;
+}
+// update css mobile
+@media only screen and (max-width: $small-screen-up) {
+    span.req {
+        border-radius: 0;
+        padding: 0.3rem 0.9rem;
+        margin: 0;
+        &.leave {
+            background: #F19826;
+        }
+    }
+
+    .row {
+        .col {
+            padding-left: 0; 
+            padding-right: 0;
+        }
+
+        .row-worktime {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -0.4rem;
+            margin-bottom: 8px;
+
+            .card-container-base {
+                width: 50%;
+                padding: 0 .4rem;
+                margin-top: 8px;
+
+                &:nth-child(3) {
+                    order: 4;
+                }
+
+                &:nth-child(4) {
+                    order: 3;
+                }
+
+                .card {
+                    margin: 0;
+
+                    .slide {
+                        img {
+                            margin: 0.7rem auto 0;
+                        }
+
+                        .slide-content {
+                            .noEvent {
+                                .detail {
+                                    margin-top: 1.3rem;
+                                    font-size: 1.2rem;
+                                    line-height: 1.16666666;
+                                    padding: 0 2rem;
+                                }
+                            }
+
+                            .detail {
+
+                                span {
+                                    display: block;
+                                    font-size: 1.2rem;
+                                    line-height: 1.4rem;
+                                    text-align: center;
+                                }
+                            }
+                        }
+
+                        .slick-dots{
+                            margin: 0;
+                            top: 9px;
+                            li{ 
+                                width: 4px;
+                                height: 4px;
+                                button{
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .txt-tittle {
+                    font-size: 1.6rem;
+                    margin-bottom: -2px;
+                }
+
+                .card-content.white-text {
+                    padding: 0.9rem .7rem 1rem;
+                    height: 12rem;
+                }
+
+                .col.s3 {
+                    margin-bottom: 2px;
+
+                    i.left {
+                        float: none !important;
+                        margin: 0 auto;
+                        font-size: 3.5rem;
+                    }
+                }
+
+                .col.s3, .col.s9 {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
 }

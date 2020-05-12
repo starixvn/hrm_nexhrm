@@ -2601,6 +2601,31 @@ nav ul a span.badge {
 .no-padding {
   padding: 0 !important; }
 
+@media only screen and (max-width: 601px) {
+  .collection .collection-item.avatar {
+    padding: 10px 50px 1px 64px;
+    min-height: 30px; }
+    .collection .collection-item.avatar .title {
+      font-weight: 500;
+      left: 8px;
+      top: 15px;
+      font-size: 1.2rem; }
+    .collection .collection-item.avatar .secondary-content {
+      font-weight: 500;
+      right: 8px;
+      top: 15px;
+      font-size: 1.2rem; }
+  .progress {
+    height: 4px;
+    margin-bottom: 0;
+    background: #BFE9FC; }
+    .progress .pink.darken-1 {
+      background: #FF6721 !important; }
+    .progress .light-blue.lighten-1 {
+      background: #29B6F6 !important; }
+    .progress .grey.darken-1 {
+      background: #757575 !important; } }
+
 @font-face {
   font-family: "Material-Design-Icons";
   src: url("Fonts/Material/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("Fonts/Material/Material-Design-Icons.woff2") format("woff2"), url("Fonts/Material/Material-Design-Icons.woff") format("woff"), url("Fonts/Material/Material-Design-Icons.ttf") format("truetype"), url("Fonts/Material/Material-Design-Icons.svg#Material-Design-Icons") format("svg");
@@ -5689,6 +5714,15 @@ small {
       cursor: pointer;
       display: block; }
 
+@media only screen and (max-width: 601px) {
+  .card {
+    margin: 0 0 0.8rem; }
+    .card .card-title {
+      font-size: 1.4rem; }
+    .card .card-content .card-title {
+      line-height: 3rem;
+      padding-top: 6px; } }
+
 #toast-container {
   display: block;
   position: fixed;
@@ -8376,4 +8410,3 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 @media (min-height: 40.125em) {
   .picker--time .picker__box {
     margin-bottom: 5em; } }
-

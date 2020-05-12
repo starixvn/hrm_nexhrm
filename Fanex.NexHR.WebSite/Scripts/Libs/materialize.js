@@ -1894,9 +1894,10 @@ $(document).ready(function(){
   var methods = {
     init : function(options) {
       var defaults = {
-        menuWidth: 256,
+        menuWidth: 300,
         edge: 'left',
         closeOnClick: false
+
       };
       options = $.extend(defaults, options);
 
@@ -1905,7 +1906,7 @@ $(document).ready(function(){
         var menu_id = $("#"+ $this.attr('data-activates'));
 
         // Set to width
-        if (options.menuWidth != 256) {
+          if (options.menuWidth != 300) {
           menu_id.css('width', options.menuWidth);
         }
 
@@ -1956,7 +1957,7 @@ $(document).ready(function(){
 
         // if closeOnClick, then add close event for all a tags in side sideNav
         if (options.closeOnClick === true) {
-          menu_id.on("click.itemclick", "a:not(.collapsible-header)", function(){
+            menu_id.on("click.itemclick", "a:not(.collapsible-header)", function () {
             removeMenu();
           });
         }
@@ -2015,8 +2016,9 @@ $(document).ready(function(){
         var panning = false;
         var menuOut = false;
 
-        dragTarget.on('click', function(){
-          removeMenu();
+          dragTarget.on('click', function () {
+          $('.button-collapse.top-nav').removeClass('active'); //remove class to revert style btn menu
+          removeMenu(); 
         });
 
         dragTarget.hammer({
@@ -2134,7 +2136,8 @@ $(document).ready(function(){
           }
         });
 
-          $this.click(function() {
+          $this.click(function () {
+            $(this).toggleClass('active'); //add this class to change style btn menu when click btn menu
             if (menuOut === true) {
               menuOut = false;
               panning = false;
@@ -6209,9 +6212,15 @@ Picker.extend( 'pickadate', DatePicker )
       $input.removeClass('valid');
       $input.addClass('invalid');
     }
-  }
+    }
 
   $(document).ready(function(){
-    $('input, textarea').characterCounter();
+      $('input, textarea').characterCounter(); 
+       
+      // btn search mobile
+      $('.js-btn-search').click(function () {
+          $(this).parents('.box-search').toggleClass('active');
+      }); 
+
   });
 }( jQuery ));

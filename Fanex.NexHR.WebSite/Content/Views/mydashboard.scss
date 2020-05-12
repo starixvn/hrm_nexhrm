@@ -700,4 +700,229 @@
     }
 }
 
-//---------------------Scroll Bar---------------------------------
+//---------------------Scroll Bar--------------------------------
+
+// update css mobile
+@media only screen and (max-width: $small-screen-up) {
+    .card-container-base {
+        &.card-todo-infor {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            .card {
+                &.todoBlock {
+                    order: 1;
+                    -webkit-box-flex: 100%;
+                    -ms-flex: 100%;
+                    flex: 100%;
+                    background: #ffffff;
+                    margin: 0 0 0.8rem;
+
+                    .card-body {
+                        margin-top: 1.2rem;
+                        margin-bottom: 0.6rem;
+                    }
+
+                    p.yellow-border {
+                        line-height: 2.7rem;
+                        padding: 0.2rem 0 0.2rem 1rem;
+
+                        .text-left {
+                            margin-right: 0.2rem;
+                        }
+
+                        .redmine-date {
+                            margin-right: 0.1rem;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+
+                &.infoBlock {
+                    order: 2;
+                    -webkit-box-flex: 100%;
+                    -ms-flex: 100%;
+                    flex: 100%;
+                    margin: 0 0 0.8rem;
+
+                    .information {
+                        table {
+                            td {
+                                padding: 1.2rem 0 0;
+                            }
+                        }
+
+                        .left-align {
+                            width: auto;
+                            margin-right: 0.8rem;
+                            margin-bottom: 0.6rem;
+                        }
+
+                        .bold {
+                            width: auto;
+                            line-height: 1.5rem;
+                            float: none;
+                            display: inline-block;
+
+                            a {
+                                font-size: 1.3rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.card-team-attendance {
+            .card-content {
+                padding: 0 1.6rem 2.9rem;
+
+                .card-title-block {
+                    margin: 0;
+                }
+            }
+
+            .card {
+                margin: 0 0 0.8rem;
+            }
+
+            .cover-table-team-attendance {
+                overflow: auto;
+                padding: 0;
+
+                table {
+                    min-width: 75rem;
+                    margin-bottom: 0.7rem;
+
+                    thead, tbody {
+                        tr {
+                            th, td {
+                                &:nth-child(1) {
+                                    width: 36px;
+                                }
+
+                                &:nth-child(2) {
+                                    display: none;
+                                }
+
+                                &:nth-child(3) {
+                                    width: 80px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                table.table-success {
+                    margin-left: 116px;
+
+                    thead, tbody {
+                        tr {
+                            th, td {
+                                &:nth-child(1) {
+                                    left: 16px;
+                                    position: absolute;
+                                    top: auto;
+                                }
+
+                                &:nth-child(3) {
+                                    left: 52px;
+                                    position: absolute;
+                                    top: auto;
+                                }
+                            }
+                        }
+                    }
+
+                    thead {
+                        tr {
+                            th {
+                                background-color: #343c4e;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        tr {
+                            td {
+                                -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                            }
+                        }
+
+                        tr:nth-child(odd) {
+                            td {
+                                background-color: #ededed;
+                            }
+                        }
+
+                        tr:nth-child(even) {
+                            td {
+                                background-color: #ffffff;
+                            }
+                        }
+                    }
+                }
+
+                table.table-fail {
+                    tbody {
+                        tr {
+                            td {
+                                text-align: left;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+
+        &.my-members {
+            .card {
+                .card-content {
+                    .card-title {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+    }
+    .collection {
+        .collection-item.avatar {
+            .circle{
+                display: none;
+            }
+        }
+    }
+    .dashboardCalendar {
+        .fc-toolbar {
+            padding: 1rem 1.3rem !important;
+
+            .day {
+                font-weight: 400;
+                font-size: 1.2rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .fc-left, fc-center {
+                margin-top: 0.1rem;
+            }
+
+            .fc-center {
+                h2 {
+                    font-size: 2.8rem !important;
+                }
+            }
+
+            .monthyear {
+                font-weight: 300;
+                font-size: 1.2rem;
+                margin-top: 0.8rem;
+                margin-bottom: 0.1rem;
+            }
+        }
+    }
+}
