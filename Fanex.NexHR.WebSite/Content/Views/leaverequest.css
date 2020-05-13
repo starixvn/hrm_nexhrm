@@ -1,0 +1,71 @@
+﻿@media only screen and (max-width: 601px) {
+  #list-leave-request {
+    overflow: auto;
+    padding: 0; }
+    #list-leave-request table {
+      width: 600px; }
+      #list-leave-request table tr th, #list-leave-request table tr td {
+        font-size: 1.2rem; }
+      #list-leave-request table.table-fail tbody tr td {
+        text-align: left; }
+      #list-leave-request table.table-success {
+        margin-left: 105px; }
+        #list-leave-request table.table-success thead tr th, #list-leave-request table.table-success thead tr td, #list-leave-request table.table-success tbody tr th, #list-leave-request table.table-success tbody tr td {
+          height: 36px; }
+          #list-leave-request table.table-success thead tr th:nth-child(1), #list-leave-request table.table-success thead tr th:nth-child(2), #list-leave-request table.table-success thead tr th:nth-child(3), #list-leave-request table.table-success thead tr td:nth-child(1), #list-leave-request table.table-success thead tr td:nth-child(2), #list-leave-request table.table-success thead tr td:nth-child(3), #list-leave-request table.table-success tbody tr th:nth-child(1), #list-leave-request table.table-success tbody tr th:nth-child(2), #list-leave-request table.table-success tbody tr th:nth-child(3), #list-leave-request table.table-success tbody tr td:nth-child(1), #list-leave-request table.table-success tbody tr td:nth-child(2), #list-leave-request table.table-success tbody tr td:nth-child(3) {
+            display: none; }
+          #list-leave-request table.table-success thead tr th:nth-child(4), #list-leave-request table.table-success thead tr td:nth-child(4), #list-leave-request table.table-success tbody tr th:nth-child(4), #list-leave-request table.table-success tbody tr td:nth-child(4) {
+            width: 105px;
+            padding: 10px 0 11px;
+            left: 52px;
+            position: absolute;
+            top: auto;
+            left: 16px;
+            font-weight: 500;
+            -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08); }
+        #list-leave-request table.table-success thead tr th {
+          background-color: #343c4e;
+          font-weight: 500; }
+        #list-leave-request table.table-success tbody tr td {
+          padding-top: 0;
+          padding-bottom: 0; }
+        #list-leave-request table.table-success tbody tr:nth-child(odd) td {
+          background-color: #ededed; }
+        #list-leave-request table.table-success tbody tr:nth-child(even) td {
+          background-color: #ffffff; }
+  .card-leave-detail {
+    padding: 0 8px; }
+    .card-leave-detail .form {
+      margin-bottom: 1.2rem; }
+      .card-leave-detail .form .form-input .col {
+        padding-right: 0; }
+      .card-leave-detail .form .form-input .label--s {
+        width: 3.2rem; }
+        .card-leave-detail .form .form-input .label--s label {
+          color: #333333;
+          font-size: 1.2rem; }
+      .card-leave-detail .form .form-input .select--xs, .card-leave-detail .form .form-input .input--xs {
+        width: 5.9rem; }
+      .card-leave-detail .form .form-input .col:nth-child(2) {
+        width: 112px; }
+      .card-leave-detail .form .form-input .col:nth-child(3) {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 0;
+        flex: 1;
+        float: none;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between; }
+      .card-leave-detail .form .form-input .btn-submit {
+        margin: 0;
+        font-size: 1.2rem;
+        padding: 0.1rem 1.5rem;
+        display: block;
+        height: auto; }
+      .card-leave-detail .form .form-input .btn-request {
+        padding: 0.1rem 2.1rem;
+        font-size: 1.2rem; } }

@@ -5721,7 +5721,8 @@ small {
       font-size: 1.4rem; }
     .card .card-content .card-title {
       line-height: 3rem;
-      padding-top: 6px; } }
+      padding-top: 0.06rem;
+      display: inline-block; } }
 
 #toast-container {
   display: block;

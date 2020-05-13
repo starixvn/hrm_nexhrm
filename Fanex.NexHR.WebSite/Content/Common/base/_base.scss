@@ -502,6 +502,9 @@ input.readonly-input {
 }
 // update css mobile
 @media only screen and (max-width: $small-screen-up) {
+    .content {
+        padding-top: 0.8rem;
+    }
     span.req {
         border-radius: 0;
         padding: 0.3rem 0.9rem;

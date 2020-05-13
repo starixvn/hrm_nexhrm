@@ -116,6 +116,8 @@
             BuildBundleForConversationManagement(bundles);
 
             BuildBundleForHistoryWork(bundles);
+
+            BuildBundleForLeaveQequest(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -613,6 +615,12 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/historyworkjs").Include(
                 "~/Scripts/Views/Employee/employee.historywork.js"));
+        }
+
+        private static void BuildBundleForLeaveQequest(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/leaverequestcss")
+                  .Include("~/Content/Views/leaverequest.css", new CssRewriteUrlTransform()));
         }
     }
 }

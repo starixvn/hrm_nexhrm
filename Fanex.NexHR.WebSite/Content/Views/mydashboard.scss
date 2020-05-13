@@ -826,12 +826,14 @@
                                     left: 16px;
                                     position: absolute;
                                     top: auto;
+                                    font-weight: 500;
                                 }
 
                                 &:nth-child(3) {
                                     left: 52px;
                                     position: absolute;
                                     top: auto;
+                                    font-weight: 500;
                                 }
                             }
                         }
@@ -841,6 +843,7 @@
                         tr {
                             th {
                                 background-color: #343c4e;
+                                font-weight: 500;
                             }
                         }
                     }
@@ -873,7 +876,7 @@
                         tr {
                             td {
                                 text-align: left;
-                            } 
+                            }
                         }
                     }
                 }

@@ -352,6 +352,8 @@ input.readonly-input {
   background-color: #d2d2d2; }
 
 @media only screen and (max-width: 601px) {
+  .content {
+    padding-top: 0.8rem; }
   span.req {
     border-radius: 0;
     padding: 0.3rem 0.9rem;

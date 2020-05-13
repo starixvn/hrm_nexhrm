@@ -319,11 +319,20 @@
     <Content Include="Content\Views\Login.min.css">
       <DependentUpon>login.css</DependentUpon>
     </Content>
+    <Content Include="Content\Views\leaverequest.css">
+      <DependentUpon>leaverequest.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\leaverequest.min.css">
+      <DependentUpon>leaverequest.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\my.profile.css">
       <DependentUpon>my.profile.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\mycalendar.css">
       <DependentUpon>mycalendar.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\myrequest.min.css">
+      <DependentUpon>myrequest.css</DependentUpon>
     </Content>
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
@@ -340,6 +349,7 @@
     <Content Include="Content\Views\report.workinghoursstatistic.scss" />
     <Content Include="Content\Views\scheduled-message.scss" />
     <Content Include="Content\Views\Login.scss" />
+    <Content Include="Content\Views\leaverequest.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />

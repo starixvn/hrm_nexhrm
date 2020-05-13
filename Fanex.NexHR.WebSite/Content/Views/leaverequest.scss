@@ -1,0 +1,145 @@
+﻿@import "../Common/utils/variables";
+@import "../Common/utils/mixins";
+// update css mobile
+@media only screen and (max-width: $small-screen-up) {
+    #list-leave-request {
+        overflow: auto;
+        padding: 0;
+
+        table {
+            width: 600px;
+
+            tr {
+                th, td {
+                    font-size: 1.2rem;
+                }
+            }
+
+            &.table-fail {
+                tbody {
+                    tr {
+                        td {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+
+            &.table-success {
+                margin-left: 105px;
+
+                thead, tbody {
+                    tr {
+                        th, td {
+                            height: 36px;
+
+                            &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+                                display: none;
+                            }
+
+                            &:nth-child(4) {
+                                width: 105px;
+                                padding: 10px 0 11px;
+                                left: 52px;
+                                position: absolute;
+                                top: auto;
+                                left: 16px;
+                                font-weight: 500;
+                                -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                            }
+                        }
+                    }
+                }
+
+                thead {
+                    tr {
+                        th {
+                            background-color: #343c4e;
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        td {
+                            padding-top: 0;
+                            padding-bottom: 0;
+                        }
+                    }
+
+                    tr:nth-child(odd) {
+                        td {
+                            background-color: #ededed;
+                        }
+                    }
+
+                    tr:nth-child(even) {
+                        td {
+                            background-color: #ffffff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .card-leave-detail {
+        padding: 0 8px; 
+        .form {
+            margin-bottom: 1.2rem;
+            .form-input {
+
+                .col {
+                    padding-right: 0;
+                }
+
+                .label--s {
+                    width: 3.2rem;
+
+                    label {
+                        color: #333333;
+                        font-size: 1.2rem;
+                    }
+                }
+
+                .select--xs, .input--xs {
+                    width: 5.9rem;
+                }
+
+                .col {
+                    &:nth-child(2) {
+                        width: 112px;
+                    }
+
+                    &:nth-child(3) {
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+                        padding: 0;
+                        flex: 1;
+                        float: none;
+                        -webkit-box-pack: justify;
+                        -ms-flex-pack: justify;
+                        justify-content: space-between;
+                    }
+                }
+
+                .btn-submit {
+                    margin: 0;
+                    font-size: 1.2rem;
+                    padding: 0.1rem 1.5rem;
+                    display: block;
+                    height: auto;
+                }
+
+                .btn-request {
+                    padding: 0.1rem 2.1rem;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}

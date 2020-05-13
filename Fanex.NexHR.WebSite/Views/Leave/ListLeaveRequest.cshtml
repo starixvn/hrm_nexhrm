@@ -1,5 +1,19 @@
 ﻿@model IList<RequestEntity>
-<table id="data" class="table bordered striped highlight centered table-custom">
+
+@{
+    string alertTable = ""; //use this class to style table when table has data or not
+}
+@if (Model.Any())
+{
+    alertTable = "table-success";
+}
+else
+{
+    alertTable = "table-fail";
+}
+
+
+<table id="data" class="table bordered striped highlight centered table-custom table-leave-request @alertTable">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
@@ -25,12 +39,14 @@
                     <td class="tooltip" title="@request.Requester.FullName">
                         @request.Requester.NickName
                     </td>
-                    <td class="tooltip" title="@request.Requester.Team.Name">@request.Requester.Team.Code
+                    <td class="tooltip" title="@request.Requester.Team.Name">
+                        @request.Requester.Team.Code
                     </td>
-                    <td>@request.LeaveType.Name
+                    <td>
+                        @request.LeaveType.Name
                     </td>
                     @if (request.TotalDays == (decimal)0.5)
-                    { 
+                    {
                         <td>@request.FromDate.ToShortFormatedDate()</td>
                         <td>@request.ToDate.ToShortFormatedDate()</td>
                     }
@@ -40,11 +56,11 @@
                         <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
                     }
                     <td>@request.TotalDays.ToString("0.0")</td>
-                    <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()" >
+                    <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
                         @request.CreatedDate.ToDateMonthYearFormatedDate()
                     </td>
                     @if (!string.IsNullOrWhiteSpace(request.Remark))
-                    { 
+                    {
                         <td class="tooltip" title="@request.Remark">
                             <span class="mdi mdi-message-text" alt="remark"></span>
                         </td>
@@ -62,7 +78,7 @@
                         </td>
                     }
                     else
-                    { 
+                    {
                         <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
                             @request.Status.ToString()
                         </td>
@@ -72,7 +88,7 @@
 
         }
         else
-        { 
+        {
             @RazorHelper.DisplayNoInformation(colspan: 10)
         }
     </tbody>

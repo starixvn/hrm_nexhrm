@@ -480,13 +480,16 @@
       .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(1) {
         left: 16px;
         position: absolute;
-        top: auto; }
+        top: auto;
+        font-weight: 500; }
       .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(3) {
         left: 52px;
         position: absolute;
-        top: auto; }
+        top: auto;
+        font-weight: 500; }
       .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th {
-        background-color: #343c4e; }
+        background-color: #343c4e;
+        font-weight: 500; }
       .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td {
         -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
         -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);

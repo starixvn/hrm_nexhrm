@@ -79,5 +79,13 @@
   {
     "outputFile": "Content/Views/Login.css",
     "inputFile": "Content/Views/Login.scss"
+  },
+  {
+    "outputFile": "Content/Views/myrequest.css",
+    "inputFile": "Content/Views/myrequest.scss"
+  },
+  {
+    "outputFile": "Content/Views/myrequest.css",
+    "inputFile": "Content/Views/myrequest.scss"
   }
 ]
