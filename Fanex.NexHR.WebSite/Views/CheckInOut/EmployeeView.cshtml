@@ -4,6 +4,7 @@
 }
 @section css{
     @Styles.Render("~/Content/contextmenucss")
+    @Styles.Render("~/Content/leaverequestcss")
 }
 @section js{
     @Scripts.Render(
@@ -22,7 +23,7 @@
                     <div class="card-title-block">
                         <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body card-leave-detail">
                         <div class="form">
                             <div class="row form-input">
                                 <input type="hidden" value="CheckInOut" id="RequestType" />

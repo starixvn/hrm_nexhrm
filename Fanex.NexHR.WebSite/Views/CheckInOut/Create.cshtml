@@ -12,7 +12,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base">
+    <div class="col s12 card-container-base my-check-in-out">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form list-item-form style-over">
 
                         @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
@@ -60,83 +60,99 @@
                                     </p>
                                 </div>
                             }
-                            <div class="card-content">
-                                <div class="row form-input m-b--m">
-                                    <div class="left label--xl">
-                                        @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
-                                    </div>
-                                    <div class="left checkInOut">
-                                        @Html.RadioButtonList(model => model.CheckInOutType, Utilities.CheckInOutTypes)
-                                    </div>
-                                </div>
-                                <div class="row form-input">
-                                    <div class="left label--xl">
-                                        @Html.LabelFor(model => model.Employee, Labels.Employee)
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.EditorFor(model => model.Employee)
-                                    </div>
-                                </div>
-                                <div class="row form-input">
-                                    <div class="left label--xl">
-                                        <label>@Labels.RequestTime</label>
-                                    </div>
-                                    <div class="left">
-                                        <div class="datepicker-button left select--s">
-                                            @Html.DatePickerFor(model => model.WorkDate,
-                                                Utilities.RequestAvailableFromDate,
-                                                DateTime.Now)
-                                            <i class="mdi-action-event calendar-icon left"></i>
-                                        </div>
-                                        <div class="col m-l--m">
-                                            @*@Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
-                                            @Html.TextBoxFor(x => x.Hour, new {type="number", min="0", max="23", step="1", MaxLength = "2", id="Hour", name="Hour"})
-                                        </div>
-                                        <div class="col p-0">
-                                            <span class="colon">:</span>
-                                        </div>
+                                <div class="">
+                                    <!-- remove class 'card-content' to same structure html with page leave -->
+
+                                    <div class="row form-input m-b--m">
                                         <div class="col">
-                                            @*@Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
-                                            @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                            <div class="left label--xl">
+                                                @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
+                                            </div>
+                                            <div class="left checkInOut">
+                                                @Html.RadioButtonList(model => model.CheckInOutType, Utilities.CheckInOutTypes)
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                @if (Model.IsCrossDate)
-                                {
                                     <div class="row form-input">
-                                        <div class="left label--xl">
-                                            @Html.LabelFor(model => model.IsCrossDate, Labels.CrossDate)
+                                        <div class="col">
+                                            <div class="left label--xl">
+                                                @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                            </div>
+                                            <div class="left input--m">
+                                                @Html.EditorFor(model => model.Employee)
+                                            </div>
                                         </div>
-                                        <div class="left input--m">
-                                            @Html.MaterializeCheckBoxFor(model => model.IsCrossDate, new { @class = "filled-in" })
+                                    </div>
+                                    <div class="row form-input">
+                                        <div class="col">
+                                            <div class="left label--xl">
+                                                <label>@Labels.RequestTime</label>
+                                            </div>
+                                            <div class="left block-time">
+                                                <div class="datepicker-button left select--s">
+                                                    @Html.DatePickerFor(model => model.WorkDate,
+                                                        Utilities.RequestAvailableFromDate,
+                                                        DateTime.Now)
+                                                    <i class="mdi-action-event calendar-icon left"></i>
+                                                </div>
+                                                <div class="box-time">
+                                                    <div class="col m-l--m">
+                                                        @*@Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
+                                                        @Html.TextBoxFor(x => x.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                                    </div>
+                                                    <div class="col p-0">
+                                                        <span class="colon">:</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        @*@Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
+                                                        @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                }
-                                <div class="row form-input m-b--m">
-                                    <div class="left label--xl">
-                                        <label>@Labels.Shift</label>
-                                    </div>
-                                    <div class="left">
-                                        <span class="label" id="shiftname">@Model.Shift</span>
-                                    </div>
-                                </div>
-                                <div class="row form-input">
-                                    <div class="left label--xl">&nbsp;</div>
-                                    <div class="left">
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                        @Html.HiddenFor(model => model.Employee)
-                                        @Html.HiddenFor(model => model.Shift)
-                                        @Html.HiddenFor(model => model.ForRequest)
-                                        @Html.HiddenFor(model => model.CheckInOutType)
-                                        @Html.HiddenFor(model => model.InTime)
-                                        @Html.HiddenFor(model => model.OutTime)
+                                    @if (Model.IsCrossDate)
+                                    {
+                                        <div class="row form-input">
+                                            <div class="col">
+                                                <div class="left label--xl">
+                                                    @Html.LabelFor(model => model.IsCrossDate, Labels.CrossDate)
+                                                </div>
+                                                <div class="left input--m">
+                                                    @Html.MaterializeCheckBoxFor(model => model.IsCrossDate, new { @class = "filled-in" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        }
+                                        <div class="row form-input m-b--m">
+                                            <div class="col">
+                                                <div class="left label--xl">
+                                                    <label>@Labels.Shift</label>
+                                                </div>
+                                                <div class="left">
+                                                    <span class="label" id="shiftname">@Model.Shift</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row form-input line-button">
+                                            <div class="col">
+                                                <div class="left label--xl">&nbsp;</div>
+                                                <div class="left">
+                                                    @Html.HiddenFor(model => model.EmployeeId)
+                                                    @Html.HiddenFor(model => model.Employee)
+                                                    @Html.HiddenFor(model => model.Shift)
+                                                    @Html.HiddenFor(model => model.ForRequest)
+                                                    @Html.HiddenFor(model => model.CheckInOutType)
+                                                    @Html.HiddenFor(model => model.InTime)
+                                                    @Html.HiddenFor(model => model.OutTime)
 
-                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
-                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
+                                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
 
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
                         }
                     </div>
                 </div>

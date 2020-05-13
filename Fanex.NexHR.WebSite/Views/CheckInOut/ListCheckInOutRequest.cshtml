@@ -1,5 +1,18 @@
 ﻿@model IList<RequestEntity>
-<table id="data" class="table bordered striped highlight centered table-custom">
+
+@{
+    string alertTable = ""; //use this class to style table when table has data or not
+}
+@if (Model.Any())
+{
+    alertTable = "table-success";
+}
+else
+{
+    alertTable = "table-fail";
+}
+
+<table id="data" class="table bordered striped highlight centered table-custom @alertTable">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
@@ -18,7 +31,7 @@
             @{
                 int index = 1;
             }
-        @foreach (RequestEntity request in Model)
+            @foreach (RequestEntity request in Model)
             {
                 <tr id="row_@(request.Id)">
                     <td>@(index++)</td>
@@ -34,14 +47,14 @@
                     <td>@request.CreatedDate.ToShortFormatedDate()</td>
                     @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
                     {
-                        <td >
+                        <td>
                             <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">
                                 @request.Status.ToString()
                             </a>
                         </td>
                     }
                     else
-                    { 
+                    {
                         <td class="tooltip" title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
                             @request.Status.ToString()
                         </td>

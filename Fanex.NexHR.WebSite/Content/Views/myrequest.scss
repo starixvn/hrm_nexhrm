@@ -56,7 +56,7 @@
 }
 // update css mobile
 @media only screen and (max-width: $small-screen-up) {
-    .card-container-base.my-request {
+    .card-container-base.my-request, .card-container-base.my-check-in-out {
         .card-content {
             padding: .6rem .8rem .8rem;
         }
@@ -64,6 +64,20 @@
         .list-item-form {
             margin-top: 0.9rem;
             margin-bottom: 2.4rem;
+
+            &.style-over {
+                margin-top: 1.2rem;
+
+                .form-input {
+                    .col {
+                        .left {
+                            &:nth-child(1) {
+                                width: 92px;
+                            }
+                        }
+                    }
+                }
+            }
 
             .form-create-update {
                 ul {
@@ -126,7 +140,8 @@
 
                         &:nth-child(1) {
                             width: 79px;
-                            label{
+
+                            label {
                                 color: #333333;
                             }
 
@@ -172,8 +187,53 @@
                         }
 
                         textarea {
-                            height: 10rem!important;
-                            padding: 0.5rem!important;
+                            height: 10rem !important;
+                            padding: 0.5rem !important;
+                        }
+
+                        &.checkInOut {
+                            .radioButton {
+                                padding-top: 0.4rem;
+
+                                [type="radio"].with-gap:checked + label:after {
+                                    background-color: #828282;
+                                }
+
+                                [type="radio"].with-gap:checked + label:before, [type="radio"]:not(:checked) + label:before {
+                                    border-color: #828282;
+                                }
+                            }
+                        }
+
+                        &.block-time {
+                         
+
+                            .datepicker-button {
+                                width: 100%;
+                            }
+
+                            .box-time {
+
+                                .col {
+                                    &:nth-child(2) {
+                                        width: 20px;
+
+                                        .colon {
+                                            text-align: center;
+                                            width: 100%;
+                                        }
+                                    }
+
+                                    &:nth-child(1), &:nth-child(3) {
+                                        width: 40px;
+
+                                        input {
+                                            height: 3.2rem;
+                                            margin-bottom: 1rem;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -195,4 +255,4 @@
         }
     }
     
-} 
+}  

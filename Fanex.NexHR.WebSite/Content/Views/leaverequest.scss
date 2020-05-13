@@ -2,89 +2,90 @@
 @import "../Common/utils/mixins";
 // update css mobile
 @media only screen and (max-width: $small-screen-up) {
-    #list-leave-request {
-        overflow: auto;
-        padding: 0;
+     
+#list-leave-request, #list-check-in-out-request {
+    overflow: auto;
+    padding: 0;
 
-        table {
-            width: 600px;
+    table {
+        width: 600px;
 
-            tr {
-                th, td {
-                    font-size: 1.2rem;
-                }
+        tr {
+            th, td {
+                font-size: 1.2rem;
             }
+        }
 
-            &.table-fail {
-                tbody {
-                    tr {
-                        td {
-                            text-align: left;
-                        }
+        &.table-fail {
+            tbody {
+                tr {
+                    td {
+                        text-align: left;
                     }
                 }
             }
+        }
 
-            &.table-success {
-                margin-left: 105px;
+        &.table-success {
+            margin-left: 105px;
 
-                thead, tbody {
-                    tr {
-                        th, td {
-                            height: 36px;
+            thead, tbody {
+                tr {
+                    th, td {
+                        height: 36px;
 
-                            &:nth-child(1), &:nth-child(2), &:nth-child(3) {
-                                display: none;
-                            }
-
-                            &:nth-child(4) {
-                                width: 105px;
-                                padding: 10px 0 11px;
-                                left: 52px;
-                                position: absolute;
-                                top: auto;
-                                left: 16px;
-                                font-weight: 500;
-                                -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-                                -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-                                box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-                            }
+                        &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+                            display: none;
                         }
-                    }
-                }
 
-                thead {
-                    tr {
-                        th {
-                            background-color: #343c4e;
+                        &:nth-child(4) {
+                            width: 105px;
+                            padding: 10px 0 11px;
+                            left: 52px;
+                            position: absolute;
+                            top: auto;
+                            left: 16px;
                             font-weight: 500;
+                            -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                            -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                            box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
                         }
                     }
                 }
+            }
 
-                tbody {
-                    tr {
-                        td {
-                            padding-top: 0;
-                            padding-bottom: 0;
-                        }
+            thead {
+                tr {
+                    th {
+                        background-color: #343c4e;
+                        font-weight: 500;
                     }
+                }
+            }
 
-                    tr:nth-child(odd) {
-                        td {
-                            background-color: #ededed;
-                        }
+            tbody {
+                tr {
+                    td {
+                        padding-top: 0;
+                        padding-bottom: 0;
                     }
+                }
 
-                    tr:nth-child(even) {
-                        td {
-                            background-color: #ffffff;
-                        }
+                tr:nth-child(odd) {
+                    td {
+                        background-color: #ededed;
+                    }
+                }
+
+                tr:nth-child(even) {
+                    td {
+                        background-color: #ffffff;
                     }
                 }
             }
         }
     }
+}
 
     .card-leave-detail {
         padding: 0 8px; 
@@ -142,4 +143,6 @@
             }
         }
     }
+
+
 }
