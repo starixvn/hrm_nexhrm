@@ -97,7 +97,7 @@ function query(isFirstLoad) {
 
             initTooltip();
 
-            floatThead('table#data');
+            //floatThead('table#data');  // remove floatThead
         },
         error: function () {
             alert(_messages.errorTryAgain);

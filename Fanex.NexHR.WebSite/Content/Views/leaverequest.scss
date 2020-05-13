@@ -88,9 +88,11 @@
 }
 
     .card-leave-detail {
-        padding: 0 8px; 
+        padding: 0 8px;
+
         .form {
             margin-bottom: 1.2rem;
+
             .form-input {
 
                 .col {
@@ -133,12 +135,17 @@
                     font-size: 1.2rem;
                     padding: 0.1rem 1.5rem;
                     display: block;
-                    height: auto;
+                    height: 3.2rem;
+                    line-height: 3.2rem;
                 }
 
                 .btn-request {
-                    padding: 0.1rem 2.1rem;
+                    padding: 0.1rem 0;
                     font-size: 1.2rem;
+                    height: 3.2rem;
+                    line-height: 3.2rem;
+                    width: 52%;
+                    text-align: center
                 }
             }
         }

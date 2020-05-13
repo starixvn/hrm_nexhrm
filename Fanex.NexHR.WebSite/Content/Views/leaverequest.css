@@ -65,7 +65,12 @@
         font-size: 1.2rem;
         padding: 0.1rem 1.5rem;
         display: block;
-        height: auto; }
+        height: 3.2rem;
+        line-height: 3.2rem; }
       .card-leave-detail .form .form-input .btn-request {
-        padding: 0.1rem 2.1rem;
-        font-size: 1.2rem; } }
+        padding: 0.1rem 0;
+        font-size: 1.2rem;
+        height: 3.2rem;
+        line-height: 3.2rem;
+        width: 52%;
+        text-align: center; } }
