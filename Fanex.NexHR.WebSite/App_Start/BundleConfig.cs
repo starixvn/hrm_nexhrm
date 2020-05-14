@@ -118,6 +118,8 @@
             BuildBundleForHistoryWork(bundles);
 
             BuildBundleForLeaveQequest(bundles);
+
+            BuildBundleForMyRecord(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -621,6 +623,12 @@
         {
             bundles.Add(new StyleBundle("~/Content/leaverequestcss")
                   .Include("~/Content/Views/leaverequest.css", new CssRewriteUrlTransform()));
+        }
+
+        private static void BuildBundleForMyRecord(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/myrecordcss")
+                  .Include("~/Content/Views/myrecord.css", new CssRewriteUrlTransform()));
         }
     }
 }

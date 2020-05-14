@@ -87,5 +87,9 @@
   {
     "outputFile": "Content/Views/myrequest.css",
     "inputFile": "Content/Views/myrequest.scss"
+  },
+  {
+    "outputFile": "Content/Views/myrecord.css",
+    "inputFile": "Content/Views/myrecord.scss"
   }
 ]

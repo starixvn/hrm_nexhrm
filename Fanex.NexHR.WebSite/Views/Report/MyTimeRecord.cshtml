@@ -3,7 +3,8 @@
     ViewBag.Title = Labels.MyTimeRecord;
 }
 @section css{
-    @Styles.Render("~/Content/simplepaginationcss")
+    @Styles.Render("~/Content/simplepaginationcss", "~/Content/myrecordcss")
+ 
 }
 @section js{
     @Scripts.Render(
@@ -33,22 +34,24 @@
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                <div class="col-from-to">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                            <i class="mdi-action-event calendar-icon from-date left"></i>
+                                        </div>
                                     </div>
-                                    <div class="datepicker-button left select--s">
-                                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon from-date left"></i>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="left label--m">
-                                       @Html.LabelFor(model => model.ToDate, Labels.ToDate)
-                                    </div>
-                                    <div class="datepicker-button left select--s">
-                                        @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
-                                        <i class="mdi-action-event calendar-icon to-date left"></i>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            @Html.DatePickerFor(model => model.ToDate, minDate: new DateTime(2010, 01, 01), maxDate: DateTime.Now)
+                                            <i class="mdi-action-event calendar-icon to-date left"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -65,6 +68,6 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 

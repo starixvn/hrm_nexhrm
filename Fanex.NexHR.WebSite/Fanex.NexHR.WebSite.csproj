@@ -331,6 +331,12 @@
     <Content Include="Content\Views\mycalendar.css">
       <DependentUpon>mycalendar.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\myrecord.css">
+      <DependentUpon>myrecord.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\myrecord.min.css">
+      <DependentUpon>myrecord.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\myrequest.min.css">
       <DependentUpon>myrequest.css</DependentUpon>
     </Content>
@@ -350,6 +356,7 @@
     <Content Include="Content\Views\scheduled-message.scss" />
     <Content Include="Content\Views\Login.scss" />
     <Content Include="Content\Views\leaverequest.scss" />
+    <Content Include="Content\Views\myrecord.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
