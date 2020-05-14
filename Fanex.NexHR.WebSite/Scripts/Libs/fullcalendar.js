@@ -5292,9 +5292,17 @@ DayGrid.mixin({
 		var skinCss = cssToStr(this.getEventSkinCss(event));
 		var timeHtml = '';
 		var timeText;
-		var titleHtml;
+        var titleHtml;
 
-		classes.unshift('fc-day-grid-event', 'fc-h-event');
+        var day = seg.event.start._d;                       //get day in object
+        var today = view.calendar.getNow().stripTime()._d;  // today
+
+        //check if day = today => add class today to css
+        if (moment(day).isSame(today, 'day')) {
+            var classToday = "fc-today";
+        }
+
+        classes.unshift('fc-day-grid-event', 'fc-h-event', classToday);
 
 		// Only display a timed events time if it is the starting segment
 		if (seg.isStart) {
