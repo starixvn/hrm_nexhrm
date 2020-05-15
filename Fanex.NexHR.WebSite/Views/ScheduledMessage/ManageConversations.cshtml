@@ -5,7 +5,7 @@
 @model bool
 
 @section css{
-    @Styles.Render("~/Content/conversationmanagementcss")
+    @Styles.Render("~/Content/conversationmanagementcss", "~/Content/leaverequestcss")
 }
 
 @section js{
@@ -13,7 +13,7 @@
 }
 
 <div class="row content">
-    <div class="col s12 card-container-base">
+    <div class="col s12 card-container-base manage-message">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -42,8 +42,8 @@
                         </div>
                     }
 
-                    <div class="p-x--s m-t--m">
-                        <table id="conversation-table" class="table bordered striped highlight centered responsive-table table-custom">
+                    <div class="p-x--s m-t--m cover-table">
+                        <table id="conversation-table" class="table bordered striped highlight centered table-custom">
                             <thead>
                                 <tr>
                                     <th>@Labels.Name</th>

@@ -3,7 +3,7 @@
     ViewBag.Title = Labels.NewLateInEarlyOutNotification;
 }
 @section css{
-
+    @Styles.Render("~/Content/myrequestcss")
 }
 @section js{
     @Scripts.Render("~/bundles/createlateearlyjs")
@@ -11,14 +11,14 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base my-request my-check-in-out lateearly">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form list-item-form style-over">
                         @using (Html.BeginForm("Create", "lateearly", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
@@ -82,17 +82,17 @@
                                     </div>
                                     <div class="left select--m">
                                         @{
-                            var minutesList = new List<SelectListItem>
-                                                {
-                                                    new SelectListItem {Text = "30m", Value = "30", Selected = true},
-                                                    new SelectListItem {Text = "60m", Value = "60"},
-                                                };
+                                            var minutesList = new List<SelectListItem>
+                                                                            {
+                                                                                new SelectListItem {Text = "30m", Value = "30", Selected = true},
+                                                                                new SelectListItem {Text = "60m", Value = "60"},
+                                                                            };
                                         }
                                         @Html.RadioButtonList(model => model.Minutes, minutesList)
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input line-button">
                                 <div class="col m-b--m">
                                     <div class="left label--l">&nbsp;</div>
                                     <div class="left">
@@ -100,7 +100,7 @@
                                         <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
                                     </div>
                                 </div>
-                             </div>
+                            </div>
                         }
                     </div>
                 </div>

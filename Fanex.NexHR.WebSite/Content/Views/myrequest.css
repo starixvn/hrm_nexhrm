@@ -39,6 +39,12 @@
 @media only screen and (max-width: 601px) {
   .card-container-base.my-request .card-content, .card-container-base.my-check-in-out .card-content {
     padding: .6rem .8rem .8rem; }
+  .card-container-base.my-request.lateearly .list-item-form.style-over, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over {
+    margin-top: 20px; }
+    .card-container-base.my-request.lateearly .list-item-form.style-over .form-input.line-button, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over .form-input.line-button {
+      margin-top: 19px; }
+  .card-container-base.my-request.lateearly #listLateEarly, .card-container-base.my-check-in-out.lateearly #listLateEarly {
+    margin: 0 !important; }
   .card-container-base.my-request .list-item-form, .card-container-base.my-check-in-out .list-item-form {
     margin-top: 0.9rem;
     margin-bottom: 2.4rem; }
@@ -53,7 +59,9 @@
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; }
-      .card-container-base.my-request .list-item-form .form-input.line-button .left.label--xl, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left.label--xl {
+      .card-container-base.my-request .list-item-form .form-input[class*="m-t"], .card-container-base.my-check-in-out .list-item-form .form-input[class*="m-t"] {
+        margin: 0; }
+      .card-container-base.my-request .list-item-form .form-input.line-button .left[class*="label-"], .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left[class*="label-"] {
         display: none; }
       .card-container-base.my-request .list-item-form .form-input.line-button .left, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left {
         float: none !important;
@@ -69,7 +77,8 @@
           height: 3.2rem; }
         .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-submit, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-submit {
           margin: 0 .8rem;
-          height: 3.2rem; }
+          height: 3.2rem;
+          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16); }
       .card-container-base.my-request .list-item-form .form-input label, .card-container-base.my-check-in-out .list-item-form .form-input label {
         margin-top: 10px; }
       .card-container-base.my-request .list-item-form .form-input .col, .card-container-base.my-check-in-out .list-item-form .form-input .col {
