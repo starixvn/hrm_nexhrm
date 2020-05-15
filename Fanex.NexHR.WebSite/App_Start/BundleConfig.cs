@@ -120,6 +120,8 @@
             BuildBundleForLeaveQequest(bundles);
 
             BuildBundleForMyRecord(bundles);
+
+            BuildBundleForMyNEX(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -629,6 +631,12 @@
         {
             bundles.Add(new StyleBundle("~/Content/myrecordcss")
                   .Include("~/Content/Views/myrecord.css", new CssRewriteUrlTransform()));
+        }
+
+        private static void BuildBundleForMyNEX(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/mynex")
+                  .Include("~/Content/Views/mynex.css", new CssRewriteUrlTransform()));
         }
     }
 }

@@ -81,10 +81,12 @@
     }
     .avatarbox {
         padding: 0 0.8rem;
-        margin-top: 1.1rem; 
-        .col.m-r--xl{
+        margin-top: 1.1rem;
+
+        .col.m-r--xl {
             margin-right: 0;
         }
+
         .avatar {
             display: none;
         }
@@ -93,9 +95,11 @@
             display: block;
             width: 14.8rem;
             margin: 6px 0 7px 0;
+            border: 1px solid #d2d2d2;
 
             img {
                 width: 100%;
+                display: block;
             }
         }
     }

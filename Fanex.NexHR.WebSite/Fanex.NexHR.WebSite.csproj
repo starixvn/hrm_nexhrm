@@ -331,6 +331,12 @@
     <Content Include="Content\Views\mycalendar.css">
       <DependentUpon>mycalendar.scss</DependentUpon>
     </Content>
+    <Content Include="Content\Views\mynex.css">
+      <DependentUpon>mynex.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\mynex.min.css">
+      <DependentUpon>mynex.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\myrecord.css">
       <DependentUpon>myrecord.scss</DependentUpon>
     </Content>
@@ -351,6 +357,7 @@
     </Content>
     <Content Include="Content\Views\scheduled-message.css" />
     <Content Include="Content\Views\_monthPicker.scss" />
+    <Content Include="Content\Views\mynex.scss" />
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <Content Include="Content\Views\report.workinghoursstatistic.scss" />
     <Content Include="Content\Views\scheduled-message.scss" />

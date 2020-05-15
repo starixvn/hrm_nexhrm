@@ -1,7 +1,9 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model MemberOvertimeViewModel
+
+
 <div class="loading-process" style="display: none;"></div>
-<div class="form">
+<div class="form form-stl-table">
     <form id="form">
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
         <div class="row form-input">
@@ -13,22 +15,24 @@
                     @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                 </div>
             </div>
-            <div class="col m-r--l">
-                <div class="left label--l">
-                    @Html.LabelFor(model => model.FromDateOT)
+            <div class="col-two-item">
+                <div class="col m-r--l">
+                    <div class="left label--l">
+                        @Html.LabelFor(model => model.FromDateOT)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        @Html.DatePickerFor(model => model.FromDateOT)
+                        <i class="mdi-action-event calendar-icon left"></i>
+                    </div>
                 </div>
-                <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.FromDateOT)
-                    <i class="mdi-action-event calendar-icon left"></i>
-                </div>
-            </div>
-            <div class="col m-r--l">
-                <div class="left label--m">
-                    @Html.LabelFor(model => model.ToDateOT)
-                </div>
-                <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.ToDateOT)
-                    <i class="mdi-action-event calendar-icon left"></i>
+                <div class="col m-r--l">
+                    <div class="left label--m">
+                        @Html.LabelFor(model => model.ToDateOT)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        @Html.DatePickerFor(model => model.ToDateOT)
+                        <i class="mdi-action-event calendar-icon left"></i>
+                    </div>
                 </div>
             </div>
             <div class="col m-r--l">
@@ -59,7 +63,7 @@
                     @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
                     @Html.HiddenFor(m => m.EmployeeId)
                 </div>
-            </div>            
+            </div>
 
             <div class="col m-r--l">
                 <div class="left input--m">
@@ -70,13 +74,13 @@
     </form>
 </div>
 <div class="p-x--s">
-    <table id="dataOTRequest" class="table bordered striped highlight table-custom centered">
+    <table id="dataOTRequest" class="table bordered striped highlight table-custom centered table-success">
         <thead>
             <tr>
                 <th>#</th>
                 <th>@Labels.Nick</th>
                 <th>@Labels.FullName</th>
-                <th>@Labels.Date</th>
+                <th>@Labels.Date</th> 
                 <th>@Labels.Duration</th>
                 <th>@Labels.Project</th>
                 <th>@Labels.RequestedBy</th>

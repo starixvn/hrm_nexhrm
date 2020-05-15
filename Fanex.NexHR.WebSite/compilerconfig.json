@@ -91,5 +91,9 @@
   {
     "outputFile": "Content/Views/myrecord.css",
     "inputFile": "Content/Views/myrecord.scss"
+  },
+  {
+    "outputFile": "Content/Views/mynex.css",
+    "inputFile": "Content/Views/mynex.scss"
   }
 ]

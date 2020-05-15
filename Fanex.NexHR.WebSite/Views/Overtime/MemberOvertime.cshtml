@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model MemberOvertimeViewModel
 <div class="loading-process" style="display: none;"></div>
-<div class="form">
+<div class="form form-stl-table">
     <form id="form">
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
         <div class="row form-input">
@@ -13,22 +13,24 @@
                     @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                 </div>
             </div>
-            <div class="col m-r--l">
-                <div class="left label--l">
-                    @Html.LabelFor(model => model.FromDate)
+            <div class="col-two-item">
+                <div class="col m-r--l">
+                    <div class="left label--l">
+                        @Html.LabelFor(model => model.FromDate)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                        <i class="mdi-action-event calendar-icon left"></i>
+                    </div>
                 </div>
-                <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
-                    <i class="mdi-action-event calendar-icon left"></i>
-                </div>
-            </div>
-            <div class="col m-r--xl">
-                <div class="left label--m">
-                    @Html.LabelFor(model => model.ToDate)
-                </div>
-                <div class="left datepicker-button select--s">
-                    @Html.DatePickerFor(model => model.ToDate)
-                    <i class="mdi-action-event calendar-icon left"></i>
+                <div class="col m-r--xl">
+                    <div class="left label--m">
+                        @Html.LabelFor(model => model.ToDate)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        @Html.DatePickerFor(model => model.ToDate)
+                        <i class="mdi-action-event calendar-icon left"></i>
+                    </div>
                 </div>
             </div>
         </div>
