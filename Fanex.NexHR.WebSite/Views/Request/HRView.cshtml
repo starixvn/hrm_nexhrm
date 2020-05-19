@@ -5,7 +5,8 @@
 @section css{
     @Styles.Render(
         "~/Content/contextmenucss",
-        "~/Content/simplepaginationcss")
+        "~/Content/simplepaginationcss",
+        "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render(
@@ -16,7 +17,7 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base">
+    <div class="col s12 card-container-base employee-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -24,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     @Html.Partial("CriteriaPanel", Model)
-                    <div id="all-request"></div>
+                    <div id="all-request" class="cover-form-mb table-request-employeeview"></div>
                     <div id="dialoghistorycontent"></div>
                 </div>
             </div>

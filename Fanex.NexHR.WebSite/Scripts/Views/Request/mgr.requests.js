@@ -121,7 +121,9 @@ function query(isFirstLoad) {   // jshint ignore:line
                     document.location = _global.root + controller + '/' + action + '?' + model;
                 });
 
-                floatThead('table#data');
+                $('table#data').addClass('table-success'); // class to style mobile
+
+                //floatThead('table#data');
             }
         },
         error: function (textStatus, errorThrown) {

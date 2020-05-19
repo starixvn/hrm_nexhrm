@@ -95,5 +95,9 @@
   {
     "outputFile": "Content/Views/mynex.css",
     "inputFile": "Content/Views/mynex.scss"
+  },
+  {
+    "outputFile": "Content/Views/view-mobile.css",
+    "inputFile": "Content/Views/view-mobile.scss"
   }
 ]

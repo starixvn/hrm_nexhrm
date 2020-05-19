@@ -356,6 +356,12 @@
       <DependentUpon>report.workinghoursstatistic.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\scheduled-message.css" />
+    <Content Include="Content\Views\view-mobile.css">
+      <DependentUpon>view-mobile.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\view-mobile.min.css">
+      <DependentUpon>view-mobile.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\_monthPicker.scss" />
     <Content Include="Content\Views\mynex.scss" />
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
@@ -364,6 +370,7 @@
     <Content Include="Content\Views\Login.scss" />
     <Content Include="Content\Views\leaverequest.scss" />
     <Content Include="Content\Views\myrecord.scss" />
+    <Content Include="Content\Views\view-mobile.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />

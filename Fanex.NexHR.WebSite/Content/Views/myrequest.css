@@ -37,6 +37,15 @@
           list-style-type: circle; }
 
 @media only screen and (max-width: 601px) {
+  [type="radio"]:not(:checked) + label:before {
+    border: 2px solid #989898; }
+  [type="radio"].with-gap:checked + label:after {
+    border: 2px solid #989898;
+    background-color: #989898; }
+  [type="radio"].with-gap:checked + label:before {
+    border: 2px solid #989898; }
+  .form-input label {
+    color: #989898; }
   .card-container-base.my-request .card-content, .card-container-base.my-check-in-out .card-content {
     padding: .6rem .8rem .8rem; }
   .card-container-base.my-request.lateearly .list-item-form.style-over, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over {

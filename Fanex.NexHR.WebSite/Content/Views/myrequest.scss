@@ -56,6 +56,19 @@
 }
 // update css mobile
 @media only screen and (max-width: $small-screen-up) {
+    [type="radio"]:not(:checked) + label:before {
+        border: 2px solid #989898;
+    }
+    [type="radio"].with-gap:checked + label:after {
+        border: 2px solid #989898;
+        background-color: #989898;
+    }
+    [type="radio"].with-gap:checked + label:before {
+        border: 2px solid #989898;
+    }
+    .form-input label{
+        color: #989898; 
+    }
     .card-container-base.my-request, .card-container-base.my-check-in-out {
         .card-content {
             padding: .6rem .8rem .8rem;

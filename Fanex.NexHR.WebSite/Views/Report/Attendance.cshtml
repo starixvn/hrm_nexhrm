@@ -3,7 +3,8 @@
     ViewBag.Title = Labels.AttendanceReport;
 }
 @section css{
-    @Styles.Render("~/Content/simplepaginationcss")
+    @Styles.Render("~/Content/simplepaginationcss",
+                "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render(
@@ -20,7 +21,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <form action="" class="form-filter">
                             <div class="row form-input">
@@ -90,7 +91,7 @@
                                         @Html.LabelFor(model => model.ExcludeUserDelete, Labels.ExcludeUserDelete)
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col col-btn">
                                     <div class="left label--m label">
                                         &nbsp;</div>
                                     <div class="left">
@@ -103,8 +104,8 @@
                             </div>
                         </form>
                     </div>
-                    <div class="p-x--s">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                    <div class="p-x--s cover-form-mb over-auto table-report-attendance">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>
                                 <tr>
                                     <th>@Labels.SymbolCount</th>

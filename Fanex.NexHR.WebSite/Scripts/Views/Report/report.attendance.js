@@ -103,7 +103,10 @@ function query(isFirstLoad) {
                 initTooltip();
                 initPagination();
                 floatThead('table#data');
+                $('#attendance-detail').parents().addClass('table-success'); //use this class to style table
             }
+            $('#attendance-detail').parents().addClass('table-fail'); //use this class to style table
+            
         },
         error: function () {
             alert(_messages.errorTryAgain);

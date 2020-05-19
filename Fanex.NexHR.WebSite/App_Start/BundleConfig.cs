@@ -122,6 +122,8 @@
             BuildBundleForMyRecord(bundles);
 
             BuildBundleForMyNEX(bundles);
+
+            BuildBundleForMobile(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -638,5 +640,12 @@
             bundles.Add(new StyleBundle("~/Content/mynex")
                   .Include("~/Content/Views/mynex.css", new CssRewriteUrlTransform()));
         }
+
+        private static void BuildBundleForMobile(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/view-mobile")
+                  .Include("~/Content/Views/view-mobile.css", new CssRewriteUrlTransform()));
+        }
+
     }
 }
