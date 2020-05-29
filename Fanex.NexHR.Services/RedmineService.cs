@@ -81,6 +81,9 @@
 
         public async Task<IList<RedmineIssue>> GetInProgressIssues(string domainName)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             HttpClient client = AuthorizeRequestHeader();
             int currentId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
             var url = new Uri(string.Format(getInprogessTasksUrl, currentId));
