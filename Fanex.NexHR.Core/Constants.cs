@@ -32,6 +32,7 @@ namespace Fanex.NexHR.Core
         public const string EmailTemplatePathForCheckInOutApproved = "~/app_data/emails/CheckInOutApprovalNotification.cshtml";
         public const string EmailTemplatePathForOvertimeNotification = "~/app_data/emails/OvertimeNotification.cshtml";
         public const string EmailTemplatePathForTOEICScoreUpdatedNotification = "~/app_data/emails/TOEICScoreUpdatedNotification.cshtml";
+        public const string EmailTemplatePathForSuccessUpdateEmployee = "app_data\\emails\\SuccessUpdateEmployee.cshtml";
 
         public const int CurrentPage = 1;
         public const int ItemsPerPage = 100;
@@ -41,6 +42,5 @@ namespace Fanex.NexHR.Core
         public const int UnpaidLeaveType = 26;
 
         public const string NewLine = "\n\n";
-        public const string EditEmployeeEmailTemplate = "emails\\successupdate.cshtml";
     }
 }
