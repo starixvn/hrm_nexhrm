@@ -27,6 +27,10 @@
     <add key="IsCloseBalance" value="false" />
     <add key="ProjectManagerTeams" value="PM" />
     <add key="IgnoreTeams" value="EXP,FA,ITNW,HR" />
+<<<<<<< HEAD
+=======
+    <add key="FPS_API" value="ws.detecas.com" />
+>>>>>>> 000 - Use template email for both company
     <add key="IsDisabledSendMail" value="false" />
     <add key="IgnoreTeamWorkload" value="EXP,FA,HR,PM,MGT" />
     <add key="Redmine_API_Address" value="http://10.70.70.223:88/" />
@@ -42,10 +46,6 @@
     <add key="NexGoalApiHost" value="https://goal.nexdev.net"/>
     <add key="BaseUrl" value=" http://hrm.luminet.vn" />
     <add key="IsDisabledSendSkype" value="true" />
-=======
-    <add key="BaseUrl" value="http://localhost:51384" />
-    <add key="IsDisabledSendSkype" value="false" />
->>>>>>> 136478 - Missing check in check out
     <add key="HRMName" value="LumiHRM" />
     <add key="LDAP" value="luminet.vn"/>
     <add key="CompanyMailSign" value="© 2020 by Luminet Software Solutions" />
@@ -53,6 +53,14 @@
     <add key="NexTaskScheduleId" value="NexTaskSchedule" />
     <add key="NexTaskSchedulePassword" value="fdjslakjfdsa9432Fdsalf" />
     <add key="NexTaskScheduleSecret" value="fdjslakjfdsa9432Fdsalf13fdsa4fd5sa1f2ds1f32d1sa" />
+=======
+    <add key="BaseUrl" value=" http://hrm.luminet.vn" />
+    <add key="IsDisabledSendSkype" value="true" />
+    <add key="HRMName" value="LumiHRM"/>
+    <add key="OTRequest" value="LUMI"/>
+    <add key="Companiers" value="Nexcelers"/>
+    <add key="CompanyMailSign" value="© 2020 by Luminet Software Solutions"/>
+>>>>>>> 000 - Use template email for both company
   </appSettings>
   <!--
     For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
@@ -340,6 +348,13 @@
     </system.web>
   </location>
   <location path="api/BioTasks/BioFingerprintAndCard">
+    <system.web>
+      <authorization>
+        <allow users="?" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="api/LateInEarlyOutViolateOnMonthWarning">
     <system.web>
       <authorization>
         <allow users="?" />
