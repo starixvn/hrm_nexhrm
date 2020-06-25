@@ -30,6 +30,8 @@
         private readonly INexbotService _nexbotService;
         private const string stringTime = "HH:mm";
         private const string stringEmail = "Email";
+        private const string BaseUrl = "BaseUrl";
+        private const string CompanyMailSign = "CompanyMailSign";
 
         public RequestService()
             : this(null, null, null, null)
@@ -330,7 +332,9 @@
                     model.Employee,
                     forDate,
                     model.LeaveTypeName,
-                    model.Remark);
+                    model.Remark,
+                    ConfigurationManager.AppSettings[BaseUrl],
+                    ConfigurationManager.AppSettings[CompanyMailSign]);
 
                 _emailService.SendEmail(
                     ConfigurationManager.AppSettings[stringEmail],
@@ -351,7 +355,9 @@
                     model.Employee,
                     forDate,
                     model.LeaveTypeName,
-                    model.Remark);
+                    model.Remark,
+                    ConfigurationManager.AppSettings[BaseUrl],
+                    ConfigurationManager.AppSettings[CompanyMailSign]);
 
                 _emailService.SendEmail(
                     ConfigurationManager.AppSettings[stringEmail],
@@ -374,7 +380,7 @@
                 RequestId = model.Id,
                 ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
                 Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
-                Shift = model.Shift
+                model.Shift
             };
 
             var body = string.Format(
@@ -384,7 +390,9 @@
                 content.Type,
                 content.ForDate,
                 content.Shift,
-                content.Time);
+                content.Time,
+                ConfigurationManager.AppSettings[BaseUrl],
+                ConfigurationManager.AppSettings[CompanyMailSign]);
 
             _emailService.SendEmail(
                 ConfigurationManager.AppSettings[stringEmail],
@@ -528,7 +536,9 @@
                 forDate,
                 action,
                 request.ModifiedBy.NickName,
-                request.ModifiedBy.FullName);
+                request.ModifiedBy.FullName,
+                ConfigurationManager.AppSettings[BaseUrl],
+                ConfigurationManager.AppSettings[CompanyMailSign]);
 
             var subject = string.Format(
                 Messages.ProcessSubject,
@@ -538,7 +548,7 @@
                 request.ModifiedBy.NickName);
 
             _emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                ConfigurationManager.AppSettings[stringEmail],
                 request.Requester.Email,
                 string.Empty,
                 subject,
@@ -598,7 +608,8 @@
                 request.RequestType.Name,
                 request.FromDate.ToDateMonthYearFormatedDate(),
                 request.FromShift.Name,
-                request.FromDate.ToString(stringTime));
+                request.FromDate.ToString(stringTime),
+                ConfigurationManager.AppSettings[CompanyMailSign]);
 
             _emailService.SendEmail(
                 ConfigurationManager.AppSettings[stringEmail],
@@ -623,7 +634,8 @@
                 Labels.Leave,
                 forDate,
                 request.LeaveType.Name,
-                request.Remark);
+                request.Remark,
+                ConfigurationManager.AppSettings[CompanyMailSign]);
 
             if (!string.IsNullOrEmpty(sendTo))
             {

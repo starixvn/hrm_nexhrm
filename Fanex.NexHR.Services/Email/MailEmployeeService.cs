@@ -14,9 +14,7 @@
     {
         private readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly string SenderName = ConfigurationManager.AppSettings["Email.SenderName"];
-
-        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
+        private readonly string HRMName = ConfigurationManager.AppSettings["HRMName"];
 
         private readonly EmailService EmailService = new EmailService();
 
@@ -30,11 +28,16 @@
         public void SendMailUpdateSuccess()
         {
             var bodyTemplate = ReadTextFile(Constants.EditEmployeeEmailTemplate);
-            var emailContent = string.Format(bodyTemplate, _employee.NickName);
-            var emailSubject = $"{SenderName} - {Messages.SuccessUpdateInformation}";
+            var emailContent = string.Format(
+                bodyTemplate,
+                _employee.NickName,
+                HRMName,
+                ConfigurationManager.AppSettings["BaseUrl"],
+                ConfigurationManager.AppSettings["CompanyMailSign"]);
+            var emailSubject = $"[{HRMName}] - {Messages.SuccessUpdateInformation}";
 
             EmailService.SendEmail(
-                SenderEmail,
+                ConfigurationManager.AppSettings["Email"],
                 _employee.Email,
                 null,
                 emailSubject,

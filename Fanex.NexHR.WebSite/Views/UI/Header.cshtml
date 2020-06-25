@@ -1,9 +1,10 @@
-﻿@model Employee
+﻿@using Fanex.NexHR.Core;
 
-@*@{
-    IList<Employee> employeesBirthday = (IList<Employee>)ViewBag.EmployeesBirthday;
-    IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
-}*@
+@model Employee
+
+@{ 
+    var logoSrc = "/Content/Images/" + AppSetting.HRMName + ".png";
+}
 
 @{ 
     var HRMName = @System.Configuration.ConfigurationManager.AppSettings["HRMName"];
@@ -18,7 +19,7 @@
     <nav class="right">
         <div class="logo">
             <a id="logo-container" class="brand-logo" href="~/">
-                <img src="~/Content/Images/LumiHRM.png" alt="." />
+                <img src="@logoSrc" alt="." />
             </a>
         </div>
         <div class="right nav-wrapper">

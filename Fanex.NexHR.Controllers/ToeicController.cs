@@ -393,9 +393,7 @@
                 OldTotal = GetDisplayScore(oldScore.LRTotal)
             };
 
-            var body = Utilities.ReadTextFile(
-                System.Web.HttpContext.Current.Server.MapPath(
-                    "~/app_data/emails/TOEICScoreUpdatedNotification.cshtml"));
+            var body = Utilities.ReadTextFile(System.Web.HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForTOEICScoreUpdatedNotification));
 
             body = string.Format(
                 body,
@@ -405,7 +403,8 @@
                 bodyContent.NewReading,
                 bodyContent.OldReading,
                 bodyContent.NewTotal,
-                bodyContent.OldTotal);
+                bodyContent.OldTotal,
+                ConfigurationManager.AppSettings["CompanyMailSign"]);
 
             return body;
         }

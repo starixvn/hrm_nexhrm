@@ -196,14 +196,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Avatars\avatar.jpg" />
-    <Content Include="App_Data\Emails\ApprovalNotification.cshtml" />
-    <Content Include="App_Data\Emails\ChangeShift.Request.cshtml" />
-    <Content Include="App_Data\Emails\ChangeShiftApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\CheckInOut.Request.cshtml" />
     <Content Include="App_Data\Emails\CheckInOutApprovalNotification.cshtml" />
-    <Content Include="App_Data\Emails\EditMemoNotification.cshtml" />
-    <Content Include="App_Data\Emails\LateInEarlyOut.Request.cshtml" />
-    <Content Include="App_Data\Emails\LateInEarlyOutApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\Leave.Request.cshtml" />
     <Content Include="App_Data\Emails\LeaveApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\MemoNotification.cshtml" />

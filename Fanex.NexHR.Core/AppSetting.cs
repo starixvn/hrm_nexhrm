@@ -29,5 +29,7 @@ namespace Fanex.NexHR.Core
         public static string RedmineConnectionString => Cryptography.CfsDeCrypt(ConfigurationManager.AppSettings["Redmine_ConnectionString"]);
 
         public static string ScheduledMessageUserGuide => ConfigurationManager.AppSettings["ScheduledMessage_UserGuide"];
+
+        public static string HRMName => ConfigurationManager.AppSettings["HRMName"];
     }
 }

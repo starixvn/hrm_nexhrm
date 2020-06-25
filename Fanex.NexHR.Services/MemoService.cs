@@ -15,6 +15,7 @@
     public class MemoService : BaseService, IMemoService
     {
         private readonly IEmailService _emailService;
+        private const string Email = "Email";
 
         public MemoService(IEmailService emailService = null)
         {
@@ -71,23 +72,23 @@
             var groupGo = ConfigurationManager.AppSettings["EmailGo"];
             var groupNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
             //// send email(s)
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/MemoNotification.cshtml"));
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForMemoNotification));
 
-            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, DateTime.Now.Year.ToString());
+            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, DateTime.Now.Year.ToString(), ConfigurationManager.AppSettings["CompanyMailSign"]);
             _emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                ConfigurationManager.AppSettings[Email],
                 groupGo,
                 string.Empty,
                 Messages.MemoSubject + " " + subject,
                 body);
             _emailService.SendEmail(
-               ConfigurationManager.AppSettings["Email"],
+               ConfigurationManager.AppSettings[Email],
                groupSd,
                string.Empty,
                Messages.MemoSubject + " " + subject,
                body);
             _emailService.SendEmail(
-               ConfigurationManager.AppSettings["Email"],
+               ConfigurationManager.AppSettings[Email],
                groupNetwork,
                string.Empty,
                Messages.MemoSubject + " " + subject,

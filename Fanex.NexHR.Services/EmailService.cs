@@ -24,7 +24,7 @@
                 MailTo = receiverEmail,
                 MailCc = mailCC,
                 Subject = subject,
-                Title = ConfigurationManager.AppSettings["Email.SenderName"],
+                Title = $"[{ConfigurationManager.AppSettings["HRMName"]}]",
                 Body = body,
             };
 

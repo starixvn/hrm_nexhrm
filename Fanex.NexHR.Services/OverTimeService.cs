@@ -93,7 +93,7 @@
                 GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
 
                 //// send email(s)
-                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath("~/app_data/emails/OvertimeNotification.cshtml"));
+                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
 
                 foreach (var item in model.TimeSheets)
                 {
@@ -102,7 +102,14 @@
                     var leaderReceive = GetData<Employee>(getLeaderCriteria);
                     var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
 
-                    var body = string.Format(bodyTemplate, item.Employee.NickName, model.Date.ToDateMonthYearFormatedDate(), item.Hour, model.Description);
+                    var body = string.Format(
+                        bodyTemplate,
+                        item.Employee.NickName,
+                        ConfigurationManager.AppSettings["OTRequest"],
+                        model.Date.ToDateMonthYearFormatedDate(),
+                        item.Hour,
+                        model.Description,
+                        ConfigurationManager.AppSettings["CompanyMailSign"]);
 
                     _emailService.SendEmail(
                         ConfigurationManager.AppSettings["Email"],
