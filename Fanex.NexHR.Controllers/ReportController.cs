@@ -228,9 +228,7 @@
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
         {
-            IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
-
-            return PartialView("_ListRequestMonitoring", requestMonitorings);
+            return PartialView("_ListRequestMonitoring", GetRequestMonitoringDetail(model));
         }
 
         private IList<RequestsMonitoring> GetRequestMonitoringDetail(RequestsMonitoringViewModel model)
@@ -301,7 +299,7 @@
 
             IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            IList<TotalWorkingHours> totalWorkingHour = SortTotalWorking(model.Sort, totalWorkingHours);
+            IList<TotalWorkingHours> totalWorkingHour = SortTotalWorking(model?.Sort, totalWorkingHours);
 
             return Json(totalWorkingHour, JsonRequestBehavior.AllowGet);
         }

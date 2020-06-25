@@ -348,7 +348,7 @@
             var startCol = 4;            
             foreach (var leaveSchedule in leaveSchedules)
             {
-                var value = "x";
+                const string value = "x";
                 var cellValue = leaveSchedule.LeaveType;
 
                 if (leaveSchedule.IsLeaveDay)

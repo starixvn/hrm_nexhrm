@@ -83,8 +83,6 @@
                 employees = SortToeic(model.Sort, employees);
             }
 
-            ViewBag.Sort = model.Sort;
-
             return PartialView("_ToeicManagementDetail", employees);
         }
 

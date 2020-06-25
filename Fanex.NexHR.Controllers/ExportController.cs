@@ -76,7 +76,7 @@
 
             IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
-            if (model.Sort != null)
+            if (model != null && model.Sort != null)
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(model.Sort);
 
