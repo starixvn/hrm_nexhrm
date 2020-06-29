@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.CompanyEvent;
     using Models.Workload;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -98,12 +99,12 @@
             }
         }
 
-        public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria)
+        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria)
         {
             var model = new SystemReminderModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = await db.QueryMultipleAsync(criteria.GetSpParams()).ConfigureAwait(false))
                 {
                     model.EmployeeHasBirthday = multi.Read<Employee>().ToList();
                     model.EmployeeHasFirstWorkingDay = multi.Read<Employee>().ToList();
@@ -170,9 +171,9 @@
         {
             return new Shift
             {
-                    Id = defaultSchedule.MonShiftId ?? 0,
-                    Name = defaultSchedule.MonShiftName
-                };
+                Id = defaultSchedule.MonShiftId ?? 0,
+                Name = defaultSchedule.MonShiftName
+            };
         }
 
         private static Shift GetTueShift(dynamic defaultSchedule)

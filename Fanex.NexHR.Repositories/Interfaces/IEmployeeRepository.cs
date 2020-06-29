@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Data.Repository;
     using Models;
     using Models.Workload;
@@ -21,7 +22,7 @@
 
         IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
 
-        SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
+        Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
 
         List<Workload> GetWorkloadByTeam(ICriteria criteria);
     }

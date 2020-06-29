@@ -16,6 +16,7 @@
     using Criteria.Workload;
     using Models;
     using Models.RedmineAPI;
+    using Models.Report;
     using Models.Request;
     using Models.Workload;
     using Resources;
@@ -23,7 +24,6 @@
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Report;
-    using Models.Report;
 
     public class DashboardController : BaseController
     {
@@ -58,7 +58,7 @@
             _redmineService = redmineService ?? new RedmineService();
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria
             {
@@ -66,7 +66,7 @@
             };
 
             MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
-            model.SystemReminder = GetRemind();
+            model.SystemReminder = await GetRemind().ConfigureAwait(false);
 
             EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
             {
@@ -96,14 +96,14 @@
             return _lateinearlyoutService.GetAllEmployee(criteria);
         }
 
-        private SystemReminderModel GetRemind()
+        private async Task<SystemReminderModel> GetRemind()
         {
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
                 OnDate = DateTime.Now.Date
             };
 
-            var lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            var lstEmployee = await _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             return lstEmployee;
         }
 

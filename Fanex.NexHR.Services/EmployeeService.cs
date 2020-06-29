@@ -11,6 +11,7 @@
     using Repositories.Interfaces;
     using ViewModels;
     using Models.Report;
+    using System.Threading.Tasks;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -107,12 +108,12 @@
             return employees ?? new List<Employee>();
         }
 
-        public SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
+        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
             SystemReminderModel employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = _employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+                employees = await _employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             }
 
             return employees;

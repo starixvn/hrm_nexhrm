@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
     using Models;
+    using Models.Report;
     using Models.Workload;
     using ViewModels;
-    using Models.Report;
 
     public interface IEmployeeService
     {
@@ -29,7 +30,7 @@
 
         IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
-        SystemReminderModel GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
+        Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
 
         IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 

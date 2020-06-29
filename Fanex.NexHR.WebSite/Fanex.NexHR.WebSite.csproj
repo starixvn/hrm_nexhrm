@@ -211,6 +211,12 @@
     <Content Include="App_Data\ExcelTemplates\WorkingHoursStatistic.xls" />
     <Content Include="App_Data\ExcelTemplates\DayOffSchedule.xls" />
     <Content Include="App_Data\ExcelTemplates\HeadCountReport.xls" />
+    <Content Include="App_Data\Emails\ReminderBirthday.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Emails\ReminderFirstWorkingday.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

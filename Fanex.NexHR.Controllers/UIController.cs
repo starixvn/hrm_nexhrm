@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -40,7 +41,7 @@ namespace Fanex.NexHR.Controllers
         /// </summary>
         /// <returns>Action Result.</returns>
         [ChildActionOnly]
-        public ActionResult Header()
+        public async Task<ActionResult> Header()
         {
             List<Employee> employeesBirthday = null;
             List<Employee> employeesFirstWorkingday = null;
@@ -49,7 +50,7 @@ namespace Fanex.NexHR.Controllers
                 OnDate = DateTime.Now.Date
             };
 
-            var lstEmployee = _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
+            var lstEmployee = await _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             if (lstEmployee != null)
             {
                 employeesBirthday = lstEmployee.EmployeeHasBirthday;

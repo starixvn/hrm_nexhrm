@@ -181,6 +181,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Interfaces\ITeamService.cs" />
+    <Compile Include="Email\MailReminderService.cs" />
     <Compile Include="MemoService.cs" />
     <Compile Include="ExportService.cs" />
     <Compile Include="NexbotService.cs" />
