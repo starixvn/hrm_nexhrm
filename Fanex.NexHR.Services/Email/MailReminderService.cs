@@ -17,26 +17,23 @@
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly EmailService EmailService = new EmailService();
         private static readonly EmployeeService EmployeeService = new EmployeeService();
-
         private static readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
         private static readonly string EmailSd = ConfigurationManager.AppSettings["EmailSD"];
         private static readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
         private static readonly string EmailNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
-
         private static readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
-
         private static readonly string TimeSendMailReminderBirthday = ConfigurationManager.AppSettings["TimeSendMailReminderBirthday"];
-
         private bool _checkSendMailReminderBirthday;
+        private static bool _isReminderBirthdayAndFirstWorkingdaySuccess = true;
 
-        public async Task ReminderBirthdayAndFirstWorkingday()
+        public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
         {
             var today = DateTime.Now;
             const int days = 2;
 
             if (!bool.Parse(AllowSendMailReminderBirthday) || today.DayOfWeek == DayOfWeek.Saturday)
             {
-                return;
+                return new CommandResult { Code = 0 };
             }
 
             if (today.Hour >= int.Parse(TimeSendMailReminderBirthday) &&
@@ -61,6 +58,8 @@
             {
                 _checkSendMailReminderBirthday = false;
             }
+
+            return new CommandResult { Code = _isReminderBirthdayAndFirstWorkingdaySuccess ? 0 : 1 };
         }
 
         private static async Task SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
@@ -94,6 +93,7 @@
             catch (Exception ex)
             {
                 Log.Error(ex.Message, ex);
+                _isReminderBirthdayAndFirstWorkingdaySuccess = false;
             }
         }
 

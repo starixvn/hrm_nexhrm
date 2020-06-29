@@ -14,9 +14,10 @@
         }
 
         [HttpPost]
-        public async Task BirthdayAndFirstWorkingday()
+        public async Task<IHttpActionResult> BirthdayAndFirstWorkingday()
         {
-            await mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
+            var result = await mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
+            return Ok(result);
         }
     }
 }
