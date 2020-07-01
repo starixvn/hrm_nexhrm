@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Fanex.NexHR.Controllers.API
+namespace Fanex.NexHR.Core
 {
     public class TokenValidationHandler : DelegatingHandler
     {

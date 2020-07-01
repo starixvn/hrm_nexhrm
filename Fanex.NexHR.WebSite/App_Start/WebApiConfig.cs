@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
     using System.Web.Http;
-    using Fanex.NexHR.Controllers.API;
+    using Fanex.NexHR.Core;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
