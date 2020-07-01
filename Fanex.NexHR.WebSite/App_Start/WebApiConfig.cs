@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
     using System.Web.Http;
+    using Fanex.NexHR.Controllers.API;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
@@ -8,6 +9,10 @@
     {
         public static void Register(HttpConfiguration config)
         {
+            config?.MapHttpAttributeRoutes();
+
+            config?.MessageHandlers.Add(new TokenValidationHandler());
+
             config?.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",

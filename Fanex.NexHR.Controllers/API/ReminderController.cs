@@ -14,6 +14,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> BirthdayAndFirstWorkingday()
         {
             var result = await mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);

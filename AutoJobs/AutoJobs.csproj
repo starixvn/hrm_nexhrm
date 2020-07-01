@@ -97,7 +97,6 @@
     <Compile Include="JobService.Designer.cs">
       <DependentUpon>JobService.cs</DependentUpon>
     </Compile>
-    <Compile Include="MailReminderService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
