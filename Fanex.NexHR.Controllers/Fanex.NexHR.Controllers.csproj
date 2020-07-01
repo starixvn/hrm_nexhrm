@@ -110,6 +110,7 @@
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -151,6 +152,7 @@
     <Compile Include="API\RequestController.cs" />
     <Compile Include="API\TimesheetController.cs" />
     <Compile Include="API\ScheduledMessageController.cs" />
+    <Compile Include="AuthController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BioController.cs" />
     <Compile Include="DashboardController.cs" />

@@ -7,42 +7,57 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to NexHRM</title>
-    <link href="~/Styles/login.css" rel="stylesheet" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    @Styles.Render("~/Content/Views/login.css")
+
     <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+
+    <script src="~/Scripts/Libs/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/Libs/jquery.validate.min.js"></script>
+    <script src="~/Scripts/Libs/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    <div id="panel">
-        <div class="title">
-            <div class="nexHRMicon">
-            </div>
-            <div class="signinicon">
+    <header class="navbar navbar-fixed-top navbar-empty">
+        <div class="center-logo">
+            <img src="~/Content/Images/logo.png" alt="." />
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-5 order-sm-2">
+                    <div class="login-body">
+                        @using (Html.BeginForm())
+                        {
+                            <h4>Login</h4>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserName)
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password)
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group form-check">
+                                @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-check-input" } })
+                                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-labe" })
+                            </div>
+                            <input type="submit" class="btn btn-success" value="Login">
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-7 brand-holder order-sm-1">
+                    <h1>Nexcel Solutions HRM Site</h1>
+                    <h5>© @DateTime.Today.Year by Nexcel Solutions. All rights reserved</h5>
+                </div>
             </div>
         </div>
-        <div id="formContainer">
-            @using (Html.BeginForm())
-            {
-                <div class="textbox-outer">
-                    <div class="username-icon">
-                    </div>
-                    <div class="username-field">
-                        @Html.TextBoxFor(model => model.UserName, new { placeholder = "Domain Username" })
-                    </div>
-                </div>
-                <div class="textbox-outer">
-                    <div class="password-icon">
-                    </div>
-                    <div class="password-field">
-                        @Html.TextBoxFor(model => model.Password, new { placeholder = "Password", type = "Password" })
-                    </div>
-                </div>
-                <div class="signin-button">
-                    <input type="submit" name="submit" class="button" value="LOG IN" />
-                </div>
-            }
-        </div>
-    </div>
-    <div id="copyright">
-        © @DateTime.Today.Year by Nexcel Solutions. All rights reserved
     </div>
 </body>
 </html>

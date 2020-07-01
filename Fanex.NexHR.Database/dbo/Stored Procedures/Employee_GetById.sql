@@ -90,7 +90,7 @@ BEGIN
         ,e.[ModifiedBy]
         ,[isDeleted]
 		,[IsSpecialUser]
-		,[GroupDate]
+		--,[GroupDate]
         ,[PermanentAddress] AS [Address]
         ,[CurrentAddress]
         ,[IdCardNumber]

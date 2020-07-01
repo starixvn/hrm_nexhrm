@@ -308,6 +308,7 @@
     <None Include="Content\Views\employee.edit.scss" />
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
+    <Content Include="Content\Views\login.css" />
     <Content Include="Content\Views\my.profile.css">
       <DependentUpon>my.profile.scss</DependentUpon>
     </Content>
