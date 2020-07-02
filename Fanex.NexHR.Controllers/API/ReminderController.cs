@@ -6,11 +6,11 @@
 
     public class ReminderController : ApiController
     {
-        private readonly MailReminderService mailReminderService;
+        private readonly MailBirthdayAndFirstWorkingdayReminderService mailReminderService;
 
         public ReminderController()
         {
-            mailReminderService = new MailReminderService();
+            mailReminderService = new MailBirthdayAndFirstWorkingdayReminderService();
         }
 
         [HttpPost]

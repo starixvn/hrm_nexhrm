@@ -439,6 +439,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reminder: First working day anniversary of {0}.
+        /// </summary>
+        public static string ReminderFirstWorkingDayAnniversaryOf {
+            get {
+                return ResourceManager.GetString("ReminderFirstWorkingDayAnniversaryOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reminder: Happy birthday to {0}.
+        /// </summary>
+        public static string ReminderHappyBirthdayTo {
+            get {
+                return ResourceManager.GetString("ReminderHappyBirthdayTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dear {0},
         ///You have just reached {1} working hours today. 
         ///

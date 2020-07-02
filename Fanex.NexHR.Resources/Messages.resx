@@ -313,4 +313,10 @@ Thanks</value>
   <data name="IncorrectUsernameOrPassword" xml:space="preserve">
     <value>Incorrect Username or Password</value>
   </data>
+  <data name="ReminderFirstWorkingDayAnniversaryOf" xml:space="preserve">
+    <value>Reminder: First working day anniversary of {0}</value>
+  </data>
+  <data name="ReminderHappyBirthdayTo" xml:space="preserve">
+    <value>Reminder: Happy birthday to {0}</value>
+  </data>
 </root>
