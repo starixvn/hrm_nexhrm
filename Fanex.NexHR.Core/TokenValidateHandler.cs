@@ -17,8 +17,7 @@ namespace Fanex.NexHR.Core
         private static bool TryRetrieveToken(HttpRequestMessage request, out string token)
         {
             token = null;
-            IEnumerable<string> authzHeaders;
-            if (!request.Headers.TryGetValues("Authorization", out authzHeaders) || authzHeaders.Count() > 1)
+            if (!request.Headers.TryGetValues("Authorization", out IEnumerable<string> authzHeaders) || authzHeaders.Count() > 1)
             {
                 return false;
             }
@@ -30,9 +29,8 @@ namespace Fanex.NexHR.Core
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpStatusCode statusCode;
-            string token;
 
-            if (!TryRetrieveToken(request, out token))
+            if (!TryRetrieveToken(request, out string token))
             {
                 statusCode = HttpStatusCode.Unauthorized;
                 return base.SendAsync(request, cancellationToken);

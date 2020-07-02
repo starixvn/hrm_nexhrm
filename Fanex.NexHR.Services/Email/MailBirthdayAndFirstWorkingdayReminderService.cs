@@ -27,7 +27,7 @@
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
         {
             var today = DateTime.Now;
-            const int days = 2;
+            const int secondDay = 2;
 
             if (!bool.Parse(AllowSendMailReminderBirthday) || today.DayOfWeek == DayOfWeek.Saturday)
             {
@@ -37,7 +37,7 @@
             await SendMailBirthdayAndFirstWorkingDay(today.AddDays(1)).ConfigureAwait(false);
             if (today.DayOfWeek == DayOfWeek.Friday)
             {
-                await SendMailBirthdayAndFirstWorkingDay(today.AddDays(days)).ConfigureAwait(false);
+                await SendMailBirthdayAndFirstWorkingDay(today.AddDays(secondDay)).ConfigureAwait(false);
             }
 
             return new CommandResult { Code = _isReminderBirthdayAndFirstWorkingdaySuccess ? 0 : 1 };
@@ -102,7 +102,7 @@
                 Constants.BrTag,
                 employeesFirstWorkingday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.JoinedDate?.ToString("dd MMM, yyyy") ?? string.Empty)));
 
-            string emailSubject = string.Format(Messages.ReminderFirstWorkingDayAnniversaryOf, string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName)));
+            var emailSubject = string.Format(Messages.ReminderFirstWorkingDayAnniversaryOf, string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName)));
             var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
