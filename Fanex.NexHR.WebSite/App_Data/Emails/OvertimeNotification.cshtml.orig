@@ -1,0 +1,25 @@
+<div>
+    <strong>Dear {0},</strong>
+</div>
+<p>
+    This is to inform that you have an {1} request
+    <br />
+    <br />
+    - Date: {2}
+    <br />
+    - Hours: {3}
+    <br />
+    - Remark: {4}
+    <br />
+    <br />
+    Any questions, please contact HR department.
+    <br />
+    Thanks
+</p>
+<p>
+<<<<<<< HEAD
+    {4}
+=======
+    {5}
+>>>>>>> 000 - Use template email for both company
+</p>
