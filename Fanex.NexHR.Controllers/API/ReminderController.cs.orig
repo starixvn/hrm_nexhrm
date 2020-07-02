@@ -1,0 +1,51 @@
+﻿namespace Fanex.NexHR.Controllers.API
+{
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using Fanex.NexHR.Services.AutoJobService;
+    using Fanex.NexHR.Services.Email;
+    using Fanex.NexHR.Services.Interfaces;
+
+    public class ReminderController : ApiController
+    {
+<<<<<<< HEAD
+        private readonly MailBirthdayAndFirstWorkingdayReminderService _mailReminderService;
+        private readonly IBotAutoJobService _botService;
+=======
+        private readonly MailBirthdayAndFirstWorkingdayReminderService mailReminderService;
+>>>>>>> 136478 - Refactor MailBirthdayAndFirstWorkingdayReminderService
+
+        public ReminderController() : this(null, null)
+        {
+<<<<<<< HEAD
+        }
+
+        public ReminderController(
+            MailBirthdayAndFirstWorkingdayReminderService mailReminderService,
+            IBotAutoJobService botService
+        )
+        {
+            _mailReminderService = mailReminderService ?? new MailBirthdayAndFirstWorkingdayReminderService();
+            _botService = botService ?? new BotMissingCheckInCheckOutReminderSerivce();
+=======
+            mailReminderService = new MailBirthdayAndFirstWorkingdayReminderService();
+>>>>>>> 136478 - Refactor MailBirthdayAndFirstWorkingdayReminderService
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> BirthdayAndFirstWorkingday()
+        {
+            var result = await _mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> MissingCheckInCheckOut()
+        {
+            var result = await _botService.SendMessageAsync().ConfigureAwait(false);
+            return Ok(result);
+        }
+    }
+}
