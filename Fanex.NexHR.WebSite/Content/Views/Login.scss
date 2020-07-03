@@ -1,0 +1,295 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+}
+html {
+    font-size: 10px;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #E2E4E9;
+    font-family: 'Roboto';
+}
+.img-res {
+    max-width: 100%;
+    height: auto;
+}
+.container {
+    max-width: 172rem;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+@mixin tableMobile {
+    @media screen and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin Mobile {
+    @media (max-width : 767px) {
+        @content;
+    }
+}
+@mixin landscapeTablet {
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape){
+        @content;
+    }
+}
+
+@mixin flex($align: center, $wrap: wrap, $justify-content: flex-start) {
+    display: flex;
+    align-items: $align;
+    flex-wrap: $wrap;
+    justify-content: $justify-content;
+}
+
+.login {
+
+    @include tableMobile {
+        height: 100vh;
+        @include flex(center,nowrap,center);
+    }
+
+    &__main {
+        @include tableMobile {
+            width: 100%;
+        }
+    }
+
+    &__flex {
+        padding: 8rem 0 9.5rem 0;
+        @include flex(center, nowrap, flex-start);
+    }
+
+    &__left {
+        margin: 12rem 12rem 0 3.5rem;
+
+        @include tableMobile {
+            display: none;
+        }
+
+        @include landscapeTablet {
+            display: block;
+        }
+    }
+
+    &__form {
+        width: 72rem;
+        height: 92rem;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.16);
+        border-radius: 8px;
+        @include flex( flex-start, nowrap, center);
+        padding: 12rem 12rem 10rem 12rem;
+        margin-left: 12.3rem;
+
+        @include tableMobile {
+            width: 100%;
+            height: 100%;
+            margin-left: auto;
+            padding: 5rem 2.7rem 5rem 2.7rem;
+        }
+
+        @include Mobile {
+            padding: 6rem 2.7rem 2rem 2.7rem;
+            margin-top: -1.9rem;
+        }
+
+        &--logo {
+            text-align: center;
+            margin-bottom: 13rem;
+
+            @include tableMobile {
+                margin-bottom: 7rem;
+            }
+
+            a {
+                display: block;
+
+                .img-res {
+                    width: 34rem;
+
+                    @include tableMobile {
+                        width: 24.5rem;
+                    }
+                }
+            }
+        }
+
+        form {
+            width: 100%;
+            position: relative;
+
+            .custom-check {
+                margin-top: -.9rem;
+            }
+
+            .field-validation-error {
+                position: absolute;
+                top: 34%;
+                right: 50%;
+                background: #FFE4E4;
+                z-index: 9999;
+                transform: translate(50%,-50%);
+                width: 100%;
+                text-align: center;
+                font-size: 1.4rem;
+                color: #FF0000;
+                padding: 7px 10px 7px 10px;
+                @include tableMobile {
+                    top: 24%;
+                }
+            }
+
+            .material-textfield {
+                position: relative;
+                margin-bottom: 3rem;
+
+                @include Mobile {
+                    margin-bottom: 3.1rem;
+                }
+
+                .field-validation-error {
+                    position: absolute !important;
+                    bottom: -1.6rem !important;
+                    left: 0px !important;
+                    color: #FF0000 !important;
+                    font-size: 1.2rem !important;
+                    background: none !important;
+                    transform: inherit !important;
+                    top: auto !important;
+                    right: auto !important;
+                    text-align: left !important;
+                    padding: 0 !important;
+                }
+
+                label {
+                    position: absolute;
+                    font-size: 1.6rem;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-color: white;
+                    color: #888888;
+                    padding: 0 0.3rem;
+                    margin: -.2rem .3rem;
+                    transition: .1s ease-out;
+                    transform-origin: left top;
+                    pointer-events: none;
+                }
+
+                .custom-input {
+                    font-size: 1.6rem;
+                    outline: none;
+                    border: 1px solid rgba(0, 42, 102, 0.5);
+                    border-radius: 4px;
+                    padding: 1.4rem 1.5rem;
+                    color: #333333;
+                    transition: 0.1s ease-out;
+                    box-sizing: border-box;
+                    width: 100%;
+
+                    &:focus {
+                        border: 1px solid #013B8E;
+                    }
+
+                    &:focus + label {
+                        color: #888888;
+                        top: 0;
+                        transform: translateY(-50%) scale(.8);
+                        padding: 0 1.3rem;
+                    }
+
+                    &:placeholder {
+                        color: #333333;
+                    }
+
+                    &:not(:placeholder-shown) + label {
+                        top: 0;
+                        transform: translateY(-50%) scale(.8);
+                    }
+                }
+            }
+        }
+    }
+
+    &__btn {
+        text-align: center;
+        margin: 4rem auto;
+        max-width: 24rem;
+
+        @include Mobile {
+            max-width: 100%;
+        }
+
+        .submit-form {
+            background-color: #002A66;
+            outline: none;
+            border: none;
+            line-height: 1.9rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: #fff;
+            box-shadow: 0px 4px 16px rgba(0, 38, 91, 0.2);
+            border-radius: 4px;
+            width: 100%;
+            padding: 1.8rem 2rem 1.9rem 2rem;
+        }
+    }
+}
+
+    .styled-checkbox {
+        position: absolute;
+        opacity: 0;
+
+        ~ label {
+            position: relative;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: flex-start;
+            color: #222222;
+            font-weight: normal;
+        }
+
+        ~ label:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            width: 1.8rem;
+            height: 1.8rem;
+            background: white;
+            border: 2px solid #666666;
+            border-radius: .3rem;
+            margin-right: 1.2rem;
+            margin-left: .3rem;
+            @include Mobile {
+                margin-right : 1.3rem;
+            }
+        }
+
+        &:checked ~ label:before {
+            background: #002A66;
+            border: none;
+        }
+
+        &:checked ~ label:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0px;
+            width: 7px;
+            height: 13px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+
+

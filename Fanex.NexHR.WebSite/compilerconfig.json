@@ -75,5 +75,9 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "Content/Views/Login.css",
+    "inputFile": "Content/Views/Login.scss"
   }
 ]

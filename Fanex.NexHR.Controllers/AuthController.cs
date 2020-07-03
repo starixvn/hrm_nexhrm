@@ -34,12 +34,13 @@
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Account is currently locked out");
+                        ModelState.AddModelError("errorSummary", "Account is currently locked out");
+                        //ModelState.AddModelError(string.Empty, "Account is currently locked out");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Wrong Username Or Password");
+                    ModelState.AddModelError("errorSummary", "Incorrect User ID or Password");
                 }
             }
             return View(model);

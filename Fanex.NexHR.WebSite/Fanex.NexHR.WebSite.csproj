@@ -309,6 +309,9 @@
     <None Include="Content\Views\employee.birthday.scss" />
     <None Include="Content\Views\my.profile.scss" />
     <Content Include="Content\Views\login.css" />
+    <Content Include="Content\Views\Login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\my.profile.css">
       <DependentUpon>my.profile.scss</DependentUpon>
     </Content>
@@ -329,6 +332,7 @@
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <Content Include="Content\Views\report.workinghoursstatistic.scss" />
     <Content Include="Content\Views\scheduled-message.scss" />
+    <Content Include="Content\Views\Login.scss" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />

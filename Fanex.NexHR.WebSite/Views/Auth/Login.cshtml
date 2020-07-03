@@ -7,54 +7,50 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to NexHRM</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     @Styles.Render("~/Content/Views/login.css")
 
-    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-
+   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <script src="~/Scripts/Libs/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/Libs/jquery.validate.min.js"></script>
     <script src="~/Scripts/Libs/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    <header class="navbar navbar-fixed-top navbar-empty">
-        <div class="center-logo">
-            <img src="~/Content/Images/logo.png" alt="." />
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="content">
-            <div class="row">
-                <div class="col-sm-5 order-sm-2">
-                    <div class="login-body">
+    <div class="login">
+        <div class="login__main">
+            <div class="container">
+                <div class="login__flex">
+                    <div class="login__left">
+                        <img src="~/Content/Images/leftLogin.png" alt="." class="img-res" />
+                    </div>
+                    <div class="login__form">
                         @using (Html.BeginForm())
                         {
-                            <h4>Login</h4>
+                            <div class="login__form--logo">
+                                <a href="#"><img src="~/Content/Images/LogoLuminet.svg" alt="." class="img-res" /></a>
+                            </div>
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                            <div class="form-group">
+                            @Html.ValidationMessage("errorSummary", new { @class = "text-danger" })
+                            <div class="form-group material-textfield">
+
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control custom-input", placeholder = " " } })
                                 @Html.LabelFor(model => model.UserName)
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group">
+                            <div class="form-group material-textfield">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control custom-input", placeholder = " ", @type = "password" } })
                                 @Html.LabelFor(model => model.Password)
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group form-check">
-                                @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-check-input" } })
-                                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-labe" })
+                            <div class="form-group form-check custom-check">
+                                @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "styled-checkbox" } })
+                                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-label" })
                             </div>
-                            <input type="submit" class="btn btn-success" value="Login">
+                            <div class="login__btn">
+                                <input type="submit" class="btn btn-success submit-form" value="Login">
+                            </div>
                         }
                     </div>
-                </div>
-                <div class="col-sm-7 brand-holder order-sm-1">
-                    <h1>Nexcel Solutions HRM Site</h1>
-                    <h5>© @DateTime.Today.Year by Nexcel Solutions. All rights reserved</h5>
                 </div>
             </div>
         </div>
