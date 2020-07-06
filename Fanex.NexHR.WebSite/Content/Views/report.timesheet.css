@@ -302,15 +302,8 @@
     padding: 0;
     margin: 0 8px; }
     .my-attendance .card-body #list-timesheet table {
-      width: 626px;
-      margin-left: 100px; }
-      .my-attendance .card-body #list-timesheet table thead tr th:nth-child(1), .my-attendance .card-body #list-timesheet table thead tr th:nth-child(3), .my-attendance .card-body #list-timesheet table thead tr th:nth-child(4), .my-attendance .card-body #list-timesheet table thead tr td:nth-child(1), .my-attendance .card-body #list-timesheet table thead tr td:nth-child(3), .my-attendance .card-body #list-timesheet table thead tr td:nth-child(4), .my-attendance .card-body #list-timesheet table tbody tr th:nth-child(1), .my-attendance .card-body #list-timesheet table tbody tr th:nth-child(3), .my-attendance .card-body #list-timesheet table tbody tr th:nth-child(4), .my-attendance .card-body #list-timesheet table tbody tr td:nth-child(1), .my-attendance .card-body #list-timesheet table tbody tr td:nth-child(3), .my-attendance .card-body #list-timesheet table tbody tr td:nth-child(4) {
-        display: none; }
+      width: 900px; }
       .my-attendance .card-body #list-timesheet table thead tr th:nth-child(2), .my-attendance .card-body #list-timesheet table thead tr td:nth-child(2), .my-attendance .card-body #list-timesheet table tbody tr th:nth-child(2), .my-attendance .card-body #list-timesheet table tbody tr td:nth-child(2) {
-        width: 100px;
-        position: absolute;
-        top: auto;
-        left: 16px;
         -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
         -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
         box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);

@@ -187,8 +187,7 @@
          
         &.table-request-employeeview {
             table.table-success {
-                width: 903px;
-                margin-left: 130px;
+                width: 950px; 
 
                 thead, tbody {
                     tr {
@@ -197,27 +196,19 @@
                             height: 3.7rem;
 
 
-                            &:nth-child(1) {
-                                display: none;
-                            }
+                         
 
                             &:nth-child(2) {
-                                width: 50px;
-                                z-index: 20;
+                                width: 50px; 
                                 font-weight: 500;
-                                position: absolute;
-                                top: auto;
-                                left: 16px;
+                                
                             }
 
                             &:nth-child(3) {
                                 width: 80px;
                                 z-index: 20;
                                 font-weight: 500;
-                                position: absolute;
-                                top: auto;
-                                left: 66px;
-                                box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                              
                             }
                         }
                     }

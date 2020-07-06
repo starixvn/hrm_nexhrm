@@ -96,28 +96,17 @@
           padding-bottom: 0;
           font-size: 1rem; }
     .cover-form-mb.table-request-employeeview table.table-success {
-      width: 903px;
-      margin-left: 130px; }
+      width: 950px; }
       .cover-form-mb.table-request-employeeview table.table-success thead tr th, .cover-form-mb.table-request-employeeview table.table-success thead tr td, .cover-form-mb.table-request-employeeview table.table-success tbody tr th, .cover-form-mb.table-request-employeeview table.table-success tbody tr td {
         font-size: 1.2rem;
         height: 3.7rem; }
-        .cover-form-mb.table-request-employeeview table.table-success thead tr th:nth-child(1), .cover-form-mb.table-request-employeeview table.table-success thead tr td:nth-child(1), .cover-form-mb.table-request-employeeview table.table-success tbody tr th:nth-child(1), .cover-form-mb.table-request-employeeview table.table-success tbody tr td:nth-child(1) {
-          display: none; }
         .cover-form-mb.table-request-employeeview table.table-success thead tr th:nth-child(2), .cover-form-mb.table-request-employeeview table.table-success thead tr td:nth-child(2), .cover-form-mb.table-request-employeeview table.table-success tbody tr th:nth-child(2), .cover-form-mb.table-request-employeeview table.table-success tbody tr td:nth-child(2) {
           width: 50px;
-          z-index: 20;
-          font-weight: 500;
-          position: absolute;
-          top: auto;
-          left: 16px; }
+          font-weight: 500; }
         .cover-form-mb.table-request-employeeview table.table-success thead tr th:nth-child(3), .cover-form-mb.table-request-employeeview table.table-success thead tr td:nth-child(3), .cover-form-mb.table-request-employeeview table.table-success tbody tr th:nth-child(3), .cover-form-mb.table-request-employeeview table.table-success tbody tr td:nth-child(3) {
           width: 80px;
           z-index: 20;
-          font-weight: 500;
-          position: absolute;
-          top: auto;
-          left: 66px;
-          box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08); }
+          font-weight: 500; }
       .cover-form-mb.table-request-employeeview table.table-success thead tr th, .cover-form-mb.table-request-employeeview table.table-success thead tr td {
         color: #ffffff; }
       .cover-form-mb.table-request-employeeview table.table-success tbody tr th, .cover-form-mb.table-request-employeeview table.table-success tbody tr td {
