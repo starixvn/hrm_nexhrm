@@ -106,14 +106,10 @@ body, html {
 
     &__logo {
         text-align: center;
-        margin-bottom: 10rem;
-
-        @include tableMobile {
-            margin-bottom: 7.3rem;
-        }
+        margin-bottom: 6rem;
 
         .img-res {
-            width: 34rem;
+            width: 25rem;
 
             @include tableMobile {
                 width: 24.5rem;
@@ -130,6 +126,7 @@ body, html {
         @include flex( flex-start, nowrap, center);
         padding: 6rem 4rem 3rem 4rem;
         margin-left: 9rem;
+        max-height: 90rem;
 
         @include tableMobile {
             margin: 0 auto;
@@ -172,6 +169,15 @@ body, html {
 
                 @include tableMobile {
                     top: 24%;
+                }
+
+                &[data-valmsg-for="errorSummary"] {
+                    position: relative;
+                    top: unset;
+                    right: unset;
+                    display: block;
+                    margin-bottom: 3rem;
+                    transform:none;
                 }
             }
 

@@ -66,12 +66,9 @@ body, html {
         display: block; } }
   .login__logo {
     text-align: center;
-    margin-bottom: 10rem; }
-    @media screen and (max-width: 1024px) {
-      .login__logo {
-        margin-bottom: 7.3rem; } }
+    margin-bottom: 6rem; }
     .login__logo .img-res {
-      width: 34rem; }
+      width: 25rem; }
       @media screen and (max-width: 1024px) {
         .login__logo .img-res {
           width: 24.5rem; } }
@@ -85,7 +82,8 @@ body, html {
     flex-wrap: nowrap;
     justify-content: center;
     padding: 6rem 4rem 3rem 4rem;
-    margin-left: 9rem; }
+    margin-left: 9rem;
+    max-height: 90rem; }
     @media screen and (max-width: 1024px) {
       .login__form {
         margin: 0 auto; } }
@@ -119,6 +117,13 @@ body, html {
         @media screen and (max-width: 1024px) {
           .login__form form .field-validation-error {
             top: 24%; } }
+        .login__form form .field-validation-error[data-valmsg-for="errorSummary"] {
+          position: relative;
+          top: unset;
+          right: unset;
+          display: block;
+          margin-bottom: 3rem;
+          transform: none; }
       .login__form form .material-textfield {
         position: relative;
         margin-bottom: 2.8rem; }
