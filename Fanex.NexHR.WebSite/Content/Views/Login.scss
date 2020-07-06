@@ -18,7 +18,7 @@ body, html {
     height: auto;
 }
 .container {
-    max-width: 172rem;
+    max-width: 159.5rem;
     width: 100%;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -38,6 +38,12 @@ body, html {
 }
 @mixin landscapeTablet {
     @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape){
+        @content;
+    }
+}
+
+@mixin ipadpro {
+    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape){
         @content;
     }
 }
@@ -67,7 +73,7 @@ body, html {
     &__flex {
         padding: 6rem 0;
         display: flex;
-        align-items: stretch;
+        align-items: center;
         height: 100vh;
 
         @include tableMobile {
@@ -76,7 +82,7 @@ body, html {
     }
 
     &__left {
-        margin: 12rem 12rem 0 3.5rem;
+        margin: 12rem 9rem 0 3.5rem;
 
         @include tableMobile {
             display: none;
@@ -88,23 +94,38 @@ body, html {
     }
 
     &__form {
-        width: 72rem;
-        height: auto !important;
+        width: 60rem;
+        height: 68rem !important;
         background: #FFFFFF;
         box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.16);
         border-radius: 8px;
         @include flex( flex-start, nowrap, center);
-        padding: 12rem 12rem 10rem 12rem;
-        margin-left: 12.3rem;
+        padding: 8rem 6rem 10.6rem 6rem;
+        margin-left: 9rem;
+        margin-right : 3rem;
 
         @include tableMobile {
             width: 100%;
-            height: 100%;
-            margin-left: auto;
-            padding: 5rem 2.7rem 5rem 2.7rem;
+            height: 52.7rem !important;
+            max-width: 64rem;
+            padding: 5rem 8rem 5rem 8rem;
+            margin: 0 auto;
+        }
+
+        @include landscapeTablet {
+            height: 52.7rem !important;
+            max-width: 60rem;
+            padding: 5rem 4rem 5rem 4rem;
+            margin: 0 auto;
+            margin-right: 4rem;
+        }
+
+        @include ipadpro {
+            margin-right: 8rem;
         }
 
         @include Mobile {
+            width: 100%;
             padding: 6rem 2.7rem 2rem 2.7rem;
             margin-top: -1.9rem;
         }
@@ -114,7 +135,7 @@ body, html {
             margin-bottom: 13rem;
 
             @include tableMobile {
-                margin-bottom: 7rem;
+                margin-bottom: 7.3rem;
             }
 
             a {
@@ -135,7 +156,11 @@ body, html {
             position: relative;
 
             .custom-check {
-                margin-top: -.9rem;
+                margin-top: 2.7rem;
+
+                @include tableMobile {
+                    margin-top: -.5rem;
+                }
             }
 
             .field-validation-error {
@@ -149,7 +174,7 @@ body, html {
                 text-align: center;
                 font-size: 1.4rem;
                 color: #FF0000;
-                padding: 7px 10px 7px 10px;
+                padding: .7rem 1rem .7rem 1rem;
 
                 @include tableMobile {
                     top: 24%;
@@ -158,24 +183,23 @@ body, html {
 
             .material-textfield {
                 position: relative;
-                margin-bottom: 3rem;
+                margin-bottom: 3.2rem;
 
                 @include Mobile {
-                    margin-bottom: 3.1rem;
+                    margin-bottom: 2.3rem;
                 }
 
                 .field-validation-error {
                     position: absolute !important;
-                    bottom: -1.6rem !important;
+                    bottom: -1.9rem !important;
                     left: 0px !important;
-                    color: #FF0000 !important;
-                    font-size: 1.2rem !important;
                     background: none !important;
                     transform: inherit !important;
                     top: auto !important;
                     right: auto !important;
                     text-align: left !important;
-                    padding: 0 !important;
+                    padding: .5rem 0;
+                    font-size: 1.2rem !important;
                 }
 
                 label {
@@ -203,6 +227,7 @@ body, html {
                     transition: 0.1s ease-out;
                     box-sizing: border-box;
                     width: 100%;
+                    margin-bottom: .5rem;
 
                     &:focus {
                         border: 1px solid #013B8E;

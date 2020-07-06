@@ -18,7 +18,7 @@ body, html {
   height: auto; }
 
 .container {
-  max-width: 172rem;
+  max-width: 159.5rem;
   width: 100%;
   padding-right: 1rem;
   padding-left: 1rem;
@@ -41,13 +41,13 @@ body, html {
   .login__flex {
     padding: 6rem 0;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     height: 100vh; }
     @media screen and (max-width: 1024px) {
       .login__flex {
         align-items: center; } }
   .login__left {
-    margin: 12rem 12rem 0 3.5rem; }
+    margin: 12rem 9rem 0 3.5rem; }
     @media screen and (max-width: 1024px) {
       .login__left {
         display: none; } }
@@ -55,8 +55,8 @@ body, html {
       .login__left {
         display: block; } }
   .login__form {
-    width: 72rem;
-    height: auto !important;
+    width: 60rem;
+    height: 68rem !important;
     background: #FFFFFF;
     box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.16);
     border-radius: 8px;
@@ -64,16 +64,29 @@ body, html {
     align-items: flex-start;
     flex-wrap: nowrap;
     justify-content: center;
-    padding: 12rem 12rem 10rem 12rem;
-    margin-left: 12.3rem; }
+    padding: 8rem 6rem 10.6rem 6rem;
+    margin-left: 9rem;
+    margin-right: 3rem; }
     @media screen and (max-width: 1024px) {
       .login__form {
         width: 100%;
-        height: 100%;
-        margin-left: auto;
-        padding: 5rem 2.7rem 5rem 2.7rem; } }
+        height: 52.7rem !important;
+        max-width: 64rem;
+        padding: 5rem 8rem 5rem 8rem;
+        margin: 0 auto; } }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+      .login__form {
+        height: 52.7rem !important;
+        max-width: 60rem;
+        padding: 5rem 4rem 5rem 4rem;
+        margin: 0 auto;
+        margin-right: 4rem; } }
+    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+      .login__form {
+        margin-right: 8rem; } }
     @media (max-width: 767px) {
       .login__form {
+        width: 100%;
         padding: 6rem 2.7rem 2rem 2.7rem;
         margin-top: -1.9rem; } }
     .login__form--logo {
@@ -81,7 +94,7 @@ body, html {
       margin-bottom: 13rem; }
       @media screen and (max-width: 1024px) {
         .login__form--logo {
-          margin-bottom: 7rem; } }
+          margin-bottom: 7.3rem; } }
       .login__form--logo a {
         display: block; }
         .login__form--logo a .img-res {
@@ -93,7 +106,10 @@ body, html {
       width: 100%;
       position: relative; }
       .login__form form .custom-check {
-        margin-top: -.9rem; }
+        margin-top: 2.7rem; }
+        @media screen and (max-width: 1024px) {
+          .login__form form .custom-check {
+            margin-top: -.5rem; } }
       .login__form form .field-validation-error {
         position: absolute;
         top: 34%;
@@ -105,28 +121,27 @@ body, html {
         text-align: center;
         font-size: 1.4rem;
         color: #FF0000;
-        padding: 7px 10px 7px 10px; }
+        padding: .7rem 1rem .7rem 1rem; }
         @media screen and (max-width: 1024px) {
           .login__form form .field-validation-error {
             top: 24%; } }
       .login__form form .material-textfield {
         position: relative;
-        margin-bottom: 3rem; }
+        margin-bottom: 3.2rem; }
         @media (max-width: 767px) {
           .login__form form .material-textfield {
-            margin-bottom: 3.1rem; } }
+            margin-bottom: 2.3rem; } }
         .login__form form .material-textfield .field-validation-error {
           position: absolute !important;
-          bottom: -1.6rem !important;
+          bottom: -1.9rem !important;
           left: 0px !important;
-          color: #FF0000 !important;
-          font-size: 1.2rem !important;
           background: none !important;
           transform: inherit !important;
           top: auto !important;
           right: auto !important;
           text-align: left !important;
-          padding: 0 !important; }
+          padding: .5rem 0;
+          font-size: 1.2rem !important; }
         .login__form form .material-textfield label {
           position: absolute;
           font-size: 1.6rem;
@@ -149,7 +164,8 @@ body, html {
           color: #333333;
           transition: 0.1s ease-out;
           box-sizing: border-box;
-          width: 100%; }
+          width: 100%;
+          margin-bottom: .5rem; }
           .login__form form .material-textfield .custom-input:focus {
             border: 1px solid #013B8E; }
           .login__form form .material-textfield .custom-input:focus + label {
