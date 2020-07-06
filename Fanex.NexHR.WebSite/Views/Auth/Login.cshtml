@@ -27,7 +27,7 @@
                         @using (Html.BeginForm())
                         {
                             <div class="login__form--logo">
-                                <a href="#"><img src="~/Content/Images/LogoLuminet.svg" alt="." class="img-res" /></a>
+                                <img src="~/Content/Images/LogoLuminet.svg" alt="." class="img-res" />
                             </div>
                             @Html.AntiForgeryToken()
                             @Html.ValidationMessage("errorSummary", new { @class = "text-danger" })

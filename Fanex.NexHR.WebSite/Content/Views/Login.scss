@@ -102,7 +102,7 @@ body, html {
         @include flex( flex-start, nowrap, center);
         padding: 8rem 6rem 10.6rem 6rem;
         margin-left: 9rem;
-        margin-right : 3rem;
+        margin-right : 4rem;
 
         @include tableMobile {
             width: 100%;
@@ -138,15 +138,13 @@ body, html {
                 margin-bottom: 7.3rem;
             }
 
-            a {
-                display: block;
+ 
 
-                .img-res {
-                    width: 34rem;
+            .img-res {
+                width: 34rem;
 
-                    @include tableMobile {
-                        width: 24.5rem;
-                    }
+                @include tableMobile {
+                    width: 24.5rem;
                 }
             }
         }
@@ -157,7 +155,7 @@ body, html {
 
             .custom-check {
                 margin-top: 2.7rem;
-
+                max-width : 14rem;
                 @include tableMobile {
                     margin-top: -.5rem;
                 }
@@ -185,9 +183,7 @@ body, html {
                 position: relative;
                 margin-bottom: 3.2rem;
 
-                @include Mobile {
-                    margin-bottom: 2.3rem;
-                }
+
 
                 .field-validation-error {
                     position: absolute !important;
