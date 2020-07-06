@@ -225,7 +225,7 @@ body, html {
     content: '';
     position: absolute;
     left: 8px;
-    top: 1px;
+    top: 2px;
     width: 7px;
     height: 13px;
     border: solid #fff;
