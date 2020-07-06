@@ -67,16 +67,19 @@ body, html {
 }
 .login {
     width: 100%;
+
     @include tableMobile {
         height: 100vh;
         width: 100%;
         @include flex(center,nowrap,center);
     }
+
     &__main {
         @include tableMobile {
             width: 100%;
         }
     }
+
     &__flex {
         padding: 6rem 0;
         display: flex;
@@ -88,21 +91,27 @@ body, html {
             align-items: center;
         }
     }
+
     &__left {
         margin: 12rem 9rem 0 0rem;
+
         @include tableMobile {
             display: none;
         }
+
         @include landscapeTablet {
             display: block;
         }
     }
+
     &__logo {
         text-align: center;
-        margin-bottom: 13rem;
+        margin-bottom: 10rem;
+
         @include tableMobile {
             margin-bottom: 7.3rem;
         }
+
         .img-res {
             width: 34rem;
 
@@ -111,38 +120,34 @@ body, html {
             }
         }
     }
-    
+
 
     &__form {
-        width: 60rem;
-        height: 68rem !important;
+        width: 50rem;
         background: #FFFFFF;
         box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.16);
         border-radius: 8px;
         @include flex( flex-start, nowrap, center);
-        padding: 8rem 6rem 10.6rem 6rem;
+        padding: 6rem 4rem 3rem 4rem;
         margin-left: 9rem;
+
         @include tableMobile {
-            width: 100%;
-            height: 52.7rem !important;
-            max-width: 64rem;
-            padding: 5rem 8rem 5rem 8rem;
             margin: 0 auto;
         }
+
         @include landscapeTablet {
-            height: 52.7rem !important;
-            max-width: 60rem;
-            padding: 5rem 4rem 5rem 4rem;
             margin: 0 auto;
         }
+
         @include Mobile {
             width: 100%;
-            padding: 6rem 2.7rem 2rem 2.7rem;
-            margin-top: -1.9rem;
         }
+
+
         form {
             width: 100%;
             position: relative;
+
             .custom-check {
                 margin-top: 2.7rem;
                 max-width: 14rem;
@@ -151,6 +156,7 @@ body, html {
                     margin-top: -.5rem;
                 }
             }
+
             .field-validation-error {
                 position: absolute;
                 top: 34%;
@@ -168,9 +174,11 @@ body, html {
                     top: 24%;
                 }
             }
+
             .material-textfield {
                 position: relative;
-                margin-bottom: 3.2rem;
+                margin-bottom: 2.8rem;
+
                 .field-validation-error {
                     position: absolute !important;
                     bottom: -1.9rem !important;
@@ -183,6 +191,7 @@ body, html {
                     padding: .5rem 0;
                     font-size: 1.2rem !important;
                 }
+
                 label {
                     position: absolute;
                     font-size: 1.6rem;
@@ -197,6 +206,7 @@ body, html {
                     transform-origin: left top;
                     pointer-events: none;
                 }
+
                 .custom-input {
                     font-size: 1.6rem;
                     outline: none;
@@ -232,13 +242,16 @@ body, html {
             }
         }
     }
+
     &__btn {
         text-align: center;
         margin: 4rem auto;
-        max-width: 24rem;
+        max-width: 100%;
+
         @include Mobile {
             max-width: 100%;
         }
+
         .submit-form {
             background-color: #002A66;
             outline: none;
