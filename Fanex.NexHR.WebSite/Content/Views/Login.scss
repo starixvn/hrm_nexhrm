@@ -17,14 +17,6 @@ body, html {
     max-width: 100%;
     height: auto;
 }
-.container {
-    max-width: 159.5rem;
-    width: 100%;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    margin-right: auto;
-    margin-left: auto;
-}
 @mixin tableMobile {
     @media screen and (max-width: 1024px) {
         @content;
@@ -36,14 +28,15 @@ body, html {
         @content;
     }
 }
+
 @mixin landscapeTablet {
-    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape){
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
         @content;
     }
 }
 
 @mixin ipadpro {
-    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape){
+    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
         @content;
     }
 }
@@ -54,44 +47,71 @@ body, html {
     flex-wrap: $wrap;
     justify-content: $justify-content;
 }
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    @media (max-width : 767px) {
+        padding: 0 1rem;
+    }
+    @media (min-width: 768px) {
+        padding: 0 5rem;
+    }
+    @media (min-width: 992px) {
+        padding: 0 8rem;
+    }
 
+    @media (min-width: 1600px) {
+        padding: 0 24rem 0 20rem;
+    }
+}
 .login {
     width: 100%;
-
     @include tableMobile {
         height: 100vh;
         width: 100%;
         @include flex(center,nowrap,center);
     }
-
     &__main {
         @include tableMobile {
             width: 100%;
         }
     }
-
     &__flex {
         padding: 6rem 0;
         display: flex;
         align-items: center;
         height: 100vh;
+        justify-content: space-between;
 
         @include tableMobile {
             align-items: center;
         }
     }
-
     &__left {
-        margin: 12rem 9rem 0 3.5rem;
-
+        margin: 12rem 9rem 0 0rem;
         @include tableMobile {
             display: none;
         }
-
         @include landscapeTablet {
             display: block;
         }
     }
+    &__logo {
+        text-align: center;
+        margin-bottom: 13rem;
+        @include tableMobile {
+            margin-bottom: 7.3rem;
+        }
+        .img-res {
+            width: 34rem;
+
+            @include tableMobile {
+                width: 24.5rem;
+            }
+        }
+    }
+    
 
     &__form {
         width: 60rem;
@@ -102,8 +122,6 @@ body, html {
         @include flex( flex-start, nowrap, center);
         padding: 8rem 6rem 10.6rem 6rem;
         margin-left: 9rem;
-        margin-right : 4rem;
-
         @include tableMobile {
             width: 100%;
             height: 52.7rem !important;
@@ -111,56 +129,28 @@ body, html {
             padding: 5rem 8rem 5rem 8rem;
             margin: 0 auto;
         }
-
         @include landscapeTablet {
             height: 52.7rem !important;
             max-width: 60rem;
             padding: 5rem 4rem 5rem 4rem;
             margin: 0 auto;
-            margin-right: 4rem;
         }
-
-        @include ipadpro {
-            margin-right: 8rem;
-        }
-
         @include Mobile {
             width: 100%;
             padding: 6rem 2.7rem 2rem 2.7rem;
             margin-top: -1.9rem;
         }
-
-        &--logo {
-            text-align: center;
-            margin-bottom: 13rem;
-
-            @include tableMobile {
-                margin-bottom: 7.3rem;
-            }
-
- 
-
-            .img-res {
-                width: 34rem;
-
-                @include tableMobile {
-                    width: 24.5rem;
-                }
-            }
-        }
-
         form {
             width: 100%;
             position: relative;
-
             .custom-check {
                 margin-top: 2.7rem;
-                max-width : 14rem;
+                max-width: 14rem;
+
                 @include tableMobile {
                     margin-top: -.5rem;
                 }
             }
-
             .field-validation-error {
                 position: absolute;
                 top: 34%;
@@ -178,13 +168,9 @@ body, html {
                     top: 24%;
                 }
             }
-
             .material-textfield {
                 position: relative;
                 margin-bottom: 3.2rem;
-
-
-
                 .field-validation-error {
                     position: absolute !important;
                     bottom: -1.9rem !important;
@@ -197,7 +183,6 @@ body, html {
                     padding: .5rem 0;
                     font-size: 1.2rem !important;
                 }
-
                 label {
                     position: absolute;
                     font-size: 1.6rem;
@@ -212,7 +197,6 @@ body, html {
                     transform-origin: left top;
                     pointer-events: none;
                 }
-
                 .custom-input {
                     font-size: 1.6rem;
                     outline: none;
@@ -248,16 +232,13 @@ body, html {
             }
         }
     }
-
     &__btn {
         text-align: center;
         margin: 4rem auto;
         max-width: 24rem;
-
         @include Mobile {
             max-width: 100%;
         }
-
         .submit-form {
             background-color: #002A66;
             outline: none;
@@ -278,55 +259,51 @@ body, html {
         }
     }
 }
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+    ~ label {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: flex-start;
+        color: #222222;
+        font-weight: normal;
+    }
+    ~ label:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: 1.8rem;
+        height: 1.8rem;
+        background: white;
+        border: 2px solid #666666;
+        border-radius: .3rem;
+        margin-right: 1.2rem;
+        margin-left: .3rem;
 
-    .styled-checkbox {
-        position: absolute;
-        opacity: 0;
-
-        ~ label {
-            position: relative;
-            cursor: pointer;
-            padding: 0;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: flex-start;
-            color: #222222;
-            font-weight: normal;
-        }
-
-        ~ label:before {
-            content: '';
-            display: inline-block;
-            vertical-align: middle;
-            width: 1.8rem;
-            height: 1.8rem;
-            background: white;
-            border: 2px solid #666666;
-            border-radius: .3rem;
-            margin-right: 1.2rem;
-            margin-left: .3rem;
-            @include Mobile {
-                margin-right : 1.3rem;
-            }
-        }
-
-        &:checked ~ label:before {
-            background: #002A66;
-            border: none;
-        }
-
-        &:checked ~ label:after {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0px;
-            width: 7px;
-            height: 13px;
-            border: solid #fff;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-            transform: rotate(45deg);
+        @include Mobile {
+            margin-right: 1.3rem;
         }
     }
+    &:checked ~ label:before {
+        background: #002A66;
+        border: none;
+    }
+    &:checked ~ label:after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 0px;
+        width: 7px;
+        height: 13px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+}
 
 
