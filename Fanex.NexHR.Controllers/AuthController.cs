@@ -4,6 +4,7 @@
     using Fanex.NexHR.ViewModels;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Fanex.NexHR.Resources;
 
     public class AuthController : Controller
     {
@@ -34,12 +35,12 @@
                     }
                     else
                     {
-                        ModelState.AddModelError("errorSummary", "Account is currently locked out");
+                        ModelState.AddModelError("errorSummary", Messages.AccountLockedOut);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("errorSummary", "Incorrect Username or Password");
+                    ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);
                 }
             }
             return View(model);

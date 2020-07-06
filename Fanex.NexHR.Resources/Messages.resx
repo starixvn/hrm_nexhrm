@@ -307,4 +307,10 @@ Thanks</value>
   <data name="SuccessUpdateInformation" xml:space="preserve">
     <value>Success update information</value>
   </data>
+  <data name="AccountLockedOut" xml:space="preserve">
+    <value>Account is currently locked out</value>
+  </data>
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+    <value>Incorrect Username or Password</value>
+  </data>
 </root>

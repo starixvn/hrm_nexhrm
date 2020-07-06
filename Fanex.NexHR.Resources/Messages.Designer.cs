@@ -61,6 +61,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account is currently locked out.
+        /// </summary>
+        public static string AccountLockedOut {
+            get {
+                return ResourceManager.GetString("AccountLockedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adjust successfully.
         /// </summary>
         public static string AdjustSuccessfully {
@@ -228,6 +237,15 @@ namespace Fanex.NexHR.Resources {
         public static string ErrorTryAgain {
             get {
                 return ResourceManager.GetString("ErrorTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect Username or Password.
+        /// </summary>
+        public static string IncorrectUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("IncorrectUsernameOrPassword", resourceCulture);
             }
         }
         
