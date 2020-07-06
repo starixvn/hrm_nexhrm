@@ -39,7 +39,7 @@
                 }
                 else
                 {
-                    ModelState.AddModelError("errorSummary", "Incorrect User name or Password");
+                    ModelState.AddModelError("errorSummary", "Incorrect Username or Password");
                 }
             }
             return View(model);
