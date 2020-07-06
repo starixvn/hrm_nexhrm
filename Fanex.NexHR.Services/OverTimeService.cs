@@ -105,7 +105,6 @@
                     var body = string.Format(
                         bodyTemplate,
                         item.Employee.NickName,
-                        ConfigurationManager.AppSettings["OTRequest"],
                         model.Date.ToDateMonthYearFormatedDate(),
                         item.Hour,
                         model.Description,
