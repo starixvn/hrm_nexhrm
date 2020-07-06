@@ -5,6 +5,10 @@
     IList<Employee> employeesFirstWorkingday = (IList<Employee>)ViewBag.EmployeesFirstWorkingday;
 }*@
 
+@{ 
+    var HRMName = @System.Configuration.ConfigurationManager.AppSettings["HRMName"];
+}
+
 <div class="navbar-fixed">
     <div class="container left">
         <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only">
@@ -27,7 +31,10 @@
                     <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
                     <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>
                     <li><a class="" href="@Url.Action("myprofile", "employee")">My profile</a></li>
-                    <li><a class="" href="@Url.Action("logout", "auth")">Log out</a></li>
+                    @if (HRMName != "NexHRM")
+                    {
+                        <li><a class="" href="@Url.Action("logout", "auth")">Log out</a></li>
+                    }
                 </ul>
             </div>
             <div id="notification">
