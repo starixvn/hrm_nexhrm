@@ -1,7 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.SkypeAccount;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Models.Request;
     using Models.SkypeAccount;
@@ -23,5 +25,7 @@
         void SendMessageProcessRequest(RequestEntity request, string command);
 
         void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
+
+        Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory CategoryId);
     }
 }

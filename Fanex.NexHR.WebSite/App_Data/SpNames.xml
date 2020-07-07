@@ -353,6 +353,10 @@
     </Setting>
     <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Bio_GetWarningTimeChange" SpName="Bio_GetWarningTimeChange" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
   </Function>
 
   <Function Name="Employee Skype Account Management">

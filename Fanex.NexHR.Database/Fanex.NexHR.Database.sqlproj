@@ -343,6 +343,10 @@
     <Build Include="dbo\Stored Procedures\HistoryWork_Update.sql" />
     <Build Include="dbo\Stored Procedures\HistoryWork_Delete.sql" />
     <Build Include="dbo\Stored Procedures\HistoryWork_Filter.sql" />
+    <Build Include="dbo\Stored Procedures\Bio_GetPendingDevice.sql" />
+    <Build Include="dbo\Stored Procedures\Bio_GetPendingFingerprintAndCard.sql" />
+    <Build Include="dbo\Stored Procedures\Bio_GetWarningTimeChange.sql" />
+    <Build Include="dbo\Stored Procedures\Nexbot_GetRegisteredConversation.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

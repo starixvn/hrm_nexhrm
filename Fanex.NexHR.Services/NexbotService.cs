@@ -6,9 +6,11 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
+    using Fanex.NexHR.Criteria.Bio;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Interfaces;
@@ -274,6 +276,11 @@
             message += $"Please process this request at: {BaseUrl}/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
             return message;
+        }
+
+        public async Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory CategoryId)
+        {
+            return await GetDataAsync<string>(new GetRegisteredConversationCriteria { CategoryId = CategoryId }).ConfigureAwait(false);
         }
     }
 }

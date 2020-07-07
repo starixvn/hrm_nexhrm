@@ -171,6 +171,7 @@
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
     <Compile Include="API\AuthenticationController.cs" />
+    <Compile Include="API\BioTasksController.cs" />
     <Compile Include="API\ReminderController.cs" />
     <Compile Include="API\RequestController.cs" />
     <Compile Include="API\TimesheetController.cs" />

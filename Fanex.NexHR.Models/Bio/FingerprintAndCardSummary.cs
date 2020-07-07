@@ -14,6 +14,10 @@
 
         public bool IsCardWarning { get; set; }
 
+        public string FullName { get; set; }
+
+        public string NickName { get; set; }
+
         public bool IsWarning
         {
             get
