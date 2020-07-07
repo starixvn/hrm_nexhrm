@@ -4,10 +4,7 @@
 
 @{ 
     var logoSrc = "/Content/Images/" + AppSetting.HRMName + ".png";
-}
-
-@{ 
-    var HRMName = @System.Configuration.ConfigurationManager.AppSettings["HRMName"];
+    var HRMName = AppSetting.HRMName;
 }
 
 <div class="navbar-fixed">

@@ -12,6 +12,7 @@ namespace Fanex.NexHR.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Criteria.Employee;
+    using Fanex.NexHR.Core;
     using Models;
     using Services;
 
@@ -93,7 +94,15 @@ namespace Fanex.NexHR.Controllers
         {
             if (CurrentUser == null)
             {
-                filterContext.Result = new RedirectResult("~/error.html");
+                string HRMName = AppSetting.HRMName;
+                if(HRMName!= "NexHRM")
+                {
+                    filterContext.Result = new RedirectResult("~/Auth/Login");
+                }
+                else
+                {
+                    filterContext.Result = new RedirectResult("~/error.html");
+                }
             }
 
             if (filterContext == null)

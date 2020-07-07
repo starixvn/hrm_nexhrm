@@ -137,6 +137,7 @@
     <Compile Include="..\SonarQube\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="AuthService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
     <Compile Include="BioService.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
+    <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IBioService.cs" />
     <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\ICompanyEventService.cs" />
@@ -163,6 +165,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Interfaces\IReportService.cs" />
+    <Compile Include="Interfaces\ISessionService.cs" />
     <Compile Include="Interfaces\ITimeSheetService.cs" />
     <Compile Include="Interfaces\IScheduledMessageService.cs" />
     <Compile Include="Interfaces\IToeicService.cs" />
@@ -190,6 +193,7 @@
     <Compile Include="PostnatalService.cs" />
     <Compile Include="RedmineService.cs" />
     <Compile Include="ReportService.cs" />
+    <Compile Include="SessionService.cs" />
     <Compile Include="TimeSheetService.cs" />
     <Compile Include="ScheduledMessageService.cs" />
     <Compile Include="TeamService.cs" />

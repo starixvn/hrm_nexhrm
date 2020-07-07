@@ -5,19 +5,27 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Services;
 
     public class AuthController : Controller
     {
         readonly MembershipProvider domainProvider = Membership.Providers["ADMembershipProvider"];
+        private readonly IAuthService authService;
+        private readonly ISessionService sessionService;
 
-        [AllowAnonymous]
+        public AuthController()
+        {
+            authService = new AuthService();
+            sessionService = new SessionService();
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string ReturnUrl)
@@ -29,9 +37,11 @@
                     var user = domainProvider.GetUser(model.UserName, false);
                     if (user.IsApproved)
                     {
-                        //HttpContext.Session.Abandon();
-                        //HttpContext.Session.Clear();
                         string domainUsername = AppSetting.DomainName + model.UserName;
+                        var employee = authService.GetEmployeeByDomain(domainUsername);
+                        var employeeSetting = authService.GetEmployeeSetting(employee.Id);
+                        sessionService.CurrentEmployee = employee;
+                        sessionService.CurrentUserSetting = employeeSetting;
                         FormsAuthentication.SetAuthCookie(domainUsername, model.RememberMe);
                         return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : (ActionResult)RedirectToAction("Index", "Dashboard");
                     }
@@ -48,12 +58,9 @@
             return View(model);
         }
 
-        [AllowAnonymous]
         public ActionResult Logout()
         {
-            HttpContext.Session.Abandon();
-            HttpContext.Session.RemoveAll();
-
+            sessionService.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
