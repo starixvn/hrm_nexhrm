@@ -240,9 +240,14 @@
     <Content Include="Content\Images\Dashboard\3.png" />
     <Content Include="Content\Images\Dashboard\4.png" />
     <Content Include="Content\Images\Dashboard\5.png" />
+    <Content Include="Content\Images\edit-icon.png" />
     <Content Include="Content\Images\google-logo.jpg" />
     <Content Include="Content\Images\ic_google.png" />
+    <Content Include="Content\Images\leftLogin.png" />
+    <Content Include="Content\Images\LogoLuminet.png" />
+    <Content Include="Content\Images\LogoLuminet.svg" />
     <Content Include="Content\Images\LumiHRM.png" />
+    <Content Include="Content\Images\preloader.gif" />
     <Content Include="Content\Materialize\materialize.css">
       <DependentUpon>materialize.scss</DependentUpon>
     </Content>
