@@ -86,6 +86,9 @@
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
     <Compile Include="Employee\GetHRCriteria.cs" />
     <Compile Include="Employee\GetMissingCheckInCheckOutCriteria.cs" />
+    <Compile Include="Hangfire\CheckIfObjectNotChangeCriteria.cs" />
+    <Compile Include="Hangfire\GetJsonObjectByCategoryMessageCriteria.cs" />
+    <Compile Include="Hangfire\UpdateJsonObjectCriteria.cs" />
     <Compile Include="HistoryWork\DeleteHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\EditHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\FilterHistoryWorkCriteria.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="HistoryWork\InsertHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\UpdateHistoryWorkCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
+    <Compile Include="LateInEarlyOut\GetLateInEarlyOutViolaterOnCurrentMonthCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />

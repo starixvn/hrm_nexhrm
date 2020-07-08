@@ -10,7 +10,7 @@
     using Fanex.NexHR.Resources;
     using Interfaces;
 
-    public class BotMissingCheckInCheckOutReminderSerivce : IBotMissingCheckInCheckOutReminderSerivce
+    public class BotMissingCheckInCheckOutReminderSerivce : IBotAutoJobService
     {
         private const int MissingCheckInCheckOutCategoryId = 6;
         private const string FormatDate = "dd MMM, yyyy";
@@ -69,9 +69,7 @@
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
                 Messages.AnounceNumberEmployeeMissCheckInOut,
-                missingCheckInOuts.Count() > 1 ? "are" : "is",
                 missingCheckInOuts.Count(),
-                missingCheckInOuts.Count() > 1 ? "s" : string.Empty,
                 Constants.NewLine));
 
             foreach (var employee in missingCheckInOuts)
@@ -87,8 +85,8 @@
             }
 
             message.Append(string.Format(
-                Messages.AccessLinkToViewMore,
-                $"{BaseUrl}/report/attendance"));
+                Messages.AccessLinkToViewMoreCheckInCheckOut,
+                BaseUrl));
 
             return message.ToString();
         }
@@ -108,7 +106,7 @@
 
         private static string GenerateMessageForEmployee(MissingCheckInOutEmployee employee)
         {
-            var message = $"Dear {employee.NickName}, {Constants.NewLine}";
+            var message = string.Format(Messages.DearSkypeMessage, employee.NickName, Constants.NewLine);
             message += string.Format(
                 Messages.YouForgotCheckInOut,
                 employee.Type == 1 ? CheckIn : CheckOut,

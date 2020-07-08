@@ -1,7 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LateInEarlyOut;
+    using Fanex.NexHR.Models.LateInEarlyOut;
     using Interfaces;
     using ViewModels.LateInEarlyOut;
 
@@ -23,6 +25,11 @@
         {
             IList<LateInEarlyOutViewModel> employeeList = GetData<LateInEarlyOutViewModel>(criteria);
             return employeeList;
+        }
+
+        public async Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria)
+        {
+            return await GetDataAsync<LateInEarlyOutViolateModel>(criteria).ConfigureAwait(false);
         }
     }
 }

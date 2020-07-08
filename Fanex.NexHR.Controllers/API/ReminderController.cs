@@ -2,24 +2,22 @@
 {
     using System.Threading.Tasks;
     using System.Web.Http;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Services.AutoJobService;
 
     public class ReminderController : ApiController
     {
         private readonly MailBirthdayAndFirstWorkingdayReminderService _mailReminderService;
-        private readonly IBotMissingCheckInCheckOutReminderSerivce _botService;
+        private readonly IBotAutoJobService _botService;
 
         public ReminderController() : this(null, null)
         {
-
         }
 
         public ReminderController(
             MailBirthdayAndFirstWorkingdayReminderService mailReminderService,
-            IBotMissingCheckInCheckOutReminderSerivce botService
+            IBotAutoJobService botService
         )
         {
             _mailReminderService = mailReminderService ?? new MailBirthdayAndFirstWorkingdayReminderService();
@@ -38,7 +36,6 @@
         [Authorize]
         public async Task<IHttpActionResult> MissingCheckInCheckOut()
         {
-
             var result = await _botService.SendMessageAsync().ConfigureAwait(false);
             return Ok(result);
         }

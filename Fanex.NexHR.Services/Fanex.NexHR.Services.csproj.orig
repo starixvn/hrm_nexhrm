@@ -140,8 +140,9 @@
 <<<<<<< HEAD
     <Compile Include="AuthService.cs" />
 =======
+    <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
+>>>>>>> 136478 - Late in early out violate on month
     <Compile Include="AutoJobService\BotMissingCheckInCheckOutReminderSerivce.cs" />
->>>>>>> 136478 - Missing check in check out
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
     <Compile Include="BioService.cs" />
@@ -150,16 +151,18 @@
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="HangFireService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IBioService.cs" />
-    <Compile Include="Interfaces\IBotMissingCheckInCheckOutReminderSerivce.cs" />
+    <Compile Include="Interfaces\IBotAutoJobService.cs" />
     <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\ICompanyEventService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\ICalendarService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
+    <Compile Include="Interfaces\IHangFireService.cs" />
     <Compile Include="Interfaces\IJobTitleService.cs" />
     <Compile Include="Interfaces\ILateInEarlyOutService.cs" />
     <Compile Include="Interfaces\INexbotService.cs" />

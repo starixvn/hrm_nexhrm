@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Fanex.NexHR.Models;
 
-    public interface IBotMissingCheckInCheckOutReminderSerivce
+    public interface IBotAutoJobService
     {
         Task<CommandResult> SendMessageAsync();
     }
