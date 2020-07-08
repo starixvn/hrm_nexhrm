@@ -356,4 +356,19 @@ Thanks</value>
   <data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) Late in/Early out over 4 times on {1}: {2}</value>
   </data>
+  <data name="AccessLinkToViewMore" xml:space="preserve">
+    <value>Please access {0} to view more details. Thanks</value>
+  </data>
+  <data name="AnounceNumberEmployeeMissCheckInOut" xml:space="preserve">
+    <value>Hi All. There {0} {1} employee{2} got missing Check in/Check out: {3}</value>
+  </data>
+  <data name="EmployeeMissingCheckInOut" xml:space="preserve">
+    <value>_- {0} ({1}) missing {2} on {3}_ {4}</value>
+  </data>
+  <data name="ReviewAndMakeCheckInOutRequestAtLink" xml:space="preserve">
+    <value>Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}</value>
+  </data>
+  <data name="YouForgotCheckInOut" xml:space="preserve">
+    <value>You have forgot _{0}_ on _{1}_ (shift {2}). {3}</value>
+  </data>
 </root>

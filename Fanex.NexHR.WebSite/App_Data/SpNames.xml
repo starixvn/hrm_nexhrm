@@ -392,4 +392,8 @@
     <Setting Key="NexHangfire_GetJsonObjectByCategoryId" SpName="NexHangfire_GetJsonObjectByCategoryId" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="NexHangfire_UpdateJsonObject" SpName="NexHangfire_UpdateJsonObject" DbName="nexhr" Plain="0"></Setting>
   </Function>
+  <Function Name="Schedule">
+    <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
+  </Function>
 </Functions>

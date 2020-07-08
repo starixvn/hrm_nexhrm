@@ -2,34 +2,45 @@
 {
     using System.Threading.Tasks;
     using System.Web.Http;
+<<<<<<< HEAD
     using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
+=======
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services.Email;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Services.AutoJobService;
+>>>>>>> 136478 - Missing check in check out
 
     public class ReminderController : ApiController
     {
-<<<<<<< HEAD
         private readonly MailBirthdayAndFirstWorkingdayReminderService _mailReminderService;
+<<<<<<< HEAD
         private readonly IBotAutoJobService _botService;
-=======
-        private readonly MailBirthdayAndFirstWorkingdayReminderService mailReminderService;
->>>>>>> 136478 - Refactor MailBirthdayAndFirstWorkingdayReminderService
 
         public ReminderController() : this(null, null)
         {
-<<<<<<< HEAD
+=======
+        private readonly IBotMissingCheckInCheckOutReminderSerivce _botService;
+
+        public ReminderController() : this(null, null)
+        {
+
+>>>>>>> 136478 - Missing check in check out
         }
 
         public ReminderController(
             MailBirthdayAndFirstWorkingdayReminderService mailReminderService,
+<<<<<<< HEAD
             IBotAutoJobService botService
+=======
+            IBotMissingCheckInCheckOutReminderSerivce botService
+>>>>>>> 136478 - Missing check in check out
         )
         {
             _mailReminderService = mailReminderService ?? new MailBirthdayAndFirstWorkingdayReminderService();
             _botService = botService ?? new BotMissingCheckInCheckOutReminderSerivce();
-=======
-            mailReminderService = new MailBirthdayAndFirstWorkingdayReminderService();
->>>>>>> 136478 - Refactor MailBirthdayAndFirstWorkingdayReminderService
         }
 
         [HttpPost]
@@ -44,6 +55,10 @@
         [Authorize]
         public async Task<IHttpActionResult> MissingCheckInCheckOut()
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 136478 - Missing check in check out
             var result = await _botService.SendMessageAsync().ConfigureAwait(false);
             return Ok(result);
         }
