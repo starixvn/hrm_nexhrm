@@ -395,5 +395,6 @@
   <Function Name="Schedule">
     <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
   </Function>
 </Functions>

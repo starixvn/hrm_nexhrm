@@ -2,10 +2,9 @@
 {
     using System.Threading.Tasks;
     using System.Web.Http;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Services.AutoJobService;
 
     public class ReminderController : ApiController
     {

@@ -356,11 +356,11 @@ Thanks</value>
   <data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) Late in/Early out over 4 times on {1}: {2}</value>
   </data>
-  <data name="AccessLinkToViewMore" xml:space="preserve">
-    <value>Please access {0} to view more details. Thanks</value>
+  <data name="AccessLinkToViewMoreCheckInCheckOut" xml:space="preserve">
+    <value>Please access {0}/report/attendance to view more details. Thanks</value>
   </data>
   <data name="AnounceNumberEmployeeMissCheckInOut" xml:space="preserve">
-    <value>Hi All. There {0} {1} employee{2} got missing Check in/Check out: {3}</value>
+    <value>Hi All. There is/are {0} employee(s) got missing Check in/Check out: {1}</value>
   </data>
   <data name="EmployeeMissingCheckInOut" xml:space="preserve">
     <value>_- {0} ({1}) missing {2} on {3}_ {4}</value>
@@ -370,5 +370,23 @@ Thanks</value>
   </data>
   <data name="YouForgotCheckInOut" xml:space="preserve">
     <value>You have forgot _{0}_ on _{1}_ (shift {2}). {3}</value>
+  </data>
+  <data name="AccessLinkToViewViolateLateInEarlyOutOnMonth" xml:space="preserve">
+    <value>Please access {0}/report/lateinearlyout to view more details. And don't forget to warning employees who violate more than 4 times on this month. Thanks</value>
+  </data>
+  <data name="DearSkypeMessage" xml:space="preserve">
+    <value>Dear {0},{1}</value>
+  </data>
+  <data name="EmployeeLateInEarlyOutViolateOnMonth" xml:space="preserve">
+    <value>There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks"</value>
+  </data>
+  <data name="EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime" xml:space="preserve">
+    <value>You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel's policy.{2}Please notice that. Thanks</value>
+  </data>
+  <data name="EmployeeViolateTime" xml:space="preserve">
+    <value>_- {0} ({1}) violate {2} time(s)._ {3}</value>
+  </data>
+  <data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
+    <value>Hi All. There is/are {0} employee(s) Late in/Early out over 4 times on {1}: {2}</value>
   </data>
 </root>

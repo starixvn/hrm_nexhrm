@@ -165,8 +165,8 @@
 <<<<<<< HEAD
     <Compile Include="API\BioTasksController.cs" />
 =======
-    <Compile Include="API\LateInEarlyOutViolateOnMonthWarningController.cs" />
 >>>>>>> 136478 - Late in early out violate on month
+    <Compile Include="API\LateInEarlyOutViolateOnMonthWarningController.cs" />
     <Compile Include="API\ReminderController.cs" />
     <Compile Include="API\RequestController.cs" />
     <Compile Include="API\TimesheetController.cs" />

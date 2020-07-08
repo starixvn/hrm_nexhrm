@@ -139,9 +139,9 @@
     </Compile>
 <<<<<<< HEAD
     <Compile Include="AuthService.cs" />
-    <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
 =======
->>>>>>> 136478 - Missing check in check out
+>>>>>>> 136478 - Late in early out violate on month
+    <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
     <Compile Include="AutoJobService\BotMissingCheckInCheckOutReminderSerivce.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
@@ -156,11 +156,7 @@
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IBioService.cs" />
-<<<<<<< HEAD
     <Compile Include="Interfaces\IBotAutoJobService.cs" />
-=======
-    <Compile Include="Interfaces\IBotMissingCheckInCheckOutReminderSerivce.cs" />
->>>>>>> 136478 - Missing check in check out
     <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\ICompanyEventService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />

@@ -387,12 +387,16 @@
   <Function Name="Schedule">
     <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
-<<<<<<< HEAD
     <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
+<<<<<<< HEAD
     <Setting Key="NexHangfire_CheckIfObjectNotChange" SpName="NexHangfire_CheckIfObjectNotChange" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="NexHangfire_GetJsonObjectByCategoryId" SpName="NexHangfire_GetJsonObjectByCategoryId" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="NexHangfire_UpdateJsonObject" SpName="NexHangfire_UpdateJsonObject" DbName="nexhr" Plain="0"></Setting>
+  </Function>
+  <Function Name="Schedule">
+    <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
 =======
->>>>>>> 136478 - Missing check in check out
+>>>>>>> 136478 - Late in early out violate on month
   </Function>
 </Functions>
