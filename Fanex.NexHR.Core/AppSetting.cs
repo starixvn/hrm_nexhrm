@@ -31,5 +31,7 @@ namespace Fanex.NexHR.Core
         public static string ScheduledMessageUserGuide => ConfigurationManager.AppSettings["ScheduledMessage_UserGuide"];
 
         public static string HRMName => ConfigurationManager.AppSettings["HRMName"];
+
+        public static string LDAP => ConfigurationManager.AppSettings["LDAP"];
     }
 }

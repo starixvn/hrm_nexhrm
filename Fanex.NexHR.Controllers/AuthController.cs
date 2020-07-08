@@ -7,10 +7,10 @@
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.Services;
+    using System.DirectoryServices.AccountManagement;
 
     public class AuthController : Controller
     {
-        readonly MembershipProvider domainProvider = Membership.Providers["ADMembershipProvider"];
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
 
@@ -38,10 +38,10 @@
         {
             if (ModelState.IsValid)
             {
-                if (domainProvider.ValidateUser(model.UserName, model.Password))
+                using (var context = new PrincipalContext(ContextType.Domain, AppSetting.LDAP))
                 {
-                    var user = domainProvider.GetUser(model.UserName, false);
-                    if (user.IsApproved)
+                    var isValid = context.ValidateCredentials(model.UserName, model.Password);
+                    if (isValid)
                     {
                         string domainUsername = AppSetting.DomainName + model.UserName;
                         var employee = authService.GetEmployeeByDomain(domainUsername);
@@ -51,13 +51,7 @@
                         FormsAuthentication.SetAuthCookie(domainUsername, model.RememberMe);
                         return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : (ActionResult)RedirectToAction("Index", "Dashboard");
                     }
-                    else
-                    {
-                        ModelState.AddModelError("errorSummary", Messages.AccountLockedOut);
-                    }
-                }
-                else
-                {
+
                     ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);
                 }
             }
