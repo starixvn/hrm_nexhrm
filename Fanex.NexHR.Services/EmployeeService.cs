@@ -161,5 +161,12 @@
         {
             return _employeeRepository.GetWorkloadByTeam(criteria);
         }
+
+        public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()
+        {
+            var missingCheckInOuts = await GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
+
+            return missingCheckInOuts;
+        }
     }
 }

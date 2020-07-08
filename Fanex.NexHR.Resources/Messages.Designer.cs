@@ -61,6 +61,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please access {0} to view more details. Thanks.
+        /// </summary>
+        public static string AccessLinkToViewMore {
+            get {
+                return ResourceManager.GetString("AccessLinkToViewMore", resourceCulture);
+            }
+        }
+        
+         /// <summary>
         ///   Looks up a localized string similar to Account is currently locked out.
         /// </summary>
         public static string AccountLockedOut {
@@ -68,6 +77,7 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("AccountLockedOut", resourceCulture);
             }
         }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Adjust successfully.
@@ -75,6 +85,15 @@ namespace Fanex.NexHR.Resources {
         public static string AdjustSuccessfully {
             get {
                 return ResourceManager.GetString("AdjustSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All. There {0} {1} employee{2} got missing Check in/Check out: {3}.
+        /// </summary>
+        public static string AnounceNumberEmployeeMissCheckInOut {
+            get {
+                return ResourceManager.GetString("AnounceNumberEmployeeMissCheckInOut", resourceCulture);
             }
         }
         
@@ -201,6 +220,15 @@ namespace Fanex.NexHR.Resources {
         public static string DuplicateTeamCode {
             get {
                 return ResourceManager.GetString("DuplicateTeamCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- {0} ({1}) missing {2} on {3}_ {4}.
+        /// </summary>
+        public static string EmployeeMissingCheckInOut {
+            get {
+                return ResourceManager.GetString("EmployeeMissingCheckInOut", resourceCulture);
             }
         }
         
@@ -497,6 +525,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}.
+        /// </summary>
+        public static string ReviewAndMakeCheckInOutRequestAtLink {
+            get {
+                return ResourceManager.GetString("ReviewAndMakeCheckInOutRequestAtLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saved.
         /// </summary>
         public static string Saved {
@@ -655,6 +692,15 @@ namespace Fanex.NexHR.Resources {
         public static string UsedNEXDescription {
             get {
                 return ResourceManager.GetString("UsedNEXDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have forgot _{0}_ on _{1}_ (shift {2}). {3}.
+        /// </summary>
+        public static string YouForgotCheckInOut {
+            get {
+                return ResourceManager.GetString("YouForgotCheckInOut", resourceCulture);
             }
         }
         

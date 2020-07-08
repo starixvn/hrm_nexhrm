@@ -85,6 +85,7 @@
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainNameCriteria.cs" />
     <Compile Include="Employee\GetHRCriteria.cs" />
+    <Compile Include="Employee\GetMissingCheckInCheckOutCriteria.cs" />
     <Compile Include="HistoryWork\DeleteHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\EditHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\FilterHistoryWorkCriteria.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="SkypeAccount\GetEmployeeSkypeAccountCriteria.cs" />
+    <Compile Include="SkypeAccount\GetRegisteredConversationCriteria.cs" />
     <Compile Include="SkypeAccount\UpdateSkypeAccountNickNameCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />
     <Compile Include="Report\GetTeamHeadCountByYearCriteria.cs" />

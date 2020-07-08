@@ -384,4 +384,8 @@
     <Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LogReachedWorkingTime_Insert" SpName="LogReachedWorkingTime_Insert" DbName="nexhr" Plain="0"></Setting>
   </Function>
+  <Function Name="Schedule">
+    <Setting Key="Nexbot_GetRegisteredConversation" SpName="Nexbot_GetRegisteredConversation" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
+  </Function>
 </Functions>

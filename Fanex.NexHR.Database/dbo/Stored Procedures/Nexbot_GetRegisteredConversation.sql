@@ -1,8 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[Nexbot_GetRegisteredConversation]
+ALTER PROCEDURE [dbo].[Nexbot_GetRegisteredConversation]
 	@CategoryId INT
 AS
 /*
-Created: 20180806@Oliver.Dang
+Created: 20200703@Merlin.Le
 Task: Get ConversationIds, whom register receive remind message
 DB: NexHR & NexBot
 Original: 
@@ -13,7 +13,7 @@ Param's Explanation:
 BEGIN
 	
 	SET NOCOUNT ON;
-
+	
 	SELECT cr.ConversationId
 	FROM [NexBot].[dbo].[ConversationRegister] AS cr WITH (NOLOCK)
 		LEFT JOIN [NexBot].[dbo].[CategoryMessage] AS c WITH (NOLOCK) ON cr.CategoryId = c.CategoryId

@@ -14,6 +14,8 @@
     {
         bool SendMessage(string conversationId, string message);
 
+        Task<bool> SendMessageAsync(string conversationId, string message);
+
         IList<ConversationUser> GetSkypeAccount();
 
         IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(int messageCategoryId);
@@ -26,6 +28,6 @@
 
         void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
 
-        Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory CategoryId);
+        Task<IEnumerable<string>> GetRegisteredConversation(int categoryId);
     }
 }

@@ -27,7 +27,7 @@
     {
         private readonly IRestClient webClient;
         private readonly INexbotRepository nexbotRepository;
-        
+
         private static readonly bool IsDisabledSendSkype = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendSkype"]);
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
@@ -42,6 +42,17 @@
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
                 return ForwardToBot(message, conversationId);
+            }
+
+            return false;
+        }
+
+        public async Task<bool> SendMessageAsync(string conversationId, string message)
+        {
+            if (!string.IsNullOrWhiteSpace(conversationId))
+            {
+                var result = await ForwardToBotAsync(message, conversationId).ConfigureAwait(false);
+                return result;
             }
 
             return false;
@@ -108,6 +119,22 @@
 
                 webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
                 isSuccessful = webClient.Execute(request).IsSuccessful;
+            }
+
+            return isSuccessful;
+        }
+
+        private async Task<bool> ForwardToBotAsync(string message, string conversationId)
+        {
+            var isSuccessful = false;
+            if (!IsDisabledSendSkype)
+            {
+                var request = CreateRequestHeader("/messages/forward", Method.POST);
+                request.AddParameter("message", message);
+                request.AddParameter("conversationId", conversationId);
+                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+                var response = await webClient.ExecuteTaskAsync(request).ConfigureAwait(false);
+                isSuccessful = response.IsSuccessful;
             }
 
             return isSuccessful;
@@ -278,9 +305,10 @@
             return message;
         }
 
-        public async Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory CategoryId)
+        public async Task<IEnumerable<string>> GetRegisteredConversation(int categoryId)
         {
-            return await GetDataAsync<string>(new GetRegisteredConversationCriteria { CategoryId = CategoryId }).ConfigureAwait(false);
+            var result = await GetDataAsync<string>(new GetRegisteredConversationCriteria { CategoryId = categoryId }).ConfigureAwait(false);
+            return result;
         }
     }
 }

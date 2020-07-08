@@ -307,19 +307,36 @@ Thanks</value>
   <data name="SuccessUpdateInformation" xml:space="preserve">
     <value>Success update information</value>
   </data>
-<<<<<<< HEAD
   <data name="AccountLockedOut" xml:space="preserve">
     <value>Account is currently locked out</value>
   </data>
   <data name="IncorrectUsernameOrPassword" xml:space="preserve">
     <value>Incorrect Username or Password</value>
   </data>
-=======
->>>>>>> 136478 - Refactor MailBirthdayAndFirstWorkingdayReminderService
   <data name="ReminderFirstWorkingDayAnniversaryOf" xml:space="preserve">
     <value>Reminder: First working day anniversary of {0}</value>
   </data>
   <data name="ReminderHappyBirthdayTo" xml:space="preserve">
     <value>Reminder: Happy birthday to {0}</value>
+  </data>
+<<<<<<< HEAD
+  <data name="UserNotExists" xml:space="preserve">
+    <value>The user does not exists</value>
+=======
+  <data name="AccessLinkToViewMore" xml:space="preserve">
+    <value>Please access {0} to view more details. Thanks</value>
+  </data>
+  <data name="AnounceNumberEmployeeMissCheckInOut" xml:space="preserve">
+    <value>Hi All. There {0} {1} employee{2} got missing Check in/Check out: {3}</value>
+  </data>
+  <data name="EmployeeMissingCheckInOut" xml:space="preserve">
+    <value>_- {0} ({1}) missing {2} on {3}_ {4}</value>
+  </data>
+  <data name="ReviewAndMakeCheckInOutRequestAtLink" xml:space="preserve">
+    <value>Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}</value>
+  </data>
+  <data name="YouForgotCheckInOut" xml:space="preserve">
+    <value>You have forgot _{0}_ on _{1}_ (shift {2}). {3}</value>
+>>>>>>> 136478 - Missing check in check out
   </data>
 </root>
