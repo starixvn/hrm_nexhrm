@@ -23,6 +23,12 @@
         [HttpGet]
         public ActionResult Login()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                string domainUsername = HttpContext.User.Identity.Name;
+                var employee = authService.GetEmployeeByDomain(domainUsername);
+                return !employee.Enabled || employee.IsDeleted ? View() : (ActionResult)RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 

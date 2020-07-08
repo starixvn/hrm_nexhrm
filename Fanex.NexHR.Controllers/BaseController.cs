@@ -95,14 +95,7 @@ namespace Fanex.NexHR.Controllers
             if (CurrentUser == null)
             {
                 string HRMName = AppSetting.HRMName;
-                if(HRMName!= "NexHRM")
-                {
-                    filterContext.Result = new RedirectResult("~/Auth/Login");
-                }
-                else
-                {
-                    filterContext.Result = new RedirectResult("~/error.html");
-                }
+                filterContext.Result = HRMName != "NexHRM" ? new RedirectResult("~/Auth/Login") : new RedirectResult("~/error.html");
             }
 
             if (filterContext == null)
