@@ -1,9 +1,10 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
     using Fanex.NexHR.Criteria.Hangfire;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
+    using Newtonsoft.Json;
 
     public class HangFireService : BaseService, IHangFireService
     {
@@ -29,7 +30,7 @@
             return await GetDataEntityAsync<string>(criteria).ConfigureAwait(false);
         }
 
-        public async Task UpdateJsonObject(int categoryId, object value)
+        public async Task<CommandResult> UpdateJsonObject(int categoryId, object value)
         {
             string jsonObject = JsonConvert.SerializeObject(value);
             var criteria = new UpdateJsonObjectCriteria
@@ -38,7 +39,7 @@
                 JsonObject = jsonObject
             };
 
-            await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
         }
     }
 }

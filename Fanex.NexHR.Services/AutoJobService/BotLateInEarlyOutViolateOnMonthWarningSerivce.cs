@@ -15,15 +15,16 @@
     using Interfaces;
     using Newtonsoft.Json;
 
-    public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotAutoJobService
+    public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
-        private const int LateInEarlyOutViolateInMonth = 7;
-        private const string FormatDate = "MMM, yyyy";
+        private const int LateInEarlyOutViolateOnMonth = 7;
+        private const int ViolateLateInEarlyOutDiscipline = 8;
+        private const string FormatShortDate = "MMM, yyyy";
+        private const string FormatLongDate = "dd MMM, yyyy";
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
         private readonly IHangFireService _hangFireService;
         private readonly INexbotService _nexbotService;
         private readonly ILateInEarlyOutService _lateInEarlyOutService;
-        private readonly CommandResult Result = new CommandResult { Code = 0 };
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce() : this(null, null, null)
         {
@@ -40,8 +41,9 @@
             _lateInEarlyOutService = lateInEarlyOutService ?? new LateInEarlyOutService();
         }
 
-        public async Task<CommandResult> SendMessageAsync()
+        public async Task<CommandResult> SendMessageViolateOnMonthAsync()
         {
+            var result = new CommandResult { Code = 0 };
             var criteria = new GetLateInEarlyOutViolaterOnCurrentMonthCriteria
             {
                 Month = DateTime.Now.Day == 1 ? (DateTime.Now.Month - 1) : DateTime.Now.Month,
@@ -51,31 +53,60 @@
 
             if (violaters.Any())
             {
-                var isChange = await _hangFireService.ObjectIsChangedOrNotExists(LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
+                var isChange = await _hangFireService.ObjectIsChangedOrNotExists(LateInEarlyOutViolateOnMonth, violaters).ConfigureAwait(false);
 
                 if (isChange)
                 {
-                    await SendMessageToViolatedEmployees(violaters.Where(v => !string.IsNullOrWhiteSpace(v.ConversationId))).ConfigureAwait(false);
+                    result.Code = 1;
+                    await SendMessageViolateOnMonthToEmployees(violaters.Where(v => !string.IsNullOrWhiteSpace(v.ConversationId))).ConfigureAwait(false);
 
-                    await SendMessageToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= 4)).ConfigureAwait(false);
+                    await SendMessageViolateOnMonthToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= 4)).ConfigureAwait(false);
 
-                    await _hangFireService.UpdateJsonObject(LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
+                    result = await _hangFireService.UpdateJsonObject(LateInEarlyOutViolateOnMonth, violaters).ConfigureAwait(false);
                 }
             }
 
-            return Result;
+            return result;
         }
 
-        private async Task SendMessageToViolatedEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
+        public async Task<CommandResult> SendMessageViolateDisciplineAsync()
+        {
+            var toDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+            var fromDate = toDate.AddYears(-1).AddDays(1);
+
+            var criteria = new GetViolateLateInEarlyOutDisciplineCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            var violaters = await _lateInEarlyOutService.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
+
+            if (violaters.Any())
+            {
+                bool isChangedObject = await _hangFireService.ObjectIsChangedOrNotExists(ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
+
+                if (isChangedObject)
+                {
+                    await SendMessageViolateDisciplineToGroup(violaters, fromDate, toDate).ConfigureAwait(false);
+
+                    await _hangFireService.UpdateJsonObject(ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
+                }
+            }
+
+            return new CommandResult();
+        }
+
+        private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             if (violaters.Any())
             {
-                string jsonObject = await _hangFireService.GetJsonObject(LateInEarlyOutViolateInMonth).ConfigureAwait(false);
-                await SendMessageAfterChecking(jsonObject, violaters).ConfigureAwait(false);
+                string jsonObject = await _hangFireService.GetJsonObject(LateInEarlyOutViolateOnMonth).ConfigureAwait(false);
+                await SendMessageViolateOnMonthAfterChecking(jsonObject, violaters).ConfigureAwait(false);
             }
         }
 
-        private async Task SendMessageAfterChecking(string jsonObject, IEnumerable<LateInEarlyOutViolateModel> violaters)
+        private async Task SendMessageViolateOnMonthAfterChecking(string jsonObject, IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             if (!string.IsNullOrWhiteSpace(jsonObject))
             {
@@ -84,7 +115,7 @@
                 {
                     if (oldViolaters.Any(o => o.EmpId == violater.EmpId && violater.TimeOnMonth != o.TimeOnMonth))
                     {
-                        string message = GeneratePersonalMessage(violater);
+                        string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
                         await _nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
                     }
                 }
@@ -93,13 +124,13 @@
             {
                 foreach (var violater in violaters)
                 {
-                    string message = GeneratePersonalMessage(violater);
+                    string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
                     await _nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
                 }
             }
         }
 
-        private static string GeneratePersonalMessage(LateInEarlyOutViolateModel violater)
+        private static string GeneratePersonalMessageLateInEarlyOutViolateOnMonth(LateInEarlyOutViolateModel violater)
         {
             var msg = string.Format(Messages.DearSkypeMessage, violater.NickName, Constants.NewLine);
             if (violater.TimeOnMonth >= 4)
@@ -107,7 +138,7 @@
                 msg = msg + string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonth,
                     violater.TimeOnMonth,
-                    DateTime.Now.ToString(FormatDate),
+                    DateTime.Now.ToString(FormatShortDate),
                     Constants.NewLine);
             }
             else
@@ -115,19 +146,19 @@
                 msg += string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime,
                     violater.TimeOnMonth,
-                    DateTime.Now.ToString(FormatDate),
+                    DateTime.Now.ToString(FormatShortDate),
                     Constants.NewLine);
             }
 
             return msg;
         }
 
-        private async Task SendMessageToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
+        private async Task SendMessageViolateOnMonthToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            var conversations = await _nexbotService.GetRegisteredConversation(LateInEarlyOutViolateInMonth).ConfigureAwait(false);
+            var conversations = await _nexbotService.GetRegisteredConversation(LateInEarlyOutViolateOnMonth).ConfigureAwait(false);
             if (conversations.Any() && violaters.Any())
             {
-                string message = GenerateGroupMessage(violaters);
+                string message = GenerateViolateOnMonthGroupMessage(violaters);
                 foreach (var conversation in conversations)
                 {
                     await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
@@ -135,25 +166,68 @@
             }
         }
 
-        private static string GenerateGroupMessage(IEnumerable<LateInEarlyOutViolateModel> violaters)
+        private static string GenerateViolateOnMonthGroupMessage(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
                 Messages.ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth,
-                violaters.Count(), DateTime.Now.ToString(FormatDate),
+                violaters.Count(), DateTime.Now.ToString(FormatShortDate),
                 Constants.NewLine));
 
             foreach (var violater in violaters)
             {
                 message.Append(string.Format(
                     Messages.EmployeeViolateTime,
-                    violater.FullName, violater.NickName,
+                    violater.FullName,
+                    violater.NickName,
                     violater.TimeOnMonth,
                     Constants.NewLine));
             }
 
             message.Append(string.Format(
                 Messages.AccessLinkToViewViolateLateInEarlyOutOnMonth,
+                BaseUrl));
+
+            return message.ToString();
+        }
+
+        private async Task SendMessageViolateDisciplineToGroup(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
+        {
+            var conversations = await _nexbotService.GetRegisteredConversation(ViolateLateInEarlyOutDiscipline).ConfigureAwait(false);
+
+            if (conversations.Any())
+            {
+                string message = GenerateViolateDisciplineGroupMessage(violaters, fromDate, toDate);
+
+                foreach (var conversation in conversations)
+                {
+                    await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                }
+            }
+        }
+
+        private static string GenerateViolateDisciplineGroupMessage(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
+        {
+            StringBuilder message = new StringBuilder();
+            message.Append(string.Format(
+                Messages.ThereIsNumberEmployeeViolateDiscipline,
+                violaters.Count(),
+                fromDate.ToString(FormatLongDate),
+                toDate.ToString(FormatLongDate),
+                Constants.NewLine));
+
+            foreach (var violater in violaters)
+            {
+                message.Append(string.Format(
+                    Messages.EmployeeViolateTime,
+                    violater.FullName,
+                    violater.NickName,
+                    violater.TotalTimes,
+                    Constants.NewLine));
+            }
+
+            message.Append(string.Format(
+                Messages.AccessLinkToViewViolateDiscipline,
                 BaseUrl));
 
             return message.ToString();

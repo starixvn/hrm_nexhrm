@@ -166,6 +166,7 @@
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IBioService.cs" />
+    <Compile Include="Interfaces\IBotLateInLateOutAutoJobService.cs" />
     <Compile Include="Interfaces\IBotAutoJobService.cs" />
     <Compile Include="Interfaces\ICommandService.cs" />
     <Compile Include="Interfaces\ICompanyEventService.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Threading.Tasks;
+    using Fanex.NexHR.Models;
 
     public interface IHangFireService
     {
@@ -8,6 +9,6 @@
 
         Task<string> GetJsonObject(int categoryId);
 
-        Task UpdateJsonObject(int categoryId, object value);
+        Task<CommandResult> UpdateJsonObject(int categoryId, object value);
     }
 }

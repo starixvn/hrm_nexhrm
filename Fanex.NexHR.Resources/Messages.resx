@@ -389,4 +389,10 @@ Thanks</value>
   <data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) Late in/Early out over 4 times on {1}: {2}</value>
   </data>
+  <data name="AccessLinkToViewViolateDiscipline" xml:space="preserve">
+    <value>Please access {0}/report/lateinearlyoutdiscipline to view more details. And don't forget to warning employees who violate the discipline over 3 times. Thanks</value>
+  </data>
+  <data name="ThereIsNumberEmployeeViolateDiscipline" xml:space="preserve">
+    <value>Hi All. There is/are {0} employee(s) violate Late in/Early out discipline over 3 times from {1} to {2}: {3}</value>
+  </data>
 </root>

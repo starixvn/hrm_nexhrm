@@ -38,14 +38,9 @@
     <add key="MicrosoftAppPassword" value="ehwskL97488=~}:dpJYRUMQ" />
     <add key="TokenUrl" value="https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token" />
     <!--End NexBot-->
-<<<<<<< HEAD
     <add key="NexGoalApiHost" value="https://goal.nexdev.net"/>
     <add key="BaseUrl" value=" http://hrm.luminet.vn" />
     <add key="IsDisabledSendSkype" value="true" />
-=======
-    <add key="BaseUrl" value="http://localhost:51384" />
-    <add key="IsDisabledSendSkype" value="false" />
->>>>>>> 136478 - Missing check in check out
     <add key="HRMName" value="LumiHRM" />
     <add key="LDAP" value="luminet.vn"/>
     <add key="CompanyMailSign" value="© 2020 by Luminet Software Solutions" />
@@ -325,6 +320,7 @@
       </authorization>
     </system.web>
   </location>
+<<<<<<< HEAD
   <location path="api/BioTasks/BioDevice">
     <system.web>
       <authorization>
@@ -347,6 +343,9 @@
     </system.web>
   </location>
   <location path="api/LateInEarlyOutViolateOnMonthWarning">
+=======
+  <location path="api/LateInEarlyOut">
+>>>>>>> 136478 - Late in early out violate discipline
     <system.web>
       <authorization>
         <allow users="?" />

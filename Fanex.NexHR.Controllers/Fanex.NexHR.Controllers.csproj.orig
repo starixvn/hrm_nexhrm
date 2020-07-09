@@ -164,9 +164,10 @@
     <Compile Include="API\AuthenticationController.cs" />
 <<<<<<< HEAD
     <Compile Include="API\BioTasksController.cs" />
-=======
->>>>>>> 136478 - Late in early out violate on month
     <Compile Include="API\LateInEarlyOutViolateOnMonthWarningController.cs" />
+=======
+    <Compile Include="API\LateInEarlyOutController.cs" />
+>>>>>>> 136478 - Late in early out violate discipline
     <Compile Include="API\ReminderController.cs" />
     <Compile Include="API\RequestController.cs" />
     <Compile Include="API\TimesheetController.cs" />

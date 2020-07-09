@@ -15,5 +15,7 @@
         IList<LateInEarlyOutViewModel> GetAllEmployee(GetAllEmployeeCriteria criteria);
 
         Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria);
+
+        Task<IEnumerable<LateInEarlyOutDiscipline>> GetLateInEarlyOutDiscipline(GetViolateLateInEarlyOutDisciplineCriteria criteria);
     }
 }

@@ -70,6 +70,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please access {0}/report/lateinearlyoutdiscipline to view more details. And don&apos;t forget to warning employees who violate the discipline over 3 times. Thanks.
+        /// </summary>
+        public static string AccessLinkToViewViolateDiscipline {
+            get {
+                return ResourceManager.GetString("AccessLinkToViewViolateDiscipline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please access {0}/report/lateinearlyout to view more details. And don&apos;t forget to warning employees who violate more than 4 times on this month. Thanks.
         /// </summary>
         public static string AccessLinkToViewViolateLateInEarlyOutOnMonth {
@@ -731,6 +740,15 @@ namespace Fanex.NexHR.Resources {
         public static string TeamUpdated {
             get {
                 return ResourceManager.GetString("TeamUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All. There is/are {0} employee(s) violate Late in/Early out discipline over 3 times from {1} to {2}: {3}.
+        /// </summary>
+        public static string ThereIsNumberEmployeeViolateDiscipline {
+            get {
+                return ResourceManager.GetString("ThereIsNumberEmployeeViolateDiscipline", resourceCulture);
             }
         }
         

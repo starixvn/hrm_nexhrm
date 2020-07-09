@@ -4,11 +4,24 @@
     using System.Threading.Tasks;
     using Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
     using Interfaces;
     using ViewModels.LateInEarlyOut;
 
     public class LateInEarlyOutService : BaseService, ILateInEarlyOutService
     {
+        private readonly ILateInEarlyOutRepository _repository;
+
+        public LateInEarlyOutService() : this(null)
+        {
+        }
+
+        public LateInEarlyOutService(ILateInEarlyOutRepository repository)
+        {
+            _repository = repository ?? new LateInEarlyOutRepository();
+        }
+
         public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
             IList<LateInEarlyOutViewModel> lateInEarlyOuts = GetData<LateInEarlyOutViewModel>(criteria);
@@ -30,6 +43,11 @@
         public async Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria)
         {
             return await GetDataAsync<LateInEarlyOutViolateModel>(criteria).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<LateInEarlyOutDiscipline>> GetLateInEarlyOutDiscipline(GetViolateLateInEarlyOutDisciplineCriteria criteria)
+        {
+            return await _repository.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
         }
     }
 }

@@ -110,6 +110,7 @@
     <Compile Include="HistoryWork\UpdateHistoryWorkCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetLateInEarlyOutViolaterOnCurrentMonthCriteria.cs" />
+    <Compile Include="LateInEarlyOut\GetViolateLateInEarlyOutDisciplineCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />

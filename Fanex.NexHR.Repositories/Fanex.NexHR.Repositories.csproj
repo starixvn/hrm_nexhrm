@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\ICalendarRepository.cs" />
     <Compile Include="Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Interfaces\IHistoryWorkRepository.cs" />
+    <Compile Include="Interfaces\ILateInEarlyOutRepository.cs" />
     <Compile Include="Interfaces\INexbotRepository.cs" />
     <Compile Include="Interfaces\INotificationRepository.cs" />
     <Compile Include="Interfaces\IOvertimeRepository.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="EmployeeRepository.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="LateInEarlyOutRepository.cs" />
     <Compile Include="NexbotRepository.cs" />
     <Compile Include="NotificationRepository.cs" />
     <Compile Include="OvertimeRepository.cs" />
