@@ -49,5 +49,10 @@
         {
             return await _repository.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<LateInEarlyOutModel>> GetLateInEarlyOutDeduction(GetLateInEarlyOutDeductionCriteria criteria)
+        {
+            return await GetDataAsync<LateInEarlyOutModel>(criteria).ConfigureAwait(false);
+        }
     }
 }

@@ -109,6 +109,7 @@
     <Compile Include="HistoryWork\InsertHistoryWorkCriteria.cs" />
     <Compile Include="HistoryWork\UpdateHistoryWorkCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetAllEmployeeCriteria.cs" />
+    <Compile Include="LateInEarlyOut\GetLateInEarlyOutDeductionCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetLateInEarlyOutViolaterOnCurrentMonthCriteria.cs" />
     <Compile Include="LateInEarlyOut\GetViolateLateInEarlyOutDisciplineCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />

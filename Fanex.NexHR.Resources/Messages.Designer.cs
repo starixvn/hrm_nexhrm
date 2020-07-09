@@ -61,6 +61,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please access {0}/report/lateinearlyout to review it and take a deduction. Thanks..
+        /// </summary>
+        public static string AccessLinkAndReviewToTakeDeduction {
+            get {
+                return ResourceManager.GetString("AccessLinkAndReviewToTakeDeduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please access {0}/report/attendance to view more details. Thanks.
         /// </summary>
         public static string AccessLinkToViewMoreCheckInCheckOut {
@@ -204,6 +213,15 @@ namespace Fanex.NexHR.Resources {
         public static string ApprovalNotificationSubject {
             get {
                 return ResourceManager.GetString("ApprovalNotificationSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- {0} ({1}). Balance Current Year: {2} hour(s)._ {3}.
+        /// </summary>
+        public static string BalanceCurrentYearHour {
+            get {
+                return ResourceManager.GetString("BalanceCurrentYearHour", resourceCulture);
             }
         }
         
@@ -740,6 +758,15 @@ namespace Fanex.NexHR.Resources {
         public static string TeamUpdated {
             get {
                 return ResourceManager.GetString("TeamUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All. There is/are inform {0} employee(s) need to deduct balance for Late in/Early out: {1}.
+        /// </summary>
+        public static string ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut {
+            get {
+                return ResourceManager.GetString("ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut", resourceCulture);
             }
         }
         

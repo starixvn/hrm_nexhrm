@@ -8,5 +8,7 @@
         Task<CommandResult> SendMessageViolateOnMonthAsync();
 
         Task<CommandResult> SendMessageViolateDisciplineAsync();
+
+        Task<CommandResult> SendMessageDeductAsync();
     }
 }

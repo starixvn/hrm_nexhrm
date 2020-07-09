@@ -108,6 +108,7 @@
     <Compile Include="HistoryWork.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutDiscipline.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutDisciplineDetail.cs" />
+    <Compile Include="LateInEarlyOut\LateInEarlyOutModel.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutViolateModel.cs" />
     <Compile Include="MissingCheckInOutEmployee.cs" />
     <Compile Include="NexBot\NexBotConfiguration.cs" />

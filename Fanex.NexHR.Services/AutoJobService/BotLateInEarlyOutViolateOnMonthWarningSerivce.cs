@@ -19,6 +19,7 @@
     {
         private const int LateInEarlyOutViolateOnMonth = 7;
         private const int ViolateLateInEarlyOutDiscipline = 8;
+        private const int DeductLateInEarlyOut = 4;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
@@ -49,8 +50,8 @@
                 Month = DateTime.Now.Day == 1 ? (DateTime.Now.Month - 1) : DateTime.Now.Month,
                 Year = DateTime.Now.Year
             };
-            var violaters = await _lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
 
+            var violaters = await _lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
             if (violaters.Any())
             {
                 var isChange = await _hangFireService.ObjectIsChangedOrNotExists(LateInEarlyOutViolateOnMonth, violaters).ConfigureAwait(false);
@@ -59,9 +60,7 @@
                 {
                     result.Code = 1;
                     await SendMessageViolateOnMonthToEmployees(violaters.Where(v => !string.IsNullOrWhiteSpace(v.ConversationId))).ConfigureAwait(false);
-
                     await SendMessageViolateOnMonthToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= 4)).ConfigureAwait(false);
-
                     result = await _hangFireService.UpdateJsonObject(LateInEarlyOutViolateOnMonth, violaters).ConfigureAwait(false);
                 }
             }
@@ -71,6 +70,7 @@
 
         public async Task<CommandResult> SendMessageViolateDisciplineAsync()
         {
+            var result = new CommandResult { Code = 0 };
             var toDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
             var fromDate = toDate.AddYears(-1).AddDays(1);
 
@@ -85,16 +85,34 @@
             if (violaters.Any())
             {
                 bool isChangedObject = await _hangFireService.ObjectIsChangedOrNotExists(ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
-
                 if (isChangedObject)
                 {
+                    result.Code = 1;
                     await SendMessageViolateDisciplineToGroup(violaters, fromDate, toDate).ConfigureAwait(false);
-
-                    await _hangFireService.UpdateJsonObject(ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
+                    result = await _hangFireService.UpdateJsonObject(ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
                 }
             }
 
-            return new CommandResult();
+            return result;
+        }
+
+        public async Task<CommandResult> SendMessageDeductAsync()
+        {
+            var result = new CommandResult { Code = 0 };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
+            var deductedEmployees = await _lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
+
+            if (deductedEmployees.Any())
+            {
+                var conversations = await _nexbotService.GetRegisteredConversation(DeductLateInEarlyOut).ConfigureAwait(false);
+                if (conversations.Any())
+                {
+                    var message = GenerateMessageDeduct(deductedEmployees);
+                    result = await SendMessageDeductToConversation(conversations, message).ConfigureAwait(false);
+                }
+            }
+
+            return result;
         }
 
         private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
@@ -228,6 +246,43 @@
 
             message.Append(string.Format(
                 Messages.AccessLinkToViewViolateDiscipline,
+                BaseUrl));
+
+            return message.ToString();
+        }
+
+        private async Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message)
+        {
+            var result = false;
+            foreach (var conversation in conversations)
+            {
+                result = await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+            }
+
+            return new CommandResult { Code = result ? 0 : 1 };
+        }
+
+        private static string GenerateMessageDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
+        {
+            StringBuilder message = new StringBuilder();
+            message.Append(string.Format(
+                Messages.ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut,
+                deductedEmployees.Count(),
+                Constants.NewLine));
+
+            foreach (var e in deductedEmployees)
+            {
+                string balanceCurrentYear = (e.BalanceCurrentYear / 60).ToString("0.0");
+                message.Append(string.Format(
+                    Messages.BalanceCurrentYearHour,
+                    e.FullName,
+                    e.NickName,
+                    balanceCurrentYear,
+                    Constants.NewLine));
+            }
+
+            message.Append(string.Format(
+                Messages.AccessLinkAndReviewToTakeDeduction,
                 BaseUrl));
 
             return message.ToString();

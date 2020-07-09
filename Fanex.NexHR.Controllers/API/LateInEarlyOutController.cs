@@ -35,5 +35,13 @@
             var result = await _botService.SendMessageViolateDisciplineAsync().ConfigureAwait(false);
             return Ok(result);
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> Deduct()
+        {
+            var result = await _botService.SendMessageDeductAsync().ConfigureAwait(false);
+            return Ok(result);
+        }
     }
 }
