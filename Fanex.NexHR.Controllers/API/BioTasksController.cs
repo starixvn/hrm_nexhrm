@@ -31,7 +31,7 @@
             var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioDevice).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioDevice).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {
@@ -59,7 +59,7 @@
 
             if (warningTimeChanges.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioTimeChange).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioTimeChange).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {
@@ -84,7 +84,7 @@
 
             if (members.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioFingerprintAndCard).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioFingerprintAndCard).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {

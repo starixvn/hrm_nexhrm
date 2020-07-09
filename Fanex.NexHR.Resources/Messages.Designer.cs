@@ -97,25 +97,6 @@ namespace Fanex.NexHR.Resources {
         }
         
          /// <summary>
-        ///   Looks up a localized string similar to Please access {0}/report/attendance to view more details. Thanks.
-        /// </summary>
-        public static string AccessLinkToViewMoreCheckInCheckOut {
-            get {
-                return ResourceManager.GetString("AccessLinkToViewMoreCheckInCheckOut", resourceCulture);
-            }
-        }
-
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please access {0}/report/lateinearlyout to view more details. And don&apos;t forget to warning employees who violate more than 4 times on this month. Thanks.
-        /// </summary>
-        public static string AccessLinkToViewViolateLateInEarlyOutOnMonth {
-            get {
-                return ResourceManager.GetString("AccessLinkToViewViolateLateInEarlyOutOnMonth", resourceCulture);
-            }
-        }
-        
-         /// <summary>
         ///   Looks up a localized string similar to Account is currently locked out.
         /// </summary>
         public static string AccountLockedOut {
@@ -142,16 +123,6 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("AnounceNumberEmployeeMissCheckInOut", resourceCulture);
             }
         }
-        
-          /// <summary>
-        ///   Looks up a localized string similar to Hi All. There is/are {0} employee(s) got missing Check in/Check out: {1}.
-        /// </summary>
-        public static string AnounceNumberEmployeeMissCheckInOut {
-            get {
-                return ResourceManager.GetString("AnounceNumberEmployeeMissCheckInOut", resourceCulture);
-            }
-        }
-
         
         /// <summary>
         ///   Looks up a localized string similar to Change shift request from {0} approved by {1}.
@@ -296,34 +267,7 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("DuplicateTeamCode", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks&quot;.
-        /// </summary>
-        public static string EmployeeLateInEarlyOutViolateOnMonth {
-            get {
-                return ResourceManager.GetString("EmployeeLateInEarlyOutViolateOnMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel&apos;s policy.{2}Please notice that. Thanks.
-        /// </summary>
-        public static string EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime {
-            get {
-                return ResourceManager.GetString("EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _- {0} ({1}) missing {2} on {3}_ {4}.
-        /// </summary>
-        public static string EmployeeMissingCheckInOut {
-            get {
-                return ResourceManager.GetString("EmployeeMissingCheckInOut", resourceCulture);
-            }
-        }
-        
+
          /// <summary>
         ///   Looks up a localized string similar to There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks&quot;.
         /// </summary>
@@ -333,7 +277,6 @@ namespace Fanex.NexHR.Resources {
             }
         }
 
-        
         /// <summary>
         ///   Looks up a localized string similar to You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel&apos;s policy.{2}Please notice that. Thanks.
         /// </summary>
@@ -349,15 +292,6 @@ namespace Fanex.NexHR.Resources {
         public static string EmployeeMissingCheckInOut {
             get {
                 return ResourceManager.GetString("EmployeeMissingCheckInOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _- {0} ({1}) violate {2} time(s)._ {3}.
-        /// </summary>
-        public static string EmployeeViolateTime {
-            get {
-                return ResourceManager.GetString("EmployeeViolateTime", resourceCulture);
             }
         }
         
