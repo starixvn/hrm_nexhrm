@@ -25,6 +25,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> BioDevice()
         {
             var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
@@ -46,6 +47,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> BioTimeChange()
         {
             var criteria = new GetWarningBioTimeChangeCriteria
@@ -73,6 +75,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> BioFingerprintAndCard()
         {
             var members = await baseService.GetDataAsync<FingerprintAndCardSummary>(
