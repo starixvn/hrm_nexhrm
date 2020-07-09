@@ -12,5 +12,17 @@
 
         [Display(Name = "New Fingerprint & Card Alert")]
         BioFingerprintAndCard = 3,
+
+        [Display(Name = "Deduct AL when exceeding Late In/ Early Out Alert")]
+        DeductLateInEarlyOut = 4,
+
+        [Display(Name = "Reminder Missing Check In/Out")]
+        MissingCheckInCheckOut = 6,
+
+        [Display(Name = "Warning Violate Late In/ Early Out In a Month")]
+        LateInEarlyOutViolateInMonth = 7,
+
+        [Display(Name = "Warning Not Follow Late In/ Early Out Policy")]
+        ViolateLateInEarlyOutDiscipline = 8
     }
 }

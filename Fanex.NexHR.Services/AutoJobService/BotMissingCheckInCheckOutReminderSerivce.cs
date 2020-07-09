@@ -6,13 +6,13 @@
     using System.Text;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Interfaces;
 
     public class BotMissingCheckInCheckOutReminderSerivce : IBotAutoJobService
     {
-        private const int MissingCheckInCheckOutCategoryId = 6;
         private const string FormatDate = "dd MMM, yyyy";
         private const string CheckIn = "Check In";
         private const string CheckOut = "Check Out";
@@ -39,14 +39,14 @@
             var missingCheckInOuts = await _employeeService.GetMissingCheckInOutEmployeeAsync().ConfigureAwait(false);
             if (missingCheckInOuts.Any())
             {
-                await SendMessageToGroups(MissingCheckInCheckOutCategoryId, missingCheckInOuts).ConfigureAwait(false);
+                await SendMessageToGroups(MessageCategory.MissingCheckInCheckOut, missingCheckInOuts).ConfigureAwait(false);
                 await SendMessageToEmployees(missingCheckInOuts.Where(e => !string.IsNullOrWhiteSpace(e.ConversationId))).ConfigureAwait(false);
             }
 
             return Result;
         }
 
-        private async Task SendMessageToGroups(int categoryId, IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
+        private async Task SendMessageToGroups(MessageCategory categoryId, IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
         {
             var conversationIds = await _nexbotService.GetRegisteredConversation(categoryId).ConfigureAwait(false);
             if (conversationIds.Any())

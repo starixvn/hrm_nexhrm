@@ -305,7 +305,7 @@
             return message;
         }
 
-        public async Task<IEnumerable<string>> GetRegisteredConversation(int categoryId)
+        public async Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory categoryId)
         {
             var result = await GetDataAsync<string>(new GetRegisteredConversationCriteria { CategoryId = categoryId }).ConfigureAwait(false);
             return result;

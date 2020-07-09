@@ -28,6 +28,6 @@
 
         void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
 
-        Task<IEnumerable<string>> GetRegisteredConversation(int categoryId);
+        Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory categoryId);
     }
 }

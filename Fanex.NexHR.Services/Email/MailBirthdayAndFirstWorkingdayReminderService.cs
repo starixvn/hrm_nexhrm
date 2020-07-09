@@ -15,6 +15,7 @@
 
     public class MailBirthdayAndFirstWorkingdayReminderService
     {
+        private const string FormatDate = "dd MMM, yyyy";
         private static readonly EmailService EmailService = new EmailService();
         private static readonly EmployeeService EmployeeService = new EmployeeService();
         private static readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
@@ -22,6 +23,7 @@
         private static readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
         private static readonly string EmailNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
         private static readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
+        private static readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
         private static bool _isReminderBirthdayAndFirstWorkingdaySuccess = true;
 
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
@@ -78,7 +80,7 @@
         {
             var employees = string.Join(
                 Constants.BrTag,
-                employeesBirthday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.DateOfBirth.ToString("dd MMM, yyyy"))));
+                employeesBirthday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.DateOfBirth.ToString(FormatDate))));
 
             var emailSubject = string.Format(Messages.ReminderHappyBirthdayTo, string.Join(", ", employeesBirthday.Select(t => t.NickName)));
             var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForReminderBirthday);
@@ -86,7 +88,7 @@
             var emailContent = string.Format(
                 bodyTemplate,
                 employees,
-                ConfigurationManager.AppSettings["CompanyMailSign"]);
+                CompanyMailSign);
 
             EmailService.SendEmail(
                         SenderEmail,
@@ -100,7 +102,7 @@
         {
             var employees = string.Join(
                 Constants.BrTag,
-                employeesFirstWorkingday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.JoinedDate?.ToString("dd MMM, yyyy") ?? string.Empty)));
+                employeesFirstWorkingday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.JoinedDate?.ToString(FormatDate) ?? string.Empty)));
 
             var emailSubject = string.Format(Messages.ReminderFirstWorkingDayAnniversaryOf, string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName)));
             var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
@@ -108,7 +110,7 @@
             var emailContent = string.Format(
                 bodyTemplate,
                 employees,
-                ConfigurationManager.AppSettings["CompanyMailSign"]);
+                CompanyMailSign);
 
             EmailService.SendEmail(
                         SenderEmail,

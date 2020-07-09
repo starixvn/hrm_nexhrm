@@ -1,10 +1,11 @@
 ﻿namespace Fanex.NexHR.Criteria.Hangfire
 {
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core.Enums;
 
     public class UpdateJsonObjectCriteria : CriteriaBase
     {
-        public int CategoryId { get; set; }
+        public MessageCategory CategoryId { get; set; }
 
         public string JsonObject { get; set; }
 

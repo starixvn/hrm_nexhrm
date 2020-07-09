@@ -1,14 +1,15 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Threading.Tasks;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
 
     public interface IHangFireService
     {
-        Task<bool> ObjectIsChangedOrNotExists(int categoryId, object value);
+        Task<bool> ObjectIsChangedOrNotExists(MessageCategory categoryId, object value);
 
-        Task<string> GetJsonObject(int categoryId);
+        Task<string> GetJsonObject(MessageCategory categoryId);
 
-        Task<CommandResult> UpdateJsonObject(int categoryId, object value);
+        Task<CommandResult> UpdateJsonObject(MessageCategory categoryId, object value);
     }
 }

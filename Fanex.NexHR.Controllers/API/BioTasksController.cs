@@ -1,17 +1,17 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Criteria.Bio;
-    using Fanex.NexHR.Models.Bio;
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Bio;
+    using Fanex.NexHR.Models.Bio;
+    using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
 
     public class BioTasksController : ApiController
     {
@@ -31,7 +31,7 @@
             var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioDevice).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioDevice).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {
@@ -59,7 +59,7 @@
 
             if (warningTimeChanges.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioTimeChange).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioTimeChange).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {
@@ -84,7 +84,7 @@
 
             if (members.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation((int)MessageCategory.BioFingerprintAndCard).ConfigureAwait(false);
+                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioFingerprintAndCard).ConfigureAwait(false);
 
                 if (conversationIds.Any())
                 {
