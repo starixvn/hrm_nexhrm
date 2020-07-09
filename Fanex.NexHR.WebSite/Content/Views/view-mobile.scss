@@ -45,6 +45,14 @@
         }
     }
 
+    .btn-back {
+        float: none;
+        margin: 1.6rem auto 0;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+        width: 8rem;
+        height: auto;
+    }
+
     .select-wrapper {
         span.caret {
             right: 11px;
@@ -146,18 +154,29 @@
                                 }
                             }
 
-                            .btn-export-excel,.btn-submit{
+                            .btn-export-excel, .btn-submit {
                                 margin: 0 6px;
                             }
                         }
                     }
                 }
+
+                textarea {
+                    padding-top: 5px;
+                    min-height: 50px
+                }
+
+                .label--xl{
+                    width: 7.7rem;
+                }
             }
         }
     }
-    .over-auto{
+
+    .over-auto {
         overflow: auto;
     }
+
     .cover-form-mb {
         padding: 0 0.8rem;
 
@@ -172,22 +191,30 @@
                     tr {
                         td {
                             a {
-                                &.tooltip-request{
+                                &.tooltip-request {
                                     margin: 0;
                                     padding-top: 0;
                                     padding-bottom: 0;
                                     font-size: 1rem;
                                 }
-                            } 
+                            }
                         }
                     }
                 }
             }
         }
-         
+
+        &.table-overtime-create {
+            padding: 0;
+
+            table {
+                width: 650px !important;
+            }
+        }
+
         &.table-request-employeeview {
             table.table-success {
-                width: 950px; 
+                width: 950px;
 
                 thead, tbody {
                     tr {
@@ -196,19 +223,17 @@
                             height: 3.7rem;
 
 
-                         
+
 
                             &:nth-child(2) {
-                                width: 50px; 
+                                width: 50px;
                                 font-weight: 500;
-                                
                             }
 
                             &:nth-child(3) {
                                 width: 80px;
                                 z-index: 20;
                                 font-weight: 500;
-                              
                             }
                         }
                     }

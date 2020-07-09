@@ -5,6 +5,8 @@
     ViewBag.Title = Labels.CreateOTRequest;
 }
 @section css{
+    @Styles.Render(
+    "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/manageovertimejs");
@@ -20,7 +22,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm("create", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
                         {
                             @Html.AntiForgeryToken()
@@ -46,7 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
@@ -99,8 +101,8 @@
                                     <div class="left label--l">
                                         @Html.Label("Employee List")
                                     </div>
-                                    <div class="left">
-                                        <table class="table bordered striped highlight centered responsive-table table-custom"
+                                    <div class="left cover-form-mb over-auto table-overtime-create">
+                                        <table class="table bordered striped highlight centered table-custom"
                                                style="width: 800px;">
                                             <thead>
                                                 <tr>

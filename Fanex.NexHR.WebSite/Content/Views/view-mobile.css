@@ -25,6 +25,12 @@
       height: 3.2rem;
       font-size: 1.2rem;
       padding: 0.8rem 2rem; }
+  .btn-back {
+    float: none;
+    margin: 1.6rem auto 0;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+    width: 8rem;
+    height: auto; }
   .select-wrapper span.caret {
     right: 11px;
     top: 10px;
@@ -81,6 +87,11 @@
               height: 3.2rem; }
           .form.form-stl-table .form-input .col.col-btn .left .btn-export-excel, .form.form-stl-table .form-input .col.col-btn .left .btn-submit {
             margin: 0 6px; }
+      .form.form-stl-table .form-input textarea {
+        padding-top: 5px;
+        min-height: 50px; }
+      .form.form-stl-table .form-input .label--xl {
+        width: 7.7rem; }
   .over-auto {
     overflow: auto; }
   .cover-form-mb {
@@ -95,6 +106,10 @@
           padding-top: 0;
           padding-bottom: 0;
           font-size: 1rem; }
+    .cover-form-mb.table-overtime-create {
+      padding: 0; }
+      .cover-form-mb.table-overtime-create table {
+        width: 650px !important; }
     .cover-form-mb.table-request-employeeview table.table-success {
       width: 950px; }
       .cover-form-mb.table-request-employeeview table.table-success thead tr th, .cover-form-mb.table-request-employeeview table.table-success thead tr td, .cover-form-mb.table-request-employeeview table.table-success tbody tr th, .cover-form-mb.table-request-employeeview table.table-success tbody tr td {
