@@ -137,7 +137,7 @@
             {
                 if (string.IsNullOrWhiteSpace(Roles))
                 {
-                    return null;
+                    return new List<short>();
                 }
 
                 var roles = Roles.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
