@@ -125,7 +125,7 @@
         private async Task SendMessageToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             var conversations = await _nexbotService.GetRegisteredConversation(LateInEarlyOutViolateInMonth).ConfigureAwait(false);
-            if (conversations.Any())
+            if (conversations.Any() && violaters.Any())
             {
                 string message = GenerateGroupMessage(violaters);
                 foreach (var conversation in conversations)

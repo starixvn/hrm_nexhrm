@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[HRM_GetLateInEarlyOutOnMonth] 
+ALTER PROCEDURE [dbo].[LateInEarlyOut_GetLateInEarlyOutOnMonth] 
 	@Year INT
 	,@Month INT
 	

@@ -1,6 +1,8 @@
 ALTER PROCEDURE [dbo].[NexHangfire_UpdateJsonObject]
 	@categoryId INT
 	,@jsonObject NVARCHAR(MAX)
+	,@errCode INT = 0
+	,@errMsg VARCHAR (50) = ''
 AS
 /*
 Created: 20200708Merlin.Le
