@@ -16,6 +16,9 @@
         [Display(Name = "Deduct AL when exceeding Late In/ Early Out Alert")]
         DeductLateInEarlyOut = 4,
 
+        [Display(Name = "Reminder Forgot spend time")]
+        ForgotSpendTime = 5,
+
         [Display(Name = "Reminder Missing Check In/Out")]
         MissingCheckInCheckOut = 6,
 

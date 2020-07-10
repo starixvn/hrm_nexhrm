@@ -18,6 +18,7 @@
     using Models;
     using Models.RedmineAPI;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using Resources;
 
     public class RedmineService : BaseService, IRedmineService
@@ -170,7 +171,6 @@
             HttpClient client = AuthorizeRequestHeader();
             var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
             var listEntries = new List<TimeEntry>();
-
             var url = new Uri(string.Format(getTimeEntriesUrl, currentUserId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
@@ -196,6 +196,31 @@
             return listEntries;
         }
 
+        private async Task<IEnumerable<DateTime>> GetTimeEntriesAsync(int redmineId, DateTime fromDate, DateTime toDate)
+        {
+            string timeEntriesUrl = AppSetting.Redmine_API_Address + "time_entries.json?user_id={0}&spent_on=><{1}|{2}&limit=100";
+            var url = new Uri(string.Format(timeEntriesUrl, redmineId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
+            HttpClient client = AuthorizeRequestHeader();
+            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
+            var listDates = new List<DateTime>();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                JObject obj = JObject.Parse(json);
+
+                var timeEntries = obj["time_entries"];
+
+                foreach (var timeEntry in timeEntries)
+                {
+                    var spendOn = DateTime.ParseExact(timeEntry["spent_on"].ToString(), apiDateTimeFormat, CultureInfo.InvariantCulture);
+                    listDates.Add(spendOn);
+                }
+            }
+
+            return listDates.Distinct();
+        }
+
         private IList<DateTime> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
         {
             var criteria = new GetWorkedDatesByUserCriteria
@@ -218,11 +243,48 @@
             return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
         }
 
+        private async Task GetForgotDates(RedmineUser employee)
+        {
+            var toDate = DateTime.Now.AddDays(-1);
+            var fromDate = toDate.AddDays(-6);
+            var logtimeDates = await GetTimeEntriesAsync(employee.RedmineId, fromDate, toDate).ConfigureAwait(false);
+            var workingDates = await GetWorkedDates(fromDate, toDate, employee.EmpId).ConfigureAwait(false);
+
+            employee.ForgotLogtimeDates = workingDates.Except(logtimeDates).Distinct().OrderBy(x => x).ToList();
+        }
+
+        private async Task<IEnumerable<DateTime>> GetWorkedDates(DateTime fromDate, DateTime toDate, int empId)
+        {
+            var criteria = new GetWorkedDatesByUserCriteria
+            {
+                UserId = empId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return await GetDataAsync<DateTime>(criteria).ConfigureAwait(false);
+        }
+
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
             DateTime toDate = onDate;
             var timeEntries = await GetTimeEntries(domainName, onDate, toDate).ConfigureAwait(false);
             return timeEntries.Sum(x => x.Hours);
+        }
+
+        public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()
+        {
+            var employees = await GetDataAsync<RedmineUser>(new GetRedmineUserCriteria()).ConfigureAwait(false);
+
+            if (employees.Any())
+            {
+                foreach (var employee in employees)
+                {
+                    await GetForgotDates(employee).ConfigureAwait(false);
+                }
+            }
+
+            return employees.Where(e => e.ForgotLogtimeDates.Any());
         }
     }
 }

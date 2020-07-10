@@ -113,6 +113,7 @@
     <Compile Include="LateInEarlyOut\GetViolateLateInEarlyOutDisciplineCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
+    <Compile Include="RedmineAPI\GetRedmineUserCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />
     <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceLateInEarlyOutCriteria.cs" />

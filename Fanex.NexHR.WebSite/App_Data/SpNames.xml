@@ -346,6 +346,7 @@
   <Function Name="RedmineAPI">
     <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="1"></Setting>
     <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="HRM_GetRedmineUsers" SpName="HRM_GetRedmineUsers" DbName="nexhr" Plain="1"></Setting>
   </Function>
   <Function Name="BioStation">
     <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="0"></Setting>

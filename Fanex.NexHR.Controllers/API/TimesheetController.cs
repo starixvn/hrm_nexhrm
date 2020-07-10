@@ -19,6 +19,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IHttpActionResult ReminderReachedWorkingTime()
         {
             timeSheetService.SendReminderReachedWorkingTime();

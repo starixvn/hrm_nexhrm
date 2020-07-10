@@ -15,5 +15,7 @@
         Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId);
 
         Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate);
+
+        Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees();
     }
 }

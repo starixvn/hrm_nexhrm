@@ -347,6 +347,7 @@
     <Build Include="dbo\Stored Procedures\Bio_GetPendingFingerprintAndCard.sql" />
     <Build Include="dbo\Stored Procedures\Bio_GetWarningTimeChange.sql" />
     <Build Include="dbo\Stored Procedures\Nexbot_GetRegisteredConversation.sql" />
+    <Build Include="dbo\Stored Procedures\HRM_GetRedmineUsers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />
