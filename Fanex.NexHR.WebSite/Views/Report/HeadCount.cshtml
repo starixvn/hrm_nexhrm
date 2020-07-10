@@ -4,7 +4,8 @@
 }
 
 @section css{
-    @Styles.Render("~/Content/contextmenucss")
+    @Styles.Render("~/Content/contextmenucss",
+                    "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/contextmenujs", "~/bundles/headcount")
@@ -20,7 +21,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-head-count">
                         <div class="row form-input">
                             <div class="col">
                                 <div class="left label--s">
@@ -30,13 +31,13 @@
                                     @Html.YearPicker("Year", 2010, DateTime.Now.Year)
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col col-btn-submit-excel">
                                 <input id="submit" type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                 <input id="exportExcel" type="button" value="@Labels.Excel" class="waves-effect waves-light btn-export-excel m-r--b" />
                             </div>
                         </div>
                     </div>
-                    <div id="head-count-grid" class="p-x--s">
+                    <div id="head-count-grid" class="p-x--s cover-form-mb over-auto table-head-count">
                     </div>
                 </div>
             </div>

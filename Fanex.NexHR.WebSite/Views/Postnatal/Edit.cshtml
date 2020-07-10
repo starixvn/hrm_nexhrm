@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit postnatal employee";
 }
 @section css{
-    @Styles.Render("~/Content/postnatalcss")
+    @Styles.Render("~/Content/postnatalcss", "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/createpostnatalemployeejs")
@@ -19,7 +19,7 @@
                     <span class="card-title txt-uppercase">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm("Edit", "postnatal", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-t--m">
+                            <div class="row form-input m-t--m col-btn">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">
                                     <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>

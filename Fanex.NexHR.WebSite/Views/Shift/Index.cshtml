@@ -1,5 +1,6 @@
 ﻿@model IList<Shift>
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
 }
@@ -16,7 +17,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="p-x--s">
+                    <div class="p-x--s over-auto">
                         @RazorHelper.ShiftInfoTable(Model)
                     </div>
                 </div>

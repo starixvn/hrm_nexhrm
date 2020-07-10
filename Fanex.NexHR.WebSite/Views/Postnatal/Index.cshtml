@@ -5,8 +5,9 @@
     ViewBag.Title = "Employee Postnatal";
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
-@section js {    
+@section js {
     @Scripts.Render("~/bundles/postnatalemployeejs")
 }
 @section Breadcrumb {
@@ -19,10 +20,10 @@
                     <span class="card-title txt-uppercase left">Postnatal Employee list</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-postnatal">
                         <div class="row form-input">
                             <div class="col">
-                                <div class="col m-r--m">
+                                <div class="col m-r--m col-employee">
                                     <div class="left label--m">
                                         @Html.Label("Employee")
                                     </div>
@@ -31,21 +32,20 @@
                                         @Html.Hidden("EmployeeId")
                                     </div>
                                 </div>
-
-                                <div class="left label--s">
+                                <div class="left label--s label-year">
                                     <label>@Labels.Year</label>
                                 </div>
                                 <div class="left select--xs">
                                     @Html.YearPicker("Year", 2010, DateTime.Now.Year, true)
                                 </div>
                             </div>
-                            <div class="col m-l--m">
+                            <div class="col m-l--m col-btn">
                                 <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
                                 <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">New Postnatal</a>
                             </div>
                         </div>
                     </div>
-                    <div id="listPostnatalEmployee" class="p-x--s">
+                    <div id="listPostnatalEmployee" class="p-x--s over-auto cover-form-mb table-postnatal">
                     </div>
                 </div>
             </div>

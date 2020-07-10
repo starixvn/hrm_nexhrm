@@ -3,7 +3,7 @@
     ViewBag.Title = "New Event";
 }
 @section css {
-    @Styles.Render("~/Content/companyevent")
+    @Styles.Render("~/Content/companyevent", "~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/companyeventeditjs")
@@ -18,7 +18,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @{ Html.EnableClientValidation(true); }
                         @using (Html.BeginForm())
                         {
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col">
+                                <div class="col col-btn">
                                     <div class="left label--l">
                                         &nbsp;
                                     </div>
