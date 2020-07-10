@@ -99,5 +99,9 @@
   {
     "outputFile": "Content/Views/view-mobile.css",
     "inputFile": "Content/Views/view-mobile.scss"
+  },
+  {
+    "outputFile": "Content/Views/jobtitle.css",
+    "inputFile": "Content/Views/jobtitle.scss"
   }
 ]

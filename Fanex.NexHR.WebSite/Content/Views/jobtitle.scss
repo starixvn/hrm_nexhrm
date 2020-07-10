@@ -1,9 +1,10 @@
+@import "../Common/utils/variables";
+
 .ui-dialog {
-    &.create-job-title {        
+    &.create-job-title {
 
         .ui-dialog-titlebar {
             //border-bottom: .1rem solid #d2d2d2;
-
             .ui-dialog-title {
                 display: inline;
             }
@@ -42,15 +43,47 @@ table.table-custom {
 
         &.col-delete {
             a {
-               
             }
         }
     }
 }
 
 .jobTitle {
-	margin: 0 !important;
-	&:focus {
-		border-bottom: 1px solid #1d79ac;
-	}
+    margin: 0 !important;
+
+    &:focus {
+        border-bottom: 1px solid #1d79ac;
+    }
+}
+
+@media only screen and (max-width: $small-screen-up) {
+    .form .form-input {
+        padding: 0 8px;
+    }
+
+    table.table-custom {
+        tr {
+            th.col-sorter {
+                display: flex;
+
+                .sorter {
+                    margin-left: 4px;
+                }
+            }
+
+            td .action-cancel {
+                margin-left: 0 !important;
+            }
+        }
+    }
+
+    .ui-dialog {
+        padding-left: 15px;
+
+        #dialog-form {
+            .label--l {
+                width: 70px;
+            }
+        }
+    }
 }

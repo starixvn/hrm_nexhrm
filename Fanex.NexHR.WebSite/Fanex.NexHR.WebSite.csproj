@@ -319,6 +319,9 @@
     <Content Include="Content\Views\Login.min.css">
       <DependentUpon>login.css</DependentUpon>
     </Content>
+    <Content Include="Content\Views\jobtitle.min.css">
+      <DependentUpon>jobtitle.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\leaverequest.css">
       <DependentUpon>leaverequest.scss</DependentUpon>
     </Content>
