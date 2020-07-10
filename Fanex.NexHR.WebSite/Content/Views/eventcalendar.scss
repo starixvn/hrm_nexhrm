@@ -231,3 +231,211 @@
         }
     }
 }
+@media only screen and (max-width: $small-screen-up) {
+    .card-container-base {
+        .card-content {
+            padding-top: 0.5rem;
+
+            .card-body {
+                .m-t--m {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+
+    #calendar {
+        width: auto;
+
+        .ui-widget-content {
+            border: none;
+        }
+
+        .fc-toolbar {
+            background: #353c4e;
+            margin: 0;
+            padding: 1.8rem 1.4rem 0.2rem;
+
+            .fc-left {
+                left: 49px;
+                top: -7px;
+            }
+
+            .fc-right {
+                float: right;
+                position: relative;
+                right: 48px;
+                top: -7px;
+            }
+
+
+
+            h2 {
+                font-size: 16px;
+                line-height: 18px;
+                font-weight: 500;
+                color: #fff;
+            }
+
+            .fc-prev-button, .fc-next-button {
+                background: #78828c;
+                padding: 0;
+                border-radius: 1px;
+                height: auto;
+
+                .ui-icon {
+                    width: 32px;
+                    height: 32px;
+                    background: none;
+                    text-indent: initial;
+
+                    &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+                        width: 30px;
+                        height: 30px;
+                        font-family: "Material Design Icons";
+                        font-size: 18px;
+                        line-height: 30px;
+                        color: #fff;
+                    }
+
+                    &.ui-icon-circle-triangle-e:after {
+                        content: "\f417";
+                    }
+
+                    &.ui-icon-circle-triangle-w:after {
+                        content: "\f416";
+                    }
+                }
+            }
+        }
+
+        .fc-view-container {
+            table {
+                @include css3(box-shadow, none);
+            }
+
+            .fc-head {
+                table {
+                    thead {
+                        background: #3b4354;
+                        color: #fff;
+
+                        tr {
+                            th {
+                                padding: .7rem .7rem;
+                                font-weight: normal;
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fc-body {
+                .fc-row.fc-week {
+                    .fc-content-skeleton {
+                        table thead {
+                            border-bottom: none;
+
+                            .fc-day-number {
+                                &.fc-today {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    .fc-event-container {
+                        text-align: center;
+                        border-top: none !important;
+
+                        .fc-day-grid-event .fc-content {
+                            cursor: pointer;
+                        }
+
+                        .fc-event {
+                            background: none;
+                            color: #888888;
+                            border: none;
+                            font-size: 1rem;
+                            margin-top: 0.7rem;
+
+                            .fc-content {
+                                .fc-time {
+                                    display: none;
+                                }
+                            }
+
+                            &.today {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.schedule {
+            .fc-view-container {
+                .fc-head {
+                    .ui-widget-header {
+                        border: 0 !important;
+                        font-weight: normal;
+                    }
+
+                    table {
+                        thead {
+
+
+                            tr {
+                                th {
+                                    border: 0 !important;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .fc-day {
+                    border: 1px solid $c-border-table;
+
+                    &.fc-sat, &.fc-sun {
+                        background: #fafafa;
+                    }
+
+                    &.fc-today {
+                        background: #F4773D;
+                    }
+                }
+
+                .fc-body {
+                    border: 1px solid $c-border-table;
+                }
+            }
+        }
+
+        &.fc-ltr {
+            .fc-basic-view {
+                .fc-body {
+                    .fc-row {
+                        height: 4.4rem;
+                        min-height: 1rem;
+                    }
+                }
+
+                .fc-day-number {
+                    font-size: 1rem;
+                    padding: 1px 4px;
+                    color: #333333;
+                }
+            }
+        }
+    }
+
+    .ui-dialog {
+        &.dialog-update-shift {
+            overflow: visible;
+        }
+    }
+}

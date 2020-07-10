@@ -2,7 +2,7 @@
     ViewBag.Title = "Company Events";
 }
 @section css {
-    @Styles.Render("~/Content/fullcalendarcss", "~/Content/eventcalendarcss", "~/Content/contextmenucss", "~/Content/view-mobile")
+    @Styles.Render("~/Content/fullcalendarcss", "~/Content/eventcalendarcss", "~/Content/contextmenucss")
 }
 @section js {
     @Scripts.Render("~/bundles/fullcalendarjs", "~/bundles/companyeventjs")
@@ -17,7 +17,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="p-x--s m-t--m over-auto">
+                    <div class="p-x--s m-t--m">
                         <div id="calendar" class="schedule">
                         </div>
                     </div>
