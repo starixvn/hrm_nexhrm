@@ -137,6 +137,46 @@
           .form.form-postnatal .form-input .col.col-btn .btn-submit {
             margin: 0;
             margin-right: 1.2rem; }
+    .form.form-memo .form-input {
+      padding: 0 0.8rem; }
+      .form.form-memo .form-input .col {
+        margin: 0 0 11px 0;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        float: none; }
+        .form.form-memo .form-input .col .left[class*="label"] label {
+          font-size: 1.3rem;
+          color: #333333;
+          margin-top: .8rem; }
+        .form.form-memo .form-input .col .left:nth-child(1) {
+          width: 7.7rem; }
+        .form.form-memo .form-input .col .left:nth-child(2) {
+          flex: 1; }
+        .form.form-memo .form-input .col .datepicker-button {
+          flex: 1; }
+          .form.form-memo .form-input .col .datepicker-button .calendar-icon {
+            margin: 0;
+            right: 4px;
+            top: -1px;
+            color: #989898; }
+        .form.form-memo .form-input .col.checkBox .left.input--m {
+          display: flex; }
+          .form.form-memo .form-input .col.checkBox .left.input--m .left:nth-child(1) {
+            width: 20px;
+            margin: 4px 5px 0 0; }
+      .form.form-memo .form-input .label--xl {
+        width: 7.7rem; }
+      .form.form-memo .form-input#upload .col {
+        display: block; }
+        .form.form-memo .form-input#upload .col .left:nth-child(2) {
+          flex: 1; }
+        .form.form-memo .form-input#upload .col .left:nth-child(3) {
+          margin-left: 7.7rem;
+          margin-top: 0.4rem; }
+      .form.form-memo .form-input#content .col .input--l {
+        overflow: auto;
+        height: 15rem; }
   .over-auto {
     overflow: auto; }
   .cover-form-mb {
