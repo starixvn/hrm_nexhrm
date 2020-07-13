@@ -18,6 +18,7 @@
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
+        private const int ViolatedTime = 4;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
@@ -58,7 +59,7 @@
                 {
                     result.Code = 1;
                     await SendMessageViolateOnMonthToEmployees(violaters.Where(v => !string.IsNullOrWhiteSpace(v.ConversationId))).ConfigureAwait(false);
-                    await SendMessageViolateOnMonthToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= 4)).ConfigureAwait(false);
+                    await SendMessageViolateOnMonthToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= ViolatedTime)).ConfigureAwait(false);
                     result = await _hangFireService.UpdateJsonObject(MessageCategory.LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
                 }
             }
@@ -149,7 +150,7 @@
         private static string GeneratePersonalMessageLateInEarlyOutViolateOnMonth(LateInEarlyOutViolateModel violater)
         {
             var msg = string.Format(Messages.DearSkypeMessage, violater.NickName, Constants.NewLine);
-            if (violater.TimeOnMonth >= 4)
+            if (violater.TimeOnMonth >= ViolatedTime)
             {
                 msg = msg + string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonth,

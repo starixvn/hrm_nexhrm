@@ -10,6 +10,8 @@
 
     public class AuthenticationController : ApiController
     {
+        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
         [HttpPost]
         public IHttpActionResult Authenticate(string username, string password)
         {
@@ -40,8 +42,8 @@
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             var token = tokenHandler.CreateJwtSecurityToken(
-                ConfigurationManager.AppSettings["BaseUrl"],
-                ConfigurationManager.AppSettings["BaseUrl"],
+                BaseUrl,
+                BaseUrl,
                 claimsIdentity,
                 issuedAt,
                 expires,
