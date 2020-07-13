@@ -18,7 +18,6 @@
     using Models;
     using Models.RedmineAPI;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using Resources;
 
     public class RedmineService : BaseService, IRedmineService
@@ -166,10 +165,9 @@
             return result;
         }
 
-        private async Task<IList<TimeEntry>> GetTimeEntries(string domainUser, DateTime fromDate, DateTime toDate)
+        private async Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate)
         {
             HttpClient client = AuthorizeRequestHeader();
-            var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
             var listEntries = new List<TimeEntry>();
             var url = new Uri(string.Format(getTimeEntriesUrl, currentUserId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
             HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
@@ -196,31 +194,6 @@
             return listEntries;
         }
 
-        private async Task<IEnumerable<DateTime>> GetTimeEntriesAsync(int redmineId, DateTime fromDate, DateTime toDate)
-        {
-            string timeEntriesUrl = AppSetting.Redmine_API_Address + "time_entries.json?user_id={0}&spent_on=><{1}|{2}&limit=100";
-            var url = new Uri(string.Format(timeEntriesUrl, redmineId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
-            HttpClient client = AuthorizeRequestHeader();
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
-            var listDates = new List<DateTime>();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                JObject obj = JObject.Parse(json);
-
-                var timeEntries = obj["time_entries"];
-
-                foreach (var timeEntry in timeEntries)
-                {
-                    var spendOn = DateTime.ParseExact(timeEntry["spent_on"].ToString(), apiDateTimeFormat, CultureInfo.InvariantCulture);
-                    listDates.Add(spendOn);
-                }
-            }
-
-            return listDates.Distinct();
-        }
-
         private IList<DateTime> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
         {
             var criteria = new GetWorkedDatesByUserCriteria
@@ -236,7 +209,8 @@
         {
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
-            var timeEntries = await GetTimeEntries(domainUser, fromDate, toDate).ConfigureAwait(false);
+            var currentUser = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
+            var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate).ConfigureAwait(false);
             var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
             var onWorkedDates = GetWorkedDatesOfUser(fromDate, toDate, currentUserId).ToList();
 
@@ -247,28 +221,18 @@
         {
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
-            var logtimeDates = await GetTimeEntriesAsync(employee.RedmineId, fromDate, toDate).ConfigureAwait(false);
-            var workingDates = await GetWorkedDates(fromDate, toDate, employee.EmpId).ConfigureAwait(false);
-
-            employee.ForgotLogtimeDates = workingDates.Except(logtimeDates).Distinct().OrderBy(x => x).ToList();
+            var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate).ConfigureAwait(false);
+            var workingDates = GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
+            var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
+            employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
         }
 
-        private async Task<IEnumerable<DateTime>> GetWorkedDates(DateTime fromDate, DateTime toDate, int empId)
-        {
-            var criteria = new GetWorkedDatesByUserCriteria
-            {
-                UserId = empId,
-                FromDate = fromDate,
-                ToDate = toDate
-            };
-
-            return await GetDataAsync<DateTime>(criteria).ConfigureAwait(false);
-        }
 
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
             DateTime toDate = onDate;
-            var timeEntries = await GetTimeEntries(domainName, onDate, toDate).ConfigureAwait(false);
+            var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
+            var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate).ConfigureAwait(false);
             return timeEntries.Sum(x => x.Hours);
         }
 
