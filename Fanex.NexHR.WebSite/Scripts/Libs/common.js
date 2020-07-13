@@ -617,12 +617,17 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el) {
+    var heightHeader = $('header').outerHeight(true);
     $(el).floatThead({
-        top: 64,
-        zIndex: 888
+        top: heightHeader,
+        zIndex: 888,
+        autoReflow: true,
+        responsiveContainer: function ($table) {
+            return $table.parent();
+        },
     });
 
-    $('table#data').floatThead('reflow');
+    //$('table#data').floatThead('reflow');
 }
 
 function ajaxLoadingProcess() {
