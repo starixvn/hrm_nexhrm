@@ -4,7 +4,9 @@
 @{
     ViewBag.Title = Labels.TOEICScoreMgmt;
 }
-
+@section css {
+    @Styles.Render("~/Content/view-mobile")
+}
 @section js {
     @Scripts.Render("~/bundles/toeicjs")
 }
@@ -16,7 +18,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         <form action="#" class="form-filter">
                             <div class="row form-input">
                                 <div class="col m-r--m">
@@ -45,7 +47,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="p-x--s">
+                    <div class="p-x--s over-auto">
                         <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>
                                 <tr>

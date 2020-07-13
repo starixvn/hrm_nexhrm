@@ -1,6 +1,6 @@
 ﻿@model Toeic
 @{ DateTime currentDate = DateTime.Today; }
-<form id="frmUpdFullTOEIC" class="form">
+<form id="frmUpdFullTOEIC" class="form forn-update-full-toeic">
     <div id="divErrorCont" class="">
         &nbsp;</div>
     <div class="row form-input">
@@ -40,7 +40,7 @@
         <div class="left label--l">
             <label>@Labels.NewOldListening</label>
         </div>
-        <div class="left">
+        <div class="left score-toeic">
             <div class="left select--xs m-r--s">
                 @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
                 @Html.ValidationMessageFor(model => model.Listening)
@@ -57,7 +57,7 @@
         <div class="left label--l">
             <label>@Labels.NewOldReading</label>
         </div>
-        <div class="left">
+        <div class="left score-toeic">
             <div class="left select--xs m-r--s">
                 @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
                 @Html.ValidationMessageFor(model => model.Reading)
@@ -74,7 +74,7 @@
         <div class="left label--l">
             <label>@Labels.NewOldTotal</label>
         </div>
-        <div class="left">
+        <div class="left score-toeic">
             <div class="left select--xs m-r--s">
                 @Html.TextBoxFor(m => m.Total, new { @readonly = "readonly", @class = "readonly-input" })
             </div>
@@ -91,7 +91,7 @@
             <label>@Labels.RequiredScore</label>
         </div>
         <div class="left">
-            <div class="left select--xs m-r--s">
+            <div class="left select--xs m-r--s input-required-score">
                 @Html.TextBoxFor(m => m.MinimumScore, new { type = "number", step = "5" })
                 @Html.ValidationMessageFor(model => model.MinimumScore)
             </div>
