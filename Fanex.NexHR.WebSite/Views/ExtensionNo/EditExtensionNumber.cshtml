@@ -3,6 +3,7 @@
     ViewBag.Title = "Update Extension Number";
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/addextensionnojs");
@@ -17,21 +18,22 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @{ Html.EnableClientValidation(false); }
                         @using (Html.BeginForm())
                         {
                             @Html.ValidationSummary()
                             if (ViewBag.Updated == true)
                             {
-                            <div class="row validation-summary-success">
-                                <div class="col success green-text">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has
-                                    been updated successfully!</div>
-                            </div>
-                            <input type="hidden" id="successed" value="true" />
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Extension number has
+                                        been updated successfully!
+                                    </div>
+                                </div>
+                                <input type="hidden" id="successed" value="true" />
                             }
-                            
+
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -42,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input m-t--s">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -53,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input" id="EmployeeField">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -64,7 +66,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -75,7 +77,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -86,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input">
                                 <div class='col'>
                                     <div class="left label--l">
@@ -97,15 +99,15 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row form-input">
-                                <div class='col'>
+                                <div class='col col-btn'>
                                     <div class="left label--l">
                                         &nbsp;
                                         @Html.Hidden("EmpId")
                                     </div>
                                     <a class="btn-back waves-effect waves-light" href="@Url.Action("Index","ExtensionNo")">@Labels.Cancel</a>
-                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />                                    
+                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
                                 </div>
                             </div>
                         }
