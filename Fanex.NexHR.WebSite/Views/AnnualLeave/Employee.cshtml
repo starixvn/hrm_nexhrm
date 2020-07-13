@@ -4,6 +4,7 @@
     ViewBag.Title = Model.EmployeeNickName + "'s annual leave balance";
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/employeeannualleavebalancejs")
@@ -20,7 +21,7 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-annual-employee">
                         @using (Html.BeginForm())
                         {
                             <div class="row form-input">
@@ -51,7 +52,7 @@
                         }
                     </div>
                     <div class="p-x--s">
-                        <div id="div-content"></div>
+                        <div id="div-content" class="over-auto"></div>
                     </div>
                 </div>
             </div>

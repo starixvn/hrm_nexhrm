@@ -4,7 +4,7 @@
     ViewBag.Title = Labels.AnualLeaveBalance;
 }
 @section css{
-    @Styles.Render("~/Content/annualleavebalancecss")
+    @Styles.Render("~/Content/annualleavebalancecss", "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/annualleavebalancejs")
@@ -84,7 +84,7 @@
                             </div>
                         }
                     </div>
-                    <div class="p-x--s">
+                    <div class="p-x--s over-auto">
                         <div id="div-content"></div>
                     </div>
                     @if (Roles.IsUserInRole("HR"))

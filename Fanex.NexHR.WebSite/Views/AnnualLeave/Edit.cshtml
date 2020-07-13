@@ -4,6 +4,7 @@
     ViewBag.Title = Labels.EditAnnualLeaveBalance;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/editleavetransactionjs")
@@ -20,11 +21,11 @@
                         <span class="card-title txt-uppercase left">@Labels.Edit</span>
                     </div>
                     <div class="card-body">
-                        <div class="form">
+                        <div class="form form-stl-table">
                             @using (Html.BeginForm())
                             {
-                                @Html.HiddenFor(model=>model.LeaveTransactionId)
-                                @Html.HiddenFor(model=>model.EmployeeId)
+                                @Html.HiddenFor(model => model.LeaveTransactionId)
+                                @Html.HiddenFor(model => model.EmployeeId)
                                 @Html.Hidden("year", Model.AffectedFrom.Year)
                                 @Html.ValidationSummary()
                                 if (ViewBag.Updated == true)
@@ -67,10 +68,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-input">
+                                <div class="row form-input col-btn">
                                     <div class="col">
                                         <div class="left label--m">
-                                            &nbsp;</div>
+                                            &nbsp;
+                                        </div>
                                         <div class="left">
                                             <a class="btn-back waves-effect waves-light" href="@Url.Action("employee", new { employeeId = Model.EmployeeId, year = Model.AffectedFrom.Year})">@Labels.Back</a>
                                             <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Update" />

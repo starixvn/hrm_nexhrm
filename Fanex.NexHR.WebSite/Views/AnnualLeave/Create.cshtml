@@ -4,9 +4,10 @@
     ViewBag.Title = Labels.AdjustAnnualLeaveBalance;
 }
 @section css{
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js{
-@Scripts.Render("~/bundles/editleavetransactionjs")
+    @Scripts.Render("~/bundles/editleavetransactionjs")
 }
 @section Breadcrumb
 {
@@ -21,18 +22,18 @@
                         <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                     </div>
                     <div class="card-body">
-                        <div class="form">
+                        <div class="form form-stl-table">
                             @using (Html.BeginForm())
                             {
-                                @Html.HiddenFor(model=>model.EmployeeId)
+                                @Html.HiddenFor(model => model.EmployeeId)
                                 @Html.Hidden("year", Model.AffectedFrom.Year)
                                 @Html.ValidationSummary()
                                 if (ViewBag.Inserted == true)
                                 {
-                                <input type="hidden" id="successed" value="true" />
-                                <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
-                                </div>
+                                    <input type="hidden" id="successed" value="true" />
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
+                                    </div>
                                 }
                                 <div class="row form-input">
                                     <div class="col m-r--m">
@@ -68,9 +69,10 @@
                                     </div>
                                 </div>
                                 <div class="row form-input">
-                                    <div class="col">
+                                    <div class="col col-btn">
                                         <div class="left label--m">
-                                            &nbsp;</div>
+                                            &nbsp;
+                                        </div>
                                         <div class="left">
                                             @Html.ActionLink(Labels.Cancel, "employee", new { employeeId = Model.EmployeeId, year = Model.AffectedFrom.Year }, new { @class = "btn-cancel waves-effect waves-light" })
                                             <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />
