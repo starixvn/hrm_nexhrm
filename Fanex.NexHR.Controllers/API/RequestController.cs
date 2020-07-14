@@ -26,6 +26,7 @@
             this.employeeService = employeeService ?? new EmployeeService();
         }
 
+        [JwtAuthentication]
         [HttpPost]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
