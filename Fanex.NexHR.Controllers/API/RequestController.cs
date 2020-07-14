@@ -6,7 +6,6 @@
     using Services.Interfaces;
     using System.Web.Http;
 
-    [Route("api/[controller]")]
     public class RequestController : ApiController
     {
         private readonly IRequestService requestService;
@@ -26,7 +25,6 @@
         }
 
         [HttpPost]
-        [Route("ProcessRequest")]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
             var criteria = new GetEmployeeByNickNameCriteria
@@ -40,7 +38,6 @@
             return Json(result);
         }
 
-        [Route("GetData")]
         public IHttpActionResult GetData()
         {
             return Json("test");
