@@ -170,7 +170,6 @@
   <ItemGroup>
     <Compile Include="AjaxController.cs" />
     <Compile Include="AnnualLeaveController.cs" />
-    <Compile Include="API\AuthenticationController.cs" />
     <Compile Include="API\BioTasksController.cs" />
     <Compile Include="API\ForgotLogtimeReminderController.cs" />
     <Compile Include="API\LateInEarlyOutController.cs" />
