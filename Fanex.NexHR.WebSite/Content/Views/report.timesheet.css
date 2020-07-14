@@ -107,6 +107,9 @@
               @media (min-width: 1900px) {
                 .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody td.rowfullname {
                   width: 315px; } }
+              @media (max-width: 601px) {
+                .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody td.rowfullname {
+                  width: auto; } }
           .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody tr:first-child {
             background: #353c4e; }
           .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody tr:last-child {
@@ -114,6 +117,9 @@
       .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
         width: 100%;
         height: 500px; }
+        @media (max-width: 601px) {
+          .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
+            height: 517px; } }
         .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body td {
           border-left: 1px solid #d2d2d2;
           border-bottom: 1px solid #d2d2d2; }
@@ -144,6 +150,9 @@
         @media (min-width: 1900px) {
           .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
             width: 1067px; } }
+        @media (max-width: 601px) {
+          .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
+            width: auto; } }
         .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header .datagrid-header-inner {
           color: #fff; }
           .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header .datagrid-header-inner td {

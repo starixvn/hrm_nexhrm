@@ -4,7 +4,8 @@
 @section css {
     @Styles.Render(
         "~/Content/monthpickercss",
-        "~/Content/workingcalendarscss")
+        "~/Content/workingcalendarscss",
+        "~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render(
@@ -36,7 +37,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-calendar-working">
                         @using (Html.BeginGetForm())
                         {
                             <div class="row form-input">
@@ -70,7 +71,7 @@
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col col-btn">
                                     @*<input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />*@
                                     <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     <div class="left">
@@ -113,7 +114,7 @@
                             </div>
                         }
                     </div>
-                    <div>
+                    <div class="over-auto">
 
                         <div class="datagrid-wrap panel-body p-x--s">
                             <div class="datagrid-view">

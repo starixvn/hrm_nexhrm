@@ -76,6 +76,7 @@
 
     .ui-dialog {
         padding-left: 15px;
+        padding-right: 15px;
         width: auto !important;
 
         form .form-input {
@@ -471,6 +472,78 @@
                 }
             }
         }
+
+        &.form-calendar-working {
+            .form-input {
+                padding: 0 0.8rem;
+
+                .col {
+                    margin: 0 0 11px 0;
+                    padding: 0;
+                    display: flex;
+                    width: 100%;
+                    float: none;
+
+                    .left {
+                        &[class*="label"] {
+                            label {
+                                font-size: 1.3rem;
+                                color: #333333;
+                                margin-top: .8rem;
+                            }
+                        }
+
+                        &:nth-child(1) {
+                            width: 7.7rem;
+                        }
+
+                        &:nth-child(2) {
+                            flex: 1;
+                        }
+                    }
+
+                    input {
+                        margin-bottom: 15px;
+                    }
+
+                    &.col-btn {
+                        display: block;
+
+                        .btn-submit {
+                            display: block;
+                            margin: 0;
+                            height: 3rem;
+                        }
+
+                        .btn-request {
+                            margin: 1.6rem 1rem 0 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.form-calendar-add {
+            .form-input {
+                margin-bottom: 11px;
+                .left {
+                    &:nth-child(2) {
+                        width: inherit
+                    }
+                }
+
+                .datepicker-button {
+                    flex: 1;
+
+                    .calendar-icon {
+                        margin: 0;
+                        right: 4px;
+                        top: -1px;
+                        color: #989898;
+                    }
+                }
+            }
+        }
     }
 
     .over-auto {
@@ -638,12 +711,13 @@
                         height: 35px !important;
                     }
 
-                    td:nth-child(3){
-                        text-align:center !important;
+                    td:nth-child(3) {
+                        text-align: center !important;
                     }
                 }
             }
-            .floatThead-container{
+
+            .floatThead-container {
                 width: 130px !important;
             }
         }
@@ -686,6 +760,7 @@
     }
 
     .table-resize {
+
         &.table-large {
             table {
                 width: 1300px;
@@ -710,6 +785,22 @@
 
                 th {
                     height: 35px !important;
+                }
+            }
+        }
+
+        &.table-2-row-thead {
+            table.table:not(.floatThead-table) {
+                thead tr {
+                    height: 70px !important;
+                }
+            }
+        }
+
+        &.table-3-row-thead {
+            table.table:not(.floatThead-table) {
+                thead tr {
+                    height: 105px !important;
                 }
             }
         }

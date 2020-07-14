@@ -44,6 +44,7 @@
       margin-left: 2.1rem; }
   .ui-dialog {
     padding-left: 15px;
+    padding-right: 15px;
     width: auto !important; }
     .ui-dialog form .form-input .label--l {
       width: 70px; }
@@ -236,6 +237,43 @@
           margin: 0;
           right: 4px;
           top: -1px; }
+    .form.form-calendar-working .form-input {
+      padding: 0 0.8rem; }
+      .form.form-calendar-working .form-input .col {
+        margin: 0 0 11px 0;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        float: none; }
+        .form.form-calendar-working .form-input .col .left[class*="label"] label {
+          font-size: 1.3rem;
+          color: #333333;
+          margin-top: .8rem; }
+        .form.form-calendar-working .form-input .col .left:nth-child(1) {
+          width: 7.7rem; }
+        .form.form-calendar-working .form-input .col .left:nth-child(2) {
+          flex: 1; }
+        .form.form-calendar-working .form-input .col input {
+          margin-bottom: 15px; }
+        .form.form-calendar-working .form-input .col.col-btn {
+          display: block; }
+          .form.form-calendar-working .form-input .col.col-btn .btn-submit {
+            display: block;
+            margin: 0;
+            height: 3rem; }
+          .form.form-calendar-working .form-input .col.col-btn .btn-request {
+            margin: 1.6rem 1rem 0 0; }
+    .form.form-calendar-add .form-input {
+      margin-bottom: 11px; }
+      .form.form-calendar-add .form-input .left:nth-child(2) {
+        width: inherit; }
+      .form.form-calendar-add .form-input .datepicker-button {
+        flex: 1; }
+        .form.form-calendar-add .form-input .datepicker-button .calendar-icon {
+          margin: 0;
+          right: 4px;
+          top: -1px;
+          color: #989898; }
   .over-auto {
     overflow: auto; }
     .over-auto.p-x--s {
@@ -328,4 +366,8 @@
   .table-resize table thead tr {
     height: 35px !important; }
     .table-resize table thead tr th {
-      height: 35px !important; } }
+      height: 35px !important; }
+  .table-resize.table-2-row-thead table.table:not(.floatThead-table) thead tr {
+    height: 70px !important; }
+  .table-resize.table-3-row-thead table.table:not(.floatThead-table) thead tr {
+    height: 105px !important; } }
