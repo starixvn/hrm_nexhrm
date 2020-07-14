@@ -562,11 +562,25 @@
         }
 
         &.table-head-count {
-            thead, tbody {
-                tr {
-                    th, td {
-                        &:nth-child(2) {
-                            text-align: start;
+            table {
+                width: 750px;
+
+                thead, tbody {
+                    tr {
+                        height: 35px !important;
+
+                        th {
+                            height: 35px !important;
+
+                            &:nth-child(2) {
+                                text-align: start;
+                            }
+                        }
+
+                        td {
+                            &:nth-child(2) {
+                                text-align: start;
+                            }
                         }
                     }
                 }
@@ -576,6 +590,18 @@
         &.table-postnatal {
             padding: 0;
             margin: 0 .8rem;
+
+            table {
+                width: 850px;
+
+                thead tr {
+                    height: 35px !important;
+
+                    th {
+                        height: 35px !important;
+                    }
+                }
+            }
         }
 
         &.table-biodevice {
@@ -596,7 +622,7 @@
             }
         }
 
-        
+
 
         > .p-x--s {
             padding: 0;

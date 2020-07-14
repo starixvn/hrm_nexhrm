@@ -272,11 +272,25 @@
         color: #ffffff; }
       .cover-form-mb.table-request-employeeview table.table-success tbody tr th, .cover-form-mb.table-request-employeeview table.table-success tbody tr td {
         color: #333333; }
-    .cover-form-mb.table-head-count thead tr th:nth-child(2), .cover-form-mb.table-head-count thead tr td:nth-child(2), .cover-form-mb.table-head-count tbody tr th:nth-child(2), .cover-form-mb.table-head-count tbody tr td:nth-child(2) {
-      text-align: start; }
+    .cover-form-mb.table-head-count table {
+      width: 750px; }
+      .cover-form-mb.table-head-count table thead tr, .cover-form-mb.table-head-count table tbody tr {
+        height: 35px !important; }
+        .cover-form-mb.table-head-count table thead tr th, .cover-form-mb.table-head-count table tbody tr th {
+          height: 35px !important; }
+          .cover-form-mb.table-head-count table thead tr th:nth-child(2), .cover-form-mb.table-head-count table tbody tr th:nth-child(2) {
+            text-align: start; }
+        .cover-form-mb.table-head-count table thead tr td:nth-child(2), .cover-form-mb.table-head-count table tbody tr td:nth-child(2) {
+          text-align: start; }
     .cover-form-mb.table-postnatal {
       padding: 0;
       margin: 0 .8rem; }
+      .cover-form-mb.table-postnatal table {
+        width: 850px; }
+        .cover-form-mb.table-postnatal table thead tr {
+          height: 35px !important; }
+          .cover-form-mb.table-postnatal table thead tr th {
+            height: 35px !important; }
     .cover-form-mb.table-biodevice table.table.responsive-table tr {
       padding: 0; }
       .cover-form-mb.table-biodevice table.table.responsive-table tr:last-child td {
