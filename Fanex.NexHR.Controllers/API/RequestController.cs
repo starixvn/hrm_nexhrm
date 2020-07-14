@@ -1,11 +1,13 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using Criteria.Employee;
+    using Fanex.NexHR.Web.API;
     using Models;
     using Services;
     using Services.Interfaces;
     using System.Web.Http;
 
+    [Authorize]
     public class RequestController : ApiController
     {
         private readonly IRequestService requestService;
@@ -38,6 +40,7 @@
             return Json(result);
         }
 
+        [JwtAuthentication]
         public IHttpActionResult GetData()
         {
             return Json("test");
