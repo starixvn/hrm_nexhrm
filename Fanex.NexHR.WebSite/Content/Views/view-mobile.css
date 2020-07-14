@@ -53,6 +53,10 @@
       width: auto;
       display: inline-block;
       box-shadow: none; }
+  #toast-container {
+    bottom: 40%; }
+    #toast-container .toast {
+      height: 75px; }
   .form {
     margin-top: 1.5rem;
     margin-bottom: 2rem; }
@@ -122,6 +126,8 @@
         margin-right: 0; }
     .form.form-head-count .form-input {
       padding: 0 0.8rem; }
+      .form.form-head-count .form-input .col input[type="text"] {
+        margin-bottom: 10px; }
       .form.form-head-count .form-input .col.col-btn-submit-excel {
         display: flex; }
         .form.form-head-count .form-input .col.col-btn-submit-excel .btn-submit {
@@ -368,6 +374,6 @@
     .table-resize table thead tr th {
       height: 35px !important; }
   .table-resize.table-2-row-thead table.table:not(.floatThead-table) thead tr {
-    height: 70px !important; }
+    height: 90px !important; }
   .table-resize.table-3-row-thead table.table:not(.floatThead-table) thead tr {
     height: 105px !important; } }

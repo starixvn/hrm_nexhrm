@@ -4,7 +4,8 @@
 }
 @section css {
     @Styles.Render("~/Content/monthpickercss",
-                   "~/Content/workinghoursstatisticcss")
+                   "~/Content/workinghoursstatisticcss",
+                   "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/workinghoursstatisticjs",
@@ -31,7 +32,7 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                         {
                             <div class="row form-input">
@@ -109,7 +110,7 @@
                                             @Html.HiddenFor(model => model.EmployeeId)
                                         </div>
                                     </div>
-                                    <div class="col m-r--l">
+                                    <div class="col m-r--l col-btn-submit-excel">
                                         <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                         <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
                                         @Html.HiddenFor(model => model.IsExportExcel)
@@ -119,7 +120,7 @@
 
                         }
                     </div>
-                    <div class="p-x--s">
+                    <div class="p-x--s over-auto table-resize table-large table-3-row-thead">
                         <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr>

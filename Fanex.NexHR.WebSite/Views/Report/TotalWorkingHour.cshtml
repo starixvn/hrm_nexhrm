@@ -4,6 +4,7 @@
     ViewBag.Title = Labels.TotalWorkingHours;
 }
 @section css{
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/totalworkinghourjs")
@@ -21,7 +22,7 @@
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                     {
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        <div class="form">
+                        <div class="form form-stl-table">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -69,14 +70,14 @@
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                <div>
+                                <div class="col col-btn-submit-excel">
                                     <input id="btnSubmit" type="button" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m" />
                                     <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
                                     @Html.HiddenFor(model => model.IsExportExcel)
                                 </div>
                             </div>
                             &nbsp;
-                            <div class="p-x--s">
+                            <div class="p-x--s over-auto table-resize table-large table-2-row-thead">
                                 <table id="data" class="table bordered striped highlight table-custom centered">
                                     <thead>
                                         <tr>

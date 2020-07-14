@@ -5,7 +5,8 @@
 @section css{
     @Styles.Render(
     "~/Content/contextmenucss",
-    "~/Content/simplepaginationcss")
+    "~/Content/simplepaginationcss",
+    "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render(
@@ -23,7 +24,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
                         <form class="form-filter" action="">
                             <div class="row form-input">
@@ -81,7 +82,7 @@
                             </div>
                         </form>
                     </div>
-                     <div id="time-record-detail" class="p-x--s">
+                     <div id="time-record-detail" class="p-x--s over-auto">
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@
     ViewBag.Title = Labels.EditOTRequest;
 }
 @section css{
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/manageovertimejs");
@@ -21,7 +22,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm("edit", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
