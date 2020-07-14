@@ -596,6 +596,8 @@
             }
         }
 
+        
+
         > .p-x--s {
             padding: 0;
 
@@ -627,6 +629,30 @@
 
             .mdi {
                 font-size: 18px;
+            }
+        }
+    }
+
+    .table-resize {
+        &.table-large {
+            table {
+                width: 1300px;
+            }
+        }
+
+        &.table-medium {
+            table {
+                width: 850px;
+            }
+        }
+
+        table {
+            thead tr {
+                height: 35px !important;
+
+                th {
+                    height: 35px !important;
+                }
             }
         }
     }

@@ -293,4 +293,12 @@
       .cover-form-mb > .p-x--s table tbody tr:nth-child(even) td {
         background-color: #ffffff; }
       .cover-form-mb > .p-x--s .mdi {
-        font-size: 18px; } }
+        font-size: 18px; }
+  .table-resize.table-large table {
+    width: 1300px; }
+  .table-resize.table-medium table {
+    width: 850px; }
+  .table-resize table thead tr {
+    height: 35px !important; }
+    .table-resize table thead tr th {
+      height: 35px !important; } }
