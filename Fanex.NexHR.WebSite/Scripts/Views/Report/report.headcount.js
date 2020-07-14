@@ -17,6 +17,7 @@ var headCount = (function ($) {
                 type: "GET",
                 success: function (data) {
                     $(domElement.Grid).html(data);
+                    floatThead('table#data');
                 },
                 complete: function () {
                     $('.loading-process').fadeOut(300);

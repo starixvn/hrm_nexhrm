@@ -4,6 +4,7 @@
     ViewBag.Title = Labels.CompanyMemo;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/memoindexjs");
@@ -20,7 +21,7 @@
                 <div class="card-body">
                     @using (Html.BeginForm())
                     {
-                        <div class="form">
+                        <div class="form form-stl-table">
                             <div class='row form-input'>
                                 <div class="col" style="display: none;">
                                     <div class='left label--m'>
@@ -59,7 +60,7 @@
                                         </div>
                                     </div>
                                 }
-                                <div class='col'>
+                                <div class='col col-btn'>
                                     <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--b">@Labels.Submit</a>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
@@ -68,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='p-x--s'>
+                        <div class='p-x--s over-auto'>
                             <table id="memo" class="data table bordered striped highlight table-custom centered">
                                 <thead>
                                     <tr>
@@ -105,7 +106,7 @@
         <td>{{:CategoryName}}</td>
         <td>
             {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
-        </td>        
+        </td>
         {{if ~isHRRole}}
         <td>{{:Status==1?"Active":"Deactive"}}</td>
         <td title="Edit">

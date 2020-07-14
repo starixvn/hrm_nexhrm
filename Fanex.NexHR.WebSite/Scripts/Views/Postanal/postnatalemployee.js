@@ -18,6 +18,7 @@ function query(isFirstLoad) {
         },
         success: function (response) {
             $('#listPostnatalEmployee').html(response);
+            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);

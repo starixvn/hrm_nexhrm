@@ -4,6 +4,7 @@
     ViewBag.Title = Labels.Holiday;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/holidayedit");
@@ -20,7 +21,7 @@
                 <div class="card-body">
                     @if (Model != null)
                     {
-                        <div class="form">
+                        <div class="form form-stl-table">
                             @using (Html.BeginForm())
                             {
 
@@ -55,7 +56,7 @@
                                         </div>
                                         <div class="left">
                                             @{
-                                var numDay = Model.ToDate.Day - Model.FromDate.Day + 1;
+                                                var numDay = Model.ToDate.Day - Model.FromDate.Day + 1;
                                             }
                                             <input type="number" name="numDay" id="numDay" min="1" max="15" step="1" value="@numDay">
                                         </div>

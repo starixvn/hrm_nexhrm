@@ -3,7 +3,7 @@
     ViewBag.Title = Labels.NewLateInEarlyOutNotification;
 }
 @section css{
-
+    @Styles.Render("~/Content/myrequestcss")
 }
 @section js{
     @Scripts.Render("~/bundles/createlateearlyjs")
@@ -18,7 +18,7 @@
                     <span class="card-title txt-uppercase">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form list-item-form style-over">
                         @using (Html.BeginForm("Edit", "lateearly", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary()
@@ -82,17 +82,17 @@
                                     </div>
                                     <div class="left select--m">
                                         @{
-                            var minutesList = new List<SelectListItem>
-                                                {
-                                                    new SelectListItem {Text = "30m", Value = "30", Selected = true},
-                                                    new SelectListItem {Text = "60m", Value = "60"},
-                                                };
+                                            var minutesList = new List<SelectListItem>
+                                                                            {
+                                                                                new SelectListItem {Text = "30m", Value = "30", Selected = true},
+                                                                                new SelectListItem {Text = "60m", Value = "60"},
+                                                                            };
                                         }
                                         @Html.RadioButtonList(model => model.Minutes, minutesList)
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input line-button">
                                 <div class="col m-b--m">
                                     <div class="left label--l">&nbsp;</div>
                                     <div class="left">

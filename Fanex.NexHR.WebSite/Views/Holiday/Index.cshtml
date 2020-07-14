@@ -4,6 +4,7 @@
     ViewBag.Title = Labels.Holidays;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/holidays")
@@ -20,7 +21,7 @@
                 <div class="card-body">
                     @using (Html.BeginGetForm())
                     {
-                        <div class="form">
+                        <div class="form form-stl-table">
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--s">
@@ -64,7 +65,7 @@
     </div>
 </div>
 
-<script id="template" type="text/x-jsrender"> 
+<script id="template" type="text/x-jsrender">
     <tr id="row_{{:Id}}">
         <td>{{:~index()}}</td>
         <td class="align-left">
@@ -77,16 +78,16 @@
             {{:~formatDate(ToDate, 'dd MMM, yyyy')}}
         </td>
         {{if ~isHRRole}}
-            <td class="cmd">
-                <a href="/holiday/edit/{{:Id}}">
-                    <i class="mdi mdi-border-color mdi-dark"></i>
-                </a>
-            </td>
-            <td class="cmd">
-                <a href="javascript:;" onclick="deleteHoliday({{:Id}});">
-                    <i class="mdi mdi-delete mdi-dark"></i>
-                </a>
-            </td>
+        <td class="cmd">
+            <a href="/holiday/edit/{{:Id}}">
+                <i class="mdi mdi-border-color mdi-dark"></i>
+            </a>
+        </td>
+        <td class="cmd">
+            <a href="javascript:;" onclick="deleteHoliday({{:Id}});">
+                <i class="mdi mdi-delete mdi-dark"></i>
+            </a>
+        </td>
         {{/if}}
-    </tr> 
+    </tr>
 </script>
