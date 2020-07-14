@@ -297,6 +297,17 @@
         border-bottom: 0; }
       .cover-form-mb.table-biodevice table.table.responsive-table tr td:last-child {
         height: 35px; }
+    .cover-form-mb.table-team table.table.responsive-table tr {
+      padding: 0; }
+      .cover-form-mb.table-team table.table.responsive-table tr:last-child td {
+        border-bottom: 0; }
+      .cover-form-mb.table-team table.table.responsive-table tr th, .cover-form-mb.table-team table.table.responsive-table tr td {
+        min-width: 130px;
+        height: 35px !important; }
+      .cover-form-mb.table-team table.table.responsive-table tr td:nth-child(3) {
+        text-align: center !important; }
+    .cover-form-mb.table-team .floatThead-container {
+      width: 130px !important; }
     .cover-form-mb > .p-x--s {
       padding: 0; }
       .cover-form-mb > .p-x--s table thead tr th {
@@ -312,6 +323,8 @@
     width: 1300px; }
   .table-resize.table-medium table {
     width: 850px; }
+  .table-resize.table-small table {
+    width: 350px; }
   .table-resize table thead tr {
     height: 35px !important; }
     .table-resize table thead tr th {

@@ -622,6 +622,32 @@
             }
         }
 
+        &.table-team {
+            table.table.responsive-table {
+                tr {
+                    padding: 0;
+
+                    &:last-child {
+                        td {
+                            border-bottom: 0;
+                        }
+                    }
+
+                    th, td {
+                        min-width: 130px;
+                        height: 35px !important;
+                    }
+
+                    td:nth-child(3){
+                        text-align:center !important;
+                    }
+                }
+            }
+            .floatThead-container{
+                width: 130px !important;
+            }
+        }
+
 
 
         > .p-x--s {
@@ -669,6 +695,12 @@
         &.table-medium {
             table {
                 width: 850px;
+            }
+        }
+
+        &.table-small {
+            table {
+                width: 350px;
             }
         }
 

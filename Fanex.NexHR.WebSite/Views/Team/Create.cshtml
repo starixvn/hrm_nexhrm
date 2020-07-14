@@ -3,6 +3,7 @@
     ViewBag.Title = Labels.Team;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/teammanagementjs")
@@ -17,93 +18,93 @@
                     <span class="card-title txt-uppercase left">@Labels.Create</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
-                    @using (Html.BeginForm("create", "team", FormMethod.Post, new { @class = "form-create-edit" }))
-                    {
-                        @Html.ValidationSummary()
-                        if (ViewBag.Inserted == true)
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm("create", "team", FormMethod.Post, new { @class = "form-create-edit" }))
                         {
-                            <input type="hidden" id="successed" value="true" />
-                            <div class="row validation-summary-success">
-                                <div class="col success green-text">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamCreated
+                            @Html.ValidationSummary()
+                            if (ViewBag.Inserted == true)
+                            {
+                                <input type="hidden" id="successed" value="true" />
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamCreated
+                                    </div>
+                                </div>
+                            }
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.TeamCode)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.EditorFor(model => model.TeamCode)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.TeamName)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.EditorFor(model => model.TeamName)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Leader)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("Leader", string.Empty, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.Leader)
+                                        @Html.HiddenFor(model => model.LeaderId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.AssistantLeader)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("AssistantLeader", string.Empty, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.AssistantLeader)
+                                        @Html.HiddenFor(model => model.AssistantLeaderId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.DepartmentId)
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "-- " + Messages.SelectDepartment + " --")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ParentId)
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.Teams, "Id", "Name"), "-- " + Messages.SelectParentTeam + " --")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">&nbsp;</div>
+                                    <div class="left">
+                                        <a class="btn-back waves-effect waves-light" href="@Url.Action("index", "team")">@Labels.Cancel</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
+                                    </div>
                                 </div>
                             </div>
                         }
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.TeamCode)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.EditorFor(model => model.TeamCode)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.TeamName)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.EditorFor(model => model.TeamName)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.Leader)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.TextBox("Leader", string.Empty, new { placeholder = Messages.SearchEmployeeWatermark })
-                                    @Html.HiddenFor(model => model.Leader)
-                                    @Html.HiddenFor(model => model.LeaderId)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.AssistantLeader)
-                                </div>
-                                <div class="left input--m">
-                                    @Html.TextBox("AssistantLeader", string.Empty, new { placeholder = Messages.SearchEmployeeWatermark })
-                                    @Html.HiddenFor(model => model.AssistantLeader)
-                                    @Html.HiddenFor(model => model.AssistantLeaderId)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.DepartmentId)
-                                </div>
-                                <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "-- " + Messages.SelectDepartment + " --")
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--l">
-                                    @Html.LabelFor(model => model.ParentId)
-                                </div>
-                                <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.Teams, "Id", "Name"), "-- " + Messages.SelectParentTeam + " --")
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col">
-                                <div class="left label--l">&nbsp;</div>
-                                <div class="left">
-                                    <a class="btn-back waves-effect waves-light" href="@Url.Action("index", "team")">@Labels.Cancel</a>
-                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
-                                </div>
-                            </div>
-                        </div>
-                    }
                     </div>
                 </div>
             </div>

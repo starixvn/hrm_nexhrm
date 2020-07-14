@@ -3,6 +3,7 @@
     ViewBag.Title = Labels.TeamManagement;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/teammanagementjs")
@@ -24,7 +25,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="p-x--s m-t--m">
+                    <div class="p-x--s m-t--m cover-form-mb table-team">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                             <thead>
                                 <tr>
@@ -48,20 +49,21 @@
                                         <td>@team.Code</td>
                                         <td class="align-left">@team.Name</td>
                                         <td class="tooltip" title="@team.Leader.FullName">@team.Leader.NickName</td>
-                                        <td class="tooltip" title="@assistantLeaderFullName">@assistantLeaderNickName
-                                        </td>
-                                        <td class="cmd">
-                                            <a href="@Url.Action("Edit", "Team", new { team.Id })">
-                                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
-                                            </a>
-                                        </td>
-                                        <td class="cmd">
-                                            <a href="javascript:;" onclick="deleteTeam(@team.Id);">
-                                                <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
+                                        <td class="tooltip" title="@assistantLeaderFullName">
+                                            @assistantLeaderNickName
+                                    </td>
+                                    <td class="cmd">
+                                        <a href="@Url.Action("Edit", "Team", new { team.Id })">
+                                            <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                                        </a>
+                                    </td>
+                                    <td class="cmd">
+                                        <a href="javascript:;" onclick="deleteTeam(@team.Id);">
+                                            <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
