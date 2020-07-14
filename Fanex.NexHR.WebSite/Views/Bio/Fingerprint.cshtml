@@ -6,7 +6,7 @@
 }
 
 @section css{
-    @Styles.Render("~/Content/contextmenucss")
+    @Styles.Render("~/Content/contextmenucss", "~/Content/view-mobile")
 }
 
 @section js {
@@ -27,7 +27,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm("GetFingerprintScannerData", "Bio", FormMethod.Get, new { id = "fingerprint-scanner" }))
                         {
                             <div class="row form-input">
@@ -70,7 +70,7 @@
                             </div>
                         }
                     </div>
-                    <div id="list-finger-card">
+                    <div id="list-finger-card" class="over-auto">
                     </div>
                 </div>
             </div>

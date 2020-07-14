@@ -84,7 +84,7 @@
             }
         }
 
-        .btn-submit{
+        .btn-submit {
             margin: 0;
             width: auto;
             display: inline-block;
@@ -312,8 +312,9 @@
         &.form-annual-employee {
             .form-input {
                 padding: 0 0.8rem;
-                .col{
-                    &:nth-child(2){
+
+                .col {
+                    &:nth-child(2) {
                         width: 100%
                     }
                 }
@@ -474,7 +475,8 @@
 
     .over-auto {
         overflow: auto;
-        &.p-x--s{
+
+        &.p-x--s {
             padding: 0;
         }
     }
@@ -574,6 +576,24 @@
         &.table-postnatal {
             padding: 0;
             margin: 0 .8rem;
+        }
+
+        &.table-biodevice {
+            table.table.responsive-table {
+                tr {
+                    padding: 0;
+
+                    &:last-child {
+                        td {
+                            border-bottom: 0;
+                        }
+                    }
+
+                    td:last-child {
+                        height: 35px;
+                    }
+                }
+            }
         }
 
         > .p-x--s {

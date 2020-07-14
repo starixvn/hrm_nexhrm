@@ -277,6 +277,12 @@
     .cover-form-mb.table-postnatal {
       padding: 0;
       margin: 0 .8rem; }
+    .cover-form-mb.table-biodevice table.table.responsive-table tr {
+      padding: 0; }
+      .cover-form-mb.table-biodevice table.table.responsive-table tr:last-child td {
+        border-bottom: 0; }
+      .cover-form-mb.table-biodevice table.table.responsive-table tr td:last-child {
+        height: 35px; }
     .cover-form-mb > .p-x--s {
       padding: 0; }
       .cover-form-mb > .p-x--s table thead tr th {
