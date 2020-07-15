@@ -96,7 +96,7 @@ namespace Fanex.NexHR.Resources {
             }
         }
         
-         /// <summary>
+        /// <summary>
         ///   Looks up a localized string similar to Account is currently locked out.
         /// </summary>
         public static string AccountLockedOut {
@@ -104,7 +104,6 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("AccountLockedOut", resourceCulture);
             }
         }
-
         
         /// <summary>
         ///   Looks up a localized string similar to Adjust successfully.
@@ -267,8 +266,8 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("DuplicateTeamCode", resourceCulture);
             }
         }
-
-         /// <summary>
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks&quot;.
         /// </summary>
         public static string EmployeeLateInEarlyOutViolateOnMonth {
@@ -276,7 +275,7 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("EmployeeLateInEarlyOutViolateOnMonth", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel&apos;s policy.{2}Please notice that. Thanks.
         /// </summary>
@@ -404,6 +403,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid token.
+        /// </summary>
+        public static string InValidToken {
+            get {
+                return ResourceManager.GetString("InValidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid total days.
         /// </summary>
         public static string InvalidTotalDays {
@@ -463,6 +471,15 @@ namespace Fanex.NexHR.Resources {
         public static string MemoSubject {
             get {
                 return ResourceManager.GetString("MemoSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Jwt Token.
+        /// </summary>
+        public static string MissingJwtToken {
+            get {
+                return ResourceManager.GetString("MissingJwtToken", resourceCulture);
             }
         }
         
@@ -795,20 +812,20 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have forgot _{0}_ on _{1}_ (shift {2}). {3}.
-        /// </summary>
-        public static string YouForgotCheckInOut {
-            get {
-                return ResourceManager.GetString("YouForgotCheckInOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The user does not exists.
         /// </summary>
         public static string UserNotExists {
             get {
                 return ResourceManager.GetString("UserNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have forgot _{0}_ on _{1}_ (shift {2}). {3}.
+        /// </summary>
+        public static string YouForgotCheckInOut {
+            get {
+                return ResourceManager.GetString("YouForgotCheckInOut", resourceCulture);
             }
         }
     }

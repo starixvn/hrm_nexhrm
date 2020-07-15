@@ -8,7 +8,8 @@
     public class TokenController : ApiController
     {
         [AllowAnonymous]
-        public IHttpActionResult Get(string username, string password)
+        [HttpPost]
+        public IHttpActionResult GetToken(string username, string password)
         {
             if (CheckUser(username, password))
             {

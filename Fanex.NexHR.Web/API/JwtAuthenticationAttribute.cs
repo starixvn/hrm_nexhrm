@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Web.API
 {
+    using Fanex.NexHR.Resources;
     using System;
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -26,7 +27,7 @@
 
             if (string.IsNullOrEmpty(authorization.Parameter))
             {
-                context.ErrorResult = new AuthenticationFailureResult("Missing Jwt Token", request);
+                context.ErrorResult = new AuthenticationFailureResult(Messages.MissingJwtToken, request);
                 return;
             }
 
@@ -35,7 +36,7 @@
 
             if (principal == null)
             {
-                context.ErrorResult = new AuthenticationFailureResult("Invalid token", request);
+                context.ErrorResult = new AuthenticationFailureResult(Messages.InValidToken, request);
             }
             else
             {
@@ -46,24 +47,23 @@
         private static bool ValidateToken(string token, out string username)
         {
             username = null;
+            var isValid = false;
 
             var simplePrinciple = JwtManager.GetPrincipal(token);
             var identity = simplePrinciple?.Identity as ClaimsIdentity;
 
             if (identity == null || !identity.IsAuthenticated)
             {
-                return false;
+                isValid = false;
             }
-
-            var usernameClaim = identity.FindFirst(ClaimTypes.Name);
-            username = usernameClaim?.Value;
-
-            if (string.IsNullOrEmpty(username))
+            else
             {
-                return false;
+                var usernameClaim = identity.FindFirst(ClaimTypes.Name);
+                username = usernameClaim?.Value;
+                isValid = !string.IsNullOrEmpty(username);
             }
 
-            return true;
+            return isValid;
         }
 
         protected static Task<IPrincipal> AuthenticateJwtToken(string token)

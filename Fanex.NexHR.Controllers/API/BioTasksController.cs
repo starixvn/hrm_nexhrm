@@ -12,7 +12,10 @@
     using Fanex.NexHR.Models.Bio;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Web.API;
 
+    [Authorize]
+    [JwtAuthentication]
     public class BioTasksController : ApiController
     {
         private readonly BaseService baseService;
@@ -25,7 +28,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IHttpActionResult> BioDevice()
         {
             var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
@@ -47,7 +49,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IHttpActionResult> BioTimeChange()
         {
             var criteria = new GetWarningBioTimeChangeCriteria

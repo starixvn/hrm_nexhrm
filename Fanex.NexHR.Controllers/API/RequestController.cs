@@ -8,6 +8,7 @@
     using System.Web.Http;
 
     [Authorize]
+    [JwtAuthentication]
     public class RequestController : ApiController
     {
         private readonly IRequestService requestService;
@@ -26,7 +27,6 @@
             this.employeeService = employeeService ?? new EmployeeService();
         }
 
-        [JwtAuthentication]
         [HttpPost]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
@@ -41,7 +41,6 @@
             return Json(result);
         }
 
-        [JwtAuthentication]
         public IHttpActionResult GetData()
         {
             return Json("test");

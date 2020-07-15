@@ -3,7 +3,10 @@
     using System.Web.Http;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Web.API;
 
+    [Authorize]
+    [JwtAuthentication]
     public class TimesheetController : ApiController
     {
         private readonly ITimeSheetService timeSheetService;
@@ -19,7 +22,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         public IHttpActionResult ReminderReachedWorkingTime()
         {
             timeSheetService.SendReminderReachedWorkingTime();

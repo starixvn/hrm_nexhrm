@@ -5,7 +5,10 @@
     using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Web.API;
 
+    [Authorize]
+    [JwtAuthentication]
     public class ReminderController : ApiController
     {
         private readonly MailBirthdayAndFirstWorkingdayReminderService _mailReminderService;
@@ -25,7 +28,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IHttpActionResult> BirthdayAndFirstWorkingday()
         {
             var result = await _mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
@@ -33,7 +35,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IHttpActionResult> MissingCheckInCheckOut()
         {
             var result = await _botService.SendMessageAsync().ConfigureAwait(false);

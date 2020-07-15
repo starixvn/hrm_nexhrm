@@ -150,6 +150,10 @@
       <Project>{89E66795-E15A-41B8-9684-35B05739C1F7}</Project>
       <Name>Fanex.NexHR.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj">
+      <Project>{C7D47FA8-C2DD-4C1A-BEC9-B9D5316E9168}</Project>
+      <Name>Fanex.NexHR.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.NexHR.Services\Fanex.NexHR.Services.csproj">
       <Project>{7789CD20-1DC9-4077-921C-2548023BBC62}</Project>
       <Name>Fanex.NexHR.Services</Name>

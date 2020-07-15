@@ -5,12 +5,15 @@
     using Fanex.NexHR.Models.RedmineAPI;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Web.API;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
 
+    [Authorize]
+    [JwtAuthentication]
     public class ForgotLogtimeReminderController : ApiController
     {
         private readonly IRedmineService redmineService;
@@ -23,7 +26,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IHttpActionResult> ForgotLogtime()
         {
             var forgotLogtimeEmployees = await redmineService.GetForgotLogtimeEmployees().ConfigureAwait(false);
