@@ -93,9 +93,10 @@
         }
     }
 
-    #toast-container{
+    #toast-container {
         bottom: 40%;
-        .toast{
+
+        .toast {
             height: 75px;
         }
     }
@@ -211,6 +212,7 @@
                         }
 
                         .btn-request {
+                            height: 3.2rem;
                             margin-top: 0;
                             margin-left: 1.6rem;
                         }
@@ -227,6 +229,12 @@
                         .btn-submit {
                             width: auto;
                             height: 30px;
+                        }
+                    }
+
+                    &.btn-submit-none-margin {
+                        .btn-submit {
+                            margin: 0 !important;
                         }
                     }
                 }
@@ -354,6 +362,7 @@
 
         &.form-annual-deduction {
             margin: 0;
+
             .form-input {
                 margin: 0 0 11px 0;
                 padding: 0;
@@ -388,7 +397,7 @@
                     }
                 }
 
-                &.center{
+                &.center {
                     display: block;
                 }
             }
@@ -614,6 +623,58 @@
                         top: -1px;
                         color: #989898;
                     }
+                }
+            }
+        }
+
+        &.form-employee-workingHistory {
+            .col {
+                display: flex;
+                width: 100%;
+
+                .left {
+
+                    &[class*="label"] {
+                        width: 7.7rem;
+
+                        label {
+                            font-size: 1.3rem;
+                            color: #333333;
+                            margin-top: .8rem;
+                        }
+                    }
+
+                    &.datepicker-button {
+                        flex: 1;
+
+                        .calendar-icon {
+                            margin: 0;
+                            right: 4px;
+                            top: -1px;
+                            color: #989898;
+                        }
+                    }
+
+                    &.select--daterange {
+                        flex: 1;
+                    }
+
+                    input {
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        }
+
+        &.form-employee-insert-history {
+            .datepicker-button {
+                margin-bottom: 15px;
+
+                .calendar-icon {
+                    margin: 0;
+                    right: 4px;
+                    top: -1px;
+                    color: #989898;
                 }
             }
         }

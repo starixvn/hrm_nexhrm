@@ -1,6 +1,13 @@
 ﻿@model IList<HistoryWork>
+@{
+    var classResponsive = "";
+    if (Model.Any())
+    {
+        classResponsive = "responsive-table";
+    }
+}
 <input type="hidden" id="empId" value="@ViewBag.empid" />
-<table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+<table id="data" class="table bordered striped highlight centered table-custom @classResponsive">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>

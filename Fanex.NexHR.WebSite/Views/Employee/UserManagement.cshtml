@@ -3,6 +3,7 @@
     ViewBag.Title = Labels.EmployeeManagement;
 }
 @section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/usermanagementjs")
@@ -17,7 +18,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         <div class="row form-input">
                             <div class="col m-r--l">
                                 <div class="left label--m">
@@ -56,7 +57,7 @@
                                     <label class="m-r--l" for="IsDeleted">@Labels.DeletedUsers</label>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col col-btn-submit-excel btn-submit-none-margin">
                                 <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
                                 <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b" href="javascript:;">@Labels.Excel</a>
                                 @Html.ActionLink("Postnatal Employee", "index", "postnatal", null, new { @class = "waves-effect waves-light btn-request" })
@@ -65,7 +66,7 @@
                     </div>
                 </div>
                 <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
-                <div class="p-x--s">
+                <div class="p-x--s over-auto cover-form-mb table-team">
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                         <thead>
                             <tr>
@@ -117,11 +118,11 @@
                                     <div class="sorter" data-property="JoinedDate">
                                     </div>
                                 </th>
-                                <th id="resignedDate" class="col-sorter">
+                                @*<th id="resignedDate" class="col-sorter">
                                     @Labels.ResignedDate
                                     <div class="sorter" data-property="ResignedDate">
                                     </div>
-                                </th>
+                                </th>*@
                                 <th>
                                     @Labels.Edit
                                 </th>
@@ -130,7 +131,7 @@
                                 </th>
                                 <th>
                                     @Labels.History
-                                </th> 
+                                </th>
                             </tr>
                         </thead>
                         <tbody></tbody>

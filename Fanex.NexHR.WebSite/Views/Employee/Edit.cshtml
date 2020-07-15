@@ -108,13 +108,11 @@
                                             @Html.LabelFor(model => model.DateOfBirth, Labels.DateOfBirth)
                                         </div>
                                         <div class="left">
-                                            <div class="row input--l">
                                                 <div class="datepicker-button select--s">
                                                     @Html.DatePickerFor(model => model.DateOfBirth)
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
                                                 @Html.ValidationMessageFor(model => model.DateOfBirth)
-                                            </div>
                                         </div>
                                         @Html.HiddenFor(model => model.DateOfBirth)
                                     </div>
@@ -509,7 +507,7 @@
                                 </div>
                                 <!--TOEIC score-->
                                 <div class="row form-input m-t--m">
-                                    <div class="col">
+                                    <div class="col toeic-scrore">
                                         <div class="left label--xl">
                                             <label>@Labels.ToeicScore</label>
                                         </div>

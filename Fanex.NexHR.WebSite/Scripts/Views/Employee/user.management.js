@@ -67,7 +67,11 @@ function query(jobTitleId, isFirstLoad) {
                         return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
                     }
                 });
+                $('table#data').addClass('responsive-table');
+                floatThead('table#data');
             } else {
+                $('table#data').removeClass('responsive-table');
+                $('table#data').floatThead('destroy');
                 if (employeeListType === 0) {
                     $(noInformation(11)).appendTo('table#data');
                 }
@@ -75,8 +79,6 @@ function query(jobTitleId, isFirstLoad) {
                     $(noInformation(12)).appendTo('table#data');
                 }
             }
-
-            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);

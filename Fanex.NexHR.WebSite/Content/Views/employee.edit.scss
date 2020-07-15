@@ -11,8 +11,8 @@
             display: inline-block;
             width: auto;
             margin-right: .5rem;
-			border: 1px solid #d0d0d0;
-		    @include css3(box-shadow, (0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1))); 
+            border: 1px solid #d0d0d0;
+            @include css3(box-shadow, (0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1)));
         }
     }
 }
@@ -47,11 +47,11 @@
     overflow-y: scroll;
     border: solid .1rem #ccc;
 
-	[type="checkbox"] + label {
-		height: 35px;
-		line-height: 35px;
-		padding-left: 40px;
-	}
+    [type="checkbox"] + label {
+        height: 35px;
+        line-height: 35px;
+        padding-left: 40px;
+    }
 
     [type="checkbox"].filled-in + label {
         &:before, &:after {
@@ -59,9 +59,9 @@
             margin-top: .6rem;
         }
 
-		&:before {
-			top: 2px;
-		}
+        &:before {
+            top: 2px;
+        }
     }
 
     label {
@@ -71,41 +71,169 @@
 }
 
 .toeic {
-	@include css3(box-shadow, 0px 0px 0px 1px rgba(210,210,210,1));
-	width: 250px;
-	thead tr th {
-		background: #3B4254;
-		color: #fff;
-		font-weight: normal;
-		border-right: 1px solid #353a4a;
-		border-bottom: 1px solid #353a4a;
-	}
-	td {
-		border-right: 1px solid $c-border-table;
-		border-bottom: 1px solid $c-border-table;
+    @include css3(box-shadow, 0px 0px 0px 1px rgba(210,210,210,1));
+    width: 250px;
 
-	}
+    thead tr th {
+        background: #3B4254;
+        color: #fff;
+        font-weight: normal;
+        border-right: 1px solid #353a4a;
+        border-bottom: 1px solid #353a4a;
+    }
+
+    td {
+        border-right: 1px solid $c-border-table;
+        border-bottom: 1px solid $c-border-table;
+    }
 }
 
 .fileUpload {
-	position: relative;
-	overflow: hidden;
-	
-	input.chooseFile::-webkit-file-upload-button {
-		padding: 0 1.5rem;
-		height: 3rem;
-		line-height: 3rem;
-		border-radius: 2px;
-		color: #fff;
-		background: #2aaa55;
-		border: none;
-		cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    input.chooseFile::-webkit-file-upload-button {
+        padding: 0 1.5rem;
+        height: 3rem;
+        line-height: 3rem;
+        border-radius: 2px;
+        color: #fff;
+        background: #2aaa55;
+        border: none;
+        cursor: pointer;
         @include css3(box-shadow,(0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)));
-        
 
-		&:focus, &:active {
-			outline: none;
-		}
 
-	}
+        &:focus, &:active {
+            outline: none;
+        }
+    }
+}
+
+@media only screen and (max-width: $small-screen-up) {
+
+    .form-input {
+        .col {
+            width: 100%;
+            display: flex;
+
+            .left {
+                &[class*="label"] {
+                    label {
+                        font-size: 1.3rem;
+                        color: #333333;
+                        margin-top: .8rem;
+                    }
+                }
+
+                &[class*="input"] {
+                    width: auto;
+                }
+
+                &:nth-child(1) {
+                    width: 10rem;
+                }
+
+                &:nth-child(2) {
+                    flex: 1;
+                }
+
+                .datepicker-button {
+                    width: 100%;
+                }
+
+                [type="checkbox"].filled-in + label {
+                    &:before, &:after {
+                        margin-top: 0.5rem;
+                    }
+                }
+
+                &.subteam {
+                    label{
+                        overflow: auto;
+                    }
+                    [type="checkbox"].filled-in + label {
+                        &:before, &:after {
+                            margin-top: 0.9rem;
+                        }
+                    }
+                }
+            }
+
+            &.toeic-scrore {
+                display: block;
+
+                table {
+                    tr {
+                        display: grid;
+                    }
+
+                    table.toeic {
+                        tr {
+                            display: table-row;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .ui-dialog {
+        padding: 0 15px 15px 15px;
+
+        .forn-update-full-toeic {
+            input {
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                box-shadow: none;
+            }
+
+            .form-input {
+                display: flex;
+
+                .left {
+
+                    &[class*="label"]:nth-child(1) {
+                        width: 7.7rem;
+
+                        label {
+                            font-size: 1.3rem;
+                            color: #333333;
+                            margin-top: .8rem;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        flex: 1;
+                    }
+
+                    .input-required-score {
+                        width: 100%;
+                    }
+
+                    &.score-toeic {
+                        margin-left: 30px;
+                        justify-content: flex-start;
+                        display: flex;
+                    }
+                }
+
+                .datepicker-button {
+                    width: 100%;
+
+                    .calendar-icon {
+                        margin: 0;
+                        right: 4px;
+                        top: -1px;
+                    }
+                }
+
+                [type="checkbox"].filled-in + label {
+                    &:before, &:after {
+                        margin-top: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
 }

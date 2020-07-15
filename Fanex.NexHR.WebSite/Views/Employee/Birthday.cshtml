@@ -3,7 +3,7 @@
     ViewBag.Title = Labels.EmployeeBirthday;
 }
 @section css {
-    @Styles.Render("~/Content/staffbirthdaycss")
+    @Styles.Render("~/Content/staffbirthdaycss", "~/Content/view-mobile")
 }
 @section js {
     @Scripts.Render("~/bundles/staffbirthdayjs")
@@ -18,7 +18,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="p-x--s m-t--m">
+                    <div class="p-x--s m-t--m over-auto cover-form-mb table-team">
                         <table id="data" class="table bordered striped highlight centered responsive-table table-custom" style="width: 700px;">
                             <thead>
                                 <tr>

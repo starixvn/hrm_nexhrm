@@ -172,7 +172,9 @@ function query(isFirstLoad) {
         },
         success: function (data) {
             $('#history-detail').html(data);
-            floatThead('table#data');
+            if ($('table#data').hasClass('responsive-table')) {
+                floatThead('table#data');
+            }
         },
         error: function () {
             alert(_messages.errorTryAgain);
