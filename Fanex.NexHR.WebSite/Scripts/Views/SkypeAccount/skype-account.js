@@ -20,6 +20,7 @@
             success: function (response) {
                 $(domElement.table).html(response);
                 registerEditEvent();
+                floatThead('table#data');
             },
             error: function () {
                 alert(_messages.errorTryAgain);

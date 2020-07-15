@@ -2,7 +2,10 @@
 @model SkypeAccountFilter
 
 @{
-            ViewBag.Title = "Skype Account Management";
+    ViewBag.Title = "Skype Account Management";
+}
+@section css {
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js
 {
@@ -18,7 +21,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm("GetEmployeeSkypeAccount", "SkypeAccount", FormMethod.Get, new { id = "skype-account-filter" }))
                         {
                             <div class="row form-input">
@@ -59,7 +62,7 @@
                             </div>
                         }
                     </div>
-                    <div id="list-account">
+                    <div id="list-account" class="p-x--s over-auto">
                     </div>
                 </div>
             </div>
