@@ -19,7 +19,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         @using (Html.BeginForm())
                         {
                             <div class="row form-input">
@@ -60,32 +60,32 @@
                                         @Html.HiddenFor(model => model.EmployeeId)
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col btn-none-margin">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                                 @if (Roles.IsUserInRole("HR"))
                                 {
                                     if (Model.ShowOpenAndCloseAnnualBalance.IsShowCloseBalance)
                                     {
-                                        <div class="col">
+                                        <div class="col btn-none-margin">
                                             <a class="btn-request waves-effect waves-light" href="javascript:;" id="resetblc">@Labels.CloseBalance</a>
                                         </div>
                                     }
                                     if (Model.ShowOpenAndCloseAnnualBalance.IsShowOpenBalance)
                                     {
-                                        <div class="col">
+                                        <div class="col btn-none-margin">
                                             <a class="btn-submit waves-effect waves-light" href="javascript:;" id="addbalance">@Labels.AddBalance</a>
                                         </div>
                                     }
-                                    <div class="col">
+                                    <div class="col btn-none-margin">
                                         <a class="btn-request waves-effect waves-light" href="javascript:;" id="addadj">@Labels.Adjustment</a>
                                     </div>
                                 }
                             </div>
                         }
                     </div>
-                    <div class="p-x--s over-auto">
-                        <div id="div-content"></div>
+                    <div class="p-x--s">
+                        <div id="div-content" class="over-auto table-resize table-medium table-row-thead"></div>
                     </div>
                     @if (Roles.IsUserInRole("HR"))
                     {

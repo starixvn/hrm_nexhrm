@@ -117,6 +117,17 @@
             height: 3.2rem;
             margin-left: 10px;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16); }
+          .form.form-stl-table .form-input .col.col-btn-submit-excel .btn-request {
+            margin-top: 0;
+            margin-left: 1.6rem; }
+        .form.form-stl-table .form-input .col.btn-none-margin {
+          width: auto;
+          float: left; }
+          .form.form-stl-table .form-input .col.btn-none-margin [class*="btn"] {
+            margin-right: 20px; }
+          .form.form-stl-table .form-input .col.btn-none-margin .btn-submit {
+            width: auto;
+            height: 30px; }
       .form.form-stl-table .form-input textarea {
         padding-top: 5px;
         min-height: 50px; }
@@ -175,6 +186,28 @@
       padding: 0 0.8rem; }
       .form.form-annual-employee .form-input .col:nth-child(2) {
         width: 100%; }
+    .form.form-annual-deduction {
+      margin: 0; }
+      .form.form-annual-deduction .form-input {
+        margin: 0 0 11px 0;
+        padding: 0;
+        display: flex; }
+        .form.form-annual-deduction .form-input .left[class*="label"] label {
+          font-size: 1.3rem;
+          color: #333333; }
+        .form.form-annual-deduction .form-input .left:nth-child(1) {
+          width: 7.7rem; }
+        .form.form-annual-deduction .form-input .left:nth-child(2) {
+          flex: 1; }
+        .form.form-annual-deduction .form-input .datepicker-button {
+          flex: 1; }
+          .form.form-annual-deduction .form-input .datepicker-button .calendar-icon {
+            margin: 0;
+            right: 4px;
+            top: -1px;
+            color: #989898; }
+        .form.form-annual-deduction .form-input.center {
+          display: block; }
     .form.form-memo .form-input {
       padding: 0 0.8rem; }
       .form.form-memo .form-input .col {
@@ -373,6 +406,8 @@
     height: 35px !important; }
     .table-resize table thead tr th {
       height: 35px !important; }
+  .table-resize.table-row-thead table.table:not(.floatThead-table) thead tr {
+    height: 70px !important; }
   .table-resize.table-2-row-thead table.table:not(.floatThead-table) thead tr {
     height: 90px !important; }
   .table-resize.table-3-row-thead table.table:not(.floatThead-table) thead tr {

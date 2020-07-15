@@ -49,11 +49,14 @@ function query(isFirstLoad) {
                         return '<img src="' + src + '" />';
                     }
                 });
+                $('table#data').addClass('responsive-table');
+                floatThead('table#data');
             } else {
+                $('table#data').removeClass('responsive-table');
+                $('table#data').floatThead('destroy');
                 $(noInformation(11)).appendTo('table#data');
             }
 
-            floatThead('table#data');
         },
         error: function () {
             alert(_messages.errorTryAgain);
