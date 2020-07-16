@@ -305,17 +305,19 @@
             height: 3rem; }
           .form.form-calendar-working .form-input .col.col-btn .btn-request {
             margin: 1.6rem 1rem 0 0; }
-    .form.form-calendar-add .form-input {
-      margin-bottom: 11px; }
-      .form.form-calendar-add .form-input .left:nth-child(2) {
-        width: inherit; }
-      .form.form-calendar-add .form-input .datepicker-button {
-        flex: 1; }
-        .form.form-calendar-add .form-input .datepicker-button .calendar-icon {
-          margin: 0;
-          right: 4px;
-          top: -1px;
-          color: #989898; }
+    .form.form-calendar-add {
+      padding: 0 15px !important; }
+      .form.form-calendar-add .form-input {
+        margin-bottom: 11px; }
+        .form.form-calendar-add .form-input .left:nth-child(2) {
+          width: inherit; }
+        .form.form-calendar-add .form-input .datepicker-button {
+          flex: 1; }
+          .form.form-calendar-add .form-input .datepicker-button .calendar-icon {
+            margin: 0;
+            right: 4px;
+            top: -1px;
+            color: #989898; }
     .form.form-employee-workingHistory .col {
       display: flex;
       width: 100%; }

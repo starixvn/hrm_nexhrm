@@ -4,7 +4,8 @@
 
 var rowIndex = 1,
     employeeListType = 0,
-    sorts = [];
+    sorts = [],
+    hasData=false;
 
 function index() {
     return rowIndex++;
@@ -49,6 +50,7 @@ function query(jobTitleId, isFirstLoad) {
             var listEmployee = data.Employees;
             if (listEmployee && listEmployee.length > 0) {
                 rowIndex = 1;
+                hasData = true;
 
                 var tmpl = $.templates('#template'),
                     helpers = {
@@ -68,8 +70,8 @@ function query(jobTitleId, isFirstLoad) {
                     }
                 });
                 $('table#data').addClass('responsive-table');
-                floatThead('table#data');
             } else {
+                hasData = false;
                 $('table#data').removeClass('responsive-table');
                 $('table#data').floatThead('destroy');
                 if (employeeListType === 0) {
@@ -94,6 +96,9 @@ function query(jobTitleId, isFirstLoad) {
             }
             if (!isFirstLoad) {
                 $('.loading-process').fadeOut(300);
+            }
+            if (hasData) {
+                floatThead('table#data');
             }
         }
     });
