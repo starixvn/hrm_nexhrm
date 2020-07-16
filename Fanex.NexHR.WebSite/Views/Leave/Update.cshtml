@@ -11,14 +11,14 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base">
+    <div class="col s12 card-container-base my-request">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase left">@Labels.Edit</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form list-item-form">
                         @using (Html.BeginForm("update", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="row form-input line-button">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">
                                     <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>

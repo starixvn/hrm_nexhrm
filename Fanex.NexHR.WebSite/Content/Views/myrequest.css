@@ -156,4 +156,15 @@
           color: #828282;
           margin-right: 0; }
         .card-container-base.my-request .list-item-form .form-input .col .select-wrapper input.select-dropdown, .card-container-base.my-check-in-out .list-item-form .form-input .col .select-wrapper input.select-dropdown {
-          margin-bottom: 1.2rem; } }
+          margin-bottom: 1.2rem; }
+  .card-container-base.my-request .form-update-checkinout .form-input .col .left, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left {
+    display: flex; }
+    .card-container-base.my-request .form-update-checkinout .form-input .col .left[class*="label"], .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left[class*="label"] {
+      width: 10rem; }
+    .card-container-base.my-request .form-update-checkinout .form-input .col .left.datetime .datepicker-button .calendar-icon, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left.datetime .datepicker-button .calendar-icon {
+      margin: 0;
+      right: 4px;
+      top: -1px;
+      color: #989898; }
+    .card-container-base.my-request .form-update-checkinout .form-input .col .left.datetime .col.p-0, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left.datetime .col.p-0 {
+      margin: 8px 2px 0 -5px; } }

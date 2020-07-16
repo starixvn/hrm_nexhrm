@@ -2,10 +2,10 @@
 @import "../Common/utils/variables";
 
 .text-legend {
-    padding-bottom:14px; 
-    color:#5f5e67 ; 
-    font-weight: bold; 
-    font-style:italic;
+    padding-bottom: 14px;
+    color: #5f5e67;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .select-time {
@@ -59,16 +59,20 @@
     [type="radio"]:not(:checked) + label:before {
         border: 2px solid #989898;
     }
+
     [type="radio"].with-gap:checked + label:after {
         border: 2px solid #989898;
         background-color: #989898;
     }
+
     [type="radio"].with-gap:checked + label:before {
         border: 2px solid #989898;
     }
-    .form-input label{
-        color: #989898; 
+
+    .form-input label {
+        color: #989898;
     }
+
     .card-container-base.my-request, .card-container-base.my-check-in-out {
         .card-content {
             padding: .6rem .8rem .8rem;
@@ -287,6 +291,34 @@
                 }
             }
         }
+
+        .form-update-checkinout {
+            .form-input {
+                .col {
+                    .left {
+                        display: flex;
+
+                        &[class*="label"] {
+                            width: 10rem;
+                        }
+
+                        &.datetime {
+                            .datepicker-button {
+
+                                .calendar-icon {
+                                    margin: 0;
+                                    right: 4px;
+                                    top: -1px;
+                                    color: #989898;
+                                }
+                            }
+                            .col.p-0{
+                                margin: 8px 2px 0 -5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    
-}  
+}

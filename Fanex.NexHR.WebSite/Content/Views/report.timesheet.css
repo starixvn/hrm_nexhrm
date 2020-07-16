@@ -317,9 +317,12 @@
         -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
         box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
         font-weight: 500; }
-      .my-attendance .card-body #list-timesheet table thead tr th {
-        background-color: #343c4e;
-        font-weight: 500; }
+      .my-attendance .card-body #list-timesheet table thead tr {
+        height: 35px !important; }
+        .my-attendance .card-body #list-timesheet table thead tr th {
+          background-color: #343c4e;
+          font-weight: 500;
+          height: 35px !important; }
       .my-attendance .card-body #list-timesheet table tbody tr:nth-child(odd) td {
         background-color: #ededed; }
       .my-attendance .card-body #list-timesheet table tbody tr:nth-child(even) td {

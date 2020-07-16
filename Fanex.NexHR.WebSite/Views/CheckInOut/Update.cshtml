@@ -12,14 +12,14 @@
 @section Breadcrumb {
 }
 <div class="row content">
-    <div class="col s12 card-container-base">
+    <div class="col s12 card-container-base my-check-in-out">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase left">@Labels.Edit</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-update-checkinout">
                         @using (Html.BeginForm("update", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)
@@ -58,7 +58,7 @@
                                     <div class="left label--xl">
                                         <label>@Labels.RequestTime</label>
                                     </div>
-                                    <div class="left">
+                                    <div class="left datetime">
                                         <div class="datepicker-button left select--s">
                                             @Html.DatePickerFor(model => model.WorkDate,
                                                 Utilities.RequestAvailableFromDate,

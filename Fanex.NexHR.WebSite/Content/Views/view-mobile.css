@@ -347,6 +347,8 @@
     overflow: auto; }
     .over-auto.p-x--s {
       padding: 0; }
+  .full-view-width {
+    width: 100vw !important; }
   .cover-form-mb {
     padding: 0 0.8rem; }
     .cover-form-mb.table-report-attendance {
