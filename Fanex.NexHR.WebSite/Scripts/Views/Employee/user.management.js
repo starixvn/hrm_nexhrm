@@ -74,12 +74,13 @@ function query(jobTitleId, isFirstLoad) {
                 hasData = false;
                 $('table#data').removeClass('responsive-table');
                 $('table#data').floatThead('destroy');
-                if (employeeListType === 0) {
-                    $(noInformation(11)).appendTo('table#data');
-                }
-                else {
-                    $(noInformation(12)).appendTo('table#data');
-                }
+                //if (employeeListType === 0) {
+                //    $(noInformation(11)).appendTo('table#data');
+                //}
+                //else {
+                //    $(noInformation(12)).appendTo('table#data');
+                //}
+                $(noInformation(13)).appendTo('table#data');
             }
         },
         error: function () {
