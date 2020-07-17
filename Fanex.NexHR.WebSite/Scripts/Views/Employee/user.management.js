@@ -80,7 +80,12 @@ function query(jobTitleId, isFirstLoad) {
                 //else {
                 //    $(noInformation(12)).appendTo('table#data');
                 //}
-                $(noInformation(13)).appendTo('table#data');
+                if (employeeListType === 0) {
+                    $(noInformation(13)).appendTo('table#data');
+                }
+                else {
+                    $(noInformation(14)).appendTo('table#data');
+                }
             }
         },
         error: function () {
