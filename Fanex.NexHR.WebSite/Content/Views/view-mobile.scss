@@ -2,7 +2,12 @@
 @import "../Common/utils/mixins";
 
 //update css table-responsive
-@media only screen and (max-width: $large-screen-up){
+@media only screen and (max-width: $large-extra-screen-up) {
+
+    .over-auto {
+        overflow: auto;
+    }
+
     &.table-team {
         table.table.responsive-table {
             tr {
@@ -981,8 +986,4 @@
             }
         }
     }
-}
-
-.over-auto {
-    overflow: auto;
 }
