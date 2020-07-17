@@ -1,4 +1,17 @@
-﻿@media only screen and (max-width: 993px) {
+﻿@media only screen and (max-width: 1201px) {
+  .table-team table.table.responsive-table tr {
+    padding: 0; }
+    .table-team table.table.responsive-table tr:last-child td {
+      border-bottom: 0; }
+    .table-team table.table.responsive-table tr th, .table-team table.table.responsive-table tr td {
+      min-width: 130px;
+      height: 35px !important; }
+    .table-team table.table.responsive-table tr td:nth-child(3) {
+      text-align: center !important; }
+  .table-team .floatThead-container {
+    width: 130px !important; } }
+
+@media only screen and (max-width: 993px) {
   .card-container-base .card-content {
     padding-top: .5rem; }
   .form-input input[type="text"], .form-input textarea, .form-input input[type=number] {
@@ -446,3 +459,6 @@
     height: 90px !important; }
   .table-resize.table-3-row-thead table.table:not(.floatThead-table) thead tr {
     height: 105px !important; } }
+
+.over-auto {
+  overflow: auto; }
