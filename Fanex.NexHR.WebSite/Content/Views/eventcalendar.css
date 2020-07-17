@@ -121,7 +121,7 @@
       font-size: 13px;
       cursor: pointer; }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   .card-container-base .card-content {
     padding-top: 0.5rem; }
     .card-container-base .card-content .card-body .m-t--m {

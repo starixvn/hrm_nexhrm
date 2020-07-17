@@ -172,13 +172,13 @@
     }
 }
 
-@media only screen and (max-width: $small-screen-up) {
+@media only screen and (max-width: $medium-screen-up) {
     .card-container-base {
         .card-content {
             padding-top: 0.5rem;
 
             .card-body {
-                .m-t--m{
+                .m-t--m {
                     margin-top: 8px;
                 }
             }
@@ -359,7 +359,7 @@
         &.fc-ltr {
             .fc-basic-view {
                 .fc-body {
-                    .fc-row{
+                    .fc-row {
                         height: 4.4rem;
                         min-height: 1rem;
                     }
@@ -379,5 +379,4 @@
             overflow: visible;
         }
     }
-
 }

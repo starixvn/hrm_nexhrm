@@ -80,7 +80,7 @@
     .fileUpload input.chooseFile::-webkit-file-upload-button:focus, .fileUpload input.chooseFile::-webkit-file-upload-button:active {
       outline: none; }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   .form-input .col {
     width: 100%;
     display: flex; }

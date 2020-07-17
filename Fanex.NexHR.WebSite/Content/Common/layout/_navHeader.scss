@@ -235,7 +235,7 @@
     }
 }
 // update css mobile
-@media only screen and (min-width: $small-screen-up) {
+@media only screen and (min-width: $medium-screen-up) {
     nav {
         .right.nav-wrapper {
             .box-search {
@@ -246,14 +246,13 @@
         }
     }
 }
-@media only screen and (max-width: $small-screen-up) {
+@media only screen and (max-width: $medium-screen-up) {
     .nav-wrapper {
         .drop-down {
             display: none;
         }
-
-        
     }
+
     .navbar-fixed {
         .button-collapse {
             &.active {
@@ -275,6 +274,7 @@
             }
         }
     }
+
     #nav-mobile {
         &.side-nav {
             width: 300px;
@@ -322,7 +322,7 @@
             }
         }
     }
-    
+
     .navbar-fixed {
         .top-nav {
             padding: 0;
@@ -337,6 +337,7 @@
             }
         }
     }
+
     nav {
         height: 57px;
 
@@ -384,7 +385,8 @@
 
             .box-search {
                 padding-right: 0.5rem;
-                .js-btn-search{
+
+                .js-btn-search {
                     width: 24px;
                 }
 

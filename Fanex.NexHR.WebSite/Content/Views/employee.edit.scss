@@ -110,7 +110,7 @@
     }
 }
 
-@media only screen and (max-width: $small-screen-up) {
+@media only screen and (max-width: $medium-screen-up) {
 
     .form-input {
         .col {
@@ -149,9 +149,10 @@
                 }
 
                 &.subteam {
-                    label{
+                    label {
                         overflow: auto;
                     }
+
                     [type="checkbox"].filled-in + label {
                         &:before, &:after {
                             margin-top: 0.9rem;

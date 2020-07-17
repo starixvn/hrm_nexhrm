@@ -1118,11 +1118,11 @@ input#fileName::-webkit-file-upload-button {
     .search_bar.focused label {
       color: #303f4d; }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 993px) {
   nav .right.nav-wrapper .box-search .icon-close, nav .right.nav-wrapper .box-search .icon-open {
     display: none; } }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   .nav-wrapper .drop-down {
     display: none; }
   .navbar-fixed .button-collapse.active .icon-close {

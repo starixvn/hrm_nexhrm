@@ -1,7 +1,7 @@
 ﻿@import "../Common/utils/variables";
 @import "../Common/utils/mixins";
 
-@media only screen and (max-width: $small-screen-up) {
+@media only screen and (max-width: $medium-screen-up) {
     .form-input input[type="text"] {
         box-sizing: border-box;
         box-shadow: none;
@@ -10,18 +10,20 @@
         padding: .4rem 0 0 .7rem !important;
         margin-bottom: 0.7rem;
     }
+
     .card-container-base {
         .card-content {
             padding-top: 5px;
         }
 
-        .card-body{
-            .form{
+        .card-body {
+            .form {
                 margin-top: 0.1rem;
                 margin-bottom: 2rem;
             }
         }
     }
+
     .form-filter {
         .col {
             width: 100%;
@@ -74,6 +76,7 @@
             }
         }
     }
+
     #time-record-detail {
         overflow: auto;
         padding: 0;
@@ -185,5 +188,4 @@
             }
         }
     }
-    
 }

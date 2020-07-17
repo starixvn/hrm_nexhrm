@@ -107,7 +107,7 @@
               @media (min-width: 1900px) {
                 .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody td.rowfullname {
                   width: 315px; } }
-              @media (max-width: 601px) {
+              @media (max-width: 993px) {
                 .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody td.rowfullname {
                   width: auto; } }
           .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-header .datagrid-header-inner table tbody tr:first-child {
@@ -117,7 +117,7 @@
       .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
         width: 100%;
         height: 500px; }
-        @media (max-width: 601px) {
+        @media (max-width: 993px) {
           .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body {
             height: 517px; } }
         .datagrid-wrap .datagrid-view .datagrid-view1 .datagrid-body td {
@@ -150,7 +150,7 @@
         @media (min-width: 1900px) {
           .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
             width: 1067px; } }
-        @media (max-width: 601px) {
+        @media (max-width: 993px) {
           .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header {
             width: auto; } }
         .datagrid-wrap .datagrid-view .datagrid-view2 .datagrid-header .datagrid-header-inner {
@@ -212,7 +212,7 @@
   visibility: visible;
   margin-top: 8px; }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   #list-timesheet {
     overflow: auto; }
   .my-attendance .card-content {

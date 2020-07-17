@@ -24,7 +24,7 @@ table.table-custom tr td.col-edit .action-cancel {
   .jobTitle:focus {
     border-bottom: 1px solid #1d79ac; }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   .form .form-input {
     padding: 0 8px; }
   table.table-custom tr th.col-sorter {

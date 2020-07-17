@@ -30,7 +30,7 @@
 .sub-avatar {
   display: none; }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 993px) {
   .sub-avatar {
     display: block; }
   .card-container-base .card-content {

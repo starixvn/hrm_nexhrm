@@ -2,7 +2,7 @@
 @import "../Common/utils/mixins";
 // update css mobile
 
-@media only screen and (max-width: $small-screen-up) {
+@media only screen and (max-width: $medium-screen-up) {
     .card-container-base {
         .card-content {
             padding-top: .5rem;
