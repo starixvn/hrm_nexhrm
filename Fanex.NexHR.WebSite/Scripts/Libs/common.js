@@ -617,7 +617,7 @@ function zeroPrefix(value) {
 }
 
 function floatThead(el) {
-    var heightHeader = $('header').outerHeight(true);
+    var heightHeader = $('header nav.right').outerHeight(false);
     $(el).floatThead({
         top: heightHeader,
         zIndex: 888,
