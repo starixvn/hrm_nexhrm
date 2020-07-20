@@ -7,7 +7,7 @@
     using Fanex.NexHR.Services.Interfaces;
     using Newtonsoft.Json;
 
-    public class HangFireService : BaseService, IHangFireService
+    public class MessageCategoryLogService : BaseService, IMessageCategoryLogService
     {
         public async Task<bool> ObjectIsChangedOrNotExists(MessageCategory categoryId, object value)
         {

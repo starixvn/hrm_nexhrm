@@ -1,15 +1,15 @@
-ALTER PROCEDURE [dbo].[NexHangfire_GetJsonObjectByCategoryId]
+ALTER PROCEDURE [dbo].[MessageCategoryLog_GetJsonObjectByCategoryId]
 	@categoryId INT
 AS
 /*
 Created: 20200708Merlin.Le
 Task: Get Json object by category id
-DB: NexHRM & NexHangfire
+DB: NexHRM
 */
 BEGIN
 	SET NOCOUNT ON;
 
 	SELECT l.JsonObject
-	FROM [NexHangfire].[dbo].[CustomLog] AS l WITH (NOLOCK)
+	FROM [dbo].[MessageCategoryLog] AS l WITH (NOLOCK)
 	WHERE l.MessageCategory = @categoryId
 END

@@ -9,7 +9,7 @@
 
         public string JsonObject { get; set; }
 
-        public override string GetSettingKey() => "NexHangfire_UpdateJsonObject";
+        public override string GetSettingKey() => "MessageCategoryLog_UpdateJsonObject";
 
         public override bool IsValid() => CategoryId > 0;
     }

@@ -11,8 +11,8 @@
     [JwtAuthentication]
     public class ReminderController : ApiController
     {
-        private readonly MailBirthdayAndFirstWorkingdayReminderService _mailReminderService;
-        private readonly IBotAutoJobService _botService;
+        private readonly MailBirthdayAndFirstWorkingdayReminderService mailReminderService;
+        private readonly IBotAutoJobService botService;
 
         public ReminderController() : this(null, null)
         {
@@ -23,21 +23,21 @@
             IBotAutoJobService botService
         )
         {
-            _mailReminderService = mailReminderService ?? new MailBirthdayAndFirstWorkingdayReminderService();
-            _botService = botService ?? new BotMissingCheckInCheckOutReminderSerivce();
+            this.mailReminderService = mailReminderService ?? new MailBirthdayAndFirstWorkingdayReminderService();
+            this.botService = botService ?? new BotMissingCheckInCheckOutReminderSerivce();
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> BirthdayAndFirstWorkingday()
         {
-            var result = await _mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
+            var result = await mailReminderService.ReminderBirthdayAndFirstWorkingday().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> MissingCheckInCheckOut()
         {
-            var result = await _botService.SendMessageAsync().ConfigureAwait(false);
+            var result = await botService.SendMessageAsync().ConfigureAwait(false);
             return Ok(result);
         }
     }

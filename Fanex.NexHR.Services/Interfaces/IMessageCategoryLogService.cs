@@ -4,7 +4,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
 
-    public interface IHangFireService
+    public interface IMessageCategoryLogService
     {
         Task<bool> ObjectIsChangedOrNotExists(MessageCategory categoryId, object value);
 

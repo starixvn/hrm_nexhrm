@@ -10,7 +10,7 @@
     [JwtAuthentication]
     public class LateInEarlyOutController : ApiController
     {
-        private readonly IBotLateInLateOutAutoJobService _botService;
+        private readonly IBotLateInLateOutAutoJobService botService;
 
         public LateInEarlyOutController() : this(null)
         {
@@ -20,27 +20,27 @@
             IBotLateInLateOutAutoJobService botService
         )
         {
-            _botService = botService ?? new BotLateInEarlyOutViolateOnMonthWarningSerivce();
+            this.botService = botService ?? new BotLateInEarlyOutViolateOnMonthWarningSerivce();
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> LateInEarlyOutViolateOnMonth()
         {
-            var result = await _botService.SendMessageViolateOnMonthAsync().ConfigureAwait(false);
+            var result = await botService.SendMessageViolateOnMonthAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> ViolateDiscipline()
         {
-            var result = await _botService.SendMessageViolateDisciplineAsync().ConfigureAwait(false);
+            var result = await botService.SendMessageViolateDisciplineAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> Deduct()
         {
-            var result = await _botService.SendMessageDeductAsync().ConfigureAwait(false);
+            var result = await botService.SendMessageDeductAsync().ConfigureAwait(false);
             return Ok(result);
         }
     }

@@ -7,7 +7,7 @@
     {
         public MessageCategory CategoryId { get; set; }
 
-        public override string GetSettingKey() => "NexHangfire_GetJsonObjectByCategoryId";
+        public override string GetSettingKey() => "MessageCategoryLog_GetJsonObjectByCategoryId";
 
         public override bool IsValid() => CategoryId > 0;
     }

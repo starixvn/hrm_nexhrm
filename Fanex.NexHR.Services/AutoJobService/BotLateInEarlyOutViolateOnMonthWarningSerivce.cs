@@ -22,23 +22,23 @@
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-        private readonly IHangFireService _hangFireService;
-        private readonly INexbotService _nexbotService;
-        private readonly ILateInEarlyOutService _lateInEarlyOutService;
+        private readonly IMessageCategoryLogService messageCategoryLog;
+        private readonly INexbotService nexbotService;
+        private readonly ILateInEarlyOutService lateInEarlyOutService;
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce() : this(null, null, null)
         {
         }
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
-            IHangFireService hangFireService,
+            IMessageCategoryLogService messageCategoryLog,
             INexbotService nexbotService,
             ILateInEarlyOutService lateInEarlyOutService
         )
         {
-            _hangFireService = hangFireService ?? new HangFireService();
-            _nexbotService = nexbotService ?? new NexbotService();
-            _lateInEarlyOutService = lateInEarlyOutService ?? new LateInEarlyOutService();
+            this.messageCategoryLog = messageCategoryLog ?? new MessageCategoryLogService();
+            this.nexbotService = nexbotService ?? new NexbotService();
+            this.lateInEarlyOutService = lateInEarlyOutService ?? new LateInEarlyOutService();
         }
 
         public async Task<CommandResult> SendMessageViolateOnMonthAsync()
@@ -50,17 +50,17 @@
                 Year = DateTime.Now.Year
             };
 
-            var violaters = await _lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
+            var violaters = await lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
             if (violaters.Any())
             {
-                var isChange = await _hangFireService.ObjectIsChangedOrNotExists(MessageCategory.LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
+                var isChange = await messageCategoryLog.ObjectIsChangedOrNotExists(MessageCategory.LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
 
                 if (isChange)
                 {
                     result.Code = 1;
                     await SendMessageViolateOnMonthToEmployees(violaters.Where(v => !string.IsNullOrWhiteSpace(v.ConversationId))).ConfigureAwait(false);
                     await SendMessageViolateOnMonthToRegisterConversation(violaters.Where(v => v.TimeOnMonth >= ViolatedTime)).ConfigureAwait(false);
-                    result = await _hangFireService.UpdateJsonObject(MessageCategory.LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
+                    result = await messageCategoryLog.UpdateJsonObject(MessageCategory.LateInEarlyOutViolateInMonth, violaters).ConfigureAwait(false);
                 }
             }
 
@@ -79,16 +79,16 @@
                 ToDate = toDate
             };
 
-            var violaters = await _lateInEarlyOutService.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
+            var violaters = await lateInEarlyOutService.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
 
             if (violaters.Any())
             {
-                bool isChangedObject = await _hangFireService.ObjectIsChangedOrNotExists(MessageCategory.ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
+                bool isChangedObject = await messageCategoryLog.ObjectIsChangedOrNotExists(MessageCategory.ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
                 if (isChangedObject)
                 {
                     result.Code = 1;
                     await SendMessageViolateDisciplineToGroup(violaters, fromDate, toDate).ConfigureAwait(false);
-                    result = await _hangFireService.UpdateJsonObject(MessageCategory.ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
+                    result = await messageCategoryLog.UpdateJsonObject(MessageCategory.ViolateLateInEarlyOutDiscipline, violaters).ConfigureAwait(false);
                 }
             }
 
@@ -99,11 +99,11 @@
         {
             var result = new CommandResult { Code = 0 };
             var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
-            var deductedEmployees = await _lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
+            var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             if (deductedEmployees.Any())
             {
-                var conversations = await _nexbotService.GetRegisteredConversation(MessageCategory.DeductLateInEarlyOut).ConfigureAwait(false);
+                var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.DeductLateInEarlyOut).ConfigureAwait(false);
                 if (conversations.Any())
                 {
                     var message = GenerateMessageDeduct(deductedEmployees);
@@ -118,7 +118,7 @@
         {
             if (violaters.Any())
             {
-                string jsonObject = await _hangFireService.GetJsonObject(MessageCategory.LateInEarlyOutViolateInMonth).ConfigureAwait(false);
+                string jsonObject = await messageCategoryLog.GetJsonObject(MessageCategory.LateInEarlyOutViolateInMonth).ConfigureAwait(false);
                 await SendMessageViolateOnMonthAfterChecking(jsonObject, violaters).ConfigureAwait(false);
             }
         }
@@ -133,7 +133,7 @@
                     if (oldViolaters.Any(o => o.EmpId == violater.EmpId && violater.TimeOnMonth != o.TimeOnMonth))
                     {
                         string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
-                        await _nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
+                        await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
                     }
                 }
             }
@@ -142,7 +142,7 @@
                 foreach (var violater in violaters)
                 {
                     string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
-                    await _nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
                 }
             }
         }
@@ -172,13 +172,13 @@
 
         private async Task SendMessageViolateOnMonthToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            var conversations = await _nexbotService.GetRegisteredConversation(MessageCategory.LateInEarlyOutViolateInMonth).ConfigureAwait(false);
+            var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.LateInEarlyOutViolateInMonth).ConfigureAwait(false);
             if (conversations.Any() && violaters.Any())
             {
                 string message = GenerateViolateOnMonthGroupMessage(violaters);
                 foreach (var conversation in conversations)
                 {
-                    await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
                 }
             }
         }
@@ -210,7 +210,7 @@
 
         private async Task SendMessageViolateDisciplineToGroup(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
         {
-            var conversations = await _nexbotService.GetRegisteredConversation(MessageCategory.ViolateLateInEarlyOutDiscipline).ConfigureAwait(false);
+            var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.ViolateLateInEarlyOutDiscipline).ConfigureAwait(false);
 
             if (conversations.Any())
             {
@@ -218,7 +218,7 @@
 
                 foreach (var conversation in conversations)
                 {
-                    await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
                 }
             }
         }
@@ -255,7 +255,7 @@
             var result = false;
             foreach (var conversation in conversations)
             {
-                result = await _nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                result = await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
             }
 
             return new CommandResult { Code = result ? 0 : 1 };

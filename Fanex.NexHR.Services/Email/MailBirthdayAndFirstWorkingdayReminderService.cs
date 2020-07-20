@@ -12,19 +12,32 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Interfaces;
 
-    public class MailBirthdayAndFirstWorkingdayReminderService
+    public class MailBirthdayAndFirstWorkingdayReminderService : IMailBirthdayAndFirstWorkingdayReminderService
     {
         private const string FormatDate = "dd MMM, yyyy";
-        private static readonly EmailService EmailService = new EmailService();
-        private static readonly EmployeeService EmployeeService = new EmployeeService();
-        private static readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
-        private static readonly string EmailSd = ConfigurationManager.AppSettings["EmailSD"];
-        private static readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
-        private static readonly string EmailNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
-        private static readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
-        private static readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
-        private static bool _isReminderBirthdayAndFirstWorkingdaySuccess = true;
+        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
+        private readonly string EmailSd = ConfigurationManager.AppSettings["EmailSD"];
+        private readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
+        private readonly string EmailNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
+        private readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
+        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
+        private readonly IEmailService emailService;
+        private readonly IEmployeeService employeeService;
+        private bool isReminderBirthdayAndFirstWorkingdaySuccess = true;
+
+        public MailBirthdayAndFirstWorkingdayReminderService() : this(null, null)
+        {
+        }
+
+        public MailBirthdayAndFirstWorkingdayReminderService(
+            IEmailService emailService,
+            IEmployeeService employeeService)
+        {
+            this.emailService = emailService ?? new EmailService();
+            this.employeeService = employeeService ?? new EmployeeService();
+        }
 
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
         {
@@ -42,10 +55,10 @@
                 await SendMailBirthdayAndFirstWorkingDay(today.AddDays(secondDay)).ConfigureAwait(false);
             }
 
-            return new CommandResult { Code = _isReminderBirthdayAndFirstWorkingdaySuccess ? 0 : 1 };
+            return new CommandResult { Code = isReminderBirthdayAndFirstWorkingdaySuccess ? 0 : 1 };
         }
 
-        private static async Task SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
+        private async Task SendMailBirthdayAndFirstWorkingDay(DateTime forDate)
         {
             List<Employee> employeesBirthday = null;
             List<Employee> employeesFirstWorkingday = null;
@@ -54,7 +67,7 @@
                 OnDate = forDate
             };
 
-            var lstEmployee = await EmployeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
+            var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             if (lstEmployee != null)
             {
                 employeesBirthday = lstEmployee.EmployeeHasBirthday;
@@ -62,7 +75,7 @@
             }
             else
             {
-                _isReminderBirthdayAndFirstWorkingdaySuccess = false;
+                isReminderBirthdayAndFirstWorkingdaySuccess = false;
             }
 
             if (employeesBirthday != null && employeesBirthday.Any())
@@ -76,7 +89,7 @@
             }
         }
 
-        private static void SendmailReminderBirthday(IList<Employee> employeesBirthday)
+        private void SendmailReminderBirthday(IList<Employee> employeesBirthday)
         {
             var employees = string.Join(
                 Constants.BrTag,
@@ -90,7 +103,7 @@
                 employees,
                 CompanyMailSign);
 
-            EmailService.SendEmail(
+            emailService.SendEmail(
                         SenderEmail,
                         EmailSd + ";" + EmailGo + ";" + EmailNetwork,
                         null,
@@ -98,7 +111,7 @@
                         emailContent);
         }
 
-        private static void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday)
+        private void SendmailReminderFirstWorkingday(IList<Employee> employeesFirstWorkingday)
         {
             var employees = string.Join(
                 Constants.BrTag,
@@ -112,7 +125,7 @@
                 employees,
                 CompanyMailSign);
 
-            EmailService.SendEmail(
+            emailService.SendEmail(
                         SenderEmail,
                         EmailSd + ";" + EmailGo + ";" + EmailNetwork,
                         null,

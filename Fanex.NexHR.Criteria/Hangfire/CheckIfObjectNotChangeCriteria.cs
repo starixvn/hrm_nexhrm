@@ -9,7 +9,7 @@
 
         public string JsonObject { get; set; }
 
-        public override string GetSettingKey() => "NexHangfire_CheckIfObjectNotChange";
+        public override string GetSettingKey() => "MessageCategoryLog_CheckIfObjectNotChange";
 
         public override bool IsValid() => !string.IsNullOrWhiteSpace(JsonObject) && CategoryId > 0;
     }

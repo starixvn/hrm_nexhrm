@@ -17,8 +17,8 @@
         private const string CheckIn = "Check In";
         private const string CheckOut = "Check Out";
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-        private readonly IEmployeeService _employeeService;
-        private readonly INexbotService _nexbotService;
+        private readonly IEmployeeService employeeService;
+        private readonly INexbotService nexbotService;
         private readonly CommandResult Result = new CommandResult { Code = 0 };
 
         public BotMissingCheckInCheckOutReminderSerivce() : this(null, null)
@@ -30,13 +30,13 @@
             INexbotService nexbotService
         )
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _nexbotService = nexbotService ?? new NexbotService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.nexbotService = nexbotService ?? new NexbotService();
         }
 
         public async Task<CommandResult> SendMessageAsync()
         {
-            var missingCheckInOuts = await _employeeService.GetMissingCheckInOutEmployeeAsync().ConfigureAwait(false);
+            var missingCheckInOuts = await employeeService.GetMissingCheckInOutEmployeeAsync().ConfigureAwait(false);
             if (missingCheckInOuts.Any())
             {
                 await SendMessageToGroups(MessageCategory.MissingCheckInCheckOut, missingCheckInOuts).ConfigureAwait(false);
@@ -48,14 +48,14 @@
 
         private async Task SendMessageToGroups(MessageCategory categoryId, IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
         {
-            var conversationIds = await _nexbotService.GetRegisteredConversation(categoryId).ConfigureAwait(false);
+            var conversationIds = await nexbotService.GetRegisteredConversation(categoryId).ConfigureAwait(false);
             if (conversationIds.Any())
             {
                 string msg = GenerateGroupMessage(missingCheckInOuts);
 
                 foreach (var conversationId in conversationIds)
                 {
-                    var result = await _nexbotService.SendMessageAsync(conversationId, msg).ConfigureAwait(false);
+                    var result = await nexbotService.SendMessageAsync(conversationId, msg).ConfigureAwait(false);
                     if (!result)
                     {
                         Result.Code = 0;
@@ -96,7 +96,7 @@
             foreach (var employee in employees)
             {
                 var message = GenerateMessageForEmployee(employee);
-                var result = await _nexbotService.SendMessageAsync(employee.ConversationId, message).ConfigureAwait(false);
+                var result = await nexbotService.SendMessageAsync(employee.ConversationId, message).ConfigureAwait(false);
                 if (!result)
                 {
                     Result.Code = 0;

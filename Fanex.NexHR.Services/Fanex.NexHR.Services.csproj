@@ -161,7 +161,7 @@
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
-    <Compile Include="HangFireService.cs" />
+    <Compile Include="MessageCategoryLogService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
@@ -173,9 +173,10 @@
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\ICalendarService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
-    <Compile Include="Interfaces\IHangFireService.cs" />
+    <Compile Include="Interfaces\IMessageCategoryLogService.cs" />
     <Compile Include="Interfaces\IJobTitleService.cs" />
     <Compile Include="Interfaces\ILateInEarlyOutService.cs" />
+    <Compile Include="Interfaces\IMailBirthdayAndFirstWorkingdayReminderService.cs" />
     <Compile Include="Interfaces\INexbotService.cs" />
     <Compile Include="Interfaces\IHistoryWorkService.cs" />
     <Compile Include="Interfaces\IRedmineService.cs" />
