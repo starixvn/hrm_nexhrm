@@ -277,6 +277,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  and **Card**.
+        /// </summary>
+        public static string AndCardWarning {
+            get {
+                return ResourceManager.GetString("AndCardWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Annual.
         /// </summary>
         public static string Annual {
@@ -570,6 +579,15 @@ namespace Fanex.NexHR.Resources {
         public static string CardNo {
             get {
                 return ResourceManager.GetString("CardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to **Card**.
+        /// </summary>
+        public static string CardWarning {
+            get {
+                return ResourceManager.GetString("CardWarning", resourceCulture);
             }
         }
         
@@ -1596,6 +1614,15 @@ namespace Fanex.NexHR.Resources {
         public static string FingerprintIndex {
             get {
                 return ResourceManager.GetString("FingerprintIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fingerprint.
+        /// </summary>
+        public static string FingerprintWarning {
+            get {
+                return ResourceManager.GetString("FingerprintWarning", resourceCulture);
             }
         }
         

@@ -151,8 +151,10 @@
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="AuthService.cs" />
+    <Compile Include="AutoJobService\BioTasksService.cs" />
     <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
     <Compile Include="AutoJobService\BotMissingCheckInCheckOutReminderSerivce.cs" />
+    <Compile Include="AutoJobService\FogotLogtimeReminderService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
     <Compile Include="BioService.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IBioService.cs" />
+    <Compile Include="Interfaces\IBotBioTasksService.cs" />
     <Compile Include="Interfaces\IBotLateInLateOutAutoJobService.cs" />
     <Compile Include="Interfaces\IBotAutoJobService.cs" />
     <Compile Include="Interfaces\ICommandService.cs" />
@@ -174,6 +177,8 @@
     <Compile Include="Interfaces\ICalendarService.cs" />
     <Compile Include="Interfaces\IExtensionNoService.cs" />
     <Compile Include="Interfaces\IMessageCategoryLogService.cs" />
+    <Compile Include="Interfaces\IBotFogotLogtimeReminderService.cs" />
+    <Compile Include="Interfaces\IHangFireService.cs" />
     <Compile Include="Interfaces\IJobTitleService.cs" />
     <Compile Include="Interfaces\ILateInEarlyOutService.cs" />
     <Compile Include="Interfaces\IMailBirthdayAndFirstWorkingdayReminderService.cs" />

@@ -376,4 +376,46 @@ Thanks</value>
   <data name="MissingJwtToken" xml:space="preserve">
     <value>Missing Jwt Token</value>
   </data>
+  <data name="AccessLinkBioFingerprintAndCard" xml:space="preserve">
+    <value>Please, access {0} to review and take appropriate action. Thanks</value>
+  </data>
+  <data name="AnounceBioChangeTime" xml:space="preserve">
+    <value>Hi All, There is/are {0} change(s) of time: {1}</value>
+  </data>
+  <data name="AnounceDeviceInjectedBioSystem" xml:space="preserve">
+    <value>Hi All, There is/are {0} device(s) injected into the BIO system: {1}</value>
+  </data>
+  <data name="AnounceNewBioFingerprintAndCard" xml:space="preserve">
+    <value>Hi All, There is/are {0} new registered fingerprint(s) and/or card(s) waiting to be approved: {1}</value>
+  </data>
+  <data name="DeviceBioChangeTime" xml:space="preserve">
+    <value>_- Device Id: {0}. Device Name: {1}. Time Changed: {2}._ {3}</value>
+  </data>
+  <data name="DeviceInjectedBioSystem" xml:space="preserve">
+    <value>_- Device Id: {0}. Device Name: {1}_ {2}</value>
+  </data>
+  <data name="EmployeeFingerprintAndCard" xml:space="preserve">
+    <value>_- {0} ({1})'s {2}._ {3}</value>
+  </data>
+  <data name="Thanks" xml:space="preserve">
+    <value>Please review this. Thanks</value>
+  </data>
+  <data name="ThankReview" xml:space="preserve">
+    <value>Please, review the change(s). Thanks</value>
+  </data>
+  <data name="AnounceFogotLogtime" xml:space="preserve">
+    <value>Hi All. There is/are {0} employee(s) forgot log time on Nexdev: {1}</value>
+  </data>
+  <data name="EmployeeFogotLogtime" xml:space="preserve">
+    <value>_- {0} ({1}) forgot log time on {2}_ {3}</value>
+  </data>
+  <data name="FogotLogtime" xml:space="preserve">
+    <value>You forgot log time on: {0}</value>
+  </data>
+  <data name="RemindLogtime" xml:space="preserve">
+    <value>Please log time on {0} or you can log time directly on {1} Dashboard. Thanks</value>
+  </data>
+  <data name="ThankNotice" xml:space="preserve">
+    <value>Please notice that. Thanks</value>
+  </data>
 </root>

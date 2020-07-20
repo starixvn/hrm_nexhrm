@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[Nexbot_GetRegisteredConversation]
+CREATE PROCEDURE [dbo].[Nexbot_GetRegisteredConversation]
 	@CategoryId INT
 AS
 /*

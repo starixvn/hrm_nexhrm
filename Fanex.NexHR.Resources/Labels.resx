@@ -1602,4 +1602,13 @@
   <data name="ForInsurance" xml:space="preserve">
     <value>For Insurance</value>
   </data>
+  <data name="AndCardWarning" xml:space="preserve">
+    <value> and **Card**</value>
+  </data>
+  <data name="CardWarning" xml:space="preserve">
+    <value>**Card**</value>
+  </data>
+  <data name="FingerprintWarning" xml:space="preserve">
+    <value>Fingerprint</value>
+  </data>
 </root>

@@ -70,6 +70,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please, access {0} to review and take appropriate action. Thanks.
+        /// </summary>
+        public static string AccessLinkBioFingerprintAndCard {
+            get {
+                return ResourceManager.GetString("AccessLinkBioFingerprintAndCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please access {0}/report/attendance to view more details. Thanks.
         /// </summary>
         public static string AccessLinkToViewMoreCheckInCheckOut {
@@ -111,6 +120,42 @@ namespace Fanex.NexHR.Resources {
         public static string AdjustSuccessfully {
             get {
                 return ResourceManager.GetString("AdjustSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All, There is/are {0} change(s) of time: {1}.
+        /// </summary>
+        public static string AnounceBioChangeTime {
+            get {
+                return ResourceManager.GetString("AnounceBioChangeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All, There is/are {0} device(s) injected into the BIO system: {1}.
+        /// </summary>
+        public static string AnounceDeviceInjectedBioSystem {
+            get {
+                return ResourceManager.GetString("AnounceDeviceInjectedBioSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All. There is/are {0} employee(s) forgot log time on Nexdev: {1}.
+        /// </summary>
+        public static string AnounceFogotLogtime {
+            get {
+                return ResourceManager.GetString("AnounceFogotLogtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All, There is/are {0} new registered fingerprint(s) and/or card(s) waiting to be approved: {1}.
+        /// </summary>
+        public static string AnounceNewBioFingerprintAndCard {
+            get {
+                return ResourceManager.GetString("AnounceNewBioFingerprintAndCard", resourceCulture);
             }
         }
         
@@ -250,6 +295,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _- Device Id: {0}. Device Name: {1}. Time Changed: {2}._ {3}.
+        /// </summary>
+        public static string DeviceBioChangeTime {
+            get {
+                return ResourceManager.GetString("DeviceBioChangeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- Device Id: {0}. Device Name: {1}_ {2}.
+        /// </summary>
+        public static string DeviceInjectedBioSystem {
+            get {
+                return ResourceManager.GetString("DeviceInjectedBioSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate employee code.
         /// </summary>
         public static string DuplicateEmployeeCode {
@@ -264,6 +327,24 @@ namespace Fanex.NexHR.Resources {
         public static string DuplicateTeamCode {
             get {
                 return ResourceManager.GetString("DuplicateTeamCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- {0} ({1})&apos;s {2}._ {3}.
+        /// </summary>
+        public static string EmployeeFingerprintAndCard {
+            get {
+                return ResourceManager.GetString("EmployeeFingerprintAndCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- {0} ({1}) forgot log time on {2}_ {3}.
+        /// </summary>
+        public static string EmployeeFogotLogtime {
+            get {
+                return ResourceManager.GetString("EmployeeFogotLogtime", resourceCulture);
             }
         }
         
@@ -336,6 +417,15 @@ namespace Fanex.NexHR.Resources {
         public static string ErrorTryAgain {
             get {
                 return ResourceManager.GetString("ErrorTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You forgot log time on: {0}.
+        /// </summary>
+        public static string FogotLogtime {
+            get {
+                return ResourceManager.GetString("FogotLogtime", resourceCulture);
             }
         }
         
@@ -574,6 +664,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please log time on {0} or you can log time directly on {1} Dashboard. Thanks.
+        /// </summary>
+        public static string RemindLogtime {
+            get {
+                return ResourceManager.GetString("RemindLogtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dear {0},
         ///You have just reached {1} working hours today. 
         ///
@@ -709,6 +808,33 @@ namespace Fanex.NexHR.Resources {
         public static string TeamUpdated {
             get {
                 return ResourceManager.GetString("TeamUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please notice that. Thanks.
+        /// </summary>
+        public static string ThankNotice {
+            get {
+                return ResourceManager.GetString("ThankNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, review the change(s). Thanks.
+        /// </summary>
+        public static string ThankReview {
+            get {
+                return ResourceManager.GetString("ThankReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please review this. Thanks.
+        /// </summary>
+        public static string Thanks {
+            get {
+                return ResourceManager.GetString("Thanks", resourceCulture);
             }
         }
         

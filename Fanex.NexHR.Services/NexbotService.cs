@@ -10,7 +10,6 @@
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
-    using Fanex.NexHR.Criteria.Bio;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Interfaces;
