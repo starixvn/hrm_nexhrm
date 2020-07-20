@@ -60,21 +60,19 @@
       .card-leave-detail .form .form-input .select--xs, .card-leave-detail .form .form-input .input--xs {
         width: 5.9rem; }
       .card-leave-detail .form .form-input .col:nth-child(2) {
-        width: 112px; }
+        margin-right: 2rem; }
       .card-leave-detail .form .form-input .col:nth-child(3) {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         padding: 0;
-        flex: 1;
-        float: none;
         -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between; }
+        -ms-flex-pack: justify; }
       .card-leave-detail .form .form-input input[type="text"] {
         box-shadow: none; }
       .card-leave-detail .form .form-input .btn-submit, .card-leave-detail .form .form-input #btn-submit {
         margin: 0;
+        margin-right: 1.2rem;
         font-size: 1.2rem;
         padding: 0.1rem 1.5rem;
         display: block;
@@ -82,11 +80,10 @@
         line-height: 3.2rem;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16); }
       .card-leave-detail .form .form-input .btn-request {
-        padding: 0.1rem 0;
+        padding: 0.1rem 1rem;
         font-size: 1.2rem;
         height: 3.2rem;
         line-height: 3.2rem;
-        width: 52%;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
         text-align: center; }
   .card-container-base.scheduledmessage .cover-table {
