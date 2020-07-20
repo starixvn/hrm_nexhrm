@@ -30,6 +30,7 @@
   width: 41rem;
   height: 21rem;
   overflow: auto;
+  -webkit-overflow-scrolling: touch !important;
   border: solid .1rem #ccc; }
   .subteam [type="checkbox"] + label {
     height: 35px;
