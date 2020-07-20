@@ -330,7 +330,8 @@
           .form.form-calendar-working .form-input .col.col-btn .btn-request {
             margin: 1.6rem 1rem 0 0; }
     .form.form-calendar-add {
-      padding: 0 15px !important; }
+      padding: 0 15px !important;
+      margin-bottom: 0 !important; }
       .form.form-calendar-add .form-input {
         margin-bottom: 11px; }
         .form.form-calendar-add .form-input .left:nth-child(2) {
@@ -374,7 +375,7 @@
     .over-auto.p-x--s {
       padding: 0; }
   .full-view-width {
-    width: 100vw !important; }
+    width: 90vw !important; }
   .cover-form-mb {
     padding: 0 0.8rem; }
     .cover-form-mb.table-report-attendance {

@@ -375,10 +375,6 @@ input.readonly-input {
       width: 50%;
       padding: 0 .4rem;
       margin-top: 8px; }
-      .row .row-worktime .card-container-base:nth-child(3) {
-        order: 4; }
-      .row .row-worktime .card-container-base:nth-child(4) {
-        order: 3; }
       .row .row-worktime .card-container-base .card {
         margin: 0; }
         .row .row-worktime .card-container-base .card .slide img {
@@ -414,6 +410,21 @@ input.readonly-input {
       .row .row-worktime .card-container-base .col.s3, .row .row-worktime .card-container-base .col.s9 {
         width: 100%;
         text-align: center; } }
+
+@media only screen and (max-width: 993px) {
+  input[type=text]:focus,
+  input[type=password]:focus,
+  input[type=email]:focus,
+  input[type=url]:focus,
+  input[type=time]:focus,
+  input[type=date]:focus,
+  input[type=datetime-local]:focus,
+  input[type=tel]:focus,
+  input[type=number]:focus,
+  input[type=search]:focus,
+  select:focus,
+  textarea:focus {
+    font-size: 16px !important; } }
 
 a:active, a:focus {
   outline: none; }
