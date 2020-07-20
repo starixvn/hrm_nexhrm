@@ -657,5 +657,14 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("UsedNEXDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user does not exists.
+        /// </summary>
+        public static string UserNotExists {
+            get {
+                return ResourceManager.GetString("UserNotExists", resourceCulture);
+            }
+        }
     }
 }

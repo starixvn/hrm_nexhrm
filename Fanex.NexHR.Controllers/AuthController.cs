@@ -45,11 +45,18 @@
                     {
                         string domainUsername = AppSetting.DomainName + model.UserName;
                         var employee = authService.GetEmployeeByDomain(domainUsername);
-                        var employeeSetting = authService.GetEmployeeSetting(employee.Id);
-                        sessionService.CurrentEmployee = employee;
-                        sessionService.CurrentUserSetting = employeeSetting;
-                        FormsAuthentication.SetAuthCookie(domainUsername, model.RememberMe);
-                        return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : (ActionResult)RedirectToAction("Index", "Dashboard");
+                        if (employee != null)
+                        {
+                            var employeeSetting = authService.GetEmployeeSetting(employee.Id);
+                            sessionService.CurrentEmployee = employee;
+                            sessionService.CurrentUserSetting = employeeSetting;
+                            FormsAuthentication.SetAuthCookie(domainUsername, model.RememberMe);
+                            return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : (ActionResult)RedirectToAction("Index", "Dashboard");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("errorSummary", Messages.UserNotExists);
+                        }
                     }
 
                     ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);

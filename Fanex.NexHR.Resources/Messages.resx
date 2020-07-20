@@ -319,4 +319,7 @@ Thanks</value>
   <data name="ReminderHappyBirthdayTo" xml:space="preserve">
     <value>Reminder: Happy birthday to {0}</value>
   </data>
+  <data name="UserNotExists" xml:space="preserve">
+    <value>The user does not exists</value>
+  </data>
 </root>
