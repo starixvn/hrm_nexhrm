@@ -606,19 +606,20 @@ input.readonly-input {
     }
 }
 @media only screen and (max-width: $medium-screen-up) {
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    input[type=url],
-    input[type=time],
-    input[type=date],
-    input[type=datetime-local],
-    input[type=tel],
-    input[type=number],
-    input[type=search],
-    select,
-    textarea {
-        &:focus {
+    .form {
+        input[type=text],
+        input[type=password],
+        input[type=email],
+        input[type=url],
+        input[type=time],
+        input[type=date],
+        input[type=datetime-local],
+        input[type=tel],
+        input[type=number],
+        input[type=search],
+        select,
+        textarea,
+        .dropdown-content li span{
             font-size: 16px !important;
         }
     }

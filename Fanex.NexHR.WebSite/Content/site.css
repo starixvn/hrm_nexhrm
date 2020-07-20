@@ -412,18 +412,19 @@ input.readonly-input {
         text-align: center; } }
 
 @media only screen and (max-width: 993px) {
-  input[type=text]:focus,
-  input[type=password]:focus,
-  input[type=email]:focus,
-  input[type=url]:focus,
-  input[type=time]:focus,
-  input[type=date]:focus,
-  input[type=datetime-local]:focus,
-  input[type=tel]:focus,
-  input[type=number]:focus,
-  input[type=search]:focus,
-  select:focus,
-  textarea:focus {
+  .form input[type=text],
+  .form input[type=password],
+  .form input[type=email],
+  .form input[type=url],
+  .form input[type=time],
+  .form input[type=date],
+  .form input[type=datetime-local],
+  .form input[type=tel],
+  .form input[type=number],
+  .form input[type=search],
+  .form select,
+  .form textarea,
+  .form .dropdown-content li span {
     font-size: 16px !important; } }
 
 a:active, a:focus {
