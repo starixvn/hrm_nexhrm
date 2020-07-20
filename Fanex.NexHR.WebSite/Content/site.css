@@ -1118,11 +1118,11 @@ input#fileName::-webkit-file-upload-button {
     .search_bar.focused label {
       color: #303f4d; }
 
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   nav .right.nav-wrapper .box-search .icon-close, nav .right.nav-wrapper .box-search .icon-open {
     display: none; } }
 
-@media only screen and (max-width: 993px) {
+@media only screen and (max-width: 1025px) {
   .nav-wrapper .drop-down {
     display: none; }
   .navbar-fixed .button-collapse.active .icon-close {
@@ -1133,30 +1133,28 @@ input#fileName::-webkit-file-upload-button {
     display: block; }
   .navbar-fixed .button-collapse .icon-close {
     display: none; }
-  #nav-mobile.side-nav {
-    width: 300px; }
-    #nav-mobile.side-nav.fixed {
-      margin-top: 57px; }
-    #nav-mobile.side-nav li ul.collapsible {
-      padding: 18px 0; }
-      #nav-mobile.side-nav li ul.collapsible .collapsible-header {
-        padding-left: 16px;
-        height: auto; }
-        #nav-mobile.side-nav li ul.collapsible .collapsible-header i {
-          margin-top: -3px;
-          margin-right: 7px !important; }
-      #nav-mobile.side-nav li ul.collapsible [class*="mdi"] {
-        font-size: 23px;
-        line-height: 38px;
-        margin-left: 17px; }
-      #nav-mobile.side-nav li ul.collapsible a {
-        line-height: 38px;
-        padding: 0 15px 0 9px;
-        vertical-align: middle; }
-      #nav-mobile.side-nav li ul.collapsible .collapsible-body {
-        padding: 4px 0 0 0; }
-      #nav-mobile.side-nav li ul.collapsible ul li {
-        margin-bottom: 1px; }
+  #nav-mobile.side-nav.fixed {
+    margin-top: 57px; }
+  #nav-mobile.side-nav li ul.collapsible {
+    padding: 18px 0; }
+    #nav-mobile.side-nav li ul.collapsible .collapsible-header {
+      padding-left: 16px;
+      height: auto; }
+      #nav-mobile.side-nav li ul.collapsible .collapsible-header i {
+        margin-top: -3px;
+        margin-right: 7px !important; }
+    #nav-mobile.side-nav li ul.collapsible [class*="mdi"] {
+      font-size: 23px;
+      line-height: 38px;
+      margin-left: 17px; }
+    #nav-mobile.side-nav li ul.collapsible a {
+      line-height: 38px;
+      padding: 0 15px 0 9px;
+      vertical-align: middle; }
+    #nav-mobile.side-nav li ul.collapsible .collapsible-body {
+      padding: 4px 0 0 0; }
+    #nav-mobile.side-nav li ul.collapsible ul li {
+      margin-bottom: 1px; }
   .navbar-fixed .top-nav {
     padding: 0;
     font-size: 2.6rem;

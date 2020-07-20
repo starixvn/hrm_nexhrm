@@ -1894,7 +1894,7 @@ $(document).ready(function(){
   var methods = {
     init : function(options) {
       var defaults = {
-        menuWidth: 300,
+        menuWidth: 256,
         edge: 'left',
         closeOnClick: false
 
@@ -1906,7 +1906,7 @@ $(document).ready(function(){
         var menu_id = $("#"+ $this.attr('data-activates'));
 
         // Set to width
-          if (options.menuWidth != 300) {
+          if (options.menuWidth != 256) {
           menu_id.css('width', options.menuWidth);
         }
 

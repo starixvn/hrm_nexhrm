@@ -235,7 +235,7 @@
     }
 }
 // update css mobile
-@media only screen and (min-width: $medium-screen-up) {
+@media only screen and (min-width: $large-extra-screen-up) {
     nav {
         .right.nav-wrapper {
             .box-search {
@@ -246,7 +246,7 @@
         }
     }
 }
-@media only screen and (max-width: $medium-screen-up) {
+@media only screen and (max-width: $large-extra-screen-up) {
     .nav-wrapper {
         .drop-down {
             display: none;
@@ -277,7 +277,6 @@
 
     #nav-mobile {
         &.side-nav {
-            width: 300px;
 
             &.fixed {
                 margin-top: 57px;

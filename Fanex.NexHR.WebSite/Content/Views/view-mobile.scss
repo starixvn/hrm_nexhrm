@@ -2,11 +2,10 @@
 @import "../Common/utils/mixins";
 
 //update css table-responsive
+.over-auto {
+    overflow: auto;
+}
 @media only screen and (max-width: $large-extra-screen-up) {
-
-    .over-auto {
-        overflow: auto;
-    }
 
     &.table-team {
         table.table.responsive-table {
@@ -234,21 +233,33 @@
                     &.col-btn-submit-excel {
                         display: flex;
 
+                        [class*="btn"]:nth-child(1) {
+                            margin-left: 0 !important;
+                            margin-right: 12px !important;
+                        }
+
                         .btn-submit {
+                            display: inline-flex;
+                            align-items: center;
+                            height: auto;
                             margin-top: 0;
                             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
                         }
 
                         .btn-export-excel {
-                            height: 3.2rem;
+                            display: inline-flex;
+                            align-items: center;
+                            height: auto;
                             margin-left: 10px;
                             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
                         }
 
                         .btn-request {
-                            height: 3.2rem;
+                            display: inline-flex;
+                            align-items: center;
+                            height: auto;
                             margin-top: 0;
-                            margin-left: 1.6rem;
+                            margin-left: 1rem;
                         }
                     }
 
@@ -640,6 +651,7 @@
 
         &.form-calendar-add {
             padding: 0 15px !important;
+
             .form-input {
                 margin-bottom: 11px;
 
