@@ -155,8 +155,6 @@
           .form.form-stl-table .form-input .col.btn-none-margin .btn-submit {
             width: auto;
             height: 30px; }
-        .form.form-stl-table .form-input .col.btn-submit-none-margin .btn-submit {
-          margin: 0 !important; }
       .form.form-stl-table .form-input textarea {
         padding-top: 5px;
         min-height: 50px; }
