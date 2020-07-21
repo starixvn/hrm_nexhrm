@@ -101,17 +101,18 @@
                                 </div>
                             </div>
 
-                            <div class="row form-input">
-                                <div class="col col-btn">
+                            <div class="row form-input line-button">
+                                <div class="col">
                                     <div class="left label--l">
                                         &nbsp;
                                         @Html.Hidden("EmpId")
                                         @Html.Hidden("IsAddForm", true)
                                     </div>
-                                    <a class="btn-back waves-effect waves-light"
-                                       href="@Url.Action("Index","ExtensionNo")">@Labels.Cancel</a>
-                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
-
+                                    <div class="left">
+                                        <a class="btn-back waves-effect waves-light"
+                                           href="@Url.Action("Index","ExtensionNo")">@Labels.Cancel</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
+                                    </div>
                                 </div>
                             </div>
                         }
