@@ -147,10 +147,12 @@
                                 </div>
                             </div>
                             <div class="row form-input line-button">
-                                <div class="left label--xl">&nbsp;</div>
-                                <div class="left">
-                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
-                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
+                                <div class="col">
+                                    <div class="left label--xl">&nbsp;</div>
+                                    <div class="left">
+                                        <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                        <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
+                                    </div>
                                 </div>
                             </div>
                             @Html.HiddenFor(model => model.ForRequest)
