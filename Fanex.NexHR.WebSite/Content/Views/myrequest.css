@@ -36,6 +36,9 @@
         .tipsy.leave-request .tipsy-inner ul ul li {
           list-style-type: circle; }
 
+.form-input .col .left.block-time {
+  display: flex; }
+
 @media only screen and (max-width: 993px) {
   [type="radio"]:not(:checked) + label:before {
     border: 2px solid #989898; }
@@ -139,32 +142,26 @@
               background-color: #828282; }
             .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:before, .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"]:not(:checked) + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"]:not(:checked) + label:before {
               border-color: #828282; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.block-time .datepicker-button, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .datepicker-button {
-            width: 100%; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) {
-            width: 20px; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon {
-              text-align: center;
+          .card-container-base.my-request .list-item-form .form-input .col .left.block-time, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time {
+            display: block; }
+            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .datepicker-button, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .datepicker-button {
               width: 100%; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) {
-            width: 40px; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input {
-              height: 3.2rem;
-              margin-bottom: 1rem; }
+            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) {
+              width: 20px; }
+              .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon {
+                text-align: center;
+                width: 100%; }
+            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) {
+              width: 40px; }
+              .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input {
+                height: 3.2rem;
+                margin-bottom: 1rem; }
         .card-container-base.my-request .list-item-form .form-input .col .datepicker-button i.calendar-icon, .card-container-base.my-check-in-out .list-item-form .form-input .col .datepicker-button i.calendar-icon {
           right: .8rem;
           color: #828282;
           margin-right: 0; }
         .card-container-base.my-request .list-item-form .form-input .col .select-wrapper input.select-dropdown, .card-container-base.my-check-in-out .list-item-form .form-input .col .select-wrapper input.select-dropdown {
           margin-bottom: 1.2rem; }
-  .card-container-base.my-request .form-update-checkinout .form-input .col .left, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left {
-    display: flex; }
-    .card-container-base.my-request .form-update-checkinout .form-input .col .left[class*="label"], .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left[class*="label"] {
-      width: 10rem; }
-    .card-container-base.my-request .form-update-checkinout .form-input .col .left.datetime .datepicker-button .calendar-icon, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left.datetime .datepicker-button .calendar-icon {
-      margin: 0;
-      right: 4px;
-      top: -1px;
-      color: #989898; }
-    .card-container-base.my-request .form-update-checkinout .form-input .col .left.datetime .col.p-0, .card-container-base.my-check-in-out .form-update-checkinout .form-input .col .left.datetime .col.p-0 {
-      margin: 8px 2px 0 -5px; } }
+  .card-container-base.my-request .form-update .form-input .col .left:nth-child(2), .card-container-base.my-check-in-out .form-update .form-input .col .left:nth-child(2) {
+    margin-bottom: 0.7rem;
+    margin-top: 0.5rem; } }

@@ -54,6 +54,10 @@
         }
     }
 }
+.form-input .col .left.block-time{
+    display:flex;
+}
+
 // update css mobile
 @media only screen and (max-width: $medium-screen-up) {
     [type="radio"]:not(:checked) + label:before {
@@ -244,7 +248,7 @@
                         }
 
                         &.block-time {
-
+                            display: block;
 
                             .datepicker-button {
                                 width: 100%;
@@ -292,30 +296,13 @@
             }
         }
 
-        .form-update-checkinout {
+        .form-update {
             .form-input {
                 .col {
                     .left {
-                        display: flex;
-
-                        &[class*="label"] {
-                            width: 10rem;
-                        }
-
-                        &.datetime {
-                            .datepicker-button {
-
-                                .calendar-icon {
-                                    margin: 0;
-                                    right: 4px;
-                                    top: -1px;
-                                    color: #989898;
-                                }
-                            }
-
-                            .col.p-0 {
-                                margin: 8px 2px 0 -5px;
-                            }
+                        &:nth-child(2) {
+                            margin-bottom: 0.7rem;
+                            margin-top: 0.5rem;
                         }
                     }
                 }

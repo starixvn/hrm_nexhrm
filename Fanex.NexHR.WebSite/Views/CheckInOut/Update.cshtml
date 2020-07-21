@@ -19,7 +19,7 @@
                     <span class="card-title txt-uppercase left">@Labels.Edit</span>
                 </div>
                 <div class="card-body">
-                    <div class="form form-update-checkinout">
+                    <div class="form list-item-form form-update style-over">
                         @using (Html.BeginForm("update", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
                         {
                             @Html.ValidationSummary(true)
@@ -58,21 +58,25 @@
                                     <div class="left label--xl">
                                         <label>@Labels.RequestTime</label>
                                     </div>
-                                    <div class="left datetime">
+                                    <div class="left datetime block-time">
                                         <div class="datepicker-button left select--s">
                                             @Html.DatePickerFor(model => model.WorkDate,
                                                 Utilities.RequestAvailableFromDate,
                                                 DateTime.Now)
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
-                                        <div class="col m-l--m">
-                                            @*@Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
-                                            @Html.TextBoxFor(x => x.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
-                                        </div>
-                                        <div class="col p-0">:</div>
-                                        <div class="col">
-                                            @*@Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
-                                            @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                        <div class="box-time">
+                                            <div class="col m-l--m">
+                                                @*@Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
+                                                @Html.TextBoxFor(x => x.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                            </div>
+                                            <div class="col p-0">
+                                                <span class="colon">:</span>
+                                            </div>
+                                            <div class="col">
+                                                @*@Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
+                                                @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
