@@ -26,6 +26,9 @@
         LateInEarlyOutViolateInMonth = 7,
 
         [Display(Name = "Warning Not Follow Late In/ Early Out Policy")]
-        ViolateLateInEarlyOutDiscipline = 8
+        ViolateLateInEarlyOutDiscipline = 8,
+
+        [Display(Name = "Reminder Reached Working Time")]
+        ReachedWorkingTime = 9
     }
 }

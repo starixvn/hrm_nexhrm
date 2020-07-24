@@ -225,7 +225,6 @@
     <Compile Include="Shift\GetShiftCriteria.cs" />
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="SkypeAccount\GetEmployeeSkypeAccountCriteria.cs" />
-    <Compile Include="SkypeAccount\GetRegisteredConversationCriteria.cs" />
     <Compile Include="SkypeAccount\UpdateSkypeAccountNickNameCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />
     <Compile Include="Report\GetTeamHeadCountByYearCriteria.cs" />

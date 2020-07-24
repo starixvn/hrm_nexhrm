@@ -79,10 +79,22 @@
             return skypeAccounts;
         }
 
-        public IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(int messageCategoryId)
+        public IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(MessageCategory messageCategory)
         {
             var request = CreateRequestHeader("/account/GetIgnoredAccountByMessageCategory", Method.GET);
-            request.AddParameter("messageCategoryId", messageCategoryId);
+            request.AddParameter("messageCategoryId", (int)messageCategory);
+
+            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
+            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
+            var skypeAccounts = response.Data;
+
+            return skypeAccounts;
+        }
+
+        public IList<ConversationUser> GetRegisteredConversation(MessageCategory messageCategory)
+        {
+            var request = CreateRequestHeader("/account/GetRegisteredConversationByMessageCategory", Method.GET);
+            request.AddParameter("messageCategoryId", (int)messageCategory);
 
             webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
             IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
@@ -302,12 +314,6 @@
             message += $"Please process this request at: {BaseUrl}/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
             return message;
-        }
-
-        public async Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory categoryId)
-        {
-            var result = await GetDataAsync<string>(new GetRegisteredConversationCriteria { CategoryId = categoryId }).ConfigureAwait(false);
-            return result;
         }
     }
 }

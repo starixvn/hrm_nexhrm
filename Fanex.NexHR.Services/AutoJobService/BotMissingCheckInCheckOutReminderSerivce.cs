@@ -48,14 +48,14 @@
 
         private async Task SendMessageToGroups(MessageCategory categoryId, IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
         {
-            var conversationIds = await nexbotService.GetRegisteredConversation(categoryId).ConfigureAwait(false);
-            if (conversationIds.Any())
+            var conversations = nexbotService.GetRegisteredConversation(categoryId);
+            if (conversations.Any())
             {
                 string msg = GenerateGroupMessage(missingCheckInOuts);
 
-                foreach (var conversationId in conversationIds)
+                foreach (var conversation in conversations)
                 {
-                    var result = await nexbotService.SendMessageAsync(conversationId, msg).ConfigureAwait(false);
+                    var result = await nexbotService.SendMessageAsync(conversation.ConversationId, msg).ConfigureAwait(false);
                     if (!result)
                     {
                         Result.Code = 0;

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Caching;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.TimeSheet;
     using Fanex.NexHR.Models.SkypeAccount;
     using Fanex.NexHR.Models.TimeSheet;
@@ -14,7 +15,6 @@
     public class TimeSheetService : BaseService, ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
-        private const int MessageCategory = 9;
 
         private readonly INexbotService nexbotService;
         private readonly IBaseRepository respository;
@@ -70,7 +70,7 @@
             var conversations = ConfiguredCacheService.Get<IList<ConversationUser>>(CacheKeyIgnoredReminder);
             if (conversations == null || !conversations.Any())
             {
-                conversations = nexbotService.GetIgnoredSkypeAccountByMessageCategory(MessageCategory);
+                conversations = nexbotService.GetIgnoredSkypeAccountByMessageCategory(MessageCategory.ReachedWorkingTime);
 
                 if (conversations != null && conversations.Any())
                 {

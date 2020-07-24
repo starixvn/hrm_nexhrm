@@ -103,11 +103,11 @@
 
             if (deductedEmployees.Any())
             {
-                var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.DeductLateInEarlyOut).ConfigureAwait(false);
+                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.DeductLateInEarlyOut);
                 if (conversations.Any())
                 {
                     var message = GenerateMessageDeduct(deductedEmployees);
-                    result = await SendMessageDeductToConversation(conversations, message).ConfigureAwait(false);
+                    result = await SendMessageDeductToConversation(conversations.Select(m => m.ConversationId), message).ConfigureAwait(false);
                 }
             }
 
@@ -172,13 +172,13 @@
 
         private async Task SendMessageViolateOnMonthToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.LateInEarlyOutViolateInMonth).ConfigureAwait(false);
+            var conversations = nexbotService.GetRegisteredConversation(MessageCategory.LateInEarlyOutViolateInMonth);
             if (conversations.Any() && violaters.Any())
             {
                 string message = GenerateViolateOnMonthGroupMessage(violaters);
                 foreach (var conversation in conversations)
                 {
-                    await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
                 }
             }
         }
@@ -210,7 +210,7 @@
 
         private async Task SendMessageViolateDisciplineToGroup(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
         {
-            var conversations = await nexbotService.GetRegisteredConversation(MessageCategory.ViolateLateInEarlyOutDiscipline).ConfigureAwait(false);
+            var conversations = nexbotService.GetRegisteredConversation(MessageCategory.ViolateLateInEarlyOutDiscipline);
 
             if (conversations.Any())
             {
@@ -218,7 +218,7 @@
 
                 foreach (var conversation in conversations)
                 {
-                    await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
                 }
             }
         }

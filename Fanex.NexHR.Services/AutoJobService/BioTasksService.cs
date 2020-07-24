@@ -32,15 +32,15 @@
             var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioDevice).ConfigureAwait(false);
+                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioDevice);
 
-                if (conversationIds.Any())
+                if (conversations.Any())
                 {
                     var message = GenerateMessageBioDevice(pendingDevices);
-                    foreach (var conversationId in conversationIds)
+                    foreach (var conversation in conversations)
                     {
                         result.Code = 1;
-                        await nexbotService.SendMessageAsync(conversationId, message).ConfigureAwait(false);
+                        await nexbotService.SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
                     }
                 }
             }
@@ -60,15 +60,15 @@
 
             if (warningTimeChanges.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioTimeChange).ConfigureAwait(false);
+                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioTimeChange);
 
-                if (conversationIds.Any())
+                if (conversations.Any())
                 {
                     var message = GenerateMesssageBioTimeChange(warningTimeChanges);
-                    foreach (var conversationId in conversationIds)
+                    foreach (var conversation in conversations)
                     {
                         result.Code = 1;
-                        nexbotService.SendMessage(conversationId, message);
+                        nexbotService.SendMessage(conversation.ConversationId, message);
                     }
                 }
             }
@@ -85,15 +85,15 @@
 
             if (members.Any())
             {
-                var conversationIds = await nexbotService.GetRegisteredConversation(MessageCategory.BioFingerprintAndCard).ConfigureAwait(false);
+                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioFingerprintAndCard);
 
-                if (conversationIds.Any())
+                if (conversations.Any())
                 {
                     result.Code = 1;
                     var message = GenerateMesssageBioFingerprintAndCard(members);
-                    foreach (var conversationId in conversationIds)
+                    foreach (var conversation in conversations)
                     {
-                        nexbotService.SendMessage(conversationId, message);
+                        nexbotService.SendMessage(conversation.ConversationId, message);
                     }
                 }
             }

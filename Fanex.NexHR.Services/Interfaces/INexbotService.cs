@@ -18,7 +18,9 @@
 
         IList<ConversationUser> GetSkypeAccount();
 
-        IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(int messageCategoryId);
+        IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(MessageCategory messageCategory);
+
+        IList<ConversationUser> GetRegisteredConversation(MessageCategory messageCategory);
 
         IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
 
@@ -27,7 +29,5 @@
         void SendMessageProcessRequest(RequestEntity request, string command);
 
         void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
-
-        Task<IEnumerable<string>> GetRegisteredConversation(MessageCategory categoryId);
     }
 }

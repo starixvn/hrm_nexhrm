@@ -43,15 +43,15 @@
 
         private async Task SendMessageToGroups(IEnumerable<RedmineUser> forgotLogtimeEmployees, MessageCategory categoryId)
         {
-            var conversationIds = await nexbotService.GetRegisteredConversation(categoryId).ConfigureAwait(false);
+            var conversations = nexbotService.GetRegisteredConversation(categoryId);
 
-            if (conversationIds.Any())
+            if (conversations.Any())
             {
                 string message = GenerateGroupMessage(forgotLogtimeEmployees);
 
-                foreach (var conversationId in conversationIds)
+                foreach (var conversation in conversations)
                 {
-                    await nexbotService.SendMessageAsync(conversationId, message).ConfigureAwait(false);
+                    await nexbotService.SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
                 }
             }
         }
