@@ -14,6 +14,8 @@
 
         public Employee Employee { get; set; }
 
+        public float OvertimeDeduct { get; set; }
+
         public static string DisplayValue(float value)
         {
             return value.Equals(0) ? "-" : value.ToString("0.0");

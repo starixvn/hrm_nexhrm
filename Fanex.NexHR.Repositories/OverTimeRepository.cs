@@ -111,5 +111,24 @@
                 return overtimeSummmary;
             }
         }
+
+        public IList<OvertimeConversion> GetConversions(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var conversions = db.Query<OvertimeConversion, Employee, Team, Employee, OvertimeConversion>(
+                    (otc, e1, t, e2) =>
+                    {
+                        e1.Team = t;
+                        otc.Employee = e1;
+                        otc.ModifiedBy = e2;
+                        return otc;
+                    },
+                    "EmpId, GroupId, ModifiedById",
+                    criteria.GetSpParams()).ToList();
+
+                return conversions;
+            }
+        }
     }
 }

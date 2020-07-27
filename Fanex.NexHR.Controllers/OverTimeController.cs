@@ -3,6 +3,7 @@
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.NexHR.Resources;
     using Models;
     using Models.Overtime;
     using Newtonsoft.Json;
@@ -319,6 +320,142 @@
             List<OvertimeSummary> listSummary = _overtimeService.GetOvertimeSummary(criteria);
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
+        }
+
+        public ActionResult OvertimeConversionDetail(
+            DateTime fromDate,
+            DateTime toDate,
+            int? employeeId = null,
+            int? teamId = null)
+        {
+            return View(GetOTConversionDetailModel(fromDate, toDate, employeeId, teamId));
+        }
+
+        [HttpPost]
+        public ActionResult OvertimeConversionDetail(OvertimeConversionDetailViewModel model)
+        {
+            IList<OvertimeConversion> conversions = new List<OvertimeConversion>();
+            if (model != null)
+            {
+                var criteria = new GetOvertimeConversionsCriteria
+                {
+                    EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    GroupId = model.TeamId
+                };
+
+                conversions = _overtimeService.GetConversions(criteria);
+            }
+            return PartialView("_ListOvertimeConversion", conversions);
+        }
+
+        [ChildActionOnly]
+        public ActionResult CreateOvertimeConversion()
+        {
+            OvertimeConversionCreateViewModel model = new OvertimeConversionCreateViewModel();
+            return PartialView("_CreateOvertimeConversion", model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult CreateOvertimeConversion(OvertimeConversionCreateViewModel model)
+        {
+            CommandResult result;
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new InsertConversionCriteria
+                {
+                    EmpId = model.EmpId,
+                    Deduct = model.Deduct,
+                    DeductDate = model.DeductDate,
+                    Description = model.Description,
+                    CreatedBy = CurrentUser.Id
+                };
+                result = _commandService.Insert(criteria);
+            }
+            else
+            {
+                result = new CommandResult
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
+            return Json(result);
+        }
+
+        [ChildActionOnly]
+        public ActionResult EditOvertimeConversion()
+        {
+            OvertimeConversionEditViewModel model = new OvertimeConversionEditViewModel();
+            return PartialView("_EditOvertimeConversion", model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult EditOvertimeConversion(OvertimeConversionEditViewModel model)
+        {
+            CommandResult result;
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new UpdateConversionCriteria
+                {
+                    Id = model.Id,
+                    Deduct = model.Deduct,
+                    DeductDate = model.DeductDate,
+                    Description = model.Description,
+                    ModifiedBy = CurrentUser.Id
+                };
+                result = _commandService.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult DeleteOvertimeConversion(int id)
+        {
+            CommandResult result;
+            var criteria = new DeleteConversionCriteria
+            {
+                Id = id,
+                ModifiedBy = CurrentUser.Id
+            };
+            result = _commandService.Delete(criteria);
+            return Json(result);
+        }
+
+        private OvertimeConversionDetailViewModel GetOTConversionDetailModel(DateTime fromDate, DateTime toDate, int? employeeId, int? teamId)
+        {
+            IList<Team> teams = _teamService.GetTeam();
+
+            var model = new OvertimeConversionDetailViewModel
+            {
+                EmployeeId = employeeId ?? -1,
+                FromDate = fromDate,
+                ToDate = toDate,
+                TeamId = teamId,
+                Teams = teams
+            };
+
+            if (employeeId.HasValue)
+            {
+                var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
+                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+
+                model.Employee = employee.DisplayName;
+            }
+
+            return model;
         }
     }
 }

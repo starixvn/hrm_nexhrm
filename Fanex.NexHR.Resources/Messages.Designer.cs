@@ -286,6 +286,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nex (hourrs) deducted by money.
+        /// </summary>
+        public static string DeductByMoneyDescription {
+            get {
+                return ResourceManager.GetString("DeductByMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The grand total hour(s) of  Late In/Early Out, resulted in a deduction taken from Leave Balance.
         /// </summary>
         public static string DeductionTakenDescription {
@@ -583,7 +592,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - NEX Leave).
+        ///   Looks up a localized string similar to Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - Deduct by money - NEX Leave).
         /// </summary>
         public static string NexBalanceDescription {
             get {

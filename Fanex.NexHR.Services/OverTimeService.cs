@@ -120,5 +120,16 @@
                 }
             }
         }
+
+        public IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria)
+        {
+            IList<OvertimeConversion> conversions = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                conversions = _repository.GetConversions(criteria);
+            }
+
+            return conversions ?? new List<OvertimeConversion>();
+        }
     }
 }

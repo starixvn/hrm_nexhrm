@@ -348,6 +348,12 @@
     <Build Include="dbo\Stored Procedures\Bio_GetWarningTimeChange.sql" />
     <Build Include="dbo\Stored Procedures\Nexbot_GetRegisteredConversation.sql" />
     <Build Include="dbo\Stored Procedures\HRM_GetRedmineUsers.sql" />
+    <Build Include="dbo\Tables\OvertimeConversion_138194.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_UpdateConversion_138194.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_InsertConversion_138194.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_GetSummary_138194.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_GetConversions_138194.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_DeleteConversion_138194.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

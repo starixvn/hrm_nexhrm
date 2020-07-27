@@ -1,0 +1,34 @@
+﻿@using Fanex.NexHR.ViewModels.Overtime
+@model OvertimeConversionEditViewModel
+<form class="form form-annual-deduction">
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.Deduct)
+        </div>
+        <div class="left input--xs">
+            @Html.EditorFor(model => model.Deduct)
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.DeductDate, Labels.DeductDate)
+        </div>
+        <div class="left datepicker-button select--s">
+            @Html.DatePickerFor(model => model.DeductDate)
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="left input--m">
+            @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+        </div>
+    </div>
+    <div class="row form-input center">
+        @Html.HiddenFor(model => model.Id)
+        <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+        <input class="btn-ok waves-effect waves-light" id="update" type="submit" value="@Labels.Submit" />
+    </div>
+</form>

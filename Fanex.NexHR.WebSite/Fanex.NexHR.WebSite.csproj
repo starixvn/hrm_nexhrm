@@ -20,7 +20,7 @@
     <RestorePackages>true</RestorePackages>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
@@ -782,6 +782,7 @@
     <Content Include="Scripts\Views\Memo\memo.js" />
     <Content Include="Scripts\Views\Overtime\manage.js" />
     <Content Include="Scripts\Views\Overtime\myOvertime.js" />
+    <Content Include="Scripts\Views\Overtime\overtime.conversion.js" />
     <Content Include="Scripts\Views\Overtime\overtime.js" />
     <Content Include="Scripts\Views\Overtime\overtime.member.js" />
     <Content Include="Scripts\Views\Overtime\overtimeRequest.js" />
@@ -937,6 +938,10 @@
     <Content Include="Views\Employee\InsertHistoryWork.cshtml" />
     <Content Include="Views\Employee\EditHistoryWork.cshtml" />
     <Content Include="Views\Employee\_HistoryWorkDetail.cshtml" />
+    <Content Include="Views\Overtime\_CreateOvertimeConversion.cshtml" />
+    <Content Include="Views\Overtime\OvertimeConversionDetail.cshtml" />
+    <Content Include="Views\Overtime\_EditOvertimeConversion.cshtml" />
+    <Content Include="Views\Overtime\_ListOvertimeConversion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

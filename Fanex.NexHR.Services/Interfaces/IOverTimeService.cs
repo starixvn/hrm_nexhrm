@@ -19,5 +19,7 @@
         List<OvertimeSummary> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
 
         void SendMail(string subject, CreateOvertimeViewModel model);
+
+        IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria);
     }
 }

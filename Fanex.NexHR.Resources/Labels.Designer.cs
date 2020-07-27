@@ -1123,6 +1123,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deduct by money.
+        /// </summary>
+        public static string DeductByMoney {
+            get {
+                return ResourceManager.GetString("DeductByMoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deduct Date.
         /// </summary>
         public static string DeductDate {
@@ -3261,6 +3270,15 @@ namespace Fanex.NexHR.Resources {
         public static string Overtime {
             get {
                 return ResourceManager.GetString("Overtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NEX Conversion Detail.
+        /// </summary>
+        public static string OvertimeConversionDetail {
+            get {
+                return ResourceManager.GetString("OvertimeConversionDetail", resourceCulture);
             }
         }
         

@@ -36,7 +36,7 @@
                                         @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.None)
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
                                 </div>
                                 <div class="col">
@@ -58,6 +58,10 @@
                                     <div class="formrow">
                                         <span class="bold-color">※ @Labels.NexLeave: </span>
                                         <span class="font-description">@Messages.NexLeaveDescription.</span>
+                                    </div>
+                                    <div class="formrow">
+                                        <span class="bold-color">※ @Labels.DeductByMoney:</span>
+                                        <span class="font-description">@Messages.DeductByMoneyDescription.</span>
                                     </div>
                                     <div class="formrow">
                                         <span class="bold-color">※ @Labels.DeductedByLateInEarlyOut:</span>
@@ -82,8 +86,13 @@
                                         @Labels.OT @Model.Year
                                     </th>
                                     <th rowspan="2">@Labels.NexLeave</th>
+                                    <th rowspan="2">@Labels.DeductByMoney</th>
                                     <th rowspan="2">@Labels.DeductedByLateInEarlyOut</th>
                                     <th rowspan="2">@Labels.Balance</th>
+                                    @if (Roles.IsUserInRole("HR"))
+                                    {
+                                        <th rowspan="2">@Labels.Deduct</th>
+                                    }
                                 </tr>
                                 <tr>
                                     <th>@Labels.Jan</th>
@@ -107,10 +116,16 @@
                 </div>
             </div>
         </div>
-        <div class="hide">
-            <div id="insertform" title="Add Leave Conversion">
+        @*<div class="hide">
+            <div id="insertformLeaveConversion" title="Add Leave Conversion">
                 @Html.Action("CreateLeaveConversion", "AnnualLeave")
             </div>
+        </div>*@
+        <div class="hide">
+            <div id="createConversion" title="Add Overtime Conversion" class="align-left">
+                @Html.Action("CreateOvertimeConversion", "Overtime")
+            </div>
         </div>
+        
     </div>
 </div>

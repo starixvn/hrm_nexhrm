@@ -1,0 +1,107 @@
+﻿@using Fanex.NexHR.ViewModels.Overtime
+@model OvertimeConversionDetailViewModel
+@{
+    ViewBag.Title = Labels.OvertimeConversionDetail;
+}
+@section css{
+    @Styles.Render("~/Content/view-mobile")
+}
+@section js{
+    @Scripts.Render("~/bundles/overtimeconversionjs");
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.FromDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.TeamId, Labels.Team)
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left select-team">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s over-auto table-resize table-medium">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.Date</th>
+                                    <th>@Labels.DeductByMoney</th>
+                                    <th>@Labels.Description</th>
+                                    @if (Roles.IsUserInRole("HR"))
+                                    {
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+            <div id="editConversion" title="Update Overtime Conversion" class="align-left">
+                @Html.Action("EditOvertimeConversion", "Overtime")
+            </div>
+        </div>
+    </div>
+</div>

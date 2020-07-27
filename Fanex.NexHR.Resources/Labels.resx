@@ -1602,6 +1602,15 @@
   <data name="ForInsurance" xml:space="preserve">
     <value>For Insurance</value>
   </data>
+  <data name="DeductByMoney" xml:space="preserve">
+    <value>Deduct by money</value>
+  </data>
+  <data name="OvertimeConversionDetail" xml:space="preserve">
+    <value>NEX Conversion Detail</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
   <data name="AndCardWarning" xml:space="preserve">
     <value> and **Card**</value>
   </data>

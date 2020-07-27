@@ -114,6 +114,10 @@
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserCriteria.cs" />
+    <Compile Include="Overtime\DeleteConversionCriteria.cs" />
+    <Compile Include="Overtime\GetOvertimeConversionsCriteria.cs" />
+    <Compile Include="Overtime\InsertConversionCriteria.cs" />
+    <Compile Include="Overtime\UpdateConversionCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />
     <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceLateInEarlyOutCriteria.cs" />

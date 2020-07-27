@@ -113,6 +113,7 @@
     <Compile Include="MissingCheckInOutEmployee.cs" />
     <Compile Include="NexBot\NexBotConfiguration.cs" />
     <Compile Include="NexBot\Token.cs" />
+    <Compile Include="Overtime\OvertimeConversion.cs" />
     <Compile Include="RedmineAPI\LogTimeIssue.cs" />
     <Compile Include="RedmineAPI\RedmineIssue.cs" />
     <Compile Include="RedmineAPI\RedmineUser.cs" />
