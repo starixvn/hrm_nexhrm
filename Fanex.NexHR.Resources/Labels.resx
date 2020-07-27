@@ -1602,11 +1602,8 @@
   <data name="ForInsurance" xml:space="preserve">
     <value>For Insurance</value>
   </data>
-  <data name="DeductByMoney" xml:space="preserve">
-    <value>Deduct by money</value>
-  </data>
-  <data name="OvertimeConversionDetail" xml:space="preserve">
-    <value>NEX Conversion Detail</value>
+  <data name="OvertimePaymentDetail" xml:space="preserve">
+    <value>NEX Payment Detail</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
@@ -1619,5 +1616,14 @@
   </data>
   <data name="FingerprintWarning" xml:space="preserve">
     <value>Fingerprint</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="PayDate" xml:space="preserve">
+    <value>Pay Date</value>
   </data>
 </root>

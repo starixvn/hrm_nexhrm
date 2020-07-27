@@ -60,8 +60,8 @@
                                         <span class="font-description">@Messages.NexLeaveDescription.</span>
                                     </div>
                                     <div class="formrow">
-                                        <span class="bold-color">※ @Labels.DeductByMoney:</span>
-                                        <span class="font-description">@Messages.DeductByMoneyDescription.</span>
+                                        <span class="bold-color">※ @Labels.Paid:</span>
+                                        <span class="font-description">@Messages.PaidDescription.</span>
                                     </div>
                                     <div class="formrow">
                                         <span class="bold-color">※ @Labels.DeductedByLateInEarlyOut:</span>
@@ -86,12 +86,12 @@
                                         @Labels.OT @Model.Year
                                     </th>
                                     <th rowspan="2">@Labels.NexLeave</th>
-                                    <th rowspan="2">@Labels.DeductByMoney</th>
+                                    <th rowspan="2">@Labels.Paid</th>
                                     <th rowspan="2">@Labels.DeductedByLateInEarlyOut</th>
                                     <th rowspan="2">@Labels.Balance</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
-                                        <th rowspan="2">@Labels.Deduct</th>
+                                        <th rowspan="2">@Labels.Pay</th>
                                     }
                                 </tr>
                                 <tr>

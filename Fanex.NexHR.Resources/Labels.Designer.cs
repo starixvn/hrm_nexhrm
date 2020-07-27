@@ -1123,15 +1123,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deduct by money.
-        /// </summary>
-        public static string DeductByMoney {
-            get {
-                return ResourceManager.GetString("DeductByMoney", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Deduct Date.
         /// </summary>
         public static string DeductDate {
@@ -3274,15 +3265,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NEX Conversion Detail.
-        /// </summary>
-        public static string OvertimeConversionDetail {
-            get {
-                return ResourceManager.GetString("OvertimeConversionDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to NEX Detail.
         /// </summary>
         public static string OvertimeDetail {
@@ -3292,11 +3274,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NEX Payment Detail.
+        /// </summary>
+        public static string OvertimePaymentDetail {
+            get {
+                return ResourceManager.GetString("OvertimePaymentDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NEX Summary.
         /// </summary>
         public static string OvertimeSummary {
             get {
                 return ResourceManager.GetString("OvertimeSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paid.
+        /// </summary>
+        public static string Paid {
+            get {
+                return ResourceManager.GetString("Paid", resourceCulture);
             }
         }
         
@@ -3333,6 +3333,24 @@ namespace Fanex.NexHR.Resources {
         public static string PassportNo {
             get {
                 return ResourceManager.GetString("PassportNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay.
+        /// </summary>
+        public static string Pay {
+            get {
+                return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay Date.
+        /// </summary>
+        public static string PayDate {
+            get {
+                return ResourceManager.GetString("PayDate", resourceCulture);
             }
         }
         

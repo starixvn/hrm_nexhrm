@@ -280,7 +280,7 @@
     <value>The Late In/Early Out deducted from the Total NEX</value>
   </data>
   <data name="NexBalanceDescription" xml:space="preserve">
-    <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - Deduct by money - NEX Leave)</value>
+    <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - Paid - NEX Leave)</value>
   </data>
   <data name="NexLeaveDescription" xml:space="preserve">
     <value>Total off-day taken from the NEX (hours)</value>
@@ -322,8 +322,8 @@ Thanks</value>
   <data name="UserNotExists" xml:space="preserve">
     <value>The user does not exists</value>
   </data>
-  <data name="DeductByMoneyDescription" xml:space="preserve">
-    <value>Nex (hourrs) deducted by money</value>
+  <data name="PaidDescription" xml:space="preserve">
+    <value>Total hours paid</value>
   </data>
   <data name="AccessLinkToViewMoreCheckInCheckOut" xml:space="preserve">
     <value>Please access {0}/report/attendance to view more details. Thanks</value>

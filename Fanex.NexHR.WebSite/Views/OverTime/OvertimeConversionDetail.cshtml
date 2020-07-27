@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model OvertimeConversionDetailViewModel
 @{
-    ViewBag.Title = Labels.OvertimeConversionDetail;
+    ViewBag.Title = Labels.OvertimePaymentDetail;
 }
 @section css{
     @Styles.Render("~/Content/view-mobile")
@@ -83,7 +83,7 @@
                                     <th>@Labels.Nick</th>
                                     <th>@Labels.Team</th>
                                     <th>@Labels.Date</th>
-                                    <th>@Labels.DeductByMoney</th>
+                                    <th>@Labels.Paid</th>
                                     <th>@Labels.Description</th>
                                     @if (Roles.IsUserInRole("HR"))
                                     {
