@@ -299,7 +299,10 @@
     <Setting Key="Overtime_DeleteConversion_138194" SpName="Overtime_DeleteConversion_138194" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetConversionById_138194" SpName="Overtime_GetConversionById_138194" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetConversions_138194" SpName="Overtime_GetConversions_138194" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Overtime_GetSummary_138194" SpName="Overtime_GetSummary_138194" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_GetSummary_138194" SpName="Overtime_GetSummary_138194" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+    </Setting>
     <Setting Key="Overtime_InsertConversion_138194" SpName="Overtime_InsertConversion_138194" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_UpdateConversion_138194" SpName="Overtime_UpdateConversion_138194" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Insert" SpName="LeaveConversion_Insert" DbName="nexhr" Plain="0"></Setting>

@@ -369,7 +369,7 @@
                     EmpId = model.EmpId,
                     Deduct = model.Deduct,
                     DeductDate = model.DeductDate,
-                    Description = model.Description,
+                    Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     CreatedBy = CurrentUser.Id
                 };
                 result = _commandService.Insert(criteria);
@@ -404,7 +404,7 @@
                     Id = model.Id,
                     Deduct = model.Deduct,
                     DeductDate = model.DeductDate,
-                    Description = model.Description,
+                    Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     ModifiedBy = CurrentUser.Id
                 };
                 result = _commandService.Update(criteria);
