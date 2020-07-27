@@ -16,7 +16,7 @@
 
         public override string GetSettingKey()
         {
-            return "Overtime_GetSummary_138194";
+            return "Overtime_GetSummary";
         }
 
         public override bool IsValid()

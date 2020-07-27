@@ -17,7 +17,7 @@
 
         public override string GetSettingKey()
         {
-            return "Overtime_UpdateConversion_138194";
+            return "Overtime_UpdateConversion";
         }
 
         public override bool IsValid()

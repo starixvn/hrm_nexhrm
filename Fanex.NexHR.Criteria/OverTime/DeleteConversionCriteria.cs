@@ -10,7 +10,7 @@
 
         public override string GetSettingKey()
         {
-            return "Overtime_DeleteConversion_138194";
+            return "Overtime_DeleteConversion";
         }
 
         public override bool IsValid()
