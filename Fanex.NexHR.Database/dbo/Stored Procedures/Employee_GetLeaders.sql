@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[Employee_GetLeaders] @employeeId INT
 AS
 /*
@@ -19,6 +20,7 @@ BEGIN
         ,e.roles
         ,e.GroupID
         ,e.Email
+		,con.ConversationId
         ,(CASE 
             WHEN e.ID = g.LeaderId THEN 0
             ELSE 1 END
@@ -33,6 +35,7 @@ BEGIN
             e.ID = g.AssistantLeaderId
             AND g.AssistantLeaderId <> @employeeId
             )
+		LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
     WHERE eg.EmpID = @employeeId
         AND ISNULL(HandleRequest, 0) = 1
         AND (ISNULL(LeaderId, 0) <> @employeeId)

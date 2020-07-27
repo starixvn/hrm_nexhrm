@@ -6,8 +6,8 @@ CREATE PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
     ,@enable BIT = NULL
     ,@isDelete BIT = NULL
     ,@pageNumber INT = 1
-    ,@pageSize INT = 2000 
-    ,@isSpecial BIT
+    ,@pageSize INT = 2000
+    ,@isSpecial BIT = 0
     ,@totalRow INT OUTPUT
 AS
 /*
@@ -18,6 +18,7 @@ Original:
 
 Revisions:  
 	20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
+	20200505@Merlin.Le: Add isSpecial IN PARAM
 Param's Explanation:
 
 */

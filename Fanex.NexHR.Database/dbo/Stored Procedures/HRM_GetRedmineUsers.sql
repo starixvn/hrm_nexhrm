@@ -12,11 +12,12 @@ BEGIN
 		  ,e.FullName
 		  ,e.NickName
 		  ,r.Id AS RedmineId
-		  ,c.ConversationId
-	FROM [NexHRM].[dbo].[EmployeeSetting] AS s WITH (NOLOCK)
-		INNER JOIN [NexHRM].[dbo].[Employee] AS e WITH (NOLOCK) ON s.EmpId = e.Id
+		  ,ec.ConversationId
+	FROM [dbo].[EmployeeSetting] AS s WITH (NOLOCK)
+		INNER JOIN [dbo].[Employee] AS e WITH (NOLOCK) ON s.EmpId = e.Id
 		INNER JOIN [RedmineNexcel].[dbo].[Users] AS r WITH (NOLOCK) ON r.[Login] = REPLACE(e.DomainUsername, 'spvn\','')
-		LEFT JOIN [NexBot].[dbo].[ConversationUser] AS c WITH (NOLOCK) ON e.NickName = c.NickName
+		-- LEFT JOIN [NexBot].[dbo].[ConversationUser] AS c WITH (NOLOCK) ON e.NickName = c.NickName
+		LEFT JOIN dbo.EmployeeConversation AS ec ON e.Id = ec.EmpId
 	WHERE e.[Enabled] = 1 
 		AND e.isDeleted = 0
 		AND s.DisplayRedmineTask = 1

@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_Delete] 
     @id int
     ,@ErrCode INT = 0 OUTPUT
@@ -14,7 +15,9 @@ BEGIN
 		,@TotalDays NUMERIC(5, 1)
 		,@RequestType SMALLINT
 
-	SELECT @FromDate = FromDate
+	SELECT 
+		@EmpId = EmpId
+		,@FromDate = FromDate
 		,@ToDate = ToDate
 		,@LeaveTypeID = LeaveTypeID
 		,@TotalDays = TotalDays

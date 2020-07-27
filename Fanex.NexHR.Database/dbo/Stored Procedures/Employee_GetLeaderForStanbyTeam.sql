@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[Employee_GetLeaderForStanbyTeam]
 AS
 /*
@@ -20,7 +21,9 @@ BEGIN
         ,e.roles
         ,e.GroupID
         ,e.Email
+		,con.ConversationId
     FROM dbo.Employee AS e WITH (NOLOCK)
+	LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
     WHERE NickName = 'Viet'
         OR NickName = 'Kiwi'
 END

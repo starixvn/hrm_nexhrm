@@ -78,7 +78,7 @@ BEGIN
             ,GroupId = @mainGroupID
             ,[Roles] = @roles
             ,JoinedDate = @joinedDate
-			,CompanyDate = @groupDate
+			,GroupDate = @groupDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
             ,Skype = @skype

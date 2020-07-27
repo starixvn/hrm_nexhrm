@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_ApproveRequest_6] @RequestID BIGINT
 	,@EmpId INT
 	,@ApprovedBy INT
@@ -66,6 +67,11 @@ BEGIN TRY
 		,ModifiedDate = @ApprovedDate
 		,ModifiedBy = @ApprovedBy
 	WHERE Id = @RequestID
+
+	EXEC EmployeeAttendance_ProcessingAndInsert @EmpId
+		,@FromDate
+		,@ToDate
+		,1
 
 	COMMIT TRANSACTION;
 END TRY

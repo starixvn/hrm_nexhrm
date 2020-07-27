@@ -42,5 +42,5 @@ BEGIN
 		,e.GroupID
 		,e.Email
 	FROM dbo.Employee AS e WITH (NOLOCK)
-	WHERE e.NickName IN ('Albert', 'Maria', 'Hoa', 'Cindy')
+	WHERE e.NickName IN ('Albert', 'Maria', 'Hoa')
 END

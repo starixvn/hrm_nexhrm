@@ -125,7 +125,7 @@ BEGIN
                     ELSE
                     BEGIN
                         SELECT @ExpectedInTime = @EndCheckInTime
-                            ,@ExpectedOutTime = DATEADD(HH, 4, @EndCheckInTime)
+                            ,@ExpectedOutTime = DATEADD(HH, 5, @EndCheckInTime)
                     END
                 END
                 ELSE IF (DATEDIFF(MI, @InOfMachine, DATEADD(HH, 4, @EndCheckInTime)) >= 0) -- 12h30-->14h00

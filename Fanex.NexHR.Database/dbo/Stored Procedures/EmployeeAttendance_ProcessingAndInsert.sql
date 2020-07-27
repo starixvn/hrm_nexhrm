@@ -12,7 +12,7 @@ SELECT @fromTime = CAST(@fromTime AS DATE), @toTime = CAST(@toTime AS DATE), @Cu
 
 IF(@onlyUpdate = 0 
 AND (
-(DATEPART(HOUR, @CurrentDateTime) >= 18 AND DATEPART(HOUR, @CurrentDateTime) < 19) 
+(DATEPART(HOUR, @CurrentDateTime) >= 18 AND DATEPART(HOUR, @CurrentDateTime) < 24) 
 OR (DATEPART(HOUR, @CurrentDateTime) >= 10 AND DATEPART(HOUR, @CurrentDateTime) < 11)
 ))
 BEGIN

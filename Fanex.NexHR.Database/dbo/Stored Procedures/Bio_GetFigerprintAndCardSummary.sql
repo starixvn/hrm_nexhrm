@@ -20,7 +20,7 @@ BEGIN
 	SELECT t.nUserIdn as UserId
 			,1
 	FROM [BioStar].dbo.TB_USER_TEMPLATE as t with (nolock) 
-	LEFT JOIN [NexHRM].dbo.BioFingerprint as f with (nolock) 
+	LEFT JOIN dbo.BioFingerprint as f with (nolock) 
 		ON f.nUserIdn = t.nUserIdn AND f.nIndex = t.nIndex AND f.nTemplateIndex = t.nTemplateIndex
 	WHERE f.EmpId IS NULL OR f.[Status] = 0
 		OR t.bTemplate <> f.bTemplate
@@ -32,7 +32,7 @@ BEGIN
 	
 	SELECT DISTINCT c.nUserIdn, 1
 	FROM [BioStar].dbo.TB_USER_CARD as c with (nolock) 
-	LEFT JOIN [NexHRM].dbo.BioCard as bc with (nolock) 
+	LEFT JOIN dbo.BioCard as bc with (nolock) 
 		ON bc.nCardIdn = c.nCardIdn
 	WHERE (bc.EmpId IS NULL OR bc.[Status] = 0) AND (c.sCardNo != '0' AND c.nLatest = 1 AND c.nStatus = 1)
 	GROUP BY c.nUserIdn
@@ -127,9 +127,9 @@ BEGIN
 		,fw.IsWarning
 		,cw.IsWarning
 
-	ORDER BY g.[Rank] ASC
-			,g.Code ASC
-			,e.Code ASC
+	ORDER BY g.[Rank]
+			,g.Code
+			,e.Code
 
 	DROP TABLE #FingerprintSummary
 	DROP TABLE #CardSummary

@@ -2,7 +2,7 @@
 	@EmpId INT
 AS
 /*
-Created: 20191212@Lilac.nguyen
+Created: 20191212@Lilac.Nguyen
 Task: Get History Work by Employee Id
 DB: NexHRM
 Original: 

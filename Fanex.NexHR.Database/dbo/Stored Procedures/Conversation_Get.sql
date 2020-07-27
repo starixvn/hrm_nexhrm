@@ -1,8 +1,10 @@
-﻿CREATE PROCEDURE [dbo].[Conversation_Get]
+﻿
+
+CREATE PROCEDURE [dbo].[Conversation_Get]
 	@EmployeeId INT
 AS
 /*
-Created: 20190320@elton.ton
+Created: 2019@elton.ton
 Task: Get group conversations
 DB: NexHRM
 Original: 

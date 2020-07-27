@@ -38,14 +38,16 @@
     [IssuedDate]         DATETIME        NULL,
     [IssuedPlace]        NVARCHAR (250)  NULL,
     [IsSpecialUser]      BIT             CONSTRAINT [DF_Employee_IsSpecialUser] DEFAULT ((0)) NOT NULL,
-    [CompanyDate]        DATE            NULL,
-	[PlaceOfBirth]		 NVARCHAR(20)	 NULL,
-	[ContactName]		 NVARCHAR(50)	 NULL,
-	[UserRelationship]	 NVARCHAR(10)	 NULL,
-	[ContactPhone]		 VARCHAR(50)	 NULL,
-	[ContactAddress]	 NVARCHAR(250)	 NULL
+    [GroupDate]          DATE            NULL,
+    [PlaceOfBirth]       NVARCHAR (20)   NULL,
+    [ContactName]        NVARCHAR (50)   NULL,
+    [UserRelationship]   NVARCHAR (10)   NULL,
+    [ContactPhone]       VARCHAR (50)    NULL,
+    [ContactAddress]     NVARCHAR (250)  NULL,
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 GO

@@ -41,7 +41,6 @@
             return Json(result);
         }
 
-        [JwtAuthentication]
         public IHttpActionResult GetData()
         {
             return Json("test");

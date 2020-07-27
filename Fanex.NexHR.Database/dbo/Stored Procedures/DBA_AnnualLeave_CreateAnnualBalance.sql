@@ -36,16 +36,16 @@ BEGIN
         BEGIN TRANSACTION;
 
         UPDATE e
-        SET e.AnnualLeaveBalance = e.AnnualLeaveBalance + @CreditDays + (@Year - 1 - YEAR(e.CompanyDate)) / 5 + (CASE 
-                WHEN (@Year - 1 - YEAR(e.CompanyDate)) % 5 = 4 THEN (CASE 
-                        WHEN MONTH(e.CompanyDate) < MONTH(@CalDate_Annual) THEN 1
+        SET e.AnnualLeaveBalance = e.AnnualLeaveBalance + @CreditDays + (@Year - 1 - YEAR(e.GroupDate)) / 5 + (CASE 
+                WHEN (@Year - 1 - YEAR(e.GroupDate)) % 5 = 4 THEN (CASE 
+                        WHEN MONTH(e.GroupDate) < MONTH(@CalDate_Annual) THEN 1
                         ELSE 0 END
                         )
                 ELSE 0 END
                 )
-			+ CASE WHEN e.GroupId IN (1, 2, 38) THEN 0 ELSE(CASE WHEN DATEADD(yy, 5, e.CompanyDate) < @CalDate_Annual THEN 3 ELSE
+			+ CASE WHEN e.GroupId IN (1, 2, 38) THEN 0 ELSE(CASE WHEN DATEADD(yy, 5, e.GroupDate) < @CalDate_Annual THEN 3 ELSE
 			(
-				CASE WHEN dateadd(yy, 3, e.CompanyDate) < @CalDate_Annual THEN 2 ELSE 1
+				CASE WHEN dateadd(yy, 3, e.GroupDate) < @CalDate_Annual THEN 2 ELSE 1
 				END
 			)
 			END)
@@ -62,7 +62,7 @@ BEGIN
             ) lt ON e.Id = lt.EmpId
         WHERE ISNULL(isdeleted, 0) = 0
             AND e.[Enabled] = 1
-            AND e.CompanyDate <= @FromDate
+            AND e.GroupDate <= @FromDate
             AND e.ResignedDate IS NULL
             AND (
                 e.Id = @EmpID
@@ -87,16 +87,16 @@ BEGIN
             ,@FromDate FromDate
             ,@ToDate ToDate
             ,0 AS DeductDays
-            ,@CreditDays + (@Year - 1 - YEAR(e.CompanyDate)) / 5 + (CASE 
-                WHEN (@Year - 1 - YEAR(e.CompanyDate)) % 5 = 4 THEN (CASE 
-                        WHEN MONTH(e.CompanyDate) < MONTH(@CalDate_Annual) THEN 1
+            ,@CreditDays + (@Year - 1 - YEAR(e.GroupDate)) / 5 + (CASE 
+                WHEN (@Year - 1 - YEAR(e.GroupDate)) % 5 = 4 THEN (CASE 
+                        WHEN MONTH(e.GroupDate) < MONTH(@CalDate_Annual) THEN 1
                         ELSE 0 END
                         )
                 ELSE 0 END
                 )
-			+ CASE WHEN e.GroupId IN (1, 2, 38) THEN 0 ELSE(CASE WHEN DATEADD(yy, 5, e.CompanyDate) < @CalDate_Annual THEN 3 ELSE
+			+ CASE WHEN e.GroupId IN (1, 2, 38) THEN 0 ELSE(CASE WHEN DATEADD(yy, 5, e.GroupDate) < @CalDate_Annual THEN 3 ELSE
 			(
-				CASE WHEN dateadd(yy, 3, e.CompanyDate) < @CalDate_Annual THEN 2 ELSE 1
+				CASE WHEN dateadd(yy, 3, e.GroupDate) < @CalDate_Annual THEN 2 ELSE 1
 				END
 			)
 			END)
@@ -117,7 +117,7 @@ BEGIN
             ) lt ON e.Id = lt.EmpId
         WHERE ISNULL(isdeleted, 0) = 0
             AND e.[Enabled] = 1
-            AND e.CompanyDate <= @FromDate
+            AND e.GroupDate <= @FromDate
             AND e.ResignedDate IS NULL
             AND (
                 e.Id = @EmpID

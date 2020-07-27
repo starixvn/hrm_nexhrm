@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE PROCEDURE [dbo].[WorkingTimeRequest_DisapproveRequest_6] @RequestID BIGINT
 	,@EmpId INT
 	,@ModifiedDate DATETIME
@@ -58,6 +59,11 @@ BEGIN TRY
 			,@TotalDays
 			,@ModifiedBy
 	END
+
+	EXEC EmployeeAttendance_ProcessingAndInsert @EmpId
+		,@FromDate
+		,@ToDate
+		,1
 
 	-- update status of request
 	UPDATE dbo.WorkingTimeRequest
