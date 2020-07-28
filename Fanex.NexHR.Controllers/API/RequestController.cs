@@ -7,8 +7,8 @@
     using Services.Interfaces;
     using System.Web.Http;
 
-    [Authorize]
-    [JwtAuthentication]
+    ////[Authorize]
+    ////[JwtAuthentication]
     public class RequestController : ApiController
     {
         private readonly IRequestService requestService;
