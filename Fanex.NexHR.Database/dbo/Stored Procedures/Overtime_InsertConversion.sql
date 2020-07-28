@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[Overtime_InsertConversion_138194]
+﻿CREATE PROCEDURE [dbo].[Overtime_InsertConversion]
     @createdBy      INT
     ,@empId    INT
     ,@deduct        NUMERIC (18, 1)
@@ -7,12 +7,12 @@
     ,@errCode       INT             = 0 OUTPUT
     ,@errMsg        VARCHAR (250)   = '' OUTPUT
 /*
-Created: 20200723@Dwight.Tran
-Task: Enhance NEX request
+Created: 20200326@Merlin.Le
+Task: Enhance Nex Leave
 DB: NexHRM
 Original: 
 
-Revisions:  
+Revisions:  20200723Dwight.Tran: Enhance NEX Request. Get overtime conversion yearly
 Param's Explanation:
 
 */
@@ -40,8 +40,8 @@ BEGIN
     )
     BEGIN
         SELECT
-            @errCode = '1'
-            ,@errMsg = 'Only role HR have a permission to deduct NEX balance';
+            @errCode = 1
+            ,@errMsg = 'Only role HR have a permission to pay NEX balance';
 
         RETURN;
     END;
@@ -53,8 +53,8 @@ BEGIN
     )
     BEGIN
         SELECT
-            @errCode = '2'
-            ,@errMsg = 'Overtime balance in ' + CAST(@year AS VARCHAR (4)) + ' not exist';
+            @errCode = 2
+            ,@errMsg = 'NEX balance in ' + CAST(@year AS VARCHAR (4)) + ' not exist';
 
         RETURN;
     END;
@@ -68,8 +68,8 @@ BEGIN
     IF (@oldMinutes < (@deduct * 60.0))
     BEGIN
         SELECT
-            @errCode = '3'
-            ,@errMsg = 'Not enough NEX balance to deduct';
+            @errCode = 3
+            ,@errMsg = 'Not enough NEX balance to pay';
 
         RETURN;
     END;
@@ -107,8 +107,8 @@ BEGIN
 
     BEGIN CATCH
         SELECT
-            @errCode = '1000'
-            ,@errMsg = 'Deduct NEX balance fail';
+            @errCode = 1000
+            ,@errMsg = 'Pay NEX balance fail';
 
         ROLLBACK TRANSACTION;
     END CATCH;

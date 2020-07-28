@@ -5,6 +5,15 @@ CREATE PROCEDURE [dbo].[Overtime_GetSummary] @year INT
 	,@employeeId INT = NULL
 	,@groupId INT = NULL
 AS
+/*
+Created: 
+Task: 
+DB: NexHRM
+Original:
+Revisions:
+	- 20200723Dwight.Tran: Enhance NEX Request. Get overtime conversion yearly
+Param's Explanation:
+*/
 BEGIN
 	IF OBJECT_ID('#PreviousYearBalance') IS NOT NULL
 	BEGIN
@@ -55,8 +64,8 @@ BEGIN
 			OR e.Id = @employeeId
 			)
 		AND (
-			@GroupId IS NULL
-			OR e.GroupId = @GroupId
+			@groupId IS NULL
+			OR e.GroupId = @groupId
 			)
 
 	INSERT INTO #CurrentYearBalance (
@@ -76,8 +85,7 @@ BEGIN
 	FROM dbo.Employee AS e WITH (NOLOCK)
 		LEFT JOIN dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId
 		AND oty.[Year] = @Year
-		LEFT JOIN #PreviousYearBalance AS prev ON e.Id = prev.EmpId
-		LEFT JOIN dbo.LateInEarlyOutYearly AS la ON e.Id = la.EmpId
+		LEFT JOIN dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId
 		AND la.[Year] = @year
 	WHERE e.IsSpecialUser = 0
 		AND ISNULL(e.isDeleted, 0) = 0
@@ -86,83 +94,101 @@ BEGIN
 			OR e.Id = @employeeId
 			)
 		AND (
-			@GroupId IS NULL
-			OR e.GroupId = @GroupId
+			@groupId IS NULL
+			OR e.GroupId = @groupId
 			);
 
 	SELECT ott.EmpId AS EmployeeId
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 1
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Jan'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 2
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Feb'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 3
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Mar'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 4
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Apr'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 5
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'May'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 6
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Jun'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 7
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Jul'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 8
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Aug'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 9
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Sep'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 10
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Oct'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 11
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Nov'
 		,SUM(CASE 
 				WHEN MONTH(ott.[Date]) = 12
-					AND ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+					AND ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'Dec'
 		,SUM(CASE 
-				WHEN ott.[Type] = 1 THEN ISNULL(ott.Minutes, 0)
+				WHEN ott.[Type] = 1 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'TotalHour'
 		,SUM(CASE 
-				WHEN ott.[Type] = 0 THEN ISNULL(ott.Minutes, 0)
+				WHEN ott.[Type] = 0 THEN ISNULL([ott].[Minutes], 0)
 				ELSE 0
 				END) 'LeaveConversion'
 	INTO #OvertimeSummary
-	FROM dbo.OvertimeTrans ott
+	FROM [dbo].[OvertimeTrans] AS ott
 	WHERE YEAR(ott.[Date]) = @year
 	GROUP BY ott.EmpId
+
+	IF OBJECT_ID('#TempOvertimeConversion') IS NOT NULL
+	BEGIN
+		DROP TABLE #TempOvertimeConversion;
+	END;
+
+	CREATE TABLE #TempOvertimeConversion (
+		[EmpId]	INT
+		,[Deduct]		INT
+	);
+
+	INSERT INTO #TempOvertimeConversion
+	SELECT
+		[EmpId]
+		,SUM([Deduct])
+	FROM [dbo].[OvertimeConversion_138194]
+	WHERE Year([DeductDate]) = @year
+	GROUP BY [EmpId]
 
 	SELECT ISNULL(os.Jan, 0) / 60.0 AS 'Jan'
 		,ISNULL(os.Feb, 0) / 60.0 AS 'Feb'
@@ -181,19 +207,20 @@ BEGIN
 		,ISNULL(prev.Minutes, 0) / 60.0 AS BalanceLastYear
 		,ISNULL(cur.[Minutes], 0) / 60.0 AS BalanceCurrentYear
 		,ISNULL(cur.LateInEarlyOut, 0) / 60.0 AS LateInEarlyOut
-		,e.Id 'EmpId'
+		,ISNULL(totc.[Deduct], 0) / 60.0 AS OvertimeDeduct
+		,e.Id AS 'EmpId'
 		,e.Code
 		,e.NickName
 		,e.FullName
 		,e.GroupId
 		,eg.Code
 		,eg.NAME
-		,eg.Rank
 	FROM dbo.Employee e
-		INNER JOIN dbo.EmployeeGroup eg ON e.GroupId = eg.Id
-		LEFT JOIN #OvertimeSummary os ON e.Id = os.EmployeeId
-		LEFT JOIN #CurrentYearBalance AS cur ON e.Id = cur.EmpId
-		LEFT JOIN #PreviousYearBalance AS prev ON e.Id = prev.EmpId
+		INNER JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
+		LEFT JOIN #OvertimeSummary AS os WITH (NOLOCK) ON e.Id = os.EmployeeId
+		LEFT JOIN #CurrentYearBalance AS cur WITH (NOLOCK) ON e.Id = cur.EmpId
+		LEFT JOIN #PreviousYearBalance AS prev WITH (NOLOCK) ON e.Id = prev.EmpId
+		LEFT JOIN #TempOvertimeConversion AS totc WITH (NOLOCK) ON e.[Id] = totc.[EmpId]
 	WHERE e.IsSpecialUser = 0
 		AND  (
 			@employeeId IS NULL
@@ -201,11 +228,11 @@ BEGIN
 			)
 		AND (
 			@groupid IS NULL
-			OR e.GroupId = @groupid
+			OR e.GroupId = @groupId
 			)
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND e.GroupId NOT IN (11, 40)
-	ORDER BY eg.Rank
+	ORDER BY eg.[Rank]
 		,eg.Code
 		,(CASE e.Id
 			WHEN eg.LeaderId THEN 2
@@ -219,5 +246,7 @@ BEGIN
 	DROP TABLE #PreviousYearBalance
 
 	DROP TABLE #CurrentYearBalance
+
+	DROP TABLE #TempOvertimeConversion
 END
 

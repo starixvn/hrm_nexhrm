@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[Overtime_GetConversions_138194]
+﻿CREATE PROCEDURE [dbo].[Overtime_GetConversions]
 	@fromDate		DATE
 	,@toDate		DATE
     ,@employeeId    INT				= NULL
@@ -6,12 +6,12 @@
     ,@errCode       INT             = 0 OUTPUT
     ,@errMsg        VARCHAR (250)   = '' OUTPUT
 /*
-Created: 
-Task: 
+Created: 20200327@Merlin.Le
+Task: Enhance Nex Leave
 DB: NexHRM
 Original: 
 
-Revisions:  20200723@Dwight.Tran - Enhance NEX request
+Revisions:  20200723Dwight.Tran: Enhance NEX Request. Get overtime conversion yearly
 Param's Explanation:
 
 */
