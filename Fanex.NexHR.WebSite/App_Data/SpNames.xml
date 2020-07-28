@@ -297,8 +297,11 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Overtime_DeleteConversion" SpName="Overtime_DeleteConversion" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Overtime_GetConversionById" SpName="Overtime_GetConversionById" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Overtime_GetConversions" SpName="Overtime_GetConversions" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_GetConversions" SpName="Overtime_GetConversions" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmpId" ObjectProperty="Id" />
+      <Mapping DataField="GroupId" ObjectProperty="Id" />
+      <Mapping DataField="ModifiedById" ObjectProperty="Id" />
+    </Setting>
     <Setting Key="Overtime_GetSummary" SpName="Overtime_GetSummary" DbName="nexhr" Plain="0">
       <Mapping DataField="EmpId" ObjectProperty="Id" />
       <Mapping DataField="GroupId" ObjectProperty="Id" />

@@ -27,7 +27,7 @@ var overtimeConversion = (function ($) {
             },
 
             error: function () {
-                alert(_messages.errorTryAgain);
+                notifyError(_messages.errorTryAgain);
             },
             complete: function () {
                 if (!isFirstLoad) {
@@ -51,11 +51,11 @@ var overtimeConversion = (function ($) {
                         if (res.IsSuccessful) {
                             query(false);
                         } else {
-                            alert(res.Message);
+                            notifyError(res.Message);
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus + ': ' + errorThrown);
+                        notifyError(textStatus + ': ' + errorThrown);
                     }
                 });
             });
@@ -109,11 +109,11 @@ var overtimeConversion = (function ($) {
                         $(domElement.dialogConversion).dialog("close");
                         query(false);
                     } else {
-                        alert(res.Message);
+                        notifyError(res.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ': ' + errorThrown);
+                    notifyError(textStatus + ': ' + errorThrown);
                 }
             });
         });

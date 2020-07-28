@@ -710,3 +710,8 @@ function htmlEncode(value) {
 function htmlDecode(value) {
     return $('<div/>').html(value).text();
 }
+
+function notifyError(errorMessage) {
+    $('#toast-container').children().remove();
+    Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">' + errorMessage + '<span>', 2000);
+}
