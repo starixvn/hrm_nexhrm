@@ -21,8 +21,8 @@
 
         public static bool CheckUser(string username, string password)
         {
-            var isUsernamePasswordValid = password == ConfigurationManager.AppSettings["NexTaskSchedulePassword"]
-                && username == ConfigurationManager.AppSettings["NexTaskScheduleId"];
+            var isUsernamePasswordValid = password == ConfigurationManager.AppSettings["NexHRPassword"]
+                && username == ConfigurationManager.AppSettings["NexHRId"];
 
             return isUsernamePasswordValid;
         }
