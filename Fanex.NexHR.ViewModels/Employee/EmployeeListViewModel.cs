@@ -14,6 +14,6 @@
     {
         public IList<Employee> Employees { get; set; }
 
-        public int StatusViewType { get; set; }
+        public bool IsShowResignedDate { get; set; }
     }
 }

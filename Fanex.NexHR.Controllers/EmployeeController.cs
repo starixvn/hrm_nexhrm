@@ -78,27 +78,24 @@
         public JsonResult GetEmployees(
             string query,
             int? teamId = null,
-            bool? enable = null,
+            bool? isDisable = null,
             bool? isDelete = null,
             int? jobTitleId = null,
             string sort = null,
             bool? isSpecial = null)
         {
-        EmployeeListViewModel listEmployee =
-                new EmployeeListViewModel
-                {
-                    StatusViewType = enable.HasValue
-                        ? (enable.Value ? (int)TypeList.Disabled : (int)TypeList.Active)
-                        : (int)TypeList.Deleted
-                };
+            var listEmployee = new EmployeeListViewModel
+            {
+                IsShowResignedDate = isDisable.HasValue && isDisable.Value || isDelete.HasValue && isDelete.Value
+            };
 
             var criteria = new GetEmployeeCriteria
             {
                 Query = query,
                 TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
-                EnableStatus = enable,
-                DeleteStatus = isDelete,
+                IsDisable = isDisable,
+                IsDelete = isDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000,
@@ -111,6 +108,7 @@
 
             return Json(listEmployee, JsonRequestBehavior.AllowGet);
         }
+
 
         [Authorize(Roles = "HR")]
         public ActionResult WorkingHistory(int employeeId)
@@ -664,8 +662,8 @@
                 Query = string.Empty,
                 TeamId = null,
                 JobTitleId = null,
-                EnableStatus = null,
-                DeleteStatus = null,
+                IsDisable = null,
+                IsDelete = null,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000

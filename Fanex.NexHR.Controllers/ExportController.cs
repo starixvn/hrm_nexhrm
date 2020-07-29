@@ -96,7 +96,7 @@
         public ActionResult EmployeeProfile(
             string query = null,
             int? teamId = null,
-            bool? enable = null,
+            bool? isDisable = null,
             bool? isDelete = null,
             int? jobTitleId = null,
             string sort = null)
@@ -106,8 +106,8 @@
                 Query = query,
                 TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
-                EnableStatus = enable,
-                DeleteStatus = isDelete,
+                IsDisable = isDisable,
+                IsDelete = isDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000

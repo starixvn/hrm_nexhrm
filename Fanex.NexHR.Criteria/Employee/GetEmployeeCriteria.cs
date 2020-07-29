@@ -16,49 +16,13 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
-        public int? Enable
-        {
-            get
-            {
-                if (EnableStatus.HasValue)
-                {
-                    if (EnableStatus.Value)
-                    {
-                        return 0;
-                    }
+        public bool? IsDisable { get; set; }
 
-                    return 1;
-                }
-
-                return new int?();
-            }
-        }
-
-        public int? IsDelete
-        {
-            get
-            {
-                if (DeleteStatus.HasValue)
-                {
-                    if (DeleteStatus.Value)
-                    {
-                        return 1;
-                    }
-
-                    return 0;
-                }
-
-                return new int?();
-            }
-        }
+        public bool? IsDelete { get; set; }
 
         public int? JobTitleId { get; set; }
 
-        [SpParam(Ignored = true)]
-        public bool? EnableStatus { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool? DeleteStatus { get; set; }
+        public bool IsSpecial { get; set; }
 
         public override bool IsValid()
         {
@@ -69,7 +33,5 @@
         {
             return "Employee_GetEmployees";
         }
-
-        public bool IsSpecial { get; set; }
     }
 }

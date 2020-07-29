@@ -56,7 +56,7 @@
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
+                    Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 CommandResult result = _commandService.Insert(criteria);
@@ -107,7 +107,7 @@
                     NewFromDate = model.FromDate,
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
-                    Minutes = model.ChosenTypes.Count == 2 ? 30 : (model.ChosenTypes[0] == 1 ? 60 : 0),
+                    Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
                 };
                 CommandResult result = _commandService.Update(criteria);
@@ -146,6 +146,16 @@
             List<PostnatalViewModel> listPostnatal = _postnatalService.GetAll(criteria).ToList();
 
             return PartialView("_ListPostnatalEmployee", listPostnatal);
+        }
+
+        private static int GetMinuteByType(PostnatalViewModel model)
+        {
+            if (model.ChosenTypes.Count == 2)
+            {
+                return 30;
+            }
+
+            return model.ChosenTypes[0] == 1 ? 60 : 0;
         }
     }
 }

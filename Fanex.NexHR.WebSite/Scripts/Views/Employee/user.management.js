@@ -17,15 +17,15 @@ function query(jobTitleId, isFirstLoad) {
     }
 
     var keyword = $('#Keyword').val(),
-        enable = null;
+        isDisable = null;
 
-    if ($("#enable").prop("checked")) {
-        enable = true;
+    if ($("#IsActive").prop("checked")) {
+        isDisable = false;
     } else {
-        if ($("#active").prop("checked")) {
-            enable = false;
+        if ($("#IsDisable").prop("checked")) {
+            isDisable = true;
         } else {
-            enable = null;
+            isDisable = null;
         }
     }
 
@@ -38,14 +38,13 @@ function query(jobTitleId, isFirstLoad) {
 
     $.ajax({
         url: _global.root + 'employee/getemployees',
-        data: { query: keyword, teamId: $('#TeamId').val(), enable: enable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
+        data: { query: keyword, teamId: $('#TeamId').val(), isDisable: isDisable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
             }
         },
         success: function (data) {
-            employeeListType = data.StatusViewType;
             $('#data tbody').children().remove();
             var listEmployee = data.Employees;
             if (listEmployee && listEmployee.length > 0) {
@@ -74,31 +73,21 @@ function query(jobTitleId, isFirstLoad) {
                 hasData = false;
                 $('table#data').removeClass('responsive-table');
                 $('table#data').floatThead('destroy');
-                //if (employeeListType === 0) {
-                //    $(noInformation(11)).appendTo('table#data');
-                //}
-                //else {
-                //    $(noInformation(12)).appendTo('table#data');
-                //}
-                if (employeeListType === 0) {
-                    $(noInformation(13)).appendTo('table#data');
-                }
-                else {
-                    $(noInformation(14)).appendTo('table#data');
-                }
+
+                $(noInformation(14)).appendTo('table#data');
             }
         },
         error: function () {
             alert(_messages.errorTryAgain);
         },
         complete: function () {
-            if (employeeListType === 0) {
-                $('#resignedDate').hide();
-                $('.ResignedDate').hide();
-            }
-            else {
+            if (data.IsShowResignedDate === true) {
                 $('#resignedDate').show();
                 $('.ResignedDate').show();
+            }
+            else {
+                $('#resignedDate').hide();
+                $('.ResignedDate').hide();
             }
             if (!isFirstLoad) {
                 $('.loading-process').fadeOut(300);
@@ -161,14 +150,15 @@ function eventExportExcel(jobTitleId) {
     $('#exportExcel').on('click', function (evt) {
         evt.preventDefault();
 
-        var enable = null;
-        if ($("#enable").prop("checked")) {
-            enable = true;
+        var isDisable = null;
+
+        if ($("#IsActive").prop("checked")) {
+            isDisable = false;
         } else {
-            if ($("#active").prop("checked")) {
-                enable = false;
+            if ($("#IsDisable").prop("checked")) {
+                isDisable = true;
             } else {
-                enable = null;
+                isDisable = null;
             }
         }
 
@@ -180,7 +170,7 @@ function eventExportExcel(jobTitleId) {
         }
 
         window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#Keyword').val() + '&teamId=' + $('#TeamId').val() +
-            '&enable=' + enable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
+            '&isDisable=' + isDisable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
 }
 

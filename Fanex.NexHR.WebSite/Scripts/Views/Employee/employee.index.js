@@ -114,13 +114,12 @@ function eventExportExcel() {
     $('#exportExcel').on('click', function (evt) {
         evt.preventDefault();
 
-        var enable = null,
+        var isDisable = null,
             isDelete = null,
             jobTitleId = null;
 
-
         window.location.href = _global.root + 'Export/EmployeeProfile?query=' + $('#Keyword').val() + '&teamId=' + $('#TeamId').val() +
-            '&enable=' + enable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
+            '&isDisable=' + isDisable + '&isDelete=' + isDelete + '&jobTitleId=' + jobTitleId + '&sort=' + JSON.stringify(sorts);
     });
 }
 

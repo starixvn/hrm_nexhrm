@@ -304,9 +304,7 @@
                 LeaveTypeId = request.LeaveTypeId == 0 ? null : new int?(request.LeaveTypeId),
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
                 ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(CurrentUser.Id) : null,
-                RequestType = request.RequestType == 1
-                    ? Convert.ToString((int)RequestType.Leave)
-                    : (request.RequestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty),
+                RequestType = GetRequestTypeName(request.RequestType),
                 IsFilterByEffectedDate = request.IsFilterByEffectedDate,
                 PageIndex = request.CurrentPage - 1,
                 ItemsPerPage = request.ItemsPerPage
@@ -327,6 +325,16 @@
             }
 
             return entityList;
+        }
+
+        private static string GetRequestTypeName(int requestType)
+        {
+            if (requestType == 1)
+            {
+                return Convert.ToString((int)RequestType.Leave);
+            }
+
+            return requestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty;
         }
     }
 }

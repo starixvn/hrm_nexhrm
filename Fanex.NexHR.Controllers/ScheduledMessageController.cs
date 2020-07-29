@@ -176,7 +176,8 @@
                 var employees = employeeService.Query(new GetEmployeeCriteria
                 {
                     Query = string.Empty,
-                    DeleteStatus = false,
+                    IsDelete = false,
+                    IsDisable = false,
                     PageSize = int.MaxValue,
                     PageNumber = 1
                 });
@@ -254,7 +255,8 @@
                 var employees = employeeService.Query(new GetEmployeeCriteria
                 {
                     Query = string.Empty,
-                    DeleteStatus = false,
+                    IsDelete = false,
+                    IsDisable = false,
                     PageSize = int.MaxValue,
                     PageNumber = 1
                 });
