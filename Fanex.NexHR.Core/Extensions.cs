@@ -33,11 +33,6 @@ namespace Fanex.NexHR.Core
         private const string stringInput = "input";
         private const string stringLabel = "label";
         private const string stringValue = "value";
-        private const int secondCase = 2;
-        private const int threeCase = 3;
-        private const int fourCase = 4;
-        private const int fiveCase = 5;
-        private const int sixCase = 6;
 
         public static string EnumToString(this Command value)
         {
@@ -770,10 +765,10 @@ namespace Fanex.NexHR.Core
                 case 1:
                     return Labels.Pending;
 
-                case secondCase:
+                case 2:
                     return Labels.Approved;
 
-                case threeCase:
+                case 3:
                     return Labels.Rejected;
 
                 default:
@@ -788,19 +783,19 @@ namespace Fanex.NexHR.Core
                 case 1:
                     return Labels.CheckIn;
 
-                case secondCase:
+                case 2:
                     return Labels.CheckOut;
 
-                case threeCase:
+                case 3:
                     return Labels.LateIn;
 
-                case fourCase:
+                case 4:
                     return Labels.EarlyOut;
 
-                case fiveCase:
+                case 5:
                     return Labels.ChangeShift;
 
-                case sixCase:
+                case 6:
                     return Labels.Leave;
 
                 default:
