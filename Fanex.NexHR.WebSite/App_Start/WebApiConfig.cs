@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
-    using System.Web.Http;
-    using Fanex.NexHR.Core;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+    using System.Web.Http;
 
     public static class WebApiConfig
     {
