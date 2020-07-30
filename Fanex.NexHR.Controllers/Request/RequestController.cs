@@ -329,12 +329,14 @@
 
         private static string GetRequestTypeName(int requestType)
         {
-            if (requestType == 1)
+            if (requestType == (int)RequestTypeFilterForRequest.Leave)
             {
                 return Convert.ToString((int)RequestType.Leave);
             }
 
-            return requestType == 4 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) : string.Empty;
+            return requestType == (int)RequestTypeFilterForRequest.CheckInOut 
+                ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) 
+                : string.Empty;
         }
     }
 }

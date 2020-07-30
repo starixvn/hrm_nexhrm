@@ -67,26 +67,6 @@
             return PartialView("_Create", viewModel);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Edit(int id)
-        {
-            var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
-            var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
-
-            var viewModel = new EditScheduledMessageViewModel
-            {
-                ScheduledMessageId = scheduledMessage.ScheduledMessageId,
-                ConversationId = scheduledMessage.ConversationId,
-                SendDate = scheduledMessage.SendDate.Date,
-                Hour = scheduledMessage.SendDate.Hour,
-                Minute = scheduledMessage.SendDate.Minute,
-                Content = scheduledMessage.Content,
-                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
-            };
-
-            return PartialView("_Edit", viewModel);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateScheduledMessageViewModel viewModel)
@@ -113,6 +93,26 @@
             var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
 
             return Json(new { isSuccessful = false, errors });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
+            var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
+
+            var viewModel = new EditScheduledMessageViewModel
+            {
+                ScheduledMessageId = scheduledMessage.ScheduledMessageId,
+                ConversationId = scheduledMessage.ConversationId,
+                SendDate = scheduledMessage.SendDate.Date,
+                Hour = scheduledMessage.SendDate.Hour,
+                Minute = scheduledMessage.SendDate.Minute,
+                Content = scheduledMessage.Content,
+                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
+            };
+
+            return PartialView("_Edit", viewModel);
         }
 
         [HttpPost]

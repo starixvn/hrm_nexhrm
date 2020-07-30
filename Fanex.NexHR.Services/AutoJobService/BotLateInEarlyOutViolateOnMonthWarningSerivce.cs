@@ -1,20 +1,19 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Interfaces;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {

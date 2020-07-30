@@ -6,7 +6,6 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
 
     public class MailEmployeeService
     {

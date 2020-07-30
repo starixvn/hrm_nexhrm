@@ -1,0 +1,25 @@
+﻿namespace Fanex.NexHR.Core.Enums
+{
+    using System.ComponentModel;
+
+    public enum RequestTypeFilterForAttendance
+    {
+        [Description("All")]
+        All = 0,
+
+        [Description("Check In")]
+        CheckIn = 1,
+
+        [Description("Check Out")]
+        CheckOut = 2,
+
+        [Description("Late In")]
+        LateIn = 3,
+
+        [Description("Early Out")]
+        EarlyOut = 4,
+
+        [Description("Not Working")]
+        ChangeShift = 5
+    }
+}

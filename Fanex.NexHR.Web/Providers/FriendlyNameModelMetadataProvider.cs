@@ -30,11 +30,7 @@ namespace Fanex.NexHR.Web.Providers
         {
             ModelMetadata metadata = base.GetMetadataForProperty(modelAccessor, containerType, propertyDescriptor);
 
-            if (metadata.DisplayName == null)
-            {
-                metadata.DisplayName = DisplayNameFromCamelCase(metadata.GetDisplayName());
-            }
-
+            metadata.DisplayName = metadata.DisplayName ?? DisplayNameFromCamelCase(metadata.GetDisplayName());
             return metadata;
         }
 

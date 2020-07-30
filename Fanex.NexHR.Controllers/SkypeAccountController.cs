@@ -63,18 +63,6 @@
             return PartialView("_EditAccount", viewModel);
         }
 
-        private IEnumerable<SelectListItem> GetSkypeUserSuggestionSelectList(IEnumerable<ConversationUser> suggestionList, string nickName)
-        {
-            var suggestions = suggestionList.Select(x => new SelectListItem
-            {
-                Text = x.UserName,
-                Value = x.ConversationId,
-                Selected = x.NickName != null && x.NickName.Equals(nickName)
-            });
-
-            return suggestions.OrderByDescending(s => s.Text.ToLowerInvariant().IndexOf(nickName.ToLowerInvariant(), StringComparison.Ordinal));
-        }
-
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult EditAccount(SkypeAccountViewModel viewModel)
@@ -99,6 +87,18 @@
                 .Select(item => new { item.Key, item.Value.Errors.FirstOrDefault()?.ErrorMessage });
 
             return Json(new { isSuccessful, errors, message });
+        }
+
+        private IEnumerable<SelectListItem> GetSkypeUserSuggestionSelectList(IEnumerable<ConversationUser> suggestionList, string nickName)
+        {
+            var suggestions = suggestionList.Select(x => new SelectListItem
+            {
+                Text = x.UserName,
+                Value = x.ConversationId,
+                Selected = x.NickName != null && x.NickName.Equals(nickName)
+            });
+
+            return suggestions.OrderByDescending(s => s.Text.ToLowerInvariant().IndexOf(nickName.ToLowerInvariant(), StringComparison.Ordinal));
         }
     }
 }

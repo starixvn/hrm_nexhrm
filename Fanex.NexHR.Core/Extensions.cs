@@ -431,8 +431,8 @@ namespace Fanex.NexHR.Core
             return CheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
+        ////[SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
+        ////[SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -465,19 +465,6 @@ namespace Fanex.NexHR.Core
             TagBuilder checkbox;
             InitializeBasicCheckBox(htmlHelper, name, isChecked, out fullHtmlFieldName, out checkbox);
             return ApplyTagLabel(fullHtmlFieldName, checkbox);
-        }
-
-        private static MvcHtmlString ApplyTagLabel(string fullHtmlFieldName, TagBuilder checkbox)
-        {
-            TagBuilder label = new TagBuilder(stringLabel);
-            label.MergeAttribute("for", fullHtmlFieldName);
-
-            TagBuilder hidden = new TagBuilder(stringInput);
-            hidden.MergeAttribute("name", fullHtmlFieldName);
-            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
-            hidden.MergeAttribute(stringValue, "false");
-
-            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
 
         public static MvcHtmlString MaterializeCheckBox(
@@ -554,6 +541,19 @@ namespace Fanex.NexHR.Core
             {
                 checkbox.MergeAttribute(stringCheck, stringCheck2);
             }
+        }
+
+        private static MvcHtmlString ApplyTagLabel(string fullHtmlFieldName, TagBuilder checkbox)
+        {
+            TagBuilder label = new TagBuilder(stringLabel);
+            label.MergeAttribute("for", fullHtmlFieldName);
+
+            TagBuilder hidden = new TagBuilder(stringInput);
+            hidden.MergeAttribute("name", fullHtmlFieldName);
+            hidden.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+            hidden.MergeAttribute(stringValue, "false");
+
+            return MvcHtmlString.Create(checkbox.ToString(TagRenderMode.SelfClosing) + label + hidden.ToString(TagRenderMode.SelfClosing));
         }
 
         #endregion MaterializeCheckBox

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Criteria.Report;
-    using Criteria.Team;
     using Interfaces;
     using Models;
     using Models.Report;

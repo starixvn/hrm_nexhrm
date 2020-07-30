@@ -65,10 +65,7 @@
 
             selectListItemTeam.Add(firstItem);
 
-            if (Teams == null)
-            {
-                Teams = new List<Team>();
-            }
+            Teams = Teams ?? new List<Team>();
 
             foreach (Team team in Teams)
             {

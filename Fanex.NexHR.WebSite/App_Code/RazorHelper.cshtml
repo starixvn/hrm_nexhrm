@@ -265,7 +265,7 @@ else
 {
     <select id="@name" name="@name">
         @{
-            foreach (RequestTypeFilter requestType in (RequestTypeFilter[])Enum.GetValues(typeof(RequestTypeFilter)))
+            foreach (RequestTypeFilterForAttendance requestType in (RequestTypeFilterForAttendance[])Enum.GetValues(typeof(RequestTypeFilterForAttendance)))
             {
                 var value = (int)requestType;
                 <option value="@value" selected="@(value == selectValue)">@Utilities.GetDescription(requestType)</option>

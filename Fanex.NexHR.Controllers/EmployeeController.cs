@@ -204,7 +204,6 @@
                 var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
                 history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
                 history.Id = id;
-                history = history ?? new WorkingHistoryViewModel { };
             }
 
             return PartialView(history);

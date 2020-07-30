@@ -11,7 +11,6 @@
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
 
     public class MailBirthdayAndFirstWorkingdayReminderService : IMailBirthdayAndFirstWorkingdayReminderService

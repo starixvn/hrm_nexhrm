@@ -56,6 +56,11 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             }
         }
 
+        public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex)
+        {
+            sheet.CopyRow(sourceSheet, sourceRowIndex, rowIndex, 0, int.MaxValue - 1);
+        }
+
         private static void CopyRowData(ISheet sheet, ISheet sourceSheet, IRow sourceRow, IRow newRow, int firstCellNum,
             int lastCellNum)
         {
@@ -96,11 +101,6 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                     sheet.AddMergedRegion(newRange);
                 }
             }
-        }
-
-        public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex)
-        {
-            sheet.CopyRow(sourceSheet, sourceRowIndex, rowIndex, 0, int.MaxValue - 1);
         }
 
         public static void RemoveRow(this ISheet sheet, int rowIndex)

@@ -62,9 +62,9 @@
 
         public List<SelectListItem> RequestTypes => new List<SelectListItem>
         {
-            new SelectListItem { Text = Labels.All, Value = "5" },
-            new SelectListItem { Text = Labels.Leave, Value = "1" },
-            new SelectListItem { Text = Labels.CheckInOut, Value = "4" }
+            new SelectListItem { Text = Labels.All, Value = ((int)RequestTypeFilterForRequest.All).ToString() },
+            new SelectListItem { Text = Labels.Leave, Value = ((int)RequestTypeFilterForRequest.Leave).ToString() },
+            new SelectListItem { Text = Labels.CheckInOut, Value = ((int)RequestTypeFilterForRequest.CheckInOut).ToString() }
         };
 
         public IList<SelectListItem> GetSelectListItemTeam(int? teamId)
@@ -80,10 +80,7 @@
 
             selecListItemTeam.Add(firstItem);
 
-            if (Teams == null)
-            {
-                Teams = new List<Team>();
-            }
+            Teams = Teams ?? new List<Team>();
 
             foreach (Team team in Teams)
             {

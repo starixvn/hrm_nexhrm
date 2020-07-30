@@ -1,19 +1,18 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
     using Core;
     using Core.Model;
     using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
-    using Criteria.Team;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
@@ -54,15 +53,12 @@
 
             var totalWorkingHoursViewModel = model;
 
-            if (totalWorkingHoursViewModel == null)
+            totalWorkingHoursViewModel = totalWorkingHoursViewModel ?? new TotalWorkingHoursViewModel
             {
-                totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
-                {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                    DateOption = dateOption,
-                };
-            }
+                FromDate = new DateTime(year, month, 1),
+                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                DateOption = dateOption,
+            };
 
             var getWorkingHoursCriteria = new GetTotalWorkingHoursSummaryCriteria
             {
