@@ -1,17 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="HSSFSheetExtensions.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2016.27.01">Created.</change>
-// </history>
-
-namespace Fanex.NexHR.Core.NPOIExtensions
+﻿namespace Fanex.NexHR.Core.NPOIExtensions
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
@@ -117,8 +107,6 @@ namespace Fanex.NexHR.Core.NPOIExtensions
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Need to review here.")]
         public static void RemoveColumn(this ISheet sheet, int columnIndex)
         {
             bool adjustColumn = true;
@@ -148,28 +136,26 @@ namespace Fanex.NexHR.Core.NPOIExtensions
 
         private static void AdjustMergeRegion(ISheet sheet, int columnIndex, int rowIndex)
         {
-            // Adjust merged region
             for (var i = sheet.NumMergedRegions - 1; i >= 0; i--)
             {
                 var mergedRegion = sheet.GetMergedRegion(i);
+                if (rowIndex == mergedRegion.FirstRow)
+                {
+                    if (columnIndex == mergedRegion.FirstColumn && columnIndex == mergedRegion.LastColumn)
+                    {
+                        sheet.RemoveMergedRegion(i);
+                    }
 
-                if (rowIndex != mergedRegion.FirstRow)
-                {
-                    continue;
-                }
+                    if (columnIndex < mergedRegion.FirstColumn)
+                    {
+                        mergedRegion.FirstColumn--;
+                        mergedRegion.LastColumn--;
+                    }
 
-                if (columnIndex == mergedRegion.FirstColumn && columnIndex == mergedRegion.LastColumn)
-                {
-                    sheet.RemoveMergedRegion(i);
-                }
-                else if (columnIndex < mergedRegion.FirstColumn)
-                {
-                    mergedRegion.FirstColumn--;
-                    mergedRegion.LastColumn--;
-                }
-                else if (columnIndex <= mergedRegion.LastColumn)
-                {
-                    mergedRegion.LastColumn--;
+                    if (columnIndex <= mergedRegion.LastColumn)
+                    {
+                        mergedRegion.LastColumn--;
+                    }
                 }
             }
         }

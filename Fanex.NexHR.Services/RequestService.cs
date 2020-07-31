@@ -571,20 +571,16 @@
 
             var sendCc = string.Join(",", employees.Select(t => t.Email));
             var sendTo = string.Join(";", employees.Select(t => t.Email));
-            const int secondCase = 2;
-            const int sixCase = 6;
 
-            switch (request.RequestType.Id)
+            if (request.RequestType.Id == (int)RequestType.Leave)
             {
-                case 1:
-                case secondCase:
-                    CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
-                    break;
-
-                case sixCase:
-                    LeaveRelatedMail(request, sendTo, templateLeaveEmailToRelatedPath);
-                    break;
+                LeaveRelatedMail(request, sendTo, templateLeaveEmailToRelatedPath);
             }
+            else
+            {
+                CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
+            }
+
         }
 
         private void CheckInOutRelatedMail(RequestEntity request, string sendCc, string templateInOutEmailToRelatedPath)

@@ -129,6 +129,7 @@
     <Compile Include="Enums\DateRangeFilter.cs" />
     <Compile Include="Enums\LeaveConversionType.cs" />
     <Compile Include="Enums\MessageCategory.cs" />
+    <Compile Include="Enums\PostnatalType.cs" />
     <Compile Include="Enums\RedmineIssueStatus.cs" />
     <Compile Include="Enums\RedmineLogTimeActivity.cs" />
     <Compile Include="Enums\RequestMonitoringType.cs" />

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Extensions.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
-
-namespace Fanex.NexHR.Core
+﻿namespace Fanex.NexHR.Core
 {
     using System;
     using System.Collections.Generic;
@@ -80,7 +71,6 @@ namespace Fanex.NexHR.Core
             return enumeration.ToString();
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString RadioButtonList<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -152,7 +142,6 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(textbox.ToString());
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString DatePickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression,
@@ -247,7 +236,6 @@ namespace Fanex.NexHR.Core
             return MvcHtmlString.Create(dropDownList.ToString());
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString YearPickerFor<TModel, TValue>(
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression,
@@ -290,7 +278,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxList(
             this HtmlHelper htmlHelper,
             string name,
@@ -404,7 +391,6 @@ namespace Fanex.NexHR.Core
             return sb;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression)
@@ -412,7 +398,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxListFor(htmlHelper, expression, null);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -421,7 +406,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxListFor(htmlHelper, expression, selectList, null);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -431,8 +415,6 @@ namespace Fanex.NexHR.Core
             return CheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        ////[SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
-        ////[SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -759,48 +741,53 @@ namespace Fanex.NexHR.Core
         #region Business
 
         public static string ToText(this byte status)
-        {            
+        {
+            string statusName;
             switch (status)
             {
-                case 1:
-                    return Labels.Pending;
+                case (byte)RequestStatuse.Pending:
+                    statusName = Labels.Pending;
+                    break;
 
-                case 2:
-                    return Labels.Approved;
+                case (byte)RequestStatuse.Approve:
+                    statusName = Labels.Approved;
+                    break;
 
-                case 3:
-                    return Labels.Rejected;
+                case (byte)RequestStatuse.Reject:
+                    statusName = Labels.Rejected;
+                    break;
 
                 default:
-                    return string.Empty;
+                    statusName = string.Empty;
+                    break;
             }
+
+            return statusName;
         }
 
         public static string ToText(this short type)
         {
+            string requestTypeName;
             switch (type)
             {
-                case 1:
-                    return Labels.CheckIn;
+                case (short)RequestType.CheckIn:
+                    requestTypeName = Labels.CheckIn;
+                    break;
 
-                case 2:
-                    return Labels.CheckOut;
+                case (short)RequestType.CheckOut:
+                    requestTypeName = Labels.CheckOut;
+                    break;
 
-                case 3:
-                    return Labels.LateIn;
-
-                case 4:
-                    return Labels.EarlyOut;
-
-                case 5:
-                    return Labels.ChangeShift;
-
-                case 6:
-                    return Labels.Leave;
+                case (short)RequestType.Leave:
+                    requestTypeName = Labels.Leave;
+                    break;
 
                 default:
-                    return string.Empty;
+                    requestTypeName = string.Empty;
+                    break;
             }
+
+            return requestTypeName;
         }
 
         public static string ToFormatedDate(this DateTime? date)
@@ -885,7 +872,6 @@ namespace Fanex.NexHR.Core
             return string.Empty;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed. Suppression is OK here.")]
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,

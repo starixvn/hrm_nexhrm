@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Models.Request
 {
+    using Fanex.NexHR.Core.Enums;
     using Resources;
 
     public class RequestTypeModel : EntityBase<short>
@@ -10,17 +11,11 @@
             {
                 switch (Id)
                 {
-                    case 1:
+                    case (short)RequestType.CheckIn:
                         return Labels.CheckIn;
-                    case 2:
+                    case (short)RequestType.CheckOut:
                         return Labels.CheckOut;
-                    case 3:
-                        return Labels.LateIn;
-                    case 4:
-                        return Labels.EarlyOut;
-                    case 5:
-                        return Labels.ChangeShift;
-                    case 6:
+                    case (short)RequestType.Leave:
                         return Labels.Leave;
                     default:
                         return string.Empty;
@@ -34,40 +29,13 @@
             {
                 switch (Id)
                 {
-                    case 1:
-                    case 2:
-                        return 4;
-                    case 3:
-                    case 4:
-                        return 3;
-                    case 5:
-                        return 2;
-                    case 6:
-                        return 1;
+                    case (short)RequestType.CheckIn:
+                    case (short)RequestType.CheckOut:
+                        return (int)RequestTypeFilterForRequest.CheckInOut;
+                    case (short)RequestType.Leave:
+                        return (int)RequestTypeFilterForRequest.Leave;
                     default:
-                        return 5;
-                }
-            }
-        }
-
-        public int RequestHistoryFilter
-        {
-            get
-            {
-                switch (Id)
-                {
-                    case 1:
-                    case 2:
-                        return 1;
-                    case 3:
-                    case 4:
-                        return 2;
-                    case 5:
-                        return 3;
-                    case 6:
-                        return 4;
-                    default:
-                        return 0;
+                        return (int)RequestTypeFilterForRequest.All;
                 }
             }
         }

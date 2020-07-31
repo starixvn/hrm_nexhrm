@@ -9,11 +9,16 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
 
     public class PostnatalController : BaseController
     {
-        private readonly IPostnatalService _postnatalService;
-        private readonly ICommandService _commandService;
+        private readonly IPostnatalService postnatalService;
+        private readonly ICommandService commandService;
+        private const int MixPostnatalTypeCount = 2;
+        private const int ThirtyMinutes = 30;
+        private const int SixtyMinutes = 60;
+
 
         public PostnatalController()
             : this(null, null)
@@ -22,8 +27,8 @@
 
         public PostnatalController(IPostnatalService postnatalService, ICommandService commandService)
         {
-            _postnatalService = postnatalService ?? new PostnatalService();
-            _commandService = commandService ?? new CommandService();
+            this.postnatalService = postnatalService ?? new PostnatalService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ActionResult Index()
@@ -39,7 +44,7 @@
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
                 Types = 0,
-                Minutes = 30
+                Minutes = ThirtyMinutes
             };
             return View(model);
         }
@@ -57,9 +62,9 @@
                     ToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = GetMinuteByType(model),
-                    Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
+                    Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = _commandService.Insert(criteria);
+                CommandResult result = commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -81,7 +86,7 @@
                 FromDate = DateTime.Parse(from),
                 ToDate = DateTime.Parse(to)
             };
-            PostnatalViewModel employee = _postnatalService.GetById(criteria);
+            PostnatalViewModel employee = postnatalService.GetById(criteria);
             if (employee != null)
             {
                 employee.OldEmpId = employee.EmpId;
@@ -108,9 +113,9 @@
                     NewToDate = model.ToDate,
                     ModifiedBy = CurrentUser.Id,
                     Minutes = GetMinuteByType(model),
-                    Types = model.ChosenTypes.Count == 2 ? 3 : model.ChosenTypes[0]
+                    Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.Update(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -132,7 +137,7 @@
                 FromDate = fromDate,
                 ToDate = toDate
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.Delete(criteria);
             return Json(result);
         }
 
@@ -143,19 +148,19 @@
                 EmpId = empId,
                 Year = year
             };
-            List<PostnatalViewModel> listPostnatal = _postnatalService.GetAll(criteria).ToList();
+            List<PostnatalViewModel> listPostnatal = postnatalService.GetAll(criteria).ToList();
 
             return PartialView("_ListPostnatalEmployee", listPostnatal);
         }
 
         private static int GetMinuteByType(PostnatalViewModel model)
         {
-            if (model.ChosenTypes.Count == 2)
+            if (model.ChosenTypes.Count == MixPostnatalTypeCount)
             {
-                return 30;
+                return ThirtyMinutes;
             }
 
-            return model.ChosenTypes[0] == 1 ? 60 : 0;
+            return model.ChosenTypes[0] == (int)PostnatalType.LateInEarlyOut ? SixtyMinutes : 0;
         }
     }
 }

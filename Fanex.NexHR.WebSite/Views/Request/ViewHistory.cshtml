@@ -7,15 +7,10 @@
 @switch ((int)ViewBag.requestType)
 {
     case 1:
+    case 2:
         Html.RenderPartial("History/CheckInOutRequestHistory", Model);
         break;
-    case 2:
-        Html.RenderPartial("History/LateInEarlyOutRequestHistory", Model);
-        break;
-    case 3:
-        Html.RenderPartial("History/ChangeShiftRequestHistory", Model);
-        break;
-    case 4:
+    case 6:
         Html.RenderPartial("History/LeaveRequestHistory", Model);
         break;
 }

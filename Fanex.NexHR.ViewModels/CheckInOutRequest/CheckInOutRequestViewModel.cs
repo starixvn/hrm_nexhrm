@@ -35,6 +35,8 @@
         [Required]
         public short CheckInOutType { get; set; }
 
+        public string RequestTypeName { get; set; }
+
         public string Shift { get; set; }
 
         public int ForRequest { get; set; } = (int)GeneralRequestType.CheckInOut;
