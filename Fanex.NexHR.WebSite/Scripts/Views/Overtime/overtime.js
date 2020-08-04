@@ -60,11 +60,11 @@ function initFormOTRequest() {
     loadOTRequestDetail();
 }
 
-function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status) {
+function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status, overtimeId) {
     $.ajax({
         url: _global.root + 'overtime/overtimerequest',
         type: 'GET',
-        data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status },
+        data: { CreatedBy: createdBy, FromDateOT: fromDate, ToDateOT: toDate, Status: status, OvertimeId: overtimeId },
         dataType: 'html',
         async: false,
         beforeSend: function () {
@@ -93,7 +93,6 @@ function initFormMemberOT() {
     initDatePicker("#memberOT .datepicker");
     initButtonForMemberOT();
     initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
-    initAutocomplete("#memberOT #Employee", "#memberOT #EmployeeId");
 
     $('#memberOT #Date').on('change', function () {
         setDateTimeRange($(this).val());
@@ -156,8 +155,10 @@ function loadMyOvertime() {
     });
 }
 
-function loadDetailTotalMembers(isFirstload, createdBy, fromDate, toDate, status) {
-    loadOTRequest(isFirstload, createdBy, fromDate, toDate, status);
+function loadDetailTotalMembers(isFirstload, createdBy, status, overtimeId) {
+    let fromDate = $('#memberOT #FromDate').val();
+    let toDate = $('#memberOT #ToDate').val();
+    loadOTRequest(isFirstload, createdBy, fromDate, toDate, status, overtimeId);
     $('ul.tabs').tabs('select_tab', 'OTRequest');
 }
 

@@ -5,7 +5,7 @@
     ViewBag.Title = Labels.CreateOTRequest;
 }
 @section css{
-    @Styles.Render("~/Content/view-mobile")
+    @Styles.Render("~/Content/overtimemanagecss", "~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/manageovertimejs");
@@ -31,44 +31,10 @@
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Edited Successful!
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.CreatedSuccessfully
                                     </div>
                                 </div>
                             }
-
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.Date)
-                                    </div>
-                                    <div class="datepicker-button left select--s">
-                                        @Html.DatePickerFor(model => model.Date)
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.Hour, Labels.Duration)
-                                    </div>
-                                    <div class="left select--xs">
-                                        @Html.TextBoxFor(model => model.Hour, new { type = "number", step = "0.5", min = "1" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.IsApprove)
-                                    </div>
-                                    <div class="left select--xs">
-                                        @Html.MaterializeCheckBoxFor(m => m.IsApprove, new { @class = "filled-in" })
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row form-input m-t--s">
                                 <div class="col m-r--m">
@@ -96,52 +62,30 @@
 
 
                             <div class="row form-input">
-                                <div class="col m-r--m">
+                                <div class="col m-r--m col-list-emp">
                                     <div class="left label--l">
                                         @Html.Label("Employee List")
                                     </div>
                                     <div class="left cover-form-mb over-auto table-overtime-create">
-                                        <table class="table bordered striped highlight centered table-custom"
-                                               style="width: 800px;">
+                                        <table class="table bordered striped highlight centered table-custom list-emp">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>@Labels.Employee</th>
+                                                    <th>@Labels.Date</th>
                                                     <th>@Labels.Duration</th>
+                                                    <th>@Labels.NexHour</th>
+                                                    <th>@Labels.Note</th>
                                                     <th>@Labels.Remove</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="timeSheets">
-                                                @if (Model.TimeSheets.Any())
-                                                {
-                                                    var i = 1;
-                                                    foreach (var item in Model.TimeSheets)
-                                                    {
-                                                        <tr class="sortedIndex" id="row_@item.Employee.Id">
-                                                            <td>@i</td>
-                                                            <td class="align-left row_name">
-                                                                @item.Employee.DisplayName
-                                                            </td>
-                                                            <td>
-                                                                <input id="row_hour_@item.Employee.Id" class="row_hour" data-id="@item.Employee.Id" type="number" value="@item.Hour" step="0.5" />
-                                                            </td>
-                                                            <td>
-                                                                <a href="javascript:;" onclick="deleteRow(@item.Employee.Id);">
-                                                                    <i class="mdi mdi-delete mdi-dark"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                }
-                                                else
-                                                {
                                                     <tr>
-                                                        <td colspan="4"></td>
+                                                        <td colspan="7"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4">No Employee</td>
+                                                        <td colspan="7">No Employee</td>
                                                     </tr>
-                                                }
                                             </tbody>
                                         </table>
                                     </div>

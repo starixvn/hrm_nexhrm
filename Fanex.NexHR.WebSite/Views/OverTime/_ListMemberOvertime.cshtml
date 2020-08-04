@@ -10,14 +10,17 @@
         <tr>
             <td>@(index++)</td>
             <td class="align-left">@item.CreatedBy.DisplayName</td>
-            <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
+            <td>@item.CreatedDate.ToDateMonthYearFormatedDate()</td>
             <td>
                 <span class='contextmenu'>
                     <a href='javascript:;'>@item.Totalhours</a>
                     <ul class='list-unstyled drop-menu'>
                         @foreach (OvertimeRecord detail in item.OvertimeRecords)
                         {
-                            <li><span class='mdi-navigation-chevron-right'></span><span>@detail.Employee.NickName: @detail.Hour</span></li>
+                            <li>
+                                <span class='mdi-navigation-chevron-right'></span>
+                                <span>@detail.Date.ToShortDateString() - @detail.Employee.NickName: @detail.Hour</span>
+                            </li>
                         }
 
                     </ul>
@@ -25,7 +28,7 @@
             </td>
             <td>
                 <a href="javascript:;"
-                   onclick="loadDetailTotalMembers(false, @item.CreatedBy.Id, '@item.OnDate.ToDateMonthYearFormatedDate()', '@item.OnDate.ToDateMonthYearFormatedDate()', @item.Status)">
+                   onclick="loadDetailTotalMembers(false, @item.CreatedBy.Id, @item.Status ,@item.Id)">
                     @item.TotalMember.ToString()
                 </a>
             </td>

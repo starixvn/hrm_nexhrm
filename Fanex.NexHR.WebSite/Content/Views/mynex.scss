@@ -218,7 +218,7 @@
                     }
 
                     &.table-success {
-                        margin-left: 200px;
+                        /*margin-left: 200px;*/
                         //margin-bottom: 80px;
                         thead, tbody {
                             tr {
@@ -227,7 +227,7 @@
                                     text-align: center !important;
                                     white-space: nowrap;
 
-                                    &:nth-child(1) {
+                                    /*&:nth-child(1) {
                                         display: none;
                                     }
 
@@ -256,7 +256,7 @@
                                         text-overflow: ellipsis;
                                         white-space: nowrap;
                                         overflow: hidden;
-                                    }
+                                    }*/
                                 }
                             }
                         }

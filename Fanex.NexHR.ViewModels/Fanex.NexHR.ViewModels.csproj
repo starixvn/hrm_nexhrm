@@ -92,6 +92,7 @@
     <Compile Include="Employee\WorkingHistoryViewModel.cs" />
     <Compile Include="FingerprintAndCardViewModel.cs" />
     <Compile Include="LoginModel.cs" />
+    <Compile Include="Overtime\HROvertimeViewModel.cs" />
     <Compile Include="Overtime\OvertimeConversionCreateViewModel.cs" />
     <Compile Include="Overtime\OvertimeConversionDetailViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />

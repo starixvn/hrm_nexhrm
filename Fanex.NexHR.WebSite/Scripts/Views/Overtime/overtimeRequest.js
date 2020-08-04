@@ -12,6 +12,7 @@ function loadOTRequestDetail() {
 
 function initButtonForOTRequest() {
     $("#OTRequest #btn-submit").click(function () {
+        $('#OTRequest #form #OvertimeId').val(null);
         loadOTRequestDetail();
     });
 }

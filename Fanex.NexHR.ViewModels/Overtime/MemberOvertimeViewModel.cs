@@ -15,6 +15,8 @@
             ToDateOT = DateTime.Now;
         }
 
+        public int? OvertimeId { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "FromDate", ResourceType = typeof(Labels))]
         public DateTime FromDate { get; set; }

@@ -196,6 +196,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adjusted Hour.
+        /// </summary>
+        public static string AdjustedHour {
+            get {
+                return ResourceManager.GetString("AdjustedHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adjustment.
         /// </summary>
         public static string Adjustment {
@@ -3018,6 +3027,15 @@ namespace Fanex.NexHR.Resources {
         public static string NewTeam {
             get {
                 return ResourceManager.GetString("NewTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NEX Hours.
+        /// </summary>
+        public static string NexHour {
+            get {
+                return ResourceManager.GetString("NexHour", resourceCulture);
             }
         }
         

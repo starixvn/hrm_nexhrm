@@ -103,5 +103,9 @@
   {
     "outputFile": "Content/Views/jobtitle.css",
     "inputFile": "Content/Views/jobtitle.scss"
+  },
+  {
+    "outputFile": "Content/Views/overtime.manage.css",
+    "inputFile": "Content/Views/overtime.manage.scss"
   }
 ]

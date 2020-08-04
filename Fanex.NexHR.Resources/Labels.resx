@@ -1605,9 +1605,6 @@
   <data name="OvertimePaymentDetail" xml:space="preserve">
     <value>NEX Payment Detail</value>
   </data>
-  <data name="Transfer" xml:space="preserve">
-    <value>Transfer</value>
-  </data>
   <data name="AndCardWarning" xml:space="preserve">
     <value> and **Card**</value>
   </data>
@@ -1625,5 +1622,11 @@
   </data>
   <data name="PayDate" xml:space="preserve">
     <value>Pay Date</value>
+  </data>
+  <data name="NexHour" xml:space="preserve">
+    <value>NEX Hours</value>
+  </data>
+  <data name="AdjustedHour" xml:space="preserve">
+    <value>Adjusted Hour</value>
   </data>
 </root>

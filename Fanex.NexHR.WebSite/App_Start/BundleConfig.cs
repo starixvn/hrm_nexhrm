@@ -169,6 +169,9 @@
 
         private static void BuildBundlerForOvertime(BundleCollection bundles)
         {
+            bundles.Add(new StyleBundle("~/Content/overtimemanagecss")
+                .Include("~/Content/Views/overtime.manage.css", new CssRewriteUrlTransform()));
+
             bundles.Add(new ScriptBundle("~/bundles/manageovertimejs").Include(
                          "~/Scripts/Views/Overtime/manage.js"));
 
@@ -185,6 +188,10 @@
             bundles.Add(new ScriptBundle("~/bundles/overtimeconversionjs").Include(
                 EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Overtime/overtime.conversion.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/overtimehrviewjs").Include(
+                EmployeeSearchInCompanyScript,
+                "~/Scripts/Views/Overtime/overtime.hrview.js"));
         }
 
         private static void BuildBundleForMyRequest(BundleCollection bundles)

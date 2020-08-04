@@ -353,6 +353,12 @@
     <Content Include="Content\Views\myrequest.min.css">
       <DependentUpon>myrequest.css</DependentUpon>
     </Content>
+    <Content Include="Content\Views\overtime.manage.css">
+      <DependentUpon>overtime.manage.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Views\overtime.manage.min.css">
+      <DependentUpon>overtime.manage.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\report.latein.earlyout.discipline.css">
       <DependentUpon>report.latein.earlyout.discipline.scss</DependentUpon>
     </Content>
@@ -371,6 +377,7 @@
     </Content>
     <Content Include="Content\Views\_monthPicker.scss" />
     <Content Include="Content\Views\mynex.scss" />
+    <Content Include="Content\Views\overtime.manage.scss" />
     <None Include="Content\Views\report.latein.earlyout.discipline.scss" />
     <Content Include="Content\Views\report.workinghoursstatistic.scss" />
     <Content Include="Content\Views\scheduled-message.scss" />
@@ -944,6 +951,10 @@
     <Content Include="Views\Overtime\OvertimeConversionDetail.cshtml" />
     <Content Include="Views\Overtime\_EditOvertimeConversion.cshtml" />
     <Content Include="Views\Overtime\_ListOvertimeConversion.cshtml" />
+    <Content Include="Views\Overtime\_EditEmployeeRecord.cshtml" />
+    <Content Include="Views\Overtime\_CreateEmployeeRecord.cshtml" />
+    <Content Include="Views\Overtime\HRView.cshtml" />
+    <Content Include="Scripts\Views\Overtime\overtime.hrview.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
   </ItemGroup>

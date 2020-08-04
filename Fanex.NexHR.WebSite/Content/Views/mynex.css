@@ -120,36 +120,41 @@
       .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-fail tbody tr td {
         text-align: left; }
       .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success {
-        margin-left: 200px; }
+        /*margin-left: 200px;*/ }
         .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr th, .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr td, .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr th, .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr td {
           height: 36px;
           text-align: center !important;
-          white-space: nowrap; }
-          .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr th:nth-child(1), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr td:nth-child(1), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr th:nth-child(1), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr td:nth-child(1) {
-            display: none; }
-          .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr th:nth-child(2), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr td:nth-child(2), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr th:nth-child(2), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr td:nth-child(2) {
-            width: 50px;
-            padding: 10px 0 11px;
-            position: absolute;
-            top: auto;
-            left: 16px;
-            font-weight: 500;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden; }
-          .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr th:nth-child(3), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr td:nth-child(3), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr th:nth-child(3), .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr td:nth-child(3) {
-            width: 150px;
-            padding: 10px 0 11px;
-            position: absolute;
-            top: auto;
-            left: 66px;
-            font-weight: 500;
-            -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-            -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-            box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden; }
+          white-space: nowrap;
+          /*&:nth-child(1) {
+                                        display: none;
+                                    }
+
+                                    &:nth-child(2) {
+                                        width: 50px;
+                                        padding: 10px 0 11px;
+                                        position: absolute;
+                                        top: auto;
+                                        left: 16px;
+                                        font-weight: 500;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                    }
+
+                                    &:nth-child(3) {
+                                        width: 150px;
+                                        padding: 10px 0 11px;
+                                        position: absolute;
+                                        top: auto;
+                                        left: 66px;
+                                        font-weight: 500;
+                                        -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                        -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                        box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                    }*/ }
         .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success thead tr th {
           background-color: #343c4e;
           font-weight: 500; }

@@ -12,11 +12,11 @@
 
         public float Hour { get; set; }
 
+        public string Note { get; set; }
+
         public int Status { get; set; }
 
         public Employee CreatedBy { get; set; }
-
-        public DateTime CreatedDate { get; set; }
 
         public Employee Employee { get; set; }
     }

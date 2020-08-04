@@ -6,6 +6,7 @@
 <div class="form form-stl-table">
     <form id="form">
         @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+        @Html.HiddenFor(model => model.OvertimeId)
         <div class="row form-input">
             <div class="col m-r--l">
                 <div class="left label--m">
@@ -83,6 +84,7 @@
                 <th>@Labels.Date</th> 
                 <th>@Labels.Duration</th>
                 <th>@Labels.Project</th>
+                <th>@Labels.Remark</th>
                 <th>@Labels.RequestedBy</th>
                 <th>@Labels.Status</th>
             </tr>
