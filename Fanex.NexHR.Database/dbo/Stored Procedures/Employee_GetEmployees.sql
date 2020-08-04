@@ -173,8 +173,10 @@ BEGIN
 			,[ContactPhone]
 			,[ContactAddress]
         FROM Employee WITH (NOLOCK)
-        WHERE 
-			IsSpecialUser = @isSpecial
+        WHERE (
+                IsSpecialUser <> 1
+                OR (IsSpecialUser = 1 AND @isSpecial = 1)
+            )
 			AND (
                 @isDelete IS NULL
                 OR isDeleted = @isDelete
