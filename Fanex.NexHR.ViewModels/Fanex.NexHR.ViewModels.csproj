@@ -118,7 +118,6 @@
     <Compile Include="SkypeAccount\SkypeAccountFilter.cs" />
     <Compile Include="SkypeAccount\SkypeAccountViewModel.cs" />
     <Compile Include="ToDoViewModel.cs" />
-    <Compile Include="Overtime\OvertimeEditViewModel.cs" />
     <Compile Include="Employee\UserManagementViewModel.cs" />
     <Compile Include="AnnualLeave\LeaveDeductionViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />

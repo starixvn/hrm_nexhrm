@@ -21,5 +21,9 @@
         void SendMail(string subject, CreateOvertimeViewModel model);
 
         IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria);
+
+        NexHour GetNexHour(GetNexHourCriteria criteria);
+
+        IList<ReportOvertimeHR> GetReportOvertimeHR(GetReportOvertimeHRCriteria criteria);
     }
 }

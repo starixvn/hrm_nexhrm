@@ -3,9 +3,9 @@
 
 @{
     var index = ViewData["index"];
-    var rowId = "row_" + Model.Employee.Id;
-    var row_hour_Id = "row_hour_" + Model.Employee.Id;
-    var row_note_Id = "note_" + Model.Employee.Id;
+    var rowId = "row_" + Model.Unique;
+    var row_hour_Id = "row_hour_" + Model.Unique;
+    var row_note_Id = "note_" + Model.Unique;
 }
 <tr class="sortedIndex" id="@rowId">
     <td>@index</td>
@@ -30,7 +30,7 @@
         </div>
     </td>
     <td>
-        <a href="javascript:;" onclick="deleteRow(@Model.Employee.Id);">
+        <a href="javascript:;" onclick="deleteRow(@Model.Unique);">
             <i class="mdi mdi-delete mdi-dark"></i>
         </a>
     </td>

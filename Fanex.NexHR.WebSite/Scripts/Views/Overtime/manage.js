@@ -17,10 +17,6 @@ var manageOvertime = (function ($) {
 
     function createRow(nick, id) {
         generateFooter();
-        let hasEmployee = $("tr.sortedIndex#row_" + id).length > 0;
-        if (hasEmployee) {
-            return;
-        }
         let index = $("#timeSheets").find("tr.sortedIndex").length + 1;
         let names = nick.split(' (');
         let nickName = names[0];
@@ -30,6 +26,7 @@ var manageOvertime = (function ($) {
             NickName: nickName,
             FullName: fullName.substring(0, fullName.length - 1)
         }
+        let unique = new Date().getTime();
         $.ajax({
             url: _global.root + 'Overtime/CreateEmployeeRecord',
             type: 'POST',
@@ -38,15 +35,41 @@ var manageOvertime = (function ($) {
                 Employee: employee,
                 Hour: tempHour,
                 Date: tempDate,
+                Unique: new Date().getTime(),
                 index: index
             },
             success: function (res) {
                 $('#timeSheets').append(res);
-                let elementRow = "tr.sortedIndex#row_" + id;
-                $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + id).attr('name', 'datepicker_' + id);
+                let elementRow = "tr.sortedIndex#row_" + unique;
+                $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + unique).attr('name', 'datepicker_' + unique);
                 initDatePicker();
-                registerChangeNexHourEvent(elementRow, "#row_hour_" + id);           // hour
-                registerChangeNexHourEvent(elementRow, '#datepicker_' + id);      // date
+                registerChangeNexHourEvent(elementRow, "#row_hour_" + unique);           // hour
+                registerChangeNexHourEvent(elementRow, '#datepicker_' + unique);      // date
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notifyError(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
+
+    function getNexHour(elementRow) {
+        let employeeId = $($(elementRow).find("input.row_hour").first()).attr("data-id");
+        let hour = $($(elementRow).find("input.row_hour").first()).val();
+        let date = $($(elementRow).find("input.datepicker").first()).val();
+        $.ajax({
+            url: _global.root + 'Overtime/GetNexHour',
+            type: 'GET',
+            data: {
+                employeeId,
+                date,
+                hour
+            },
+            success: function (res) {
+                let duration = $($(elementRow).find("input.row_hour").first()).val();
+                let nexHour = res.IsWorkDay ? duration * 1.5 : 0;
+                $(elementRow).find(".row_nexhour").first().html(nexHour);
+                tempHour = duration;
+                tempDate = $($(elementRow).find("input.datepicker").first()).val();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 notifyError(textStatus + ': ' + errorThrown);
@@ -56,28 +79,7 @@ var manageOvertime = (function ($) {
 
     function registerChangeNexHourEvent(elementRow, elementInput) {
         $(elementInput).on('change keyup', function () {
-            let employeeId = $($(elementRow).find("input.row_hour").first()).attr("data-id");
-            let hour = $($(elementRow).find("input.row_hour").first()).val();
-            let date = $($(elementRow).find("input.datepicker").first()).val();
-            $.ajax({
-                url: _global.root + 'Overtime/GetNexHour',
-                type: 'GET',
-                data: {
-                    employeeId,
-                    date,
-                    hour
-                },
-                success: function (res) {
-                    let duration = $($(elementRow).find("input.row_hour").first()).val();
-                    let nexHour = res.IsWorkDay ? duration * 1.5 : 0;
-                    $(elementRow).find(".row_nexhour").first().html(nexHour);
-                    tempHour = duration;
-                    tempDate = $($(elementRow).find("input.datepicker").first()).val();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    notifyError(textStatus + ': ' + errorThrown);
-                }
-            })
+            getNexHour(elementRow);
         });
     }
 
@@ -89,8 +91,8 @@ var manageOvertime = (function ($) {
         });
     }
 
-    function deleteRow(id) {
-        $('#row_' + id).remove();
+    function deleteRow(unique) {
+        $('#row_' + unique).remove();
 
         if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
             $(noInformation(7)).appendTo('#timeSheets');
@@ -202,21 +204,26 @@ var manageOvertime = (function ($) {
         });
     }
 
-    function registerInitEventExistRow() {
+    function initExistRow() {
         let overtimes = $("#timeSheets").find("tr.sortedIndex");
         if (overtimes.length > 0) {
             for (var i = 0; i < overtimes.length; i++) {
-                let id = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
-                let elementRow = "tr.sortedIndex#row_" + id;
-                registerChangeNexHourEvent(elementRow, "#row_hour_" + id);          // hour
-                registerChangeNexHourEvent(elementRow, '#datepicker_' + id);        // date
+                let unique = $(overtimes[i]).attr('data-unique');
+                //let id = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
+                let elementRow = "tr.sortedIndex#row_" + unique;
+                $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + unique).attr('name', 'datepicker_' + unique);
+                $(elementRow).find('input.datepicker').parent().addClass('datepicker-button');
+                registerChangeNexHourEvent(elementRow, "#row_hour_" + unique);          // hour
+                registerChangeNexHourEvent(elementRow, '#datepicker_' + unique);        // date
+                getNexHour(elementRow);
             }
+            initDatePicker();
         }
     }
 
     function init() {
         initEmployeeAutocomplete();
-        registerInitEventExistRow();
+        initExistRow();
         registersubmit();
     }
 
@@ -455,5 +462,4 @@ $(document).ready(function () {
 
     manageOvertime.initModule();
     manageOvertime.notifySuccessed();
-
 });

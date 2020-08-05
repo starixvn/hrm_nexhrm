@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnnualLeave\DeleteLeaveConversionCriteria.cs" />
@@ -112,6 +113,9 @@
     <Compile Include="LateInEarlyOut\GetViolateLateInEarlyOutDisciplineCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
+    <Compile Include="Overtime\GetNexHourCriteria.cs" />
+    <Compile Include="Overtime\GetReportOvertimeHRCriteria.cs" />
+    <Compile Include="Overtime\UpdateNexHourCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserCriteria.cs" />
     <Compile Include="Overtime\DeleteConversionCriteria.cs" />
     <Compile Include="Overtime\GetOvertimeConversionsCriteria.cs" />

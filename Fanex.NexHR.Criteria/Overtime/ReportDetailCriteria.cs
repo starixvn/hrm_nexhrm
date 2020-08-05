@@ -5,6 +5,8 @@
 
     public class GetEmployeeOvertimeCriteria : CriteriaBase
     {
+        public int? OvertimeId { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

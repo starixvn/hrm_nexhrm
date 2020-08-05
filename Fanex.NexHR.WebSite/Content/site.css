@@ -671,6 +671,9 @@ a:active, a:focus {
   color: rgba(0, 0, 0, 0.2);
   cursor: default; }
 
+.mdi-refresh:hover {
+  color: #1d79ac; }
+
 .mdi-action-done {
   font-weight: 600; }
   .mdi-action-done:hover {

@@ -1,0 +1,116 @@
+﻿@using Fanex.NexHR.Models.Overtime
+@model IEnumerable<ReportOvertimeHR>
+@{
+    var index = 1;
+}
+@if (Model.Any())
+{
+    foreach (ReportOvertimeHR item in Model)
+    {
+        var rowId = item.OvertimeId.ToString() +"_"+ item.Employee.Id.ToString();
+        <tr id="@rowId">
+        <td>@(index++)</td>
+        <td class="align-left">@item.Employee.DisplayName</td>
+        <td>@item.Date.ToDateMonthYearFormatedDate()</td>
+        @if (string.IsNullOrEmpty(item.Title))
+        {
+            <td>-</td>
+        }
+        else
+        {
+            var asdclassName = "";
+            if (item.IsLeaveHalfDay)
+            {
+                asdclassName = "HAL";
+            }
+            else
+            {
+                if (item.Title.Equals("AL") || item.Title.Equals("UAL"))
+                {
+                    asdclassName = "AL";
+                }
+                else if (item.Title.Equals("UPL"))
+                {
+                    asdclassName = "UPL";
+                }
+                else if (item.Title.Equals("OFF") || item.Title.Equals("PH"))
+                {
+                    asdclassName = "OFF";
+                }
+                else if (item.Title.Equals("BL"))
+                {
+                    asdclassName = "BL";
+                }
+                else if (item.Title.Equals("BT"))
+                {
+                    asdclassName = "BT";
+                }
+                else if (item.Title.Equals("WL"))
+                {
+                    asdclassName = "WL";
+                }
+                else if (item.Title.Contains("ML"))
+                {
+                    asdclassName = "ML";
+                }
+                else if (item.Title.Contains('/'))
+                {
+                    asdclassName = "HH";
+                }
+            }
+
+                        <td class="@asdclassName">@item.Title</td>
+
+        }
+        <td class="align-left">
+            @if (item.Description.Length > 50)
+            {
+                <span class="tooltip" title="@item.Description">
+                    @RazorHelper.DisplayLimitedString(item.Description)
+                </span>
+            }
+            else
+            {
+                <span>@item.Description</span>
+            }
+        </td>
+        <td>@item.CreatedBy.NickName</td>
+        <td>@item.Hour</td>
+        <td>@item.NexHour</td>
+        <td>
+            <span class="adjusted-hour" id="spanAdjustHour_@rowId">@item.AdjustedHour</span>
+            <input class="adjusted-hour" type="text" value="@item.AdjustedHour" style="display:none; margin-bottom:0;" id="inputAdjustHour_@rowId"/>
+        </td>
+        <td class="col-edit">
+            <a href="javascript:;" class="btnEditNEX" 
+               data-id="@rowId" data-overtimeId="@item.OvertimeId" data-empId="@item.Employee.Id">
+                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+            </a>
+            <a href="javascript:;" class="action-update" title="Apply" 
+               data-id="@rowId" style="display:none;"
+               data-overtimeId="@item.OvertimeId"
+               data-empId="@item.Employee.Id"
+               data-date="@item.Date">
+                <i class="mdi-action-done mdi-dark mdi-18px"></i>
+            </a>
+            <a href="javascript:;" class="action-cancel" title="Cancel" data-id="@rowId" style="display:none;">
+                <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:;" class="btnReset" title="Reset request to pending" data-overtimeId="@item.OvertimeId">
+                <i class="mdi mdi-refresh mdi-dark mdi-18px"></i>
+            </a>
+        </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="11"></td>
+    </tr>
+    <tr>
+        <td colspan="11">@Labels.NoData</td>
+    </tr>
+}

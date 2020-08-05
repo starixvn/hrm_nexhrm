@@ -35,7 +35,7 @@
 
                     foreach (Overtime overtime in overtimes)
                     {
-                        overtime.OvertimeRecords = overtimeRecords.Where(t => t.Id == overtime.Id).ToList();
+                        overtime.OvertimeRecords = overtimeRecords.Where(t => t.OvertimeId == overtime.Id).ToList();
                     }
 
                     return overtimes;
@@ -128,6 +128,24 @@
                     criteria.GetSpParams()).ToList();
 
                 return conversions;
+            }
+        }
+
+        public IList<ReportOvertimeHR> GetReportOvertimeHR(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = db.Query<ReportOvertimeHR, Employee, Employee, ReportOvertimeHR>(
+                    (rp, e1, e2) =>
+                    {
+                        rp.Employee = e1;
+                        rp.CreatedBy = e2;
+                        return rp;
+                    },
+                    "EmployeeId, CreatedBy",
+                    criteria.GetSpParams()).ToList();
+
+                return report;
             }
         }
     }

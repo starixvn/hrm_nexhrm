@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model HROvertimeViewModel
 @{
-    ViewBag.Title = Labels.Overtime;
+    ViewBag.Title = Labels.OvertimeDetail;
 }
 @section css{
     @Styles.Render("~/Content/view-mobile")
@@ -41,7 +41,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-l--xl m-r--l">
+                                <div class="col m-r--l">
                                     <div class="left label--m">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
@@ -67,11 +67,11 @@
                                     <div class="left input--s">
                                         @{
                                             var verified = new List<SelectListItem>
-                                                                                                                                {
-                                                                                                                                    new SelectListItem {Text = "All", Value="2"},
-                                                                                                                                    new SelectListItem {Text = "Yes", Value ="1"},
-                                                                                                                                    new SelectListItem {Text = "No", Value ="0"}
-                                                                                                                                };
+                                                {
+                                                    new SelectListItem {Text = "All", Value="2"},
+                                                    new SelectListItem {Text = "Yes", Value ="1"},
+                                                    new SelectListItem {Text = "No", Value ="0"}
+                                                };
                                         }
                                         @Html.DropDownListFor(model => model.Verified, verified)
                                     </div>
@@ -93,19 +93,21 @@
                             </div>
                         }
                     </div>
-                    <div class="p-x--s over-auto table-resize table-medium">
+                    <div class="p-x--s over-auto">
                         <table id="data" class="table bordered striped highlight table-custom centered">
                             <thead>
                                 <tr>
                                     <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Nick</th>
-                                    <th>@Labels.FullName</th>
+                                    <th>@Labels.Employee</th>
                                     <th>@Labels.Date</th>
+                                    <th>@Labels.Shift</th>
                                     <th>@Labels.Project</th>
+                                    <th>@Labels.RequestedBy</th>
                                     <th>@Labels.Duration</th>
                                     <th>@Labels.NexHour</th>
                                     <th>@Labels.AdjustedHour</th>
-                                    <th>@Labels.Action</th>
+                                    <th>@Labels.Edit</th>
+                                    <th>@Labels.Reset</th>
                                     @*@if (Roles.IsUserInRole("HR"))
                                         {
                                             <th>@Labels.Edit</th>
@@ -113,19 +115,7 @@
                                         }*@
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dwight</td>
-                                    <td>Trần Phạm Minh Tín</td>
-                                    <td>03 Aug, 2020</td>
-                                    <td>Test project</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>3.2</td>
-                                    <td>-</td>
-                                </tr>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>

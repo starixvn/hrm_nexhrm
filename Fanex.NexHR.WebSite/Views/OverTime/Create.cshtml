@@ -80,12 +80,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="timeSheets">
+                                                @if (Model.TimeSheets.Any())
+                                                {
+                                                    var i = 1;
+                                                    foreach (var item in Model.TimeSheets)
+                                                    {
+                                                        @Html.Partial("_EditEmployeeRecord", item, new ViewDataDictionary { { "index", i } });
+                                                        i++;
+                                                    }
+                                                }
+                                                else
+                                                {
                                                     <tr>
                                                         <td colspan="7"></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="7">No Employee</td>
                                                     </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>

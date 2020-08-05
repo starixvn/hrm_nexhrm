@@ -3,17 +3,18 @@
 
 @{
     var index = ViewData["index"];
-    var rowId = "row_" + Model.Employee.Id;
-    var row_hour_Id = "row_hour_" + Model.Employee.Id;
-    var row_note_Id = "note_" + Model.Employee.Id;
+    Model.Unique = index.ToString();
+    var rowId = "row_" + Model.Unique;
+    var row_hour_Id = "row_hour_" + Model.Unique;
+    var row_note_Id = "note_" + Model.Unique;
 }
-<tr class="sortedIndex" id="@rowId">
+<tr class="sortedIndex" id="@rowId" data-unique="@Model.Unique">
     <td>@index</td>
     <td class="align-left row_name">
         @Model.Employee.DisplayName
     </td>
     <td class="datepicker-td">
-        <div class="datepicker-button left select--s">
+        <div class="left select--s">
             @Html.DatePickerFor(model => model.Date)
             <i class="mdi-action-event calendar-icon from-date left"></i>
         </div>
@@ -30,7 +31,7 @@
         </div>
     </td>
     <td>
-        <a href="javascript:;" onclick="deleteRow(@Model.Employee.Id);">
+        <a href="javascript:;" onclick="deleteRow(@Model.Unique);">
             <i class="mdi mdi-delete mdi-dark"></i>
         </a>
     </td>

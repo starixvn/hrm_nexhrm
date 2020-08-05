@@ -87,7 +87,7 @@
             return PartialView("_ListMemberOvertime", result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult Create()
         {
             var model = new CreateOvertimeViewModel();
@@ -95,7 +95,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOvertimeViewModel model)
@@ -107,15 +107,13 @@
                 {
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
-                    Date = model.Date,
-                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
                     TimeSheets = model.TimeSheets
                 };
 
                 CommandResult result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
-                    _overtimeService.SendMail("NEX request Notification", model);
+                    //_overtimeService.SendMail("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else
@@ -127,7 +125,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
@@ -135,7 +133,7 @@
             var model = new CreateOvertimeViewModel
             {
                 Id = overtime.Id,
-                Date = overtime.OnDate,
+                Date = overtime.CreatedDate,
                 Description = overtime.Description,
                 TimeSheets = overtime.OvertimeRecords,
                 CreatedByName = overtime.CreatedBy.DisplayName
@@ -145,13 +143,16 @@
                 model.TimeSheets.Select(e => new
                 {
                     e.Hour,
-                    Employee = new { Id = e.Employee.Id }
+                    Employee = new { Id = e.Employee.Id },
+                    e.AdjustHour,
+                    e.Date,
+                    e.Note
                 }));
 
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult Edit(CreateOvertimeViewModel model)
         {
@@ -163,8 +164,6 @@
                     Id = model.Id,
                     ModifiedBy = CurrentUser.Id,
                     Description = model.Description,
-                    Date = model.Date,
-                    Status = model.IsApprove ? (int)RequestStatuse.Approve : (int)RequestStatuse.Pending,
                     TimeSheets = model.TimeSheets
                 };
 
@@ -182,14 +181,13 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ApproveRequest(int id)
         {
             var criteria = new ApproveOvertimeRequestCriteria
             {
                 Id = id,
-                Status = (int)RequestStatuse.Approve,
                 ModifiedBy = CurrentUser.Id
             };
 
@@ -198,14 +196,13 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult RejectRequest(int id)
         {
             var criteria = new RejectRequestCriteria
             {
                 Id = id,
-                Status = (int)RequestStatuse.Reject,
                 ModifiedBy = CurrentUser.Id
             };
 
@@ -214,14 +211,13 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        //[Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult DisapproveRequest(int id)
         {
             var criteria = new DisapproveOvertimeRequestCriteria
             {
                 Id = id,
-                Status = (int)RequestStatuse.Pending,
                 ModifiedBy = CurrentUser.Id
             };
 
@@ -282,7 +278,8 @@
                     ToDate = model.ToDateOT,
                     CreatedBy = model.CreatedBy,
                     Status = model.Status,
-                    EmployeeId = model.EmployeeId
+                    EmployeeId = model.EmployeeId,
+                    OvertimeId = model.OvertimeId
                 };
                 result = _overtimeService.GetEmployeeOvertime(criteria);
             }
@@ -456,6 +453,86 @@
             }
 
             return model;
+        }
+
+        [HttpPost]
+        public ActionResult CreateEmployeeRecord(OvertimeRecord model, int index)
+        {
+            ViewData["index"] = index;
+            var criteria = new GetNexHourCriteria
+            {
+                EmployeeId = model.Employee.Id,
+                Date = model.Date,
+                Hour = model.Hour
+            };
+            var nexHour = _overtimeService.GetNexHour(criteria);
+            model.NexHour = nexHour.Value;
+            return PartialView("_CreateEmployeeRecord", model);
+        }
+
+        public JsonResult GetNexHour(int employeeId, DateTime date, float hour)
+        {
+            var criteria = new GetNexHourCriteria
+            {
+                EmployeeId = employeeId,
+                Date = date,
+                Hour = hour
+            };
+            var nexHour = _overtimeService.GetNexHour(criteria);
+            return Json(nexHour, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateNexHour(UpdateNexHour model)
+        {
+            CommandResult result;
+            if (model != null)
+            {
+                var criteria = new UpdateNexHourCriteria
+                {
+                    OvertimeId = model.OvertimeId,
+                    EmployeeId = model.EmployeeId,
+                    Date = model.Date,
+                    AdjustHour = model.AdjustHour,
+                    ModifiedBy = CurrentUser.Id
+                };
+                result = _commandService.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult
+                {
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
+            }
+            return Json(result);
+        }
+
+        public ActionResult HRView()
+        {
+            var model = new HROvertimeViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult HRView(HROvertimeViewModel model)
+        {
+            IList<ReportOvertimeHR> reports = new List<ReportOvertimeHR>();
+            if (model != null)
+            {
+                var criteria = new GetReportOvertimeHRCriteria
+                {
+                    ToDate = model.ToDate,
+                    FromDate = model.FromDate,
+                    EmployeeId = model.EmployeeId,
+                    CreatedBy = model.CreatedBy,
+                    Verified = model.Verified
+                };
+
+                reports = _overtimeService.GetReportOvertimeHR(criteria);
+            }
+            return PartialView("_ListHRViewOvertime", reports);
         }
     }
 }

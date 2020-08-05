@@ -302,12 +302,14 @@
       <Mapping DataField="GroupId" ObjectProperty="Id" />
       <Mapping DataField="ModifiedById" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="Overtime_GetSummary" SpName="Overtime_GetSummary" DbName="nexhr" Plain="0">
-      <Mapping DataField="EmpId" ObjectProperty="Id" />
-      <Mapping DataField="GroupId" ObjectProperty="Id" />
-    </Setting>
     <Setting Key="Overtime_InsertConversion" SpName="Overtime_InsertConversion" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_UpdateConversion" SpName="Overtime_UpdateConversion" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_GetNexHour" SpName="Overtime_GetNexHour" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_UpdateNexHour" SpName="Overtime_UpdateNexHour" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_ReportHR" SpName="Overtime_ReportHR" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmployeeId" ObjectProperty="Id" />
+      <Mapping DataField="CreatedBy" ObjectProperty="Id" />
+    </Setting>
     <Setting Key="LeaveConversion_Insert" SpName="LeaveConversion_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Update" SpName="LeaveConversion_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Delete" SpName="LeaveConversion_Delete" DbName="nexhr" Plain="0"></Setting>

@@ -131,5 +131,21 @@
 
             return conversions ?? new List<OvertimeConversion>();
         }
+
+        public NexHour GetNexHour(GetNexHourCriteria criteria)
+        {
+            return GetDataEntity<NexHour>(criteria);
+        }
+
+        public IList<ReportOvertimeHR> GetReportOvertimeHR(GetReportOvertimeHRCriteria criteria)
+        {
+            IList<ReportOvertimeHR> report = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                report = _repository.GetReportOvertimeHR(criteria);
+            }
+
+            return report ?? new List<ReportOvertimeHR>();
+        }
     }
 }

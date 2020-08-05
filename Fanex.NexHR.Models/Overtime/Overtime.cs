@@ -8,11 +8,7 @@
     {
         public int Id { get; set; }
 
-        public DateTime OnDate { get; set; }
-
         public string Description { get; set; }
-
-        public float Hour { get; set; }
 
         public int Status { get; set; }
 
