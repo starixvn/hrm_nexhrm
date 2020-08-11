@@ -165,3 +165,6 @@
           background-color: #ededed; }
         .card-container-base.card-my-newx #OTRequest #dataOTRequest.table-success tbody tr:nth-child(even) td {
           background-color: #ffffff; } }
+
+.mdi-inactive:hover {
+  color: rgba(0, 0, 0, 0.26) !important; }

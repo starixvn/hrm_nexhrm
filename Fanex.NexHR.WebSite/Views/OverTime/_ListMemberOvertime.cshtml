@@ -19,7 +19,7 @@
                         {
                             <li>
                                 <span class='mdi-navigation-chevron-right'></span>
-                                <span>@detail.Date.ToShortDateString() - @detail.Employee.NickName: @detail.Hour</span>
+                                <span>(@detail.Date.ToDateMonthYearFormatedDate()) @detail.Employee.NickName: @detail.Hour</span>
                             </li>
                         }
 
@@ -56,7 +56,7 @@
             @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td>
-                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
+                    <a requestid="@item.Id" createdBy="@item.CreatedBy" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
                         @Labels.Approved<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>
@@ -68,15 +68,42 @@
                     @Labels.Rejected
                 </td>
             }
+            @if (item.Own && item.Status == (int)RequestStatuse.Pending)
+            {
+                <td>
+                    <a href="@Url.Action("Edit", "Overtime", new { item.Id})" >
+                        <i class="mdi mdi-border-color mdi-dark"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="javascript:;" class="delete-overtime" requestid="@item.Id">
+                        <i class="mdi mdi-delete mdi-dark"></i>
+                    </a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <span>
+                        <i class="mdi mdi-border-color mdi-dark mdi-inactive"></i>
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        <i class="mdi mdi-delete mdi-dark mdi-inactive"></i>
+                    </span>
+                </td>
+            }
+
         </tr>
     }
 }
 else
 {
     <tr>
-        <td colspan="7"></td>
+        <td colspan="9"></td>
     </tr>
     <tr>
-        <td colspan="7">@Labels.NoData</td>
+        <td colspan="9">@Labels.NoData</td>
     </tr>
 }

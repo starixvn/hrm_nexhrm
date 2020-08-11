@@ -19,6 +19,7 @@ function loadMemberOTDetail() {
     $.post(_global.root + "Overtime/MemberOvertimeData", $("#memberOT #form").serialize(), function (response) {
         $("#dataMemberOT tbody").html(response);
         initTooltip();
+        initDeleteForMemberOT();
         $('#memberOT .loading-process').fadeOut(300);
     });
 }
@@ -51,10 +52,10 @@ function disapproveRequest(id) {
     });
 }
 
-function approveRequest(id) {
+function approveRequest(id, createdBy) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {
         $('#memberOT .loading-process').fadeIn(200);
-        $.post(_global.root + "Overtime/ApproveRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/ApproveRequest", { id: id, createdBy: createdBy }, function (response) {
             if (response.IsSuccessful) {
                 loadMemberOTDetail();
             } else {
@@ -68,13 +69,10 @@ function approveRequest(id) {
 
 function processRequest(command, eventElement) {
     var requestId = eventElement.$trigger.attr('requestId');
-
+    var createdBy = eventElement.$trigger.attr('createdBy');
     switch (command) {
-        case 'edit':
-            location.href = _global.root + "Overtime/Edit/" + requestId;
-            break;
         case 'approve':
-            approveRequest(requestId);
+            approveRequest(requestId, createdBy);
             break;
         case 'disapprove':
             disapproveRequest(requestId);
@@ -86,6 +84,8 @@ function processRequest(command, eventElement) {
 }
 
 function bindPendingMenu() {
+    if (!IsManager)
+        return;
     var element = "#memberOT .Pending";
 
     $.contextMenu({
@@ -97,12 +97,13 @@ function bindPendingMenu() {
         items: {
             "approve": { name: "Approve", icon: "approve" },
             "reject": { name: "Reject", icon: "reject" },
-            "edit": { name: "Edit", icon: "edit", visible: !isOnlyHRRole },
         }
     });
 }
 
 function bindApproveMenu() {
+    if (!IsManager)
+        return;
     var element = "#memberOT .Approve";
     $.contextMenu({
         selector: element,
@@ -118,6 +119,33 @@ function bindApproveMenu() {
 
 function initButtonForMemberOT() {
     $("#memberOT #btn-submit").click(function () {
-        loadMemberOTDetail();
+        if (validateFromDateAndToDate()) {
+            loadMemberOTDetail();
+        }
+    });
+}
+
+function initDeleteForMemberOT() {
+    $(".delete-overtime").on('click', function () {
+        var requestId = $(this).attr('requestId');
+        confirm('<p>Are you sure you want to delete this request?</p>', function () {
+            $.ajax({
+                url: _global.root + 'Overtime/Delete',
+                method: "POST",
+                data: {
+                    id: requestId
+                },
+                success: function (res) {
+                    if (res.IsSuccessful) {
+                        loadMemberOTDetail();
+                    } else {
+                        notifyError(res.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    notifyError(textStatus + ': ' + errorThrown);
+                }
+            });
+        });
     });
 }

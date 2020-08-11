@@ -290,6 +290,7 @@
       <Mapping DataField="EmployeeId" ObjectProperty="Id" />
     </Setting>
     <Setting Key="Overtime_Update" SpName="Overtime_Update" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Overtime_Delete" SpName="Overtime_Delete" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_ApproveRequest" SpName="Overtime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_DisapproveRequest" SpName="Overtime_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetSummary" SpName="Overtime_GetSummary" DbName="nexhr" Plain="0">

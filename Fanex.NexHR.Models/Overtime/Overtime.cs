@@ -29,5 +29,7 @@
         }
 
         public IList<OvertimeRecord> OvertimeRecords { get; set; }
+
+        public bool Own { get; set; }
     }
 }
