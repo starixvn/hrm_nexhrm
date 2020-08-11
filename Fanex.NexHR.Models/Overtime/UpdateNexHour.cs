@@ -8,8 +8,12 @@
 
         public int OvertimeId { get; set; }
 
+        public int Hour { get; set; }
+
         public DateTime Date { get; set; }
 
         public float AdjustHour { get; set; }
+
+        public string Description { get; set; }
     }
 }

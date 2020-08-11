@@ -31,14 +31,16 @@ var overtimeHrView = (function ($) {
     function registerConfirmEditEvent() {
         $(domElement.confirmEdit).on('click', function () {
             let id = $(this).attr('data-id');
-            let OvertimeId = $(this).attr('data-overtimeId');
-            let EmployeeId = $(this).attr('data-empId');
-            let Date = $(this).attr('data-date');
             let AdjustHour = $('#inputAdjustHour_' + id).val();
-            if (AdjustHour <= 0) {
+            if (AdjustHour <= 0 || isNaN(AdjustHour)) {
                 notifyError('Adjusted Hour must greater than 0');
                 return;
             }
+            let OvertimeId = $(this).attr('data-overtimeId');
+            let EmployeeId = $(this).attr('data-empId');
+            let Date = $(this).attr('data-date');
+            let Hour = $(this).attr('data-hour');
+            let Description = $(this).attr('data-description');
             confirm('Are you sure you want to adjust NEX Hour?', function () {
                 $.ajax({
                     url: _global.root + 'Overtime/UpdateNexHour',
@@ -46,8 +48,10 @@ var overtimeHrView = (function ($) {
                     data: {
                         OvertimeId,
                         EmployeeId,
+                        Hour,
                         Date,
-                        AdjustHour
+                        AdjustHour,
+                        Description
                     },
                     success: function (response) {
                         $('#spanAdjustHour_' + id).html(AdjustHour);

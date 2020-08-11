@@ -19,7 +19,7 @@ function loadDetailMyOT(isFirstLoad) {
             //floatThead('table#dataMyOT');
         },
         error: function () {
-            alert(_messages.errorTryAgain);
+            notifyError(_messages.errorTryAgain);
         },
         complete: function () {
             if (!isFirstLoad) {

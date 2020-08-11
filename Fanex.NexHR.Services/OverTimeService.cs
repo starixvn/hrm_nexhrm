@@ -85,42 +85,6 @@
             return listSummary;
         }
 
-        public void SendMail(string subject, CreateOvertimeViewModel model)
-        {
-            if (model != null)
-            {
-                GetLeaderAndHRCriteria getLeaderCriteria = new GetLeaderAndHRCriteria();
-                GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria();
-
-                //// send email(s)
-                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
-
-                foreach (var item in model.TimeSheets)
-                {
-                    getLeaderCriteria.EmployeeId = item.Employee.Id;
-                    getEmployeeCriteria.EmployeeId = item.Employee.Id;
-                    var leaderReceive = GetData<Employee>(getLeaderCriteria);
-                    var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
-
-                    var body = string.Format(
-                        bodyTemplate,
-                        item.Employee.NickName,
-                        ConfigurationManager.AppSettings["OTRequest"],
-                        model.Date.ToDateMonthYearFormatedDate(),
-                        item.Hour,
-                        model.Description,
-                        ConfigurationManager.AppSettings["CompanyMailSign"]);
-
-                    _emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
-                        receiver.Email,
-                        string.Join(";", leaderReceive.Select(r => r.Email)),
-                        subject,
-                        body);
-                }
-            }
-        }
-
         public IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria)
         {
             IList<OvertimeConversion> conversions = null;
@@ -147,5 +111,145 @@
 
             return report ?? new List<ReportOvertimeHR>();
         }
+
+        public void SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model)
+        {
+            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+            {
+                EmployeeId = model.EmpId
+            };
+            var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeConversion));
+            var body = string.Format(
+                    bodyTemplate,
+                    receiver.NickName,
+                    model.DeductDate.ToDateMonthYearFormatedDate(),
+                    model.Deduct,
+                    model.Description,
+                    ConfigurationManager.AppSettings["BaseUrl"],
+                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+
+            _emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                    receiver.Email,
+                    string.Empty,
+                    subject,
+                    body);
+        }
+
+        public void SendMailForNEXRequest(string subject, CreateOvertimeViewModel model)
+        {
+            if (model != null)
+            {
+                IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
+                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeRequest));
+                if(managers.Any())
+                {
+                    var body = string.Format(
+                        bodyTemplate,
+                        model.CreatedByName,
+                        model.Date.ToDateMonthYearFormatedDate(),
+                        model.Description,
+                        ConfigurationManager.AppSettings["BaseUrl"],
+                        ConfigurationManager.AppSettings["CompanyMailSign"]);
+
+                    _emailService.SendEmail(
+                        ConfigurationManager.AppSettings["Email"],
+                        string.Join(";", managers.Select(t => t.Email)),
+                        string.Empty,
+                        subject,
+                        body);
+                }
+            }
+        }
+
+        public void SendMailForNotification(string subject, UpdateNexHour model)
+        {
+            if (model != null)
+            {
+                GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+                {
+                    EmployeeId = model.EmployeeId
+                };
+                var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+
+                //// send email(s)
+                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
+
+                var body = string.Format(
+                    bodyTemplate,
+                    receiver.NickName,
+                    model.Date.ToDateMonthYearFormatedDate(),
+                    model.Hour,
+                    model.AdjustHour,
+                    model.Description,
+                    ConfigurationManager.AppSettings["BaseUrl"],
+                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+
+                _emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                    receiver.Email,
+                    string.Empty,
+                    subject,
+                    body);
+            }
+        }
+
+        public void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy)
+        {
+            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+            {
+                EmployeeId = approvedBy
+            };
+            var manager = GetDataEntity<Employee>(getEmployeeCriteria);
+
+            SendMailForCreatedRequest(subject, createdBy, manager.DisplayName);
+            SendMailForHR(subject, manager.DisplayName);
+        }
+
+        private void SendMailForCreatedRequest(string subject, int createdBy, string managerDisplayName)
+        {
+            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+            {
+                EmployeeId = createdBy
+            };
+            var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
+            var body = string.Format(
+                    bodyTemplate,
+                    receiver.NickName,
+                    "your created NEX request",
+                    managerDisplayName,
+                    ConfigurationManager.AppSettings["BaseUrl"],
+                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+
+            _emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                        receiver.Email,
+                        string.Empty,
+                        subject,
+                        body);
+        }
+
+        private void SendMailForHR(string subject, string managerDisplayName)
+        {
+            IList<Employee> employees = GetData<Employee>(new GetHRCriteria()).ToList();
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
+            var body = string.Format(
+                    bodyTemplate,
+                    "a NEX request",
+                    managerDisplayName,
+                    ConfigurationManager.AppSettings["BaseUrl"],
+                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+
+            _emailService.SendEmail(
+                    ConfigurationManager.AppSettings["Email"],
+                        string.Join(";", employees.Select(t => t.Email)),
+                        string.Empty,
+                        subject,
+                        body);
+        }
+
+        
     }
 }

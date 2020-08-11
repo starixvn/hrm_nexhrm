@@ -48,7 +48,7 @@
             @if (item.Status == (int)RequestStatuse.Pending)
             {
                 <td>
-                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
+                    <a requestid="@item.Id" createdBy="@item.CreatedBy.Id" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
                         @Labels.Pending<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>
@@ -56,7 +56,7 @@
             @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td>
-                    <a requestid="@item.Id" createdBy="@item.CreatedBy" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
                         @Labels.Approved<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>

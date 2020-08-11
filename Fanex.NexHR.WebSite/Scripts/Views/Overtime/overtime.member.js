@@ -32,7 +32,7 @@ function rejectRequest(id) {
                 loadMemberOTDetail();
             } else {
                 $('#memberOT .loading-process').fadeOut(500);
-                alert(response.Message);
+                notifyError(response.Message);
             }
         });
     });
@@ -46,7 +46,7 @@ function disapproveRequest(id) {
                 loadMemberOTDetail();
             } else {
                 $('#memberOT .loading-process').fadeOut(500);
-                alert(response.Message);
+                notifyError(response.Message);
             }
         });
     });
@@ -60,7 +60,7 @@ function approveRequest(id, createdBy) {
                 loadMemberOTDetail();
             } else {
                 $('#memberOT .loading-process').fadeOut(500);
-                alert(response.Message);
+                notifyError(response.Message);
             }
         });
     });

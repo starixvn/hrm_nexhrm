@@ -79,7 +79,7 @@ function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status, overtim
             initFormOTRequest();
         },
         error: function () {
-            alert(_messages.errorTryAgain);
+            notifyError(_messages.errorTryAgain);
         },
         complete: function () {
             if (!isFirstLoad) {
@@ -121,7 +121,7 @@ function loadMemberOvertime(isFirstLoad) {
             initFormMemberOT();
         },
         error: function () {
-            alert(_messages.errorTryAgain);
+            notifyError(_messages.errorTryAgain);
         },
         complete: function () {
             if (!isFirstLoad) {
@@ -147,7 +147,7 @@ function loadMyOvertime() {
             loadDetailMyOT(true);
         },
         error: function () {
-            alert(_messages.errorTryAgain);
+            notifyError(_messages.errorTryAgain);
         },
         complete: function () {
             $('#myOT .loading-process').fadeOut(300);
