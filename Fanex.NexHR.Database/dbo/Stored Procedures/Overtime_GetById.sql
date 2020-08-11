@@ -9,7 +9,7 @@ Task: OT Feature.
 DB: NexHRM
 Original:
 
-Revisions:
+Revisions: 20200731Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
@@ -17,22 +17,25 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT ot.OvertimeId AS Id
-        ,ot.[Date] AS OnDate
         ,ot.[Status]
         ,ot.[Description]
+		,ot.[CreatedDate]
         ,ot.CreatedBy AS CreatedId
         ,e.NickName
         ,e.FullName
-    FROM dbo.Overtime ot WITH (NOLOCK)
+    FROM dbo.[Overtime_138194] ot WITH (NOLOCK)
         LEFT JOIN Employee e WITH (NOLOCK) ON e.Id = ot.CreatedBy
     WHERE ot.OvertimeId = @Id;
 
     SELECT otd.OvertimeId AS Id
         ,otd.[Hour]
+		,otd.[Date]
+		,otd.[NexHour]
+		,otd.Note
         ,otd.EmployeeId
         ,e.NickName
         ,e.FullName
-    FROM dbo.OvertimeDetail otd WITH (NOLOCK)
+    FROM dbo.[OvertimeDetail_138194] otd WITH (NOLOCK)
         LEFT JOIN Employee e WITH (NOLOCK) ON e.Id = otd.EmployeeId
     WHERE otd.OvertimeId = @Id;
 END;

@@ -1,9 +1,9 @@
 ﻿
 /****** Object:  Stored Procedure dbo.Overtime_DisapproveRequest    Script Date: 3/13/2016 3:21:42 PM ******/
 
-CREATE PROCEDURE [dbo].[Overtime_DisapproveRequest] @Id INT
+CREATE PROCEDURE [dbo].[Overtime_DisapproveRequest] 
+	@Id INT
     ,@ModifiedBy INT
-    ,@Status INT
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
 AS
@@ -14,67 +14,88 @@ DB: NexHRM
 Original: 
 
 Revisions:  
+	- 20200316Merlin.Le: Enhance NEX balance request
+	- 20200731Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @CreatedBy INT, @Date DATE;
+	SET NOCOUNT ON;
 
-    SELECT @CreatedBy = CreatedBy
-       ,@Date = [Date]
-    FROM dbo.Overtime WITH (NOLOCK)
-    WHERE OvertimeId = @Id;
+    DECLARE
+		@GroupManagerId		INT	= 11
+        ,@PendingStatus     INT = 1
+        ,@ApprovedStatus	INT = 2;
 
-    IF (
-            @CreatedBy = @ModifiedBy
-            OR EXISTS (
-                SELECT 1
-                FROM dbo.Employee e WITH (NOLOCK)
-                WHERE e.Id = @ModifiedBy
-                    AND (e.Roles IN (3, 4)) -- HR, SA
-                )
-            )
-    BEGIN
-        BEGIN TRY
-            BEGIN TRANSACTION;
+	IF (
+		NOT EXISTS (
+			SELECT 1
+			FROM [dbo].[Overtime_138194] WITH (NOLOCK)
+			WHERE [OvertimeId] = @Id
+		)
+	)
+	BEGIN
+		SELECT
+			@ErrCode = 1
+			,@ErrMsg = 'NEX request is not exist';
 
-            UPDATE dbo.Overtime WITH (ROWLOCK, UPDLOCK)
-            SET [Status] = @Status
-                ,ModifiedBy = @ModifiedBy
-                ,ModifiedDate = GETDATE()
-            WHERE OvertimeId = @Id
-                AND [Status] = 2;
+		RETURN;
+	END;
 
-            IF (@@ROWCOUNT = 0)
-            BEGIN
-                SELECT @ErrCode = 3
-                    ,@ErrMsg = 'Can not disapprove OT request: ' + CONVERT(VARCHAR(5), @Id);
+	IF (
+		NOT EXISTS (
+			SELECT 1
+			FROM [dbo].[Overtime_138194] WITH (NOLOCK)
+			WHERE [OvertimeId] = @Id
+				AND [Status] = @ApprovedStatus
+		)
+	)
+	BEGIN
+		SELECT
+			@ErrCode = 2
+			,@ErrMsg = 'You only can disapprove approved NEX request';
 
-                ROLLBACK TRANSACTION;
+		RETURN;
+	END;
 
-                RETURN;
-            END;
+	IF (
+        NOT EXISTS (
+            SELECT 1
+            FROM [dbo].[Employee] e WITH (NOLOCK)
+			WHERE e.[Id] = @ModifiedBy
+				AND (e.[GroupId] = @GroupManagerId OR 
+					(e.Roles IN (3, 4))) -- HR, SA
+        )
+    )
+	BEGIN
+		SELECT
+			@ErrCode = 3
+			,@ErrMsg = 'Only managers or HR have a permisson to disapproved NEX request'
 
-            EXECUTE dbo.Overtime_DeleteTransaction @Id, @Date, @ModifiedBy
+		RETURN;
+	END;
 
-            COMMIT TRANSACTION;
-        END TRY
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
-        BEGIN CATCH
-            SELECT @ErrCode = 1000
-                ,@ErrMsg = 'Disapprove Overtime request failed';
+        UPDATE dbo.[Overtime_138194] WITH (ROWLOCK, UPDLOCK)
+        SET [Status] = @PendingStatus
+            ,ModifiedBy = @ModifiedBy
+            ,ModifiedDate = GETDATE()
+        WHERE OvertimeId = @Id;
 
-            ROLLBACK TRANSACTION;
-        END CATCH;
-    END;
-    ELSE
-    BEGIN
-        SELECT @ErrCode = 1
-            ,@ErrMsg = 'The OT request is only disapproved by its owner or HR role';
+        EXECUTE dbo.[Overtime_DeleteTransaction] @Id, @ModifiedBy;
 
-        RETURN;
-    END;
+        COMMIT TRANSACTION;
+    END TRY
+
+    BEGIN CATCH
+        SELECT @ErrCode = 1000
+            ,@ErrMsg = 'Disapprove NEX request failed';
+
+        ROLLBACK TRANSACTION;
+    END CATCH;
 END;
 

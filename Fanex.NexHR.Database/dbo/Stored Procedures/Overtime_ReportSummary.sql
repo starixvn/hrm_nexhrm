@@ -12,25 +12,25 @@ Task: OT Feature.
 DB: NexHRM
 Original:
 
-Revisions:
+Revisions: 20200731Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT ot.OvertimeId AS Id
-        ,ot.[Date] AS OnDate
+    SELECT DISTINCT  ot.OvertimeId AS Id
         ,ot.[Status]
         ,ot.[Description]
+		,ot.[CreatedDate]
         ,ot.CreatedBy AS CreatedId
         ,e.NickName
         ,e.FullName
-    FROM dbo.Overtime AS ot WITH (NOLOCK)
+    FROM dbo.[Overtime_138194] AS ot WITH (NOLOCK)
+		INNER JOIN dbo.[OvertimeDetail_138194] AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
         LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = ot.CreatedBy
-    WHERE ot.[Status] IN (1, 2)
-       AND @FromDate <= ot.[Date]
-        AND ot.[Date] <= @ToDate
+    WHERE DATEDIFF(DAY, @FromDate, otd.[Date]) >= 0
+		AND DATEDIFF(DAY, @ToDate, otd.[Date]) <= 0
         AND (
             @Status = 0
             OR ot.[Status] = @Status
@@ -40,17 +40,17 @@ BEGIN
             OR ot.CreatedBy = @CreatedBy
             );
 
-    SELECT otd.OvertimeId AS Id
+    SELECT otd.OvertimeId
         ,otd.[Hour]
+		,otd.[Date]
         ,otd.EmployeeId
         ,e.NickName
         ,e.FullName
-    FROM dbo.OverTime AS ot WITH (NOLOCK)
-        INNER JOIN dbo.OvertimeDetail AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
+    FROM dbo.[Overtime_138194] AS ot WITH (NOLOCK)
+        INNER JOIN dbo.[OvertimeDetail_138194] AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
         LEFT JOIN Employee AS e WITH (NOLOCK) ON e.Id = otd.EmployeeId
-    WHERE ot.[Status] IN (1, 2)
-       AND @FromDate <= ot.[Date]
-        AND ot.[Date] <= @ToDate
+    WHERE DATEDIFF(DAY, @FromDate, otd.[Date]) >= 0
+		AND DATEDIFF(DAY, @ToDate, otd.[Date]) <= 0
         AND (
             @Status = 0
             OR ot.[Status] = @Status
@@ -59,30 +59,5 @@ BEGIN
             @CreatedBy IS NULL
             OR ot.CreatedBy = @CreatedBy
             );
-        --SELECT ot.Id,
-        --       ot.[Date] AS OnDate,
-        --       ot.[Status],
-        --       ot.[Description],
-        --       Total.Hour AS Hour,
-        --       Total.Member AS TotalMember,
-        --       ot.CreatedBy AS CreatedId,
-        --       e1.NickName AS CreatedNickName,
-        --       e1.FullName AS CreatedFullName
-        --FROM OvertimeRequest ot WITH (NOLOCK)
-        --     LEFT JOIN Employee e1 WITH (NOLOCK) ON e1.Id = ot.CreatedBy
-        --     LEFT JOIN
-        --(
-        --    SELECT OvertimeRequestId,
-        --           SUM(Hour) AS Hour,
-        --           COUNT(*) AS Member
-        --    FROM OvertimeDetail WITH (NOLOCK)
-        --    GROUP BY OvertimeRequestId
-        --) AS Total ON Total.OvertimeRequestId = ot.Id
-        --WHERE @FromDate <= ot.[Date]
-        --      AND ot.[Date] <= @ToDate
-        --      AND (@Status = 0
-        --           OR ot.[Status] = @Status)
-        --      AND (@CreatedBy IS NULL
-        --           OR ot.CreatedBy = @CreatedBy);
 END;
 

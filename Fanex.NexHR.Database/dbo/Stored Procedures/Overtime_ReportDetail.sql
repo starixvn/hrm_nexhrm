@@ -1,11 +1,13 @@
 ﻿
 /****** Object:  Stored Procedure dbo.Overtime_ReportDetail    Script Date: 3/13/2016 3:21:42 PM ******/
 
-CREATE PROCEDURE [dbo].[Overtime_ReportDetail] @FromDate DATETIME
-    ,@ToDate DATETIME
-    ,@Status INT
-    ,@CreatedBy INT = NULL
-    ,@EmployeeId INT = NULL
+CREATE PROCEDURE [dbo].[Overtime_ReportDetail]
+    @FromDate       DATETIME
+    ,@ToDate        DATETIME
+    ,@Status        INT
+    ,@CreatedBy     INT = NULL
+    ,@EmployeeId    INT = NULL
+	,@OvertimeId	INT = NULL
 AS
 /*
 Created: 20160129@Razor.Nguyen
@@ -14,41 +16,49 @@ DB: NexHRM
 Original:
 
 Revisions:
+    - 20200227@Merlin.Le: Enhance NEX leave
+	- 20200731Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT ot.OvertimeId AS Id
-        ,ot.[Date] AS OnDate
+    SELECT
+        ot.OvertimeId       AS Id
+        ,otd.[Date]          AS OnDate
         ,ot.[Status]
         ,ot.[Description]
         ,otd.[Hour]
+		,otd.[Note]
         ,otd.EmployeeId
         ,e2.NickName
         ,e2.FullName
-        ,ot.CreatedBy AS CreatedId
+        ,ot.CreatedBy       AS CreatedId
         ,e1.NickName
         ,e1.FullName
-    FROM dbo.Overtime ot WITH (NOLOCK)
-        LEFT JOIN dbo.OvertimeDetail otd WITH (NOLOCK) ON otd.OvertimeId = ot.OvertimeId
+    FROM dbo.[Overtime_138194] ot WITH (NOLOCK)
+        LEFT JOIN dbo.OvertimeDetail_138194 otd WITH (NOLOCK) ON otd.OvertimeId = ot.OvertimeId
         LEFT JOIN Employee e1 WITH (NOLOCK) ON e1.Id = ot.CreatedBy
         LEFT JOIN Employee e2 WITH (NOLOCK) ON e2.Id = otd.EmployeeId
-    WHERE ot.[Status] IN (1, 2)
-       AND @FromDate <= ot.[Date]
-        AND ot.[Date] <= @ToDate
+    WHERE
+        DATEDIFF(DAY, @FromDate, otd.[Date]) >=0
+		AND DATEDIFF(DAY, @ToDate, otd.[Date]) <=0
         AND (
             @Status = 0
             OR ot.[Status] = @Status
-            )
+        )
         AND (
             @CreatedBy IS NULL
             OR ot.CreatedBy = @CreatedBy
-            )
+        )
         AND (
             @EmployeeId IS NULL
             OR otd.EmployeeId = @EmployeeId
-            );
+        )
+		AND (
+			@OvertimeId IS NULL
+			OR otd.OvertimeId = @OvertimeId
+		);
 END;
 

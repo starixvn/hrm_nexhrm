@@ -3,7 +3,6 @@
 
 CREATE PROCEDURE [dbo].[Overtime_RejectRequest] @Id INT
     ,@ModifiedBy INT
-    ,@Status INT
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
 AS
@@ -14,39 +13,80 @@ DB: NexHRM
 Original: 
 
 Revisions:  
+	- 20200316Merlin.Le: Enhance NEX balance request
+	- 20200731Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @CreatedBy INT;
+    DECLARE
+		@GroupManagerCode	VARCHAR (3) = 'MGT'
+        ,@RejectStatus      INT = 3
+        ,@PendingStatus		INT = 1;
 
-    SELECT @CreatedBy = CreatedBy
-    FROM dbo.Overtime WITH (NOLOCK)
-    WHERE OvertimeId = @Id;
+	IF (
+		NOT EXISTS (
+			SELECT 1
+			FROM [dbo].[Overtime_138194] WITH (NOLOCK)
+			WHERE OvertimeId = @Id
+		)
+	)
+	BEGIN
+		SELECT
+			@ErrCode = 1
+			,@ErrMsg = 'NEX request is not exist';
+
+		RETURN;
+	END;
+
+	IF (
+		NOT EXISTS (
+			SELECT 1
+			FROM [dbo].[Overtime_138194] WITH (NOLOCK)
+			WHERE OvertimeId = @Id
+				AND [Status] = @PendingStatus
+		)
+	)
+	BEGIN
+		SELECT
+			@ErrCode = 2
+			,@ErrMsg = 'You only can reject pending NEX request';
+
+		RETURN;
+	END;
 
     IF (
-            @CreatedBy = @ModifiedBy
-            OR EXISTS (
-                SELECT 1
-                FROM Employee e WITH (NOLOCK)
-                WHERE e.Id = @ModifiedBy
-                    AND (e.Roles IN (3, 4)) -- HR, SA
-                )
-            )
-    BEGIN
-        UPDATE dbo.Overtime WITH (ROWLOCK, UPDLOCK)
-        SET [Status] = @Status
-            ,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
-        WHERE OvertimeId = @Id
-            AND [Status] = 1
-    END;
-    ELSE
-    BEGIN
-        SELECT @ErrCode = 1
-            ,@ErrMsg = 'The OT request is only rejected by its owner or HR role';
-    END;
+        NOT EXISTS (
+			SELECT 1
+            FROM [dbo].[Employee] e WITH (NOLOCK)
+			INNER JOIN [dbo].[EmployeeGroup] eg WITH (NOLOCK) ON e.[GroupId] = eg.[Id]
+			WHERE e.[Id] = @ModifiedBy
+				AND eg.[Code] = @GroupManagerCode
+        )
+    )
+	BEGIN
+		SELECT
+			@ErrCode = 3
+			,@ErrMsg = 'Only managers have a permisson to reject NEX request'
+
+		RETURN;
+	END;
+
+    BEGIN TRY
+        UPDATE [dbo].[Overtime_138194] WITH (ROWLOCK, UPDLOCK)
+        SET
+            [Status]        = @RejectStatus
+            ,[ModifiedBy]   = @ModifiedBy
+            ,[ModifiedDate] = GETDATE()
+        WHERE OvertimeId = @Id;
+    END TRY
+
+    BEGIN CATCH
+        SELECT
+            @ErrCode = 1000
+            ,@ErrMsg = 'Reject OT request failed';
+    END CATCH;
 END;
 
