@@ -25,7 +25,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
-	<SonarQubeExclude>true</SonarQubeExclude>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -354,6 +354,10 @@
     <Build Include="dbo\Stored Procedures\Overtime_InsertConversion.sql" />
     <Build Include="dbo\Stored Procedures\Overtime_GetConversions.sql" />
     <Build Include="dbo\Stored Procedures\Overtime_DeleteConversion.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_ReportHR.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_GetNexHour.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_UpdateNexHour.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

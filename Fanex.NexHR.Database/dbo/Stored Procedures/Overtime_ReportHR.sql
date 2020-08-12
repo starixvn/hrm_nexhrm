@@ -44,6 +44,8 @@ BEGIN
 		,(CASE
 			WHEN ISNULL(ec.[IsHoliday], 0) = 1 OR ISNULL(ec.[IsOffDay], 0) = 1
 				THEN 0
+			WHEN ea.[TotalWorkHours] IS NULL AND ISNULL(ec.[LeaveDay], 0) <> 1
+				THEN otd.[Hour]
 			WHEN ISNULL(ec.[LeaveDay], 0) = 1
 				THEN IIF(otd.[Hour] < ea.[TotalWorkHours], otd.[Hour], ea.[TotalWorkHours])
 			WHEN ISNULL(ec.[LeaveDay], 0) = 0.5
