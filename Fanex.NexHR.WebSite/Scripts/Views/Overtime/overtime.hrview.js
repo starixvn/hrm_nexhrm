@@ -54,8 +54,13 @@ var overtimeHrView = (function ($) {
                         Description
                     },
                     success: function (response) {
-                        $('#spanAdjustHour_' + id).html(AdjustHour);
-                        resetStateInit(id);
+                        if (response.IsSuccessful) {
+                            $('#spanAdjustHour_' + id).html(AdjustHour);
+                            resetStateInit(id);
+                        } else {
+                            notifyError(response.Message);
+                        }
+                        
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         notifyError(textStatus + ': ' + errorThrown);
