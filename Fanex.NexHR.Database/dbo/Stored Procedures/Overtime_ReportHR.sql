@@ -47,13 +47,14 @@ BEGIN
 			WHEN ea.[TotalWorkHours] IS NULL AND ISNULL(ec.[LeaveDay], 0) <> 1
 				THEN otd.[Hour]
 			WHEN ISNULL(ec.[LeaveDay], 0) = 1
-				THEN IIF(otd.[Hour] < ea.[TotalWorkHours], otd.[Hour], ea.[TotalWorkHours])
+				THEN IIF(otd.[Hour] < DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60)
+							, otd.[Hour], DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60))
 			WHEN ISNULL(ec.[LeaveDay], 0) = 0.5
-				THEN IIF(otd.[Hour] < (ea.[TotalWorkHours] + ea.[LateIn] + ea.[EarlyOut] - 4)
-							,otd.[Hour], (ea.[TotalWorkHours] + ea.[LateIn] + ea.[EarlyOut] - 4))
+				THEN IIF(otd.[Hour] < (DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60) + ea.[LateIn] + ea.[EarlyOut] - 4)
+							,otd.[Hour], (DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60) + ea.[LateIn] + ea.[EarlyOut] - 4))
 			WHEN ISNULL(ec.[LeaveDay], 0) = 0
-				THEN IIF(otd.[Hour] < (ea.[TotalWorkHours] + ea.[LateIn] + ea.[EarlyOut] - 8)
-							,otd.[Hour], (ea.[TotalWorkHours] + ea.[LateIn] + ea.[EarlyOut] - 8))
+				THEN IIF(otd.[Hour] < (DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60) - 1 + ea.[LateIn] + ea.[EarlyOut] - 8)
+							,otd.[Hour], (DATEDIFF(MINUTE, ea.[InFixed], ea.[OutFixed])/CONVERT(DECIMAL(4,2),60) - 1 + ea.[LateIn] + ea.[EarlyOut] - 8))
 			ELSE otd.[Hour]
 			END) as RealHourOT
 		,(CASE 
