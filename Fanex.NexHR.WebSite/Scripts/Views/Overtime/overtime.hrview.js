@@ -32,8 +32,8 @@ var overtimeHrView = (function ($) {
         $(domElement.confirmEdit).on('click', function () {
             let id = $(this).attr('data-id');
             let AdjustHour = $('#inputAdjustHour_' + id).val();
-            if (AdjustHour <= 0 || isNaN(AdjustHour)) {
-                notifyError('Adjusted Hour must greater than 0');
+            if (AdjustHour < 0 || isNaN(AdjustHour)) {
+                notifyError('Adjusted Hour must greater than or equal to 0');
                 return;
             }
             let OvertimeId = $(this).attr('data-overtimeId');

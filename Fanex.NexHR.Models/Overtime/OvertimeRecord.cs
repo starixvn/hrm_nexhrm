@@ -25,8 +25,6 @@
 
         public string Note { get; set; }
 
-        //public string SearchSheetData { get; set; }
-
         public string Unique { get; set; }
     }
 }

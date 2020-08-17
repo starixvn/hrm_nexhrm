@@ -18,6 +18,9 @@
     {
         private readonly IOvertimeRepository _repository;
         private readonly IEmailService _emailService;
+        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
+        private readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
 
         public OvertimeService()
             : this(null, null)
@@ -126,11 +129,11 @@
                     model.DeductDate.ToDateMonthYearFormatedDate(),
                     model.Deduct,
                     model.Description,
-                    ConfigurationManager.AppSettings["BaseUrl"],
-                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+                    BaseUrl,
+                    CompanyMailSign);
 
             _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
+                    SenderEmail,
                     receiver.Email,
                     string.Empty,
                     subject,
@@ -150,11 +153,11 @@
                         model.CreatedByName,
                         model.Date.ToDateMonthYearFormatedDate(),
                         model.Description,
-                        ConfigurationManager.AppSettings["BaseUrl"],
-                        ConfigurationManager.AppSettings["CompanyMailSign"]);
+                        BaseUrl,
+                        CompanyMailSign);
 
                     _emailService.SendEmail(
-                        ConfigurationManager.AppSettings["Email"],
+                        SenderEmail,
                         string.Join(";", managers.Select(t => t.Email)),
                         string.Empty,
                         subject,
@@ -183,11 +186,11 @@
                     model.Hour,
                     model.AdjustHour,
                     model.Description,
-                    ConfigurationManager.AppSettings["BaseUrl"],
-                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+                    BaseUrl,
+                    CompanyMailSign);
 
                 _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
+                    SenderEmail,
                     receiver.Email,
                     string.Empty,
                     subject,
@@ -220,15 +223,15 @@
                     receiver.NickName,
                     "your created NEX request",
                     managerDisplayName,
-                    ConfigurationManager.AppSettings["BaseUrl"],
-                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+                    BaseUrl,
+                    CompanyMailSign);
 
             _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
-                        receiver.Email,
-                        string.Empty,
-                        subject,
-                        body);
+                    SenderEmail,
+                    receiver.Email,
+                    string.Empty,
+                    subject,
+                    body);
         }
 
         private void SendMailForHR(string subject, string managerDisplayName)
@@ -239,15 +242,15 @@
                     bodyTemplate,
                     "a NEX request",
                     managerDisplayName,
-                    ConfigurationManager.AppSettings["BaseUrl"],
-                    ConfigurationManager.AppSettings["CompanyMailSign"]);
+                    BaseUrl,
+                    CompanyMailSign);
 
             _emailService.SendEmail(
-                    ConfigurationManager.AppSettings["Email"],
-                        string.Join(";", employees.Select(t => t.Email)),
-                        string.Empty,
-                        subject,
-                        body);
+                    SenderEmail,
+                    string.Join(";", employees.Select(t => t.Email)),
+                    string.Empty,
+                    subject,
+                    body);
         }
 
         
