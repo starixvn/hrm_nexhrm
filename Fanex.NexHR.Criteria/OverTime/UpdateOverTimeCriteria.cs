@@ -44,7 +44,7 @@
             while (isValid && i < TimeSheets.Count)
             {
                 var isValidEmployee = TimeSheets[i].Employee == null || TimeSheets[i].Employee.Id <= 0;
-                var isValidHour = TimeSheets[i].Hour <= 0 || TimeSheets[i].NexHour < 0;
+                var isValidHour = TimeSheets[i].Hour <= 0 || TimeSheets[i].Hour > 24 || TimeSheets[i].NexHour < 0;
 
                 if (isValidEmployee || isValidHour || Id <= 0)
                 {

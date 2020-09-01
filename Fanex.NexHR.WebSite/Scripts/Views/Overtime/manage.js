@@ -54,7 +54,16 @@ var manageOvertime = (function ($) {
 
     function getNexHour(elementRow) {
         let employeeId = $($(elementRow).find("input.row_hour").first()).attr("data-id");
-        let hour = $($(elementRow).find("input.row_hour").first()).val();
+        let hour = +$($(elementRow).find("input.row_hour").first()).val();
+        const roundedHour = Math.round(hour * 2) / 2;
+        if (hour < 0.5 || hour > 24 || roundedHour !== hour) {
+            $(elementRow).find(".row_nexhour").first().html(0);
+            tempHour = roundedHour;
+            $($(elementRow).find("input.row_hour").first()).addClass('input-validation-error').removeClass('valid').attr('aria-invalid', false);
+            return;
+        } else {
+            $($(elementRow).find("input.row_hour").first()).removeClass('input-validation-error').addClass('valid').attr('aria-invalid', true);
+        }
         let date = $($(elementRow).find("input.datepicker").first()).val();
         $.ajax({
             url: _global.root + 'Overtime/GetNexHour',
@@ -168,7 +177,7 @@ var manageOvertime = (function ($) {
         });
     }
 
-    function getTimeRecord() {
+    function getTimeRecord(event) {
         let overtimes = $("#timeSheets").find("tr.sortedIndex");
         if (overtimes.length > 0) {
             var timeRecords = [];
@@ -176,7 +185,17 @@ var manageOvertime = (function ($) {
                 let employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
                 let nickName = $($(overtimes[i]).find(".row_name").first()).html().trim();
                 let date = $($(overtimes[i]).find("input.datepicker").first()).val();
-                let hour = $($(overtimes[i]).find("input.row_hour").first()).val();
+                let hour = +$($(overtimes[i]).find("input.row_hour").first()).val();
+                const roundedHour = Math.round(hour * 2) / 2;
+                if (roundedHour !== hour) {
+                    if ($('#form').find('.validation-summary-errors').length <= 0) {
+                        $('#form').find('.validation-summary-valid').first().removeClass('validation-summary-valid').addClass('validation-summary-errors');
+                    }
+                    if ($('#form').find('.validation-summary-errors').find('ul li.record-error').length === 0)
+                        $('#form').find('.validation-summary-errors').find('ul').first().append("<li class='record-error'>Some record invalid</li>");
+                    $($(overtimes[i]).find("input.row_hour").first()).addClass('input-validation-error').removeClass('valid').attr('aria-invalid', false);
+                    event.preventDefault();
+                }
                 let nexhour = $($(overtimes[i]).find(".row_nexhour").first()).html().trim();
                 let note = $($(overtimes[i]).find(".row_note").first()).val().trim();
                 timeRecords.push({
@@ -199,8 +218,8 @@ var manageOvertime = (function ($) {
     }
 
     function registersubmit() {
-        $("#form").submit(function () {
-            getTimeRecord();
+        $("#form").submit(function (event) {
+            getTimeRecord(event);
         });
     }
 
@@ -209,7 +228,6 @@ var manageOvertime = (function ($) {
         if (overtimes.length > 0) {
             for (var i = 0; i < overtimes.length; i++) {
                 let unique = $(overtimes[i]).attr('data-unique');
-                //let id = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
                 let elementRow = "tr.sortedIndex#row_" + unique;
                 $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + unique).attr('name', 'datepicker_' + unique);
                 $(elementRow).find('input.datepicker').parent().addClass('datepicker-button');
@@ -251,7 +269,6 @@ function deleteRow(id) {
 }
 
 $(document).ready(function () {
-
     manageOvertime.initModule();
     manageOvertime.notifySuccessed();
 });

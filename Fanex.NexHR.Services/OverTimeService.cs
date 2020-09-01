@@ -240,6 +240,7 @@
             var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
             var body = string.Format(
                     bodyTemplate,
+                    "all",
                     "a NEX request",
                     managerDisplayName,
                     BaseUrl,

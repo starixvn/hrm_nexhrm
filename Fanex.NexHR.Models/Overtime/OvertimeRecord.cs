@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Models.Overtime
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class OvertimeRecord
     {
