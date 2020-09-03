@@ -27,7 +27,7 @@ function loadMemberOTDetail() {
 function rejectRequest(id) {
     confirm('<p>Are you sure you want to reject this request?</p>', function () {
         $('#memberOT .loading-process').fadeIn(200);
-        $.post(_global.root + "Overtime/RejectRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/RejectRequest", { id }, function (response) {
             if (response.IsSuccessful) {
                 loadMemberOTDetail();
             } else {
@@ -41,7 +41,7 @@ function rejectRequest(id) {
 function disapproveRequest(id) {
     confirm('<p>Are you sure you want to disapprove this request?</p>', function () {
         $('#memberOT .loading-process').fadeIn(200);
-        $.post(_global.root + "Overtime/DisapproveRequest", { id: id }, function (response) {
+        $.post(_global.root + "Overtime/DisapproveRequest", { id }, function (response) {
             if (response.IsSuccessful) {
                 loadMemberOTDetail();
             } else {
@@ -55,7 +55,7 @@ function disapproveRequest(id) {
 function approveRequest(id, createdBy) {
     confirm('<p>Are you sure you want to approve this request?</p>', function () {
         $('#memberOT .loading-process').fadeIn(200);
-        $.post(_global.root + "Overtime/ApproveRequest", { id: id, createdBy: createdBy }, function (response) {
+        $.post(_global.root + "Overtime/ApproveRequest", { id, createdBy }, function (response) {
             if (response.IsSuccessful) {
                 loadMemberOTDetail();
             } else {
@@ -65,6 +65,20 @@ function approveRequest(id, createdBy) {
         });
     });
 
+}
+
+function resetRequest(id) {
+    confirm('<p>Are you sure you want to reset this request?</p>', function () {
+        $('#memberOT .loading-process').fadeIn(200);
+        $.post(_global.root + "Overtime/ResetRequest", { id }, function (response) {
+            if (response.IsSuccessful) {
+                loadMemberOTDetail();
+            } else {
+                $('#memberOT .loading-process').fadeOut(500);
+                notifyError(response.Message);
+            }
+        });
+    });
 }
 
 function processRequest(command, eventElement) {
@@ -80,12 +94,16 @@ function processRequest(command, eventElement) {
         case 'reject':
             rejectRequest(requestId);
             break;
+        case 'reset':
+            resetRequest(requestId);
+            break;
+        default: break;
     }
 }
 
 function bindPendingMenu() {
-    if (!IsManager)
-        return;
+    //if (!IsManager)
+    //    return;
     var element = "#memberOT .Pending";
 
     $.contextMenu({
@@ -102,8 +120,8 @@ function bindPendingMenu() {
 }
 
 function bindApproveMenu() {
-    if (!IsManager)
-        return;
+    //if (!IsManager)
+    //    return;
     var element = "#memberOT .Approve";
     $.contextMenu({
         selector: element,
@@ -113,6 +131,20 @@ function bindApproveMenu() {
         },
         items: {
             "disapprove": { name: "Disapprove", icon: "reject" }
+        }
+    });
+}
+
+function bindRejectMenu() {
+    var element = "#memberOT .Reject";
+    $.contextMenu({
+        selector: element,
+        trigger: 'left',
+        callback: function (key, options) {
+            processRequest(key, options);
+        },
+        items: {
+            "reset": { name: "Reset", icon: "refresh" }
         }
     });
 }

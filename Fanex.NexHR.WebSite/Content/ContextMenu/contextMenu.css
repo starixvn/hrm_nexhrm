@@ -24,25 +24,24 @@
        url("../ContextMenu/font/icomoon.ttf") format("truetype");
 }*/
 
-.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before, .context-menu-icon-reject:before, .context-menu-icon-approve:before, .context-menu-icon-verify:before {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 28px;
-  font-family: "Material Design Icons";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  color: #78828c;
-  text-align: center;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-       -o-transform: translateY(-50%);
-          transform: translateY(-50%);
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.context-menu-icon-add:before, .context-menu-icon-copy:before, .context-menu-icon-cut:before, .context-menu-icon-delete:before, .context-menu-icon-edit:before, .context-menu-icon-paste:before, .context-menu-icon-quit:before, .context-menu-icon-reject:before, .context-menu-icon-approve:before, .context-menu-icon-verify:before, .context-menu-icon-refresh:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 28px;
+    font-family: "Material Design Icons";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    color: #78828c;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .context-menu-icon-verify:before {
@@ -67,6 +66,13 @@
 
 .context-menu-icon-reject.context-menu-hover:before {
     color: #ff0909;
+}
+.context-menu-icon-refresh:before {
+    content: "\f4ef";
+}
+
+.context-menu-icon-refresh.context-menu-hover:before {
+    color: #039be5;
 }
 .context-menu-icon-add:before {
   content: "";
@@ -179,6 +185,11 @@
 .context-menu-icon-reject.context-menu-hover {
   color: #ff0909;
   cursor: pointer;  
+}
+
+.context-menu-icon-refresh.context-menu-hover {
+    color: #039be5;
+    cursor: pointer;
 }
 
 .context-menu-icon-edit.context-menu-hover {

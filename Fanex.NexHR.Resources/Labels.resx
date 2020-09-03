@@ -1629,4 +1629,10 @@
   <data name="AdjustedHour" xml:space="preserve">
     <value>Adjusted Hour</value>
   </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+  </data>
+  <data name="OvertimeReview" xml:space="preserve">
+    <value>NEX Review</value>
+  </data>
 </root>

@@ -22,11 +22,13 @@
 
         NexHour GetNexHour(GetNexHourCriteria criteria);
 
-        IList<ReportOvertimeHR> GetReportOvertimeHR(GetReportOvertimeHRCriteria criteria);
+        IList<Overtime> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
+
+        IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
 
         void SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
 
-        void SendMailForNotification(string subject, UpdateNexHour model);
+        //void SendMailForNotification(string subject, UpdateNexHour model);
 
         void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy);
 

@@ -102,6 +102,7 @@ function initFormMemberOT() {
 
     bindPendingMenu();
     bindApproveMenu();
+    bindRejectMenu();
 }
 
 function loadMemberOvertime(isFirstLoad) {

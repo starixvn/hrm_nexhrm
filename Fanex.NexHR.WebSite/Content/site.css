@@ -588,6 +588,9 @@ a:active, a:focus {
 .c-reject {
   color: #ff0909; }
 
+.c-void {
+  color: #ff0909; }
+
 .AL {
   background: #00b8d4; }
 
@@ -1318,11 +1321,11 @@ input#fileName::-webkit-file-upload-button {
 .table.table-custom tbody tr.disabled {
   background: rgba(0, 0, 0, 0.15); }
 
-.table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve {
+.table.table-custom tbody tr a.c-pending, .table.table-custom tbody tr a.c-approve, .table.table-custom tbody tr a.c-reject, .table.table-custom tbody tr a.c-verify, .table.table-custom tbody tr a.c-void {
   position: relative; }
-  .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down {
+  .table.table-custom tbody tr a.c-pending i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-approve i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-reject i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-verify i.mdi-navigation-arrow-drop-down, .table.table-custom tbody tr a.c-void i.mdi-navigation-arrow-drop-down {
     display: none; }
-  .table.table-custom tbody tr a.c-pending:after, .table.table-custom tbody tr a.c-approve:after {
+  .table.table-custom tbody tr a.c-pending:after, .table.table-custom tbody tr a.c-approve:after, .table.table-custom tbody tr a.c-reject:after, .table.table-custom tbody tr a.c-verify:after, .table.table-custom tbody tr a.c-void:after {
     font-family: "Material Design Icons";
     font-size: 19px;
     content: "\f415";
@@ -1330,7 +1333,7 @@ input#fileName::-webkit-file-upload-button {
     right: -15px;
     top: -4px;
     opacity: 0; }
-  .table.table-custom tbody tr a.c-pending:hover:after, .table.table-custom tbody tr a.c-approve:hover:after {
+  .table.table-custom tbody tr a.c-pending:hover:after, .table.table-custom tbody tr a.c-approve:hover:after, .table.table-custom tbody tr a.c-reject:hover:after, .table.table-custom tbody tr a.c-verify:hover:after, .table.table-custom tbody tr a.c-void:hover:after {
     opacity: 1; }
 
 .table.table-custom tbody tr:last-child {

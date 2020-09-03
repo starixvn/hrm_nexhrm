@@ -15,7 +15,7 @@
 
         public override bool IsValid()
         {
-            return Id > 0;
+            return Id > 0 && ModifiedBy > 0;
         }
     }
 }

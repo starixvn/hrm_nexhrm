@@ -124,7 +124,7 @@
                 background: rgba(0, 0, 0, 0.15);
             }
 
-            a.c-pending, a.c-approve {
+            a.c-pending, a.c-approve, a.c-reject, a.c-verify, a.c-void {
                 position: relative;
 
                 i.mdi-navigation-arrow-drop-down {

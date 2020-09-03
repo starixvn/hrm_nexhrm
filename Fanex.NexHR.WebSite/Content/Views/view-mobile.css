@@ -1,7 +1,6 @@
-﻿.over-auto {
-  overflow: auto; }
-
-@media only screen and (max-width: 1025px) {
+﻿@media only screen and (max-width: 1025px) {
+  .over-auto {
+    overflow: auto; }
   .table-team table.table.responsive-table tr {
     padding: 0; }
     .table-team table.table.responsive-table tr:last-child td {

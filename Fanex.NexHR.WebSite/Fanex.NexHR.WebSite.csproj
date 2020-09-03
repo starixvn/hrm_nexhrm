@@ -961,6 +961,7 @@
     <Content Include="Views\Overtime\_ListHRViewOvertime.cshtml" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Views\Overtime\_ListHRViewOvertimeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

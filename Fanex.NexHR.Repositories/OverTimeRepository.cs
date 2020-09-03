@@ -131,18 +131,50 @@
             }
         }
 
-        public IList<ReportOvertimeHR> GetReportOvertimeHR(ICriteria criteria)
+        public IList<Overtime> GetReportOvertimeHR(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var report = db.Query<ReportOvertimeHR, Employee, Employee, ReportOvertimeHR>(
-                    (rp, e1, e2) =>
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
+                        (ot, cre) =>
+                        {
+                            ot.CreatedBy = cre;
+                            return ot;
+                        },
+                        "CreatedId").ToList();
+
+                    IEnumerable<OvertimeRecord> overtimeRecords =
+                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
+                       (ot, emp) =>
+                       {
+                           ot.Employee = emp;
+                           return ot;
+                       },
+                        "EmployeeId");
+
+                    foreach (Overtime overtime in overtimes)
+                    {
+                        overtime.OvertimeRecords = overtimeRecords.Where(t => t.OvertimeId == overtime.Id).ToList();
+                    }
+
+                    return overtimes;
+                }
+            }
+        }
+
+        public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = db.Query<ReportOvertimeHRDetail, Employee, ReportOvertimeHRDetail>(
+                    (rp, e1) =>
                     {
                         rp.Employee = e1;
-                        rp.CreatedBy = e2;
                         return rp;
                     },
-                    "EmployeeId, CreatedBy",
+                    "EmployeeId",
                     criteria.GetSpParams()).ToList();
 
                 return report;

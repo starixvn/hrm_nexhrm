@@ -2,11 +2,11 @@
 {
     using System;
 
-    public class ReportOvertimeHR
+    public class ReportOvertimeHRDetail
     {
         public int OvertimeId { get; set; }
 
-        public string Description { get; set; }
+        public string Note { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -14,14 +14,7 @@
 
         public float NexHour { get; set; }
 
-        public float AdjustedHour { get; set; }
-
-        public string Title { get; set; }
-
-        public bool IsLeaveHalfDay { get; set; }
-
         public Employee Employee { get; set; }
-
-        public Employee CreatedBy { get; set; }
+        
     }
 }

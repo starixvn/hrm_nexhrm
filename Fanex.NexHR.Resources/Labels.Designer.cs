@@ -3301,6 +3301,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NEX Review.
+        /// </summary>
+        public static string OvertimeReview {
+            get {
+                return ResourceManager.GetString("OvertimeReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NEX Summary.
         /// </summary>
         public static string OvertimeSummary {
@@ -4440,6 +4449,15 @@ namespace Fanex.NexHR.Resources {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Void.
+        /// </summary>
+        public static string Void {
+            get {
+                return ResourceManager.GetString("Void", resourceCulture);
             }
         }
         

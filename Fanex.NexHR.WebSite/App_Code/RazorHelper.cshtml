@@ -6,27 +6,27 @@
 
 @helper RequestType(short type)
 {
-switch (type)
-{
-    case 1:
+    switch (type)
+    {
+        case 1:
             <text>Check in</text>
-        break;
-    case 2:
+            break;
+        case 2:
             <text>Check out</text>
-        break;
-    case 3:
+            break;
+        case 3:
             <text>Late in</text>
-        break;
-    case 4:
+            break;
+        case 4:
             <text>Early out</text>
-        break;
-    case 5:
+            break;
+        case 5:
             <text>Change shift</text>
-        break;
-    case 6:
+            break;
+        case 6:
             <text>Leave request</text>
-        break;
-}
+            break;
+    }
 }
 @helper FormatDate(DateTime? date)
 {
@@ -61,44 +61,59 @@ switch (type)
     </select>
 
 }
+@helper StatusNEXRequestDropDownList(byte status = (byte)RequestStatuse.Pending, bool isShowAll = true, string controlName = "status")
+{
+    <select name="@controlName" id="@controlName">
+        @if (isShowAll)
+        {
+            <option selected="@(status == 0)" value="0">All</option>
+        }
+        <option selected="@(status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending</option>
+        <option selected="@(status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@Labels.Rejected</option>
+        <option selected="@(status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@Labels.Approved</option>
+        <option selected="@(status == (byte)RequestStatuse.Verified)" value="@Convert.ToByte(RequestStatuse.Verified)">@Labels.Verified</option>
+        <option selected="@(status == (byte)RequestStatuse.Void)" value="@Convert.ToByte(RequestStatuse.Void)">@Labels.Void</option>
+
+    </select>
+}
 @helper StatusDisplayByHR(long statusId, Fanex.NexHR.Models.Request.RequestStatus status)
 {
-if (status.Id != (byte)RequestStatuse.Reject)
-{
+    if (status.Id != (byte)RequestStatuse.Reject)
+    {
         <td>
             <a requestid="@statusId" href="javascript:;" class="@status.Name tooltip">@status.Name</a>
         </td>
-}
-else
-{
-        <td>
-            @status.Name
-        </td>
-}
-}
-@helper ModifierDisplay(string nickName, string fullName, DateTime? modifiedDate, long requestId)
-{
-if (!string.IsNullOrWhiteSpace(nickName))
-{
-    if (modifiedDate > new DateTime(2000, 1, 1))
-    {
-            <td id="pb@(requestId)">
-                @nickName, @modifiedDate.ToShortFormatedDate()
-            </td>
     }
     else
     {
+        <td>
+            @status.Name
+        </td>
+    }
+}
+@helper ModifierDisplay(string nickName, string fullName, DateTime? modifiedDate, long requestId)
+{
+    if (!string.IsNullOrWhiteSpace(nickName))
+    {
+        if (modifiedDate > new DateTime(2000, 1, 1))
+        {
+            <td id="pb@(requestId)">
+                @nickName, @modifiedDate.ToShortFormatedDate()
+            </td>
+        }
+        else
+        {
             <td id="pb@(requestId)">
                 @nickName
             </td>
+        }
     }
-}
-else
-{
+    else
+    {
         <td id="pb@(requestId)">
             N/A
         </td>
-}
+    }
 }
 @helper TeamDropDownList(List<Team> teamList, string controlName = "team")
 {
@@ -204,14 +219,14 @@ else
 }
 @helper LateInEarlyOutTimeFormat(int mins, short type)
 {
-if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)
-{
+    if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)
+    {
         <span>+@mins'</span>
-}
-else
-{
+    }
+    else
+    {
         <span>-@mins'</span>
-}
+    }
 }
 @helper MinuteDropDownList(string name, int step)
 {
@@ -289,72 +304,72 @@ else
 
 @helper DisplayMinute(double minutes)
 {
-var hour = Math.Floor(minutes / 60);
-var minute = minutes % 60;
-string display;
+    var hour = Math.Floor(minutes / 60);
+    var minute = minutes % 60;
+    string display;
 
-if (hour == 0)
-{
-    display = minute > 9 ? "00:" + minute : "00:0" + minute;
-}
-else
-{
-    display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
-}
+    if (hour == 0)
+    {
+        display = minute > 9 ? "00:" + minute : "00:0" + minute;
+    }
+    else
+    {
+        display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
+    }
 
     <span>@display</span>
 }
 
 @helper TotalHoursToTime(decimal value)
 {
-var display = string.Empty;
-var hour = Math.Floor(value);
+    var display = string.Empty;
+    var hour = Math.Floor(value);
 
-if (hour > 0)
-{
-    display = hour < 10 ? "0" + hour + "h" : hour + "h";
-}
+    if (hour > 0)
+    {
+        display = hour < 10 ? "0" + hour + "h" : hour + "h";
+    }
 
-var minute = Math.Round((value - hour) * 60);
+    var minute = Math.Round((value - hour) * 60);
 
     <span>@(minute < 10 ? display + "0" + minute + "\'" : display + minute + "\'")</span>
 }
 
 @helper DisplayLimitedString(string value)
 {
-if (value.Length > 50)
-{
-    value = value.Substring(0, 50) + "...";
-}
+    if (value.Length > 50)
+    {
+        value = value.Substring(0, 50) + "...";
+    }
 
     <span class="truncate-remark">@value</span>
 }
 
 @helper DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHightlight = true)
 {
-var url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
-    + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
+    var url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
+        + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
 
-if (minutes != 0)
-{
+    if (minutes != 0)
+    {
         <td>
             <a class="@((times > 3 && isHightlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
         </td>
-}
-else
-{
+    }
+    else
+    {
         <td>-</td>
-}
+    }
 }
 
 @helper DisplayNumber(float value)
 {
-if (value == 0)
-{
+    if (value == 0)
+    {
         <td>-</td>
-}
-else
-{
+    }
+    else
+    {
         <td class="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
-}
+    }
 }

@@ -306,11 +306,17 @@
     <Setting Key="Overtime_InsertConversion" SpName="Overtime_InsertConversion" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_UpdateConversion" SpName="Overtime_UpdateConversion" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_GetNexHour" SpName="Overtime_GetNexHour" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="Overtime_UpdateNexHour" SpName="Overtime_UpdateNexHour" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="Overtime_ReportHR" SpName="Overtime_ReportHR" DbName="nexhr" Plain="0">
-      <Mapping DataField="EmployeeId" ObjectProperty="Id" />
-      <Mapping DataField="CreatedBy" ObjectProperty="Id" />
+      <Mapping DataField="CreatedId" ObjectProperty="Id" />
+      <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+      <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
     </Setting>
+    <Setting Key="Overtime_ReportHRDetail" SpName="Overtime_ReportHRDetail" DbName="nexhr" Plain="0">
+      <Mapping DataField="EmployeeId" ObjectProperty="Id" />
+    </Setting>
+      <Setting Key="Overtime_ResetRequest" SpName="Overtime_ResetRequest" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Overtime_VerifyRequest" SpName="Overtime_VerifyRequest" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Overtime_VoidRequest" SpName="Overtime_VoidRequest" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Insert" SpName="LeaveConversion_Insert" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Update" SpName="LeaveConversion_Update" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="LeaveConversion_Delete" SpName="LeaveConversion_Delete" DbName="nexhr" Plain="0"></Setting>

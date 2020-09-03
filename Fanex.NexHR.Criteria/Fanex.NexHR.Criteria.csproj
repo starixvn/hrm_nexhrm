@@ -115,8 +115,11 @@
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
     <Compile Include="Overtime\DeleteOvertimeCriteria.cs" />
     <Compile Include="Overtime\GetNexHourCriteria.cs" />
-    <Compile Include="Overtime\GetReportOvertimeHRCriteria.cs" />
-    <Compile Include="Overtime\UpdateNexHourCriteria.cs" />
+    <Compile Include="Overtime\ReportOvertimeHRCriteria.cs" />
+    <Compile Include="Overtime\ReportOvertimeHRDetailCriteria.cs" />
+    <Compile Include="Overtime\ResetOvertimeCriteria.cs" />
+    <Compile Include="Overtime\VerifyOvertimeCriteria.cs" />
+    <Compile Include="Overtime\VoidOvertimeCriteria.cs" />
     <Compile Include="RedmineAPI\GetRedmineUserCriteria.cs" />
     <Compile Include="Overtime\DeleteConversionCriteria.cs" />
     <Compile Include="Overtime\GetOvertimeConversionsCriteria.cs" />

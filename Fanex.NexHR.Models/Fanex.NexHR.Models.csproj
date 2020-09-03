@@ -122,8 +122,7 @@
     <Compile Include="Overtime\NexHour.cs" />
     <Compile Include="Overtime\OvertimeConversion.cs" />
     <Compile Include="Overtime\OvertimeRecordXML.cs" />
-    <Compile Include="Overtime\ReportOvertimeHR.cs" />
-    <Compile Include="Overtime\UpdateNexHour.cs" />
+    <Compile Include="Overtime\ReportOvertimeHRDetail.cs" />
     <Compile Include="RedmineAPI\LogTimeIssue.cs" />
     <Compile Include="RedmineAPI\RedmineIssue.cs" />
     <Compile Include="RedmineAPI\RedmineUser.cs" />

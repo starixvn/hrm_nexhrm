@@ -6,15 +6,90 @@ var overtimeHrView = (function ($) {
         edit: '.btnEditNEX',
         confirmEdit: '.action-update',
         actionCancel: '.action-cancel',
-        reset: '.btnReset'
+        reset: '.btnReset',
+        contextmenu: '.contextmenu',
+        dialog: '#dialog-NEX-detail'
     };
+
+    function registerContextMenuEvent() {
+        let contextmenu = $(domElement.contextmenu);
+        contextmenu.mouseover(function () {
+            $(this).find(".drop-menu").show();
+        });
+
+        contextmenu.mouseout(function () {
+            $(this).find(".drop-menu").hide();
+        });
+
+        contextmenu.click(function () {
+            const id = contextmenu.find('a').attr('requestid');
+            getDetailProject(id);
+        });
+    }
+
+    function bindApproveMenu() {
+        var element = ".Approve";
+        $.contextMenu({
+            selector: element,
+            trigger: 'left',
+            callback: function (key, options) {
+                processRequest(key, options);
+            },
+            items: {
+                "verify": { name: "Verify", icon: "approve" },
+                "void": { name: "Void", icon:"reject" }
+            }
+        });
+    }
+
+    function bindVerifiedMenu() {
+        var element = ".Verified";
+        $.contextMenu({
+            selector: element,
+            trigger: 'left',
+            callback: function (key, options) {
+                processRequest(key, options);
+            },
+            items: {
+                "verify": { name: "Verify", icon: "approve" },
+                "void": { name: "Void", icon: "reject" }
+            }
+        });
+    }
+
+    function bindVoidMenu() {
+        var element = ".Void";
+        $.contextMenu({
+            selector: element,
+            trigger: 'left',
+            callback: function (key, options) {
+                processRequest(key, options);
+            },
+            items: {
+                "verify": { name: "Verify", icon: "approve" }
+            }
+        });
+    }
+
+    function processRequest(command, eventElement) {
+        var requestId = eventElement.$trigger.attr('requestId');
+        switch (command) {
+            case 'verify':
+                getDetailProject(requestId);
+                break;
+            case 'void':
+                voidRequest(requestId);
+                break;
+            default: break;
+        }
+    }
 
     function registerEditEvent() {
         $(domElement.edit).on('click', function () {
             let id = $(this).attr('data-id');
-            $('#spanAdjustHour_' + id).hide();
-            $('#inputAdjustHour_' + id).show();
-            $('#inputAdjustHour_' + id).focus();
+            $('#spanNEXHour_' + id).hide();
+            $('#inputNEXHour_' + id).show();
+            $('#inputNEXHour_' + id).focus();
             $(this).hide();
             $('#' + id).find(domElement.confirmEdit).show();
             $('#' + id).find(domElement.actionCancel).show();
@@ -31,51 +106,22 @@ var overtimeHrView = (function ($) {
     function registerConfirmEditEvent() {
         $(domElement.confirmEdit).on('click', function () {
             let id = $(this).attr('data-id');
-            let AdjustHour = $('#inputAdjustHour_' + id).val();
+            let AdjustHour = $('#inputNEXHour_' + id).val();
             if (AdjustHour < 0 || isNaN(AdjustHour)) {
-                notifyError('Adjusted Hour must greater than or equal to 0');
+                notifyError('NEX Hour must greater than or equal to 0');
                 return;
             }
-            let OvertimeId = $(this).attr('data-overtimeId');
-            let EmployeeId = $(this).attr('data-empId');
-            let Date = $(this).attr('data-date');
-            let Hour = $(this).attr('data-hour');
-            let Description = $(this).attr('data-description');
-            confirm('Are you sure you want to adjust NEX Hour?', function () {
-                $.ajax({
-                    url: _global.root + 'Overtime/UpdateNexHour',
-                    type: 'POST',
-                    data: {
-                        OvertimeId,
-                        EmployeeId,
-                        Hour,
-                        Date,
-                        AdjustHour,
-                        Description
-                    },
-                    success: function (response) {
-                        if (response.IsSuccessful) {
-                            $('#spanAdjustHour_' + id).html(AdjustHour);
-                            resetStateInit(id);
-                        } else {
-                            notifyError(response.Message);
-                        }
-                        
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        notifyError(textStatus + ': ' + errorThrown);
-                    }
-                });
-            });
+            $('#spanNEXHour_' + id).html(AdjustHour);
+            resetStateInit(id);
         });
     }
 
     function registerResetEvent() {
         $(domElement.reset).on('click', function () {
-            let id = $(this).attr('data-overtimeId');
+            let id = $(this).attr('requestid');
             confirm('Are you sure you want to reset request to pending?', function () {
                 $.ajax({
-                    url: _global.root + 'Overtime/DisapproveRequest',
+                    url: _global.root + 'Overtime/ResetRequest',
                     type: 'POST',
                     data: { id },
                     success: function (response) {
@@ -90,11 +136,110 @@ var overtimeHrView = (function ($) {
     }
 
     function resetStateInit(rowId) {
-        $('#spanAdjustHour_' + rowId).show();
-        $('#inputAdjustHour_' + rowId).hide();
+        $('#spanNEXHour_' + rowId).show();
+        $('#inputNEXHour_' + rowId).hide();
         $('#' + rowId).find(domElement.actionCancel).hide();
         $('#' + rowId).find(domElement.confirmEdit).hide();
         $('#' + rowId).find(domElement.edit).show();
+    }
+
+    function initDialogDetail() {
+        $(domElement.dialog).dialog({
+            modal: true,
+            width: 'auto',
+            buttons: [
+                {
+                    text: 'Close',
+                    class: 'btn-cancel waves-effect waves-light m-r--m',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Submit',
+                    class: 'btn-submit waves-effect waves-light',
+                    click: function () {
+                        confirm('Are you sure you want to save this request?', function () {
+                            console.log('submit');
+                            $(domElement.dialog).dialog('close');
+                        });
+                        //$.ajax({
+                        //    type: 'POST',
+                        //    url: _global.root + 'toeic/updatefulltoeic',
+                        //    dataType: 'json',
+                        //    data: $('#frmUpdFullTOEIC').serialize(),
+                        //    success: function (data) {
+                        //        if (data) {
+                        //            var errorCont = $('#divErrorCont');
+                        //            errorCont.removeClass();
+                        //            errorCont.html('');
+
+                        //            if (data.IsSuccessful) {
+                        //                errorCont.addClass('success validation-summary-success');
+                        //                errorCont.append('Update TOEIC score for Employee successfully');
+                        //                setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
+                        //            }
+                        //            else {
+                        //                var errors = '<ul><li>' + data.Message + '</li></ul>';
+                        //                errorCont.addClass('validation-summary-errors');
+                        //                errorCont.append(errors);
+                        //            }
+                        //        }
+                        //    },
+                        //    error: function (jqXHR, textStatus, errorThrown) {
+                        //        notifyError(textStatus + ': ' + errorThrown);
+                        //    }
+                        //});
+                    }
+                }
+            ],
+            show: {
+                effect: 'fade',
+                duration: 300
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            }
+        });
+    }
+
+    function getDetailProject(id) {
+        $.ajax({
+            url: _global.root + 'Overtime/HRViewDetail',
+            type: 'POST',
+            data: { id },
+            success: function (response) {
+                $(domElement.dialog).html(response);
+                registerEditEvent();
+                registerCancelEvent();
+                registerConfirmEditEvent();
+                initDialogDetail();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notifyError(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
+
+    function voidRequest(id) {
+        confirm('Are you sure you want to void this request?', function () {
+            $.ajax({
+                url: _global.root + 'Overtime/VoidRequest',
+                type: 'POST',
+                data: { id },
+                success: function (response) {
+                    if (response.IsSuccessful) {
+                        query(false);
+                    } else {
+                        notifyError(response.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    notifyError(textStatus + ': ' + errorThrown);
+                }
+            });
+        });
     }
 
     function query(isFirstLoad) {
@@ -111,10 +256,11 @@ var overtimeHrView = (function ($) {
             success: function (response) {
                 $('table#data tbody').html(response);
                 floatThead('table#data');
-                registerEditEvent();
-                registerCancelEvent();
-                registerConfirmEditEvent();
+                registerContextMenuEvent();
                 registerResetEvent();
+                bindApproveMenu();
+                bindVerifiedMenu();
+                bindVoidMenu();
             },
             error: function () {
                 notifyError(_messages.errorTryAgain);
@@ -150,7 +296,6 @@ var overtimeHrView = (function ($) {
 
     function init() {
         query(true);
-        initAutocomplete('#Employee', '#EmployeeId');
         initAutocomplete('#CreatedName', '#CreatedBy');
         initDateChangeEvent();
         registerSubmitEvent();

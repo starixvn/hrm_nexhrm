@@ -12,7 +12,6 @@ namespace Fanex.NexHR.ViewModels.Overtime
         {
             this.FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             this.ToDate = DateTime.Now;
-            this.Verified = (int)OvertimeVerifyType.All;
         }
 
         [Display(Name = "CreateAccount", ResourceType = typeof(Labels))]
@@ -20,14 +19,9 @@ namespace Fanex.NexHR.ViewModels.Overtime
 
         public string CreatedName { get; set; }
 
-        [Display(Name = "Employee", ResourceType = typeof(Labels))]
-        public int? EmployeeId { get; set; }
-
-        public string Employee { get; set; }
-
         public int DateOption { get; set; }
 
-        public int Verified { get; set; } 
+        public int Status { get; set; } 
 
         public DateTime FromDate { get; set; }
 

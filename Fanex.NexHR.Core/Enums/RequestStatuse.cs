@@ -11,6 +11,12 @@
         Approve = 2,
 
         [StringValue("Rejected")]
-        Reject = 3
+        Reject = 3,
+
+        [StringValue("Verified")]
+        Verified = 4,
+
+        [StringValue("Void")]
+        Void = 5,
     }
 }

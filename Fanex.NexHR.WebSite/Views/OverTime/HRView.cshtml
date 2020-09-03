@@ -1,13 +1,15 @@
 ﻿@using Fanex.NexHR.ViewModels.Overtime
 @model HROvertimeViewModel
 @{
-    ViewBag.Title = Labels.OvertimeDetail;
+    ViewBag.Title = Labels.OvertimeReview;
 }
 @section css{
-    @Styles.Render("~/Content/view-mobile")
+    @Styles.Render("~/Content/view-mobile",
+                "~/Content/contextmenucss")
 }
 @section js{
-    @Scripts.Render("~/bundles/overtimehrviewjs");
+    @Scripts.Render("~/bundles/overtimehrviewjs",
+                    "~/bundles/contextmenujs");
 }
 
 <div class="row content">
@@ -27,7 +29,7 @@
                                     <div class="left label--m">
                                         <label>@Labels.DateRange</label>
                                     </div>
-                                    <div class="left select--m">
+                                    <div class="left select--s">
                                         @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
                                         @Html.Hidden("DateOption", Model.DateOption)
                                     </div>
@@ -50,41 +52,33 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--l">
-                                        <label>@Labels.RequestedBy</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBoxFor(model => model.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.CreatedBy)
-                                    </div>
-                                </div>
-
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Verified)
-                                    </div>
-                                    <div class="left input--s">
-                                        @{
-                                            var verified = new List<SelectListItem>
-                                                {
-                                                    new SelectListItem {Text = "All", Value="2"},
-                                                    new SelectListItem {Text = "Yes", Value ="1"},
-                                                    new SelectListItem {Text = "No", Value ="0"}
-                                                };
-                                        }
-                                        @Html.DropDownListFor(model => model.Verified, verified)
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>@Labels.Employee</label>
+                                        @Html.LabelFor(model => model.Status)
+                                    </div>
+                                    <div class="left input--s">
+                                        @{
+                                            var selectList = new List<SelectListItem>
+                                                                        {
+                                                                            new SelectListItem {Text = "All", Value="0"},
+                                                                            new SelectListItem {Text = Labels.Approved, Value = RequestStatuse.Approve.ToString("D")},
+                                                                            new SelectListItem {Text = Labels.Verified, Value = RequestStatuse.Verified.ToString("D")},
+                                                                            new SelectListItem {Text = Labels.Void, Value = RequestStatuse.Void.ToString("D")}
+                                                                        };
+                                        }
+                                        @Html.DropDownListFor(model => model.Status, selectList)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        @Html.TextBoxFor(model => model.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.CreatedBy)
                                     </div>
                                 </div>
                                 <div class="col">
@@ -98,25 +92,17 @@
                             <thead>
                                 <tr>
                                     <th>@Labels.SymbolCount</th>
-                                    <th>@Labels.Employee</th>
-                                    <th>@Labels.Date</th>
-                                    <th>@Labels.Shift</th>
                                     <th>@Labels.Project</th>
-                                    <th>@Labels.RequestedBy</th>
-                                    <th>@Labels.Duration</th>
-                                    <th>@Labels.NexHour</th>
-                                    <th>@Labels.AdjustedHour</th>
-                                    <th>@Labels.Edit</th>
+                                    <th>@Labels.CreatedBy</th>
+                                    <th>@Labels.CreatedDate</th>
+                                    <th>@Labels.TotalMembers</th>
+                                    <th>@Labels.Status</th>
                                     <th>@Labels.Reset</th>
-                                    @*@if (Roles.IsUserInRole("HR"))
-                                        {
-                                            <th>@Labels.Edit</th>
-                                            <th>@Labels.Delete</th>
-                                        }*@
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
+                        <div id="dialog-NEX-detail" title="Verify NEX Request"></div>
                     </div>
                 </div>
             </div>

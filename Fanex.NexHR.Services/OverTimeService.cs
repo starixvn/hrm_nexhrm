@@ -104,15 +104,26 @@
             return GetDataEntity<NexHour>(criteria);
         }
 
-        public IList<ReportOvertimeHR> GetReportOvertimeHR(GetReportOvertimeHRCriteria criteria)
+        public IList<Overtime> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
         {
-            IList<ReportOvertimeHR> report = null;
+            IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                report = _repository.GetReportOvertimeHR(criteria);
+                overtimes = _repository.GetReportOvertimeHR(criteria);
             }
 
-            return report ?? new List<ReportOvertimeHR>();
+            return overtimes ?? new List<Overtime>();
+        }
+
+        public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
+        {
+            IList<ReportOvertimeHRDetail> report = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                report = _repository.GetReportOvertimeHRDetail(criteria);
+            }
+
+            return report ?? new List<ReportOvertimeHRDetail>();
         }
 
         public void SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model)
@@ -166,37 +177,37 @@
             }
         }
 
-        public void SendMailForNotification(string subject, UpdateNexHour model)
-        {
-            if (model != null)
-            {
-                GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
-                {
-                    EmployeeId = model.EmployeeId
-                };
-                var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+        //public void SendMailForNotification(string subject, UpdateNexHour model)
+        //{
+        //    if (model != null)
+        //    {
+        //        GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+        //        {
+        //            EmployeeId = model.EmployeeId
+        //        };
+        //        var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
 
-                //// send email(s)
-                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
+        //        //// send email(s)
+        //        var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
 
-                var body = string.Format(
-                    bodyTemplate,
-                    receiver.NickName,
-                    model.Date.ToDateMonthYearFormatedDate(),
-                    model.Hour,
-                    model.AdjustHour,
-                    model.Description,
-                    BaseUrl,
-                    CompanyMailSign);
+        //        var body = string.Format(
+        //            bodyTemplate,
+        //            receiver.NickName,
+        //            model.Date.ToDateMonthYearFormatedDate(),
+        //            model.Hour,
+        //            model.AdjustHour,
+        //            model.Description,
+        //            BaseUrl,
+        //            CompanyMailSign);
 
-                _emailService.SendEmail(
-                    SenderEmail,
-                    receiver.Email,
-                    string.Empty,
-                    subject,
-                    body);
-            }
-        }
+        //        _emailService.SendEmail(
+        //            SenderEmail,
+        //            receiver.Email,
+        //            string.Empty,
+        //            subject,
+        //            body);
+        //    }
+        //}
 
         public void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy)
         {

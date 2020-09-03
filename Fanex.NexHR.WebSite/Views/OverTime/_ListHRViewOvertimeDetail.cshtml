@@ -1,0 +1,71 @@
+﻿@using Fanex.NexHR.Models.Overtime
+@model IEnumerable<ReportOvertimeHRDetail>
+@{
+    var index = 1;
+}
+<div id="divErrorCont"></div>
+<table id="data-detail" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Date</th>
+            <th>@Labels.Note</th>
+            <th>@Labels.Duration</th>
+            <th class="input--m">@Labels.NexHour</th>
+            @*<th>@Labels.Reset</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach(var item in Model)
+            {
+                var rowId = item.OvertimeId.ToString() + "_" + item.Employee.Id.ToString() + "_" + index;
+                <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date">
+                    <td>@(index++)</td>
+                    <td>@item.Employee.DisplayName</td>
+                    <td>@item.Date.ToDateMonthYearFormatedDate()</td>
+                    @if (!string.IsNullOrWhiteSpace(item.Note))
+                    {
+                        <td class="tooltip" title="@item.Note">
+                            <span class="mdi mdi-message-text" alt="remark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    <td>@item.Hour</td>
+                    <td class="nex-hour">
+                        <span id="spanNEXHour_@rowId">@item.NexHour</span>
+                        <input type="number" value="@item.NexHour" style="display:none; margin-bottom:-2px; width:70%;" id="inputNEXHour_@rowId"/>
+                        <span class="right" style="margin-top: 5px;">
+                            <a href="javascript:;" class="btnEditNEX"
+                               data-id="@rowId">
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" class="action-update" title="Apply"
+                               data-id="@rowId" style="display:none;">
+                                <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" class="action-cancel" title="Cancel" data-id="@rowId" style="display:none;">
+                                <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                            </a>
+                        </span>
+                        <input type="hidden" value="@item.OvertimeId" name="Id" />
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+            <tr>
+                <td colspan="6">@Labels.NoData</td>
+            </tr>
+        }
+    </tbody>
+</table>
