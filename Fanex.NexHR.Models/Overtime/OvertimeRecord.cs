@@ -20,8 +20,6 @@
 
         public float NexHour { get; set; }
 
-        public float AdjustHour { get; set; }
-
         public string Note { get; set; }
 
         public string Unique { get; set; }

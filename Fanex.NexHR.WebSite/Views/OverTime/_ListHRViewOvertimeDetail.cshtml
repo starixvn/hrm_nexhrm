@@ -13,7 +13,6 @@
             <th>@Labels.Note</th>
             <th>@Labels.Duration</th>
             <th class="input--m">@Labels.NexHour</th>
-            @*<th>@Labels.Reset</th>*@
         </tr>
     </thead>
     <tbody>
@@ -22,7 +21,7 @@
             foreach(var item in Model)
             {
                 var rowId = item.OvertimeId.ToString() + "_" + item.Employee.Id.ToString() + "_" + index;
-                <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date">
+                <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date" class="row-detail">
                     <td>@(index++)</td>
                     <td>@item.Employee.DisplayName</td>
                     <td>@item.Date.ToDateMonthYearFormatedDate()</td>
@@ -38,8 +37,8 @@
                     }
                     <td>@item.Hour</td>
                     <td class="nex-hour">
-                        <span id="spanNEXHour_@rowId">@item.NexHour</span>
-                        <input type="number" value="@item.NexHour" style="display:none; margin-bottom:-2px; width:70%;" id="inputNEXHour_@rowId"/>
+                        <span id="spanNEXHour_@rowId" class="value-nex-hour">@item.NexHour</span>
+                        <input type="number" value="@item.NexHour" style="display:none; margin-bottom:-2px; width:70%;" id="inputNEXHour_@rowId" class="value-nex-hour"/>
                         <span class="right" style="margin-top: 5px;">
                             <a href="javascript:;" class="btnEditNEX"
                                data-id="@rowId">

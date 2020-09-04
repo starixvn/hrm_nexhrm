@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Core.Enums;
     using Criteria.Employee;
     using Criteria.Overtime;
     using Fanex.NexHR.Resources;
@@ -59,7 +58,7 @@
             return View();
         }
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
@@ -68,7 +67,7 @@
         }
 
         [ValidateInput(false)]
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
         {
@@ -92,7 +91,7 @@
             return PartialView("_ListMemberOvertime", result);
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         public ActionResult Create()
         {
             var model = new CreateOvertimeViewModel();
@@ -100,7 +99,7 @@
             return View(model);
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOvertimeViewModel model)
@@ -119,7 +118,7 @@
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    //_overtimeService.SendMailForNEXRequest("NEX request Notification", model);
+                    _overtimeService.SendMailForNEXRequest("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else
@@ -131,7 +130,7 @@
             return View(model);
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
@@ -150,7 +149,7 @@
                 {
                     e.Hour,
                     Employee = new { Id = e.Employee.Id },
-                    e.AdjustHour,
+                    e.NexHour,
                     e.Date,
                     e.Note
                 }));
@@ -158,7 +157,7 @@
             return View(model);
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public ActionResult Edit(CreateOvertimeViewModel model)
         {
@@ -177,7 +176,7 @@
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    //_overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
+                    _overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
                     ViewBag.Updated = true;
                 }
                 else
@@ -189,7 +188,7 @@
             return View(model);
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -203,7 +202,7 @@
             return Json(result);
         }
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ApproveRequest(int id, int createdBy)
         {
@@ -214,14 +213,14 @@
             };
 
             CommandResult result = _commandService.Update(criteria);
-            //if (result.IsSuccessful)
-            //{
-            //    _overtimeService.SendMailForApprovalNotification("NEX request Notification", createdBy, CurrentUser.Id);
-            //}
+            if (result.IsSuccessful)
+            {
+                _overtimeService.SendMailForApprovalNotification("NEX request Notification", createdBy, CurrentUser.Id);
+            }
             return Json(result);
         }
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult RejectRequest(int id)
         {
@@ -236,7 +235,7 @@
             return Json(result);
         }
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult DisapproveRequest(int id)
         {
@@ -251,7 +250,7 @@
             return Json(result);
         }
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ResetRequest(int id)
         {
@@ -412,7 +411,7 @@
                 result = _commandService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
-                    //_overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
+                    _overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
                 }
             }
             else
@@ -503,7 +502,7 @@
             return model;
         }
 
-        //[Authorize(Roles = "AssistantLeader,PM")]
+        [Authorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public ActionResult CreateEmployeeRecord(OvertimeRecord model, int index)
         {
@@ -520,7 +519,7 @@
         }
 
 
-        //[Authorize(Roles = "AssistantLeader,HR,PM")]
+        [Authorize(Roles = "AssistantLeader,HR,PM")]
         public JsonResult GetNexHour(int employeeId, DateTime date, float hour)
         {
             var criteria = new GetNexHourCriteria
@@ -533,14 +532,14 @@
             return Json(nexHour, JsonRequestBehavior.AllowGet);
         }
 
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public ActionResult HRView()
         {
             var model = new HROvertimeViewModel();
             return View(model);
         }
 
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult HRView(HROvertimeViewModel model)
         {
@@ -564,7 +563,7 @@
             return PartialView("_ListHRViewOvertime", result);
         }
 
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult HRViewDetail(int id)
         {
@@ -577,7 +576,7 @@
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult VoidRequest(int id)
         {
@@ -589,6 +588,26 @@
 
             CommandResult result = _commandService.Update(criteria);
 
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult VerifyRequest(OvertimeVerifyViewModel model)
+        {
+            model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+            var criteria = new VerifyOvertimeCriteria
+            {
+                ModifiedBy = CurrentUser.Id,
+                Id = model.Id,
+                TimeSheets = model.TimeSheets
+            };
+
+            CommandResult result = _commandService.Update(criteria);
+            if (result.IsSuccessful)
+            {
+                _overtimeService.SendMailForNotification("NEX request Notification", model);
+            }
             return Json(result);
         }
     }

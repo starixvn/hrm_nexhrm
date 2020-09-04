@@ -97,6 +97,7 @@
     <Compile Include="Overtime\OvertimeConversionDetailViewModel.cs" />
     <Compile Include="Overtime\OvertimeSummaryViewModel.cs" />
     <Compile Include="Overtime\OvertimeConversionEditViewModel.cs" />
+    <Compile Include="Overtime\OvertimeVerifyViewModel.cs" />
     <Compile Include="Overtime\OvertimeViewModel.cs" />
     <Compile Include="Report\WorkingHoursStatisticViewModel.cs" />
     <Compile Include="Request\BaseRequestModel.cs" />

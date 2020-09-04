@@ -102,8 +102,8 @@ function processRequest(command, eventElement) {
 }
 
 function bindPendingMenu() {
-    //if (!IsManager)
-    //    return;
+    if (!IsManager)
+        return;
     var element = "#memberOT .Pending";
 
     $.contextMenu({
@@ -120,8 +120,8 @@ function bindPendingMenu() {
 }
 
 function bindApproveMenu() {
-    //if (!IsManager)
-    //    return;
+    if (!IsManager)
+        return;
     var element = "#memberOT .Approve";
     $.contextMenu({
         selector: element,
@@ -136,6 +136,8 @@ function bindApproveMenu() {
 }
 
 function bindRejectMenu() {
+    if (!IsManager)
+        return;
     var element = "#memberOT .Reject";
     $.contextMenu({
         selector: element,

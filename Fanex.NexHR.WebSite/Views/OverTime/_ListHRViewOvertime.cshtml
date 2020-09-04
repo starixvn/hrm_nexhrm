@@ -14,7 +14,7 @@
             <td>@item.CreatedDate.ToDateMonthYearFormatedDate()</td>
             <td>
                 <span class="contextmenu">
-                    <a href='javascript:;' requestid="@item.Id">@item.TotalMember</a>
+                    <a href='javascript:;' requestid="@item.Id" projectName="@item.Description">@item.TotalMember</a>
                     <ul class='list-unstyled drop-menu'>
                         @foreach (OvertimeRecord detail in item.OvertimeRecords)
                         {
@@ -29,7 +29,7 @@
             @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td>
-                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve">
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Approve.ToString() c-approve" projectName="@item.Description">
                         @Labels.Approved<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>
@@ -37,7 +37,7 @@
             @if (item.Status == (int)RequestStatuse.Verified)
             {
                 <td>
-                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Verified.ToString() c-verify">
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Verified.ToString() c-verify" projectName="@item.Description">
                         @Labels.Verified<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>
@@ -45,7 +45,7 @@
             @if (item.Status == (int)RequestStatuse.Void)
             {
                 <td>
-                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Void.ToString() c-void">
+                    <a requestid="@item.Id" href="javascript:;" class="@RequestStatuse.Void.ToString() c-void" projectName="@item.Description">
                         @Labels.Void<i class="mdi-navigation-arrow-drop-down"></i>
                     </a>
                 </td>

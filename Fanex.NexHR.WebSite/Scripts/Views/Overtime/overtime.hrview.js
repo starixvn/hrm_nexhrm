@@ -8,8 +8,11 @@ var overtimeHrView = (function ($) {
         actionCancel: '.action-cancel',
         reset: '.btnReset',
         contextmenu: '.contextmenu',
-        dialog: '#dialog-NEX-detail'
+        dialog: '#dialog-NEX-detail',
+        tableDetail: '#data-detail'
     };
+
+    let projectName = '';
 
     function registerContextMenuEvent() {
         let contextmenu = $(domElement.contextmenu);
@@ -22,7 +25,8 @@ var overtimeHrView = (function ($) {
         });
 
         contextmenu.click(function () {
-            const id = contextmenu.find('a').attr('requestid');
+            const id = $(this).find('a').attr('requestid');
+            projectName = $(this).find('a').attr('projectName');
             getDetailProject(id);
         });
     }
@@ -73,6 +77,7 @@ var overtimeHrView = (function ($) {
 
     function processRequest(command, eventElement) {
         var requestId = eventElement.$trigger.attr('requestId');
+        projectName = eventElement.$trigger.attr('projectName');
         switch (command) {
             case 'verify':
                 getDetailProject(requestId);
@@ -89,7 +94,8 @@ var overtimeHrView = (function ($) {
             let id = $(this).attr('data-id');
             $('#spanNEXHour_' + id).hide();
             $('#inputNEXHour_' + id).show();
-            $('#inputNEXHour_' + id).focus();
+            const value = $('#inputNEXHour_' + id).val();
+            $('#inputNEXHour_' + id).focus().val('').val(value);
             $(this).hide();
             $('#' + id).find(domElement.confirmEdit).show();
             $('#' + id).find(domElement.actionCancel).show();
@@ -100,6 +106,8 @@ var overtimeHrView = (function ($) {
         $(domElement.actionCancel).on('click', function () {
             let id = $(this).attr('data-id');
             resetStateInit(id);
+            const value = +$('#spanNEXHour_' + id).text().trim();
+            $('#inputNEXHour_' + id).val(value);
         });
     }
 
@@ -143,6 +151,40 @@ var overtimeHrView = (function ($) {
         $('#' + rowId).find(domElement.edit).show();
     }
 
+    function submitVerifyRequest() {
+        const overtimeId = $(domElement.tableDetail).find('tr.row-detail').first().attr('overtimeId');
+        const TimeSheetData = getTimeSheetData();
+        $.ajax({
+            type: 'POST',
+            url: _global.root + 'Overtime/VerifyRequest',
+            data: {
+                Id: overtimeId,
+                Description: projectName,
+                TimeSheetData
+            },
+            success: function (data) {
+                if (data) {
+                    let errorCont = $('#divErrorCont');
+                    errorCont.removeClass();
+                    errorCont.html('');
+
+                    if (data.IsSuccessful) {
+                        $(domElement.dialog).dialog('close');
+                        query(false);
+                    }
+                    else {
+                        var errors = '<ul><li>' + data.Message + '</li></ul>';
+                        errorCont.addClass('validation-summary-errors');
+                        errorCont.append(errors);
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notifyError(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
+
     function initDialogDetail() {
         $(domElement.dialog).dialog({
             modal: true,
@@ -160,36 +202,8 @@ var overtimeHrView = (function ($) {
                     class: 'btn-submit waves-effect waves-light',
                     click: function () {
                         confirm('Are you sure you want to save this request?', function () {
-                            console.log('submit');
-                            $(domElement.dialog).dialog('close');
+                            submitVerifyRequest();
                         });
-                        //$.ajax({
-                        //    type: 'POST',
-                        //    url: _global.root + 'toeic/updatefulltoeic',
-                        //    dataType: 'json',
-                        //    data: $('#frmUpdFullTOEIC').serialize(),
-                        //    success: function (data) {
-                        //        if (data) {
-                        //            var errorCont = $('#divErrorCont');
-                        //            errorCont.removeClass();
-                        //            errorCont.html('');
-
-                        //            if (data.IsSuccessful) {
-                        //                errorCont.addClass('success validation-summary-success');
-                        //                errorCont.append('Update TOEIC score for Employee successfully');
-                        //                setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
-                        //            }
-                        //            else {
-                        //                var errors = '<ul><li>' + data.Message + '</li></ul>';
-                        //                errorCont.addClass('validation-summary-errors');
-                        //                errorCont.append(errors);
-                        //            }
-                        //        }
-                        //    },
-                        //    error: function (jqXHR, textStatus, errorThrown) {
-                        //        notifyError(textStatus + ': ' + errorThrown);
-                        //    }
-                        //});
                     }
                 }
             ],
@@ -220,6 +234,28 @@ var overtimeHrView = (function ($) {
                 notifyError(textStatus + ': ' + errorThrown);
             }
         });
+    }
+
+    function getTimeSheetData() {
+        let NexDetails = $(domElement.tableDetail).find('tr.row-detail');
+        if (NexDetails.length > 0) {
+            let timeRecords = [];
+            for (var i = 0; i < NexDetails.length; i++) {
+                let empId = +$(NexDetails[i]).attr('empId');
+                let date = $(NexDetails[i]).attr('dateOT');
+                let nexHour = +$(NexDetails[i]).find('td.nex-hour input.value-nex-hour').val();
+                timeRecords.push({
+                    Employee: {
+                        Id: empId
+                    },
+                    Date: date,
+                    NexHour: nexHour,
+                });
+            }
+            return JSON.stringify(timeRecords);
+        } else {
+            return "";
+        }
     }
 
     function voidRequest(id) {

@@ -28,9 +28,9 @@
 
         void SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
 
-        //void SendMailForNotification(string subject, UpdateNexHour model);
-
         void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy);
+
+        void SendMailForNotification(string subject, OvertimeVerifyViewModel model);
 
         void SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model);
     }

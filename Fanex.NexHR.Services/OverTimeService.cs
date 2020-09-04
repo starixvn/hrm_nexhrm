@@ -177,38 +177,6 @@
             }
         }
 
-        //public void SendMailForNotification(string subject, UpdateNexHour model)
-        //{
-        //    if (model != null)
-        //    {
-        //        GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
-        //        {
-        //            EmployeeId = model.EmployeeId
-        //        };
-        //        var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
-
-        //        //// send email(s)
-        //        var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
-
-        //        var body = string.Format(
-        //            bodyTemplate,
-        //            receiver.NickName,
-        //            model.Date.ToDateMonthYearFormatedDate(),
-        //            model.Hour,
-        //            model.AdjustHour,
-        //            model.Description,
-        //            BaseUrl,
-        //            CompanyMailSign);
-
-        //        _emailService.SendEmail(
-        //            SenderEmail,
-        //            receiver.Email,
-        //            string.Empty,
-        //            subject,
-        //            body);
-        //    }
-        //}
-
         public void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
@@ -265,6 +233,34 @@
                     body);
         }
 
-        
+        public void SendMailForNotification(string subject, OvertimeVerifyViewModel model)
+        {
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
+
+            foreach (var item in model.TimeSheets)
+            {
+                var employee = GetDataEntity<Employee>(new GetEmployeeByIdCriteria{
+                    EmployeeId = item.Employee.Id
+                });
+
+                var body = string.Format(
+                bodyTemplate,
+                employee.NickName,
+                item.Date.ToDateMonthYearFormatedDate(),
+                item.Hour,
+                item.NexHour,
+                model.Description,
+                BaseUrl,
+                CompanyMailSign);
+
+                _emailService.SendEmail(
+                    SenderEmail,
+                    employee.Email,
+                    string.Empty,
+                    subject,
+                    body);
+            }
+        }
+
     }
 }
