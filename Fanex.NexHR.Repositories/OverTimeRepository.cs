@@ -10,6 +10,8 @@
 
     public class OvertimeRepository : IOvertimeRepository
     {
+        private const string stringSplitOnEmployeeId = "EmployeeId";
+
         public IList<Overtime> GetOvertime(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -31,7 +33,7 @@
                            ot.Employee = emp;
                            return ot;
                        },
-                        "EmployeeId");
+                        stringSplitOnEmployeeId);
 
                     foreach (Overtime overtime in overtimes)
                     {
@@ -64,7 +66,7 @@
                            ot.Employee = emp;
                            return ot;
                        },
-                        "EmployeeId");
+                        stringSplitOnEmployeeId);
 
                     if (overtimeRequest != null)
                     {
@@ -152,7 +154,7 @@
                            ot.Employee = emp;
                            return ot;
                        },
-                        "EmployeeId");
+                        stringSplitOnEmployeeId);
 
                     foreach (Overtime overtime in overtimes)
                     {
@@ -174,7 +176,7 @@
                         rp.Employee = e1;
                         return rp;
                     },
-                    "EmployeeId",
+                    stringSplitOnEmployeeId,
                     criteria.GetSpParams()).ToList();
 
                 return report;

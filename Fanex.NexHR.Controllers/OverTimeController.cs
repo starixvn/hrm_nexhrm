@@ -567,12 +567,11 @@
         [HttpPost]
         public ActionResult HRViewDetail(int id)
         {
-            IList<ReportOvertimeHRDetail> result = new List<ReportOvertimeHRDetail>();
             var criteria = new ReportOvertimeHRDetailCriteria
             {
                 Id = id
             };
-            result = _overtimeService.GetReportOvertimeHRDetail(criteria);
+            var result = _overtimeService.GetReportOvertimeHRDetail(criteria);
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
