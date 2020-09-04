@@ -9,7 +9,7 @@ Created: 20200302Merlin.Le
 Task: Enhance NEX balance request
 DB: NexHRM
 Original:
-Revisions: 20200729Dwight.Tran: Enhance NEX Request.
+Revisions: 20200903Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 */
 BEGIN

@@ -17,7 +17,7 @@ Original:
 
 Revisions:
     - 20200227@Merlin.Le: Enhance NEX leave
-	- 20200731Dwight.Tran: Enhance NEX Request.
+	- 20200903Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
@@ -42,9 +42,7 @@ BEGIN
         LEFT JOIN Employee e1 WITH (NOLOCK) ON e1.Id = ot.CreatedBy
         LEFT JOIN Employee e2 WITH (NOLOCK) ON e2.Id = otd.EmployeeId
     WHERE
-        DATEDIFF(DAY, @FromDate, otd.[Date]) >=0
-		AND DATEDIFF(DAY, @ToDate, otd.[Date]) <=0
-        AND (
+		(
             @Status = 0
             OR ot.[Status] = @Status
         )
@@ -57,7 +55,8 @@ BEGIN
             OR otd.EmployeeId = @EmployeeId
         )
 		AND (
-			@OvertimeId IS NULL
+			(@OvertimeId IS NULL AND DATEDIFF(DAY, @FromDate, otd.[Date]) >= 0
+			AND DATEDIFF(DAY, @ToDate, otd.[Date]) <=0)
 			OR otd.OvertimeId = @OvertimeId
 		);
 END;

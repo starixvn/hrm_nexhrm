@@ -10,7 +10,7 @@ Task: Delete OT transaction.
 DB: NexHRM
 Original: 
 
-Revisions:  20200729Dwight.Tran: Enhance NEX Request.
+Revisions:  20200903Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */

@@ -15,7 +15,7 @@ Original:
 
 Revisions:  
 	- 20200316Merlin.Le: Enhance NEX balance request
-	- 20200729Dwight.Tran: Enhance NEX Request
+	- 20200903Dwight.Tran: Enhance NEX Request
 Param's Explanation:
 
 */

@@ -17,7 +17,7 @@ Original:
 
 Revisions:  
 	- 20200302Merlin.Le: Enhance NEX balance request
-	- 20200731Dwight.Tran: Enhance NEX Request.
+	- 20200903Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
@@ -149,7 +149,7 @@ BEGIN
                         LEFT JOIN [dbo].[Overtime_138194] AS ot WITH (NOLOCK) ON ot.[OvertimeId] = otd.[OvertimeId]
                     WHERE otd.[EmployeeId] = @EmployeeId
 						AND DATEDIFF(DAY, @Date, otd.[Date]) = 0
-                        AND ot.Status IN (1, 2)
+                        AND ot.Status IN (1, 2, 4)
                 )
             )
             BEGIN
@@ -170,7 +170,6 @@ BEGIN
                 ,[Hour]
 				,[NexHour]
                 ,[Note]
-				,[Verified]
             )
             VALUES (
                 @Id
@@ -179,7 +178,6 @@ BEGIN
                 ,@Hour
 				,@NexHour
                 ,@Note
-				,0
             );
 
             DELETE TOP (1)

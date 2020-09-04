@@ -356,8 +356,13 @@
     <Build Include="dbo\Stored Procedures\Overtime_DeleteConversion.sql" />
     <Build Include="dbo\Stored Procedures\Overtime_ReportHR.sql" />
     <Build Include="dbo\Stored Procedures\Overtime_GetNexHour.sql" />
-    <Build Include="dbo\Stored Procedures\Overtime_UpdateNexHour.sql" />
     <Build Include="dbo\Stored Procedures\Overtime_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_VoidRequest.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_VerifyRequest.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_ResetRequest.sql" />
+    <Build Include="dbo\Stored Procedures\Overtime_ReportHRDetail.sql" />
+    <Build Include="dbo\Tables\OvertimeDetail_138194.sql" />
+    <Build Include="dbo\Tables\Overtime_138194.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fanex.NexHR.Database.publish.xml" />

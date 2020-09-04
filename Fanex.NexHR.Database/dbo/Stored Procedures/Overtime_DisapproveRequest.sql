@@ -15,7 +15,7 @@ Original:
 
 Revisions:  
 	- 20200316Merlin.Le: Enhance NEX balance request
-	- 20200731Dwight.Tran: Enhance NEX Request.
+	- 20200903Dwight.Tran: Enhance NEX Request.
 Param's Explanation:
 
 */
@@ -85,8 +85,6 @@ BEGIN
             ,ModifiedBy = @ModifiedBy
             ,ModifiedDate = GETDATE()
         WHERE OvertimeId = @Id;
-
-        EXECUTE dbo.[Overtime_DeleteTransaction] @Id, @ModifiedBy;
 
         COMMIT TRANSACTION;
     END TRY
