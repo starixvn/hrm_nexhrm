@@ -113,6 +113,7 @@
     <Compile Include="LateInEarlyOut\GetViolateLateInEarlyOutDisciplineCriteria.cs" />
     <Compile Include="Memo\MemoCriteria.cs" />
     <Compile Include="Notification\GetAllNotificationCriteria.cs" />
+    <Compile Include="Overtime\BaseActionOvertimeCriteria.cs" />
     <Compile Include="Overtime\DeleteOvertimeCriteria.cs" />
     <Compile Include="Overtime\GetNexHourCriteria.cs" />
     <Compile Include="Overtime\ReportOvertimeHRCriteria.cs" />

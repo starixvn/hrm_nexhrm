@@ -133,39 +133,6 @@
             }
         }
 
-        public IList<Overtime> GetReportOvertimeHR(ICriteria criteria)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
-                {
-                    IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
-                        (ot, cre) =>
-                        {
-                            ot.CreatedBy = cre;
-                            return ot;
-                        },
-                        "CreatedId").ToList();
-
-                    IEnumerable<OvertimeRecord> overtimeRecords =
-                        multi.Read<OvertimeRecord, Employee, OvertimeRecord>(
-                       (ot, emp) =>
-                       {
-                           ot.Employee = emp;
-                           return ot;
-                       },
-                        stringSplitOnEmployeeId);
-
-                    foreach (Overtime overtime in overtimes)
-                    {
-                        overtime.OvertimeRecords = overtimeRecords.Where(t => t.OvertimeId == overtime.Id).ToList();
-                    }
-
-                    return overtimes;
-                }
-            }
-        }
-
         public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

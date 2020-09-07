@@ -17,8 +17,6 @@
 
         IList<OvertimeConversion> GetConversions(ICriteria criteria);
 
-        IList<Overtime> GetReportOvertimeHR(ICriteria criteria);
-
         IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ICriteria criteria);
     }
 }

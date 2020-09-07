@@ -109,7 +109,7 @@
             IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = _repository.GetReportOvertimeHR(criteria);
+                overtimes = _repository.GetOvertime(criteria);
             }
 
             return overtimes ?? new List<Overtime>();
