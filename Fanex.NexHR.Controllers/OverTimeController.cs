@@ -87,7 +87,7 @@
                     item.Own = CurrentUser.Id == item.CreatedBy.Id;
                 }
             }
-
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT");
             return PartialView("_ListMemberOvertime", result);
         }
 

@@ -42,7 +42,7 @@
                                         @Html.LabelFor(model => model.Date, Labels.CreatedDate)
                                     </div>
                                     <div class="left">
-                                        <h5 class="label">@Model.Date.ToDateMonthYearFormatedDate()</h5>
+                                        <span class="label">@Model.Date.ToDateMonthYearFormatedDate()</span>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                         @Html.LabelFor(model => model.CreatedByName, Labels.RequestedBy)
                                     </div>
                                     <div class="left">
-                                        <h5 class="label">@Html.DisplayFor(model => model.CreatedByName)</h5>
+                                        <span class="label">@Html.DisplayFor(model => model.CreatedByName)</span>
                                     </div>
                                 </div>
                             </div>
