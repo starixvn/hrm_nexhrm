@@ -23,7 +23,7 @@
                 var rowId = item.OvertimeId.ToString() + "_" + item.Employee.Id.ToString() + "_" + index;
                 <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date" class="row-detail">
                     <td>@(index++)</td>
-                    <td>@item.Employee.DisplayName</td>
+                    <td class="align-left">@item.Employee.DisplayName</td>
                     <td>@item.Date.ToDateMonthYearFormatedDate()</td>
                     @if (!string.IsNullOrWhiteSpace(item.Note))
                     {

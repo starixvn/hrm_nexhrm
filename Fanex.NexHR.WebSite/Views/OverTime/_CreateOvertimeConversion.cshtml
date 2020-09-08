@@ -26,7 +26,8 @@
             @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
         </div>
     </div>
-    <div class="row form-input center">
+    <div class="row form-input">
+        <div class="left label--l">&nbsp;</div>
         @Html.HiddenFor(model => model.EmpId)
         <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel-insert" type="button" value="@Labels.Cancel" />
         <input class="btn-ok waves-effect waves-light" type="submit" id="create" value="@Labels.Submit" />
