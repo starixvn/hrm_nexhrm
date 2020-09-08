@@ -231,6 +231,7 @@ var manageOvertime = (function ($) {
                 let elementRow = "tr.sortedIndex#row_" + unique;
                 $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + unique).attr('name', 'datepicker_' + unique);
                 $(elementRow).find('input.datepicker').parent().addClass('datepicker-button');
+                $(elementRow).find('input.row_hour').attr("type", "number");
                 registerChangeNexHourEvent(elementRow, "#row_hour_" + unique);          // hour
                 registerChangeNexHourEvent(elementRow, '#datepicker_' + unique);        // date
                 getNexHour(elementRow);

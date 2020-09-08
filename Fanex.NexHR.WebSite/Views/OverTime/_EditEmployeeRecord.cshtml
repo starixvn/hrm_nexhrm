@@ -20,7 +20,7 @@
         </div>
     </td>
     <td>
-        @Html.TextBoxFor(model => model.Hour, new { id = row_hour_Id, @class = "row_hour", data_id = Model.Employee.Id, type = "number", step = "0.5", min = "0.5", max = "24" })
+        @Html.TextBoxFor(model => model.Hour, new { id = row_hour_Id, @class = "row_hour", data_id = Model.Employee.Id, step = "0.5", min = "0.5", max = "24" })
     </td>
     <td class="row_nexhour">
         @Model.NexHour
