@@ -172,7 +172,6 @@
                     var body = string.Format(
                         bodyTemplate,
                         model.CreatedByName,
-                        model.Date.ToDateMonthYearFormatedDate(),
                         model.Description,
                         emloyees,
                         BaseUrl,
@@ -210,11 +209,11 @@
                                                                     t.Employee.FullName,
                                                                     t.Date.ToString(FormatDate),
                                                                     t.Hour)));
-            SendMailForCreatedRequest(subject, createdBy, manager.DisplayName, bodyTemplate, emloyees, overtime.Description);
-            SendMailForHR(subject, manager.DisplayName, bodyTemplate, emloyees, overtime.Description);
+            SendMailForCreatedRequest(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
+            SendMailForHR(subject, manager.NickName, bodyTemplate, emloyees, overtime.Description);
         }
 
-        private void SendMailForCreatedRequest(string subject, int createdBy, string managerDisplayName, string bodyTemplate, string employees, string project)
+        private void SendMailForCreatedRequest(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
@@ -225,7 +224,7 @@
                     bodyTemplate,
                     receiver.NickName,
                     "your created NEX request",
-                    managerDisplayName,
+                    managerNickName,
                     project,
                     employees,
                     BaseUrl,
@@ -239,14 +238,14 @@
                     body);
         }
 
-        private void SendMailForHR(string subject, string managerDisplayName, string bodyTemplate, string employees, string project)
+        private void SendMailForHR(string subject, string managerNickName, string bodyTemplate, string employees, string project)
         {
             IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
             var body = string.Format(
                     bodyTemplate,
                     "all",
                     "a NEX request",
-                    managerDisplayName,
+                    managerNickName,
                     project,
                     employees,
                     BaseUrl,
