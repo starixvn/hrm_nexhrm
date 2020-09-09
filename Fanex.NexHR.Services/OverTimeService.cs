@@ -18,6 +18,7 @@
     {
         private readonly IOvertimeRepository _repository;
         private readonly IEmailService _emailService;
+        private const string FormatDate = "dd MMM, yyyy";
         private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
         private readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
         private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
@@ -157,13 +158,23 @@
             {
                 IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
                 var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeRequest));
-                if(managers.Any())
+                var emloyees = string.Join(
+                                               Constants.BrTag,
+                                               model.TimeSheets.Select(t => 
+                                                                string.Format(
+                                                                    Constants.ContentEmployeeOvertime, 
+                                                                    t.Employee.NickName, 
+                                                                    t.Employee.FullName,
+                                                                    t.Date.ToString(FormatDate), 
+                                                                    t.Hour)));
+                if (managers.Any())
                 {
                     var body = string.Format(
                         bodyTemplate,
                         model.CreatedByName,
                         model.Date.ToDateMonthYearFormatedDate(),
                         model.Description,
+                        emloyees,
                         BaseUrl,
                         CompanyMailSign);
 
@@ -177,31 +188,46 @@
             }
         }
 
-        public void SendMailForApprovalNotification(string subject, int createdBy, int approvedBy)
+        public void SendMailForApprovalNotification(string subject, int overtimeId, int createdBy, int approvedBy)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = approvedBy
             };
             var manager = GetDataEntity<Employee>(getEmployeeCriteria);
-
-            SendMailForCreatedRequest(subject, createdBy, manager.DisplayName);
-            SendMailForHR(subject, manager.DisplayName);
+            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
+            var criteria = new GetOvertimeByIdCriteria
+            {
+                Id = overtimeId
+            };
+            var overtime = _repository.GetOvertimeById(criteria);
+            var emloyees = string.Join(
+                                               Constants.BrTag,
+                                               overtime.OvertimeRecords.Select(t =>
+                                                                string.Format(
+                                                                    Constants.ContentEmployeeOvertime,
+                                                                    t.Employee.NickName,
+                                                                    t.Employee.FullName,
+                                                                    t.Date.ToString(FormatDate),
+                                                                    t.Hour)));
+            SendMailForCreatedRequest(subject, createdBy, manager.DisplayName, bodyTemplate, emloyees, overtime.Description);
+            SendMailForHR(subject, manager.DisplayName, bodyTemplate, emloyees, overtime.Description);
         }
 
-        private void SendMailForCreatedRequest(string subject, int createdBy, string managerDisplayName)
+        private void SendMailForCreatedRequest(string subject, int createdBy, string managerDisplayName, string bodyTemplate, string employees, string project)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = createdBy
             };
             var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
             var body = string.Format(
                     bodyTemplate,
                     receiver.NickName,
                     "your created NEX request",
                     managerDisplayName,
+                    project,
+                    employees,
                     BaseUrl,
                     CompanyMailSign);
 
@@ -213,21 +239,22 @@
                     body);
         }
 
-        private void SendMailForHR(string subject, string managerDisplayName)
+        private void SendMailForHR(string subject, string managerDisplayName, string bodyTemplate, string employees, string project)
         {
-            IList<Employee> employees = GetData<Employee>(new GetHRCriteria()).ToList();
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
+            IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
             var body = string.Format(
                     bodyTemplate,
                     "all",
                     "a NEX request",
                     managerDisplayName,
+                    project,
+                    employees,
                     BaseUrl,
                     CompanyMailSign);
 
             _emailService.SendEmail(
                     SenderEmail,
-                    string.Join(";", employees.Select(t => t.Email)),
+                    string.Join(";", HRs.Select(t => t.Email)),
                     string.Empty,
                     subject,
                     body);

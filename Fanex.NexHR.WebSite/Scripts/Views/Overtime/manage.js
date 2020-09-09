@@ -183,7 +183,10 @@ var manageOvertime = (function ($) {
             var timeRecords = [];
             for (var i = 0; i < overtimes.length; i++) {
                 let employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
-                let nickName = $($(overtimes[i]).find(".row_name").first()).html().trim();
+                let nick = $($(overtimes[i]).find(".row_name").first()).html().trim();
+                let names = nick.split(' (');
+                let nickName = names[0];
+                let fullname = names[1].substring(0, names[1].length - 1);
                 let date = $($(overtimes[i]).find("input.datepicker").first()).val();
                 let hour = +$($(overtimes[i]).find("input.row_hour").first()).val();
                 const roundedHour = Math.round(hour * 2) / 2;
@@ -201,7 +204,8 @@ var manageOvertime = (function ($) {
                 timeRecords.push({
                     Employee: {
                         Id: employeeId,
-                        NickName: nickName
+                        NickName: nickName,
+                        FullName: fullname
                     },
                     Date: date,
                     Hour: parseFloat(hour),

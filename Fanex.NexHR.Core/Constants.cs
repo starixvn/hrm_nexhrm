@@ -23,6 +23,7 @@ namespace Fanex.NexHR.Core
         public const string MailContentLeaveOneDay = "{0}";
         public const string MailContentLeaveHalfDay = "{0} (0.5 day from {1} to {2})";
         public const string ContentEmployeeWithDay = "- <strong>{0}</strong> ({1}): {2}";
+        public const string ContentEmployeeOvertime = "<li><strong>{0}</strong> ({1}) - {2}: {3} hour(s).";
 
         public const string EmailTemplatePathForRequester = "~/app_data/emails/process.request.cshtml";
         public const string EmailTemplatePathForLeave = "~/app_data/emails/Leave.Request.cshtml";

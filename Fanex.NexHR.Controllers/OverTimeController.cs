@@ -215,7 +215,7 @@
             CommandResult result = _commandService.Update(criteria);
             if (result.IsSuccessful)
             {
-                _overtimeService.SendMailForApprovalNotification("NEX request Notification", createdBy, CurrentUser.Id);
+                _overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
             }
             return Json(result);
         }
