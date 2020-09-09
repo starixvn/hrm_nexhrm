@@ -78,8 +78,4 @@ BEGIN
 	WHERE otd.[OvertimeId] = @Id
 
 	DROP TABLE #TempHourOT;
-
-	DECLARE 
-		@realHourOT			NUMERIC(18,1) = 0
-		,@minHour			NUMERIC(18,1);
 END;

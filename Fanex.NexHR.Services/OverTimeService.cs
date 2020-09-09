@@ -210,7 +210,7 @@
                                                                     t.Date.ToString(FormatDate),
                                                                     t.Hour)));
             SendMailForCreatedRequest(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
-            SendMailForHR(subject, manager.NickName, bodyTemplate, emloyees, overtime.Description);
+            SendMailForHR(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
         }
 
         private void SendMailForCreatedRequest(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
@@ -223,7 +223,7 @@
             var body = string.Format(
                     bodyTemplate,
                     receiver.NickName,
-                    "your created NEX request",
+                    "your NEX request",
                     managerNickName,
                     project,
                     employees,
@@ -238,13 +238,18 @@
                     body);
         }
 
-        private void SendMailForHR(string subject, string managerNickName, string bodyTemplate, string employees, string project)
+        private void SendMailForHR(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
             IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
+            GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
+            {
+                EmployeeId = createdBy
+            };
+            var creator = GetDataEntity<Employee>(getEmployeeCriteria);
             var body = string.Format(
                     bodyTemplate,
                     "all",
-                    "a NEX request",
+                    string.Format("{0}'s NEX request", creator.NickName),
                     managerNickName,
                     project,
                     employees,
