@@ -76,11 +76,7 @@ function query(jobTitleId, isFirstLoad) {
 
                 $(noInformation(14)).appendTo('table#data');
             }
-        },
-        error: function () {
-            alert(_messages.errorTryAgain);
-        },
-        complete: function () {
+
             if (data.IsShowResignedDate === true) {
                 $('#resignedDate').show();
                 $('.ResignedDate').show();
@@ -89,6 +85,11 @@ function query(jobTitleId, isFirstLoad) {
                 $('#resignedDate').hide();
                 $('.ResignedDate').hide();
             }
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeOut(300);
             }
