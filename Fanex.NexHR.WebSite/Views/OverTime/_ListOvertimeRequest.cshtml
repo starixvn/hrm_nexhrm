@@ -44,6 +44,14 @@
             {
                 <td>@Labels.Pending</td>
             }
+            else if (item.Status == (int)RequestStatuse.Verified)
+            {
+                <td>@Labels.Verified</td>
+            }
+            else if (item.Status == (int)RequestStatuse.Void)
+            {
+                <td>@Labels.Void</td>
+            }
             else
             {
                 <td> @Labels.Rejected</td>
