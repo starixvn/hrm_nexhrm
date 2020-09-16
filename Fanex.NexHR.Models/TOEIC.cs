@@ -104,5 +104,32 @@
         public DateTime? ModifiedDate { get; set; }
 
         public bool SendMail { get; set; }
+
+        public bool IsWarningExpiredDate
+        {
+            get
+            {
+                if (MinimumScore.HasValue && InputDate.HasValue)
+                {
+                    return (!LRTotal.HasValue || (MinimumScore + 200) > LRTotal.Value) 
+                        && (InputDate.Value < DateTime.Now);
+                }
+
+                return false;
+            }
+        }
+
+        public bool IsWarningMinimumScore
+        {
+            get
+            {
+                if (MinimumScore.HasValue && InputDate.HasValue && LRTotal.HasValue)
+                {
+                    return MinimumScore.Value > LRTotal.Value;
+                }
+
+                return false;
+            }
+        }
     }
 }
