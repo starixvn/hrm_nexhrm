@@ -3,10 +3,6 @@
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
-    /// <summary>
-    /// TOEIC model.
-    /// </summary>
     public class Toeic
     {
         private DateTime? _listeningReadingExamDate;
@@ -15,6 +11,7 @@
         private const int maxRangeRL = 495;
         private const int maxRangeSW = 200;
         private const int maxRangeTotal = 990;
+        private const int rangeNotRemind = 200;
 
         public int EmpId { get; set; }
 
@@ -111,7 +108,7 @@
             {
                 if (MinimumScore.HasValue && InputDate.HasValue)
                 {
-                    return (!LRTotal.HasValue || (MinimumScore + 200) > LRTotal.Value) 
+                    return (!LRTotal.HasValue || (MinimumScore + rangeNotRemind) > LRTotal.Value) 
                         && (InputDate.Value < DateTime.Now);
                 }
 
