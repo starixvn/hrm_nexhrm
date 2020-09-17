@@ -162,6 +162,7 @@
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interfaces\IYearlyNexRequestService.cs" />
     <Compile Include="MessageCategoryLogService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="RequestService.cs" />
     <Compile Include="ShiftService.cs" />
     <Compile Include="ToeicService.cs" />
+    <Compile Include="YearlyNexRequestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

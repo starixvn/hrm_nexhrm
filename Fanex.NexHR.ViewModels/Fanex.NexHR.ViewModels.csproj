@@ -152,6 +152,7 @@
     <Compile Include="Toeic\ToeicViewModel.cs" />
     <Compile Include="TotalWorkingHours\TotalWorkingHoursViewModel.cs" />
     <Compile Include="WorkingScheduleModel.cs" />
+    <Compile Include="YearlyNexRequest\YearlyNexRequestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

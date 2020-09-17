@@ -185,6 +185,7 @@
     <Compile Include="WeekWorking.cs" />
     <Compile Include="WorkingTimeRequest.cs" />
     <Compile Include="Workload\Workload.cs" />
+    <Compile Include="YearlyNexRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

@@ -314,6 +314,8 @@
     <Setting Key="Overtime_ReportHRDetail" SpName="Overtime_ReportHRDetail" DbName="nexhr" Plain="0">
       <Mapping DataField="EmployeeId" ObjectProperty="Id" />
     </Setting>
+    <Setting Key="Overtime_YearlyNexRequest" SpName="Overtime_YearlyNexRequest" DbName="nexhr" Plain="0">
+    </Setting>
       <Setting Key="Overtime_ResetRequest" SpName="Overtime_ResetRequest" DbName="nexhr" Plain="0"></Setting>
       <Setting Key="Overtime_VerifyRequest" SpName="Overtime_VerifyRequest" DbName="nexhr" Plain="0"></Setting>
       <Setting Key="Overtime_VoidRequest" SpName="Overtime_VoidRequest" DbName="nexhr" Plain="0"></Setting>

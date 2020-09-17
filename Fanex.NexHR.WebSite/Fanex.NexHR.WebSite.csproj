@@ -822,6 +822,7 @@
     <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
     <Content Include="Scripts\Views\TeamManagement\team.management.js" />
+    <Content Include="Scripts\Views\YearlyNexRequest\yearlynexrequest.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -962,6 +963,8 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Views\Overtime\_ListHRViewOvertimeDetail.cshtml" />
+    <Content Include="Views\YearlyNexRequest\Index.cshtml" />
+    <Content Include="Views\YearlyNexRequest\_ListYearlyNexRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

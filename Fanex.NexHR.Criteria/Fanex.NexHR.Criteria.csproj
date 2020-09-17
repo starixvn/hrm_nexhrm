@@ -252,6 +252,7 @@
     <Compile Include="Toeic\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
     <Compile Include="Workload\GetEmployeeWorkloadCriteria.cs" />
+    <Compile Include="YearlyNexRequest\GetYearlyNexRequestCriteria.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -24,6 +24,7 @@
       <siteMapNode title="Working Hours Statistic" controller="report" action="workinghoursstatistic" icon="alarm-plus" roles="HR" />
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
       <siteMapNode title="NEX Review" controller="overtime" action="hrview" icon="clipboard-text" roles="HR" />
+      <siteMapNode title="Yearly NEX Request" controller="yearlyNexRequest" action="index" icon="clipboard-text" roles="HR" />
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" roles="Member" />

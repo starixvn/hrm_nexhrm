@@ -124,6 +124,8 @@
             BuildBundleForMyNEX(bundles);
 
             BuildBundleForMobile(bundles);
+
+            BuildBundleYearlyNexRequest(bundles);
         }
 
         private static void BuildBundleForCommon(BundleCollection bundles)
@@ -656,6 +658,13 @@
         {
             bundles.Add(new StyleBundle("~/Content/view-mobile")
                   .Include("~/Content/Views/view-mobile.css", new CssRewriteUrlTransform()));
+        }
+
+        private static void BuildBundleYearlyNexRequest(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/yearlynexrequestjs").Include(
+                EmployeeSearchInCompanyScript,
+                "~/Scripts/Views/YearlyNexRequest/yearlynexrequest.js"));
         }
 
     }
