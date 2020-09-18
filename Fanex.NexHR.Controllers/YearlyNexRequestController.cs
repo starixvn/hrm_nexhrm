@@ -42,7 +42,7 @@
         public ActionResult GetYearlyNexRequest(int? empId, int? teamId, int year)
         {
             int? employeeId = null;
-            if (empId.HasValue && empId.Value >= 0)
+            if (empId.HasValue && empId.Value > 0)
             {
                 employeeId = empId;
             }
@@ -54,6 +54,7 @@
                 Year = year
             };
 
+            ViewBag.Year = year;
             IList<YearlyNexRequest> yearlyNexRequests = yearlyNexRequestService.GetYearlyNexRequest(criteria);
 
             return PartialView("_ListYearlyNexRequest", yearlyNexRequests);

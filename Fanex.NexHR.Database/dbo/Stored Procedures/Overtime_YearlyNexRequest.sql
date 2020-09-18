@@ -16,8 +16,8 @@ BEGIN
 	SELECT ott.EmployeeId
 	,e.NickName
 	,eg.Name AS GroupName
-	,ott.Hour
-	,ott.Date
+	,ott.[Hour]
+	,ott.[Date]
 	,ec.IsHoliday
 	,ec.IsOffDay
 	,(CASE WHEN ec.IsHoliday = 0 AND ec.IsOffDay = 0 THEN 1 ELSE 0 END) AS IsNormalDay
@@ -37,7 +37,6 @@ BEGIN
 			OR e.GroupId = @groupId
 			)
 		AND ISNULL(e.isDeleted, 0) = 0
-		AND e.GroupId NOT IN (11, 40)
 	ORDER BY ott.EmployeeId
 
 	SELECT os.EmployeeId
@@ -98,7 +97,7 @@ BEGIN
 	 JOIN Employee AS e ON e.Id = os.EmployeeId
 	 GROUP BY os.EmployeeId, os.IsHoliday, os.IsOffDay, os.IsNormalDay
 
- IF OBJECT_ID('#OvertimeYearly') IS NOT NULL
+	IF OBJECT_ID('#OvertimeYearly') IS NOT NULL
 	BEGIN
 		DROP TABLE #OvertimeYearly
 	END
@@ -126,9 +125,8 @@ BEGIN
 		,Oct FLOAT
 		,Nov FLOAT
 		,[Dec] FLOAT
-		,Total FLOAT
+		,TotalHour FLOAT
 		)
-
 	INSERT INTO #OvertimeYearly (
 		EmpId 
 		,Code
@@ -152,34 +150,44 @@ BEGIN
 		,Oct
 		,Nov
 		,[Dec]
-		,Total
+		,TotalHour
 		)
-	SELECT o.EmployeeId
+	SELECT e.Id
 		,e.Code
 		,e.NickName
 		,e.FullName
 		,eg.Id
 		,eg.Code
 		,eg.Name
-		,o.IsHoliday
-		,o.IsOffDay
-		,o.IsNormalDay
-		,o.Jan
-		,o.Feb
-		,o.Mar
-		,o.Apr
-		,o.May
-		,o.Jun
-		,o.Jul
-		,o.Aug
-		,o.Sep
-		,o.Otc
-		,o.Nov
-		,o.[Dec]
-		,o.Total
-	FROM  #OvertimeTest AS o 
-	JOIN Employee AS e ON e.Id = o.EmployeeId
+		,ISNULL(o.IsHoliday, 0)
+		,ISNULL(o.IsOffDay, 0)
+		,ISNULL(o.IsNormalDay, 0)
+		,ISNULL(o.Jan, 0)
+		,ISNULL(o.Feb, 0)
+		,ISNULL(o.Mar, 0)
+		,ISNULL(o.Apr, 0)
+		,ISNULL(o.May, 0)
+		,ISNULL(o.Jun, 0)
+		,ISNULL(o.Jul, 0)
+		,ISNULL(o.Aug, 0)
+		,ISNULL(o.Sep, 0)
+		,ISNULL(o.Otc, 0)
+		,ISNULL(o.Nov, 0)
+		,ISNULL(o.[Dec], 0)
+		,ISNULL(o.Total, 0)
+	FROM  Employee AS e
+	LEFT JOIN #OvertimeTest AS O ON e.Id = o.EmployeeId
 	JOIN EmployeeGroup AS eg ON eg.Id = e.GroupId
+	WHERE e.IsSpecialUser = 0
+		AND  (
+			@employeeId IS NULL
+			OR e.Id = @employeeId
+			)
+		AND (
+			@groupid IS NULL
+			OR e.GroupId = @groupId
+			)
+		AND ISNULL(e.isDeleted, 0) = 0
 	ORDER BY eg.[Rank]
 		,eg.Code
 		,(CASE e.Id
@@ -189,7 +197,7 @@ BEGIN
 			) DESC
 		,e.Code
 
-	select Jan
+	SELECT Jan
 		,Feb
 		,Mar
 		,Apr
@@ -201,7 +209,7 @@ BEGIN
 		,Oct
 		,Nov
 		,[Dec]
-		,Total
+		,TotalHour
 		,IsHoliday
 		,IsOffDay
 		,IsNormalDay
@@ -215,6 +223,8 @@ BEGIN
 	FROM #OvertimeYearly
 
 DROP TABLE #OvertimeSummary
+
+DROP TABLE #OvertimeTest
 
 DROP TABLE #OvertimeYearly
 

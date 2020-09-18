@@ -1,9 +1,7 @@
 ﻿@using Fanex.NexHR.ViewModels.YearlyNexRequest
 
 @model YearlyNexRequestViewModel
-@{
-    ViewBag.Title = Labels.YearlyNexRequest;
-}
+
 @section css {
     @Styles.Render("~/Content/view-mobile")
 }
@@ -18,10 +16,9 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    <span class="card-title txt-uppercase left">@Labels.YearlyNexRequest</span>
                 </div>
                 <div class="card-body">
-
                     <div class="form form-stl-table">
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
                         {
@@ -53,39 +50,14 @@
                                         </div>
                                     </div>
                                     <div class="col m-r--l col-btn-submit-excel">
-                                        <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                        <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                     </div>
                                 </div>
                             </div>
-
                         }
                     </div>
                     <div class="p-x--s over-auto table-resize table-large table-row-thead">
-                        <table id="data" class="table bordered striped highlight table-custom centered">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">@Labels.Nick</th>
-                                    <th rowspan="2">@Labels.NEXType</th>
-                                    <th colspan="12">@Labels.NexRequest</th>
-                                    <th rowspan="2">@Labels.Total</th>
-                                </tr>
-                                <tr>
-                                    <th>@Labels.Jan</th>
-                                    <th>@Labels.Feb</th>
-                                    <th>@Labels.Mar</th>
-                                    <th>@Labels.Apr</th>
-                                    <th>@Labels.May</th>
-                                    <th>@Labels.Jun</th>
-                                    <th>@Labels.Jul</th>
-                                    <th>@Labels.Aug</th>
-                                    <th>@Labels.Sep</th>
-                                    <th>@Labels.Oct</th>
-                                    <th>@Labels.Nov</th>
-                                    <th>@Labels.Dec</th>
-                                </tr>
-                            </thead>
-                            <tbody id="listYearlyNexRequest"></tbody>
-                        </table>
+                        <div id="listYearlyNexRequest"> </div>
                     </div>
                 </div>
             </div>

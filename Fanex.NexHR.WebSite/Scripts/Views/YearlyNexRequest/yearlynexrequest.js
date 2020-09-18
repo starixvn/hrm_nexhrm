@@ -34,4 +34,7 @@ function query(isFirstLoad) {
 
 $(document).ready(function () {
     query(true);
+    $('#submit').on('click', function () {
+        query(false);
+    }); 
 });

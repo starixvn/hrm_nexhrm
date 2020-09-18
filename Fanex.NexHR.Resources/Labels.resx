@@ -1636,12 +1636,15 @@
     <value>NEX Review</value>
   </data>
   <data name="NexRequest" xml:space="preserve">
-    <value>Nex Request 2020</value>
+    <value>Nex Request</value>
   </data>
   <data name="NEXType" xml:space="preserve">
     <value>NEX Type</value>
   </data>
   <data name="YearlyNexRequest" xml:space="preserve">
     <value>YEARLY NEX REQUEST</value>
+  </data>
+  <data name="NormalDay" xml:space="preserve">
+    <value>Normal Day</value>
   </data>
 </root>

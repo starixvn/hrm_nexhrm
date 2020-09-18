@@ -1,41 +1,97 @@
 ﻿@model IList<YearlyNexRequest>
-@if (Model != null && Model.Any())
-{
-    int index = 1;
-    IList<YearlyNexRequest> overtimeSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
-    foreach (YearlyNexRequest overtimeSummaryByTeam in overtimeSummaryByTeams)
-    {
-        <tr class="row-divider">
-            <td colspan="15">
-                <b>@overtimeSummaryByTeam.Employee.Team.Name.ToUpper()</b>
-            </td>
-        </tr>
-
-        IList<YearlyNexRequest> overtimeSummaries = Model.Where(t => t.Employee.Team.Id == overtimeSummaryByTeam.Employee.Team.Id).ToList();
-        foreach (YearlyNexRequest overtimeSummary in overtimeSummaries)
-        {
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
         <tr>
-
-            <td>@(index++)</td>
-            <td class="tooltip" title="@overtimeSummary.Employee.FullName">@overtimeSummary.Employee.NickName</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Jan)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Feb)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Mar)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Apr)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.May)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Jun)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Jul)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Aug)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Sep)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Oct)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Nov)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.Dec)</td>
-            <td>@YearlyNexRequest.DisplayValue(overtimeSummary.TotalHour)</td>
+            <th rowspan="2">#</th>
+            <th rowspan="2">@Labels.Nick</th>
+            <th rowspan="2">@Labels.NEXType</th>
+            <th colspan="12">@Labels.NexRequest @ViewBag.Year </th>
+            <th rowspan="2">@Labels.Total</th>
         </tr>
+        <tr>
+            <th>@Labels.Jan</th>
+            <th>@Labels.Feb</th>
+            <th>@Labels.Mar</th>
+            <th>@Labels.Apr</th>
+            <th>@Labels.May</th>
+            <th>@Labels.Jun</th>
+            <th>@Labels.Jul</th>
+            <th>@Labels.Aug</th>
+            <th>@Labels.Sep</th>
+            <th>@Labels.Oct</th>
+            <th>@Labels.Nov</th>
+            <th>@Labels.Dec</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int index = 1;
+            IList<YearlyNexRequest> yearlyNexRequestByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+            foreach (YearlyNexRequest yearlyNexRequestByTeam in yearlyNexRequestByTeams)
+            {
+                <tr class="row-divider">
+                    <td colspan="16">
+                        <b>@yearlyNexRequestByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+
+                IList<YearlyNexRequest> yearlyNexRequests = Model.Where(t => t.Employee.Team.Id == yearlyNexRequestByTeam.Employee.Team.Id).ToList();
+
+                IList<YearlyNexRequest> tests = yearlyNexRequests.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
+
+                foreach (YearlyNexRequest test in tests)
+                {
+                    IList<YearlyNexRequest> nex = Model.Where(t => t.Employee.Id == test.Employee.Id).ToList();
+
+                    foreach (YearlyNexRequest yearlyNexRequest in nex)
+                    {
+                        <tr>
+                            <td>@(index++)</td>
+                            <td class="tooltip align-left" title="@yearlyNexRequest.Employee.FullName">@yearlyNexRequest.Employee.NickName</td>
+                            @if (yearlyNexRequest.IsHoliday == 1)
+                            {
+                                <td class="align-left">@Labels.Holiday</td>
+                            }
+                            else
+                            {
+                                if (yearlyNexRequest.IsNormalDay == 1)
+                                {
+                                    <td class="align-left">@Labels.NormalDay</td>
+                                }
+                                else
+                                {
+                                    if (yearlyNexRequest.IsOffDay == 1)
+                                    {
+                                        <td class="align-left">@Labels.OffDay</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>}
+                                }
+                            }
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Jan)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Feb)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Mar)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Apr)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.May)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Jun)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Jul)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Aug)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Sep)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Oct)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Nov)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.Dec)</td>
+                            <td>@YearlyNexRequest.DisplayValue(yearlyNexRequest.TotalHour)</td>
+                        </tr>
+                    }
+                }
+            }
         }
-    }
-}
-else
-{
-    @RazorHelper.DisplayNoInformation(15)
-}
+        else
+        {
+            @RazorHelper.DisplayNoInformation(16)
+        }
+    </tbody>
+</table>
+
