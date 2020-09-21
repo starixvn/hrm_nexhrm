@@ -61,15 +61,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Absent.
-        /// </summary>
-        public static string Absent {
-            get {
-                return ResourceManager.GetString("Absent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Accident Labor Leave.
         /// </summary>
         public static string AccidentLaborLeave {
@@ -3139,7 +3130,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normal Day.
+        ///   Looks up a localized string similar to Normal day.
         /// </summary>
         public static string NormalDay {
             get {
@@ -3193,7 +3184,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Off Day.
+        ///   Looks up a localized string similar to Off day.
         /// </summary>
         public static string OffDay {
             get {

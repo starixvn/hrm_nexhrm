@@ -816,9 +816,6 @@
   <data name="DeductionTaken" xml:space="preserve">
     <value>Deduction Taken</value>
   </data>
-  <data name="Absent" xml:space="preserve">
-    <value>Absent</value>
-  </data>
   <data name="CheckInOutRequest" xml:space="preserve">
     <value>Check In/Check Out Request</value>
   </data>
@@ -1189,7 +1186,7 @@
     <value>ML</value>
   </data>
   <data name="OffDay" xml:space="preserve">
-    <value>Off Day</value>
+    <value>Off day</value>
   </data>
   <data name="PH" xml:space="preserve">
     <value>PH</value>
@@ -1645,6 +1642,6 @@
     <value>YEARLY NEX REQUEST</value>
   </data>
   <data name="NormalDay" xml:space="preserve">
-    <value>Normal Day</value>
+    <value>Normal day</value>
   </data>
 </root>

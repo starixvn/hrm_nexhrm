@@ -1,0 +1,24 @@
+﻿
+.table.table-custom tbody tr td {
+    &.isHoliday {
+        background-color: #81F7D8;
+    }
+
+    &.isNormalday {
+        background-color: #ededed;
+    }
+
+    &.isOffday {
+        background-color: #CEF6CE;
+    }
+}
+
+table {
+    &.striped tbody tr:nth-child(odd) {
+        background-color: #FFFFFF;
+    }
+
+    &.highlight tbody tr:hover {
+        background-color: #f4d1c0 !important;
+    }
+}

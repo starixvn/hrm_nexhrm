@@ -107,5 +107,9 @@
   {
     "outputFile": "Content/Views/overtime.manage.css",
     "inputFile": "Content/Views/overtime.manage.scss"
+  },
+  {
+    "outputFile": "Content/Views/yearlynexrequest.css",
+    "inputFile": "Content/Views/yearlynexrequest.scss"
   }
 ]

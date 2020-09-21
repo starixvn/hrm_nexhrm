@@ -1,7 +1,6 @@
 ﻿
 namespace Fanex.NexHR.ViewModels.Overtime
 {
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
     using System;
     using System.ComponentModel.DataAnnotations;

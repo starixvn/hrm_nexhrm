@@ -1,16 +1,14 @@
-﻿
-.table.table-custom tbody tr td.isHoliday {
-    background-color: #81F7D8;
-}
+﻿.table.table-custom tbody tr td.isHoliday {
+  background-color: #81F7D8; }
 
 .table.table-custom tbody tr td.isNormalday {
-    background-color: #FAFAFA ;
-}
+  background-color: #ededed; }
 
 .table.table-custom tbody tr td.isOffday {
-    background-color: #CEF6CE;
-}
+  background-color: #CEF6CE; }
 
 table.striped tbody tr:nth-child(odd) {
-    background-color: #FAFAFA;
-}
+  background-color: #FFFFFF; }
+
+table.highlight tbody tr:hover {
+  background-color: #f4d1c0 !important; }
