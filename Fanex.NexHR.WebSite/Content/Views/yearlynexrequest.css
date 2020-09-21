@@ -10,5 +10,5 @@
 table.striped tbody tr:nth-child(odd) {
   background-color: #FFFFFF; }
 
-table.highlight tbody tr:hover {
+table.highlight tbody tr:hover td {
   background-color: #f4d1c0 !important; }
