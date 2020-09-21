@@ -3,8 +3,10 @@
 @model YearlyNexRequestViewModel
 
 @section css {
-    @Styles.Render("~/Content/view-mobile")
+    @Styles.Render("~/Content/yearlynexrequestcss",
+                    "~/Content/view-mobile")
 }
+
 @section js{
     @Scripts.Render("~/bundles/yearlynexrequestjs")
 }
@@ -20,44 +22,41 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+                        @using (Html.BeginForm("GetYearlyNexRequest", "YearlyNexRequest", FormMethod.Post))
                         {
                             <div class="row form-input">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="left label--s">
-                                            @Html.LabelFor(model => model.Year)
-                                        </div>
-                                        <div class="left select--xs">
-                                            @Html.YearPicker("Year", 2010, DateTime.Now.Year)
-                                        </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        @Html.LabelFor(model => model.Year)
                                     </div>
-                                    <div class="col m-l--l m-r--s">
-                                        <div class="left label--s">
-                                            @Html.Label(Labels.Team)
-                                        </div>
-                                        <div class="left select-team">
-                                            @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
-                                        </div>
+                                    <div class="left select--xs">
+                                        @Html.YearPickerFor(model => model.Year, 2010)
                                     </div>
-                                    <div class="col m-r--l">
-                                        <div class="left label--m">
-                                            @Html.LabelFor(model => model.Employee)
-                                        </div>
-                                        <div class="left input--m">
-                                            @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
-                                        </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        @Html.LabelFor(model => model.TeamId, Labels.Team)
                                     </div>
-                                    <div class="col m-r--l col-btn-submit-excel">
-                                        <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                     </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                             </div>
                         }
                     </div>
-                    <div class="p-x--s over-auto table-resize table-large table-row-thead">
-                        <div id="listYearlyNexRequest"> </div>
+                    <div id="listYearlyNexRequest" class="p-x--s over-auto">
                     </div>
                 </div>
             </div>

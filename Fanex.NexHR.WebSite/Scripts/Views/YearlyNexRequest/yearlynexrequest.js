@@ -1,5 +1,4 @@
 ﻿'use strict';
-/*global _global, _messages, initDatePicker, floatThead*/
 
 function query(isFirstLoad) {
     $.ajax({

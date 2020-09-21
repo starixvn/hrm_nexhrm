@@ -663,9 +663,11 @@
         private static void BuildBundleYearlyNexRequest(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/yearlynexrequestjs").Include(
-                EmployeeSearchInCompanyScript,
+             EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/YearlyNexRequest/yearlynexrequest.js"));
-        }
 
+            bundles.Add(new StyleBundle("~/Content/yearlynexrequestcss")
+                 .Include("~/Content/Views/yearlynexrequest.css", new CssRewriteUrlTransform()));
+        }
     }
 }

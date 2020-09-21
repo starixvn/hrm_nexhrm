@@ -388,6 +388,7 @@
     <Content Include="Content\Views\leaverequest.scss" />
     <Content Include="Content\Views\myrecord.scss" />
     <Content Include="Content\Views\view-mobile.scss" />
+    <Content Include="Content\Views\yearlynexrequest.css" />
     <None Include="Content\Views\_tipsy-avatar.scss" />
     <None Include="Content\Common\layout\_form.scss" />
     <None Include="Content\Common\vendors\_tipsy.scss" />
