@@ -13,20 +13,20 @@ Param's Explanation:
 
 */
 BEGIN
-	SELECT ott.EmployeeId
+	SELECT otd.EmployeeId
 	,e.NickName
 	,eg.Name AS GroupName
-	,ott.[Hour]
-	,ott.[Date]
+	,otd.[Hour]
+	,otd.[Date]
 	,ec.IsHoliday
 	,ec.IsOffDay
 	,(CASE WHEN ec.IsHoliday = 0 AND ec.IsOffDay = 0 THEN 1 ELSE 0 END) AS IsNormalDay
 	INTO #OvertimeSummary
-	FROM [dbo].[OvertimeDetail] AS ott
-		LEFT JOIN [dbo].EmployeeCalendar AS ec ON ec.EmpId = ott.EmployeeId AND ec.WorkDate = ott.Date
-		LEFT JOIN  Employee AS e ON e.Id = ott.EmployeeId
+	FROM [dbo].[OvertimeDetail] AS otd WITH (NOLOCK)
+		LEFT JOIN [dbo].EmployeeCalendar AS ec WITH (NOLOCK) ON ec.EmpId = otd.EmployeeId AND ec.WorkDate = otd.[Date]
+		LEFT JOIN  Employee AS e WITH (NOLOCK) ON e.Id = otd.EmployeeId
 		LEFT JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
-	WHERE YEAR(ott.[Date]) = @year
+	WHERE YEAR(otd.[Date]) = @year
 	AND e.IsSpecialUser = 0
 		AND  (
 			@employeeId IS NULL
@@ -37,7 +37,7 @@ BEGIN
 			OR e.GroupId = @groupId
 			)
 		AND ISNULL(e.isDeleted, 0) = 0
-	ORDER BY ott.EmployeeId
+	ORDER BY otd.EmployeeId
 
 	SELECT os.EmployeeId
 		,SUM(CASE 
@@ -93,8 +93,8 @@ BEGIN
 	,os.IsOffDay
 	,os.IsNormalDay
 	INTO #OvertimeTest
-	 FROM  #OvertimeSummary AS os
-	 JOIN Employee AS e ON e.Id = os.EmployeeId
+	 FROM  #OvertimeSummary AS os WITH (NOLOCK)
+	 JOIN Employee AS e WITH (NOLOCK) ON e.Id = os.EmployeeId
 	 GROUP BY os.EmployeeId, os.IsHoliday, os.IsOffDay, os.IsNormalDay
 
 	IF OBJECT_ID('#OvertimeYearly') IS NOT NULL
@@ -176,8 +176,8 @@ BEGIN
 		,ISNULL(o.[Dec], 0)
 		,ISNULL(o.Total, 0)
 	FROM  Employee AS e
-	LEFT JOIN #OvertimeTest AS O ON e.Id = o.EmployeeId
-	JOIN EmployeeGroup AS eg ON eg.Id = e.GroupId
+	LEFT JOIN #OvertimeTest AS O WITH (NOLOCK) ON e.Id = o.EmployeeId
+	JOIN EmployeeGroup AS eg WITH (NOLOCK) ON eg.Id = e.GroupId
 	WHERE e.IsSpecialUser = 0
 		AND  (
 			@employeeId IS NULL
